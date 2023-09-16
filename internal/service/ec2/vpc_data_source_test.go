@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	ds4ResourceName := "data.aws_vpc.by_filter"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -72,7 +72,7 @@ func TestAccVPCDataSource_CIDRBlockAssociations_multiple(t *testing.T) {
 	dataSourceName := "data.aws_vpc.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -91,33 +91,33 @@ func
 func testAccVPCDataSourceConfig_basic(rName, cidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = %[2]q
+cidr_block = %[2]q
 
-  assign_generated_ipv6_cidr_block = true
+assign_generated_ipv6_cidr_block = true
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_vpc" "by_id" {
-  id = aws_vpc.test.id
+id = aws_vpc.test.id
 }
 
 data "aws_vpc" "by_cidr" {
-  cidr_block = aws_vpc.test.cidr_block
+cidr_block = aws_vpc.test.cidr_block
 }
 
 data "aws_vpc" "by_tag" {
-  tags = {
+tags = {
 me = aws_vpc.test.tags["Name"]
-  }
+}
 }
 
 data "aws_vpc" "by_filter" {
-  filter {
+filter {
 me= "-id"
 lues = [aws_vpc.test.id]
-  }
+}
 }
 `, rName, cidr)
 }
@@ -126,19 +126,19 @@ lues = [aws_vpc.test.id]
 func testAccVPCDataSourceConfig_cidrBlockAssociationsMultiple(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_vpc_ipv4_cidr_block_association" "test" {
-  vpc_idtest.id
-  cidr_block = "172.0.0.0/16"
+vpc_idtest.id
+cidr_block = "172.0.0.0/16"
 }
 
 data "aws_vpc" "test" {
-  id = aws_vpc_ipv4_cidr_block_association.test.vpc_id
+id = aws_vpc_ipv4_cidr_block_association.test.vpc_id
 }
 `, rName)
 }

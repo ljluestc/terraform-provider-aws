@@ -163,7 +163,7 @@ arn := arn.ARN{
 AccountID: meta.(*conns.AWSClient).AccountID,
 Partition: meta.(*conns.AWSClient).Partition,
 Region:ta.(*conns.AWSClient).Region,
-Resource:  fmt.Sprintf("file-system/%s", aws.StringValue(mt.FileSystemId)),
+Resource:fmt.Sprintf("file-system/%s", aws.StringValue(mt.FileSystemId)),
 Service:asticfilesystem",
 }.String()
 d.Set("availability_zone_id", mt.AvailabilityZoneId)
@@ -195,7 +195,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EFSConn(ctx)
 func.HasChange("security_groups") {
 input := &efs.ModifyMountTargetSecurityGroupsInput{
-MountTargetId:  aws.String(d.Id()),
+MountTargetId:aws.String(d.Id()),
 SecurityGroups: flex.ExpandStringSet(d.Get("security_groups").(*schema.Set)),
 }
 

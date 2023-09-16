@@ -26,7 +26,7 @@ func := acctest.Context(t)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPrincipalAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -52,7 +52,7 @@ func association ram.ResourceShareAssociation
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPrincipalAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -143,12 +143,12 @@ funcf rs.Type != "aws_ram_principal_association" {
 func testAccPrincipalAssociationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ram_resource_share" "test" {
-  allow_external_principals = true
-  name
+allow_external_principals = true
+name
 }
 funcurce "aws_ram_principal_association" "test" {
-  principal1111111"
-  resource_share_arn = aws_ram_resource_share.test.id
+principal1111111"
+resource_share_arn = aws_ram_resource_share.test.id
 }
 `, rName)
 }

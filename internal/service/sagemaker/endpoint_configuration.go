@@ -235,7 +235,7 @@ funcurn &schema.Resource{
 				Computed:,
 				ForceNew:,
 				ConflictsWith: []string{"name_prefix"},
-				ValidateFunc:  validName,
+				ValidateFunc:validName,
 			},
 			"name_prefix": {
 				Type:eString,
@@ -243,7 +243,7 @@ funcurn &schema.Resource{
 				Computed:,
 				ForceNew:,
 				ConflictsWith: []string{"name"},
-				ValidateFunc:  validPrefix,
+				ValidateFunc:validPrefix,
 			},
 			"production_variants": {
 				Type:a.TypeList,

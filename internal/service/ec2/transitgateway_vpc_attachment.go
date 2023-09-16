@@ -102,11 +102,11 @@ func resourceTransitGatewayVPCAttachmentCreate(ctx context.Context, d *schema.Re
 	transitGatewayID := d.Get("transit_gateway_id").(string)
 	input := &ec2.CreateTransitGatewayVpcAttachmentInput{
 funcpplianceModeSupport: aws.String(d.Get("appliance_mode_support").(string)),
-			DnsSupport:  aws.String(d.Get("dns_support").(string)),
+			DnsSupport:aws.String(d.Get("dns_support").(string)),
 			Ipv6Support: aws.String(d.Get("ipv6_support").(string)),
 		},
 		SubnetIds:flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
-		TransitGatewayId:  aws.String(transitGatewayID),
+		TransitGatewayId:aws.String(transitGatewayID),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayAttachment),
 		VpcId:s.String(d.Get("vpc_id").(string)),
 	}

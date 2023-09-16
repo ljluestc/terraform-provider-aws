@@ -697,30 +697,30 @@ func testAccCheckEndpointConfigurationExists(ctx context.Context, n string) reso
 func testAccEndpointConfigurationConfig_base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_sagemaker_prebuilt_ecr_image" "test" {
-  repository_name = "kmeans"
+repository_name = "kmeans"
 func
 resourcefuncme
-  execution_role_arn = aws_iam_role.test.arn
+execution_role_arn = aws_iam_role.test.arn
 
-  primary_container {
+primary_container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-  }
+}
 }
 
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 data "aws_iam_policy_document" "assume_role" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 funcpals {
 ce"
 tifiers = ["sagemaker.amazonaws.com"]
 
-  }
+}
 }
 `, rName)
 }
@@ -728,15 +728,15 @@ tifiers = ["sagemaker.amazonaws.com"]
 func testAccEndpointConfigurationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 }
 `, rName))
 }
@@ -744,7 +744,7 @@ itial_variant_weight = 1
 func testAccEndpointConfigurationConfig_nameGenerated(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), `
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
@@ -757,37 +757,37 @@ func
 func testAccEndpointConfigurationConfig_namePrefix(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name_prefix = %[1]q
+name_prefix = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 funcName))
 }
 
 func testAccEndpointConfigurationConfig_shadowProductionVariants(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
 func
-  shadow_production_variants {
+shadow_production_variants {
 riant_namet-2"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 }
 `, rName))
 }
@@ -795,21 +795,21 @@ itial_variant_weight = 1
 func testAccEndpointConfigurationConfig_productionVariantsInitialVariantWeight(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 funcoduction_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 1
 stance_typeedium"
-  }
+}
 
-  production_variants {
+production_variants {
 riant_namet-2"
 del_nameagemaker_model.test.name
 itial_instance_count = 1
 stance_typeedium"
 itial_variant_weight = 0.5
-  }
+}
 }
 `, rName))
 }
@@ -817,15 +817,15 @@ itial_variant_weight = 0.5
 func testAccEndpointConfigurationConfig_productionVariantAcceleratorType(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 funcnameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 celerator_typeml.eia1.medium"
 itial_variant_weight = 1
-  }
+}
 }
 `, rName))
 }
@@ -833,30 +833,30 @@ itial_variant_weight = 1
 func testAccEndpointConfigurationConfig_productionVariantVariantNameGenerated(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 }
 `, rName))
 func
 func testAccEndpointConfigurationConfig_kmsKeyID(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name%[1]q
-  kms_key_arn = aws_kms_key.test.arn
+name%[1]q
+kms_key_arn = aws_kms_key.test.arn
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 1
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 }
 
 resource "aws_kms_key" "test" {
@@ -868,18 +868,18 @@ funcletion_window_in_days = 10
 func testAccEndpointConfigurationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 1
 stance_typeedium"
 func
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -887,19 +887,19 @@ func
 func testAccEndpointConfigurationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 1
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 
 func= %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -907,21 +907,21 @@ func= %[3]q
 func testAccEndpointConfigurationConfig_dataCapture(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 funcce_typeedium"
 itial_variant_weight = 1
-  }
+}
 
-  data_capture_config {
+data_capture_config {
 able_capture
 itial_sampling_percentage = 50
 stination_s3_uriaws_s3_bucket.test.bucket}/"
@@ -937,39 +937,39 @@ ure_mode = "Output"
 pture_content_type_header {
 _content_types = ["application/json"]
 
-  }
+}
 funcName))
 }
 
 func testAccEndpointConfigurationConfig_asyncKMS(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 7
+description
+deletion_window_in_days = 7
 }
 
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 
-  async_inference_config {
+async_inference_config {
 tput_config {
 utput_path = "s3://${aws_s3_bucket.test.bucket}/"
 key_id= awskey.test.arn
 
-  }
+}
 }
 `, rName))
 }
@@ -978,25 +978,25 @@ func testAccEndpointConfigurationConfig_async(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
 funcle"
-  force_destroy = true
+force_destroy = true
 }
 
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 
-  async_inference_config {
+async_inference_config {
 tput_config {
 utput_path = "s3://${aws_s3_bucket.test.bucket}/"
 
-  }
+}
 }
 `, rName))
 }
@@ -1004,30 +1004,30 @@ utput_path = "s3://${aws_s3_bucket.test.bucket}/"
 func testAccEndpointConfigurationConfig_asyncNotif(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_sns_topic" "test" {
-  name = %[1]q
+name = %[1]q
 func
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 7
+description
+deletion_window_in_days = 7
 }
 
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 
-  async_inference_config {
+async_inference_config {
 tput_config {
 utput_path = "s3://${aws_s3_bucket.test.bucket}/"
 key_id= awskey.test.arn
@@ -1037,38 +1037,38 @@ ror_topicws_sns_topic.test.arn
 ccess_topic = aws_sns_topic.test.arn
 
 
-  }
+}
 funcName))
 }
 
 func testAccEndpointConfigurationConfig_asyncNotifInferenceIn(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_sns_topic" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 7
+description
+deletion_window_in_days = 7
 }
 
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 
-  async_inference_config {
+async_inference_config {
 tput_config {
 utput_path = "s3://${aws_s3_bucket.test.bucket}/"
 key_id= awskey.test.arn
@@ -1076,37 +1076,37 @@ key_id= awskey.test.arn
 fication_config {
 ror_topicest.arn
 clude_inference_response_in = ["SUCCESS_NOTIFICATION_TOPIC", "ERROR_NOTIFICATION_TOPIC"]
-ccess_topic  = ast.arn
+ccess_topic= ast.arn
 
 
-  }
+}
 funcName))
 }
 
 func testAccEndpointConfigurationConfig_asyncClient(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 7
+description
+deletion_window_in_days = 7
 }
 
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 
-  async_inference_config {
+async_inference_config {
 ient_config {
 concurrent_invocations_per_instance = 1
 
@@ -1115,7 +1115,7 @@ tput_config {
 utput_path = "s3://${aws_s3_bucket.test.bucket}/"
 key_id= awskey.test.arn
 
-  }
+}
 }
 `, rName))
 }
@@ -1127,32 +1127,32 @@ funcrce_destroy = true
 }
 
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 7
+description
+deletion_window_in_days = 7
 }
 
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_namet-1"
 del_nameagemaker_model.test.name
 itial_instance_count = 2
 stance_typeedium"
 itial_variant_weight = 1
-  }
+}
 
-  async_inference_config {
+async_inference_config {
 ient_config {
 concurrent_invocations_per_instance = 1
 
 
 tput_config {
-utput_path  = "s3://${aws_s3_bucket.test.bucket}/"
+utput_path= "s3://${aws_s3_bucket.test.bucket}/"
 ailure_path = "s3://${aws_s3_bucket.test.bucket}/"
 key_id = aw_key.test.arn
 
-  }
+}
 }
 `, rName))
 }
@@ -1161,7 +1161,7 @@ func testAccEndpointConfigurationConfig_serverless(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
 func
-  production_variants {
+production_variants {
 riant_name = "variant-1"
 del_name= asagemaker_model.test.name
 
@@ -1169,7 +1169,7 @@ rverless_config {
 concurrency
 ry_size_in_mb = 1024
 
-  }
+}
 }
 `, rName))
 }
@@ -1177,18 +1177,18 @@ ry_size_in_mb = 1024
 func testAccEndpointConfigurationConfig_serverlessProvisionedConcurrency(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfigurationConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 riant_name = "variant-1"
 del_name= asagemaker_model.test.name
 
 rverless_config {
 concurrency
-ry_size_in_mb  = 5
+ry_size_in_mb= 5
 isioned_concurrency = 100
 
-  }
+}
 }
 `, rName))
 }

@@ -69,7 +69,7 @@ funcurn &schema.Resource{
 			"final_snapshot": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"iops": {
 				Type:eInt,
@@ -129,7 +129,7 @@ func resourceEBSVolumeCreate(ctx context.Context, d *schema.ResourceData, meta i
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-funcailabilityZone:  aws.String(d.Get("availability_zone").(string)),
+funcailabilityZone:aws.String(d.Get("availability_zone").(string)),
 		ClientToken:ng(id.UniqueId()),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeVolume),
 	}
@@ -206,7 +206,7 @@ func!d.IsNewResource() && tfresource.NotFound(err) {
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("volume/%s", d.Id()),
+		Resource:fmt.Sprintf("volume/%s", d.Id()),
 	}
 	d.Set("arn", arn.String())
 	d.Set("availability_zone", volume.AvailabilityZone)

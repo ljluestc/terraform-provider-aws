@@ -24,7 +24,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CPOptionsAssociationDestroy(ctx),
@@ -51,7 +51,7 @@ func TestAccVPCDHCPOptionsAssociation_Disappears_vpc(t *testing.T) {
 	resourceName := "aws_vpc_dhcp_options_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -75,7 +75,7 @@ func TestAccVPCDHCPOptionsAssociation_Disappears_dhcp(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CPOptionsAssociationDestroy(ctx),
@@ -98,7 +98,7 @@ func TestAccVPCDHCPOptionsAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -121,7 +121,7 @@ func TestAccVPCDHCPOptionsAssociation_default(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -215,24 +215,24 @@ funcurn fmt.Sprintf(`
 funcdr_block = "10.1.0.0/16"
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_vpc_dhcp_options" "test" {
-  domain_name
-  domain_name_servers  = ["127.0.0.1", "10.0.0.2"]
-  ntp_servers
-  netbios_name_servers = ["127.0.0.1"]
-  netbios_node_type2
+domain_name
+domain_name_servers= ["127.0.0.1", "10.0.0.2"]
+ntp_servers
+netbios_name_servers = ["127.0.0.1"]
+netbios_node_type2
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_dhcp_options_association" "test" {
-  vpc_id
-  dhcp_options_id = aws_vpc_dhcp_options.test.id
+vpc_id
+dhcp_options_id = aws_vpc_dhcp_options.test.id
 }
 `, rName)
 }
@@ -240,16 +240,16 @@ resource "aws_vpc_dhcp_options_association" "test" {
 func testAccVPCDHCPOptionsAssociationConfig_default(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_dhcp_options_association" "test" {
-  vpc_id
-  dhcp_options_id = "default"
+vpc_id
+dhcp_options_id = "default"
 }
 `, rName)
 }

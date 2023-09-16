@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
@@ -60,7 +60,7 @@ func TestAccEC2SpotInstanceRequest_disappears(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -84,7 +84,7 @@ func TestAccEC2SpotInstanceRequest_tags(t *testing.T) {
 	resourceName := "aws_spot_instance_request.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -139,7 +139,7 @@ func TestAccEC2SpotInstanceRequest_keyName(t *testing.T) {
 t.Fatalf("error generating random SSH key: %s", err)
 	}
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -169,7 +169,7 @@ func TestAccEC2SpotInstanceRequest_withLaunchGroup(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -201,7 +201,7 @@ func TestAccEC2SpotInstanceRequest_withBlockDuration(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -233,7 +233,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -266,7 +266,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	validUntil := testAccSpotInstanceRequestValidUntil(t)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -298,7 +298,7 @@ func TestAccEC2SpotInstanceRequest_withoutSpotPrice(t *testing.T) {
 	resourceName := "aws_spot_instance_request.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -330,7 +330,7 @@ func sir ec2.SpotInstanceRequest
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
@@ -360,7 +360,7 @@ func TestAccEC2SpotInstanceRequest_networkInterfaceAttributes(t *testing.T) {
 	resourceName := "aws_spot_instance_request.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -396,7 +396,7 @@ functalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -426,7 +426,7 @@ func TestAccEC2SpotInstanceRequest_interruptStop(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -457,7 +457,7 @@ func TestAccEC2SpotInstanceRequest_interruptHibernate(t *testing.T) {
 	resourceName := "aws_spot_instance_request.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -521,7 +521,7 @@ func TestAccEC2SpotInstanceRequest_withInstanceProfile(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSpotInstanceRequestDestroy(ctx),
@@ -737,14 +737,14 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_typeaws_ec2_instance_type_offering.available.instance_type
-  spot_price  = "0.05"
-  wait_for_fulfillment = true
+amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_typeaws_ec2_instance_type_offering.available.instance_type
+spot_price= "0.05"
+wait_for_fulfillment = true
 func
 resource "aws_ec2_tag" "test" {
 funcy= "Name"
-  value
+value
 funcName))
 }
 
@@ -755,17 +755,17 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
-funcot_price  = "0.05"
-  wait_for_fulfillment = true
+amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+funcot_price= "0.05"
+wait_for_fulfillment = true
 funcgs = {
 2]q = %[3]q
 func
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -777,18 +777,18 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 funciata.aws_ami.amzn-ami-minimal-hvm-ebs.id
-funcot_price  = "0.05"
-  wait_for_fulfillment = true
+funcot_price= "0.05"
+wait_for_fulfillment = true
 funcgs = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 funcName, tagKey1, tagValue1, tagKey2, tagValue2))
 func
 
@@ -797,20 +797,20 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_typeaws_ec2_instance_type_offering.available.instance_type
-  spot_price  = "0.05"
-  valid_until = %[2]q
-  wait_for_fulfillment = true
+amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_typeaws_ec2_instance_type_offering.available.instance_type
+spot_price= "0.05"
+valid_until = %[2]q
+wait_for_fulfillment = true
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 }
 `, rName, validUntil))
 }
@@ -822,18 +822,18 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
 funcit_for_fulfillment = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 }
 `, rName))
 }
@@ -845,28 +845,28 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_typeaws_ec2_instance_type_offering.available.instance_type
-  key_nameaws_key_pair.test.key_name
+amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_typeaws_ec2_instance_type_offering.available.instance_type
+key_nameaws_key_pair.test.key_name
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_key_pair" "test" {
-  key_name[1]q
-  public_key = %[2]q
+key_name[1]q
+public_key = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 }
 `, rName, publicKey))
 }
@@ -877,21 +877,21 @@ func testAccSpotInstanceRequestConfig_launchGroup(rName string) string {
 funcest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_typeaws_ec2_instance_type_offering.available.instance_type
-  spot_price  = "0.05"
-  wait_for_fulfillment = true
-  launch_group= %[1]q
+amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_typeaws_ec2_instance_type_offering.available.instance_type
+spot_price= "0.05"
+wait_for_fulfillment = true
+launch_group= %[1]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 }
 `, rName))
 }
@@ -902,21 +902,21 @@ func testAccSpotInstanceRequestConfig_blockDuration(rName string) string {
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 funcSprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  spot_price"0.05"
-  wait_for_fulfillmentrue
-  block_duration_minutes = 60
+ami_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+spot_price"0.05"
+wait_for_fulfillmentrue
+block_duration_minutes = 60
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 }
 `, rName))
 }
@@ -928,38 +928,38 @@ funcest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_spot_instance_request" "test" {
-  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_typeaws_ec2_instance_type_offering.available.instance_type
-  spot_price  = "0.05"
-  wait_for_fulfillment = true
-  subnet_idws_subnet.test.id
+amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_typeaws_ec2_instance_type_offering.available.instance_type
+spot_price= "0.05"
+wait_for_fulfillment = true
+subnet_idws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_tag" "test" {
 funcy= "Name"
-  value
+value
 }
 `, rName))
 }
@@ -972,50 +972,50 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type= data.aws_ec2_instance_type_offering.available.instance_type
-  spot_price0.05"
-  wait_for_fulfillment
-  subnet_idaws_subnet.test.id
-  vpc_security_group_idscurity_group.test.id]
-  associate_public_ip_address = true
+ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type= data.aws_ec2_instance_type_offering.available.instance_type
+spot_price0.05"
+wait_for_fulfillment
+subnet_idaws_subnet.test.id
+vpc_security_group_idscurity_group.test.id]
+associate_public_ip_address = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_vpc" "test" {
-  cidr_block  = "10.0.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.0.0.0/16"
+enable_dns_hostnames = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zonews_availability_zones.available.names[0]
-  vpc_idws_vpc.test.id
-  cidr_block0/24"
-  map_public_ip_on_launch = true
+availability_zonews_availability_zones.available.names[0]
+vpc_idws_vpc.test.id
+cidr_block0/24"
+map_public_ip_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_security_group" "test" {
-  name[1]q
-  vpc_id = aws_vpc.test.id
+name[1]q
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 }
 `, rName))
 }
@@ -1027,31 +1027,31 @@ testAccLatestWindowsServer2016CoreAMIConfig(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  amiata.aws_ami.win2016core-ami.id
-  instance_typeaws_ec2_instance_type_offering.available.instance_type
-  spot_price  = "0.05"
-  key_nameaws_key_pair.test.key_name
-  wait_for_fulfillment = true
-  get_password_datatrue
+amiata.aws_ami.win2016core-ami.id
+instance_typeaws_ec2_instance_type_offering.available.instance_type
+spot_price= "0.05"
+key_nameaws_key_pair.test.key_name
+wait_for_fulfillment = true
+get_password_datatrue
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_key_pair" "test" {
-  key_name[1]q
-  public_key = %[2]q
+key_name[1]q
+public_key = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 }
 `, rName, publicKey))
 }
@@ -1062,21 +1062,21 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("c5.large", "c4.large"),
 fmt.Sprintf(`
 resource "aws_spot_instance_request" "test" {
-  amidata.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_typeata.aws_ec2_instance_type_offering.available.instance_type
-  spot_price
-  wait_for_fulfillment  = true
-  instance_interruption_behavior = %[2]q
+amidata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_typeata.aws_ec2_instance_type_offering.available.instance_type
+spot_price
+wait_for_fulfillment= true
+instance_interruption_behavior = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 }
 `, rName, interruptionBehavior))
 }
@@ -1088,9 +1088,9 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name = %[1]q
+name = %[1]q
 
-  assume_role_policy = <<EOF
+assume_role_policy = <<EOF
 {
 ersion": "2012-10-17",
 tatement": [
@@ -1107,21 +1107,21 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "test" {
-  name = %[1]q
-  role = aws_iam_role.test.name
+name = %[1]q
+role = aws_iam_role.test.name
 }
 
 resource "aws_spot_instance_request" "test" {
-  amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
+amiata.aws_ami.amzn-ami-minimal-hvm-ebs.id
 funcm_instance_profile = aws_iam_instance_profile.test.name
-  spot_price  = "0.05"
-  wait_for_fulfillment = true
+spot_price= "0.05"
+wait_for_fulfillment = true
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_spot_instance_request.test.spot_instance_id
-  key= "Name"
-  value
+resource_id = aws_spot_instance_request.test.spot_instance_id
+key= "Name"
+value
 }
 `, rName))
 }

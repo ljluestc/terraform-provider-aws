@@ -23,7 +23,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_availability_zone.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -52,7 +52,7 @@ func TestAccEC2AvailabilityZoneDataSource_filter(t *testing.T) {
 	availabilityZonesDataSourceName := "data.aws_availability_zones.available"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -111,7 +111,7 @@ func TestAccEC2AvailabilityZoneDataSource_name(t *testing.T) {
 	dataSourceName := "data.aws_availability_zone.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funcs: []resource.TestStep{
@@ -140,7 +140,7 @@ func TestAccEC2AvailabilityZoneDataSource_wavelengthZone(t *testing.T) {
 	dataSourceName := "data.aws_availability_zone.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckWavelengthZoneAvailable(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -169,7 +169,7 @@ func TestAccEC2AvailabilityZoneDataSource_zoneID(t *testing.T) {
 	dataSourceName := "data.aws_availability_zone.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -229,8 +229,8 @@ func testAccAvailabilityZoneDataSourceConfig_allAZs() string {
 acctest.ConfigAvailableAZsNoOptIn(),
 `
 data "aws_availability_zone" "test" {
-  all_availability_zones = true
-  namedata.aws_availability_zones.available.names[0]
+all_availability_zones = true
+namedata.aws_availability_zones.available.names[0]
 }
 `)
 }
@@ -241,7 +241,7 @@ func testAccAvailabilityZoneDataSourceConfig_filter() string {
 acctest.ConfigAvailableAZsNoOptIn(),
 `
 data "aws_availability_zone" "test" {
-  filter {
+filter {
 me= "e-name"
 func
 }
@@ -254,7 +254,7 @@ func testAccAvailabilityZoneDataSourceConfig_name() string {
 acctest.ConfigAvailableAZsNoOptIn(),
 `
 data "aws_availability_zone" "test" {
-  name = data.aws_availability_zones.available.names[0]
+name = data.aws_availability_zones.available.names[0]
 func
 }
 
@@ -264,7 +264,7 @@ func testAccAvailabilityZoneDataSourceConfig_id() string {
 acctest.ConfigAvailableAZsNoOptIn(),
 `
 data "aws_availability_zone" "test" {
-  zone_id = data.aws_availability_zones.available.zone_ids[0]
+zone_id = data.aws_availability_zones.available.zone_ids[0]
 }
 `)
 }
@@ -272,20 +272,20 @@ data "aws_availability_zone" "test" {
 func testAccAvailabilityZoneDataSourceConfig_type(zoneType string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
-  state = "available"
+state = "available"
 
-  filter {
+filter {
 me= "e-type"
 lues = [%[1]q]
-  }
+}
 
-  filter {
+filter {
 func = ["opted-in"]
-  }
+}
 }
 
 data "aws_availability_zone" "test" {
-  zone_id = data.aws_availability_zones.available.zone_ids[0]
+zone_id = data.aws_availability_zones.available.zone_ids[0]
 }
 `, zoneType)
 }

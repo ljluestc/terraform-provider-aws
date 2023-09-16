@@ -31,7 +31,7 @@ import (
 func ResourceTrigger() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTriggerCreate,
-		ReadWithoutTimeout:   resourceTriggerRead,
+		ReadWithoutTimeout: resourceTriggerRead,
 		UpdateWithoutTimeout: resourceTriggerUpdate,
 		DeleteWithoutTimeout: resourceTriggerDelete,
 		Importer: &schema.ResourceImporter{
@@ -46,42 +46,42 @@ func ResourceTrigger() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"actions": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Required: true,
 				MinItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arguments": {
-							Type:     schema.TypeMap,
+							Type: schema.TypeMap,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"crawler_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"job_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"timeout": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type: schema.TypeInt,
+							Optional: true,
 							ValidateFunc: validation.IntAtLeast(1),
 						},
 						"security_configuration": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"notification_property": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"notify_delay_after": {
-										Type:         schema.TypeInt,
-										Optional:     true,
+										Type: schema.TypeInt,
+										Optional: true,
 										ValidateFunc: validation.IntAtLeast(1),
 									},
 								},
@@ -91,115 +91,115 @@ func ResourceTrigger() *schema.Resource {
 				},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type: schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 2048),
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
-				Default:  true,
+				Default:true,
 			},
 			"event_batching_condition": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MinItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"batch_size": {
-							Type:         schema.TypeInt,
-							Required:     true,
+							Type: schema.TypeInt,
+							Required: true,
 							ValidateFunc: validation.IntBetween(1, 100),
 						},
 						"batch_window": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							Default:      900,
+							Type: schema.TypeInt,
+							Optional: true,
+							Default:900,
 							ValidateFunc: validation.IntBetween(1, 900),
 						},
 					},
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type: schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"predicate": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"conditions": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Required: true,
 							MinItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"job_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"crawler_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"logical_operator": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										Default:      glue.LogicalOperatorEquals,
+										Type: schema.TypeString,
+										Optional: true,
+										Default:glue.LogicalOperatorEquals,
 										ValidateFunc: validation.StringInSlice(glue.LogicalOperator_Values(), false),
 									},
 									"state": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type: schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.StringInSlice(glue.JobRunState_Values(), false),
 									},
 									"crawl_state": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type: schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.StringInSlice(glue.CrawlState_Values(), false),
 									},
 								},
 							},
 						},
 						"logical": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      glue.LogicalAnd,
+							Type: schema.TypeString,
+							Optional: true,
+							Default:glue.LogicalAnd,
 							ValidateFunc: validation.StringInSlice(glue.Logical_Values(), false),
 						},
 					},
 				},
 			},
 			"schedule": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"start_on_creation": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type: schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringInSlice(glue.TriggerType_Values(), false),
 			},
 			"workflow_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
@@ -214,10 +214,10 @@ func resourceTriggerCreate(ctx context.Context, d *schema.ResourceData, meta int
 	name := d.Get("name").(string)
 	triggerType := d.Get("type").(string)
 	input := &glue.CreateTriggerInput{
-		Actions:         expandActions(d.Get("actions").([]interface{})),
-		Name:            aws.String(name),
-		Tags:            getTagsIn(ctx),
-		Type:            aws.String(triggerType),
+		Actions: expandActions(d.Get("actions").([]interface{})),
+		Name:aws.String(name),
+		Tags:getTagsIn(ctx),
+		Type:aws.String(triggerType),
 		StartOnCreation: aws.Bool(d.Get("start_on_creation").(bool)),
 	}
 
@@ -329,10 +329,10 @@ func resourceTriggerRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	triggerARN := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "glue",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service: "glue",
+		Region:meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("trigger/%s", d.Id()),
+		Resource:fmt.Sprintf("trigger/%s", d.Id()),
 	}.String()
 	d.Set("arn", triggerARN)
 
@@ -391,7 +391,7 @@ func resourceTriggerUpdate(ctx context.Context, d *schema.ResourceData, meta int
 		}
 
 		input := &glue.UpdateTriggerInput{
-			Name:          aws.String(d.Id()),
+			Name:aws.String(d.Id()),
 			TriggerUpdate: triggerUpdate,
 		}
 
@@ -575,7 +575,7 @@ func flattenActions(actions []*glue.Action) []interface{} {
 	for _, action := range actions {
 		m := map[string]interface{}{
 			"arguments": aws.StringValueMap(action.Arguments),
-			"timeout":   int(aws.Int64Value(action.Timeout)),
+			"timeout": int(aws.Int64Value(action.Timeout)),
 		}
 
 		if v := aws.StringValue(action.CrawlerName); v != "" {
@@ -637,7 +637,7 @@ func flattenPredicate(predicate *glue.Predicate) []map[string]interface{} {
 
 	m := map[string]interface{}{
 		"conditions": flattenConditions(predicate.Conditions),
-		"logical":    aws.StringValue(predicate.Logical),
+		"logical":aws.StringValue(predicate.Logical),
 	}
 
 	return []map[string]interface{}{m}
@@ -675,7 +675,7 @@ func flattenEventBatchingCondition(ebc *glue.EventBatchingCondition) []map[strin
 	}
 
 	m := map[string]interface{}{
-		"batch_size":   aws.Int64Value(ebc.BatchSize),
+		"batch_size": aws.Int64Value(ebc.BatchSize),
 		"batch_window": aws.Int64Value(ebc.BatchWindow),
 	}
 

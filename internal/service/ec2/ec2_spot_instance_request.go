@@ -134,7 +134,7 @@ Elem:hema{Type: schema.TypeString},
 	}
 func:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	}
 
 	return s
@@ -166,7 +166,7 @@ LaunchSpecification: &ec2.RequestSpotLaunchSpecification{
 	BlockDeviceMappings: instanceOpts.BlockDeviceMappings,
 	EbsOptimized:eOpts.EBSOptimized,
 	Monitoring: instanceOpts.Monitoring,
-	IamInstanceProfile:  instanceOpts.IAMInstanceProfile,
+	IamInstanceProfile:instanceOpts.IAMInstanceProfile,
 	ImageId:stanceOpts.ImageID,
 	InstanceType:eOpts.InstanceType,
 	KeyName:stanceOpts.KeyName,

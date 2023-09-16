@@ -23,7 +23,7 @@ func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-funcactory:  DataSourcePrebuiltECRImage,
+funcactory:DataSourcePrebuiltECRImage,
 			TypeName: "aws_sagemaker_prebuilt_ecr_image",
 		},
 	}
@@ -39,7 +39,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceAppImageConfig,
+			Factory:ResourceAppImageConfig,
 			TypeName: "aws_sagemaker_app_image_config",
 			Name:Image Config",
 			Tags: &types.ServicePackageResourceTags{
@@ -47,7 +47,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceCodeRepository,
+			Factory:ResourceCodeRepository,
 			TypeName: "aws_sagemaker_code_repository",
 			Name: Repository",
 			Tags: &types.ServicePackageResourceTags{
@@ -55,7 +55,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceDataQualityJobDefinition,
+			Factory:ResourceDataQualityJobDefinition,
 			TypeName: "aws_sagemaker_data_quality_job_definition",
 			Name: Quality Job Definition",
 			Tags: &types.ServicePackageResourceTags{
@@ -63,11 +63,11 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceDevice,
+			Factory:ResourceDevice,
 			TypeName: "aws_sagemaker_device",
 		},
 		{
-			Factory:  ResourceDeviceFleet,
+			Factory:ResourceDeviceFleet,
 			TypeName: "aws_sagemaker_device_fleet",
 			Name:ce Fleet",
 			Tags: &types.ServicePackageResourceTags{
@@ -75,7 +75,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceDomain,
+			Factory:ResourceDomain,
 			TypeName: "aws_sagemaker_domain",
 			Name:in",
 			Tags: &types.ServicePackageResourceTags{
@@ -83,7 +83,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceEndpoint,
+			Factory:ResourceEndpoint,
 			TypeName: "aws_sagemaker_endpoint",
 			Name:oint",
 			Tags: &types.ServicePackageResourceTags{
@@ -91,7 +91,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceEndpointConfiguration,
+			Factory:ResourceEndpointConfiguration,
 			TypeName: "aws_sagemaker_endpoint_configuration",
 			Name:oint Configuration",
 			Tags: &types.ServicePackageResourceTags{
@@ -99,7 +99,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceFeatureGroup,
+			Factory:ResourceFeatureGroup,
 			TypeName: "aws_sagemaker_feature_group",
 			Name:ure Group",
 			Tags: &types.ServicePackageResourceTags{
@@ -107,7 +107,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceFlowDefinition,
+			Factory:ResourceFlowDefinition,
 			TypeName: "aws_sagemaker_flow_definition",
 			Name: Definition",
 			Tags: &types.ServicePackageResourceTags{
@@ -115,7 +115,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceHumanTaskUI,
+			Factory:ResourceHumanTaskUI,
 			TypeName: "aws_sagemaker_human_task_ui",
 			Name:n Task UI",
 			Tags: &types.ServicePackageResourceTags{
@@ -123,7 +123,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceImage,
+			Factory:ResourceImage,
 			TypeName: "aws_sagemaker_image",
 			Name:e",
 			Tags: &types.ServicePackageResourceTags{
@@ -131,11 +131,11 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceImageVersion,
+			Factory:ResourceImageVersion,
 			TypeName: "aws_sagemaker_image_version",
 		},
 		{
-			Factory:  ResourceModel,
+			Factory:ResourceModel,
 			TypeName: "aws_sagemaker_model",
 			Name:l",
 			Tags: &types.ServicePackageResourceTags{
@@ -143,7 +143,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceModelPackageGroup,
+			Factory:ResourceModelPackageGroup,
 			TypeName: "aws_sagemaker_model_package_group",
 			Name:l Package Group",
 			Tags: &types.ServicePackageResourceTags{
@@ -151,18 +151,18 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceModelPackageGroupPolicy,
+			Factory:ResourceModelPackageGroupPolicy,
 			TypeName: "aws_sagemaker_model_package_group_policy",
 		},
 		{
-			Factory:  ResourceMonitoringSchedule,
+			Factory:ResourceMonitoringSchedule,
 			TypeName: "aws_sagemaker_monitoring_schedule",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
 		},
 		{
-			Factory:  ResourceNotebookInstance,
+			Factory:ResourceNotebookInstance,
 			TypeName: "aws_sagemaker_notebook_instance",
 			Name:book Instance",
 			Tags: &types.ServicePackageResourceTags{
@@ -170,11 +170,11 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceNotebookInstanceLifeCycleConfiguration,
+			Factory:ResourceNotebookInstanceLifeCycleConfiguration,
 			TypeName: "aws_sagemaker_notebook_instance_lifecycle_configuration",
 		},
 		{
-			Factory:  ResourcePipeline,
+			Factory:ResourcePipeline,
 			TypeName: "aws_sagemaker_pipeline",
 			Name:line",
 			Tags: &types.ServicePackageResourceTags{
@@ -182,7 +182,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceProject,
+			Factory:ResourceProject,
 			TypeName: "aws_sagemaker_project",
 			Name:ect",
 			Tags: &types.ServicePackageResourceTags{
@@ -190,11 +190,11 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceServicecatalogPortfolioStatus,
+			Factory:ResourceServicecatalogPortfolioStatus,
 			TypeName: "aws_sagemaker_servicecatalog_portfolio_status",
 		},
 		{
-			Factory:  ResourceSpace,
+			Factory:ResourceSpace,
 			TypeName: "aws_sagemaker_space",
 			Name:e",
 			Tags: &types.ServicePackageResourceTags{
@@ -202,7 +202,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceStudioLifecycleConfig,
+			Factory:ResourceStudioLifecycleConfig,
 			TypeName: "aws_sagemaker_studio_lifecycle_config",
 			Name:io Lifecycle Config",
 			Tags: &types.ServicePackageResourceTags{
@@ -210,7 +210,7 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceUserProfile,
+			Factory:ResourceUserProfile,
 			TypeName: "aws_sagemaker_user_profile",
 			Name: Profile",
 			Tags: &types.ServicePackageResourceTags{
@@ -218,11 +218,11 @@ funcypeName: "aws_sagemaker_app",
 			},
 		},
 		{
-			Factory:  ResourceWorkforce,
+			Factory:ResourceWorkforce,
 			TypeName: "aws_sagemaker_workforce",
 		},
 		{
-			Factory:  ResourceWorkteam,
+			Factory:ResourceWorkteam,
 			TypeName: "aws_sagemaker_workteam",
 			Name:team",
 			Tags: &types.ServicePackageResourceTags{

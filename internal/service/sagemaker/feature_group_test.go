@@ -423,19 +423,19 @@ func testAccFeatureGroupConfig_base(rName string) string {
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 ce"
 func
-  }
+}
 }
 `, rName)
 }
@@ -443,17 +443,17 @@ func
 func testAccFeatureGroupConfig_baseOffline(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_iam_role_policy_attachment" "test" {
-  rolews_iam_role.test.name
-  policy_arn = aws_iam_policy.test.arn
+rolews_iam_role.test.name
+policy_arn = aws_iam_policy.test.arn
 }
 
 resource "aws_iam_policy" "test" {
-  policy = jsonencode({
+policy = jsonencode({
 ersion" : "2012-10-17",
 tatement" : [{
 ect" : "Allow",
@@ -464,7 +464,7 @@ ion" : [
 3:*"
 
 
-  })
+})
 }
 `, rName)
 }
@@ -472,61 +472,61 @@ ion" : [
 func testAccFeatureGroupConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccFeatureGroupConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_feature_group" "test" {
-  feature_group_name
-  record_identifier_feature_name = %[1]q
-  event_time_feature_name%[1]q
-  role_arnst.arn
+feature_group_name
+record_identifier_feature_name = %[1]q
+event_time_feature_name%[1]q
+role_arnst.arn
 
-  feature_definition {
+feature_definition {
 ature_name = %[1]q
 ature_type = "String"
-  }
+}
 
-  online_store_config {
+online_store_config {
 able_online_store = true
-  }
+}
 }
 `, rName))
 func
 func testAccFeatureGroupConfig_description(rName string) string {
 	return acctest.ConfigCompose(testAccFeatureGroupConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_feature_group" "test" {
-  feature_group_name
-  record_identifier_feature_name = %[1]q
-  event_time_feature_name%[1]q
-  role_arnst.arn
-  description
+feature_group_name
+record_identifier_feature_name = %[1]q
+event_time_feature_name%[1]q
+role_arnst.arn
+description
 
-  feature_definition {
+feature_definition {
 ature_name = %[1]q
 ature_type = "String"
-  }
+}
 
-  online_store_config {
+online_store_config {
 able_online_store = true
-  }
+}
 }
 `, rName))
 func
 func testAccFeatureGroupConfig_multi(rName string) string {
 	return acctest.ConfigCompose(testAccFeatureGroupConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_feature_group" "test" {
-  feature_group_name
-  record_identifier_feature_name = %[1]q
-  event_time_feature_name%[1]q
-  role_arnst.arn
+feature_group_name
+record_identifier_feature_name = %[1]q
+event_time_feature_name%[1]q
+role_arnst.arn
 
-  feature_definition {
+feature_definition {
 ature_name = %[1]q
 ature_type = "String"
-  }
+}
 
-  feature_definition {
+feature_definition {
 ature_name = "%[1]s-2"
 ature_type = "Integral"
-  }
+}
 
-  online_store_config {
+online_store_config {
 able_online_store = true
 func
 `, rName))
@@ -535,27 +535,27 @@ func
 func testAccFeatureGroupConfig_onlineSecurity(rName string) string {
 	return acctest.ConfigCompose(testAccFeatureGroupConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 7
+description
+deletion_window_in_days = 7
 }
 
 resource "aws_sagemaker_feature_group" "test" {
-  feature_group_name
-  record_identifier_feature_name = %[1]q
-  event_time_feature_name%[1]q
-  role_arnst.arn
+feature_group_name
+record_identifier_feature_name = %[1]q
+event_time_feature_name%[1]q
+role_arnst.arn
 
-  feature_definition {
+feature_definition {
 ature_name = %[1]q
 ature_type = "String"
-  }
+}
 
-  online_store_config {
+online_store_config {
 able_online_store = true
 
 funcid = aws_kms_key.test.arn
 
-  }
+}
 }
 `, rName))
 }
@@ -566,24 +566,24 @@ func testAccFeatureGroupConfig_offlineBasic(rName string) string {
 		testAccFeatureGroupConfig_baseOffline(rName),
 		fmt.Sprintf(`
 resource "aws_sagemaker_feature_group" "test" {
-  feature_group_name
-  record_identifier_feature_name = %[1]q
-  event_time_feature_name%[1]q
-  role_arnst.arn
+feature_group_name
+record_identifier_feature_name = %[1]q
+event_time_feature_name%[1]q
+role_arnst.arn
 
-  feature_definition {
+feature_definition {
 ature_name = %[1]q
 ature_type = "String"
-  }
+}
 
-  offline_store_config {
+offline_store_config {
 sable_glue_table_creation = true
 
 _storage_config {
 ri = "s3://${aws_s3_bucket.test.bucket}/prefix/"
 
 func
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
 }
@@ -594,17 +594,17 @@ func testAccFeatureGroupConfig_offlineTableFormat(rName, format string) string {
 		testAccFeatureGroupConfig_baseOffline(rName),
 		fmt.Sprintf(`
 resource "aws_sagemaker_feature_group" "test" {
-  feature_group_name
-  record_identifier_feature_name = %[1]q
-  event_time_feature_name%[1]q
-  role_arnst.arn
+feature_group_name
+record_identifier_feature_name = %[1]q
+event_time_feature_name%[1]q
+role_arnst.arn
 
-  feature_definition {
+feature_definition {
 ature_name = %[1]q
 ature_type = "String"
-  }
+}
 
-  offline_store_config {
+offline_store_config {
 sable_glue_table_creation = false
 ble_format
 
@@ -612,7 +612,7 @@ _storage_config {
 ri = "s3://${aws_s3_bucket.test.bucket}/prefix/"
 
 func
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, format))
 }
@@ -623,23 +623,23 @@ func testAccFeatureGroupConfig_offlineCreateGlueCatalog(rName string) string {
 		testAccFeatureGroupConfig_baseOffline(rName),
 		fmt.Sprintf(`
 resource "aws_sagemaker_feature_group" "test" {
-  feature_group_name
-  record_identifier_feature_name = %[1]q
-  event_time_feature_name%[1]q
-  role_arnst.arn
+feature_group_name
+record_identifier_feature_name = %[1]q
+event_time_feature_name%[1]q
+role_arnst.arn
 
-  feature_definition {
+feature_definition {
 ature_name = %[1]q
 ature_type = "String"
-  }
+}
 
-  offline_store_config {
+offline_store_config {
 sable_glue_table_creation = false
 
 _storage_config {
 ri = "s3://${aws_s3_bucket.test.bucket}/prefix/"
 
-  }
+}
 
 func
 `, rName))
@@ -651,24 +651,24 @@ func testAccFeatureGroupConfig_offlineCreateGlueCatalogProvidedCatalog(rName str
 		testAccFeatureGroupConfig_baseOffline(rName),
 		fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name
-  database_name = aws_glue_catalog_database.test.name
+name
+database_name = aws_glue_catalog_database.test.name
 }
 
 resource "aws_sagemaker_feature_group" "test" {
-  feature_group_name
-  record_identifier_feature_name = %[1]q
-  event_time_feature_name%[1]q
-  role_arnst.arn
+feature_group_name
+record_identifier_feature_name = %[1]q
+event_time_feature_name%[1]q
+role_arnst.arn
 
-  feature_definition {
+feature_definition {
 ature_name = %[1]q
 ature_type = "String"
-  }
+}
 
 funce_glue_table_creation = true
 
@@ -681,9 +681,9 @@ logaws_glue_catalog_table.test.catalog_id
 basews_glue_catalog_table.test.database_name
 e_name = aws_glue_catalog_table.test.name
 
-  }
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
 }
@@ -691,23 +691,23 @@ e_name = aws_glue_catalog_table.test.name
 func testAccFeatureGroupConfig_tags1(rName, tag1Key, tag1Value string) string {
 	return acctest.ConfigCompose(testAccFeatureGroupConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_feature_group" "test" {
-  feature_group_name
-  record_identifier_feature_name = %[1]q
-  event_time_feature_name%[1]q
-  role_arnst.arn
+feature_group_name
+record_identifier_feature_name = %[1]q
+event_time_feature_name%[1]q
+role_arnst.arn
 
-  feature_definition {
+feature_definition {
 ature_name = %[1]q
 ature_type = "String"
-  }
+}
 
-  online_store_config {
+online_store_config {
 able_online_store = true
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tag1Key, tag1Value))
 }
@@ -715,23 +715,23 @@ able_online_store = true
 func testAccFeatureGroupConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return acctest.ConfigCompose(testAccFeatureGroupConfig_base(rName), fmt.Sprintf(`
 funcature_group_name
-  record_identifier_feature_name = %[1]q
-  event_time_feature_name%[1]q
-  role_arnst.arn
+record_identifier_feature_name = %[1]q
+event_time_feature_name%[1]q
+role_arnst.arn
 
-  feature_definition {
+feature_definition {
 ature_name = %[1]q
 ature_type = "String"
-  }
+}
 
-  online_store_config {
+online_store_config {
 able_online_store = true
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tag1Key, tag1Value, tag2Key, tag2Value))
 }

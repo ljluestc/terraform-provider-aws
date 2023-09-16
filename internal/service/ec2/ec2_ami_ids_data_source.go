@@ -44,7 +44,7 @@ funcurn &schema.Resource{
 			},
 			"include_deprecated": {
 				Type:eBool,
-				Default:  false,
+				Default:false,
 				Optional: true,
 			},
 			"name_regex": {
@@ -63,7 +63,7 @@ func: validation.NoZeroValues,
 				},
 funcsort_ascending": {
 				Type:eBool,
-				Default:  false,
+				Default:false,
 				Optional: true,
 			},
 		},

@@ -19,7 +19,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_transit_gateway_route_table_associations.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -39,7 +39,7 @@ func testAccTransitGatewayRouteTableAssociationsDataSource_filter(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -57,19 +57,19 @@ func
 func testAccTransitGatewayRouteTableAssociationsDataSourceConfig_base(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTableAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= aws_subnet.test[*].id
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 funcansit_gateway_default_route_table_association = false
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_route_table_association" "test" {
-  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
+transit_gateway_attachment_id= aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
 }
 `, rName))
 }
@@ -78,9 +78,9 @@ resource "aws_ec2_transit_gateway_route_table_association" "test" {
 func testAccTransitGatewayRouteTableAssociationsDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTableAssociationsDataSourceConfig_base(rName), `
 data "aws_ec2_transit_gateway_route_table_associations" "test" {
-  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
 
-  depends_on = [aws_ec2_transit_gateway_route_table_association.test]
+depends_on = [aws_ec2_transit_gateway_route_table_association.test]
 }
 func
 
@@ -88,13 +88,13 @@ func
 func testAccTransitGatewayRouteTableAssociationsDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTableAssociationsDataSourceConfig_base(rName), `
 data "aws_ec2_transit_gateway_route_table_associations" "test" {
-  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
 
-  filter {
+filter {
 me= "nsit-gateway-attachment-id"
 lues = [aws_ec2_transit_gateway_vpc_attachment.test.id]
 func
-  depends_on = [aws_ec2_transit_gateway_route_table_association.test]
+depends_on = [aws_ec2_transit_gateway_route_table_association.test]
 }
 `)
 }

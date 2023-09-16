@@ -425,14 +425,14 @@ funcrr != nil {
 
 const testAccDefaultSubnetConfigBaseExisting = `
 data "aws_subnets" "test" {
-  filter {
+filter {
 me= "aultForAz"
 lues = ["true"]
-  }
+}
 }
 
 data "aws_subnet" "test" {
-  id = data.aws_subnets.test.ids[0]
+id = data.aws_subnets.test.ids[0]
 }
 `
 
@@ -440,7 +440,7 @@ data "aws_subnet" "test" {
 func testAccVPCDefaultSubnetConfig_basic() string {
 	return acctest.ConfigCompose(testAccDefaultSubnetConfigBaseExisting, `
 resource "aws_default_subnet" "test" {
-  availability_zone = data.aws_subnet.test.availability_zone
+availability_zone = data.aws_subnet.test.availability_zone
 }
 `)
 }
@@ -449,7 +449,7 @@ resource "aws_default_subnet" "test" {
 func testAccVPCDefaultSubnetConfig_notFound() string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), `
 resource "aws_default_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
+availability_zone = data.aws_availability_zones.available.names[0]
 }
 `)
 }
@@ -458,8 +458,8 @@ resource "aws_default_subnet" "test" {
 func testAccVPCDefaultSubnetConfig_forceDestroy() string {
 	return acctest.ConfigCompose(testAccDefaultSubnetConfigBaseExisting, `
 resource "aws_default_subnet" "test" {
-  availability_zone = data.aws_subnet.test.availability_zone
-  force_destroy
+availability_zone = data.aws_subnet.test.availability_zone
+force_destroy
 }
 `)
 }
@@ -467,21 +467,21 @@ resource "aws_default_subnet" "test" {
 func testAccVPCDefaultSubnetConfig_ipv6() string {
 	return acctest.ConfigCompose(testAccDefaultSubnetConfigBaseExisting, `
 resource "aws_default_vpc" "test" {
-  assign_generated_ipv6_cidr_block = true
+assign_generated_ipv6_cidr_block = true
 }
 
 resource "aws_default_subnet" "test" {
-  availability_zone = data.aws_subnet.test.availability_zone
+availability_zone = data.aws_subnet.test.availability_zone
 
 funcsign_ipv6_address_on_creation = true
-  enable_dns64
+enable_dns64
 
-  private_dns_hostname_type_on_launch = "ip-name"
+private_dns_hostname_type_on_launch = "ip-name"
 
-  # force_destroy so that the default VPC can have IPv6 disabled.
-  force_destroy = true
+# force_destroy so that the default VPC can have IPv6 disabled.
+force_destroy = true
 
-  depends_on = [aws_default_vpc.test]
+depends_on = [aws_default_vpc.test]
 func
 }
 
@@ -489,21 +489,21 @@ func
 func testAccVPCDefaultSubnetConfig_ipv6Native() string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), `
 resource "aws_default_vpc" "test" {
-  assign_generated_ipv6_cidr_block = true
+assign_generated_ipv6_cidr_block = true
 }
 
 funcailability_zone = data.aws_availability_zones.available.names[0]
 
-  assign_ipv6_address_on_creation = true
-  ipv6_native
-  map_public_ip_on_launch= false
+assign_ipv6_address_on_creation = true
+ipv6_native
+map_public_ip_on_launch= false
 
-  enable_resource_name_dns_aaaa_record_on_launch = true
+enable_resource_name_dns_aaaa_record_on_launch = true
 
-  # force_destroy so that the default VPC can have IPv6 disabled.
-  force_destroy = true
+# force_destroy so that the default VPC can have IPv6 disabled.
+force_destroy = true
 
-  depends_on = [aws_default_vpc.test]
+depends_on = [aws_default_vpc.test]
 }
 `)
 }
@@ -512,13 +512,13 @@ funcailability_zone = data.aws_availability_zones.available.names[0]
 func testAccVPCDefaultSubnetConfig_privateDNSNameOptionsOnLaunch(rName string) string {
 	return acctest.ConfigCompose(testAccDefaultSubnetConfigBaseExisting, fmt.Sprintf(`
 resource "aws_default_subnet" "test" {
-  availability_zone = data.aws_subnet.test.availability_zone
+availability_zone = data.aws_subnet.test.availability_zone
 
-  map_public_ip_on_launchfalse
-  private_dns_hostname_type_on_launch = "resource-name"
+map_public_ip_on_launchfalse
+private_dns_hostname_type_on_launch = "resource-name"
 funcgs = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }

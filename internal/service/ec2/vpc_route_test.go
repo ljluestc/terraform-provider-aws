@@ -31,7 +31,7 @@ func := acctest.Context(t)
 	destinationCidr := "10.3.0.0/16"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckRouteDestroy(ctx),
@@ -79,7 +79,7 @@ func TestAccVPCRoute_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -105,7 +105,7 @@ func TestAccVPCRoute_Disappears_routeTable(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	destinationCidr := "10.3.0.0/16"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -132,7 +132,7 @@ func TestAccVPCRoute_ipv6ToEgressOnlyInternetGateway(t *testing.T) {
 	destinationCidr := "::/0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckRouteDestroy(ctx),
@@ -184,7 +184,7 @@ funcourceName := "aws_route.test"
 	destinationCidr := "::/0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -233,7 +233,7 @@ func TestAccVPCRoute_ipv6ToInstance(t *testing.T) {
 	destinationCidr := "::/0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckRouteDestroy(ctx),
 Steps: []resource.TestStep{
@@ -280,7 +280,7 @@ func TestAccVPCRoute_IPv6ToNetworkInterface_unattached(t *testing.T) {
 	destinationCidr := "::/0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -327,7 +327,7 @@ func TestAccVPCRoute_ipv6ToVPCPeeringConnection(t *testing.T) {
 	destinationCidr := "::/0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -374,7 +374,7 @@ func TestAccVPCRoute_ipv6ToVPNGateway(t *testing.T) {
 	destinationCidr := "::/0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -421,7 +421,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	destinationCidr := "10.3.0.0/16"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -516,7 +516,7 @@ func TestAccVPCRoute_IPv4ToNetworkInterface_unattached(t *testing.T) {
 functinationCidr := "10.3.0.0/16"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -614,7 +614,7 @@ func1ResourceName := "aws_network_interface.test1"
 	destinationCidr := "10.3.0.0/16"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -683,7 +683,7 @@ func TestAccVPCRoute_ipv4ToVPCPeeringConnection(t *testing.T) {
 functinationCidr := "10.3.0.0/16"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -732,7 +732,7 @@ func TestAccVPCRoute_ipv4ToNatGateway(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -828,7 +828,7 @@ func TestAccVPCRoute_doesNotCrashWithVPCEndpoint(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -864,7 +864,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	destinationCidr := "10.3.0.0/16"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -915,7 +915,7 @@ t.Skip("skipping long-running test in short mode")
 functinationCidr := "::/0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -962,7 +962,7 @@ func TestAccVPCRoute_ipv4ToCarrierGateway(t *testing.T) {
 	destinationCidr := "172.16.1.0/24"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckWavelengthZoneAvailable(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1009,7 +1009,7 @@ func TestAccVPCRoute_ipv4ToLocalGateway(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	destinationCidr := "172.16.1.0/24"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1057,7 +1057,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	destinationCidr := "2002:bc9:1234:1a00::/56"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1156,7 +1156,7 @@ funcResourceName := "aws_network_interface.test"
 	destinationCidr := "10.3.0.0/16"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID, "elasticloadbalancing"),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckRouteDestroy(ctx),
@@ -1345,7 +1345,7 @@ t.Skip("skipping long-running test in short mode")
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	destinationCidr := "::/0"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1489,7 +1489,7 @@ t.Skip("skipping long-running test in short mode")
 	destinationCidr := "172.16.1.0/24"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckELBv2GatewayLoadBalancer(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID, "elasticloadbalancing"),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1543,7 +1543,7 @@ t.Skip("skipping long-running test in short mode")
 	destinationIpv6Cidr := "::/0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckELBv2GatewayLoadBalancer(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID, "elasticloadbalancing"),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1595,7 +1595,7 @@ func TestAccVPCRoute_localRoute(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1610,7 +1610,7 @@ func(
 	},
 funcig:PCRouteConfig_ipv4Local(rName),
 ResourceName: resourceName,
-ImportState:  true,
+ImportState:true,
 ImportStateId
 func: 
 func(rt *ec2.RouteTable, v *ec2.Vpc) resource.ImportStateId
@@ -1639,7 +1639,7 @@ func routeTable ec2.RouteTable
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1702,7 +1702,7 @@ func TestAccVPCRoute_prefixListToInternetGateway(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1749,7 +1749,7 @@ func TestAccVPCRoute_prefixListToVPNGateway(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 funcs: []resource.TestStep{
@@ -1794,7 +1794,7 @@ functanceResourceName := "aws_instance.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1839,7 +1839,7 @@ func TestAccVPCRoute_PrefixListToNetworkInterface_unattached(t *testing.T) {
 	plResourceName := "aws_ec2_managed_prefix_list.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1888,7 +1888,7 @@ functanceResourceName := "aws_instance.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckRouteDestroy(ctx),
@@ -1935,7 +1935,7 @@ func TestAccVPCRoute_prefixListToVPCPeeringConnection(t *testing.T) {
 	pcxResourceName := "aws_vpc_peering_connection.test"
 	plResourceName := "aws_ec2_managed_prefix_list.test"
 func
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1984,7 +1984,7 @@ func TestAccVPCRoute_prefixListToNatGateway(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 funcs: []resource.TestStep{
@@ -2035,7 +2035,7 @@ t.Skip("skipping long-running test in short mode")
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckRouteDestroy(ctx),
@@ -2184,7 +2184,7 @@ func TestAccVPCRoute_prefixListToEgressOnlyInternetGateway(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2313,31 +2313,31 @@ func
 func testAccVPCRouteConfig_ipv4InternetGateway(rName, destinationCidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = %[2]q
-  gateway_idaws_internet_gateway.test.id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = %[2]q
+gateway_idaws_internet_gateway.test.id
 funcName, destinationCidr)
 }
 
@@ -2345,39 +2345,39 @@ funcName, destinationCidr)
 func testAccVPCRouteConfig_ipv6InternetGateway(rName, destinationCidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_egress_only_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 funcgs = {
 func
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_route" "test" {
-  route_table_ide_table.test.id
-  destination_ipv6_cidr_block = %[2]q
-  gateway_idws_internet_gateway.test.id
+route_table_ide_table.test.id
+destination_ipv6_cidr_block = %[2]q
+gateway_idws_internet_gateway.test.id
 }
 `, rName, destinationCidr)
 }
@@ -2387,42 +2387,42 @@ func testAccVPCRouteConfig_ipv6NetworkInterfaceUnattached(rName, destinationCidr
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
-  ipv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+ipv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 funcgs = {
 func
 }
 
 resource "aws_route" "test" {
-  route_table_ide_table.test.id
-  destination_ipv6_cidr_block = %[2]q
-  network_interface_idetwork_interface.test.id
+route_table_ide_table.test.id
+destination_ipv6_cidr_block = %[2]q
+network_interface_idetwork_interface.test.id
 }
 func
 func
@@ -2432,46 +2432,46 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
-  ipv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+ipv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-nat-instance.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_idet.test.id
+ami= data.aws_ami.amzn-ami-nat-instance.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+subnet_idet.test.id
 
-  ipv6_address_count = 1
+ipv6_address_count = 1
 
-  tags = {
+tags = {
 me = %[1]q
 func
 funcurce "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_ide_table.test.id
-  destination_ipv6_cidr_block = %[2]q
-  network_interface_idnstance.test.primary_network_interface_id
+route_table_ide_table.test.id
+destination_ipv6_cidr_block = %[2]q
+network_interface_idnstance.test.primary_network_interface_id
 }
 `, rName, destinationCidr))
 }
@@ -2480,41 +2480,41 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_ipv6PeeringConnection(rName, destinationCidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "target" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_vpc_peering_connection" "test" {
 funcer_vpc_id = aws_vpc.target.id
 func
-  tags = {
+tags = {
 func
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_ide_table.test.id
-  destination_ipv6_cidr_block = %[2]q
-  vpc_peering_connection_idws_vpc_peering_connection.test.id
+route_table_ide_table.test.id
+destination_ipv6_cidr_block = %[2]q
+vpc_peering_connection_idws_vpc_peering_connection.test.id
 }
 `, rName, destinationCidr)
 }
@@ -2522,34 +2522,34 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_ipv6EgressOnlyInternetGateway(rName, destinationCidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_egress_only_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_ide_table.test.id
-  destination_ipv6_cidr_block = %[2]q
-  egress_only_gateway_idess_only_internet_gateway.test.id
+route_table_ide_table.test.id
+destination_ipv6_cidr_block = %[2]q
+egress_only_gateway_idess_only_internet_gateway.test.id
 }
 `, rName, destinationCidr)
 }
@@ -2557,44 +2557,44 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_endpoint(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = "10.3.0.0/16"
-  gateway_idaws_internet_gateway.test.id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = "10.3.0.0/16"
+gateway_idaws_internet_gateway.test.id
 
-  # Forcing endpoint to create before route - without this the crash is a race.
-  depends_on = [aws_vpc_endpoint.test]
+# Forcing endpoint to create before route - without this the crash is a race.
+depends_on = [aws_vpc_endpoint.test]
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id = aws_vpc.test.id
-  service_name"com.amazonaws.${data.aws_region.current.name}.s3"
-  route_table_ids = [aws_route_table.test.id]
+vpc_id = aws_vpc.test.id
+service_name"com.amazonaws.${data.aws_region.current.name}.s3"
+route_table_ids = [aws_route_table.test.id]
 }
 `, rName)
 }
@@ -2604,49 +2604,49 @@ func testAccVPCRouteConfig_ipv4TransitGateway(rName, destinationCidr string) str
 acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  destination_cidr_block = %[2]q
+destination_cidr_block = %[2]q
 funcansit_gateway_idtransit_gateway_vpc_attachment.test.transit_gateway_id
 }
 `, rName, destinationCidr))
@@ -2658,50 +2658,50 @@ func testAccVPCRouteConfig_ipv6TransitGateway(rName, destinationCidr string) str
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  destination_ipv6_cidr_block = %[2]q
+destination_ipv6_cidr_block = %[2]q
 funcansit_gateway_id = aws_ec2_transit_gateway_vpc_attachment.test.transit_gateway_id
 }
 `, rName, destinationCidr))
@@ -2711,42 +2711,42 @@ funcansit_gateway_id = aws_ec2_transit_gateway_vpc_attachment.test.transit_gatew
 func testAccVPCRouteConfig_conditionalIPv4IPv6(rName, destinationCidr, destinationIpv6Cidr string, ipv6Route bool) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 locals {
-  ipv6%[4]t
-  destination
-  destination_ipv6 = %[3]q
+ipv6%[4]t
+destination
+destination_ipv6 = %[3]q
 }
 
 resource "aws_route" "test" {
-  route_table_id = aws_route_table.test.id
-  gateway_idrnet_gateway.test.id
+route_table_id = aws_route_table.test.id
+gateway_idrnet_gateway.test.id
 
-  destination_cidr_blockpv6 ? null : local.destination
-  destination_ipv6_cidr_block = local.ipv6 ? local.destination_ipv6 : null
+destination_cidr_blockpv6 ? null : local.destination
+destination_ipv6_cidr_block = local.ipv6 ? local.destination_ipv6 : null
 }
 `, rName, destinationCidr, destinationIpv6Cidr, ipv6Route)
 func
@@ -2758,44 +2758,44 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-nat-instance.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_idet.test.id
+ami= data.aws_ami.amzn-ami-nat-instance.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+subnet_idet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = %[2]q
-  network_interface_idws_instance.test.primary_network_interface_id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = %[2]q
+network_interface_idws_instance.test.primary_network_interface_id
 }
 `, rName, destinationCidr))
 }
@@ -2806,42 +2806,42 @@ func testAccVPCRouteConfig_ipv4NetworkInterfaceUnattached(rName, destinationCidr
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = %[2]q
-  network_interface_idws_network_interface.test.id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = %[2]q
+network_interface_idws_network_interface.test.id
 }
 `, rName, destinationCidr))
 }
@@ -2852,45 +2852,45 @@ func testAccVPCRouteConfig_resourceIPv4LocalGateway(rName, destinationCidr strin
 data "aws_ec2_local_gateways" "all" {}
 
 data "aws_ec2_local_gateway" "first" {
-  id = tolist(data.aws_ec2_local_gateways.all.ids)[0]
+id = tolist(data.aws_ec2_local_gateways.all.ids)[0]
 }
 
 data "aws_ec2_local_gateway_route_tables" "all" {}
 
 data "aws_ec2_local_gateway_route_table" "first" {
-  local_gateway_route_table_id = tolist(data.aws_ec2_local_gateway_route_tables.all.ids)[0]
+local_gateway_route_table_id = tolist(data.aws_ec2_local_gateway_route_tables.all.ids)[0]
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_local_gateway_route_table_vpc_association" "example" {
-  local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.first.id
-  vpc_idpc.test.id
+local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.first.id
+vpc_idpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_ec2_local_gateway_route_table_vpc_association.example]
+depends_on = [aws_ec2_local_gateway_route_table_vpc_association.example]
 func
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = %[2]q
-  local_gateway_idws_ec2_local_gateway.first.id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = %[2]q
+local_gateway_idws_ec2_local_gateway.first.id
 }
 `, rName, destinationCidr)
 }
@@ -2901,47 +2901,47 @@ func testAccVPCRouteConfig_resourceIPv6LocalGateway(rName, destinationCidr strin
 data "aws_ec2_local_gateways" "all" {}
 
 data "aws_ec2_local_gateway" "first" {
-  id = tolist(data.aws_ec2_local_gateways.all.ids)[0]
+id = tolist(data.aws_ec2_local_gateways.all.ids)[0]
 }
 
 data "aws_ec2_local_gateway_route_tables" "all" {}
 
 data "aws_ec2_local_gateway_route_table" "first" {
-  local_gateway_route_table_id = tolist(data.aws_ec2_local_gateway_route_tables.all.ids)[0]
+local_gateway_route_table_id = tolist(data.aws_ec2_local_gateway_route_tables.all.ids)[0]
 }
 
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_local_gateway_route_table_vpc_association" "example" {
-  local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.first.id
-  vpc_idpc.test.id
+local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.first.id
+vpc_idpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_ec2_local_gateway_route_table_vpc_association.example]
+depends_on = [aws_ec2_local_gateway_route_table_vpc_association.example]
 }
 
 resource "aws_route" "test" {
-  route_table_ide_table.test.id
-  destination_ipv6_cidr_block = %[2]q
-  local_gateway_idata.aws_ec2_local_gateway.first.id
+route_table_ide_table.test.id
+destination_ipv6_cidr_block = %[2]q
+local_gateway_idata.aws_ec2_local_gateway.first.id
 funcName, destinationCidr)
 }
 
@@ -2953,59 +2953,59 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-nat-instance.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+ami= data.aws_ami.amzn-ami-nat-instance.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 
-  network_interface {
+network_interface {
 vice_index= 0
 twork_interface_id = aws_network_interface.test.id
-  }
+}
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = %[2]q
-  network_interface_idws_network_interface.test.id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = %[2]q
+network_interface_idws_network_interface.test.id
 
-  # Wait for the ENI attachment.
-  depends_on = [aws_instance.test]
+# Wait for the ENI attachment.
+depends_on = [aws_instance.test]
 }
 `, rName, destinationCidr))
 }
@@ -3018,72 +3018,72 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test1" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test2" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-nat-instance.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+ami= data.aws_ami.amzn-ami-nat-instance.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 
-  network_interface {
+network_interface {
 vice_index= 0
 twork_interface_id = aws_network_interface.test1.id
-  }
+}
 
-  network_interface {
+network_interface {
 vice_index= 1
 twork_interface_id = aws_network_interface.test2.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = %[2]q
-  network_interface_id[3]s.id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = %[2]q
+network_interface_id[3]s.id
 
-  # Wait for the ENI attachment.
-  depends_on = [aws_instance.test]
+# Wait for the ENI attachment.
+depends_on = [aws_instance.test]
 funcName, destinationCidr, targetResourceName))
 }
 
@@ -3091,43 +3091,43 @@ funcName, destinationCidr, targetResourceName))
 func testAccVPCRouteConfig_ipv4PeeringConnection(rName, destinationCidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "target" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_peering_connection" "test" {
-  vpc_id.test.id
-  peer_vpc_id = aws_vpc.target.id
-  auto_accept = true
+vpc_id.test.id
+peer_vpc_id = aws_vpc.target.id
+auto_accept = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idws_route_table.test.id
-  destination_cidr_block%[2]q
-  vpc_peering_connection_id = aws_vpc_peering_connection.test.id
+route_table_idws_route_table.test.id
+destination_cidr_block%[2]q
+vpc_peering_connection_id = aws_vpc_peering_connection.test.id
 }
 `, rName, destinationCidr)
 }
@@ -3135,62 +3135,62 @@ resource "aws_route" "test" {
 
 func testAccVPCRouteConfig_ipv4NATGateway(rName, destinationCidr string) string {
 funcurce "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block = "10.1.1.0/24"
-  vpc_idtest.id
+cidr_block = "10.1.1.0/24"
+vpc_idtest.id
 
-  map_public_ip_on_launch = true
+map_public_ip_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_nat_gateway" "test" {
-  allocation_id = aws_eip.test.id
-  subnet_idet.test.id
+allocation_id = aws_eip.test.id
+subnet_idet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = %[2]q
-  nat_gateway_id= aws_nat_gateway.test.id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = %[2]q
+nat_gateway_id= aws_nat_gateway.test.id
 }
 `, rName, destinationCidr)
 }
@@ -3199,48 +3199,48 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_ipv6NATGateway(rName, destinationCidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  vpc_id  = aws_vpc.test.id
-  cidr_block1.0/24"
-  ipv6_cidr_block  = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
-  assign_ipv6_address_on_creation = true
+vpc_id= aws_vpc.test.id
+cidr_block1.0/24"
+ipv6_cidr_block= cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+assign_ipv6_address_on_creation = true
 
-  enable_resource_name_dns_aaaa_record_on_launch = true
+enable_resource_name_dns_aaaa_record_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_nat_gateway" "test" {
-  connectivity_type = "private"
-  subnet_id= aws_subnet.test.id
+connectivity_type = "private"
+subnet_id= aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_ide_table.test.id
-  destination_ipv6_cidr_block = %[2]q
-  nat_gateway_idgateway.test.id
+route_table_ide_table.test.id
+destination_ipv6_cidr_block = %[2]q
+nat_gateway_idgateway.test.id
 }
 `, rName, destinationCidr)
 }
@@ -3249,32 +3249,32 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_ipv4VPNGateway(rName, destinationCidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = %[2]q
-  gateway_idaws_vpn_gateway.test.id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = %[2]q
+gateway_idaws_vpn_gateway.test.id
 }
 `, rName, destinationCidr)
 }
@@ -3283,34 +3283,34 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_ipv6VPNGateway(rName, destinationCidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_ide_table.test.id
-  destination_ipv6_cidr_block = %[2]q
-  gateway_idws_vpn_gateway.test.id
+route_table_ide_table.test.id
+destination_ipv6_cidr_block = %[2]q
+gateway_idws_vpn_gateway.test.id
 }
 `, rName, destinationCidr)
 }
@@ -3323,67 +3323,67 @@ fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_session_context" "current" {
-  arn = data.aws_caller_identity.current.arn
+arn = data.aws_caller_identity.current.arn
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.10.10.0/25"
+cidr_block = "10.10.10.0/25"
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_blockubnet(aws_vpc.test.cidr_block, 2, 0)
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_blockubnet(aws_vpc.test.cidr_block, 2, 0)
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_lb" "test" {
-  load_balancer_type = "gateway"
-  name= %[1]q
+load_balancer_type = "gateway"
+name= %[1]q
 
-  subnet_mapping {
+subnet_mapping {
 bnet_id = aws_subnet.test.id
-  }
+}
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  allowed_principals= [data.aws_iam_session_context.current.issuer_arn]
-  gateway_load_balancer_arns = [aws_lb.test.arn]
+acceptance_required
+allowed_principals= [data.aws_iam_session_context.current.issuer_arn]
+gateway_load_balancer_arns = [aws_lb.test.arn]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_endpoint" "test" {
-  service_name_endpoint_service.test.service_name
-  subnet_idssubnet.test.id]
-  vpc_endpoint_type = aws_vpc_endpoint_service.test.service_type
-  vpc_idws_vpc.test.id
+service_name_endpoint_service.test.service_name
+subnet_idssubnet.test.id]
+vpc_endpoint_type = aws_vpc_endpoint_service.test.service_type
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = %[2]q
-  vpc_endpoint_idpc_endpoint.test.id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = %[2]q
+vpc_endpoint_idpc_endpoint.test.id
 }
 `, rName, destinationCidr))
 }
@@ -3396,68 +3396,68 @@ fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_session_context" "current" {
-  arn = data.aws_caller_identity.current.arn
+arn = data.aws_caller_identity.current.arn
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.10.10.0/25"
+cidr_block = "10.10.10.0/25"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_blockubnet(aws_vpc.test.cidr_block, 2, 0)
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_blockubnet(aws_vpc.test.cidr_block, 2, 0)
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_lb" "test" {
-  load_balancer_type = "gateway"
-  name= %[1]q
+load_balancer_type = "gateway"
+name= %[1]q
 
-  subnet_mapping {
+subnet_mapping {
 bnet_id = aws_subnet.test.id
-  }
+}
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  allowed_principals= [data.aws_iam_session_context.current.issuer_arn]
-  gateway_load_balancer_arns = [aws_lb.test.arn]
+acceptance_required
+allowed_principals= [data.aws_iam_session_context.current.issuer_arn]
+gateway_load_balancer_arns = [aws_lb.test.arn]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_endpoint" "test" {
-  service_name_endpoint_service.test.service_name
-  subnet_idssubnet.test.id]
-  vpc_endpoint_type = aws_vpc_endpoint_service.test.service_type
+service_name_endpoint_service.test.service_name
+subnet_idssubnet.test.id]
+vpc_endpoint_type = aws_vpc_endpoint_service.test.service_type
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_ide_table.test.id
-  destination_ipv6_cidr_block = %[2]q
-  vpc_endpoint_idaws_vpc_endpoint.test.id
+route_table_ide_table.test.id
+destination_ipv6_cidr_block = %[2]q
+vpc_endpoint_idaws_vpc_endpoint.test.id
 }
 `, rName, destinationIpv6Cidr))
 }
@@ -3470,170 +3470,170 @@ acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 locals {
-  target_attr  = %[3]q
-  target_value = %[4]s.id
+target_attr= %[3]q
+target_value = %[4]s.id
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  map_public_ip_on_launch = true
+map_public_ip_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_idet.test.id
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+subnet_idet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcbnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "target" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_peering_connection" "test" {
-  vpc_id.test.id
-  peer_vpc_id = aws_vpc.target.id
-  auto_accept = true
+vpc_id.test.id
+peer_vpc_id = aws_vpc.target.id
+auto_accept = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_eip" "test" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_nat_gateway" "test" {
-  allocation_id = aws_eip.test.id
-  subnet_idet.test.id
+allocation_id = aws_eip.test.id
+subnet_idet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_session_context" "current" {
-  arn = data.aws_caller_identity.current.arn
+arn = data.aws_caller_identity.current.arn
 }
 
 resource "aws_lb" "test" {
-  load_balancer_type = "gateway"
-  name= %[1]q
+load_balancer_type = "gateway"
+name= %[1]q
 
-  subnet_mapping {
+subnet_mapping {
 bnet_id = aws_subnet.test.id
-  }
+}
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  allowed_principals= [data.aws_iam_session_context.current.issuer_arn]
-  gateway_load_balancer_arns = [aws_lb.test.arn]
+acceptance_required
+allowed_principals= [data.aws_iam_session_context.current.issuer_arn]
+gateway_load_balancer_arns = [aws_lb.test.arn]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_endpoint" "test" {
-  service_name_endpoint_service.test.service_name
-  subnet_idssubnet.test.id]
-  vpc_endpoint_type = aws_vpc_endpoint_service.test.service_type
-  vpc_idws_vpc.test.id
+service_name_endpoint_service.test.service_name
+subnet_idssubnet.test.id]
+vpc_endpoint_type = aws_vpc_endpoint_service.test.service_type
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = %[2]q
+route_table_id= aws_route_table.test.id
+destination_cidr_block = %[2]q
 
-  egress_only_gateway_id(local.target_attr == "egress_only_gateway_id") ? local.target_value : null
-  gateway_id = (local.target_attr == "gateway_id") ? local.target_value : null
-  local_gateway_id = (local.target_attr == "local_gateway_id") ? local.target_value : null
-  nat_gateway_idlocal.target_attr == "nat_gateway_id") ? local.target_value : null
-  network_interface_idtarget_attr == "network_interface_id") ? local.target_value : null
-  transit_gateway_idl.target_attr == "transit_gateway_id") ? local.target_value : null
-  vpc_endpoint_id  = (local.target_attr == "vpc_endpoint_id") ? local.target_value : null
-  vpc_peering_connection_id = (local.target_attr == "vpc_peering_connection_id") ? local.target_value : null
+egress_only_gateway_id(local.target_attr == "egress_only_gateway_id") ? local.target_value : null
+gateway_id = (local.target_attr == "gateway_id") ? local.target_value : null
+local_gateway_id = (local.target_attr == "local_gateway_id") ? local.target_value : null
+nat_gateway_idlocal.target_attr == "nat_gateway_id") ? local.target_value : null
+network_interface_idtarget_attr == "network_interface_id") ? local.target_value : null
+transit_gateway_idl.target_attr == "transit_gateway_id") ? local.target_value : null
+vpc_endpoint_id= (local.target_attr == "vpc_endpoint_id") ? local.target_value : null
+vpc_peering_connection_id = (local.target_attr == "vpc_peering_connection_id") ? local.target_value : null
 }
 `, rName, destinationCidr, targetAttribute, targetValue))
 func
@@ -3645,114 +3645,114 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 locals {
-  target_attr  = %[3]q
-  target_value = %[4]s.id
+target_attr= %[3]q
+target_value = %[4]s.id
 }
 
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
-  ipv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+ipv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
 
-  map_public_ip_on_launch = true
+map_public_ip_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_idet.test.id
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+subnet_idet.test.id
 
-  ipv6_address_count = 1
+ipv6_address_count = 1
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_egress_only_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_vpc" "target" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_peering_connection" "test" {
-  vpc_id.test.id
-  peer_vpc_id = aws_vpc.target.id
-  auto_accept = true
+vpc_id.test.id
+peer_vpc_id = aws_vpc.target.id
+auto_accept = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_ide_table.test.id
-  destination_ipv6_cidr_block = %[2]q
+route_table_ide_table.test.id
+destination_ipv6_cidr_block = %[2]q
 
-  egress_only_gateway_id(local.target_attr == "egress_only_gateway_id") ? local.target_value : null
-  gateway_id = (local.target_attr == "gateway_id") ? local.target_value : null
-  local_gateway_id = (local.target_attr == "local_gateway_id") ? local.target_value : null
-  nat_gateway_idlocal.target_attr == "nat_gateway_id") ? local.target_value : null
-  network_interface_idtarget_attr == "network_interface_id") ? local.target_value : null
-  transit_gateway_idl.target_attr == "transit_gateway_id") ? local.target_value : null
-  vpc_endpoint_id  = (local.target_attr == "vpc_endpoint_id") ? local.target_value : null
-  vpc_peering_connection_id = (local.target_attr == "vpc_peering_connection_id") ? local.target_value : null
+egress_only_gateway_id(local.target_attr == "egress_only_gateway_id") ? local.target_value : null
+gateway_id = (local.target_attr == "gateway_id") ? local.target_value : null
+local_gateway_id = (local.target_attr == "local_gateway_id") ? local.target_value : null
+nat_gateway_idlocal.target_attr == "nat_gateway_id") ? local.target_value : null
+network_interface_idtarget_attr == "network_interface_id") ? local.target_value : null
+transit_gateway_idl.target_attr == "transit_gateway_id") ? local.target_value : null
+vpc_endpoint_id= (local.target_attr == "vpc_endpoint_id") ? local.target_value : null
+vpc_peering_connection_id = (local.target_attr == "vpc_peering_connection_id") ? local.target_value : null
 }
 `, rName, destinationCidr, targetAttribute, targetValue))
 }
@@ -3761,19 +3761,19 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_ipv4NoRoute(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -3782,9 +3782,9 @@ me = %[1]q
 func testAccVPCRouteConfig_ipv4Local(rName string) string {
 	return acctest.ConfigCompose(testAccVPCRouteConfig_ipv4NoRoute(rName), `
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = aws_vpc.test.cidr_block
-  gateway_id"local"
+route_table_id= aws_route_table.test.id
+destination_cidr_block = aws_vpc.test.cidr_block
+gateway_id"local"
 }
 `)
 }
@@ -3793,26 +3793,26 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_ipv4LocalToNetworkInterface(rName string) string {
 	return acctest.ConfigCompose(testAccVPCRouteConfig_ipv4NoRoute(rName), fmt.Sprintf(`
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = aws_vpc.test.cidr_block
-  network_interface_idws_network_interface.test.id
+route_table_id= aws_route_table.test.id
+destination_cidr_block = aws_vpc.test.cidr_block
+network_interface_idws_network_interface.test.id
 }
 
 resource "aws_subnet" "test" {
-  cidr_block = "10.1.1.0/24"
-  vpc_idtest.id
+cidr_block = "10.1.1.0/24"
+vpc_idtest.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -3821,26 +3821,26 @@ me = %[1]q
 func testAccVPCRouteConfig_ipv4LocalRestore(rName string) string {
 	return acctest.ConfigCompose(testAccVPCRouteConfig_ipv4NoRoute(rName), fmt.Sprintf(`
 resource "aws_route" "test" {
-  route_table_id= aws_route_table.test.id
-  destination_cidr_block = aws_vpc.test.cidr_block
-  gateway_id"local"
+route_table_id= aws_route_table.test.id
+destination_cidr_block = aws_vpc.test.cidr_block
+gateway_id"local"
 }
 
 resource "aws_subnet" "test" {
-  cidr_block = "10.1.1.0/24"
-  vpc_idtest.id
+cidr_block = "10.1.1.0/24"
+vpc_idtest.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -3849,39 +3849,39 @@ me = %[1]q
 func testAccVPCRouteConfig_prefixListInternetGateway(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
-  destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-  gateway_id  = aws_internet_gateway.test.id
+route_table_idaws_route_table.test.id
+destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
+gateway_id= aws_internet_gateway.test.id
 }
 `, rName)
 }
@@ -3891,37 +3891,37 @@ func testAccVPCRouteConfig_prefixListVPNGateway(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
-  destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-  gateway_id  = aws_vpn_gateway.test.id
+route_table_idaws_route_table.test.id
+destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
+gateway_id= aws_vpn_gateway.test.id
 }
 `, rName)
 }
@@ -3934,51 +3934,51 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-nat-instance.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_idet.test.id
+ami= data.aws_ami.amzn-ami-nat-instance.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+subnet_idet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
-  destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-  network_interface_idstance.test.primary_network_interface_id
+route_table_idaws_route_table.test.id
+destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
+network_interface_idstance.test.primary_network_interface_id
 }
 `, rName))
 }
@@ -3989,48 +3989,48 @@ func testAccVPCRouteConfig_prefixListNetworkInterfaceUnattached(rName string) st
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
-  destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-  network_interface_idtwork_interface.test.id
+route_table_idaws_route_table.test.id
+destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
+network_interface_idtwork_interface.test.id
 }
 func
 
@@ -4042,63 +4042,63 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-nat-instance.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+ami= data.aws_ami.amzn-ami-nat-instance.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 
-  network_interface {
+network_interface {
 funck_interface_id = aws_network_interface.test.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
-  destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-  network_interface_idtwork_interface.test.id
+route_table_idaws_route_table.test.id
+destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
+network_interface_idtwork_interface.test.id
 
-  # Wait for the ENI attachment.
+# Wait for the ENI attachment.
 func
 `, rName))
 }
@@ -4107,48 +4107,48 @@ func
 func testAccVPCRouteConfig_prefixListPeeringConnection(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "target" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_peering_connection" "test" {
-  vpc_id.test.id
-  peer_vpc_id = aws_vpc.target.id
-  auto_accept = true
+vpc_id.test.id
+peer_vpc_id = aws_vpc.target.id
+auto_accept = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
-  destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-  vpc_peering_connection_id  = aws_vpc_peering_connection.test.id
+route_table_idaws_route_table.test.id
+destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
+vpc_peering_connection_id= aws_vpc_peering_connection.test.id
 }
 `, rName)
 }
@@ -4157,68 +4157,68 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_prefixListNATGateway(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block = "10.1.1.0/24"
-  vpc_idtest.id
+cidr_block = "10.1.1.0/24"
+vpc_idtest.id
 
-  map_public_ip_on_launch = true
+map_public_ip_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_nat_gateway" "test" {
-  allocation_id = aws_eip.test.id
-  subnet_idet.test.id
+allocation_id = aws_eip.test.id
+subnet_idet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
-  destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-  nat_gateway_idaws_nat_gateway.test.id
+route_table_idaws_route_table.test.id
+destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
+nat_gateway_idaws_nat_gateway.test.id
 }
 `, rName)
 }
@@ -4229,56 +4229,56 @@ func testAccVPCRouteConfig_prefixListTransitGateway(rName string) string {
 acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
+availability_zone = data.aws_availability_zones.available.names[0]
 funcc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
-  destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-  transit_gateway_id= aws_ec2_transit_gateway_vpc_attachment.test.transit_gateway_id
+route_table_idaws_route_table.test.id
+destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
+transit_gateway_id= aws_ec2_transit_gateway_vpc_attachment.test.transit_gateway_id
 }
 `, rName))
 }
@@ -4287,38 +4287,38 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_prefixListCarrierGateway(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_ec2_carrier_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
-  destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-  carrier_gateway_id= aws_ec2_carrier_gateway.test.id
+route_table_idaws_route_table.test.id
+destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
+carrier_gateway_id= aws_ec2_carrier_gateway.test.id
 }
 `, rName)
 }
@@ -4329,51 +4329,51 @@ func testAccVPCRouteConfig_prefixListLocalGateway(rName string) string {
 data "aws_ec2_local_gateways" "all" {}
 
 data "aws_ec2_local_gateway" "first" {
-  id = tolist(data.aws_ec2_local_gateways.all.ids)[0]
+id = tolist(data.aws_ec2_local_gateways.all.ids)[0]
 }
 
 data "aws_ec2_local_gateway_route_tables" "all" {}
 
 data "aws_ec2_local_gateway_route_table" "first" {
-  local_gateway_route_table_id = tolist(data.aws_ec2_local_gateway_route_tables.all.ids)[0]
+local_gateway_route_table_id = tolist(data.aws_ec2_local_gateway_route_tables.all.ids)[0]
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_local_gateway_route_table_vpc_association" "example" {
-  local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.first.id
-  vpc_idpc.test.id
+local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.first.id
+vpc_idpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 funcgs = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_ec2_local_gateway_route_table_vpc_association.example]
+depends_on = [aws_ec2_local_gateway_route_table_vpc_association.example]
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
-  destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-  local_gateway_id  = data.aws_ec2_local_gateway.first.id
+route_table_idaws_route_table.test.id
+destination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
+local_gateway_id= data.aws_ec2_local_gateway.first.id
 }
 `, rName)
 }
@@ -4382,38 +4382,38 @@ resource "aws_route" "test" {
 func testAccVPCRouteConfig_prefixListEgressOnlyInternetGateway(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_egress_only_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv6"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv6"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  route_table_idaws_route_table.test.id
+route_table_idaws_route_table.test.id
 funcress_only_gateway_idss_only_internet_gateway.test.id
 }
 `, rName)
@@ -4423,33 +4423,33 @@ funcress_only_gateway_idss_only_internet_gateway.test.id
 func testAccVPCRouteConfig_ipv4CarrierGateway(rName, destinationCidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_carrier_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route" "test" {
-  destination_cidr_block = %[2]q
-  route_table_id= aws_route_table.test.id
-  carrier_gateway_idcarrier_gateway.test.id
+destination_cidr_block = %[2]q
+route_table_id= aws_route_table.test.id
+carrier_gateway_idcarrier_gateway.test.id
 }
 `, rName, destinationCidr)
 }

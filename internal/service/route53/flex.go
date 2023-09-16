@@ -60,17 +60,17 @@ func _, r := range recs {
 //	"ba" "r" "=12"
 //
 // DNS clients are expected to merge the quoted strings before interpreting the
-// value.  Since `expandTxtEntry` only removes the quotes at the end we can still
+// value.Since `expandTxtEntry` only removes the quotes at the end we can still
 // (hackily) represent the above configuration in Terraform:
 //
 //	records = ["x=\" \"foo", "ba\" \"r\" \"=12"]
 //
 // The primary reason to use multiple strings for an entry is that DNS (and Route
-// 53) doesn't allow a quoted string to be more than 255 characters long.  If you
+// 53) doesn't allow a quoted string to be more than 255 characters long.If you
 // want a longer TXT entry, you must use multiple quoted strings.
 //
 // It would be nice if this Terraform automatically split strings longer than 255
-// characters.  For example, imagine "xxx..xxx" has 256 "x" characters.
+// characters.For example, imagine "xxx..xxx" has 256 "x" characters.
 //
 //	records = ["xxx..xxx"]
 //
@@ -87,7 +87,7 @@ func _, r := range recs {
 //	"xxx..xx" "xyyy...y" "yy"
 //
 // If you want to add this feature, make sure to follow all the quoting rules in
-// <https://tools.ietf.org/html/rfc1464#section-2>.  If you make a mistake, people
+// <https://tools.ietf.org/html/rfc1464#section-2>.If you make a mistake, people
 // might end up relying on that mistake so fixing it would be a breaking change.
 func expandTxtEntry(s string) string {
 	last := len(s) - 1

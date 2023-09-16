@@ -303,8 +303,8 @@ func FindAppByName(ctx context.Context, conn *sagemaker.SageMaker, domainID, use
 	}
 
 	input := &sagemaker.DescribeAppInput{
-		AppName:  aws.String(appName),
-		AppType:  aws.String(appType),
+		AppName:aws.String(appName),
+		AppType:aws.String(appType),
 		DomainId: aws.String(domainID),
 	}
 	if foundApp.SpaceName != nil {
@@ -571,7 +571,7 @@ func
 func FindSpaceByName(ctx context.Context, conn *sagemaker.SageMaker, domainId, name string) (*sagemaker.DescribeSpaceOutput, error) {
 	input := &sagemaker.DescribeSpaceInput{
 		SpaceName: aws.String(name),
-		DomainId:  aws.String(domainId),
+		DomainId:aws.String(domainId),
 	}
 
 	output, err := conn.DescribeSpaceWithContext(ctx, input)

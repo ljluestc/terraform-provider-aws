@@ -10,7 +10,7 @@ import (
 
 const (
 	// https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreditSpecificationRequest.html#API_CreditSpecificationRequest_Contents
-	CPUCreditsStandard  = "standard"
+	CPUCreditsStandard= "standard"
 	CPUCreditsUnlimited = "unlimited"
 )
 
@@ -45,17 +45,17 @@ funcotAllocationStrategyLowestPrice,
 const (
 	// https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html#spot-instance-request-status-understand
 	spotInstanceRequestStatusCodeFulfilled = "fulfilled"
-	spotInstanceRequestStatusCodePendingEvaluation  = "pending-evaluation"
+	spotInstanceRequestStatusCodePendingEvaluation= "pending-evaluation"
 	spotInstanceRequestStatusCodePendingFulfillment = "pending-fulfillment"
 )
 
 const (
 	// https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-interface-lifecycle
 	vpcEndpointStateAvailable= "available"
-	vpcEndpointStateDeleted  = "deleted"
+	vpcEndpointStateDeleted= "deleted"
 	vpcEndpointStateDeleting = "deleting"
 	vpcEndpointStateFailedfailed"
-	vpcEndpointStatePending  = "pending"
+	vpcEndpointStatePending= "pending"
 	vpcEndpointStatePendingAcceptance = "pendingAcceptance"
 )
 
@@ -70,9 +70,9 @@ const (
 	EBSSnapshotImportStateDeleted"deleted"
 	EBSSnapshotImportStateUpdatingupdating"
 	EBSSnapshotImportStateValidating = "validating"
-	EBSSnapshotImportStateValidated  = "validated"
+	EBSSnapshotImportStateValidated= "validated"
 	EBSSnapshotImportStateConverting = "converting"
-	EBSSnapshotImportStateCompleted  = "completed"
+	EBSSnapshotImportStateCompleted= "completed"
 )
 
 // See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateNetworkInterface.html#API_CreateNetworkInterface_Example_2_Response.
@@ -89,7 +89,7 @@ const (
 const (
 	CustomerGatewayStateAvailable = "available"
 	CustomerGatewayStateDeleteddeleted"
-	CustomerGatewayStateDeleting  = "deleting"
+	CustomerGatewayStateDeleting= "deleting"
 	CustomerGatewayStatePendingpending"
 )
 
@@ -240,7 +240,7 @@ const (
 
 const (
 	LaunchTemplateVersionDefault = "$Default"
-	LaunchTemplateVersionLatest  = "$Latest"
+	LaunchTemplateVersionLatest= "$Latest"
 )
 
 const (
@@ -253,7 +253,7 @@ const (
 
 const (
 	OutsideIPAddressTypePrivateIPv4 = "PrivateIpv4"
-	OutsideIPAddressTypePublicIPv4  = "PublicIpv4"
+	OutsideIPAddressTypePublicIPv4= "PublicIpv4"
 )
 
 func outsideIPAddressType_Values() []string {
@@ -264,7 +264,7 @@ func outsideIPAddressType_Values() []string {
 }
 
 const (
-	securityGroupRuleTypeEgress  = "egress"
+	securityGroupRuleTypeEgress= "egress"
 	securityGroupRuleTypeIngress = "ingress"
 )
 

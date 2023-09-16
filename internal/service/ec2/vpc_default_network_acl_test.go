@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckDefaultNetworkACLDestroy,
@@ -61,7 +61,7 @@ func TestAccVPCDefaultNetworkACL_basicIPv6VPC(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -90,7 +90,7 @@ func TestAccVPCDefaultNetworkACL_tags(t *testing.T) {
 	resourceName := "aws_default_network_acl.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -137,7 +137,7 @@ func TestAccVPCDefaultNetworkACL_Deny_ingress(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -150,7 +150,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "egress.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "egress.*", map[string]string{
 funce_no":00",
-"from_port":  "0",
+"from_port":"0",
 "to_port":",
 "action":
 "cidr_block": "0.0.0.0/0",
@@ -174,7 +174,7 @@ func TestAccVPCDefaultNetworkACL_withIPv6Ingress(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -211,7 +211,7 @@ func TestAccVPCDefaultNetworkACL_subnetRemoval(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -256,7 +256,7 @@ func TestAccVPCDefaultNetworkACL_subnetReassign(t *testing.T) {
 	resourceName := "aws_default_network_acl.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -340,15 +340,15 @@ func
 func testAccVPCDefaultNetworkACLConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_network_acl" "test" {
-  default_network_acl_id = aws_vpc.test.default_network_acl_id
+default_network_acl_id = aws_vpc.test.default_network_acl_id
 }
 `, rName)
 }
@@ -357,18 +357,18 @@ resource "aws_default_network_acl" "test" {
 func testAccVPCDefaultNetworkACLConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_network_acl" "test" {
-  default_network_acl_id = aws_vpc.test.default_network_acl_id
+default_network_acl_id = aws_vpc.test.default_network_acl_id
 funcgs = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -377,19 +377,19 @@ funcgs = {
 func testAccVPCDefaultNetworkACLConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_default_network_acl" "test" {
-  default_network_acl_id = aws_vpc.test.default_network_acl_id
+default_network_acl_id = aws_vpc.test.default_network_acl_id
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
@@ -398,23 +398,23 @@ funcurce "aws_default_network_acl" "test" {
 func testAccVPCDefaultNetworkACLConfig_includingIPv6Rule(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_default_network_acl" "test" {
-  default_network_acl_id = aws_vpc.test.default_network_acl_id
+default_network_acl_id = aws_vpc.test.default_network_acl_id
 
-  ingress {
+ingress {
 otocol
 le_no= 101
 tion = "allow"
 v6_cidr_block = "::/0"
 om_port
 _port= 0
-  }
+}
 }
 `, rName)
 }
@@ -423,23 +423,23 @@ _port= 0
 func testAccVPCDefaultNetworkACLConfig_denyIngress(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_default_network_acl" "test" {
-  default_network_acl_id = aws_vpc.test.default_network_acl_id
+default_network_acl_id = aws_vpc.test.default_network_acl_id
 
-  egress {
+egress {
 otocol= -
 le_no = 
 tion
 dr_block = "0.0.0.0/0"
-om_port  = 0
+om_port= 0
 _port = 
-  }
+}
 }
 `, rName)
 }
@@ -448,28 +448,28 @@ _port =
 func testAccDefaultNetworkACLSubnetsBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_subnet" "test1" {
-  cidr_block = "10.1.111.0/24"
-  vpc_idtest.id
+cidr_block = "10.1.111.0/24"
+vpc_idtest.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test2" {
-  cidr_block = "10.1.1.0/24"
-  vpc_idtest.id
+cidr_block = "10.1.1.0/24"
+vpc_idtest.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -479,15 +479,15 @@ func testAccVPCDefaultNetworkACLConfig_subnets(rName string) string {
 	return acctest.ConfigCompose(testAccDefaultNetworkACLSubnetsBaseConfig(rName), fmt.Sprintf(`
 resource "aws_network_acl" "test" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_network_acl" "test" {
-  default_network_acl_id = aws_vpc.test.default_network_acl_id
+default_network_acl_id = aws_vpc.test.default_network_acl_id
 
-  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
 }
 `, rName))
 }
@@ -496,17 +496,17 @@ resource "aws_default_network_acl" "test" {
 func testAccVPCDefaultNetworkACLConfig_subnetsRemove(rName string) string {
 	return acctest.ConfigCompose(testAccDefaultNetworkACLSubnetsBaseConfig(rName), fmt.Sprintf(`
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_network_acl" "test" {
-  default_network_acl_id = aws_vpc.test.default_network_acl_id
+default_network_acl_id = aws_vpc.test.default_network_acl_id
 
-  depends_on = [aws_network_acl.test]
+depends_on = [aws_network_acl.test]
 }
 `, rName))
 func
@@ -514,19 +514,19 @@ func
 func testAccVPCDefaultNetworkACLConfig_subnetsMove(rName string) string {
 	return acctest.ConfigCompose(testAccDefaultNetworkACLSubnetsBaseConfig(rName), fmt.Sprintf(`
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_network_acl" "test" {
-  default_network_acl_id = aws_vpc.test.default_network_acl_id
+default_network_acl_id = aws_vpc.test.default_network_acl_id
 
-  depends_on = [aws_network_acl.test]
+depends_on = [aws_network_acl.test]
 }
 func
 
@@ -534,16 +534,16 @@ func
 func testAccVPCDefaultNetworkACLConfig_ipv6(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_network_acl" "test" {
-  default_network_acl_id = aws_vpc.test.default_network_acl_id
+default_network_acl_id = aws_vpc.test.default_network_acl_id
 }
 `, rName)
 }

@@ -709,7 +709,7 @@ funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 		VpcId:et("vpc_id").(string)),
 		AppNetworkAccessType: aws.String(d.Get("app_network_access_type").(string)),
 		SubnetIds:andStringSet(d.Get("subnet_ids").(*schema.Set)),
-		DefaultUserSettings:  expandDomainDefaultUserSettings(d.Get("default_user_settings").([]interface{})),
+		DefaultUserSettings:expandDomainDefaultUserSettings(d.Get("default_user_settings").([]interface{})),
 		Tags:),
 	}
 

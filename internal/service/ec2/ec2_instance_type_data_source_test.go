@@ -16,7 +16,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_instance_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -78,7 +78,7 @@ func TestAccEC2InstanceTypeDataSource_metal(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_instance_type.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -108,7 +108,7 @@ func TestAccEC2InstanceTypeDataSource_gpu(t *testing.T) {
 	dataSourceName := "data.aws_ec2_instance_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -131,7 +131,7 @@ func TestAccEC2InstanceTypeDataSource_fpga(t *testing.T) {
 	dataSourceName := "data.aws_ec2_instance_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -151,24 +151,24 @@ funcource.TestCheckResourceAttr(dataSourceName, "fpgas.0.memory_size", "65536"),
 func
 const testAccInstanceTypeDataSourceConfig_basic = `
 data "aws_ec2_instance_type" "test" {
-  instance_type = "m5.large"
+instance_type = "m5.large"
 }
 `
 
 const testAccInstanceTypeDataSourceConfig_metal = `
 data "aws_ec2_instance_type" "test" {
-  instance_type = "i3en.metal"
+instance_type = "i3en.metal"
 }
 `
 
 const testAccInstanceTypeDataSourceConfig_gpu = `
 data "aws_ec2_instance_type" "test" {
-  instance_type = "g3.4xlarge"
+instance_type = "g3.4xlarge"
 }
 `
 
 const testAccInstanceTypeDataSourceConfig_fgpa = `
 data "aws_ec2_instance_type" "test" {
-  instance_type = "f1.2xlarge"
+instance_type = "f1.2xlarge"
 }
 `

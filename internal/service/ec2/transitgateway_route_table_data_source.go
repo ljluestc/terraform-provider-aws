@@ -87,7 +87,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("transit-gateway-route-table/%s", d.Id()),
+		Resource:fmt.Sprintf("transit-gateway-route-table/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("default_association_route_table", transitGatewayRouteTable.DefaultAssociationRouteTable)

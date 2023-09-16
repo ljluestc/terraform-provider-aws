@@ -22,7 +22,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCEndpointDestroy(ctx),
@@ -55,7 +55,7 @@ func TestAccVPCEndpointPolicy_disappears(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_policy.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -98,8 +98,8 @@ ExpectNonEmptyPlan: true,
 }
 funct policy1 = `
 {
-  "Version": "2012-10-17",
-  "Statement": [
+"Version": "2012-10-17",
+"Statement": [
 
 eadOnly",
 l": "*",
@@ -110,14 +110,14 @@ db:ListTables"
  "Allow",
 ": "*"
 
-  ]
+]
 }
 `
 
 const policy2 = `
 {
-  "Version": "2012-10-17",
-  "Statement": [
+"Version": "2012-10-17",
+"Statement": [
 
 llowAll",
  "Allow",
@@ -127,7 +127,7 @@ l": {
  "*",
 ": "*"
 
-  ]
+]
 }
 `
 
@@ -135,28 +135,28 @@ l": {
 func testAccVPCEndpointPolicyConfig_basic(rName, policy string) string {
 	return fmt.Sprintf(`
 data "aws_vpc_endpoint_service" "test" {
-  service = "dynamodb"
+service = "dynamodb"
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_vpc_endpoint" "test" {
-  service_name = data.aws_vpc_endpoint_service.test.service_name
-  vpc_idc.test.id
+service_name = data.aws_vpc_endpoint_service.test.service_name
+vpc_idc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_endpoint_policy" "test" {
-  vpc_endpoint_id = aws_vpc_endpoint.test.id
-  policy = <<POLICY
+vpc_endpoint_id = aws_vpc_endpoint.test.id
+policy = <<POLICY
 %[2]s
 POLICY
 }

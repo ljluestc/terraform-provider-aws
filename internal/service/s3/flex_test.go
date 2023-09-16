@@ -8,15 +8,13 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
-)
-func TestExpandReplicationRuleFilterTag(t *testing.T) {
-	t.Parallel()
+)funcarallel()
 
 	expectedKey := "TestKey1"
 	expectedValue := "TestValue1"
 
 	tagMap := map[string]interface{}{
-		"key":   expectedKey,
+		"key": expectedKey,
 		"value": expectedValue,
 	}
 
@@ -33,15 +31,13 @@ func TestExpandReplicationRuleFilterTag(t *testing.T) {
 	if actualValue := aws.StringValue(result.Value); actualValue != expectedValue {
 		t.Fatalf("Expected value %s, got %s", expectedValue, actualValue)
 	}
-}
-func TestFlattenReplicationRuleFilterTag(t *testing.T) {
-	t.Parallel()
-
+}func TestFlattenReplicationRuleFilterTag(t *testing.T) {
+	func
 	expectedKey := "TestKey1"
 	expectedValue := "TestValue1"
 
 	tag := &s3.Tag{
-		Key:   aws.String(expectedKey),
+		Key: aws.String(expectedKey),
 		Value: aws.String(expectedValue),
 	}
 

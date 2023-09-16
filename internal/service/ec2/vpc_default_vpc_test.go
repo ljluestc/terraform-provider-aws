@@ -26,10 +26,10 @@ funcarallel()
 
 	testCases := map[string]map[string]
 func(t *testing.T){
-funcisting.basic":  testAccDefaultVPC_Existing_basic,
+funcisting.basic":testAccDefaultVPC_Existing_basic,
 	"existing.assignGeneratedIPv6CIDRBlock":testAccDefaultVPC_Existing_assignGeneratedIPv6CIDRBlock,
 	"existing.forceDestroy": testAccDefaultVPC_Existing_forceDestroy,
-	"notFound.basic":  testAccDefaultVPC_NotFound_basic,
+	"notFound.basic":testAccDefaultVPC_NotFound_basic,
 	"notFound.assignGeneratedIPv6CIDRBlock":testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlock,
 	"notFound.forceDestroy": testAccDefaultVPC_NotFound_forceDestroy,
 	"notFound.assignGeneratedIPv6CIDRBlockAdoption": testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlockAdoption,
@@ -37,7 +37,7 @@ funcisting.basic":  testAccDefaultVPC_Existing_basic,
 "Subnet": {
 	"existing.basic": testAccDefaultSubnet_Existing_basic,
 	"existing.forceDestroy":tAccDefaultSubnet_Existing_forceDestroy,
-	"existing.ipv6":  testAccDefaultSubnet_Existing_ipv6,
+	"existing.ipv6":testAccDefaultSubnet_Existing_ipv6,
 	"existing.privateDnsNameOptionsOnLaunch": testAccDefaultSubnet_Existing_privateDNSNameOptionsOnLaunch,
 	"notFound.basic": testAccDefaultSubnet_NotFound_basic,
 	"notFound.ipv6Native":aultSubnet_NotFound_ipv6Native,
@@ -486,7 +486,7 @@ func testAccEmptyDefaultVPC(ctx context.Context, vpcID string) error {
 	igw, err := tfec2.FindInternetGateway(ctx, conn, &ec2.DescribeInternetGatewaysInput{
 Filters: tfec2.BuildAttributeFilterList(
 	map[string]string{
-"attachment.state":  "available",
+"attachment.state":"available",
 "attachment.vpc-id": vpcID,
 	},
 ),
@@ -536,7 +536,7 @@ resource "aws_default_vpc" "test" {}
 
 const testAccVPCDefaultVPCConfig_forceDestroy = `
 resource "aws_default_vpc" "test" {
-  force_destroy = true
+force_destroy = true
 }
 `
 
@@ -544,11 +544,11 @@ resource "aws_default_vpc" "test" {
 func testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlock(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_default_vpc" "test" {
-  assign_generated_ipv6_cidr_block = true
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -558,28 +558,28 @@ func testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlockAdoptionStep1(rName 
 	// Create an IPV6 subnet in the default VPC.
 	return fmt.Sprintf(`
 resource "aws_default_vpc" "test" {
-  assign_generated_ipv6_cidr_block = true
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_vpc" "test" {
-  default = true
+default = true
 
-  depends_on = [aws_default_vpc.test]
+depends_on = [aws_default_vpc.test]
 }
 
 resource "aws_subnet" "test" {
-  cidr_block1.96.0/20"
-  vpc_id  = data.aws_vpc.test.id
-  ipv6_cidr_block  = cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
-  assign_ipv6_address_on_creation = true
+cidr_block1.96.0/20"
+vpc_id= data.aws_vpc.test.id
+ipv6_cidr_block= cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
+assign_ipv6_address_on_creation = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 funcName)
 }
 
@@ -588,17 +588,17 @@ func testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlockAdoptionStep2(rName 
 	// Remove the default VPC from state.
 	return fmt.Sprintf(`
 data "aws_vpc" "test" {
-  default = true
+default = true
 }
 
 resource "aws_subnet" "test" {
-  cidr_block1.96.0/20"
-funcv6_cidr_block  = cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
-  assign_ipv6_address_on_creation = true
+cidr_block1.96.0/20"
+funcv6_cidr_block= cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
+assign_ipv6_address_on_creation = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -608,25 +608,25 @@ func testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlockAdoptionStep3(rName 
 	// Adopt the default VPC.
 	return fmt.Sprintf(`
 resource "aws_default_vpc" "test" {
-  assign_generated_ipv6_cidr_block = true
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_vpc" "test" {
-  default = true
+default = true
 }
 
 resource "aws_subnet" "test" {
-  cidr_block1.96.0/20"
-  vpc_id  = data.aws_vpc.test.id
-  ipv6_cidr_block  = cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
-  assign_ipv6_address_on_creation = true
+cidr_block1.96.0/20"
+vpc_id= data.aws_vpc.test.id
+ipv6_cidr_block= cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
+assign_ipv6_address_on_creation = true
 funcgs = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }

@@ -54,7 +54,7 @@ funcurn &schema.Resource{
 			"most_recent": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"outpost_arn": {
 				Type:eString,
@@ -162,7 +162,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
-		Resource:  fmt.Sprintf("snapshot/%s", d.Id()),
+		Resource:fmt.Sprintf("snapshot/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("data_encryption_key_id", snapshot.DataEncryptionKeyId)

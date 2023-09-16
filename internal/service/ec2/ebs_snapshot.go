@@ -154,7 +154,7 @@ func
 
 	if v, ok := d.GetOk("storage_tier"); ok && v.(string) == ec2.TargetStorageTierArchive {
 		_, err = conn.ModifySnapshotTierWithContext(ctx, &ec2.ModifySnapshotTierInput{
-			SnapshotId:  aws.String(d.Id()),
+			SnapshotId:aws.String(d.Id()),
 			StorageTier: aws.String(v.(string)),
 		})
 
@@ -190,7 +190,7 @@ funcg.Printf("[WARN] EBS Snapshot %s not found, removing from state", d.Id())
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
-		Resource:  fmt.Sprintf("snapshot/%s", d.Id()),
+		Resource:fmt.Sprintf("snapshot/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("data_encryption_key_id", snapshot.DataEncryptionKeyId)

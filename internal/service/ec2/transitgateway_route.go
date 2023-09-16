@@ -36,7 +36,7 @@ Schema: map[string]*schema.Schema{
 Type:eBool,
 Optional: true,
 ForceNew: true,
-Default:  false,
+Default:false,
 	},
 	"destination_cidr_block": {
 Type:hema.TypeString,

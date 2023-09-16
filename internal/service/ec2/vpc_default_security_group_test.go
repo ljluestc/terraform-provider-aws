@@ -23,7 +23,7 @@ func := acctest.Context(t)
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:ctest.CheckDestroyNoop,
@@ -77,7 +77,7 @@ func TestAccVPCDefaultSecurityGroup_empty(t *testing.T) {
 funcourceName := "aws_default_security_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -114,26 +114,26 @@ func testAccVPCDefaultSecurityGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 funcdr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_default_security_group" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  ingress {
+ingress {
 otocol = 
 om_port= 8
 _port
 dr_blocks = ["10.0.0.0/8"]
-  }
+}
 
-  egress {
+egress {
 otocol = p"
 om_port= 8
 _port
 dr_blocks = ["10.0.0.0/8"]
-  }
+}
 }
 `, rName)
 }
@@ -142,18 +142,18 @@ dr_blocks = ["10.0.0.0/8"]
 func testAccVPCDefaultSecurityGroupConfig_empty(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }

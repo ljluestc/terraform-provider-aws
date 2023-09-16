@@ -50,7 +50,7 @@ funcurn &schema.Resource{
 				Type:eBool,
 				Optional: true,
 				ForceNew: true,
-				Default:  false,
+				Default:false,
 			},
 			"end_date": {
 				Type:schema.TypeString,
@@ -67,7 +67,7 @@ func: validation.StringInSlice(ec2.EndDateType_Values(), false),
 funcType:eBool,
 				Optional: true,
 				ForceNew: true,
-				Default:  false,
+				Default:false,
 			},
 			"instance_count": {
 				Type:eInt,
@@ -124,7 +124,7 @@ func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateCapacityReservationInput{
-		AvailabilityZone:  aws.String(d.Get("availability_zone").(string)),
+		AvailabilityZone:aws.String(d.Get("availability_zone").(string)),
 		EndDateType:ng(d.Get("end_date_type").(string)),
 		InstanceCount:int64(d.Get("instance_count").(int))),
 funcstanceType:g(d.Get("instance_type").(string)),
@@ -225,7 +225,7 @@ func resourceCapacityReservationUpdate(ctx context.Context, d *schema.ResourceDa
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &ec2.ModifyCapacityReservationInput{
 			CapacityReservationId: aws.String(d.Id()),
-			EndDateType:  aws.String(d.Get("end_date_type").(string)),
+			EndDateType:aws.String(d.Get("end_date_type").(string)),
 			InstanceCount:aws.Int64(int64(d.Get("instance_count").(int))),
 		}
 func v, ok := d.GetOk("end_date"); ok {

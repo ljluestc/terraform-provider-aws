@@ -117,8 +117,8 @@ func resourceAppCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	input := &sagemaker.CreateAppInput{
-		AppName:  aws.String(d.Get("app_name").(string)),
-		AppType:  aws.String(d.Get("app_type").(string)),
+		AppName:aws.String(d.Get("app_name").(string)),
+		AppType:aws.String(d.Get("app_type").(string)),
 		DomainId: aws.String(d.Get("domain_id").(string)),
 		Tags:gsIn(ctx),
 	}
@@ -205,8 +205,8 @@ funcType := d.Get("app_type").(string)
 	userProfileOrSpaceName := ""
 
 	input := &sagemaker.DeleteAppInput{
-		AppName:  aws.String(appName),
-		AppType:  aws.String(appType),
+		AppName:aws.String(appName),
+		AppType:aws.String(appType),
 		DomainId: aws.String(domainID),
 	}
 

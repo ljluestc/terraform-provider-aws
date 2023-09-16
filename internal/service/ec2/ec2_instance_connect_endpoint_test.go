@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckInstanceConnectEndpointDestroy(ctx),
@@ -64,7 +64,7 @@ func TestAccEC2InstanceConnectEndpoint_disappears(t *testing.T) {
 	resourceName := "aws_ec2_instance_connect_endpoint.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -137,7 +137,7 @@ func TestAccEC2InstanceConnectEndpoint_securityGroupIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckInstanceConnectEndpointDestroy(ctx),
@@ -217,7 +217,7 @@ return nil
 func testAccInstanceConnectEndpointConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), `
 resource "aws_ec2_instance_connect_endpoint" "test" {
-  subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
 }
 `)
 }
@@ -226,11 +226,11 @@ resource "aws_ec2_instance_connect_endpoint" "test" {
 func testAccInstanceConnectEndpointConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_ec2_instance_connect_endpoint" "test" {
-  subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tagKey1, tagValue1))
 }
@@ -238,9 +238,9 @@ func
 func testAccInstanceConnectEndpointConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_ec2_instance_connect_endpoint" "test" {
-  subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
 func
@@ -251,23 +251,23 @@ func
 func testAccInstanceConnectEndpointConfig_securityGroupIDs(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_security_group" "test" {
-  count = 2
+count = 2
 
-  name%[1]s-${count.index}"
-  vpc_id = aws_vpc.test.id
+name%[1]s-${count.index}"
+vpc_id = aws_vpc.test.id
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_ec2_instance_connect_endpoint" "test" {
-  preserve_client_ip = false
-  subnet_id = aws_subnet.test[0].id
-  security_group_ids = aws_security_group.test[*].id
+preserve_client_ip = false
+subnet_id = aws_subnet.test[0].id
+security_group_ids = aws_security_group.test[*].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 func

@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -60,7 +60,7 @@ func TestAccVPCEndpointDataSource_byID(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -100,7 +100,7 @@ func TestAccVPCEndpointDataSource_byFilter(t *testing.T) {
 	datasourceName := "data.aws_vpc_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -141,7 +141,7 @@ func TestAccVPCEndpointDataSource_byTags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -181,7 +181,7 @@ func TestAccVPCEndpointDataSource_gatewayWithRouteTableAndTags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -221,7 +221,7 @@ func TestAccVPCEndpointDataSource_interface(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -257,27 +257,27 @@ funcource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tag
 func testAccVPCEndpointDataSourceConfig_gatewayBasic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_idc.test.id
-  service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
+vpc_idc.test.id
+service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 data "aws_vpc_endpoint" "test" {
-  vpc_idc.test.id
-  service_name = aws_vpc_endpoint.test.service_name
-  statelable"
+vpc_idc.test.id
+service_name = aws_vpc_endpoint.test.service_name
+statelable"
 }
 `, rName)
 }
@@ -286,25 +286,25 @@ data "aws_vpc_endpoint" "test" {
 func testAccVPCEndpointDataSourceConfig_byID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_idc.test.id
-  service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
+vpc_idc.test.id
+service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 data "aws_vpc_endpoint" "test" {
-  id = aws_vpc_endpoint.test.id
+id = aws_vpc_endpoint.test.id
 }
 `, rName)
 }
@@ -313,28 +313,28 @@ data "aws_vpc_endpoint" "test" {
 func testAccVPCEndpointDataSourceConfig_byFilter(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_idc.test.id
-  service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
+vpc_idc.test.id
+service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 func "aws_vpc_endpoint" "test" {
-  filter {
+filter {
 me= "-endpoint-id"
 lues = [aws_vpc_endpoint.test.id]
-  }
+}
 }
 `, rName)
 }
@@ -343,20 +343,20 @@ lues = [aws_vpc_endpoint.test.id]
 func testAccVPCEndpointDataSourceConfig_byTags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_idc.test.id
-  service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
+vpc_idc.test.id
+service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
 
-  tags = {
+tags = {
 me = %[1]q
 y1 = "Value1"
 y2 = "Value2"
@@ -364,14 +364,14 @@ y3 = "Value3"
 func
 
 data "aws_vpc_endpoint" "test" {
-  vpc_id = aws_vpc_endpoint.test.vpc_id
+vpc_id = aws_vpc_endpoint.test.vpc_id
 
-  tags = {
+tags = {
 me = %[1]q
 y1 = "Value1"
 y2 = "Value2"
 y3 = "Value3"
-  }
+}
 }
 `, rName)
 }
@@ -380,39 +380,39 @@ y3 = "Value3"
 func testAccVPCEndpointDataSourceConfig_gatewayRouteTableAndTags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_idc.test.id
+vpc_idc.test.id
 func
-  route_table_ids = [
+route_table_ids = [
 s_route_table.test.id,
-  ]
+]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_vpc_endpoint" "test" {
-  vpc_idc.test.id
-  service_name = aws_vpc_endpoint.test.service_name
-  statelable"
+vpc_idc.test.id
+service_name = aws_vpc_endpoint.test.service_name
+statelable"
 }
 `, rName)
 }
@@ -421,56 +421,56 @@ data "aws_vpc_endpoint" "test" {
 func testAccVPCEndpointDataSourceConfig_interface(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  vpc_idws_vpc.test.id
-  cidr_blockpc.test.cidr_block
-  availability_zone = data.aws_availability_zones.available.names[0]
+vpc_idws_vpc.test.id
+cidr_blockpc.test.cidr_block
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_security_group" "test" {
-  vpc_id = aws_vpc.test.id
-  name[1]q
+vpc_id = aws_vpc.test.id
+name[1]q
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_idtest.id
-  vpc_endpoint_typeInterface"
-  service_nameamazonaws.${data.aws_region.current.name}.ec2"
-  private_dns_enabled = false
+vpc_idtest.id
+vpc_endpoint_typeInterface"
+service_nameamazonaws.${data.aws_region.current.name}.ec2"
+private_dns_enabled = false
 
-  subnet_ids = [
+subnet_ids = [
 s_subnet.test.id,
-  ]
+]
 
-  security_group_ids = [
+security_group_ids = [
 s_security_group.test.id,
-  ]
+]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_vpc_endpoint" "test" {
-  vpc_idc.test.id
-  service_name = aws_vpc_endpoint.test.service_name
-  statelable"
+vpc_idc.test.id
+service_name = aws_vpc_endpoint.test.service_name
+statelable"
 }
 `, rName))
 }

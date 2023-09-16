@@ -41,7 +41,7 @@ funcurn &schema.Resource{
 			"force": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"instance_id": {
 				Type:eString,

@@ -105,7 +105,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: resourceOwnerID,
-		Resource:  fmt.Sprintf("transit-gateway-attachment/%s", d.Id()),
+		Resource:fmt.Sprintf("transit-gateway-attachment/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	if v := transitGatewayAttachment.Association; v != nil {

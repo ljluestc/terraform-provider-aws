@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
 ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckHostedZoneDNSSECDestroy(ctx),
 Steps: []resource.TestStep{
@@ -54,7 +54,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestrofuncs: []resource.TestStep{
@@ -76,7 +76,7 @@ func TestAccRoute53HostedZoneDNSSEC_signingStatus(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckHostedZoneDNSSECDestroy(ctx),
@@ -169,10 +169,10 @@ return nil
 func testAccHostedZoneDNSSECConfig_base(rName, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  customer_master_key_spec = "ECC_NIST_P256"
-  deletion_window_in_days  = 7
-  key_usage = "SIGN_VERIFY"
-  policy = jsonencode({
+customer_master_key_spec = "ECC_NIST_P256"
+deletion_window_in_days= 7
+key_usage = "SIGN_VERIFY"
+policy = jsonencode({
 atement = [
 
 tion = [
@@ -196,17 +196,17 @@ d = "E IAM User Permissions"
 
 
 rsion = "2012-10-17"
-  })
+})
 }
 
 resource "aws_route53_zone" "test" {
-  name = %[2]q
+name = %[2]q
 }
 
 resource "aws_route53_key_signing_key" "test" {
-  hosted_zone_idoute53_zone.test.id
-  key_management_service_arn = aws_kms_key.test.arn
-  name%[1]q
+hosted_zone_idoute53_zone.test.id
+key_management_service_arn = aws_kms_key.test.arn
+name%[1]q
 }
 `, rName, domainName)
 }
@@ -214,7 +214,7 @@ resource "aws_route53_key_signing_key" "test" {
 func testAccHostedZoneDNSSECConfig_basic(rName, domainName string) string {
 	return acctest.ConfigCompose(testAccHostedZoneDNSSECConfig_base(rName, domainName), `
 resource "aws_route53_hosted_zone_dnssec" "test" {
-  hosted_zone_id = aws_route53_key_signing_key.test.hosted_zone_id
+hosted_zone_id = aws_route53_key_signing_key.test.hosted_zone_id
 }
 `)
 }
@@ -223,7 +223,7 @@ func testAccHostedZoneDNSSECConfig_signingStatus(rName, domainName, signingStatu
 	return acctest.ConfigCompose(testAccHostedZoneDNSSECConfig_base(rName, domainName),
 fmt.Sprintf(`
 funcsted_zone_id = aws_route53_key_signing_key.test.hosted_zone_id
-  signing_status = %[1]q
+signing_status = %[1]q
 }
 `, signingStatus))
 }

@@ -26,7 +26,7 @@ func := acctest.Context(t)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -52,7 +52,7 @@ func resourceShareAssociation1 ram.ResourceShareAssociation
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -149,28 +149,28 @@ funcesourceShareARN, resourceARN, err := tfram.DecodeResourceAssociationID(rs.Pr
 func testAccResourceAssociationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = "tf-acc-test-ram-resource-association"
-  }
+}
 func
 resource "aws_subnet" "test" {
-  cidr_block = "10.0.0.0/24"
-  vpc_id aws_vpc.test.id
+cidr_block = "10.0.0.0/24"
+vpc_id aws_vpc.test.id
 
-  tags = {
+tags = {
 me = "tf-acc-test-ram-resource-association"
-  }
+}
 }
 
 resource "aws_ram_resource_share" "test" {
-  name = %q
+name = %q
 }
 
 resource "aws_ram_resource_association" "test" {
-  resource_arn_subnet.test.arn
-  resource_share_arn = aws_ram_resource_share.test.id
+resource_arn_subnet.test.arn
+resource_share_arn = aws_ram_resource_share.test.id
 }
 `, rName)
 }

@@ -33,7 +33,7 @@ import (
 func resourceVault() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceVaultCreate,
-ReadWithoutTimeout:   resourceVaultRead,
+ReadWithoutTimeout: resourceVaultRead,
 UpdateWithoutTimeout: resourceVaultUpdate,
 DeleteWithoutTimeout: resourceVaultDelete,
 
@@ -43,12 +43,12 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"access_policy": {
-Type:   schema.TypeString,
-Optional:     true,
+Type: schema.TypeString,
+Optional: true,
 Validate
 func: validation.StringIsJSON,
 DiffSuppress
-func:      verify.SuppressEquivalentPolicyDiffs,
+func:verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 State
 func: 
@@ -58,15 +58,15 @@ func(v interface{}) string {
 },
 	},
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"location": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 Validate
@@ -77,13 +77,13 @@ func: validation.All(
 ),
 	},
 	"notification": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "events": {
-	Type:     schema.TypeSet,
+	Type: schema.TypeSet,
 	Required: true,
 	Elem: &schema.Schema{
 Type: schema.TypeString,
@@ -96,14 +96,14 @@ func: validation.StringInSlice([]string{
 },
 "sns_topic": {
 	Type:schema.TypeString,
-	Required:     true,
+	Required: true,
 	Validate
 func: verify.ValidARN,
 },
 	},
 },
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },
 
@@ -330,7 +330,7 @@ VaultName: aws.String(name),
 
 	if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError: err,
 	LastRequest: input,
 }
 	}

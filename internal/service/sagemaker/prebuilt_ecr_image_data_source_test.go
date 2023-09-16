@@ -58,7 +58,7 @@ funcectedID := tfsagemaker.PrebuiltECRImageIDByRegion_sparkML[acctest.Region()]
 
 const testAccPrebuiltECRImageDataSourceConfig_basic = `
 data "aws_sagemaker_prebuilt_ecr_image" "test" {
-  repository_name = "kmeans"
+repository_name = "kmeans"
 }
 `
 
@@ -66,8 +66,8 @@ const testAccPrebuiltECRImageDataSourceConfig_explicitRegion = `
 data "aws_region" "current" {}
 
 data "aws_sagemaker_prebuilt_ecr_image" "test" {
-  repository_name = "sagemaker-scikit-learn"
-  image_tag2.2-1.0.11.0"
-  region_region.current.name
+repository_name = "sagemaker-scikit-learn"
+image_tag2.2-1.0.11.0"
+region_region.current.name
 }
 `

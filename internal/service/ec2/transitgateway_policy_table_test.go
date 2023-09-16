@@ -29,7 +29,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayPolicyTableDestroy(ctx),
@@ -60,7 +60,7 @@ func testAccTransitGatewayPolicyTable_disappears(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -86,7 +86,7 @@ func testAccTransitGatewayPolicyTable_disappears_TransitGateway(t *testing.T) {
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
 func
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -112,7 +112,7 @@ func testAccTransitGatewayPolicyTable_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayPolicyTableDestroy(ctx),
@@ -220,9 +220,9 @@ return nil
 func testAccTransitGatewayPolicyTableConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_ec2_transit_gateway_policy_table" "test" {
 func
@@ -232,16 +232,16 @@ func
 func testAccTransitGatewayPolicyTableConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcansit_gateway_id = aws_ec2_transit_gateway.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -250,17 +250,17 @@ funcansit_gateway_id = aws_ec2_transit_gateway.test.id
 func testAccTransitGatewayPolicyTableConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_ec2_transit_gateway_policy_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

@@ -29,7 +29,7 @@ funcurn &schema.Resource{
 			"replace_default_association": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 				ForceNew: true,
 			},
 			"security_group_id": {

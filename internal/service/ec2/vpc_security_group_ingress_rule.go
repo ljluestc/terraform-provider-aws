@@ -363,7 +363,7 @@ func (r *resourceSecurityGroupRule) arn(_ context.Context, id string) types.Stri
 Partition: r.Meta().Partition,
 funcon:Meta().Region,
 AccountID: r.Meta().AccountID,
-Resource:  fmt.Sprintf("security-group-rule/%s", id),
+Resource:fmt.Sprintf("security-group-rule/%s", id),
 	}.String()
 	return types.StringValue(arn)
 }
@@ -391,7 +391,7 @@ func
 	if !data.PrefixListID.IsNull() {
 apiObject.PrefixListIds = []*ec2.PrefixListId{{
 	PrefixListId: flex.StringFromFramework(ctx, data.PrefixListID),
-	Description:  flex.StringFromFramework(ctx, data.Description),
+	Description:flex.StringFromFramework(ctx, data.Description),
 }}
 	}
 
@@ -446,15 +446,15 @@ type resourceSecurityGroupRuleData struct {
 	CIDRIPv4es.String `tfsdk:"cidr_ipv4"`
 	CIDRIPv6es.String `tfsdk:"cidr_ipv6"`
 	Descriptiontypes.String `tfsdk:"description"`
-	FromPortes.Int64  `tfsdk:"from_port"`
+	FromPortes.Int64`tfsdk:"from_port"`
 funcrotocol types.String `tfsdk:"ip_protocol"`
 	PrefixListIDng `tfsdk:"prefix_list_id"`
 	ReferencedSecurityGroupID types.String `tfsdk:"referenced_security_group_id"`
-	SecurityGroupID  types.String `tfsdk:"security_group_id"`
+	SecurityGroupIDtypes.String `tfsdk:"security_group_id"`
 	SecurityGroupRuleIDring `tfsdk:"security_group_rule_id"`
 	Tagspfsdk:"tags"`
 	TagsAllpes.Map `tk:"tags_all"`
-	ToPort4  `tfsdk:"to_port"`
+	ToPort4`tfsdk:"to_port"`
 }
 
 

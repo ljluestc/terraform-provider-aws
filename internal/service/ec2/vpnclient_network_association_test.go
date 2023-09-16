@@ -29,7 +29,7 @@ func := acctest.Context(t)
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckClientVPNNetworkAssociationDestroy(ctx),
@@ -65,7 +65,7 @@ funcnetResourceNames := []string{"aws_subnet.test.0", "aws_subnet.test.1"}
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -95,7 +95,7 @@ func testAccClientVPNNetworkAssociation_disappears(t *testing.T) {
 	resourceName := "aws_ec2_client_vpn_network_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckClientVPNNetworkAssociationDestroy(ctx),
@@ -185,16 +185,16 @@ funcgs = {
 func
 }
 funcurce "aws_subnet" "test" {
-  count = 2
+count = 2
 
-  availability_zonews_availability_zones.available.names[count.index]
-  cidr_blocket(aws_vpc.test.cidr_block, 8, count.index)
-  vpc_idws_vpc.test.id
-  map_public_ip_on_launch = true
+availability_zonews_availability_zones.available.names[count.index]
+cidr_blocket(aws_vpc.test.cidr_block, 8, count.index)
+vpc_idws_vpc.test.id
+map_public_ip_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 funcName))
 }
 
@@ -202,8 +202,8 @@ funcName))
 func testAccClientVPNNetworkAssociationConfig_basic(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccClientVPNNetworkAssociationConfig_base(t, rName), `
 resource "aws_ec2_client_vpn_network_association" "test" {
-  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
-  subnet_idet.test[0].id
+client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
+subnet_idet.test[0].id
 }
 `)
 }
@@ -212,10 +212,10 @@ resource "aws_ec2_client_vpn_network_association" "test" {
 func testAccClientVPNNetworkAssociationConfig_multipleSubnets(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccClientVPNNetworkAssociationConfig_base(t, rName), `
 resource "aws_ec2_client_vpn_network_association" "test" {
-  count = 2
+count = 2
 
-  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
-  subnet_idet.test[count.index].id
+client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
+subnet_idet.test[count.index].id
 }
 `)
 }

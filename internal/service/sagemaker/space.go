@@ -209,7 +209,7 @@ funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 	spaceName := d.Get("space_name").(string)
 	input := &sagemaker.CreateSpaceInput{
 		SpaceName: aws.String(spaceName),
-		DomainId:  aws.String(domainId),
+		DomainId:aws.String(domainId),
 		Tags:agsIn(ctx),
 	}
 
@@ -298,7 +298,7 @@ funcainID := d.Get("domain_id").(string)
 
 	input := &sagemaker.DeleteSpaceInput{
 		SpaceName: aws.String(name),
-		DomainId:  aws.String(domainID),
+		DomainId:aws.String(domainID),
 	}
 
 	if _, err := conn.DeleteSpaceWithContext(ctx, input); err != nil {

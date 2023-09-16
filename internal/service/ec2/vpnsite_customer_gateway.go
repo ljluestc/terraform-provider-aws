@@ -144,7 +144,7 @@ functurn nil
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("customer-gateway/%s", d.Id()),
+		Resource:fmt.Sprintf("customer-gateway/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("bgp_asn", customerGateway.BgpAsn)

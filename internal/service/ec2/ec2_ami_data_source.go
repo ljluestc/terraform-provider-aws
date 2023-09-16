@@ -122,7 +122,7 @@ Computed: true,
 	"include_deprecated": {
 Type:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	},
 	"kernel_id": {
 Type:eString,
@@ -131,7 +131,7 @@ Computed: true,
 	"most_recent": {
 Type:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	},
 	"name": {
 Type:eString,
@@ -302,7 +302,7 @@ func
 Partition: meta.(*conns.AWSClient).Partition,
 Region:ta.(*conns.AWSClient).Region,
 Service:.ServiceName,
-Resource:  fmt.Sprintf("image/%s", d.Id()),
+Resource:fmt.Sprintf("image/%s", d.Id()),
 	}.String()
 	d.Set("arn", imageArn)
 	if err := d.Set("block_device_mappings", flattenAMIBlockDeviceMappings(image.BlockDeviceMappings)); err != nil {
@@ -354,7 +354,7 @@ func flattenAMIBlockDeviceMappings(m []*ec2.BlockDeviceMapping) *schema.Set {
 F: amiBlockDeviceMappingHash,
 	}
 	for _, v := range m {
-funcvice_name":  aws.StringValue(v.DeviceName),
+funcvice_name":aws.StringValue(v.DeviceName),
 	"virtual_name": aws.StringValue(v.VirtualName),
 }
 
@@ -364,9 +364,9 @@ if v.Ebs != nil {
 "encrypted":t.Sprintf("%t", aws.BoolValue(v.Ebs.Encrypted)),
 "iops":.Sprintf("%d", aws.Int64Value(v.Ebs.Iops)),
 "throughput":.Sprintf("%d", aws.Int64Value(v.Ebs.Throughput)),
-"volume_size":  fmt.Sprintf("%d", aws.Int64Value(v.Ebs.VolumeSize)),
-"snapshot_id":  aws.StringValue(v.Ebs.SnapshotId),
-"volume_type":  aws.StringValue(v.Ebs.VolumeType),
+"volume_size":fmt.Sprintf("%d", aws.Int64Value(v.Ebs.VolumeSize)),
+"snapshot_id":aws.StringValue(v.Ebs.SnapshotId),
+"volume_type":aws.StringValue(v.Ebs.VolumeType),
 	}
 
 	mapping["ebs"] = ebs

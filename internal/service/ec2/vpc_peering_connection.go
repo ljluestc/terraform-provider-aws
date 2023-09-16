@@ -95,7 +95,7 @@ var vpcPeeringConnectionOptionsSchema = &schema.Schema{
 			"allow_remote_vpc_dns_resolution": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 		},
 	},
@@ -306,7 +306,7 @@ func
 	}
 
 	input := &ec2.ModifyVpcPeeringConnectionOptionsInput{
-		AccepterPeeringConnectionOptions:  accepterPeeringConnectionOptions,
+		AccepterPeeringConnectionOptions:accepterPeeringConnectionOptions,
 		RequesterPeeringConnectionOptions: requesterPeeringConnectionOptions,
 		VpcPeeringConnectionId:.String(d.Id()),
 	}

@@ -28,7 +28,7 @@ funcurn &schema.Resource{
 			"enabled": {
 				Type:eBool,
 				Optional: true,
-				Default:  true,
+				Default:true,
 			},
 		},
 	}

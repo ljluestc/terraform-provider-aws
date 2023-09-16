@@ -145,7 +145,7 @@ funcget, err := FindTrafficMirrorTargetByID(ctx, conn, d.Id())
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
-		Resource:  fmt.Sprintf("traffic-mirror-target/%s", d.Id()),
+		Resource:fmt.Sprintf("traffic-mirror-target/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("description", target.Description)

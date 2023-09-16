@@ -23,10 +23,10 @@ import (
 	bucketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketIntelligentTieringConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketIntelligentTieringConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketIntelligentTieringConfigurationConfig_basic(rName),
@@ -42,8 +42,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -54,10 +54,10 @@ import (
 	resourceName := "aws_s3_bucket_intelligent_tiering_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketIntelligentTieringConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketIntelligentTieringConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketIntelligentTieringConfigurationConfig_basic(rName),
@@ -76,10 +76,10 @@ import (
 	bucketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketIntelligentTieringConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketIntelligentTieringConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketIntelligentTieringConfigurationConfig_filterPrefix(rName),
@@ -94,13 +94,13 @@ import (
 					resource.TestCheckResourceAttr(resourceName, "tiering.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "tiering.*", map[string]string{
 						"access_tier": "DEEP_ARCHIVE_ACCESS",
-						"days":        "180",
+						"days":"180",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -117,11 +117,11 @@ import (
 					resource.TestCheckResourceAttr(resourceName, "tiering.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "tiering.*", map[string]string{
 						"access_tier": "ARCHIVE_ACCESS",
-						"days":        "90",
+						"days":"90",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "tiering.*", map[string]string{
 						"access_tier": "DEEP_ARCHIVE_ACCESS",
-						"days":        "360",
+						"days":"360",
 					}),
 				),
 			},
@@ -139,7 +139,7 @@ import (
 					resource.TestCheckResourceAttr(resourceName, "tiering.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "tiering.*", map[string]string{
 						"access_tier": "DEEP_ARCHIVE_ACCESS",
-						"days":        "270",
+						"days":"270",
 					}),
 				),
 			},
@@ -158,7 +158,7 @@ import (
 					resource.TestCheckResourceAttr(resourceName, "tiering.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "tiering.*", map[string]string{
 						"access_tier": "ARCHIVE_ACCESS",
-						"days":        "365",
+						"days":"365",
 					}),
 				),
 			},
@@ -177,7 +177,7 @@ import (
 					resource.TestCheckResourceAttr(resourceName, "tiering.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "tiering.*", map[string]string{
 						"access_tier": "DEEP_ARCHIVE_ACCESS",
-						"days":        "365",
+						"days":"365",
 					}),
 				),
 			},
@@ -186,136 +186,136 @@ import (
 }func testAccBucketIntelligentTieringConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_intelligent_tiering_configuration" "test" {
- funcme   = %[1]q
+ funcme = %[1]q
 
-  tiering {
-    access_tier = "DEEP_ARCHIVE_ACCESS"
-    days        = 180
-  }
+tiering {
+access_tier = "DEEP_ARCHIVE_ACCESS"
+days= 180
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 `, rName)
 }func testAccBucketIntelligentTieringConfigurationConfig_filterPrefix(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_intelligent_tiering_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
+bucket = aws_s3_bucket.test.bucket
  func
-  status = "Disabled"
+status = "Disabled"
 
-  filter {
-    prefix = "p1/"
-  }
+filter {
+prefix = "p1/"
+}
 
-  tiering {
-    access_tier = "DEEP_ARCHIVE_ACCESS"
-    days        = 180
-  }
+tiering {
+access_tier = "DEEP_ARCHIVE_ACCESS"
+days= 180
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 `, rName)
 }func testAccBucketIntelligentTieringConfigurationConfig_filterPrefixAndTag(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_intelligent_tiering_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = %[1]q
+bucket = aws_s3_bucket.test.bucket
+name = %[1]q
 funcatus = "Enabled"
 
-  filter {
-    prefix = "p2/"
+filter {
+prefix = "p2/"
 
-    tags = {
-      Environment = "test"
-    }
-  }
+tags = {
+Environment = "test"
+}
+}
 
-  tiering {
-    access_tier = "ARCHIVE_ACCESS"
-    days        = 90
-  }
+tiering {
+access_tier = "ARCHIVE_ACCESS"
+days= 90
+}
 
-  tiering {
-    access_tier = "DEEP_ARCHIVE_ACCESS"
-    days        = 360
-  }
+tiering {
+access_tier = "DEEP_ARCHIVE_ACCESS"
+days= 360
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 `, rName)
 }func testAccBucketIntelligentTieringConfigurationConfig_filterTag(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_intelligent_tiering_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = %[1]q
+bucket = aws_s3_bucket.test.bucket
+name = %[1]q
 
  func
-  filter {
-    tags = {
-      Environment = "acctest"
-    }
-  }
+filter {
+tags = {
+Environment = "acctest"
+}
+}
 
-  tiering {
-    access_tier = "DEEP_ARCHIVE_ACCESS"
-    days        = 270
-  }
+tiering {
+access_tier = "DEEP_ARCHIVE_ACCESS"
+days= 270
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 `, rName)
 }func testAccBucketIntelligentTieringConfigurationConfig_filterPrefixAndTags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_intelligent_tiering_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = %[1]q
+bucket = aws_s3_bucket.test.bucket
+name = %[1]q
 
-  filter {
+filter {
  func
-    tags = {
-      Environment1 = "test"
-      Environment2 = "acctest"
-    }
-  }
+tags = {
+Environment1 = "test"
+Environment2 = "acctest"
+}
+}
 
-  tiering {
-    access_tier = "ARCHIVE_ACCESS"
-    days        = 365
-  }
+tiering {
+access_tier = "ARCHIVE_ACCESS"
+days= 365
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 `, rName)
 }func testAccBucketIntelligentTieringConfigurationConfig_filterTags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_intelligent_tiering_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = %[1]q
+bucket = aws_s3_bucket.test.bucket
+name = %[1]q
 
-  filter {
-    tags = {
- func  Environment2 = "test"
-    }
-  }
+filter {
+tags = {
+ funcEnvironment2 = "test"
+}
+}
 
-  tiering {
-    access_tier = "DEEP_ARCHIVE_ACCESS"
-    days        = 365
-  }
+tiering {
+access_tier = "DEEP_ARCHIVE_ACCESS"
+days= 365
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 `, rName)
 }func testAccCheckBucketIntelligentTieringConfigurationExists(ctx context.Context, n string, v *s3.IntelligentTieringConfiguration) resource.TestCheckFunc {

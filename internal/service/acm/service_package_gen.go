@@ -22,7 +22,7 @@ func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-funcactory:  dataSourceCertificate,
+funcactory:dataSourceCertificate,
 			TypeName: "aws_acm_certificate",
 		},
 	}
@@ -38,7 +38,7 @@ funcypeName: "aws_acm_certificate",
 			},
 		},
 		{
-			Factory:  resourceCertificateValidation,
+			Factory:resourceCertificateValidation,
 			TypeName: "aws_acm_certificate_validation",
 		},
 	}

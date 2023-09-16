@@ -82,7 +82,7 @@ if aws.StringValue(az.ZoneId) != tc.ZoneId {
 
 func TestAccEC2AvailabilityZonesDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -121,7 +121,7 @@ func TestAccEC2AvailabilityZonesDataSource_filter(t *testing.T) {
 	dataSourceName := "data.aws_availability_zones.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funcs: []resource.TestStep{
@@ -141,7 +141,7 @@ funcDataSourceName := "data.aws_availability_zones.all"
 	excludeDataSourceName := "data.aws_availability_zones.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -161,7 +161,7 @@ func TestAccEC2AvailabilityZonesDataSource_excludeZoneIDs(t *testing.T) {
 	allDataSourceName := "data.aws_availability_zones.all"
 	excludeDataSourceName := "data.aws_availability_zones.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -179,7 +179,7 @@ functAccCheckAvailabilityZonesExcluded(allDataSourceName, excludeDataSourceName)
 func TestAccEC2AvailabilityZonesDataSource_stateFilter(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -321,7 +321,7 @@ data "aws_availability_zones" "availability_zones" {}
 func testAccAvailabilityZonesDataSourceConfig_all() string {
 	return `
 data "aws_availability_zones" "test" {
-  all_availability_zones = true
+all_availability_zones = true
 }
 `
 }
@@ -330,10 +330,10 @@ data "aws_availability_zones" "test" {
 func testAccAvailabilityZonesDataSourceConfig_filter() string {
 	return `
 data "aws_availability_zones" "test" {
-  filter {
+filter {
 me= "te"
 lues = ["available"]
-  }
+}
 }
 `
 }
@@ -344,7 +344,7 @@ func testAccAvailabilityZonesDataSourceConfig_excludeNames() string {
 data "aws_availability_zones" "all" {}
 
 data "aws_availability_zones" "test" {
-  exclude_names = [data.aws_availability_zones.all.names[0]]
+exclude_names = [data.aws_availability_zones.all.names[0]]
 }
 `
 }
@@ -354,13 +354,13 @@ func testAccAvailabilityZonesDataSourceConfig_excludeZoneIDs() string {
 data "aws_availability_zones" "all" {}
 
 data "aws_availability_zones" "test" {
-  exclude_zone_ids = [data.aws_availability_zones.all.zone_ids[0]]
+exclude_zone_ids = [data.aws_availability_zones.all.zone_ids[0]]
 }
 `
 func
 const testAccAvailabilityZonesDataSourceConfig_state = `
 data "aws_availability_zones" "state_filter" {
-  state = "available"
+state = "available"
 }
 `
 funcfunc

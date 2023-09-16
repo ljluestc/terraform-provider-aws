@@ -14,28 +14,28 @@ funcarallel()
 
 	cases := map[string]struct {
 		StateVersion int
-		ID  string
+		IDstring
 		Attributes[string]string
 		Expected
 		Metainterface{}
 	}{
 		"v0_1": {
 			StateVersion: 0,
-			ID:  "tf-testing-file",
+			ID:"tf-testing-file",
 			Attributes: map[string]string{
 				"fingerprint": "1d:cd:46:31:a9:4a:e0:06:8a:a1:22:cb:3b:bf:8e:42",
 				"key_name":f-testing-file",
-				"public_key":  "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA4LBtwcFsQAYWw1cnOwRTZCJCzPSzq0dl3== comment", // nosemgrep:ci.ssh-key
+				"public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA4LBtwcFsQAYWw1cnOwRTZCJCzPSzq0dl3== comment", // nosemgrep:ci.ssh-key
 			},
 			Expected: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA4LBtwcFsQAYWw1cnOwRTZCJCzPSzq0dl3== comment", // nosemgrep:ci.ssh-key
 		},
 		"v0_2": {
 			StateVersion: 0,
-			ID:  "tf-testing-file",
+			ID:"tf-testing-file",
 			Attributes: map[string]string{
 				"fingerprint": "1d:cd:46:31:a9:4a:e0:06:8a:a1:22:cb:3b:bf:8e:42",
 				"key_name":f-testing-file",
-				"public_key":  "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA4LBtwcFsQAYWw1cnOwRTZCJCzPSzq0dl3== comment\n", // nosemgrep:ci.ssh-key
+				"public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA4LBtwcFsQAYWw1cnOwRTZCJCzPSzq0dl3== comment\n", // nosemgrep:ci.ssh-key
 			},
 			Expected: "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA4LBtwcFsQAYWw1cnOwRTZCJCzPSzq0dl3== comment", // nosemgrep:ci.ssh-key
 		},

@@ -44,7 +44,7 @@ return nil
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckVPNGatewayDestroy(ctx),
@@ -81,7 +81,7 @@ func TestAccSiteVPNGateway_withAvailabilityZoneSetToState(t *testing.T) {
 	azDataSourceName := "data.aws_availability_zones.available"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -111,7 +111,7 @@ func TestAccSiteVPNGateway_amazonSideASN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPNGatewayDestroy(ctx),
@@ -140,7 +140,7 @@ func TestAccSiteVPNGateway_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -199,7 +199,7 @@ return fmt.Errorf("Expected VPN Gateway %q to be attached to VPC %q, but got: %q
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -258,7 +258,7 @@ func TestAccSiteVPNGateway_tags(t *testing.T) {
 funcourceName := "aws_vpn_gateway.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -351,11 +351,11 @@ return nil
 func testAccSiteVPNGatewayConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_vpn_gateway" "test" {
 func
@@ -365,23 +365,23 @@ func
 func testAccSiteVPNGatewayConfig_changeVPC(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "test2" {
-  cidr_block = "10.2.0.0/16"
+cidr_block = "10.2.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test2.id
+vpc_id = aws_vpc.test2.id
 }
 `, rName)
 }
@@ -389,19 +389,19 @@ func
 func testAccSiteVPNGatewayConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 funcName, tagKey1, tagValue1)
 }
 
@@ -409,20 +409,20 @@ funcName, tagKey1, tagValue1)
 func testAccSiteVPNGatewayConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
@@ -430,34 +430,34 @@ resource "aws_vpn_gateway" "test" {
 func testAccSiteVPNGatewayConfig_reattach(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "test2" {
-  cidr_block = "10.2.0.0/16"
+cidr_block = "10.2.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test1" {
-  vpc_id = aws_vpc.test1.id
+vpc_id = aws_vpc.test1.id
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test2" {
-  vpc_id = aws_vpc.test2.id
+vpc_id = aws_vpc.test2.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -466,34 +466,34 @@ me = %[1]q
 func testAccSiteVPNGatewayConfig_reattachChange(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_vpc" "test2" {
-  cidr_block = "10.2.0.0/16"
+cidr_block = "10.2.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test1" {
-  vpc_id = aws_vpc.test2.id
+vpc_id = aws_vpc.test2.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test2" {
-  vpc_id = aws_vpc.test1.id
+vpc_id = aws_vpc.test1.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -502,19 +502,19 @@ me = %[1]q
 func testAccSiteVPNGatewayConfig_az(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_vpn_gateway" "test" {
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -523,20 +523,20 @@ me = %[1]q
 func testAccSiteVPNGatewayConfig_asn(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-  amazon_side_asn = 4294967294
+vpc_id = aws_vpc.test.id
+amazon_side_asn = 4294967294
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }

@@ -64,7 +64,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	var v route53.QueryLoggingConfig
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestrofuncs: []resource.TestStep{
@@ -88,7 +88,7 @@ funcainName := acctest.RandomDomainName()
 	var v route53.QueryLoggingConfig
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckQueryLogDestroy(ctx),
@@ -154,8 +154,8 @@ return nil
 func testAccQueryLogConfig_basic(rName, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_log_group" "test" {
-  names/route53/${aws_route53_zone.test.name}"
-  retention_in_days = 1
+names/route53/${aws_route53_zone.test.name}"
+retention_in_days = 1
 }
 
 data "aws_partition" "current" {}
@@ -172,23 +172,23 @@ incipals {
 tifiers = ["route53.${data.aws_partition.current.dns_suffix}"]
 ce"
 
-  }
+}
 }
 
 resource "aws_cloudwatch_log_resource_policy" "test" {
-  policy_name]q
-  policy_document = data.aws_iam_policy_document.test.json
+policy_name]q
+policy_document = data.aws_iam_policy_document.test.json
 }
 
 resource "aws_route53_zone" "test" {
-  name = %[2]q
+name = %[2]q
 }
 
 resource "aws_route53_query_log" "test" {
-  depends_on = [aws_cloudwatch_log_resource_policy.test]
+depends_on = [aws_cloudwatch_log_resource_policy.test]
 
-  cloudwatch_log_group_arn = aws_cloudwatch_log_group.test.arn
-  zone_idws_route53_zone.test.zone_id
+cloudwatch_log_group_arn = aws_cloudwatch_log_group.test.arn
+zone_idws_route53_zone.test.zone_id
 }
 `, rName, domainName)
 }

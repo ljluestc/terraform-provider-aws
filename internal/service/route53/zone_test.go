@@ -60,7 +60,7 @@ if actual != tc.Output {
 func TestTrimTrailingPeriod(t *testing.T) {
 	t.Parallel()
 funces := []struct {
-Input  interface{}
+Inputinterface{}
 Output string
 	}{
 {"example.com", "example.com"},
@@ -91,7 +91,7 @@ func TestAccRoute53Zone_basic(t *testing.T) {
 funceName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneDestroy(ctx),
@@ -123,7 +123,7 @@ func TestAccRoute53Zone_disappears(t *testing.T) {
 	resourceName := "aws_route53_zone.test"
 	zoneName := acctest.RandomDomainName()
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneDestroy(ctx),
@@ -145,7 +145,7 @@ func TestAccRoute53Zone_multiple(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneDestroy(ctx),
 Steps: []resource.TestStep{
@@ -174,7 +174,7 @@ func TestAccRoute53Zone_comment(t *testing.T) {
 	zoneName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 funckDestroy:CheckZoneDestroy(ctx),
 Steps: []resource.TestStep{
@@ -209,7 +209,7 @@ func TestAccRoute53Zone_delegationSetID(t *testing.T) {
 	zoneName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 funcs: []resource.TestStep{
@@ -236,7 +236,7 @@ func TestAccRoute53Zone_forceDestroy(t *testing.T) {
 	zoneName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneDestroy(ctx),
@@ -259,7 +259,7 @@ func TestAccRoute53Zone_ForceDestroy_trailingPeriod(t *testing.T) {
 	zoneName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneDestroy(ctx),
@@ -282,7 +282,7 @@ func TestAccRoute53Zone_tags(t *testing.T) {
 	zoneName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneDestroy(ctx),
@@ -329,7 +329,7 @@ func TestAccRoute53Zone_VPC_single(t *testing.T) {
 	zoneName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneDestroy(ctx),
@@ -360,7 +360,7 @@ func TestAccRoute53Zone_VPC_multiple(t *testing.T) {
 	zoneName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneDestroy(ctx),
@@ -392,7 +392,7 @@ func TestAccRoute53Zone_VPC_updates(t *testing.T) {
 	zoneName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneDestroy(ctx),
@@ -437,7 +437,7 @@ func TestAccRoute53Zone_VPC_single_forceDestroy(t *testing.T) {
 	zoneName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneDestroy(ctx),
@@ -575,7 +575,7 @@ return fmt.Errorf("Invalid domain name. Expected %s is %s", domain, *zone.Hosted
 func
 func tesfuncurn fmt.Sprintf(`
 resource "aws_route53_zone" "test" {
-  name = "%[1]s."
+name = "%[1]s."
 }
 `, zoneName)
 }
@@ -583,9 +583,9 @@ resource "aws_route53_zone" "test" {
 func testAccZoneConfig_multiple(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_zone" "test" {
-  count = 5
+count = 5
 
-  name = "subdomain${count.index}.%[1]s"
+name = "subdomain${count.index}.%[1]s"
 }
 `, domainName)
 }
@@ -602,94 +602,94 @@ func testAccZoneConfig_delegationSetID(zoneName string) string {
 resource "aws_route53_delegation_set" "test" {}
 
 resource "aws_route53_zone" "test" {
-  delegation_set_id = aws_route53_delegation_set.test.id
-  name]s."
+delegation_set_id = aws_route53_delegation_set.test.id
+name]s."
 }
 `, zoneName)
 }
 func testAccZoneConfig_forceDestroy(zoneName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_zone" "test" {
-  force_destroy = true
-  name
+force_destroy = true
+name
 }
 `, zoneName)
 }
 func testAccZoneConfig_forceDestroyTrailingPeriod(zoneName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_zone" "test" {
-  force_destroy = true
-  name
+force_destroy = true
+name
 }
 `, zoneName)
 }
 
 func testAccZoneConfig_tags1(zoneName, tag1Key, tag1Value string) string {
 funcurce "aws_route53_zone" "test" {
-  name = "%[1]s."
+name = "%[1]s."
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, zoneName, tag1Key, tag1Value)
 }
 func testAccZoneConfig_tags2(zoneName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_zone" "test" {
-  name = "%[1]s."
+name = "%[1]s."
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, zoneName, tag1Key, tag1Value, tag2Key, tag2Value)
 func
 func testAccZoneConfig_vpcSingle(rName, zoneName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_route53_zone" "test" {
-  name = "%[2]s."
+name = "%[2]s."
 
-  vpc {
+vpc {
 c_id = aws_vpc.test1.id
-  }
+}
 }
 `, rName, zoneName)
 func
 func testAccZoneConfig_vpcMultiple(rName, zoneName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "test2" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route53_zone" "test" {
-  name = "%[2]s."
+name = "%[2]s."
 
-  vpc {
+vpc {
 c_id = aws_vpc.test1.id
-  }
+}
 
 func = aws_vpc.test2.id
-  }
+}
 }
 `, rName, zoneName)
 }
@@ -697,19 +697,19 @@ func = aws_vpc.test2.id
 func testAccZoneConfig_vpcSingle_forceDestroy(rName, zoneName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route53_zone" "test" {
-  force_destroy = true
-  name
+force_destroy = true
+name
 
 func = aws_vpc.test1.id
-  }
+}
 }
 `, rName, zoneName)
 }

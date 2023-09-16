@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	resourceName := "aws_vpc_endpoint_service_allowed_principal.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
@@ -52,7 +52,7 @@ funcourceName := "aws_vpc_endpoint_service_allowed_principal.test"
 	serviceResourceName := "aws_vpc_endpoint_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -79,7 +79,7 @@ func TestAccVPCEndpointServiceAllowedPrincipal_tags(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_service_allowed_principal.test"
 	tagResourceName := "aws_ec2_tag.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -124,7 +124,7 @@ func(
 	{
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Config:stAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName),
-PlanOnly:  true,
+PlanOnly:true,
 	},
 },
 	})
@@ -220,22 +220,22 @@ func testAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName string) string 
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseNetworkLoadBalancer(rName, 1), fmt.Sprintf(`
 func
 data "aws_iam_session_context" "current" {
-  arn = data.aws_caller_identity.current.arn
+arn = data.aws_caller_identity.current.arn
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
+acceptance_required
+network_load_balancer_arns = aws_lb.test[*].arn
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_endpoint_service_allowed_principal" "test" {
-  vpc_endpoint_service_id = aws_vpc_endpoint_service.test.id
+vpc_endpoint_service_id = aws_vpc_endpoint_service.test.id
 
-  principal_arn = data.aws_iam_session_context.current.issuer_arn
+principal_arn = data.aws_iam_session_context.current.issuer_arn
 }
 func
 
@@ -246,28 +246,28 @@ data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
 data "aws_iam_session_context" "current" {
-  arn = data.aws_caller_identity.current.arn
+arn = data.aws_caller_identity.current.arn
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
-  allowed_principals= ["arn:${data.aws_partition.current.partition}:iam::123456789012:root"]
+acceptance_required
+network_load_balancer_arns = aws_lb.test[*].arn
+allowed_principals= ["arn:${data.aws_partition.current.partition}:iam::123456789012:root"]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  lifecycle {
+lifecycle {
 nore_changes = [
 rincipals
 
-  }
+}
 func
 resource "aws_vpc_endpoint_service_allowed_principal" "test" {
-  vpc_endpoint_service_id = aws_vpc_endpoint_service.test.id
+vpc_endpoint_service_id = aws_vpc_endpoint_service.test.id
 
-  principal_arn = data.aws_iam_session_context.current.issuer_arn
+principal_arn = data.aws_iam_session_context.current.issuer_arn
 }
 `, rName))
 }
@@ -276,10 +276,10 @@ resource "aws_vpc_endpoint_service_allowed_principal" "test" {
 func testAccVPCEndpointServiceAllowedPrincipalConfig_tag(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName), fmt.Sprintf(`
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_vpc_endpoint_service_allowed_principal.test.id
+resource_id = aws_vpc_endpoint_service_allowed_principal.test.id
 
-  keyName"
-  value = %[1]q
+keyName"
+value = %[1]q
 }
 `, rName))
 }

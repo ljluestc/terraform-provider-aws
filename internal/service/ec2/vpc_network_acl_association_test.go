@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckNetworkACLAssociationDestroy(ctx),
@@ -56,7 +56,7 @@ func TestAccVPCNetworkACLAssociation_disappears(t *testing.T) {
 funcourceName := "aws_network_acl_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -81,7 +81,7 @@ func TestAccVPCNetworkACLAssociation_disappears_NACL(t *testing.T) {
 	resourceName := "aws_network_acl_association.test"
 	naclResourceName := "aws_network_acl.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -107,7 +107,7 @@ func TestAccVPCNetworkACLAssociation_disappears_Subnet(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckNetworkACLAssociationDestroy(ctx),
@@ -135,7 +135,7 @@ func := acctest.Context(t)
 	subnet2ResourceName := "aws_subnet.test2"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckNetworkACLAssociationDestroy(ctx),
@@ -173,7 +173,7 @@ func TestAccVPCNetworkACLAssociation_associateWithDefaultNACL(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -248,33 +248,33 @@ func
 func testAccVPCNetworkACLAssociationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  cidr_block = "10.1.33.0/24"
+cidr_block = "10.1.33.0/24"
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_network_acl_association" "test" {
-  network_acl_id = aws_network_acl.test.id
-  subnet_idnet.test.id
+network_acl_id = aws_network_acl.test.id
+subnet_idnet.test.id
 }
 `, rName)
 }
@@ -283,48 +283,48 @@ resource "aws_network_acl_association" "test" {
 func testAccVPCNetworkACLAssociationConfig_twoAssociations(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  cidr_block = "10.1.33.0/24"
+cidr_block = "10.1.33.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_subnet" "test2" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  cidr_block = "10.1.34.0/24"
+cidr_block = "10.1.34.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl_association" "test1" {
-  network_acl_id = aws_network_acl.test.id
-  subnet_idnet.test1.id
+network_acl_id = aws_network_acl.test.id
+subnet_idnet.test1.id
 }
 
 resource "aws_network_acl_association" "test2" {
-  network_acl_id = aws_network_acl.test.id
-  subnet_idnet.test2.id
+network_acl_id = aws_network_acl.test.id
+subnet_idnet.test2.id
 }
 `, rName)
 }
@@ -333,26 +333,26 @@ resource "aws_network_acl_association" "test2" {
 func testAccVPCNetworkACLAssociationConfig_default(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  cidr_block = "10.1.33.0/24"
+cidr_block = "10.1.33.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl_association" "test" {
-  network_acl_id = aws_vpc.test.default_network_acl_id
-  subnet_idnet.test.id
+network_acl_id = aws_vpc.test.default_network_acl_id
+subnet_idnet.test.id
 }
 `, rName)
 }

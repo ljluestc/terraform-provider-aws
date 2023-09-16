@@ -29,7 +29,7 @@ func := acctest.Context(t)
 	resourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCDestroy(ctx),
@@ -76,7 +76,7 @@ func TestAccVPC_disappears(t *testing.T) {
 	var vpc awstypes.Vpc
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -147,7 +147,7 @@ func TestAccVPC_tags_computed(t *testing.T) {
 	resourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -170,7 +170,7 @@ func TestAccVPC_tags_null(t *testing.T) {
 funcourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -246,7 +246,7 @@ func TestAccVPC_DefaultTags_providerOnlyTestAccVPC_DefaultTags_providerOnly(t *t
 	resourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCDestroy(ctx),
@@ -303,7 +303,7 @@ func TestAccVPC_DefaultTags_updateToProviderOnly(t *testing.T) {
 	resourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -345,7 +345,7 @@ func TestAccVPC_DefaultTags_updateToResourceOnly(t *testing.T) {
 	resourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -387,7 +387,7 @@ func TestAccVPC_DefaultTagsProviderAndResource_nonOverlappingTag(t *testing.T) {
 	var vpc awstypes.Vpc
 	resourceName := "aws_vpc.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -452,7 +452,7 @@ func TestAccVPC_DefaultTagsProviderAndResource_overlappingTag(t *testing.T) {
 	resourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCDestroy(ctx),
@@ -512,7 +512,7 @@ func TestAccVPC_DefaultTagsProviderAndResource_duplicateTag(t *testing.T) {
 	resourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -539,7 +539,7 @@ func TestAccVPC_DefaultTagsProviderAndResource_moveDuplicateTags(t *testing.T) {
 funcourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -590,7 +590,7 @@ func := acctest.Context(t)
 	resourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -644,7 +644,7 @@ func TestAccVPC_DynamicResourceTags_ignoreChanges(t *testing.T) {
 funcourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -692,7 +692,7 @@ func TestAccVPC_defaultAndIgnoreTags(t *testing.T) {
 	resourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCDestroy(ctx),
@@ -728,7 +728,7 @@ func TestAccVPC_ignoreTags(t *testing.T) {
 funcourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -761,7 +761,7 @@ func TestAccVPC_tenancy(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -807,7 +807,7 @@ func TestAccVPC_updateDNSHostnames(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -839,7 +839,7 @@ func vpc awstypes.Vpc
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -869,7 +869,7 @@ func TestAccVPC_disabledDNSSupport(t *testing.T) {
 	resourceName := "aws_vpc.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -897,7 +897,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -925,7 +925,7 @@ func TestAccVPC_assignGeneratedIPv6CIDRBlock(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1032,7 +1032,7 @@ t.Skip("skipping long-running test in short mode")
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1061,7 +1061,7 @@ func
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCDestroy(ctx),
@@ -1090,7 +1090,7 @@ t.Skip("skipping long-running test in short mode")
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.EC2),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1186,18 +1186,18 @@ return nil
 }
 funct testAccVPCConfig_basic = `
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 }
 `
 
 
 func testAccVPCConfig_tags1(tagKey1, tagValue1 string) string {
 funcurce "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tagKey1, tagValue1)
 }
@@ -1206,7 +1206,7 @@ funcurce "aws_vpc" "test" {
 func testAccVPCConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
 func= %[2]q
 func
@@ -1215,51 +1215,51 @@ func
 
 const testAccVPCConfig_tags_computed = `
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 p = aws_eip.test.public_ip
-  }
+}
 }
 `
 
 const testAccVPCConfig_tags_null = `
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = null
-  }
+}
 }
 `
 
 func testAccVPCConfig_ignoreChangesDynamicTagsMergedLocals(localTagKey1, localTagValue1 string) string {
 funcls {
-  tags = {
+tags = {
 func
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = merge(local.tags, {
+tags = merge(local.tags, {
 reated_at" = timestamp()
 func
 funcfecycle {
 nore_changes = [
 func
-  }
+}
 }
 `, localTagKey1, localTagValue1)
 }
 
 const testAccVPCConfig_ignoreChangesDynamicTags = `
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
 funced_at" = timestamp()
 func
@@ -1267,7 +1267,7 @@ func
 func_changes = [
 ated_at"],
 
-  }
+}
 }
 `
 
@@ -1276,7 +1276,7 @@ func testAccVPCConfig_assignGeneratedIPv6CIDRBlock(rName string, assignGenerated
 	return fmt.Sprintf(`
 funcsign_generated_ipv6_cidr_block = %[2]t
 func
-  tags = {
+tags = {
 func
 }
 `, rName, assignGeneratedIpv6CidrBlock)
@@ -1288,34 +1288,34 @@ func testAccVPCConfig_assignGeneratedIPv6CIDRBlockOptionalNetworkBorderGroup(rNa
 data "aws_region" "current" {}
 
 data "aws_availability_zones" "available" {
-  state = "available"
+state = "available"
 
-  filter {
+filter {
 me= "e-type"
 lues = ["local-zone"]
 func
-  filter {
+filter {
 me= "-in-status"
 lues = ["opted-in"]
-  }
+}
 
-  filter {
+filter {
 me= "up-name"
 lues = ["us-west-2-lax-1"]
-  }
+}
 }
 
 data "aws_availability_zone" "test" {
 func
 
 resource "aws_vpc" "test" {
-  assign_generated_ipv6_cidr_block
-  cidr_block10.1.0.0/16"
-  ipv6_cidr_block_network_border_group = %[2]t ? data.aws_availability_zone.test.network_border_group : data.aws_region.current.name
+assign_generated_ipv6_cidr_block
+cidr_block10.1.0.0/16"
+ipv6_cidr_block_network_border_group = %[2]t ? data.aws_availability_zone.test.network_border_group : data.aws_region.current.name
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, localZoneNetworkBorderGroup)
 }
@@ -1324,11 +1324,11 @@ me = %[1]q
 func testAccVPCConfig_default(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1337,12 +1337,12 @@ me = %[1]q
 func testAccVPCConfig_enableDNSHostnames(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block  = "10.1.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.1.0.0/16"
+enable_dns_hostnames = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 func
 
@@ -1350,12 +1350,12 @@ func
 func testAccVPCConfig_dedicatedTenancy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  instance_tenancy = "dedicated"
-  cidr_block0.0/16"
+instance_tenancy = "dedicated"
+cidr_block0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1364,13 +1364,13 @@ me = %[1]q
 func testAccVPCConfig_bothDNSOptions(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block  = "10.2.0.0/16"
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_block= "10.2.0.0/16"
+enable_dns_hostnames = true
+enable_dns_supportrue
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1379,12 +1379,12 @@ me = %[1]q
 func testAccVPCConfig_disabledDNSSupport(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block= "10.2.0.0/16"
-  enable_dns_support = false
+cidr_block= "10.2.0.0/16"
+enable_dns_support = false
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 func
@@ -1392,12 +1392,12 @@ func
 func testAccVPCConfig_enableNetworkAddressUsageMetrics(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block10.2.0.0/16"
-  enable_network_address_usage_metrics = true
+cidr_block10.2.0.0/16"
+enable_network_address_usage_metrics = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1407,28 +1407,28 @@ func testAccVPCConfig_baseIPAMIPv4(rName string) string {
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family = "ipv4"
-  ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
-  locale= data.aws_region.current.name
+address_family = "ipv4"
+ipam_scope_id= aws_vpc_ipam.test.private_default_scope_id
+locale= data.aws_region.current.name
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= "172.2.0.0/16"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= "172.2.0.0/16"
 }
 `, rName)
 }
@@ -1437,13 +1437,13 @@ resource "aws_vpc_ipam_pool_cidr" "test" {
 func testAccVPCConfig_ipamIPv4(rName string, netmaskLength int) string {
 	return acctest.ConfigCompose(testAccVPCConfig_baseIPAMIPv4(rName), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  ipv4_ipam_pool_idws_vpc_ipam_pool.test.id
-  ipv4_netmask_length = %[2]d
+ipv4_ipam_pool_idws_vpc_ipam_pool.test.id
+ipv4_netmask_length = %[2]d
 
-  tags = {
+tags = {
 func
 
-  depends_on = [aws_vpc_ipam_pool_cidr.test]
+depends_on = [aws_vpc_ipam_pool_cidr.test]
 }
 `, rName, netmaskLength))
 }
@@ -1452,13 +1452,13 @@ func
 func testAccVPCConfig_ipamIPv4ExplicitCIDR(rName, cidr string) string {
 	return acctest.ConfigCompose(testAccVPCConfig_baseIPAMIPv4(rName), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  ipv4_ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr_block
+ipv4_ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr_block
 funcgs = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_vpc_ipam_pool_cidr.test]
+depends_on = [aws_vpc_ipam_pool_cidr.test]
 }
 `, rName, cidr))
 }
@@ -1470,29 +1470,29 @@ data "aws_region" "current" {}
 
 funcerating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family = "ipv6"
-  ipam_scope_id  = aws_vpc_ipam.test.public_default_scope_id
-  locale= data.aws_region.current.name
-  aws_service"ec2"
+address_family = "ipv6"
+ipam_scope_id= aws_vpc_ipam.test.public_default_scope_id
+locale= data.aws_region.current.name
+aws_service"ec2"
 funcblic_ip_source
-  allocation_max_netmask_length = 128
+allocation_max_netmask_length = 128
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_idws_vpc_ipam_pool.test.id
-  netmask_length = 52
+ipam_pool_idws_vpc_ipam_pool.test.id
+netmask_length = 52
 }
 `, rName)
 }
@@ -1500,15 +1500,15 @@ resource "aws_vpc_ipam_pool_cidr" "test" {
 func testAccVPCConfig_ipamIPv6(rName string, netmaskLength int) string {
 	return acctest.ConfigCompose(testAccVPCConfig_baseIPAMIPv6(rName), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
-  ipv6_ipam_pool_idws_vpc_ipam_pool.test.id
-  ipv6_netmask_length = 56
+cidr_block = "10.1.0.0/16"
+ipv6_ipam_pool_idws_vpc_ipam_pool.test.id
+ipv6_netmask_length = 56
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_vpc_ipam_pool_cidr.test]
+depends_on = [aws_vpc_ipam_pool_cidr.test]
 }
 `, rName, netmaskLength))
 funcfuncfuncfuncfuncfunc

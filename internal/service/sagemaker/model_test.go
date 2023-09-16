@@ -462,20 +462,20 @@ func
 func testAccModelConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 ce"
 tifiers = ["sagemaker.amazonaws.com"]
 
-  }
+}
 }
 
 data "aws_sagemaker_prebuilt_ecr_image" "test" {
@@ -486,12 +486,12 @@ func
 func testAccModelConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
-  primary_container {
+primary_container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-  }
+}
 }
 `, rName))
 }
@@ -499,35 +499,35 @@ age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
 func testAccModelConfig_inferenceExecution(rName string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
-  inference_execution_config {
+inference_execution_config {
 de = "Serial"
 func
-  container {
+container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-  }
+}
 
-  container {
+container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-  }
+}
 }
 `, rName))
 }
 
 func testAccModelConfig_tags1(rName, tagKey1, tagValue1 string) string {
 funcurce "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
-  primary_container {
+primary_container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -535,16 +535,16 @@ age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
 func testAccModelConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
 func= data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -552,22 +552,22 @@ func= data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
 func testAccModelConfig_primaryContainerDataURL(rName string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
 funcsagemaker_prebuilt_ecr_image.test.registry_path
 del_data_url = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
-  }
+}
 }
 
 resource "aws_iam_policy" "test" {
-  name%[1]q
-  description = "Allow SageMaker to create model"
-  policyta.aws_iam_policy_document.policy.json
+name%[1]q
+description = "Allow SageMaker to create model"
+policyta.aws_iam_policy_document.policy.json
 }
 
 data "aws_iam_policy_document" "policy" {
-  statement {
+statement {
 fect = "Allow"
 
 tions = [
@@ -584,9 +584,9 @@ s:DescribeLogStreams",
 sources = [
 
 
-  }
+}
 
-  statement {
+statement {
 fect = "Allow"
 
 tions = [
@@ -596,23 +596,23 @@ GetObject",
 sources = [
 ws_s3_bucket.test.arn}/*",
 
-  }
+}
 }
 
 resource "aws_iam_role_policy_attachment" "test" {
-  rolews_iam_role.test.name
-  policy_arn = aws_iam_policy.test.arn
+rolews_iam_role.test.name
+policy_arn = aws_iam_policy.test.arn
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_s3_object" "test" {
-  bucket  = aws_s3_bucket.test.bucket
-  keydel.tar.gz"
-  content = "some-data"
+bucket= aws_s3_bucket.test.bucket
+keydel.tar.gz"
+content = "some-data"
 }
 `, rName))
 }
@@ -623,7 +623,7 @@ func testAccModelConfig_primaryContainerPackageName(rName string) string {
 data "aws_region" "current" {}
 
 locals {
-  region_account_map = {
+region_account_map = {
 -east-165070037744"
 -east-257799348421"
 -west-182657785993"
@@ -640,24 +640,24 @@ locals {
 -northeast-1 = "977537786026"
 -south-17584701553"
 -east-170155090741"
-  }
+}
 
-  account = local.region_account_map[data.aws_region.current.name]
+account = local.region_account_map[data.aws_region.current.name]
 
 funcws:sagemaker:%%s:%%s:model-package/hf-textgeneration-gpt2-cpu-b73b575105d336b680d151277ebe4ee0",
 ta.aws_region.current.name,
 cal.account
-  )
+)
 }
 
 resource "aws_sagemaker_model" "test" {
-  name
-  enable_network_isolation = true
-  execution_role_arnws_iam_role.test.arn
+name
+enable_network_isolation = true
+execution_role_arnws_iam_role.test.arn
 
-  primary_container {
+primary_container {
 del_package_name = local.model_package_name
-  }
+}
 }
 `, rName))
 }
@@ -665,13 +665,13 @@ del_package_name = local.model_package_name
 func testAccModelConfig_primaryContainerHostname(rName string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
-  primary_container {
+primary_container {
 age.aws_sagemaker_prebuilt_ecr_image.test.registry_path
 ntainer_hostname = "test"
-  }
+}
 }
 `, rName))
 }
@@ -679,26 +679,26 @@ ntainer_hostname = "test"
 func testAccModelConfig_primaryContainerImage(rName string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
-  primary_container {
+primary_container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
 
 age_config {
 sitory_access_mode = "Platform"
 
-  }
+}
 funcName))
 }
 
 func testAccModelConfig_primaryContainerEnvironment(rName string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
-  primary_container {
+primary_container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
 
 vironment = {
@@ -711,70 +711,70 @@ func
 func testAccModelConfig_primaryContainerModeSingle(rName string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
-  primary_container {
+primary_container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-de  = "SingleModel"
-  }
+de= "SingleModel"
+}
 }
 `, rName))
 func
 func testAccModelConfig_containers(rName string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
-  container {
+container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-  }
+}
 
-  container {
+container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-  }
+}
 }
 `, rName))
 }
 func testAccModelConfig_networkIsolation(rName string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arnws_iam_role.test.arn
-  enable_network_isolation = true
+name
+execution_role_arnws_iam_role.test.arn
+enable_network_isolation = true
 
-  primary_container {
+primary_container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-  }
+}
 }
 `, rName))
 }
 
 funcurn acctest.ConfigCompose(testAccModelConfig_base(rName), acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arnws_iam_role.test.arn
-  enable_network_isolation = true
+name
+execution_role_arnws_iam_role.test.arn
+enable_network_isolation = true
 
-  primary_container {
+primary_container {
 age = data.aws_sagemaker_prebuilt_ecr_image.test.registry_path
-  }
+}
 
-  vpc_config {
+vpc_config {
 bnetsbnet.test[*].id
 curity_group_ids = aws_security_group.test[*].id
-  }
+}
 }
 
 resource "aws_security_group" "test" {
 func
-  name%[1]s-${count.index}"
-  vpc_id = aws_vpc.test.id
+name%[1]s-${count.index}"
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -783,10 +783,10 @@ me = %[1]q
 func testAccModelConfig_primaryContainerPrivateDockerRegistry(rName string) string {
 	return acctest.ConfigCompose(testAccModelConfig_base(rName), acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 funcme
-  execution_role_arnws_iam_role.test.arn
-  enable_network_isolation = true
+execution_role_arnws_iam_role.test.arn
+enable_network_isolation = true
 
-  primary_container {
+primary_container {
 age = "registry.example.com/test-model"
 
 age_config {
@@ -796,21 +796,21 @@ sitory_auth_config {
 pository_credentials_provider_arn = "arn:aws:lambda:us-east-2:123456789012:function:my-function:1"
 
 
-  }
+}
 
-  vpc_config {
+vpc_config {
 bnetsbnet.test[*].id
 curity_group_ids = [aws_security_group.test.id]
-  }
+}
 }
 
 resource "aws_security_group" "test" {
-  name[1]q
-  vpc_id = aws_vpc.test.id
+name[1]q
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 funcfuncfunc

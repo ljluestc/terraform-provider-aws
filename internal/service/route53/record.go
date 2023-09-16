@@ -57,7 +57,7 @@ return []*schema.ResourceData{d}, nil
 },
 
 SchemaVersion: 2,
-MigrateState:  RecordMigrateState,
+MigrateState:RecordMigrateState,
 
 Schema: map[string]*schema.Schema{
 	"alias": {
@@ -72,7 +72,7 @@ Elem: &schema.Resource{
 },
 "name": {
 	Type:ma.TypeString,
-	Required:  true,
+	Required:true,
 	StateFunc: NormalizeAliasName,
 	DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 return strings.EqualFold(old, new)
@@ -85,7 +85,7 @@ return strings.EqualFold(old, new)
 },
 	},
 },
-ExactlyOneOf:  []string{"alias", "records"},
+ExactlyOneOf:[]string{"alias", "records"},
 ConflictsWith: []string{"ttl"},
 	},
 	"allow_overwrite": {
@@ -235,7 +235,7 @@ Optional: true,
 Type:eInt,
 Optional:,
 ConflictsWith: []string{"alias"},
-RequiredWith:  []string{"records", "ttl"},
+RequiredWith:[]string{"records", "ttl"},
 	},
 	"type": {
 Type:chema.TypeString,
@@ -310,7 +310,7 @@ ResourceRecordSet: rec,
 	}
 
 	input := &route53.ChangeResourceRecordSetsInput{
-ChangeBatch:  changeBatch,
+ChangeBatch:changeBatch,
 HostedZoneId: aws.String(CleanZoneID(aws.StringValue(zoneRecord.HostedZone.Id))),
 	}
 
@@ -588,7 +588,7 @@ ResourceRecordSet: rec,
 
 	input := &route53.ChangeResourceRecordSetsInput{
 HostedZoneId: aws.String(CleanZoneID(aws.StringValue(zoneRecord.HostedZone.Id))),
-ChangeBatch:  changeBatch,
+ChangeBatch:changeBatch,
 	}
 
 	log.Printf("[DEBUG] Updating resource records for zone: %s, name: %s", zone, aws.StringValue(rec.Name))
@@ -652,7 +652,7 @@ ResourceRecordSet: rec,
 },
 	}
 	input := &route53.ChangeResourceRecordSetsInput{
-ChangeBatch:  changeBatch,
+ChangeBatch:changeBatch,
 HostedZoneId: aws.String(zoneID),
 	}
 

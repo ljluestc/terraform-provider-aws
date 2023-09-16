@@ -28,7 +28,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckAMIDestroy(ctx),
@@ -43,13 +43,13 @@ functest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "ec2", regex
 	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
 "delete_on_termination": "true",
-"device_name":  "/dev/sda1",
+"device_name":"/dev/sda1",
 "encrypted":alse",
 "iops":,
 "throughput":,
-"volume_size":  "8",
-"outpost_arn":  "",
-"volume_type":  "standard",
+"volume_size":"8",
+"outpost_arn":"",
+"volume_type":"standard",
 	}),
 	resource.TestCheckTypeSetElemAttrPair(resourceName, "ebs_block_device.*.snapshot_id", snapshotResourceName, "id"),
 	resource.TestCheckResourceAttr(resourceName, "ena_support", "true"),
@@ -93,7 +93,7 @@ funcpshotResourceName := "aws_ebs_snapshot.test"
 	deprecateAtUpdated := "2028-10-15T13:17:00.000Z"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -109,13 +109,13 @@ func(
 funcource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
 "delete_on_termination": "true",
-"device_name":  "/dev/sda1",
+"device_name":"/dev/sda1",
 "encrypted":alse",
 "iops":,
 "throughput":,
-"volume_size":  "8",
-"outpost_arn":  "",
-"volume_type":  "standard",
+"volume_size":"8",
+"outpost_arn":"",
+"volume_type":"standard",
 	}),
 	resource.TestCheckTypeSetElemAttrPair(resourceName, "ebs_block_device.*.snapshot_id", snapshotResourceName, "id"),
 	resource.TestCheckResourceAttr(resourceName, "ena_support", "true"),
@@ -150,13 +150,13 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "description", ""),
 funcource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
 "delete_on_termination": "true",
-"device_name":  "/dev/sda1",
+"device_name":"/dev/sda1",
 "encrypted":alse",
 "iops":,
 "throughput":,
-"volume_size":  "8",
-"outpost_arn":  "",
-"volume_type":  "standard",
+"volume_size":"8",
+"outpost_arn":"",
+"volume_type":"standard",
 	}),
 	resource.TestCheckTypeSetElemAttrPair(resourceName, "ebs_block_device.*.snapshot_id", snapshotResourceName, "id"),
 	resource.TestCheckResourceAttr(resourceName, "ena_support", "true"),
@@ -186,7 +186,7 @@ func TestAccEC2AMI_description(t *testing.T) {
 	desc := sdkacctest.RandomWithPrefix("desc")
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -202,12 +202,12 @@ functAccCheckAMIExists(ctx, resourceName, &ami),
 	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
 "delete_on_termination": "true",
-"device_name":  "/dev/sda1",
+"device_name":"/dev/sda1",
 funcs":,
 "throughput":,
-"volume_size":  "8",
-"outpost_arn":  "",
-"volume_type":  "standard",
+"volume_size":"8",
+"outpost_arn":"",
+"volume_type":"standard",
 	}),
 	resource.TestCheckTypeSetElemAttrPair(resourceName, "ebs_block_device.*.snapshot_id", snapshotResourceName, "id"),
 	resource.TestCheckResourceAttr(resourceName, "ena_support", "true"),
@@ -242,12 +242,12 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
 "delete_on_termination": "true",
-"device_name":  "/dev/sda1",
+"device_name":"/dev/sda1",
 "encrypted":alse",
 funcoughput":,
-"volume_size":  "8",
-"outpost_arn":  "",
-"volume_type":  "standard",
+"volume_size":"8",
+"outpost_arn":"",
+"volume_type":"standard",
 	}),
 	resource.TestCheckTypeSetElemAttrPair(resourceName, "ebs_block_device.*.snapshot_id", snapshotResourceName, "id"),
 	resource.TestCheckResourceAttr(resourceName, "ena_support", "true"),
@@ -275,7 +275,7 @@ func TestAccEC2AMI_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -300,7 +300,7 @@ funcourceName := "aws_ami.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -315,21 +315,21 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "description", ""),
 	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
-funcice_name":  "/dev/sda1",
+funcice_name":"/dev/sda1",
 "encrypted":alse",
 "iops":,
 "throughput":,
-"volume_size":  "8",
-"outpost_arn":  "",
-"volume_type":  "standard",
+"volume_size":"8",
+"outpost_arn":"",
+"volume_type":"standard",
 	}),
 funcource.TestCheckResourceAttr(resourceName, "ena_support", "true"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ephemeral_block_device.*", map[string]string{
-"device_name":  "/dev/sdb",
+"device_name":"/dev/sdb",
 "virtual_name": "ephemeral0",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ephemeral_block_device.*", map[string]string{
-"device_name":  "/dev/sdc",
+"device_name":"/dev/sdc",
 "virtual_name": "ephemeral1",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "kernel_id", ""),
@@ -364,7 +364,7 @@ func TestAccEC2AMI_gp3BlockDevice(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -380,12 +380,12 @@ functAccCheckAMIExists(ctx, resourceName, &ami),
 	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
 "delete_on_termination": "true",
-"device_name":  "/dev/sda1",
+"device_name":"/dev/sda1",
 "encrypted":alse",
 funcoughput":,
-"volume_size":  "8",
-"outpost_arn":  "",
-"volume_type":  "standard",
+"volume_size":"8",
+"outpost_arn":"",
+"volume_type":"standard",
 	}),
 	resource.TestCheckTypeSetElemAttrPair(resourceName, "ebs_block_device.*.snapshot_id", snapshotResourceName, "id"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
@@ -393,9 +393,9 @@ funcoughput":,
 funcrypted":rue",
 "iops":0",
 "throughput":0",
-"volume_size":  "10",
-"outpost_arn":  "",
-"volume_type":  "gp3",
+"volume_size":"10",
+"outpost_arn":"",
+"volume_type":"gp3",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "ena_support", "false"),
 	resource.TestCheckResourceAttr(resourceName, "ephemeral_block_device.#", "0"),
@@ -430,7 +430,7 @@ func TestAccEC2AMI_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -480,7 +480,7 @@ funcourceName := "aws_ami.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -511,7 +511,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckAMIDestroy(ctx),
@@ -542,7 +542,7 @@ func TestAccEC2AMI_tpmSupport(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -573,7 +573,7 @@ func TestAccEC2AMI_imdsSupport(t *testing.T) {
 	resourceName := "aws_ami.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -662,16 +662,16 @@ func testAccAMIConfig_base(rName string) string {
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  size
+availability_zone = data.aws_availability_zones.available.names[0]
+size
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_ebs_snapshot" "test" {
 func
-  tags = {
+tags = {
 func
 }
 `, rName))
@@ -683,15 +683,15 @@ func testAccAMIConfig_basic(rName string) string {
 testAccAMIConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ami" "test" {
-  ena_support= true
-  name = %[1]q
-  root_device_name"/dev/sda1"
-  virtualization_type = "hvm"
+ena_support= true
+name = %[1]q
+root_device_name"/dev/sda1"
+virtualization_type = "hvm"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 `, rName))
 }
@@ -701,16 +701,16 @@ funcurn acctest.ConfigCompose(
 testAccAMIConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ami" "test" {
-  ena_support= true
-  name = %[1]q
-  root_device_name"/dev/sda1"
-  virtualization_type = "hvm"
-  deprecation_time%[2]q
+ena_support= true
+name = %[1]q
+root_device_name"/dev/sda1"
+virtualization_type = "hvm"
+deprecation_time%[2]q
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 `, rName, deprecateAt))
 }
@@ -722,14 +722,14 @@ testAccAMIConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ami" "test" {
 funcme = %[1]q
-  root_device_name"/dev/sda1"
-  virtualization_type = "hvm"
-  description= %[2]q
+root_device_name"/dev/sda1"
+virtualization_type = "hvm"
+description= %[2]q
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 `, rName, desc))
 }
@@ -741,23 +741,23 @@ testAccAMIConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ami" "test" {
 funcme = %[1]q
-  root_device_name"/dev/sda1"
-  virtualization_type = "hvm"
+root_device_name"/dev/sda1"
+virtualization_type = "hvm"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 
-  ephemeral_block_device {
-vice_name  = "/dev/sdb"
+ephemeral_block_device {
+vice_name= "/dev/sdb"
 rtual_name = "ephemeral0"
-  }
+}
 
-  ephemeral_block_device {
-vice_name  = "/dev/sdc"
+ephemeral_block_device {
+vice_name= "/dev/sdc"
 rtual_name = "ephemeral1"
-  }
+}
 }
 `, rName))
 func
@@ -767,24 +767,24 @@ func testAccAMIConfig_gp3BlockDevice(rName string) string {
 testAccAMIConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ami" "test" {
-  ena_support= false
-  name = %[1]q
-  root_device_name"/dev/sda1"
-  virtualization_type = "hvm"
+ena_support= false
+name = %[1]q
+root_device_name"/dev/sda1"
+virtualization_type = "hvm"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 
-  ebs_block_device {
+ebs_block_device {
 lete_on_termination = false
-vice_name  = "/dev/sdb"
+vice_name= "/dev/sdb"
 func1
 roughput= 5
-lume_size  = 10
-lume_type  = "gp3"
-  }
+lume_size= 10
+lume_type= "gp3"
+}
 }
 `, rName))
 }
@@ -795,19 +795,19 @@ func testAccAMIConfig_tags1(rName, tagKey1, tagValue1 string) string {
 testAccAMIConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ami" "test" {
-  ena_support= true
-  name = %[1]q
-  root_device_name"/dev/sda1"
-  virtualization_type = "hvm"
+ena_support= true
+name = %[1]q
+root_device_name"/dev/sda1"
+virtualization_type = "hvm"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 func
 
@@ -817,20 +817,20 @@ func testAccAMIConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string
 testAccAMIConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ami" "test" {
-  ena_support= true
-  name = %[1]q
-  root_device_name"/dev/sda1"
-  virtualization_type = "hvm"
+ena_support= true
+name = %[1]q
+root_device_name"/dev/sda1"
+virtualization_type = "hvm"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -842,20 +842,20 @@ funcSprintf(`
 data "aws_outposts_outposts" "test" {}
 
 data "aws_outposts_outpost" "test" {
-  id = tolist(data.aws_outposts_outposts.test.ids)[0]
+id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }
 
 resource "aws_ami" "test" {
-  ena_support= true
-  name = %[1]q
-  root_device_name"/dev/sda1"
-  virtualization_type = "hvm"
+ena_support= true
+name = %[1]q
+root_device_name"/dev/sda1"
+virtualization_type = "hvm"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
 tpost_arn = data.aws_outposts_outpost.test.arn
-  }
+}
 }
 `, rName))
 }
@@ -865,16 +865,16 @@ funcurn acctest.ConfigCompose(
 testAccAMIConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ami" "test" {
-  ena_support= true
-  name = %[1]q
-  root_device_name"/dev/sda1"
-  virtualization_type = "hvm"
-  boot_mode  = "uefi"
+ena_support= true
+name = %[1]q
+root_device_name"/dev/sda1"
+virtualization_type = "hvm"
+boot_mode= "uefi"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 `, rName))
 }
@@ -886,15 +886,15 @@ testAccAMIConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ami" "test" {
 funcme = %[1]q
-  root_device_name"/dev/xvda"
-  virtualization_type = "hvm"
-  boot_mode  = "uefi"
-  tpm_support= "v2.0"
+root_device_name"/dev/xvda"
+virtualization_type = "hvm"
+boot_mode= "uefi"
+tpm_support= "v2.0"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/xvda"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 `, rName))
 }
@@ -905,15 +905,15 @@ func testAccAMIConfig_imdsSupport(rName string) string {
 testAccAMIConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ami" "test" {
-  name = %[1]q
-  root_device_name"/dev/xvda"
-  virtualization_type = "hvm"
-  boot_mode  = "uefi"
-  imds_support"
+name = %[1]q
+root_device_name"/dev/xvda"
+virtualization_type = "hvm"
+boot_mode= "uefi"
+imds_support"
 
 func_name = "/dev/xvda"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 `, rName))
 }

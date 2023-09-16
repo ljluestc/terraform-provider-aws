@@ -57,7 +57,7 @@ funcurn &schema.Resource{
 			"include_public_key": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"public_key": {
 				Type:eString,
@@ -104,7 +104,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("key-pair/%s", keyName),
+		Resource:fmt.Sprintf("key-pair/%s", keyName),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("create_time", aws.TimeValue(keyPair.CreateTime).Format(time.RFC3339))

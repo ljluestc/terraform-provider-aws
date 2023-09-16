@@ -81,7 +81,7 @@ funcurn &schema.Resource{
 				Optional:
 				Computed:
 				Validate
-func:  validation.StringInSlice(ec2.DomainType_Values(), false),
+func:validation.StringInSlice(ec2.DomainType_Values(), false),
 func,
 			"instance": {
 				Type:eString,

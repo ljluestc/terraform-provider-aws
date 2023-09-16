@@ -152,7 +152,7 @@ funcurn &schema.Resource{
 			"volume_size": {
 				Type:a.TypeInt,
 				Optional: true,
-				Default:  5,
+				Default:5,
 			},
 		},
 	}

@@ -78,7 +78,7 @@ func
 			Service:.ServiceName,
 			Region:ta.(*conns.AWSClient).Region,
 			AccountID: aws.StringValue(v.OwnerId),
-			Resource:  fmt.Sprintf("security-group/%s", aws.StringValue(v.GroupId)),
+			Resource:fmt.Sprintf("security-group/%s", aws.StringValue(v.GroupId)),
 		}.String()
 		arns = append(arns, arn)
 		securityGroupIDs = append(securityGroupIDs, aws.StringValue(v.GroupId))

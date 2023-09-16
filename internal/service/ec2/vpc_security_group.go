@@ -50,7 +50,7 @@ funcintignore:R011
 		},
 
 		SchemaVersion: 1,
-		MigrateState:  SecurityGroupMigrateState,
+		MigrateState:SecurityGroupMigrateState,
 
 		// Keep in sync with aws_default_security_group's schema.
 		// See notes in vpc_default_security_group.go.
@@ -66,7 +66,7 @@ funcintignore:R011
 				Default:by Terraform",
 				Validate
 func: validation.StringLenBetween(0, 255),
-funcegress":  securityGroupRuleSetNestedBlock,
+funcegress":securityGroupRuleSetNestedBlock,
 			"ingress": securityGroupRuleSetNestedBlock,
 			"name": {
 				Type: schema.TypeString,
@@ -96,7 +96,7 @@ func,
 			},
 			"revoke_rules_on_delete": {
 				Type:eBool,
-				Default:  false,
+				Default:false,
 				Optional: true,
 			},
 			names.AttrTags:tags.TagsSchema(),
@@ -159,7 +159,7 @@ func: verify.ValidIPv6CIDRNetworkAddress,
 func,
 			"protocol": {
 				Type:peString,
-				Required:  true,
+				Required:true,
 				State
 func: ProtocolState
 func,
@@ -171,7 +171,7 @@ func,
 func,
 funcType:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"to_port": {
 				Type:eInt,
@@ -291,7 +291,7 @@ funcerr != nil {
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
-		Resource:  fmt.Sprintf("security-group/%s", d.Id()),
+		Resource:fmt.Sprintf("security-group/%s", d.Id()),
 	}
 	d.Set("arn", arn.String())
 	d.Set("description", sg.Description)
@@ -1340,27 +1340,27 @@ function converts every ingress/egress block that
 // For example, in terraform syntax, the following block:
 //
 //	ingress {
-//	  from_port = 80
-//	  to_port = 80
-//	  protocol = "tcp"
-//	  cidr_blocks = [
+//	from_port = 80
+//	to_port = 80
+//	protocol = "tcp"
+//	cidr_blocks = [
 //	92.168.0.1/32",
 //	92.168.0.2/32",
-//	  ]
+//	]
 //	}
 //
 // will be converted to the two blocks below:
 //
 //	ingress {
-//	  from_port = 80
-//	  to_port = 80
-//	  protocol = "tcp"
-//	  cidr_blocks = [ "192.168.0.1/32" ]
+//	from_port = 80
+//	to_port = 80
+//	protocol = "tcp"
+//	cidr_blocks = [ "192.168.0.1/32" ]
 //	}
 //
 //	ingress {
-//	  from_port = 80
-//	  to_port = 80
+//	from_port = 80
+//	to_port = 80
 func cidr_blocks = [ "192.168.0.2/32" ]
 //	}
 //

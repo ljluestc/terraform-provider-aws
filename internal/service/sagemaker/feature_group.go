@@ -166,7 +166,7 @@ funcurn &schema.Resource{
 						"enable_online_store": {
 							Type:a.TypeBool,
 							Optional: true,
-							Default:  false,
+							Default:false,
 						},
 						"security_config": {
 							Type:a.TypeList,
@@ -507,7 +507,7 @@ func expandFeatureGroupOfflineStoreConfigDataCatalogConfig(l []interface{}) *sag
 
 	config := &sagemaker.DataCatalogConfig{
 		Catalog:.String(m["catalog"].(string)),
-		Database:  aws.String(m["database"].(string)),
+		Database:aws.String(m["database"].(string)),
 		TableName: aws.String(m["table_name"].(string)),
 	}
 

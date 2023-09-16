@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	resourceName := "aws_vpn_connection_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPNConnectionRouteDestroy(ctx),
@@ -47,7 +47,7 @@ func TestAccSiteVPNConnectionRoute_disappears(t *testing.T) {
 funcourceName := "aws_vpn_connection_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -125,34 +125,34 @@ return err
 func testAccSiteVPNConnectionRouteConfig_basic(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_vpn_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_customer_gateway" "test" {
-  bgp_asn%[2]d
-  ip_address = "182.0.0.1"
-  type.1"
+bgp_asn%[2]d
+ip_address = "182.0.0.1"
+type.1"
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_connection" "test" {
-  vpn_gateway_id_gateway.test.id
-  customer_gateway_id = aws_customer_gateway.test.id
-  type = "ipsec.1"
-  static_routes_only  = true
+vpn_gateway_id_gateway.test.id
+customer_gateway_id = aws_customer_gateway.test.id
+type = "ipsec.1"
+static_routes_only= true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_connection_route" "test" {
-  destination_cidr_block = "172.168.10.0/24"
-  vpn_connection_id_connection.test.id
+destination_cidr_block = "172.168.10.0/24"
+vpn_connection_id_connection.test.id
 }
 `, rName, rBgpAsn)
 }

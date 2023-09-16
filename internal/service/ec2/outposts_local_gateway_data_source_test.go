@@ -17,7 +17,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -39,7 +39,7 @@ func testAccOutpostsLocalGatewayDataSourceConfig_id() string {
 	return `
 data "aws_ec2_local_gateways" "test" {}
 func "aws_ec2_local_gateway" "test" {
-  id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
+id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
 }
 `
 }

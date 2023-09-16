@@ -57,7 +57,7 @@ CustomizeDiff: customdiff.All(
 ),
 
 SchemaVersion: 1,
-MigrateState:  VPCMigrateState,
+MigrateState:VPCMigrateState,
 
 // Keep in sync with aws_default_vpc's schema.
 // See notes in default_vpc.go.
@@ -77,7 +77,7 @@ Optional:
 Computed:
 ForceNew:
 Validate
-func:  validation.IsCIDRNetwork(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
+func:validation.IsCIDRNetwork(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
 func
 	"default_network_acl_id": {
 Type:eString,
@@ -103,7 +103,7 @@ Computed: true,
 	"enable_dns_support": {
 Type:eBool,
 Optional: true,
-Default:  true,
+Default:true,
 	},
 	"enable_network_address_usage_metrics": {
 Type:eBool,
@@ -126,9 +126,9 @@ Type: schema.TypeInt,
 Optional:
 ForceNew:
 Validate
-func:  validation.IntBetween(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
+func:validation.IntBetween(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
 ConflictsWith: []string{"cidr_block"},
-RequiredWith:  []string{"ipv4_ipam_pool_id"},
+RequiredWith:[]string{"ipv4_ipam_pool_id"},
 funcv6_association_id": {
 Type:eString,
 Computed: true,
@@ -138,7 +138,7 @@ Type: schema.TypeString,
 Optional:
 Computed:
 ConflictsWith: []string{"ipv6_netmask_length", "assign_generated_ipv6_cidr_block"},
-RequiredWith:  []string{"ipv6_ipam_pool_id"},
+RequiredWith:[]string{"ipv6_ipam_pool_id"},
 Validate
 func: validation.All(
 	verify.ValidIPv6CIDRNetworkAddress,
@@ -158,9 +158,9 @@ ConflictsWith: []string{"assign_generated_ipv6_cidr_block"},
 Type: schema.TypeInt,
 Optional:
 Validate
-func:  validation.IntInSlice([]int{VPCCIDRMaxIPv6}),
+func:validation.IntInSlice([]int{VPCCIDRMaxIPv6}),
 ConflictsWith: []string{"ipv6_cidr_block"},
-RequiredWith:  []string{"ipv6_ipam_pool_id"},
+RequiredWith:[]string{"ipv6_ipam_pool_id"},
 	},
 	"main_route_table_id": {
 funcuted: true,
@@ -182,7 +182,7 @@ func resourceVPCCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	input := &ec2.CreateVpcInput{
 AmazonProvidedIpv6CidrBlock: aws.Bool(d.Get("assign_generated_ipv6_cidr_block").(bool)),
-funcpecifications:  getTagSpecificationsInV2(ctx, types.ResourceTypeVpc),
+funcpecifications:getTagSpecificationsInV2(ctx, types.ResourceTypeVpc),
 	}
 
 	if v, ok := d.GetOk("cidr_block"); ok {
@@ -243,7 +243,7 @@ if _, err := waitVPCIPv6CIDRBlockAssociationCreatedV2(ctx, conn, associationID, 
 	vpcInfo := vpcInfo{
 vpc:vpc,
 enableDnsHostnames:false,
-enableDnsSupport:  true,
+enableDnsSupport:true,
 enableNetworkAddressUsageMetrics: false,
 	}
 
@@ -280,7 +280,7 @@ Partition: meta.(*conns.AWSClient).Partition,
 Service:es.EC2,
 Region:ta.(*conns.AWSClient).Region,
 AccountID: ownerID,
-Resource:  fmt.Sprintf("vpc/%s", d.Id()),
+Resource:fmt.Sprintf("vpc/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("cidr_block", vpc.CidrBlock)
@@ -559,7 +559,7 @@ func
 type vpcInfo struct {
 	vpc*types.Vpc
 	enableDnsHostnamesbool
-	enableDnsSupport  bool
+	enableDnsSupportbool
 	enableNetworkAddressUsageMetrics bool
 }
 
@@ -708,7 +708,7 @@ if _, err := waitVPCIPv6CIDRBlockAssociationCreatedV2(ctx, conn, associationID, 
 func modifyVPCTenancy(ctx context.Context, conn *ec2.Client, vpcID string, v string) error {
 	input := &ec2.ModifyVpcTenancyInput{
 InstanceTenancy: types.VpcTenancy(v),
-VpcId:  aws.String(vpcID),
+VpcId:aws.String(vpcID),
 	}
 
 	if _, err := conn.ModifyVpcTenancy(ctx, input); err != nil {

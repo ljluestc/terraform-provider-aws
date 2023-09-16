@@ -21,7 +21,7 @@ func := acctest.Context(t)
 	resourceName := "aws_ebs_encryption_by_default.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckEncryptionByDefaultDestroy(ctx),
@@ -96,7 +96,7 @@ return nil
 func testAccEBSEncryptionByDefaultConfig_basic(enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_ebs_encryption_by_default" "test" {
-  enabled = %[1]t
+enabled = %[1]t
 }
 `, enabled)
 }

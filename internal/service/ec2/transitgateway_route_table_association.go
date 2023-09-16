@@ -36,7 +36,7 @@ funcurn &schema.Resource{
 			"replace_existing_association": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"resource_id": {
 				Type:eString,

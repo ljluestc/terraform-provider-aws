@@ -32,7 +32,7 @@ import (
 func ResourceDevEndpoint() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDevEndpointCreate,
-		ReadWithoutTimeout:   resourceDevEndpointRead,
+		ReadWithoutTimeout: resourceDevEndpointRead,
 		UpdateWithoutTimeout: resourceDevEndpointUpdate,
 		DeleteWithoutTimeout: resourceDevEndpointDelete,
 
@@ -44,38 +44,38 @@ func ResourceDevEndpoint() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arguments": {
-				Type:     schema.TypeMap,
+				Type: schema.TypeMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"extra_jars_s3_path": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"extra_python_libs_s3_path": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"glue_version": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type: schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^\w+\.\w+$`), "must match version pattern X.X"),
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type: schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"number_of_nodes": {
-				Type:          schema.TypeInt,
-				Optional:      true,
-				ForceNew:      true,
+				Type:schema.TypeInt,
+				Optional:true,
+				ForceNew:true,
 				ConflictsWith: []string{"number_of_workers", "worker_type"},
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					return new == "0"
@@ -83,89 +83,89 @@ func ResourceDevEndpoint() *schema.Resource {
 				ValidateFunc: validation.IntAtLeast(2),
 			},
 			"number_of_workers": {
-				Type:          schema.TypeInt,
-				Optional:      true,
-				ForceNew:      true,
-				ValidateFunc:  validation.IntAtLeast(2),
+				Type:schema.TypeInt,
+				Optional:true,
+				ForceNew:true,
+				ValidateFunc:validation.IntAtLeast(2),
 				ConflictsWith: []string{"number_of_nodes"},
 			},
 			"public_key": {
-				Type:          schema.TypeString,
-				Optional:      true,
+				Type:schema.TypeString,
+				Optional:true,
 				ConflictsWith: []string{"public_keys"},
 			},
 			"public_keys": {
-				Type:          schema.TypeSet,
-				Optional:      true,
-				Elem:          &schema.Schema{Type: schema.TypeString},
-				Set:           schema.HashString,
+				Type:schema.TypeSet,
+				Optional:true,
+				Elem:&schema.Schema{Type: schema.TypeString},
+				Set: schema.HashString,
 				ConflictsWith: []string{"public_key"},
-				MaxItems:      5,
+				MaxItems:5,
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type: schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"security_configuration": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"security_group_ids": {
-				Type:         schema.TypeSet,
-				Optional:     true,
-				ForceNew:     true,
-				Elem:         &schema.Schema{Type: schema.TypeString},
-				Set:          schema.HashString,
+				Type: schema.TypeSet,
+				Optional: true,
+				ForceNew: true,
+				Elem: &schema.Schema{Type: schema.TypeString},
+				Set:schema.HashString,
 				RequiredWith: []string{"subnet_id"},
 			},
 			"subnet_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type: schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				RequiredWith: []string{"security_group_ids"},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"private_address": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"public_address": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"yarn_endpoint_address": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"zeppelin_remote_spark_interpreter_port": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"worker_type": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				ValidateFunc:  validation.StringInSlice(glue.WorkerType_Values(), false),
+				Type:schema.TypeString,
+				Optional:true,
+				ValidateFunc:validation.StringInSlice(glue.WorkerType_Values(), false),
 				ConflictsWith: []string{"number_of_nodes"},
-				ForceNew:      true,
+				ForceNew:true,
 			},
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"failure_reason": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -179,8 +179,8 @@ func resourceDevEndpointCreate(ctx context.Context, d *schema.ResourceData, meta
 	name := d.Get("name").(string)
 	input := &glue.CreateDevEndpointInput{
 		EndpointName: aws.String(name),
-		RoleArn:      aws.String(d.Get("role_arn").(string)),
-		Tags:         getTagsIn(ctx),
+		RoleArn:aws.String(d.Get("role_arn").(string)),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("arguments"); ok {
@@ -289,10 +289,10 @@ func resourceDevEndpointRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	endpointARN := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "glue",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service: "glue",
+		Region:meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("devEndpoint/%s", d.Id()),
+		Resource:fmt.Sprintf("devEndpoint/%s", d.Id()),
 	}.String()
 
 	if err := d.Set("arn", endpointARN); err != nil {

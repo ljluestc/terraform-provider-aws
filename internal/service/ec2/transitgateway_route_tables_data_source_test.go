@@ -19,7 +19,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_transit_gateway_route_tables.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -39,7 +39,7 @@ func testAccTransitGatewayRouteTablesDataSource_filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -80,7 +80,7 @@ func testAccTransitGatewayRouteTablesDataSource_empty(t *testing.T) {
 	dataSourceName := "data.aws_ec2_transit_gateway_route_tables.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funcs: []resource.TestStep{
@@ -99,18 +99,18 @@ func testAccTransitGatewayRouteTablesDataSourceConfig_basic(rName string) string
 	return fmt.Sprintf(`
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_route_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
 
-  tags = {
+tags = {
 func
 }
 
 data "aws_ec2_transit_gateway_route_tables" "test" {
-  depends_on = [aws_ec2_transit_gateway_route_table.test]
+depends_on = [aws_ec2_transit_gateway_route_table.test]
 }
 `, rName)
 }
@@ -119,25 +119,25 @@ data "aws_ec2_transit_gateway_route_tables" "test" {
 func testAccTransitGatewayRouteTablesDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_route_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 data "aws_ec2_transit_gateway_route_tables" "test" {
-  filter {
+filter {
 me= "nsit-gateway-id"
 lues = [aws_ec2_transit_gateway.test.id]
-  }
+}
 
-  depends_on = [aws_ec2_transit_gateway_route_table.test]
+depends_on = [aws_ec2_transit_gateway_route_table.test]
 }
 `, rName)
 }
@@ -146,24 +146,24 @@ lues = [aws_ec2_transit_gateway.test.id]
 func testAccTransitGatewayRouteTablesDataSourceConfig_tags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_route_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 data "aws_ec2_transit_gateway_route_tables" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_ec2_transit_gateway_route_table.test]
+depends_on = [aws_ec2_transit_gateway_route_table.test]
 }
 `, rName)
 }
@@ -172,9 +172,9 @@ me = %[1]q
 func testAccTransitGatewayRouteTablesDataSourceConfig_empty(rName string) string {
 	return fmt.Sprintf(`
 data "aws_ec2_transit_gateway_route_tables" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }

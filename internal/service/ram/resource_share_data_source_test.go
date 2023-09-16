@@ -20,7 +20,7 @@ func := acctest.Context(t)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -44,7 +44,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -65,7 +65,7 @@ funcourceName := "aws_ram_resource_share.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -86,7 +86,7 @@ funcasourceName := "data.aws_ram_resource_share.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -103,17 +103,17 @@ funcasourceName := "data.aws_ram_resource_share.test"
 func testAccResourceShareDataSourceConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ram_resource_share" "other" {
-  name = "%[1]s-other"
+name = "%[1]s-other"
 func
 resource "aws_ram_resource_share" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 data "aws_ram_resource_share" "test" {
-  nameam_resource_share.test.name
-  resource_owner = "SELF"
+nameam_resource_share.test.name
+resource_owner = "SELF"
 
-  depends_on = [aws_ram_resource_share.other]
+depends_on = [aws_ram_resource_share.other]
 }
 `, rName)
 }
@@ -121,20 +121,20 @@ data "aws_ram_resource_share" "test" {
 func testAccResourceShareDataSourceConfig_tags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ram_resource_share" "test" {
-  name = %[1]q
+name = %[1]q
 
 func %[1]q
-  }
+}
 }
 
 data "aws_ram_resource_share" "test" {
-  nameam_resource_share.test.name
-  resource_owner = "SELF"
+nameam_resource_share.test.name
+resource_owner = "SELF"
 
-  filter {
+filter {
 me= "e"
 lues = [%[1]q]
-  }
+}
 }
 `, rName)
 }
@@ -142,18 +142,18 @@ lues = [%[1]q]
 func testAccResourceShareDataSourceConfig_resources(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_ram_resource_share" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 funcsource_arn_subnet.test[0].arn
-  resource_share_arn = aws_ram_resource_share.test.arn
+resource_share_arn = aws_ram_resource_share.test.arn
 }
 
 data "aws_ram_resource_share" "test" {
-  nameam_resource_share.test.name
-  resource_owner = "SELF"
+nameam_resource_share.test.name
+resource_owner = "SELF"
 
-  depends_on = [aws_ram_resource_association.test]
+depends_on = [aws_ram_resource_association.test]
 }
 `, rName))
 }
@@ -161,12 +161,12 @@ data "aws_ram_resource_share" "test" {
 func testAccResourceShareDataSourceConfig_status(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ram_resource_share" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 data "aws_ram_resource_share" "test" {
 funcsource_ownerELF"
-  resource_share_status = "ACTIVE"
+resource_share_status = "ACTIVE"
 }
 `, rName)
 }

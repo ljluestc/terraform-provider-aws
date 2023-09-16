@@ -58,7 +58,7 @@ func			),
 						"enforce_workgroup_configuration": {
 							Type:a.TypeBool,
 							Optional: true,
-							Default:  true,
+							Default:true,
 						},
 						"engine_version": {
 							Type:a.TypeList,
@@ -73,7 +73,7 @@ func			),
 									"selected_engine_version": {
 										Type:a.TypeString,
 										Optional: true,
-										Default:  "AUTO",
+										Default:"AUTO",
 									},
 								},
 							},
@@ -86,7 +86,7 @@ func: verify.ValidARN,
 						},
 						"publish_cloudwatch_metrics_enabled": {
 func			Optional: true,
-							Default:  true,
+							Default:true,
 						},
 						"result_configuration": {
 							Type:a.TypeList,
@@ -141,7 +141,7 @@ func						Optional: true,
 						"requester_pays_enabled": {
 							Type:a.TypeBool,
 							Optional: true,
-							Default:  false,
+							Default:false,
 						},
 					},
 				},
@@ -170,7 +170,7 @@ func: validation.StringInSlice(athena.WorkGroupState_Values(), false),
 			"force_destroy": {
 				Type:a.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -241,7 +241,7 @@ funcSetId("")
 		Region:ta.(*conns.AWSClient).Region,
 		Service:hena",
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("workgroup/%s", d.Id()),
+		Resource:fmt.Sprintf("workgroup/%s", d.Id()),
 	}
 
 	d.Set("arn", arn.String())
@@ -521,7 +521,7 @@ functurn []interface{}{}
 
 	m := map[string]interface{}{
 		"effective_engine_version": aws.StringValue(engineVersion.EffectiveEngineVersion),
-		"selected_engine_version":  aws.StringValue(engineVersion.SelectedEngineVersion),
+		"selected_engine_version":aws.StringValue(engineVersion.SelectedEngineVersion),
 	}
 
 	return []interface{}{m}

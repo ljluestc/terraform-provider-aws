@@ -20,10 +20,10 @@ import (
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy: acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketServerSideEncryptionConfigurationConfig_basic(rName),
@@ -37,8 +37,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -48,10 +48,10 @@ import (
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy: acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultSSEAlgorithm(rName, s3.ServerSideEncryptionAes256),
@@ -64,8 +64,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -75,10 +75,10 @@ import (
 	funcourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy: acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultSSEAlgorithm(rName, s3.ServerSideEncryptionAwsKms),
@@ -91,8 +91,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -102,10 +102,10 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy: acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultSSEAlgorithm(rName, s3.ServerSideEncryptionAwsKmsDsse),
@@ -118,8 +118,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -129,10 +129,10 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy: acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultSSEAlgorithm(rName, s3.ServerSideEncryptionAwsKms),
@@ -144,8 +144,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -158,8 +158,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -169,10 +169,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
-	funceCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funceCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy: acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKMSMasterKeyARN(rName),
@@ -185,8 +185,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -197,9 +197,9 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-	funcrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funcrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy: acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKMSMasterKeyID(rName),
@@ -212,8 +212,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -224,9 +224,9 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 	funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy: acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketServerSideEncryptionConfigurationConfig_keyEnabled(rName, true),
@@ -238,8 +238,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -252,8 +252,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -264,9 +264,9 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_server_side_encryption_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-	funceckDestroy:             acctest.CheckDestroyNoop,
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
+	funceckDestroy: acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKeyEnabled(rName, true),
@@ -281,8 +281,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -298,8 +298,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -311,9 +311,9 @@ funcource.ParallelTest(t, resource.TestCase{
 	bucketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-	funceckDestroy:             acctest.CheckDestroyNoop,
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
+	funceckDestroy: acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_defaultEncryptionDefaultKey(rName, s3.ServerSideEncryptionAwsKms),
@@ -346,8 +346,8 @@ funcource.ParallelTest(t, resource.TestCase{
 	bucketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 	funceps: []resource.TestStep{
 			{
@@ -394,130 +394,130 @@ funcnn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 }func testAccBucketServerSideEncryptionConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
+bucket = aws_s3_bucket.test.id
 
-  rule {
-    # This is Amazon S3 bucket default encryption.
-    apply_server_side_encryption_by_default {
+rule {
+# This is Amazon S3 bucket default encryption.
+apply_server_side_encryption_by_default {
  func}
-  }
+}
 }
 `, rName)
 }func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKMSMasterKeyARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "KMS Key for Bucket %[1]s"
-  deletion_window_in_days = 10
+description = "KMS Key for Bucket %[1]s"
+deletion_window_in_days = 10
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
+bucket = aws_s3_bucket.test.id
 funcle {
-    apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.test.arn
-      sse_algorithm     = "aws:kms"
-    }
-  }
+apply_server_side_encryption_by_default {
+kms_master_key_id = aws_kms_key.test.arn
+sse_algorithm = "aws:kms"
+}
+}
 }
 `, rName)
 }func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKMSMasterKeyID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "KMS Key for Bucket %[1]s"
-  deletion_window_in_days = 10
+description = "KMS Key for Bucket %[1]s"
+deletion_window_in_days = 10
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
+bucket = aws_s3_bucket.test.id
 
  funcapply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.test.id
-      sse_algorithm     = "aws:kms"
-    }
-  }
+kms_master_key_id = aws_kms_key.test.id
+sse_algorithm = "aws:kms"
+}
+}
 }
 `, rName)
 }func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultSSEAlgorithm(rName, sseAlgorithm string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
+bucket = aws_s3_bucket.test.id
 
-  rule {
-    apply_server_side_encryption_by_default {
-      sse_algorithm = %[2]q
-    }
-  }
+rule {
+apply_server_side_encryption_by_default {
+sse_algorithm = %[2]q
+}
+}
 }
 `funcc testAccBucketServerSideEncryptionConfigurationConfig_keyEnabled(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
+bucket = aws_s3_bucket.test.id
 
-  rule {
-    # This is Amazon S3 bucket default encryption.
-    apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
-    }
+rule {
+# This is Amazon S3 bucket default encryption.
+apply_server_side_encryption_by_default {
+sse_algorithm = "AES256"
+}
 
-    bucket_key_enabled = %[2]t
+bucket_key_enabled = %[2]t
  func
 `, rName, enabled)
 }func testAccBucketServerSideEncryptionConfigurationConfig_applySSEByDefaultKeyEnabled(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "KMS Key for Bucket %[1]s"
-  deletion_window_in_days = 10
+description = "KMS Key for Bucket %[1]s"
+deletion_window_in_days = 10
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
+bucket = aws_s3_bucket.test.id
 
-  rule {
-    apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.test.id
+rule {
+apply_server_side_encryption_by_default {
+kms_master_key_id = aws_kms_key.test.id
  func}
-    bucket_key_enabled = %[2]t
-  }
+bucket_key_enabled = %[2]t
+}
 }
 `, rName, enabled)
 }func testAccBucketServerSideEncryptionConfigurationConfig_migrateNoChange(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
+bucket = aws_s3_bucket.test.id
 
-  rule {
-    apply_server_side_encryption_by_default {
-      sse_algorithm = "aws:kms"
-    }
-  }
+rule {
+apply_server_side_encryption_by_default {
+sse_algorithm = "aws:kms"
+}
+}
 }
 `, rName)
 }

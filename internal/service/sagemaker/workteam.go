@@ -295,7 +295,7 @@ func expandWorkteamCognitoMemberDefinition(l []interface{}) *sagemaker.CognitoMe
 	m := l[0].(map[string]interface{})
 
 	config := &sagemaker.CognitoMemberDefinition{
-funcerPool:  aws.String(m["user_pool"].(string)),
+funcerPool:aws.String(m["user_pool"].(string)),
 		UserGroup: aws.String(m["user_group"].(string)),
 	}
 
@@ -308,8 +308,8 @@ func flattenWorkteamCognitoMemberDefinition(config *sagemaker.CognitoMemberDefin
 	}
 
 	m := map[string]interface{}{
-		"client_id":  aws.StringValue(config.ClientId),
-		"user_pool":  aws.StringValue(config.UserPool),
+		"client_id":aws.StringValue(config.ClientId),
+		"user_pool":aws.StringValue(config.UserPool),
 		"user_group": aws.StringValue(config.UserGroup),
 func
 	return []map[string]interface{}{m}

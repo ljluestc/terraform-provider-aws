@@ -44,7 +44,7 @@ func
 func (r *resourceCIDRCollection) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 funcarn": framework.ARNAttributeComputedOnly(),
-			"id":  framework.IDAttribute(),
+			"id":framework.IDAttribute(),
 			"name": schema.StringAttribute{
 				Required: true,
 				PlanModifiers: []planmodifier.String{

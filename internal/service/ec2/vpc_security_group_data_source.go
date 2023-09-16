@@ -99,7 +99,7 @@ funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: *sg.OwnerId,
-		Resource:  fmt.Sprintf("security-group/%s", *sg.GroupId),
+		Resource:fmt.Sprintf("security-group/%s", *sg.GroupId),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("description", sg.Description)

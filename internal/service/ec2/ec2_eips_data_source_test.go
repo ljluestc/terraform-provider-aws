@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -41,38 +41,38 @@ func testAccEIPsDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test1" {
 func
-  tags = {
+tags = {
 me = "%[1]s-1"
-  }
+}
 }
 
 resource "aws_eip" "test2" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = "%[1]s-2"
-  }
+}
 }
 
 data "aws_eips" "all" {
-  depends_on = [aws_eip.test1, aws_eip.test2]
+depends_on = [aws_eip.test1, aws_eip.test2]
 }
 
 data "aws_eips" "by_tags" {
-  tags = {
+tags = {
 me = "%[1]s-1"
-  }
+}
 
-  depends_on = [aws_eip.test1, aws_eip.test2]
+depends_on = [aws_eip.test1, aws_eip.test2]
 }
 
 data "aws_eips" "none" {
-  filter {
+filter {
 me= "-key"
 lues = ["%[1]s-3"]
-  }
+}
 
-  depends_on = [aws_eip.test1, aws_eip.test2]
+depends_on = [aws_eip.test1, aws_eip.test2]
 }
 `, rName)
 }

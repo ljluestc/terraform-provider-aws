@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_transit_gateway_route_table_propagations.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -38,7 +38,7 @@ func testAccTransitGatewayRouteTablePropagationsDataSource_filter(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -56,9 +56,9 @@ func
 func testAccTransitGatewayRouteTablePropagationsDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTablePropagationConfig_basic(rName), `
 data "aws_ec2_transit_gateway_route_table_propagations" "test" {
-  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
 
-  depends_on = [aws_ec2_transit_gateway_route_table_propagation.test]
+depends_on = [aws_ec2_transit_gateway_route_table_propagation.test]
 func
 }
 
@@ -66,13 +66,13 @@ func
 func testAccTransitGatewayRouteTablePropagationsDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTablePropagationConfig_basic(rName), `
 data "aws_ec2_transit_gateway_route_table_propagations" "test" {
-  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
 
-  filter {
+filter {
 me= "nsit-gateway-attachment-id"
 func
 
-  depends_on = [aws_ec2_transit_gateway_route_table_propagation.test]
+depends_on = [aws_ec2_transit_gateway_route_table_propagation.test]
 }
 `)
 }

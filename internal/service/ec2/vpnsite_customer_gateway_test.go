@@ -28,7 +28,7 @@ func := acctest.Context(t)
 	resourceName := "aws_customer_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckCustomerGatewayDestroy(ctx),
@@ -62,7 +62,7 @@ func TestAccSiteVPNCustomerGateway_disappears(t *testing.T) {
 funcourceName := "aws_customer_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -86,7 +86,7 @@ func TestAccSiteVPNCustomerGateway_tags(t *testing.T) {
 	rBgpAsn := sdkacctest.RandIntRange(64512, 65534)
 	resourceName := "aws_customer_gateway.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -131,7 +131,7 @@ func := acctest.Context(t)
 	resourceName := "aws_customer_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckCustomerGatewayDestroy(ctx),
@@ -160,7 +160,7 @@ func TestAccSiteVPNCustomerGateway_4ByteASN(t *testing.T) {
 	resourceName := "aws_customer_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -197,7 +197,7 @@ func gateway ec2.CustomerGateway
 	domain := fmt.Sprintf("%s.%s", sdkacctest.RandString(8), subDomain)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckCustomerGatewayDestroy(ctx),
@@ -293,8 +293,8 @@ func
 func testAccSiteVPNCustomerGatewayConfig_basic(rBgpAsn int) string {
 	return fmt.Sprintf(`
 funcp_asn%[1]d
-  ip_address = "172.0.0.1"
-  type.1"
+ip_address = "172.0.0.1"
+type.1"
 }
 `, rBgpAsn)
 }
@@ -303,13 +303,13 @@ funcp_asn%[1]d
 func testAccSiteVPNCustomerGatewayConfig_tags1(rBgpAsn int, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_customer_gateway" "test" {
-  bgp_asn%[1]d
-  ip_address = "172.0.0.1"
-  type.1"
+bgp_asn%[1]d
+ip_address = "172.0.0.1"
+type.1"
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rBgpAsn, tagKey1, tagValue1)
 }
@@ -318,13 +318,13 @@ resource "aws_customer_gateway" "test" {
 func testAccSiteVPNCustomerGatewayConfig_tags2(rBgpAsn int, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 funcp_asn%[1]d
-  ip_address = "172.0.0.1"
-  type.1"
+ip_address = "172.0.0.1"
+type.1"
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rBgpAsn, tagKey1, tagValue1, tagKey2, tagValue2)
 }
@@ -332,14 +332,14 @@ func
 func testAccSiteVPNCustomerGatewayConfig_deviceName(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_customer_gateway" "test" {
-  bgp_asn
-  ip_address  = "172.0.0.1"
-  typec.1"
-  device_name = "test"
+bgp_asn
+ip_address= "172.0.0.1"
+typec.1"
+device_name = "test"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, rBgpAsn)
 }
@@ -347,13 +347,13 @@ func
 func testAccSiteVPNCustomerGatewayConfig_siteVPN4ByteASN(rName, rBgpAsn string) string {
 	return fmt.Sprintf(`
 resource "aws_customer_gateway" "test" {
-  bgp_asn%[2]q
-  ip_address = "172.0.0.1"
-  type.1"
+bgp_asn%[2]q
+ip_address = "172.0.0.1"
+type.1"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, rBgpAsn)
 }
@@ -361,30 +361,30 @@ me = %[1]q
 
 funcurn fmt.Sprintf(`
 resource "aws_acmpca_certificate_authority" "root" {
-  permanent_deletion_time_in_days = 7
-  type"ROOT"
+permanent_deletion_time_in_days = 7
+type"ROOT"
 
-  certificate_authority_configuration {
+certificate_authority_configuration {
 y_algorithm6"
 gning_algorithm = "SHA512WITHRSA"
 
 bject {
 me = %[1]q
 
-  }
+}
 }
 
 resource "aws_acmpca_certificate_authority" "test" {
 funcpe"SUBORDINATE"
 
-  certificate_authority_configuration {
+certificate_authority_configuration {
 y_algorithm6"
 gning_algorithm = "SHA512WITHRSA"
 
 bject {
 me = %[2]q
 
-  }
+}
 }
 `, rootDomain, subDomain)
 }
@@ -392,18 +392,18 @@ me = %[2]q
 
 funcurn acctest.ConfigCompose(testAccSiteVPNCustomerGatewayConfig_cas(rootDomain, subDomain), fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name= %[3]q
-  certificate_authority_arn = aws_acmpca_certificate_authority.test.arn
+domain_name= %[3]q
+certificate_authority_arn = aws_acmpca_certificate_authority.test.arn
 }
 
 resource "aws_customer_gateway" "test" {
-  bgp_asn= %[2]d
-  typeipsec.1"
-  certificate_arn = aws_acm_certificate.test.arn
+bgp_asn= %[2]d
+typeipsec.1"
+certificate_arn = aws_acm_certificate.test.arn
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, rBgpAsn, domain))
 }

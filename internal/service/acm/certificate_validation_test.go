@@ -244,13 +244,13 @@ func
 func testAccCertificateValidationConfig_basic(rootZoneDomain, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name[1]q
-  validation_method = "DNS"
+domain_name[1]q
+validation_method = "DNS"
 }
 
 data "aws_route53_zone" "test" {
-  name %[2]q
-  private_zone = false
+name %[2]q
+private_zone = false
 }
 func
 # for_each acceptance testing requires SDKv2
@@ -273,18 +273,18 @@ func
 # }
 
 resource "aws_route53_record" "test" {
-  allow_overwrite = true
-  name(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
-  records [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
-  ttl
-  type(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
-  zone_id data.aws_route53_zone.test.zone_id
+allow_overwrite = true
+name(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
+records [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
+ttl
+type(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
+zone_id data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  depends_on = [aws_route53_record.test]
+depends_on = [aws_route53_record.test]
 
-  certificate_arn = aws_acm_certificate.test.arn
+certificate_arn = aws_acm_certificate.test.arn
 }
 `, domainName, rootZoneDomain)
 }
@@ -292,14 +292,14 @@ resource "aws_acm_certificate_validation" "test" {
 func testAccCertificateValidationConfig_timeout(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name[1]q
-  validation_method = "DNS"
+domain_name[1]q
+validation_method = "DNS"
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn = aws_acm_certificate.test.arn
+certificate_arn = aws_acm_certificate.test.arn
 
-  timeouts {
+timeouts {
 eate = "5s"
 func
 `, domainName)
@@ -308,26 +308,26 @@ func
 func testAccCertificateValidationConfig_recordFQDNsEmail(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name[1]q
-  validation_method = "EMAIL"
+domain_name[1]q
+validation_method = "EMAIL"
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn aws_acm_certificate.test.arn
-  validation_record_fqdns = ["wrong-validation-fqdn.example.com"]
+certificate_arn aws_acm_certificate.test.arn
+validation_record_fqdns = ["wrong-validation-fqdn.example.com"]
 }
 `, domainName)
 }
 func testAccCertificateValidationConfig_recordFQDNsOneRoute53Record(rootZoneDomain, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name[1]q
-  validation_method = "DNS"
+domain_name[1]q
+validation_method = "DNS"
 }
 
 data "aws_route53_zone" "test" {
-  name %[2]q
-  private_zone = false
+name %[2]q
+private_zone = false
 }
 
 #
@@ -355,17 +355,17 @@ funcsource "aws_route53_record" "test" {
 # }
 
 resource "aws_route53_record" "test" {
-  allow_overwrite = true
-  name(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
-  records [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
-  ttl
-  type(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
-  zone_id data.aws_route53_zone.test.zone_id
+allow_overwrite = true
+name(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
+records [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
+ttl
+type(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
+zone_id data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn aws_acm_certificate.test.arn
-  validation_record_fqdns = [aws_route53_record.test.fqdn]
+certificate_arn aws_acm_certificate.test.arn
+validation_record_fqdns = [aws_route53_record.test.fqdn]
 }
 `, domainName, rootZoneDomain)
 }
@@ -373,14 +373,14 @@ resource "aws_acm_certificate_validation" "test" {
 func testAccCertificateValidationConfig_recordFQDNsTwoRoute53Records(rootZoneDomain, domainName, subjectAlternativeNames string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name
-  subject_alternative_names = [%[2]s]
-  validation_method "DNS"
+domain_name
+subject_alternative_names = [%[2]s]
+validation_method "DNS"
 }
 
 data "aws_route53_zone" "test" {
-  name %[3]q
-  private_zone = false
+name %[3]q
+private_zone = false
 }
 
 #
@@ -408,26 +408,26 @@ funcsource "aws_route53_record" "test" {
 # }
 
 resource "aws_route53_record" "test" {
-  allow_overwrite = true
-  name(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
-  records [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
-  ttl
-  type(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
-  zone_id data.aws_route53_zone.test.zone_id
+allow_overwrite = true
+name(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
+records [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
+ttl
+type(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
+zone_id data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_route53_record" "test2" {
-  allow_overwrite = true
-  name(aws_acm_certificate.test.domain_validation_options)[1].resource_record_name
-  records [tolist(aws_acm_certificate.test.domain_validation_options)[1].resource_record_value]
-  ttl
-  type(aws_acm_certificate.test.domain_validation_options)[1].resource_record_type
-  zone_id data.aws_route53_zone.test.zone_id
+allow_overwrite = true
+name(aws_acm_certificate.test.domain_validation_options)[1].resource_record_name
+records [tolist(aws_acm_certificate.test.domain_validation_options)[1].resource_record_value]
+ttl
+type(aws_acm_certificate.test.domain_validation_options)[1].resource_record_type
+zone_id data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn aws_acm_certificate.test.arn
-  validation_record_fqdns = [aws_route53_record.test.fqdn, aws_route53_record.test2.fqdn]
+certificate_arn aws_acm_certificate.test.arn
+validation_record_fqdns = [aws_route53_record.test.fqdn, aws_route53_record.test2.fqdn]
 }
 `, domainName, subjectAlternativeNames, rootZoneDomain)
 }
@@ -435,13 +435,13 @@ resource "aws_acm_certificate_validation" "test" {
 func testAccCertificateValidationConfig_recordFQDNsWrongFQDN(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
-  domain_name[1]q
-  validation_method = "DNS"
+domain_name[1]q
+validation_method = "DNS"
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn aws_acm_certificate.test.arn
-  validation_record_fqdns = ["wrong-validation-fqdn.example.com"]
+certificate_arn aws_acm_certificate.test.arn
+validation_record_fqdns = ["wrong-validation-fqdn.example.com"]
 }
 `, domainName)
 }

@@ -144,10 +144,10 @@ func
 func testAccZoneDataSourceConfig_id(fqdn string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_zone" "test" {
-  name = %[1]q
+name = %[1]q
 }
 func "aws_route53_zone" "test" {
-  zone_id = aws_route53_zone.test.zone_id
+zone_id = aws_route53_zone.test.zone_id
 }
 `, fqdn)
 }
@@ -155,7 +155,7 @@ func "aws_route53_zone" "test" {
 func testAccZoneDataSourceConfig_name(fqdn string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_zone" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 funcme = aws_route53_zone.test.name
@@ -166,29 +166,29 @@ funcme = aws_route53_zone.test.name
 func testAccZoneDataSourceConfig_tagsPrivate(fqdn string, rInt int) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 }
 
 resource "aws_route53_zone" "test" {
 func
-  vpc {
+vpc {
 c_id = aws_vpc.test.id
-  }
+}
 
-  tags = {
+tags = {
 vironment = "tf-acc-test-%[2]d"
 me"tf-acc-test-%[2]d"
-  }
+}
 }
 
 data "aws_route53_zone" "test" {
-  name aws_route53_zone.test.name
-  private_zone = true
-  vpc_idws_vpc.test.id
+name aws_route53_zone.test.name
+private_zone = true
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 vironment = "tf-acc-test-%[2]d"
-  }
+}
 }
 `, fqdn, rInt)
 }
@@ -196,28 +196,28 @@ vironment = "tf-acc-test-%[2]d"
 func testAccZoneDataSourceConfig_vpc(rInt int) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = "terraform-testacc-r53-zone-data-source-%[1]d"
-  }
+}
 func
 resource "aws_route53_zone" "test" {
-  name = "test.acc-%[1]d."
+name = "test.acc-%[1]d."
 
-  vpc {
+vpc {
 c_id = aws_vpc.test.id
-  }
+}
 
-  tags = {
+tags = {
 vironment = "dev-%[1]d"
-  }
+}
 }
 
 data "aws_route53_zone" "test" {
-  name aws_route53_zone.test.name
-  private_zone = true
-  vpc_idws_vpc.test.id
+name aws_route53_zone.test.name
+private_zone = true
+vpc_idws_vpc.test.id
 }
 `, rInt)
 }
@@ -225,20 +225,20 @@ data "aws_route53_zone" "test" {
 func testAccZoneDataSourceConfig_serviceDiscovery(rInt int) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = "terraform-testacc-r53-zone-data-source-%[1]d"
-  }
+}
 }
 funcurce "aws_service_discovery_private_dns_namespace" "test" {
-  name = "test.acc-sd-%[1]d"
-  vpc  = aws_vpc.test.id
+name = "test.acc-sd-%[1]d"
+vpc= aws_vpc.test.id
 }
 
 data "aws_route53_zone" "test" {
-  namews_service_discovery_private_dns_namespace.test.name
-  vpc_id = aws_vpc.test.id
+namews_service_discovery_private_dns_namespace.test.name
+vpc_id = aws_vpc.test.id
 }
 `, rInt)
 }

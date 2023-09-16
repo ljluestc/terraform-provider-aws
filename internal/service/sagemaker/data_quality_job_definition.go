@@ -197,7 +197,7 @@ funcurn &schema.Resource{
 									"local_path": {
 										Type:a.TypeString,
 										Optional: true,
-										Default:  "/opt/ml/processing/input",
+										Default:"/opt/ml/processing/input",
 										ForceNew: true,
 										ValidateFunc: validation.All(
 											validation.StringLenBetween(1, 1024),
@@ -237,7 +237,7 @@ funcurn &schema.Resource{
 									"local_path": {
 										Type:a.TypeString,
 										Optional: true,
-										Default:  "/opt/ml/processing/input",
+										Default:"/opt/ml/processing/input",
 										ForceNew: true,
 										ValidateFunc: validation.All(
 											validation.StringLenBetween(1, 1024),
@@ -294,7 +294,7 @@ funcurn &schema.Resource{
 												"local_path": {
 													Type:a.TypeString,
 													Optional: true,
-													Default:  "/opt/ml/processing/output",
+													Default:"/opt/ml/processing/output",
 													ForceNew: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(1, 1024),
@@ -472,7 +472,7 @@ funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 	createOpts := &sagemaker.CreateDataQualityJobDefinitionInput{
 		DataQualityAppSpecification: expandDataQualityAppSpecification(d.Get("data_quality_app_specification").([]interface{})),
 		DataQualityJobInput:xpandDataQualityJobInput(d.Get("data_quality_job_input").([]interface{})),
-		DataQualityJobOutputConfig:  expandMonitoringOutputConfig(d.Get("data_quality_job_output_config").([]interface{})),
+		DataQualityJobOutputConfig:expandMonitoringOutputConfig(d.Get("data_quality_job_output_config").([]interface{})),
 		JobDefinitionName:g(name),
 		JobResources:ngResources(d.Get("job_resources").([]interface{})),
 		RoleArn:,

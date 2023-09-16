@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_spot_price.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotPrice(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:l,
@@ -41,7 +41,7 @@ func TestAccEC2SpotPriceDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_spot_price.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotPrice(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -81,20 +81,20 @@ func testAccSpotPriceDataSourceConfig_basic() string {
 data "aws_region" "current" {}
 
 data "aws_ec2_instance_type_offering" "test" {
-  filter {
+filter {
 me= "tance-type"
 func
 }
 
 data "aws_ec2_spot_price" "test" {
-  instance_type = data.aws_ec2_instance_type_offering.test.instance_type
+instance_type = data.aws_ec2_instance_type_offering.test.instance_type
 
-  availability_zone = data.aws_availability_zones.available.names[0]
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  filter {
+filter {
 me= "duct-description"
 lues = ["Linux/UNIX"]
-  }
+}
 }
 `)
 }
@@ -105,26 +105,26 @@ func testAccSpotPriceDataSourceConfig_filter() string {
 data "aws_region" "current" {}
 
 data "aws_ec2_instance_type_offering" "test" {
-  filter {
+filter {
 me= "tance-type"
 lues = ["m5.xlarge"]
 func
 
 data "aws_ec2_spot_price" "test" {
-  filter {
+filter {
 me= "duct-description"
 lues = ["Linux/UNIX"]
-  }
+}
 
-  filter {
+filter {
 me= "tance-type"
 lues = [data.aws_ec2_instance_type_offering.test.instance_type]
-  }
+}
 
-  filter {
+filter {
 me= "ilability-zone"
 lues = [data.aws_availability_zones.available.names[0]]
-  }
+}
 }
 `)
 }

@@ -93,7 +93,7 @@ func,
 			"wait_for_completion": {
 				Type:eBool,
 				Optional: true,
-				Default:  true,
+				Default:true,
 			},
 			"warning_message": {
 				Type:eString,

@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	pcxResourceName := "aws_vpc_peering_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCPeeringConnectionDestroy(ctx),
@@ -257,37 +257,37 @@ return nil
 func testAccVPCPeeringConnectionOptionsConfig_sameRegionSameAccount(rName string, accepterDnsResolution bool) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "peer" {
-  cidr_block  = "10.1.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.1.0.0/16"
+enable_dns_hostnames = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_peering_connection" "test" {
 funcer_vpc_id = aws_vpc.peer.id
-  auto_accept = true
+auto_accept = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_peering_connection_options" "test" {
-  vpc_peering_connection_id = aws_vpc_peering_connection.test.id
+vpc_peering_connection_id = aws_vpc_peering_connection.test.id
 
-  accepter {
+accepter {
 low_remote_vpc_dns_resolution = %[2]t
-  }
+}
 }
 `, rName, accepterDnsResolution)
 }
@@ -296,68 +296,68 @@ low_remote_vpc_dns_resolution = %[2]t
 func testAccVPCPeeringConnectionOptionsConfig_differentRegionSameAccount(rName string, dnsResolution, dnsResolutionPeer bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block  = "10.0.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.0.0.0/16"
+enable_dns_hostnames = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  cidr_block  = "10.1.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.1.0.0/16"
+enable_dns_hostnames = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcquester's side of the connection.
 resource "aws_vpc_peering_connection" "test" {
-  vpc_id.test.id
-  peer_vpc_id = aws_vpc.peer.id
-  auto_accept = false
-  peer_region = %[2]q
+vpc_id.test.id
+peer_vpc_id = aws_vpc.peer.id
+auto_accept = false
+peer_region = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  vpc_peering_connection_id = aws_vpc_peering_connection.test.id
-  auto_accept= true
+vpc_peering_connection_id = aws_vpc_peering_connection.test.id
+auto_accept= true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 # Requester's side of the connection.
 resource "aws_vpc_peering_connection_options" "test" {
-  # As options can't be set until the connection has been accepted
-  # create an explicit dependency on the accepter.
-  vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
+# As options can't be set until the connection has been accepted
+# create an explicit dependency on the accepter.
+vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
 
-  requester {
+requester {
 low_remote_vpc_dns_resolution = %[3]t
-  }
+}
 }
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_options" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
+vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
 
-  accepter {
+accepter {
 low_remote_vpc_dns_resolution = %[4]t
-  }
+}
 }
 `, rName, acctest.AlternateRegion(), dnsResolution, dnsResolutionPeer))
 }
@@ -366,23 +366,23 @@ low_remote_vpc_dns_resolution = %[4]t
 func testAccVPCPeeringConnectionOptionsConfig_sameRegionDifferentAccount(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block  = "10.0.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.0.0.0/16"
+enable_dns_hostnames = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  cidr_block  = "10.1.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.1.0.0/16"
+enable_dns_hostnames = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcovider = "awsalternate"
@@ -390,48 +390,48 @@ funcovider = "awsalternate"
 
 # Requester's side of the connection.
 resource "aws_vpc_peering_connection" "test" {
-  vpc_idpc.test.id
-  peer_vpc_idws_vpc.peer.id
-  peer_owner_id = data.aws_caller_identity.peer.account_id
-  auto_acceptalse
+vpc_idpc.test.id
+peer_vpc_idws_vpc.peer.id
+peer_owner_id = data.aws_caller_identity.peer.account_id
+auto_acceptalse
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  vpc_peering_connection_id = aws_vpc_peering_connection.test.id
-  auto_accept= true
+vpc_peering_connection_id = aws_vpc_peering_connection.test.id
+auto_accept= true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 # Requester's side of the connection.
 resource "aws_vpc_peering_connection_options" "test" {
-  # As options can't be set until the connection has been accepted
-  # create an explicit dependency on the accepter.
-  vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
+# As options can't be set until the connection has been accepted
+# create an explicit dependency on the accepter.
+vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
 
-  requester {
+requester {
 low_remote_vpc_dns_resolution = true
-  }
+}
 }
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_options" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
+vpc_peering_connection_id = aws_vpc_peering_connection_accepter.peer.id
 
-  accepter {
+accepter {
 low_remote_vpc_dns_resolution = true
-  }
+}
 }
 `, rName))
 }

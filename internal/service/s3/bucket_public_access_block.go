@@ -22,7 +22,7 @@ import (
 // @SDKResource("aws_s3_bucket_public_access_block")func ResourceBucketPublicAccessBlock() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketPublicAccessBlockCreate,
-		ReadWithoutTimeout:   resourceBucketPublicAccessBlockRead,
+		ReadWithoutTimeout: resourceBucketPublicAccessBlockRead,
 		UpdateWithoutTimeout: resourceBucketPublicAccessBlockUpdate,
 		DeleteWithoutTimeout: resourceBucketPublicAccessBlockDelete,
 		Importer: &schema.ResourceImporter{
@@ -31,33 +31,33 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"block_public_acls": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 
 			"block_public_policy": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 
 			"ignore_public_acls": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 
 			"restrict_public_buckets": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 		},
 	}
@@ -68,9 +68,9 @@ import (
 	input := &s3.PutPublicAccessBlockInput{
 		Bucket: aws.String(bucket),
 		PublicAccessBlockConfiguration: &s3.PublicAccessBlockConfiguration{
-			BlockPublicAcls:       aws.Bool(d.Get("block_public_acls").(bool)),
-			BlockPublicPolicy:     aws.Bool(d.Get("block_public_policy").(bool)),
-			IgnorePublicAcls:      aws.Bool(d.Get("ignore_public_acls").(bool)),
+			BlockPublicAcls: aws.Bool(d.Get("block_public_acls").(bool)),
+			BlockPublicPolicy: aws.Bool(d.Get("block_public_policy").(bool)),
+			IgnorePublicAcls:aws.Bool(d.Get("ignore_public_acls").(bool)),
 			RestrictPublicBuckets: aws.Bool(d.Get("restrict_public_buckets").(bool)),
 		},
 	}
@@ -163,9 +163,9 @@ import (
 	input := &s3.PutPublicAccessBlockInput{
 		Bucket: aws.String(d.Id()),
 		PublicAccessBlockConfiguration: &s3.PublicAccessBlockConfiguration{
-			BlockPublicAcls:       aws.Bool(d.Get("block_public_acls").(bool)),
-			BlockPublicPolicy:     aws.Bool(d.Get("block_public_policy").(bool)),
-			IgnorePublicAcls:      aws.Bool(d.Get("ignore_public_acls").(bool)),
+			BlockPublicAcls: aws.Bool(d.Get("block_public_acls").(bool)),
+			BlockPublicPolicy: aws.Bool(d.Get("block_public_policy").(bool)),
+			IgnorePublicAcls:aws.Bool(d.Get("ignore_public_acls").(bool)),
 			RestrictPublicBuckets: aws.Bool(d.Get("restrict_public_buckets").(bool)),
 		},
 	}

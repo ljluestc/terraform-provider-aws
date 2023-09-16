@@ -26,7 +26,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckBackupPolicyDestroy(ctx),
 Steps: []resource.TestStep{
@@ -55,7 +55,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckBackupPolicyDestroy(ctx),
 Steps: []resource.TestStep{
@@ -78,7 +78,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckBackupPolicyDestroy(ctx),
 Steps: []resource.TestStep{
@@ -169,14 +169,14 @@ return nil
 func testAccBackupPolicyConfig_basic(rName, status string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_backup_policy" "test" {
 func
-  backup_policy {
+backup_policy {
 atus = %[2]q
-  }
+}
 }
 `, rName, status)
 }

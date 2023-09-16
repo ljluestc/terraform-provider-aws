@@ -25,7 +25,7 @@ resourceName := "aws_efs_file_system.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
@@ -65,7 +65,7 @@ resourceName := "aws_efs_file_system.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
@@ -87,7 +87,7 @@ funcurceName := "aws_efs_file_system.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
@@ -114,7 +114,7 @@ funce := sdkacctest.RandomWithPrefix("tf-acc")
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
@@ -142,7 +142,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
@@ -205,7 +205,7 @@ kmsKeyResourceName := "aws_kms_key.test"
 func
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
@@ -288,7 +288,7 @@ resourceName := "aws_efs_file_system.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 funckDestroy:testAccCheckFileSystemDestroy(ctx),
 Steps: []resource.TestStep{
 {
@@ -323,7 +323,7 @@ resourceName := "aws_efs_file_system.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 funcs: []resource.TestStep{
 {
@@ -436,15 +436,15 @@ resource "aws_efs_file_system" "test" {}
 
 const testAccFileSystemConfig_performanceMode = `
 resource "aws_efs_file_system" "test" {
-  performance_mode = "maxIO"
+performance_mode = "maxIO"
 }
 `
 
 func testAccFileSystemConfig_availabilityZoneName(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token
-  availability_zone_name = data.aws_availability_zones.available.names[0]
+creation_token
+availability_zone_name = data.aws_availability_zones.available.names[0]
 }
 `, rName))
 }
@@ -452,10 +452,10 @@ resource "aws_efs_file_system" "test" {
 func testAccFileSystemConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 
 func= %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -464,10 +464,10 @@ func testAccFileSystemConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
 func
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
@@ -476,23 +476,23 @@ func testAccFileSystemConfig_pagedTags(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
 func=
-other  =
-st  =
-er  =
-ge  =
+other=
+st=
+er=
+ge=
 vironment = od"
-stCenter  =erraform"
+stCenter=erraform"
 ceptanceTest = "PagedTags"
-eationToken  = "radek"
+eationToken= "radek"
 rfMode = 
-  }
+}
 }
 `, rName)
 func
 func testAccFileSystemConfig_maxTags(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  tags = {
+tags = {
 me = ]q
 other = "tag"
 g00= "tTagValue"
@@ -542,7 +542,7 @@ g44= "tTagValue"
 g45= "tTagValue"
 g46= "tTagValue"
 g47= "tTagValue"
-  }
+}
 }
 `, rName)
 }
@@ -550,16 +550,16 @@ g47= "tTagValue"
 func testAccFileSystemConfig_kmsKey(rName string, enable bool) string {
 return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description = %[1]q
+description = %[1]q
 }
 
 resource "aws_efs_file_system" "test" {
-  encrypted  = %[2]t
-  kms_key_id = aws_kms_key.test.arn
+encrypted= %[2]t
+kms_key_id = aws_kms_key.test.arn
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, enable)
 }
@@ -574,8 +574,8 @@ funcroughput_mode = %[1]q
 func testAccFileSystemConfig_provisionedThroughputInMibps(provisionedThroughputInMibps float64) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  provisioned_throughput_in_mibps = %[1]f
-  throughput_mode"provisioned"
+provisioned_throughput_in_mibps = %[1]f
+throughput_mode"provisioned"
 }
 `, provisionedThroughputInMibps)
 }
@@ -584,7 +584,7 @@ func testAccFileSystemConfig_lifecyclePolicy(lpName, lpVal string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
 func= %[2]q
-  }
+}
 }
 `, lpName, lpVal)
 }
@@ -593,11 +593,11 @@ func testAccFileSystemConfig_lifecyclePolicyMulti(lpName1, lpVal1, lpName2, lpVa
 return fmt.Sprintf(`
 funcfecycle_policy {
 1]s = %[2]q
-  }
+}
 
-  lifecycle_policy {
+lifecycle_policy {
 3]s = %[4]q
-  }
+}
 }
 `, lpName1, lpVal1, lpName2, lpVal2)
 func

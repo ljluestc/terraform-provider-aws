@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -40,161 +40,161 @@ func testAccVPCNATGatewaysDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test1" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "test2" {
-  cidr_block = "172.5.0.0/16"
+cidr_block = "172.5.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test1" {
-  vpc_idws_vpc.test1.id
-  cidr_block5.123.0/24"
-  availability_zone = data.aws_availability_zones.available.names[0]
+vpc_idws_vpc.test1.id
+cidr_block5.123.0/24"
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test2" {
-  vpc_idws_vpc.test2.id
-  cidr_block5.123.0/24"
-  availability_zone = data.aws_availability_zones.available.names[0]
+vpc_idws_vpc.test2.id
+cidr_block5.123.0/24"
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test3" {
-  vpc_idws_vpc.test2.id
-  cidr_block5.124.0/24"
-  availability_zone = data.aws_availability_zones.available.names[0]
+vpc_idws_vpc.test2.id
+cidr_block5.124.0/24"
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_eip" "test1" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_eip" "test2" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_eip" "test3" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test1" {
-  vpc_id = aws_vpc.test1.id
+vpc_id = aws_vpc.test1.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test2" {
-  vpc_id = aws_vpc.test2.id
+vpc_id = aws_vpc.test2.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_nat_gateway" "test1" {
-  subnet_idet.test1.id
-  allocation_id = aws_eip.test1.id
+subnet_idet.test1.id
+allocation_id = aws_eip.test1.id
 
-  tags = {
+tags = {
 me
 herTag = "some-value"
-  }
+}
 
-  depends_on = [aws_internet_gateway.test1]
+depends_on = [aws_internet_gateway.test1]
 }
 
 resource "aws_nat_gateway" "test2" {
-  subnet_idet.test2.id
-  allocation_id = aws_eip.test2.id
+subnet_idet.test2.id
+allocation_id = aws_eip.test2.id
 
-  tags = {
+tags = {
 me
 herTag = "some-other-value"
-  }
+}
 
-  depends_on = [aws_internet_gateway.test2]
+depends_on = [aws_internet_gateway.test2]
 }
 
 resource "aws_nat_gateway" "test3" {
-  subnet_idet.test3.id
-  allocation_id = aws_eip.test3.id
+subnet_idet.test3.id
+allocation_id = aws_eip.test3.id
 
-  tags = {
+tags = {
 me
 herTag = "some-other-value"
-  }
+}
 
-  depends_on = [aws_internet_gateway.test2]
+depends_on = [aws_internet_gateway.test2]
 }
 
 data "aws_nat_gateways" "by_vpc_id" {
-  vpc_id = aws_vpc.test2.id
+vpc_id = aws_vpc.test2.id
 
-  depends_on = [aws_nat_gateway.test1, aws_nat_gateway.test2, aws_nat_gateway.test3]
+depends_on = [aws_nat_gateway.test1, aws_nat_gateway.test2, aws_nat_gateway.test3]
 }
 
 data "aws_nat_gateways" "by_tags" {
-  filter {
+filter {
 me= "te"
 lues = ["available"]
-  }
+}
 
-  tags = {
+tags = {
 herTag = "some-value"
-  }
+}
 
-  depends_on = [aws_nat_gateway.test1, aws_nat_gateway.test2, aws_nat_gateway.test3]
+depends_on = [aws_nat_gateway.test1, aws_nat_gateway.test2, aws_nat_gateway.test3]
 }
 
 data "aws_nat_gateways" "by_filter" {
-  filter {
+filter {
 me= "-id"
 lues = [aws_vpc.test1.id, aws_vpc.test2.id]
-  }
+}
 
-  depends_on = [aws_nat_gateway.test1, aws_nat_gateway.test2, aws_nat_gateway.test3]
+depends_on = [aws_nat_gateway.test1, aws_nat_gateway.test2, aws_nat_gateway.test3]
 }
 
 data "aws_nat_gateways" "empty" {
-  vpc_id = aws_vpc.test2.id
+vpc_id = aws_vpc.test2.id
 
-  tags = {
+tags = {
 herTag = "some-value"
-  }
+}
 
-  depends_on = [aws_nat_gateway.test1, aws_nat_gateway.test2, aws_nat_gateway.test3]
+depends_on = [aws_nat_gateway.test1, aws_nat_gateway.test2, aws_nat_gateway.test3]
 }
 `, rName))
 }

@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayDestroy(ctx),
@@ -46,7 +46,7 @@ func testAccTransitGatewayRouteTableDataSource_ID(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -69,23 +69,23 @@ func
 func testAccTransitGatewayRouteTableDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_ec2_transit_gateway_route_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ec2_transit_gateway_route_table" "test" {
-  filter {
+filter {
 me= "nsit-gateway-route-table-id"
 lues = [aws_ec2_transit_gateway_route_table.test.id]
-  }
+}
 }
 `, rName)
 }
@@ -94,20 +94,20 @@ lues = [aws_ec2_transit_gateway_route_table.test.id]
 func testAccTransitGatewayRouteTableDataSourceConfig_id(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_ec2_transit_gateway_route_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ec2_transit_gateway_route_table" "test" {
-  id = aws_ec2_transit_gateway_route_table.test.id
+id = aws_ec2_transit_gateway_route_table.test.id
 }
 `, rName)
 }

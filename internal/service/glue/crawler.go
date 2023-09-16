@@ -37,7 +37,7 @@ func targets() []string {
 func ResourceCrawler() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceCrawlerCreate,
-ReadWithoutTimeout:   resourceCrawlerRead,
+ReadWithoutTimeout: resourceCrawlerRead,
 UpdateWithoutTimeout: resourceCrawlerUpdate,
 DeleteWithoutTimeout: resourceCrawlerDelete,
 
@@ -49,50 +49,50 @@ CustomizeDiff: verify.SetTagsDiff,
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"catalog_target": {
-Type:         schema.TypeList,
-Optional:     true,
-MinItems:     1,
+Type: schema.TypeList,
+Optional: true,
+MinItems: 1,
 AtLeastOneOf: targets(),
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "connection_name": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Optional: true,
 },
 "database_name": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Required: true,
 },
 "dlq_event_queue_arn": {
-	Type:         schema.TypeString,
-	Optional:     true,
+	Type: schema.TypeString,
+	Optional: true,
 	ValidateFunc: verify.ValidARN,
 },
 "event_queue_arn": {
-	Type:         schema.TypeString,
-	Optional:     true,
+	Type: schema.TypeString,
+	Optional: true,
 	ValidateFunc: verify.ValidARN,
 },
 "tables": {
-	Type:     schema.TypeList,
+	Type: schema.TypeList,
 	Required: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem: &schema.Schema{Type: schema.TypeString},
 },
 	},
 },
 	},
 	"classifiers": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 	},
 	"configuration": {
-Type:             schema.TypeString,
-Optional:         true,
+Type: schema.TypeString,
+Optional: true,
 DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 StateFunc: func(v interface{}) string {
 	json, _ := structure.NormalizeJsonString(v)
@@ -101,216 +101,216 @@ StateFunc: func(v interface{}) string {
 ValidateFunc: validation.StringIsJSON,
 	},
 	"database_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 ForceNew: true,
 Required: true,
 	},
 	"delta_target": {
-Type:         schema.TypeList,
-Optional:     true,
-MinItems:     1,
+Type: schema.TypeList,
+Optional: true,
+MinItems: 1,
 AtLeastOneOf: targets(),
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "connection_name": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Optional: true,
 },
 "create_native_delta_table": {
-	Type:     schema.TypeBool,
+	Type: schema.TypeBool,
 	Optional: true,
 },
 "delta_tables": {
-	Type:     schema.TypeSet,
+	Type: schema.TypeSet,
 	Required: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem: &schema.Schema{Type: schema.TypeString},
 },
 "write_manifest": {
-	Type:     schema.TypeBool,
+	Type: schema.TypeBool,
 	Required: true,
 },
 	},
 },
 	},
 	"description": {
-Type:         schema.TypeString,
-Optional:     true,
+Type: schema.TypeString,
+Optional: true,
 ValidateFunc: validation.StringLenBetween(0, 2048),
 	},
 	"dynamodb_target": {
-Type:         schema.TypeList,
-Optional:     true,
-MinItems:     1,
+Type: schema.TypeList,
+Optional: true,
+MinItems: 1,
 AtLeastOneOf: targets(),
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "path": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Required: true,
 },
 "scan_all": {
-	Type:     schema.TypeBool,
+	Type: schema.TypeBool,
 	Optional: true,
-	Default:  true,
+	Default:true,
 },
 "scan_rate": {
-	Type:         schema.TypeFloat,
-	Optional:     true,
+	Type: schema.TypeFloat,
+	Optional: true,
 	ValidateFunc: validation.FloatBetween(0.1, 1.5),
 },
 	},
 },
 	},
 	"hudi_target": {
-Type:         schema.TypeList,
-Optional:     true,
-MinItems:     1,
+Type: schema.TypeList,
+Optional: true,
+MinItems: 1,
 AtLeastOneOf: targets(),
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "connection_name": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Optional: true,
 },
 "exclusions": {
-	Type:     schema.TypeList,
+	Type: schema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem: &schema.Schema{Type: schema.TypeString},
 },
 "maximum_traversal_depth": {
-	Type:         schema.TypeInt,
-	Required:     true,
+	Type: schema.TypeInt,
+	Required: true,
 	ValidateFunc: validation.IntBetween(1, 20),
 },
 "paths": {
-	Type:     schema.TypeSet,
+	Type: schema.TypeSet,
 	Required: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem: &schema.Schema{Type: schema.TypeString},
 },
 	},
 },
 	},
 	"iceberg_target": {
-Type:         schema.TypeList,
-Optional:     true,
-MinItems:     1,
+Type: schema.TypeList,
+Optional: true,
+MinItems: 1,
 AtLeastOneOf: targets(),
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "connection_name": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Optional: true,
 },
 "exclusions": {
-	Type:     schema.TypeList,
+	Type: schema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem: &schema.Schema{Type: schema.TypeString},
 },
 "maximum_traversal_depth": {
-	Type:         schema.TypeInt,
-	Required:     true,
+	Type: schema.TypeInt,
+	Required: true,
 	ValidateFunc: validation.IntBetween(1, 20),
 },
 "paths": {
-	Type:     schema.TypeSet,
+	Type: schema.TypeSet,
 	Required: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem: &schema.Schema{Type: schema.TypeString},
 },
 	},
 },
 	},
 	"jdbc_target": {
-Type:         schema.TypeList,
-Optional:     true,
-MinItems:     1,
+Type: schema.TypeList,
+Optional: true,
+MinItems: 1,
 AtLeastOneOf: targets(),
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "connection_name": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Required: true,
 },
 "enable_additional_metadata": {
-	Type:     schema.TypeList,
+	Type: schema.TypeList,
 	Optional: true,
 	Elem: &schema.Schema{
-Type:         schema.TypeString,
+Type: schema.TypeString,
 ValidateFunc: validation.StringInSlice(glue.JdbcMetadataEntry_Values(), false),
 	},
 },
 "exclusions": {
-	Type:     schema.TypeList,
+	Type: schema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem: &schema.Schema{Type: schema.TypeString},
 },
 "path": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Required: true,
 },
 	},
 },
 	},
 	"lake_formation_configuration": {
-Type:             schema.TypeList,
-Optional:         true,
-MaxItems:         1,
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "account_id": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Computed:     true,
+	Type: schema.TypeString,
+	Optional: true,
+	Computed: true,
 	ValidateFunc: verify.ValidAccountID,
 },
 "use_lake_formation_credentials": {
-	Type:     schema.TypeBool,
+	Type: schema.TypeBool,
 	Optional: true,
 },
 	},
 },
 	},
 	"lineage_configuration": {
-Type:             schema.TypeList,
-Optional:         true,
-MaxItems:         1,
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "crawler_lineage_settings": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Default:      glue.CrawlerLineageSettingsDisable,
+	Type: schema.TypeString,
+	Optional: true,
+	Default:glue.CrawlerLineageSettingsDisable,
 	ValidateFunc: validation.StringInSlice(glue.CrawlerLineageSettings_Values(), false),
 },
 	},
 },
 	},
 	"mongodb_target": {
-Type:         schema.TypeList,
-Optional:     true,
-MinItems:     1,
+Type: schema.TypeList,
+Optional: true,
+MinItems: 1,
 AtLeastOneOf: targets(),
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "connection_name": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Required: true,
 },
 "path": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Required: true,
 },
 "scan_all": {
-	Type:     schema.TypeBool,
+	Type: schema.TypeBool,
 	Optional: true,
-	Default:  true,
+	Default:true,
 },
 	},
 },
 	},
 	"name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 ForceNew: true,
 Required: true,
 ValidateFunc: validation.All(
@@ -319,23 +319,23 @@ ValidateFunc: validation.All(
 ),
 	},
 	"recrawl_policy": {
-Type:             schema.TypeList,
-Optional:         true,
-MaxItems:         1,
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "recrawl_behavior": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Default:      glue.RecrawlBehaviorCrawlEverything,
+	Type: schema.TypeString,
+	Optional: true,
+	Default:glue.RecrawlBehaviorCrawlEverything,
 	ValidateFunc: validation.StringInSlice(glue.RecrawlBehavior_Values(), false),
 },
 	},
 },
 	},
 	"role": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 // Glue API always returns name
 DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -349,79 +349,79 @@ return false
 },
 	},
 	"s3_target": {
-Type:         schema.TypeList,
-Optional:     true,
-MinItems:     1,
+Type: schema.TypeList,
+Optional: true,
+MinItems: 1,
 AtLeastOneOf: targets(),
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "connection_name": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Optional: true,
 },
 "dlq_event_queue_arn": {
-	Type:         schema.TypeString,
-	Optional:     true,
+	Type: schema.TypeString,
+	Optional: true,
 	ValidateFunc: verify.ValidARN,
 },
 "event_queue_arn": {
-	Type:         schema.TypeString,
-	Optional:     true,
+	Type: schema.TypeString,
+	Optional: true,
 	ValidateFunc: verify.ValidARN,
 },
 "exclusions": {
-	Type:     schema.TypeList,
+	Type: schema.TypeList,
 	Optional: true,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Elem: &schema.Schema{Type: schema.TypeString},
 },
 "path": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Required: true,
 },
 "sample_size": {
-	Type:         schema.TypeInt,
-	Optional:     true,
+	Type: schema.TypeInt,
+	Optional: true,
 	ValidateFunc: validation.IntBetween(1, 249),
 },
 	},
 },
 	},
 	"schedule": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 	},
 	"schema_change_policy": {
-Type:             schema.TypeList,
-Optional:         true,
+Type: schema.TypeList,
+Optional: true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "delete_behavior": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Default:      glue.DeleteBehaviorDeprecateInDatabase,
+	Type: schema.TypeString,
+	Optional: true,
+	Default:glue.DeleteBehaviorDeprecateInDatabase,
 	ValidateFunc: validation.StringInSlice(glue.DeleteBehavior_Values(), false),
 },
 "update_behavior": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Default:      glue.UpdateBehaviorUpdateInDatabase,
+	Type: schema.TypeString,
+	Optional: true,
+	Default:glue.UpdateBehaviorUpdateInDatabase,
 	ValidateFunc: validation.StringInSlice(glue.UpdateBehavior_Values(), false),
 },
 	},
 },
 	},
 	"security_configuration": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 	},
 	"table_prefix": {
-Type:         schema.TypeString,
-Optional:     true,
+Type: schema.TypeString,
+Optional: true,
 ValidateFunc: validation.StringLenBetween(0, 128),
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },
 	}
@@ -497,10 +497,10 @@ return sdkdiag.AppendErrorf(diags, "reading Glue Crawler (%s): %s", d.Id(), err)
 
 	crawlerARN := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Service:   "glue",
-Region:    meta.(*conns.AWSClient).Region,
+Service: "glue",
+Region:meta.(*conns.AWSClient).Region,
 AccountID: meta.(*conns.AWSClient).AccountID,
-Resource:  fmt.Sprintf("crawler/%s", d.Id()),
+Resource:fmt.Sprintf("crawler/%s", d.Id()),
 	}.String()
 	d.Set("arn", crawlerARN)
 	d.Set("name", crawler.Name)
@@ -651,11 +651,11 @@ return sdkdiag.AppendErrorf(diags, "deleting Glue Crawler (%s): %s", d.Id(), err
 
 func createCrawlerInput(ctx context.Context, d *schema.ResourceData, crawlerName string) (*glue.CreateCrawlerInput, error) {
 	crawlerInput := &glue.CreateCrawlerInput{
-Name:         aws.String(crawlerName),
+Name: aws.String(crawlerName),
 DatabaseName: aws.String(d.Get("database_name").(string)),
-Role:         aws.String(d.Get("role").(string)),
-Tags:         getTagsIn(ctx),
-Targets:      expandCrawlerTargets(d),
+Role: aws.String(d.Get("role").(string)),
+Tags: getTagsIn(ctx),
+Targets:expandCrawlerTargets(d),
 	}
 	if description, ok := d.GetOk("description"); ok {
 crawlerInput.Description = aws.String(description.(string))
@@ -705,10 +705,10 @@ crawlerInput.RecrawlPolicy = expandCrawlerRecrawlPolicy(v.([]interface{}))
 
 func updateCrawlerInput(d *schema.ResourceData, crawlerName string) (*glue.UpdateCrawlerInput, error) {
 	crawlerInput := &glue.UpdateCrawlerInput{
-Name:         aws.String(crawlerName),
+Name: aws.String(crawlerName),
 DatabaseName: aws.String(d.Get("database_name").(string)),
-Role:         aws.String(d.Get("role").(string)),
-Targets:      expandCrawlerTargets(d),
+Role: aws.String(d.Get("role").(string)),
+Targets:expandCrawlerTargets(d),
 	}
 	if description, ok := d.GetOk("description"); ok {
 crawlerInput.Description = aws.String(description.(string))
@@ -831,7 +831,7 @@ perms[i] = expandDynamoDBTarget(cfg)
 
 func expandDynamoDBTarget(cfg map[string]interface{}) *glue.DynamoDBTarget {
 	target := &glue.DynamoDBTarget{
-Path:    aws.String(cfg["path"].(string)),
+Path:aws.String(cfg["path"].(string)),
 ScanAll: aws.Bool(cfg["scan_all"].(bool)),
 	}
 
@@ -898,7 +898,7 @@ perms[i] = expandJDBCTarget(cfg)
 
 func expandJDBCTarget(cfg map[string]interface{}) *glue.JdbcTarget {
 	target := &glue.JdbcTarget{
-Path:           aws.String(cfg["path"].(string)),
+Path: aws.String(cfg["path"].(string)),
 ConnectionName: aws.String(cfg["connection_name"].(string)),
 	}
 
@@ -929,7 +929,7 @@ perms[i] = expandCatalogTarget(cfg)
 func expandCatalogTarget(cfg map[string]interface{}) *glue.CatalogTarget {
 	target := &glue.CatalogTarget{
 DatabaseName: aws.String(cfg["database_name"].(string)),
-Tables:       flex.ExpandStringList(cfg["tables"].([]interface{})),
+Tables: flex.ExpandStringList(cfg["tables"].([]interface{})),
 	}
 
 	if v, ok := cfg["connection_name"].(string); ok {
@@ -963,8 +963,8 @@ perms[i] = expandMongoDBTarget(cfg)
 func expandMongoDBTarget(cfg map[string]interface{}) *glue.MongoDBTarget {
 	target := &glue.MongoDBTarget{
 ConnectionName: aws.String(cfg["connection_name"].(string)),
-Path:           aws.String(cfg["path"].(string)),
-ScanAll:        aws.Bool(cfg["scan_all"].(bool)),
+Path: aws.String(cfg["path"].(string)),
+ScanAll:aws.Bool(cfg["scan_all"].(bool)),
 	}
 
 	return target
@@ -986,8 +986,8 @@ perms[i] = expandDeltaTarget(cfg)
 func expandDeltaTarget(cfg map[string]interface{}) *glue.DeltaTarget {
 	target := &glue.DeltaTarget{
 CreateNativeDeltaTable: aws.Bool(cfg["create_native_delta_table"].(bool)),
-DeltaTables:            flex.ExpandStringSet(cfg["delta_tables"].(*schema.Set)),
-WriteManifest:          aws.Bool(cfg["write_manifest"].(bool)),
+DeltaTables:flex.ExpandStringSet(cfg["delta_tables"].(*schema.Set)),
+WriteManifest:aws.Bool(cfg["write_manifest"].(bool)),
 	}
 
 	if v, ok := cfg["connection_name"].(string); ok {
@@ -1012,7 +1012,7 @@ perms[i] = expandHudiTarget(cfg)
 
 func expandHudiTarget(cfg map[string]interface{}) *glue.HudiTarget {
 	target := &glue.HudiTarget{
-Paths:  flex.ExpandStringSet(cfg["paths"].(*schema.Set)),
+Paths:flex.ExpandStringSet(cfg["paths"].(*schema.Set)),
 MaximumTraversalDepth: aws.Int64(int64(cfg["maximum_traversal_depth"].(int))),
 	}
 
@@ -1042,7 +1042,7 @@ perms[i] = expandIcebergTarget(cfg)
 
 func expandIcebergTarget(cfg map[string]interface{}) *glue.IcebergTarget {
 	target := &glue.IcebergTarget{
-Paths:  flex.ExpandStringSet(cfg["paths"].(*schema.Set)),
+Paths:flex.ExpandStringSet(cfg["paths"].(*schema.Set)),
 MaximumTraversalDepth: aws.Int64(int64(cfg["maximum_traversal_depth"].(int))),
 	}
 
@@ -1238,7 +1238,7 @@ return []map[string]interface{}{}
 	}
 
 	m := map[string]interface{}{
-"account_id":      aws.StringValue(cfg.AccountId),
+"account_id":aws.StringValue(cfg.AccountId),
 "use_lake_formation_credentials": aws.BoolValue(cfg.UseLakeFormationCredentials),
 	}
 

@@ -242,45 +242,45 @@ funceturn fmt.Errorf("No sagmaker Code Repository ID is set")
 func testAccCodeRepositoryConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_code_repository" "test" {
-  code_repository_name = %[1]q
+code_repository_name = %[1]q
 
-  git_config {
+git_config {
 pository_url = "https://github.com/hashicorp/terraform-provider-aws.git"
-  }
+}
 }
 func
 
 func testAccCodeRepositoryConfig_gitBranch(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_code_repository" "test" {
-  code_repository_name = %[1]q
+code_repository_name = %[1]q
 
-  git_config {
+git_config {
 pository_url = "https://github.com/hashicorp/terraform-provider-aws.git"
 anch "master"
-  }
+}
 }
 func
 
 func testAccCodeRepositoryConfig_gitSecret(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_secretsmanager_secret" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_secretsmanager_secret_version" "test" {
-  secret_id_secretsmanager_secret.test.id
-  secret_string = jsonencode({ username = "example", password = "example" })
+secret_id_secretsmanager_secret.test.id
+secret_string = jsonencode({ username = "example", password = "example" })
 }
 
 funcde_repository_name = %[1]q
 
-  git_config {
+git_config {
 pository_url = "https://github.com/hashicorp/terraform-provider-aws.git"
 cret_arn_secretsmanager_secret.test.arn
-  }
+}
 
-  depends_on = [aws_secretsmanager_secret_version.test]
+depends_on = [aws_secretsmanager_secret_version.test]
 }
 `, rName)
 }
@@ -288,22 +288,22 @@ cret_arn_secretsmanager_secret.test.arn
 func testAccCodeRepositoryConfig_gitSecretUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_secretsmanager_secret" "test2" {
-  name = "%[1]s-2"
+name = "%[1]s-2"
 }
 
 resource "aws_secretsmanager_secret_version" "test2" {
-  secret_id_secretsmanager_secret.test2.id
-  secret_string = jsonencode({ username = "example", password = "example" })
+secret_id_secretsmanager_secret.test2.id
+secret_string = jsonencode({ username = "example", password = "example" })
 }
 
 resource "aws_sagemaker_code_repository" "test" {
 func
-  git_config {
+git_config {
 pository_url = "https://github.com/hashicorp/terraform-provider-aws.git"
 cret_arn_secretsmanager_secret.test2.arn
-  }
+}
 
-  depends_on = [aws_secretsmanager_secret_version.test2]
+depends_on = [aws_secretsmanager_secret_version.test2]
 }
 `, rName)
 }
@@ -311,30 +311,30 @@ cret_arn_secretsmanager_secret.test2.arn
 func testAccCodeRepositoryConfig_basicTags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_code_repository" "test" {
-  code_repository_name = %[1]q
+code_repository_name = %[1]q
 
-  git_config {
+git_config {
 pository_url = "https://github.com/hashicorp/terraform-provider-aws.git"
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 func
 
 func testAccCodeRepositoryConfig_basicTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_code_repository" "test" {
-  code_repository_name = %[1]q
+code_repository_name = %[1]q
 
-  git_config {
+git_config {
 pository_url = "https://github.com/hashicorp/terraform-provider-aws.git"
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 func

@@ -200,8 +200,8 @@ return sdkdiag.AppendErrorf(diags, "one of route_table_id, vpc_id, subnet_id, ga
 	req.Filters = BuildAttributeFilterList(
 map[string]string{
 	"route-table-id":rtbId.(string),
-	"vpc-id":  vpcId.(string),
-	"association.subnet-id":  subnetId.(string),
+	"vpc-id":vpcId.(string),
+	"association.subnet-id":subnetId.(string),
 	"association.gateway-id": gatewayId.(string),
 },
 	)
@@ -233,7 +233,7 @@ Partition: meta.(*conns.AWSClient).Partition,
 Service:.ServiceName,
 Region:ta.(*conns.AWSClient).Region,
 AccountID: ownerID,
-Resource:  fmt.Sprintf("route-table/%s", d.Id()),
+Resource:fmt.Sprintf("route-table/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("owner_id", ownerID)

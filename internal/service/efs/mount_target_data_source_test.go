@@ -19,7 +19,7 @@ dataSourceName := "data.aws_efs_mount_target.test"
 resourceName := "aws_efs_mount_target.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -49,7 +49,7 @@ resourceName := "aws_efs_mount_target.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -79,7 +79,7 @@ funcurceName := "aws_efs_mount_target.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -105,33 +105,33 @@ resource.TestCheckResourceAttrPair(dataSourceName, "security_groups", resourceNa
 func testAccMountTargetBaseDataSourceConfig(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_efs_mount_target" "test" {
-  file_system_id = aws_efs_file_system.test.id
-  subnet_idsubnet.test.id
+file_system_id = aws_efs_file_system.test.id
+subnet_idsubnet.test.id
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  vpc_idst.id
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block0.0.1.0/24"
+vpc_idst.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block0.0.1.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -139,14 +139,14 @@ me = %[1]q
 func testAccMountTargetDataSourceConfig_byID(rName string) string {
 return acctest.ConfigCompose(testAccMountTargetBaseDataSourceConfig(rName), `
 data "aws_efs_mount_target" "test" {
-  mount_target_id = aws_efs_mount_target.test.id
+mount_target_id = aws_efs_mount_target.test.id
 }
 func
 
 func testAccMountTargetDataSourceConfig_byAccessPointID(rName string) string {
 return acctest.ConfigCompose(testAccMountTargetBaseDataSourceConfig(rName), `
 resource "aws_efs_access_point" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 }
 
 funccess_point_id = aws_efs_access_point.test.id
@@ -157,8 +157,8 @@ funccess_point_id = aws_efs_access_point.test.id
 func testAccMountTargetDataSourceConfig_byFileSystemID(rName string) string {
 return acctest.ConfigCompose(testAccMountTargetBaseDataSourceConfig(rName), `
 data "aws_efs_mount_target" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 
-  depends_on = [aws_efs_mount_target.test]
+depends_on = [aws_efs_mount_target.test]
 }
 func

@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckNetworkInsightsPathDestroy(ctx),
@@ -61,7 +61,7 @@ func TestAccVPCNetworkInsightsPath_disappears(t *testing.T) {
 	resourceName := "aws_ec2_network_insights_path.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -130,7 +130,7 @@ func TestAccVPCNetworkInsightsPath_sourceAndDestinationARN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -160,7 +160,7 @@ func TestAccVPCNetworkInsightsPath_sourceIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -195,7 +195,7 @@ func TestAccVPCNetworkInsightsPath_destinationIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckNetworkInsightsPathDestroy(ctx),
@@ -229,7 +229,7 @@ func TestAccVPCNetworkInsightsPath_destinationPort(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -308,15 +308,15 @@ funcurn acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprint
 funcunt = 2
 
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  sourcework_interface.test[0].id
-  destination = aws_network_interface.test[1].id
-  protocol%[2]q
+sourcework_interface.test[0].id
+destination = aws_network_interface.test[1].id
+protocol%[2]q
 }
 `, rName, protocol))
 }
@@ -325,22 +325,22 @@ resource "aws_ec2_network_insights_path" "test" {
 func testAccVPCNetworkInsightsPathConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  count = 2
+count = 2
 
-  subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_ec2_network_insights_path" "test" {
-  sourcework_interface.test[0].id
-  destination = aws_network_interface.test[1].id
-  protocol"tcp"
+sourcework_interface.test[0].id
+destination = aws_network_interface.test[1].id
+protocol"tcp"
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -349,23 +349,23 @@ funcurce "aws_ec2_network_insights_path" "test" {
 func testAccVPCNetworkInsightsPathConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  count = 2
+count = 2
 
-  subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  sourcework_interface.test[0].id
-  destination = aws_network_interface.test[1].id
-  protocol"tcp"
+sourcework_interface.test[0].id
+destination = aws_network_interface.test[1].id
+protocol"tcp"
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -374,18 +374,18 @@ resource "aws_ec2_network_insights_path" "test" {
 func testAccVPCNetworkInsightsPathConfig_sourceAndDestinationARN(rName, protocol string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  count = 2
+count = 2
 
-  subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  sourcework_interface.test[0].arn
-  destination = aws_network_interface.test[1].arn
-  protocol%[2]q
+sourcework_interface.test[0].arn
+destination = aws_network_interface.test[1].arn
+protocol%[2]q
 }
 `, rName, protocol))
 }
@@ -394,29 +394,29 @@ resource "aws_ec2_network_insights_path" "test" {
 func testAccVPCNetworkInsightsPathConfig_sourceIP(rName, sourceIP string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  sourceernet_gateway.test.id
-  destination = aws_network_interface.test.id
-  protocol"tcp"
-  source_ip[2]q
+sourceernet_gateway.test.id
+destination = aws_network_interface.test.id
+protocol"tcp"
+source_ip[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, sourceIP))
 }
@@ -425,29 +425,29 @@ me = %[1]q
 func testAccVPCNetworkInsightsPathConfig_destinationIP(rName, destinationIP string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  source= aws_network_interface.test.id
-  destinationaws_internet_gateway.test.id
-  protocol
-  destination_ip = %[2]q
+source= aws_network_interface.test.id
+destinationaws_internet_gateway.test.id
+protocol
+destination_ip = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, destinationIP))
 }
@@ -456,23 +456,23 @@ me = %[1]q
 func testAccVPCNetworkInsightsPathConfig_destinationPort(rName string, destinationPort int) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  count = 2
+count = 2
 
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  source  = aws_network_interface.test[0].id
-  destinationwork_interface.test[1].id
-  protocol= "tcp"
-  destination_port = %[2]d
+source= aws_network_interface.test[0].id
+destinationwork_interface.test[1].id
+protocol= "tcp"
+destination_port = %[2]d
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, destinationPort))
 }

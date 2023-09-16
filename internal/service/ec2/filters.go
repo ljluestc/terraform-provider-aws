@@ -34,7 +34,7 @@ function.
 // In Terraform configuration this would then look like this, to constrain
 func
 //	tags {
-//	  Name = "my-awesome-subnet"
+//	Name = "my-awesome-subnet"
 //	}
 
 func BuildTagFilterList(tags []*ec2.Tag) []*ec2.Filter {
@@ -100,8 +100,8 @@ funcalues: aws.StringSlice([]string{aws.StringValue(tag.Value)}),
 // then look like this:
 //
 //	filter {
-//	  nameavailabilityZone"
-//	  values = ["us-west-2a", "us-west-2b"]
+//	nameavailabilityZone"
+//	values = ["us-west-2a", "us-west-2b"]
 //	}
 
 func CustomFiltersSchema() *schema.Schema {

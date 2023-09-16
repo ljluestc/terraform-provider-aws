@@ -155,7 +155,7 @@ func resourceVPCEndpointServiceCreate(ctx context.Context, d *schema.ResourceDat
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 funcceptanceRequired: aws.Bool(d.Get("acceptance_required").(bool)),
-		TagSpecifications:  getTagSpecificationsIn(ctx, ec2.ResourceTypeVpcEndpointService),
+		TagSpecifications:getTagSpecificationsIn(ctx, ec2.ResourceTypeVpcEndpointService),
 	}
 
 	if v, ok := d.GetOk("gateway_load_balancer_arns"); ok && v.(*schema.Set).Len() > 0 {
@@ -223,7 +223,7 @@ func!d.IsNewResource() && tfresource.NotFound(err) {
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("vpc-endpoint-service/%s", d.Id()),
+		Resource:fmt.Sprintf("vpc-endpoint-service/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("availability_zones", aws.StringValueSlice(svcCfg.AvailabilityZones))

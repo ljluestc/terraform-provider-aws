@@ -24,7 +24,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:unchPermissionDestroy(ctx),
@@ -55,7 +55,7 @@ func TestAccEC2AMILaunchPermission_disappears(t *testing.T) {
 	resourceName := "aws_ami_launch_permission.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -79,7 +79,7 @@ func TestAccEC2AMILaunchPermission_Disappears_ami(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:unchPermissionDestroy(ctx),
@@ -102,7 +102,7 @@ func TestAccEC2AMILaunchPermission_group(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -134,7 +134,7 @@ func TestAccEC2AMILaunchPermission_organizationARN(t *testing.T) {
 	resourceName := "aws_ami_launch_permission.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:unchPermissionDestroy(ctx),
@@ -166,7 +166,7 @@ func TestAccEC2AMILaunchPermission_organizationalUnitARN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -274,15 +274,15 @@ data "aws_caller_identity" "current" {}
 func "aws_region" "current" {}
 
 resource "aws_ami_copy" "test" {
-  description
-  name
-  source_ami_id_ami.amzn-ami-minimal-hvm-ebs.id
-  source_ami_region = data.aws_region.current.name
+description
+name
+source_ami_id_ami.amzn-ami-minimal-hvm-ebs.id
+source_ami_region = data.aws_region.current.name
 }
 
 resource "aws_ami_launch_permission" "test" {
-  account_id = data.aws_caller_identity.current.account_id
-  image_idws_ami_copy.test.id
+account_id = data.aws_caller_identity.current.account_id
+image_idws_ami_copy.test.id
 }
 `, rName))
 }
@@ -293,16 +293,16 @@ func testAccAMILaunchPermissionConfig_group(rName string) string {
 data "aws_region" "current" {}
 
 resource "aws_ami_copy" "test" {
-  description
-  name
-  source_ami_id_ami.amzn-ami-minimal-hvm-ebs.id
-  source_ami_region = data.aws_region.current.name
-  deprecation_time  = data.aws_ami.amzn-ami-minimal-hvm-ebs.deprecation_time
+description
+name
+source_ami_id_ami.amzn-ami-minimal-hvm-ebs.id
+source_ami_region = data.aws_region.current.name
+deprecation_time= data.aws_ami.amzn-ami-minimal-hvm-ebs.deprecation_time
 }
 
 resource "aws_ami_launch_permission" "test" {
-  group"all"
-  image_id = aws_ami_copy.test.id
+group"all"
+image_id = aws_ami_copy.test.id
 funcName))
 }
 
@@ -314,15 +314,15 @@ data "aws_organizations_organization" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_ami_copy" "test" {
-  description
-  name
-  source_ami_id_ami.amzn-ami-minimal-hvm-ebs.id
-  source_ami_region = data.aws_region.current.name
+description
+name
+source_ami_id_ami.amzn-ami-minimal-hvm-ebs.id
+source_ami_region = data.aws_region.current.name
 }
 
 resource "aws_ami_launch_permission" "test" {
-  organization_arn = data.aws_organizations_organization.current.arn
-  image_idami_copy.test.id
+organization_arn = data.aws_organizations_organization.current.arn
+image_idami_copy.test.id
 }
 func
 
@@ -332,21 +332,21 @@ func testAccAMILaunchPermissionConfig_organizationalUnitARN(rName string) string
 resource "aws_organizations_organization" "test" {}
 
 resource "aws_organizations_organizational_unit" "test" {
-  name
-  parent_id = aws_organizations_organization.test.roots[0].id
+name
+parent_id = aws_organizations_organization.test.roots[0].id
 }
 
 data "aws_region" "current" {}
 
 resource "aws_ami_copy" "test" {
-  description
-  name
-  source_ami_id_ami.amzn-ami-minimal-hvm-ebs.id
-  source_ami_region = data.aws_region.current.name
+description
+name
+source_ami_id_ami.amzn-ami-minimal-hvm-ebs.id
+source_ami_region = data.aws_region.current.name
 }
 funcurce "aws_ami_launch_permission" "test" {
-  organizational_unit_arn = aws_organizations_organizational_unit.test.arn
-  image_id = aws_ami_copy.test.id
+organizational_unit_arn = aws_organizations_organizational_unit.test.arn
+image_id = aws_ami_copy.test.id
 }
 `, rName))
 }

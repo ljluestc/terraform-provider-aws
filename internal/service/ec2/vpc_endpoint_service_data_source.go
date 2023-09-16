@@ -178,7 +178,7 @@ funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("vpc-endpoint-service/%s", serviceID),
+		Resource:fmt.Sprintf("vpc-endpoint-service/%s", serviceID),
 	}.String()
 	d.Set("arn", arn)
 

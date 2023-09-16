@@ -99,7 +99,7 @@ func resourceHostCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 funcut := &ec2.AllocateHostsInput{
 		AutoPlacement:(d.Get("auto_placement").(string)),
-		AvailabilityZone:  aws.String(d.Get("availability_zone").(string)),
+		AvailabilityZone:aws.String(d.Get("availability_zone").(string)),
 		ClientToken:ng(id.UniqueId()),
 		HostRecovery:g(d.Get("host_recovery").(string)),
 		Quantity: aws.Int64(1),
@@ -158,7 +158,7 @@ func
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: aws.StringValue(host.OwnerId),
-		Resource:  fmt.Sprintf("dedicated-host/%s", d.Id()),
+		Resource:fmt.Sprintf("dedicated-host/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("asset_id", host.AssetId)

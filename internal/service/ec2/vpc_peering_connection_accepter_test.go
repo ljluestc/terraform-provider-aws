@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCPeeringConnectionAccepterDestroy,
@@ -37,8 +37,8 @@ func(
 	testAccCheckVPCPeeringConnectionExists(ctx, resourceNameAccepter, &v),
 funcvpc_id - The ID of the requester VPC
 	//	peer_vpc_id - The ID of the VPC with which you are creating the VPC Peering Connection (accepter)
-	//	peer_owner_id -  The AWS account ID of the owner of the peer VPC (accepter)
-	//	peer_region -  The region of the accepter VPC of the VPC Peering Connection
+	//	peer_owner_id -The AWS account ID of the owner of the peer VPC (accepter)
+	//	peer_region -The region of the accepter VPC of the VPC Peering Connection
 	resource.TestCheckResourceAttrPair(resourceNameConnection, "vpc_id", resourceNameMainVpc, "id"),
 	resource.TestCheckResourceAttrPair(resourceNameConnection, "peer_vpc_id", resourceNamePeerVpc, "id"),
 	resource.TestCheckResourceAttrPair(resourceNameConnection, "peer_owner_id", resourceNamePeerVpc, "owner_id"),
@@ -200,38 +200,38 @@ func testAccCheckVPCPeeringConnectionAccepterDestroy(s *terraform.State) error {
 func testAccVPCPeeringConnectionAccepterConfig_sameRegionSameAccount(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_vpc" "peer" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 func
 }
 
 # Requester's side of the connection.
 resource "aws_vpc_peering_connection" "main" {
-  vpc_id.main.id
-  peer_vpc_id = aws_vpc.peer.id
-  auto_accept = false
+vpc_id.main.id
+peer_vpc_id = aws_vpc.peer.id
+auto_accept = false
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "peer" {
-  vpc_peering_connection_id = aws_vpc_peering_connection.main.id
-  auto_accept= true
+vpc_peering_connection_id = aws_vpc_peering_connection.main.id
+auto_accept= true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -240,44 +240,44 @@ me = %[1]q
 func testAccVPCPeeringConnectionAccepterConfig_differentRegionSameAccount(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
 func %[1]q
-  }
+}
 }
 
 # Requester's side of the connection.
 resource "aws_vpc_peering_connection" "main" {
-  vpc_id.main.id
-  peer_vpc_id = aws_vpc.peer.id
-  peer_region = %[2]q
-  auto_accept = false
+vpc_id.main.id
+peer_vpc_id = aws_vpc.peer.id
+peer_region = %[2]q
+auto_accept = false
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  vpc_peering_connection_id = aws_vpc_peering_connection.main.id
-  auto_accept= true
+vpc_peering_connection_id = aws_vpc_peering_connection.main.id
+auto_accept= true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, acctest.AlternateRegion()))
 }
@@ -286,49 +286,49 @@ me = %[1]q
 func testAccVPCPeeringConnectionAccepterConfig_sameRegionDifferentAccount(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 func
 }
 
 data "aws_caller_identity" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 }
 
 # Requester's side of the connection.
 resource "aws_vpc_peering_connection" "main" {
-  vpc_idpc.main.id
-  peer_vpc_idws_vpc.peer.id
-  peer_owner_id = data.aws_caller_identity.peer.account_id
-  peer_region[2]q
-  auto_acceptalse
+vpc_idpc.main.id
+peer_vpc_idws_vpc.peer.id
+peer_owner_id = data.aws_caller_identity.peer.account_id
+peer_region[2]q
+auto_acceptalse
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  vpc_peering_connection_id = aws_vpc_peering_connection.main.id
-  auto_accept= true
+vpc_peering_connection_id = aws_vpc_peering_connection.main.id
+auto_accept= true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, acctest.Region()))
 }
@@ -339,49 +339,49 @@ func testAccVPCPeeringConnectionAccepterConfig_differentRegionDifferentAccount(r
 acctest.ConfigAlternateAccountAlternateRegionProvider(),
 fmt.Sprintf(`
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
 func %[1]q
-  }
+}
 }
 
 data "aws_caller_identity" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 }
 
 # Requester's side of the connection.
 resource "aws_vpc_peering_connection" "main" {
-  vpc_idpc.main.id
-  peer_vpc_idws_vpc.peer.id
-  peer_owner_id = data.aws_caller_identity.peer.account_id
-  peer_region[2]q
-  auto_acceptalse
+vpc_idpc.main.id
+peer_vpc_idws_vpc.peer.id
+peer_owner_id = data.aws_caller_identity.peer.account_id
+peer_region[2]q
+auto_acceptalse
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  vpc_peering_connection_id = aws_vpc_peering_connection.main.id
-  auto_accept= true
+vpc_peering_connection_id = aws_vpc_peering_connection.main.id
+auto_accept= true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, acctest.AlternateRegion()))
 }

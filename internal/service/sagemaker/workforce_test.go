@@ -276,17 +276,17 @@ funceturn fmt.Errorf("No SageMaker Workforce ID is set")
 func testAccWorkforceConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_cognito_user_pool_client" "test" {
-  name
-  generate_secret = true
+name
+generate_secret = true
 func
 
 resource "aws_cognito_user_pool_domain" "test" {
-  domain[1]q
-  user_pool_id = aws_cognito_user_pool.test.id
+domain[1]q
+user_pool_id = aws_cognito_user_pool.test.id
 }
 `, rName)
 }
@@ -294,26 +294,26 @@ resource "aws_cognito_user_pool_domain" "test" {
 func testAccWorkforceConfig_cognito(rName string) string {
 	return acctest.ConfigCompose(testAccWorkforceConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workforce" "test" {
-  workforce_name = %[1]q
+workforce_name = %[1]q
 
-  cognito_config {
+cognito_config {
 ient_id = aws_cognito_user_pool_client.test.id
 er_pool = aws_cognito_user_pool_domain.test.user_pool_id
-  }
+}
 }
 func
 
 func testAccWorkforceConfig_sourceIP1(rName, cidr1 string) string {
 	return acctest.ConfigCompose(testAccWorkforceConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workforce" "test" {
-  workforce_name = %[1]q
+workforce_name = %[1]q
 
-  cognito_config {
+cognito_config {
 ient_id = aws_cognito_user_pool_client.test.id
 er_pool = aws_cognito_user_pool_domain.test.user_pool_id
-  }
+}
 
-  source_ip_config {
+source_ip_config {
 func
 }
 `, rName, cidr1))
@@ -322,14 +322,14 @@ func
 func testAccWorkforceConfig_sourceIP2(rName, cidr1, cidr2 string) string {
 	return acctest.ConfigCompose(testAccWorkforceConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workforce" "test" {
-  workforce_name = %[1]q
+workforce_name = %[1]q
 
-  cognito_config {
+cognito_config {
 ient_id = aws_cognito_user_pool_client.test.id
 er_pool = aws_cognito_user_pool_domain.test.user_pool_id
-  }
+}
 
-  source_ip_config {
+source_ip_config {
 drs = [%[2]q, %[3]q]
 func
 `, rName, cidr1, cidr2))
@@ -338,9 +338,9 @@ func
 func testAccWorkforceConfig_oidc(rName, endpoint string) string {
 	return acctest.ConfigCompose(testAccWorkforceConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workforce" "test" {
-  workforce_name = %[1]q
+workforce_name = %[1]q
 
-  oidc_config {
+oidc_config {
 thorization_endpoint = %[2]q
 ient_idq
 ient_secret
@@ -356,32 +356,32 @@ func
 func testAccWorkforceConfig_vpcBase(rName string) string {
 	return acctest.ConfigCompose(testAccWorkforceConfig_base(rName), acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  enable_dns_supportrue
-  enable_dns_hostnames = true
+enable_dns_supportrue
+enable_dns_hostnames = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
 funcailability_zone = data.aws_availability_zones.available.names[0]
-  cidr_blockcidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+cidr_blockcidrsubnet(aws_vpc.test.cidr_block, 8, 0)
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_security_group" "test" {
-  name[1]q
-  vpc_id = aws_vpc.test.id
+name[1]q
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -389,30 +389,30 @@ me = %[1]q
 func testAccWorkforceConfig_vpc(rName string) string {
 	return acctest.ConfigCompose(testAccWorkforceConfig_vpcBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workforce" "test" {
-  workforce_name = %[1]q
+workforce_name = %[1]q
 
-  cognito_config {
+cognito_config {
 ient_id = aws_cognito_user_pool_client.test.id
 er_pool = aws_cognito_user_pool_domain.test.user_pool_id
-  }
+}
 
-  workforce_vpc_config {
+workforce_vpc_config {
 curity_group_ids = [aws_security_group.test.id]
 bnetsubnet.test.id]
 c_idpc.test.id
-  }
+}
 funcName))
 }
 
 func testAccWorkforceConfig_vpcRemove(rName string) string {
 	return acctest.ConfigCompose(testAccWorkforceConfig_vpcBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workforce" "test" {
-  workforce_name = %[1]q
+workforce_name = %[1]q
 
-  cognito_config {
+cognito_config {
 ient_id = aws_cognito_user_pool_client.test.id
 er_pool = aws_cognito_user_pool_domain.test.user_pool_id
-  }
+}
 }
 `, rName))
 }

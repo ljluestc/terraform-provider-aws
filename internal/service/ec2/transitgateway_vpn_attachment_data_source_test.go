@@ -75,28 +75,28 @@ func
 func testAccTransitGatewayVPNAttachmentDataSourceConfig_base(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_customer_gateway" "test" {
-  bgp_asn%[2]d
-  ip_address = "178.0.0.1"
-  type.1"
+bgp_asn%[2]d
+ip_address = "178.0.0.1"
+type.1"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_connection" "test" {
-  customer_gateway_id = aws_customer_gateway.test.id
-  transit_gateway_id  = aws_ec2_transit_gateway.test.id
-  type = aws_customer_gateway.test.type
+customer_gateway_id = aws_customer_gateway.test.id
+transit_gateway_id= aws_ec2_transit_gateway.test.id
+type = aws_customer_gateway.test.type
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, rBgpAsn)
 }
@@ -105,8 +105,8 @@ me = %[1]q
 func testAccTransitGatewayVPNAttachmentDataSourceConfig_idAndVPNConnectionID(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPNAttachmentDataSourceConfig_base(rName, rBgpAsn), `
 data "aws_ec2_transit_gateway_vpn_attachment" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpn_connection_id  = aws_vpn_connection.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpn_connection_id= aws_vpn_connection.test.id
 }
 `)
 func
@@ -114,9 +114,9 @@ func
 func testAccTransitGatewayVPNAttachmentDataSourceConfig_filter(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPNAttachmentDataSourceConfig_base(rName, rBgpAsn), `
 data "aws_ec2_transit_gateway_vpn_attachment" "test" {
-  filter {
+filter {
 me= "ource-id"
 lues = [aws_vpn_connection.test.id]
-  }
+}
 }
 func

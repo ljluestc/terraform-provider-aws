@@ -204,7 +204,7 @@ func rs.Primary.ID == "" {
 func testAccMonitoringScheduleConfig_base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "access" {
-  statement {
+statement {
 fect = "Allow"
 
 tions = [
@@ -220,75 +220,75 @@ GetObject",
 
 
 sources = ["*"]
-  }
+}
 }
 
 data "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "assume_role" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 ce"
 tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
 
-  }
+}
 }
 
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy" "test" {
-  rolews_iam_role.test.name
-  policy = data.aws_iam_policy_document.access.json
+rolews_iam_role.test.name
+policy = data.aws_iam_policy_document.access.json
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 data "aws_sagemaker_prebuilt_ecr_image" "monitor" {
-  repository_name = "sagemaker-model-monitor-analyzer"
-  image_taglatest"
+repository_name = "sagemaker-model-monitor-analyzer"
+image_taglatest"
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
+name = %[1]q
 
-  data_quality_app_specification {
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
+}
 
-  data_quality_job_input {
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
+}
 
-  data_quality_job_output_config {
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
+}
 
-  job_resources {
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 
-  }
+}
 
-  role_arn = aws_iam_role.test.arn
+role_arn = aws_iam_role.test.arn
 }
 `, rName)
 }
@@ -296,27 +296,27 @@ me_size_in_gb = 20
 func testAccMonitoringScheduleConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccMonitoringScheduleConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_monitoring_schedule" "test" {
-  name = %[1]q
+name = %[1]q
 
-  monitoring_schedule_config {
+monitoring_schedule_config {
 nitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
 nitoring_type"
-  }
+}
 funcName))
 }
 
 func testAccMonitoringScheduleConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccMonitoringScheduleConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_monitoring_schedule" "test" {
-  name = %[1]q
+name = %[1]q
 
-  monitoring_schedule_config {
+monitoring_schedule_config {
 nitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
 nitoring_type"
-  }
+}
 
 func= %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -324,16 +324,16 @@ func= %[3]q
 func testAccMonitoringScheduleConfig_tags2(rName string, tagKey1, tagValue1 string, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccMonitoringScheduleConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_monitoring_schedule" "test" {
-  name = %[1]q
+name = %[1]q
 
-  monitoring_schedule_config {
+monitoring_schedule_config {
 nitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
 nitoring_type"
-  }
+}
 
-  tags = {
+tags = {
 func= %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -341,9 +341,9 @@ func= %[5]q
 func testAccMonitoringScheduleConfig_scheduleExpressionHourly(rName string) string {
 	return acctest.ConfigCompose(testAccMonitoringScheduleConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_monitoring_schedule" "test" {
-  name = %[1]q
+name = %[1]q
 
-  monitoring_schedule_config {
+monitoring_schedule_config {
 nitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
 nitoring_type"
 
@@ -357,15 +357,15 @@ func
 func testAccMonitoringScheduleConfig_scheduleExpressionDaily(rName string) string {
 	return acctest.ConfigCompose(testAccMonitoringScheduleConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_monitoring_schedule" "test" {
-  name = %[1]q
+name = %[1]q
 
-  monitoring_schedule_config {
+monitoring_schedule_config {
 nitoring_job_definition_name = aws_sagemaker_data_quality_job_definition.test.name
 nitoring_type"
 
 hedule_config {
 dule_expression = "cron(0 0 ? * * *)"
 
-  }
+}
 funcName))
 }

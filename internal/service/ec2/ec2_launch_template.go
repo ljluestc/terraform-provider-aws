@@ -146,7 +146,7 @@ func						Type: schema.TypeString,
 										Type: schema.TypeString,
 										Optional:
 										Validate
-func:  verify.ValidARN,
+func:verify.ValidARN,
 										ConflictsWith: []string{"capacity_reservation_specification.0.capacity_reservation_target.0.capacity_reservation_id"},
 									},
 								},
@@ -278,7 +278,7 @@ funcOptional: true,
 							Optional:
 							ConflictsWith: []string{"iam_instance_profile.0.name"},
 							Validate
-func:  verify.ValidARN,
+func:verify.ValidARN,
 						},
 						"name": {
 							Type:eString,
@@ -724,7 +724,7 @@ funcElem: &schema.Resource{
 				ForceNew:
 				ConflictsWith: []string{"name_prefix"},
 				Validate
-func:  verify.ValidLaunchTemplateName,
+func:verify.ValidLaunchTemplateName,
 funcname_prefix": {
 				Type: schema.TypeString,
 				Optional:
@@ -867,7 +867,7 @@ func			Type:eString,
 							Optional:
 							ConflictsWith: []string{"placement.0.host_id"},
 							Validate
-func:  verify.ValidARN,
+func:verify.ValidARN,
 func		"partition_number": {
 							Type:eInt,
 							Optional: true,
@@ -988,7 +988,7 @@ func resourceLaunchTemplateCreate(ctx context.Context, d *schema.ResourceData, m
 	input := &ec2.CreateLaunchTemplateInput{
 		ClientToken:ing(id.UniqueId()),
 		LaunchTemplateName: aws.String(name),
-		TagSpecifications:  getTagSpecificationsIn(ctx, ec2.ResourceTypeLaunchTemplate),
+		TagSpecifications:getTagSpecificationsIn(ctx, ec2.ResourceTypeLaunchTemplate),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

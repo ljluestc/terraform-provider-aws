@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -51,7 +51,7 @@ func testAccTransitGatewayAttachmentDataSource_ID(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -79,37 +79,37 @@ funcource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tag
 func testAccTransitGatewayAttachmentDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= aws_subnet.test[*].id
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ec2_transit_gateway_attachment" "test" {
-  filter {
+filter {
 me= "nsit-gateway-id"
 lues = [aws_ec2_transit_gateway.test.id]
-  }
+}
 
-  filter {
+filter {
 me= "ource-type"
 lues = ["vpc"]
-  }
+}
 
-  filter {
+filter {
 me= "ource-id"
 lues = [aws_vpc.test.id]
-  }
+}
 
-  depends_on = [aws_ec2_transit_gateway_vpc_attachment.test]
+depends_on = [aws_ec2_transit_gateway_vpc_attachment.test]
 }
 `, rName))
 }
@@ -118,22 +118,22 @@ lues = [aws_vpc.test.id]
 func testAccTransitGatewayAttachmentDataSourceConfig_id(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= aws_subnet.test[*].id
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ec2_transit_gateway_attachment" "test" {
-  transit_gateway_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 }
 `, rName))
 }

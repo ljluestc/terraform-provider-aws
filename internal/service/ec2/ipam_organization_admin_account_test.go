@@ -122,10 +122,10 @@ return nil
 func testAccIPAMOrganizationAdminAccountConfig_basic() string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider() + `
 data "aws_caller_identity" "delegated" {
-  provider = "awsalternate"
+provider = "awsalternate"
 }
 
 resource "aws_vpc_ipam_organization_admin_account" "test" {
-  delegated_admin_account_id = data.aws_caller_identity.delegated.account_id
+delegated_admin_account_id = data.aws_caller_identity.delegated.account_id
 }
 func

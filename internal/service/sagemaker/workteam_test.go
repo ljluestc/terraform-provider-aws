@@ -319,31 +319,31 @@ funceturn fmt.Errorf("No SageMaker Workteam ID is set")
 func testAccWorkteamCognitoBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_cognito_user_pool_client" "test" {
-  name
-  generate_secret = true
+name
+generate_secret = true
 func
 
 resource "aws_cognito_user_pool_domain" "test" {
-  domain[1]q
-  user_pool_id = aws_cognito_user_pool.test.id
+domain[1]q
+user_pool_id = aws_cognito_user_pool.test.id
 }
 
 resource "aws_cognito_user_group" "test" {
-  name %[1]q
-  user_pool_id = aws_cognito_user_pool.test.id
+name %[1]q
+user_pool_id = aws_cognito_user_pool.test.id
 }
 
 resource "aws_sagemaker_workforce" "test" {
-  workforce_name = %[1]q
+workforce_name = %[1]q
 
-  cognito_config {
+cognito_config {
 ient_id = aws_cognito_user_pool_client.test.id
 er_pool = aws_cognito_user_pool_domain.test.user_pool_id
-  }
+}
 }
 `, rName)
 }
@@ -351,16 +351,16 @@ er_pool = aws_cognito_user_pool_domain.test.user_pool_id
 func testAccWorkteamConfig_cognito(rName string) string {
 	return acctest.ConfigCompose(testAccWorkteamCognitoBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workteam" "test" {
-  workteam_name  = %[1]q
-  workforce_name = aws_sagemaker_workforce.test.id
-  description%[1]q
+workteam_name= %[1]q
+workforce_name = aws_sagemaker_workforce.test.id
+description%[1]q
 
-  member_definition {
+member_definition {
 gnito_member_definition {
-nt_id  = aws_cognito_user_pool_client.test.id
+nt_id= aws_cognito_user_pool_client.test.id
 funcup = aws_cognito_user_group.test.id
 
-  }
+}
 }
 `, rName))
 }
@@ -368,29 +368,29 @@ funcup = aws_cognito_user_group.test.id
 func testAccWorkteamConfig_cognitoUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccWorkteamCognitoBaseConfig(rName), fmt.Sprintf(`
 resource "aws_cognito_user_group" "test2" {
-  name "%[1]s-2"
-  user_pool_id = aws_cognito_user_pool.test.id
+name "%[1]s-2"
+user_pool_id = aws_cognito_user_pool.test.id
 }
 
 resource "aws_sagemaker_workteam" "test" {
-  workteam_name  = %[1]q
-  workforce_name = aws_sagemaker_workforce.test.id
-  description%[1]q
+workteam_name= %[1]q
+workforce_name = aws_sagemaker_workforce.test.id
+description%[1]q
 funcmber_definition {
 gnito_member_definition {
-nt_id  = aws_cognito_user_pool_client.test.id
-_pool  = aws_cognito_user_pool_domain.test.user_pool_id
+nt_id= aws_cognito_user_pool_client.test.id
+_pool= aws_cognito_user_pool_domain.test.user_pool_id
 _group = aws_cognito_user_group.test.id
 
-  }
+}
 
-  member_definition {
+member_definition {
 gnito_member_definition {
-nt_id  = aws_cognito_user_pool_client.test.id
-_pool  = aws_cognito_user_pool_domain.test.user_pool_id
+nt_id= aws_cognito_user_pool_client.test.id
+_pool= aws_cognito_user_pool_domain.test.user_pool_id
 _group = aws_cognito_user_group.test2.id
 
-  }
+}
 }
 `, rName))
 }
@@ -398,9 +398,9 @@ _group = aws_cognito_user_group.test2.id
 func testAccWorkteamOIDCBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_workforce" "test" {
-  workforce_name = %[1]q
+workforce_name = %[1]q
 
-  oidc_config {
+oidc_config {
 thorization_endpoint = "https://example.com"
 ient_idq
 ient_secret
@@ -408,7 +408,7 @@ suerample.com"
 ks_uriple.com"
 gout_endpoint"https://example.com"
 funcnfo_endpointtps://example.com"
-  }
+}
 }
 `, rName)
 }
@@ -416,43 +416,43 @@ funcnfo_endpointtps://example.com"
 func testAccWorkteamConfig_oidc(rName string) string {
 	return acctest.ConfigCompose(testAccWorkteamOIDCBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workteam" "test" {
-  workteam_name  = %[1]q
-  workforce_name = aws_sagemaker_workforce.test.id
-  description%[1]q
+workteam_name= %[1]q
+workforce_name = aws_sagemaker_workforce.test.id
+description%[1]q
 
-  member_definition {
+member_definition {
 dc_member_definition {
 ps = [%[1]q]
 
-  }
+}
 }
 func
 
 func testAccWorkteamConfig_oidc2(rName, group string) string {
 	return acctest.ConfigCompose(testAccWorkteamOIDCBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workteam" "test" {
-  workteam_name  = %[1]q
-  workforce_name = aws_sagemaker_workforce.test.id
-  description%[1]q
+workteam_name= %[1]q
+workforce_name = aws_sagemaker_workforce.test.id
+description%[1]q
 
-  member_definition {
+member_definition {
 dc_member_definition {
 ps = [%[1]q, %[2]q]
 
-  }
+}
 }
 `, rName, group))
 func
 func testAccWorkteamConfig_notification(rName string) string {
 	return acctest.ConfigCompose(testAccWorkteamOIDCBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_sns_topic_policy" "test" {
-  arn = aws_sns_topic.test.arn
+arn = aws_sns_topic.test.arn
 
-  policy = jsonencode({
+policy = jsonencode({
 ersion" : "2012-10-17",
 d" : "default",
 tatement" : [
@@ -467,23 +467,23 @@ sh"
 esource" : aws_sns_topic.test.arn
 
 
-  })
+})
 }
 
 resource "aws_sagemaker_workteam" "test" {
-  workteam_name  = %[1]q
-  workforce_name = aws_sagemaker_workforce.test.id
-  description%[1]q
+workteam_name= %[1]q
+workforce_name = aws_sagemaker_workforce.test.id
+description%[1]q
 
-  member_definition {
+member_definition {
 dc_member_definition {
 ps = [%[1]q]
 
-  }
+}
 
-  notification_configuration {
+notification_configuration {
 tification_topic_arn = aws_sns_topic.test.arn
-  }
+}
 }
 `, rName))
 }
@@ -491,38 +491,38 @@ tification_topic_arn = aws_sns_topic.test.arn
 func testAccWorkteamConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccWorkteamOIDCBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workteam" "test" {
-  workteam_name  = %[1]q
-  workforce_name = aws_sagemaker_workforce.test.id
-  description%[1]q
+workteam_name= %[1]q
+workforce_name = aws_sagemaker_workforce.test.id
+description%[1]q
 
-  member_definition {
+member_definition {
 dc_member_definition {
 ps = [%[1]q]
 
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 funcName, tagKey1, tagValue1))
 }
 
 func testAccWorkteamConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccWorkteamOIDCBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_workteam" "test" {
-  workteam_name  = %[1]q
-  workforce_name = aws_sagemaker_workforce.test.id
-  description%[1]q
+workteam_name= %[1]q
+workforce_name = aws_sagemaker_workforce.test.id
+description%[1]q
 
-  member_definition {
+member_definition {
 dc_member_definition {
 ps = [%[1]q]
 
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 funcName, tagKey1, tagValue1, tagKey2, tagValue2))
 }

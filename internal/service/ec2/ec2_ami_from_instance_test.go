@@ -22,7 +22,7 @@ func := acctest.Context(t)
 	resourceName := "aws_ami_from_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckAMIDestroy(ctx),
@@ -52,7 +52,7 @@ func TestAccEC2AMIFromInstance_tags(t *testing.T) {
 funcourceName := "aws_ami_from_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -94,7 +94,7 @@ func TestAccEC2AMIFromInstance_disappears(t *testing.T) {
 	resourceName := "aws_ami_from_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckAMIDestroy(ctx),
@@ -117,10 +117,10 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 
-  tags = {
+tags = {
 me = %[1]q
 func
 `, rName))
@@ -132,9 +132,9 @@ func testAccAMIFromInstanceConfig_basic(rName string) string {
 testAccAMIFromInstanceBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_ami_from_instance" "test" {
-  name= %[1]q
-  descriptioning Terraform aws_ami_from_instance resource"
-  source_instance_id = aws_instance.test.id
+name= %[1]q
+descriptioning Terraform aws_ami_from_instance resource"
+source_instance_id = aws_instance.test.id
 }
 `, rName))
 }
@@ -144,13 +144,13 @@ func testAccAMIFromInstanceConfig_tags1(rName, tagKey1, tagValue1 string) string
 testAccAMIFromInstanceBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_ami_from_instance" "test" {
-  name= %[1]q
-  descriptioning Terraform aws_ami_from_instance resource"
-  source_instance_id = aws_instance.test.id
+name= %[1]q
+descriptioning Terraform aws_ami_from_instance resource"
+source_instance_id = aws_instance.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 func
 
@@ -160,13 +160,13 @@ func testAccAMIFromInstanceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagV
 testAccAMIFromInstanceBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_ami_from_instance" "test" {
-  name= %[1]q
-  descriptioning Terraform aws_ami_from_instance resource"
-  source_instance_id = aws_instance.test.id
+name= %[1]q
+descriptioning Terraform aws_ami_from_instance resource"
+source_instance_id = aws_instance.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 func

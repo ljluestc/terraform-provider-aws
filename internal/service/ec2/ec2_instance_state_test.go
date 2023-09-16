@@ -24,7 +24,7 @@ func := acctest.Context(t)
 	force := "false"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckInstanceDestroy(ctx),
@@ -49,7 +49,7 @@ functeRunning := "running"
 	force := "false"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -87,7 +87,7 @@ func TestAccEC2InstanceState_disappears_Instance(t *testing.T) {
 	state := "stopped"
 	force := "false"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -138,13 +138,13 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro", "t1.micro", "m1.small"),
 fmt.Sprintf(`
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 }
 
 resource "aws_ec2_instance_state" "test" {
-  instance_id = aws_instance.test.id
-  state
+instance_id = aws_instance.test.id
+state
 func
 `, state, force))
 }

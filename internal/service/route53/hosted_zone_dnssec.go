@@ -38,7 +38,7 @@ funcurn &schema.Resource{
 			"signing_status": {
 				Type:a.TypeString,
 				Optional: true,
-				Default:  ServeSignatureSigning,
+				Default:ServeSignatureSigning,
 				ValidateFunc: validation.StringInSlice([]string{
 					ServeSignatureSigning,
 					ServeSignatureNotSigning,

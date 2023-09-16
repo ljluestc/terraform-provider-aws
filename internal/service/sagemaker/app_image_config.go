@@ -73,7 +73,7 @@ funcurn &schema.Resource{
 									"mount_path": {
 										Type:a.TypeString,
 										Optional: true,
-										Default:  "/home/sagemaker-user",
+										Default:"/home/sagemaker-user",
 										ValidateFunc: validation.All(
 											validation.StringLenBetween(1, 1024),
 											validation.StringMatch(regexache.MustCompile(`^\/.*`), "Must start with `/`."),
@@ -225,7 +225,7 @@ func expandAppImageConfigKernelGatewayImageConfigFileSystemConfig(l []interface{
 funcfig := &sagemaker.FileSystemConfig{
 		DefaultGid: aws.Int64(int64(m["default_gid"].(int))),
 		DefaultUid: aws.Int64(int64(m["default_uid"].(int))),
-		MountPath:  aws.String(m["mount_path"].(string)),
+		MountPath:aws.String(m["mount_path"].(string)),
 	}
 
 	return config
@@ -281,7 +281,7 @@ func flattenAppImageConfigKernelGatewayImageConfigFileSystemConfig(config *sagem
 	}
 
 	m := map[string]interface{}{
-		"mount_path":  aws.StringValue(config.MountPath),
+		"mount_path":aws.StringValue(config.MountPath),
 		"default_gid": aws.Int64Value(config.DefaultGid),
 		"default_uid": aws.Int64Value(config.DefaultUid),
 func

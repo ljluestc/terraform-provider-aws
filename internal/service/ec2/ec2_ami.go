@@ -100,7 +100,7 @@ Elem: &schema.Resource{
 "delete_on_termination": {
 	Type:eBool,
 	Optional: true,
-	Default:  true,
+	Default:true,
 	ForceNew: true,
 },
 "device_name": {
@@ -264,7 +264,7 @@ Computed: true,
 Type:eString,
 Optional: true,
 ForceNew: true,
-Default:  SriovNetSupportSimple,
+Default:SriovNetSupportSimple,
 	},
 	names.AttrTags:tags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -421,7 +421,7 @@ if err != nil {
 	imageArn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
 Region:ta.(*conns.AWSClient).Region,
-Resource:  fmt.Sprintf("image/%s", d.Id()),
+Resource:fmt.Sprintf("image/%s", d.Id()),
 Service:.ServiceName,
 	}.String()
 	d.Set("arn", imageArn)

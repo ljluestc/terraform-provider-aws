@@ -38,7 +38,7 @@ funcypeName: "aws_dataexchange_data_set",
 			},
 		},
 		{
-			Factory:  ResourceRevision,
+			Factory:ResourceRevision,
 			TypeName: "aws_dataexchange_revision",
 			Name:Revision",
 			Tags: &types.ServicePackageResourceTags{

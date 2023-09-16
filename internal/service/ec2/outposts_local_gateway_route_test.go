@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	resourceName := "aws_ec2_local_gateway_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLocalGatewayRouteDestroy(ctx),
@@ -57,7 +57,7 @@ func TestAccEC2OutpostsLocalGatewayRoute_disappears(t *testing.T) {
 funcourceName := "aws_ec2_local_gateway_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -149,16 +149,16 @@ func testAccOutpostsLocalGatewayRouteConfig_destinationCIDRBlock(destinationCidr
 data "aws_ec2_local_gateways" "test" {}
 
 data "aws_ec2_local_gateway_route_table" "test" {
-  local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
+local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
 }
 
 data "aws_ec2_local_gateway_virtual_interface_group" "test" {
-  local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
+local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
 }
 
 funcstination_cidr_block%[1]q
-  local_gateway_route_table_iddata.aws_ec2_local_gateway_route_table.test.id
-  local_gateway_virtual_interface_group_id = data.aws_ec2_local_gateway_virtual_interface_group.test.id
+local_gateway_route_table_iddata.aws_ec2_local_gateway_route_table.test.id
+local_gateway_virtual_interface_group_id = data.aws_ec2_local_gateway_virtual_interface_group.test.id
 }
 `, destinationCidrBlock)
 }

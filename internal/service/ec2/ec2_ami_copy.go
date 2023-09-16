@@ -135,7 +135,7 @@ Computed: true,
 	"encrypted": {
 Type:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 ForceNew: true,
 	},
 	"ephemeral_block_device": {
@@ -281,7 +281,7 @@ funcription:.String(d.Get("description").(string)),
 Encrypted:.Get("encrypted").(bool)),
 Name: aws.String(name),
 SourceImageId: aws.String(sourceImageID),
-SourceRegion:  aws.String(d.Get("source_ami_region").(string)),
+SourceRegion:aws.String(d.Get("source_ami_region").(string)),
 	}
 
 	if v, ok := d.GetOk("destination_outpost_arn"); ok {

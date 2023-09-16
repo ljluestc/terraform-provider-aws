@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayRouteDestroy(ctx),
@@ -60,7 +60,7 @@ funcnsitGatewayResourceName := "aws_ec2_transit_gateway.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -92,7 +92,7 @@ func testAccTransitGatewayRoute_blackhole(t *testing.T) {
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -124,7 +124,7 @@ func testAccTransitGatewayRoute_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayRouteDestroy(ctx),
@@ -149,7 +149,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -232,54 +232,54 @@ return nil
 func testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
 func %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_route" "test" {
-  destination_cidr_block= "0.0.0.0/0"
-  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
+destination_cidr_block= "0.0.0.0/0"
+transit_gateway_attachment_id= aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
 }
 
 resource "aws_ec2_transit_gateway_route" "test_ipv6" {
-  destination_cidr_block= "2001:db8::/56"
-  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
+destination_cidr_block= "2001:db8::/56"
+transit_gateway_attachment_id= aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
 }
 
 resource "aws_ec2_transit_gateway_route" "test_blackhole" {
-  destination_cidr_block= "10.1.0.0/16"
-  blackhole
-  transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
+destination_cidr_block= "10.1.0.0/16"
+blackhole
+transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
 }
 `, rName))
 }

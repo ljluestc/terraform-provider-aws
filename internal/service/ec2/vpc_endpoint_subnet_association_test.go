@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCEndpointSubnetAssociationDestroy(ctx),
@@ -53,7 +53,7 @@ func TestAccVPCEndpointSubnetAssociation_disappears(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_subnet_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -79,7 +79,7 @@ func TestAccVPCEndpointSubnetAssociation_multiple(t *testing.T) {
 	resourceName2 := "aws_vpc_endpoint_subnet_association.test.2"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -159,41 +159,41 @@ func testAccVPCEndpointSubnetAssociationConfig_base(rName string) string {
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_security_group" "test" {
-  vpc_id = aws_vpc.test.id
-  namedefault"
+vpc_id = aws_vpc.test.id
+namedefault"
 }
 
 func
 resource "aws_vpc_endpoint" "test" {
-  vpc_idtest.id
-  vpc_endpoint_typeInterface"
-  service_nameamazonaws.${data.aws_region.current.name}.ec2"
-  security_group_ids  = [data.aws_security_group.test.id]
-  private_dns_enabled = false
+vpc_idtest.id
+vpc_endpoint_typeInterface"
+service_nameamazonaws.${data.aws_region.current.name}.ec2"
+security_group_ids= [data.aws_security_group.test.id]
+private_dns_enabled = false
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  count = 3
+count = 3
 
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_blockubnet(aws_vpc.test.cidr_block, 2, count.index)
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[count.index]
+cidr_blockubnet(aws_vpc.test.cidr_block, 2, count.index)
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -204,8 +204,8 @@ func testAccVPCEndpointSubnetAssociationConfig_basic(rName string) string {
 testAccVPCEndpointSubnetAssociationConfig_base(rName),
 `
 resource "aws_vpc_endpoint_subnet_association" "test" {
-  vpc_endpoint_id = aws_vpc_endpoint.test.id
-  subnet_idbnet.test[0].id
+vpc_endpoint_id = aws_vpc_endpoint.test.id
+subnet_idbnet.test[0].id
 }
 `)
 }
@@ -216,9 +216,9 @@ func testAccVPCEndpointSubnetAssociationConfig_multiple(rName string) string {
 testAccVPCEndpointSubnetAssociationConfig_base(rName),
 `
 resource "aws_vpc_endpoint_subnet_association" "test" {
-  count = 3
+count = 3
 funcc_endpoint_id = aws_vpc_endpoint.test.id
-  subnet_idbnet.test[count.index].id
+subnet_idbnet.test[count.index].id
 }
 `)
 }

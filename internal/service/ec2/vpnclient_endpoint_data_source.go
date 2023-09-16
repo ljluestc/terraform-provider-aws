@@ -209,7 +209,7 @@ funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("client-vpn-endpoint/%s", d.Id()),
+		Resource:fmt.Sprintf("client-vpn-endpoint/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	if err := d.Set("authentication_options", flattenClientVPNAuthentications(ep.AuthenticationOptions)); err != nil {

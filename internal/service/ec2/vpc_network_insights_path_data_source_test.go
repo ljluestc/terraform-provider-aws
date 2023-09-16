@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -49,26 +49,26 @@ func testAccVPCNetworkInsightsPathDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
 func
-  subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  source  = aws_network_interface.test[0].id
-  destinationwork_interface.test[1].id
-  destination_port = 443
-  protocol= "tcp"
+source= aws_network_interface.test[0].id
+destinationwork_interface.test[1].id
+destination_port = 443
+protocol= "tcp"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ec2_network_insights_path" "test" {
-  network_insights_path_id = aws_ec2_network_insights_path.test.id
+network_insights_path_id = aws_ec2_network_insights_path.test.id
 }
 `, rName))
 }

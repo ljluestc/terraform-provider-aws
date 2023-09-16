@@ -58,7 +58,7 @@ Computed: true,
 	"customer_gateway_configuration": {
 Type:peString,
 Sensitive: true,
-Computed:  true,
+Computed:true,
 	},
 	"customer_gateway_id": {
 Type:eString,
@@ -670,7 +670,7 @@ vpnTunnelOptionsPhase2IntegrityAlgorithmSHA2_256,
 vpnTunnelOptionsPhase2IntegrityAlgorithmSHA2_384,
 vpnTunnelOptionsPhase2IntegrityAlgorithmSHA2_512,
 	}
-	defaultVPNTunnelOptionsPhase2LifetimeSeconds  = 3600
+	defaultVPNTunnelOptionsPhase2LifetimeSeconds= 3600
 	defaultVPNTunnelOptionsRekeyFuzzPercentage100
 	defaultVPNTunnelOptionsRekeyMarginTimeSeconds = 540
 	defaultVPNTunnelOptionsReplayWindowSize
@@ -684,7 +684,7 @@ func resourceVPNConnectionCreate(ctx context.Context, d *schema.ResourceData, me
 
 	input := &ec2.CreateVpnConnectionInput{
 CustomerGatewayId: aws.String(d.Get("customer_gateway_id").(string)),
-Options:  expandVPNConnectionOptionsSpecification(d),
+Options:expandVPNConnectionOptionsSpecification(d),
 TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeVpnConnection),
 Type:(d.Get("type").(string)),
 	}
@@ -736,7 +736,7 @@ Partition: meta.(*conns.AWSClient).Partition,
 Service:.ServiceName,
 Region:ta.(*conns.AWSClient).Region,
 AccountID: meta.(*conns.AWSClient).AccountID,
-Resource:  fmt.Sprintf("vpn-connection/%s", d.Id()),
+Resource:fmt.Sprintf("vpn-connection/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("core_network_arn", vpnConnection.CoreNetworkArn)
@@ -919,7 +919,7 @@ if _, err := WaitVPNConnectionUpdated(ctx, conn, d.Id()); err != nil {
 if options, address := expandModifyVPNTunnelOptionsSpecification(d, prefix), d.Get(prefix+"address").(string); options != nil && address != "" {
 	input := &ec2.ModifyVpnTunnelOptionsInput{
 TunnelOptions:tions,
-VpnConnectionId:  aws.String(d.Id()),
+VpnConnectionId:aws.String(d.Id()),
 VpnTunnelOutsideIpAddress: aws.String(address),
 	}
 
@@ -1576,7 +1576,7 @@ type XmlVpnConnectionConfig struct {
 }
 
 type XmlIpsecTunnel struct {
-	BGPASN  string `xml:"vpn_gateway>bgp>asn"`
+	BGPASNstring `xml:"vpn_gateway>bgp>asn"`
 	BGPHoldTimeml:"vpn_gateway>bgp>hold_time"`
 funcsideAddressing `xml:"vpn_gateway>tunnel_outside_address>ip_address"`
 	PreSharedKeyl:"ike>pre_shared_key"`
@@ -1585,13 +1585,13 @@ funcsideAddressing `xml:"vpn_gateway>tunnel_outside_address>ip_address"`
 
 type TunnelInfo struct {
 	Tunnel1Address string
-	Tunnel1BGPASN  string
+	Tunnel1BGPASNstring
 	Tunnel1BGPHoldTime
 	Tunnel1CgwInsideAddress string
 	Tunnel1PreSharedKey
 	Tunnel1VgwInsideAddress string
 	Tunnel2Address string
-	Tunnel2BGPASN  string
+	Tunnel2BGPASNstring
 	Tunnel2BGPHoldTime
 	Tunnel2CgwInsideAddress string
 	Tunnel2PreSharedKey
@@ -1656,13 +1656,13 @@ sort.Sort(vpnConfig)
 
 	tunnelInfo := &TunnelInfo{
 Tunnel1Address: vpnConfig.Tunnels[0].OutsideAddress,
-Tunnel1BGPASN:  vpnConfig.Tunnels[0].BGPASN,
+Tunnel1BGPASN:vpnConfig.Tunnels[0].BGPASN,
 Tunnel1BGPHoldTime:.Tunnels[0].BGPHoldTime,
 Tunnel1CgwInsideAddress: vpnConfig.Tunnels[0].CgwInsideAddress,
 Tunnel1PreSharedKey:Tunnels[0].PreSharedKey,
 Tunnel1VgwInsideAddress: vpnConfig.Tunnels[0].VgwInsideAddress,
 Tunnel2Address: vpnConfig.Tunnels[1].OutsideAddress,
-Tunnel2BGPASN:  vpnConfig.Tunnels[1].BGPASN,
+Tunnel2BGPASN:vpnConfig.Tunnels[1].BGPASN,
 Tunnel2BGPHoldTime:.Tunnels[1].BGPHoldTime,
 Tunnel2CgwInsideAddress: vpnConfig.Tunnels[1].CgwInsideAddress,
 Tunnel2PreSharedKey:Tunnels[1].PreSharedKey,

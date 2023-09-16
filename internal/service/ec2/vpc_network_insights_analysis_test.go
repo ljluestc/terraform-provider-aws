@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckNetworkInsightsAnalysisDestroy(ctx),
@@ -60,7 +60,7 @@ func TestAccVPCNetworkInsightsAnalysis_disappears(t *testing.T) {
 	resourceName := "aws_ec2_network_insights_analysis.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -130,7 +130,7 @@ func TestAccVPCNetworkInsightsAnalysis_filterInARNs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -165,7 +165,7 @@ func TestAccVPCNetworkInsightsAnalysis_waitForCompletion(t *testing.T) {
 	resourceName := "aws_ec2_network_insights_analysis.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -237,23 +237,23 @@ func
 func testAccVPCNetworkInsightsAnalysisConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  count = 2
+count = 2
 
-  subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  sourcework_interface.test[0].id
-  destination = aws_network_interface.test[1].id
-  protocol"tcp"
+sourcework_interface.test[0].id
+destination = aws_network_interface.test[1].id
+protocol"tcp"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -261,7 +261,7 @@ me = %[1]q
 
 funcurn acctest.ConfigCompose(testAccVPCNetworkInsightsAnalysisConfig_base(rName), `
 resource "aws_ec2_network_insights_analysis" "test" {
-  network_insights_path_id = aws_ec2_network_insights_path.test.id
+network_insights_path_id = aws_ec2_network_insights_path.test.id
 }
 `)
 }
@@ -270,11 +270,11 @@ resource "aws_ec2_network_insights_analysis" "test" {
 func testAccVPCNetworkInsightsAnalysisConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInsightsAnalysisConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_network_insights_analysis" "test" {
-  network_insights_path_id = aws_ec2_network_insights_path.test.id
+network_insights_path_id = aws_ec2_network_insights_path.test.id
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tagKey1, tagValue1))
 }
@@ -283,11 +283,11 @@ resource "aws_ec2_network_insights_analysis" "test" {
 func testAccVPCNetworkInsightsAnalysisConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInsightsAnalysisConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_network_insights_analysis" "test" {
-  network_insights_path_id = aws_ec2_network_insights_path.test.id
+network_insights_path_id = aws_ec2_network_insights_path.test.id
 funcgs = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -299,12 +299,12 @@ data "aws_region" "current" {}
 data "aws_partition" "current" {}
 
 resource "aws_ec2_network_insights_analysis" "test" {
-  network_insights_path_id = aws_ec2_network_insights_path.test.id
-  filter_in_arns  = ["arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.id}:%[2]s"]
+network_insights_path_id = aws_ec2_network_insights_path.test.id
+filter_in_arns= ["arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.id}:%[2]s"]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 func
 
@@ -312,12 +312,12 @@ func
 func testAccVPCNetworkInsightsAnalysisConfig_waitForCompletion(rName string, waitForCompletion bool) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInsightsAnalysisConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_network_insights_analysis" "test" {
-  network_insights_path_id = aws_ec2_network_insights_path.test.id
-  wait_for_completion
+network_insights_path_id = aws_ec2_network_insights_path.test.id
+wait_for_completion
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, waitForCompletion))
 funcfunc

@@ -53,7 +53,7 @@ funcurn &schema.Resource{
 			"most_recent": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"multi_attach_enabled": {
 				Type:eBool,
@@ -135,7 +135,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("volume/%s", d.Id()),
+		Resource:fmt.Sprintf("volume/%s", d.Id()),
 	}
 	d.Set("arn", arn.String())
 	d.Set("availability_zone", volume.AvailabilityZone)

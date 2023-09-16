@@ -9,21 +9,21 @@ import (
 )
 
 const (
-errCodeAccessDenied                = "AccessDenied"
-errCodeAuthorizationError          = "AuthorizationError"
-errCodeInternalException           = "InternalException"
-errCodeInternalServiceError        = "InternalServiceError"
-errCodeInvalidAction               = "InvalidAction"
-errCodeInvalidParameterException   = "InvalidParameterException"
-errCodeInvalidParameterValue       = "InvalidParameterValue"
-errCodeInvalidRequest              = "InvalidRequest"
-errCodeOperationDisabledException  = "OperationDisabledException"
-errCodeOperationNotPermitted       = "OperationNotPermitted"
-errCodeUnknownOperationException   = "UnknownOperationException"
+errCodeAccessDenied= "AccessDenied"
+errCodeAuthorizationError= "AuthorizationError"
+errCodeInternalException = "InternalException"
+errCodeInternalServiceError= "InternalServiceError"
+errCodeInvalidAction = "InvalidAction"
+errCodeInvalidParameterException = "InvalidParameterException"
+errCodeInvalidParameterValue = "InvalidParameterValue"
+errCodeInvalidRequest= "InvalidRequest"
+errCodeOperationDisabledException= "OperationDisabledException"
+errCodeOperationNotPermitted = "OperationNotPermitted"
+errCodeUnknownOperationException = "UnknownOperationException"
 errCodeUnsupportedFeatureException = "UnsupportedFeatureException"
-errCodeUnsupportedOperation        = "UnsupportedOperation"
-errCodeValidationError             = "ValidationError"
-errCodeValidationException         = "ValidationException"
+errCodeUnsupportedOperation= "UnsupportedOperation"
+errCodeValidationError = "ValidationError"
+errCodeValidationException = "ValidationException"
 )
 
 // IsUnsupportedOperationInPartitionError checks the partition and specific error

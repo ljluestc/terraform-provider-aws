@@ -167,8 +167,8 @@ func
 func testAccTrafficPolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_traffic_policy" "test" {
-  name]q
-  document = <<-EOT
+name]q
+document = <<-EOT
 {
 WSPolicyFormatVersion":"2015-10-01",
 ecordType":"A",
@@ -187,9 +187,9 @@ EOT
 func testAccTrafficPolicyConfig_complete(rName, comment string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_traffic_policy" "test" {
-  name]q
-  comment  = %[2]q
-  document = <<-EOT
+name]q
+comment= %[2]q
+document = <<-EOT
 {
 WSPolicyFormatVersion":"2015-10-01",
 ecordType":"A",

@@ -28,7 +28,7 @@ func := acctest.Context(t)
 	cidr := "172.2.0.0/28"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckIPAMPoolAllocationDestroy(ctx),
@@ -59,7 +59,7 @@ func TestAccIPAMPoolCIDRAllocation_disappears(t *testing.T) {
 funcr := "172.2.0.0/28"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -83,7 +83,7 @@ func TestAccIPAMPoolCIDRAllocation_ipv4BasicNetmask(t *testing.T) {
 	resourceName := "aws_vpc_ipam_pool_cidr_allocation.test"
 	netmask := "28"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -145,7 +145,7 @@ func TestAccIPAMPoolCIDRAllocation_multiple(t *testing.T) {
 	cidr2 := "10.1.0.0/28"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckIPAMPoolAllocationDestroy(ctx),
@@ -321,20 +321,20 @@ func
 func "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family = "ipv4"
-  ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
-  locale= data.aws_region.current.name
+address_family = "ipv4"
+ipam_scope_id= aws_vpc_ipam.test.private_default_scope_id
+locale= data.aws_region.current.name
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= "172.2.0.0/24"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= "172.2.0.0/24"
 }
 `
 
@@ -342,12 +342,12 @@ resource "aws_vpc_ipam_pool_cidr" "test" {
 func testAccIPAMPoolCIDRAllocationConfig_ipv4(cidr string) string {
 	return acctest.ConfigCompose(testAccIPAMPoolCIDRAllocationConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[1]q
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= %[1]q
 
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 `, cidr))
 }
@@ -356,12 +356,12 @@ s_vpc_ipam_pool_cidr.test
 func testAccIPAMPoolCIDRAllocationConfig_ipv4Netmask(netmask string) string {
 	return acctest.ConfigCompose(testAccIPAMPoolCIDRAllocationConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
-  ipam_pool_idws_vpc_ipam_pool.test.id
-  netmask_length = %[1]q
+ipam_pool_idws_vpc_ipam_pool.test.id
+netmask_length = %[1]q
 
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 `, netmask))
 }
@@ -370,15 +370,15 @@ s_vpc_ipam_pool_cidr.test
 func testAccIPAMPoolCIDRAllocationConfig_ipv4Disallowed(netmaskLength, disallowedCidr string) string {
 	return acctest.ConfigCompose(testAccIPAMPoolCIDRAllocationConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
-  ipam_pool_idws_vpc_ipam_pool.test.id
+ipam_pool_idws_vpc_ipam_pool.test.id
 func
-  disallowed_cidrs = [
+disallowed_cidrs = [
 2]q
-  ]
+]
 
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 `, netmaskLength, disallowedCidr))
 }
@@ -386,24 +386,24 @@ s_vpc_ipam_pool_cidr.test
 
 func testAccIPAMPoolCIDRAllocationConfig_multiple(cidr1, cidr2 string) string {
 funcurce "aws_vpc_ipam_pool_cidr_allocation" "test1" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[1]q
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= %[1]q
 
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test2" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= "10.1.0.0/24"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= "10.1.0.0/24"
 }
 
 funcam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[2]q
-  depends_on = [
+cidr= %[2]q
+depends_on = [
 s_vpc_ipam_pool_cidr.test2
-  ]
+]
 }
 `, cidr1, cidr2))
 }
@@ -413,32 +413,32 @@ func testAccIPAMPoolCIDRAllocationConfig_differentRegion(cidr string) string {
 	return acctest.ConfigCompose(acctest.ConfigMultipleRegionProvider(2),
 fmt.Sprintf(`
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = %[2]q
-  }
-  operating_regions {
+}
+operating_regions {
 func
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family = "ipv4"
-  ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
-  locale= %[3]q
+address_family = "ipv4"
+ipam_scope_id= aws_vpc_ipam.test.private_default_scope_id
+locale= %[3]q
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= "172.2.0.0/24"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= "172.2.0.0/24"
 }
 
 resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
-  providerrnate"
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[1]q
+providerrnate"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= %[1]q
 
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 `, cidr, acctest.Region(), acctest.AlternateRegion()))
 }

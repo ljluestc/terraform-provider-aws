@@ -32,7 +32,7 @@ funcut := &dataexchange.GetDataSetInput{
 }
 
 func FindRevisionById(ctx context.Context, conn *dataexchange.DataExchange, dataSetId, revisionId string) (*dataexchange.GetRevisionOutput, error) {
-functaSetId:  aws.String(dataSetId),
+functaSetId:aws.String(dataSetId),
 		RevisionId: aws.String(revisionId),
 	}
 	output, err := conn.GetRevisionWithContext(ctx, input)

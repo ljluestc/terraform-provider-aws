@@ -120,7 +120,7 @@ funcfficMirrorFilter, err := FindTrafficMirrorFilterByID(ctx, conn, d.Id())
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("traffic-mirror-filter/%s", d.Id()),
+		Resource:fmt.Sprintf("traffic-mirror-filter/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("description", trafficMirrorFilter.Description)

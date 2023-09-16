@@ -251,8 +251,8 @@ func testAccImageBaseConfig(rName string) string {
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "test" {
-  name
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 funcatement {
@@ -262,7 +262,7 @@ incipals {
 ce"
 tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
 
-  }
+}
 }
 `, rName)
 }
@@ -270,26 +270,26 @@ tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
 func testAccImageConfig_basic(rName string) string {
 	return testAccImageBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_image" "test" {
-  image_name = %[1]q
-  role_arnws_iam_role.test.arn
+image_name = %[1]q
+role_arnws_iam_role.test.arn
 }
 `, rName)
 }
 
 func testAccImageConfig_description(rName string) string {
 funcurce "aws_sagemaker_image" "test" {
-  image_name  = %[1]q
-  role_arnaws_iam_role.test.arn
-  description = %[1]q
+image_name= %[1]q
+role_arnaws_iam_role.test.arn
+description = %[1]q
 }
 `, rName)
 }
 
 func testAccImageConfig_displayName(rName string) string {
 funcurce "aws_sagemaker_image" "test" {
-  image_name[1]q
-  role_arn_iam_role.test.arn
-  display_name = %[1]q
+image_name[1]q
+role_arn_iam_role.test.arn
+display_name = %[1]q
 }
 `, rName)
 }
@@ -297,24 +297,24 @@ funcurce "aws_sagemaker_image" "test" {
 func testAccImageConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return testAccImageBaseConfig(rName) + fmt.Sprintf(`
 funcage_name = %[1]q
-  role_arnws_iam_role.test.arn
+role_arnws_iam_role.test.arn
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
 
 funcurn testAccImageBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_image" "test" {
-  image_name = %[1]q
-  role_arnws_iam_role.test.arn
+image_name = %[1]q
+role_arnws_iam_role.test.arn
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

@@ -256,58 +256,58 @@ funceturn fmt.Errorf("No sagmaker App Image Config ID is set")
 func testAccAppImageConfigConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_app_image_config" "test" {
-  app_image_config_name = %[1]q
+app_image_config_name = %[1]q
 }
 `, rName)
 }
 
 func testAccAppImageConfigConfig_kernelGatewayKernalSpecs1(rName string) string {
 funcurce "aws_sagemaker_app_image_config" "test" {
-  app_image_config_name = %[1]q
+app_image_config_name = %[1]q
 
-  kernel_gateway_image_config {
+kernel_gateway_image_config {
 rnel_spec {
  = %[1]q
 
-  }
+}
 funcName)
 }
 
 func testAccAppImageConfigConfig_kernelGatewayKernalSpecs2(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_app_image_config" "test" {
-  app_image_config_name = %[1]q
+app_image_config_name = %[1]q
 
-  kernel_gateway_image_config {
+kernel_gateway_image_config {
 rnel_spec {
 s-2"
 lay_name = %[1]q
 
-  }
+}
 funcName)
 }
 
 func testAccAppImageConfigConfig_kernelGatewayFileSystem1(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_app_image_config" "test" {
-  app_image_config_name = %[1]q
+app_image_config_name = %[1]q
 
-  kernel_gateway_image_config {
+kernel_gateway_image_config {
 rnel_spec {
  = %[1]q
 
 
 le_system_config {}
-  }
+}
 funcName)
 }
 
 func testAccAppImageConfigConfig_kernelGatewayFileSystem2(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_app_image_config" "test" {
-  app_image_config_name = %[1]q
+app_image_config_name = %[1]q
 
-  kernel_gateway_image_config {
+kernel_gateway_image_config {
 rnel_spec {
  = %[1]q
 
@@ -316,7 +316,7 @@ le_system_config {
 ult_gid = 0
 ult_uid = 0
 func
-  }
+}
 }
 `, rName)
 }
@@ -324,11 +324,11 @@ func
 func testAccAppImageConfigConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_app_image_config" "test" {
-  app_image_config_name = %[1]q
+app_image_config_name = %[1]q
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -337,10 +337,10 @@ func testAccAppImageConfigConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagVa
 	return fmt.Sprintf(`
 funcp_image_config_name = %[1]q
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

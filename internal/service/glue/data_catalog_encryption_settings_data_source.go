@@ -19,41 +19,41 @@ func DataSourceDataCatalogEncryptionSettings() *schema.Resource {
 		ReadWithoutTimeout: dataSourceDataCatalogEncryptionSettingsRead,
 		Schema: map[string]*schema.Schema{
 			"catalog_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 			"data_catalog_encryption_settings": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"connection_password_encryption": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"aws_kms_key_id": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"return_connection_password_encrypted": {
-										Type:     schema.TypeBool,
+										Type: schema.TypeBool,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"encryption_at_rest": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"catalog_encryption_mode": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"sse_aws_kms_key_id": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 								},

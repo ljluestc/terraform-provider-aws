@@ -86,7 +86,7 @@ functCases := map[string]map[string]func(t *testing.T){
 		},
 		"Workforce": {
 			"disappears":ccWorkforce_disappears,
-			"CognitoConfig":  testAccWorkforce_cognitoConfig,
+			"CognitoConfig":testAccWorkforce_cognitoConfig,
 			"OidcConfig":ccWorkforce_oidcConfig,
 			"SourceIpConfig": testAccWorkforce_sourceIPConfig,
 			"VPC":orkforce_vpc,

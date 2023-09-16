@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckNetworkInterfaceSGAttachmentDestroy(ctx),
@@ -55,7 +55,7 @@ func TestAccVPCNetworkInterfaceSgAttachment_disappears(t *testing.T) {
 	resourceName := "aws_network_interface_sg_attachment.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -111,7 +111,7 @@ func TestAccVPCNetworkInterfaceSgAttachment_multiple(t *testing.T) {
 	resourceName4 := "aws_network_interface_sg_attachment.test.3"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -186,41 +186,41 @@ return nil
 func testAccVPCNetworkInterfaceSGAttachmentConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "172.16.0.0/16"
+cidr_block = "172.16.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block = "172.16.10.0/24"
-  vpc_idtest.id
+cidr_block = "172.16.10.0/24"
+vpc_idtest.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_security_group" "test" {
 funcc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface_sg_attachment" "test" {
-  network_interface_id = aws_network_interface.test.id
-  security_group_idaws_security_group.test.id
+network_interface_id = aws_network_interface.test.id
+security_group_idaws_security_group.test.id
 }
 `, rName)
 }
@@ -233,45 +233,45 @@ acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "172.16.0.0/16"
+cidr_block = "172.16.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block = "172.16.10.0/24"
-  vpc_idtest.id
+cidr_block = "172.16.10.0/24"
+vpc_idtest.id
 
-  availability_zone = data.aws_availability_zones.available.names[0]
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_security_group" "test" {
-  name[1]q
-  vpc_id = aws_vpc.test.id
+name[1]q
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_idet.test.id
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+subnet_idet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface_sg_attachment" "test" {
-  network_interface_id = aws_instance.test.primary_network_interface_id
-  security_group_idaws_security_group.test.id
+network_interface_id = aws_instance.test.primary_network_interface_id
+security_group_idaws_security_group.test.id
 }
 `, rName))
 }
@@ -280,44 +280,44 @@ resource "aws_network_interface_sg_attachment" "test" {
 func testAccVPCNetworkInterfaceSGAttachmentConfig_multiple(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "172.16.0.0/16"
+cidr_block = "172.16.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block = "172.16.10.0/24"
-  vpc_idtest.id
+cidr_block = "172.16.10.0/24"
+vpc_idtest.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_security_group" "test" {
-  count = 4
+count = 4
 
-  name%[1]s-${count.index}"
-  vpc_id = aws_vpc.test.id
+name%[1]s-${count.index}"
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface_sg_attachment" "test" {
-  count = 4
-  network_interface_id = aws_network_interface.test.id
-  security_group_idaws_security_group.test[count.index].id
+count = 4
+network_interface_id = aws_network_interface.test.id
+security_group_idaws_security_group.test[count.index].id
 }
 `, rName)
 }

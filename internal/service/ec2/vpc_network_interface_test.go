@@ -55,7 +55,7 @@ func conf ec2.NetworkInterface
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckENIDestroy(ctx),
@@ -99,7 +99,7 @@ func TestAccVPCNetworkInterface_ipv6(t *testing.T) {
 	resourceName := "aws_network_interface.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -146,7 +146,7 @@ func TestAccVPCNetworkInterface_tags(t *testing.T) {
 	var conf ec2.NetworkInterface
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckENIDestroy(ctx),
@@ -193,7 +193,7 @@ funcourceName := "aws_network_interface.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -244,7 +244,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckENIDestroy(ctx),
@@ -270,7 +270,7 @@ funcourceName := "aws_network_interface.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckENIDestroy(ctx),
@@ -341,7 +341,7 @@ t.Skip("skipping long-running test in short mode")
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -450,7 +450,7 @@ func TestAccVPCNetworkInterface_privateIPsCount(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -518,7 +518,7 @@ func TestAccVPCNetworkInterface_ENIInterfaceType_efa(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -548,7 +548,7 @@ func TestAccVPCNetworkInterface_ENI_ipv4Prefix(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -594,7 +594,7 @@ func TestAccVPCNetworkInterface_ENI_ipv4PrefixCount(t *testing.T) {
 	resourceName := "aws_network_interface.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -645,7 +645,7 @@ func TestAccVPCNetworkInterface_ENI_ipv6Prefix(t *testing.T) {
 	resourceName := "aws_network_interface.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -839,7 +839,7 @@ funcip("skipping long-running test in short mode")
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckENIDestroy(ctx),
@@ -1149,33 +1149,33 @@ return nil
 func testAccVPCNetworkInterfaceConfig_baseIPV4(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block  = "172.16.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "172.16.0.0/16"
+enable_dns_hostnames = true
 
 func %[1]q
 func
 
 funcc_idws_vpc.test.id
-  cidr_block16.10.0/24"
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block16.10.0/24"
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_security_group" "test" {
-  vpc_id = aws_vpc.test.id
-  name[1]q
+vpc_id = aws_vpc.test.id
+name[1]q
 
-  egress {
+egress {
 om_port= 0
 _port
 otocol = p"
 dr_blocks = ["10.0.0.0/16"]
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
 func
 func
@@ -1183,36 +1183,36 @@ func
 func testAccVPCNetworkInterfaceConfig_baseIPV6(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block16.0.0/16"
-  assign_generated_ipv6_cidr_block = true
-  enable_dns_hostnamestrue
+cidr_block16.0.0/16"
+assign_generated_ipv6_cidr_block = true
+enable_dns_hostnamestrue
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcc_idws_vpc.test.id
 funcv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 16)
-  availability_zone = data.aws_availability_zones.available.names[0]
+availability_zone = data.aws_availability_zones.available.names[0]
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_security_group" "test" {
-  vpc_id = aws_vpc.test.id
-  name[1]q
+vpc_id = aws_vpc.test.id
+name[1]q
 
-  egress {
+egress {
 om_port= 0
 _port
 funclocks = ["10.0.0.0/16"]
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -1220,7 +1220,7 @@ me = %[1]q
 
 func testAccVPCNetworkInterfaceConfig_basic(rName string) string {
 funcurce "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 }
 `)
 }
@@ -1229,11 +1229,11 @@ funcurce "aws_network_interface" "test" {
 func testAccVPCNetworkInterfaceConfig_ipv6(rName string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV6(rName), fmt.Sprintf(`
 funcbnet_idbnet.test.id
-funcv6_addresses  = [cidrhost(aws_subnet.test.ipv6_cidr_block, 4)]
-  security_groups = [aws_security_group.test.id]
+funcv6_addresses= [cidrhost(aws_subnet.test.ipv6_cidr_block, 4)]
+security_groups = [aws_security_group.test.id]
 funcgs = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -1242,11 +1242,11 @@ me = %[1]q
 func testAccVPCNetworkInterfaceConfig_ipv6Multiple(rName string) string {
 funcurce "aws_network_interface" "test" {
 funcivate_ips.10.100"]
-  ipv6_addresses  = [cidrhost(aws_subnet.test.ipv6_cidr_block, 4), cidrhost(aws_subnet.test.ipv6_cidr_block, 8)]
+ipv6_addresses= [cidrhost(aws_subnet.test.ipv6_cidr_block, 4), cidrhost(aws_subnet.test.ipv6_cidr_block, 8)]
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -1254,14 +1254,14 @@ me = %[1]q
 
 funcurn acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV6(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
-  private_ips.16.10.100"]
-  ipv6_address_count = %[2]d
-  security_groups[aws_security_group.test.id]
+subnet_id = aws_subnet.test.id
+private_ips.16.10.100"]
+ipv6_address_count = %[2]d
+security_groups[aws_security_group.test.id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, ipv6Count))
 }
@@ -1270,14 +1270,14 @@ me = %[1]q
 func testAccVPCNetworkInterfaceConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV4(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  private_ips.10.100"]
-  security_groups = [aws_security_group.test.id]
-  description
+subnet_idbnet.test.id
+private_ips.10.100"]
+security_groups = [aws_security_group.test.id]
+description
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, description))
 }
@@ -1286,11 +1286,11 @@ me = %[1]q
 func testAccVPCNetworkInterfaceConfig_sourceDestCheck(rName string, sourceDestCheck bool) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV6(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_id= aws_subnet.test.id
-  source_dest_check = %[2]t
-  private_ips16.10.100"]
+subnet_id= aws_subnet.test.id
+source_dest_check = %[2]t
+private_ips16.10.100"]
 
-  tags = {
+tags = {
 me = %[1]q
 func
 `, rName, sourceDestCheck))
@@ -1304,39 +1304,39 @@ acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 testAccVPCNetworkInterfaceConfig_baseIPV4(rName),
 fmt.Sprintf(`
 resource "aws_subnet" "test2" {
-  vpc_idws_vpc.test.id
-  cidr_block16.11.0/24"
-  availability_zone = data.aws_availability_zones.available.names[0]
+vpc_idws_vpc.test.id
+cidr_block16.11.0/24"
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type= data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_idaws_subnet.test2.id
-  associate_public_ip_address = false
-  private_ip172.16.11.50"
+ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type= data.aws_ec2_instance_type_offering.available.instance_type
+subnet_idaws_subnet.test2.id
+associate_public_ip_address = false
+private_ip172.16.11.50"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  private_ips.10.100"]
-  security_groups = [aws_security_group.test.id]
+subnet_idbnet.test.id
+private_ips.10.100"]
+security_groups = [aws_security_group.test.id]
 
-  attachment {
+attachment {
 stanceance.test.id
 vice_index = 1
-  }
+}
 funcgs = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -1348,32 +1348,32 @@ acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 testAccVPCNetworkInterfaceConfig_baseIPV4(rName),
 fmt.Sprintf(`
 resource "aws_subnet" "test2" {
-  vpc_idws_vpc.test.id
-  cidr_block16.11.0/24"
-  availability_zone = data.aws_availability_zones.available.names[0]
+vpc_idws_vpc.test.id
+cidr_block16.11.0/24"
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 funcbnet_idaws_subnet.test2.id
-  associate_public_ip_address = false
-  private_ip172.16.11.50"
+associate_public_ip_address = false
+private_ip172.16.11.50"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  private_ips.10.100"]
-  security_groups = [aws_security_group.test.id]
+subnet_idbnet.test.id
+private_ips.10.100"]
+security_groups = [aws_security_group.test.id]
 
-  tags = {
+tags = {
 me = %[1]q
 func
 `, rName))
@@ -1383,12 +1383,12 @@ func
 func testAccVPCNetworkInterfaceConfig_privateIPsCount(rName string, privateIpsCount int) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV4(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  private_ips_count = %[2]d
-  subnet_id= aws_subnet.test.id
+private_ips_count = %[2]d
+subnet_id= aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, privateIpsCount))
 func
@@ -1396,13 +1396,13 @@ func
 func testAccVPCNetworkInterfaceConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV4(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  private_ips.10.100"]
-  security_groups = [aws_security_group.test.id]
+subnet_idbnet.test.id
+private_ips.10.100"]
+security_groups = [aws_security_group.test.id]
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tagKey1, tagValue1))
 }
@@ -1410,14 +1410,14 @@ resource "aws_network_interface" "test" {
 func testAccVPCNetworkInterfaceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV4(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  private_ips.10.100"]
-  security_groups = [aws_security_group.test.id]
+subnet_idbnet.test.id
+private_ips.10.100"]
+security_groups = [aws_security_group.test.id]
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -1425,14 +1425,14 @@ resource "aws_network_interface" "test" {
 func testAccVPCNetworkInterfaceConfig_type(rName, interfaceType string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV4(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  private_ips.10.100"]
-  security_groups = [aws_security_group.test.id]
-  interface_type  = %[2]q
+subnet_idbnet.test.id
+private_ips.10.100"]
+security_groups = [aws_security_group.test.id]
+interface_type= %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, interfaceType))
 }
@@ -1441,13 +1441,13 @@ me = %[1]q
 func testAccVPCNetworkInterfaceConfig_ipv4Prefix(rName string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV4(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  ipv4_prefixes"172.16.10.16/28"]
-  security_groups = [aws_security_group.test.id]
+subnet_idbnet.test.id
+ipv4_prefixes"172.16.10.16/28"]
+security_groups = [aws_security_group.test.id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -1456,13 +1456,13 @@ me = %[1]q
 func testAccVPCNetworkInterfaceConfig_ipv4PrefixMultiple(rName string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV4(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  ipv4_prefixes"172.16.10.16/28", "172.16.10.32/28"]
-  security_groups = [aws_security_group.test.id]
+subnet_idbnet.test.id
+ipv4_prefixes"172.16.10.16/28", "172.16.10.32/28"]
+security_groups = [aws_security_group.test.id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -1470,13 +1470,13 @@ me = %[1]q
 
 funcurn acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV4(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_id= aws_subnet.test.id
-  ipv4_prefix_count = %[2]d
-  security_groupsaws_security_group.test.id]
+subnet_id= aws_subnet.test.id
+ipv4_prefix_count = %[2]d
+security_groupsaws_security_group.test.id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, ipv4PrefixCount))
 }
@@ -1485,14 +1485,14 @@ me = %[1]q
 func testAccVPCNetworkInterfaceConfig_ipv6Prefix(rName string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV6(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  private_ips.10.100"]
-  ipv6_prefixescidrsubnet(aws_subnet.test.ipv6_cidr_block, 16, 2)]
-  security_groups = [aws_security_group.test.id]
+subnet_idbnet.test.id
+private_ips.10.100"]
+ipv6_prefixescidrsubnet(aws_subnet.test.ipv6_cidr_block, 16, 2)]
+security_groups = [aws_security_group.test.id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -1501,14 +1501,14 @@ me = %[1]q
 func testAccVPCNetworkInterfaceConfig_ipv6PrefixMultiple(rName string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV6(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  private_ips.10.100"]
-  ipv6_prefixescidrsubnet(aws_subnet.test.ipv6_cidr_block, 16, 2), cidrsubnet(aws_subnet.test.ipv6_cidr_block, 16, 3)]
-  security_groups = [aws_security_group.test.id]
+subnet_idbnet.test.id
+private_ips.10.100"]
+ipv6_prefixescidrsubnet(aws_subnet.test.ipv6_cidr_block, 16, 2), cidrsubnet(aws_subnet.test.ipv6_cidr_block, 16, 3)]
+security_groups = [aws_security_group.test.id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 funcName))
 }
 
@@ -1516,12 +1516,12 @@ funcName))
 func testAccVPCNetworkInterfaceConfig_ipv6PrefixCount(rName string, ipv6PrefixCount int) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInterfaceConfig_baseIPV6(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_id= aws_subnet.test.id
-  private_ips16.10.100"]
-  ipv6_prefix_count = %[2]d
-  security_groupsaws_security_group.test.id]
+subnet_id= aws_subnet.test.id
+private_ips16.10.100"]
+ipv6_prefix_count = %[2]d
+security_groupsaws_security_group.test.id]
 
-  tags = {
+tags = {
 me = %[1]q
 func
 `, rName, ipv6PrefixCount))
@@ -1533,9 +1533,9 @@ func testAccVPCNetworkInterfaceConfig_privateIPSet(rName string, privateIPs []st
 testAccVPCNetworkInterfaceConfig_baseIPV6(rName),
 fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  security_groups = [aws_security_group.test.id]
-  private_ips]
+subnet_idbnet.test.id
+security_groups = [aws_security_group.test.id]
+private_ips]
 }
 `, strings.Join(privateIPs, `", "`)))
 func
@@ -1545,9 +1545,9 @@ func testAccVPCNetworkInterfaceConfig_privateIPSetCount(rName string, count int)
 testAccVPCNetworkInterfaceConfig_baseIPV6(rName),
 fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_id= aws_subnet.test.id
-  security_groupsaws_security_group.test.id]
-  private_ips_count = %[1]d
+subnet_id= aws_subnet.test.id
+security_groupsaws_security_group.test.id]
+private_ips_count = %[1]d
 }
 `, count))
 }
@@ -1557,10 +1557,10 @@ func testAccVPCNetworkInterfaceConfig_privateIPList(rName string, privateIPs []s
 funcAccVPCNetworkInterfaceConfig_baseIPV6(rName),
 fmt.Sprintf(`
 resource "aws_network_interface" "test" {
-  subnet_id= aws_subnet.test.id
-  security_groups= [aws_security_group.test.id]
-  private_ip_list_enabled = true
-  private_ip_list= ["%[1]s"]
+subnet_id= aws_subnet.test.id
+security_groups= [aws_security_group.test.id]
+private_ip_list_enabled = true
+private_ip_list= ["%[1]s"]
 }
 `, strings.Join(privateIPs, `", "`)))
 }

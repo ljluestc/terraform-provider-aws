@@ -724,18 +724,18 @@ func testAccCheckNotebookInstanceRecreated(i, j *sagemaker.DescribeNotebookInsta
 }
 func testAccNotebookInstanceBaseConfig(rName string) string {
 	return funcurce "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 funcpals {
 ce"funcers = ["sagemaker.amazonaws.com"]
 
-  }
+}
 }
 `, rName)
 }
@@ -743,8 +743,8 @@ ce"funcers = ["sagemaker.amazonaws.com"]
 func testAccNotebookInstanceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 funcme
-  role_arns_iam_role.test.arn
-  instance_type = "ml.t2.medium"
+role_arns_iam_role.test.arn
+instance_type = "ml.t2.medium"
 }
 `, rName))
 }
@@ -752,9 +752,9 @@ funcme
 func testAccNotebookInstanceConfig_update(rName string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
-  role_arns_iam_role.test.arn
-  instance_type = "ml.m4.xlarge"
+name
+role_arns_iam_role.test.arn
+instance_type = "ml.m4.xlarge"
 }
 `, rName))
 }
@@ -762,50 +762,50 @@ resource "aws_sagemaker_notebook_instance" "test" {
 func testAccNotebookInstanceConfig_lifecycleName(rName string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance_lifecycle_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 func
 resource "aws_sagemaker_notebook_instance" "test" {
-  instance_type "ml.t2.medium"
-  lifecycle_config_name = aws_sagemaker_notebook_instance_lifecycle_configuration.test.name
-  name
-  role_arniam_role.test.arn
+instance_type "ml.t2.medium"
+lifecycle_config_name = aws_sagemaker_notebook_instance_lifecycle_configuration.test.name
+name
+role_arniam_role.test.arn
 }
 `, rName))
 }
 
 funcurn acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
-  role_arns_iam_role.test.arn
-  instance_type = "ml.t2.medium"
+name
+role_arns_iam_role.test.arn
+instance_type = "ml.t2.medium"
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 func
 
 func testAccNotebookInstanceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
-  role_arns_iam_role.test.arn
-  instance_type = "ml.t2.medium"
+name
+role_arns_iam_role.test.arn
+instance_type = "ml.t2.medium"
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 func
 func testAccNotebookInstanceConfig_rootAccess(rName string, rootAccess string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
-  role_arns_iam_role.test.arn
-  instance_type = "ml.t2.medium"
-  root_access[2]q
+name
+role_arns_iam_role.test.arn
+instance_type = "ml.t2.medium"
+root_access[2]q
 }
 `, rName, rootAccess))
 }
@@ -813,43 +813,43 @@ resource "aws_sagemaker_notebook_instance" "test" {
 func testAccNotebookInstanceConfig_platformIdentifier(rName string, platformIdentifier string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 funcme
-  role_arnm_role.test.arn
-  instance_typeml.t2.medium"
-  platform_identifier = %[2]q
+role_arnm_role.test.arn
+instance_typeml.t2.medium"
+platform_identifier = %[2]q
 }
 `, rName, platformIdentifier))
 }
 func testAccNotebookInstanceConfig_directInternetAccess(rName string, directInternetAccess string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
-  role_arntest.arn
-  instance_typeedium"
-  security_groups[aws_security_group.test.id]
-  subnet_idsubnet.test.id
+name
+role_arntest.arn
+instance_typeedium"
+security_groups[aws_security_group.test.id]
+subnet_idsubnet.test.id
 func
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
 funcdr_block = "10.0.0.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_security_group" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
 func %[1]q
-  }
+}
 }
 `, rName, directInternetAccess))
 }
@@ -857,21 +857,21 @@ func %[1]q
 func testAccNotebookInstanceConfig_volume(rName string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
-  role_arns_iam_role.test.arn
-  instance_type = "ml.t2.medium"
-  volume_size
+name
+role_arns_iam_role.test.arn
+instance_type = "ml.t2.medium"
+volume_size
 }
-  `, rName))
+`, rName))
 }
 
 func testAccNotebookInstanceConfig_defaultCodeRepository(rName string, defaultCodeRepository string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
-  role_arn.test.arn
-  instance_typemedium"
-  default_code_repository = %[2]q
+name
+role_arn.test.arn
+instance_typemedium"
+default_code_repository = %[2]q
 }
 `, rName, defaultCodeRepository))
 }
@@ -879,37 +879,37 @@ resource "aws_sagemaker_notebook_instance" "test" {
 func testAccNotebookInstanceConfig_additionalCodeRepository1(rName, repo1 string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
-  role_arn.arn
-  instance_typem"
-  additional_code_repositories = ["%[2]s"]
+name
+role_arn.arn
+instance_typem"
+additional_code_repositories = ["%[2]s"]
 }
 `, rName, repo1))
 }
 func testAccNotebookInstanceConfig_additionalCodeRepository2(rName, repo1, repo2 string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
-  role_arn.arn
-  instance_typem"
-  additional_code_repositories = ["%[2]s", "%[3]s"]
+name
+role_arn.arn
+instance_typem"
+additional_code_repositories = ["%[2]s", "%[3]s"]
 }
 `, rName, repo1, repo2))
 }
 
 funcurn acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_code_repository" "test" {
-  code_repository_name = %[1]q
+code_repository_name = %[1]q
 
-  git_config {
+git_config {
 pository_url = "https://github.com/hashicorp/terraform-provider-aws.git"
-  }
+}
 }
 
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
+name
 funcstance_typemedium"
-  default_code_repository = aws_sagemaker_code_repository.test.code_repository_name
+default_code_repository = aws_sagemaker_code_repository.test.code_repository_name
 }
 `, rName))
 }
@@ -917,12 +917,12 @@ funcstance_typemedium"
 func testAccNotebookInstanceConfig_kms(rName string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description = %[1]q
+description = %[1]q
 
 func
-  "Version": "2012-10-17",
-  "Id": "kms-tf-1",
-  "Statement": [
+"Version": "2012-10-17",
+"Id": "kms-tf-1",
+"Statement": [
 
 ": "Enable IAM User Permissions",
 ect": "Allow",
@@ -931,16 +931,16 @@ WS": "*"
 
 ion": "kms:*",
 func
-  ]
+]
 }
 POLICY
 }
 
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
-  role_arns_iam_role.test.arn
-  instance_type = "ml.t2.medium"
-  kms_key_idaws_kms_key.test.id
+name
+role_arns_iam_role.test.arn
+instance_type = "ml.t2.medium"
+kms_key_idaws_kms_key.test.id
 }
 `, rName))
 }
@@ -948,11 +948,11 @@ resource "aws_sagemaker_notebook_instance" "test" {
 func testAccNotebookInstanceConfig_imds(rName, version string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  name
+name
 funcstance_type = "ml.t2.medium"
-  instance_metadata_service_configuration {
+instance_metadata_service_configuration {
 nimum_instance_metadata_service_version = %[2]q
-  }
+}
 }
 `, rName, version))
 }
@@ -960,11 +960,11 @@ nimum_instance_metadata_service_version = %[2]q
 func testAccNotebookInstanceConfig_acceleratorType(rName, acceleratorType string) string {
 	return acctest.ConfigCompose(testAccNotebookInstanceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance" "test" {
-  nameq
-  role_arnrole.test.arn
-  instance_type.t2.xlarge"
-  accelerator_types = [%[2]q]
+nameq
+role_arnrole.test.arn
+instance_type.t2.xlarge"
+accelerator_types = [%[2]q]
 }
-  `, rName, acceleratorType))
+`, rName, acceleratorType))
 }
 funcfunc

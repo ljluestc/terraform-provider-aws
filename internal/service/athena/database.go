@@ -88,7 +88,7 @@ funcurn &schema.Resource{
 			"force_destroy": {
 				Type:a.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"name": {
 				Type:chema.TypeString,
@@ -158,7 +158,7 @@ func resourceDatabaseRead(ctx context.Context, d *schema.ResourceData, meta inte
 func
 	input := &athena.GetDatabaseInput{
 		DatabaseName: aws.String(d.Id()),
-		CatalogName:  aws.String("AwsDataCatalog"),
+		CatalogName:aws.String("AwsDataCatalog"),
 	}
 	res, err := conn.GetDatabaseWithContext(ctx, input)
 

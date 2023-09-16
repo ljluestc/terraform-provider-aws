@@ -168,10 +168,10 @@ funcource.TestCheckResourceAttrPair(resourceName, "peer_region", dataSourceName,
 
 func testAccTransitGatewayPeeringAttachmentDataSourceConfig_filterSameAccount(rName string) string {
 func "aws_ec2_transit_gateway_peering_attachment" "test" {
-  filter {
+filter {
 me= "nsit-gateway-attachment-id"
 lues = [aws_ec2_transit_gateway_peering_attachment.test.id]
-  }
+}
 }
 `)
 }
@@ -188,9 +188,9 @@ func
 func testAccTransitGatewayPeeringAttachmentDataSourceConfig_tagsSameAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_tags1(rName, "Name", rName), `
 data "aws_ec2_transit_gateway_peering_attachment" "test" {
-  tags = {
+tags = {
 me = aws_ec2_transit_gateway_peering_attachment.test.tags["Name"]
-  }
+}
 }
 func
 
@@ -198,11 +198,11 @@ func
 func testAccTransitGatewayPeeringAttachmentDataSourceConfig_filterDifferentAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_differentAccount(rName), `
 data "aws_ec2_transit_gateway_peering_attachment" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  filter {
+filter {
 func = [aws_ec2_transit_gateway_peering_attachment.test.id]
-  }
+}
 }
 `)
 }
@@ -211,7 +211,7 @@ func = [aws_ec2_transit_gateway_peering_attachment.test.id]
 func testAccTransitGatewayPeeringAttachmentDataSourceConfig_iDDifferentAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_differentAccount(rName), `
 data "aws_ec2_transit_gateway_peering_attachment" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 func
 `)
 }

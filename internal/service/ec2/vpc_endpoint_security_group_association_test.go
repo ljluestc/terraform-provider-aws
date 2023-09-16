@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx),
@@ -48,7 +48,7 @@ func TestAccVPCEndpointSecurityGroupAssociation_disappears(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -74,7 +74,7 @@ func TestAccVPCEndpointSecurityGroupAssociation_multiple(t *testing.T) {
 	resourceName2 := "aws_vpc_endpoint_security_group_association.test.2"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -100,7 +100,7 @@ func TestAccVPCEndpointSecurityGroupAssociation_replaceDefaultAssociation(t *tes
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCEndpointSecurityGroupAssociationDestroy(ctx),
@@ -189,29 +189,29 @@ return nil
 func testAccVPCEndpointSecurityGroupAssociationConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
 func %[1]q
 func
 
 func
 resource "aws_security_group" "test" {
-  count = 3
+count = 3
 
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_vpc_endpoint" "test" {
-  vpc_idws_vpc.test.id
-  service_nameazonaws.${data.aws_region.current.name}.ec2"
-  vpc_endpoint_type = "Interface"
+vpc_idws_vpc.test.id
+service_nameazonaws.${data.aws_region.current.name}.ec2"
+vpc_endpoint_type = "Interface"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -222,8 +222,8 @@ func testAccVPCEndpointSecurityGroupAssociationConfig_basic(rName string) string
 testAccVPCEndpointSecurityGroupAssociationConfig_base(rName),
 `
 resource "aws_vpc_endpoint_security_group_association" "test" {
-  vpc_endpoint_idws_vpc_endpoint.test.id
-  security_group_id = aws_security_group.test[0].id
+vpc_endpoint_idws_vpc_endpoint.test.id
+security_group_id = aws_security_group.test[0].id
 }
 `)
 }
@@ -234,10 +234,10 @@ func testAccVPCEndpointSecurityGroupAssociationConfig_multiple(rName string) str
 testAccVPCEndpointSecurityGroupAssociationConfig_base(rName),
 `
 resource "aws_vpc_endpoint_security_group_association" "test" {
-  count = length(aws_security_group.test)
+count = length(aws_security_group.test)
 
-  vpc_endpoint_idws_vpc_endpoint.test.id
-  security_group_id = aws_security_group.test[count.index].id
+vpc_endpoint_idws_vpc_endpoint.test.id
+security_group_id = aws_security_group.test[count.index].id
 }
 func
 
@@ -247,10 +247,10 @@ func testAccVPCEndpointSecurityGroupAssociationConfig_replaceDefault(rName strin
 testAccVPCEndpointSecurityGroupAssociationConfig_base(rName),
 `
 resource "aws_vpc_endpoint_security_group_association" "test" {
-  vpc_endpoint_idws_vpc_endpoint.test.id
-  security_group_id = aws_security_group.test[0].id
+vpc_endpoint_idws_vpc_endpoint.test.id
+security_group_id = aws_security_group.test[0].id
 
-  replace_default_association = true
+replace_default_association = true
 func
 }
 func

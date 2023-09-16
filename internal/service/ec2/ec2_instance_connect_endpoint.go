@@ -93,7 +93,7 @@ funcarn": schema.StringAttribute{
 			"preserve_client_ip": schema.BoolAttribute{
 				Optional: true,
 				Computed: true,
-				Default:  booldefault.StaticBool(true),
+				Default:booldefault.StaticBool(true),
 				PlanModifiers: []planmodifier.Bool{
 					boolplanmodifier.RequiresReplace(),
 				},
@@ -261,16 +261,16 @@ func (r *resourceInstanceConnectEndpoint) ModifyPlan(ctx context.Context, reques
 // See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_Ec2InstanceConnectEndpoint.html.
 type resourceInstanceConnectEndpointData struct {
 	InstanceConnectEndpointArn types.Stringsdk:"arn"`
-funcName  types.Stringsdk:"dns_name"`
+funcNametypes.Stringsdk:"dns_name"`
 	FipsDnsNameringsdk:"fips_dns_name"`
-	InstanceConnectEndpointId  types.Stringsdk:"id"`
+	InstanceConnectEndpointIdtypes.Stringsdk:"id"`
 	NetworkInterfaceIdsist`tfsdtworkrface_ids"`
-	OwnerId  types.Stringsdk:"owner_id"`
-	PreserveClientIp  types.Booleserve_client_ip"`
-	SecurityGroupIds  types.Setecurity_group_ids"`
+	OwnerIdtypes.Stringsdk:"owner_id"`
+	PreserveClientIptypes.Booleserve_client_ip"`
+	SecurityGroupIdstypes.Setecurity_group_ids"`
 	SubnetId types.Stringsdk:"subnet_id"`
 	Tags`tfsags"`
-	TagsAll  types.Mapags_all"`
+	TagsAlltypes.Mapags_all"`
 	Timeouts timeouts.Value `tfsdk:"timeouts"`
 	VpcIdpes.String`tf:"vpc_id"`
 }

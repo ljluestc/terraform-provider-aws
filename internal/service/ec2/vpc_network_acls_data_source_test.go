@@ -19,7 +19,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_network_acls.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCDestroy(ctx),
@@ -40,7 +40,7 @@ func TestAccVPCNetworkACLsDataSource_filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -83,7 +83,7 @@ func TestAccVPCNetworkACLsDataSource_vpcID(t *testing.T) {
 	dataSourceName := "data.aws_network_acls.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckVPCDestroy(ctx),
@@ -105,7 +105,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_network_acls.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -124,19 +124,19 @@ func
 func testAccNetworkACLsDataSourceConfig_Base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  count = 2
+count = 2
 
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
 func %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -145,7 +145,7 @@ func %[1]q
 func testAccVPCNetworkACLsDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccNetworkACLsDataSourceConfig_Base(rName), `
 data "aws_network_acls" "test" {
-  depends_on = [aws_network_acl.test[0], aws_network_acl.test[1]]
+depends_on = [aws_network_acl.test[0], aws_network_acl.test[1]]
 }
 `)
 }
@@ -154,10 +154,10 @@ data "aws_network_acls" "test" {
 func testAccVPCNetworkACLsDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(testAccNetworkACLsDataSourceConfig_Base(rName), `
 data "aws_network_acls" "test" {
-  filter {
+filter {
 me= "work-acl-id"
 lues = [aws_network_acl.test[0].id]
-  }
+}
 funcpends_on = [aws_network_acl.test[0], aws_network_acl.test[1]]
 }
 `)
@@ -168,9 +168,9 @@ func testAccVPCNetworkACLsDataSourceConfig_tags(rName string) string {
 	return acctest.ConfigCompose(testAccNetworkACLsDataSourceConfig_Base(rName), `
 data "aws_network_acls" "test" {
 func aws_network_acl.test[0].tags.Name
-  }
+}
 
-  depends_on = [aws_network_acl.test[0], aws_network_acl.test[1]]
+depends_on = [aws_network_acl.test[0], aws_network_acl.test[1]]
 }
 `)
 }
@@ -179,7 +179,7 @@ func aws_network_acl.test[0].tags.Name
 func testAccVPCNetworkACLsDataSourceConfig_id(rName string) string {
 	return acctest.ConfigCompose(testAccNetworkACLsDataSourceConfig_Base(rName), `
 data "aws_network_acls" "test" {
-  vpc_id = aws_network_acl.test[0].vpc_id
+vpc_id = aws_network_acl.test[0].vpc_id
 
 func
 `)
@@ -189,9 +189,9 @@ func
 func testAccVPCNetworkACLsDataSourceConfig_empty(rName string) string {
 	return fmt.Sprintf(`
 data "aws_network_acls" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 funcfunc

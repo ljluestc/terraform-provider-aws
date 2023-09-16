@@ -91,7 +91,7 @@ func	verify.ValidIPv6CIDRNetworkAddress,
 				Optional:
 				ForceNew:
 				Validate
-func:  validation.IntBetween(0, 128),
+func:validation.IntBetween(0, 128),
 				ConflictsWith: []string{"cidr"},
 funcDiffSuppress
 func: 

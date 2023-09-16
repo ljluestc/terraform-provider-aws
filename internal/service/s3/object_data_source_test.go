@@ -29,9 +29,9 @@ const rfc1123RegexPattern = `^[A-Za-z]{3}, [0-9]+ [A-Za-z]+ [0-9]{4} [0-9:]+ [A-
 	dataSourceName := "data.aws_s3_object.obj"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{
@@ -60,8 +60,8 @@ const rfc1123RegexPattern = `^[A-Za-z]{3}, [0-9]+ [A-Za-z]+ [0-9]{4} [0-9:]+ [A-
 	accessPointResourceName := "aws_s3_access_point.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -86,9 +86,9 @@ const rfc1123RegexPattern = `^[A-Za-z]{3}, [0-9]+ [A-Za-z]+ [0-9]{4} [0-9:]+ [A-
 	dataSourceName := "data.aws_s3_object.obj"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{
@@ -118,9 +118,9 @@ func rObj s3.GetObjectOutput
 	dataSourceName := "data.aws_s3_object.obj"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{
@@ -152,9 +152,9 @@ func rObj s3.GetObjectOutput
 	dataSourceName := "data.aws_s3_object.obj"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{
@@ -187,9 +187,9 @@ func rObj s3.GetObjectOutput
 	dataSourceName := "data.aws_s3_object.obj"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{
@@ -236,9 +236,9 @@ funcourceName := "aws_s3_object.object"
 	dataSourceName := "data.aws_s3_object.obj"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{
@@ -269,9 +269,9 @@ funcourceName := "aws_s3_object.object"
 	dataSourceName := "data.aws_s3_object.obj"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{
@@ -304,9 +304,9 @@ funcourceName := "aws_s3_object.object"
 	resourceOnlyConf, conf := testAccObjectDataSourceConfig_leadingSlash(rInt)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{ // nosemgrep:ci.test-config-funcs-correct-form
@@ -356,9 +356,9 @@ funcourceName := "aws_s3_object.object"
 	resourceOnlyConf, conf := testAccObjectDataSourceConfig_multipleSlashes(rInt)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{ // nosemgrep:ci.test-config-funcs-correct-form
@@ -397,9 +397,9 @@ funcourceName := "aws_s3_object.object"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 	funceps: []resource.TestStep{
 			{
 				Config: testAccObjectDataSourceConfig_singleSlashAsKey(rName),
@@ -422,7 +422,7 @@ funcourceName := "aws_s3_object.object"
 
 	funct, err := conn.GetObjectWithContext(ctx, &s3.GetObjectInput{
 			Bucket: aws.String(rs.Primary.Attributes["bucket"]),
-			Key:    aws.String(rs.Primary.Attributes["key"]),
+			Key:aws.String(rs.Primary.Attributes["key"]),
 		})
 		if err != nil {
 			return fmt.Errorf("Failed getting S3 Object from %s: %s",
@@ -436,212 +436,212 @@ funcourceName := "aws_s3_object.object"
 }func testAccObjectDataSourceConfig_basic(randInt int) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "object_bucket" {
-  bucket = "tf-object-test-bucket-%[1]d"
+bucket = "tf-object-test-bucket-%[1]d"
 }
 
 resource "aws_s3_object" "object" {
-  bucket  = aws_s3_bucket.object_bucket.bucket
-  key     = "tf-testing-obj-%[1]d"
-  content = "Hello World"
+bucket= aws_s3_bucket.object_bucket.bucket
+key = "tf-testing-obj-%[1]d"
+content = "Hello World"
 }
 
 dfunccket = aws_s3_bucket.object_bucket.bucket
-  key    = aws_s3_object.object.key
+key= aws_s3_object.object.key
 }
 `, randInt)
 }func testAccObjectDataSourceConfig_basicViaAccessPoint(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_access_point" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = %[1]q
+bucket = aws_s3_bucket.test.bucket
+name = %[1]q
 }
 
 resource "aws_s3_object" "test" {
-  bucket  = aws_s3_bucket.test.bucket
+bucket= aws_s3_bucket.test.bucket
  funcntent = "Hello World"
 }
 
 data "aws_s3_object" "test" {
-  bucket = aws_s3_access_point.test.arn
-  key    = aws_s3_object.test.key
+bucket = aws_s3_access_point.test.arn
+key= aws_s3_object.test.key
 }
 `, rName)
 }func testAccObjectDataSourceConfig_readableBody(randInt int) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "object_bucket" {
-  bucket = "tf-object-test-bucket-%[1]d"
+bucket = "tf-object-test-bucket-%[1]d"
 }
 
 resource "aws_s3_object" "object" {
-  bucket       = aws_s3_bucket.object_bucket.bucket
-  key          = "tf-testing-obj-%[1]d-readable"
-  content      = "yes"
-  content_type = "text/plain"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "tf-testing-obj-%[1]d-readable"
+content= "yes"
+content_type = "text/plain"
 }
 
 data "aws_s3_object" "obj" {
- funcy    = aws_s3_object.object.key
+ funcy= aws_s3_object.object.key
 }
 `, randInt)
 }func testAccObjectDataSourceConfig_kmsEncrypted(randInt int) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "object_bucket" {
-  bucket = "tf-object-test-bucket-%[1]d"
+bucket = "tf-object-test-bucket-%[1]d"
 }
 
 resource "aws_kms_key" "example" {
-  description             = "TF Acceptance Test KMS key"
-  deletion_window_in_days = 7
+description = "TF Acceptance Test KMS key"
+deletion_window_in_days = 7
 }
 
 resource "aws_s3_object" "object" {
-  bucket       = aws_s3_bucket.object_bucket.bucket
-  key          = "tf-testing-obj-%[1]d-encrypted"
-  content      = "Keep Calm and Carry On"
- funcs_key_id   = aws_kms_key.example.arn
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "tf-testing-obj-%[1]d-encrypted"
+content= "Keep Calm and Carry On"
+ funcs_key_id = aws_kms_key.example.arn
 }
 
 data "aws_s3_object" "obj" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = aws_s3_object.object.key
+bucket = aws_s3_bucket.object_bucket.bucket
+key= aws_s3_object.object.key
 }
 `, randInt)
 }func testAccObjectDataSourceConfig_bucketKeyEnabled(randInt int) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "object_bucket" {
-  bucket = "tf-object-test-bucket-%[1]d"
+bucket = "tf-object-test-bucket-%[1]d"
 }
 
 resource "aws_kms_key" "example" {
-  description             = "TF Acceptance Test KMS key"
-  deletion_window_in_days = 7
+description = "TF Acceptance Test KMS key"
+deletion_window_in_days = 7
 }
 
 resource "aws_s3_object" "object" {
-  bucket             = aws_s3_bucket.object_bucket.bucket
-  key                = "tf-testing-obj-%[1]d-encrypted"
-  content            = "Keep Calm and Carry On"
-  content_type       = "text/plain"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "tf-testing-obj-%[1]d-encrypted"
+content= "Keep Calm and Carry On"
+content_type = "text/plain"
  funccket_key_enabled = true
 }
 
 data "aws_s3_object" "obj" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = aws_s3_object.object.key
+bucket = aws_s3_bucket.object_bucket.bucket
+key= aws_s3_object.object.key
 }
 `, randInt)
 }func testAccObjectDataSourceConfig_allParams(randInt int) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "object_bucket" {
-  bucket = "tf-object-test-bucket-%[1]d"
+bucket = "tf-object-test-bucket-%[1]d"
 }
 
 resource "aws_s3_bucket_versioning" "object_bucket" {
-  bucket = aws_s3_bucket.object_bucket.id
-  versioning_configuration {
-    status = "Enabled"
-  }
+bucket = aws_s3_bucket.object_bucket.id
+versioning_configuration {
+status = "Enabled"
+}
 }
 
 resource "aws_s3_object" "object" {
-  # Must have bucket versioning enabled first
-  depends_on = [aws_s3_bucket_versioning.object_bucket]
+# Must have bucket versioning enabled first
+depends_on = [aws_s3_bucket_versioning.object_bucket]
 
- funcy    = "tf-testing-obj-%[1]d-all-params"
+ funcy= "tf-testing-obj-%[1]d-all-params"
 
-  content             = <<CONTENT
+content = <<CONTENT
 {
-  "msg": "Hi there!"
+"msg": "Hi there!"
 }
 CONTENT
-  content_type        = "application/unknown"
-  cache_control       = "no-cache"
-  content_disposition = "attachment"
-  content_encoding    = "identity"
-  content_language    = "en-GB"
+content_type= "application/unknown"
+cache_control = "no-cache"
+content_disposition = "attachment"
+content_encoding= "identity"
+content_language= "en-GB"
 
-  tags = {
-    Key1 = "Value 1"
-  }
+tags = {
+Key1 = "Value 1"
+}
 }
 
 data "aws_s3_object" "obj" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = aws_s3_object.object.key
+bucket = aws_s3_bucket.object_bucket.bucket
+key= aws_s3_object.object.key
 }
 `, randInt)
 }func testAccObjectDataSourceConfig_lockLegalHoldOff(randInt int) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "object_bucket" {
-  bucket = "tf-object-test-bucket-%[1]d"
+bucket = "tf-object-test-bucket-%[1]d"
 
-  object_lock_enabled = true
+object_lock_enabled = true
 }
 
 resource "aws_s3_bucket_versioning" "object_bucket" {
-  bucket = aws_s3_bucket.object_bucket.id
-  versioning_configuration {
-    status = "Enabled"
-  }
+bucket = aws_s3_bucket.object_bucket.id
+versioning_configuration {
+status = "Enabled"
+}
 }
 
 resource "aws_s3_object" "object" {
-  # Must have bucket versioning enabled first
-  bucket                        = aws_s3_bucket_versioning.object_bucket.bucket
- funcntent                       = "Hello World"
-  object_lock_legal_hold_status = "OFF"
+# Must have bucket versioning enabled first
+bucket= aws_s3_bucket_versioning.object_bucket.bucket
+ funcntent = "Hello World"
+object_lock_legal_hold_status = "OFF"
 }
 
 data "aws_s3_object" "obj" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = aws_s3_object.object.key
+bucket = aws_s3_bucket.object_bucket.bucket
+key= aws_s3_object.object.key
 }
 `, randInt)
 }func testAccObjectDataSourceConfig_lockLegalHoldOn(randInt int, retainUntilDate string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "object_bucket" {
-  bucket = "tf-object-test-bucket-%[1]d"
+bucket = "tf-object-test-bucket-%[1]d"
 
-  object_lock_enabled = true
+object_lock_enabled = true
 }
 
 resource "aws_s3_bucket_versioning" "object_bucket" {
-  bucket = aws_s3_bucket.object_bucket.id
-  versioning_configuration {
-    status = "Enabled"
-  }
+bucket = aws_s3_bucket.object_bucket.id
+versioning_configuration {
+status = "Enabled"
+}
 }
 
 resource "aws_s3_object" "object" {
-  # Must have bucket versioning enabled first
-  bucket                        = aws_s3_bucket_versioning.object_bucket.bucket
-  key                           = "tf-testing-obj-%[1]d"
- funcrce_destroy                 = true
-  object_lock_legal_hold_status = "ON"
-  object_lock_mode              = "GOVERNANCE"
-  object_lock_retain_until_date = "%[2]s"
+# Must have bucket versioning enabled first
+bucket= aws_s3_bucket_versioning.object_bucket.bucket
+key = "tf-testing-obj-%[1]d"
+ funcrce_destroy = true
+object_lock_legal_hold_status = "ON"
+object_lock_mode= "GOVERNANCE"
+object_lock_retain_until_date = "%[2]s"
 }
 
 data "aws_s3_object" "obj" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = aws_s3_object.object.key
+bucket = aws_s3_bucket.object_bucket.bucket
+key= aws_s3_object.object.key
 }
 `, randInt, retainUntilDate)
 }func testAccObjectDataSourceConfig_leadingSlash(randInt int) (string, string) {
 	resources := fmt.Sprintf(`
 resource "aws_s3_bucket" "object_bucket" {
-  bucket = "tf-object-test-bucket-%[1]d"
+bucket = "tf-object-test-bucket-%[1]d"
 }
 
 resource "aws_s3_object" "object" {
-  bucket       = aws_s3_bucket.object_bucket.bucket
-  key          = "//tf-testing-obj-%[1]d-readable"
-  content      = "yes"
-  content_type = "text/plain"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "//tf-testing-obj-%[1]d-readable"
+content= "yes"
+content_type = "text/plain"
 }
 `, randInt)
 
@@ -649,17 +649,17 @@ resource "aws_s3_object" "object" {
 %[1]s
 
 data "aws_s3_object" "obj1" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = "tf-testing-obj-%[2]d-readable"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "tf-testing-obj-%[2]d-readable"
 }func
 data "aws_s3_object" "obj2" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = "/tf-testing-obj-%[2]d-readable"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "/tf-testing-obj-%[2]d-readable"
 }
 
 data "aws_s3_object" "obj3" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = "//tf-testing-obj-%[2]d-readable"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "//tf-testing-obj-%[2]d-readable"
 }
 `, resources, randInt)
 
@@ -667,40 +667,40 @@ data "aws_s3_object" "obj3" {
 }func testAccObjectDataSourceConfig_multipleSlashes(randInt int) (string, string) {
 	resources := fmt.Sprintf(`
 resource "aws_s3_bucket" "object_bucket" {
-  bucket = "tf-object-test-bucket-%[1]d"
+bucket = "tf-object-test-bucket-%[1]d"
 }
 
 resource "aws_s3_object" "object1" {
-  bucket       = aws_s3_bucket.object_bucket.bucket
-  key          = "first//second///third//"
-  content      = "yes"
-  content_type = "text/plain"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "first//second///third//"
+content= "yes"
+content_type = "text/plain"
 }
 
 # Without a trailing slash.
 resource "aws_s3_object" "object2" {
-  bucket       = aws_s3_bucket.object_bucket.bucket
-  key          = "/first////second/third"
-  content      = "no"
-  content_type = "text/plain"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "/first////second/third"
+content= "no"
+content_type = "text/plain"
 }
 `, randInt)
 funch := fmt.Sprintf(`
 %s
 
 data "aws_s3_object" "obj1" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = "first/second/third/"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "first/second/third/"
 }
 
 data "aws_s3_object" "obj2" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = "first//second///third//"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "first//second///third//"
 }
 
 data "aws_s3_object" "obj3" {
-  bucket = aws_s3_bucket.object_bucket.bucket
-  key    = "first/second/third"
+bucket = aws_s3_bucket.object_bucket.bucket
+key= "first/second/third"
 }
 `, resources)
 
@@ -708,12 +708,12 @@ data "aws_s3_object" "obj3" {
 }func testAccObjectDataSourceConfig_singleSlashAsKey(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 data "aws_s3_object" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  key    = "/"
+bucket = aws_s3_bucket.test.bucket
+key= "/"
 }
 `, rName)
 }

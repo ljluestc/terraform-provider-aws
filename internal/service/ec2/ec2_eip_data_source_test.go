@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -43,7 +43,7 @@ func TestAccEC2EIPDataSource_id(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -66,7 +66,7 @@ func TestAccEC2EIPDataSource_publicIP(t *testing.T) {
 	resourceName := "aws_eip.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -91,7 +91,7 @@ func TestAccEC2EIPDataSource_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -114,7 +114,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -139,7 +139,7 @@ funcaSourceName := "data.aws_eip.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -162,7 +162,7 @@ func TestAccEC2EIPDataSource_carrierIP(t *testing.T) {
 	resourceName := "aws_eip.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckWavelengthZoneAvailable(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -185,7 +185,7 @@ funcourceName := "aws_eip.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funcs: []resource.TestStep{
@@ -204,14 +204,14 @@ func
 func testAccEIPDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
 func %[1]q
-  }
+}
 }
 
 data "aws_eip" "test" {
-  filter {
+filter {
 me= ":Name"
 func
 }
@@ -222,14 +222,14 @@ func
 func testAccEIPDataSourceConfig_id(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_eip" "test" {
-  id = aws_eip.test.id
+id = aws_eip.test.id
 }
 `, rName)
 }
@@ -238,14 +238,14 @@ data "aws_eip" "test" {
 func testAccEIPDataSourceConfig_publicIP(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 data "aws_eip" "test" {
-  public_ip = aws_eip.test.public_ip
+public_ip = aws_eip.test.public_ip
 }
 `, rName)
 }
@@ -254,16 +254,16 @@ data "aws_eip" "test" {
 func testAccEIPDataSourceConfig_tags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 func "aws_eip" "test" {
-  tags = {
+tags = {
 me = aws_eip.test.tags["Name"]
-  }
+}
 }
 `, rName)
 }
@@ -272,10 +272,10 @@ me = aws_eip.test.tags["Name"]
 func testAccEIPDataSourceConfig_networkInterface(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_networkInterface(rName), `
 data "aws_eip" "test" {
-  filter {
+filter {
 me= "work-interface-id"
 lues = [aws_eip.test.network_interface]
-  }
+}
 }
 func
 
@@ -283,10 +283,10 @@ func
 func testAccEIPDataSourceConfig_instance(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_instance(rName), `
 data "aws_eip" "test" {
-  filter {
+filter {
 me= "tance-id"
 lues = [aws_eip.test.instance]
-  }
+}
 }
 `)
 }
@@ -295,7 +295,7 @@ lues = [aws_eip.test.instance]
 func testAccEIPDataSourceConfig_carrierIP(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_carrierIP(rName), `
 data "aws_eip" "test" {
-  id = aws_eip.test.id
+id = aws_eip.test.id
 func
 }
 
@@ -303,7 +303,7 @@ func
 func testAccEIPDataSourceConfig_customerOwnedIPv4Pool(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_customerOwnedIPv4Pool(rName), `
 data "aws_eip" "test" {
-  id = aws_eip.test.id
+id = aws_eip.test.id
 }
 `)
 }

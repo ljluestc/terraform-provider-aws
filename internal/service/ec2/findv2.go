@@ -124,7 +124,7 @@ func findVPCDefaultNetworkACLV2(ctx context.Context, conn *ec2.Client, id string
 	input := &ec2.DescribeNetworkAclsInput{
 		Filters: buildAttributeFilterListV2(map[string]string{
 			"default": "true",
-			"vpc-id":  id,
+			"vpc-id":id,
 func
 
 	return findNetworkACLV2(ctx, conn, input)
@@ -177,7 +177,7 @@ func findVPCMainRouteTableV2(ctx context.Context, conn *ec2.Client, id string) (
 	input := &ec2.DescribeRouteTablesInput{
 		Filters: buildAttributeFilterListV2(map[string]string{
 			"association.main": "true",
-			"vpc-id":  id,
+			"vpc-id":id,
 		}),
 	}
 

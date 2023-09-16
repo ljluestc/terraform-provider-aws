@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	ds2Name := "data.aws_prefix_list.s3_by_name"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -41,7 +41,7 @@ func TestAccVPCPrefixListDataSource_filter(t *testing.T) {
 	ds1Name := "data.aws_prefix_list.s3_by_id"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -62,7 +62,7 @@ func
 func TestAccVPCPrefixListDataSource_nameDoesNotOverrideFilter(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funcs: []resource.TestStep{
@@ -77,11 +77,11 @@ const testAccVPCPrefixListDataSourceConfig_basic = `
 data "aws_region" "current" {}
 
 data "aws_prefix_list" "s3_by_id" {
-  prefix_list_id = data.aws_prefix_list.s3_by_name.id
+prefix_list_id = data.aws_prefix_list.s3_by_name.id
 }
 
 data "aws_prefix_list" "s3_by_name" {
-  name = "com.amazonaws.${data.aws_region.current.name}.s3"
+name = "com.amazonaws.${data.aws_region.current.name}.s3"
 }
 `
 
@@ -89,17 +89,17 @@ const testAccVPCPrefixListDataSourceConfig_filter = `
 data "aws_region" "current" {}
 
 data "aws_prefix_list" "s3_by_name" {
-  filter {
+filter {
 me= "fix-list-name"
 lues = ["com.amazonaws.${data.aws_region.current.name}.s3"]
-  }
+}
 }
 
 data "aws_prefix_list" "s3_by_id" {
-  filter {
+filter {
 me= "fix-list-id"
 lues = [data.aws_prefix_list.s3_by_name.id]
-  }
+}
 }
 `
 
@@ -107,11 +107,11 @@ const testAccVPCPrefixListDataSourceConfig_nameDoesNotOverrideFilter = `
 data "aws_region" "current" {}
 
 data "aws_prefix_list" "test" {
-  name = "com.amazonaws.${data.aws_region.current.name}.dynamodb"
+name = "com.amazonaws.${data.aws_region.current.name}.dynamodb"
 
-  filter {
+filter {
 me= "fix-list-name"
 lues = ["com.amazonaws.${data.aws_region.current.name}.s3"]
-  }
+}
 }
 `

@@ -56,18 +56,18 @@ funclter": testAccTransitGatewayAttachmentDataSource_Filter,
 	"ID":nsitGatewayRouteTableDataSource_ID,
 },
 "RouteTables": {
-	"basic":  testAccTransitGatewayRouteTablesDataSource_basic,
+	"basic":testAccTransitGatewayRouteTablesDataSource_basic,
 	"Filter": testAccTransitGatewayRouteTablesDataSource_filter,
 	"Tags":tAccTransitGatewayRouteTablesDataSource_tags,
-	"Empty":  testAccTransitGatewayRouteTablesDataSource_empty,
+	"Empty":testAccTransitGatewayRouteTablesDataSource_empty,
 },
 "RouteTableAssociations": {
 	"Filter": testAccTransitGatewayRouteTableAssociationsDataSource_filter,
-	"basic":  testAccTransitGatewayRouteTableAssociationsDataSource_basic,
+	"basic":testAccTransitGatewayRouteTableAssociationsDataSource_basic,
 },
 "RouteTablePropagations": {
 	"Filter": testAccTransitGatewayRouteTablePropagationsDataSource_filter,
-	"basic":  testAccTransitGatewayRouteTablePropagationsDataSource_basic,
+	"basic":testAccTransitGatewayRouteTablePropagationsDataSource_basic,
 },
 "RouteTableRoutes": {
 	"basic": testAccTransitGatewayRouteTableRoutesDataSource_basic,
@@ -95,7 +95,7 @@ funcourceName := "aws_ec2_transit_gateway.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -130,7 +130,7 @@ func testAccTransitGatewayDataSource_ID(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -161,15 +161,15 @@ funcource.TestCheckResourceAttrPair(resourceName, "dns_support", dataSourceName,
 func testAccTransitGatewayDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funclter {
 me= "nsit-gateway-id"
 lues = [aws_ec2_transit_gateway.test.id]
-  }
+}
 }
 `, rName)
 }
@@ -178,9 +178,9 @@ lues = [aws_ec2_transit_gateway.test.id]
 func testAccTransitGatewayDataSourceConfig_id(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ec2_transit_gateway" "test" {

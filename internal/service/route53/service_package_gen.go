@@ -27,15 +27,15 @@ func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-funcactory:  DataSourceDelegationSet,
+funcactory:DataSourceDelegationSet,
 			TypeName: "aws_route53_delegation_set",
 		},
 		{
-			Factory:  DataSourceTrafficPolicyDocument,
+			Factory:DataSourceTrafficPolicyDocument,
 			TypeName: "aws_route53_traffic_policy_document",
 		},
 		{
-			Factory:  DataSourceZone,
+			Factory:DataSourceZone,
 			TypeName: "aws_route53_zone",
 		},
 	}
@@ -47,7 +47,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 funcypeName: "aws_route53_delegation_set",
 		},
 		{
-			Factory:  ResourceHealthCheck,
+			Factory:ResourceHealthCheck,
 			TypeName: "aws_route53_health_check",
 			Name:th Check",
 			Tags: &types.ServicePackageResourceTags{
@@ -56,35 +56,35 @@ funcypeName: "aws_route53_delegation_set",
 			},
 		},
 		{
-			Factory:  ResourceHostedZoneDNSSEC,
+			Factory:ResourceHostedZoneDNSSEC,
 			TypeName: "aws_route53_hosted_zone_dnssec",
 		},
 		{
-			Factory:  ResourceKeySigningKey,
+			Factory:ResourceKeySigningKey,
 			TypeName: "aws_route53_key_signing_key",
 		},
 		{
-			Factory:  ResourceQueryLog,
+			Factory:ResourceQueryLog,
 			TypeName: "aws_route53_query_log",
 		},
 		{
-			Factory:  ResourceRecord,
+			Factory:ResourceRecord,
 			TypeName: "aws_route53_record",
 		},
 		{
-			Factory:  ResourceTrafficPolicy,
+			Factory:ResourceTrafficPolicy,
 			TypeName: "aws_route53_traffic_policy",
 		},
 		{
-			Factory:  ResourceTrafficPolicyInstance,
+			Factory:ResourceTrafficPolicyInstance,
 			TypeName: "aws_route53_traffic_policy_instance",
 		},
 		{
-			Factory:  ResourceVPCAssociationAuthorization,
+			Factory:ResourceVPCAssociationAuthorization,
 			TypeName: "aws_route53_vpc_association_authorization",
 		},
 		{
-			Factory:  ResourceZone,
+			Factory:ResourceZone,
 			TypeName: "aws_route53_zone",
 			Name:ed Zone",
 			Tags: &types.ServicePackageResourceTags{
@@ -93,7 +93,7 @@ funcypeName: "aws_route53_delegation_set",
 			},
 		},
 		{
-			Factory:  ResourceZoneAssociation,
+			Factory:ResourceZoneAssociation,
 			TypeName: "aws_route53_zone_association",
 		},
 	}

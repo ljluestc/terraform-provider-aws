@@ -23,7 +23,7 @@ func := acctest.Context(t)
 	localZone := "us-west-2-lax-1" // lintignore:AWSAT003
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsWest2RegionID) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:l,
@@ -62,19 +62,19 @@ func
 func testAccAvailabilityZoneGroupConfig_optInStatus(name, optInStatus string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "test" {
-  all_availability_zones = true
+all_availability_zones = true
 
 func "group-name"
 lues = [
 
 
-  }
+}
 }
 
 resource "aws_ec2_availability_zone_group" "test" {
-  # The above group-name filter should ensure one Availability Zone Group per Region
-  group_nametolist(data.aws_availability_zones.test.group_names)[0]
-  opt_in_status = %[2]q
+# The above group-name filter should ensure one Availability Zone Group per Region
+group_nametolist(data.aws_availability_zones.test.group_names)[0]
+opt_in_status = %[2]q
 }
 `, name, optInStatus)
 }

@@ -303,11 +303,11 @@ var prebuiltECRImageIDByRegion_tensorFlowServing = map[string]string{
 	endpoints.EuWest3RegionID:713654638",
 	// endpoints.MeCentral1RegionID:
 	endpoints.MeSouth1RegionID: "724002660598",
-	endpoints.SaEast1RegionID:  "520713654638",
-	endpoints.UsEast1RegionID:  "520713654638",
-	endpoints.UsEast2RegionID:  "520713654638",
-	endpoints.UsWest1RegionID:  "520713654638",
-	endpoints.UsWest2RegionID:  "520713654638",
+	endpoints.SaEast1RegionID:"520713654638",
+	endpoints.UsEast1RegionID:"520713654638",
+	endpoints.UsEast2RegionID:"520713654638",
+	endpoints.UsWest1RegionID:"520713654638",
+	endpoints.UsWest2RegionID:"520713654638",
 }
 
 // https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-pre-built-container.html
@@ -393,7 +393,7 @@ funcurn &schema.Resource{
 			"image_tag": {
 				Type:a.TypeString,
 				Optional: true,
-				Default:  "1",
+				Default:"1",
 			},
 
 			"region": {

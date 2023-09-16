@@ -164,7 +164,7 @@ creationToken = id.UniqueId()
 }
 throughputMode := d.Get("throughput_mode").(string)
 input := &efs.CreateFileSystemInput{
-CreationToken:  aws.String(creationToken),
+CreationToken:aws.String(creationToken),
 Tags:In(ctx),
 ThroughputMode: aws.String(throughputMode),
 }

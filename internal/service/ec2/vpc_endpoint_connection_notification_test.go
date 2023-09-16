@@ -24,7 +24,7 @@ func := acctest.Context(t)
 	resourceName := "aws_vpc_endpoint_connection_notification.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCEndpointConnectionNotificationDestroy(ctx),
@@ -107,40 +107,40 @@ func testAccVPCEndpointConnectionNotificationConfig_base(rName string) string {
 data "aws_partition" "current" {}
 
 resource "aws_lb" "nlb_test" {
-  name = %[1]q
+name = %[1]q
 
-  subnets = aws_subnet.test[*].id
+subnets = aws_subnet.test[*].id
 
-  load_balancer_type= "network"
+load_balancer_type= "network"
 funcle_timeout= 60
-  enable_deletion_protection = false
+enable_deletion_protection = false
 }
 
 data "aws_caller_identity" "current" {}
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required = false
+acceptance_required = false
 
-  network_load_balancer_arns = [
+network_load_balancer_arns = [
 s_lb.nlb_test.id,
-  ]
+]
 
-  allowed_principals = [
+allowed_principals = [
 ta.aws_caller_identity.current.arn
-  ]
+]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_sns_topic" "test" {
-  name = %[1]q
+name = %[1]q
 
-  policy = <<POLICY
+policy = <<POLICY
 {
-  "Version": "2012-10-17",
-  "Statement": [
+"Version": "2012-10-17",
+"Statement": [
 
  "Allow",
 l": {
@@ -149,7 +149,7 @@ e": "vpce.${data.aws_partition.current.dns_suffix}"
  "SNS:Publish",
 ": "arn:${data.aws_partition.current.partition}:sns:*:*:%[1]s"
 
-  ]
+]
 }
 POLICY
 }
@@ -160,9 +160,9 @@ POLICY
 func testAccVPCEndpointConnectionNotificationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointConnectionNotificationConfig_base(rName), `
 resource "aws_vpc_endpoint_connection_notification" "test" {
-  vpc_endpoint_service_idendpoint_service.test.id
-  connection_notification_arn = aws_sns_topic.test.arn
-  connection_events  = ["Accept", "Reject"]
+vpc_endpoint_service_idendpoint_service.test.id
+connection_notification_arn = aws_sns_topic.test.arn
+connection_events= ["Accept", "Reject"]
 }
 `)
 }
@@ -170,9 +170,9 @@ resource "aws_vpc_endpoint_connection_notification" "test" {
 
 funcurn acctest.ConfigCompose(testAccVPCEndpointConnectionNotificationConfig_base(rName), `
 resource "aws_vpc_endpoint_connection_notification" "test" {
-  vpc_endpoint_service_idendpoint_service.test.id
-  connection_notification_arn = aws_sns_topic.test.arn
-  connection_events  = ["Accept"]
+vpc_endpoint_service_idendpoint_service.test.id
+connection_notification_arn = aws_sns_topic.test.arn
+connection_events= ["Accept"]
 }
 `)
 }

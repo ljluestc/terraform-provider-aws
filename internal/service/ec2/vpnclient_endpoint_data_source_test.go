@@ -21,7 +21,7 @@ func := acctest.Context(t)
 	datasource3Name := "data.aws_ec2_client_vpn_endpoint.by_tags"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckClientVPNEndpointDestroy(ctx),
@@ -101,16 +101,16 @@ data "aws_ec2_client_vpn_endpoint" "by_id" {
 func
 
 data "aws_ec2_client_vpn_endpoint" "by_tags" {
-  tags = {
+tags = {
 me = aws_ec2_client_vpn_endpoint.test.tags["Name"]
-  }
+}
 }
 
 data "aws_ec2_client_vpn_endpoint" "by_filter" {
-  filter {
+filter {
 me= "point-id"
 lues = [aws_ec2_client_vpn_endpoint.test.id]
-  }
+}
 }
 `)
 }

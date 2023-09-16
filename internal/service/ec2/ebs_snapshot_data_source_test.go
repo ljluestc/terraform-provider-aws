@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -51,7 +51,7 @@ func TestAccEC2EBSSnapshotDataSource_filter(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -72,7 +72,7 @@ func TestAccEC2EBSSnapshotDataSource_mostRecent(t *testing.T) {
 	resourceName := "aws_ebs_snapshot.b"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -90,24 +90,24 @@ funcource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
 func testAccEBSSnapshotDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  type
-  size
+availability_zone = data.aws_availability_zones.available.names[0]
+type
+size
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_ebs_snapshot" "test" {
-  volume_id = aws_ebs_volume.test.id
+volume_id = aws_ebs_volume.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ebs_snapshot" "test" {
-  snapshot_ids = [aws_ebs_snapshot.test.id]
+snapshot_ids = [aws_ebs_snapshot.test.id]
 }
 `, rName))
 }
@@ -116,27 +116,27 @@ data "aws_ebs_snapshot" "test" {
 func testAccEBSSnapshotDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  type
-  size
+availability_zone = data.aws_availability_zones.available.names[0]
+type
+size
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_ebs_snapshot" "test" {
-  volume_id = aws_ebs_volume.test.id
+volume_id = aws_ebs_volume.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ebs_snapshot" "test" {
-  filter {
+filter {
 me= "pshot-id"
 lues = [aws_ebs_snapshot.test.id]
-  }
+}
 }
 `, rName))
 }
@@ -145,40 +145,40 @@ lues = [aws_ebs_snapshot.test.id]
 func testAccEBSSnapshotDataSourceConfig_mostRecent(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  type
-  size
+availability_zone = data.aws_availability_zones.available.names[0]
+type
+size
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_ebs_snapshot" "a" {
-  volume_id = aws_ebs_volume.test.id
+volume_id = aws_ebs_volume.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ebs_snapshot" "b" {
-  # Ensure that this snapshot is created after the other.
-  volume_id = aws_ebs_snapshot.a.volume_id
+# Ensure that this snapshot is created after the other.
+volume_id = aws_ebs_snapshot.a.volume_id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ebs_snapshot" "test" {
-  most_recent = true
+most_recent = true
 
-  filter {
+filter {
 me= ":Name"
 lues = [%[1]q]
-  }
+}
 
-  depends_on = [aws_ebs_snapshot.a, aws_ebs_snapshot.b]
+depends_on = [aws_ebs_snapshot.a, aws_ebs_snapshot.b]
 }
 `, rName))
 }

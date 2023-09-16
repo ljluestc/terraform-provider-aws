@@ -31,7 +31,7 @@ func testAccDefaultVPCDHCPOptions_basic(t *testing.T) {
 funcourceName := "aws_default_vpc_dhcp_options.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -58,7 +58,7 @@ func testAccDefaultVPCDHCPOptions_owner(t *testing.T) {
 	var d ec2.DhcpOptions
 	resourceName := "aws_default_vpc_dhcp_options.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -107,16 +107,16 @@ func(
 	{
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Config:stAccVPCDefaultVPCDHCPOptionsConfig_basic,
-PlanOnly:  true,
+PlanOnly:true,
 	},
 },
 func
 
 const testAccVPCDefaultVPCDHCPOptionsConfig_basic = `
 resource "aws_default_vpc_dhcp_options" "test" {
-  tags = {
+tags = {
 me = "Default DHCP Option Set"
-  }
+}
 }
 `
 
@@ -124,10 +124,10 @@ const testAccVPCDefaultVPCDHCPOptionsConfig_owner = `
 data "aws_caller_identity" "current" {}
 
 resource "aws_default_vpc_dhcp_options" "test" {
-  owner_id = data.aws_caller_identity.current.account_id
+owner_id = data.aws_caller_identity.current.account_id
 
-  tags = {
+tags = {
 me = "Default DHCP Option Set"
-  }
+}
 }
 `

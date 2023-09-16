@@ -380,34 +380,34 @@ func
 func testAccUserProfileConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 funcers = ["sagemaker.amazonaws.com"]
 
-  }
+}
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -415,8 +415,8 @@ me_efs_file_system = "Delete"
 func testAccUserProfileConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccUserProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_user_profile" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[1]q
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = %[1]q
 }
 `, rName))
 }
@@ -424,11 +424,11 @@ resource "aws_sagemaker_user_profile" "test" {
 func testAccUserProfileConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccUserProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_user_profile" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[1]q
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = %[1]q
 funcgs = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -436,12 +436,12 @@ funcgs = {
 func testAccUserProfileConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccUserProfileConfig_base(rName), fmt.Sprintf(`
 funcmain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[1]q
+user_profile_name = %[1]q
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -449,9 +449,9 @@ funcmain_id aws_sagemaker_domain.test.id
 func testAccUserProfileConfig_tensorBoardAppSettings(rName string) string {
 	return acctest.ConfigCompose(testAccUserProfileConfig_base(rName), fmt.Sprintf(`
 funcmain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[1]q
+user_profile_name = %[1]q
 
-  user_settings {
+user_settings {
 ecution_role = aws_iam_role.test.arn
 
 nsor_board_app_settings {
@@ -459,30 +459,30 @@ ult_resource_spec {
 stance_type = "ml.t3.micro"
 
 
-  }
+}
 }
 `, rName))
 func
 func testAccUserProfileConfig_tensorBoardAppSettingsImage(rName, instanceType string) string {
 	return acctest.ConfigCompose(testAccUserProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_image" "test" {
-  image_name = %[1]q
-  role_arnws_iam_role.test.arn
+image_name = %[1]q
+role_arnws_iam_role.test.arn
 }
 
 resource "aws_sagemaker_user_profile" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[1]q
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = %[1]q
 
-  user_settings {
+user_settings {
 ecution_role = aws_iam_role.test.arn
 
 nsor_board_app_settings {
 ult_resource_spec {
-stance_type  = %
+stance_type= %
 gemaker_image_arn = aws_sagemaker_image.test.arn
 func
-  }
+}
 }
 `, rName, instanceType))
 }
@@ -490,10 +490,10 @@ func
 func testAccUserProfileConfig_jupyterServerAppSettings(rName string) string {
 	return acctest.ConfigCompose(testAccUserProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_user_profile" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[1]q
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = %[1]q
 
-  user_settings {
+user_settings {
 ecution_role = aws_iam_role.test.arn
 
 pyter_server_app_settings {
@@ -501,17 +501,17 @@ ult_resource_spec {
 stance_type = "system"
 
 
-  }
+}
 }
 `, rName))
 }
 
 funcurn acctest.ConfigCompose(testAccUserProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_user_profile" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[1]q
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = %[1]q
 
-  user_settings {
+user_settings {
 ecution_role = aws_iam_role.test.arn
 
 rnel_gateway_app_settings {
@@ -519,23 +519,23 @@ ult_resource_spec {
 stance_type = "ml.t3.micro"
 
 
-  }
+}
 }
 `, rName))
 }
 
 func testAccUserProfileConfig_kernelGatewayAppSettingsLifecycle(rName string) string {
 funcurce "aws_sagemaker_studio_lifecycle_config" "test" {
-  studio_lifecycle_config_name]q
-  studio_lifecycle_config_app_type = "JupyterServer"
-  studio_lifecycle_config_content  = base64encode("echo Hello")
+studio_lifecycle_config_name]q
+studio_lifecycle_config_app_type = "JupyterServer"
+studio_lifecycle_config_content= base64encode("echo Hello")
 }
 
 resource "aws_sagemaker_user_profile" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[1]q
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = %[1]q
 
-  user_settings {
+user_settings {
 ecution_role = aws_iam_role.test.arn
 
 rnel_gateway_app_settings {
@@ -545,7 +545,7 @@ fecycle_config_arn = aws_sagemaker_studio_lifecycle_config.test.arn
 
 
 func
-  }
+}
 }
 `, rName))
 }
@@ -555,28 +555,28 @@ func testAccUserProfileConfig_kernelGatewayAppSettingsImage(rName, baseImage str
 data "aws_partition" "current" {}
 
 resource "aws_iam_role_policy_attachment" "test" {
-  rolews_iam_role.test.name
-  policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSageMakerFullAccess"
+rolews_iam_role.test.name
+policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSageMakerFullAccess"
 }
 
 resource "aws_sagemaker_image" "test" {
-  image_name = %[1]q
-  role_arnws_image_role.test.arn
+image_name = %[1]q
+role_arnws_image_role.test.arn
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 
 resource "aws_sagemaker_image_version" "test" {
-  image_name = aws_sagemaker_image.test.id
-  base_image = %[2]q
+image_name = aws_sagemaker_image.test.id
+base_image = %[2]q
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 funcurce "aws_sagemaker_user_profile" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[1]q
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = %[1]q
 
-  user_settings {
+user_settings {
 ecution_role = aws_iam_role.test.arn
 
 rnel_gateway_app_settings {
@@ -585,9 +585,9 @@ stance_type= "ml
 gemaker_image_version_arn = aws_sagemaker_image_version.test.arn
 
 
-  }
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, baseImage))
 }

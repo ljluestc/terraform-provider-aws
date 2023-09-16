@@ -29,7 +29,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckRouteTableDestroy(ctx),
@@ -75,7 +75,7 @@ func TestAccVPCDefaultRouteTable_Disappears_vpc(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -102,7 +102,7 @@ func TestAccVPCDefaultRouteTable_Route_mode(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	destinationCidr := "10.2.0.0/16"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -174,7 +174,7 @@ func TestAccVPCDefaultRouteTable_swap(t *testing.T) {
 	destinationCidr2 := "10.3.0.0/16"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -245,7 +245,7 @@ func routeTable ec2.RouteTable
 	destinationCidr := "10.2.0.0/16"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -284,7 +284,7 @@ func
 	destinationCidr := "0.0.0.0/0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckELBv2GatewayLoadBalancer(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID, "elasticloadbalancing"),
 funckDestroy:stAccCheckRouteTableDestroy(ctx),
@@ -327,7 +327,7 @@ func TestAccVPCDefaultRouteTable_vpcEndpointAssociation(t *testing.T) {
 	destinationCidr := "10.2.0.0/16"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 funcs: []resource.TestStep{
@@ -358,7 +358,7 @@ func TestAccVPCDefaultRouteTable_tags(t *testing.T) {
 	resourceName := "aws_default_route_table.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -442,7 +442,7 @@ func TestAccVPCDefaultRouteTable_prefixListToInternetGateway(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckRouteTableDestroy(ctx),
@@ -579,7 +579,7 @@ func
 func testAccVPCDefaultRouteTableConfig_id(defaultRouteTableId string) string {
 	return fmt.Sprintf(`
 resource "aws_default_route_table" "test" {
-  default_route_table_id = %[1]q
+default_route_table_id = %[1]q
 }
 `, defaultRouteTableId)
 }
@@ -588,13 +588,13 @@ resource "aws_default_route_table" "test" {
 func testAccVPCDefaultRouteTableConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 funcurce "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 funcName)
 }
 
@@ -602,25 +602,25 @@ funcName)
 func testAccVPCDefaultRouteTableConfig_ipv4InternetGateway(rName, destinationCidr string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block  = "10.1.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.1.0.0/16"
+enable_dns_hostnames = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  route {
+route {
 dr_block = %[2]q
 teway_id = aws_internet_gateway.test.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 funcc_id = aws_vpc.test.id
 funcgs = {
@@ -633,26 +633,26 @@ func
 func testAccVPCDefaultRouteTableConfig_noBlock(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block  = "10.1.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.1.0.0/16"
+enable_dns_hostnames = true
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }`, rName)
 }
 
@@ -660,29 +660,29 @@ me = %[1]q
 func testAccVPCDefaultRouteTableConfig_blocksExplicitZero(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block  = "10.1.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.1.0.0/16"
+enable_dns_hostnames = true
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  route = []
+route = []
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }`, rName)
 }
 
@@ -690,49 +690,49 @@ me = %[1]q
 func testAccVPCDefaultRouteTableConfig_swap(rName, destinationCidr1, destinationCidr2 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block  = "10.1.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.1.0.0/16"
+enable_dns_hostnames = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  route {
+route {
 dr_block = %[2]q
 teway_id = aws_internet_gateway.test.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  route {
+route {
 dr_block = %[3]q
 teway_id = aws_internet_gateway.test.id
-  }
+}
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_main_route_table_association" "test" {
-  vpc_id= aws_vpc.test.id
-  route_table_id = aws_route_table.test.id
+vpc_id= aws_vpc.test.id
+route_table_id = aws_route_table.test.id
 }
 `, rName, destinationCidr1, destinationCidr2)
 }
@@ -741,49 +741,49 @@ resource "aws_main_route_table_association" "test" {
 func testAccVPCDefaultRouteTableConfig_ipv4TransitGateway(rName, destinationCidr string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block"10.1.1.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block"10.1.1.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  route {
+route {
 dr_block= %[2]q
 ansit_gateway_id = aws_ec2_transit_gateway_vpc_attachment.test.transit_gateway_id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, destinationCidr))
 }
@@ -796,72 +796,72 @@ fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.10.10.0/25"
+cidr_block = "10.10.10.0/25"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 # Another route destination for update
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_blockcidrsubnet(aws_vpc.test.cidr_block, 2, 0)
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_blockcidrsubnet(aws_vpc.test.cidr_block, 2, 0)
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_lb" "test" {
-  load_balancer_type = "gateway"
-  name= %[1]q
+load_balancer_type = "gateway"
+name= %[1]q
 
-  subnet_mapping {
+subnet_mapping {
 bnet_id = aws_subnet.test.id
-  }
+}
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_requiredfalse
-  allowed_principals= [data.aws_caller_identity.current.arn]
-  gateway_load_balancer_arns = [aws_lb.test.arn]
+acceptance_requiredfalse
+allowed_principals= [data.aws_caller_identity.current.arn]
+gateway_load_balancer_arns = [aws_lb.test.arn]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_endpoint" "test" {
-  service_names_vpc_endpoint_service.test.service_name
-  subnet_ids[aws_subnet.test.id]
-  vpc_endpoint_type = aws_vpc_endpoint_service.test.service_type
-  vpc_idws_vpc.test.id
+service_names_vpc_endpoint_service.test.service_name
+subnet_ids[aws_subnet.test.id]
+vpc_endpoint_type = aws_vpc_endpoint_service.test.service_type
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  route {
+route {
 dr_block2]q
 c_endpoint_id = aws_vpc_endpoint.test.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 funcName, destinationCidr))
 }
 
@@ -873,73 +873,73 @@ fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.10.10.0/25"
+cidr_block = "10.10.10.0/25"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 # Another route destination for update
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_blockcidrsubnet(aws_vpc.test.cidr_block, 2, 0)
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_blockcidrsubnet(aws_vpc.test.cidr_block, 2, 0)
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_lb" "test" {
-  load_balancer_type = "gateway"
-  name= %[1]q
+load_balancer_type = "gateway"
+name= %[1]q
 
-  subnet_mapping {
+subnet_mapping {
 bnet_id = aws_subnet.test.id
-  }
+}
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_requiredfalse
-  allowed_principals= [data.aws_caller_identity.current.arn]
-  gateway_load_balancer_arns = [aws_lb.test.arn]
+acceptance_requiredfalse
+allowed_principals= [data.aws_caller_identity.current.arn]
+gateway_load_balancer_arns = [aws_lb.test.arn]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_endpoint" "test" {
-  service_names_vpc_endpoint_service.test.service_name
-  subnet_ids[aws_subnet.test.id]
-  vpc_endpoint_type = aws_vpc_endpoint_service.test.service_type
-  vpc_idws_vpc.test.id
+service_names_vpc_endpoint_service.test.service_name
+subnet_ids[aws_subnet.test.id]
+vpc_endpoint_type = aws_vpc_endpoint_service.test.service_type
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  route {
+route {
 dr_block = "0.0.0.0/0"
 teway_id = aws_internet_gateway.test.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 func
 
@@ -949,42 +949,42 @@ func testAccVPCDefaultRouteTableConfig_endpointAssociation(rName, destinationCid
 data "aws_region" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id = aws_vpc.test.id
-  service_name"com.amazonaws.${data.aws_region.current.name}.s3"
-  route_table_ids = [aws_vpc.test.default_route_table_id]
+vpc_id = aws_vpc.test.id
+service_name"com.amazonaws.${data.aws_region.current.name}.s3"
+route_table_ids = [aws_vpc.test.default_route_table_id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  route {
+route {
 dr_block = %[2]q
 teway_id = aws_internet_gateway.test.id
-  }
+}
 }
 `, rName, destinationCidr)
 }
@@ -993,19 +993,19 @@ teway_id = aws_internet_gateway.test.id
 func testAccVPCDefaultRouteTableConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -1014,19 +1014,19 @@ resource "aws_default_route_table" "test" {
 func testAccVPCDefaultRouteTableConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
@@ -1035,40 +1035,40 @@ funcurce "aws_default_route_table" "test" {
 func testAccVPCDefaultRouteTableConfig_conditionalIPv4v6(rName, destinationCidr, destinationIpv6Cidr string, ipv6Route bool) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  assign_generated_ipv6_cidr_block = true
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 locals {
-  ipv6%[4]t
-  destination2]q
-  destination_ipv6 = %[3]q
+ipv6%[4]t
+destination2]q
+destination_ipv6 = %[3]q
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  route {
+route {
 dr_blockcal.ipv6 ? null : local.destination
 v6_cidr_block = local.ipv6 ? local.destination_ipv6 : null
 teway_ids_internet_gateway.test.id
-  }
+}
 funcgs = {
 me = %[1]q
-  }
+}
 }
 `, rName, destinationCidr, destinationIpv6Cidr, ipv6Route)
 }
@@ -1077,37 +1077,37 @@ me = %[1]q
 func testAccVPCDefaultRouteTableConfig_prefixListInternetGateway(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  route {
+route {
 stination_prefix_list_id = aws_ec2_managed_prefix_list.test.id
-teway_id  = aws_internet_gateway.test.id
-  }
+teway_id= aws_internet_gateway.test.id
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 func
 
@@ -1115,38 +1115,38 @@ func
 func testAccVPCDefaultRouteTableConfig_prefixListInternetGatewayNo(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
+default_route_table_id = aws_vpc.test.default_route_table_id
 
-  route {
+route {
 dr_block = "0.0.0.0/0"
 teway_id = aws_internet_gateway.test.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1154,46 +1154,46 @@ me = %[1]q
 
 funcurn fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  assign_generated_ipv6_cidr_block = true
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway_attachment" "test" {
-  vpc_id= aws_vpc.test.id
-  vpn_gateway_id = aws_vpn_gateway.test.id
+vpc_id= aws_vpc.test.id
+vpn_gateway_id = aws_vpn_gateway.test.id
 }
 
 resource "aws_egress_only_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  propagating_vgws = [aws_vpn_gateway_attachment.test.vpn_gateway_id]
+propagating_vgws = [aws_vpn_gateway_attachment.test.vpn_gateway_id]
 
-  route {
+route {
 v6_cidr_block"::/0"
 ress_only_gateway_id = aws_egress_only_internet_gateway.test.id
-  }
+}
 
 func %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1204,8 +1204,8 @@ func testAccVPCDefaultRouteTableConfig_revokeExistingRulesCustomToMain(rName str
 testAccVPCDefaultRouteTableConfig_revokeExistingRulesCustom(rName),
 `
 resource "aws_main_route_table_association" "test" {
-  vpc_id= aws_vpc.test.id
-  route_table_id = aws_route_table.test.id
+vpc_id= aws_vpc.test.id
+route_table_id = aws_route_table.test.id
 }
 `)
 }
@@ -1216,22 +1216,22 @@ func testAccVPCDefaultRouteTableConfig_revokeExistingRulesOverlaysCustom(rName s
 testAccVPCDefaultRouteTableConfig_revokeExistingRulesCustomToMain(rName),
 fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_route_table.test.id
+default_route_table_id = aws_route_table.test.id
 
-  route {
+route {
 dr_block = "0.0.0.0/0"
 teway_id = aws_internet_gateway.test.id
-  }
+}
 
-  tags = {
+tags = {
 func
 }
 `, rName))

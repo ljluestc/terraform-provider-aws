@@ -238,17 +238,17 @@ funcrn nil
 func testAccTransitGatewayPeeringAttachmentConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "peer" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -272,9 +272,9 @@ testAccTransitGatewayPeeringAttachmentConfig_base(rName),
 func testAccTransitGatewayPeeringAttachmentConfig_sameAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_sameAccount_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_peering_attachment" "test" {
-  peer_region%[1]q
-  peer_transit_gateway_id = aws_ec2_transit_gateway.peer.id
-  transit_gateway_id_transit_gateway.test.id
+peer_region%[1]q
+peer_transit_gateway_id = aws_ec2_transit_gateway.peer.id
+transit_gateway_id_transit_gateway.test.id
 funccctest.AlternateRegion()))
 }
 
@@ -282,13 +282,13 @@ funccctest.AlternateRegion()))
 func testAccTransitGatewayPeeringAttachmentConfig_differentAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_differentAccount_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_peering_attachment" "test" {
-  peer_account_id= aws_ec2_transit_gateway.peer.owner_id
+peer_account_id= aws_ec2_transit_gateway.peer.owner_id
 funcer_transit_gateway_id = aws_ec2_transit_gateway.peer.id
-  transit_gateway_id_transit_gateway.test.id
+transit_gateway_id_transit_gateway.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, acctest.AlternateRegion()))
 func
@@ -296,11 +296,11 @@ func
 func testAccTransitGatewayPeeringAttachmentConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_sameAccount_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_peering_attachment" "test" {
-  peer_region%[1]q
-  peer_transit_gateway_id = aws_ec2_transit_gateway.peer.id
-  transit_gateway_id_transit_gateway.test.id
+peer_region%[1]q
+peer_transit_gateway_id = aws_ec2_transit_gateway.peer.id
+transit_gateway_id_transit_gateway.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
 func
 `, acctest.AlternateRegion(), tagKey1, tagValue1))
@@ -310,14 +310,14 @@ func
 func testAccTransitGatewayPeeringAttachmentConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_sameAccount_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_peering_attachment" "test" {
-  peer_region%[1]q
-  peer_transit_gateway_id = aws_ec2_transit_gateway.peer.id
-  transit_gateway_id_transit_gateway.test.id
+peer_region%[1]q
+peer_transit_gateway_id = aws_ec2_transit_gateway.peer.id
+transit_gateway_id_transit_gateway.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 funccctest.AlternateRegion(), tagKey1, tagValue1, tagKey2, tagValue2))
 }
 func

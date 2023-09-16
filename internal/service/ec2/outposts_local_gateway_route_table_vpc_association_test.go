@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLocalGatewayRouteTableVPCAssociationDestroy(ctx),
@@ -56,7 +56,7 @@ func TestAccEC2OutpostsLocalGatewayRouteTableVPCAssociation_disappears(t *testin
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -179,15 +179,15 @@ func testAccLocalGatewayRouteTableVPCAssociationBaseConfig(rName string) string 
 data "aws_outposts_outposts" "test" {}
 
 data "aws_ec2_local_gateway_route_table" "test" {
-  outpost_arn = tolist(data.aws_outposts_outposts.test.arns)[0]
+outpost_arn = tolist(data.aws_outposts_outposts.test.arns)[0]
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -197,8 +197,8 @@ func testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_basic(rName strin
 testAccLocalGatewayRouteTableVPCAssociationBaseConfig(rName),
 `
 resource "aws_ec2_local_gateway_route_table_vpc_association" "test" {
-  local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.test.id
-  vpc_idpc.test.id
+local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.test.id
+vpc_idpc.test.id
 }
 `)
 }
@@ -209,11 +209,11 @@ func testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_tags1(rName, tagK
 testAccLocalGatewayRouteTableVPCAssociationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_ec2_local_gateway_route_table_vpc_association" "test" {
-  local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.test.id
+local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.test.id
 func
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tagKey1, tagValue1))
 }
@@ -223,13 +223,13 @@ func testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_tags2(rName, tagK
 	return acctest.ConfigCompose(
 testAccLocalGatewayRouteTableVPCAssociationBaseConfig(rName),
 funcurce "aws_ec2_local_gateway_route_table_vpc_association" "test" {
-  local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.test.id
-  vpc_idpc.test.id
+local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.test.id
+vpc_idpc.test.id
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }

@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckMainRouteTableAssociationDestroy(ctx),
@@ -101,27 +101,27 @@ return nil
 func testAccMainRouteTableAssociationConfigBaseVPC(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcc_idtest.id
-  cidr_block = "10.1.1.0/24"
+cidr_block = "10.1.1.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -130,20 +130,20 @@ me = %[1]q
 func testAccVPCMainRouteTableAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccMainRouteTableAssociationConfigBaseVPC(rName), fmt.Sprintf(`
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  route {
+route {
 dr_block = "10.0.0.0/8"
 teway_id = aws_internet_gateway.test.id
-  }
+}
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_main_route_table_association" "test" {
-  vpc_id= aws_vpc.test.id
-  route_table_id = aws_route_table.test.id
+vpc_id= aws_vpc.test.id
+route_table_id = aws_route_table.test.id
 }
 `, rName))
 }
@@ -155,33 +155,33 @@ func testAccVPCMainRouteTableAssociationConfig_updated(rName string) string {
 # main_route_table_association, otherwise Terraform will try to destroy the
 # route table too early, and will fail because it's still the main one
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  route {
+route {
 dr_block = "10.0.0.0/8"
 teway_id = aws_internet_gateway.test.id
-  }
+}
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test2" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  route {
+route {
 dr_block = "10.0.0.0/8"
 teway_id = aws_internet_gateway.test.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_main_route_table_association" "test" {
-  vpc_id= aws_vpc.test.id
-  route_table_id = aws_route_table.test2.id
+vpc_id= aws_vpc.test.id
+route_table_id = aws_route_table.test2.id
 }
 `, rName))
 }

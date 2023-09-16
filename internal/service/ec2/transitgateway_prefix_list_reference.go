@@ -35,7 +35,7 @@ Schema: map[string]*schema.Schema{
 	"blackhole": {
 Type:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	},
 	"prefix_list_id": {
 Type:eString,

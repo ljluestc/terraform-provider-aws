@@ -23,10 +23,10 @@ func testAccResourcePolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_glue_resource_policy.test"
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy: testAccCheckResourcePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccResourcePolicyConfig_required("glue:CreateTable"),
@@ -35,8 +35,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -47,10 +47,10 @@ func testAccResourcePolicy_hybrid(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_glue_resource_policy.test"
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy: testAccCheckResourcePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccResourcePolicyConfig_hybrid("glue:CreateTable", "TRUE"),
@@ -59,9 +59,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"enable_hybrid"},
 	},
 	{
@@ -84,10 +84,10 @@ func testAccResourcePolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_glue_resource_policy.test"
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy: testAccCheckResourcePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccResourcePolicyConfig_required("glue:CreateTable"),
@@ -106,10 +106,10 @@ func testAccResourcePolicy_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_glue_resource_policy.test"
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy: testAccCheckResourcePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccResourcePolicyConfig_required("glue:CreateTable"),
@@ -124,8 +124,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -137,10 +137,10 @@ func testAccResourcePolicy_ignoreEquivalent(t *testing.T) {
 	resourceName := "aws_glue_resource_policy.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy: testAccCheckResourcePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccResourcePolicyConfig_equivalent(),
@@ -149,7 +149,7 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-Config:   testAccResourcePolicyConfig_equivalent2(),
+Config: testAccResourcePolicyConfig_equivalent2(),
 PlanOnly: true,
 	},
 },
@@ -182,7 +182,7 @@ if err != nil {
 	return fmt.Errorf("Error testing policy equivalence: %s", err)
 }
 if !equivalent {
-	return fmt.Errorf("Non-equivalent policy error:\n\nexpected: %s\n\n     got: %s\n",
+	return fmt.Errorf("Non-equivalent policy error:\n\nexpected: %s\n\n got: %s\n",
 expectedPolicy, actualPolicyText)
 }
 
@@ -212,19 +212,19 @@ return nil
 
 func CreateTablePolicy(action string) string {
 	return fmt.Sprintf(`{
-  "Version" : "2012-10-17",
-  "Statement" : [
-    {
-      "Effect" : "Allow",
-      "Action" : [
-        "%s"
-      ],
-      "Principal" : {
-         "AWS": "*"
-       },
-      "Resource" : "arn:%s:glue:%s:%s:*"
-    }
-  ]
+"Version" : "2012-10-17",
+"Statement" : [
+{
+"Effect" : "Allow",
+"Action" : [
+"%s"
+],
+"Principal" : {
+ "AWS": "*"
+ },
+"Resource" : "arn:%s:glue:%s:%s:*"
+}
+]
 }`, action, acctest.Partition(), acctest.Region(), acctest.AccountID())
 }
 
@@ -237,18 +237,18 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 data "aws_iam_policy_document" "glue-example-policy" {
-  statement {
-    actions   = [%[1]q]
-    resources = ["arn:${data.aws_partition.current.partition}:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"]
-    principals {
-      identifiers = ["*"]
-      type        = "AWS"
-    }
-  }
+statement {
+actions = [%[1]q]
+resources = ["arn:${data.aws_partition.current.partition}:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"]
+principals {
+identifiers = ["*"]
+type= "AWS"
+}
+}
 }
 
 resource "aws_glue_resource_policy" "test" {
-  policy = data.aws_iam_policy_document.glue-example-policy.json
+policy = data.aws_iam_policy_document.glue-example-policy.json
 }
 `, action)
 }
@@ -262,19 +262,19 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 data "aws_iam_policy_document" "glue-example-policy" {
-  statement {
-    actions   = [%[1]q]
-    resources = ["arn:${data.aws_partition.current.partition}:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"]
-    principals {
-      identifiers = ["*"]
-      type        = "AWS"
-    }
-  }
+statement {
+actions = [%[1]q]
+resources = ["arn:${data.aws_partition.current.partition}:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"]
+principals {
+identifiers = ["*"]
+type= "AWS"
+}
+}
 }
 
 resource "aws_glue_resource_policy" "test" {
-  policy        = data.aws_iam_policy_document.glue-example-policy.json
-  enable_hybrid = %[2]q
+policy= data.aws_iam_policy_document.glue-example-policy.json
+enable_hybrid = %[2]q
 }
 `, action, hybrid)
 }
@@ -288,19 +288,19 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_glue_resource_policy" "test" {
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = {
-      Action = "glue:CreateTable"
-      Effect = "Allow"
-      Resource = [
-        "arn:${data.aws_partition.current.partition}:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
-      ]
-      Principal = {
-        AWS = "*"
-      }
-    }
-  })
+policy = jsonencode({
+Version = "2012-10-17"
+Statement = {
+Action = "glue:CreateTable"
+Effect = "Allow"
+Resource = [
+"arn:${data.aws_partition.current.partition}:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
+]
+Principal = {
+AWS = "*"
+}
+}
+})
 }
 `
 }
@@ -314,19 +314,19 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_glue_resource_policy" "test" {
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = {
-      Effect = "Allow"
-      Action = [
-        "glue:CreateTable",
-      ]
-      Resource = "arn:${data.aws_partition.current.partition}:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
-      Principal = {
-        AWS = ["*"]
-      }
-    }
-  })
+policy = jsonencode({
+Version = "2012-10-17"
+Statement = {
+Effect = "Allow"
+Action = [
+"glue:CreateTable",
+]
+Resource = "arn:${data.aws_partition.current.partition}:glue:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
+Principal = {
+AWS = ["*"]
+}
+}
+})
 }
 `
 }

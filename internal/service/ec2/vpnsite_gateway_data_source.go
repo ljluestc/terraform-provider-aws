@@ -91,7 +91,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	if id, ok := d.GetOk("attached_vpc_id"); ok {
 		input.Filters = append(input.Filters, BuildAttributeFilterList(
 			map[string]string{
-				"attachment.state":  "attached",
+				"attachment.state":"attached",
 				"attachment.vpc-id": id.(string),
 			},
 		)...)
@@ -121,7 +121,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("vpn-gateway/%s", d.Id()),
+		Resource:fmt.Sprintf("vpn-gateway/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	for _, attachment := range vgw.VpcAttachments {

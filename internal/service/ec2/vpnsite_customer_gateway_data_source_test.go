@@ -22,7 +22,7 @@ func := acctest.Context(t)
 	hostOctet := sdkacctest.RandIntRange(1, 254)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckCustomerGatewayDestroy(ctx),
@@ -52,7 +52,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	hostOctet := sdkacctest.RandIntRange(1, 254)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -77,19 +77,19 @@ funcource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tag
 func testAccSiteVPNCustomerGatewayDataSourceConfig_filter(rName string, asn, hostOctet int) string {
 	return fmt.Sprintf(`
 resource "aws_customer_gateway" "test" {
-  bgp_asn%[2]d
-  ip_address = "50.0.0.%[3]d"
-  type.1"
+bgp_asn%[2]d
+ip_address = "50.0.0.%[3]d"
+type.1"
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_customer_gateway" "test" {
-  filter {
+filter {
 me= ":Name"
 lues = [aws_customer_gateway.test.tags.Name]
-  }
+}
 }
 `, rName, asn, hostOctet)
 }
@@ -98,17 +98,17 @@ lues = [aws_customer_gateway.test.tags.Name]
 func testAccSiteVPNCustomerGatewayDataSourceConfig_id(rName string, asn, hostOctet int) string {
 	return fmt.Sprintf(`
 resource "aws_customer_gateway" "test" {
-  bgp_asn
-  ip_address  = "50.0.0.%[3]d"
-  device_name = "test"
-  typec.1"
+bgp_asn
+ip_address= "50.0.0.%[3]d"
+device_name = "test"
+typec.1"
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_customer_gateway" "test" {
-  id = aws_customer_gateway.test.id
+id = aws_customer_gateway.test.id
 }
 `, rName, asn, hostOctet)
 }

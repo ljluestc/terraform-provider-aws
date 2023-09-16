@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -37,7 +37,7 @@ func TestAccVPCPeeringConnectionsDataSource_NoMatches(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -55,53 +55,53 @@ func
 func testAccVPCPeeringConnectionsDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_vpc" "test2" {
-  cidr_block = "10.2.0.0/16"
+cidr_block = "10.2.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc" "test3" {
-  cidr_block = "10.3.0.0/16"
+cidr_block = "10.3.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_peering_connection" "test1" {
-  vpc_id.test1.id
-  peer_vpc_id = aws_vpc.test2.id
-  auto_accept = true
+vpc_id.test1.id
+peer_vpc_id = aws_vpc.test2.id
+auto_accept = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_peering_connection" "test2" {
-  vpc_id.test1.id
-  peer_vpc_id = aws_vpc.test3.id
-  auto_accept = true
+vpc_id.test1.id
+peer_vpc_id = aws_vpc.test3.id
+auto_accept = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_vpc_peering_connections" "test_by_filters" {
-  filter {
+filter {
 me= "-peering-connection-id"
 lues = [aws_vpc_peering_connection.test1.id, aws_vpc_peering_connection.test2.id]
-  }
+}
 }
 `, rName)
 }
@@ -110,8 +110,8 @@ lues = [aws_vpc_peering_connection.test1.id, aws_vpc_peering_connection.test2.id
 func testAccVPCPeeringConnectionsDataSourceConfig_noMatches(rName string) string {
 	return fmt.Sprintf(`
 data "aws_vpc_peering_connections" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 func

@@ -23,7 +23,7 @@ func := acctest.Context(t)
 	resourceName := "aws_ami_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckAMIDestroy(ctx),
@@ -52,7 +52,7 @@ func TestAccEC2AMICopy_description(t *testing.T) {
 funcourceName := "aws_ami_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -107,7 +107,7 @@ func TestAccEC2AMICopy_destinationOutpost(t *testing.T) {
 	resourceName := "aws_ami_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckAMIDestroy(ctx),
@@ -130,7 +130,7 @@ funcourceName := "aws_ami_copy.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -200,30 +200,30 @@ return nil
 func testAccAMICopyBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
-  state = "available"
+state = "available"
 
-  filter {
+filter {
 me= "-in-status"
 lues = ["opt-in-not-required"]
-  }
+}
 }
 
 data "aws_region" "current" {}
 
 resource "aws_ebs_volume" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  size
+availability_zone = data.aws_availability_zones.available.names[0]
+size
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_ebs_snapshot" "test" {
-  volume_id = aws_ebs_volume.test.id
+volume_id = aws_ebs_volume.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -232,24 +232,24 @@ me = %[1]q
 func testAccAMICopyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ami" "test" {
-  name = %[1]q
-  virtualization_type = "hvm"
-  root_device_name"/dev/sda1"
+name = %[1]q
+virtualization_type = "hvm"
+root_device_name"/dev/sda1"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 
 resource "aws_ami_copy" "test" {
-  name
-  source_ami_idtest.id
-  source_ami_region = data.aws_region.current.name
+name
+source_ami_idtest.id
+source_ami_region = data.aws_region.current.name
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 func
 
@@ -257,25 +257,25 @@ func
 func testAccAMICopyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ami" "test" {
-  name = %[1]q
-  virtualization_type = "hvm"
-  root_device_name"/dev/sda1"
+name = %[1]q
+virtualization_type = "hvm"
+root_device_name"/dev/sda1"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 
 resource "aws_ami_copy" "test" {
-  name
-  source_ami_idtest.id
-  source_ami_region = data.aws_region.current.name
+name
+source_ami_idtest.id
+source_ami_region = data.aws_region.current.name
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 func
 
@@ -283,20 +283,20 @@ func
 func testAccAMICopyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ami" "test" {
-  name = "%s-source"
-  virtualization_type = "hvm"
-  root_device_name"/dev/sda1"
+name = "%s-source"
+virtualization_type = "hvm"
+root_device_name"/dev/sda1"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 
 resource "aws_ami_copy" "test" {
-  name
-  source_ami_idtest.id
-  source_ami_region = data.aws_region.current.name
+name
+source_ami_idtest.id
+source_ami_region = data.aws_region.current.name
 }
 `, rName, rName))
 }
@@ -305,20 +305,20 @@ resource "aws_ami_copy" "test" {
 func testAccAMICopyConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 funcme = "%s-source"
-  virtualization_type = "hvm"
-  root_device_name"/dev/sda1"
+virtualization_type = "hvm"
+root_device_name"/dev/sda1"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 
 resource "aws_ami_copy" "test" {
-  description
-  name
-  source_ami_idtest.id
-  source_ami_region = data.aws_region.current.name
+description
+name
+source_ami_idtest.id
+source_ami_region = data.aws_region.current.name
 }
 `, rName, description, rName))
 }
@@ -327,20 +327,20 @@ resource "aws_ami_copy" "test" {
 func testAccAMICopyConfig_enaSupport(rName string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 funca_support= true
-  name = "%s-source"
-  virtualization_type = "hvm"
-  root_device_name"/dev/sda1"
+name = "%s-source"
+virtualization_type = "hvm"
+root_device_name"/dev/sda1"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 
 resource "aws_ami_copy" "test" {
-  name"
-  source_ami_idtest.id
-  source_ami_region = data.aws_region.current.name
+name"
+source_ami_idtest.id
+source_ami_region = data.aws_region.current.name
 }
 `, rName, rName))
 }
@@ -350,26 +350,26 @@ func testAccAMICopyConfig_destOutpost(rName string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 data "aws_outposts_outposts" "test" {}
 func "aws_outposts_outpost" "test" {
-  id = tolist(data.aws_outposts_outposts.test.ids)[0]
+id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }
 
 resource "aws_ami" "test" {
-  ena_support= true
-  name = "%s-source"
-  virtualization_type = "hvm"
-  root_device_name"/dev/sda1"
+ena_support= true
+name = "%s-source"
+virtualization_type = "hvm"
+root_device_name"/dev/sda1"
 
-  ebs_block_device {
+ebs_block_device {
 vice_name = "/dev/sda1"
 apshot_id = aws_ebs_snapshot.test.id
-  }
+}
 }
 
 resource "aws_ami_copy" "test" {
-  name"
-  source_ami_id  = aws_ami.test.id
-  source_ami_regionws_region.current.name
-  destination_outpost_arn = data.aws_outposts_outpost.test.arn
+name"
+source_ami_id= aws_ami.test.id
+source_ami_regionws_region.current.name
+destination_outpost_arn = data.aws_outposts_outpost.test.arn
 }
 `, rName, rName))
 func

@@ -308,38 +308,38 @@ func
 func testAccSpaceConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 funcpals {
 ce"
 tifiers = ["sagemaker.amazonaws.com"]
 
-  }
+}
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
-  }
+}
 
-  default_space_settings {
+default_space_settings {
 ecution_role = aws_iam_role.test.arn
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -347,8 +347,8 @@ me_efs_file_system = "Delete"
 func testAccSpaceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccSpaceConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_space" "test" {
-  domain_id  = aws_sagemaker_domain.test.id
-  space_name = %[1]q
+domain_id= aws_sagemaker_domain.test.id
+space_name = %[1]q
 }
 `, rName))
 }
@@ -358,70 +358,70 @@ func testAccSpaceConfig_tags1(rName, tagKey1, tagValue1 string) string {
 resource "aws_sagemaker_space" "test" {
 funcace_name = %[1]q
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
 
 funcurn acctest.ConfigCompose(testAccSpaceConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_space" "test" {
-  domain_id  = aws_sagemaker_domain.test.id
-  space_name = %[1]q
+domain_id= aws_sagemaker_domain.test.id
+space_name = %[1]q
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
 
 funcurn acctest.ConfigCompose(testAccSpaceConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_space" "test" {
-  domain_id  = aws_sagemaker_domain.test.id
-  space_name = %[1]q
+domain_id= aws_sagemaker_domain.test.id
+space_name = %[1]q
 
-  space_settings {
+space_settings {
 pyter_server_app_settings {
 ult_resource_spec {
 stance_type = "system"
 
 
-  }
+}
 }
 `, rName))
 func
 func testAccSpaceConfig_kernelGatewayAppSettings(rName string) string {
 	return acctest.ConfigCompose(testAccSpaceConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_space" "test" {
-  domain_id  = aws_sagemaker_domain.test.id
-  space_name = %[1]q
+domain_id= aws_sagemaker_domain.test.id
+space_name = %[1]q
 
-  space_settings {
+space_settings {
 rnel_gateway_app_settings {
 ult_resource_spec {
 stance_type = "ml.t3.micro"
 
 
-  }
+}
 }
 `, rName))
 }
 func testAccSpaceConfig_kernelGatewayAppSettingsLifecycle(rName string) string {
 	return acctest.ConfigCompose(testAccSpaceConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_studio_lifecycle_config" "test" {
-  studio_lifecycle_config_name]q
-  studio_lifecycle_config_app_type = "JupyterServer"
-  studio_lifecycle_config_content  = base64encode("echo Hello")
+studio_lifecycle_config_name]q
+studio_lifecycle_config_app_type = "JupyterServer"
+studio_lifecycle_config_content= base64encode("echo Hello")
 }
 
 resource "aws_sagemaker_space" "test" {
-  domain_id  = aws_sagemaker_domain.test.id
-  space_name = %[1]q
+domain_id= aws_sagemaker_domain.test.id
+space_name = %[1]q
 
-  space_settings {
+space_settings {
 rnel_gateway_app_settings {
 ult_resource_spec {
 stance_type.micro"
@@ -429,7 +429,7 @@ fecycle_config_arn = aws_sagemaker_studio_lifecycle_config.test.arn
 func
 cycle_config_arns = [aws_sagemaker_studio_lifecycle_config.test.arn]
 
-  }
+}
 }
 `, rName))
 }
@@ -439,37 +439,37 @@ func testAccSpaceConfig_kernelGatewayAppSettingsImage(rName, baseImage string) s
 data "aws_partition" "current" {}
 
 resource "aws_iam_role_policy_attachment" "test" {
-  rolews_iam_role.test.name
-  policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSageMakerFullAccess"
+rolews_iam_role.test.name
+policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSageMakerFullAccess"
 }
 
 resource "aws_sagemaker_image" "test" {
-  image_name = %[1]q
-  role_arnws_image_role.test.arn
+image_name = %[1]q
+role_arnws_image_role.test.arn
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 
 resource "aws_sagemaker_image_version" "test" {
-  image_name = aws_sagemaker_image.test.id
+image_name = aws_sagemaker_image.test.id
 func
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 
 resource "aws_sagemaker_space" "test" {
-  domain_id  = aws_sagemaker_domain.test.id
-  space_name = %[1]q
+domain_id= aws_sagemaker_domain.test.id
+space_name = %[1]q
 
-  space_settings {
+space_settings {
 rnel_gateway_app_settings {
 ult_resource_spec {
 stance_type= "ml
 gemaker_image_version_arn = aws_sagemaker_image_version.test.arn
 
 
-  }
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, baseImage))
 }

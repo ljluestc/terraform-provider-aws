@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -81,7 +81,7 @@ func TestAccEC2LaunchTemplateDataSource_id(t *testing.T) {
 funcourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -104,7 +104,7 @@ func TestAccEC2LaunchTemplateDataSource_filter(t *testing.T) {
 	dataSourceName := "data.aws_launch_template.test"
 	resourceName := "aws_launch_template.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -128,7 +128,7 @@ func TestAccEC2LaunchTemplateDataSource_tags(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -152,92 +152,92 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+name = %[1]q
 
-  block_device_mappings {
+block_device_mappings {
 func
 s {
 
-t  = 500
+t= 500
 ze = 15
 pe = "gp3"
 
-  }
+}
 
-  elastic_inference_accelerator {
+elastic_inference_accelerator {
 pe = "eia1.medium"
-  }
+}
 
-  elastic_gpu_specifications {
+elastic_gpu_specifications {
 pe = "test"
-  }
+}
 
-  iam_instance_profile {
+iam_instance_profile {
 me = "test"
-  }
+}
 
-  instance_initiated_shutdown_behavior = "terminate"
+instance_initiated_shutdown_behavior = "terminate"
 
-  instance_market_options {
+instance_market_options {
 rket_type = "spot"
-  }
+}
 
-  maintenance_options {
+maintenance_options {
 to_recovery = "disabled"
-  }
+}
 
-  disable_api_stop
-  disable_api_termination = true
-  ebs_optimized  = false
+disable_api_stop
+disable_api_termination = true
+ebs_optimized= false
 
-  kernel_id = "aki-a12bc3de"
-  key_name  = "test"
+kernel_id = "aki-a12bc3de"
+key_name= "test"
 
-  placement {
+placement {
 ailability_zone = data.aws_availability_zones.available.names[0]
-  }
+}
 
-  ram_disk_idari-a12bc3de"
-  vpc_security_group_ids = ["sg-12a3b45c"]
+ram_disk_idari-a12bc3de"
+vpc_security_group_ids = ["sg-12a3b45c"]
 
-  tag_specifications {
+tag_specifications {
 source_type = "instance"
 
 gs = {
 est"
 
-  }
+}
 
-  tag_specifications {
+tag_specifications {
 source_type = "volume"
 
 gs = {
 est"
 
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  capacity_reservation_specification {
+capacity_reservation_specification {
 pacity_reservation_preference = "open"
-  }
+}
 
-  cpu_options {
+cpu_options {
 re_count
 reads_per_core = 2
-  }
+}
 
-  credit_specification {
+credit_specification {
 u_credits = "unlimited"
-  }
+}
 }
 
 data "aws_launch_template" "test" {
-  name = aws_launch_template.test.name
+name = aws_launch_template.test.name
 }
 `, rName))
 }
@@ -246,11 +246,11 @@ data "aws_launch_template" "test" {
 func testAccLaunchTemplateDataSourceConfig_id(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 data "aws_launch_template" "test" {
-  id = aws_launch_template.test.id
+id = aws_launch_template.test.id
 }
 `, rName)
 }
@@ -258,14 +258,14 @@ data "aws_launch_template" "test" {
 
 funcurn fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 data "aws_launch_template" "test" {
-  filter {
+filter {
 me= "nch-template-name"
 lues = [aws_launch_template.test.name]
-  }
+}
 }
 `, rName)
 }
@@ -273,16 +273,16 @@ func
 func testAccLaunchTemplateDataSourceConfig_tags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_launch_template" "test" {
-  tags = {
+tags = {
 me = aws_launch_template.test.tags["Name"]
-  }
+}
 }
 func

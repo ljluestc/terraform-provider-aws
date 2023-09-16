@@ -251,7 +251,7 @@ funcdMaxEntry, newMaxEntry := d.GetChange("max_entries")
 				_, err := conn.ModifyManagedPrefixListWithContext(ctx, &ec2.ModifyManagedPrefixListInput{
 					CurrentVersion: input.CurrentVersion,
 					PrefixListId:.String(d.Id()),
-					RemoveEntries:  descriptionOnlyRemovals,
+					RemoveEntries:descriptionOnlyRemovals,
 				})
 
 				if err != nil {

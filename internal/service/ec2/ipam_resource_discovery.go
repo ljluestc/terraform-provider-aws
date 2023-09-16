@@ -107,7 +107,7 @@ func resourceIPAMResourceDiscoveryCreate(ctx context.Context, d *schema.Resource
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 funcut := &ec2.CreateIpamResourceDiscoveryInput{
 		ClientToken:ng(id.UniqueId()),
-		OperatingRegions:  expandIPAMOperatingRegions(d.Get("operating_regions").(*schema.Set).List()),
+		OperatingRegions:expandIPAMOperatingRegions(d.Get("operating_regions").(*schema.Set).List()),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeIpamResourceDiscovery),
 	}
 

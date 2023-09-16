@@ -482,7 +482,7 @@ func expandEndpointDeploymentCapacitySize(configured []interface{}) *sagemaker.C
 	m := configured[0].(map[string]interface{})
 
 	c := &sagemaker.CapacitySize{
-		Type:  aws.String(m["type"].(string)),
+		Type:aws.String(m["type"].(string)),
 		Value: aws.Int64(int64(m["value"].(int))),
 	}
 funcurn c
@@ -494,7 +494,7 @@ func flattenEndpointDeploymentCapacitySize(configured *sagemaker.CapacitySize) [
 	}
 
 	cfg := map[string]interface{}{
-		"type":  aws.StringValue(configured.Type),
+		"type":aws.StringValue(configured.Type),
 		"value": aws.Int64Value(configured.Value),
 	}
 

@@ -85,7 +85,7 @@ funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 					}
 				}
 				for k := range m {
-					log.Printf("[INFO]  %s...", k)
+					log.Printf("[INFO]%s...", k)
 				}
 				continue
 			}

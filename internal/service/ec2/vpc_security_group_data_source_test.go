@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -51,40 +51,40 @@ func
 func testAccVPCSecurityGroupDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "172.16.0.0/16"
+cidr_block = "172.16.0.0/16"
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_security_group" "test" {
-  vpc_id = aws_vpc.test.id
-  name[1]q
+vpc_id = aws_vpc.test.id
+name[1]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_security_group" "by_id" {
-  id = aws_security_group.test.id
+id = aws_security_group.test.id
 }
 
 data "aws_security_group" "by_name" {
-  name = aws_security_group.test.name
+name = aws_security_group.test.name
 }
 
 data "aws_security_group" "by_tag" {
-  tags = {
+tags = {
 me = aws_security_group.test.tags["Name"]
-  }
+}
 }
 
 data "aws_security_group" "by_filter" {
-  filter {
+filter {
 me= "up-name"
 lues = [aws_security_group.test.name]
-  }
+}
 }
 `, rName)
 }

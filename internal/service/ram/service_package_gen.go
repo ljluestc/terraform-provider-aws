@@ -23,7 +23,7 @@ func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-funcactory:  dataSourceResourceShare,
+funcactory:dataSourceResourceShare,
 			TypeName: "aws_ram_resource_share",
 			Tags:types.ServicePackageResourceTags{},
 		},
@@ -36,11 +36,11 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 funcypeName: "aws_ram_principal_association",
 		},
 		{
-			Factory:  ResourceResourceAssociation,
+			Factory:ResourceResourceAssociation,
 			TypeName: "aws_ram_resource_association",
 		},
 		{
-			Factory:  ResourceResourceShare,
+			Factory:ResourceResourceShare,
 			TypeName: "aws_ram_resource_share",
 			Name:Resource Share",
 			Tags: &types.ServicePackageResourceTags{
@@ -48,11 +48,11 @@ funcypeName: "aws_ram_principal_association",
 			},
 		},
 		{
-			Factory:  ResourceResourceShareAccepter,
+			Factory:ResourceResourceShareAccepter,
 			TypeName: "aws_ram_resource_share_accepter",
 		},
 		{
-			Factory:  ResourceSharingWithOrganization,
+			Factory:ResourceSharingWithOrganization,
 			TypeName: "aws_ram_sharing_with_organization",
 		},
 	}

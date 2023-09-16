@@ -14,14 +14,14 @@ funcarallel()
 
 	cases := map[string]struct {
 		StateVersion int
-		ID  string
+		IDstring
 		Attributes[string]string
 		Expected
 		Metainterface{}
 	}{
 		"v0_1": {
 			StateVersion: 0,
-			ID:  "sg-4235098228",
+			ID:"sg-4235098228",
 			Attributes: map[string]string{
 				"self":lse",
 				"to_port":"0",
@@ -36,11 +36,11 @@ funcarallel()
 		},
 		"v0_2": {
 			StateVersion: 0,
-			ID:  "sg-1021609891",
+			ID:"sg-1021609891",
 			Attributes: map[string]string{
 				"security_group_id": "sg-0981746d",
 				"from_port":"0",
-				"to_port":  "0",
+				"to_port":"0",
 				"type":
 				"self":
 				"protocol": "-1",

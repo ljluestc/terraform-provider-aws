@@ -23,7 +23,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -53,34 +53,34 @@ func testAccVPCInternetGatewayDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_internet_gateway" "by_id" {
-  internet_gateway_id = aws_internet_gateway.test.id
+internet_gateway_id = aws_internet_gateway.test.id
 }
 
 data "aws_internet_gateway" "by_tags" {
-  tags = {
+tags = {
 me = aws_internet_gateway.test.tags["Name"]
-  }
+}
 }
 
 data "aws_internet_gateway" "by_filter" {
-  filter {
+filter {
 me= "ernet-gateway-id"
 lues = [aws_internet_gateway.test.id]
-  }
+}
 }
 `, rName)
 }

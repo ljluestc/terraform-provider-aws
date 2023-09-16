@@ -252,17 +252,17 @@ func
 func testAccVPCTrafficMirrorTargetConfig_nlb(rName, description string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  name= %[1]q
-  internal  = true
-  load_balancer_type = "network"
-  subnetsws_subnet.test[*].id
+name= %[1]q
+internal= true
+load_balancer_type = "network"
+subnetsws_subnet.test[*].id
 
-  enable_deletion_protection = false
+enable_deletion_protection = false
 }
 
 resource "aws_ec2_traffic_mirror_target" "test" {
-  description= %[2]q
-  network_load_balancer_arn = aws_lb.test.arn
+description= %[2]q
+network_load_balancer_arn = aws_lb.test.arn
 }
 `, rName, description))
 }
@@ -273,22 +273,22 @@ func testAccVPCTrafficMirrorTargetConfig_eni(rName, description string) string {
 acctest.ConfigVPCWithSubnets(rName, 1),
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 funcurce "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = "t2.micro"
-  subnet_idet.test[0].id
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = "t2.micro"
+subnet_idet.test[0].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_traffic_mirror_target" "test" {
-  description = %[2]q
-  network_interface_id = aws_instance.test.primary_network_interface_id
+description = %[2]q
+network_interface_id = aws_instance.test.primary_network_interface_id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, description))
 func
@@ -296,21 +296,21 @@ func
 func testAccVPCTrafficMirrorTargetConfig_tags1(rName, description, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  name= %[1]q
-  internal  = true
-  load_balancer_type = "network"
-  subnetsws_subnet.test[*].id
+name= %[1]q
+internal= true
+load_balancer_type = "network"
+subnetsws_subnet.test[*].id
 
-  enable_deletion_protection = false
+enable_deletion_protection = false
 }
 
 resource "aws_ec2_traffic_mirror_target" "test" {
-  description= %[2]q
-  network_load_balancer_arn = aws_lb.test.arn
+description= %[2]q
+network_load_balancer_arn = aws_lb.test.arn
 
-  tags = {
+tags = {
 3]q = %[4]q
-  }
+}
 }
 `, rName, description, tagKey1, tagValue1))
 }
@@ -319,21 +319,21 @@ resource "aws_ec2_traffic_mirror_target" "test" {
 func testAccVPCTrafficMirrorTargetConfig_tags2(rName, description, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 funcme= %[1]q
-  internal  = true
-  load_balancer_type = "network"
-  subnetsws_subnet.test[*].id
+internal= true
+load_balancer_type = "network"
+subnetsws_subnet.test[*].id
 
-  enable_deletion_protection = false
+enable_deletion_protection = false
 }
 
 resource "aws_ec2_traffic_mirror_target" "test" {
-  description= %[2]q
-  network_load_balancer_arn = aws_lb.test.arn
+description= %[2]q
+network_load_balancer_arn = aws_lb.test.arn
 
-  tags = {
+tags = {
 3]q = %[4]q
 5]q = %[6]q
-  }
+}
 }
 `, rName, description, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -343,12 +343,12 @@ func testAccVPCTrafficMirrorTargetConfig_gwlb(rName, description string) string 
 	return acctest.ConfigCompose(
 funcSprintf(`
 resource "aws_ec2_traffic_mirror_target" "test" {
-  description
-  gateway_load_balancer_endpoint_id = aws_vpc_endpoint.test.id
+description
+gateway_load_balancer_endpoint_id = aws_vpc_endpoint.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, description))
 }

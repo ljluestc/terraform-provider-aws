@@ -75,28 +75,28 @@ func
 func testAccTransitGatewayDxGatewayAttachmentDataSourceConfig_transit(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_gateway" "test" {
-  name
-  amazon_side_asn = "%[2]d"
+name
+amazon_side_asn = "%[2]d"
 }
 funcurce "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_dx_gateway_association" "test" {
-  dx_gateway_iddx_gateway.test.id
-  associated_gateway_id = aws_ec2_transit_gateway.test.id
+dx_gateway_iddx_gateway.test.id
+associated_gateway_id = aws_ec2_transit_gateway.test.id
 
-  allowed_prefixes = [
+allowed_prefixes = [
 0.255.255.0/30",
 0.255.255.8/30",
-  ]
+]
 }
 
 data "aws_ec2_transit_gateway_dx_gateway_attachment" "test" {
-  transit_gateway_id = aws_dx_gateway_association.test.associated_gateway_id
-  dx_gateway_idgateway_association.test.dx_gateway_id
+transit_gateway_id = aws_dx_gateway_association.test.associated_gateway_id
+dx_gateway_idgateway_association.test.dx_gateway_id
 }
 `, rName, rBgpAsn)
 }
@@ -105,30 +105,30 @@ data "aws_ec2_transit_gateway_dx_gateway_attachment" "test" {
 func testAccTransitGatewayDxGatewayAttachmentDataSourceConfig_transitFilter(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_gateway" "test" {
-  name
-  amazon_side_asn = "%[2]d"
+name
+amazon_side_asn = "%[2]d"
 }
 
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_dx_gateway_association" "test" {
-  dx_gateway_iddx_gateway.test.id
-  associated_gateway_id = aws_ec2_transit_gateway.test.id
+dx_gateway_iddx_gateway.test.id
+associated_gateway_id = aws_ec2_transit_gateway.test.id
 
-  allowed_prefixes = [
+allowed_prefixes = [
 0.255.255.0/30",
 0.255.255.8/30",
-  ]
+]
 }
 
 data "aws_ec2_transit_gateway_dx_gateway_attachment" "test" {
-  filter {
+filter {
 me= "ource-id"
 lues = [aws_dx_gateway_association.test.dx_gateway_id]
-  }
+}
 }
 `, rName, rBgpAsn)
 }

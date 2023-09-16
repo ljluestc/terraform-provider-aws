@@ -24,7 +24,7 @@ import (
 const (
 	routeDestinationCIDRBlocktion_cidr_block"
 	routeDestinationIPv6CIDRBlock = "destination_ipv6_cidr_block"
-	routeDestinationPrefixListID  = "destination_prefix_list_id"
+	routeDestinationPrefixListID= "destination_prefix_list_id"
 )
 
 var routeValidDestinations = []string{
@@ -102,7 +102,7 @@ funcType:schema.TypeString,
 			"carrier_gateway_id": {
 				Type: schema.TypeString,
 				Optional:
-				ExactlyOneOf:  routeValidTargets,
+				ExactlyOneOf:routeValidTargets,
 				ConflictsWith: []string{routeDestinationIPv6CIDRBlock}, // IPv4 destinations only.
 			},
 			"core_network_arn": {
@@ -113,7 +113,7 @@ funcType:schema.TypeString,
 			"egress_only_gateway_id": {
 				Type: schema.TypeString,
 				Optional:
-				ExactlyOneOf:  routeValidTargets,
+				ExactlyOneOf:routeValidTargets,
 				ConflictsWith: []string{routeDestinationCIDRBlock}, // IPv6 destinations only.
 			},
 			"gateway_id": {

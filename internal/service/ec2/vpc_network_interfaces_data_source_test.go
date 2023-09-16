@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCDestroy(ctx),
@@ -38,7 +38,7 @@ func TestAccVPCNetworkInterfacesDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -59,7 +59,7 @@ func TestAccVPCNetworkInterfacesDataSource_empty(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCDestroy(ctx),
@@ -77,35 +77,35 @@ func(
 func testAccNetworkInterfacesDataSourceConfig_Base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_subnet" "test" {
-  cidr_block = "10.0.0.0/24"
-  vpc_idtest.id
+cidr_block = "10.0.0.0/24"
+vpc_idtest.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test1" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = "%[1]s-1"
-  }
+}
 }
 
 resource "aws_network_interface" "test2" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = "%[1]s-2"
-  }
+}
 }
 `, rName)
 }
@@ -114,10 +114,10 @@ me = "%[1]s-2"
 func testAccVPCNetworkInterfacesDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(testAccNetworkInterfacesDataSourceConfig_Base(rName), `
 data "aws_network_interfaces" "test" {
-  filter {
+filter {
 me= "net-id"
 lues = [aws_network_interface.test1.subnet_id, aws_network_interface.test2.subnet_id]
-  }
+}
 }
 `)
 }
@@ -125,9 +125,9 @@ func
 func testAccVPCNetworkInterfacesDataSourceConfig_tags(rName string) string {
 	return acctest.ConfigCompose(testAccNetworkInterfacesDataSourceConfig_Base(rName), `
 data "aws_network_interfaces" "test" {
-  tags = {
+tags = {
 me = aws_network_interface.test2.tags.Name
-  }
+}
 }
 `)
 }
@@ -135,9 +135,9 @@ me = aws_network_interface.test2.tags.Name
 
 funcurn fmt.Sprintf(`
 data "aws_network_interfaces" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }

@@ -19,7 +19,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -44,7 +44,7 @@ func TestAccEC2OutpostsLocalGatewayVirtualInterfaceDataSource_id(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -71,7 +71,7 @@ func TestAccEC2OutpostsLocalGatewayVirtualInterfaceDataSource_tags(t *testing.T)
 	sourceDataSourceName := "data.aws_ec2_local_gateway_virtual_interface.source"
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -97,13 +97,13 @@ func testAccOutpostsLocalGatewayVirtualInterfaceDataSourceConfig_filter() string
 data "aws_ec2_local_gateways" "test" {}
 
 data "aws_ec2_local_gateway_virtual_interface_group" "test" {
-  local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
+local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
 }
 
 data "aws_ec2_local_gateway_virtual_interface" "test" {
 func"al-gateway-virtual-interface-id"
 lues = [tolist(data.aws_ec2_local_gateway_virtual_interface_group.test.local_gateway_virtual_interface_ids)[0]]
-  }
+}
 }
 `
 }
@@ -114,11 +114,11 @@ func testAccOutpostsLocalGatewayVirtualInterfaceDataSourceConfig_id() string {
 data "aws_ec2_local_gateways" "test" {}
 
 data "aws_ec2_local_gateway_virtual_interface_group" "test" {
-  local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
+local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
 }
 
 data "aws_ec2_local_gateway_virtual_interface" "test" {
-  id = tolist(data.aws_ec2_local_gateway_virtual_interface_group.test.local_gateway_virtual_interface_ids)[0]
+id = tolist(data.aws_ec2_local_gateway_virtual_interface_group.test.local_gateway_virtual_interface_ids)[0]
 func
 }
 
@@ -128,22 +128,22 @@ func testAccOutpostsLocalGatewayVirtualInterfaceDataSourceConfig_tags(rName stri
 data "aws_ec2_local_gateways" "test" {}
 
 data "aws_ec2_local_gateway_virtual_interface_group" "test" {
-  local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
+local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
 }
 
 data "aws_ec2_local_gateway_virtual_interface" "source" {
-  id = tolist(data.aws_ec2_local_gateway_virtual_interface_group.test.local_gateway_virtual_interface_ids)[0]
+id = tolist(data.aws_ec2_local_gateway_virtual_interface_group.test.local_gateway_virtual_interface_ids)[0]
 }
 funcurce "aws_ec2_tag" "test" {
-  key= "TerraformAccTest-aws_ec2_local_gateway_virtual_interface"
-  resource_id = data.aws_ec2_local_gateway_virtual_interface.source.id
-  value
+key= "TerraformAccTest-aws_ec2_local_gateway_virtual_interface"
+resource_id = data.aws_ec2_local_gateway_virtual_interface.source.id
+value
 }
 
 data "aws_ec2_local_gateway_virtual_interface" "test" {
-  tags = {
+tags = {
 ws_ec2_tag.test.key) = aws_ec2_tag.test.value
-  }
+}
 }
 `, rName)
 }

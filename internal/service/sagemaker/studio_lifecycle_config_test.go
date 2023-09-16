@@ -168,20 +168,20 @@ func
 func testAccStudioLifecycleConfigConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_studio_lifecycle_config" "test" {
-  studio_lifecycle_config_name]q
-  studio_lifecycle_config_app_type = "JupyterServer"
-  studio_lifecycle_config_content  = base64encode("echo Hello")
+studio_lifecycle_config_name]q
+studio_lifecycle_config_app_type = "JupyterServer"
+studio_lifecycle_config_content= base64encode("echo Hello")
 }
 func
 
 func testAccStudioLifecycleConfigConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_studio_lifecycle_config" "test" {
-  studio_lifecycle_config_name]q
-  studio_lifecycle_config_app_type = "JupyterServer"
-  studio_lifecycle_config_content  = base64encode("echo Hello")
+studio_lifecycle_config_name]q
+studio_lifecycle_config_app_type = "JupyterServer"
+studio_lifecycle_config_content= base64encode("echo Hello")
 
-  tags = {
+tags = {
 func
 }
 `, rName, tagKey1, tagValue1)
@@ -190,11 +190,11 @@ func
 func testAccStudioLifecycleConfigConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_studio_lifecycle_config" "test" {
-  studio_lifecycle_config_name]q
-  studio_lifecycle_config_app_type = "JupyterServer"
-  studio_lifecycle_config_content  = base64encode("echo Hello")
+studio_lifecycle_config_name]q
+studio_lifecycle_config_app_type = "JupyterServer"
+studio_lifecycle_config_content= base64encode("echo Hello")
 
-  tags = {
+tags = {
 2]q = %[3]q
 func
 }

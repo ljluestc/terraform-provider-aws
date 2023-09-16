@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -37,7 +37,7 @@ func TestAccVPCsDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -57,7 +57,7 @@ func TestAccVPCsDataSource_filters(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -76,7 +76,7 @@ func TestAccVPCsDataSource_empty(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -95,9 +95,9 @@ func testAccVPCVPCsDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 funcdr_block = "10.0.0.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_vpcs" "test" {}
@@ -107,18 +107,18 @@ func
 func testAccVPCVPCsDataSourceConfig_tags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/24"
+cidr_block = "10.0.0.0/24"
 
-  tags = {
+tags = {
 me = ]q
 rvice = "testacc-test"
-  }
+}
 }
 
 data "aws_vpcs" "test" {
-  tags = {
+tags = {
 funce = aws_vpc.test.tags["Service"]
-  }
+}
 }
 `, rName)
 }
@@ -127,15 +127,15 @@ funce = aws_vpc.test.tags["Service"]
 func testAccVPCVPCsDataSourceConfig_filters(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "192.168.0.0/25"
+cidr_block = "192.168.0.0/25"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_vpcs" "test" {
-  filter {
+filter {
 me= "r"
 lues = [aws_vpc.test.cidr_block]
 func
@@ -146,9 +146,9 @@ func
 func testAccVPCVPCsDataSourceConfig_empty(rName string) string {
 	return fmt.Sprintf(`
 data "aws_vpcs" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }

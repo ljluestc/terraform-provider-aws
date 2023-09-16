@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	cidrBlock := "10.0.0.0/24"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckIPAMPoolCIDRDestroy(ctx),
@@ -58,7 +58,7 @@ func TestAccIPAMPoolCIDR_basicNetmaskLength(t *testing.T) {
 funcmaskLength := "24"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -91,7 +91,7 @@ func TestAccIPAMPoolCIDR_disappears(t *testing.T) {
 	resourceName := "aws_vpc_ipam_pool_cidr.test"
 	cidrBlock := "10.0.0.0/24"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -117,7 +117,7 @@ func TestAccIPAMPoolCIDR_Disappears_ipam(t *testing.T) {
 	cidrBlock := "10.0.0.0/24"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckIPAMPoolCIDRDestroy(ctx),
@@ -213,38 +213,38 @@ const TestAccIPAMPoolCIDRConfig_base = `
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  description = "test"
+description = "test"
 
 func_name = data.aws_region.current.name
 func
-  cascade = true
+cascade = true
 func
 
 const TestAccIPAMPoolCIDRConfig_privatePool = `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family = "ipv4"
-  ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
-  locale= data.aws_region.current.name
+address_family = "ipv4"
+ipam_scope_id= aws_vpc_ipam.test.private_default_scope_id
+locale= data.aws_region.current.name
 }
 `
 
 const TestAccIPAMPoolCIDRConfig_privatePoolWithCIDR = `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family = "ipv4"
-  ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
-  locale= data.aws_region.current.name
+address_family = "ipv4"
+ipam_scope_id= aws_vpc_ipam.test.private_default_scope_id
+locale= data.aws_region.current.name
 }
 
 resource "aws_vpc_ipam_pool_cidr" "testparent" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= "10.0.0.0/16"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= "10.0.0.0/16"
 }
 
 resource "aws_vpc_ipam_pool" "testchild" {
-  address_family
-  ipam_scope_idc_ipam.test.private_default_scope_id
-  locale_region.current.name
-  source_ipam_pool_id = aws_vpc_ipam_pool.test.id
+address_family
+ipam_scope_idc_ipam.test.private_default_scope_id
+locale_region.current.name
+source_ipam_pool_id = aws_vpc_ipam_pool.test.id
 }
 `
 
@@ -252,8 +252,8 @@ resource "aws_vpc_ipam_pool" "testchild" {
 func testAccIPAMPoolCIDRConfig_provisionedIPv4(cidr string) string {
 	return acctest.ConfigCompose(TestAccIPAMPoolCIDRConfig_base, TestAccIPAMPoolCIDRConfig_privatePool, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[1]q
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= %[1]q
 }
 `, cidr))
 }
@@ -262,9 +262,9 @@ resource "aws_vpc_ipam_pool_cidr" "test" {
 func testAccIPAMPoolCIDRConfig_provisionedIPv4NetmaskLength(netmaskLength string) string {
 	return acctest.ConfigCompose(TestAccIPAMPoolCIDRConfig_base, TestAccIPAMPoolCIDRConfig_privatePoolWithCIDR, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_idws_vpc_ipam_pool.testchild.id
-  netmask_length = %[1]q
-  depends_on_ipam_pool_cidr.testparent]
+ipam_pool_idws_vpc_ipam_pool.testchild.id
+netmask_length = %[1]q
+depends_on_ipam_pool_cidr.testparent]
 }
 `, netmaskLength))
 }

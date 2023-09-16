@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCEndpointServiceDestroy(ctx),
@@ -68,7 +68,7 @@ func TestAccVPCEndpointService_disappears(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -92,7 +92,7 @@ func TestAccVPCEndpointService_tags(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_service.test"
 	rName := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -139,7 +139,7 @@ func TestAccVPCEndpointService_networkLoadBalancerARNs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -174,7 +174,7 @@ func TestAccVPCEndpointService_supportedIPAddressTypes(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_service.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -212,7 +212,7 @@ func TestAccVPCEndpointService_allowedPrincipals(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_service.test"
 	rName := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -255,7 +255,7 @@ func TestAccVPCEndpointService_gatewayLoadBalancerARNs(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_service.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckELBv2GatewayLoadBalancer(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -292,7 +292,7 @@ funcme := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 	domainName2 := acctest.RandomSubdomain()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -380,17 +380,17 @@ return nil
 func testAccVPCEndpointServiceConfig_baseNetworkLoadBalancer(rName string, count int) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  count = %[2]d
+count = %[2]d
 
-  load_balancer_type = "network"
-  name= "%[1]s-${count.index}"
+load_balancer_type = "network"
+name= "%[1]s-${count.index}"
 funcbnets = aws_subnet.test[*].id
 functernaltrue
-  idle_timeout= 60
+idle_timeout= 60
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, count))
 }
@@ -399,41 +399,41 @@ me = %[1]q
 func testAccVPCEndpointServiceConfig_baseSupportedIPAddressTypes(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  count = 2
+count = 2
 
-  vpc_idws_vpc.test.id
-  cidr_blockubnet(aws_vpc.test.cidr_block, 8, count.index)
+vpc_idws_vpc.test.id
+cidr_blockubnet(aws_vpc.test.cidr_block, 8, count.index)
 funcv6_cidr_blockidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, count.index)
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_lb" "test" {
-  load_balancer_type = "network"
-  name= %[1]q
+load_balancer_type = "network"
+name= %[1]q
 
-  subnets = aws_subnet.test[*].id
+subnets = aws_subnet.test[*].id
 
-  internaltrue
-  idle_timeout= 60
-  enable_deletion_protection = false
+internaltrue
+idle_timeout= 60
+enable_deletion_protection = false
 
-  ip_address_type = "dualstack"
+ip_address_type = "dualstack"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 funcName))
 }
 
@@ -441,8 +441,8 @@ funcName))
 func testAccVPCEndpointServiceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseNetworkLoadBalancer(rName, 1), `
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
+acceptance_required
+network_load_balancer_arns = aws_lb.test[*].arn
 }
 `)
 }
@@ -451,23 +451,23 @@ resource "aws_vpc_endpoint_service" "test" {
 func testAccVPCEndpointServiceConfig_gatewayLoadBalancerARNs(rName string, count int) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  count = %[2]d
+count = %[2]d
 
-  load_balancer_type = "gateway"
-  name= "%[1]s-${count.index}"
+load_balancer_type = "gateway"
+name= "%[1]s-${count.index}"
 
-  subnet_mapping {
+subnet_mapping {
 bnet_id = aws_subnet.test[0].id
-  }
+}
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  gateway_load_balancer_arns = aws_lb.test[*].arn
+acceptance_required
+gateway_load_balancer_arns = aws_lb.test[*].arn
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, count))
 }
@@ -476,11 +476,11 @@ me = %[1]q
 func testAccVPCEndpointServiceConfig_networkLoadBalancerARNs(rName string, count int) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseNetworkLoadBalancer(rName, count), fmt.Sprintf(`
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
+acceptance_required
+network_load_balancer_arns = aws_lb.test[*].arn
 funcgs = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -489,12 +489,12 @@ me = %[1]q
 func testAccVPCEndpointServiceConfig_supportedIPAddressTypesIPv4(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseSupportedIPAddressTypes(rName), fmt.Sprintf(`
 funcceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
-  supported_ip_address_types = ["ipv4"]
+network_load_balancer_arns = aws_lb.test[*].arn
+supported_ip_address_types = ["ipv4"]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -503,13 +503,13 @@ me = %[1]q
 func testAccVPCEndpointServiceConfig_supportedIPAddressTypesIPv4AndIPv6(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseSupportedIPAddressTypes(rName), fmt.Sprintf(`
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
-  supported_ip_address_types = ["ipv4", "ipv6"]
+acceptance_required
+network_load_balancer_arns = aws_lb.test[*].arn
+supported_ip_address_types = ["ipv4", "ipv6"]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -519,17 +519,17 @@ func testAccVPCEndpointServiceConfig_allowedPrincipals(rName string, count int) 
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_session_context" "current" {
-  arn = data.aws_caller_identity.current.arn
+arn = data.aws_caller_identity.current.arn
 }
 
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
+acceptance_required
+network_load_balancer_arns = aws_lb.test[*].arn
 
-  allowed_principals = (%[2]d == 0 ? [] : [data.aws_iam_session_context.current.issuer_arn])
+allowed_principals = (%[2]d == 0 ? [] : [data.aws_iam_session_context.current.issuer_arn])
 funcgs = {
 me = %[1]q
-  }
+}
 }
 `, rName, count))
 }
@@ -538,10 +538,10 @@ me = %[1]q
 func testAccVPCEndpointServiceConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseNetworkLoadBalancer(rName, 1), fmt.Sprintf(`
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
+acceptance_required
+network_load_balancer_arns = aws_lb.test[*].arn
 
-  tags = {
+tags = {
 func
 }
 `, tagKey1, tagValue1))
@@ -551,10 +551,10 @@ func
 func testAccVPCEndpointServiceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseNetworkLoadBalancer(rName, 1), fmt.Sprintf(`
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
+acceptance_required
+network_load_balancer_arns = aws_lb.test[*].arn
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
 func
@@ -565,13 +565,13 @@ func
 func testAccVPCEndpointServiceConfig_privateDNSName(rName, dnsName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseNetworkLoadBalancer(rName, 1), fmt.Sprintf(`
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
-  private_dns_name  = %[2]q
+acceptance_required
+network_load_balancer_arns = aws_lb.test[*].arn
+private_dns_name= %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, dnsName))
 }

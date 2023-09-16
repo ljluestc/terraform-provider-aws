@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	subnetResourceName := "aws_subnet.test.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckClientVPNAuthorizationRuleDestroy(ctx),
@@ -57,7 +57,7 @@ func testAccClientVPNAuthorizationRule_disappears(t *testing.T) {
 funcourceName := "aws_ec2_client_vpn_authorization_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -81,7 +81,7 @@ func testAccClientVPNAuthorizationRule_Disappears_endpoint(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ec2_client_vpn_authorization_rule.test"
 
-funcheck:  
+funcheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -121,7 +121,7 @@ func
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -193,7 +193,7 @@ func
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -300,23 +300,23 @@ testAccClientVPNEndpointConfig_basic(t, rName),
 acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  count%[2]d
-  availability_zonews_availability_zones.available.names[count.index]
-  cidr_blocket(aws_vpc.test.cidr_block, 8, count.index)
-  vpc_idws_vpc.test.id
-  map_public_ip_on_launch = true
+count%[2]d
+availability_zonews_availability_zones.available.names[count.index]
+cidr_blocket(aws_vpc.test.cidr_block, 8, count.index)
+vpc_idws_vpc.test.id
+map_public_ip_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 func
 
@@ -324,9 +324,9 @@ func
 func testAccClientVPNAuthorizationRuleConfig_basic(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccClientVPNAuthorizationRuleConfig_base(t, rName, 1), `
 resource "aws_ec2_client_vpn_authorization_rule" "test" {
-  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
-  target_network_cidraws_subnet.test[0].cidr_block
-  authorize_all_groupsrue
+client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
+target_network_cidraws_subnet.test[0].cidr_block
+authorize_all_groupsrue
 }
 `)
 }
@@ -337,9 +337,9 @@ func testAccClientVPNAuthorizationRuleConfig_groups(t *testing.T, rName string, 
 	for k, v := range groupNames {
 fmt.Fprintf(&b, `
 resource "aws_ec2_client_vpn_authorization_rule" %[1]q {
-  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
-  target_network_cidraws_subnet.test[0].cidr_block
-  access_group_id
+client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
+target_network_cidraws_subnet.test[0].cidr_block
+access_group_id
 }
 `, k, v)
 	}
@@ -352,9 +352,9 @@ func testAccClientVPNAuthorizationRuleConfig_subnets(t *testing.T, rName string,
 	for k, v := range groupNames {
 fmt.Fprintf(&b, `
 resource "aws_ec2_client_vpn_authorization_rule" %[1]q {
-  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
-  target_network_cidraws_subnet.test[%[2]d].cidr_block
-  authorize_all_groupsrue
+client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
+target_network_cidraws_subnet.test[%[2]d].cidr_block
+authorize_all_groupsrue
 }
 `, k, v)
 func

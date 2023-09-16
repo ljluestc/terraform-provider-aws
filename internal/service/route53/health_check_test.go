@@ -459,67 +459,67 @@ func err != nil {
 func testAccHealthCheckConfig_basic(thershold string, invert bool) string {
 	return fmt.Sprintf(`
 resource "aws_route53_health_check" "test" {
-  fqdn= "dev.example.com"
-  port= 80
-  type= "HTTP"
-  resource_path"
-  failure_threshold  = %[1]q
-  request_interval30"
-  measure_latencytrue
-  invert_healthcheck = %[2]t
+fqdn= "dev.example.com"
+port= 80
+type= "HTTP"
+resource_path"
+failure_threshold= %[1]q
+request_interval30"
+measure_latencytrue
+invert_healthcheck = %[2]t
 }
 `, thershold, invert)
 }
 
 func testAccHealthCheckConfig_tags1(tag1Key, tag1Value string) string {
 funcurce "aws_route53_health_check" "test" {
-  fqdn= "dev.example.com"
-  port= 80
-  type= "HTTP"
-  resource_path"
-  failure_threshold  = "2"
-  request_interval30"
-  measure_latencytrue
-  invert_healthcheck = true
+fqdn= "dev.example.com"
+port= 80
+type= "HTTP"
+resource_path"
+failure_threshold= "2"
+request_interval30"
+measure_latencytrue
+invert_healthcheck = true
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tag1Key, tag1Value)
 func
 func testAccHealthCheckConfig_tags2(tag1Key, tag1Value, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_health_check" "test" {
-  fqdn= "dev.example.com"
-  port= 80
-  type= "HTTP"
-  resource_path"
-  failure_threshold  = "2"
-  request_interval30"
-  measure_latencytrue
-  invert_healthcheck = true
+fqdn= "dev.example.com"
+port= 80
+type= "HTTP"
+resource_path"
+failure_threshold= "2"
+request_interval30"
+measure_latencytrue
+invert_healthcheck = true
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 `, tag1Key, tag1Value, tagKey2, tagValue2)
 func
 func testAccHealthCheckConfig_ip(ip string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_health_check" "test" {
-  ip_address%[1]q
-  port
-  typeP"
-  resource_path
-  failure_threshold = "2"
-  request_interval  = "30"
+ip_address%[1]q
+port
+typeP"
+resource_path
+failure_threshold = "2"
+request_interval= "30"
 
-  tags = {
+tags = {
 me = "tf-test-health-check"
-  }
+}
 }
 `, ip)
 }
@@ -527,116 +527,116 @@ me = "tf-test-health-check"
 const testAccHealthCheckConfig_childs = `
 resource "aws_route53_health_check" "child1" {
 funcrt
-  typeP"
-  resource_path
-  failure_threshold = "2"
-  request_interval  = "30"
+typeP"
+resource_path
+failure_threshold = "2"
+request_interval= "30"
 }
 
 resource "aws_route53_health_check" "test" {
-  type"CALCULATED"
-  child_health_threshold = 1
-  child_healthcheckss_route53_health_check.child1.id]
+type"CALCULATED"
+child_health_threshold = 1
+child_healthcheckss_route53_health_check.child1.id]
 
-  tags = {
+tags = {
 me = "tf-test-calculated-health-check"
-  }
+}
 }
 `
 
 func testAccHealthCheckConfig_regions(regions ...string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_health_check" "test" {
-  ip_address"1.2.3.4"
-  port
-  typeP"
-  resource_path
-  failure_threshold = "2"
-  request_interval  = "30"
+ip_address"1.2.3.4"
+port
+typeP"
+resource_path
+failure_threshold = "2"
+request_interval= "30"
 
-  regions = ["%s"]
+regions = ["%s"]
 
-  tags = {
+tags = {
 me = "tf-test-check-with-regions"
-  }
+}
 }
 `, strings.Join(regions, "\", \""))
 }
 
 const testAccHealthCheckConfig_cloudWatchAlarm = `
 funcarm_nametch-healthcheck-alarm"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = "2"
-  metric_name "CPUUtilization"
-  namespace2"
-  period"
-  statistice"
-  threshold
-  alarm_descriptionThis metric monitors ec2 cpu utilization"
+comparison_operator = "GreaterThanOrEqualToThreshold"
+evaluation_periods= "2"
+metric_name "CPUUtilization"
+namespace2"
+period"
+statistice"
+threshold
+alarm_descriptionThis metric monitors ec2 cpu utilization"
 }
 
 data "aws_region" "current" {}
 
 resource "aws_route53_health_check" "test" {
-  typeDWATCH_METRIC"
-  cloudwatch_alarm_nameudwatch_metric_alarm.test.alarm_name
-  cloudwatch_alarm_region data.aws_region.current.name
-  insufficient_data_health_status = "Healthy"
+typeDWATCH_METRIC"
+cloudwatch_alarm_nameudwatch_metric_alarm.test.alarm_name
+cloudwatch_alarm_region data.aws_region.current.name
+insufficient_data_health_status = "Healthy"
 }
 `
 
 func testAccHealthCheckConfig_searchString(search string, invert bool) string {
 	return fmt.Sprintf(`
 resource "aws_route53_health_check" "test" {
-  fqdn= "dev.example.com"
-  port= 80
-  type= "HTTP_STR_MATCH"
-  resource_path"
-  failure_threshold  = "2"
-  request_interval30"
-  measure_latencytrue
-  invert_healthcheck = %[2]t
-  search_string1]q
+fqdn= "dev.example.com"
+port= 80
+type= "HTTP_STR_MATCH"
+resource_path"
+failure_threshold= "2"
+request_interval30"
+measure_latencytrue
+invert_healthcheck = %[2]t
+search_string1]q
 
-  tags = {
+tags = {
 me = "tf-test-health-check"
-  }
+}
 }
 `, search, invert)
 }
 
 const testAccHealthCheckConfig_noSNI = `
 funcdn= "dev.example.com"
-  port= 443
-  type= "HTTPS"
-  resource_path"
-  failure_threshold  = "2"
-  request_interval30"
-  measure_latencytrue
-  invert_healthcheck = true
+port= 443
+type= "HTTPS"
+resource_path"
+failure_threshold= "2"
+request_interval30"
+measure_latencytrue
+invert_healthcheck = true
 
-  tags = {
+tags = {
 me = "tf-test-health-check"
-  }
+}
 }
 `
 
 func testAccHealthCheckConfig_sni(enable bool) string {
 	return fmt.Sprintf(`
 resource "aws_route53_health_check" "test" {
-  fqdn= "dev.example.com"
-  port= 443
-  type= "HTTPS"
-  resource_path"
-  failure_threshold  = "2"
-  request_interval30"
-  measure_latencytrue
-  invert_healthcheck = true
-  enable_sni %[1]t
+fqdn= "dev.example.com"
+port= 443
+type= "HTTPS"
+resource_path"
+failure_threshold= "2"
+request_interval30"
+measure_latencytrue
+invert_healthcheck = true
+enable_sni %[1]t
 
-  tags = {
+tags = {
 me = "tf-test-health-check"
-  }
+}
 }
 `, enable)
 }
@@ -644,12 +644,12 @@ me = "tf-test-health-check"
 func testAccHealthCheckConfig_disabled(disabled bool) string {
 	return fmt.Sprintf(`
 funcsabled
-  failure_threshold = "2"
-  fqdn.example.com"
-  port
-  request_interval  = "30"
-  resource_path
-  typeP"
+failure_threshold = "2"
+fqdn.example.com"
+port
+request_interval= "30"
+resource_path
+typeP"
 }
 `, disabled)
 }
@@ -657,14 +657,14 @@ funcsabled
 func testAccHealthCheckConfig_routingControlARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoverycontrolconfig_cluster" "test" {
-  name = %[1]q
+name = %[1]q
 }
 resource "aws_route53recoverycontrolconfig_routing_control" "test" {
-  name%[1]q
-  cluster_arn = aws_route53recoverycontrolconfig_cluster.test.arn
+name%[1]q
+cluster_arn = aws_route53recoverycontrolconfig_cluster.test.arn
 }
 funcpe = "RECOVERY_CONTROL"
-  routing_control_arn = aws_route53recoverycontrolconfig_routing_control.test.arn
+routing_control_arn = aws_route53recoverycontrolconfig_routing_control.test.arn
 }
 `, rName)
 }

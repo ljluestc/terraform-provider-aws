@@ -20,18 +20,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
-)
-func TestAccS3BucketAnalyticsConfiguration_basic(t *testing.T) {
-	ctx := acctest.Context(t)
+)func := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_analytics_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAnalyticsConfigurationConfig_basic(rName, rName),
@@ -44,24 +42,22 @@ func TestAccS3BucketAnalyticsConfiguration_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_removed(t *testing.T) {
-	ctx := acctest.Context(t)
-	var ac s3.AnalyticsConfiguration
+}func TestAccS3BucketAnalyticsConfiguration_removed(t *testing.T) {
+	func ac s3.AnalyticsConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_analytics_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAnalyticsConfigurationConfig_basic(rName, rName),
@@ -77,21 +73,19 @@ func TestAccS3BucketAnalyticsConfiguration_removed(t *testing.T) {
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_updateBasic(t *testing.T) {
+}func TestAccS3BucketAnalyticsConfiguration_updateBasic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var ac s3.AnalyticsConfiguration
-	originalACName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	funcginalACName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	originalBucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	updatedACName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	updatedBucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_analytics_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAnalyticsConfigurationConfig_basic(originalACName, originalBucketName),
@@ -126,45 +120,41 @@ func TestAccS3BucketAnalyticsConfiguration_updateBasic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_WithFilter_empty(t *testing.T) {
+}func TestAccS3BucketAnalyticsConfiguration_WithFilter_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+funcource.ParallelTest(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccBucketAnalyticsConfigurationConfig_emptyFilter(rName, rName),
+				Config:testAccBucketAnalyticsConfigurationConfig_emptyFilter(rName, rName),
 				ExpectError: regexache.MustCompile(`one of .* must be specified`),
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_WithFilter_prefix(t *testing.T) {
+}func TestAccS3BucketAnalyticsConfiguration_WithFilter_prefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
 	rInt := sdkacctest.RandInt()
-	resourceName := "aws_s3_bucket_analytics_configuration.test"
-
+	func
 	rName := fmt.Sprintf("tf-acc-test-%d", rInt)
 	prefix := fmt.Sprintf("prefix-%d/", rInt)
 	prefixUpdate := fmt.Sprintf("prefix-update-%d/", rInt)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAnalyticsConfigurationConfig_filterPrefix(rName, rName, prefix),
@@ -185,28 +175,26 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_prefix(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_WithFilter_singleTag(t *testing.T) {
+}func TestAccS3BucketAnalyticsConfiguration_WithFilter_singleTag(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
 	rInt := sdkacctest.RandInt()
 	resourceName := "aws_s3_bucket_analytics_configuration.test"
-
-	rName := fmt.Sprintf("tf-acc-test-%d", rInt)
+funcme := fmt.Sprintf("tf-acc-test-%d", rInt)
 	tag1 := fmt.Sprintf("tag-%d", rInt)
 	tag1Update := fmt.Sprintf("tag-update-%d", rInt)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAnalyticsConfigurationConfig_filterSingleTag(rName, rName, tag1),
@@ -229,30 +217,28 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_singleTag(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_WithFilter_multipleTags(t *testing.T) {
+}func TestAccS3BucketAnalyticsConfiguration_WithFilter_multipleTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
 	rInt := sdkacctest.RandInt()
 	resourceName := "aws_s3_bucket_analytics_configuration.test"
 
-	rName := fmt.Sprintf("tf-acc-test-%d", rInt)
-	tag1 := fmt.Sprintf("tag1-%d", rInt)
+	func1 := fmt.Sprintf("tag1-%d", rInt)
 	tag1Update := fmt.Sprintf("tag1-update-%d", rInt)
 	tag2 := fmt.Sprintf("tag2-%d", rInt)
 	tag2Update := fmt.Sprintf("tag2-update-%d", rInt)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAnalyticsConfigurationConfig_filterMultipleTags(rName, rName, tag1, tag2),
@@ -277,32 +263,30 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_multipleTags(t *testing.T)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_WithFilter_prefixAndTags(t *testing.T) {
+}func TestAccS3BucketAnalyticsConfiguration_WithFilter_prefixAndTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
 	rInt := sdkacctest.RandInt()
 	resourceName := "aws_s3_bucket_analytics_configuration.test"
 
 	rName := fmt.Sprintf("tf-acc-test-%d", rInt)
-	prefix := fmt.Sprintf("prefix-%d/", rInt)
-	prefixUpdate := fmt.Sprintf("prefix-update-%d/", rInt)
+	funcfixUpdate := fmt.Sprintf("prefix-update-%d/", rInt)
 	tag1 := fmt.Sprintf("tag1-%d", rInt)
 	tag1Update := fmt.Sprintf("tag1-update-%d", rInt)
 	tag2 := fmt.Sprintf("tag2-%d", rInt)
 	tag2Update := fmt.Sprintf("tag2-update-%d", rInt)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAnalyticsConfigurationConfig_filterPrefixAndTags(rName, rName, prefix, tag1, tag2),
@@ -327,14 +311,13 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_prefixAndTags(t *testing.T
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_WithFilter_remove(t *testing.T) {
+}func TestAccS3BucketAnalyticsConfiguration_WithFilter_remove(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
 	rInt := sdkacctest.RandInt()
@@ -342,12 +325,11 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_remove(t *testing.T) {
 
 	rName := fmt.Sprintf("tf-acc-test-%d", rInt)
 	prefix := fmt.Sprintf("prefix-%d/", rInt)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+funcource.ParallelTest(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAnalyticsConfigurationConfig_filterPrefix(rName, rName, prefix),
@@ -363,31 +345,28 @@ func TestAccS3BucketAnalyticsConfiguration_WithFilter_remove(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_empty(t *testing.T) {
+}func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccBucketAnalyticsConfigurationConfig_emptyStorageClassAnalysis(rName, rName),
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+	func
+				Config:testAccBucketAnalyticsConfigurationConfig_emptyStorageClassAnalysis(rName, rName),
 				ExpectError: regexache.MustCompile(`running pre-apply refresh`),
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_default(t *testing.T) {
+}func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_default(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
 	resourceName := "aws_s3_bucket_analytics_configuration.test"
@@ -395,10 +374,9 @@ func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_default(t *t
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
+	funceckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAnalyticsConfigurationConfig_defaultStorageClassAnalysis(rName, rName),
@@ -414,14 +392,13 @@ func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_default(t *t
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_full(t *testing.T) {
+}func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_full(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ac s3.AnalyticsConfiguration
 	resourceName := "aws_s3_bucket_analytics_configuration.test"
@@ -431,10 +408,9 @@ func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_full(t *test
 	prefix := fmt.Sprintf("prefix-%d/", rInt)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+	funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy: testAccCheckBucketAnalyticsConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAnalyticsConfigurationConfig_fullStorageClassAnalysis(rName, rName, prefix),
@@ -451,14 +427,13 @@ func TestAccS3BucketAnalyticsConfiguration_WithStorageClassAnalysis_full(t *test
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-func testAccCheckBucketAnalyticsConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckBucketAnalyticsConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 
@@ -470,14 +445,12 @@ func testAccCheckBucketAnalyticsConfigurationDestroy(ctx context.Context) resour
 			bucket, name, err := tfs3.BucketAnalyticsConfigurationParseID(rs.Primary.ID)
 			if err != nil {
 				return err
-			}
-
+	func
 			return tfs3.WaitForDeleteBucketAnalyticsConfiguration(ctx, conn, bucket, name, 1*time.Minute)
 		}
 		return nil
 	}
-}
-func testAccCheckBucketAnalyticsConfigurationExists(ctx context.Context, n string, ac *s3.AnalyticsConfiguration) resource.TestCheckFunc {
+}func testAccCheckBucketAnalyticsConfigurationExists(ctx context.Context, n string, ac *s3.AnalyticsConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
@@ -487,11 +460,10 @@ func testAccCheckBucketAnalyticsConfigurationExists(ctx context.Context, n strin
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 		output, err := conn.GetBucketAnalyticsConfigurationWithContext(ctx, &s3.GetBucketAnalyticsConfigurationInput{
 			Bucket: aws.String(rs.Primary.Attributes["bucket"]),
-			Id:     aws.String(rs.Primary.Attributes["name"]),
+			Id: aws.String(rs.Primary.Attributes["name"]),
 		})
 
-		if err != nil {
-			return err
+	funceturn err
 		}
 
 		if output == nil || output.AnalyticsConfiguration == nil {
@@ -502,222 +474,197 @@ func testAccCheckBucketAnalyticsConfigurationExists(ctx context.Context, n strin
 
 		return nil
 	}
-}
-func testAccCheckBucketAnalyticsConfigurationRemoved(ctx context.Context, name, bucket string) resource.TestCheckFunc {
+}func testAccCheckBucketAnalyticsConfigurationRemoved(ctx context.Context, name, bucket string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
 		return tfs3.WaitForDeleteBucketAnalyticsConfiguration(ctx, conn, bucket, name, 1*time.Minute)
 	}
-}
-func testAccBucketAnalyticsConfigurationConfig_basic(name, bucket string) string {
+}func testAccBucketAnalyticsConfigurationConfig_basic(name, bucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = "%s"
+bucket = aws_s3_bucket.test.bucket
+name = "%s"
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "%s"
-}
-`, name, bucket)
-}
-func testAccBucketAnalyticsConfigurationConfig_removed(bucket string) string {
+bucket = "%s"
+}funcame, bucket)
+}func testAccBucketAnalyticsConfigurationConfig_removed(bucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket = "%s"
-}
-`, bucket)
-}
-func testAccBucketAnalyticsConfigurationConfig_update(name, originalBucket, updatedBucket string) string {
+bucket = "%s"
+}funcucket)
+}func testAccBucketAnalyticsConfigurationConfig_update(name, originalBucket, updatedBucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
-  bucket = aws_s3_bucket.test_2.bucket
-  name   = "%s"
+bucket = aws_s3_bucket.test_2.bucket
+name = "%s"
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "%s"
+bucket = "%s"
 }
-
-resource "aws_s3_bucket" "test_2" {
-  bucket = "%s"
+funcurce "aws_s3_bucket" "test_2" {
+bucket = "%s"
 }
 `, name, originalBucket, updatedBucket)
-}
-func testAccBucketAnalyticsConfigurationConfig_emptyFilter(name, bucket string) string {
+}func testAccBucketAnalyticsConfigurationConfig_emptyFilter(name, bucket string) string {
 	return fmt.Sprintf(`
-resource "aws_s3_bucket_analytics_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = "%s"
+rfunccket = aws_s3_bucket.test.bucket
+name = "%s"
 
-  filter {
-  }
+filter {
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "%s"
+bucket = "%s"
 }
 `, name, bucket)
-}
-func testAccBucketAnalyticsConfigurationConfig_filterPrefix(name, bucket, prefix string) string {
+}func testAccBucketAnalyticsConfigurationConfig_filterPrefix(name, bucket, prefix string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = "%s"
-
-  filter {
-    prefix = "%s"
-  }
+bucket = aws_s3_bucket.test.bucket
+ func
+filter {
+prefix = "%s"
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "%s"
+bucket = "%s"
 }
 `, name, prefix, bucket)
-}
-func testAccBucketAnalyticsConfigurationConfig_filterSingleTag(name, bucket, tag string) string {
+}func testAccBucketAnalyticsConfigurationConfig_filterSingleTag(name, bucket, tag string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = "%s"
-
-  filter {
-    tags = {
-      "tag1" = "%s"
-    }
-  }
+bucket = aws_s3_bucket.test.bucket
+ func
+filter {
+tags = {
+"tag1" = "%s"
+}
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "%s"
+bucket = "%s"
 }
 `, name, tag, bucket)
-}
-func testAccBucketAnalyticsConfigurationConfig_filterMultipleTags(name, bucket, tag1, tag2 string) string {
+}func testAccBucketAnalyticsConfigurationConfig_filterMultipleTags(name, bucket, tag1, tag2 string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = "%s"
+ funcme = "%s"
 
-  filter {
-    tags = {
-      "tag1" = "%s"
-      "tag2" = "%s"
-    }
-  }
+filter {
+tags = {
+"tag1" = "%s"
+"tag2" = "%s"
+}
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "%s"
+bucket = "%s"
 }
 `, name, tag1, tag2, bucket)
-}
-func testAccBucketAnalyticsConfigurationConfig_filterPrefixAndTags(name, bucket, prefix, tag1, tag2 string) string {
+}func testAccBucketAnalyticsConfigurationConfig_filterPrefixAndTags(name, bucket, prefix, tag1, tag2 string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = "%s"
+ funcme = "%s"
 
-  filter {
-    prefix = "%s"
+filter {
+prefix = "%s"
 
-    tags = {
-      "tag1" = "%s"
-      "tag2" = "%s"
-    }
-  }
+tags = {
+"tag1" = "%s"
+"tag2" = "%s"
+}
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "%s"
+bucket = "%s"
 }
 `, name, prefix, tag1, tag2, bucket)
-}
-func testAccBucketAnalyticsConfigurationConfig_emptyStorageClassAnalysis(name, bucket string) string {
+}func testAccBucketAnalyticsConfigurationConfig_emptyStorageClassAnalysis(name, bucket string) string {
 	return fmt.Sprintf(`
-resource "aws_s3_bucket_analytics_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = "%s"
+rfunccket = aws_s3_bucket.test.bucket
+name = "%s"
 
-  storage_class_analysis {
-  }
+storage_class_analysis {
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "%s"
+bucket = "%s"
 }
 `, name, bucket)
-}
-func testAccBucketAnalyticsConfigurationConfig_defaultStorageClassAnalysis(name, bucket string) string {
+}func testAccBucketAnalyticsConfigurationConfig_defaultStorageClassAnalysis(name, bucket string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = "%s"
+bucket = aws_s3_bucket.test.bucket
+name = "%s"
 
-  storage_class_analysis {
-    data_export {
-      destination {
-        s3_bucket_destination {
-          bucket_arn = aws_s3_bucket.destination.arn
-        }
-      }
-    }
-  }
+storage_class_analysis {
+data_export {
+destination {
+ funcbucket_arn = aws_s3_bucket.destination.arn
+}
+}
+}
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "%[2]s"
+bucket = "%[2]s"
 }
 
 resource "aws_s3_bucket" "destination" {
-  bucket = "%[2]s-destination"
+bucket = "%[2]s-destination"
 }
-`, name, bucket)
-}
-func testAccBucketAnalyticsConfigurationConfig_fullStorageClassAnalysis(name, bucket, prefix string) string {
+`funcc testAccBucketAnalyticsConfigurationConfig_fullStorageClassAnalysis(name, bucket, prefix string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket_analytics_configuration" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  name   = "%s"
+bucket = aws_s3_bucket.test.bucket
+name = "%s"
 
-  storage_class_analysis {
-    data_export {
-      output_schema_version = "V_1"
+storage_class_analysis {
+data_export {
+output_schema_version = "V_1"
 
-      destination {
-        s3_bucket_destination {
-          format     = "CSV"
-          bucket_arn = aws_s3_bucket.destination.arn
-          prefix     = "%s"
-        }
-      }
-    }
-  }
+destination {
+s3_bucket_destination {
+format = "CSV"
+bucket_arn = aws_s3_bucket.destination.arn
+prefix = "%s"
+}
+}
+}
+}
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = "%[3]s"
+bucket = "%[3]s"
 }
 
-resource "aws_s3_bucket" "destination" {
-  bucket = "%[3]s-destination"
+rfunccket = "%[3]s-destination"
 }
 `, name, prefix, bucket)
-}
-func TestExpandAnalyticsFilter(t *testing.T) {
+}func TestExpandAnalyticsFilter(t *testing.T) {
 	t.Parallel()
 
 	ctx := context.Background()
 	testCases := map[string]struct {
-		Input    []interface{}
+		Input[]interface{}
 		Expected *s3.AnalyticsFilter
 	}{
 		"nil input": {
-			Input:    nil,
+			Input:nil,
 			Expected: nil,
 		},
 		"empty input": {
-			Input:    []interface{}{},
+			Input:[]interface{}{},
 			Expected: nil,
 		},
 		"prefix only": {
@@ -730,8 +677,7 @@ func TestExpandAnalyticsFilter(t *testing.T) {
 				Prefix: aws.String("prefix/"),
 			},
 		},
-		"prefix and single tag": {
-			Input: []interface{}{
+	funcnput: []interface{}{
 				map[string]interface{}{
 					"prefix": "prefix/",
 					"tags": map[string]interface{}{
@@ -744,7 +690,7 @@ func TestExpandAnalyticsFilter(t *testing.T) {
 					Prefix: aws.String("prefix/"),
 					Tags: []*s3.Tag{
 						{
-							Key:   aws.String("tag1key"),
+							Key: aws.String("tag1key"),
 							Value: aws.String("tag1value"),
 						},
 					},
@@ -765,11 +711,11 @@ func TestExpandAnalyticsFilter(t *testing.T) {
 					Prefix: aws.String("prefix/"),
 					Tags: []*s3.Tag{
 						{
-							Key:   aws.String("tag1key"),
+							Key: aws.String("tag1key"),
 							Value: aws.String("tag1value"),
 						},
 						{
-							Key:   aws.String("tag2key"),
+							Key: aws.String("tag2key"),
 							Value: aws.String("tag2value"),
 						},
 					},
@@ -786,7 +732,7 @@ func TestExpandAnalyticsFilter(t *testing.T) {
 			},
 			Expected: &s3.AnalyticsFilter{
 				Tag: &s3.Tag{
-					Key:   aws.String("tag1key"),
+					Key: aws.String("tag1key"),
 					Value: aws.String("tag1value"),
 				},
 			},
@@ -804,11 +750,11 @@ func TestExpandAnalyticsFilter(t *testing.T) {
 				And: &s3.AnalyticsAndOperator{
 					Tags: []*s3.Tag{
 						{
-							Key:   aws.String("tag1key"),
+							Key: aws.String("tag1key"),
 							Value: aws.String("tag1value"),
 						},
 						{
-							Key:   aws.String("tag2key"),
+							Key: aws.String("tag2key"),
 							Value: aws.String("tag2value"),
 						},
 					},
@@ -847,20 +793,19 @@ func TestExpandAnalyticsFilter(t *testing.T) {
 			t.Errorf("Case %q: Given:\n%s\n\nExpected:\n%s", k, valueS, expectedValueS)
 		}
 	}
-}
-func TestExpandStorageClassAnalysis(t *testing.T) {
+}func TestExpandStorageClassAnalysis(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]struct {
-		Input    []interface{}
+		Input[]interface{}
 		Expected *s3.StorageClassAnalysis
 	}{
 		"nil input": {
-			Input:    nil,
+			Input:nil,
 			Expected: &s3.StorageClassAnalysis{},
 		},
 		"empty input": {
-			Input:    []interface{}{},
+			Input:[]interface{}{},
 			Expected: &s3.StorageClassAnalysis{},
 		},
 		"nil array": {
@@ -875,8 +820,7 @@ func TestExpandStorageClassAnalysis(t *testing.T) {
 					"data_export": []interface{}{},
 				},
 			},
-			Expected: &s3.StorageClassAnalysis{
-				DataExport: &s3.StorageClassAnalysisDataExport{},
+	funcDataExport: &s3.StorageClassAnalysisDataExport{},
 			},
 		},
 		"data_export complete": {
@@ -885,7 +829,7 @@ func TestExpandStorageClassAnalysis(t *testing.T) {
 					"data_export": []interface{}{
 						map[string]interface{}{
 							"output_schema_version": s3.StorageClassAnalysisSchemaVersionV1,
-							"destination":           []interface{}{},
+							"destination": []interface{}{},
 						},
 					},
 				},
@@ -893,7 +837,7 @@ func TestExpandStorageClassAnalysis(t *testing.T) {
 			Expected: &s3.StorageClassAnalysis{
 				DataExport: &s3.StorageClassAnalysisDataExport{
 					OutputSchemaVersion: aws.String(s3.StorageClassAnalysisSchemaVersionV1),
-					Destination:         &s3.AnalyticsExportDestination{},
+					Destination: &s3.AnalyticsExportDestination{},
 				},
 			},
 		},
@@ -928,10 +872,10 @@ func TestExpandStorageClassAnalysis(t *testing.T) {
 								map[string]interface{}{
 									"s3_bucket_destination": []interface{}{
 										map[string]interface{}{
-											"bucket_arn":        "arn:aws:s3", //lintignore:AWSAT005
+											"bucket_arn":"arn:aws:s3", //lintignore:AWSAT005
 											"bucket_account_id": "1234567890",
-											"format":            s3.AnalyticsS3ExportFileFormatCsv,
-											"prefix":            "prefix/",
+											"format":s3.AnalyticsS3ExportFileFormatCsv,
+											"prefix":"prefix/",
 										},
 									},
 								},
@@ -944,10 +888,10 @@ func TestExpandStorageClassAnalysis(t *testing.T) {
 				DataExport: &s3.StorageClassAnalysisDataExport{
 					Destination: &s3.AnalyticsExportDestination{
 						S3BucketDestination: &s3.AnalyticsS3BucketDestination{
-							Bucket:          aws.String("arn:aws:s3"), //lintignore:AWSAT005
+							Bucket:aws.String("arn:aws:s3"), //lintignore:AWSAT005
 							BucketAccountId: aws.String("1234567890"),
-							Format:          aws.String(s3.AnalyticsS3ExportFileFormatCsv),
-							Prefix:          aws.String("prefix/"),
+							Format:aws.String(s3.AnalyticsS3ExportFileFormatCsv),
+							Prefix:aws.String("prefix/"),
 						},
 					},
 				},
@@ -963,7 +907,7 @@ func TestExpandStorageClassAnalysis(t *testing.T) {
 									"s3_bucket_destination": []interface{}{
 										map[string]interface{}{
 											"bucket_arn": "arn:aws:s3", //lintignore:AWSAT005
-											"format":     s3.AnalyticsS3ExportFileFormatCsv,
+											"format": s3.AnalyticsS3ExportFileFormatCsv,
 										},
 									},
 								},
@@ -976,10 +920,10 @@ func TestExpandStorageClassAnalysis(t *testing.T) {
 				DataExport: &s3.StorageClassAnalysisDataExport{
 					Destination: &s3.AnalyticsExportDestination{
 						S3BucketDestination: &s3.AnalyticsS3BucketDestination{
-							Bucket:          aws.String("arn:aws:s3"), //lintignore:AWSAT005
+							Bucket:aws.String("arn:aws:s3"), //lintignore:AWSAT005
 							BucketAccountId: nil,
-							Format:          aws.String(s3.AnalyticsS3ExportFileFormatCsv),
-							Prefix:          nil,
+							Format:aws.String(s3.AnalyticsS3ExportFileFormatCsv),
+							Prefix:nil,
 						},
 					},
 				},
@@ -994,21 +938,20 @@ func TestExpandStorageClassAnalysis(t *testing.T) {
 			t.Errorf("Case %q:\nGot:\n%v\nExpected:\n%v", k, value, tc.Expected)
 		}
 	}
-}
-func TestFlattenAnalyticsFilter(t *testing.T) {
+}func TestFlattenAnalyticsFilter(t *testing.T) {
 	t.Parallel()
 
 	ctx := context.Background()
 	testCases := map[string]struct {
-		Input    *s3.AnalyticsFilter
+		Input*s3.AnalyticsFilter
 		Expected []map[string]interface{}
 	}{
 		"nil input": {
-			Input:    nil,
+			Input:nil,
 			Expected: nil,
 		},
 		"empty input": {
-			Input:    &s3.AnalyticsFilter{},
+			Input:&s3.AnalyticsFilter{},
 			Expected: nil,
 		},
 		"prefix only": {
@@ -1023,11 +966,10 @@ func TestFlattenAnalyticsFilter(t *testing.T) {
 		},
 		"prefix and single tag": {
 			Input: &s3.AnalyticsFilter{
-				And: &s3.AnalyticsAndOperator{
-					Prefix: aws.String("prefix/"),
+	func	Prefix: aws.String("prefix/"),
 					Tags: []*s3.Tag{
 						{
-							Key:   aws.String("tag1key"),
+							Key: aws.String("tag1key"),
 							Value: aws.String("tag1value"),
 						},
 					},
@@ -1048,11 +990,11 @@ func TestFlattenAnalyticsFilter(t *testing.T) {
 					Prefix: aws.String("prefix/"),
 					Tags: []*s3.Tag{
 						{
-							Key:   aws.String("tag1key"),
+							Key: aws.String("tag1key"),
 							Value: aws.String("tag1value"),
 						},
 						{
-							Key:   aws.String("tag2key"),
+							Key: aws.String("tag2key"),
 							Value: aws.String("tag2value"),
 						},
 					},
@@ -1071,7 +1013,7 @@ func TestFlattenAnalyticsFilter(t *testing.T) {
 		"single tag only": {
 			Input: &s3.AnalyticsFilter{
 				Tag: &s3.Tag{
-					Key:   aws.String("tag1key"),
+					Key: aws.String("tag1key"),
 					Value: aws.String("tag1value"),
 				},
 			},
@@ -1088,11 +1030,11 @@ func TestFlattenAnalyticsFilter(t *testing.T) {
 				And: &s3.AnalyticsAndOperator{
 					Tags: []*s3.Tag{
 						{
-							Key:   aws.String("tag1key"),
+							Key: aws.String("tag1key"),
 							Value: aws.String("tag1value"),
 						},
 						{
-							Key:   aws.String("tag2key"),
+							Key: aws.String("tag2key"),
 							Value: aws.String("tag2value"),
 						},
 					},
@@ -1116,20 +1058,19 @@ func TestFlattenAnalyticsFilter(t *testing.T) {
 			t.Errorf("Case %q: Got:\n%v\n\nExpected:\n%v", k, value, tc.Expected)
 		}
 	}
-}
-func TestFlattenStorageClassAnalysis(t *testing.T) {
+}func TestFlattenStorageClassAnalysis(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]struct {
-		Input    *s3.StorageClassAnalysis
+		Input*s3.StorageClassAnalysis
 		Expected []map[string]interface{}
 	}{
 		"nil value": {
-			Input:    nil,
+			Input:nil,
 			Expected: []map[string]interface{}{},
 		},
 		"empty root": {
-			Input:    &s3.StorageClassAnalysis{},
+			Input:&s3.StorageClassAnalysis{},
 			Expected: []map[string]interface{}{},
 		},
 		"empty data_export": {
@@ -1146,9 +1087,8 @@ func TestFlattenStorageClassAnalysis(t *testing.T) {
 		},
 		"data_export complete": {
 			Input: &s3.StorageClassAnalysis{
-				DataExport: &s3.StorageClassAnalysisDataExport{
-					OutputSchemaVersion: aws.String(s3.StorageClassAnalysisSchemaVersionV1),
-					Destination:         &s3.AnalyticsExportDestination{},
+	func	OutputSchemaVersion: aws.String(s3.StorageClassAnalysisSchemaVersionV1),
+					Destination: &s3.AnalyticsExportDestination{},
 				},
 			},
 			Expected: []map[string]interface{}{
@@ -1156,7 +1096,7 @@ func TestFlattenStorageClassAnalysis(t *testing.T) {
 					"data_export": []interface{}{
 						map[string]interface{}{
 							"output_schema_version": s3.StorageClassAnalysisSchemaVersionV1,
-							"destination":           []interface{}{},
+							"destination": []interface{}{},
 						},
 					},
 				},
@@ -1182,7 +1122,7 @@ func TestFlattenStorageClassAnalysis(t *testing.T) {
 									"s3_bucket_destination": []interface{}{
 										map[string]interface{}{
 											"bucket_arn": "arn:aws:s3", //lintignore:AWSAT005
-											"format":     s3.AnalyticsS3ExportFileFormatCsv,
+											"format": s3.AnalyticsS3ExportFileFormatCsv,
 										},
 									},
 								},
@@ -1197,10 +1137,10 @@ func TestFlattenStorageClassAnalysis(t *testing.T) {
 				DataExport: &s3.StorageClassAnalysisDataExport{
 					Destination: &s3.AnalyticsExportDestination{
 						S3BucketDestination: &s3.AnalyticsS3BucketDestination{
-							Bucket:          aws.String("arn:aws:s3"), //lintignore:AWSAT005
+							Bucket:aws.String("arn:aws:s3"), //lintignore:AWSAT005
 							BucketAccountId: aws.String("1234567890"),
-							Format:          aws.String(s3.AnalyticsS3ExportFileFormatCsv),
-							Prefix:          aws.String("prefix/"),
+							Format:aws.String(s3.AnalyticsS3ExportFileFormatCsv),
+							Prefix:aws.String("prefix/"),
 						},
 					},
 				},
@@ -1213,10 +1153,10 @@ func TestFlattenStorageClassAnalysis(t *testing.T) {
 								map[string]interface{}{
 									"s3_bucket_destination": []interface{}{
 										map[string]interface{}{
-											"bucket_arn":        "arn:aws:s3", //lintignore:AWSAT005
+											"bucket_arn":"arn:aws:s3", //lintignore:AWSAT005
 											"bucket_account_id": "1234567890",
-											"format":            s3.AnalyticsS3ExportFileFormatCsv,
-											"prefix":            "prefix/",
+											"format":s3.AnalyticsS3ExportFileFormatCsv,
+											"prefix":"prefix/",
 										},
 									},
 								},

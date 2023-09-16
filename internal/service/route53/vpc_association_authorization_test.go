@@ -198,28 +198,28 @@ func testAccVPCAssociationAuthorizationConfig_basic() string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateAccountProvider(), `
 resource "aws_route53_vpc_association_authorization" "test" {
-  zone_id = aws_route53_zone.test.id
-  vpc_id  = aws_vpc.alternate.id
+zone_id = aws_route53_zone.test.id
+vpc_id= aws_vpc.alternate.id
 }
 
 resource "aws_vpc" "alternate" {
-  providerlternate"
-  cidr_blocknet("10.0.0.0/8", 8, 1)
-  enable_dns_hostnames = true
+providerlternate"
+cidr_blocknet("10.0.0.0/8", 8, 1)
+enable_dns_hostnames = true
 func
 
 resource "aws_route53_zone" "test" {
-  name = "example.com"
+name = "example.com"
 
-  vpc {
+vpc {
 c_id = aws_vpc.test.id
-  }
+}
 }
 
 resource "aws_vpc" "test" {
-  cidr_blocknet("10.0.0.0/8", 8, 0)
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_blocknet("10.0.0.0/8", 8, 0)
+enable_dns_hostnames = true
+enable_dns_supportrue
 }
 `)
 }
@@ -228,52 +228,52 @@ func testAccVPCAssociationAuthorizationConfig_concurrent(t *testing.T) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigMultipleAccountProvider(t, 3), `
 resource "aws_route53_vpc_association_authorization" "alternate" {
-  zone_id = aws_route53_zone.test.id
-  vpc_id  = aws_vpc.alternate.id
+zone_id = aws_route53_zone.test.id
+vpc_id= aws_vpc.alternate.id
 
-  # Try to encourage concurrency
-  depends_on = [
+# Try to encourage concurrency
+depends_on = [
 s_vpc.alternate,
 s_vpc.third
-  ]
+]
 }
 funcurce "aws_route53_vpc_association_authorization" "third" {
-  zone_id = aws_route53_zone.test.id
-  vpc_id  = aws_vpc.third.id
+zone_id = aws_route53_zone.test.id
+vpc_id= aws_vpc.third.id
 
-  # Try to encourage concurrency
-  depends_on = [
+# Try to encourage concurrency
+depends_on = [
 s_vpc.alternate,
 s_vpc.third
-  ]
+]
 }
 
 resource "aws_route53_zone" "test" {
-  name = "example.com"
+name = "example.com"
 
-  vpc {
+vpc {
 c_id = aws_vpc.test.id
-  }
+}
 }
 
 resource "aws_vpc" "test" {
-  cidr_blocknet("10.0.0.0/8", 8, 0)
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_blocknet("10.0.0.0/8", 8, 0)
+enable_dns_hostnames = true
+enable_dns_supportrue
 }
 
 resource "aws_vpc" "alternate" {
-  providerlternate"
-  cidr_blocknet("10.0.0.0/8", 8, 1)
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+providerlternate"
+cidr_blocknet("10.0.0.0/8", 8, 1)
+enable_dns_hostnames = true
+enable_dns_supportrue
 }
 
 resource "aws_vpc" "third" {
-  providerhird"
-  cidr_blocknet("10.0.0.0/8", 8, 2)
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+providerhird"
+cidr_blocknet("10.0.0.0/8", 8, 2)
+enable_dns_hostnames = true
+enable_dns_supportrue
 }
 `)
 }
@@ -282,34 +282,34 @@ func testAccVPCAssociationAuthorizationConfig_crossRegion() string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateAccountAlternateRegionProvider(), `
 resource "aws_route53_vpc_association_authorization" "test" {
-  zone_idaws_route53_zone.test.id
-  vpc_id_vpc.alternate.id
-  vpc_region = data.aws_region.alternate.name
+zone_idaws_route53_zone.test.id
+vpc_id_vpc.alternate.id
+vpc_region = data.aws_region.alternate.name
 }
 
 resource "aws_vpc" "alternate" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  cidr_blocknet("10.0.0.0/8", 8, 1)
-  enable_dns_hostnames = true
+cidr_blocknet("10.0.0.0/8", 8, 1)
+enable_dns_hostnames = true
 func
 
 data "aws_region" "alternate" {
-  provider = "awsalternate"
+provider = "awsalternate"
 }
 
 resource "aws_route53_zone" "test" {
-  name = "example.com"
+name = "example.com"
 
-  vpc {
+vpc {
 c_id = aws_vpc.test.id
-  }
+}
 }
 
 resource "aws_vpc" "test" {
-  cidr_blocknet("10.0.0.0/8", 8, 0)
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_blocknet("10.0.0.0/8", 8, 0)
+enable_dns_hostnames = true
+enable_dns_supportrue
 }
 `)
 }

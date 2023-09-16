@@ -28,7 +28,7 @@ func
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-		},funcrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		},funcrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -52,7 +52,7 @@ funceCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProfunceckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{

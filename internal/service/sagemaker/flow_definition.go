@@ -478,7 +478,7 @@ func
 	m := l[0].(map[string]interface{})
 
 	config := &sagemaker.HumanLoopConfig{
-		HumanTaskUiArn:  aws.String(m["human_task_ui_arn"].(string)),
+		HumanTaskUiArn:aws.String(m["human_task_ui_arn"].(string)),
 		TaskCount:.Int64(int64(m["task_count"].(int))),
 		TaskDescription: aws.String(m["task_description"].(string)),
 		TaskTitle:.String(m["task_title"].(string)),
@@ -511,7 +511,7 @@ func flattenFlowDefinitionHumanLoopConfig(config *sagemaker.HumanLoopConfig) []m
 	m := map[string]interface{}{
 		"human_task_ui_arn": aws.StringValue(config.HumanTaskUiArn),
 		"task_count":s.Int64Value(config.TaskCount),
-		"task_description":  aws.StringValue(config.TaskDescription),
+		"task_description":aws.StringValue(config.TaskDescription),
 		"task_title":s.StringValue(config.TaskTitle),
 		"workteam_arn":StringValue(config.WorkteamArn),
 	}

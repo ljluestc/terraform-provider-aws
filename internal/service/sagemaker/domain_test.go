@@ -851,43 +851,43 @@ func testAccCheckDomainExists(ctx context.Context, n string, codeRepo *sagemaker
 func testAccDomainConfig_base(rName string) string {
 func "aws_partition" "current" {}
 funcurce "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 ce"
 tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
 
-  }
+}
 }
 
 resource "aws_iam_role_policy_attachment" "test" {
-  rolews_iam_role.test.name
-  policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSageMakerFullAccess"
+rolews_iam_role.test.name
+policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSageMakerFullAccess"
 }
 `, rName))
 func
 func testAccDomainConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -895,21 +895,21 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_domainSettings(rName, config string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
 funcion_role = aws_iam_role.test.arn
-  }
+}
 
-  domain_settings {
+domain_settings {
 ecution_role_identity_config = %[2]q
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName, config))
 }
@@ -917,23 +917,23 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_kms(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 7
+description
+deletion_window_in_days = 7
 func
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
-  kms_key_id  = aws_kms_key.test.key_id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
+kms_key_id= aws_kms_key.test.key_id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -941,79 +941,79 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_securityGroup1(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_security_group" "test" {
-  count = 1
+count = 1
 funcme = "%[1]s-${count.index}"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
-ecution_role  = aws_iam_role.test.arn
+default_user_settings {
+ecution_role= aws_iam_role.test.arn
 curity_groups = aws_security_group.test[*].id
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
 
 funcurn acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_security_group" "test" {
-  count = 2
+count = 2
 
-  name = "%[1]s-${count.index}"
+name = "%[1]s-${count.index}"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
-ecution_role  = aws_iam_role.test.arn
+default_user_settings {
+ecution_role= aws_iam_role.test.arn
 curity_groups = aws_security_group.test[*].id
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
 
 func testAccDomainConfig_tags1(rName, tagKey1, tagValue1 string) string {
 funcurce "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -1021,22 +1021,22 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 func
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -1044,8 +1044,8 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_sharingSettings(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 7
+description
+deletion_window_in_days = 7
 }
 
 
@@ -1054,12 +1054,12 @@ funcrce_destroy = true
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 aring_settings {
@@ -1067,23 +1067,23 @@ book_output_option = "Allowed"
 ms_key_id= awsest.key_id
 utput_path/${aws_s3_bucket.test.bucket}/sharing"
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 func
 func testAccDomainConfig_canvasAppSettings(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 nvas_app_settings {
@@ -1091,11 +1091,11 @@ _series_forecasting_settings {
 atus = "DISABLED"
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -1103,23 +1103,23 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_modelRegisterSettings(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 func_app_settings {
 l_register_settings {
 atus = "DISABLED"
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -1127,16 +1127,16 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_workspaceSettings(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
 func
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 nvas_app_settings {
@@ -1144,11 +1144,11 @@ space_settings {
 _artifact_path = "s3://${aws_s3_bucket.test.bucket}/path"
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -1156,10 +1156,10 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_tensorBoardAppSettings(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 funcfault_user_settings {
 ecution_role = aws_iam_role.test.arn
 
@@ -1168,11 +1168,11 @@ ult_resource_spec {
 stance_type = "ml.t3.micro"
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -1180,29 +1180,29 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_tensorBoardAppSettingsImage(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_image" "test" {
-  image_name = %[1]q
-  role_arnws_iam_role.test.arn
+image_name = %[1]q
+role_arnws_iam_role.test.arn
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
 funcion_role = aws_iam_role.test.arn
 
 nsor_board_app_settings {
 ult_resource_spec {
-stance_type  = ".micro"
+stance_type= ".micro"
 gemaker_image_arn = aws_sagemaker_image.test.arn
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -1210,10 +1210,10 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_jupyterServerAppSettings(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
 funcion_role = aws_iam_role.test.arn
 
@@ -1222,11 +1222,11 @@ ult_resource_spec {
 stance_type = "system"
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -1234,12 +1234,12 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_jupyterServerAppSettingsCode(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 pyter_server_app_settings {
@@ -1250,11 +1250,11 @@ funcresource_spec {
 stance_type = "system"
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -1262,23 +1262,23 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_rSessionAppSettings(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 session_app_settings {
 funcce_type = "ml.t3.micro"
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -1286,22 +1286,22 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_rStudioServerProAppSettings(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 studio_server_pro_app_settings {
 ss_status = "ENABLED"
 _group"R_STUDIO_ADMIN"
 
-  }
+}
 
 funcfs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -1309,12 +1309,12 @@ funcfs_file_system = "Delete"
 func testAccDomainConfig_kernelGatewayAppSettings(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 rnel_gateway_app_settings {
@@ -1322,9 +1322,9 @@ ult_resource_spec {
 stance_type = "ml.t3.micro"
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 func
 }
 `, rName))
@@ -1333,12 +1333,12 @@ func
 func testAccDomainConfig_defaultSpaceKernelGatewayAppSettings(rName, instance string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 rnel_gateway_app_settings {
@@ -1346,20 +1346,20 @@ ult_resource_spec {
 stance_type = %[2]q
 
 
-  }
+}
 
-  default_space_settings {
+default_space_settings {
 func
 rnel_gateway_app_settings {
 ult_resource_spec {
 stance_type = %[2]q
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName, instance))
 }
@@ -1367,17 +1367,17 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_kernelGatewayAppSettingsLifecycle(rName string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_studio_lifecycle_config" "test" {
-  studio_lifecycle_config_name]q
-  studio_lifecycle_config_app_type = "JupyterServer"
-  studio_lifecycle_config_content  = base64encode("echo Hello")
+studio_lifecycle_config_name]q
+studio_lifecycle_config_app_type = "JupyterServer"
+studio_lifecycle_config_content= base64encode("echo Hello")
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
+domain_name = %[1]q
 funcc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 rnel_gateway_app_settings {
@@ -1388,11 +1388,11 @@ fecycle_config_arn = aws_sagemaker_studio_lifecycle_config.test.arn
 
 cycle_config_arns = [aws_sagemaker_studio_lifecycle_config.test.arn]
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName))
 }
@@ -1400,80 +1400,80 @@ me_efs_file_system = "Delete"
 func testAccDomainConfig_kernelGatewayAppSettingsCustomImage(rName, baseImage string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_image" "test" {
-  image_name = %[1]q
-  role_arnws_iam_role.test.arn
+image_name = %[1]q
+role_arnws_iam_role.test.arn
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 
 resource "aws_sagemaker_app_image_config" "test" {
-  app_image_config_name = %[1]q
+app_image_config_name = %[1]q
 
 func_spec {
  = %[1]q
 
-  }
+}
 }
 
 resource "aws_sagemaker_image_version" "test" {
-  image_name = aws_sagemaker_image.test.id
-  base_image = %[2]q
+image_name = aws_sagemaker_image.test.id
+base_image = %[2]q
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 rnel_gateway_app_settings {
 om_image {
 p_image_config_name = aws_sagemaker_app_image_config.test.app_image_config_name
-age_name  = aer_image_version.test.image_name
+age_name= aer_image_version.test.image_name
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 `, rName, baseImage))
 }
 func testAccDomainConfig_kernelGatewayAppSettingsDefaultResourceSpecAndCustomImage(rName, baseImage string) string {
 	return acctest.ConfigCompose(testAccDomainConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_image" "test" {
-  image_name = %[1]q
-  role_arnws_iam_role.test.arn
+image_name = %[1]q
+role_arnws_iam_role.test.arn
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 
 resource "aws_sagemaker_app_image_config" "test" {
-  app_image_config_name = %[1]q
+app_image_config_name = %[1]q
 
-  kernel_gateway_image_config {
+kernel_gateway_image_config {
 rnel_spec {
  = %[1]q
 
-  }
+}
 }
 
 resource "aws_sagemaker_image_version" "test" {
-  image_name = aws_sagemaker_image.test.id
-  base_image = %[2]q
+image_name = aws_sagemaker_image.test.id
+base_image = %[2]q
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
 
 rnel_gateway_app_settings {
@@ -1484,12 +1484,12 @@ gemaker_image_version_arn = aws_sagemaker_image_version.test.arn
 
 om_image {
 p_image_config_name = aws_sagemaker_app_image_config.test.app_image_config_name
-age_name  = aer_image_version.test.image_name
+age_name= aer_image_version.test.image_name
 
 
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
 func
 `, rName, baseImage))

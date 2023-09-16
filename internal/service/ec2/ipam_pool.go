@@ -73,7 +73,7 @@ funcComputed: true,
 			"auto_import": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"aws_service": {
 				Type:schema.TypeString,

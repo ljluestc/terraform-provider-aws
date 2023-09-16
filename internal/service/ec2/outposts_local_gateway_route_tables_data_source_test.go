@@ -16,7 +16,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_route_tables.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -35,7 +35,7 @@ func TestAccEC2OutpostsLocalGatewayRouteTablesDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_route_tables.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -61,7 +61,7 @@ func testAccOutpostsLocalGatewayRouteTablesDataSourceConfig_filter() string {
 data "aws_ec2_local_gateway_route_tables" "all" {}
 
 data "aws_ec2_local_gateway_route_tables" "test" {
-  filter {
+filter {
 me= "al-gateway-route-table-id"
 func
 }

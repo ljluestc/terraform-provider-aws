@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	datasourceName := "data.aws_vpc_dhcp_options.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -58,7 +58,7 @@ func TestAccVPCDHCPOptionsDataSource_filter(t *testing.T) {
 funcasourceName := "data.aws_vpc_dhcp_options.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -97,29 +97,29 @@ Config: testAccVPCDHCPOptionsDataSourceConfig_blank(),
 
 const testAccVPCDHCPOptionsDataSourceConfig_missing = `
 data "aws_vpc_dhcp_options" "test" {
-  dhcp_options_id = "does-not-exist"
+dhcp_options_id = "does-not-exist"
 }
 `
 
 const testAccVPCDHCPOptionsDataSourceConfig_id = `
 resource "aws_vpc_dhcp_options" "incorrect" {
-  domain_name = "tf-acc-test-incorrect.example.com"
+domain_name = "tf-acc-test-incorrect.example.com"
 }
 
 resource "aws_vpc_dhcp_options" "test" {
-  domain_name = "service.consul"
-  domain_name_servers  = ["127.0.0.1", "10.0.0.2"]
-  netbios_name_servers = ["127.0.0.1"]
-  netbios_node_type2
-  ntp_servers = ["127.0.0.1"]
+domain_name = "service.consul"
+domain_name_servers= ["127.0.0.1", "10.0.0.2"]
+netbios_name_servers = ["127.0.0.1"]
+netbios_node_type2
+ntp_servers = ["127.0.0.1"]
 
-  tags = {
+tags = {
 me = "tf-acc-test"
-  }
+}
 }
 
 data "aws_vpc_dhcp_options" "test" {
-  dhcp_options_id = aws_vpc_dhcp_options.test.id
+dhcp_options_id = aws_vpc_dhcp_options.test.id
 }
 `
 
@@ -127,32 +127,32 @@ data "aws_vpc_dhcp_options" "test" {
 func testAccVPCDHCPOptionsDataSourceConfig_filter(rInt, count int) string {
 	return fmt.Sprintf(`
 resource "aws_vpc_dhcp_options" "incorrect" {
-  domain_name = "tf-acc-test-incorrect.example.com"
+domain_name = "tf-acc-test-incorrect.example.com"
 }
 
 funcunt = %[2]d
 
-  domain_name = "tf-acc-test-%[1]d.example.com"
-  domain_name_servers  = ["127.0.0.1", "10.0.0.2"]
-  netbios_name_servers = ["127.0.0.1"]
-  netbios_node_type2
-  ntp_servers = ["127.0.0.1"]
+domain_name = "tf-acc-test-%[1]d.example.com"
+domain_name_servers= ["127.0.0.1", "10.0.0.2"]
+netbios_name_servers = ["127.0.0.1"]
+netbios_node_type2
+ntp_servers = ["127.0.0.1"]
 
-  tags = {
+tags = {
 me = "tf-acc-test-%[1]d"
-  }
+}
 }
 
 data "aws_vpc_dhcp_options" "test" {
-  filter {
+filter {
 me= ""
 lues = ["domain-name"]
-  }
+}
 
-  filter {
+filter {
 me= "ue"
 lues = [aws_vpc_dhcp_options.test[0].domain_name]
-  }
+}
 }
 `, rInt, count)
 }

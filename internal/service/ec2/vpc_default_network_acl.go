@@ -66,7 +66,7 @@ funcworkACLRuleSetNestedBlock := &schema.Schema{
 			// We want explicit management of Rules here, so we do not allow them to be
 			// computed. Instead, an empty config will enforce just that; removal of the
 			// rules
-			"egress":  networkACLRuleSetNestedBlock,
+			"egress":networkACLRuleSetNestedBlock,
 			"ingress": networkACLRuleSetNestedBlock,
 			"owner_id": {
 				Type:eString,

@@ -57,333 +57,333 @@ func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-funcactory:  DataSourceAMI,
+funcactory:DataSourceAMI,
 			TypeName: "aws_ami",
 		},
 		{
-			Factory:  DataSourceAMIIDs,
+			Factory:DataSourceAMIIDs,
 			TypeName: "aws_ami_ids",
 		},
 		{
-			Factory:  DataSourceAvailabilityZone,
+			Factory:DataSourceAvailabilityZone,
 			TypeName: "aws_availability_zone",
 		},
 		{
-			Factory:  DataSourceAvailabilityZones,
+			Factory:DataSourceAvailabilityZones,
 			TypeName: "aws_availability_zones",
 		},
 		{
-			Factory:  DataSourceCustomerGateway,
+			Factory:DataSourceCustomerGateway,
 			TypeName: "aws_customer_gateway",
 		},
 		{
-			Factory:  DataSourceEBSDefaultKMSKey,
+			Factory:DataSourceEBSDefaultKMSKey,
 			TypeName: "aws_ebs_default_kms_key",
 		},
 		{
-			Factory:  DataSourceEBSEncryptionByDefault,
+			Factory:DataSourceEBSEncryptionByDefault,
 			TypeName: "aws_ebs_encryption_by_default",
 		},
 		{
-			Factory:  DataSourceEBSSnapshot,
+			Factory:DataSourceEBSSnapshot,
 			TypeName: "aws_ebs_snapshot",
 		},
 		{
-			Factory:  DataSourceEBSSnapshotIDs,
+			Factory:DataSourceEBSSnapshotIDs,
 			TypeName: "aws_ebs_snapshot_ids",
 		},
 		{
-			Factory:  DataSourceEBSVolume,
+			Factory:DataSourceEBSVolume,
 			TypeName: "aws_ebs_volume",
 		},
 		{
-			Factory:  DataSourceEBSVolumes,
+			Factory:DataSourceEBSVolumes,
 			TypeName: "aws_ebs_volumes",
 		},
 		{
-			Factory:  DataSourceClientVPNEndpoint,
+			Factory:DataSourceClientVPNEndpoint,
 			TypeName: "aws_ec2_client_vpn_endpoint",
 		},
 		{
-			Factory:  DataSourceCoIPPool,
+			Factory:DataSourceCoIPPool,
 			TypeName: "aws_ec2_coip_pool",
 		},
 		{
-			Factory:  DataSourceCoIPPools,
+			Factory:DataSourceCoIPPools,
 			TypeName: "aws_ec2_coip_pools",
 		},
 		{
-			Factory:  DataSourceHost,
+			Factory:DataSourceHost,
 			TypeName: "aws_ec2_host",
 		},
 		{
-			Factory:  DataSourceInstanceType,
+			Factory:DataSourceInstanceType,
 			TypeName: "aws_ec2_instance_type",
 		},
 		{
-			Factory:  DataSourceInstanceTypeOffering,
+			Factory:DataSourceInstanceTypeOffering,
 			TypeName: "aws_ec2_instance_type_offering",
 		},
 		{
-			Factory:  DataSourceInstanceTypeOfferings,
+			Factory:DataSourceInstanceTypeOfferings,
 			TypeName: "aws_ec2_instance_type_offerings",
 		},
 		{
-			Factory:  DataSourceInstanceTypes,
+			Factory:DataSourceInstanceTypes,
 			TypeName: "aws_ec2_instance_types",
 		},
 		{
-			Factory:  DataSourceLocalGateway,
+			Factory:DataSourceLocalGateway,
 			TypeName: "aws_ec2_local_gateway",
 		},
 		{
-			Factory:  DataSourceLocalGatewayRouteTable,
+			Factory:DataSourceLocalGatewayRouteTable,
 			TypeName: "aws_ec2_local_gateway_route_table",
 		},
 		{
-			Factory:  DataSourceLocalGatewayRouteTables,
+			Factory:DataSourceLocalGatewayRouteTables,
 			TypeName: "aws_ec2_local_gateway_route_tables",
 		},
 		{
-			Factory:  DataSourceLocalGatewayVirtualInterface,
+			Factory:DataSourceLocalGatewayVirtualInterface,
 			TypeName: "aws_ec2_local_gateway_virtual_interface",
 		},
 		{
-			Factory:  DataSourceLocalGatewayVirtualInterfaceGroup,
+			Factory:DataSourceLocalGatewayVirtualInterfaceGroup,
 			TypeName: "aws_ec2_local_gateway_virtual_interface_group",
 		},
 		{
-			Factory:  DataSourceLocalGatewayVirtualInterfaceGroups,
+			Factory:DataSourceLocalGatewayVirtualInterfaceGroups,
 			TypeName: "aws_ec2_local_gateway_virtual_interface_groups",
 		},
 		{
-			Factory:  DataSourceLocalGateways,
+			Factory:DataSourceLocalGateways,
 			TypeName: "aws_ec2_local_gateways",
 		},
 		{
-			Factory:  DataSourceManagedPrefixList,
+			Factory:DataSourceManagedPrefixList,
 			TypeName: "aws_ec2_managed_prefix_list",
 		},
 		{
-			Factory:  DataSourceManagedPrefixLists,
+			Factory:DataSourceManagedPrefixLists,
 			TypeName: "aws_ec2_managed_prefix_lists",
 		},
 		{
-			Factory:  DataSourceNetworkInsightsAnalysis,
+			Factory:DataSourceNetworkInsightsAnalysis,
 			TypeName: "aws_ec2_network_insights_analysis",
 		},
 		{
-			Factory:  DataSourceNetworkInsightsPath,
+			Factory:DataSourceNetworkInsightsPath,
 			TypeName: "aws_ec2_network_insights_path",
 		},
 		{
-			Factory:  DataSourcePublicIPv4Pool,
+			Factory:DataSourcePublicIPv4Pool,
 			TypeName: "aws_ec2_public_ipv4_pool",
 		},
 		{
-			Factory:  DataSourcePublicIPv4Pools,
+			Factory:DataSourcePublicIPv4Pools,
 			TypeName: "aws_ec2_public_ipv4_pools",
 		},
 		{
-			Factory:  DataSourceSerialConsoleAccess,
+			Factory:DataSourceSerialConsoleAccess,
 			TypeName: "aws_ec2_serial_console_access",
 		},
 		{
-			Factory:  DataSourceSpotPrice,
+			Factory:DataSourceSpotPrice,
 			TypeName: "aws_ec2_spot_price",
 		},
 		{
-			Factory:  DataSourceTransitGateway,
+			Factory:DataSourceTransitGateway,
 			TypeName: "aws_ec2_transit_gateway",
 		},
 		{
-			Factory:  DataSourceTransitGatewayAttachment,
+			Factory:DataSourceTransitGatewayAttachment,
 			TypeName: "aws_ec2_transit_gateway_attachment",
 		},
 		{
-			Factory:  DataSourceTransitGatewayAttachments,
+			Factory:DataSourceTransitGatewayAttachments,
 			TypeName: "aws_ec2_transit_gateway_attachments",
 		},
 		{
-			Factory:  DataSourceTransitGatewayConnect,
+			Factory:DataSourceTransitGatewayConnect,
 			TypeName: "aws_ec2_transit_gateway_connect",
 		},
 		{
-			Factory:  DataSourceTransitGatewayConnectPeer,
+			Factory:DataSourceTransitGatewayConnectPeer,
 			TypeName: "aws_ec2_transit_gateway_connect_peer",
 		},
 		{
-			Factory:  DataSourceTransitGatewayDxGatewayAttachment,
+			Factory:DataSourceTransitGatewayDxGatewayAttachment,
 			TypeName: "aws_ec2_transit_gateway_dx_gateway_attachment",
 		},
 		{
-			Factory:  DataSourceTransitGatewayMulticastDomain,
+			Factory:DataSourceTransitGatewayMulticastDomain,
 			TypeName: "aws_ec2_transit_gateway_multicast_domain",
 		},
 		{
-			Factory:  DataSourceTransitGatewayPeeringAttachment,
+			Factory:DataSourceTransitGatewayPeeringAttachment,
 			TypeName: "aws_ec2_transit_gateway_peering_attachment",
 		},
 		{
-			Factory:  DataSourceTransitGatewayRouteTable,
+			Factory:DataSourceTransitGatewayRouteTable,
 			TypeName: "aws_ec2_transit_gateway_route_table",
 		},
 		{
-			Factory:  DataSourceTransitGatewayRouteTableAssociations,
+			Factory:DataSourceTransitGatewayRouteTableAssociations,
 			TypeName: "aws_ec2_transit_gateway_route_table_associations",
 		},
 		{
-			Factory:  DataSourceTransitGatewayRouteTablePropagations,
+			Factory:DataSourceTransitGatewayRouteTablePropagations,
 			TypeName: "aws_ec2_transit_gateway_route_table_propagations",
 		},
 		{
-			Factory:  DataSourceTransitGatewayRouteTableRoutes,
+			Factory:DataSourceTransitGatewayRouteTableRoutes,
 			TypeName: "aws_ec2_transit_gateway_route_table_routes",
 		},
 		{
-			Factory:  DataSourceTransitGatewayRouteTables,
+			Factory:DataSourceTransitGatewayRouteTables,
 			TypeName: "aws_ec2_transit_gateway_route_tables",
 		},
 		{
-			Factory:  DataSourceTransitGatewayVPCAttachment,
+			Factory:DataSourceTransitGatewayVPCAttachment,
 			TypeName: "aws_ec2_transit_gateway_vpc_attachment",
 		},
 		{
-			Factory:  DataSourceTransitGatewayVPCAttachments,
+			Factory:DataSourceTransitGatewayVPCAttachments,
 			TypeName: "aws_ec2_transit_gateway_vpc_attachments",
 		},
 		{
-			Factory:  DataSourceTransitGatewayVPNAttachment,
+			Factory:DataSourceTransitGatewayVPNAttachment,
 			TypeName: "aws_ec2_transit_gateway_vpn_attachment",
 		},
 		{
-			Factory:  DataSourceEIP,
+			Factory:DataSourceEIP,
 			TypeName: "aws_eip",
 		},
 		{
-			Factory:  DataSourceEIPs,
+			Factory:DataSourceEIPs,
 			TypeName: "aws_eips",
 		},
 		{
-			Factory:  DataSourceInstance,
+			Factory:DataSourceInstance,
 			TypeName: "aws_instance",
 		},
 		{
-			Factory:  DataSourceInstances,
+			Factory:DataSourceInstances,
 			TypeName: "aws_instances",
 		},
 		{
-			Factory:  DataSourceInternetGateway,
+			Factory:DataSourceInternetGateway,
 			TypeName: "aws_internet_gateway",
 		},
 		{
-			Factory:  DataSourceKeyPair,
+			Factory:DataSourceKeyPair,
 			TypeName: "aws_key_pair",
 		},
 		{
-			Factory:  DataSourceLaunchTemplate,
+			Factory:DataSourceLaunchTemplate,
 			TypeName: "aws_launch_template",
 		},
 		{
-			Factory:  DataSourceNATGateway,
+			Factory:DataSourceNATGateway,
 			TypeName: "aws_nat_gateway",
 		},
 		{
-			Factory:  DataSourceNATGateways,
+			Factory:DataSourceNATGateways,
 			TypeName: "aws_nat_gateways",
 		},
 		{
-			Factory:  DataSourceNetworkACLs,
+			Factory:DataSourceNetworkACLs,
 			TypeName: "aws_network_acls",
 		},
 		{
-			Factory:  DataSourceNetworkInterface,
+			Factory:DataSourceNetworkInterface,
 			TypeName: "aws_network_interface",
 		},
 		{
-			Factory:  DataSourceNetworkInterfaces,
+			Factory:DataSourceNetworkInterfaces,
 			TypeName: "aws_network_interfaces",
 		},
 		{
-			Factory:  DataSourcePrefixList,
+			Factory:DataSourcePrefixList,
 			TypeName: "aws_prefix_list",
 		},
 		{
-			Factory:  DataSourceRoute,
+			Factory:DataSourceRoute,
 			TypeName: "aws_route",
 		},
 		{
-			Factory:  DataSourceRouteTable,
+			Factory:DataSourceRouteTable,
 			TypeName: "aws_route_table",
 		},
 		{
-			Factory:  DataSourceRouteTables,
+			Factory:DataSourceRouteTables,
 			TypeName: "aws_route_tables",
 		},
 		{
-			Factory:  DataSourceSecurityGroup,
+			Factory:DataSourceSecurityGroup,
 			TypeName: "aws_security_group",
 		},
 		{
-			Factory:  DataSourceSecurityGroups,
+			Factory:DataSourceSecurityGroups,
 			TypeName: "aws_security_groups",
 		},
 		{
-			Factory:  DataSourceSubnet,
+			Factory:DataSourceSubnet,
 			TypeName: "aws_subnet",
 		},
 		{
-			Factory:  DataSourceSubnets,
+			Factory:DataSourceSubnets,
 			TypeName: "aws_subnets",
 		},
 		{
-			Factory:  DataSourceVPC,
+			Factory:DataSourceVPC,
 			TypeName: "aws_vpc",
 			Name:
 			Tags:vicePackageResourceTags{},
 		},
 		{
-			Factory:  DataSourceVPCDHCPOptions,
+			Factory:DataSourceVPCDHCPOptions,
 			TypeName: "aws_vpc_dhcp_options",
 		},
 		{
-			Factory:  DataSourceVPCEndpoint,
+			Factory:DataSourceVPCEndpoint,
 			TypeName: "aws_vpc_endpoint",
 		},
 		{
-			Factory:  DataSourceVPCEndpointService,
+			Factory:DataSourceVPCEndpointService,
 			TypeName: "aws_vpc_endpoint_service",
 		},
 		{
-			Factory:  DataSourceIPAMPool,
+			Factory:DataSourceIPAMPool,
 			TypeName: "aws_vpc_ipam_pool",
 		},
 		{
-			Factory:  DataSourceIPAMPoolCIDRs,
+			Factory:DataSourceIPAMPoolCIDRs,
 			TypeName: "aws_vpc_ipam_pool_cidrs",
 		},
 		{
-			Factory:  DataSourceIPAMPools,
+			Factory:DataSourceIPAMPools,
 			TypeName: "aws_vpc_ipam_pools",
 		},
 		{
-			Factory:  DataSourceIPAMPreviewNextCIDR,
+			Factory:DataSourceIPAMPreviewNextCIDR,
 			TypeName: "aws_vpc_ipam_preview_next_cidr",
 		},
 		{
-			Factory:  DataSourceVPCPeeringConnection,
+			Factory:DataSourceVPCPeeringConnection,
 			TypeName: "aws_vpc_peering_connection",
 		},
 		{
-			Factory:  DataSourceVPCPeeringConnections,
+			Factory:DataSourceVPCPeeringConnections,
 			TypeName: "aws_vpc_peering_connections",
 		},
 		{
-			Factory:  DataSourceVPCs,
+			Factory:DataSourceVPCs,
 			TypeName: "aws_vpcs",
 		},
 		{
-			Factory:  DataSourceVPNGateway,
+			Factory:DataSourceVPNGateway,
 			TypeName: "aws_vpn_gateway",
 		},
 	}
@@ -400,7 +400,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceAMICopy,
+			Factory:ResourceAMICopy,
 			TypeName: "aws_ami_copy",
 			Name:
 			Tags: &types.ServicePackageResourceTags{
@@ -408,7 +408,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceAMIFromInstance,
+			Factory:ResourceAMIFromInstance,
 			TypeName: "aws_ami_from_instance",
 			Name:
 			Tags: &types.ServicePackageResourceTags{
@@ -416,11 +416,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceAMILaunchPermission,
+			Factory:ResourceAMILaunchPermission,
 			TypeName: "aws_ami_launch_permission",
 		},
 		{
-			Factory:  ResourceCustomerGateway,
+			Factory:ResourceCustomerGateway,
 			TypeName: "aws_customer_gateway",
 			Name:Gateway",
 			Tags: &types.ServicePackageResourceTags{
@@ -428,7 +428,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceDefaultNetworkACL,
+			Factory:ResourceDefaultNetworkACL,
 			TypeName: "aws_default_network_acl",
 			Name:CL",
 			Tags: &types.ServicePackageResourceTags{
@@ -436,7 +436,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceDefaultRouteTable,
+			Factory:ResourceDefaultRouteTable,
 			TypeName: "aws_default_route_table",
 			Name:le",
 			Tags: &types.ServicePackageResourceTags{
@@ -444,7 +444,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceDefaultSecurityGroup,
+			Factory:ResourceDefaultSecurityGroup,
 			TypeName: "aws_default_security_group",
 			Name:Group",
 			Tags: &types.ServicePackageResourceTags{
@@ -452,7 +452,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceDefaultSubnet,
+			Factory:ResourceDefaultSubnet,
 			TypeName: "aws_default_subnet",
 			Name:
 			Tags: &types.ServicePackageResourceTags{
@@ -460,7 +460,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceDefaultVPC,
+			Factory:ResourceDefaultVPC,
 			TypeName: "aws_default_vpc",
 			Name:
 			Tags: &types.ServicePackageResourceTags{
@@ -468,7 +468,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceDefaultVPCDHCPOptions,
+			Factory:ResourceDefaultVPCDHCPOptions,
 			TypeName: "aws_default_vpc_dhcp_options",
 			Name:ons",
 			Tags: &types.ServicePackageResourceTags{
@@ -476,15 +476,15 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceEBSDefaultKMSKey,
+			Factory:ResourceEBSDefaultKMSKey,
 			TypeName: "aws_ebs_default_kms_key",
 		},
 		{
-			Factory:  ResourceEBSEncryptionByDefault,
+			Factory:ResourceEBSEncryptionByDefault,
 			TypeName: "aws_ebs_encryption_by_default",
 		},
 		{
-			Factory:  ResourceEBSSnapshot,
+			Factory:ResourceEBSSnapshot,
 			TypeName: "aws_ebs_snapshot",
 			Name:hot",
 			Tags: &types.ServicePackageResourceTags{
@@ -492,7 +492,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceEBSSnapshotCopy,
+			Factory:ResourceEBSSnapshotCopy,
 			TypeName: "aws_ebs_snapshot_copy",
 			Name:hot",
 			Tags: &types.ServicePackageResourceTags{
@@ -500,7 +500,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceEBSSnapshotImport,
+			Factory:ResourceEBSSnapshotImport,
 			TypeName: "aws_ebs_snapshot_import",
 			Name:hot",
 			Tags: &types.ServicePackageResourceTags{
@@ -508,7 +508,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceEBSVolume,
+			Factory:ResourceEBSVolume,
 			TypeName: "aws_ebs_volume",
 			Name:e",
 			Tags: &types.ServicePackageResourceTags{
@@ -516,11 +516,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceAvailabilityZoneGroup,
+			Factory:ResourceAvailabilityZoneGroup,
 			TypeName: "aws_ec2_availability_zone_group",
 		},
 		{
-			Factory:  ResourceCapacityReservation,
+			Factory:ResourceCapacityReservation,
 			TypeName: "aws_ec2_capacity_reservation",
 			Name:Reservation",
 			Tags: &types.ServicePackageResourceTags{
@@ -528,7 +528,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceCarrierGateway,
+			Factory:ResourceCarrierGateway,
 			TypeName: "aws_ec2_carrier_gateway",
 			Name:ateway",
 			Tags: &types.ServicePackageResourceTags{
@@ -536,11 +536,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceClientVPNAuthorizationRule,
+			Factory:ResourceClientVPNAuthorizationRule,
 			TypeName: "aws_ec2_client_vpn_authorization_rule",
 		},
 		{
-			Factory:  ResourceClientVPNEndpoint,
+			Factory:ResourceClientVPNEndpoint,
 			TypeName: "aws_ec2_client_vpn_endpoint",
 			Name:N Endpoint",
 			Tags: &types.ServicePackageResourceTags{
@@ -548,15 +548,15 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceClientVPNNetworkAssociation,
+			Factory:ResourceClientVPNNetworkAssociation,
 			TypeName: "aws_ec2_client_vpn_network_association",
 		},
 		{
-			Factory:  ResourceClientVPNRoute,
+			Factory:ResourceClientVPNRoute,
 			TypeName: "aws_ec2_client_vpn_route",
 		},
 		{
-			Factory:  ResourceFleet,
+			Factory:ResourceFleet,
 			TypeName: "aws_ec2_fleet",
 			Name:
 			Tags: &types.ServicePackageResourceTags{
@@ -564,7 +564,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceHost,
+			Factory:ResourceHost,
 			TypeName: "aws_ec2_host",
 			Name:
 			Tags: &types.ServicePackageResourceTags{
@@ -572,15 +572,15 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceInstanceState,
+			Factory:ResourceInstanceState,
 			TypeName: "aws_ec2_instance_state",
 		},
 		{
-			Factory:  ResourceLocalGatewayRoute,
+			Factory:ResourceLocalGatewayRoute,
 			TypeName: "aws_ec2_local_gateway_route",
 		},
 		{
-			Factory:  ResourceLocalGatewayRouteTableVPCAssociation,
+			Factory:ResourceLocalGatewayRouteTableVPCAssociation,
 			TypeName: "aws_ec2_local_gateway_route_table_vpc_association",
 			Name:eway Route Table VPC Association",
 			Tags: &types.ServicePackageResourceTags{
@@ -588,7 +588,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceManagedPrefixList,
+			Factory:ResourceManagedPrefixList,
 			TypeName: "aws_ec2_managed_prefix_list",
 			Name:refix List",
 			Tags: &types.ServicePackageResourceTags{
@@ -596,11 +596,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceManagedPrefixListEntry,
+			Factory:ResourceManagedPrefixListEntry,
 			TypeName: "aws_ec2_managed_prefix_list_entry",
 		},
 		{
-			Factory:  ResourceNetworkInsightsAnalysis,
+			Factory:ResourceNetworkInsightsAnalysis,
 			TypeName: "aws_ec2_network_insights_analysis",
 			Name:nsights Analysis",
 			Tags: &types.ServicePackageResourceTags{
@@ -608,7 +608,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceNetworkInsightsPath,
+			Factory:ResourceNetworkInsightsPath,
 			TypeName: "aws_ec2_network_insights_path",
 			Name:nsights Path",
 			Tags: &types.ServicePackageResourceTags{
@@ -616,19 +616,19 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceSerialConsoleAccess,
+			Factory:ResourceSerialConsoleAccess,
 			TypeName: "aws_ec2_serial_console_access",
 		},
 		{
-			Factory:  ResourceSubnetCIDRReservation,
+			Factory:ResourceSubnetCIDRReservation,
 			TypeName: "aws_ec2_subnet_cidr_reservation",
 		},
 		{
-			Factory:  ResourceTag,
+			Factory:ResourceTag,
 			TypeName: "aws_ec2_tag",
 		},
 		{
-			Factory:  ResourceTrafficMirrorFilter,
+			Factory:ResourceTrafficMirrorFilter,
 			TypeName: "aws_ec2_traffic_mirror_filter",
 			Name:irror Filter",
 			Tags: &types.ServicePackageResourceTags{
@@ -636,11 +636,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTrafficMirrorFilterRule,
+			Factory:ResourceTrafficMirrorFilterRule,
 			TypeName: "aws_ec2_traffic_mirror_filter_rule",
 		},
 		{
-			Factory:  ResourceTrafficMirrorSession,
+			Factory:ResourceTrafficMirrorSession,
 			TypeName: "aws_ec2_traffic_mirror_session",
 			Name:irror Session",
 			Tags: &types.ServicePackageResourceTags{
@@ -648,7 +648,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTrafficMirrorTarget,
+			Factory:ResourceTrafficMirrorTarget,
 			TypeName: "aws_ec2_traffic_mirror_target",
 			Name:irror Target",
 			Tags: &types.ServicePackageResourceTags{
@@ -656,7 +656,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTransitGateway,
+			Factory:ResourceTransitGateway,
 			TypeName: "aws_ec2_transit_gateway",
 			Name:ateway",
 			Tags: &types.ServicePackageResourceTags{
@@ -664,7 +664,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTransitGatewayConnect,
+			Factory:ResourceTransitGatewayConnect,
 			TypeName: "aws_ec2_transit_gateway_connect",
 			Name:ateway Connect",
 			Tags: &types.ServicePackageResourceTags{
@@ -672,7 +672,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTransitGatewayConnectPeer,
+			Factory:ResourceTransitGatewayConnectPeer,
 			TypeName: "aws_ec2_transit_gateway_connect_peer",
 			Name:ateway Connect Peer",
 			Tags: &types.ServicePackageResourceTags{
@@ -680,7 +680,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTransitGatewayMulticastDomain,
+			Factory:ResourceTransitGatewayMulticastDomain,
 			TypeName: "aws_ec2_transit_gateway_multicast_domain",
 			Name:ateway Multicast Domain",
 			Tags: &types.ServicePackageResourceTags{
@@ -688,19 +688,19 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTransitGatewayMulticastDomainAssociation,
+			Factory:ResourceTransitGatewayMulticastDomainAssociation,
 			TypeName: "aws_ec2_transit_gateway_multicast_domain_association",
 		},
 		{
-			Factory:  ResourceTransitGatewayMulticastGroupMember,
+			Factory:ResourceTransitGatewayMulticastGroupMember,
 			TypeName: "aws_ec2_transit_gateway_multicast_group_member",
 		},
 		{
-			Factory:  ResourceTransitGatewayMulticastGroupSource,
+			Factory:ResourceTransitGatewayMulticastGroupSource,
 			TypeName: "aws_ec2_transit_gateway_multicast_group_source",
 		},
 		{
-			Factory:  ResourceTransitGatewayPeeringAttachment,
+			Factory:ResourceTransitGatewayPeeringAttachment,
 			TypeName: "aws_ec2_transit_gateway_peering_attachment",
 			Name:ateway Peering Attachment",
 			Tags: &types.ServicePackageResourceTags{
@@ -708,7 +708,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTransitGatewayPeeringAttachmentAccepter,
+			Factory:ResourceTransitGatewayPeeringAttachmentAccepter,
 			TypeName: "aws_ec2_transit_gateway_peering_attachment_accepter",
 			Name:ateway Peering Attachment",
 			Tags: &types.ServicePackageResourceTags{
@@ -716,7 +716,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTransitGatewayPolicyTable,
+			Factory:ResourceTransitGatewayPolicyTable,
 			TypeName: "aws_ec2_transit_gateway_policy_table",
 			Name:ateway Policy Table",
 			Tags: &types.ServicePackageResourceTags{
@@ -724,19 +724,19 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTransitGatewayPolicyTableAssociation,
+			Factory:ResourceTransitGatewayPolicyTableAssociation,
 			TypeName: "aws_ec2_transit_gateway_policy_table_association",
 		},
 		{
-			Factory:  ResourceTransitGatewayPrefixListReference,
+			Factory:ResourceTransitGatewayPrefixListReference,
 			TypeName: "aws_ec2_transit_gateway_prefix_list_reference",
 		},
 		{
-			Factory:  ResourceTransitGatewayRoute,
+			Factory:ResourceTransitGatewayRoute,
 			TypeName: "aws_ec2_transit_gateway_route",
 		},
 		{
-			Factory:  ResourceTransitGatewayRouteTable,
+			Factory:ResourceTransitGatewayRouteTable,
 			TypeName: "aws_ec2_transit_gateway_route_table",
 			Name:ateway Route Table",
 			Tags: &types.ServicePackageResourceTags{
@@ -744,15 +744,15 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTransitGatewayRouteTableAssociation,
+			Factory:ResourceTransitGatewayRouteTableAssociation,
 			TypeName: "aws_ec2_transit_gateway_route_table_association",
 		},
 		{
-			Factory:  ResourceTransitGatewayRouteTablePropagation,
+			Factory:ResourceTransitGatewayRouteTablePropagation,
 			TypeName: "aws_ec2_transit_gateway_route_table_propagation",
 		},
 		{
-			Factory:  ResourceTransitGatewayVPCAttachment,
+			Factory:ResourceTransitGatewayVPCAttachment,
 			TypeName: "aws_ec2_transit_gateway_vpc_attachment",
 			Name:ateway VPC Attachment",
 			Tags: &types.ServicePackageResourceTags{
@@ -760,7 +760,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceTransitGatewayVPCAttachmentAccepter,
+			Factory:ResourceTransitGatewayVPCAttachmentAccepter,
 			TypeName: "aws_ec2_transit_gateway_vpc_attachment_accepter",
 			Name:ateway VPC Attachment",
 			Tags: &types.ServicePackageResourceTags{
@@ -768,7 +768,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceEgressOnlyInternetGateway,
+			Factory:ResourceEgressOnlyInternetGateway,
 			TypeName: "aws_egress_only_internet_gateway",
 			Name:ly Internet Gateway",
 			Tags: &types.ServicePackageResourceTags{
@@ -776,7 +776,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceEIP,
+			Factory:ResourceEIP,
 			TypeName: "aws_eip",
 			Name:
 			Tags: &types.ServicePackageResourceTags{
@@ -784,11 +784,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceEIPAssociation,
+			Factory:ResourceEIPAssociation,
 			TypeName: "aws_eip_association",
 		},
 		{
-			Factory:  ResourceFlowLog,
+			Factory:ResourceFlowLog,
 			TypeName: "aws_flow_log",
 			Name:,
 			Tags: &types.ServicePackageResourceTags{
@@ -796,7 +796,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceInstance,
+			Factory:ResourceInstance,
 			TypeName: "aws_instance",
 			Name:,
 			Tags: &types.ServicePackageResourceTags{
@@ -804,7 +804,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceInternetGateway,
+			Factory:ResourceInternetGateway,
 			TypeName: "aws_internet_gateway",
 			Name:Gateway",
 			Tags: &types.ServicePackageResourceTags{
@@ -812,11 +812,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceInternetGatewayAttachment,
+			Factory:ResourceInternetGatewayAttachment,
 			TypeName: "aws_internet_gateway_attachment",
 		},
 		{
-			Factory:  ResourceKeyPair,
+			Factory:ResourceKeyPair,
 			TypeName: "aws_key_pair",
 			Name:,
 			Tags: &types.ServicePackageResourceTags{
@@ -824,7 +824,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceLaunchTemplate,
+			Factory:ResourceLaunchTemplate,
 			TypeName: "aws_launch_template",
 			Name:mplate",
 			Tags: &types.ServicePackageResourceTags{
@@ -832,11 +832,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceMainRouteTableAssociation,
+			Factory:ResourceMainRouteTableAssociation,
 			TypeName: "aws_main_route_table_association",
 		},
 		{
-			Factory:  ResourceNATGateway,
+			Factory:ResourceNATGateway,
 			TypeName: "aws_nat_gateway",
 			Name:ay",
 			Tags: &types.ServicePackageResourceTags{
@@ -844,7 +844,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceNetworkACL,
+			Factory:ResourceNetworkACL,
 			TypeName: "aws_network_acl",
 			Name:CL",
 			Tags: &types.ServicePackageResourceTags{
@@ -852,15 +852,15 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceNetworkACLAssociation,
+			Factory:ResourceNetworkACLAssociation,
 			TypeName: "aws_network_acl_association",
 		},
 		{
-			Factory:  ResourceNetworkACLRule,
+			Factory:ResourceNetworkACLRule,
 			TypeName: "aws_network_acl_rule",
 		},
 		{
-			Factory:  ResourceNetworkInterface,
+			Factory:ResourceNetworkInterface,
 			TypeName: "aws_network_interface",
 			Name:nterface",
 			Tags: &types.ServicePackageResourceTags{
@@ -868,15 +868,15 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceNetworkInterfaceAttachment,
+			Factory:ResourceNetworkInterfaceAttachment,
 			TypeName: "aws_network_interface_attachment",
 		},
 		{
-			Factory:  ResourceNetworkInterfaceSGAttachment,
+			Factory:ResourceNetworkInterfaceSGAttachment,
 			TypeName: "aws_network_interface_sg_attachment",
 		},
 		{
-			Factory:  ResourcePlacementGroup,
+			Factory:ResourcePlacementGroup,
 			TypeName: "aws_placement_group",
 			Name: Group",
 			Tags: &types.ServicePackageResourceTags{
@@ -884,11 +884,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceRoute,
+			Factory:ResourceRoute,
 			TypeName: "aws_route",
 		},
 		{
-			Factory:  ResourceRouteTable,
+			Factory:ResourceRouteTable,
 			TypeName: "aws_route_table",
 			Name:le",
 			Tags: &types.ServicePackageResourceTags{
@@ -896,11 +896,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceRouteTableAssociation,
+			Factory:ResourceRouteTableAssociation,
 			TypeName: "aws_route_table_association",
 		},
 		{
-			Factory:  ResourceSecurityGroup,
+			Factory:ResourceSecurityGroup,
 			TypeName: "aws_security_group",
 			Name:Group",
 			Tags: &types.ServicePackageResourceTags{
@@ -908,19 +908,19 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceSecurityGroupRule,
+			Factory:ResourceSecurityGroupRule,
 			TypeName: "aws_security_group_rule",
 		},
 		{
-			Factory:  ResourceSnapshotCreateVolumePermission,
+			Factory:ResourceSnapshotCreateVolumePermission,
 			TypeName: "aws_snapshot_create_volume_permission",
 		},
 		{
-			Factory:  ResourceSpotDataFeedSubscription,
+			Factory:ResourceSpotDataFeedSubscription,
 			TypeName: "aws_spot_datafeed_subscription",
 		},
 		{
-			Factory:  ResourceSpotFleetRequest,
+			Factory:ResourceSpotFleetRequest,
 			TypeName: "aws_spot_fleet_request",
 			Name:t Request",
 			Tags: &types.ServicePackageResourceTags{
@@ -928,7 +928,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceSpotInstanceRequest,
+			Factory:ResourceSpotInstanceRequest,
 			TypeName: "aws_spot_instance_request",
 			Name:ance Request",
 			Tags: &types.ServicePackageResourceTags{
@@ -936,7 +936,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceSubnet,
+			Factory:ResourceSubnet,
 			TypeName: "aws_subnet",
 			Name:
 			Tags: &types.ServicePackageResourceTags{
@@ -944,11 +944,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceVolumeAttachment,
+			Factory:ResourceVolumeAttachment,
 			TypeName: "aws_volume_attachment",
 		},
 		{
-			Factory:  ResourceVPC,
+			Factory:ResourceVPC,
 			TypeName: "aws_vpc",
 			Name:
 			Tags: &types.ServicePackageResourceTags{
@@ -956,7 +956,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceVPCDHCPOptions,
+			Factory:ResourceVPCDHCPOptions,
 			TypeName: "aws_vpc_dhcp_options",
 			Name:ons",
 			Tags: &types.ServicePackageResourceTags{
@@ -964,11 +964,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceVPCDHCPOptionsAssociation,
+			Factory:ResourceVPCDHCPOptionsAssociation,
 			TypeName: "aws_vpc_dhcp_options_association",
 		},
 		{
-			Factory:  ResourceVPCEndpoint,
+			Factory:ResourceVPCEndpoint,
 			TypeName: "aws_vpc_endpoint",
 			Name:int",
 			Tags: &types.ServicePackageResourceTags{
@@ -976,27 +976,27 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceVPCEndpointConnectionAccepter,
+			Factory:ResourceVPCEndpointConnectionAccepter,
 			TypeName: "aws_vpc_endpoint_connection_accepter",
 		},
 		{
-			Factory:  ResourceVPCEndpointConnectionNotification,
+			Factory:ResourceVPCEndpointConnectionNotification,
 			TypeName: "aws_vpc_endpoint_connection_notification",
 		},
 		{
-			Factory:  ResourceVPCEndpointPolicy,
+			Factory:ResourceVPCEndpointPolicy,
 			TypeName: "aws_vpc_endpoint_policy",
 		},
 		{
-			Factory:  ResourceVPCEndpointRouteTableAssociation,
+			Factory:ResourceVPCEndpointRouteTableAssociation,
 			TypeName: "aws_vpc_endpoint_route_table_association",
 		},
 		{
-			Factory:  ResourceVPCEndpointSecurityGroupAssociation,
+			Factory:ResourceVPCEndpointSecurityGroupAssociation,
 			TypeName: "aws_vpc_endpoint_security_group_association",
 		},
 		{
-			Factory:  ResourceVPCEndpointService,
+			Factory:ResourceVPCEndpointService,
 			TypeName: "aws_vpc_endpoint_service",
 			Name:int Service",
 			Tags: &types.ServicePackageResourceTags{
@@ -1004,15 +1004,15 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceVPCEndpointServiceAllowedPrincipal,
+			Factory:ResourceVPCEndpointServiceAllowedPrincipal,
 			TypeName: "aws_vpc_endpoint_service_allowed_principal",
 		},
 		{
-			Factory:  ResourceVPCEndpointSubnetAssociation,
+			Factory:ResourceVPCEndpointSubnetAssociation,
 			TypeName: "aws_vpc_endpoint_subnet_association",
 		},
 		{
-			Factory:  ResourceIPAM,
+			Factory:ResourceIPAM,
 			TypeName: "aws_vpc_ipam",
 			Name:
 			Tags: &types.ServicePackageResourceTags{
@@ -1020,11 +1020,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceIPAMOrganizationAdminAccount,
+			Factory:ResourceIPAMOrganizationAdminAccount,
 			TypeName: "aws_vpc_ipam_organization_admin_account",
 		},
 		{
-			Factory:  ResourceIPAMPool,
+			Factory:ResourceIPAMPool,
 			TypeName: "aws_vpc_ipam_pool",
 			Name:",
 			Tags: &types.ServicePackageResourceTags{
@@ -1032,19 +1032,19 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceIPAMPoolCIDR,
+			Factory:ResourceIPAMPoolCIDR,
 			TypeName: "aws_vpc_ipam_pool_cidr",
 		},
 		{
-			Factory:  ResourceIPAMPoolCIDRAllocation,
+			Factory:ResourceIPAMPoolCIDRAllocation,
 			TypeName: "aws_vpc_ipam_pool_cidr_allocation",
 		},
 		{
-			Factory:  ResourceIPAMPreviewNextCIDR,
+			Factory:ResourceIPAMPreviewNextCIDR,
 			TypeName: "aws_vpc_ipam_preview_next_cidr",
 		},
 		{
-			Factory:  ResourceIPAMResourceDiscovery,
+			Factory:ResourceIPAMResourceDiscovery,
 			TypeName: "aws_vpc_ipam_resource_discovery",
 			Name:urce Discovery",
 			Tags: &types.ServicePackageResourceTags{
@@ -1052,7 +1052,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceIPAMResourceDiscoveryAssociation,
+			Factory:ResourceIPAMResourceDiscoveryAssociation,
 			TypeName: "aws_vpc_ipam_resource_discovery_association",
 			Name:urce Discovery Association",
 			Tags: &types.ServicePackageResourceTags{
@@ -1060,7 +1060,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceIPAMScope,
+			Factory:ResourceIPAMScope,
 			TypeName: "aws_vpc_ipam_scope",
 			Name:e",
 			Tags: &types.ServicePackageResourceTags{
@@ -1068,19 +1068,19 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceVPCIPv4CIDRBlockAssociation,
+			Factory:ResourceVPCIPv4CIDRBlockAssociation,
 			TypeName: "aws_vpc_ipv4_cidr_block_association",
 		},
 		{
-			Factory:  ResourceVPCIPv6CIDRBlockAssociation,
+			Factory:ResourceVPCIPv6CIDRBlockAssociation,
 			TypeName: "aws_vpc_ipv6_cidr_block_association",
 		},
 		{
-			Factory:  ResourceNetworkPerformanceMetricSubscription,
+			Factory:ResourceNetworkPerformanceMetricSubscription,
 			TypeName: "aws_vpc_network_performance_metric_subscription",
 		},
 		{
-			Factory:  ResourceVPCPeeringConnection,
+			Factory:ResourceVPCPeeringConnection,
 			TypeName: "aws_vpc_peering_connection",
 			Name:ng Connection",
 			Tags: &types.ServicePackageResourceTags{
@@ -1088,7 +1088,7 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceVPCPeeringConnectionAccepter,
+			Factory:ResourceVPCPeeringConnectionAccepter,
 			TypeName: "aws_vpc_peering_connection_accepter",
 			Name:ng Connection",
 			Tags: &types.ServicePackageResourceTags{
@@ -1096,11 +1096,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceVPCPeeringConnectionOptions,
+			Factory:ResourceVPCPeeringConnectionOptions,
 			TypeName: "aws_vpc_peering_connection_options",
 		},
 		{
-			Factory:  ResourceVPNConnection,
+			Factory:ResourceVPNConnection,
 			TypeName: "aws_vpn_connection",
 			Name:ction",
 			Tags: &types.ServicePackageResourceTags{
@@ -1108,11 +1108,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceVPNConnectionRoute,
+			Factory:ResourceVPNConnectionRoute,
 			TypeName: "aws_vpn_connection_route",
 		},
 		{
-			Factory:  ResourceVPNGateway,
+			Factory:ResourceVPNGateway,
 			TypeName: "aws_vpn_gateway",
 			Name:ay",
 			Tags: &types.ServicePackageResourceTags{
@@ -1120,11 +1120,11 @@ funcypeName: "aws_ami",
 			},
 		},
 		{
-			Factory:  ResourceVPNGatewayAttachment,
+			Factory:ResourceVPNGatewayAttachment,
 			TypeName: "aws_vpn_gateway_attachment",
 		},
 		{
-			Factory:  ResourceVPNGatewayRoutePropagation,
+			Factory:ResourceVPNGatewayRoutePropagation,
 			TypeName: "aws_vpn_gateway_route_propagation",
 		},
 	}

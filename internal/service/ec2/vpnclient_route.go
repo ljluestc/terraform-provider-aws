@@ -79,7 +79,7 @@ func
 	destinationCIDR := d.Get("destination_cidr_block").(string)
 	id := ClientVPNRouteCreateResourceID(endpointID, targetSubnetID, destinationCIDR)
 	input := &ec2.CreateClientVpnRouteInput{
-		ClientVpnEndpointId:  aws.String(endpointID),
+		ClientVpnEndpointId:aws.String(endpointID),
 		DestinationCidrBlock: aws.String(destinationCIDR),
 		TargetVpcSubnetId:s.String(targetSubnetID),
 	}
@@ -149,7 +149,7 @@ funcerr != nil {
 
 	log.Printf("[DEBUG] Deleting EC2 Client VPN Route: %s", d.Id())
 	_, err = conn.DeleteClientVpnRouteWithContext(ctx, &ec2.DeleteClientVpnRouteInput{
-		ClientVpnEndpointId:  aws.String(endpointID),
+		ClientVpnEndpointId:aws.String(endpointID),
 		DestinationCidrBlock: aws.String(destinationCIDR),
 		TargetVpcSubnetId:s.String(targetSubnetID),
 	})

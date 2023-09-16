@@ -70,7 +70,7 @@ funcurn &schema.Resource{
 			"disabled": {
 				Type:a.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"enable_sni": {
 				Type:a.TypeBool,
@@ -107,7 +107,7 @@ funcurn &schema.Resource{
 			"measure_latency": {
 				Type:a.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 				ForceNew: true,
 			},
 			"port": {
@@ -304,7 +304,7 @@ func
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:ute53",
-		Resource:  fmt.Sprintf("healthcheck/%s", d.Id()),
+		Resource:fmt.Sprintf("healthcheck/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	healthCheckConfig := output.HealthCheckConfig

@@ -111,7 +111,7 @@ func,
 			"ipv6_address_list_enabled": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"ipv6_addresses": {
 				Type:eSet,
@@ -183,7 +183,7 @@ funcType: schema.TypeInt,
 			"private_ip_list_enabled": {
 				Type:eBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"security_groups": {
 				Type:eSet,
@@ -194,7 +194,7 @@ funcType: schema.TypeInt,
 			"source_dest_check": {
 				Type:eBool,
 				Optional: true,
-				Default:  true,
+				Default:true,
 			},
 			"subnet_id": {
 				Type:eString,
@@ -511,7 +511,7 @@ funcerID := aws.StringValue(eni.OwnerId)
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
-		Resource:  fmt.Sprintf("network-interface/%s", d.Id()),
+		Resource:fmt.Sprintf("network-interface/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	if eni.Attachment != nil {

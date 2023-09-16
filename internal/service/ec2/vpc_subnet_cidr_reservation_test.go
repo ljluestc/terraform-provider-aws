@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSubnetCIDRReservationDestroy(ctx),
@@ -57,7 +57,7 @@ func TestAccVPCSubnetCIDRReservation_ipv6(t *testing.T) {
 	resourceName := "aws_ec2_subnet_cidr_reservation.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -88,7 +88,7 @@ func res ec2.SubnetCidrReservation
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckSubnetCIDRReservationDestroy(ctx),
@@ -174,22 +174,22 @@ return fmt.Sprintf("%s:%s", subnetId, rs.Primary.ID), nil
 func testAccVPCSubnetCIDRReservationConfig_testIPv4(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 funcgs = {
 func
 func
 resource "aws_subnet" "test" {
 funcc_idtest.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_subnet_cidr_reservation" "test" {
-  cidr_block1.16/28"
-  description
-  reservation_type = "prefix"
+cidr_block1.16/28"
+description
+reservation_type = "prefix"
 func
 `, rName)
 }
@@ -198,27 +198,27 @@ func
 func testAccVPCSubnetCIDRReservationConfig_testIPv6(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.0/24"
-  vpc_id = aws_vpc.test.id
-  ipv6_cidr_block = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+cidr_block.0/24"
+vpc_id = aws_vpc.test.id
+ipv6_cidr_block = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_subnet_cidr_reservation" "test" {
-  cidr_blockbnet(aws_vpc.test.ipv6_cidr_block, 12, 17)
-  reservation_type = "explicit"
+cidr_blockbnet(aws_vpc.test.ipv6_cidr_block, 12, 17)
+reservation_type = "explicit"
 func
 `, rName)
 }

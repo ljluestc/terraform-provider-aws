@@ -265,7 +265,7 @@ funcRaw, nRaw := d.GetChange("secondary_private_ip_addresses")
 			if add := n.Difference(o); add.Len() > 0 {
 				input := &ec2.AssociateNatGatewayAddressInput{
 					AllocationIds: flex.ExpandStringSet(add),
-					NatGatewayId:  aws.String(d.Id()),
+					NatGatewayId:aws.String(d.Id()),
 				}
 
 				if d.HasChanges("secondary_private_ip_addresses") {

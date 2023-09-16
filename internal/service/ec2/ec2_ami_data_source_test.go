@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	datasourceName := "data.aws_ami.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -72,7 +72,7 @@ func TestAccEC2AMIDataSource_windowsInstance(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -120,7 +120,7 @@ func TestAccEC2AMIDataSource_instanceStore(t *testing.T) {
 	datasourceName := "data.aws_ami.amzn-ami-minimal-hvm-instance-store"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -163,7 +163,7 @@ func TestAccEC2AMIDataSource_localNameFilter(t *testing.T) {
 	datasourceName := "data.aws_ami.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -184,7 +184,7 @@ funcasourceName := "data.aws_ami.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -215,17 +215,17 @@ func
 func testAccAMIDataSourceConfig_latestAmazonLinuxHVMInstanceStore() string {
 	return `
 data "aws_ami" "amzn-ami-minimal-hvm-instance-store" {
-  most_recent = true
+most_recent = true
 
-  filter {
+filter {
 me= "e"
 lues = ["amzn-ami-minimal-hvm-*"]
-  }
+}
 
-  filter {
+filter {
 me= "t-device-type"
 lues = ["instance-store"]
-  }
+}
 }
 func
 
@@ -235,71 +235,71 @@ func
 // Amazon Linux AMIs.
 const testAccAMIDataSourceConfig_basic = `
 data "aws_ami" "test" {
-  most_recent = true
-  ownersn"]
+most_recent = true
+ownersn"]
 
-  filter {
+filter {
 me= "e"
 lues = ["amzn-ami-vpc-nat*"]
-  }
+}
 
-  filter {
+filter {
 me= "tualization-type"
 lues = ["hvm"]
-  }
+}
 
-  filter {
+filter {
 me= "t-device-type"
 lues = ["ebs"]
-  }
+}
 
-  filter {
+filter {
 me= "ck-device-mapping.volume-type"
 lues = ["standard"]
-  }
+}
 }
 `
 
 // Windows image test.
 const testAccAMIDataSourceConfig_windows = `
 data "aws_ami" "test" {
-  most_recent = true
-  ownersn"]
+most_recent = true
+ownersn"]
 
-  filter {
+filter {
 me= "e"
 lues = ["Windows_Server-2012-R2*"]
-  }
+}
 
-  filter {
+filter {
 me= "tualization-type"
 lues = ["hvm"]
-  }
+}
 
-  filter {
+filter {
 me= "t-device-type"
 lues = ["ebs"]
-  }
+}
 
-  filter {
+filter {
 me= "ck-device-mapping.volume-type"
 lues = ["gp2"]
-  }
+}
 }
 `
 
 // Testing name_regex parameter
 const testAccAMIDataSourceConfig_nameRegex = `
 data "aws_ami" "test" {
-  most_recent = true
-  ownersn"]
+most_recent = true
+ownersn"]
 
-  filter {
+filter {
 me= "e"
 lues = ["amzn-ami-*"]
-  }
+}
 
-  name_regex = "^amzn-ami-min[a-z]{4}-hvm"
+name_regex = "^amzn-ami-min[a-z]{4}-hvm"
 }
 `
 
@@ -311,12 +311,12 @@ testAccAMIConfig_gp3BlockDevice(rName),
 data "aws_caller_identity" "current" {}
 
 data "aws_ami" "test" {
-  owners = [data.aws_caller_identity.current.account_id]
+owners = [data.aws_caller_identity.current.account_id]
 
-  filter {
+filter {
 me= "ge-id"
 lues = [aws_ami.test.id]
-  }
+}
 }
 `)
 }

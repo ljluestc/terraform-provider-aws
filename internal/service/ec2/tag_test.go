@@ -21,7 +21,7 @@ func := acctest.Context(t)
 	resourceName := "aws_ec2_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTagDestroy(ctx),
@@ -50,7 +50,7 @@ func TestAccEC2Tag_disappears(t *testing.T) {
 funcourceName := "aws_ec2_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -74,7 +74,7 @@ func TestAccEC2Tag_value(t *testing.T) {
 	rBgpAsn := sdkacctest.RandIntRange(64512, 65534)
 	resourceName := "aws_ec2_tag.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -108,34 +108,34 @@ func
 func testAccTagConfig_basic(rName string, rBgpAsn int, key, value string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_customer_gateway" "test" {
-  bgp_asn%[2]d
+bgp_asn%[2]d
 funcpe.1"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_connection" "test" {
-  customer_gateway_id = aws_customer_gateway.test.id
-  transit_gateway_id  = aws_ec2_transit_gateway.test.id
-  type = aws_customer_gateway.test.type
+customer_gateway_id = aws_customer_gateway.test.id
+transit_gateway_id= aws_ec2_transit_gateway.test.id
+type = aws_customer_gateway.test.type
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_tag" "test" {
-  resource_id = aws_vpn_connection.test.transit_gateway_attachment_id
-  key= %[3]q
-  value
+resource_id = aws_vpn_connection.test.transit_gateway_attachment_id
+key= %[3]q
+value
 }
 `, rName, rBgpAsn, key, value)
 }

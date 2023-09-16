@@ -25,13 +25,13 @@ func TestAccGlueCatalogDatabase_full(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy: testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:  testAccCatalogDatabaseConfig_basic(rName),
+				Config:testAccCatalogDatabaseConfig_basic(rName),
 				Destroy: false,
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckCatalogDatabaseExists(ctx, resourceName),
@@ -45,12 +45,12 @@ func TestAccGlueCatalogDatabase_full(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
-				Config:  testAccCatalogDatabaseConfig_full(rName, "A test catalog from terraform"),
+				Config:testAccCatalogDatabaseConfig_full(rName, "A test catalog from terraform"),
 				Destroy: false,
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckCatalogDatabaseExists(ctx, resourceName),
@@ -82,13 +82,13 @@ func TestAccGlueCatalogDatabase_createTablePermission(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy: testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:  testAccCatalogDatabaseConfig_permission(rName, "ALTER"),
+				Config:testAccCatalogDatabaseConfig_permission(rName, "ALTER"),
 				Destroy: false,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckCatalogDatabaseExists(ctx, resourceName),
@@ -100,12 +100,12 @@ func TestAccGlueCatalogDatabase_createTablePermission(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
-				Config:  testAccCatalogDatabaseConfig_permission(rName, "SELECT"),
+				Config:testAccCatalogDatabaseConfig_permission(rName, "SELECT"),
 				Destroy: false,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckCatalogDatabaseExists(ctx, resourceName),
@@ -126,13 +126,13 @@ func TestAccGlueCatalogDatabase_targetDatabase(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy: testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:  testAccCatalogDatabaseConfig_target(rName),
+				Config:testAccCatalogDatabaseConfig_target(rName),
 				Destroy: false,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckCatalogDatabaseExists(ctx, resourceName),
@@ -143,12 +143,12 @@ func TestAccGlueCatalogDatabase_targetDatabase(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
-				Config:  testAccCatalogDatabaseConfig_targetLocation(rName),
+				Config:testAccCatalogDatabaseConfig_targetLocation(rName),
 				Destroy: false,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckCatalogDatabaseExists(ctx, resourceName),
@@ -169,13 +169,13 @@ func TestAccGlueCatalogDatabase_targetDatabaseWithRegion(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy: testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:  testAccCatalogDatabaseConfig_targetWithRegion(rName),
+				Config:testAccCatalogDatabaseConfig_targetWithRegion(rName),
 				Destroy: false,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckCatalogDatabaseExists(ctx, resourceName),
@@ -186,8 +186,8 @@ func TestAccGlueCatalogDatabase_targetDatabaseWithRegion(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -200,13 +200,13 @@ func TestAccGlueCatalogDatabase_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy: testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:  testAccCatalogDatabaseConfig_tags1(rName, "key1", "value1"),
+				Config:testAccCatalogDatabaseConfig_tags1(rName, "key1", "value1"),
 				Destroy: false,
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckCatalogDatabaseExists(ctx, resourceName),
@@ -215,12 +215,12 @@ func TestAccGlueCatalogDatabase_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
-				Config:  testAccCatalogDatabaseConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+				Config:testAccCatalogDatabaseConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
 				Destroy: false,
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckCatalogDatabaseExists(ctx, resourceName),
@@ -230,7 +230,7 @@ func TestAccGlueCatalogDatabase_tags(t *testing.T) {
 				),
 			},
 			{
-				Config:  testAccCatalogDatabaseConfig_tags1(rName, "key2", "value2"),
+				Config:testAccCatalogDatabaseConfig_tags1(rName, "key2", "value2"),
 				Destroy: false,
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckCatalogDatabaseExists(ctx, resourceName),
@@ -248,10 +248,10 @@ func TestAccGlueCatalogDatabase_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy: testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCatalogDatabaseConfig_basic(rName),
@@ -299,7 +299,7 @@ func testAccCheckDatabaseDestroy(ctx context.Context) resource.TestCheckFunc {
 func testAccCatalogDatabaseConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
-  name = %[1]q
+name = %[1]q
 }
 `, rName)
 }
@@ -307,15 +307,15 @@ resource "aws_glue_catalog_database" "test" {
 func testAccCatalogDatabaseConfig_full(rName, desc string) string {
 	return fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
-  name         = %[1]q
-  description  = %[2]q
-  location_uri = "my-location"
+name = %[1]q
+description= %[2]q
+location_uri = "my-location"
 
-  parameters = {
-    param1 = "value1"
-    param2 = true
-    param3 = 50
-  }
+parameters = {
+param1 = "value1"
+param2 = true
+param3 = 50
+}
 }
 `, rName, desc)
 }
@@ -323,16 +323,16 @@ resource "aws_glue_catalog_database" "test" {
 func testAccCatalogDatabaseConfig_target(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
-  name = %[1]q
+name = %[1]q
 
-  target_database {
-    catalog_id    = aws_glue_catalog_database.test2.catalog_id
-    database_name = aws_glue_catalog_database.test2.name
-  }
+target_database {
+catalog_id= aws_glue_catalog_database.test2.catalog_id
+database_name = aws_glue_catalog_database.test2.name
+}
 }
 
 resource "aws_glue_catalog_database" "test2" {
-  name = "%[1]s-2"
+name = "%[1]s-2"
 }
 `, rName)
 }
@@ -340,17 +340,17 @@ resource "aws_glue_catalog_database" "test2" {
 func testAccCatalogDatabaseConfig_targetLocation(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
-  name = %[1]q
+name = %[1]q
 
-  target_database {
-    catalog_id    = aws_glue_catalog_database.test2.catalog_id
-    database_name = aws_glue_catalog_database.test2.name
-  }
+target_database {
+catalog_id= aws_glue_catalog_database.test2.catalog_id
+database_name = aws_glue_catalog_database.test2.name
+}
 }
 
 resource "aws_glue_catalog_database" "test2" {
-  name         = "%[1]s-2"
-  location_uri = "my-location"
+name = "%[1]s-2"
+location_uri = "my-location"
 }
 `, rName)
 }
@@ -358,19 +358,19 @@ resource "aws_glue_catalog_database" "test2" {
 func testAccCatalogDatabaseConfig_targetWithRegion(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
-  name = %[1]q
+name = %[1]q
 
-  target_database {
-    catalog_id    = aws_glue_catalog_database.test2.catalog_id
-    database_name = aws_glue_catalog_database.test2.name
-    region        = %[2]q
-  }
+target_database {
+catalog_id= aws_glue_catalog_database.test2.catalog_id
+database_name = aws_glue_catalog_database.test2.name
+region= %[2]q
+}
 }
 
 resource "aws_glue_catalog_database" "test2" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  name = "%[1]s-2"
+name = "%[1]s-2"
 }
 `, rName, acctest.AlternateRegion()))
 }
@@ -378,15 +378,15 @@ resource "aws_glue_catalog_database" "test2" {
 func testAccCatalogDatabaseConfig_permission(rName, permission string) string {
 	return fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
-  name = %[1]q
+name = %[1]q
 
-  create_table_default_permission {
-    permissions = [%[2]q]
+create_table_default_permission {
+permissions = [%[2]q]
 
-    principal {
-      data_lake_principal_identifier = "IAM_ALLOWED_PRINCIPALS"
-    }
-  }
+principal {
+data_lake_principal_identifier = "IAM_ALLOWED_PRINCIPALS"
+}
+}
 }
 `, rName, permission)
 }
@@ -394,11 +394,11 @@ resource "aws_glue_catalog_database" "test" {
 func testAccCatalogDatabaseConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
-  name = %[1]q
+name = %[1]q
 
-  tags = {
-    %[2]q = %[3]q
-  }
+tags = {
+%[2]q = %[3]q
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -406,12 +406,12 @@ resource "aws_glue_catalog_database" "test" {
 func testAccCatalogDatabaseConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
-  name = %[1]q
+name = %[1]q
 
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

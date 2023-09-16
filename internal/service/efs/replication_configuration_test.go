@@ -30,7 +30,7 @@ region := acctest.Region()
 var providers []*schema.Provider
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:acctest.CheckWithProviders(testAccCheckReplicationConfigurationDestroyWithProvider(ctx), &providers),
 Steps: []resource.TestStep{
@@ -169,40 +169,40 @@ return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {}
 
 resource "aws_efs_replication_configuration" "test" {
-  source_file_system_id = aws_efs_file_system.test.id
+source_file_system_id = aws_efs_file_system.test.id
 
-  destination {
+destination {
 gion = %[1]q
-  }
+}
 funcegion)
 }
 
 func testAccReplicationConfigurationConfig_full(region string) string {
 return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 }
 
 data "aws_availability_zones" "available" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  state = "available"
+state = "available"
 
 func"-in-status"
 lues = ["opt-in-not-required"]
-  }
+}
 }
 
 resource "aws_efs_file_system" "test" {}
 
 resource "aws_efs_replication_configuration" "test" {
-  source_file_system_id = aws_efs_file_system.test.id
+source_file_system_id = aws_efs_file_system.test.id
 
-  destination {
+destination {
 ailability_zone_name = data.aws_availability_zones.available.names[0]
 s_key_id= aws_kms_key.test.key_id
-gion  = %[1]q
-  }
+gion= %[1]q
+}
 }
 `, region))
 }

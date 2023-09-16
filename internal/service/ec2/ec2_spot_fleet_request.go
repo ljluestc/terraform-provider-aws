@@ -53,7 +53,7 @@ Timeouts: &schema.ResourceTimeout{
 },
 
 SchemaVersion: 1,
-MigrateState:  SpotFleetRequestMigrateState,
+MigrateState:SpotFleetRequestMigrateState,
 
 Schema: map[string]*schema.Schema{
 	"allocation_strategy": {
@@ -77,7 +77,7 @@ func: validation.StringIsNotWhiteSpace,
 	// Provided constants do not have the correct casing so going with hard-coded values.
 func:eString,
 Optional: true,
-Default:  "Default",
+Default:"Default",
 Validate
 func: validation.StringInSlice([]string{
 	"Default",
@@ -107,7 +107,7 @@ func: validation.StringInSlice(ec2.InstanceInterruptionBehavior_Values(), false)
 	"instance_pools_to_use_count": {
 Type:eInt,
 Optional: true,
-Default:  1,
+Default:1,
 ForceNew: true,
 funcunch_specification": {
 Type:eSet,
@@ -123,7 +123,7 @@ Elem: &schema.Resource{
 "associate_public_ip_address": {
 	Type:eBool,
 	Optional: true,
-	Default:  false,
+	Default:false,
 },
 "availability_zone": {
 	Type:eString,
@@ -140,7 +140,7 @@ Schema: map[string]*schema.Schema{
 	"delete_on_termination": {
 Type:eBool,
 Optional: true,
-Default:  true,
+Default:true,
 ForceNew: true,
 	},
 	"device_name": {
@@ -198,7 +198,7 @@ func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 },
 "ebs_optimized": {
 	Type:eBool,
-funcault:  false,
+funcault:false,
 },
 "ephemeral_block_device": {
 	Type:eSet,
@@ -246,7 +246,7 @@ func: validation.NoZeroValues,
 "monitoring": {
 	Type:eBool,
 	Optional: true,
-	Default:  false,
+	Default:false,
 },
 "placement_group": {
 	Type:eString,
@@ -275,7 +275,7 @@ Schema: map[string]*schema.Schema{
 	"delete_on_termination": {
 Type:eBool,
 Optional: true,
-Default:  true,
+Default:true,
 ForceNew: true,
 	},
 	"encrypted": {
@@ -779,7 +779,7 @@ Optional: true,
 Type:eBool,
 Optional: true,
 ForceNew: true,
-Default:  false,
+Default:false,
 	},
 	"spot_maintenance_strategies": {
 Type:hema.TypeList,
@@ -867,7 +867,7 @@ func: validation.IsRFC3339Time,
 	"wait_for_fulfillment": {
 Type:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	},
 },
 
@@ -1160,7 +1160,7 @@ terminateInstances = v
 	log.Printf("[INFO] Deleting EC2 Spot Fleet Request: %s", d.Id())
 	output, err := conn.CancelSpotFleetRequestsWithContext(ctx, &ec2.CancelSpotFleetRequestsInput{
 SpotFleetRequestIds: aws.StringSlice([]string{d.Id()}),
-TerminateInstances:  aws.Bool(terminateInstances),
+TerminateInstances:aws.Bool(terminateInstances),
 	})
 
 	if err == nil && output != nil {
@@ -1310,7 +1310,7 @@ ni := &ec2.InstanceNetworkInterfaceSpecification{
 	AssociatePublicIpAddress: aws.Bool(true),
 	DeleteOnTermination:true),
 	DeviceIndex:0),
-	SubnetId:  aws.String(subnetId.(string)),
+	SubnetId:aws.String(subnetId.(string)),
 	Groups:curityGroupIds,
 }
 
@@ -1385,7 +1385,7 @@ vL := v.(*schema.Set).List()
 for _, v := range vL {
 	bd := v.(map[string]interface{})
 	blockDevices = append(blockDevices, &ec2.BlockDeviceMapping{
-DeviceName:  aws.String(bd["device_name"].(string)),
+DeviceName:aws.String(bd["device_name"].(string)),
 VirtualName: aws.String(bd["virtual_name"].(string)),
 	})
 }

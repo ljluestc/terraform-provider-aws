@@ -204,35 +204,35 @@ func rs.Primary.ID == "" {
 func testAccDeviceFleetBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 data "aws_partition" "current" {}
 funcurce "aws_iam_role" "test" {
-  name
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 ce"
 tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
 
-  }
+}
 }
 
 resource "aws_iam_role_policy" "test" {
-  name = %[1]q
-  role = aws_iam_role.test.id
+name = %[1]q
+role = aws_iam_role.test.id
 
-  policy = <<EOF
+policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
+"Version": "2012-10-17",
+"Statement": [
 
 ect": "Allow",
 ion": [
@@ -251,14 +251,14 @@ ource": [
 "
 
 
-  ]
+]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "test" {
-  rolews_iam_role.test.name
-  policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonSageMakerEdgeDeviceFleetPolicy"
+rolews_iam_role.test.name
+policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonSageMakerEdgeDeviceFleetPolicy"
 }
 `, rName)
 }
@@ -266,39 +266,39 @@ resource "aws_iam_role_policy_attachment" "test" {
 func testAccDeviceFleetConfig_basic(rName string) string {
 	return testAccDeviceFleetBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_device_fleet" "test" {
-  device_fleet_name = %[1]q
-  role_arnrole.test.arn
+device_fleet_name = %[1]q
+role_arnrole.test.arn
 
-  output_config {
+output_config {
 _output_location = "s3://${aws_s3_bucket.test.bucket}/prefix/"
-  }
+}
 funcName)
 }
 
 func testAccDeviceFleetConfig_description(rName, desc string) string {
 	return testAccDeviceFleetBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_device_fleet" "test" {
-  device_fleet_name = %[1]q
-  role_arnrole.test.arn
-  description[2]q
+device_fleet_name = %[1]q
+role_arnrole.test.arn
+description[2]q
 
-  output_config {
+output_config {
 _output_location = "s3://${aws_s3_bucket.test.bucket}/prefix/"
-  }
+}
 funcName, desc)
 }
 
 func testAccDeviceFleetConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return testAccDeviceFleetBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_device_fleet" "test" {
-  device_fleet_name = %[1]q
-  role_arnrole.test.arn
+device_fleet_name = %[1]q
+role_arnrole.test.arn
 
-  output_config {
+output_config {
 _output_location = "s3://${aws_s3_bucket.test.bucket}/prefix/"
-  }
+}
 
-  tags = {
+tags = {
 func
 }
 `, rName, tagKey1, tagValue1)
@@ -307,14 +307,14 @@ func
 func testAccDeviceFleetConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return testAccDeviceFleetBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_device_fleet" "test" {
-  device_fleet_name = %[1]q
-  role_arnrole.test.arn
+device_fleet_name = %[1]q
+role_arnrole.test.arn
 
-  output_config {
+output_config {
 _output_location = "s3://${aws_s3_bucket.test.bucket}/prefix/"
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
 func
 }

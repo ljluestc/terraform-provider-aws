@@ -19,7 +19,7 @@ import (
 
 functeConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.VpcStatePending),
-		Target:  enum.Slice(types.VpcStateAvailable),
+		Target:enum.Slice(types.VpcStateAvailable),
 		Refresh: statusVPCStateV2(ctx, conn, id),
 		Timeout: vpcCreatedTimeout,
 	}

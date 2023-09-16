@@ -24,7 +24,7 @@ resourceName := "aws_efs_file_system_policy.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckFileSystemPolicyDestroy(ctx),
 Steps: []resource.TestStep{
@@ -58,7 +58,7 @@ funcurceName := "aws_efs_file_system_policy.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestrofuncs: []resource.TestStep{
@@ -80,7 +80,7 @@ var desc efs.DescribeFileSystemPolicyOutput
 resourceName := "aws_efs_file_system_policy.test"
 func
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckFileSystemPolicyDestroy(ctx),
@@ -115,7 +115,7 @@ var desc efs.DescribeFileSystemPolicyOutput
 resourceName := "aws_efs_file_system_policy.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  func() { acctest.PreCheck(ctx, t) },
+funcheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckFileSystemPolicyDestroy(ctx),
@@ -142,7 +142,7 @@ resourceName := "aws_efs_file_system_policy.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckFileSystemPolicyDestroy(ctx),
 Steps: []resource.TestStep{
@@ -210,13 +210,13 @@ return nil
 func testAccFileSystemPolicyConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_file_system_policy" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 
-  policy = <<POLICY
+policy = <<POLICY
 {
 ersion": "2012-10-17",
 d": "ExamplePolicy01",
@@ -247,13 +247,13 @@ POLICY
 func testAccFileSystemPolicyConfig_updated(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_file_system_policy" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 
-  policy = <<POLICY
+policy = <<POLICY
 {
 ersion": "2012-10-17",
 d": "ExamplePolicy01",
@@ -281,15 +281,15 @@ POLICY
 func testAccFileSystemPolicyConfig_bypass(rName string, bypass bool) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_file_system_policy" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 
-  bypass_policy_lockout_safety_check = %[2]t
+bypass_policy_lockout_safety_check = %[2]t
 
-  policy = <<POLICY
+policy = <<POLICY
 {
 ersion": "2012-10-17",
 d": "ExamplePolicy01",
@@ -320,13 +320,13 @@ POLICY
 func testAccFileSystemPolicyConfig_firstEquivalent(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_file_system_policy" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 
-  policy = jsonencode({
+policy = jsonencode({
 rsion = "2012-10-17"
 = "ePolicy01"
 atement = [{
@@ -345,7 +345,7 @@ ureTransport" = "true"
 
 
 
-  })
+})
 }
 `, rName)
 }
@@ -353,13 +353,13 @@ ureTransport" = "true"
 func testAccFileSystemPolicyConfig_secondEquivalent(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_file_system_policy" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 
-  policy = jsonencode({
+policy = jsonencode({
 rsion = "2012-10-17"
 = "ePolicy01"
 atement = [{
@@ -378,7 +378,7 @@ ureTransport" = ["true"]
 
 
 
-  })
+})
 }
 `, rName)
 }
@@ -386,18 +386,18 @@ ureTransport" = ["true"]
 func testAccFileSystemPolicyConfig_equivalentIAMDoc(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_file_system_policy" "test" {
-  file_system_id = aws_efs_file_system.test.id
-  policys_iam_policy_document.test.json
+file_system_id = aws_efs_file_system.test.id
+policys_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
-  version = "2012-10-17"
+version = "2012-10-17"
 
-  statement {
+statement {
 d = "Allow mount and write"
 
 tions = [
@@ -411,9 +411,9 @@ incipals {
 = "A
 fiers = ["*"]
 
-  }
+}
 
-  statement {
+statement {
 d = ce in-transit encryption for all clients"
 fect = ny"
 tions= []
@@ -429,7 +429,7 @@ ndition {
 le = "aws:SecureTransport"
 = ["fa"]
 
-  }
+}
 }
 `, rName)
 }

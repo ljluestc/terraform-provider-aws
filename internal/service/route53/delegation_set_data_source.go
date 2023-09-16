@@ -69,7 +69,7 @@ funcn := meta.(*conns.AWSClient).Route53Conn(ctx)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:ute53",
-		Resource:  fmt.Sprintf("delegationset/%s", d.Id()),
+		Resource:fmt.Sprintf("delegationset/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 

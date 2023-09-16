@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_instance_types.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstanceTypes(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:l,
@@ -38,7 +38,7 @@ func TestAccEC2InstanceTypesDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_instance_types.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstanceTypes(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -79,9 +79,9 @@ data "aws_ec2_instance_types" "test" {}
 
 funcurn `
 data "aws_ec2_instance_types" "test" {
-  filter {
+filter {
 me= "rent-generation"
 lues = ["true"]
-  }
+}
 }
 func

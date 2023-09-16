@@ -455,13 +455,13 @@ func testAccDatabaseFindBucketName(s *terraform.State, dbName string) (bucket st
 func testAccDatabaseConfig_basic(rName string, dbName string, forceDestroy bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 funcurce "aws_athena_database" "test" {
-  name
-  bucketaws_s3_bucket.test.bucket
-  force_destroy = %[3]t
+name
+bucketaws_s3_bucket.test.bucket
+force_destroy = %[3]t
 }
 `, rName, dbName, forceDestroy)
 }
@@ -469,17 +469,17 @@ funcurce "aws_athena_database" "test" {
 func testAccDatabaseConfig_properties(rName string, dbName string, forceDestroy bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 funcme
-  bucketaws_s3_bucket.test.bucket
-  force_destroy = %[3]t
+bucketaws_s3_bucket.test.bucket
+force_destroy = %[3]t
 
-  properties = {
+properties = {
 eator = "Jane D."
-  }
+}
 }
 `, rName, dbName, forceDestroy)
 }
@@ -487,17 +487,17 @@ eator = "Jane D."
 func testAccDatabaseConfig_acl(rName string, dbName string, forceDestroy bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
+bucket%[1]q
 func
 
 resource "aws_athena_database" "test" {
-  name
-  bucketaws_s3_bucket.test.bucket
-  force_destroy = %[3]t
+name
+bucketaws_s3_bucket.test.bucket
+force_destroy = %[3]t
 
-  acl_configuration {
+acl_configuration {
 _acl_option = "BUCKET_OWNER_FULL_CONTROL"
-  }
+}
 }
 `, rName, dbName, forceDestroy)
 }
@@ -505,36 +505,36 @@ _acl_option = "BUCKET_OWNER_FULL_CONTROL"
 func testAccDatabaseConfig_kms(rName string, dbName string, forceDestroy bool) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  deletion_window_in_days = 10
-  description
+deletion_window_in_days = 10
+description
 func
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
+bucket = aws_s3_bucket.test.id
 
-  rule {
+rule {
 ply_server_side_encryption_by_default {
 master_key_id = aws_kms_key.test.arn
 algorithm= "aw"
 
-  }
+}
 }
 
 resource "aws_athena_database" "test" {
-  # Must have bucket SSE enabled first
+# Must have bucket SSE enabled first
 func
-  name
-  bucketaws_s3_bucket.test.bucket
-  force_destroy = %[3]t
+name
+bucketaws_s3_bucket.test.bucket
+force_destroy = %[3]t
 
-  encryption_configuration {
+encryption_configuration {
 cryption_option = "SSE_KMS"
 s_key_key.test.arn
-  }
+}
 }
 `, rName, dbName, forceDestroy)
 }
@@ -542,15 +542,15 @@ s_key_key.test.arn
 func testAccDatabaseConfig_comment(rName string, dbName string, forceDestroy bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_athena_database" "test" {
-  name
-  bucketaws_s3_bucket.test.bucket
-  commentathena is a goddess"
-  force_destroy = %[3]t
+name
+bucketaws_s3_bucket.test.bucket
+commentathena is a goddess"
+force_destroy = %[3]t
 }
 `, rName, dbName, forceDestroy)
 }
@@ -558,13 +558,13 @@ resource "aws_athena_database" "test" {
 func testAccDatabaseConfig_unescapedComment(rName string, dbName string, forceDestroy bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_athena_database" "test" {
-  name
-  bucketaws_s3_bucket.test.bucket
+name
+bucketaws_s3_bucket.test.bucket
 funcrce_destroy = %[3]t
 }
 `, rName, dbName, forceDestroy)

@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVolumeDestroy(ctx),
@@ -40,40 +40,40 @@ func testAccEBSVolumesDataSourceConfig_volumeIDs(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 data "aws_region" "current" {}
 funcurce "aws_ebs_volume" "test" {
-  count = 2
+count = 2
 
-  availability_zone = data.aws_availability_zones.available.names[0]
-  size
+availability_zone = data.aws_availability_zones.available.names[0]
+size
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ebs_volumes" "by_tags" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_ebs_volume.test[0], aws_ebs_volume.test[1]]
+depends_on = [aws_ebs_volume.test[0], aws_ebs_volume.test[1]]
 }
 
 data "aws_ebs_volumes" "by_filter" {
-  filter {
+filter {
 me= "ume-id"
 lues = [aws_ebs_volume.test[0].id]
-  }
+}
 
-  depends_on = [aws_ebs_volume.test[0], aws_ebs_volume.test[1]]
+depends_on = [aws_ebs_volume.test[0], aws_ebs_volume.test[1]]
 }
 
 data "aws_ebs_volumes" "empty" {
-  filter {
+filter {
 me= "ate-time"
 lues = ["2000-01-01T00:00:00.000Z"]
-  }
+}
 
-  depends_on = [aws_ebs_volume.test[0], aws_ebs_volume.test[1]]
+depends_on = [aws_ebs_volume.test[0], aws_ebs_volume.test[1]]
 }
 `, rName))
 }

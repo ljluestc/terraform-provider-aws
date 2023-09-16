@@ -30,7 +30,7 @@ import (
 func ResourceConnection() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceConnectionCreate,
-		ReadWithoutTimeout:   resourceConnectionRead,
+		ReadWithoutTimeout: resourceConnectionRead,
 		UpdateWithoutTimeout: resourceConnectionUpdate,
 		DeleteWithoutTimeout: resourceConnectionDelete,
 		Importer: &schema.ResourceImporter{
@@ -40,72 +40,72 @@ func ResourceConnection() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"catalog_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				ForceNew: true,
 				Optional: true,
 				Computed: true,
 			},
 			"connection_properties": {
-				Type:         schema.TypeMap,
-				Optional:     true,
-				Sensitive:    true,
+				Type: schema.TypeMap,
+				Optional: true,
+				Sensitive:true,
 				ValidateFunc: mapKeyInSlice(glue.ConnectionPropertyKey_Values(), false),
-				Elem:         &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"connection_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      glue.ConnectionTypeJdbc,
+				Type: schema.TypeString,
+				Optional: true,
+				Default:glue.ConnectionTypeJdbc,
 				ValidateFunc: validation.StringInSlice(glue.ConnectionType_Values(), false),
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type: schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 2048),
 			},
 			"match_criteria": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 10,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type: schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(1, 255),
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type: schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"physical_connection_requirements": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"availability_zone": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"security_group_id_list": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							MaxItems: 50,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"subnet_id": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -124,9 +124,9 @@ func resourceConnectionCreate(ctx context.Context, d *schema.ResourceData, meta 
 	name := d.Get("name").(string)
 
 	input := &glue.CreateConnectionInput{
-		CatalogId:       aws.String(catalogID),
+		CatalogId: aws.String(catalogID),
 		ConnectionInput: expandConnectionInput(d),
-		Tags:            getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	log.Printf("[DEBUG] Creating Glue Connection: %s", input)
@@ -162,10 +162,10 @@ func resourceConnectionRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	connectionArn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "glue",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service: "glue",
+		Region:meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("connection/%s", connectionName),
+		Resource:fmt.Sprintf("connection/%s", connectionName),
 	}.String()
 	d.Set("arn", connectionArn)
 
@@ -197,9 +197,9 @@ func resourceConnectionUpdate(ctx context.Context, d *schema.ResourceData, meta 
 		}
 
 		input := &glue.UpdateConnectionInput{
-			CatalogId:       aws.String(catalogID),
+			CatalogId: aws.String(catalogID),
 			ConnectionInput: expandConnectionInput(d),
-			Name:            aws.String(connectionName),
+			Name:aws.String(connectionName),
 		}
 
 		log.Printf("[DEBUG] Updating Glue Connection: %s", input)
@@ -240,7 +240,7 @@ func DecodeConnectionID(id string) (string, string, error) {
 
 func DeleteConnection(ctx context.Context, conn *glue.Glue, catalogID, connectionName string) error {
 	input := &glue.DeleteConnectionInput{
-		CatalogId:      aws.String(catalogID),
+		CatalogId:aws.String(catalogID),
 		ConnectionName: aws.String(connectionName),
 	}
 
@@ -265,8 +265,8 @@ func expandConnectionInput(d *schema.ResourceData) *glue.ConnectionInput {
 
 	connectionInput := &glue.ConnectionInput{
 		ConnectionProperties: aws.StringMap(connectionProperties),
-		ConnectionType:       aws.String(d.Get("connection_type").(string)),
-		Name:                 aws.String(d.Get("name").(string)),
+		ConnectionType: aws.String(d.Get("connection_type").(string)),
+		Name: aws.String(d.Get("name").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -310,9 +310,9 @@ func flattenPhysicalConnectionRequirements(physicalConnectionRequirements *glue.
 	}
 
 	m := map[string]interface{}{
-		"availability_zone":      aws.StringValue(physicalConnectionRequirements.AvailabilityZone),
+		"availability_zone":aws.StringValue(physicalConnectionRequirements.AvailabilityZone),
 		"security_group_id_list": flex.FlattenStringSet(physicalConnectionRequirements.SecurityGroupIdList),
-		"subnet_id":              aws.StringValue(physicalConnectionRequirements.SubnetId),
+		"subnet_id":aws.StringValue(physicalConnectionRequirements.SubnetId),
 	}
 
 	return []map[string]interface{}{m}

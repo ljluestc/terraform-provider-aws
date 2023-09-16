@@ -153,29 +153,29 @@ func testAccTransitGatewayPeeringAttachmentAccepterConfig_base(rName string) str
 data "aws_region" "current" {}
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "peer" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_peering_attachment" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  peer_account_id= aws_ec2_transit_gateway.test.owner_id
-  peer_regiondata.aws_region.current.name
-  peer_transit_gateway_id = aws_ec2_transit_gateway.test.id
-  transit_gateway_id_transit_gateway.peer.id
+peer_account_id= aws_ec2_transit_gateway.test.owner_id
+peer_regiondata.aws_region.current.name
+peer_transit_gateway_id = aws_ec2_transit_gateway.test.id
+transit_gateway_id_transit_gateway.peer.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -187,7 +187,7 @@ acctest.ConfigAlternateRegionProvider(),
 testAccTransitGatewayPeeringAttachmentAccepterConfig_base(rName),
 `
 resource "aws_ec2_transit_gateway_peering_attachment_accepter" "test" {
-  transit_gateway_attachment_id = aws_ec2_transit_gateway_peering_attachment.test.id
+transit_gateway_attachment_id = aws_ec2_transit_gateway_peering_attachment.test.id
 }
 `)
 }
@@ -198,11 +198,11 @@ acctest.ConfigAlternateRegionProvider(),
 testAccTransitGatewayPeeringAttachmentAccepterConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_peering_attachment_accepter" "test" {
-  transit_gateway_attachment_id = aws_ec2_transit_gateway_peering_attachment.test.id
+transit_gateway_attachment_id = aws_ec2_transit_gateway_peering_attachment.test.id
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tagKey1, tagValue1))
 func
@@ -213,12 +213,12 @@ acctest.ConfigAlternateRegionProvider(),
 testAccTransitGatewayPeeringAttachmentAccepterConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_peering_attachment_accepter" "test" {
-  transit_gateway_attachment_id = aws_ec2_transit_gateway_peering_attachment.test.id
+transit_gateway_attachment_id = aws_ec2_transit_gateway_peering_attachment.test.id
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 func
@@ -229,11 +229,11 @@ acctest.ConfigAlternateAccountAlternateRegionProvider(),
 testAccTransitGatewayPeeringAttachmentAccepterConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_peering_attachment_accepter" "test" {
-  transit_gateway_attachment_id = aws_ec2_transit_gateway_peering_attachment.test.id
+transit_gateway_attachment_id = aws_ec2_transit_gateway_peering_attachment.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }

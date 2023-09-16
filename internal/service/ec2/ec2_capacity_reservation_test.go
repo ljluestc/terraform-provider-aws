@@ -28,7 +28,7 @@ func := acctest.Context(t)
 	resourceName := "aws_ec2_capacity_reservation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckCapacityReservationDestroy(ctx),
@@ -69,7 +69,7 @@ func TestAccEC2CapacityReservation_disappears(t *testing.T) {
 	var cr ec2.CapacityReservation
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -93,7 +93,7 @@ func TestAccEC2CapacityReservation_ebsOptimized(t *testing.T) {
 	resourceName := "aws_ec2_capacity_reservation.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -162,7 +162,7 @@ func cr ec2.CapacityReservation
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -233,7 +233,7 @@ func TestAccEC2CapacityReservation_instanceCount(t *testing.T) {
 	resourceName := "aws_ec2_capacity_reservation.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -269,7 +269,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -297,7 +297,7 @@ func TestAccEC2CapacityReservation_instanceType(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -332,7 +332,7 @@ func TestAccEC2CapacityReservation_tags(t *testing.T) {
 	resourceName := "aws_ec2_capacity_reservation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckCapacityReservationDestroy(ctx),
@@ -378,7 +378,7 @@ func TestAccEC2CapacityReservation_tenancy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -469,9 +469,9 @@ func
 func
 var testAccCapacityReservationConfig_basic = acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), `
 funcailability_zone = data.aws_availability_zones.available.names[0]
-  instance_count1
-  instance_platform = "Linux/UNIX"
-  instance_typeo"
+instance_count1
+instance_platform = "Linux/UNIX"
+instance_typeo"
 }
 `)
 
@@ -479,15 +479,15 @@ funcailability_zone = data.aws_availability_zones.available.names[0]
 func testAccCapacityReservationConfig_ebsOptimized(rName string, ebsOptimized bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  ebs_optimized
-  instance_count1
-  instance_platform = "Linux/UNIX"
-  instance_typee"
+availability_zone = data.aws_availability_zones.available.names[0]
+ebs_optimized
+instance_count1
+instance_platform = "Linux/UNIX"
+instance_typee"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, ebsOptimized))
 }
@@ -495,16 +495,16 @@ me = %[1]q
 
 func testAccCapacityReservationConfig_endDate(rName, endDate string) string {
 funcurce "aws_ec2_capacity_reservation" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  end_date = %[2]q
-  end_date_type"
-  instance_count1
-  instance_platform = "Linux/UNIX"
-  instance_typeo"
+availability_zone = data.aws_availability_zones.available.names[0]
+end_date = %[2]q
+end_date_type"
+instance_count1
+instance_platform = "Linux/UNIX"
+instance_typeo"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, endDate))
 }
@@ -513,15 +513,15 @@ me = %[1]q
 func testAccCapacityReservationConfig_endDateType(rName, endDateType string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  end_date_type
-  instance_count1
-  instance_platform = "Linux/UNIX"
-  instance_typeo"
+availability_zone = data.aws_availability_zones.available.names[0]
+end_date_type
+instance_count1
+instance_platform = "Linux/UNIX"
+instance_typeo"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 funcName, endDateType))
 }
 
@@ -529,15 +529,15 @@ funcName, endDateType))
 func testAccCapacityReservationConfig_ephemeralStorage(rName string, ephemeralStorage bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  ephemeral_storage = %[2]t
-  instance_count1
-  instance_platform = "Linux/UNIX"
-  instance_typeum"
+availability_zone = data.aws_availability_zones.available.names[0]
+ephemeral_storage = %[2]t
+instance_count1
+instance_platform = "Linux/UNIX"
+instance_typeum"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 func
 
@@ -545,14 +545,14 @@ func
 func testAccCapacityReservationConfig_instanceCount(rName string, instanceCount int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  instance_count%[2]d
-  instance_platform = "Linux/UNIX"
-  instance_typeo"
+availability_zone = data.aws_availability_zones.available.names[0]
+instance_count%[2]d
+instance_platform = "Linux/UNIX"
+instance_typeo"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, instanceCount))
 }
@@ -560,15 +560,15 @@ me = %[1]q
 func testAccCapacityReservationConfig_instanceMatchCriteria(rName, instanceMatchCriteria string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
-  availability_zonews_availability_zones.available.names[0]
-  instance_count = 1
-  instance_platform/UNIX"
-  instance_match_criteria = %[2]q
-  instance_type  = "t2.micro"
+availability_zonews_availability_zones.available.names[0]
+instance_count = 1
+instance_platform/UNIX"
+instance_match_criteria = %[2]q
+instance_type= "t2.micro"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, instanceMatchCriteria))
 }
@@ -576,14 +576,14 @@ me = %[1]q
 
 funcurn acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  instance_count1
-  instance_platform = "Linux/UNIX"
-  instance_type
+availability_zone = data.aws_availability_zones.available.names[0]
+instance_count1
+instance_platform = "Linux/UNIX"
+instance_type
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, instanceType))
 }
@@ -592,13 +592,13 @@ me = %[1]q
 func testAccCapacityReservationConfig_tags1(tag1Key, tag1Value string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 funcailability_zone = data.aws_availability_zones.available.names[0]
-  instance_count1
-  instance_platform = "Linux/UNIX"
-  instance_typeo"
+instance_count1
+instance_platform = "Linux/UNIX"
+instance_typeo"
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tag1Key, tag1Value))
 }
@@ -608,13 +608,13 @@ func testAccCapacityReservationConfig_tags2(tag1Key, tag1Value, tag2Key, tag2Val
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
 funcstance_count1
-  instance_platform = "Linux/UNIX"
-  instance_typeo"
+instance_platform = "Linux/UNIX"
+instance_typeo"
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 `, tag1Key, tag1Value, tag2Key, tag2Value))
 }
@@ -623,14 +623,14 @@ funcstance_count1
 func testAccCapacityReservationConfig_tenancy(rName, tenancy string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
-  availability_zone = data.aws_availability_zones.available.names[1]
+availability_zone = data.aws_availability_zones.available.names[1]
 funcstance_platform = "Linux/UNIX"
-  instance_typerge"
-  tenancy  = %[2]q
+instance_typerge"
+tenancy= %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, tenancy))
 }

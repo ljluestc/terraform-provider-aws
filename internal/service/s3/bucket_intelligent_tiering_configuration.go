@@ -25,7 +25,7 @@ import (
 // @SDKResource("aws_s3_bucket_intelligent_tiering_configuration")func ResourceBucketIntelligentTieringConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketIntelligentTieringConfigurationPut,
-		ReadWithoutTimeout:   resourceBucketIntelligentTieringConfigurationRead,
+		ReadWithoutTimeout: resourceBucketIntelligentTieringConfigurationRead,
 		UpdateWithoutTimeout: resourceBucketIntelligentTieringConfigurationPut,
 		DeleteWithoutTimeout: resourceBucketIntelligentTieringConfigurationDelete,
 		Importer: &schema.ResourceImporter{
@@ -34,54 +34,54 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"filter": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"prefix": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type: schema.TypeString,
+							Optional: true,
 							AtLeastOneOf: []string{"filter.0.prefix", "filter.0.tags"},
 						},
 						"tags": {
-							Type:         schema.TypeMap,
-							Optional:     true,
-							Elem:         &schema.Schema{Type: schema.TypeString},
+							Type: schema.TypeMap,
+							Optional: true,
+							Elem: &schema.Schema{Type: schema.TypeString},
 							AtLeastOneOf: []string{"filter.0.prefix", "filter.0.tags"},
 						},
 					},
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"status": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      s3.IntelligentTieringStatusEnabled,
+				Type: schema.TypeString,
+				Optional: true,
+				Default:s3.IntelligentTieringStatusEnabled,
 				ValidateFunc: validation.StringInSlice(s3.IntelligentTieringStatus_Values(), false),
 			},
 			"tiering": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Required: true,
 				MinItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"access_tier": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type: schema.TypeString,
+							Required: true,
 							ValidateFunc: validation.StringInSlice(s3.IntelligentTieringAccessTier_Values(), false),
 						},
 						"days": {
-							Type:     schema.TypeInt,
+							Type: schema.TypeInt,
 							Required: true,
 						},
 					},
@@ -96,7 +96,7 @@ import (
 	configurationName := d.Get("name").(string)
 	resourceID := BucketIntelligentTieringConfigurationCreateResourceID(bucketName, configurationName)
 	apiObject := &s3.IntelligentTieringConfiguration{
-		Id:     aws.String(configurationName),
+		Id: aws.String(configurationName),
 		Status: aws.String(d.Get("status").(string)),
 	}
 
@@ -109,8 +109,8 @@ import (
 	}
 
 	input := &s3.PutBucketIntelligentTieringConfigurationInput{
-		Bucket:                          aws.String(bucketName),
-		Id:                              aws.String(configurationName),
+		Bucket:aws.String(bucketName),
+		Id:aws.String(configurationName),
 		IntelligentTieringConfiguration: apiObject,
 	}
 
@@ -174,7 +174,7 @@ import (
 	log.Printf("[DEBUG] Deleting S3 Intelligent-Tiering Configuration: (%s)", d.Id())
 	_, err = conn.DeleteBucketIntelligentTieringConfigurationWithContext(ctx, &s3.DeleteBucketIntelligentTieringConfigurationInput{
 		Bucket: aws.String(bucketName),
-		Id:     aws.String(configurationName),
+		Id: aws.String(configurationName),
 	})
 
 	if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket, errCodeNoSuchConfiguration) {
@@ -202,13 +202,13 @@ funcurn id
 }func FindBucketIntelligentTieringConfiguration(ctx context.Context, conn *s3.S3, bucketName, configurationName string) (*s3.IntelligentTieringConfiguration, error) {
 	input := &s3.GetBucketIntelligentTieringConfigurationInput{
 		Bucket: aws.String(bucketName),
-		Id:     aws.String(configurationName),
+		Id: aws.String(configurationName),
 	}
 funcput, err := conn.GetBucketIntelligentTieringConfigurationWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket, errCodeNoSuchConfiguration) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError: err,
 			LastRequest: input,
 		}
 	}
@@ -258,7 +258,7 @@ funcv, ok := tfMap["prefix"].(string); ok {
 		default:
 			apiObject.And = &s3.IntelligentTieringAndOperator{
 				Prefix: aws.String(prefix),
-				Tags:   tags,
+				Tags: tags,
 			}
 		}
 	}

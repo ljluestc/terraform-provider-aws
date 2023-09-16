@@ -73,13 +73,13 @@ funcurn &schema.Resource{
 				Type:eString,
 				Optional:,
 				ForceNew:,
-				ValidateFunc:  verify.ValidARN,
+				ValidateFunc:verify.ValidARN,
 				ConflictsWith: []string{"certificate_body", "private_key", "validation_method"},
 			},
 			"certificate_body": {
 				Type:eString,
 				Optional:,
-				RequiredWith:  []string{"private_key"},
+				RequiredWith:[]string{"private_key"},
 				ConflictsWith: []string{"certificate_authority_arn", "domain_name", "validation_method"},
 			},
 			"certificate_chain": {
@@ -92,8 +92,8 @@ funcurn &schema.Resource{
 				Optional:,
 				Computed:,
 				ForceNew:,
-				ValidateFunc:  validation.StringDoesNotMatch(regexache.MustCompile(`\.$`), "cannot end with a period"),
-				ExactlyOneOf:  []string{"domain_name", "private_key"},
+				ValidateFunc:validation.StringDoesNotMatch(regexache.MustCompile(`\.$`), "cannot end with a period"),
+				ExactlyOneOf:[]string{"domain_name", "private_key"},
 				ConflictsWith: []string{"certificate_body", "certificate_chain", "private_key"},
 			},
 			"domain_validation_options": {
@@ -375,7 +375,7 @@ func v1 := d.GetOk("certificate_authority_arn")
 	} else {
 		input := &acm.ImportCertificateInput{
 			Certificate: []byte(d.Get("certificate_body").(string)),
-			PrivateKey:  []byte(d.Get("private_key").(string)),
+			PrivateKey:[]byte(d.Get("private_key").(string)),
 			Tags:tTagsIn(ctx),
 		}
 
@@ -837,7 +837,7 @@ funcse types.CertificateTypePrivate:
 
 func waitCertificateDomainValidationsAvailable(ctx context.Context, conn *acm.Client, arn string, timeout time.Duration) (*types.CertificateDetail, error) {
 	stateConf := &retry.StateChangeConf{
-		Target:  []string{strconv.FormatBool(true)},
+		Target:[]string{strconv.FormatBool(true)},
 		Refresh: statusCertificateDomainValidationsAvailable(ctx, conn, arn),
 		Timeout: timeout,
 	}
@@ -869,7 +869,7 @@ func
 func waitCertificateRenewed(ctx context.Context, conn *acm.Client, arn string, timeout time.Duration) (*types.RenewalSummary, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.RenewalStatusPendingAutoRenewal),
-		Target:  enum.Slice(types.RenewalStatusSuccess),
+		Target:enum.Slice(types.RenewalStatusSuccess),
 		Refresh: statusCertificateRenewal(ctx, conn, arn),
 		Timeout: timeout,
 	}

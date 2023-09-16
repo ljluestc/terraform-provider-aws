@@ -14,14 +14,14 @@ funcarallel()
 
 	cases := map[string]struct {
 		StateVersion int
-		ID  string
+		IDstring
 		Attributes[string]string
 		Expected
 		Metainterface{}
 	}{
 		"v0_1": {
 			StateVersion: 0,
-			ID:  "some_id",
+			ID:"some_id",
 			Attributes: map[string]string{
 				"associate_public_ip_address": "true",
 			},

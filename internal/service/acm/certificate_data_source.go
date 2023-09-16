@@ -50,7 +50,7 @@ funcurn &schema.Resource{
 			"most_recent": {
 				Type:a.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"status": {
 				Type:a.TypeString,

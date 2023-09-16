@@ -27,7 +27,7 @@ func := acctest.Context(t)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -66,7 +66,7 @@ func proj dataexchange.GetDataSetOutput
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -111,7 +111,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -179,20 +179,20 @@ funccontinue
 func testAccDataSetConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dataexchange_data_set" "test" {
-  asset_type  = "S3_SNAPSHOT"
-  description = %[1]q
-  name1]q
+asset_type= "S3_SNAPSHOT"
+description = %[1]q
+name1]q
 }
 func
 
 func testAccDataSetConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_dataexchange_data_set" "test" {
-  asset_type  = "S3_SNAPSHOT"
-  description = %[1]q
-  name1]q
+asset_type= "S3_SNAPSHOT"
+description = %[1]q
+name1]q
 
-  tags = {
+tags = {
 func
 }
 `, rName, tagKey1, tagValue1)
@@ -201,11 +201,11 @@ func
 func testAccDataSetConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_dataexchange_data_set" "test" {
-  asset_type  = "S3_SNAPSHOT"
-  description = %[1]q
-  name1]q
+asset_type= "S3_SNAPSHOT"
+description = %[1]q
+name1]q
 
-  tags = {
+tags = {
 2]q = %[3]q
 func
 }

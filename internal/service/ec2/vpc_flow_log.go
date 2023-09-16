@@ -67,13 +67,13 @@ func		},
 						"hive_compatible_partitions": {
 							Type:eBool,
 							Optional: true,
-							Default:  false,
+							Default:false,
 							ForceNew: true,
 						},
 						"per_hour_partition": {
 							Type:eBool,
 							Optional: true,
-							Default:  false,
+							Default:false,
 							ForceNew: true,
 						},
 					},
@@ -97,7 +97,7 @@ func: verify.ValidARN,
 funcComputed:
 				ForceNew:
 				Validate
-func:  verify.ValidARN,
+func:verify.ValidARN,
 				ConflictsWith: []string{"log_group_name"},
 			},
 			"log_destination_type": {
@@ -208,7 +208,7 @@ func
 		LogDestinationType: aws.String(d.Get("log_destination_type").(string)),
 		ResourceIds:ingSlice([]string{resourceID}),
 		ResourceType:ng(resourceType),
-		TagSpecifications:  getTagSpecificationsIn(ctx, ec2.ResourceTypeVpcFlowLog),
+		TagSpecifications:getTagSpecificationsIn(ctx, ec2.ResourceTypeVpcFlowLog),
 	}
 
 	if resourceType != ec2.FlowLogsResourceTypeTransitGateway && resourceType != ec2.FlowLogsResourceTypeTransitGatewayAttachment {
@@ -283,7 +283,7 @@ funcerr != nil {
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("vpc-flow-log/%s", d.Id()),
+		Resource:fmt.Sprintf("vpc-flow-log/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("deliver_cross_account_role", fl.DeliverCrossAccountRole)

@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx),
@@ -47,7 +47,7 @@ func testAccTransitGatewayMulticastDomainAssociation_disappears(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -72,7 +72,7 @@ func testAccTransitGatewayMulticastDomainAssociation_Disappears_domain(t *testin
 	domainResourceName := "aws_ec2_transit_gateway_multicast_domain.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -98,7 +98,7 @@ func testAccTransitGatewayMulticastDomainAssociation_twoAssociations(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx),
@@ -180,52 +180,52 @@ return nil
 func testAccTransitGatewayMulticastDomainAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_ec2_transit_gateway" "test" {
-  multicast_support = "enable"
+multicast_support = "enable"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain_association" "test" {
-  subnet_idws_subnet.test.id
-  transit_gateway_attachment_id2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
+subnet_idws_subnet.test.id
+transit_gateway_attachment_id2_transit_gateway_vpc_attachment.test.id
+transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
 }
 `, rName))
 }
@@ -234,68 +234,68 @@ resource "aws_ec2_transit_gateway_multicast_domain_association" "test" {
 func testAccTransitGatewayMulticastDomainAssociationConfig_twoAssociations(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test1" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_subnet" "test2" {
-  availability_zone = data.aws_availability_zones.available.names[1]
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[1]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  multicast_support = "enable"
+multicast_support = "enable"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test1.id, aws_subnet.test2.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test1.id, aws_subnet.test2.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain_association" "test1" {
-  subnet_idws_subnet.test1.id
-  transit_gateway_attachment_id2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
+subnet_idws_subnet.test1.id
+transit_gateway_attachment_id2_transit_gateway_vpc_attachment.test.id
+transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain_association" "test2" {
-  subnet_idws_subnet.test2.id
-  transit_gateway_attachment_id2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
+subnet_idws_subnet.test2.id
+transit_gateway_attachment_id2_transit_gateway_vpc_attachment.test.id
+transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
 }
 `, rName))
 }

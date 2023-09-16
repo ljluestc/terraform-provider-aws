@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -37,7 +37,7 @@ func TestAccVPCSecurityGroupRulesDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -55,18 +55,18 @@ func
 func testAccVPCSecurityGroupRulesDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
 resource "aws_vpc_security_group_ingress_rule" "test" {
-  security_group_id = aws_security_group.test.id
+security_group_id = aws_security_group.test.id
 
-  cidr_ipv410.0.0.0/8"
+cidr_ipv410.0.0.0/8"
 func_protocol = "tcp"
-  to_port
+to_port
 }
 
 data "aws_vpc_security_group_rules" "test" {
-  filter {
+filter {
 me= "urity-group-rule-id"
 lues = [aws_vpc_security_group_ingress_rule.test.id]
-  }
+}
 }
 `)
 }
@@ -75,36 +75,36 @@ lues = [aws_vpc_security_group_ingress_rule.test.id]
 func testAccVPCSecurityGroupRulesDataSourceConfig_tags(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpc_security_group_ingress_rule" "test" {
-  security_group_id = aws_security_group.test.id
+security_group_id = aws_security_group.test.id
 
-  cidr_ipv410.0.0.0/8"
-  from_port0
+cidr_ipv410.0.0.0/8"
+from_port0
 func_port
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_security_group_egress_rule" "test" {
-  security_group_id = aws_security_group.test.id
+security_group_id = aws_security_group.test.id
 
-  cidr_ipv410.0.0.0/8"
-  from_port0
-  ip_protocol = "tcp"
-  to_port
+cidr_ipv410.0.0.0/8"
+from_port0
+ip_protocol = "tcp"
+to_port
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_vpc_security_group_rules" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_vpc_security_group_ingress_rule.test, aws_vpc_security_group_egress_rule.test]
+depends_on = [aws_vpc_security_group_ingress_rule.test, aws_vpc_security_group_egress_rule.test]
 }
 `, rName))
 }

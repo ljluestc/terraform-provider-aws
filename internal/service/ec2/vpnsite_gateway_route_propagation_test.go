@@ -24,7 +24,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPNGatewayRoutePropagationDestroy(ctx),
@@ -45,7 +45,7 @@ func TestAccSiteVPNGatewayRoutePropagation_disappears(t *testing.T) {
 	resourceName := "aws_vpn_gateway_route_propagation.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -121,31 +121,31 @@ return nil
 func testAccSiteVPNGatewayRoutePropagationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpn_gateway_route_propagation" "test" {
-  vpn_gateway_id = aws_vpn_gateway.test.id
-  route_table_id = aws_route_table.test.id
+vpn_gateway_id = aws_vpn_gateway.test.id
+route_table_id = aws_route_table.test.id
 }
 `, rName)
 }

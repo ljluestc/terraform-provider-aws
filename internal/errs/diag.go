@@ -11,7 +11,7 @@ import (
 )
 
 const (
-summaryInvalidValue     = "Invalid value"
+summaryInvalidValue = "Invalid value"
 summaryInvalidValueType = "Invalid value type"
 )
 
@@ -55,16 +55,16 @@ path,
 func NewErrorDiagnostic(summary, detail string) diag.Diagnostic {
 return diag.Diagnostic{
 Severity: diag.Error,
-Summary:  summary,
-Detail:   detail,
+Summary:summary,
+Detail: detail,
 }
 }
 
 func NewWarningDiagnostic(summary, detail string) diag.Diagnostic {
 return diag.Diagnostic{
 Severity: diag.Warning,
-Summary:  summary,
-Detail:   detail,
+Summary:summary,
+Detail: detail,
 }
 }
 

@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	resourceName := "aws_vpc_ipam.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckIPAMDestroy(ctx),
@@ -61,7 +61,7 @@ func TestAccIPAM_disappears(t *testing.T) {
 	var ipam ec2.Ipam
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -119,7 +119,7 @@ func TestAccIPAM_operatingRegions(t *testing.T) {
 	resourceName := "aws_vpc_ipam.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
@@ -160,7 +160,7 @@ func TestAccIPAM_cascade(t *testing.T) {
 	var ipam ec2.Ipam
 	resourceName := "aws_vpc_ipam.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -188,7 +188,7 @@ func ipam ec2.Ipam
 	resourceName := "aws_vpc_ipam.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -297,9 +297,9 @@ const testAccIPAMConfig_basic = `
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 `
 
@@ -317,11 +317,11 @@ func testAccIPAMConfig_description(description string) string {
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  description = %[1]q
+description = %[1]q
 
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 `, description)
 }
@@ -332,17 +332,17 @@ func testAccIPAMConfig_twoOperatingRegions() string {
 data "aws_region" "current" {}
 
 data "aws_region" "alternate" {
-  provider = awsalternate
+provider = awsalternate
 }
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.alternate.name
-  }
+}
 }
 func
 
@@ -352,13 +352,13 @@ func testAccIPAMConfig_tags(tagKey1, tagValue1 string) string {
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 funcagKey1, tagValue1)
 }
 
@@ -368,14 +368,14 @@ func testAccIPAMConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) stri
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2)
 }

@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	rdName := "aws_vpc_ipam_resource_discovery.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
@@ -57,7 +57,7 @@ func testAccIPAMResourceDiscoveryAssociation_tags(t *testing.T) {
 	var rda ec2.IpamResourceDiscoveryAssociation
 func
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -101,7 +101,7 @@ func testAccIPAMResourceDiscoveryAssociation_disappears(t *testing.T) {
 	resourceName := "aws_vpc_ipam_resource_discovery_association.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
@@ -172,17 +172,17 @@ const testAccIPAMResourceDiscoveryAssociationConfig_base = `
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  description = "test ipam"
-  operating_regions {
+description = "test ipam"
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 
 resource "aws_vpc_ipam_resource_discovery" "test" {
-  description = "test ipam resource discovery"
-  operating_regions {
+description = "test ipam resource discovery"
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 `
 
@@ -190,8 +190,8 @@ gion_name = data.aws_region.current.name
 func testAccIPAMResourceDiscoveryAssociationConfig_basic() string {
 	return acctest.ConfigCompose(testAccIPAMResourceDiscoveryAssociationConfig_base, `
 resource "aws_vpc_ipam_resource_discovery_association" "test" {
-  ipam_idipam.test.id
-  ipam_resource_discovery_id = aws_vpc_ipam_resource_discovery.test.id
+ipam_idipam.test.id
+ipam_resource_discovery_id = aws_vpc_ipam_resource_discovery.test.id
 }
 `)
 }
@@ -200,10 +200,10 @@ resource "aws_vpc_ipam_resource_discovery_association" "test" {
 func testAccIPAMResourceDiscoveryAssociationConfig_tags(tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccIPAMResourceDiscoveryAssociationConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_resource_discovery_association" "test" {
-  ipam_idipam.test.id
-  ipam_resource_discovery_id = aws_vpc_ipam_resource_discovery.test.id
+ipam_idipam.test.id
+ipam_resource_discovery_id = aws_vpc_ipam_resource_discovery.test.id
 
-  tags = {
+tags = {
 func
 }
 `, tagKey1, tagValue1))
@@ -213,12 +213,12 @@ func
 func testAccIPAMResourceDiscoveryAssociationConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccIPAMResourceDiscoveryAssociationConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_resource_discovery_association" "test" {
-  ipam_idipam.test.id
+ipam_idipam.test.id
 func
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 	`, tagKey1, tagValue1, tagKey2, tagValue2))
 }

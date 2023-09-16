@@ -16,7 +16,7 @@ import (
 
 func := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -35,7 +35,7 @@ func TestAccVPCManagedPrefixListsDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -53,7 +53,7 @@ func
 func TestAccVPCManagedPrefixListsDataSource_noMatches(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funcs: []resource.TestStep{
@@ -74,27 +74,27 @@ func "aws_ec2_managed_prefix_lists" "test" {}
 func testAccVPCManagedPrefixListsDataSourceConfig_tags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 data "aws_ec2_managed_prefix_lists" "test" {
-  tags = {
+tags = {
 me = aws_ec2_managed_prefix_list.test.tags["Name"]
-  }
+}
 }
 `, rName)
 }
 
 const testAccVPCManagedPrefixListsDataSourceConfig_noMatches = `
 data "aws_ec2_managed_prefix_lists" "test" {
-  filter {
+filter {
 me= "fix-list-name"
 lues = ["no-match"]
-  }
+}
 }
 `

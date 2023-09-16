@@ -140,7 +140,7 @@ func!d.IsNewResource() && tfresource.NotFound(err) {
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("placement-group/%s", d.Id()),
+		Resource:fmt.Sprintf("placement-group/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("name", pg.GroupName)

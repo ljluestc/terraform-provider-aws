@@ -187,7 +187,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: aws.StringValue(vpce.OwnerId),
-		Resource:  fmt.Sprintf("vpc-endpoint/%s", d.Id()),
+		Resource:fmt.Sprintf("vpc-endpoint/%s", d.Id()),
 	}.String()
 	serviceName := aws.StringValue(vpce.ServiceName)
 

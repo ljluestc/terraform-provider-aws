@@ -187,10 +187,10 @@ func rs.Primary.ID == "" {
 func testAccKeySigningKeyConfig_base(rName, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  customer_master_key_spec = "ECC_NIST_P256"
-  deletion_window_in_days  = 7
-  key_usage = "SIGN_VERIFY"
-  policy = jsonencode({
+customer_master_key_spec = "ECC_NIST_P256"
+deletion_window_in_days= 7
+key_usage = "SIGN_VERIFY"
+policy = jsonencode({
 func
 tion = [
 ibeKey",
@@ -214,11 +214,11 @@ d = "E IAM User Permissions"
 
 
 rsion = "2012-10-17"
-  })
+})
 }
 
 resource "aws_route53_zone" "test" {
-  name = %[2]q
+name = %[2]q
 }
 `, rName, domainName)
 }
@@ -226,19 +226,19 @@ resource "aws_route53_zone" "test" {
 func testAccKeySigningKeyConfig_name(rName, domainName string) string {
 	return acctest.ConfigCompose(testAccKeySigningKeyConfig_base(rName, domainName), fmt.Sprintf(`
 resource "aws_route53_key_signing_key" "test" {
-  hosted_zone_idoute53_zone.test.id
-  key_management_service_arn = aws_kms_key.test.arn
-  name%[1]q
+hosted_zone_idoute53_zone.test.id
+key_management_service_arn = aws_kms_key.test.arn
+name%[1]q
 }
 `, rName))
 func
 func testAccKeySigningKeyConfig_status(rName, domainName, status string) string {
 	return acctest.ConfigCompose(testAccKeySigningKeyConfig_base(rName, domainName), fmt.Sprintf(`
 resource "aws_route53_key_signing_key" "test" {
-  hosted_zone_idoute53_zone.test.id
-  key_management_service_arn = aws_kms_key.test.arn
-  name%[1]q
-  status2]q
+hosted_zone_idoute53_zone.test.id
+key_management_service_arn = aws_kms_key.test.arn
+name%[1]q
+status2]q
 }
 `, rName, status))
 func

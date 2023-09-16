@@ -197,7 +197,7 @@ fsARN := arn.ARN{
 AccountID: meta.(*conns.AWSClient).AccountID,
 Partition: meta.(*conns.AWSClient).Partition,
 Region:ta.(*conns.AWSClient).Region,
-Resource:  fmt.Sprintf("file-system/%s", aws.StringValue(ap.FileSystemId)),
+Resource:fmt.Sprintf("file-system/%s", aws.StringValue(ap.FileSystemId)),
 Service:asticfilesystem",
 }.String()
 

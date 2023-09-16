@@ -103,7 +103,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
-		Resource:  fmt.Sprintf("dhcp-options/%s", d.Id()),
+		Resource:fmt.Sprintf("dhcp-options/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("dhcp_options_id", d.Id())

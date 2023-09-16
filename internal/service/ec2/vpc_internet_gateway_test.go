@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	resourceName := "aws_internet_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckInternetGatewayDestroy(ctx),
@@ -55,7 +55,7 @@ func TestAccVPCInternetGateway_disappears(t *testing.T) {
 	var v ec2.InternetGateway
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -81,7 +81,7 @@ func TestAccVPCInternetGateway_Attachment(t *testing.T) {
 	vpc2ResourceName := "aws_vpc.test2"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -117,7 +117,7 @@ func TestAccVPCInternetGateway_Tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckInternetGatewayDestroy(ctx),
@@ -214,26 +214,26 @@ resource "aws_internet_gateway" "test" {}
 func testAccVPCInternetGatewayConfig_attachment(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = "%[1]s-1"
-  }
+}
 }
 
 resource "aws_vpc" "test2" {
-  cidr_block = "10.2.0.0/16"
+cidr_block = "10.2.0.0/16"
 
-  tags = {
+tags = {
 me = "%[1]s-2"
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test1.id
+vpc_id = aws_vpc.test1.id
 
 func %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -242,25 +242,25 @@ func %[1]q
 func testAccVPCInternetGatewayConfig_attachmentUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = "%[1]s-1"
-  }
+}
 }
 
 resource "aws_vpc" "test2" {
-  cidr_block = "10.2.0.0/16"
+cidr_block = "10.2.0.0/16"
 
-  tags = {
+tags = {
 me = "%[1]s-2"
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test2.id
+vpc_id = aws_vpc.test2.id
 
-  tags = {
+tags = {
 func
 }
 `, rName)
@@ -270,9 +270,9 @@ func
 func testAccVPCInternetGatewayConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -281,10 +281,10 @@ resource "aws_internet_gateway" "test" {
 func testAccVPCInternetGatewayConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

@@ -45,7 +45,7 @@ funcurn &schema.Resource{
 				Type:eBool,
 				Optional: true,
 				ForceNew: true,
-				Default:  false,
+				Default:false,
 			},
 			"from_port": {
 				Type:eInt,

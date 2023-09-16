@@ -22,7 +22,7 @@ func := acctest.Context(t)
 	resourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:apshotDestroy(ctx),
@@ -46,7 +46,7 @@ func TestAccEC2EBSSnapshotCopy_disappears(t *testing.T) {
 funcourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -70,7 +70,7 @@ func TestAccEC2EBSSnapshotCopy_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ebs_snapshot_copy.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -112,7 +112,7 @@ func TestAccEC2EBSSnapshotCopy_withDescription(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -161,7 +161,7 @@ func TestAccEC2EBSSnapshotCopy_withKMS(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 	resourceName := "aws_ebs_snapshot_copy.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -185,7 +185,7 @@ func := acctest.Context(t)
 	resourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:apshotDestroy(ctx),
@@ -206,15 +206,15 @@ func testAccEBSSnapshotCopyBaseConfig(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 data "aws_region" "current" {}
 funcurce "aws_ebs_volume" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  size
+availability_zone = data.aws_availability_zones.available.names[0]
+size
 }
 
 resource "aws_ebs_snapshot" "test" {
-  volume_id = aws_ebs_volume.test.id
+volume_id = aws_ebs_volume.test.id
 
 func %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -232,13 +232,13 @@ funcurce_regions_region.current.name
 func testAccEBSSnapshotCopyConfig_storageTier(rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot_copy" "test" {
-  source_snapshot_id = aws_ebs_snapshot.test.id
-  source_regions_region.current.name
-  storage_tierve"
+source_snapshot_id = aws_ebs_snapshot.test.id
+source_regions_region.current.name
+storage_tierve"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -246,12 +246,12 @@ me = %[1]q
 func testAccEBSSnapshotCopyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot_copy" "test" {
-  source_snapshot_id = aws_ebs_snapshot.test.id
-  source_regions_region.current.name
+source_snapshot_id = aws_ebs_snapshot.test.id
+source_regions_region.current.name
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 func
 
@@ -259,13 +259,13 @@ func
 func testAccEBSSnapshotCopyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot_copy" "test" {
-  source_snapshot_id = aws_ebs_snapshot.test.id
-  source_regions_region.current.name
+source_snapshot_id = aws_ebs_snapshot.test.id
+source_regions_region.current.name
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 func
@@ -273,13 +273,13 @@ func
 func testAccEBSSnapshotCopyConfig_description(rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot_copy" "test" {
-  description Snapshot Acceptance Test"
-  source_snapshot_id = aws_ebs_snapshot.test.id
-  source_regions_region.current.name
+description Snapshot Acceptance Test"
+source_snapshot_id = aws_ebs_snapshot.test.id
+source_regions_region.current.name
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 func
@@ -287,44 +287,44 @@ func
 func testAccEBSSnapshotCopyConfig_regions(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 data "aws_availability_zones" "alternate_available" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  state = "available"
+state = "available"
 
-  filter {
+filter {
 me= "-in-status"
 lues = ["opt-in-not-required"]
-  }
+}
 }
 
 funcovider = "awsalternate"
 }
 
 resource "aws_ebs_volume" "test" {
-  provider
-  availability_zone = data.aws_availability_zones.alternate_available.names[0]
-  size
+provider
+availability_zone = data.aws_availability_zones.alternate_available.names[0]
+size
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ebs_snapshot" "test" {
-  provider  = "awsalternate"
+provider= "awsalternate"
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ebs_snapshot_copy" "test" {
-  source_snapshot_id = aws_ebs_snapshot.test.id
-  source_regions_region.alternate.name
+source_snapshot_id = aws_ebs_snapshot.test.id
+source_regions_region.alternate.name
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -333,19 +333,19 @@ me = %[1]q
 func testAccEBSSnapshotCopyConfig_kms(rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 7
+description
+deletion_window_in_days = 7
 }
 
 resource "aws_ebs_snapshot_copy" "test" {
-  source_snapshot_id = aws_ebs_snapshot.test.id
-  source_regions_region.current.name
-  encrypted
-  kms_key_idkms_key.test.arn
+source_snapshot_id = aws_ebs_snapshot.test.id
+source_regions_region.current.name
+encrypted
+kms_key_idkms_key.test.arn
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }

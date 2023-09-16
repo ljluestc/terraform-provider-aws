@@ -31,7 +31,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckKeyPairDestroy(ctx),
@@ -69,7 +69,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -120,7 +120,7 @@ func TestAccEC2KeyPair_nameGenerated(t *testing.T) {
 t.Fatalf("error generating random SSH key: %s", err)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -190,7 +190,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckKeyPairDestroy(ctx),
@@ -261,8 +261,8 @@ func
 func testAccKeyPairConfig_basic(rName, publicKey string) string {
 	return fmt.Sprintf(`
 resource "aws_key_pair" "test" {
-  key_name[1]q
-  public_key = %[2]q
+key_name[1]q
+public_key = %[2]q
 }
 `, rName, publicKey)
 }
@@ -271,12 +271,12 @@ resource "aws_key_pair" "test" {
 func testAccKeyPairConfig_tags1(rName, publicKey, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_key_pair" "test" {
-  key_name[1]q
-  public_key = %[2]q
+key_name[1]q
+public_key = %[2]q
 
-  tags = {
+tags = {
 3]q = %[4]q
-  }
+}
 }
 `, rName, publicKey, tagKey1, tagValue1)
 }
@@ -284,13 +284,13 @@ resource "aws_key_pair" "test" {
 func testAccKeyPairConfig_tags2(rName, publicKey, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_key_pair" "test" {
-  key_name[1]q
-  public_key = %[2]q
+key_name[1]q
+public_key = %[2]q
 
-  tags = {
+tags = {
 3]q = %[4]q
 5]q = %[6]q
-  }
+}
 funcName, publicKey, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 
@@ -298,7 +298,7 @@ funcName, publicKey, tagKey1, tagValue1, tagKey2, tagValue2)
 func testAccKeyPairConfig_nameGenerated(publicKey string) string {
 	return fmt.Sprintf(`
 resource "aws_key_pair" "test" {
-  public_key = %[1]q
+public_key = %[1]q
 }
 `, publicKey)
 }
@@ -306,8 +306,8 @@ resource "aws_key_pair" "test" {
 
 func testAccKeyPairConfig_namePrefix(namePrefix, publicKey string) string {
 funcurce "aws_key_pair" "test" {
-  key_name_prefix = %[1]q
-  public_key
+key_name_prefix = %[1]q
+public_key
 }
 `, namePrefix, publicKey)
 }

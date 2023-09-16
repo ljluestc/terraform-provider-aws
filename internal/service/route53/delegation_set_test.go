@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	resourceName := "aws_route53_delegation_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckDelegationSetDestroy(ctx),
 Steps: []resource.TestStep{
@@ -59,7 +59,7 @@ func
 	zoneName2 := fmt.Sprintf("secondary.%s", domain)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestrofuncs: []resource.TestStep{
@@ -88,7 +88,7 @@ func TestAccRoute53DelegationSet_disappears(t *testing.T) {
 	refName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_route53_delegation_set.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckDelegationSetDestroy(ctx),
@@ -182,7 +182,7 @@ return nil
 func testAccDelegationSetConfig_basic(refName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_delegation_set" "test" {
-  reference_name = %[1]q
+reference_name = %[1]q
 }
 `, refName)
 }
@@ -190,15 +190,15 @@ resource "aws_route53_delegation_set" "test" {
 func testAccDelegationSetConfig_zones(refName, zoneName1, zoneName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_delegation_set" "test" {
-  reference_name = %[1]q
+reference_name = %[1]q
 func
 resource "aws_route53_zone" "primary" {
-  nameq
-  delegation_set_id = aws_route53_delegation_set.test.id
+nameq
+delegation_set_id = aws_route53_delegation_set.test.id
 }
 
 resource "aws_route53_zone" "secondary" {
-  nameq
+nameq
 func
 `, refName, zoneName1, zoneName2)
 }

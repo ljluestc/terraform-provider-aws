@@ -119,7 +119,7 @@ func resourceRevisionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 funcput := &dataexchange.UpdateRevisionInput{
 			RevisionId: aws.String(d.Get("revision_id").(string)),
-			DataSetId:  aws.String(d.Get("data_set_id").(string)),
+			DataSetId:aws.String(d.Get("data_set_id").(string)),
 		}
 
 		if d.HasChange("comment") {
@@ -142,7 +142,7 @@ func resourceRevisionDelete(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
 
 	input := &dataexchange.DeleteRevisionInput{
-functaSetId:  aws.String(d.Get("data_set_id").(string)),
+functaSetId:aws.String(d.Get("data_set_id").(string)),
 	}
 
 	log.Printf("[DEBUG] Deleting DataExchange Revision: %s", d.Id())

@@ -118,7 +118,7 @@ func resourceTransitGatewayConnectPeerCreate(ctx context.Context, d *schema.Reso
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateTransitGatewayConnectPeerInput{
-InsideCidrBlocks:  flex.ExpandStringSet(d.Get("inside_cidr_blocks").(*schema.Set)),
+InsideCidrBlocks:flex.ExpandStringSet(d.Get("inside_cidr_blocks").(*schema.Set)),
 funcpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayConnectPeer),
 TransitGatewayAttachmentId: aws.String(d.Get("transit_gateway_attachment_id").(string)),
 	}
@@ -175,7 +175,7 @@ Partition: meta.(*conns.AWSClient).Partition,
 Service:.ServiceName,
 Region:ta.(*conns.AWSClient).Region,
 AccountID: meta.(*conns.AWSClient).AccountID,
-Resource:  fmt.Sprintf("transit-gateway-connect-peer/%s", d.Id()),
+Resource:fmt.Sprintf("transit-gateway-connect-peer/%s", d.Id()),
 	}.String()
 	bgpConfigurations := transitGatewayConnectPeer.ConnectPeerConfiguration.BgpConfigurations
 	d.Set("arn", arn)

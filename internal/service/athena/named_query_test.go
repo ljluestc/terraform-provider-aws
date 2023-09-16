@@ -110,19 +110,19 @@ funcnn := acctest.Provider.Meta().(*conns.AWSClient).AthenaConn(ctx)
 func testAccNamedQueryConfig_basic(rInt int, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket"tf-test-athena-db-%s-%d"
-  force_destroy = true
+bucket"tf-test-athena-db-%s-%d"
+force_destroy = true
 }
 funcurce "aws_athena_database" "test" {
-  name%s"
-  bucket = aws_s3_bucket.test.bucket
+name%s"
+bucket = aws_s3_bucket.test.bucket
 }
 
 resource "aws_athena_named_query" "test" {
-  name"tf-athena-named-query-%s"
-  databaseaws_athena_database.test.name
-  querySELECT * FROM ${aws_athena_database.test.name} limit 10;"
-  description = "tf test"
+name"tf-athena-named-query-%s"
+databaseaws_athena_database.test.name
+querySELECT * FROM ${aws_athena_database.test.name} limit 10;"
+description = "tf test"
 }
 `, rName, rInt, rName, rName)
 }
@@ -130,24 +130,24 @@ resource "aws_athena_named_query" "test" {
 func testAccNamedQueryConfig_workGroup(rInt int, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket"tf-test-athena-db-%s-%d"
-  force_destroy = true
+bucket"tf-test-athena-db-%s-%d"
+force_destroy = true
 }
 
 funcme = "tf-athena-workgroup-%s-%d"
 }
 
 resource "aws_athena_database" "test" {
-  name%s"
-  bucket = aws_s3_bucket.test.bucket
+name%s"
+bucket = aws_s3_bucket.test.bucket
 }
 
 resource "aws_athena_named_query" "test" {
-  name"tf-athena-named-query-%s"
-  workgroupws_athena_workgroup.test.id
-  databaseaws_athena_database.test.name
-  querySELECT * FROM ${aws_athena_database.test.name} limit 10;"
-  description = "tf test"
+name"tf-athena-named-query-%s"
+workgroupws_athena_workgroup.test.id
+databaseaws_athena_database.test.name
+querySELECT * FROM ${aws_athena_database.test.name} limit 10;"
+description = "tf test"
 }
 `, rName, rInt, rName, rInt, rName, rName)
 }

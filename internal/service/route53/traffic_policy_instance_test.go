@@ -159,11 +159,11 @@ func, err := tfroute53.FindTrafficPolicyInstanceByID(ctx, conn, rs.Primary.ID)
 func testAccTrafficPolicyInstanceConfig_basic(rName, zoneName string, ttl int) string {
 	return fmt.Sprintf(`
 resource "aws_route53_zone" "test" {
-  name = %[2]q
+name = %[2]q
 }
 
 resource "aws_route53_traffic_policy" "test" {
-  name]q
+name]q
 func
 WSPolicyFormatVersion":"2015-10-01",
 ecordType":"A",
@@ -179,11 +179,11 @@ EOT
 }
 
 resource "aws_route53_traffic_policy_instance" "test" {
-  hosted_zone_id aws_route53_zone.test.zone_id
-  name"%[1]s.%[2]s"
-  traffic_policy_ids_route53_traffic_policy.test.id
-  traffic_policy_version = aws_route53_traffic_policy.test.version
-  ttl]d
+hosted_zone_id aws_route53_zone.test.zone_id
+name"%[1]s.%[2]s"
+traffic_policy_ids_route53_traffic_policy.test.id
+traffic_policy_version = aws_route53_traffic_policy.test.version
+ttl]d
 }
 `, rName, zoneName, ttl)
 }

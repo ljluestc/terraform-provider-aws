@@ -88,8 +88,8 @@ func !ok {
 
 func testAccTrafficPolicyDocumentConfigCompleteExpectedJSON() string {
 	return fmt.Sprintf(`{
-  "AWSPolicyFormatVersion":"2015-10-01",
-  "RecordType":"A",
+"AWSPolicyFormatVersion":"2015-10-01",
+"RecordType":"A",
 funcndpoints":{
 ast_coast_lb1":{
 e":"elastic-load-balancer",
@@ -112,8 +112,8 @@ e":"s3-website",
 ion":"%[1]s",
 ue":"video.example.com"
 
-  },
-  "Rules":{
+},
+"Rules":{
 eo_restriction":{
 eType":"geo",
 ations":[
@@ -172,7 +172,7 @@ ondary":{
 ndpointReference":"west_coast_lb2"
 
 
-  }
+}
 }`, acctest.Region(), acctest.AlternateRegion())
 }
 
@@ -180,22 +180,22 @@ const testAccTrafficPolicyDocumentDataSourceConfig_basic = `
 data "aws_region" "current" {}
 
 data "aws_route53_traffic_policy_document" "test" {
-  record_type = "A"
-  start_rule  = "site_switch"
+record_type = "A"
+start_rule= "site_switch"
 
-  endpoint {
+endpoint {
  = _elb"
-pe  = "elastic-load-balancer"
+pe= "elastic-load-balancer"
 lue = "elb-111111.${data.aws_region.current.name}.elb.amazonaws.com"
-  }
-  endpoint {
+}
+endpoint {
 te_down_banner"
 pe= "website"
 gion = data.aws_region.current.name
-lue  = "www.example.com"
-  }
+lue= "www.example.com"
+}
 
-  rule {
+rule {
 = "e_switch"
 pe = "failover"
 
@@ -205,48 +205,48 @@ oint_reference = "my_elb"
 condary {
 oint_reference = "site_down_banner"
 
-  }
+}
 }
 `
 
 const testAccTrafficPolicyDocumentDataSourceConfig_complete = `
 data "aws_availability_zones" "available" {
-  state = "available"
+state = "available"
 }
 
 data "aws_route53_traffic_policy_document" "test" {
-  version15-10-01"
-  record_type = "A"
-  start_rule  = "geo_restriction"
+version15-10-01"
+record_type = "A"
+start_rule= "geo_restriction"
 
-  endpoint {
+endpoint {
  = st_coast_lb1"
-pe  = "elastic-load-balancer"
+pe= "elastic-load-balancer"
 lue = "elb-111111.${data.aws_availability_zones.available.names[0]}.elb.amazonaws.com"
-  }
-  endpoint {
+}
+endpoint {
  = st_coast_lb2"
-pe  = "elastic-load-balancer"
+pe= "elastic-load-balancer"
 lue = "elb-222222.${data.aws_availability_zones.available.names[0]}.elb.amazonaws.com"
-  }
-  endpoint {
+}
+endpoint {
  = st_coast_lb1"
-pe  = "elastic-load-balancer"
+pe= "elastic-load-balancer"
 lue = "elb-111111.${data.aws_availability_zones.available.names[1]}.elb.amazonaws.com"
-  }
-  endpoint {
+}
+endpoint {
  = st_coast_lb2"
-pe  = "elastic-load-balancer"
+pe= "elastic-load-balancer"
 lue = "elb-222222.${data.aws_availability_zones.available.names[1]}.elb.amazonaws.com"
-  }
-  endpoint {
+}
+endpoint {
 nied_message"
 pe= "website"
 gion = data.aws_availability_zones.available.names[0]
-lue  = "video.example.com"
-  }
+lue= "video.example.com"
+}
 
-  rule {
+rule {
 = "_restriction"
 pe = "geo"
 
@@ -262,9 +262,9 @@ cation {
 _reference = "geoproximity_selector"
 try
 
-  }
+}
 
-  rule {
+rule {
 = "proximity_selector"
 pe = "geoproximity"
 
@@ -273,9 +273,9 @@ itude= "-0
 tude = "5
 oint_reference = "denied_message"
 
-  }
+}
 
-  rule {
+rule {
 = "ion_selector"
 pe = "latency"
 
@@ -287,9 +287,9 @@ gion {
 onaws_availability_zones.available.names[1]
 _reference = "west_coast_region"
 
-  }
+}
 
-  rule {
+rule {
 = "t_coast_region"
 pe = "failover"
 
@@ -299,9 +299,9 @@ oint_reference = "east_coast_lb1"
 condary {
 oint_reference = "east_coast_lb2"
 
-  }
+}
 
-  rule {
+rule {
 = "t_coast_region"
 pe = "failover"
 
@@ -311,7 +311,7 @@ oint_reference = "west_coast_lb1"
 condary {
 oint_reference = "west_coast_lb2"
 
-  }
+}
 }
 `
 

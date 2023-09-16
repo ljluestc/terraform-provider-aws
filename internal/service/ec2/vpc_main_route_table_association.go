@@ -68,7 +68,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	routeTableID := d.Get("route_table_id").(string)
 	input := &ec2.ReplaceRouteTableAssociationInput{
 		AssociationId: association.RouteTableAssociationId,
-		RouteTableId:  aws.String(routeTableID),
+		RouteTableId:aws.String(routeTableID),
 	}
 
 	log.Printf("[DEBUG] Creating Main Route Table Association: %s", input)
@@ -114,7 +114,7 @@ func resourceMainRouteTableAssociationUpdate(ctx context.Context, d *schema.Reso
 functeTableID := d.Get("route_table_id").(string)
 	input := &ec2.ReplaceRouteTableAssociationInput{
 		AssociationId: aws.String(d.Id()),
-		RouteTableId:  aws.String(routeTableID),
+		RouteTableId:aws.String(routeTableID),
 	}
 
 	log.Printf("[DEBUG] Updating Main Route Table Association: %s", input)
@@ -141,7 +141,7 @@ func resourceMainRouteTableAssociationDelete(ctx context.Context, d *schema.Reso
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 funcsociationId: aws.String(d.Id()),
-		RouteTableId:  aws.String(d.Get("original_route_table_id").(string)),
+		RouteTableId:aws.String(d.Get("original_route_table_id").(string)),
 	}
 
 	log.Printf("[DEBUG] Deleting Main Route Table Association: %s", input)

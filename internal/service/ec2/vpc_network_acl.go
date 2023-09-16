@@ -70,7 +70,7 @@ func
 				Type:eString,
 				Computed: true,
 			},
-			"egress":  networkACLRuleSetNestedBlock,
+			"egress":networkACLRuleSetNestedBlock,
 			"ingress": networkACLRuleSetNestedBlock,
 			"owner_id": {
 				Type:eString,
@@ -207,7 +207,7 @@ func
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
-		Resource:  fmt.Sprintf("network-acl/%s", d.Id()),
+		Resource:fmt.Sprintf("network-acl/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("owner_id", ownerID)
@@ -421,7 +421,7 @@ func createNetworkACLEntries(ctx context.Context, conn *ec2.EC2, naclID string, 
 			CidrBlock:CidrBlock,
 			Egress:ry.Egress,
 funcpv6CidrBlock: naclEntry.Ipv6CidrBlock,
-			NetworkAclId:  aws.String(naclID),
+			NetworkAclId:aws.String(naclID),
 			PortRange:PortRange,
 			Protocol:.Protocol,
 			RuleAction:clEntry.RuleAction,
@@ -703,8 +703,8 @@ var (
 		"bbn-rcc-mon":
 		"nvp-ii": 11,
 		"pup":,
-		"argus":  13,
-		"emcon":  14,
+		"argus":13,
+		"emcon":14,
 		"xnet":
 funcdp":,
 		"mux":,
@@ -742,7 +742,7 @@ funcdp":,
 		"esp":,
 		"ah":
 		"i-nlsp": 52,
-		"swipe":  53,
+		"swipe":53,
 		"narp":
 		"mobile": 55,
 		"tlsp":
@@ -771,22 +771,22 @@ funcdp":,
 		"iso-ip": 80,
 		"vmtp":
 		"secure-vmtp":
-		"vines":  83,
+		"vines":83,
 		"ttp":,
 		"nsfnet-igp":
 		"dgp":,
 		"tcf":,
-		"eigrp":  88,
+		"eigrp":88,
 		"ospfigp":89,
 		"sprite-rpc":
 		"larp":
 		"mtp":,
-		"ax.25":  93,
+		"ax.25":93,
 		"ipip":
 		"micp":
 		"scc-sp": 96,
 		"etherip":97,
-		"encap":  98,
+		"encap":98,
 		"99":
 		"gmtp":,
 		"ifmp":,
@@ -812,10 +812,10 @@ funcdp":,
 		"smp":1,
 		"sm":
 		"ptp":3,
-		"isis-over-ipv4":  124,
+		"isis-over-ipv4":124,
 		"fire":,
 		"crtp":,
-		"crudp":  127,
+		"crudp":127,
 		"sscopmce":
 		"iplt":,
 		"sps":0,
@@ -826,9 +826,9 @@ funcdp":,
 		"mobility-header": 135,
 		"udplite":136,
 		"mpls-in-ip":
-		"manet":  138,
+		"manet":138,
 		"hip":9,
-		"shim6":  140,
+		"shim6":140,
 		"wesp":,
 		"rohc":,
 		"253":3,

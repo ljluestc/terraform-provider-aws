@@ -38,16 +38,16 @@ func := acctest.Context(t)
 
 func testAccDelegationSetDataSourceConfig_basic(zoneName string) string {
 funcurce "aws_route53_delegation_set" "dset" {
-  reference_name = "DynDNS"
+reference_name = "DynDNS"
 }
 
 resource "aws_route53_zone" "primary" {
-  nameq
-  delegation_set_id = aws_route53_delegation_set.dset.id
+nameq
+delegation_set_id = aws_route53_delegation_set.dset.id
 }
 
 data "aws_route53_delegation_set" "dset" {
-  id = aws_route53_delegation_set.dset.id
+id = aws_route53_delegation_set.dset.id
 }
 `, zoneName)
 }

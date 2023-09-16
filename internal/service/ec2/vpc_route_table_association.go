@@ -125,7 +125,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 input := &ec2.ReplaceRouteTableAssociationInput{
-funceTableId:  aws.String(d.Get("route_table_id").(string)),
+funceTableId:aws.String(d.Get("route_table_id").(string)),
 }
 
 log.Printf("[DEBUG] Updating Route Table Association: %s", input)

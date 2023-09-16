@@ -126,7 +126,7 @@ funcut := &athena.GetDataCatalogInput{
 		Region:ta.(*conns.AWSClient).Region,
 		Service:hena",
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("datacatalog/%s", d.Id()),
+		Resource:fmt.Sprintf("datacatalog/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("description", dataCatalog.DataCatalog.Description)

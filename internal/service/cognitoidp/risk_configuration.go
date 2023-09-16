@@ -26,7 +26,7 @@ import (
 func ResourceRiskConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRiskConfigurationPut,
-		ReadWithoutTimeout:   resourceRiskConfigurationRead,
+		ReadWithoutTimeout: resourceRiskConfigurationRead,
 		DeleteWithoutTimeout: resourceRiskConfigurationDelete,
 		UpdateWithoutTimeout: resourceRiskConfigurationPut,
 		Importer: &schema.ResourceImporter{
@@ -36,17 +36,17 @@ func ResourceRiskConfiguration() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"user_pool_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validUserPoolID,
 			},
 			"client_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"account_takeover_risk_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				AtLeastOneOf: []string{
@@ -57,60 +57,60 @@ func ResourceRiskConfiguration() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"actions": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"high_action": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"event_action": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringInSlice(cognitoidentityprovider.AccountTakeoverEventActionType_Values(), false),
 												},
 												"notify": {
-													Type:     schema.TypeBool,
+													Type: schema.TypeBool,
 													Required: true,
 												},
 											},
 										},
 									},
 									"low_action": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"event_action": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringInSlice(cognitoidentityprovider.AccountTakeoverEventActionType_Values(), false),
 												},
 												"notify": {
-													Type:     schema.TypeBool,
+													Type: schema.TypeBool,
 													Required: true,
 												},
 											},
 										},
 									},
 									"medium_action": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"event_action": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringInSlice(cognitoidentityprovider.AccountTakeoverEventActionType_Values(), false),
 												},
 												"notify": {
-													Type:     schema.TypeBool,
+													Type: schema.TypeBool,
 													Required: true,
 												},
 											},
@@ -120,94 +120,94 @@ func ResourceRiskConfiguration() *schema.Resource {
 							},
 						},
 						"notify_configuration": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"block_email": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"html_body": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
 												"subject": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringLenBetween(1, 140),
 												},
 												"text_body": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
 											},
 										},
 									},
 									"from": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"mfa_email": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"html_body": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
 												"subject": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringLenBetween(1, 140),
 												},
 												"text_body": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
 											},
 										},
 									},
 									"no_action_email": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"html_body": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
 												"subject": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringLenBetween(1, 140),
 												},
 												"text_body": {
 													Type:schema.TypeString,
-													Required:     true,
+													Required: true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
 											},
 										},
 									},
 									"reply_to": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"source_arn": {
 										Type:schema.TypeString,
-										Required:     true,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -217,13 +217,13 @@ func ResourceRiskConfiguration() *schema.Resource {
 				},
 			},
 			"compromised_credentials_risk_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"event_filter": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Computed: true,
 							Elem: &schema.Schema{
@@ -232,14 +232,14 @@ func ResourceRiskConfiguration() *schema.Resource {
 							},
 						},
 						"actions": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"event_action": {
 										Type:schema.TypeString,
-										Required:     true,
+										Required: true,
 										ValidateFunc: validation.StringInSlice(cognitoidentityprovider.CompromisedCredentialsEventActionType_Values(), false),
 									},
 								},
@@ -249,13 +249,13 @@ func ResourceRiskConfiguration() *schema.Resource {
 				},
 			},
 			"risk_exception_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"blocked_ip_range_list": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							MinItems: 1,
 							MaxItems: 200,
@@ -271,7 +271,7 @@ func ResourceRiskConfiguration() *schema.Resource {
 							},
 						},
 						"skipped_ip_range_list": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							MinItems: 1,
 							MaxItems: 200,

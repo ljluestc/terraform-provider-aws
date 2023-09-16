@@ -193,38 +193,38 @@ func rs.Primary.ID == "" {
 func testAccModelPackageGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_model_package_group" "test" {
-  model_package_group_name = %[1]q
+model_package_group_name = %[1]q
 }
 `, rName)
 }
 
 funcurn fmt.Sprintf(`
 resource "aws_sagemaker_model_package_group" "test" {
-  model_package_group_name%[1]q
-  model_package_group_description = %[1]q
+model_package_group_name%[1]q
+model_package_group_description = %[1]q
 }
 `, rName)
 }
 
 funcurn fmt.Sprintf(`
 resource "aws_sagemaker_model_package_group" "test" {
-  model_package_group_name = %[1]q
+model_package_group_name = %[1]q
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 func
 func testAccModelPackageGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_model_package_group" "test" {
-  model_package_group_name = %[1]q
+model_package_group_name = %[1]q
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 func

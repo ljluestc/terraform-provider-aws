@@ -141,23 +141,23 @@ data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "test" {
-  statement {
+statement {
 funcs= [gemaker:DescribeModelPackage", "sagemaker:ListModelPackages"]
 sources = [aws_sagemaker_model_package_group.test.arn]
 incipals {
 tifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
 
 
-  }
+}
 }
 
 resource "aws_sagemaker_model_package_group" "test" {
-  model_package_group_name = %[1]q
+model_package_group_name = %[1]q
 }
 
 resource "aws_sagemaker_model_package_group_policy" "test" {
-  model_package_group_name = aws_sagemaker_model_package_group.test.model_package_group_name
-  resource_policyde(jsondecode(data.aws_iam_policy_document.test.json))
+model_package_group_name = aws_sagemaker_model_package_group.test.model_package_group_name
+resource_policyde(jsondecode(data.aws_iam_policy_document.test.json))
 }
 `, rName)
 }

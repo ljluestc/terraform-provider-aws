@@ -38,7 +38,7 @@ funcncipalAssociationResourceName := "aws_ram_principal_association.test"
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
-		},funcrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		},funcrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckResourceShareAccepterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -75,7 +75,7 @@ funcource.ParallelTest(t, resource.TestCase{
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProfunceckDestroy:testAccCheckResourceShareAccepterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -100,7 +100,7 @@ funceCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:  acctest.ErrorCheck(t, ram.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ram.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckResourceShareAccepterDestroy(ctx),
 		Steps: []rfunc
@@ -181,24 +181,24 @@ funcesourceShareArns: []*string{aws.String(rs.Primary.Attributes["share_arn"])},
 func testAccResourceShareAccepterConfig_basic(rName string) string {
 	return acctest.ConfigAlternateAccountProvider() + fmt.Sprintf(`
 resource "aws_ram_resource_share_accepter" "test" {
-  share_arn = aws_ram_principal_association.test.resource_share_arn
+share_arn = aws_ram_principal_association.test.resource_share_arn
 }
 
 resource "aws_ram_resource_share" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  name
-  allow_external_principals = true
+name
+allow_external_principals = true
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_ram_principal_association" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  principalws_caller_identity.receiver.account_id
-  resource_share_arn = aws_ram_resource_share.test.arn
+principalws_caller_identity.receiver.account_id
+resource_share_arn = aws_ram_resource_share.test.arn
 }
 
 data "aws_caller_identity" "receiver" {}
@@ -208,41 +208,41 @@ data "aws_caller_identity" "receiver" {}
 func testAccResourceShareAccepterConfig_association(rName string) string {
 	return acctest.ConfigCompose(testAccResourceShareAccepterConfig_basic(rName), fmt.Sprintf(`
 resource "aws_ram_resource_association" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  resource_arn_codebuild_project.test.arn
-  resource_share_arn = aws_ram_resource_share.test.arn
+resource_arn_codebuild_project.test.arn
+resource_share_arn = aws_ram_resource_share.test.arn
 }
 
 resource "aws_codebuild_project" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  name
+name
 func
-  artifacts {
+artifacts {
 pe = "NO_ARTIFACTS"
-  }
+}
 
-  environment {
+environment {
 mpute_type = "BUILD_GENERAL1_SMALL"
-age  =
+age=
 pe= "TAINER"
-  }
+}
 
-  source {
-pe  =ITHUB"
+source {
+pe=ITHUB"
 cation = "https://github.com/hashicorp/packer.git"
-  }
+}
 }
 
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  name = %[1]q
+name = %[1]q
 
-  assume_role_policy = jsonencode({
+assume_role_policy = jsonencode({
 atement = [{
  = "sts:AssumeRole"
  = "Allow"
@@ -251,16 +251,16 @@ ice = "codebuild.${data.aws_partition.current.dns_suffix}"
 
 
 rsion = "2012-10-17"
-  })
+})
 }
 
 resource "aws_iam_role_policy" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  name = %[1]q
-  role = aws_iam_role.test.name
+name = %[1]q
+role = aws_iam_role.test.name
 
-  policy = jsonencode({
+policy = jsonencode({
 rsion = "2012-10-17"
 atement = [{
 = "All
@@ -271,7 +271,7 @@ s:CreateLogStream",
 s:PutLogEvents"
 
 
-  })
+})
 }
 `, rName))
 }

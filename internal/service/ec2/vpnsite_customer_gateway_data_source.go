@@ -90,7 +90,7 @@ funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("customer-gateway/%s", d.Id()),
+		Resource:fmt.Sprintf("customer-gateway/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	if v := aws.StringValue(cgw.BgpAsn); v != "" {

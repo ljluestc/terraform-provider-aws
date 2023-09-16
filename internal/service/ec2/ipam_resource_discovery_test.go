@@ -45,7 +45,7 @@ funcourceName := "aws_vpc_ipam_resource_discovery.test"
 	dataSourceRegion := "data.aws_region.current"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -127,7 +127,7 @@ func rd ec2.IpamResourceDiscovery
 	resourceName := "aws_vpc_ipam_resource_discovery.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -150,7 +150,7 @@ func testAccIPAMResourceDiscovery_tags(t *testing.T) {
 funcourceName := "aws_vpc_ipam_resource_discovery.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -241,10 +241,10 @@ funct testAccIPAMResourceDiscoveryConfig_base = `
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam_resource_discovery" "test" {
-  description = "test"
-  operating_regions {
+description = "test"
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 `
 
@@ -252,10 +252,10 @@ const testAccIPAMResourceDiscoveryConfig_baseAlternateDescription = `
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam_resource_discovery" "test" {
-  description = "test ipam"
-  operating_regions {
+description = "test ipam"
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 `
 
@@ -266,17 +266,17 @@ acctest.ConfigMultipleRegionProvider(2), `
 data "aws_region" "current" {}
 
 data "aws_region" "alternate" {
-  provider = awsalternate
+provider = awsalternate
 }
 
 resource "aws_vpc_ipam_resource_discovery" "test" {
-  description = "test"
-  operating_regions {
+description = "test"
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
-  operating_regions {
+}
+operating_regions {
 gion_name = data.aws_region.alternate.name
-  }
+}
 }
 `)
 }
@@ -286,13 +286,13 @@ func testAccIPAMResourceDiscoveryConfig_tags(tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 data "aws_region" "current" {}
 funcurce "aws_vpc_ipam_resource_discovery" "test" {
-  description = "test"
-  operating_regions {
+description = "test"
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
-  tags = {
+}
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tagKey1, tagValue1)
 }
@@ -303,13 +303,13 @@ func testAccIPAMResourceDiscoveryConfig_tags2(tagKey1, tagValue1, tagKey2, tagVa
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam_resource_discovery" "test" {
-  description = "test"
-  operating_regions {
+description = "test"
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 func= %[2]q
 3]q = %[4]q
-  }
+}
 }
 	`, tagKey1, tagValue1, tagKey2, tagValue2)
 }

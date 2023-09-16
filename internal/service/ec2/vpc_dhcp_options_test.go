@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	resourceName := "aws_vpc_dhcp_options.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckDHCPOptionsDestroy(ctx),
@@ -61,7 +61,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -146,7 +146,7 @@ func TestAccVPCDHCPOptions_disappears(t *testing.T) {
 	resourceName := "aws_vpc_dhcp_options.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -215,7 +215,7 @@ funcrn nil
 
 const testAccVPCDHCPOptionsConfig_basic = `
 resource "aws_vpc_dhcp_options" "test" {
-  netbios_node_type = 1
+netbios_node_type = 1
 }
 `
 
@@ -223,15 +223,15 @@ resource "aws_vpc_dhcp_options" "test" {
 func testAccVPCDHCPOptionsConfig_full(rName, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc_dhcp_options" "test" {
-  domain_name = %[2]q
-  domain_name_servers  = ["127.0.0.1", "10.0.0.2"]
-  ntp_servers = ["127.0.0.1"]
-  netbios_name_servers = ["127.0.0.1"]
-  netbios_node_type"2"
+domain_name = %[2]q
+domain_name_servers= ["127.0.0.1", "10.0.0.2"]
+ntp_servers = ["127.0.0.1"]
+netbios_name_servers = ["127.0.0.1"]
+netbios_node_type"2"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, domainName)
 }
@@ -241,9 +241,9 @@ func testAccVPCDHCPOptionsConfig_tags1(tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc_dhcp_options" "test" {
 func
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tagKey1, tagValue1)
 }
@@ -252,9 +252,9 @@ func
 func testAccVPCDHCPOptionsConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc_dhcp_options" "test" {
-  netbios_node_type = 2
+netbios_node_type = 2
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
 func

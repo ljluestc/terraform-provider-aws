@@ -55,12 +55,12 @@ funces.AttrTags:tags.TagsSchema(),
 	"transit_gateway_default_route_table_association": {
 Type:eBool,
 Optional: true,
-Default:  true,
+Default:true,
 	},
 	"transit_gateway_default_route_table_propagation": {
 Type:eBool,
 Optional: true,
-Default:  true,
+Default:true,
 	},
 	"transit_gateway_id": {
 Type:schema.TypeString,

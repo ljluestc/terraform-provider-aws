@@ -211,9 +211,9 @@ func rs.Primary.ID == "" {
 func testAccPipelinePipelineConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 funcatement {
@@ -223,7 +223,7 @@ incipals {
 ce"
 tifiers = ["sagemaker.amazonaws.com"]
 
-  }
+}
 }
 `, rName)
 }
@@ -231,11 +231,11 @@ tifiers = ["sagemaker.amazonaws.com"]
 func testAccPipelinePipelineConfig_basic(rName, dispName string) string {
 	return acctest.ConfigCompose(testAccPipelinePipelineConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_pipeline" "test" {
-  pipeline_name %[1]q
-  pipeline_display_name = %[2]q
-  role_arniam_role.test.arn
+pipeline_name %[1]q
+pipeline_display_name = %[2]q
+role_arniam_role.test.arn
 
-  pipeline_definition = jsonencode({
+pipeline_definition = jsonencode({
 rsion = "2020-12-01"
 funcTest"
  = "Fail"
@@ -243,7 +243,7 @@ ments = {
 rorMessage = "test"
 
 
-  })
+})
 }
 `, rName, dispName))
 }
@@ -251,11 +251,11 @@ rorMessage = "test"
 func testAccPipelinePipelineConfig_parallelism(rName string) string {
 	return acctest.ConfigCompose(testAccPipelinePipelineConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_pipeline" "test" {
-  pipeline_name %[1]q
-  pipeline_display_name = %[1]q
-  role_arniam_role.test.arn
+pipeline_name %[1]q
+pipeline_display_name = %[1]q
+role_arniam_role.test.arn
 
-  pipeline_definition = jsonencode({
+pipeline_definition = jsonencode({
 rsion = "2020-12-01"
 eps = [{
 funcFail"
@@ -263,11 +263,11 @@ ments = {
 rorMessage = "test"
 
 
-  })
+})
 
-  parallelism_configuration {
+parallelism_configuration {
 x_parallel_execution_steps = 1
-  }
+}
 }
 `, rName))
 }
@@ -275,11 +275,11 @@ x_parallel_execution_steps = 1
 func testAccPipelinePipelineConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccPipelinePipelineConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_pipeline" "test" {
-  pipeline_name %[1]q
-  pipeline_display_name = %[1]q
-  role_arniam_role.test.arn
+pipeline_name %[1]q
+pipeline_display_name = %[1]q
+role_arniam_role.test.arn
 
-  pipeline_definition = jsonencode({
+pipeline_definition = jsonencode({
 rsion = "2020-12-01"
 eps = [{
  = "Test"
@@ -287,11 +287,11 @@ funcs = {
 rorMessage = "test"
 
 
-  })
+})
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -299,11 +299,11 @@ rorMessage = "test"
 func testAccPipelinePipelineConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccPipelinePipelineConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_pipeline" "test" {
-  pipeline_name %[1]q
-  pipeline_display_name = %[1]q
-  role_arniam_role.test.arn
+pipeline_name %[1]q
+pipeline_display_name = %[1]q
+role_arniam_role.test.arn
 
-  pipeline_definition = jsonencode({
+pipeline_definition = jsonencode({
 rsion = "2020-12-01"
 eps = [{
  = "Test"
@@ -311,12 +311,12 @@ eps = [{
 funcessage = "test"
 
 
-  })
+})
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }

@@ -37,7 +37,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -80,7 +80,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -107,7 +107,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -146,7 +146,7 @@ functalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -176,7 +176,7 @@ func TestAccEC2SpotFleetRequest_tags(t *testing.T) {
 t.Fatalf("error generating random SSH key: %s", err)
 	}
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -230,7 +230,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -269,7 +269,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -306,7 +306,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -337,7 +337,7 @@ funcidUntil := time.Now().UTC().Add(24 * time.Hour).Format(time.RFC3339)
 t.Fatalf("error generating random SSH key: %s", err)
 	}
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -355,12 +355,12 @@ funcource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "launch_template_config.*.overrides.*", map[string]string{
 "instance_requirements.#": "0",
-"instance_type":  "t1.micro",
+"instance_type":"t1.micro",
 "weighted_capacity":
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "launch_template_config.*.overrides.*", map[string]string{
 "instance_requirements.#": "0",
-"instance_type":  "m3.medium",
+"instance_type":"m3.medium",
 "priority": "1",
 "spot_price":
 func
@@ -388,7 +388,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -407,10 +407,10 @@ func
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "launch_template_config.*.overrides.*", map[string]string{
 "instance_requirements.#":"1",
 "instance_requirements.0.instance_generations.#": "1",
-"instance_requirements.0.memory_mib.#":  "1",
+"instance_requirements.0.memory_mib.#":"1",
 "instance_requirements.0.memory_mib.0.max":
 "instance_requirements.0.memory_mib.0.min":
-"instance_requirements.0.vcpu_count.#":  "1",
+"instance_requirements.0.vcpu_count.#":"1",
 "instance_requirements.0.vcpu_count.0.max":
 "instance_requirements.0.vcpu_count.0.min":
 "instance_type": "",
@@ -439,7 +439,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -487,7 +487,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -529,7 +529,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -578,7 +578,7 @@ func := acctest.Context(t)
 func
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -613,7 +613,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -648,7 +648,7 @@ func TestAccEC2SpotFleetRequest_instanceInterruptionBehavior(t *testing.T) {
 func
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -684,7 +684,7 @@ func TestAccEC2SpotFleetRequest_fleetType(t *testing.T) {
 t.Fatalf("error generating random SSH key: %s", err)
 	}
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -721,7 +721,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -757,7 +757,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -804,7 +804,7 @@ functalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -856,7 +856,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -899,7 +899,7 @@ func := acctest.Context(t)
 func
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -936,7 +936,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -974,7 +974,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -1012,7 +1012,7 @@ functalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1053,7 +1053,7 @@ functalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1090,7 +1090,7 @@ func TestAccEC2SpotFleetRequest_overridingSpotPrice(t *testing.T) {
 t.Fatalf("error generating random SSH key: %s", err)
 	}
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1133,7 +1133,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -1169,7 +1169,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1206,7 +1206,7 @@ func TestAccEC2SpotFleetRequest_multipleInstancePools(t *testing.T) {
 t.Fatalf("error generating random SSH key: %s", err)
 	}
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1260,7 +1260,7 @@ func(s *terraform.State) error {
 }
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1305,7 +1305,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -1339,7 +1339,7 @@ func TestAccEC2SpotFleetRequest_LaunchSpecificationEBSBlockDevice_kmsKeyID(t *te
 	if err != nil {
 t.Fatalf("error generating random SSH key: %s", err)
 func
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1373,7 +1373,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1407,7 +1407,7 @@ func TestAccEC2SpotFleetRequest_LaunchSpecification_ebsBlockDeviceGP3(t *testing
 func
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1420,7 +1420,7 @@ func(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "launch_specification.*.ebs_block_device.*", map[string]string{
 "device_name": "/dev/xvdcz",
 "iops":
-"throughput":  "500",
+"throughput":"500",
 "volume_size": "15",
 "volume_type": "gp3",
 	}),
@@ -1447,7 +1447,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -1459,7 +1459,7 @@ func(
 	testAccCheckSpotFleetRequestExists(ctx, resourceName, &config),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "launch_specification.*.root_block_device.*", map[string]string{
 "iops":
-"throughput":  "500",
+"throughput":"500",
 "volume_size": "15",
 "volume_type": "gp3",
 	}),
@@ -1499,7 +1499,7 @@ func(
 	testAccCheckSpotFleetRequestExists(ctx, resourceName, &config),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "launch_specification.*", map[string]string{
 "tags.%":
-"tags.First":  "TfAccTest",
+"tags.First":"TfAccTest",
 "tags.Second": "Terraform",
 "tags.Name":me,
 func
@@ -1526,7 +1526,7 @@ func := acctest.Context(t)
 func
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1563,7 +1563,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -1638,7 +1638,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1688,7 +1688,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -1723,7 +1723,7 @@ func TestAccEC2SpotFleetRequest_instanceStoreAMI(t *testing.T) {
 t.Fatalf("error generating random SSH key: %s", err)
 	}
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotFleetRequest(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1762,7 +1762,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSpotFleetRequestDestroy(ctx),
@@ -1941,23 +1941,23 @@ funcest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_key_pair" "test" {
-  key_name[1]q
-  public_key = "%[2]s"
+key_name[1]q
+public_key = "%[2]s"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "test" {
-  name = %[1]q
+name = %[1]q
 
-  assume_role_policy = <<EOF
+assume_role_policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
+"Version": "2012-10-17",
+"Statement": [
 
 ,
  "Allow",
@@ -1966,24 +1966,24 @@ funcotfleet.${data.aws_partition.current.dns_suffix}",
 func
 
 func
-  ]
+]
 }
 EOF
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_iam_policy" "test" {
-  name
-  path
-  description = "Spot Fleet Request ACCTest Policy"
+name
+path
+description = "Spot Fleet Request ACCTest Policy"
 
-  policy = <<EOF
+policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
+"Version": "2012-10-17",
+"Statement": [
 
  "Allow",
  [
@@ -1995,15 +1995,15 @@ funcle"
 func
 
 func
-  ]
+]
 }
 EOF
 }
 
 resource "aws_iam_policy_attachment" "test" {
-  name
-  rolesm_role.test.name]
-  policy_arn = aws_iam_policy.test.arn
+name
+rolesm_role.test.name]
+policy_arn = aws_iam_policy.test.arn
 }
 `, rName, publicKey))
 }
@@ -2012,22 +2012,22 @@ resource "aws_iam_policy_attachment" "test" {
 func testAccSpotFleetRequestConfig_basic(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
 func
-  launch_specification {
+launch_specification {
 func data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 func {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2036,25 +2036,25 @@ func {
 func testAccSpotFleetRequestConfig_context(rName, publicKey, validUntil, contextId string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  context
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
+context
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 func data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil, contextId))
 }
@@ -2062,27 +2062,27 @@ gs = {
 
 func testAccSpotFleetRequestConfig_tags1(rName, publicKey, validUntil, tagKey1, tagValue1 string) string {
 funcurce "aws_spot_fleet_request" "test" {
-funcot_price  = "0.05"
-  target_capacity
+funcot_price= "0.05"
+target_capacity
 funcrminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 
 gs = {
 1]q
 
-  }
+}
 
-  tags = {
+tags = {
 3]q = %[4]q
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil, tagKey1, tagValue1))
 }
@@ -2090,30 +2090,30 @@ func
 func testAccSpotFleetRequestConfig_tags2(rName, publicKey, validUntil, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 
 gs = {
 1]q
 
-  }
+}
 
-  tags = {
+tags = {
 3]q = %[4]q
 5]q = %[6]q
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -2122,14 +2122,14 @@ gs = {
 func testAccSpotFleetRequestConfig_associatePublicIPAddress(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type= data.aws_ec2_instance_type_offering.available.instance_type
 i = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_namepair.test.key_name
@@ -2138,9 +2138,9 @@ sociate_public_ip_address = true
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2149,24 +2149,24 @@ gs = {
 func testAccSpotFleetRequestConfig_targetCapacity(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  fleet_type  = "request"
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+fleet_type= "request"
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 funcName, validUntil))
 }
 
@@ -2174,36 +2174,36 @@ funcName, validUntil))
 func testAccSpotFleetRequestConfig_launchTemplate(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  key_name_pair.test.key_name
+name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+key_name_pair.test.key_name
 
-  tag_specifications {
+tag_specifications {
 source_type = "instance"
 
 gs = {
 1]q
 
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
 funcit_for_fulfillment = true
 
-  launch_template_config {
+launch_template_config {
 unch_template_specification {
  aws_launch_template.test.name
  aws_launch_template.test.latest_version
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2212,66 +2212,66 @@ unch_template_specification {
 func testAccSpotFleetRequestConfig_launchTemplateMultiple(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 data "aws_ec2_instance_type_offering" "test" {
-  filter {
+filter {
 me= "tance-type"
 lues = ["t1.micro"]
-  }
+}
 
-  preferred_instance_types = ["t1.micro"]
+preferred_instance_types = ["t1.micro"]
 }
 
 resource "aws_launch_template" "test1" {
-  name = "%[1]s-1"
+name = "%[1]s-1"
 funcstance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  key_name_pair.test.key_name
+key_name_pair.test.key_name
 
-  tag_specifications {
+tag_specifications {
 source_type = "instance"
 
 gs = {
 1]q
 
-  }
+}
 }
 
 resource "aws_launch_template" "test2" {
-  name = "%[1]s-2"
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.test.instance_type
-  key_name_pair.test.key_name
+name = "%[1]s-2"
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.test.instance_type
+key_name_pair.test.key_name
 
-  tag_specifications {
+tag_specifications {
 source_type = "instance"
 
 gs = {
 1]q
 
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
 funcrminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
 
-  launch_template_config {
+launch_template_config {
 unch_template_specification {
  aws_launch_template.test1.name
  aws_launch_template.test1.latest_version
 
-  }
+}
 
-  launch_template_config {
+launch_template_config {
 unch_template_specification {
  aws_launch_template.test2.name
  aws_launch_template.test2.latest_version
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2280,29 +2280,29 @@ unch_template_specification {
 func testAccSpotFleetRequestConfig_launchTemplateInstanceTypeOverrides(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  key_name_pair.test.key_name
+name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+key_name_pair.test.key_name
 
 funcce_type = "instance"
 
 gs = {
 1]q
 
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
 
-  launch_template_config {
+launch_template_config {
 unch_template_specification {
  aws_launch_template.test.name
  aws_launch_template.test.latest_version
@@ -2317,9 +2317,9 @@ type = "m3.medium"
 = 1
 e"0.26"
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2328,12 +2328,12 @@ e"0.26"
 func testAccSpotFleetRequestConfig_launchTemplateInstanceRequirementsOverrides(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  key_name_pair.test.key_name
+name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+key_name_pair.test.key_name
 
-  tag_specifications {
+tag_specifications {
 source_type = "instance"
 
 gs = {
@@ -2342,15 +2342,15 @@ func
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
 
-  launch_template_config {
+launch_template_config {
 unch_template_specification {
  aws_launch_template.test.name
  aws_launch_template.test.latest_version
@@ -2373,9 +2373,9 @@ mib {
 e_generations = ["current"]
 
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 func
 
@@ -2383,25 +2383,25 @@ func
 func testAccSpotFleetRequestConfig_excessCapacityTermination(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  excess_capacity_termination_policy  = "NoTermination"
-  valid_until = %[2]q
-  fleet_type  = "request"
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+excess_capacity_termination_policy= "NoTermination"
+valid_until = %[2]q
+fleet_type= "request"
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2410,24 +2410,24 @@ gs = {
 func testAccSpotFleetRequestConfig_type(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  fleet_type  = "request"
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+fleet_type= "request"
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2436,12 +2436,12 @@ gs = {
 func testAccSpotFleetRequestConfig_iamInstanceProfileARN(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_iam_role" "test-role1" {
-  name = "tf-test-role1-%[1]s"
+name = "tf-test-role1-%[1]s"
 
-  assume_role_policy = <<EOF
+assume_role_policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
+"Version": "2012-10-17",
+"Statement": [
 
 ,
  "Allow",
@@ -2452,51 +2452,51 @@ func2.${data.aws_partition.current.dns_suffix}"
 
  "sts:AssumeRole"
 
-  ]
+]
 }
 EOF
 }
 
 resource "aws_iam_role_policy" "test-role-policy1" {
-  name = "tf-test-role-policy1-%[1]s"
-  role = aws_iam_role.test-role1.name
+name = "tf-test-role-policy1-%[1]s"
+role = aws_iam_role.test-role1.name
 
-  policy = <<EOF
+policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": {
+"Version": "2012-10-17",
+"Statement": {
 ffect": "Allow",
 ction": "*",
 esource": "*"
-  }
+}
 }
 EOF
 }
 
 resource "aws_iam_instance_profile" "test-iam-instance-profile1" {
-  name = "tf-test-profile1-%[1]s"
-  role = aws_iam_role.test-role1.name
+name = "tf-test-profile1-%[1]s"
+role = aws_iam_role.test-role1.name
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.25"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.25"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type= d.aws_ec2_instance_type_offering.available.instance_type
 iws_ami.amzn-ami-minimal-hvm-ebs.id
-y_name  = aws_key_pair.test.key_name
+y_name= aws_key_pair.test.key_name
 m_instance_profile_arn = aws_iam_instance_profile.test-iam-instance-profile1.arn
 
 gs = {
 1]q
 
-  }
+}
 funcpends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
@@ -2506,24 +2506,24 @@ funcpends_on = [aws_iam_policy_attachment.test]
 func testAccSpotFleetRequestConfig_changeBidPrice(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2532,14 +2532,14 @@ gs = {
 func testAccSpotFleetRequestConfig_azs(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type_ec2_instance_type_offering.available.instance_type
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -2548,9 +2548,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_type_ec2_instance_type_offering.available.instance_type
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -2558,9 +2558,9 @@ func
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2569,62 +2569,62 @@ gs = {
 func testAccSpotFleetRequestConfig_subnet(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test1" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test2" {
-  cidr_block.20.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[1]
+cidr_block.20.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[1]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type = "m3.large"
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 func
 gs = {
 1]q
 
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_type = "m3.large"
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 bnet_idet.test2.id
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2633,66 +2633,66 @@ gs = {
 func testAccSpotFleetRequestConfig_elbs(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test1" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test2" {
-  cidr_block.20.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[1]
+cidr_block.20.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[1]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_elb" "test" {
-  name
-  subnets  = [aws_subnet.test1.id, aws_subnet.test2.id]
-  internal = true
+name
+subnets= [aws_subnet.test1.id, aws_subnet.test2.id]
+internal = true
 
-  listener {
+listener {
 stance_port
 stance_protocol = "HTTP"
-_port  = 80
+_port= 80
 _protocol
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.5"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.5"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
 funcad_balancerslb.test.name]
 
-  launch_specification {
+launch_specification {
 stance_type = "m3.large"
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 bnet_idet.test1.id
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2701,76 +2701,76 @@ gs = {
 func testAccSpotFleetRequestConfig_targetGroups(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_subnet" "test1" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test2" {
-  cidr_block.20.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[1]
+cidr_block.20.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[1]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_alb" "test" {
-  name
-  internal = true
-  subnets  = [aws_subnet.test1.id, aws_subnet.test2.id]
+name
+internal = true
+subnets= [aws_subnet.test1.id, aws_subnet.test2.id]
 }
 
 resource "aws_alb_listener" "test" {
-  load_balancer_arn = aws_alb.test.arn
-  port
-  protocol = "HTTP"
+load_balancer_arn = aws_alb.test.arn
+port
+protocol = "HTTP"
 
-  default_action {
+default_action {
 rget_group_arn = aws_alb_target_group.test.arn
 pe = rward"
-  }
+}
 }
 funcurce "aws_alb_target_group" "test" {
-  nametest.name
-  port
-  protocol = "HTTP"
-  vpc_idws_vpc.test.id
+nametest.name
+port
+protocol = "HTTP"
+vpc_idws_vpc.test.id
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.5"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
-  target_group_arns[aws_alb_target_group.test.arn]
+iam_fleet_rolem_role.test.arn
+spot_price= "0.5"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
+target_group_arns[aws_alb_target_group.test.arn]
 
-  launch_specification {
+launch_specification {
 stance_type = "m3.large"
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 bnet_idet.test1.id
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2779,14 +2779,14 @@ gs = {
 func testAccSpotFleetRequestConfig_multipleInstanceTypesinSameAZ(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type_ec2_instance_type_offering.available.instance_type
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -2795,9 +2795,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_typee"
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -2806,9 +2806,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 funcName, validUntil))
 }
 
@@ -2816,50 +2816,50 @@ funcName, validUntil))
 func testAccSpotFleetRequestConfig_multipleInstanceTypesinSameSubnet(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_idws_vpc.test.id
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.1.0/24"
+vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type = "m3.large"
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 bnet_idet.test.id
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_type = "r3.large"
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 bnet_idet.test.id
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2868,14 +2868,14 @@ gs = {
 func testAccSpotFleetRequestConfig_overridingPrice(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type_ec2_instance_type_offering.available.instance_type
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 funcbility_zone = data.aws_availability_zones.available.names[0]
@@ -2883,9 +2883,9 @@ funcbility_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_typee"
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -2895,9 +2895,9 @@ ot_price"
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2906,13 +2906,13 @@ gs = {
 func testAccSpotFleetRequestConfig_noPrice(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type_ec2_instance_type_offering.available.instance_type
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -2921,9 +2921,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_typee"
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -2932,9 +2932,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2943,15 +2943,15 @@ gs = {
 func testAccSpotFleetRequestConfig_multipleInstancePools(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.7"
-  target_capacity
-  valid_until = %[2]q
-  instance_pools_to_use_count= 2
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.7"
+target_capacity
+valid_until = %[2]q
+instance_pools_to_use_count= 2
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type_ec2_instance_type_offering.available.instance_type
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -2959,9 +2959,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 
 gs = {
 func
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_typee"
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -2970,9 +2970,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_typee"
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -2981,9 +2981,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -2992,14 +2992,14 @@ gs = {
 func testAccSpotFleetRequestConfig_diversifiedAllocation(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.7"
-  target_capacity
-  valid_until = %[2]q
+iam_fleet_rolem_role.test.arn
+spot_price= "0.7"
+target_capacity
+valid_until = %[2]q
 funcrminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type_ec2_instance_type_offering.available.instance_type
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -3008,9 +3008,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_typee"
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -3019,9 +3019,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_typee"
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -3030,9 +3030,9 @@ ailability_zone = data.aws_availability_zones.available.names[0]
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -3041,12 +3041,12 @@ gs = {
 func testAccSpotFleetRequestConfig_weightedCapacity(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.7"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.7"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
 funcce_typee"
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
@@ -3057,9 +3057,9 @@ ighted_capacity = "6"
 gs = {
 1]q
 
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_typee"
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -3069,9 +3069,9 @@ ighted_capacity = "3"
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -3080,15 +3080,15 @@ gs = {
 func testAccSpotFleetRequestConfig_ebs(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
 funcce_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 
 s_block_device {
 me = "/dev/xvda"
@@ -3105,9 +3105,9 @@ ze = "100"
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -3116,22 +3116,22 @@ gs = {
 func testAccSpotFleetRequestConfig_launchSpecificationEBSBlockDeviceKMSKeyID(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  deletion_window_in_days = 7
+deletion_window_in_days = 7
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-funcot_price  = "0.05"
-  target_capacity
-  terminate_instances_with_expiration = true
-  valid_until = %[2]q
-  wait_for_fulfillment = true
+funcot_price= "0.05"
+target_capacity
+terminate_instances_with_expiration = true
+valid_until = %[2]q
+wait_for_fulfillment = true
 
-  launch_specification {
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+launch_specification {
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 stance_type = "t2.micro"
 
 s_block_device {
@@ -3143,7 +3143,7 @@ ze = 8
 s_block_device {
 me = "/dev/xvdcz"
 rue
-d  = aws_kms_key.test.arn
+d= aws_kms_key.test.arn
 pe = "gp2"
 ze = 10
 
@@ -3151,9 +3151,9 @@ ze = 10
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -3162,27 +3162,27 @@ gs = {
 func testAccSpotFleetRequestConfig_launchSpecificationRootBlockDeviceKMSKeyID(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  deletion_window_in_days = 7
+deletion_window_in_days = 7
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  terminate_instances_with_expiration = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+terminate_instances_with_expiration = true
 funcit_for_fulfillment = true
 
-  launch_specification {
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+launch_specification {
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 stance_type = "t2.micro"
 
 ot_block_device {
 rue
-d  = aws_kms_key.test.arn
+d= aws_kms_key.test.arn
 pe = "gp2"
 ze = 10
 
@@ -3190,9 +3190,9 @@ ze = 10
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -3201,14 +3201,14 @@ gs = {
 func testAccSpotFleetRequestConfig_launchSpecificationEBSBlockDeviceGP3(rName, publicKey string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+launch_specification {
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 stance_type = "t2.micro"
 
 s_block_device {
@@ -3220,16 +3220,16 @@ ze = 8
 s_block_device {
 me = "/dev/xvdcz"
 
-t  = 500
+t= 500
 ze = 15
 pe = "gp3"
 
 func {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName))
 }
@@ -3238,19 +3238,19 @@ func {
 func testAccSpotFleetRequestConfig_launchSpecificationRootBlockDeviceGP3(rName, publicKey string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+launch_specification {
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 stance_type = "t2.micro"
 
 ot_block_device {
 
-t  = 500
+t= 500
 ze = 15
 pe = "gp3"
 
@@ -3258,9 +3258,9 @@ pe = "gp3"
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName))
 }
@@ -3271,23 +3271,23 @@ testAccAMIDataSourceConfig_latestAmazonLinuxHVMInstanceStore(),
 testAccSpotFleetRequestConfig_base(rName, publicKey),
 fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  launch_specification {
-i  = data.aws_ami.amzn-ami-minimal-hvm-instance-store.id
+launch_specification {
+i= data.aws_ami.amzn-ami-minimal-hvm-instance-store.id
 stance_type = "c3.large"
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -3296,24 +3296,24 @@ gs = {
 func testAccSpotFleetRequestConfig_tags(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
 func
-  launch_specification {
+launch_specification {
 stance_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 
 gs = {
 "TfAccTest"
 "Terraform"
 %[1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -3322,18 +3322,18 @@ gs = {
 func testAccSpotFleetRequestConfig_tenancyGroup(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_placement_group" "test" {
-  name
-  strategy = "cluster"
+name
+strategy = "cluster"
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
 
-  launch_specification {
+launch_specification {
 stance_type_ec2_instance_type_offering.available.instance_type
 i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name = aws_key_pair.test.key_name
@@ -3343,9 +3343,9 @@ acement_group= aplacement_group.test.name
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 func
@@ -3353,25 +3353,25 @@ func
 func testAccSpotFleetRequestConfig_zeroCapacity(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
 
-  launch_specification {
+launch_specification {
 stance_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -3380,29 +3380,29 @@ gs = {
 func testAccSpotFleetRequestConfig_capacityRebalance(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+wait_for_fulfillment = true
 
-  spot_maintenance_strategies {
+spot_maintenance_strategies {
 functrategy = "launch"
 
-  }
+}
 
-  launch_specification {
+launch_specification {
 stance_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 
 gs = {
 1]q
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
 }
@@ -3411,37 +3411,37 @@ gs = {
 func testAccSpotFleetRequestConfig_onDemandTargetCapacity(rName, publicKey, validUntil string, targetCapacity int) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  key_name_pair.test.key_name
+name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+key_name_pair.test.key_name
 
-  tag_specifications {
+tag_specifications {
 source_type = "instance"
 
 gs = {
 1]q
 
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-funcot_price  = "0.005"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
-  on_demand_target_capacity  = %[3]d
+funcot_price= "0.005"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
+on_demand_target_capacity= %[3]d
 
-  launch_template_config {
+launch_template_config {
 unch_template_specification {
  aws_launch_template.test.name
  aws_launch_template.test.latest_version
 
-  }
+}
 
-  depends_on = ["aws_iam_policy_attachment.test"]
+depends_on = ["aws_iam_policy_attachment.test"]
 }
 `, rName, validUntil, targetCapacity))
 }
@@ -3450,37 +3450,37 @@ unch_template_specification {
 func testAccSpotFleetRequestConfig_onDemandMaxTotalPrice(rName, publicKey, validUntil, price string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  key_name_pair.test.key_name
+name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+key_name_pair.test.key_name
 
-  tag_specifications {
+tag_specifications {
 source_type = "instance"
 func {
 1]q
 
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.005"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
-  on_demand_max_total_price  = %[3]q
+iam_fleet_rolem_role.test.arn
+spot_price= "0.005"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
+on_demand_max_total_price= %[3]q
 
-  launch_template_config {
+launch_template_config {
 unch_template_specification {
  aws_launch_template.test.name
  aws_launch_template.test.latest_version
 
-  }
+}
 
-  depends_on = ["aws_iam_policy_attachment.test"]
+depends_on = ["aws_iam_policy_attachment.test"]
 }
 `, rName, validUntil, price))
 }
@@ -3488,37 +3488,37 @@ unch_template_specification {
 func testAccSpotFleetRequestConfig_onDemandAllocationStrategy(rName, publicKey, validUntil, strategy string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  key_name_pair.test.key_name
+name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+key_name_pair.test.key_name
 
-  tag_specifications {
+tag_specifications {
 source_type = "instance"
 
 gs = {
 1]q
 
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.005"
-  target_capacity
-  valid_until = %[2]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
-  on_demand_allocation_strategy
+iam_fleet_rolem_role.test.arn
+spot_price= "0.005"
+target_capacity
+valid_until = %[2]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
+on_demand_allocation_strategy
 
 func_template_specification {
  aws_launch_template.test.name
  aws_launch_template.test.latest_version
 
-  }
+}
 
-  depends_on = ["aws_iam_policy_attachment.test"]
+depends_on = ["aws_iam_policy_attachment.test"]
 }
 `, rName, validUntil, strategy))
 }
@@ -3527,23 +3527,23 @@ func_template_specification {
 func testAccSpotFleetRequestConfig_noTerminateInstancesExpiration(rName, publicKey, validUntil string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolews_iam_role.test.arn
-  spot_price
-  target_capacity  = 2
-  valid_until
-  terminate_instances_on_deleterue
-  instance_interruption_behaviour = "stop"
-  wait_for_fulfillmentrue
+iam_fleet_rolews_iam_role.test.arn
+spot_price
+target_capacity= 2
+valid_until
+terminate_instances_on_deleterue
+instance_interruption_behaviour = "stop"
+wait_for_fulfillmentrue
 
-  launch_specification {
+launch_specification {
 stance_type = data.aws_ec2_instance_type_offering.available.instance_type
-i  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+i= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 y_name_pair.test.key_name
 
 gs = {
 1]q
 
-  }
+}
 funcpends_on = [aws_iam_policy_attachment.test]
 }
 `, rName, validUntil))
@@ -3553,30 +3553,30 @@ funcpends_on = [aws_iam_policy_attachment.test]
 func testAccSpotFleetRequestConfig_targetCapacityUnitType(rName, publicKey, validUntil, targetCapacityUnitType string) string {
 	return acctest.ConfigCompose(testAccSpotFleetRequestConfig_base(rName, publicKey), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  key_name_pair.test.key_name
+name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+key_name_pair.test.key_name
 
-  tag_specifications {
+tag_specifications {
 source_type = "instance"
 
 gs = {
 1]q
 
-  }
+}
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_rolem_role.test.arn
-  spot_price  = "0.05"
-  target_capacity
-funcrget_capacity_unit_type  = %[3]q
-  terminate_instances_with_expiration = true
-  instance_interruption_behaviour
-  wait_for_fulfillment = true
+iam_fleet_rolem_role.test.arn
+spot_price= "0.05"
+target_capacity
+funcrget_capacity_unit_type= %[3]q
+terminate_instances_with_expiration = true
+instance_interruption_behaviour
+wait_for_fulfillment = true
 
-  launch_template_config {
+launch_template_config {
 unch_template_specification {
  aws_launch_template.test.name
  aws_launch_template.test.latest_version
@@ -3599,9 +3599,9 @@ mib {
 e_generations = ["current"]
 
 
-  }
+}
 
-  depends_on = [aws_iam_policy_attachment.test]
+depends_on = [aws_iam_policy_attachment.test]
 }
 func
 funcfuncfuncfunc

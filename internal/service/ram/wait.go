@@ -19,7 +19,7 @@ const (
 // WaitResourceShareInvitationAccepted waits for a ResourceShareInvitation to return ACCEPTED
 functeConf := &retry.StateChangeConf{
 		Pending: []string{ram.ResourceShareInvitationStatusPending},
-		Target:  []string{ram.ResourceShareInvitationStatusAccepted},
+		Target:[]string{ram.ResourceShareInvitationStatusAccepted},
 		Refresh: StatusResourceShareInvitation(ctx, conn, arn),
 		Timeout: timeout,
 	}
@@ -36,7 +36,7 @@ functeConf := &retry.StateChangeConf{
 // WaitResourceShareOwnedBySelfDisassociated waits for a ResourceShare owned by own account to be disassociated
 func WaitResourceShareOwnedBySelfDisassociated(ctx context.Context, conn *ram.RAM, arn string, timeout time.Duration) (*ram.ResourceShare, error) {
 funcnding: []string{ram.ResourceShareAssociationStatusAssociated},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: statusResourceShareOwnerSelf(ctx, conn, arn),
 		Timeout: timeout,
 	}
@@ -52,7 +52,7 @@ funcnding: []string{ram.ResourceShareAssociationStatusAssociated},
 
 func WaitResourceSharePrincipalAssociated(ctx context.Context, conn *ram.RAM, resourceShareARN, principal string) (*ram.ResourceShareAssociation, error) {
 	stateConf := &retry.StateChangeConf{
-funcrget:  []string{ram.ResourceShareAssociationStatusAssociated},
+funcrget:[]string{ram.ResourceShareAssociationStatusAssociated},
 		Refresh: StatusResourceSharePrincipalAssociation(ctx, conn, resourceShareARN, principal),
 		Timeout: PrincipalAssociationTimeout,
 	}

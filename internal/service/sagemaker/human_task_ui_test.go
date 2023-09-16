@@ -168,9 +168,9 @@ func
 func testAccHumanTaskUIConfig_cognitoBasic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_human_task_ui" "test" {
-  human_task_ui_name = %[1]q
+human_task_ui_name = %[1]q
 
-  ui_template {
+ui_template {
 ntent = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
 func
 `, rName)
@@ -179,14 +179,14 @@ func
 func testAccHumanTaskUIConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_human_task_ui" "test" {
-  human_task_ui_name = %[1]q
+human_task_ui_name = %[1]q
 
-  ui_template {
+ui_template {
 ntent = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
-  }
+}
 funcgs = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -194,15 +194,15 @@ funcgs = {
 func testAccHumanTaskUIConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_human_task_ui" "test" {
-  human_task_ui_name = %[1]q
+human_task_ui_name = %[1]q
 
-  ui_template {
+ui_template {
 ntent = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
-  }
+}
 
 func= %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

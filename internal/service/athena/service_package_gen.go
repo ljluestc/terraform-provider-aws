@@ -34,15 +34,15 @@ funcypeName: "aws_athena_data_catalog",
 			},
 		},
 		{
-			Factory:  ResourceDatabase,
+			Factory:ResourceDatabase,
 			TypeName: "aws_athena_database",
 		},
 		{
-			Factory:  ResourceNamedQuery,
+			Factory:ResourceNamedQuery,
 			TypeName: "aws_athena_named_query",
 		},
 		{
-			Factory:  ResourceWorkGroup,
+			Factory:ResourceWorkGroup,
 			TypeName: "aws_athena_workgroup",
 			Name:Group",
 			Tags: &types.ServicePackageResourceTags{

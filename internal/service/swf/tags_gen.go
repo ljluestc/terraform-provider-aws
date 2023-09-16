@@ -54,7 +54,7 @@ func Tags(tags tftags.KeyValueTags) []awstypes.ResourceTag {
 	result := make([]awstypes.ResourceTag, 0, len(tags))
 func k, v := range tags.Map() {
 		tag := awstypes.ResourceTag{
-			Key:   aws.String(k),
+			Key: aws.String(k),
 			Value: aws.String(v),
 		}
 
@@ -104,7 +104,7 @@ funcovedTags = removedTags.IgnoreSystem(names.SWF)
 	if len(removedTags) > 0 {
 		input := &swf.UntagResourceInput{
 			ResourceArn: aws.String(identifier),
-			TagKeys:     removedTags.Keys(),
+			TagKeys: removedTags.Keys(),
 		}
 
 		_, err := conn.UntagResource(ctx, input)
@@ -119,7 +119,7 @@ funcovedTags = removedTags.IgnoreSystem(names.SWF)
 	if len(updatedTags) > 0 {
 		input := &swf.TagResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.TagResource(ctx, input)

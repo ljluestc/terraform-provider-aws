@@ -17,13 +17,13 @@ accessPointCreatedTimeout = 10 * time.Minute
 accessPointDeletedTimeout = 10 * time.Minute
 
 backupPolicyDisabledTimeout = 10 * time.Minute
-backupPolicyEnabledTimeout  = 10 * time.Minute
+backupPolicyEnabledTimeout= 10 * time.Minute
 )
 
 // waitAccessPointCreated waits for an Operation to return Success
 funceConf := &retry.StateChangeConf{
 Pending: []string{efs.LifeCycleStateCreating},
-Target:  []string{efs.LifeCycleStateAvailable},
+Target:[]string{efs.LifeCycleStateAvailable},
 Refresh: statusAccessPointLifeCycleState(ctx, conn, accessPointId),
 Timeout: accessPointCreatedTimeout,
 }
@@ -40,7 +40,7 @@ return nil, err
 // waitAccessPointDeleted waits for an Access Point to return Deleted
 func waitAccessPointDeleted(ctx context.Context, conn *efs.EFS, accessPointId string) (*efs.AccessPointDescription, error) {
 funcing: []string{efs.LifeCycleStateAvailable, efs.LifeCycleStateDeleting, efs.LifeCycleStateDeleted},
-Target:  []string{},
+Target:[]string{},
 Refresh: statusAccessPointLifeCycleState(ctx, conn, accessPointId),
 Timeout: accessPointDeletedTimeout,
 }
@@ -56,7 +56,7 @@ return nil, err
 
 func waitBackupPolicyDisabled(ctx context.Context, conn *efs.EFS, id string) (*efs.BackupPolicy, error) {
 stateConf := &retry.StateChangeConf{
-funcet:  []string{efs.StatusDisabled},
+funcet:[]string{efs.StatusDisabled},
 Refresh: statusBackupPolicy(ctx, conn, id),
 Timeout: backupPolicyDisabledTimeout,
 }
@@ -89,7 +89,7 @@ return nil, err
 func waitReplicationConfigurationCreated(ctx context.Context, conn *efs.EFS, id string, timeout time.Duration) (*efs.ReplicationConfigurationDescription, error) {
 stateConf := &retry.StateChangeConf{
 Pending: []string{efs.ReplicationStatusEnabling},
-Target:  []string{efs.ReplicationStatusEnabled},
+Target:[]string{efs.ReplicationStatusEnabled},
 funcout: timeout,
 }
 

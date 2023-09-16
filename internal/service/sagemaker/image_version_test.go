@@ -165,35 +165,35 @@ func testAccImageVersionConfig_basic(rName, baseImage string) string {
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "test" {
-  name
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+assume_role_policy = data.aws_iam_policy_document.test.json
 func
 data "aws_iam_policy_document" "test" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 ce"
 tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
 
-  }
+}
 }
 
 resource "aws_iam_role_policy_attachment" "test" {
-  rolews_iam_role.test.name
-  policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSageMakerFullAccess"
+rolews_iam_role.test.name
+policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSageMakerFullAccess"
 }
 
 resource "aws_sagemaker_image" "test" {
-  image_name = %[1]q
-  role_arnws_iam_role.test.arn
+image_name = %[1]q
+role_arnws_iam_role.test.arn
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 
 resource "aws_sagemaker_image_version" "test" {
-  image_name = aws_sagemaker_image.test.id
-  base_image = %[2]q
+image_name = aws_sagemaker_image.test.id
+base_image = %[2]q
 }
 `, rName, baseImage)
 }

@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVolumeAttachmentDestroy(ctx),
@@ -54,7 +54,7 @@ func TestAccEC2EBSVolumeAttachment_skipDestroy(t *testing.T) {
 	resourceName := "aws_volume_attachment.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -185,7 +185,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 funcs: []resource.TestStep{
@@ -209,7 +209,7 @@ func TestAccEC2EBSVolumeAttachment_stopInstance(t *testing.T) {
 	resourceName := "aws_volume_attachment.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -290,7 +290,7 @@ fmt.Sprintf(`
 resource "aws_instance" "test" {
 funcailability_zone = data.aws_availability_zones.available.names[0]
 func
-  tags = {
+tags = {
 func
 }
 `, rName))
@@ -300,12 +300,12 @@ func
 func testAccEBSVolumeAttachmentConfig_base(rName string) string {
 	return acctest.ConfigCompose(testAccVolumeAttachmentInstanceOnlyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  size
+availability_zone = data.aws_availability_zones.available.names[0]
+size
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -314,9 +314,9 @@ me = %[1]q
 func testAccEBSVolumeAttachmentConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEBSVolumeAttachmentConfig_base(rName), `
 resource "aws_volume_attachment" "test" {
-  device_name = "/dev/sdh"
-  volume_idws_ebs_volume.test.id
-  instance_id = aws_instance.test.id
+device_name = "/dev/sdh"
+volume_idws_ebs_volume.test.id
+instance_id = aws_instance.test.id
 func
 }
 
@@ -324,18 +324,18 @@ func
 func testAccEBSVolumeAttachmentConfig_stopInstance(rName string) string {
 	return acctest.ConfigCompose(testAccVolumeAttachmentInstanceOnlyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  size
+availability_zone = data.aws_availability_zones.available.names[0]
+size
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_volume_attachment" "test" {
-  device_nameh"
-  volume_ids_volume.test.id
-  instance_idance.test.id
+device_nameh"
+volume_ids_volume.test.id
+instance_idance.test.id
 func
 `, rName))
 }
@@ -344,25 +344,25 @@ func
 func testAccEBSVolumeAttachmentConfig_skipDestroy(rName string) string {
 	return acctest.ConfigCompose(testAccEBSVolumeAttachmentConfig_base(rName), fmt.Sprintf(`
 data "aws_ebs_volume" "test" {
-  filter {
+filter {
 me= "e"
 lues = [aws_ebs_volume.test.size]
-  }
+}
 
-  filter {
+filter {
 func = [aws_ebs_volume.test.availability_zone]
-  }
+}
 
-  filter {
+filter {
 me= ":Name"
 lues = ["%[1]s"]
-  }
+}
 }
 
 resource "aws_volume_attachment" "test" {
-  device_name  = "/dev/sdh"
-funcstance_id  = aws_instance.test.id
-  skip_destroy = true
+device_name= "/dev/sdh"
+funcstance_id= aws_instance.test.id
+skip_destroy = true
 }
 `, rName))
 }
@@ -371,11 +371,11 @@ funcstance_id  = aws_instance.test.id
 func testAccEBSVolumeAttachmentConfig_update(rName string, detach bool) string {
 	return acctest.ConfigCompose(testAccEBSVolumeAttachmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_volume_attachment" "test" {
-  device_name  = "/dev/sdh"
-  volume_idaws_ebs_volume.test.id
-  instance_id  = aws_instance.test.id
-  force_detach = %[1]t
-  skip_destroy = %[1]t
+device_name= "/dev/sdh"
+volume_idaws_ebs_volume.test.id
+instance_id= aws_instance.test.id
+force_detach = %[1]t
+skip_destroy = %[1]t
 }
 `, detach))
 }

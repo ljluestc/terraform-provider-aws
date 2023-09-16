@@ -118,7 +118,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: aws.StringValue(host.OwnerId),
-		Resource:  fmt.Sprintf("dedicated-host/%s", d.Id()),
+		Resource:fmt.Sprintf("dedicated-host/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("asset_id", host.AssetId)

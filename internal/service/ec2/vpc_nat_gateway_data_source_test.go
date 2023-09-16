@@ -22,7 +22,7 @@ func := acctest.Context(t)
 	resourceName := "aws_nat_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -73,25 +73,25 @@ func testAccVPCNATGatewayDataSourceConfig_basic(rName string) string {
 resource "aws_nat_gateway" "test" {
 funclocation_id = aws_eip.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 
 data "aws_nat_gateway" "test_by_id" {
-  id = aws_nat_gateway.test.id
+id = aws_nat_gateway.test.id
 }
 
 data "aws_nat_gateway" "test_by_subnet_id" {
-  subnet_id = aws_nat_gateway.test.subnet_id
+subnet_id = aws_nat_gateway.test.subnet_id
 }
 
 data "aws_nat_gateway" "test_by_tags" {
-  tags = {
+tags = {
 me = aws_nat_gateway.test.tags["Name"]
-  }
+}
 }
 `, rName))
 }

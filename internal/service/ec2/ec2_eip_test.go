@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	resourceName := "aws_eip.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckEIPDestroy(ctx),
@@ -55,7 +55,7 @@ func TestAccEC2EIP_disappears(t *testing.T) {
 	var conf ec2.Address
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -100,7 +100,7 @@ func(
 	},
 	{
 funcig:stAccEIPConfig_basic,
-PlanOnly:  true,
+PlanOnly:true,
 	},
 },
 	})
@@ -113,7 +113,7 @@ func TestAccEC2EIP_noVPC(t *testing.T) {
 	resourceName := "aws_eip.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckEIPDestroy(ctx),
@@ -142,7 +142,7 @@ func TestAccEC2EIP_tags(t *testing.T) {
 	resourceName := "aws_eip.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -189,7 +189,7 @@ func TestAccEC2EIP_instance(t *testing.T) {
 	resourceName := "aws_eip.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -221,7 +221,7 @@ func conf ec2.Address
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -257,7 +257,7 @@ func conf ec2.Address
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckEIPDestroy(ctx),
@@ -298,7 +298,7 @@ func TestAccEC2EIP_Instance_notAssociated(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -337,7 +337,7 @@ func TestAccEC2EIP_networkInterface(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -369,7 +369,7 @@ func TestAccEC2EIP_NetworkInterface_twoEIPsOneInterface(t *testing.T) {
 	resource2Name := "aws_eip.test.1"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -400,7 +400,7 @@ funcResourceName := "aws_network_interface.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -446,7 +446,7 @@ func TestAccEC2EIP_PublicIPv4Pool_default(t *testing.T) {
 	resourceName := "aws_eip.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -481,7 +481,7 @@ t.Skipf("Environment variable %s is not set", key)
 	resourceName := "aws_eip.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -511,7 +511,7 @@ func TestAccEC2EIP_customerOwnedIPv4Pool(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckEIPDestroy(ctx),
@@ -540,7 +540,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -570,7 +570,7 @@ funcourceName := "aws_eip.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckWavelengthZoneAvailable(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -600,7 +600,7 @@ func TestAccEC2EIP_BYOIPAddress_default(t *testing.T) {
 	resourceName := "aws_eip.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -630,7 +630,7 @@ func
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckEIPDestroy(ctx),
@@ -664,7 +664,7 @@ t.Skipf("Environment variable %s is not set", key)
 	resourceName := "aws_eip.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -781,13 +781,13 @@ func
 
 const testAccEIPConfig_basic = `
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 }
 `
 
 const testAccEIPConfig_vpc = `
 resource "aws_eip" "test" {
-  vpc = true
+vpc = true
 }
 `
 
@@ -800,7 +800,7 @@ resource "aws_eip" "test" {
 func testAccEIPConfig_tags1(tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
-  vpc = true
+vpc = true
 
 func= %[2]q
 func
@@ -810,12 +810,12 @@ func
 func testAccEIPConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2)
 }
@@ -833,13 +833,13 @@ me = %[1]q
 func
 
 resource "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_idet.test[0].id
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+subnet_idet.test[0].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -848,12 +848,12 @@ me = %[1]q
 func testAccEIPConfig_instance(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseInstance(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
-  instance = aws_instance.test.id
-  domainvpc"
+instance = aws_instance.test.id
+domainvpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -866,50 +866,50 @@ acctest.ConfigVPCWithSubnets(rName, 1),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_eip" "test" {
-  instance = aws_instance.test.id
-  domainvpc"
+instance = aws_instance.test.id
+domainvpc"
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_instance" "test" {
-  ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  associate_public_ip_address = true
-  instance_type= data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_idaws_subnet.test[0].id
+ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+associate_public_ip_address = true
+instance_type= data.aws_ec2_instance_type_offering.available.instance_type
+subnet_idaws_subnet.test[0].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
 func_before_destroy = true
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 funcute {
 dr_block = "0.0.0.0/0"
 teway_id = aws_internet_gateway.test.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table_association" "test" {
-  subnet_idnet.test[0].id
-  route_table_id = aws_route_table.test.id
+subnet_idnet.test[0].id
+route_table_id = aws_route_table.test.id
 }
 `, rName))
 }
@@ -922,45 +922,45 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block  = "10.0.0.0/16"
-  enable_dns_hostnames = true
+cidr_block= "10.0.0.0/16"
+enable_dns_hostnames = true
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
 funcailability_zonews_availability_zones.available.names[0]
-  cidr_block0/24"
-  map_public_ip_on_launch = true
+cidr_block0/24"
+map_public_ip_on_launch = true
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_instance" "test" {
-  count = 2
+count = 2
 
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 
-  private_ip = "10.0.0.1${count.index}"
-  subnet_id  = aws_subnet.test.id
+private_ip = "10.0.0.1${count.index}"
+subnet_id= aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -969,14 +969,14 @@ me = %[1]q
 func testAccEIPConfig_instanceAssociated(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseInstanceAssociated(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  instancews_instance.test[1].id
-  associate_with_private_ip = aws_instance.test[1].private_ip
+instancews_instance.test[1].id
+associate_with_private_ip = aws_instance.test[1].private_ip
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -985,14 +985,14 @@ me = %[1]q
 func testAccEIPConfig_instanceAssociatedSwitch(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseInstanceAssociated(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  instancews_instance.test[0].id
-  associate_with_private_ip = aws_instance.test[0].private_ip
+instancews_instance.test[0].id
+associate_with_private_ip = aws_instance.test[0].private_ip
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -1000,11 +1000,11 @@ me = %[1]q
 func testAccEIPConfig_instanceAssociateNotAssociated(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseInstance(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -1013,32 +1013,32 @@ me = %[1]q
 func testAccEIPConfig_networkInterface(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test[0].id
-  private_ips.10"]
-  security_groups = [aws_vpc.test.default_security_group_id]
+subnet_idbnet.test[0].id
+private_ips.10"]
+security_groups = [aws_vpc.test.default_security_group_id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_eip" "test" {
-  domainvpc"
-  network_interface = aws_network_interface.test.id
+domainvpc"
+network_interface = aws_network_interface.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 `, rName))
 }
@@ -1047,33 +1047,33 @@ me = %[1]q
 func testAccEIPConfig_multiNetworkInterface(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test[0].id
-  private_ips.10", "10.0.0.11"]
-  security_groups = [aws_vpc.test.default_security_group_id]
+subnet_idbnet.test[0].id
+private_ips.10", "10.0.0.11"]
+security_groups = [aws_vpc.test.default_security_group_id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_eip" "test" {
-  count = 2
+count = 2
 
 functwork_interface= aws_network_interface.test.id
-  associate_with_private_ip = "10.0.0.1${count.index}"
+associate_with_private_ip = "10.0.0.1${count.index}"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 `, rName))
 }
@@ -1083,13 +1083,13 @@ func testAccEIPConfig_baseAssociation(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseInstance(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
 funcivate_ips.10"]
-  security_groups = [aws_vpc.test.default_security_group_id]
+security_groups = [aws_vpc.test.default_security_group_id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 `, rName))
 }
@@ -1097,13 +1097,13 @@ me = %[1]q
 
 funcurn acctest.ConfigCompose(testAccEIPConfig_baseAssociation(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_network_interface.test]
+depends_on = [aws_network_interface.test]
 }
 `, rName))
 }
@@ -1112,13 +1112,13 @@ me = %[1]q
 func testAccEIPConfig_associationENI(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseAssociation(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  network_interface = aws_network_interface.test.id
+network_interface = aws_network_interface.test.id
 }
 `, rName))
 }
@@ -1127,14 +1127,14 @@ me = %[1]q
 func testAccEIPConfig_associationInstance(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseAssociation(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
 func %[1]q
-  }
+}
 
-  instance = aws_instance.test.id
+instance = aws_instance.test.id
 
-  depends_on = [aws_network_interface.test]
+depends_on = [aws_network_interface.test]
 }
 `, rName))
 }
@@ -1143,11 +1143,11 @@ func %[1]q
 func testAccEIPConfig_publicIPv4PoolDefault(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1156,12 +1156,12 @@ me = %[1]q
 func testAccEIPConfig_publicIPv4PoolCustom(rName, poolName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain  = "vpc"
-  public_ipv4_pool = %[2]q
+domain= "vpc"
+public_ipv4_pool = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, poolName)
 }
@@ -1171,12 +1171,12 @@ func testAccEIPConfig_customerOwnedIPv4Pool(rName string) string {
 data "aws_ec2_coip_pools" "test" {}
 
 resource "aws_eip" "test" {
-  customer_owned_ipv4_pool = tolist(data.aws_ec2_coip_pools.test.pool_ids)[0]
-  domain"vpc"
+customer_owned_ipv4_pool = tolist(data.aws_ec2_coip_pools.test.pool_ids)[0]
+domain"vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1186,12 +1186,12 @@ func testAccEIPConfig_networkBorderGroup(rName string) string {
 func "aws_region" current {}
 
 resource "aws_eip" "test" {
-  domain= "vpc"
-  network_border_group = data.aws_region.current.name
+domain= "vpc"
+network_border_group = data.aws_region.current.name
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1201,16 +1201,16 @@ func testAccEIPConfig_carrierIP(rName string) string {
 funcAccAvailableAZsWavelengthZonesDefaultExcludeConfig(),
 fmt.Sprintf(`
 data "aws_availability_zone" "available" {
-  name = data.aws_availability_zones.available.names[0]
+name = data.aws_availability_zones.available.names[0]
 }
 
 resource "aws_eip" "test" {
-  domain= "vpc"
-  network_border_group = data.aws_availability_zone.available.network_border_group
+domain= "vpc"
+network_border_group = data.aws_availability_zone.available.network_border_group
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 func
@@ -1218,11 +1218,11 @@ func
 func testAccEIPConfig_byoipAddressCustomDefault(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1230,12 +1230,12 @@ me = %[1]q
 
 func testAccEIPConfig_byoipAddressCustom(rName, address string) string {
 	return fmt.Sprintf(`
-funcmain  = "vpc"
-  address = %[2]q
+funcmain= "vpc"
+address = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, address)
 }
@@ -1243,13 +1243,13 @@ me = %[1]q
 
 func testAccEIPConfig_byoipAddressCustomPublicIPv4Pool(rName, address, poolName string) string {
 	return fmt.Sprintf(`
-funcmain  = "vpc"
-  address = %[2]q
-  public_ipv4_pool = %[3]q
+funcmain= "vpc"
+address = %[2]q
+public_ipv4_pool = %[3]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, address, poolName)
 }

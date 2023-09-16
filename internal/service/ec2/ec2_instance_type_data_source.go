@@ -330,7 +330,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 			fpga := map[string]interface{}{
 				"count":64Value(fpg.Count),
 				"manufacturer": aws.StringValue(fpg.Manufacturer),
-				"memory_size":  aws.Int64Value(fpg.MemoryInfo.SizeInMiB),
+				"memory_size":aws.Int64Value(fpg.MemoryInfo.SizeInMiB),
 				"name":aws.StringValue(fpg.Name),
 			}
 			fpgaList[i] = fpga
@@ -345,7 +345,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 			gpu := map[string]interface{}{
 				"count":64Value(gp.Count),
 				"manufacturer": aws.StringValue(gp.Manufacturer),
-				"memory_size":  aws.Int64Value(gp.MemoryInfo.SizeInMiB),
+				"memory_size":aws.Int64Value(gp.MemoryInfo.SizeInMiB),
 				"name":aws.StringValue(gp.Name),
 			}
 			gpuList[i] = gpu
@@ -373,8 +373,8 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 			for i, dk := range v.InstanceStorageInfo.Disks {
 				disk := map[string]interface{}{
 					"count": aws.Int64Value(dk.Count),
-					"size":  aws.Int64Value(dk.SizeInGB),
-					"type":  aws.StringValue(dk.Type),
+					"size":aws.Int64Value(dk.SizeInGB),
+					"type":aws.StringValue(dk.Type),
 				}
 				diskList[i] = disk
 			}

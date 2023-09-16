@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -91,7 +91,7 @@ func TestAccEC2LaunchTemplate_Name_generated(t *testing.T) {
 	var template ec2.LaunchTemplate
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -149,7 +149,7 @@ func TestAccEC2LaunchTemplate_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -173,7 +173,7 @@ func := acctest.Context(t)
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -208,7 +208,7 @@ func TestAccEC2LaunchTemplate_BlockDeviceMappingsEBS_deleteOnTermination(t *test
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -251,7 +251,7 @@ func TestAccEC2LaunchTemplate_BlockDeviceMappingsEBS_gp3(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -285,7 +285,7 @@ func := acctest.Context(t)
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -343,7 +343,7 @@ func := acctest.Context(t)
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -379,7 +379,7 @@ func TestAccEC2LaunchTemplate_NetworkInterfaces_deleteOnTermination(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_launch_template.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -437,7 +437,7 @@ func TestAccEC2LaunchTemplate_data(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -483,7 +483,7 @@ func TestAccEC2LaunchTemplate_description(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -522,7 +522,7 @@ funcourceName := "aws_launch_template.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -563,7 +563,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -610,7 +610,7 @@ func TestAccEC2LaunchTemplate_CapacityReservation_preference(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -640,7 +640,7 @@ func TestAccEC2LaunchTemplate_CapacityReservation_target(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -676,7 +676,7 @@ funcginalCoreCount := 2
 	updatedThreadsPerCore := 1
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -716,7 +716,7 @@ func TestAccEC2LaunchTemplate_CreditSpecification_nonBurstable(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -744,7 +744,7 @@ func TestAccEC2LaunchTemplate_CreditSpecification_t2(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_launch_template.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -774,7 +774,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -803,7 +803,7 @@ func TestAccEC2LaunchTemplate_CreditSpecification_t4g(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -833,7 +833,7 @@ func TestAccEC2LaunchTemplate_IAMInstanceProfile_emptyBlock(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_launch_template.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -857,7 +857,7 @@ func TestAccEC2LaunchTemplate_networkInterface(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -903,7 +903,7 @@ func template ec2.LaunchTemplate
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -933,7 +933,7 @@ func TestAccEC2LaunchTemplate_networkInterfaceType(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -964,7 +964,7 @@ func TestAccEC2LaunchTemplate_networkInterfaceCardIndex(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -994,7 +994,7 @@ funcourceName := "aws_launch_template.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1053,7 +1053,7 @@ func template ec2.LaunchTemplate
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -1082,7 +1082,7 @@ func TestAccEC2LaunchTemplate_networkInterfaceIPv6Prefixes(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1112,7 +1112,7 @@ func TestAccEC2LaunchTemplate_associatePublicIPAddress(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -1163,7 +1163,7 @@ func TestAccEC2LaunchTemplate_associateCarrierIPAddress(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1214,7 +1214,7 @@ func template ec2.LaunchTemplate
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -1243,7 +1243,7 @@ func TestAccEC2LaunchTemplate_Placement_partitionNum(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -1278,7 +1278,7 @@ func template ec2.LaunchTemplate
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1310,7 +1310,7 @@ func TestAccEC2LaunchTemplate_NetworkInterface_ipv6Addresses(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -1339,7 +1339,7 @@ func TestAccEC2LaunchTemplate_NetworkInterface_ipv6AddressCount(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1369,7 +1369,7 @@ func TestAccEC2LaunchTemplate_instanceMarketOptions(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1409,7 +1409,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_memoryMiBAndVCPUCount(t *test
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1470,7 +1470,7 @@ func := acctest.Context(t)
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1554,7 +1554,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_acceleratorManufacturers(t *t
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1615,7 +1615,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_acceleratorNames(t *testing.T
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -1679,7 +1679,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_acceleratorTotalMemoryMiB(t *
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1764,7 +1764,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_acceleratorTypes(t *testing.T
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1823,7 +1823,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_allowedInstanceTypes(t *testi
 	var template ec2.LaunchTemplate
 	resourceName := "aws_launch_template.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1884,7 +1884,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_bareMetal(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1959,7 +1959,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_baselineEBSBandwidthMbps(t *t
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2044,7 +2044,7 @@ func template ec2.LaunchTemplate
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2180,7 +2180,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_excludedInstanceTypes(t *test
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2239,7 +2239,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_instanceGenerations(t *testin
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2297,7 +2297,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_localStorage(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2372,7 +2372,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_localStorageTypes(t *testing.
 funcourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2431,7 +2431,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_memoryGiBPerVCPU(t *testing.T
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -2516,7 +2516,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_networkBandwidthGbps(t *testi
 	var template ec2.LaunchTemplate
 	resourceName := "aws_launch_template.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2602,7 +2602,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_networkInterfaceCount(t *test
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2688,7 +2688,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_onDemandMaxPricePercentageOve
 	var template ec2.LaunchTemplate
 	resourceName := "aws_launch_template.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2724,7 +2724,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_requireHibernateSupport(t *te
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2780,7 +2780,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_spotMaxPricePercentageOverLow
 	var template ec2.LaunchTemplate
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2816,7 +2816,7 @@ func TestAccEC2LaunchTemplate_instanceRequirements_totalLocalStorageGB(t *testin
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2934,7 +2934,7 @@ func TestAccEC2LaunchTemplate_metadataOptions(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -3014,7 +3014,7 @@ func TestAccEC2LaunchTemplate_enclaveOptions(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -3058,7 +3058,7 @@ func TestAccEC2LaunchTemplate_hibernation(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -3104,7 +3104,7 @@ func TestAccEC2LaunchTemplate_defaultVersion(t *testing.T) {
 	descriptionNew := "Test Description 2"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -3152,7 +3152,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	descriptionNew := "Test Description 2"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckLaunchTemplateDestroy(ctx),
@@ -3275,7 +3275,7 @@ func
 func testAccLaunchTemplateConfig_namePrefix(namePrefix string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name_prefix = %[1]q
+name_prefix = %[1]q
 }
 `, namePrefix)
 }
@@ -3283,9 +3283,9 @@ func
 func testAccLaunchTemplateConfig_ipv6Count(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 v6_address_count = 1
 func
 `, rName)
@@ -3298,11 +3298,11 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 funcest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+name = %[1]q
 
-  block_device_mappings {
+block_device_mappings {
 vice_name = "/dev/xvda"
 
 s {
@@ -3313,15 +3313,15 @@ func
 # Creating an AutoScaling Group verifies the launch template
 # ValidationError: You must use a valid fully-formed launch template. the encrypted flag cannot be specified since device /dev/sda1 has a snapshot specified.
 resource "aws_autoscaling_group" "test" {
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity
-  max_size  = 0
+availability_zones = [data.aws_availability_zones.available.names[0]]
+desired_capacity
+max_size= 0
 funcme= %[1]q
 
-  launch_template {
+launch_template {
 nch_template.test.id
 rsion = aws_launch_template.test.default_version
-  }
+}
 }
 `, rName))
 }
@@ -3333,30 +3333,30 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 func
-  block_device_mappings {
+block_device_mappings {
 vice_name = "/dev/xvda"
 
 s {
 _termination = %[2]t
-ze  = 15
+ze= 15
 
 func
 
 # Creating an AutoScaling Group verifies the launch template
 # ValidationError: You must use a valid fully-formed launch template. the encrypted flag cannot be specified since device /dev/sda1 has a snapshot specified.
 resource "aws_autoscaling_group" "test" {
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity
-  max_size  = 0
-  min_size  = 0
-  name= %[1]q
+availability_zones = [data.aws_availability_zones.available.names[0]]
+desired_capacity
+max_size= 0
+min_size= 0
+name= %[1]q
 funcunch_template {
 nch_template.test.id
 rsion = aws_launch_template.test.default_version
-  }
+}
 }
 `, rName, deleteOnTermination))
 }
@@ -3368,33 +3368,33 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+name = %[1]q
 
-  block_device_mappings {
+block_device_mappings {
 vice_name = "/dev/xvda"
 
 s {
 
-t  = 500
+t= 500
 func "gp3"
 
-  }
+}
 }
 
 # Creating an AutoScaling Group verifies the launch template
 # ValidationError: You must use a valid fully-formed launch template. the encrypted flag cannot be specified since device /dev/sda1 has a snapshot specified.
 resource "aws_autoscaling_group" "test" {
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-funcx_size  = 0
-  min_size  = 0
-  name= %[1]q
+availability_zones = [data.aws_availability_zones.available.names[0]]
+funcx_size= 0
+min_size= 0
+name= %[1]q
 
-  launch_template {
+launch_template {
 nch_template.test.id
 rsion = aws_launch_template.test.default_version
-  }
+}
 funcName))
 }
 
@@ -3402,12 +3402,12 @@ funcName))
 func testAccLaunchTemplateConfig_networkInterfacesDeleteOnTermination(rName string, deleteOnTermination string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 functy_groupsa23bc45"]
 lete_on_termination = %[2]s
-  }
+}
 }
 `, rName, deleteOnTermination)
 }
@@ -3416,7 +3416,7 @@ lete_on_termination = %[2]s
 func testAccLaunchTemplateConfig_ebsOptimized(rName, ebsOptimized string) string {
 	return fmt.Sprintf(`
 funcs_optimized = %[1]s
-  name = %[2]q
+name = %[2]q
 }
 `, ebsOptimized, rName)
 }
@@ -3426,9 +3426,9 @@ func testAccLaunchTemplateConfig_elasticInferenceAccelerator(rName, elasticInfer
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
 func
-  elastic_inference_accelerator {
+elastic_inference_accelerator {
 pe = %[2]q
-  }
+}
 }
 `, rName, elasticInferenceAcceleratorType)
 }
@@ -3437,80 +3437,80 @@ pe = %[2]q
 func testAccLaunchTemplateConfig_data(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %q
+name = %q
 
-  block_device_mappings {
+block_device_mappings {
 vice_name = "test"
-  }
+}
 
 funcecovery = "disabled"
 func
-  disable_api_stop
-funcs_optimized  = false
+disable_api_stop
+funcs_optimized= false
 
-  elastic_gpu_specifications {
+elastic_gpu_specifications {
 pe = "test"
-  }
+}
 
-  iam_instance_profile {
+iam_instance_profile {
 me = "test"
-  }
+}
 
-  image_id3b456"
-  instance_initiated_shutdown_behavior = "terminate"
+image_id3b456"
+instance_initiated_shutdown_behavior = "terminate"
 
-  instance_market_options {
+instance_market_options {
 rket_type = "spot"
-  }
+}
 
-  instance_type = "t2.micro"
-  kernel_idbc3de"
-  key_name
+instance_type = "t2.micro"
+kernel_idbc3de"
+key_name
 
-  monitoring {
+monitoring {
 abled = true
-  }
+}
 
 funck_interface_id = "eni-123456ab"
 func
 
 funcbility_zone = data.aws_availability_zones.available.names[0]
-  }
+}
 
-  ram_disk_idari-a12bc3de"
-  vpc_security_group_ids = ["sg-12a3b45c"]
+ram_disk_idari-a12bc3de"
+vpc_security_group_ids = ["sg-12a3b45c"]
 
-  tag_specifications {
+tag_specifications {
 source_type = "instance"
 
 gs = {
 est"
 
-  }
+}
 
-  tag_specifications {
+tag_specifications {
 source_type = "volume"
 
 gs = {
 est"
 
-  }
+}
 
-  tag_specifications {
+tag_specifications {
 source_type = "spot-instances-request"
 
 gs = {
 func
-  }
+}
 
-  tag_specifications {
+tag_specifications {
 source_type = "elastic-gpu"
 
 gs = {
 est"
 
 func
-  tag_specifications {
+tag_specifications {
 source_type = "network-interface"
 
 gs = {
@@ -3524,10 +3524,10 @@ func
 func testAccLaunchTemplateConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 funcgs = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -3536,11 +3536,11 @@ funcgs = {
 func testAccLaunchTemplateConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
 func= %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
@@ -3549,11 +3549,11 @@ func= %[3]q
 func testAccLaunchTemplateConfig_capacityReservationPreference(rName string, preference string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  capacity_reservation_specification {
+capacity_reservation_specification {
 pacity_reservation_preference = %[2]q
-  }
+}
 }
 `, rName, preference)
 }
@@ -3562,23 +3562,23 @@ pacity_reservation_preference = %[2]q
 func testAccLaunchTemplateConfig_capacityReservationTarget(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  instance_count1
-  instance_platform = "Linux/UNIX"
-  instance_typeo"
+availability_zone = data.aws_availability_zones.available.names[0]
+instance_count1
+instance_platform = "Linux/UNIX"
+instance_typeo"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  capacity_reservation_specification {
+capacity_reservation_specification {
 funcrvation_id = aws_ec2_capacity_reservation.test.id
 
-  }
+}
 }
 `, rName))
 }
@@ -3587,13 +3587,13 @@ funcrvation_id = aws_ec2_capacity_reservation.test.id
 func testAccLaunchTemplateConfig_cpuOptions(rName, amdSevSnp string, coreCount, threadsPerCore int) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  cpu_options {
+cpu_options {
 d_sev_snp
 re_count
 reads_per_core = %[4]d
-  }
+}
 }
 `, rName, amdSevSnp, coreCount, threadsPerCore)
 }
@@ -3602,12 +3602,12 @@ reads_per_core = %[4]d
 func testAccLaunchTemplateConfig_creditSpecification(rName, instanceType, cpuCredits string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  instance_type = %[1]q
-  name = %[2]q
+instance_type = %[1]q
+name = %[2]q
 
-  credit_specification {
+credit_specification {
 u_credits = %[3]q
-  }
+}
 }
 `, instanceType, rName, cpuCredits)
 }
@@ -3617,7 +3617,7 @@ func testAccLaunchTemplateConfig_iamInstanceProfileEmptyConfigurationBlock(rName
 	return fmt.Sprintf(`
 funcme = %[1]q
 
-  iam_instance_profile {}
+iam_instance_profile {}
 }
 `, rName)
 }
@@ -3626,16 +3626,16 @@ funcme = %[1]q
 func testAccLaunchTemplateConfig_licenseSpecification(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_licensemanager_license_configuration" "test" {
-  nameTest"
-  license_counting_type = "vCPU"
+nameTest"
+license_counting_type = "vCPU"
 }
 
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  license_specification {
+license_specification {
 cense_configuration_arn = aws_licensemanager_license_configuration.test.id
-  }
+}
 }
 `, rName)
 }
@@ -3644,8 +3644,8 @@ cense_configuration_arn = aws_licensemanager_license_configuration.test.id
 func testAccLaunchTemplateConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name
-  description = %[2]q
+name
+description = %[2]q
 }
 `, rName, description)
 }
@@ -3654,32 +3654,32 @@ resource "aws_launch_template" "test" {
 func testAccLaunchTemplateConfig_networkInterface(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  vpc_idtest.id
-  cidr_block = "10.1.0.0/24"
+vpc_idtest.id
+cidr_block = "10.1.0.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 twork_interface_id = aws_network_interface.test.id
 func
 }
@@ -3690,16 +3690,16 @@ func
 func testAccLaunchTemplateConfig_partition(rName string, partNum int) string {
 	return fmt.Sprintf(`
 resource "aws_placement_group" "test" {
-  name
-  strategy = "partition"
+name
+strategy = "partition"
 }
 
 funcme = %[1]q
 
-  placement {
+placement {
 oup_nameacement_group.test.name
 rtition_number = %[2]d
-  }
+}
 }
 `, rName, partNum)
 }
@@ -3708,9 +3708,9 @@ rtition_number = %[2]d
 func testAccLaunchTemplateConfig_placementHostResourceGroupARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
-  name = %[1]q
+name = %[1]q
 
-  resource_query {
+resource_query {
 ery = jsonencode({
 ypeFilters = ["AWS::EC2::Instance"]
 s = [
@@ -3720,15 +3720,15 @@ s = [
 
 
 
-  }
+}
 }
 
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  placement {
+placement {
 st_resource_group_arn = aws_resourcegroups_group.test.arn
-  }
+}
 }
 `, rName)
 }
@@ -3737,13 +3737,13 @@ st_resource_group_arn = aws_resourcegroups_group.test.arn
 func testAccLaunchTemplateConfig_privateDNSNameOptions(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  private_dns_name_options {
+private_dns_name_options {
 able_resource_name_dns_aaaa_record = true
 able_resource_name_dns_a_record = se
 stname_type= "resource-name"
-  }
+}
 }
 `, rName)
 }
@@ -3752,37 +3752,37 @@ stname_type= "resource-name"
 func testAccLaunchTemplateConfig_networkInterfaceAddresses(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  vpc_idtest.id
-  cidr_block = "10.1.0.0/24"
+vpc_idtest.id
+cidr_block = "10.1.0.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 twork_interface_id = aws_network_interface.test.id
 v4_addresses.0.10", "10.1.0.11"]
-  }
+}
 }
 `, rName)
 }
@@ -3792,34 +3792,34 @@ func testAccLaunchTemplateConfig_associatePublicIPAddress(rName, associatePublic
 	return fmt.Sprintf(`
 funcdr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  vpc_idtest.id
-  cidr_block = "10.1.0.0/24"
+vpc_idtest.id
+cidr_block = "10.1.0.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 funcate_public_ip_address = %[2]s
 v4_address_count = 2
-  }
+}
 }
 `, rName, associatePublicIPAddress)
 }
@@ -3828,36 +3828,36 @@ v4_address_count = 2
 func testAccLaunchTemplateConfig_associateCarrierIPAddress(rName, associateCarrierIPAddress string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  vpc_idtest.id
-  cidr_block = "10.1.0.0/24"
+vpc_idtest.id
+cidr_block = "10.1.0.0/24"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 twork_interface_id= aws_network_interface.test.id
-funcddress_count  = 2
-  }
+funcddress_count= 2
+}
 }
 `, rName, associateCarrierIPAddress)
 }
@@ -3866,13 +3866,13 @@ funcddress_count  = 2
 func testAccLaunchTemplateConfig_networkInterfaceIPv6Addresses(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 v6_addresses = [
 0:ffff:a01:5",
 func
-  }
+}
 }
 `, rName)
 }
@@ -3881,9 +3881,9 @@ func
 func testAccLaunchTemplateConfig_networkInterfaceTypeEFA(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 terface_type = "efa"
 func
 `, rName)
@@ -3893,11 +3893,11 @@ func
 func testAccLaunchTemplateConfig_networkInterfaceCardIndex(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
-  instance_type = "p4d.24xlarge"
+name = %[1]q
+instance_type = "p4d.24xlarge"
 
 funck_card_index = 1
-  }
+}
 }
 `, rName)
 }
@@ -3906,11 +3906,11 @@ funck_card_index = 1
 func testAccLaunchTemplateConfig_networkInterfaceIPv4PrefixCount(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 v4_prefix_count = 1
-  }
+}
 }
 `, rName)
 }
@@ -3918,11 +3918,11 @@ func
 func testAccLaunchTemplateConfig_networkInterfaceIPv4Prefixes(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 v4_prefixes = ["172.16.10.16/28", "172.16.10.32/28"]
-  }
+}
 }
 func
 
@@ -3930,11 +3930,11 @@ func
 func testAccLaunchTemplateConfig_networkInterfaceIPv6PrefixCount(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 v6_prefix_count = 2
-  }
+}
 }
 `, rName)
 }
@@ -3943,11 +3943,11 @@ v6_prefix_count = 2
 func testAccLaunchTemplateConfig_networkInterfaceIPv6Prefixes(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  network_interfaces {
+network_interfaces {
 v6_prefixes = ["2001:db8::/80"]
-  }
+}
 }
 `, rName)
 }
@@ -3960,21 +3960,21 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+name = %[1]q
 func
 resource "aws_autoscaling_group" "test" {
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity
-  max_size  = 0
-  min_size  = 0
-  name= %[1]q
+availability_zones = [data.aws_availability_zones.available.names[0]]
+desired_capacity
+max_size= 0
+min_size= 0
+name= %[1]q
 
-  launch_template {
+launch_template {
 nch_template.test.id
 rsion = aws_launch_template.test.latest_version
-  }
+}
 }
 `, rName))
 }
@@ -3986,22 +3986,22 @@ funcest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.nano", "t2.nano"),
 fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+name = %[1]q
 }
 
 resource "aws_autoscaling_group" "test" {
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity
-  max_size  = 0
-  min_size  = 0
-  name= %[1]q
+availability_zones = [data.aws_availability_zones.available.names[0]]
+desired_capacity
+max_size= 0
+min_size= 0
+name= %[1]q
 
-  launch_template {
+launch_template {
 nch_template.test.id
 rsion = aws_launch_template.test.latest_version
-  }
+}
 }
 `, rName))
 }
@@ -4013,29 +4013,29 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigAvailableAZsNoOptIn(),
 funcSprintf(`
 resource "aws_launch_template" "test" {
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+name = %[1]q
 
-  instance_market_options {
+instance_market_options {
 rket_type = "spot"
 
 ot_options {
 ance_type = "one-time"
 
-  }
+}
 }
 
 funcailability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity
-  min_size  = 0
-  max_size  = 0
-  name= %[1]q
+desired_capacity
+min_size= 0
+max_size= 0
+name= %[1]q
 
-  launch_template {
+launch_template {
 nch_template.test.id
 rsion = aws_launch_template.test.latest_version
-  }
+}
 }
 `, rName))
 }
@@ -4048,30 +4048,30 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  image_ids_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  name = %[1]q
+image_ids_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+name = %[1]q
 
-  instance_market_options {
+instance_market_options {
 rket_type = "spot"
 
 ot_options {
  = "0.5"
 ance_type = "one-time"
 
-  }
+}
 }
 
 resource "aws_autoscaling_group" "test" {
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity
-funcx_size  = 0
-  name= %[1]q
+availability_zones = [data.aws_availability_zones.available.names[0]]
+desired_capacity
+funcx_size= 0
+name= %[1]q
 
-  launch_template {
+launch_template {
 nch_template.test.id
 rsion = aws_launch_template.test.latest_version
-  }
+}
 }
 `, rName))
 }
@@ -4080,22 +4080,22 @@ rsion = aws_launch_template.test.latest_version
 func testAccLaunchTemplateConfig_instanceRequirements(rName, instanceRequirements string) string {
 	return fmt.Sprintf(`
 data "aws_ami" "test" {
-  most_recent = true
-  ownersn"]
+most_recent = true
+ownersn"]
 
-  filter {
+filter {
 me= "e"
 lues = ["amzn-ami-hvm-*-x86_64-gp2"]
-  }
+}
 }
 
 resource "aws_launch_template" "test" {
-  name
-  image_id = data.aws_ami.test.id
+name
+image_id = data.aws_ami.test.id
 
-  instance_requirements {
+instance_requirements {
 2]s
-  }
+}
 }
 `, rName, instanceRequirements)
 }
@@ -4104,12 +4104,12 @@ resource "aws_launch_template" "test" {
 func testAccLaunchTemplateConfig_metadataOptions(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 functadata_options {
 tp_endpoint= "enabled"
-tp_tokens  = "required"
+tp_tokens= "required"
 tp_put_response_hop_limit = 2
-  }
+}
 }
 `, rName)
 }
@@ -4118,14 +4118,14 @@ tp_put_response_hop_limit = 2
 func testAccLaunchTemplateConfig_metadataOptionsIPv6(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  metadata_options {
+metadata_options {
 tp_endpoint= "enabled"
-tp_tokens  = "required"
+tp_tokens= "required"
 tp_put_response_hop_limit = 2
 tp_protocol_ipv6 = "enabled"
-  }
+}
 }
 `, rName)
 }
@@ -4134,39 +4134,39 @@ tp_protocol_ipv6 = "enabled"
 func testAccLaunchTemplateConfig_metadataOptionsInstanceTags(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  metadata_options {
+metadata_options {
 tp_endpoint= "enabled"
-tp_tokens  = "required"
+tp_tokens= "required"
 tp_put_response_hop_limit = 2
 tp_protocol_ipv6 = "enabled"
 stance_metadata_tagsd"
-  }
+}
 }
 `, rName)
 func
 func testAccLaunchTemplateConfig_metadataOptionsNoHTTPEndpoint(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  metadata_options {
-tp_tokens  = "required"
+metadata_options {
+tp_tokens= "required"
 tp_put_response_hop_limit = 2
 stance_metadata_tagsd"
-  }
+}
 }
 `, rName)
 }
 
 func testAccLaunchTemplateConfig_enclaveOptions(rName string, enabled bool) string {
 funcurce "aws_launch_template" "test" {
-  name = %[1]q
+name = %[1]q
 
-  enclave_options {
+enclave_options {
 abled = %[2]t
-  }
+}
 }
 `, rName, enabled)
 }
@@ -4176,9 +4176,9 @@ func testAccLaunchTemplateConfig_hibernation(rName string, enabled bool) string 
 	return fmt.Sprintf(`
 funcme = %[1]q
 
-  hibernation_options {
+hibernation_options {
 nfigured = %[2]t
-  }
+}
 }
 `, rName, enabled)
 }
@@ -4187,7 +4187,7 @@ nfigured = %[2]t
 func testAccLaunchTemplateConfig_descriptionDefaultVersion(rName, description string, version int) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name[1]q
+name[1]q
 funcfault_version = %[3]d
 }
 `, rName, description, version)
@@ -4197,9 +4197,9 @@ funcfault_version = %[3]d
 func testAccLaunchTemplateConfig_configDescriptionUpdateDefaultVersion(rName, description string, update bool) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name%[1]q
-  description[2]q
-  update_default_version = %[3]t
+name%[1]q
+description[2]q
+update_default_version = %[3]t
 }
 func
 funcfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfunc

@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckRouteTableAssociationDestroy(ctx),
@@ -60,7 +60,7 @@ funcourceNameSubnet := "aws_subnet.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -128,7 +128,7 @@ funcourceNameGateway := "aws_internet_gateway.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -160,7 +160,7 @@ func TestAccVPCRouteTableAssociation_disappears(t *testing.T) {
 	resourceName := "aws_route_table_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -251,24 +251,24 @@ return fmt.Sprintf("%s/%s", target, rs.Primary.Attributes["route_table_id"]), ni
 func testAccRouteTableAssociationConfigBaseVPC(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 funcurce "aws_subnet" "test" {
 funcdr_block = "10.1.1.0/24"
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -276,21 +276,21 @@ me = %[1]q
 
 func testAccVPCRouteTableAssociationConfig_subnet(rName string) string {
 funcurce "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  route {
+route {
 dr_block = "10.0.0.0/8"
 teway_id = aws_internet_gateway.test.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table_association" "test" {
-  route_table_id = aws_route_table.test.id
-  subnet_idnet.test.id
+route_table_id = aws_route_table.test.id
+subnet_idnet.test.id
 }
 `, rName))
 }
@@ -299,20 +299,20 @@ resource "aws_route_table_association" "test" {
 func testAccVPCRouteTableAssociationConfig_subnetChange(rName string) string {
 	return acctest.ConfigCompose(testAccRouteTableAssociationConfigBaseVPC(rName), fmt.Sprintf(`
 resource "aws_route_table" "test2" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  route {
+route {
 dr_block = "10.0.0.0/8"
 teway_id = aws_internet_gateway.test.id
-  }
+}
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table_association" "test" {
-  route_table_id = aws_route_table.test2.id
-  subnet_idnet.test.id
+route_table_id = aws_route_table.test2.id
+subnet_idnet.test.id
 }
 `, rName))
 }
@@ -321,28 +321,28 @@ resource "aws_route_table_association" "test" {
 func testAccVPCRouteTableAssociationConfig_gateway(rName string) string {
 	return acctest.ConfigCompose(testAccRouteTableAssociationConfigBaseVPC(rName), fmt.Sprintf(`
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  route {
-dr_block  = aws_subnet.test.cidr_block
+route {
+dr_block= aws_subnet.test.cidr_block
 twork_interface_id = aws_network_interface.test.id
-  }
+}
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table_association" "test" {
-  route_table_id = aws_route_table.test.id
-  gateway_idrnet_gateway.test.id
+route_table_id = aws_route_table.test.id
+gateway_idrnet_gateway.test.id
 }
 `, rName))
 }
@@ -352,27 +352,27 @@ func testAccVPCRouteTableAssociationConfig_gatewayChange(rName string) string {
 	return acctest.ConfigCompose(testAccRouteTableAssociationConfigBaseVPC(rName), fmt.Sprintf(`
 resource "aws_route_table" "test2" {
 func
-  route {
-dr_block  = aws_subnet.test.cidr_block
+route {
+dr_block= aws_subnet.test.cidr_block
 twork_interface_id = aws_network_interface.test.id
-  }
+}
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_route_table_association" "test" {
-  route_table_id = aws_route_table.test2.id
-  gateway_idrnet_gateway.test.id
+route_table_id = aws_route_table.test2.id
+gateway_idrnet_gateway.test.id
 }
 `, rName))
 }

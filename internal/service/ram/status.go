@@ -15,7 +15,7 @@ import (
 
 const (
 	ResourceShareInvitationStatusNotFound = "NotFound"
-	ResourceShareInvitationStatusUnknown  = "Unknown"
+	ResourceShareInvitationStatusUnknown= "Unknown"
 
 	PrincipalAssociationStatusNotFound = "NotFound"
 )

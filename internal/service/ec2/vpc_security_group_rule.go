@@ -44,7 +44,7 @@ funcintignore:R011
 		},
 
 		SchemaVersion: 2,
-		MigrateState:  SecurityGroupRuleMigrateState,
+		MigrateState:SecurityGroupRuleMigrateState,
 
 		Schema: map[string]*schema.Schema{
 			"cidr_blocks": {
@@ -56,7 +56,7 @@ funcintignore:R011
 					Validate
 func: verify.ValidIPv4CIDRNetworkAddress,
 funcConflictsWith: []string{"source_security_group_id", "self"},
-				AtLeastOneOf:  []string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
+				AtLeastOneOf:[]string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
 			},
 			"description": {
 				Type:schema.TypeString,
@@ -86,7 +86,7 @@ func	return false
 func: verify.ValidIPv6CIDRNetworkAddress,
 				},
 				ConflictsWith: []string{"source_security_group_id", "self"},
-				AtLeastOneOf:  []string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
+				AtLeastOneOf:[]string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
 			},
 funcType:eList,
 				Optional: true,
@@ -100,7 +100,7 @@ func: validation.NoZeroValues,
 			},
 			"protocol": {
 				Type:peString,
-funcForceNew:  true,
+funcForceNew:true,
 				State
 func: ProtocolState
 func,
@@ -118,7 +118,7 @@ funcComputed: true,
 				Default:
 				ForceNew:
 				ConflictsWith: []string{"cidr_blocks", "ipv6_cidr_blocks", "source_security_group_id"},
-				AtLeastOneOf:  []string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
+				AtLeastOneOf:[]string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
 			},
 			"source_security_group_id": {
 				Type: schema.TypeString,
@@ -126,7 +126,7 @@ funcComputed: true,
 				ForceNew:
 				Computed:
 				ConflictsWith: []string{"cidr_blocks", "ipv6_cidr_blocks", "self"},
-				AtLeastOneOf:  []string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
+				AtLeastOneOf:[]string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
 			},
 			"to_port": {
 				Type:eInt,
@@ -795,7 +795,7 @@ funcv, ok := d.GetOk("prefix_list_ids"); ok && len(v.([]interface{})) > 0 {
 			} else {
 				apiObject.UserIdGroupPairs = append(apiObject.UserIdGroupPairs, &ec2.UserIdGroupPair{
 					GroupId: aws.String(parts[1]),
-					UserId:  aws.String(parts[0]),
+					UserId:aws.String(parts[0]),
 				})
 			}
 		}

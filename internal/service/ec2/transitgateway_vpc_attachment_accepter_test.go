@@ -184,67 +184,67 @@ acctest.ConfigAlternateAccountProvider(),
 acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ram_resource_share" "test" {
-  name = %[1]q
+name = %[1]q
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_ram_resource_association" "test" {
-  resource_arn2_transit_gateway.test.arn
-  resource_share_arn = aws_ram_resource_share.test.id
+resource_arn2_transit_gateway.test.arn
+resource_share_arn = aws_ram_resource_share.test.id
 }
 
 resource "aws_ram_principal_association" "test" {
-  principal = data.aws_caller_identity.creator.account_id
-  resource_share_arn = aws_ram_resource_share.test.id
+principal = data.aws_caller_identity.creator.account_id
+resource_share_arn = aws_ram_resource_share.test.id
 }
 
 # VPC attachment creator.
 data "aws_caller_identity" "creator" {
-  provider = "awsalternate"
+provider = "awsalternate"
 }
 
 resource "aws_vpc" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  depends_on = [aws_ram_principal_association.test, aws_ram_resource_association.test]
+depends_on = [aws_ram_principal_association.test, aws_ram_resource_association.test]
 
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -253,7 +253,7 @@ me = %[1]q
 func testAccTransitGatewayVPCAttachmentAccepterConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPCAttachmentAccepterConfig_base(rName), `
 resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "test" {
-  transit_gateway_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 }
 `)
 }
@@ -262,9 +262,9 @@ resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "test" {
 func testAccTransitGatewayVPCAttachmentAccepterConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPCAttachmentAccepterConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "test" {
-  transit_gateway_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 
-  tags = {
+tags = {
 func
 }
 `, tagKey1, tagValue1))
@@ -275,10 +275,10 @@ func testAccTransitGatewayVPCAttachmentAccepterConfig_tags2(rName, tagKey1, tagV
 	return acctest.ConfigCompose(testAccTransitGatewayVPCAttachmentAccepterConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "test" {
 func
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -288,12 +288,12 @@ func testAccTransitGatewayVPCAttachmentAccepterConfig_defaultRouteTableAssociati
 	return acctest.ConfigCompose(testAccTransitGatewayVPCAttachmentAccepterConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "test" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  transit_gateway_default_route_table_association = %[2]t
-  transit_gateway_default_route_table_propagation = %[3]t
+transit_gateway_default_route_table_association = %[2]t
+transit_gateway_default_route_table_propagation = %[3]t
 }
 `, rName, association, propagation))
 }

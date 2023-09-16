@@ -135,7 +135,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 			"requester-vpc-info.cidr-block": d.Get("cidr_block").(string),
 			"accepter-vpc-info.vpc-id":er_vpc_id").(string),
 			"accepter-vpc-info.owner-id":Get("peer_owner_id").(string),
-			"accepter-vpc-info.cidr-block":  d.Get("peer_cidr_block").(string),
+			"accepter-vpc-info.cidr-block":d.Get("peer_cidr_block").(string),
 		},
 	)
 

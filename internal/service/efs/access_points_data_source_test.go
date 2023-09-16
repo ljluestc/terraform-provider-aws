@@ -15,7 +15,7 @@ func:= acctest.Context(t)
 dataSourceName := "data.aws_efs_access_points.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -34,7 +34,7 @@ func TestAccEFSAccessPointsDataSource_empty(t *testing.T) {
 ctx := acctest.Context(t)
 func
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestrofuncs: []resource.TestStep{
@@ -57,7 +57,7 @@ funcle_system_id = aws_efs_file_system.test.id
 }
 
 data "aws_efs_access_points" "test" {
-  file_system_id = aws_efs_access_point.test.file_system_id
+file_system_id = aws_efs_access_point.test.file_system_id
 }
 `
 }

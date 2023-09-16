@@ -19,7 +19,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_security_groups.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -41,7 +41,7 @@ func TestAccVPCSecurityGroupsDataSource_filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -83,28 +83,28 @@ func
 func testAccVPCSecurityGroupsDataSourceConfig_tag(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "172.16.0.0/16"
+cidr_block = "172.16.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_security_group" "test" {
-  count  = 3
-  vpc_id = aws_vpc.test.id
-  name%[1]s-${count.index}"
+count= 3
+vpc_id = aws_vpc.test.id
+name%[1]s-${count.index}"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_security_groups" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_security_group.test[0], aws_security_group.test[1], aws_security_group.test[2]]
+depends_on = [aws_security_group.test[0], aws_security_group.test[1], aws_security_group.test[2]]
 }
 `, rName)
 }
@@ -113,31 +113,31 @@ me = %[1]q
 func testAccVPCSecurityGroupsDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "172.16.0.0/16"
+cidr_block = "172.16.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcc_id = aws_vpc.test.id
-  name[1]q
+name[1]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_security_groups" "test" {
-  filter {
+filter {
 me= "-id"
 lues = [aws_vpc.test.id]
-  }
+}
 
-  filter {
+filter {
 me= "up-name"
 lues = [aws_security_group.test.name]
-  }
+}
 }
 `, rName)
 }
@@ -146,9 +146,9 @@ lues = [aws_security_group.test.name]
 func testAccVPCSecurityGroupsDataSourceConfig_empty(rName string) string {
 	return fmt.Sprintf(`
 data "aws_security_groups" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }

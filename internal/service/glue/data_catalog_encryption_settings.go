@@ -21,7 +21,7 @@ import (
 func ResourceDataCatalogEncryptionSettings() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceDataCatalogEncryptionSettingsPut,
-ReadWithoutTimeout:   resourceDataCatalogEncryptionSettingsRead,
+ReadWithoutTimeout: resourceDataCatalogEncryptionSettingsRead,
 UpdateWithoutTimeout: resourceDataCatalogEncryptionSettingsPut,
 DeleteWithoutTimeout: resourceDataCatalogEncryptionSettingsDelete,
 Importer: &schema.ResourceImporter{
@@ -30,49 +30,49 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"catalog_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 ForceNew: true,
 Optional: true,
 Computed: true,
 	},
 	"data_catalog_encryption_settings": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Required: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "connection_password_encryption": {
-	Type:     schema.TypeList,
+	Type: schema.TypeList,
 	Required: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"aws_kms_key_id": {
 Type:schema.TypeString,
-Optional:     true,
+Optional: true,
 ValidateFunc: verify.ValidARN,
 	},
 	"return_connection_password_encrypted": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Required: true,
 	},
 },
 	},
 },
 "encryption_at_rest": {
-	Type:     schema.TypeList,
+	Type: schema.TypeList,
 	Required: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"catalog_encryption_mode": {
 Type:schema.TypeString,
-Required:     true,
+Required: true,
 ValidateFunc: validation.StringInSlice(glue.CatalogEncryptionMode_Values(), false),
 	},
 	"sse_aws_kms_key_id": {
 Type:schema.TypeString,
-Optional:     true,
+Optional: true,
 ValidateFunc: verify.ValidARN,
 	},
 },
@@ -139,7 +139,7 @@ func resourceDataCatalogEncryptionSettingsDelete(ctx context.Context, d *schema.
 	conn := meta.(*conns.AWSClient).GlueConn(ctx)
 
 	input := &glue.PutDataCatalogEncryptionSettingsInput{
-CatalogId:      aws.String(d.Id()),
+CatalogId:aws.String(d.Id()),
 DataCatalogEncryptionSettings: &glue.DataCatalogEncryptionSettings{},
 	}
 

@@ -31,7 +31,7 @@ funcintignore:R011
 		},
 
 		SchemaVersion: 1, // Keep in sync with aws_security_group's schema version.
-		MigrateState:  SecurityGroupMigrateState,
+		MigrateState:SecurityGroupMigrateState,
 
 		// Keep in sync with aws_security_group's schema with the following changes:
 		//escription is Computed-only
@@ -46,7 +46,7 @@ funcintignore:R011
 				Type:eString,
 				Computed: true,
 			},
-			"egress":  securityGroupRuleSetNestedBlock,
+			"egress":securityGroupRuleSetNestedBlock,
 			"ingress": securityGroupRuleSetNestedBlock,
 			"name": {
 				Type:eString,
@@ -63,7 +63,7 @@ funcintignore:R011
 			// Not used.
 			"revoke_rules_on_delete": {
 				Type:eBool,
-				Default:  false,
+				Default:false,
 				Optional: true,
 			},
 			names.AttrTags:tags.TagsSchema(),

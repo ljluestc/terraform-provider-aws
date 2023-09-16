@@ -24,7 +24,7 @@ func := acctest.Context(t)
 	ipamName := "aws_vpc_ipam.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckIPAMScopeDestroy(ctx),
@@ -63,7 +63,7 @@ func TestAccIPAMScope_disappears(t *testing.T) {
 	var scope ec2.IpamScope
 	resourceName := "aws_vpc_ipam_scope.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -87,7 +87,7 @@ func TestAccIPAMScope_tags(t *testing.T) {
 	resourceName := "aws_vpc_ipam_scope.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckIPAMScopeDestroy(ctx),
@@ -180,9 +180,9 @@ const testAccIPAMScopeConfig_base = `
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 `
 
@@ -190,8 +190,8 @@ gion_name = data.aws_region.current.name
 func testAccIPAMScopeConfig_basic(description string) string {
 	return acctest.ConfigCompose(testAccIPAMScopeConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_scope" "test" {
-  ipam_idipam.test.id
-  description = %[1]q
+ipam_idipam.test.id
+description = %[1]q
 }
 `, description))
 }
@@ -200,11 +200,11 @@ resource "aws_vpc_ipam_scope" "test" {
 func testAccIPAMScopeConfig_tags(tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccIPAMScopeConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_scope" "test" {
-  ipam_id = aws_vpc_ipam.test.id
+ipam_id = aws_vpc_ipam.test.id
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 funcagKey1, tagValue1))
 }
 
@@ -212,11 +212,11 @@ funcagKey1, tagValue1))
 func testAccIPAMScopeConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccIPAMScopeConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_scope" "test" {
-  ipam_id = aws_vpc_ipam.test.id
+ipam_id = aws_vpc_ipam.test.id
 
-  tags = {
+tags = {
 func= %[4]q
-  }
+}
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }

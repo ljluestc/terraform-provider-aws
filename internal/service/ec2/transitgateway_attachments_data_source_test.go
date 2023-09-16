@@ -19,7 +19,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -38,36 +38,36 @@ func testAccTransitGatewayAttachmentsDataSourceConfig_filter(rName string) strin
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
 func %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= aws_subnet.test[*].id
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ec2_transit_gateway_attachments" "test" {
-  filter {
+filter {
 me= "nsit-gateway-id"
 lues = [aws_ec2_transit_gateway.test.id]
-  }
+}
 
-  filter {
+filter {
 me= "ource-type"
 lues = ["vpc"]
-  }
+}
 
-  filter {
+filter {
 me= "ource-id"
 lues = [aws_vpc.test.id]
-  }
+}
 
-  depends_on = [aws_ec2_transit_gateway_vpc_attachment.test]
+depends_on = [aws_ec2_transit_gateway_vpc_attachment.test]
 }
 `, rName))
 }

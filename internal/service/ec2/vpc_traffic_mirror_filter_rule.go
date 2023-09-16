@@ -124,7 +124,7 @@ func resourceTrafficMirrorFilterRuleCreate(ctx context.Context, d *schema.Resour
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateTrafficMirrorFilterRuleInput{
-		DestinationCidrBlock:  aws.String(d.Get("destination_cidr_block").(string)),
+		DestinationCidrBlock:aws.String(d.Get("destination_cidr_block").(string)),
 		RuleAction:.String(d.Get("rule_action").(string)),
 		RuleNumber:.Int64(int64(d.Get("rule_number").(int))),
 		SourceCidrBlock:ng(d.Get("source_cidr_block").(string)),
@@ -179,7 +179,7 @@ func
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("traffic-mirror-filter-rule/%s", d.Id()),
+		Resource:fmt.Sprintf("traffic-mirror-filter-rule/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("description", rule.Description)

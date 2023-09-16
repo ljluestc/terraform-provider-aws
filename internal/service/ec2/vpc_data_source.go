@@ -137,7 +137,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 				"cidr":et("cidr_block").(string),
 				"dhcp-options-id": d.Get("dhcp_options_id").(string),
 				"isDefault":tStr,
-				"state":  d.Get("state").(string),
+				"state":d.Get("state").(string),
 			},
 		),
 	}
@@ -168,7 +168,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
-		Resource:  fmt.Sprintf("vpc/%s", d.Id()),
+		Resource:fmt.Sprintf("vpc/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("cidr_block", vpc.CidrBlock)

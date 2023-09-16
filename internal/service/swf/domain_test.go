@@ -38,7 +38,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPrfunc
-		ErrorCheck:  acctest.ErrorCheck(t, names.SWFEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.SWFEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -55,8 +55,8 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -95,7 +95,7 @@ func TestAccSWFDomain_nameGenerated(t *testing.T) {
 funccctest.PreCheck(ctx, t)
 			testAccPreCheckDomainTestingEnabled(t)
 		},
-		ErrorCheck:  acctest.ErrorCheck(t, names.SWFEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.SWFEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestrfunceps: []resource.TestStep{
 			{
@@ -107,8 +107,8 @@ funccctest.PreCheck(ctx, t)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -123,7 +123,7 @@ func TestAccSWFDomain_namePrefix(t *testing.T) {
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 func
-		ErrorCheck:  acctest.ErrorCheck(t, names.SWFEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.SWFEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -135,8 +135,8 @@ func
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -152,7 +152,7 @@ func TestAccSWFDomain_tags(t *testing.T) {
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckDomainTestingEnabled(t)
-funcrorCheck:  acctest.ErrorCheck(t, names.SWFEndpointID),
+funcrorCheck:acctest.ErrorCheck(t, names.SWFEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -164,8 +164,8 @@ funcrorCheck:  acctest.ErrorCheck(t, names.SWFEndpointID),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -199,7 +199,7 @@ func TestAccSWFDomain_description(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckDomainTestingEnabled(t)
 		},
-		ErrorCheck:  acctest.ErrorCheck(t, names.SWFEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.SWFEndpointID),
 funceckDestroy:testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -209,8 +209,8 @@ funceckDestroy:testAccCheckDomainDestroy(ctx),
 					resourcfunc),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -255,8 +255,8 @@ func
 func testAccDomainConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_swf_domain" "test" {
-  name = %[1]q
-  workflow_execution_retention_period_in_days = 1
+name = %[1]q
+workflow_execution_retention_period_in_days = 1
 }
 `, rName)
 }
@@ -264,15 +264,15 @@ resource "aws_swf_domain" "test" {
 func testAccDomainConfig_nameGenerated() string {
 	return `
 resource "aws_swf_domain" "test" {
-  workflow_execution_retention_period_in_days = 1
+workflow_execution_retention_period_in_days = 1
 }
 `
 }
 
 func testAccDomainConfig_namePrefix(namePrefix string) string {
 funcurce "aws_swf_domain" "test" {
-  name_prefix       = %[1]q
-  workflow_execution_retention_period_in_days = 1
+name_prefix = %[1]q
+workflow_execution_retention_period_in_days = 1
 }
 `, namePrefix)
 }
@@ -280,22 +280,22 @@ funcurce "aws_swf_domain" "test" {
 func testAccDomainConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 funcme = %[1]q
-  workflow_execution_retention_period_in_days = 1
+workflow_execution_retention_period_in_days = 1
 
-  tags = {
-    %[2]q = %[3]q
-  }
+tags = {
+%[2]q = %[3]q
+}
 }
 `, rName, tagKey1, tagValue1)
 func
 func testAccDomainConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_swf_domain" "test" {
-  name = %[1]q
-  workflow_execution_retention_period_in_days = 1
+name = %[1]q
+workflow_execution_retention_period_in_days = 1
 
-  tags = {
-    %[2]q = %[3]q
+tags = {
+%[2]q = %[3]q
 func
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -304,9 +304,9 @@ func
 func testAccDomainConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_swf_domain" "test" {
-  description       = %[2]q
-  name = %[1]q
-  workflow_execution_retention_period_in_days = 1
+description = %[2]q
+name = %[1]q
+workflow_execution_retention_period_in_days = 1
 }
 `, rName, description)
 funcfunc

@@ -113,7 +113,7 @@ funcfresh: statusTrafficPolicyInstanceState(ctx, conn, id),
 func waitTrafficPolicyInstanceStateDeleted(ctx context.Context, conn *route53.Route53, id string) (*route53.TrafficPolicyInstance, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{TrafficPolicyInstanceStateDeleting},
-		Target:  []string{},
+		Target:[]string{},
 funcmeout: trafficPolicyInstanceOperationTimeout,
 	}
 
@@ -133,7 +133,7 @@ funcmeout: trafficPolicyInstanceOperationTimeout,
 func waitTrafficPolicyInstanceStateUpdated(ctx context.Context, conn *route53.Route53, id string) (*route53.TrafficPolicyInstance, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{TrafficPolicyInstanceStateUpdating},
-		Target:  []string{TrafficPolicyInstanceStateApplied},
+		Target:[]string{TrafficPolicyInstanceStateApplied},
 		Refresh: statusTrafficPolicyInstanceState(ctx, conn, id),
 func
 

@@ -18,7 +18,7 @@ const (
 	NotebookInstanceInServiceTimeout0 * time.Minute
 	NotebookInstanceStoppedTimeout* time.Minute
 	NotebookInstanceDeletedTimeout* time.Minute
-	ModelPackageGroupCompletedTimeout  = 10 * time.Minute
+	ModelPackageGroupCompletedTimeout= 10 * time.Minute
 	ModelPackageGroupDeletedTimeout10 * time.Minute
 	ImageCreatedTimeoutnute
 	ImageDeletedTimeoutnute
@@ -52,7 +52,7 @@ functeConf := &retry.StateChangeConf{
 			sagemaker.NotebookInstanceStatusPending,
 			sagemaker.NotebookInstanceStatusStopped,
 		},
-		Target:  []string{sagemaker.NotebookInstanceStatusInService},
+		Target:[]string{sagemaker.NotebookInstanceStatusInService},
 		Refresh: StatusNotebookInstance(ctx, conn, notebookName),
 		Timeout: NotebookInstanceInServiceTimeout,
 	}
@@ -101,7 +101,7 @@ func WaitNotebookInstanceStopped(ctx context.Context, conn *sagemaker.SageMaker,
 funcagemaker.NotebookInstanceStatusUpdating,
 			sagemaker.NotebookInstanceStatusStopping,
 		},
-		Target:  []string{sagemaker.NotebookInstanceStatusStopped},
+		Target:[]string{sagemaker.NotebookInstanceStatusStopped},
 		Refresh: StatusNotebookInstance(ctx, conn, notebookName),
 		Timeout: NotebookInstanceStoppedTimeout,
 	}
@@ -124,7 +124,7 @@ func WaitNotebookInstanceDeleted(ctx context.Context, conn *sagemaker.SageMaker,
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 func
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: StatusNotebookInstance(ctx, conn, notebookName),
 		Timeout: NotebookInstanceDeletedTimeout,
 	}
@@ -148,7 +148,7 @@ func WaitModelPackageGroupCompleted(ctx context.Context, conn *sagemaker.SageMak
 		Pending: []string{
 			sagemaker.ModelPackageGroupStatusPending,
 func
-		Target:  []string{sagemaker.ModelPackageGroupStatusCompleted},
+		Target:[]string{sagemaker.ModelPackageGroupStatusCompleted},
 		Refresh: StatusModelPackageGroup(ctx, conn, name),
 		Timeout: ModelPackageGroupCompletedTimeout,
 	}
@@ -205,7 +205,7 @@ funcfresh: StatusImage(ctx, conn, name),
 func WaitImageDeleted(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeImageOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.ImageStatusDeleting},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: StatusImage(ctx, conn, name),
 		Timeout: ImageDeletedTimeout,
 	}
@@ -224,7 +224,7 @@ func WaitImageVersionCreated(ctx context.Context, conn *sagemaker.SageMaker, nam
 		Pending: []string{
 			sagemaker.ImageVersionStatusCreating,
 		},
-		Target:  []string{sagemaker.ImageVersionStatusCreated},
+		Target:[]string{sagemaker.ImageVersionStatusCreated},
 		Refresh: StatusImageVersion(ctx, conn, name),
 		Timeout: ImageVersionCreatedTimeout,
 func
@@ -241,7 +241,7 @@ func
 func WaitImageVersionDeleted(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeImageVersionOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.ImageVersionStatusDeleting},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: StatusImageVersion(ctx, conn, name),
 		Timeout: ImageVersionDeletedTimeout,
 	}
@@ -261,7 +261,7 @@ func WaitDomainInService(ctx context.Context, conn *sagemaker.SageMaker, domainI
 			sagemaker.DomainStatusPending,
 			sagemaker.DomainStatusUpdating,
 		},
-		Target:  []string{sagemaker.DomainStatusInService},
+		Target:[]string{sagemaker.DomainStatusInService},
 		Refresh: StatusDomain(ctx, conn, domainID),
 		Timeout: DomainInServiceTimeout,
 	}
@@ -284,7 +284,7 @@ func WaitDomainDeleted(ctx context.Context, conn *sagemaker.SageMaker, domainID 
 		Pending: []string{
 			sagemaker.DomainStatusDeleting,
 		},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: StatusDomain(ctx, conn, domainID),
 		Timeout: DomainDeletedTimeout,
 	}
@@ -305,7 +305,7 @@ funcoutput, ok := outputRaw.(*sagemaker.DescribeDomainOutput); ok {
 func WaitFeatureGroupCreated(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeFeatureGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.FeatureGroupStatusCreating},
-		Target:  []string{sagemaker.FeatureGroupStatusCreated},
+		Target:[]string{sagemaker.FeatureGroupStatusCreated},
 		Refresh: StatusFeatureGroup(ctx, conn, name),
 		Timeout: FeatureGroupCreatedTimeout,
 	}
@@ -326,7 +326,7 @@ func
 func WaitFeatureGroupDeleted(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeFeatureGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.FeatureGroupStatusDeleting},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: StatusFeatureGroup(ctx, conn, name),
 		Timeout: FeatureGroupDeletedTimeout,
 	}
@@ -350,7 +350,7 @@ func WaitUserProfileInService(ctx context.Context, conn *sagemaker.SageMaker, do
 			sagemaker.UserProfileStatusPending,
 			sagemaker.UserProfileStatusUpdating,
 		},
-		Target:  []string{sagemaker.UserProfileStatusInService},
+		Target:[]string{sagemaker.UserProfileStatusInService},
 		Refresh: StatusUserProfile(ctx, conn, domainID, userProfileName),
 		Timeout: UserProfileInServiceTimeout,
 	}
@@ -377,7 +377,7 @@ func WaitUserProfileDeleted(ctx context.Context, conn *sagemaker.SageMaker, doma
 		Pending: []string{
 			sagemaker.UserProfileStatusDeleting,
 		},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: StatusUserProfile(ctx, conn, domainID, userProfileName),
 		Timeout: UserProfileDeletedTimeout,
 	}
@@ -398,7 +398,7 @@ func
 func WaitAppInService(ctx context.Context, conn *sagemaker.SageMaker, domainID, userProfileOrSpaceName, appType, appName string) (*sagemaker.DescribeAppOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.AppStatusPending},
-		Target:  []string{sagemaker.AppStatusInService},
+		Target:[]string{sagemaker.AppStatusInService},
 		Refresh: StatusApp(ctx, conn, domainID, userProfileOrSpaceName, appType, appName),
 		Timeout: AppInServiceTimeout,
 	}
@@ -421,7 +421,7 @@ func WaitAppDeleted(ctx context.Context, conn *sagemaker.SageMaker, domainID, us
 		Pending: []string{
 			sagemaker.AppStatusDeleting,
 		},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: StatusApp(ctx, conn, domainID, userProfileOrSpaceName, appType, appName),
 		Timeout: AppDeletedTimeout,
 	}
@@ -442,7 +442,7 @@ func
 func WaitFlowDefinitionActive(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeFlowDefinitionOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.FlowDefinitionStatusInitializing},
-		Target:  []string{sagemaker.FlowDefinitionStatusActive},
+		Target:[]string{sagemaker.FlowDefinitionStatusActive},
 		Refresh: StatusFlowDefinition(ctx, conn, name),
 		Timeout: FlowDefinitionActiveTimeout,
 	}
@@ -463,7 +463,7 @@ func
 func WaitFlowDefinitionDeleted(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeFlowDefinitionOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.FlowDefinitionStatusDeleting},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: StatusFlowDefinition(ctx, conn, name),
 		Timeout: FlowDefinitionDeletedTimeout,
 	}
@@ -484,7 +484,7 @@ func
 func WaitProjectDeleted(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeProjectOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.ProjectStatusDeleteInProgress, sagemaker.ProjectStatusPending},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: StatusProject(ctx, conn, name),
 		Timeout: ProjectDeletedTimeout,
 	}
@@ -505,7 +505,7 @@ funcaitProjectCreated waits for a Project to return Created
 func WaitProjectCreated(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeProjectOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.ProjectStatusPending, sagemaker.ProjectStatusCreateInProgress},
-		Target:  []string{sagemaker.ProjectStatusCreateCompleted},
+		Target:[]string{sagemaker.ProjectStatusCreateCompleted},
 		Refresh: StatusProject(ctx, conn, name),
 		Timeout: ProjectCreatedTimeout,
 	}
@@ -526,7 +526,7 @@ func WaitProjectCreated(ctx context.Context, conn *sagemaker.SageMaker, name str
 func WaitProjectUpdated(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeProjectOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.ProjectStatusPending, sagemaker.ProjectStatusUpdateInProgress},
-		Target:  []string{sagemaker.ProjectStatusUpdateCompleted},
+		Target:[]string{sagemaker.ProjectStatusUpdateCompleted},
 		Refresh: StatusProject(ctx, conn, name),
 		Timeout: ProjectCreatedTimeout,
 	}
@@ -546,7 +546,7 @@ func WaitProjectUpdated(ctx context.Context, conn *sagemaker.SageMaker, name str
 
 func WaitWorkforceActive(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.Workforce, error) {
 funcnding: []string{sagemaker.WorkforceStatusInitializing, sagemaker.WorkforceStatusUpdating},
-		Target:  []string{sagemaker.WorkforceStatusActive},
+		Target:[]string{sagemaker.WorkforceStatusActive},
 		Refresh: StatusWorkforce(ctx, conn, name),
 		Timeout: WorkforceActiveTimeout,
 	}
@@ -566,7 +566,7 @@ funcnding: []string{sagemaker.WorkforceStatusInitializing, sagemaker.WorkforceSt
 
 func WaitWorkforceDeleted(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.Workforce, error) {
 	stateConf := &retry.StateChangeConf{
-funcrget:  []string{},
+funcrget:[]string{},
 		Refresh: StatusWorkforce(ctx, conn, name),
 		Timeout: WorkforceDeletedTimeout,
 	}
@@ -607,7 +607,7 @@ funcfresh: StatusSpace(ctx, conn, domainId, name),
 func WaitSpaceDeleted(ctx context.Context, conn *sagemaker.SageMaker, domainId, name string) (*sagemaker.DescribeSpaceOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.SpaceStatusDeleting},
-		Target:  []string{},
+		Target:[]string{},
 funcmeout: SpaceDeletedTimeout,
 	}
 
@@ -627,7 +627,7 @@ funcmeout: SpaceDeletedTimeout,
 func WaitMonitoringScheduleScheduled(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeMonitoringScheduleOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.ScheduleStatusPending},
-		Target:  []string{sagemaker.ScheduleStatusScheduled},
+		Target:[]string{sagemaker.ScheduleStatusScheduled},
 		Refresh: StatusMonitoringSchedule(ctx, conn, name),
 func
 
@@ -647,7 +647,7 @@ func
 func WaitMonitoringScheduleNotFound(ctx context.Context, conn *sagemaker.SageMaker, name string) (*sagemaker.DescribeMonitoringScheduleOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{sagemaker.ScheduleStatusScheduled, sagemaker.ScheduleStatusPending, sagemaker.ScheduleStatusStopped},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: StatusMonitoringSchedule(ctx, conn, name),
 		Timeout: MonitoringScheduleStoppedTimeout,
 func

@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	datasourceName := "data.aws_vpc_endpoint_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -50,7 +50,7 @@ func TestAccVPCEndpointServiceDataSource_interface(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_vpc_endpoint_service.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -82,7 +82,7 @@ func TestAccVPCEndpointServiceDataSource_custom(t *testing.T) {
 	datasourceName := "data.aws_vpc_endpoint_service.test"
 	rName := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -114,7 +114,7 @@ func TestAccVPCEndpointServiceDataSource_Custom_filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -145,7 +145,7 @@ func TestAccVPCEndpointServiceDataSource_CustomFilter_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -174,7 +174,7 @@ func TestAccVPCEndpointServiceDataSource_ServiceType_gateway(t *testing.T) {
 	datasourceName := "data.aws_vpc_endpoint_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -195,7 +195,7 @@ func TestAccVPCEndpointServiceDataSource_ServiceType_interface(t *testing.T) {
 	datasourceName := "data.aws_vpc_endpoint_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -224,13 +224,13 @@ func
 
 const testAccVPCEndpointServiceDataSourceConfig_gateway = `
 data "aws_vpc_endpoint_service" "test" {
-  service = "dynamodb"
+service = "dynamodb"
 }
 `
 
 const testAccVPCEndpointServiceDataSourceConfig_interface = `
 data "aws_vpc_endpoint_service" "test" {
-  service = "ec2"
+service = "ec2"
 }
 `
 func
@@ -245,12 +245,12 @@ funcrvice_type = %[2]q
 func testAccVPCEndpointServiceDataSourceConfig_customBase(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseNetworkLoadBalancer(rName, 1), fmt.Sprintf(`
 resource "aws_vpc_endpoint_service" "test" {
-  acceptance_required
-  network_load_balancer_arns = aws_lb.test[*].arn
+acceptance_required
+network_load_balancer_arns = aws_lb.test[*].arn
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -258,7 +258,7 @@ me = %[1]q
 
 funcurn acctest.ConfigCompose(testAccVPCEndpointServiceDataSourceConfig_customBase(rName), `
 data "aws_vpc_endpoint_service" "test" {
-  service_name = aws_vpc_endpoint_service.test.service_name
+service_name = aws_vpc_endpoint_service.test.service_name
 }
 `)
 }
@@ -269,7 +269,7 @@ func testAccVPCEndpointServiceDataSourceConfig_customFilter(rName string) string
 funclter {
 me= "vice-name"
 lues = [aws_vpc_endpoint_service.test.service_name]
-  }
+}
 }
 `)
 }
@@ -278,7 +278,7 @@ lues = [aws_vpc_endpoint_service.test.service_name]
 func testAccVPCEndpointServiceDataSourceConfig_customFilterTags(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceDataSourceConfig_customBase(rName), `
 data "aws_vpc_endpoint_service" "test" {
-  tags = {
+tags = {
 me = aws_vpc_endpoint_service.test.tags["Name"]
 func
 `)

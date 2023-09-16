@@ -314,7 +314,7 @@ func
 func testAccEndpointConfig_Base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "access" {
-  statement {
+statement {
 fect = "Allow"
 
 tions = [
@@ -330,70 +330,70 @@ GetObject",
 
 
 sources = ["*"]
-  }
+}
 }
 
 data "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "assume_role" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 ce"
 tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
 
-  }
+}
 }
 
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy" "test" {
-  rolews_iam_role.test.name
-  policy = data.aws_iam_policy_document.access.json
+rolews_iam_role.test.name
+policy = data.aws_iam_policy_document.access.json
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_object" "test" {
-  bucket = aws_s3_bucket.test.id
-  key"model.tar.gz"
-  source = "test-fixtures/sagemaker-tensorflow-serving-test-model.tar.gz"
+bucket = aws_s3_bucket.test.id
+key"model.tar.gz"
+source = "test-fixtures/sagemaker-tensorflow-serving-test-model.tar.gz"
 }
 
 data "aws_sagemaker_prebuilt_ecr_image" "test" {
-  repository_name = "sagemaker-tensorflow-serving"
-  image_tag1.12-cpu"
+repository_name = "sagemaker-tensorflow-serving"
+image_tag1.12-cpu"
 }
 
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
-  primary_container {
+primary_container {
 age_sagemaker_prebuilt_ecr_image.test.registry_path
 del_data_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-  }
+}
 
-  depends_on = [aws_iam_role_policy.test]
+depends_on = [aws_iam_role_policy.test]
 }
 
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 itial_instance_count = 2
 itial_variant_weight = 1
 stance_typeedium"
 del_nameagemaker_model.test.name
 riant_namet-1"
-  }
+}
 }
 `, rName)
 }
@@ -401,8 +401,8 @@ riant_namet-1"
 func testAccEndpointConfig_basic(rName string) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_endpoint" "test" {
-  endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name
+endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
+name
 }
 `, rName)
 }
@@ -411,17 +411,17 @@ func testAccEndpointConfig_nameUpdate(rName string) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_endpoint_configuration" "test2" {
 func
-  production_variants {
+production_variants {
 itial_instance_count = 1
 itial_variant_weight = 1
 stance_typeedium"
 del_nameagemaker_model.test.name
 riant_namet-1"
-  }
+}
 }
 funcurce "aws_sagemaker_endpoint" "test" {
-  endpoint_config_name = aws_sagemaker_endpoint_configuration.test2.name
-  name
+endpoint_config_name = aws_sagemaker_endpoint_configuration.test2.name
+name
 }
 `, rName)
 }
@@ -429,24 +429,24 @@ funcurce "aws_sagemaker_endpoint" "test" {
 func testAccEndpointConfig_tags(rName string) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 resource "aws_sagemaker_endpoint" "test" {
-  endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name
+endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
+name
 
-  tags = {
+tags = {
 o = "bar"
-  }
+}
 }
 `, rName)
 }
 
 func testAccEndpointConfig_tagsUpdate(rName string) string {
 funcurce "aws_sagemaker_endpoint" "test" {
-  endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name
+endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
+name
 
-  tags = {
+tags = {
 r = "baz"
-  }
+}
 }
 `, rName)
 }
@@ -454,42 +454,42 @@ r = "baz"
 func testAccEndpointConfig_deploymentBasic(rName, tType string, wait int) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 funcdpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name
+name
 
-  deployment_config {
+deployment_config {
 ue_green_update_policy {
 fic_routing_configuration {
 pe = %[
 it_interval_in_seconds = %[3]d
 
 
-  }
+}
 }
 `, rName, tType, wait)
 func
 func testAccEndpointConfig_deploymentBlueGreen(rName string) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_name
-  comparison_operatorGreaterThanOrEqualToThreshold"
-  evaluation_periods"2"
-  metric_nameon"
-  namespace
-  period
-  statistic
-  threshold
-  alarm_description "This metric monitors ec2 cpu utilization"
-  insufficient_data_actions = []
+alarm_name
+comparison_operatorGreaterThanOrEqualToThreshold"
+evaluation_periods"2"
+metric_nameon"
+namespace
+period
+statistic
+threshold
+alarm_description "This metric monitors ec2 cpu utilization"
+insufficient_data_actions = []
 
-  dimensions = {
+dimensions = {
 stanceId = "i-abc123"
-  }
+}
 func
 resource "aws_sagemaker_endpoint" "test" {
-  endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name
+endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
+name
 
-  deployment_config {
+deployment_config {
 ue_green_update_policy {
 fic_routing_configuration {
 pe = "L
@@ -507,7 +507,7 @@ ms {
 arm_name = aws_cloudwatch_metric_alarm.test.alarm_name
 
 
-  }
+}
 }
 `, rName)
 }
@@ -515,26 +515,26 @@ arm_name = aws_cloudwatch_metric_alarm.test.alarm_name
 func testAccEndpointConfig_deploymentRolling(rName string) string {
 	return testAccEndpointConfig_Base(rName) + fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_name
-  comparison_operatorGreaterThanOrEqualToThreshold"
-  evaluation_periods"2"
-  metric_nameon"
-  namespace
-  period
-  statistic
-  threshold
-  alarm_description "This metric monitors ec2 cpu utilization"
-  insufficient_data_actions = []
+alarm_name
+comparison_operatorGreaterThanOrEqualToThreshold"
+evaluation_periods"2"
+metric_nameon"
+namespace
+period
+statistic
+threshold
+alarm_description "This metric monitors ec2 cpu utilization"
+insufficient_data_actions = []
 
-  dimensions = {
+dimensions = {
 stanceId = "i-abc123"
-  }
+}
 }
 funcurce "aws_sagemaker_endpoint" "test" {
-  endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name
+endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
+name
 
-  deployment_config {
+deployment_config {
 to_rollback_configuration {
 ms {
 arm_name = aws_cloudwatch_metric_alarm.test.alarm_name
@@ -545,11 +545,11 @@ lling_update_policy {
 _interval_in_seconds = 60
 
 mum_batch_size {
-pe  = "CAPACITY_PERCENT"
+pe= "CAPACITY_PERCENT"
 lue = 5
 
 
-  }
+}
 }
 `, rName)
 }

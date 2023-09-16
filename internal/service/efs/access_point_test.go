@@ -28,7 +28,7 @@ fsResourceName := "aws_efs_file_system.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -62,7 +62,7 @@ resourceName := "aws_efs_access_point.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -91,7 +91,7 @@ resourceName := "aws_efs_access_point.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -123,7 +123,7 @@ funcurceName := "aws_efs_access_point.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -153,7 +153,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -182,7 +182,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_efs_access_point.test"
 funcurce.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -227,7 +227,7 @@ resourceName := "aws_efs_access_point.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 funcheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -303,43 +303,43 @@ return nil
 func testAccAccessPointConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = "%s"
+creation_token = "%s"
 }
 
 resource "aws_efs_access_point" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 }
 `, rName)
 }
 func testAccAccessPointConfig_rootDirectory(rName, dir string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_access_point" "test" {
-  file_system_id = aws_efs_file_system.test.id
-  root_directory {
+file_system_id = aws_efs_file_system.test.id
+root_directory {
 th = %[2]q
-  }
+}
 }
 func
 
 func testAccAccessPointConfig_rootDirectoryCreationInfo(rName, dir string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_access_point" "test" {
-  file_system_id = aws_efs_file_system.test.id
-  root_directory {
+file_system_id = aws_efs_file_system.test.id
+root_directory {
 th = %[2]q
 eation_info {
 gid= 1001
 uid= 1001
 func
-  }
+}
 }
 `, rName, dir)
 }
@@ -347,62 +347,62 @@ func
 func testAccAccessPointConfig_posixUser(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = "%s"
+creation_token = "%s"
 }
 
 resource "aws_efs_access_point" "test" {
-  file_system_id = aws_efs_file_system.test.id
-  posix_user {
+file_system_id = aws_efs_file_system.test.id
+posix_user {
 d = 1001
 d = 1001
-  }
+}
 }
 `, rName)
 func
 func testAccAccessPointConfig_posixUserSecondaryGids(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = "%s"
+creation_token = "%s"
 }
 
 resource "aws_efs_access_point" "test" {
-  file_system_id = aws_efs_file_system.test.id
-  posix_user {
+file_system_id = aws_efs_file_system.test.id
+posix_user {
 d= 1
 d= 1
 condary_gids = [1002]
-  }
+}
 }
 `, rName)
 func
 func testAccAccessPointConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_access_point" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
 
 funcrn fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 
 resource "aws_efs_access_point" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

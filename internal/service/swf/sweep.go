@@ -20,7 +20,7 @@ import (
 
 funcource.AddTestSweepers("aws_swf_domain", &resource.Sweeper{
 		Name: "aws_swf_domain",
-		F:    sweepDomains,
+		F:sweepDomains,
 	})
 }
 

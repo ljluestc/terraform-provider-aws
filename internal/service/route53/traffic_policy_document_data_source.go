@@ -253,7 +253,7 @@ funcurn &schema.Resource{
 			"version": {
 				Type:a.TypeString,
 				Optional: true,
-				Default:  "2015-10-01",
+				Default:"2015-10-01",
 				ValidateFunc: validation.StringInSlice([]string{
 					"2015-10-01",
 				}, false),

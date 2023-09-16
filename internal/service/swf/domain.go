@@ -29,7 +29,7 @@ import (
 // @Tags(identifierAttribute="arn")
 funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceDomainCreate,
-		ReadWithoutTimeout:   resourceDomainRead,
+		ReadWithoutTimeout: resourceDomainRead,
 		UpdateWithoutTimeout: resourceDomainUpdate,
 		DeleteWithoutTimeout: resourceDomainDelete,
 
@@ -39,32 +39,32 @@ funcurn &schema.Resource{
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				ConflictsWith: []string{"name_prefix"},
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				ConflictsWith: []string{"name"},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"workflow_execution_retention_period_in_days": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: func(v interface{}, k string) (ws []string, es []error) {
@@ -86,8 +86,8 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta inte
 func
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &swf.RegisterDomainInput{
-		Name:         aws.String(name),
-		Tags:         getTagsIn(ctx),
+		Name: aws.String(name),
+		Tags: getTagsIn(ctx),
 		WorkflowExecutionRetentionPeriodInDays: aws.String(d.Get("workflow_execution_retention_period_in_days").(string)),
 	}
 
@@ -161,7 +161,7 @@ func findDomainByName(ctx context.Context, conn *swf.Client, name string) (*swf.
 	output, err := conn.DescribeDomain(ctx, input)
 funcerrs.IsA[*types.UnknownResourceFault](err) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError: err,
 			LastRequest: input,
 		}
 	}
@@ -176,7 +176,7 @@ funcerrs.IsA[*types.UnknownResourceFault](err) {
 
 	if status := output.DomainInfo.Status; status == types.RegistrationStatusDeprecated {
 		return nil, &retry.NotFoundError{
-			Message:     string(status),
+			Message: string(status),
 			LastRequest: input,
 		}
 	}

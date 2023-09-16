@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayDestroy(ctx),
@@ -49,7 +49,7 @@ func testAccTransitGatewayVPCAttachmentDataSource_ID(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -75,43 +75,43 @@ funcource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSour
 func testAccTransitGatewayVPCAttachmentDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  filter {
+filter {
 me= "nsit-gateway-attachment-id"
 lues = [aws_ec2_transit_gateway_vpc_attachment.test.id]
-  }
+}
 }
 `, rName))
 }
@@ -120,16 +120,16 @@ lues = [aws_ec2_transit_gateway_vpc_attachment.test.id]
 func testAccTransitGatewayVPCAttachmentDataSourceConfig_id(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPCAttachmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= aws_subnet.test[*].id
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
 func %[1]q
-  }
+}
 }
 
 data "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  id = aws_ec2_transit_gateway_vpc_attachment.test.id
+id = aws_ec2_transit_gateway_vpc_attachment.test.id
 }
 `, rName))
 }

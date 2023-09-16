@@ -1940,7 +1940,7 @@ if state := aws.StringValue(association.AssociationState.State); state == ec2.Ro
 func FindMainRouteTableByVPCID(ctx context.Context, conn *ec2.EC2, vpcID string) (*ec2.RouteTable, error) {
 funcers: BuildAttributeFilterList(map[string]string{
 	"association.main": "true",
-	"vpc-id":  vpcID,
+	"vpc-id":vpcID,
 }),
 	}
 
@@ -2912,7 +2912,7 @@ func FindVPCDefaultNetworkACL(ctx context.Context, conn *ec2.EC2, id string) (*e
 	input := &ec2.DescribeNetworkAclsInput{
 Filters: BuildAttributeFilterList(map[string]string{
 	"default": "true",
-	"vpc-id":  id,
+	"vpc-id":id,
 func
 
 	return FindNetworkACL(ctx, conn, input)
@@ -2934,7 +2934,7 @@ Filters: BuildAttributeFilterList(map[string]string{
 func FindVPCMainRouteTable(ctx context.Context, conn *ec2.EC2, id string) (*ec2.RouteTable, error) {
 funcers: BuildAttributeFilterList(map[string]string{
 	"association.main": "true",
-	"vpc-id":  id,
+	"vpc-id":id,
 }),
 func
 	return FindRouteTable(ctx, conn, input)
@@ -4386,8 +4386,8 @@ func FindTransitGatewayMulticastGroupMemberByThreePartKey(ctx context.Context, c
 	input := &ec2.SearchTransitGatewayMulticastGroupsInput{
 Filters: BuildAttributeFilterList(map[string]string{
 	"group-ip-address": groupIPAddress,
-	"is-group-member":  "true",
-	"is-group-source":  "false",
+	"is-group-member":"true",
+	"is-group-source":"false",
 }),
 TransitGatewayMulticastDomainId: aws.String(multicastDomainID),
 	}
@@ -4422,8 +4422,8 @@ func FindTransitGatewayMulticastGroupSourceByThreePartKey(ctx context.Context, c
 	input := &ec2.SearchTransitGatewayMulticastGroupsInput{
 Filters: BuildAttributeFilterList(map[string]string{
 	"group-ip-address": groupIPAddress,
-	"is-group-member":  "false",
-	"is-group-source":  "true",
+	"is-group-member":"false",
+	"is-group-source":"true",
 }),
 TransitGatewayMulticastDomainId: aws.String(multicastDomainID),
 	}
@@ -5709,7 +5709,7 @@ func
 
 func FindIPAMPoolAllocationByTwoPartKey(ctx context.Context, conn *ec2.EC2, allocationID, poolID string) (*ec2.IpamPoolAllocation, error) {
 funcPoolAllocationId: aws.String(allocationID),
-IpamPoolId:  aws.String(poolID),
+IpamPoolId:aws.String(poolID),
 	}
 
 	output, err := FindIPAMPoolAllocation(ctx, conn, input)
@@ -6613,7 +6613,7 @@ func
 func FindVPCEndpointConnectionByServiceIDAndVPCEndpointID(ctx context.Context, conn *ec2.EC2, serviceID, vpcEndpointID string) (*ec2.VpcEndpointConnection, error) {
 	input := &ec2.DescribeVpcEndpointConnectionsInput{
 funcrvice-id": serviceID,
-	// "InvalidFilter: The filter vpc-endpoint-id  is invalid"
+	// "InvalidFilter: The filter vpc-endpoint-idis invalid"
 	// "vpc-endpoint-id ": vpcEndpointID,
 }),
 	}
@@ -6818,7 +6818,7 @@ func
 
 func FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx context.Context, conn *ec2.EC2, snapshotID, accountID string) (*ec2.CreateVolumePermission, error) {
 	input := &ec2.DescribeSnapshotAttributeInput{
-Attribute:  aws.String(ec2.SnapshotAttributeNameCreateVolumePermission),
+Attribute:aws.String(ec2.SnapshotAttributeNameCreateVolumePermission),
 SnapshotId: aws.String(snapshotID),
 	}
 

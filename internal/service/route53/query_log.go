@@ -84,7 +84,7 @@ funcput, err := FindQueryLoggingConfigByID(ctx, conn, d.Id())
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:ute53",
-		Resource:  fmt.Sprintf("queryloggingconfig/%s", d.Id()),
+		Resource:fmt.Sprintf("queryloggingconfig/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("cloudwatch_log_group_arn", output.CloudWatchLogsLogGroupArn)

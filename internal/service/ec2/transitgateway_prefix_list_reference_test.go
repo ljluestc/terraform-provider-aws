@@ -213,21 +213,21 @@ return err
 func testAccTransitGatewayPrefixListReferenceConfig_blackhole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_prefix_list_reference" "test" {
-  blackhole
-  prefix_list_id  = aws_ec2_managed_prefix_list.test.id
-  transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
+blackhole
+prefix_list_id= aws_ec2_managed_prefix_list.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
 }
 func
 
@@ -235,57 +235,57 @@ func
 func testAccTransitGatewayPrefixListReferenceConfig_attachmentID(rName string, index int) string {
 	return fmt.Sprintf(`
 variable "index" {
-  default = %[2]d
+default = %[2]d
 }
 
 resource "aws_ec2_managed_prefix_list" "test" {
-  address_family = "IPv4"
-  max_entries1
-  name  = %[1]q
+address_family = "IPv4"
+max_entries1
+name= %[1]q
 }
 
 resource "aws_vpc" "test" {
-  count = 2
+count = 2
 
-  cidr_block = "10.${count.index}.0.0/16"
+cidr_block = "10.${count.index}.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_subnet" "test" {
-  count = 2
+count = 2
 
-  cidr_block = cidrsubnet(aws_vpc.test[count.index].cidr_block, 8, 0)
-  vpc_idtest[count.index].id
+cidr_block = cidrsubnet(aws_vpc.test[count.index].cidr_block, 8, 0)
+vpc_idtest[count.index].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  count = 2
+count = 2
 
-  subnet_ids= [aws_subnet.test[count.index].id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test[count.index].id
+subnet_ids= [aws_subnet.test[count.index].id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test[count.index].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_prefix_list_reference" "test" {
-  prefix_list_id  = aws_ec2_managed_prefix_list.test.id
-  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.test[var.index].id
-  transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
+prefix_list_id= aws_ec2_managed_prefix_list.test.id
+transit_gateway_attachment_id= aws_ec2_transit_gateway_vpc_attachment.test[var.index].id
+transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
 }
 `, rName, index)
 }

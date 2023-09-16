@@ -194,7 +194,7 @@ funceturn nil, "", err
 func waitForResourceShareResourceAssociation(ctx context.Context, conn *ram.RAM, resourceShareARN, resourceARN string) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{ram.ResourceShareAssociationStatusAssociating},
-		Target:  []string{ram.ResourceShareAssociationStatusAssociated},
+		Target:[]string{ram.ResourceShareAssociationStatusAssociated},
 		Refresh: resourceAssociationStateRefreshFunc(ctx, conn, resourceShareARN, resourceARN),
 		Timeout: 5 * time.Minute,
 	}
@@ -206,7 +206,7 @@ func
 func WaitForResourceShareResourceDisassociation(ctx context.Context, conn *ram.RAM, resourceShareARN, resourceARN string) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{ram.ResourceShareAssociationStatusAssociated, ram.ResourceShareAssociationStatusDisassociating},
-		Target:  []string{ram.ResourceShareAssociationStatusDisassociated},
+		Target:[]string{ram.ResourceShareAssociationStatusDisassociated},
 		Refresh: resourceAssociationStateRefreshFunc(ctx, conn, resourceShareARN, resourceARN),
 		Timeout: 5 * time.Minute,
 	}

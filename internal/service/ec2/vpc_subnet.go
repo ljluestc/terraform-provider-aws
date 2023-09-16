@@ -44,7 +44,7 @@ Timeouts: &schema.ResourceTimeout{
 },
 
 SchemaVersion: 1,
-MigrateState:  SubnetMigrateState,
+MigrateState:SubnetMigrateState,
 
 // Keep in sync with aws_default_subnet's schema.
 // See notes in vpc_default_subnet.go.
@@ -56,7 +56,7 @@ Computed: true,
 	"assign_ipv6_address_on_creation": {
 Type:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	},
 	"availability_zone": {
 Type: schema.TypeString,
@@ -86,7 +86,7 @@ RequiredWith: []string{"map_customer_owned_ip_on_launch", "outpost_arn"},
 	"enable_dns64": {
 Type:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	},
 	"enable_lni_at_device_index": {
 Type:schema.TypeInt,
@@ -96,12 +96,12 @@ func: validation.NoZeroValues,
 	},
 func:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	},
 	"enable_resource_name_dns_a_record_on_launch": {
 Type:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	},
 	"ipv6_cidr_block": {
 Type:schema.TypeString,
@@ -116,7 +116,7 @@ funcuted: true,
 Type:eBool,
 Optional: true,
 ForceNew: true,
-Default:  false,
+Default:false,
 	},
 	"map_customer_owned_ip_on_launch": {
 Type:schema.TypeBool,
@@ -126,7 +126,7 @@ RequiredWith: []string{"customer_owned_ipv4_pool", "outpost_arn"},
 	"map_public_ip_on_launch": {
 Type:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	},
 	"outpost_arn": {
 Type:schema.TypeString,

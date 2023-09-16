@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	notebookInstanceStatusNotFound  = "NotFound"
+	notebookInstanceStatusNotFound= "NotFound"
 	imageStatusNotFoundound"
 	imageStatusFailed
 	imageVersionStatusNotFoundotFound"

@@ -60,7 +60,7 @@ funcurn &schema.Resource{
 			"private_zone": {
 				Type:a.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"resource_record_set_count": {
 				Type:a.TypeInt,
@@ -213,7 +213,7 @@ funcn := meta.(*conns.AWSClient).Route53Conn(ctx)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:ute53",
-		Resource:  fmt.Sprintf("hostedzone/%s", d.Id()),
+		Resource:fmt.Sprintf("hostedzone/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 

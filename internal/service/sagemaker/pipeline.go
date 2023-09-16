@@ -125,7 +125,7 @@ funcn := meta.(*conns.AWSClient).SageMakerConn(ctx)
 
 	name := d.Get("pipeline_name").(string)
 	input := &sagemaker.CreatePipelineInput{
-		ClientRequestToken:  aws.String(id.UniqueId()),
+		ClientRequestToken:aws.String(id.UniqueId()),
 		PipelineDisplayName: aws.String(d.Get("pipeline_display_name").(string)),
 		PipelineName:s.String(name),
 		RoleArn:ing(d.Get("role_arn").(string)),

@@ -103,7 +103,7 @@ func
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: ownerID,
-		Resource:  fmt.Sprintf("carrier-gateway/%s", d.Id()),
+		Resource:fmt.Sprintf("carrier-gateway/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("owner_id", ownerID)

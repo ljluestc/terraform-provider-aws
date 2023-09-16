@@ -26,7 +26,7 @@ func := acctest.Context(t)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRevisionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -55,7 +55,7 @@ func proj dataexchange.GetRevisionOutput
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRevisionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -100,7 +100,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRevisionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -124,7 +124,7 @@ funcourceName := "aws_dataexchange_revision.test"
 
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, dataexchange.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, dataexchange.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, dataexchange.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRevisionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -203,9 +203,9 @@ funcataSetId, revisionId, err := tfdataexchange.RevisionParseResourceID(rs.Prima
 func testAccRevisionConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dataexchange_data_set" "test" {
-  asset_type  = "S3_SNAPSHOT"
-  description = %[1]q
-  name1]q
+asset_type= "S3_SNAPSHOT"
+description = %[1]q
+name1]q
 }
 
 functa_set_id = aws_dataexchange_data_set.test.id
@@ -216,16 +216,16 @@ functa_set_id = aws_dataexchange_data_set.test.id
 func testAccRevisionConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_dataexchange_data_set" "test" {
-  asset_type  = "S3_SNAPSHOT"
-  description = %[1]q
-  name1]q
+asset_type= "S3_SNAPSHOT"
+description = %[1]q
+name1]q
 }
 
 resource "aws_dataexchange_revision" "test" {
 func
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -233,17 +233,17 @@ func
 func testAccRevisionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_dataexchange_data_set" "test" {
-  asset_type  = "S3_SNAPSHOT"
-  description = %[1]q
-  name1]q
+asset_type= "S3_SNAPSHOT"
+description = %[1]q
+name1]q
 }
 
 resource "aws_dataexchange_revision" "test" {
-  data_set_id = aws_dataexchange_data_set.test.id
+data_set_id = aws_dataexchange_data_set.test.id
 funcgs = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

@@ -17,7 +17,7 @@ func := acctest.Context(t)
 	datasourceName := "data.aws_ami_ids.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -36,7 +36,7 @@ func TestAccEC2AMIIDsDataSource_sorted(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami_ids.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -66,7 +66,7 @@ func TestAccEC2AMIIDsDataSource_includeDeprecated(t *testing.T) {
 	datasourceName := "data.aws_ami_ids.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -83,10 +83,10 @@ func
 const testAccAMIIDsDataSourceConfig_basic = `
 funcners = ["099720109477"]
 
-  filter {
+filter {
 me= "e"
 lues = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
-  }
+}
 }
 `
 
@@ -94,31 +94,31 @@ lues = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
 func testAccAMIIDsDataSourceConfig_sorted(sortAscending bool) string {
 	return fmt.Sprintf(`
 data "aws_ami" "test1" {
-  owners = ["amazon"]
+owners = ["amazon"]
 
-  filter {
+filter {
 me= "e"
 lues = ["amzn-ami-hvm-2018.03.0.20221018.0-x86_64-gp2"]
-  }
+}
 }
 func "aws_ami" "test2" {
-  owners = ["amazon"]
+owners = ["amazon"]
 
-  filter {
+filter {
 me= "e"
 lues = ["amzn-ami-hvm-2018.03.0.20221209.1-x86_64-gp2"]
-  }
+}
 }
 
 data "aws_ami_ids" "test" {
-  owners = ["amazon"]
+owners = ["amazon"]
 
-  filter {
+filter {
 me= "e"
 lues = [data.aws_ami.test1.name, data.aws_ami.test2.name]
-  }
+}
 
-  sort_ascending = %[1]t
+sort_ascending = %[1]t
 }
 `, sortAscending)
 }
@@ -127,12 +127,12 @@ lues = [data.aws_ami.test1.name, data.aws_ami.test2.name]
 func testAccAMIIDsDataSourceConfig_includeDeprecated(includeDeprecated bool) string {
 	return fmt.Sprintf(`
 data "aws_ami_ids" "test" {
-  owners["099720109477"]
-  include_deprecated = %[1]t
+owners["099720109477"]
+include_deprecated = %[1]t
 
-  filter {
+filter {
 me= "e"
 lues = ["ubuntu/images/ubuntu-*-*-amd64-server-*"]
-  }
+}
 }
 func

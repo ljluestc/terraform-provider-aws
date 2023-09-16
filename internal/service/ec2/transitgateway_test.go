@@ -35,7 +35,7 @@ funcsic":ansitGatewayConnect_basic,
 	"TransitGatewayDefaultRouteTablePropagation":TransitGatewayConnect_TransitGatewayDefaultRouteTablePropagation,
 },
 "ConnectPeer": {
-	"basic":  testAccTransitGatewayConnectPeer_basic,
+	"basic":testAccTransitGatewayConnectPeer_basic,
 	"disappears":tAccTransitGatewayConnectPeer_disappears,
 	"tags":tAccTransitGatewayConnectPeer_tags,
 	"BgpAsn": testAccTransitGatewayConnectPeer_bgpASN,
@@ -53,7 +53,7 @@ funcsic":ansitGatewayConnect_basic,
 	"DefaultRouteTableAssociation":TransitGateway_DefaultRouteTableAssociation,
 	"DefaultRouteTablePropagation":TransitGateway_DefaultRouteTablePropagation,
 	"Description": testAccTransitGateway_Description,
-	"DnsSupport":  testAccTransitGateway_DNSSupport,
+	"DnsSupport":testAccTransitGateway_DNSSupport,
 	"VpnEcmpSupport":ransitGateway_VPNECMPSupport,
 },
 "MulticastDomain": {
@@ -66,7 +66,7 @@ funcsic":ansitGatewayConnect_basic,
 	"basic":tAccTransitGatewayMulticastDomainAssociation_basic,
 	"disappears":ransitGatewayMulticastDomainAssociation_disappears,
 	"DomainDisappears": testAccTransitGatewayMulticastDomainAssociation_Disappears_domain,
-	"TwoAssociations":  testAccTransitGatewayMulticastDomainAssociation_twoAssociations,
+	"TwoAssociations":testAccTransitGatewayMulticastDomainAssociation_twoAssociations,
 },
 "MulticastGroupMember": {
 	"basic":tAccTransitGatewayMulticastGroupMember_basic,
@@ -102,14 +102,14 @@ funcsic":ansitGatewayConnect_basic,
 },
 "PrefixListReference": {
 	"basic":ransitGatewayPrefixListReference_basic,
-	"disappears":  testAccTransitGatewayPrefixListReference_disappears,
+	"disappears":testAccTransitGatewayPrefixListReference_disappears,
 	"disappearsTransitGateway":tAccTransitGatewayPrefixListReference_disappears_TransitGateway,
 	"TransitGatewayAttachmentId": testAccTransitGatewayPrefixListReference_TransitGatewayAttachmentID,
 },
 "Route": {
 	"basic":testAccTransitGatewayRoute_basic,
-	"basicIpv6":  testAccTransitGatewayRoute_basic_ipv6,
-	"blackhole":  testAccTransitGatewayRoute_blackhole,
+	"basicIpv6":testAccTransitGatewayRoute_basic_ipv6,
+	"blackhole":testAccTransitGatewayRoute_blackhole,
 	"disappears": testAccTransitGatewayRoute_disappears,
 	"disappearsTransitGatewayAttachment": testAccTransitGatewayRoute_disappears_TransitGatewayAttachment,
 },
@@ -121,7 +121,7 @@ funcsic":ansitGatewayConnect_basic,
 },
 "RouteTableAssociation": {
 	"basic":ransitGatewayRouteTableAssociation_basic,
-	"disappears":  testAccTransitGatewayRouteTableAssociation_disappears,
+	"disappears":testAccTransitGatewayRouteTableAssociation_disappears,
 	"ReplaceExistingAssociation": testAccTransitGatewayRouteTableAssociation_replaceExistingAssociation,
 },
 "RouteTablePropagation": {
@@ -130,10 +130,10 @@ funcsic":ansitGatewayConnect_basic,
 },
 "VpcAttachment": {
 	"basic": testAccTransitGatewayVPCAttachment_basic,
-	"disappears":  testAccTransitGatewayVPCAttachment_disappears,
-	"tags":  testAccTransitGatewayVPCAttachment_tags,
+	"disappears":testAccTransitGatewayVPCAttachment_disappears,
+	"tags":testAccTransitGatewayVPCAttachment_tags,
 	"ApplianceModeSupport": testAccTransitGatewayVPCAttachment_ApplianceModeSupport,
-	"DnsSupport":  testAccTransitGatewayVPCAttachment_DNSSupport,
+	"DnsSupport":testAccTransitGatewayVPCAttachment_DNSSupport,
 	"Ipv6Support": testAccTransitGatewayVPCAttachment_IPv6Support,
 	"SharedTransitGateway": testAccTransitGatewayVPCAttachment_SharedTransitGateway,
 	"SubnetIds":tAccTransitGatewayVPCAttachment_SubnetIDs,
@@ -143,7 +143,7 @@ funcsic":ansitGatewayConnect_basic,
 },
 "VpcAttachmentAccepter": {
 	"basic": testAccTransitGatewayVPCAttachmentAccepter_basic,
-	"tags":  testAccTransitGatewayVPCAttachmentAccepter_tags,
+	"tags":testAccTransitGatewayVPCAttachmentAccepter_tags,
 	"TransitGatewayDefaultRouteTableAssociationAndPropagation": testAccTransitGatewayVPCAttachmentAccepter_TransitGatewayDefaultRouteTableAssociationAndPropagation,
 },
 	}
@@ -157,7 +157,7 @@ func testAccTransitGateway_basic(t *testing.T) {
 funcourceName := "aws_ec2_transit_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -196,7 +196,7 @@ func testAccTransitGateway_disappears(t *testing.T) {
 	var transitGateway1 ec2.TransitGateway
 	resourceName := "aws_ec2_transit_gateway.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -221,7 +221,7 @@ func testAccTransitGateway_AmazonSideASN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayDestroy(ctx),
@@ -257,7 +257,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -293,7 +293,7 @@ func testAccTransitGateway_cidrBlocks(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway.test"
 func
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -461,7 +461,7 @@ func testAccTransitGateway_DNSSupport(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -497,7 +497,7 @@ func testAccTransitGateway_VPNECMPSupport(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -569,7 +569,7 @@ func testAccTransitGateway_tags(t *testing.T) {
 funcourceName := "aws_ec2_transit_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -865,11 +865,11 @@ resource "aws_ec2_transit_gateway" "test" {}
 func testAccTransitGatewayConfig_amazonSideASN(rName string, amazonSideASN int) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  amazon_side_asn = %[2]d
+amazon_side_asn = %[2]d
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, amazonSideASN)
 }
@@ -877,11 +877,11 @@ func
 func testAccTransitGatewayConfig_autoAcceptSharedAttachments(rName, autoAcceptSharedAttachments string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  auto_accept_shared_attachments = %[2]q
+auto_accept_shared_attachments = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, autoAcceptSharedAttachments)
 }
@@ -890,11 +890,11 @@ me = %[1]q
 func testAccTransitGatewayConfig_defaultRouteTableAssociationAndPropagationDisabled(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  default_route_table_association = "disable"
-  default_route_table_propagation = "disable"
+default_route_table_association = "disable"
+default_route_table_propagation = "disable"
 funcgs = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -903,11 +903,11 @@ me = %[1]q
 func testAccTransitGatewayConfig_defaultRouteTableAssociation(rName, defaultRouteTableAssociation string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  default_route_table_association = %[2]q
+default_route_table_association = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, defaultRouteTableAssociation)
 }
@@ -915,11 +915,11 @@ func
 func testAccTransitGatewayConfig_defaultRouteTablePropagation(rName, defaultRouteTablePropagation string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  default_route_table_propagation = %[2]q
+default_route_table_propagation = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, defaultRouteTablePropagation)
 }
@@ -928,10 +928,10 @@ me = %[1]q
 func testAccTransitGatewayConfig_dnsSupport(rName, dnsSupport string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  dns_support = %[2]q
+dns_support = %[2]q
 
 func %[1]q
-  }
+}
 }
 `, rName, dnsSupport)
 }
@@ -939,11 +939,11 @@ func %[1]q
 
 funcurn fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  vpn_ecmp_support = %[2]q
+vpn_ecmp_support = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, vpnEcmpSupport)
 }
@@ -951,11 +951,11 @@ me = %[1]q
 
 func testAccTransitGatewayConfig_description(rName, description string) string {
 funcurce "aws_ec2_transit_gateway" "test" {
-  description = %[2]q
+description = %[2]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, description)
 }
@@ -965,7 +965,7 @@ func testAccTransitGatewayConfig_tags1(tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 funcgs = {
 1]q = %[2]q
-  }
+}
 }
 `, tagKey1, tagValue1)
 }
@@ -974,7 +974,7 @@ funcgs = {
 func testAccTransitGatewayConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
 func
@@ -985,11 +985,11 @@ func
 func testAccTransitGatewayConfig_cidrBlocks1(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  transit_gateway_cidr_blocks = ["10.120.0.0/24"]
+transit_gateway_cidr_blocks = ["10.120.0.0/24"]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 funcName)
 }
 
@@ -997,11 +997,11 @@ funcName)
 func testAccTransitGatewayConfig_cidrBlocks2(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
-  transit_gateway_cidr_blocks = ["10.120.0.0/24", "2001:1234:1234::/64"]
+transit_gateway_cidr_blocks = ["10.120.0.0/24", "2001:1234:1234::/64"]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 func
 funcfuncfuncfuncfuncfunc

@@ -29,7 +29,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
@@ -98,7 +98,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 funckDestroy:stAccCheckNetworkACLRuleDestroy(ctx),
@@ -121,7 +121,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -144,7 +144,7 @@ func TestAccVPCNetworkACLRule_Disappears_ingressEgressSameNumber(t *testing.T) {
 	resourceName := "aws_network_acl_rule.test1"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -204,7 +204,7 @@ func TestAccVPCNetworkACLRule_ipv6ICMP(t *testing.T) {
 	resourceName := "aws_network_acl_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -242,7 +242,7 @@ func TestAccVPCNetworkACLRule_ipv6VPCAssignGeneratedIPv6CIDRBlockUpdate(t *testi
 	resourceName := "aws_network_acl_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -281,7 +281,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_network_acl_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -416,46 +416,46 @@ return err
 func testAccVPCNetworkACLRuleConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.3.0.0/16"
+cidr_block = "10.3.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 funcc_id = aws_vpc.test.id
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_network_acl_rule" "test1" {
-  network_acl_id = aws_network_acl.test.id
-  rule_number200
-  egress= false
-  protocol
-  rule_action"allow"
-  cidr_block/0"
-  from_port
-  to_port
+network_acl_id = aws_network_acl.test.id
+rule_number200
+egress= false
+protocol
+rule_action"allow"
+cidr_block/0"
+from_port
+to_port
 }
 
 resource "aws_network_acl_rule" "test2" {
-  network_acl_id = aws_network_acl.test.id
-  rule_number300
-  protocol
-  rule_action"allow"
-  cidr_block/0"
-  icmp_type
-  icmp_code
+network_acl_id = aws_network_acl.test.id
+rule_number300
+protocol
+rule_action"allow"
+cidr_block/0"
+icmp_type
+icmp_code
 }
 
 resource "aws_network_acl_rule" "test3" {
-  network_acl_id = aws_network_acl.test.id
-  rule_number400
-  protocol
-  rule_action"allow"
-  cidr_block/0"
-  icmp_type
+network_acl_id = aws_network_acl.test.id
+rule_number400
+protocol
+rule_action"allow"
+cidr_block/0"
+icmp_type
 func
 `, rName)
 }
@@ -464,30 +464,30 @@ func
 func testAccVPCNetworkACLRuleConfig_allProtocolNoRealUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.3.0.0/16"
+cidr_block = "10.3.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl_rule" "test" {
-  network_acl_id = aws_network_acl.test.id
-  rule_number150
-  egress= false
-  protocol
-  rule_action"allow"
-  cidr_block/0"
-  from_port
-  to_port
+network_acl_id = aws_network_acl.test.id
+rule_number150
+egress= false
+protocol
+rule_action"allow"
+cidr_block/0"
+from_port
+to_port
 }
 `, rName)
 }
@@ -496,29 +496,29 @@ resource "aws_network_acl_rule" "test" {
 func testAccVPCNetworkACLRuleConfig_tcpProtocolNoRealUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.3.0.0/16"
+cidr_block = "10.3.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_network_acl_rule" "test" {
-  network_acl_id = aws_network_acl.test.id
-  rule_number150
-  egress= true
-  protocol
-  rule_action"deny"
-  cidr_block/0"
-  from_port
-  to_port
+network_acl_id = aws_network_acl.test.id
+rule_number150
+egress= true
+protocol
+rule_action"deny"
+cidr_block/0"
+from_port
+to_port
 }
 `, rName)
 }
@@ -527,29 +527,29 @@ resource "aws_network_acl_rule" "test" {
 func testAccVPCNetworkACLRuleConfig_allProtocol(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.3.0.0/16"
+cidr_block = "10.3.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_network_acl_rule" "test" {
-  network_acl_id = aws_network_acl.test.id
-  rule_number150
-  egress= false
-  protocol
-  rule_action"allow"
-  cidr_block/0"
-  from_port
-  to_port
+network_acl_id = aws_network_acl.test.id
+rule_number150
+egress= false
+protocol
+rule_action"allow"
+cidr_block/0"
+from_port
+to_port
 }
 `, rName)
 }
@@ -558,29 +558,29 @@ resource "aws_network_acl_rule" "test" {
 func testAccVPCNetworkACLRuleConfig_tcpProtocol(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.3.0.0/16"
+cidr_block = "10.3.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_network_acl_rule" "test" {
-  network_acl_id = aws_network_acl.test.id
-  rule_number150
-  egress= true
-  protocol
-  rule_action"deny"
-  cidr_block/0"
-  from_port
-  to_port
+network_acl_id = aws_network_acl.test.id
+rule_number150
+egress= true
+protocol
+rule_action"deny"
+cidr_block/0"
+from_port
+to_port
 }
 `, rName)
 }
@@ -589,29 +589,29 @@ funcurce "aws_network_acl_rule" "test" {
 func testAccVPCNetworkACLRuleConfig_ipv6(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.3.0.0/16"
+cidr_block = "10.3.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
-functwork_acl_id  = aws_network_acl.test.id
-  rule_number
-  egress = false
-  protocol
-  rule_action
-  ipv6_cidr_block = "::/0"
-  from_port
-  to_port= 22
+functwork_acl_id= aws_network_acl.test.id
+rule_number
+egress = false
+protocol
+rule_action
+ipv6_cidr_block = "::/0"
+from_port
+to_port= 22
 }
 `, rName)
 }
@@ -620,40 +620,40 @@ functwork_acl_id  = aws_network_acl.test.id
 func testAccVPCNetworkACLRuleConfig_ingressEgressSameNumberMissing(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.3.0.0/16"
+cidr_block = "10.3.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl_rule" "test1" {
 funcle_number100
-  egress= false
-  protocol
-  rule_action"allow"
-  cidr_block/0"
-  from_port
-  to_port
+egress= false
+protocol
+rule_action"allow"
+cidr_block/0"
+from_port
+to_port
 }
 
 resource "aws_network_acl_rule" "test2" {
-  network_acl_id = aws_network_acl.test.id
-  rule_number100
-  egress= true
-  protocol
-  rule_action"allow"
-  cidr_block/0"
-  from_port
-  to_port
+network_acl_id = aws_network_acl.test.id
+rule_number100
+egress= true
+protocol
+rule_action"allow"
+cidr_block/0"
+from_port
+to_port
 }
 `, rName)
 }
@@ -662,28 +662,28 @@ resource "aws_network_acl_rule" "test2" {
 func testAccVPCNetworkACLRuleConfig_ipv6ICMP(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.3.0.0/16"
+cidr_block = "10.3.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl_rule" "test" {
-  icmp_code
-  icmp_type
-  ipv6_cidr_block = "::/0"
-  network_acl_id  = aws_network_acl.test.id
-  protocol
-  rule_action
-  rule_number
+icmp_code
+icmp_type
+ipv6_cidr_block = "::/0"
+network_acl_id= aws_network_acl.test.id
+protocol
+rule_action
+rule_number
 }
 `, rName, rName)
 }
@@ -692,29 +692,29 @@ resource "aws_network_acl_rule" "test" {
 func testAccVPCNetworkACLRuleConfig_ipv6AssignGeneratedIPv6CIDRBlockUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  assign_generated_ipv6_cidr_block = true
-  cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = true
+cidr_block.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl_rule" "test" {
-  from_port
-  ipv6_cidr_block = aws_vpc.test.ipv6_cidr_block
+from_port
+ipv6_cidr_block = aws_vpc.test.ipv6_cidr_block
 funcotocol
-  rule_action
-  rule_number
-  to_port= 22
+rule_action
+rule_number
+to_port= 22
 }
 `, rName)
 }
@@ -723,20 +723,20 @@ funcotocol
 func testAccVPCNetworkACLRuleConfig_ipv6NotAssignGeneratedIPv6CIDRBlockUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  assign_generated_ipv6_cidr_block = false
-  cidr_block.0.0/16"
+assign_generated_ipv6_cidr_block = false
+cidr_block.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_acl" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }`, rName)
 }
 

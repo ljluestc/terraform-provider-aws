@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	resourceName := "aws_vpc_ipam_pool.testthree"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -63,7 +63,7 @@ func TestAccIPAMPoolsDataSource_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_vpc_ipam_pools.test"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -79,91 +79,91 @@ func(
 func
 var testAccIPAMPoolsDataSourceConfig_basic = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family
-  ipam_scope_id_ipam.test.private_default_scope_id
-  auto_import
-  allocation_default_netmask_length = 32
-  allocation_max_netmask_length
-  allocation_min_netmask_length
-  allocation_resource_tags = {
+address_family
+ipam_scope_id_ipam.test.private_default_scope_id
+auto_import
+allocation_default_netmask_length = 32
+allocation_max_netmask_length
+allocation_min_netmask_length
+allocation_resource_tags = {
 st = "1"
-  }
-  description = "test"
+}
+description = "test"
 }
 
 data "aws_vpc_ipam_pools" "test" {
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool.test
-  ]
+]
 }
 `)
 
 var testAccIPAMPoolsDataSourceConfig_basicTwoPools = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family
-  ipam_scope_id_ipam.test.private_default_scope_id
-  auto_import
-  allocation_default_netmask_length = 32
-  allocation_max_netmask_length
-  allocation_min_netmask_length
-  allocation_resource_tags = {
+address_family
+ipam_scope_id_ipam.test.private_default_scope_id
+auto_import
+allocation_default_netmask_length = 32
+allocation_max_netmask_length
+allocation_min_netmask_length
+allocation_resource_tags = {
 st = "1"
-  }
-  description = "test"
+}
+description = "test"
 }
 
 resource "aws_vpc_ipam_pool" "testtwo" {
-  address_family = "ipv4"
-  ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
-  allocation_resource_tags = {
+address_family = "ipv4"
+ipam_scope_id= aws_vpc_ipam.test.private_default_scope_id
+allocation_resource_tags = {
 st = "2"
-  }
-  description = "testtwo"
+}
+description = "testtwo"
 }
 
 resource "aws_vpc_ipam_pool" "testthree" {
-  address_family
-  ipam_scope_id_ipam.test.private_default_scope_id
-  allocation_default_netmask_length = 32
-  allocation_max_netmask_length
-  allocation_min_netmask_length
-  auto_import
-  allocation_resource_tags = {
+address_family
+ipam_scope_id_ipam.test.private_default_scope_id
+allocation_default_netmask_length = 32
+allocation_max_netmask_length
+allocation_min_netmask_length
+auto_import
+allocation_resource_tags = {
 st = "3"
-  }
-  description = "testthree"
-  tags = {
+}
+description = "testthree"
+tags = {
 gtest = 3
-  }
+}
 }
 
 data "aws_vpc_ipam_pools" "test" {
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool.test,
 s_vpc_ipam_pool.testtwo,
 s_vpc_ipam_pool.testthree
-  ]
+]
 }
 
 data "aws_vpc_ipam_pools" "testtwo" {
-  filter {
+filter {
 me= "cription"
 lues = ["*three*"]
-  }
+}
 
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool.test,
 s_vpc_ipam_pool.testtwo,
 s_vpc_ipam_pool.testthree
-  ]
+]
 }
 `)
 
 const testAccIPAMPoolsDataSourceConfig_empty = `
 data "aws_vpc_ipam_pools" "test" {
-  filter {
+filter {
 me= "cription"
 lues = ["*none*"]
-  }
+}
 }
 `

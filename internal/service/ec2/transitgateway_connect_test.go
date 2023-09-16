@@ -29,7 +29,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayConnectDestroy(ctx),
@@ -62,7 +62,7 @@ func testAccTransitGatewayConnect_disappears(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -86,7 +86,7 @@ func testAccTransitGatewayConnect_tags(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway_connect.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -135,7 +135,7 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociationAndP
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckTransitGatewayConnectDestroy(ctx),
@@ -169,7 +169,7 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociation(t *
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -221,7 +221,7 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTablePropagation(t *
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -331,38 +331,38 @@ return nil
 func testAccTransitGatewayConnectConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
 func
 funcurce "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 func
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id_transit_gateway.test.id
-  transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_id_transit_gateway.test.id
+transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 }
 `, rName))
 }
@@ -371,45 +371,45 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 func testAccTransitGatewayConnectConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id_transit_gateway.test.id
-  transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_id_transit_gateway.test.id
+transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -418,46 +418,46 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 func testAccTransitGatewayConnectConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= [aws_subnet.test.id]
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= [aws_subnet.test.id]
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 funcurce "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id_transit_gateway.test.id
-  transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_id_transit_gateway.test.id
+transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -466,52 +466,52 @@ funcurce "aws_ec2_transit_gateway_connect" "test" {
 func testAccTransitGatewayConnectConfig_defaultRouteTableAssociationAndPropagationDisabled(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  default_route_table_association = "disable"
-  default_route_table_propagation = "disable"
+default_route_table_association = "disable"
+default_route_table_propagation = "disable"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_idssubnet.test.id]
-  transit_gateway_id= aws_ec2_transit_gateway.test.id
-  vpc_idws_vpc.test.id
-  transit_gateway_default_route_table_association = false
-  transit_gateway_default_route_table_propagation = false
+subnet_idssubnet.test.id]
+transit_gateway_id= aws_ec2_transit_gateway.test.id
+vpc_idws_vpc.test.id
+transit_gateway_default_route_table_association = false
+transit_gateway_default_route_table_propagation = false
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id= aws_ec2_transit_gateway.test.id
-  transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_default_route_table_association = false
-  transit_gateway_default_route_table_propagation = false
+transit_gateway_id= aws_ec2_transit_gateway.test.id
+transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_default_route_table_association = false
+transit_gateway_default_route_table_propagation = false
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -520,47 +520,47 @@ me = %[1]q
 func testAccTransitGatewayConnectConfig_defaultRouteTableAssociation(rName string, transitGatewayDefaultRouteTableAssociation bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_idssubnet.test.id]
-  transit_gateway_id= aws_ec2_transit_gateway.test.id
-  vpc_idws_vpc.test.id
-  transit_gateway_default_route_table_association = %[2]t
+subnet_idssubnet.test.id]
+transit_gateway_id= aws_ec2_transit_gateway.test.id
+vpc_idws_vpc.test.id
+transit_gateway_default_route_table_association = %[2]t
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcansit_gateway_id= aws_ec2_transit_gateway.test.id
-  transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_default_route_table_association = %[2]t
+transport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_default_route_table_association = %[2]t
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, transitGatewayDefaultRouteTableAssociation))
 }
@@ -569,47 +569,47 @@ me = %[1]q
 func testAccTransitGatewayConnectConfig_defaultRouteTablePropagation(rName string, transitGatewayDefaultRouteTablePropagation bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block.0.0/24"
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_idssubnet.test.id]
-  transit_gateway_id= aws_ec2_transit_gateway.test.id
-  vpc_idws_vpc.test.id
-  transit_gateway_default_route_table_propagation = %[2]t
+subnet_idssubnet.test.id]
+transit_gateway_id= aws_ec2_transit_gateway.test.id
+vpc_idws_vpc.test.id
+transit_gateway_default_route_table_propagation = %[2]t
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
 funcansport_attachment_id = aws_ec2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_default_route_table_propagation = %[2]t
+transit_gateway_default_route_table_propagation = %[2]t
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, transitGatewayDefaultRouteTablePropagation))
 }

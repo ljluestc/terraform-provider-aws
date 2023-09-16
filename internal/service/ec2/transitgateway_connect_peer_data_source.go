@@ -101,7 +101,7 @@ funcoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("transit-gateway-connect-peer/%s", d.Id()),
+		Resource:fmt.Sprintf("transit-gateway-connect-peer/%s", d.Id()),
 	}.String()
 	bgpConfigurations := transitGatewayConnectPeer.ConnectPeerConfiguration.BgpConfigurations
 	d.Set("arn", arn)

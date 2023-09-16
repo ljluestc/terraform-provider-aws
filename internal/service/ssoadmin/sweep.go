@@ -22,12 +22,12 @@ import (
 
 funcource.AddTestSweepers("aws_ssoadmin_account_assignment", &resource.Sweeper{
 		Name: "aws_ssoadmin_account_assignment",
-		F:    sweepAccountAssignments,
+		F:sweepAccountAssignments,
 	})
 
 	resource.AddTestSweepers("aws_ssoadmin_permission_set", &resource.Sweeper{
 		Name: "aws_ssoadmin_permission_set",
-		F:    sweepPermissionSets,
+		F:sweepPermissionSets,
 		Dependencies: []string{
 			"aws_ssoadmin_account_assignment",
 		},
@@ -80,8 +80,8 @@ funcent, err := sweep.SharedRegionalSweepClient(ctx, region)
 				permissionSetArn := aws.StringValue(permissionSet)
 
 				input := &ssoadmin.ListAccountAssignmentsInput{
-					AccountId:        aws.String(client.AccountID),
-					InstanceArn:      aws.String(instanceArn),
+					AccountId:aws.String(client.AccountID),
+					InstanceArn:aws.String(instanceArn),
 					PermissionSetArn: permissionSet,
 				}
 

@@ -61,7 +61,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.ModifyVpcEndpointInput{
 		VpcEndpointId: aws.String(endpointID),
-		AddSubnetIds:  aws.StringSlice([]string{subnetID}),
+		AddSubnetIds:aws.StringSlice([]string{subnetID}),
 	}
 
 	log.Printf("[DEBUG] Creating VPC Endpoint Subnet Association: %s", input)
@@ -75,7 +75,7 @@ funcn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	c := &retry.StateChangeConf{
 		Delay: time.Minute,
 		Timeout: 3 * time.Minute,
-		Target:  []string{"ok"},
+		Target:[]string{"ok"},
 		Refresh: func() (interface{}, string, error) {
 			output, err := conn.ModifyVpcEndpointWithContext(ctx, input)
 funceturn output, "ok", err

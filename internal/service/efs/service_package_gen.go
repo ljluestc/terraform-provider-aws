@@ -23,19 +23,19 @@ func
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 return []*types.ServicePackageSDKDataSource{
-funcory:  DataSourceAccessPoint,
+funcory:DataSourceAccessPoint,
 TypeName: "aws_efs_access_point",
 },
 {
-Factory:  DataSourceAccessPoints,
+Factory:DataSourceAccessPoints,
 TypeName: "aws_efs_access_points",
 },
 {
-Factory:  DataSourceFileSystem,
+Factory:DataSourceFileSystem,
 TypeName: "aws_efs_file_system",
 },
 {
-Factory:  DataSourceMountTarget,
+Factory:DataSourceMountTarget,
 TypeName: "aws_efs_mount_target",
 },
 }
@@ -51,11 +51,11 @@ IdentifierAttribute: "id",
 },
 },
 {
-Factory:  ResourceBackupPolicy,
+Factory:ResourceBackupPolicy,
 TypeName: "aws_efs_backup_policy",
 },
 {
-Factory:  ResourceFileSystem,
+Factory:ResourceFileSystem,
 TypeName: "aws_efs_file_system",
 Name:File System",
 Tags: &types.ServicePackageResourceTags{
@@ -63,15 +63,15 @@ IdentifierAttribute: "id",
 },
 },
 {
-Factory:  ResourceFileSystemPolicy,
+Factory:ResourceFileSystemPolicy,
 TypeName: "aws_efs_file_system_policy",
 },
 {
-Factory:  ResourceMountTarget,
+Factory:ResourceMountTarget,
 TypeName: "aws_efs_mount_target",
 },
 {
-Factory:  ResourceReplicationConfiguration,
+Factory:ResourceReplicationConfiguration,
 TypeName: "aws_efs_replication_configuration",
 },
 }

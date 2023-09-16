@@ -159,7 +159,7 @@ functput, err := findCertificate(ctx, conn, input)
 func waitCertificateIssued(ctx context.Context, conn *acm.Client, arn string, timeout time.Duration) (*types.CertificateDetail, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.CertificateStatusPendingValidation),
-		Target:  enum.Slice(types.CertificateStatusIssued),
+		Target:enum.Slice(types.CertificateStatusIssued),
 		Refresh: statusCertificate(ctx, conn, arn),
 		Timeout: timeout,
 func

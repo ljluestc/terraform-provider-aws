@@ -27,10 +27,10 @@ func TestAccGlueTrigger_basic(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_onDemand(rName),
@@ -52,9 +52,9 @@ func TestAccGlueTrigger_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 		},
@@ -69,10 +69,10 @@ func TestAccGlueTrigger_crawler(t *testing.T) {
 	resourceName := "aws_glue_trigger.test_trigger"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_crawler(rName, "SUCCEEDED"),
@@ -101,9 +101,9 @@ func TestAccGlueTrigger_crawler(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 		},
@@ -118,10 +118,10 @@ func TestAccGlueTrigger_description(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_description(rName, "description1"),
@@ -138,9 +138,9 @@ func TestAccGlueTrigger_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 		},
@@ -155,10 +155,10 @@ func TestAccGlueTrigger_enabled(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_enabled(rName, true),
@@ -182,9 +182,9 @@ func TestAccGlueTrigger_enabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 		},
@@ -199,10 +199,10 @@ func TestAccGlueTrigger_predicate(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_predicate(rName, "SUCCEEDED"),
@@ -227,9 +227,9 @@ func TestAccGlueTrigger_predicate(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 		},
@@ -244,10 +244,10 @@ func TestAccGlueTrigger_schedule(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_schedule(rName, "cron(1 2 * * ? *)"),
@@ -264,9 +264,9 @@ func TestAccGlueTrigger_schedule(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 		},
@@ -281,10 +281,10 @@ func TestAccGlueTrigger_startOnCreate(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_scheduleStart(rName, "cron(1 2 * * ? *)"),
@@ -294,9 +294,9 @@ func TestAccGlueTrigger_startOnCreate(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"start_on_creation"},
 			},
 		},
@@ -311,10 +311,10 @@ func TestAccGlueTrigger_tags(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_tags1(rName, "key1", "value1"),
@@ -325,9 +325,9 @@ func TestAccGlueTrigger_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 			{
@@ -359,10 +359,10 @@ func TestAccGlueTrigger_workflowName(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_workflowName(rName),
@@ -372,9 +372,9 @@ func TestAccGlueTrigger_workflowName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 		},
@@ -389,10 +389,10 @@ func TestAccGlueTrigger_Actions_notify(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_actionsNotification(rName, 1),
@@ -405,9 +405,9 @@ func TestAccGlueTrigger_Actions_notify(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 			{
@@ -442,10 +442,10 @@ func TestAccGlueTrigger_Actions_security(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_actionsSecurityConfiguration(rName),
@@ -457,9 +457,9 @@ func TestAccGlueTrigger_Actions_security(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 		},
@@ -474,10 +474,10 @@ func TestAccGlueTrigger_onDemandDisable(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_onDemand(rName),
@@ -496,9 +496,9 @@ func TestAccGlueTrigger_onDemandDisable(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled"},
 			},
 			{
@@ -521,10 +521,10 @@ func TestAccGlueTrigger_eventBatchingCondition(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_event(rName),
@@ -537,9 +537,9 @@ func TestAccGlueTrigger_eventBatchingCondition(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
+				ResourceName:resourceName,
+				ImportState: true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"enabled", "start_on_creation"},
 			},
 			{
@@ -564,10 +564,10 @@ func TestAccGlueTrigger_disappears(t *testing.T) {
 	resourceName := "aws_glue_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
+		CheckDestroy: testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_onDemand(rName),
@@ -644,13 +644,13 @@ func testAccCheckTriggerDestroy(ctx context.Context) resource.TestCheckFunc {
 func testAccTriggerConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_trigger" "test" {
-  description = %[1]q
-  name        = %[2]q
-  type        = "ON_DEMAND"
+description = %[1]q
+name= %[2]q
+type= "ON_DEMAND"
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 }
 `, description, rName))
 }
@@ -658,14 +658,14 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_enabled(rName string, enabled bool) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_trigger" "test" {
-  enabled  = %[1]t
-  name     = %[2]q
-  schedule = "cron(15 12 * * ? *)"
-  type     = "SCHEDULED"
+enabled= %[1]t
+name = %[2]q
+schedule = "cron(15 12 * * ? *)"
+type = "SCHEDULED"
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 }
 `, enabled, rName))
 }
@@ -673,12 +673,12 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_onDemand(rName string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_trigger" "test" {
-  name = %[1]q
-  type = "ON_DEMAND"
+name = %[1]q
+type = "ON_DEMAND"
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 }
 `, rName))
 }
@@ -686,13 +686,13 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_onDemandEnabled(rName string, enabled bool) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_trigger" "test" {
-  name    = %[1]q
-  type    = "ON_DEMAND"
-  enabled = %[2]t
+name= %[1]q
+type= "ON_DEMAND"
+enabled = %[2]t
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 }
 `, rName, enabled))
 }
@@ -700,30 +700,30 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_predicate(rName, state string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test2" {
-  name     = "%[1]s2"
-  role_arn = aws_iam_role.test.arn
+name = "%[1]s2"
+role_arn = aws_iam_role.test.arn
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 
 resource "aws_glue_trigger" "test" {
-  name = %[1]q
-  type = "CONDITIONAL"
+name = %[1]q
+type = "CONDITIONAL"
 
-  actions {
-    job_name = aws_glue_job.test2.name
-  }
+actions {
+job_name = aws_glue_job.test2.name
+}
 
-  predicate {
-    conditions {
-      job_name = aws_glue_job.test.name
-      state    = %[2]q
-    }
-  }
+predicate {
+conditions {
+job_name = aws_glue_job.test.name
+state= %[2]q
+}
+}
 }
 `, rName, state))
 }
@@ -731,31 +731,31 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_crawler(rName, state string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_s3Target(rName, "s3://test_bucket"), fmt.Sprintf(`
 resource "aws_glue_crawler" "test2" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
+depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
 
-  database_name = aws_glue_catalog_database.test.name
-  name          = "%[1]scrawl2"
-  role          = aws_iam_role.test.name
+database_name = aws_glue_catalog_database.test.name
+name= "%[1]scrawl2"
+role= aws_iam_role.test.name
 
-  s3_target {
-    path = "s3://test_bucket"
-  }
+s3_target {
+path = "s3://test_bucket"
+}
 }
 
 resource "aws_glue_trigger" "test_trigger" {
-  name = %[1]q
-  type = "CONDITIONAL"
+name = %[1]q
+type = "CONDITIONAL"
 
-  actions {
-    crawler_name = aws_glue_crawler.test.name
-  }
+actions {
+crawler_name = aws_glue_crawler.test.name
+}
 
-  predicate {
-    conditions {
-      crawler_name = aws_glue_crawler.test2.name
-      crawl_state  = %[2]q
-    }
-  }
+predicate {
+conditions {
+crawler_name = aws_glue_crawler.test2.name
+crawl_state= %[2]q
+}
+}
 }
 `, rName, state))
 }
@@ -763,13 +763,13 @@ resource "aws_glue_trigger" "test_trigger" {
 func testAccTriggerConfig_schedule(rName, schedule string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_trigger" "test" {
-  name     = %[1]q
-  schedule = %[2]q
-  type     = "SCHEDULED"
+name = %[1]q
+schedule = %[2]q
+type = "SCHEDULED"
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 }
 `, rName, schedule))
 }
@@ -777,14 +777,14 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_scheduleStart(rName, schedule string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_trigger" "test" {
-  name              = %[1]q
-  schedule          = %[2]q
-  type              = "SCHEDULED"
-  start_on_creation = true
+name= %[1]q
+schedule= %[2]q
+type= "SCHEDULED"
+start_on_creation = true
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 }
 `, rName, schedule))
 }
@@ -792,16 +792,16 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_trigger" "test" {
-  name = %[1]q
-  type = "ON_DEMAND"
+name = %[1]q
+type = "ON_DEMAND"
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 
-  tags = {
-    %[2]q = %[3]q
-  }
+tags = {
+%[2]q = %[3]q
+}
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -809,17 +809,17 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_trigger" "test" {
-  name = %[1]q
-  type = "ON_DEMAND"
+name = %[1]q
+type = "ON_DEMAND"
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -827,17 +827,17 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_workflowName(rName string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_workflow" test {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_glue_trigger" "test" {
-  name          = %[1]q
-  type          = "ON_DEMAND"
-  workflow_name = aws_glue_workflow.test.name
+name= %[1]q
+type= "ON_DEMAND"
+workflow_name = aws_glue_workflow.test.name
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 }
 `, rName))
 }
@@ -845,16 +845,16 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_actionsNotification(rName string, delay int) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_trigger" "test" {
-  name = %[1]q
-  type = "ON_DEMAND"
+name = %[1]q
+type = "ON_DEMAND"
 
-  actions {
-    job_name = aws_glue_job.test.name
+actions {
+job_name = aws_glue_job.test.name
 
-    notification_property {
-      notify_delay_after = %[2]d
-    }
-  }
+notification_property {
+notify_delay_after = %[2]d
+}
+}
 }
 `, rName, delay))
 }
@@ -862,31 +862,31 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_actionsSecurityConfiguration(rName string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_security_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  encryption_configuration {
-    cloudwatch_encryption {
-      cloudwatch_encryption_mode = "DISABLED"
-    }
+encryption_configuration {
+cloudwatch_encryption {
+cloudwatch_encryption_mode = "DISABLED"
+}
 
-    job_bookmarks_encryption {
-      job_bookmarks_encryption_mode = "DISABLED"
-    }
+job_bookmarks_encryption {
+job_bookmarks_encryption_mode = "DISABLED"
+}
 
-    s3_encryption {
-      s3_encryption_mode = "DISABLED"
-    }
-  }
+s3_encryption {
+s3_encryption_mode = "DISABLED"
+}
+}
 }
 
 resource "aws_glue_trigger" "test" {
-  name = %[1]q
-  type = "ON_DEMAND"
+name = %[1]q
+type = "ON_DEMAND"
 
-  actions {
-    job_name= aws_glue_job.test.name
-    security_configuration = aws_glue_security_configuration.test.name
-  }
+actions {
+job_name= aws_glue_job.test.name
+security_configuration = aws_glue_security_configuration.test.name
+}
 }
 `, rName))
 }
@@ -894,22 +894,22 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_event(rName string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_workflow" test {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_glue_trigger" "test" {
-  name              = %[1]q
-  type              = "EVENT"
-  workflow_name     = aws_glue_workflow.test.name
-  start_on_creation = false
+name= %[1]q
+type= "EVENT"
+workflow_name = aws_glue_workflow.test.name
+start_on_creation = false
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 
-  event_batching_condition {
-    batch_size = 1
-  }
+event_batching_condition {
+batch_size = 1
+}
 }
 `, rName))
 }
@@ -917,23 +917,23 @@ resource "aws_glue_trigger" "test" {
 func testAccTriggerConfig_eventUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccJobConfig_required(rName), fmt.Sprintf(`
 resource "aws_glue_workflow" test {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_glue_trigger" "test" {
-  name              = %[1]q
-  type              = "EVENT"
-  workflow_name     = aws_glue_workflow.test.name
-  start_on_creation = false
+name= %[1]q
+type= "EVENT"
+workflow_name = aws_glue_workflow.test.name
+start_on_creation = false
 
-  actions {
-    job_name = aws_glue_job.test.name
-  }
+actions {
+job_name = aws_glue_job.test.name
+}
 
-  event_batching_condition {
-    batch_size   = 1
-    batch_window = 50
-  }
+event_batching_condition {
+batch_size = 1
+batch_window = 50
+}
 }
 `, rName))
 }

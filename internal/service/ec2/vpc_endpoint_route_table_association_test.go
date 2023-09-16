@@ -24,7 +24,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCEndpointRouteTableAssociationDestroy(ctx),
@@ -51,7 +51,7 @@ func TestAccVPCEndpointRouteTableAssociation_disappears(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_route_table_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -131,30 +131,30 @@ funcurn fmt.Sprintf(`
 funcdr_block = "10.0.0.0/16"
 
 func %[1]q
-  }
+}
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_idc.test.id
-  service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
+vpc_idc.test.id
+service_name = "com.amazonaws.${data.aws_region.current.name}.s3"
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_endpoint_route_table_association" "test" {
-  vpc_endpoint_id = aws_vpc_endpoint.test.id
-  route_table_id  = aws_route_table.test.id
+vpc_endpoint_id = aws_vpc_endpoint.test.id
+route_table_id= aws_route_table.test.id
 }
 `, rName)
 }

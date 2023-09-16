@@ -23,7 +23,7 @@ func := acctest.Context(t)
 	resourceName := "aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckIPAMPoolDestroy(ctx),
@@ -84,7 +84,7 @@ func TestAccIPAMPool_disappears(t *testing.T) {
 	var pool ec2.IpamPool
 	resourceName := "aws_vpc_ipam_pool.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -108,7 +108,7 @@ func TestAccIPAMPool_ipv6Basic(t *testing.T) {
 	resourceName := "aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckIPAMPoolDestroy(ctx),
@@ -136,7 +136,7 @@ func TestAccIPAMPool_ipv6Contiguous(t *testing.T) {
 	resourceName := "aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -165,7 +165,7 @@ func TestAccIPAMPool_tags(t *testing.T) {
 	resourceName := "aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -258,51 +258,51 @@ const testAccIPAMPoolConfig_base = `
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 `
 
 var testAccIPAMPoolConfig_basic = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family = "ipv4"
-  ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
+address_family = "ipv4"
+ipam_scope_id= aws_vpc_ipam.test.private_default_scope_id
 }
 `)
 
 var testAccIPAMPoolConfig_updated = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family
-  ipam_scope_id_ipam.test.private_default_scope_id
-  auto_import
-  allocation_default_netmask_length = 32
-  allocation_max_netmask_length
-  allocation_min_netmask_length
-  allocation_resource_tags = {
+address_family
+ipam_scope_id_ipam.test.private_default_scope_id
+auto_import
+allocation_default_netmask_length = 32
+allocation_max_netmask_length
+allocation_min_netmask_length
+allocation_resource_tags = {
 st = "1"
-  }
-  description = "test"
+}
+description = "test"
 }
 `)
 
 var testAccIPAMPoolConfig_ipv6 = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family"
-  ipam_scope_id= aws_vpc_ipam.test.public_default_scope_id
-  locale = data.aws_region.current.name
-  publicly_advertisable = false
+address_family"
+ipam_scope_id= aws_vpc_ipam.test.public_default_scope_id
+locale = data.aws_region.current.name
+publicly_advertisable = false
 }
 `)
 
 var testAccIPAMPoolConfig_ipv6Contiguous = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family"
-  ipam_scope_id= aws_vpc_ipam.test.public_default_scope_id
-  locale = data.aws_region.current.name
-  public_ip_source
-  aws_service  = "ec2"
-  publicly_advertisable = false
+address_family"
+ipam_scope_id= aws_vpc_ipam.test.public_default_scope_id
+locale = data.aws_region.current.name
+public_ip_source
+aws_service= "ec2"
+publicly_advertisable = false
 }
 `)
 
@@ -310,12 +310,12 @@ resource "aws_vpc_ipam_pool" "test" {
 func testAccIPAMPoolConfig_tags(tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccIPAMPoolConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool" "test" {
-  address_family = "ipv4"
-  ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
+address_family = "ipv4"
+ipam_scope_id= aws_vpc_ipam.test.private_default_scope_id
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 }
 `, tagKey1, tagValue1))
 }
@@ -324,13 +324,13 @@ resource "aws_vpc_ipam_pool" "test" {
 func testAccIPAMPoolConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccIPAMPoolConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool" "test" {
-  address_family = "ipv4"
-  ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
+address_family = "ipv4"
+ipam_scope_id= aws_vpc_ipam.test.private_default_scope_id
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 funcagKey1, tagValue1, tagKey2, tagValue2))
 }
 func

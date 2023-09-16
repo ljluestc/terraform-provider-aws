@@ -94,7 +94,7 @@ funcurn &schema.Resource{
 			"status": {
 				Type:a.TypeString,
 				Optional: true,
-				Default:  KeySigningKeyStatusActive,
+				Default:KeySigningKeyStatusActive,
 				ValidateFunc: validation.StringInSlice([]string{
 					KeySigningKeyStatusActive,
 					KeySigningKeyStatusInactive,

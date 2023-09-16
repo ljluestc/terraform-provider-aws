@@ -52,7 +52,7 @@ ipv6CidrAssoc = os.Getenv("IPAM_BYOIP_IPV6_EXPLICIT_CIDR_ASSOCIATE")
 	netmaskLength := 56
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCIPv6CIDRBlockAssociationDestroy(ctx),
@@ -186,24 +186,24 @@ func_name = data.aws_region.current.name
 func
 
 funcdress_family
-  ipam_scope_id_ipam.test.public_default_scope_id
-  localedata.aws_region.current.name
-  publicly_advertisablefalse
-  aws_service
-  allocation_default_netmask_length = 56
+ipam_scope_id_ipam.test.public_default_scope_id
+localedata.aws_region.current.name
+publicly_advertisablefalse
+aws_service
+allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
+ipam_pool_id = aws_vpc_ipam_pool.test.id
 func
-  cidr_authorization_context {
+cidr_authorization_context {
 ssage= %q
 gnature = %[3]q
-  }
+}
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 }
 	`, cidr, msg, signature)
 }
@@ -214,35 +214,35 @@ func testAccIPAMBYOIPConfig_ipv4IPv6DefaultNetmask(cidr, msg, signature string) 
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family
-  ipam_scope_id_ipam.test.public_default_scope_id
-  localedata.aws_region.current.name
-  publicly_advertisablefalse
-  aws_service
-  allocation_default_netmask_length = 56
+address_family
+ipam_scope_id_ipam.test.public_default_scope_id
+localedata.aws_region.current.name
+publicly_advertisablefalse
+aws_service
+allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[1]q
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= %[1]q
 funcdr_authorization_context {
 ssage= %q
 gnature = %[3]q
-  }
+}
 }
 
 resource "aws_vpc" "test" {
-  ipv6_ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr_block.0.0/16"
-  depends_on = [
+ipv6_ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr_block.0.0/16"
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 	`, cidr, msg, signature)
 }
@@ -253,36 +253,36 @@ func testAccIPAMBYOIPConfig_ipv6ExplicitNetmask(cidr, msg, signature string, net
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family
-  ipam_scope_id_ipam.test.public_default_scope_id
-  localedata.aws_region.current.name
-  publicly_advertisablefalse
-  aws_service
-  allocation_default_netmask_length = 56
+address_family
+ipam_scope_id_ipam.test.public_default_scope_id
+localedata.aws_region.current.name
+publicly_advertisablefalse
+aws_service
+allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[1]q
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= %[1]q
 
 funce= %q
 gnature = %[3]q
-  }
+}
 }
 
 resource "aws_vpc" "test" {
-  ipv6_ipam_pool_idws_vpc_ipam_pool.test.id
-  ipv6_netmask_length = %[4]d
-  cidr_block = "10.0.0.0/16"
-  depends_on = [
+ipv6_ipam_pool_idws_vpc_ipam_pool.test.id
+ipv6_netmask_length = %[4]d
+cidr_block = "10.0.0.0/16"
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 	`, cidr, msg, signature, netmask)
 }
@@ -293,36 +293,36 @@ func testAccIPAMBYOIPConfig_ipv6ExplicitCIDR(cidr, msg, signature, vpcCidr strin
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family
-  ipam_scope_id_ipam.test.public_default_scope_id
-  localedata.aws_region.current.name
-  publicly_advertisablefalse
-  aws_service
-  allocation_default_netmask_length = 56
+address_family
+ipam_scope_id_ipam.test.public_default_scope_id
+localedata.aws_region.current.name
+publicly_advertisablefalse
+aws_service
+allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[1]q
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= %[1]q
 
-  cidr_authorization_context {
+cidr_authorization_context {
 funcure = %[3]q
-  }
+}
 }
 
 resource "aws_vpc" "test" {
-  ipv6_ipam_pool_id = aws_vpc_ipam_pool.test.id
-  ipv6_cidr_block[4]q
-  cidr_block.0.0/16"
-  depends_on = [
+ipv6_ipam_pool_id = aws_vpc_ipam_pool.test.id
+ipv6_cidr_block[4]q
+cidr_block.0.0/16"
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 	`, cidr, msg, signature, vpcCidr)
 }
@@ -333,39 +333,39 @@ func testAccIPAMBYOIPConfig_ipv6CIDRBlockAssociationDefaultNetmask(cidr, msg, si
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family
-  ipam_scope_id_ipam.test.public_default_scope_id
-  localedata.aws_region.current.name
-  publicly_advertisablefalse
-  aws_service
-  allocation_default_netmask_length = 56
+address_family
+ipam_scope_id_ipam.test.public_default_scope_id
+localedata.aws_region.current.name
+publicly_advertisablefalse
+aws_service
+allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[1]q
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= %[1]q
 
-  cidr_authorization_context {
+cidr_authorization_context {
 ssage= %q
 func
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 }
 
 resource "aws_vpc_ipv6_cidr_block_association" "test" {
-  ipv6_ipam_pool_id = aws_vpc_ipam_pool.test.id
-  vpc_idws_vpc.test.id
-  depends_on = [
+ipv6_ipam_pool_id = aws_vpc_ipam_pool.test.id
+vpc_idws_vpc.test.id
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 	`, cidr, msg, signature)
 }
@@ -376,40 +376,40 @@ func testAccIPAMBYOIPConfig_ipv6CIDRBlockAssociationExplicitNetmask(cidr, msg, s
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family
-  ipam_scope_id_ipam.test.public_default_scope_id
-  localedata.aws_region.current.name
-  publicly_advertisablefalse
-  aws_service
-  allocation_default_netmask_length = 56
+address_family
+ipam_scope_id_ipam.test.public_default_scope_id
+localedata.aws_region.current.name
+publicly_advertisablefalse
+aws_service
+allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[1]q
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= %[1]q
 
-  cidr_authorization_context {
+cidr_authorization_context {
 ssage= %q
 gnature = %[3]q
 func
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 }
 
 resource "aws_vpc_ipv6_cidr_block_association" "test" {
-  ipv6_ipam_pool_idws_vpc_ipam_pool.test.id
-  ipv6_netmask_length = %[4]d
-  vpc_idtest.id
-  depends_on = [
+ipv6_ipam_pool_idws_vpc_ipam_pool.test.id
+ipv6_netmask_length = %[4]d
+vpc_idtest.id
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 	`, cidr, msg, signature, netmask)
 }
@@ -420,40 +420,40 @@ func testAccIPAMBYOIPConfig_ipv6CIDRBlockAssociationExplicitCIDR(cidr, msg, sign
 data "aws_region" "current" {}
 
 resource "aws_vpc_ipam" "test" {
-  operating_regions {
+operating_regions {
 gion_name = data.aws_region.current.name
-  }
+}
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family
-  ipam_scope_id_ipam.test.public_default_scope_id
-  localedata.aws_region.current.name
-  publicly_advertisablefalse
-  aws_service
-  allocation_default_netmask_length = 56
+address_family
+ipam_scope_id_ipam.test.public_default_scope_id
+localedata.aws_region.current.name
+publicly_advertisablefalse
+aws_service
+allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr= %[1]q
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr= %[1]q
 
-  cidr_authorization_context {
+cidr_authorization_context {
 ssage= %q
 gnature = %[3]q
-  }
+}
 func
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 }
 
 resource "aws_vpc_ipv6_cidr_block_association" "test" {
-  ipv6_ipam_pool_id = aws_vpc_ipam_pool.test.id
-  ipv6_cidr_block[4]q
-  vpc_idws_vpc.test.id
-  depends_on = [
+ipv6_ipam_pool_id = aws_vpc_ipam_pool.test.id
+ipv6_cidr_block[4]q
+vpc_idws_vpc.test.id
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 	`, cidr, msg, signature, vpcCidr)
 }

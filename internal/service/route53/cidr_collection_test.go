@@ -25,7 +25,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckCIDRCollectionDestroy(ctx),
 Steps: []resource.TestStep{
@@ -52,7 +52,7 @@ funcourceName := "aws_route53_cidr_collection.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestrofuncs: []resource.TestStep{
@@ -118,7 +118,7 @@ return nil
 func testAccCIDRCollection_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_cidr_collection" "test" {
-  name = %[1]q
+name = %[1]q
 }
 `, rName)
 }

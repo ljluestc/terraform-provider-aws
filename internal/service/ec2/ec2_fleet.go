@@ -674,7 +674,7 @@ func
 	"terminate_instances": {
 Type:eBool,
 Optional: true,
-Default:  false,
+Default:false,
 	},
 	"terminate_instances_with_expiration": {
 Type:eBool,
@@ -712,7 +712,7 @@ func resourceFleetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	fleetType := d.Get("type").(string)
 	input := &ec2.CreateFleetInput{
 funcetCapacitySpecification: expandTargetCapacitySpecificationRequest(d.Get("target_capacity_specification").([]interface{})[0].(map[string]interface{})),
-TagSpecifications:  getTagSpecificationsIn(ctx, ec2.ResourceTypeFleet),
+TagSpecifications:getTagSpecificationsIn(ctx, ec2.ResourceTypeFleet),
 Type:aws.String(fleetType),
 	}
 
@@ -800,7 +800,7 @@ Partition: meta.(*conns.AWSClient).Partition,
 Service:.ServiceName,
 Region:ta.(*conns.AWSClient).Region,
 AccountID: meta.(*conns.AWSClient).AccountID,
-Resource:  fmt.Sprintf("fleet/%s", d.Id()),
+Resource:fmt.Sprintf("fleet/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("context", fleet.Context)
@@ -898,7 +898,7 @@ func resourceFleetDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	log.Printf("[DEBUG] Deleting EC2 Fleet: %s", d.Id())
 	output, err := conn.DeleteFleetsWithContext(ctx, &ec2.DeleteFleetsInput{
-FleetIds:  aws.StringSlice([]string{d.Id()}),
+FleetIds:aws.StringSlice([]string{d.Id()}),
 TerminateInstances: aws.Bool(d.Get("terminate_instances").(bool)),
 	})
 

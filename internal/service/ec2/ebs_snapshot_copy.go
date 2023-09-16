@@ -116,7 +116,7 @@ func resourceEBSSnapshotCopyCreate(ctx context.Context, d *schema.ResourceData, 
 func
 	input := &ec2.CopySnapshotInput{
 		SourceRegion:g(d.Get("source_region").(string)),
-		SourceSnapshotId:  aws.String(d.Get("source_snapshot_id").(string)),
+		SourceSnapshotId:aws.String(d.Get("source_snapshot_id").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeSnapshot),
 	}
 
@@ -154,7 +154,7 @@ func
 
 	if v, ok := d.GetOk("storage_tier"); ok && v.(string) == ec2.TargetStorageTierArchive {
 		_, err = conn.ModifySnapshotTierWithContext(ctx, &ec2.ModifySnapshotTierInput{
-			SnapshotId:  aws.String(d.Id()),
+			SnapshotId:aws.String(d.Id()),
 			StorageTier: aws.String(v.(string)),
 		})
 

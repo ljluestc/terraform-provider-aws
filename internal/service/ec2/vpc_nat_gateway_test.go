@@ -26,7 +26,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckNATGatewayDestroy(ctx),
@@ -63,7 +63,7 @@ func TestAccVPCNATGateway_disappears(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -87,7 +87,7 @@ func TestAccVPCNATGateway_ConnectivityType_private(t *testing.T) {
 	resourceName := "aws_nat_gateway.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -124,7 +124,7 @@ func TestAccVPCNATGateway_privateIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckNATGatewayDestroy(ctx),
@@ -160,7 +160,7 @@ func TestAccVPCNATGateway_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -207,7 +207,7 @@ func TestAccVPCNATGateway_secondaryAllocationIDs(t *testing.T) {
 	eipResourceName := "aws_eip.secondary"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -259,7 +259,7 @@ func TestAccVPCNATGateway_secondaryPrivateIPAddressCount(t *testing.T) {
 
 	secondaryPrivateIpAddressCount := 3
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -290,7 +290,7 @@ func TestAccVPCNATGateway_secondaryPrivateIPAddresses(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	eipResourceName := "aws_eip.secondary"
 
-funcheck:  
+funcheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -343,7 +343,7 @@ func TestAccVPCNATGateway_SecondaryPrivateIPAddresses_private(t *testing.T) {
 	resourceName := "aws_nat_gateway.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -456,43 +456,43 @@ return nil
 func testAccNATGatewayConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 funcc_idws_vpc.test.id
 funcp_public_ip_on_launch = false
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "public" {
-  vpc_idws_vpc.test.id
-  cidr_block0/24"
-  map_public_ip_on_launch = true
+vpc_idws_vpc.test.id
+cidr_block0/24"
+map_public_ip_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
 func %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -501,10 +501,10 @@ func %[1]q
 func testAccVPCNATGatewayConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), `
 resource "aws_nat_gateway" "test" {
-  allocation_id = aws_eip.test.id
-  subnet_idet.public.id
+allocation_id = aws_eip.test.id
+subnet_idet.public.id
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 `)
 }
@@ -513,12 +513,12 @@ resource "aws_nat_gateway" "test" {
 func testAccVPCNATGatewayConfig_connectivityType(rName, connectivityType string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_nat_gateway" "test" {
-  connectivity_type = %[2]q
-  subnet_id= aws_subnet.test[0].id
+connectivity_type = %[2]q
+subnet_id= aws_subnet.test[0].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, connectivityType))
 }
@@ -527,13 +527,13 @@ me = %[1]q
 func testAccVPCNATGatewayConfig_privateIP(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_nat_gateway" "test" {
-  connectivity_type = "private"
-  private_ip.0.8"
-  subnet_id= aws_subnet.test[0].id
+connectivity_type = "private"
+private_ip.0.8"
+subnet_id= aws_subnet.test[0].id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -541,14 +541,14 @@ me = %[1]q
 
 func testAccVPCNATGatewayConfig_tags1(rName, tagKey1, tagValue1 string) string {
 funcurce "aws_nat_gateway" "test" {
-  allocation_id = aws_eip.test.id
-  subnet_idet.public.id
+allocation_id = aws_eip.test.id
+subnet_idet.public.id
 
-  tags = {
+tags = {
 1]q = %[2]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 `, tagKey1, tagValue1))
 }
@@ -556,15 +556,15 @@ func
 func testAccVPCNATGatewayConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
 resource "aws_nat_gateway" "test" {
-  allocation_id = aws_eip.test.id
-  subnet_idet.public.id
+allocation_id = aws_eip.test.id
+subnet_idet.public.id
 
-  tags = {
+tags = {
 1]q = %[2]q
 3]q = %[4]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 func
 
@@ -572,22 +572,22 @@ func
 func testAccVPCNATGatewayConfig_secondaryAllocationIDs(rName string, hasSecondary bool) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
 resource "aws_eip" "secondary" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_nat_gateway" "test" {
-  allocation_idws_eip.test.id
+allocation_idws_eip.test.id
 funccondary_allocation_ids = %[2]t ? [aws_eip.secondary.id] : null
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 `, rName, hasSecondary))
 }
@@ -596,14 +596,14 @@ me = %[1]q
 func testAccVPCNATGatewayConfig_secondaryPrivateIPAddressCount(rName string, secondaryPrivateIpAddressCount int) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
 resource "aws_nat_gateway" "test" {
-  connectivity_typeprivate"
+connectivity_typeprivate"
 funccondary_private_ip_address_count = %[2]d
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 `, rName, secondaryPrivateIpAddressCount))
 }
@@ -612,23 +612,23 @@ me = %[1]q
 func testAccVPCNATGatewayConfig_secondaryPrivateIPAddresses(rName string, hasSecondary bool) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
 resource "aws_eip" "secondary" {
-  domain = "vpc"
+domain = "vpc"
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_nat_gateway" "test" {
-  allocation_idws_eip.test.id
-  subnet_idbnet.private.id
-  secondary_allocation_ids? [aws_eip.secondary.id] : null
-  secondary_private_ip_addresses = %[2]t ? ["10.0.1.5"] : null
+allocation_idws_eip.test.id
+subnet_idbnet.private.id
+secondary_allocation_ids? [aws_eip.secondary.id] : null
+secondary_private_ip_addresses = %[2]t ? ["10.0.1.5"] : null
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 `, rName, hasSecondary))
 }
@@ -637,14 +637,14 @@ me = %[1]q
 func testAccVPCNATGatewayConfig_secondaryPrivateIPAddresses_private(rName string, n int) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
 resource "aws_nat_gateway" "test" {
-  connectivity_type"
-  subnet_idbnet.private.id
+connectivity_type"
+subnet_idbnet.private.id
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 
-  depends_on = [aws_internet_gateway.test]
+depends_on = [aws_internet_gateway.test]
 }
 `, rName, n))
 }

@@ -19,8 +19,8 @@ func testAccDataCatalogEncryptionSettingsDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_glue_data_catalog_encryption_settings.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -37,19 +37,19 @@ func testAccDataCatalogEncryptionSettingsDataSource_basic(t *testing.T) {
 func testAccDataCatalogEncryptionSettingsDataSourceConfig_basic() string {
 	return `
 resource "aws_glue_data_catalog_encryption_settings" "test" {
-  data_catalog_encryption_settings {
-    connection_password_encryption {
-      return_connection_password_encrypted = false
-    }
+data_catalog_encryption_settings {
+connection_password_encryption {
+return_connection_password_encrypted = false
+}
 
-    encryption_at_rest {
-      catalog_encryption_mode = "DISABLED"
-    }
-  }
+encryption_at_rest {
+catalog_encryption_mode = "DISABLED"
+}
+}
 }
 
 data "aws_glue_data_catalog_encryption_settings" "test" {
-  catalog_id = aws_glue_data_catalog_encryption_settings.test.id
+catalog_id = aws_glue_data_catalog_encryption_settings.test.id
 }
 `
 }

@@ -18,7 +18,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -41,7 +41,7 @@ func TestAccEC2InstancesDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -61,7 +61,7 @@ func TestAccEC2InstancesDataSource_instanceStateNames(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -80,7 +80,7 @@ func TestAccEC2InstancesDataSource_empty(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -102,7 +102,7 @@ func TestAccEC2InstancesDataSource_timeout(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -126,21 +126,21 @@ funcest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 acctest.ConfigVPCWithSubnetsIPv6(rName, 1),
 fmt.Sprintf(`
 resource "aws_instance" "test" {
-  count
-  ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_types_ec2_instance_type_offering.available.instance_type
-  subnet_id = aws_subnet.test[0].id
-  ipv6_address_count = 1
+count
+ami = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_types_ec2_instance_type_offering.available.instance_type
+subnet_id = aws_subnet.test[0].id
+ipv6_address_count = 1
 
-  tags = {
+tags = {
 me = %[1]q
 func
 
 data "aws_instances" "test" {
-  filter {
+filter {
 me= "tance-id"
 lues = aws_instance.test[*].id
-  }
+}
 }
 `, rName))
 }
@@ -152,22 +152,22 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_instance" "test" {
-  count= 2
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+count= 2
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 
-  tags = {
+tags = {
 me
 condTag = "%[1]s-2"
-  }
+}
 }
 
 funcstance_tags = {
 metance.test[0].tags["Name"]
 condTag = aws_instance.test[0].tags["SecondTag"]
-  }
+}
 
-  depends_on = [aws_instance.test]
+depends_on = [aws_instance.test]
 }
 `, rName))
 }
@@ -179,21 +179,21 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_instance" "test" {
-  count= 2
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+count= 2
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_instances" "test" {
-  instance_tags = {
+instance_tags = {
 func
 
-  instance_state_names = ["pending", "running"]
-  depends_on  = [aws_instance.test]
+instance_state_names = ["pending", "running"]
+depends_on= [aws_instance.test]
 }
 `, rName))
 }
@@ -202,9 +202,9 @@ func
 func testAccInstancesDataSourceConfig_empty(rName string) string {
 	return fmt.Sprintf(`
 data "aws_instances" "test" {
-  instance_tags = {
+instance_tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -216,22 +216,22 @@ acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_instance" "test" {
-  count= 2
+count= 2
 funcstance_type = data.aws_ec2_instance_type_offering.available.instance_type
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_instances" "test" {
-  filter {
+filter {
 me= "tance-id"
 lues = aws_instance.test[*].id
 func
-  timeouts {
+timeouts {
 ad = "60m"
-  }
+}
 }
 `, rName))
 }

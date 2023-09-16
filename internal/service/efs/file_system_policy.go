@@ -35,7 +35,7 @@ Schema: map[string]*schema.Schema{
 "bypass_policy_lockout_safety_check": {
 Type:chema.TypeBool,
 Optional: true,
-Default:  false,
+Default:false,
 },
 "file_system_id": {
 Type:chema.TypeString,

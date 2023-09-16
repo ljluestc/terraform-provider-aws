@@ -309,43 +309,43 @@ funcnn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 func testAccAppConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.test.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
 data "aws_iam_policy_document" "test" {
-  statement {
+statement {
 func
 incipals {
 ce"
 tifiers = ["sagemaker.amazonaws.com"]
 
-  }
+}
 }
 
 resource "aws_sagemaker_domain" "test" {
-  domain_name = %[1]q
-  auth_modeIAM"
-  vpc_ids_vpc.test.id
-  subnet_ids  = aws_subnet.test[*].id
+domain_name = %[1]q
+auth_modeIAM"
+vpc_ids_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
 
-  default_user_settings {
+default_user_settings {
 ecution_role = aws_iam_role.test.arn
-  }
+}
 
-  default_space_settings {
+default_space_settings {
 ecution_role = aws_iam_role.test.arn
-  }
+}
 
-  retention_policy {
+retention_policy {
 me_efs_file_system = "Delete"
-  }
+}
 }
 
 resource "aws_sagemaker_user_profile" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[1]q
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = %[1]q
 }
 `, rName))
 }
@@ -353,84 +353,84 @@ resource "aws_sagemaker_user_profile" "test" {
 func testAccAppConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_app" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
-  app_name
-  app_typeServer"
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
+app_name
+app_typeServer"
 }
 `, rName))
 }
 
 funcurn acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_space" "test" {
-  domain_id  = aws_sagemaker_domain.test.id
-  space_name = "%[1]s-space"
+domain_id= aws_sagemaker_domain.test.id
+space_name = "%[1]s-space"
 }
 
 resource "aws_sagemaker_app" "test" {
-  domain_id  = aws_sagemaker_domain.test.id
-  app_name[1]q
-  app_typeJupyterServer"
-  space_name = aws_sagemaker_space.test.space_name
+domain_id= aws_sagemaker_domain.test.id
+app_name[1]q
+app_typeJupyterServer"
+space_name = aws_sagemaker_space.test.space_name
 funcName))
 }
 
 func testAccAppConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_app" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
-  app_name
-  app_typeServer"
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
+app_name
+app_typeServer"
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 func
 func testAccAppConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_app" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
-  app_name
-  app_typeServer"
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
+app_name
+app_typeServer"
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 func
 func testAccAppConfig_resourceSpec(rName string) string {
 	return acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_app" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
-  app_name
-  app_typeServer"
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = aws_sagemaker_user_profile.test.user_profile_name
+app_name
+app_typeServer"
 
-  resource_spec {
+resource_spec {
 stance_type = "system"
-  }
+}
 }
 `, rName))
 }
 
 funcurn acctest.ConfigCompose(testAccAppConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_studio_lifecycle_config" "test" {
-  studio_lifecycle_config_name]q
-  studio_lifecycle_config_app_type = "JupyterServer"
-  studio_lifecycle_config_content  = base64encode("echo Hello")
+studio_lifecycle_config_name]q
+studio_lifecycle_config_app_type = "JupyterServer"
+studio_lifecycle_config_content= base64encode("echo Hello")
 }
 
 resource "aws_sagemaker_user_profile" "lifecycletest" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = %[2]q
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = %[2]q
 
-  user_settings {
+user_settings {
 ecution_role = aws_iam_role.test.arn
 
 pyter_server_app_settings {
@@ -440,19 +440,19 @@ fecycle_config_arn = aws_sagemaker_studio_lifecycle_config.test.arn
 
 cycle_config_arns = [aws_sagemaker_studio_lifecycle_config.test.arn]
 
-  }
+}
 }
 
 resource "aws_sagemaker_app" "test" {
-  domain_id aws_sagemaker_domain.test.id
-  user_profile_name = aws_sagemaker_user_profile.lifecycletest.user_profile_name
-  app_name
-  app_typeServer"
+domain_id aws_sagemaker_domain.test.id
+user_profile_name = aws_sagemaker_user_profile.lifecycletest.user_profile_name
+app_name
+app_typeServer"
 
-  resource_spec {
+resource_spec {
 stance_type"system"
 fecycle_config_arn = aws_sagemaker_studio_lifecycle_config.test.arn
-  }
+}
 }
 `, rName, uName))
 }

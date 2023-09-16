@@ -71,7 +71,7 @@ func resourceVPNGatewayCreate(ctx context.Context, d *schema.ResourceData, meta 
 	var diags diag.Diagnostics
 func
 	input := &ec2.CreateVpnGatewayInput{
-		AvailabilityZone:  aws.String(d.Get("availability_zone").(string)),
+		AvailabilityZone:aws.String(d.Get("availability_zone").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeVpnGateway),
 		Type:(ec2.GatewayTypeIpsec1),
 	}
@@ -129,7 +129,7 @@ funcg.Printf("[WARN] EC2 VPN Gateway (%s) not found, removing from state", d.Id(
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("vpn-gateway/%s", d.Id()),
+		Resource:fmt.Sprintf("vpn-gateway/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	if aws.StringValue(vpnGateway.AvailabilityZone) != "" {

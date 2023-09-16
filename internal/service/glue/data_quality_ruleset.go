@@ -28,7 +28,7 @@ import (
 func ResourceDataQualityRuleset() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDataQualityRulesetCreate,
-		ReadWithoutTimeout:   resourceDataQualityRulesetRead,
+		ReadWithoutTimeout: resourceDataQualityRulesetRead,
 		UpdateWithoutTimeout: resourceDataQualityRulesetUpdate,
 		DeleteWithoutTimeout: resourceDataQualityRulesetDelete,
 		Importer: &schema.ResourceImporter{
@@ -38,62 +38,62 @@ func ResourceDataQualityRuleset() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"created_on": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type: schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 2048),
 			},
 			"last_modified_on": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				ForceNew:     true,
-				Required:     true,
+				Type: schema.TypeString,
+				ForceNew: true,
+				Required: true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"recommendation_run_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"ruleset": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type: schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringLenBetween(1, 65536),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"target_table": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type: schema.TypeString,
+							Optional: true,
+							ForceNew: true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
 						"database_name": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type: schema.TypeString,
+							Required: true,
+							ForceNew: true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
 						"table_name": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type: schema.TypeString,
+							Required: true,
+							ForceNew: true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
 					},
@@ -110,9 +110,9 @@ func resourceDataQualityRulesetCreate(ctx context.Context, d *schema.ResourceDat
 	name := d.Get("name").(string)
 
 	input := &glue.CreateDataQualityRulesetInput{
-		Name:    aws.String(name),
+		Name:aws.String(name),
 		Ruleset: aws.String(d.Get("ruleset").(string)),
-		Tags:    getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -152,10 +152,10 @@ func resourceDataQualityRulesetRead(ctx context.Context, d *schema.ResourceData,
 
 	dataQualityRulesetArn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "glue",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service: "glue",
+		Region:meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("dataQualityRuleset/%s", aws.StringValue(dataQualityRuleset.Name)),
+		Resource:fmt.Sprintf("dataQualityRuleset/%s", aws.StringValue(dataQualityRuleset.Name)),
 	}.String()
 
 	d.Set("arn", dataQualityRulesetArn)
@@ -222,7 +222,7 @@ func expandTargetTable(tfMap map[string]interface{}) *glue.DataQualityTargetTabl
 
 	apiObject := &glue.DataQualityTargetTable{
 		DatabaseName: aws.String(tfMap["database_name"].(string)),
-		TableName:    aws.String(tfMap["table_name"].(string)),
+		TableName:aws.String(tfMap["table_name"].(string)),
 	}
 
 	if v, ok := tfMap["catalog_id"].(string); ok && v != "" {
@@ -239,7 +239,7 @@ func flattenTargetTable(apiObject *glue.DataQualityTargetTable) []interface{} {
 
 	tfMap := map[string]interface{}{
 		"database_name": aws.StringValue(apiObject.DatabaseName),
-		"table_name":    aws.StringValue(apiObject.TableName),
+		"table_name":aws.StringValue(apiObject.TableName),
 	}
 
 	if v := apiObject.CatalogId; v != nil {

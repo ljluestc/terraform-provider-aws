@@ -41,7 +41,7 @@ funcurn &schema.Resource{
 				Type:a.TypeString,
 				Optional: true,
 				ForceNew: true,
-				Default:  "primary",
+				Default:"primary",
 			},
 			"database": {
 				Type:a.TypeString,

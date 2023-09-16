@@ -16,7 +16,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_vpc_ipam_pool_cidrs.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -44,62 +44,62 @@ func
 
 var testAccIPAMPoolCIDRsDataSourceConfig_basicOneCIDRs = acctest.ConfigCompose(testAccIPAMPoolConfig_basic, `
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr.2.0.0/16"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr.2.0.0/16"
 }
 
 data "aws_vpc_ipam_pool_cidrs" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
+ipam_pool_id = aws_vpc_ipam_pool.test.id
 
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool_cidr.test
-  ]
+]
 }
 `)
 
 var testAccIPAMPoolCIDRsDataSourceConfig_basicTwoCIDRs = acctest.ConfigCompose(testAccIPAMPoolConfig_basic, `
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr.2.0.0/16"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr.2.0.0/16"
 }
 
 resource "aws_vpc_ipam_pool_cidr" "testtwo" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr2.0.0/16"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr2.0.0/16"
 }
 
 data "aws_vpc_ipam_pool_cidrs" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
+ipam_pool_id = aws_vpc_ipam_pool.test.id
 
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool_cidr.test,
 s_vpc_ipam_pool_cidr.testtwo,
-  ]
+]
 }
 `)
 
 var testAccIPAMPoolCIDRsDataSourceConfig_basicTwoCIDRsFiltered = acctest.ConfigCompose(testAccIPAMPoolConfig_basic, `
 resource "aws_vpc_ipam_pool_cidr" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr.2.0.0/16"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr.2.0.0/16"
 }
 
 resource "aws_vpc_ipam_pool_cidr" "testtwo" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr2.0.0/16"
+ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr2.0.0/16"
 }
 
 data "aws_vpc_ipam_pool_cidrs" "test" {
-  ipam_pool_id = aws_vpc_ipam_pool.test.id
+ipam_pool_id = aws_vpc_ipam_pool.test.id
 
-  filter {
+filter {
 me= "r"
 lues = ["10.*"]
-  }
+}
 
-  depends_on = [
+depends_on = [
 s_vpc_ipam_pool_cidr.test,
 s_vpc_ipam_pool_cidr.testtwo,
-  ]
+]
 }
 `)

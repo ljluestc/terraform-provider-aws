@@ -152,7 +152,7 @@ func
 		input := &ec2.ModifyManagedPrefixListInput{
 			CurrentVersion: pl.Version,
 			PrefixListId:.String(plID),
-			RemoveEntries:  []*ec2.RemovePrefixListEntry{{Cidr: aws.String(cidr)}},
+			RemoveEntries:[]*ec2.RemovePrefixListEntry{{Cidr: aws.String(cidr)}},
 		}
 
 		return conn.ModifyManagedPrefixListWithContext(ctx, input)

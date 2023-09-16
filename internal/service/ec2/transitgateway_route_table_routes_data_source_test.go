@@ -19,7 +19,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_transit_gateway_route_table_routes.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -38,48 +38,48 @@ func testAccTransitGatewayRouteTableRoutesDataSourceConfig_basic(rName string) s
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
 func %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids= aws_subnet.test[*].id
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_idaws_vpc.test.id
+subnet_ids= aws_subnet.test[*].id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
+vpc_idaws_vpc.test.id
 
-  transit_gateway_default_route_table_association = false
+transit_gateway_default_route_table_association = false
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_route_table" "test" {
-  transit_gateway_id = aws_ec2_transit_gateway.test.id
+transit_gateway_id = aws_ec2_transit_gateway.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_transit_gateway_route_table_association" "test" {
-  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
+transit_gateway_attachment_id= aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
 }
 
 resource "aws_ec2_transit_gateway_route_table_propagation" "test" {
-  transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.test.id
-  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
+transit_gateway_attachment_id= aws_ec2_transit_gateway_vpc_attachment.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
 }
 
 data "aws_ec2_transit_gateway_route_table_routes" "test" {
-  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
+transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.test.id
 
-  filter {
+filter {
 me= "e"
 lues = ["propagated"]
-  }
+}
 
-  depends_on = [aws_ec2_transit_gateway_route_table_association.test, aws_ec2_transit_gateway_route_table_propagation.test]
+depends_on = [aws_ec2_transit_gateway_route_table_association.test, aws_ec2_transit_gateway_route_table_propagation.test]
 }
 `, rName))
 }

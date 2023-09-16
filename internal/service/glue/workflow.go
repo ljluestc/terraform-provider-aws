@@ -28,7 +28,7 @@ import (
 func ResourceWorkflow() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceWorkflowCreate,
-		ReadWithoutTimeout:   resourceWorkflowRead,
+		ReadWithoutTimeout: resourceWorkflowRead,
 		UpdateWithoutTimeout: resourceWorkflowUpdate,
 		DeleteWithoutTimeout: resourceWorkflowDelete,
 		Importer: &schema.ResourceImporter{
@@ -39,29 +39,29 @@ func ResourceWorkflow() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"default_run_properties": {
-				Type:     schema.TypeMap,
+				Type: schema.TypeMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"max_concurrent_runs": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type: schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -127,10 +127,10 @@ func resourceWorkflowRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	workFlowArn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "glue",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service: "glue",
+		Region:meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("workflow/%s", d.Id()),
+		Resource:fmt.Sprintf("workflow/%s", d.Id()),
 	}.String()
 	d.Set("arn", workFlowArn)
 

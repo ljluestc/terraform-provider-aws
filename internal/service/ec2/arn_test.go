@@ -17,7 +17,7 @@ funcarallel()
 		TestName
 		InputARN
 		ExpectedError *regexp.Regexp
-		ExpectedName  string
+		ExpectedNamestring
 	}{
 		{
 			TestName:N",

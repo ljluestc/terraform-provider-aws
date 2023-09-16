@@ -17,7 +17,7 @@ func := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_route_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -39,7 +39,7 @@ func TestAccEC2OutpostsLocalGatewayRouteTableDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_route_table.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -62,7 +62,7 @@ func TestAccEC2OutpostsLocalGatewayRouteTableDataSource_localGatewayID(t *testin
 	dataSourceName := "data.aws_ec2_local_gateway_route_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -84,7 +84,7 @@ func TestAccEC2OutpostsLocalGatewayRouteTableDataSource_outpostARN(t *testing.T)
 	dataSourceName := "data.aws_ec2_local_gateway_route_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -106,10 +106,10 @@ func testAccOutpostsLocalGatewayRouteTableDataSourceConfig_filter() string {
 data "aws_outposts_outposts" "test" {}
 
 data "aws_ec2_local_gateway_route_table" "test" {
-  filter {
+filter {
 me= "post-arn"
 lues = [tolist(data.aws_outposts_outposts.test.arns)[0]]
-  }
+}
 }
 `
 }
@@ -119,7 +119,7 @@ func testAccOutpostsLocalGatewayRouteTableDataSourceConfig_localGatewayID() stri
 data "aws_ec2_local_gateways" "test" {}
 
 data "aws_ec2_local_gateway_route_table" "test" {
-  local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
+local_gateway_id = tolist(data.aws_ec2_local_gateways.test.ids)[0]
 }
 `
 }
@@ -129,7 +129,7 @@ func testAccOutpostsLocalGatewayRouteTableDataSourceConfig_routeTableID() string
 	return `
 func
 data "aws_ec2_local_gateway_route_table" "test" {
-  local_gateway_route_table_id = tolist(data.aws_ec2_local_gateway_route_tables.test.ids)[0]
+local_gateway_route_table_id = tolist(data.aws_ec2_local_gateway_route_tables.test.ids)[0]
 }
 `
 }
@@ -139,7 +139,7 @@ func testAccOutpostsLocalGatewayRouteTableDataSourceConfig_outpostARN() string {
 	return `
 data "aws_outposts_outposts" "test" {}
 func "aws_ec2_local_gateway_route_table" "test" {
-  outpost_arn = tolist(data.aws_outposts_outposts.test.arns)[0]
+outpost_arn = tolist(data.aws_outposts_outposts.test.arns)[0]
 }
 `
 }

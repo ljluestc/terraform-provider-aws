@@ -13,11 +13,11 @@ import (
 )
 
 const (
-	mlTransformStatusUnknown   = "Unknown"
-	registryStatusUnknown      = "Unknown"
-	schemaStatusUnknown        = "Unknown"
+	mlTransformStatusUnknown = "Unknown"
+	registryStatusUnknown= "Unknown"
+	schemaStatusUnknown= "Unknown"
 	schemaVersionStatusUnknown = "Unknown"
-	triggerStatusUnknown       = "Unknown"
+	triggerStatusUnknown = "Unknown"
 )
 
 // statusMLTransform fetches the MLTransform and its Status

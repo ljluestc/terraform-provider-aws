@@ -28,7 +28,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckVPCIPv4CIDRBlockAssociationDestroy(ctx),
@@ -64,7 +64,7 @@ funcource2Name := "aws_vpc_ipv4_cidr_block_association.tertiary_cidr"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -92,7 +92,7 @@ t.Skip("skipping long-running test in short mode")
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -119,7 +119,7 @@ t.Skip("skipping long-running test in short mode")
 	cidr := "172.2.0.32/28"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -210,21 +210,21 @@ func
 func testAccVPCIPv4CIDRBlockAssociationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
-  vpc_idtest.id
-  cidr_block = "172.2.0.0/16"
+vpc_idtest.id
+cidr_block = "172.2.0.0/16"
 }
 
 resource "aws_vpc_ipv4_cidr_block_association" "tertiary_cidr" {
-  vpc_idtest.id
-  cidr_block = "170.2.0.0/16"
+vpc_idtest.id
+cidr_block = "170.2.0.0/16"
 }
 `, rName)
 }
@@ -232,19 +232,19 @@ resource "aws_vpc_ipv4_cidr_block_association" "tertiary_cidr" {
 
 func testAccVPCIPv4CIDRBlockAssociationConfig_ipam(rName string, netmaskLength int) string {
 funcurce "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
-  ipv4_ipam_pool_idws_vpc_ipam_pool.test.id
-  ipv4_netmask_length = %[2]d
-  vpc_idtest.id
+ipv4_ipam_pool_idws_vpc_ipam_pool.test.id
+ipv4_netmask_length = %[2]d
+vpc_idtest.id
 
-  depends_on = [aws_vpc_ipam_pool_cidr.test]
+depends_on = [aws_vpc_ipam_pool_cidr.test]
 }
 `, rName, netmaskLength))
 }
@@ -253,18 +253,18 @@ resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
 func testAccVPCIPv4CIDRBlockAssociationConfig_ipamExplicit(rName, cidr string) string {
 	return acctest.ConfigCompose(testAccVPCConfig_baseIPAMIPv4(rName), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 funcgs = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
-  ipv4_ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr_block
-  vpc_idws_vpc.test.id
+ipv4_ipam_pool_id = aws_vpc_ipam_pool.test.id
+cidr_block
+vpc_idws_vpc.test.id
 
-  depends_on = [aws_vpc_ipam_pool_cidr.test]
+depends_on = [aws_vpc_ipam_pool_cidr.test]
 }
 `, rName, cidr))
 }

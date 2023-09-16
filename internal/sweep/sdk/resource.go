@@ -18,15 +18,15 @@ import (
 )
 
 type sweepResource struct {
-d        *schema.ResourceData
-meta     *conns.AWSClient
+d*schema.ResourceData
+meta *conns.AWSClient
 resource *schema.Resource
 }
 
 func NewSweepResource(resource *schema.Resource, d *schema.ResourceData, meta *conns.AWSClient) *sweepResource {
 return &sweepResource{
-d:        d,
-meta:     meta,
+d:d,
+meta: meta,
 resource: resource,
 }
 }

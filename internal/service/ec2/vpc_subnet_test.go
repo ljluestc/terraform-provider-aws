@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSubnetDestroy(ctx),
@@ -70,7 +70,7 @@ func TestAccVPCSubnet_tags(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -116,7 +116,7 @@ func TestAccVPCSubnet_DefaultTags_providerOnly(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSubnetDestroy(ctx),
@@ -174,7 +174,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -217,7 +217,7 @@ func TestAccVPCSubnet_DefaultTags_updateToResourceOnly(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -260,7 +260,7 @@ funcourceName := "aws_subnet.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -326,7 +326,7 @@ func TestAccVPCSubnet_DefaultTagsProviderAndResource_overlappingTag(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -387,7 +387,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -428,7 +428,7 @@ func TestAccVPCSubnet_updateTagsKnownAtApply(t *testing.T) {
 	var subnet ec2.Subnet
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -467,7 +467,7 @@ funcourceName := "aws_subnet.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -499,7 +499,7 @@ func TestAccVPCSubnet_ipv6(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -542,7 +542,7 @@ func TestAccVPCSubnet_enableIPv6(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -587,7 +587,7 @@ func TestAccVPCSubnet_availabilityZoneID(t *testing.T) {
 	resourceName := "aws_subnet.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -642,7 +642,7 @@ func subnet ec2.Subnet
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSubnetDestroy(ctx),
@@ -670,7 +670,7 @@ func TestAccVPCSubnet_mapCustomerOwnedIPOnLaunch(t *testing.T) {
 	resourceName := "aws_subnet.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -698,7 +698,7 @@ func TestAccVPCSubnet_mapPublicIPOnLaunch(t *testing.T) {
 	resourceName := "aws_subnet.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -742,7 +742,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -770,7 +770,7 @@ funcourceName := "aws_subnet.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -813,7 +813,7 @@ func TestAccVPCSubnet_ipv4ToIPv6(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 funcrCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckSubnetDestroy(ctx),
@@ -849,7 +849,7 @@ funcourceName := "aws_subnet.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -940,7 +940,7 @@ func TestAccVPCSubnet_ipv6Native(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1072,8 +1072,8 @@ me = %[1]q
 func
 
 resource "aws_subnet" "test" {
-  cidr_block = "10.1.1.0/24"
-  vpc_idtest.id
+cidr_block = "10.1.1.0/24"
+vpc_idtest.id
 }
 `, rName)
 }
@@ -1083,14 +1083,14 @@ funcurn fmt.Sprintf(`
 funcdr_block = "10.1.0.0/16"
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block = "10.1.1.0/24"
-  vpc_idtest.id
+cidr_block = "10.1.1.0/24"
+vpc_idtest.id
 
-  tags = {
+tags = {
 2]q = %[3]q
 func
 func
@@ -1098,36 +1098,36 @@ func
 func testAccVPCSubnetConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block = "10.1.1.0/24"
-  vpc_idtest.id
+cidr_block = "10.1.1.0/24"
+vpc_idtest.id
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 
 const testAccSubnetComputedTagsBaseConfig = `
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-  tagstags
+cidr_block = "10.0.0.0/16"
+tagstags
 func
 func = aws_vpc.test.id
 }
 funcurce "aws_subnet" "test" {
-  cidr_block = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_idtest.id
-  tagsws_vpc.test.tags
+cidr_block = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+vpc_idtest.id
+tagsws_vpc.test.tags
 }
 `
 
@@ -1137,9 +1137,9 @@ func testAccVPCSubnetConfig_tagsComputedFromDataSource1(tagKey1, tagValue1 strin
 testAccSubnetComputedTagsBaseConfig,
 fmt.Sprintf(`
 locals {
-  tags = {
+tags = {
  = %q
-  }
+}
 }
 `, tagKey1, tagValue1))
 }
@@ -1151,7 +1151,7 @@ testAccSubnetComputedTagsBaseConfig,
 fmt.Sprintf(`
 funcgs = {
 funcq
-  }
+}
 funcagKey1, tagValue1, tagKey2, tagValue2))
 }
 
@@ -1159,20 +1159,20 @@ funcagKey1, tagValue1, tagKey2, tagValue2))
 func testAccVPCSubnetConfig_prev6(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block0.0.0/16"
+cidr_block0.0.0/16"
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block = "10.10.1.0/24"
-  vpc_idtest.id
+cidr_block = "10.10.1.0/24"
+vpc_idtest.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1180,23 +1180,23 @@ me = %[1]q
 
 funcurn fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block0.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block0.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_id  = aws_vpc.test.id
-  ipv6_cidr_block  = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
-  assign_ipv6_address_on_creation = true
+cidr_block.1.0/24"
+vpc_id= aws_vpc.test.id
+ipv6_cidr_block= cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+assign_ipv6_address_on_creation = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1204,23 +1204,23 @@ func
 func testAccVPCSubnetConfig_ipv6UpdateAssignv6OnCreation(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block0.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block0.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_id  = aws_vpc.test.id
-  ipv6_cidr_block  = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
-  assign_ipv6_address_on_creation = false
+cidr_block.1.0/24"
+vpc_id= aws_vpc.test.id
+ipv6_cidr_block= cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+assign_ipv6_address_on_creation = false
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1229,22 +1229,22 @@ me = %[1]q
 func testAccVPCSubnetConfig_ipv6UpdateV6CIDR(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block0.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block0.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.1.0/24"
-  vpc_id  = aws_vpc.test.id
+cidr_block.1.0/24"
+vpc_id= aws_vpc.test.id
 funcsign_ipv6_address_on_creation = false
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1254,19 +1254,19 @@ func testAccVPCSubnetConfig_availabilityZoneID(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block  = "10.1.1.0/24"
-  vpc_id= aws_vpc.test.id
-  availability_zone_id = data.aws_availability_zones.available.zone_ids[0]
+cidr_block= "10.1.1.0/24"
+vpc_id= aws_vpc.test.id
+availability_zone_id = data.aws_availability_zones.available.zone_ids[0]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 funcName))
 }
 
@@ -1276,48 +1276,48 @@ func testAccVPCSubnetConfig_customerOwnedv4Pool(rName string) string {
 data "aws_outposts_outposts" "test" {}
 
 data "aws_outposts_outpost" "test" {
-  id = tolist(data.aws_outposts_outposts.test.ids)[0]
+id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }
 
 data "aws_ec2_local_gateway_route_tables" "test" {
-  filter {
+filter {
 me= "post-arn"
 lues = [data.aws_outposts_outpost.test.arn]
-  }
+}
 }
 
 data "aws_ec2_coip_pools" "test" {
-  # Filtering by Local Gateway Route Table ID is documented but not working in EC2 API.
-  # If there are multiple Outposts in the test account, this lookup can
-  # be misaligned and cause downstream resource errors.
+# Filtering by Local Gateway Route Table ID is documented but not working in EC2 API.
+# If there are multiple Outposts in the test account, this lookup can
+# be misaligned and cause downstream resource errors.
 funcfilter {
-  #e= "p-pool.local-gateway-route-table-id"
-  #ues = [tolist(data.aws_ec2_local_gateway_route_tables.test.ids)[0]]
-  # }
+#e= "p-pool.local-gateway-route-table-id"
+#ues = [tolist(data.aws_ec2_local_gateway_route_tables.test.ids)[0]]
+# }
 }
 
 data "aws_ec2_coip_pool" "test" {
-  pool_id = tolist(data.aws_ec2_coip_pools.test.pool_ids)[0]
+pool_id = tolist(data.aws_ec2_coip_pools.test.pool_ids)[0]
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone= data.aws_outposts_outpost.test.availability_zone
-  cidr_blockbnet(aws_vpc.test.cidr_block, 8, 0)
-  customer_owned_ipv4_poolaws_ec2_coip_pool.test.pool_id
-  map_customer_owned_ip_on_launch = true
-  outpost_arns_outposts_outpost.test.arn
-  vpc_id  = aws_vpc.test.id
+availability_zone= data.aws_outposts_outpost.test.availability_zone
+cidr_blockbnet(aws_vpc.test.cidr_block, 8, 0)
+customer_owned_ipv4_poolaws_ec2_coip_pool.test.pool_id
+map_customer_owned_ip_on_launch = true
+outpost_arns_outposts_outpost.test.arn
+vpc_id= aws_vpc.test.id
 funcgs = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1328,48 +1328,48 @@ func testAccVPCSubnetConfig_mapCustomerOwnedOnLaunch(rName string, mapCustomerOw
 data "aws_outposts_outposts" "test" {}
 
 data "aws_outposts_outpost" "test" {
-  id = tolist(data.aws_outposts_outposts.test.ids)[0]
+id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }
 
 data "aws_ec2_local_gateway_route_tables" "test" {
-  filter {
+filter {
 me= "post-arn"
 lues = [data.aws_outposts_outpost.test.arn]
-  }
+}
 }
 
 data "aws_ec2_coip_pools" "test" {
-  # Filtering by Local Gateway Route Table ID is documented but not working in EC2 API.
+# Filtering by Local Gateway Route Table ID is documented but not working in EC2 API.
 funcbe misaligned and cause downstream resource errors.
-  #
-  # filter {
-  #e= "p-pool.local-gateway-route-table-id"
-  #ues = [tolist(data.aws_ec2_local_gateway_route_tables.test.ids)[0]]
-  # }
+#
+# filter {
+#e= "p-pool.local-gateway-route-table-id"
+#ues = [tolist(data.aws_ec2_local_gateway_route_tables.test.ids)[0]]
+# }
 }
 
 data "aws_ec2_coip_pool" "test" {
-  pool_id = tolist(data.aws_ec2_coip_pools.test.pool_ids)[0]
+pool_id = tolist(data.aws_ec2_coip_pools.test.pool_ids)[0]
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone= data.aws_outposts_outpost.test.availability_zone
-  cidr_blockbnet(aws_vpc.test.cidr_block, 8, 0)
-  customer_owned_ipv4_poolaws_ec2_coip_pool.test.pool_id
-  map_customer_owned_ip_on_launch = %[2]t
-funcc_id  = aws_vpc.test.id
+availability_zone= data.aws_outposts_outpost.test.availability_zone
+cidr_blockbnet(aws_vpc.test.cidr_block, 8, 0)
+customer_owned_ipv4_poolaws_ec2_coip_pool.test.pool_id
+map_customer_owned_ip_on_launch = %[2]t
+funcc_id= aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, mapCustomerOwnedIpOnLaunch)
 }
@@ -1378,20 +1378,20 @@ me = %[1]q
 func testAccVPCSubnetConfig_mapPublicOnLaunch(rName string, mapPublicIpOnLaunch bool) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_blocket(aws_vpc.test.cidr_block, 8, 0)
-  map_public_ip_on_launch = %[2]t
+cidr_blocket(aws_vpc.test.cidr_block, 8, 0)
+map_public_ip_on_launch = %[2]t
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, mapPublicIpOnLaunch)
 }
@@ -1400,24 +1400,24 @@ me = %[1]q
 func testAccVPCSubnetConfig_enableDNS64(rName string, enableDns64 bool) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block0.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block0.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_blockbnet(aws_vpc.test.cidr_block, 8, 0)
-  enable_dns64
-  vpc_id  = aws_vpc.test.id
-  ipv6_cidr_block  = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
-  assign_ipv6_address_on_creation = true
+cidr_blockbnet(aws_vpc.test.cidr_block, 8, 0)
+enable_dns64
+vpc_id= aws_vpc.test.id
+ipv6_cidr_block= cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+assign_ipv6_address_on_creation = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, enableDns64)
 }
@@ -1430,26 +1430,26 @@ func testAccVPCSubnetConfig_enableLniAtDeviceIndex(rName string, deviceIndex int
 data "aws_outposts_outposts" "test" {}
 
 data "aws_outposts_outpost" "test" {
-  id = tolist(data.aws_outposts_outposts.test.ids)[0]
+id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }
 
 resource "aws_vpc" "test" {
-  cidr_block = "10.10.0.0/16"
+cidr_block = "10.10.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-funcdr_block  = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  enable_lni_at_device_index = %[2]d
-  outpost_arn = data.aws_outposts_outpost.test.arn
-  vpc_id.test.id
+funcdr_block= cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+enable_lni_at_device_index = %[2]d
+outpost_arn = data.aws_outposts_outpost.test.arn
+vpc_id.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, deviceIndex)
 }
@@ -1458,27 +1458,27 @@ me = %[1]q
 func testAccVPCSubnetConfig_privateDNSNameOptionsOnLaunch(rName string, enableDnsAAAA, enableDnsA bool, hostnameType string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block0.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block0.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_blockbnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id  = aws_vpc.test.id
-  ipv6_cidr_block  = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
-  assign_ipv6_address_on_creation = true
+cidr_blockbnet(aws_vpc.test.cidr_block, 8, 0)
+vpc_id= aws_vpc.test.id
+ipv6_cidr_block= cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+assign_ipv6_address_on_creation = true
 
-  enable_resource_name_dns_aaaa_record_on_launch = %[2]t
-  enable_resource_name_dns_a_record_on_launch%[3]t
-  private_dns_hostname_type_on_launch[4]q
+enable_resource_name_dns_aaaa_record_on_launch = %[2]t
+enable_resource_name_dns_a_record_on_launch%[3]t
+private_dns_hostname_type_on_launch[4]q
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, enableDnsAAAA, enableDnsA, hostnameType)
 }
@@ -1487,24 +1487,24 @@ me = %[1]q
 func testAccVPCSubnetConfig_ipv6Native(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block0.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block0.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-funcv6_cidr_block  = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
-  assign_ipv6_address_on_creation = true
-  ipv6_native
+funcv6_cidr_block= cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+assign_ipv6_address_on_creation = true
+ipv6_native
 
-  enable_resource_name_dns_aaaa_record_on_launch = true
+enable_resource_name_dns_aaaa_record_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1515,25 +1515,25 @@ func testAccVPCSubnetConfig_outpost(rName string) string {
 data "aws_outposts_outposts" "test" {}
 
 data "aws_outposts_outpost" "test" {
-  id = tolist(data.aws_outposts_outposts.test.ids)[0]
+id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }
 
 resource "aws_vpc" "test" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  availability_zone = data.aws_outposts_outpost.test.availability_zone
-  cidr_block.1.0/24"
-  outpost_arnws_outposts_outpost.test.arn
-  vpc_idws_vpc.test.id
+availability_zone = data.aws_outposts_outpost.test.availability_zone
+cidr_block.1.0/24"
+outpost_arnws_outposts_outpost.test.arn
+vpc_idws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1542,24 +1542,24 @@ me = %[1]q
 func testAccVPCSubnetConfig_ipv4ToIPv6Before(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block0.0.0/16"
-  assign_generated_ipv6_cidr_block = false
+cidr_block0.0.0/16"
+assign_generated_ipv6_cidr_block = false
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  assign_ipv6_address_on_creation = false
-  cidr_blockbnet(aws_vpc.test.cidr_block, 8, 1)
-  enable_dns64
-  enable_resource_name_dns_aaaa_record_on_launch = false
-  ipv6_cidr_block  = null
-  vpc_id  = aws_vpc.test.id
+assign_ipv6_address_on_creation = false
+cidr_blockbnet(aws_vpc.test.cidr_block, 8, 1)
+enable_dns64
+enable_resource_name_dns_aaaa_record_on_launch = false
+ipv6_cidr_block= null
+vpc_id= aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }
@@ -1568,24 +1568,24 @@ me = %[1]q
 func testAccVPCSubnetConfig_ipv4ToIPv6After(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block0.0.0/16"
-  assign_generated_ipv6_cidr_block = true
+cidr_block0.0.0/16"
+assign_generated_ipv6_cidr_block = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  assign_ipv6_address_on_creation = true
+assign_ipv6_address_on_creation = true
 funcable_dns64
-  enable_resource_name_dns_aaaa_record_on_launch = true
-  ipv6_cidr_block  = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
-  vpc_id  = aws_vpc.test.id
+enable_resource_name_dns_aaaa_record_on_launch = true
+ipv6_cidr_block= cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
+vpc_id= aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName)
 }

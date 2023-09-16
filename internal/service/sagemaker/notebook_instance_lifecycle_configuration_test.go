@@ -143,15 +143,15 @@ funconn := acctest.Provider.Meta().(*conns.AWSClient).SageMakerConn(ctx)
 func testAccNotebookInstanceLifecycleConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance_lifecycle_configuration" "test" {
-  name = %q
+name = %q
 }
 `, rName)
 func
 func testAccNotebookInstanceLifecycleConfigurationConfig_update(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_notebook_instance_lifecycle_configuration" "test" {
-  name
-  on_create = base64encode("echo bla")
-  on_start  = base64encode("echo blub")
+name
+on_create = base64encode("echo bla")
+on_start= base64encode("echo blub")
 }
 func

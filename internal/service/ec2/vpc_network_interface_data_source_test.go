@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -51,7 +51,7 @@ func TestAccVPCNetworkInterfaceDataSource_filters(t *testing.T) {
 	datasourceName := "data.aws_network_interface.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -77,7 +77,7 @@ funcResourceName := "aws_vpc.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckWavelengthZoneAvailable(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -126,7 +126,7 @@ func TestAccVPCNetworkInterfaceDataSource_publicIPAssociation(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -174,7 +174,7 @@ func TestAccVPCNetworkInterfaceDataSource_attachment(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -211,39 +211,39 @@ func testAccNetworkInterfaceBaseDataSourceConfig(rName string) string {
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
+cidr_block = "10.0.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.0.0/24"
-  availability_zone = data.aws_availability_zones.available.names[0]
+cidr_block.0.0/24"
+availability_zone = data.aws_availability_zones.available.names[0]
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_security_group" "test" {
-  name[1]q
-  vpc_id = aws_vpc.test.id
+name[1]q
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  private_ips.50"]
-  security_groups = [aws_security_group.test.id]
+subnet_idbnet.test.id
+private_ips.50"]
+security_groups = [aws_security_group.test.id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -254,7 +254,7 @@ func testAccVPCNetworkInterfaceDataSourceConfig_basic(rName string) string {
 testAccNetworkInterfaceBaseDataSourceConfig(rName),
 `
 data "aws_network_interface" "test" {
-  id = aws_network_interface.test.id
+id = aws_network_interface.test.id
 }
 `)
 }
@@ -266,67 +266,67 @@ testAccAvailableAZsWavelengthZonesDefaultExcludeConfig(),
 fmt.Sprintf(`
 resource "aws_vpc" "test" {
 func
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  cidr_block.0.0/24"
-  availability_zone = data.aws_availability_zones.available.names[0]
-  vpc_idws_vpc.test.id
+cidr_block.0.0/24"
+availability_zone = data.aws_availability_zones.available.names[0]
+vpc_idws_vpc.test.id
 
 func %[1]q
-  }
+}
 }
 
 resource "aws_security_group" "test" {
-  name[1]q
-  vpc_id = aws_vpc.test.id
+name[1]q
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface" "test" {
-  subnet_idbnet.test.id
-  private_ips.50"]
-  security_groups = [aws_security_group.test.id]
+subnet_idbnet.test.id
+private_ips.50"]
+security_groups = [aws_security_group.test.id]
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_ec2_carrier_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_availability_zone" "available" {
-  name = data.aws_availability_zones.available.names[0]
+name = data.aws_availability_zones.available.names[0]
 }
 
 resource "aws_eip" "test" {
-  domain= "vpc"
-  network_border_group = data.aws_availability_zone.available.network_border_group
+domain= "vpc"
+network_border_group = data.aws_availability_zone.available.network_border_group
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_eip_association" "test" {
-  allocation_idip.test.id
-  network_interface_id = aws_network_interface.test.id
+allocation_idip.test.id
+network_interface_id = aws_network_interface.test.id
 }
 
 data "aws_network_interface" "test" {
-  id = aws_eip_association.test.network_interface_id
+id = aws_eip_association.test.network_interface_id
 }
 `, rName))
 }
@@ -337,27 +337,27 @@ func testAccVPCNetworkInterfaceDataSourceConfig_publicIPAssociation(rName string
 testAccNetworkInterfaceBaseDataSourceConfig(rName),
 fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_eip" "test" {
-  domain = "vpc"
+domain = "vpc"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 func
 resource "aws_eip_association" "test" {
-  allocation_idip.test.id
-  network_interface_id = aws_network_interface.test.id
+allocation_idip.test.id
+network_interface_id = aws_network_interface.test.id
 }
 
 data "aws_network_interface" "test" {
-  id = aws_eip_association.test.network_interface_id
+id = aws_eip_association.test.network_interface_id
 }
 `, rName))
 }
@@ -368,10 +368,10 @@ func testAccVPCNetworkInterfaceDataSourceConfig_filters(rName string) string {
 testAccNetworkInterfaceBaseDataSourceConfig(rName),
 `
 data "aws_network_interface" "test" {
-  filter {
+filter {
 me= "work-interface-id"
 lues = [aws_network_interface.test.id]
-  }
+}
 }
 `)
 }
@@ -383,22 +383,22 @@ testAccNetworkInterfaceBaseDataSourceConfig(rName),
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
 funcurce "aws_instance" "test" {
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_idet.test.id
+ami= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+subnet_idet.test.id
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_network_interface_attachment" "test" {
-  device_index= 1
-  instance_id = aws_instance.test.id
-  network_interface_id = aws_network_interface.test.id
+device_index= 1
+instance_id = aws_instance.test.id
+network_interface_id = aws_network_interface.test.id
 func
 data "aws_network_interface" "test" {
-  id = aws_network_interface_attachment.test.network_interface_id
+id = aws_network_interface_attachment.test.network_interface_id
 }
 `, rName))
 }

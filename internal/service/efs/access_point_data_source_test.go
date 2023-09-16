@@ -20,7 +20,7 @@ resourceName := "aws_efs_access_point.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -40,15 +40,15 @@ resource.TestCheckResourceAttrPair(dataSourceName, "root_directory", resourceNam
 
 func testAccAccessPointDataSourceConfig_basic(rName string) string {
 funcurce "aws_efs_file_system" "test" {
-  creation_token = "%s"
+creation_token = "%s"
 }
 
 resource "aws_efs_access_point" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 }
 
 data "aws_efs_access_point" "test" {
-  access_point_id = aws_efs_access_point.test.id
+access_point_id = aws_efs_access_point.test.id
 }
 `, rName)
 }

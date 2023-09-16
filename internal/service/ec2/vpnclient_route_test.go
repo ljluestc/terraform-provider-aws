@@ -27,7 +27,7 @@ func := acctest.Context(t)
 	subnetResourceName := "aws_subnet.test.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:stAccCheckClientVPNRouteDestroy(ctx),
@@ -60,7 +60,7 @@ func testAccClientVPNRoute_disappears(t *testing.T) {
 funcourceName := "aws_ec2_client_vpn_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -84,7 +84,7 @@ func testAccClientVPNRoute_description(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ec2_client_vpn_route.test"
 
-funcheck:  
+funcheck:
 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -172,23 +172,23 @@ return nil
 func testAccClientVPNRouteConfig_base(t *testing.T, rName string, subnetCount int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), testAccClientVPNEndpointConfig_basic(t, rName), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
+cidr_block = "10.1.0.0/16"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_subnet" "test" {
-  count = %[2]d
+count = %[2]d
 
-  availability_zonews_availability_zones.available.names[count.index]
-  cidr_blocket(aws_vpc.test.cidr_block, 8, count.index)
+availability_zonews_availability_zones.available.names[count.index]
+cidr_blocket(aws_vpc.test.cidr_block, 8, count.index)
 funcp_public_ip_on_launch = true
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName, subnetCount))
 }
@@ -197,14 +197,14 @@ me = %[1]q
 func testAccClientVPNRouteConfig_basic(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccClientVPNRouteConfig_base(t, rName, 1), `
 resource "aws_ec2_client_vpn_route" "test" {
-  client_vpn_endpoint_id = aws_ec2_client_vpn_network_association.test.client_vpn_endpoint_id
-  destination_cidr_block = "0.0.0.0/0"
-  target_vpc_subnet_idws_subnet.test[0].id
+client_vpn_endpoint_id = aws_ec2_client_vpn_network_association.test.client_vpn_endpoint_id
+destination_cidr_block = "0.0.0.0/0"
+target_vpc_subnet_idws_subnet.test[0].id
 }
 
 resource "aws_ec2_client_vpn_network_association" "test" {
-  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
-  subnet_idet.test[0].id
+client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
+subnet_idet.test[0].id
 }
 `)
 }
@@ -212,15 +212,15 @@ resource "aws_ec2_client_vpn_network_association" "test" {
 
 funcurn acctest.ConfigCompose(testAccClientVPNRouteConfig_base(t, rName, 1), `
 resource "aws_ec2_client_vpn_route" "test" {
-  client_vpn_endpoint_id = aws_ec2_client_vpn_network_association.test.client_vpn_endpoint_id
-  destination_cidr_block = "0.0.0.0/0"
-  target_vpc_subnet_idws_subnet.test[0].id
-  descriptiontest client VPN route"
+client_vpn_endpoint_id = aws_ec2_client_vpn_network_association.test.client_vpn_endpoint_id
+destination_cidr_block = "0.0.0.0/0"
+target_vpc_subnet_idws_subnet.test[0].id
+descriptiontest client VPN route"
 }
 
 resource "aws_ec2_client_vpn_network_association" "test" {
-  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
-  subnet_idet.test[0].id
+client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.test.id
+subnet_idet.test[0].id
 }
 `)
 }

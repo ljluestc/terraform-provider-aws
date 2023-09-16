@@ -45,7 +45,7 @@ funcurn &schema.Resource{
 			"allow_external_principals": {
 				Type:chema.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"arn": {
 				Type:chema.TypeString,
@@ -277,7 +277,7 @@ func
 func waitResourceShareOwnedBySelfActive(ctx context.Context, conn *ram.RAM, arn string, timeout time.Duration) (*ram.ResourceShare, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{ram.ResourceShareStatusPending},
-		Target:  []string{ram.ResourceShareStatusActive},
+		Target:[]string{ram.ResourceShareStatusActive},
 		Refresh: statusResourceShareOwnerSelf(ctx, conn, arn),
 		Timeout: timeout,
 	}
@@ -293,7 +293,7 @@ func
 func waitResourceShareOwnedBySelfDeleted(ctx context.Context, conn *ram.RAM, arn string, timeout time.Duration) (*ram.ResourceShare, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{ram.ResourceShareStatusDeleting},
-		Target:  []string{},
+		Target:[]string{},
 		Refresh: statusResourceShareOwnerSelf(ctx, conn, arn),
 		Timeout: timeout,
 	}

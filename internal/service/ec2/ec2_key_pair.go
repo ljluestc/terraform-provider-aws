@@ -43,7 +43,7 @@ funcintignore:R011
 		CustomizeDiff: verify.SetTagsDiff,
 
 		SchemaVersion: 1,
-		MigrateState:  KeyPairMigrateState,
+		MigrateState:KeyPairMigrateState,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
@@ -60,7 +60,7 @@ funcintignore:R011
 				Computed:
 				ForceNew:
 				Validate
-func:  validation.StringLenBetween(0, 255),
+func:validation.StringLenBetween(0, 255),
 func,
 			"key_name_prefix": {
 				Type: schema.TypeString,
@@ -68,7 +68,7 @@ func,
 				Computed:
 				ForceNew:
 				Validate
-func:  validation.StringLenBetween(0, 255-id.UniqueIDSuffixLength),
+func:validation.StringLenBetween(0, 255-id.UniqueIDSuffixLength),
 				ConflictsWith: []string{"key_name"},
 funckey_pair_id": {
 				Type:eString,
@@ -103,7 +103,7 @@ func resourceKeyPairCreate(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	keyName := create.Name(d.Get("key_name").(string), d.Get("key_name_prefix").(string))
-funcyName:  aws.String(keyName),
+funcyName:aws.String(keyName),
 		PublicKeyMaterial: []byte(d.Get("public_key").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeKeyPair),
 	}
@@ -140,7 +140,7 @@ funcg.Printf("[WARN] EC2 Key Pair (%s) not found, removing from state", d.Id())
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("key-pair/%s", d.Id()),
+		Resource:fmt.Sprintf("key-pair/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("fingerprint", keyPair.KeyFingerprint)

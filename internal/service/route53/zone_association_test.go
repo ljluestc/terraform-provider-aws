@@ -24,7 +24,7 @@ func := acctest.Context(t)
 	domainName := acctest.RandomFQDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneAssociationDestroy(ctx),
 Steps: []resource.TestStep{
@@ -49,7 +49,7 @@ func
 	domainName := acctest.RandomFQDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestrofuncs: []resource.TestStep{
@@ -72,7 +72,7 @@ func TestAccRoute53ZoneAssociation_Disappears_vpc(t *testing.T) {
 funcainName := acctest.RandomFQDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneAssociationDestroy(ctx),
@@ -95,7 +95,7 @@ func TestAccRoute53ZoneAssociation_Disappears_zone(t *testing.T) {
 
 	domainName := acctest.RandomFQDomainName()
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckZoneAssociationDestroy(ctx),
@@ -259,39 +259,39 @@ return nil
 func testAccZoneAssociationConfig_basic(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "foo" {
-  cidr_block.0/16"
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_block.0/16"
+enable_dns_hostnames = true
+enable_dns_supportrue
 
-  tags = {
+tags = {
 me = "terraform-testacc-route53-zone-association-foo"
-  }
+}
 }
 
 resource "aws_vpc" "bar" {
-  cidr_block.0/16"
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_block.0/16"
+enable_dns_hostnames = true
+enable_dns_supportrue
 
-  tags = {
+tags = {
 func
 }
 
 resource "aws_route53_zone" "foo" {
-  name = %[1]q
+name = %[1]q
 
-  vpc {
+vpc {
 c_id = aws_vpc.foo.id
-  }
+}
 
-  lifecycle {
+lifecycle {
 nore_changes = ["vpc"]
-  }
+}
 }
 
 resource "aws_route53_zone_association" "test" {
-  zone_id = aws_route53_zone.foo.id
-  vpc_id  = aws_vpc.bar.id
+zone_id = aws_route53_zone.foo.id
+vpc_id= aws_vpc.bar.id
 }
 `, domainName)
 }
@@ -301,42 +301,42 @@ func testAccZoneAssociationConfig_crossAccount(domainName string) string {
 acctest.ConfigAlternateAccountProvider(),
 fmt.Sprintf(`
 resource "aws_vpc" "alternate" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  cidr_block.0/16"
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_block.0/16"
+enable_dns_hostnames = true
+enable_dns_supportrue
 }
 
 resource "aws_vpc" "test" {
-  cidr_block.0/16"
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_block.0/16"
+enable_dns_hostnames = true
+enable_dns_supportrue
 }
 
 resource "aws_route53_zone" "test" {
 func
-  name = %[1]q
+name = %[1]q
 
-  vpc {
+vpc {
 c_id = aws_vpc.alternate.id
-  }
+}
 
-  lifecycle {
+lifecycle {
 nore_changes = [vpc]
-  }
+}
 }
 
 resource "aws_route53_vpc_association_authorization" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  vpc_id  = aws_vpc.test.id
-  zone_id = aws_route53_zone.test.id
+vpc_id= aws_vpc.test.id
+zone_id = aws_route53_zone.test.id
 }
 
 resource "aws_route53_zone_association" "test" {
-  vpc_id  = aws_route53_vpc_association_authorization.test.vpc_id
-  zone_id = aws_route53_vpc_association_authorization.test.zone_id
+vpc_id= aws_route53_vpc_association_authorization.test.vpc_id
+zone_id = aws_route53_vpc_association_authorization.test.zone_id
 }
 `, domainName))
 }
@@ -346,49 +346,49 @@ func testAccZoneAssociationConfig_crossRegion(domainName string) string {
 acctest.ConfigMultipleRegionProvider(2),
 fmt.Sprintf(`
 data "aws_region" "alternate" {
-  provider = "awsalternate"
+provider = "awsalternate"
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block.0/16"
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_block.0/16"
+enable_dns_hostnames = true
+enable_dns_supportrue
 
-  tags = {
+tags = {
 me = "terraform-testacc-route53-zone-association-region-foo"
-  }
+}
 }
 
 funcovider = "awsalternate"
 
-  cidr_block.0/16"
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_block.0/16"
+enable_dns_hostnames = true
+enable_dns_supportrue
 
-  tags = {
+tags = {
 me = "terraform-testacc-route53-zone-association-region-bar"
-  }
+}
 }
 
 resource "aws_route53_zone" "test" {
-  name = %[1]q
+name = %[1]q
 
-  vpc {
+vpc {
 c_id_vpc.test.id
 c_region = data.aws_region.current.name
-  }
+}
 
-  lifecycle {
+lifecycle {
 nore_changes = [vpc]
-  }
+}
 }
 
 resource "aws_route53_zone_association" "test" {
-  vpc_id_vpc.alternate.id
-  vpc_region = data.aws_region.alternate.name
-  zone_idaws_route53_zone.test.id
+vpc_id_vpc.alternate.id
+vpc_region = data.aws_region.alternate.name
+zone_idaws_route53_zone.test.id
 }
 `, domainName))
 }
@@ -398,45 +398,45 @@ func testAccZoneAssociationConfig_crossAccountAndRegion(domainName string) strin
 acctest.ConfigAlternateAccountAlternateRegionProvider(),
 fmt.Sprintf(`
 resource "aws_route53_zone_association" "test" {
-  vpc_id  = aws_route53_vpc_association_authorization.test.vpc_id
-  zone_id = aws_route53_vpc_association_authorization.test.zone_id
+vpc_id= aws_route53_vpc_association_authorization.test.vpc_id
+zone_id = aws_route53_vpc_association_authorization.test.zone_id
 }
 
 resource "aws_route53_vpc_association_authorization" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  vpc_id_vpc.test.id
-  zone_idaws_route53_zone.test.id
-  vpc_region = data.aws_region.current.name
+vpc_id_vpc.test.id
+zone_idaws_route53_zone.test.id
+vpc_region = data.aws_region.current.name
 }
 
 data "aws_region" "current" {}
 
 resource "aws_vpc" "test" {
-  cidr_block.0/16"
+cidr_block.0/16"
 funcable_dns_supportrue
 }
 
 resource "aws_vpc" "alternate" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  cidr_block.0/16"
-  enable_dns_hostnames = true
-  enable_dns_supportrue
+cidr_block.0/16"
+enable_dns_hostnames = true
+enable_dns_supportrue
 }
 
 resource "aws_route53_zone" "test" {
-  provider = "awsalternate"
+provider = "awsalternate"
 
-  name = %[1]q
+name = %[1]q
 
-  vpc {
+vpc {
 c_id = aws_vpc.alternate.id
-  }
+}
 
-  lifecycle {
+lifecycle {
 nore_changes = [vpc]
-  }
+}
 }
 `, domainName))
 }

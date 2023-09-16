@@ -20,7 +20,7 @@ resourceName := "aws_efs_file_system.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -50,7 +50,7 @@ resourceName := "aws_efs_file_system.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -80,7 +80,7 @@ funcurceName := "aws_efs_file_system.test"
 
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -109,7 +109,7 @@ dataSourceName := "data.aws_efs_file_system.test"
 func
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -130,7 +130,7 @@ resourceName := "aws_efs_file_system.test"
 func
 resource.ParallelTest(t, resource.TestCase{
 PreCheck:nc() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, efs.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -150,7 +150,7 @@ ExpectError: regexache.MustCompile(`no matching EFS file system found`),
 func testAccFileSystemConfig_dataSourceBasic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  creation_token = %[1]q
+creation_token = %[1]q
 }
 func
 
@@ -159,7 +159,7 @@ return acctest.ConfigCompose(
 testAccFileSystemConfig_dataSourceBasic(rName),
 `
 data "aws_efs_file_system" "test" {
-  tags = {
+tags = {
 func
 }
 `)
@@ -169,7 +169,7 @@ const testAccFileSystemDataSourceConfig_name = `
 resource "aws_efs_file_system" "test" {}
 
 data "aws_efs_file_system" "test" {
-  creation_token = aws_efs_file_system.test.creation_token
+creation_token = aws_efs_file_system.test.creation_token
 }
 `
 
@@ -177,46 +177,46 @@ const testAccFileSystemDataSourceConfig_id = `
 resource "aws_efs_file_system" "test" {}
 
 data "aws_efs_file_system" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 }
 `
 
 const testAccFileSystemDataSourceConfig_tags = `
 resource "aws_efs_file_system" "test" {
-  tags = {
-me  =ult-efs"
+tags = {
+me=ult-efs"
 vironment = "dev"
-  }
+}
 }
 
 resource "aws_efs_file_system" "wrong-env" {
-  tags = {
+tags = {
 vironment = "test"
-  }
+}
 }
 
 resource "aws_efs_file_system" "no-tags" {}
 
 data "aws_efs_file_system" "test" {
-  tags = aws_efs_file_system.test.tags
+tags = aws_efs_file_system.test.tags
 }
 `
 
 const testAccFileSystemDataSourceConfig_availabilityZone = `
 data "aws_availability_zones" "available" {
-  state = "available"
+state = "available"
 
-  filter {
+filter {
 me= "-in-status"
 lues = ["opt-in-not-required"]
-  }
+}
 }
 
 resource "aws_efs_file_system" "test" {
-  availability_zone_name = data.aws_availability_zones.available.names[0]
+availability_zone_name = data.aws_availability_zones.available.names[0]
 }
 
 data "aws_efs_file_system" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 }
 `

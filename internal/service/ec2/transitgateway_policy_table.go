@@ -66,7 +66,7 @@ func
 	transitGatewayID := d.Get("transit_gateway_id").(string)
 	input := &ec2.CreateTransitGatewayPolicyTableInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayPolicyTable),
-		TransitGatewayId:  aws.String(transitGatewayID),
+		TransitGatewayId:aws.String(transitGatewayID),
 	}
 
 	log.Printf("[DEBUG] Creating EC2 Transit Gateway Policy Table: %s", input)
@@ -106,7 +106,7 @@ funcnsitGatewayPolicyTable, err := FindTransitGatewayPolicyTableByID(ctx, conn, 
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("transit-gateway-policy-table/%s", d.Id()),
+		Resource:fmt.Sprintf("transit-gateway-policy-table/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("state", transitGatewayPolicyTable.State)

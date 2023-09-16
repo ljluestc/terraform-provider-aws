@@ -78,7 +78,7 @@ Type: schema.TypeInt,
 Optional:
 ForceNew:
 Validate
-func:  validation.IntBetween(0, 128),
+func:validation.IntBetween(0, 128),
 ConflictsWith: []string{"cidr"},
 	},
 func:eString,
@@ -103,7 +103,7 @@ func resourceIPAMPoolCIDRAllocationCreate(ctx context.Context, d *schema.Resourc
 
 funcut := &ec2.AllocateIpamPoolCidrInput{
 ClientToken: aws.String(id.UniqueId()),
-IpamPoolId:  aws.String(ipamPoolID),
+IpamPoolId:aws.String(ipamPoolID),
 	}
 
 	if v, ok := d.GetOk("cidr"); ok {
@@ -181,9 +181,9 @@ funcrn sdkdiag.AppendFromErr(diags, err)
 
 	log.Printf("[DEBUG] Deleting IPAM Pool CIDR Allocation: %s", d.Id())
 	_, err = conn.ReleaseIpamPoolAllocationWithContext(ctx, &ec2.ReleaseIpamPoolAllocationInput{
-Cidr:  aws.String(d.Get("cidr").(string)),
+Cidr:aws.String(d.Get("cidr").(string)),
 IpamPoolAllocationId: aws.String(allocationID),
-IpamPoolId:  aws.String(poolID),
+IpamPoolId:aws.String(poolID),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidIPAMPoolIdNotFound) || tfawserr.ErrMessageContains(err, errCodeInvalidParameterCombination, "No allocation found") {

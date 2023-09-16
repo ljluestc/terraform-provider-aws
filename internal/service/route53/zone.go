@@ -66,12 +66,12 @@ funcurn &schema.Resource{
 				Optional:,
 				ForceNew:,
 				ConflictsWith: []string{"vpc"},
-				ValidateFunc:  validation.StringLenBetween(0, 32),
+				ValidateFunc:validation.StringLenBetween(0, 32),
 			},
 			"force_destroy": {
 				Type:a.TypeBool,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
 			"name": {
 				// AWS Provider 3.0.0 - trailing period removed from name
@@ -199,7 +199,7 @@ func
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:ute53",
-		Resource:  fmt.Sprintf("hostedzone/%s", d.Id()),
+		Resource:fmt.Sprintf("hostedzone/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("comment", "")

@@ -26,7 +26,7 @@ resourceName := "aws_efs_mount_target.test"
 resourceName2 := "aws_efs_mount_target.test2"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckMountTargetDestroy(ctx),
 Steps: []resource.TestStep{
@@ -68,7 +68,7 @@ funce := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_efs_mount_target.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestrofuncs: []resource.TestStep{
@@ -90,7 +90,7 @@ var mount efs.MountTargetDescription
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckMountTargetDestroy(ctx),
@@ -117,7 +117,7 @@ var mount efs.MountTargetDescription
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_efs_mount_target.test"
 
-funcheck:  func() { acctest.PreCheck(ctx, t) },
+funcheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckMountTargetDestroy(ctx),
@@ -186,9 +186,9 @@ return nil
 func testAccMountTargetConfig_base(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_efs_file_system" "test" {
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 `, rName))
 }
@@ -196,7 +196,7 @@ me = %[1]q
 func testAccMountTargetConfig_basic(rName string) string {
 return acctest.ConfigCompose(testAccMountTargetConfig_base(rName), `
 funcle_system_id = aws_efs_file_system.test.id
-  subnet_idsubnet.test[0].id
+subnet_idsubnet.test[0].id
 }
 `)
 }
@@ -204,21 +204,21 @@ funcle_system_id = aws_efs_file_system.test.id
 func testAccMountTargetConfig_modified(rName string) string {
 return acctest.ConfigCompose(testAccMountTargetConfig_base(rName), `
 resource "aws_efs_mount_target" "test" {
-  file_system_id = aws_efs_file_system.test.id
+file_system_id = aws_efs_file_system.test.id
 func
 
 resource "aws_efs_mount_target" "test2" {
-  file_system_id = aws_efs_file_system.test.id
-  subnet_idsubnet.test[1].id
+file_system_id = aws_efs_file_system.test.id
+subnet_idsubnet.test[1].id
 }
 `)
 }
 
 funcrn acctest.ConfigCompose(testAccMountTargetConfig_base(rName), fmt.Sprintf(`
 resource "aws_efs_mount_target" "test" {
-  file_system_id = aws_efs_file_system.test.id
-  ip_address %[1]q
-  subnet_idsubnet.test[0].id
+file_system_id = aws_efs_file_system.test.id
+ip_address %[1]q
+subnet_idsubnet.test[0].id
 }
 `, ipAddress))
 }
@@ -226,8 +226,8 @@ resource "aws_efs_mount_target" "test" {
 func testAccMountTargetConfig_ipAddressNullIP(rName string) string {
 return acctest.ConfigCompose(testAccMountTargetConfig_base(rName), `
 resource "aws_efs_mount_target" "test" {
-  file_system_id = aws_efs_file_system.test.id
-  ip_address null
+file_system_id = aws_efs_file_system.test.id
+ip_address null
 func
 `)
 }

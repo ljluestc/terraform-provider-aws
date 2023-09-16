@@ -27,7 +27,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 	return []*types.ServicePackageSDKResource{
 		{
 funcypeName: "aws_swf_domain",
-			Name:     "Domain",
+			Name: "Domain",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

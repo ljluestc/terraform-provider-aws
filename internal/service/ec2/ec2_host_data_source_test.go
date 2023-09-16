@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -53,7 +53,7 @@ func TestAccEC2HostDataSource_filter(t *testing.T) {
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -84,15 +84,15 @@ funcource.TestCheckResourceAttrPair(dataSourceName, "host_id", resourceName, "id
 func testAccHostDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_host" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  instance_typee"
+availability_zone = data.aws_availability_zones.available.names[0]
+instance_typee"
 
 func %[1]q
-  }
+}
 }
 
 data "aws_ec2_host" "test" {
-  host_id = aws_ec2_host.test.id
+host_id = aws_ec2_host.test.id
 }
 `, rName))
 }
@@ -101,28 +101,28 @@ data "aws_ec2_host" "test" {
 func testAccHostDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_host" "test" {
-  availability_zone = data.aws_availability_zones.available.names[0]
-  instance_typee"
+availability_zone = data.aws_availability_zones.available.names[0]
+instance_typee"
 
-  tags = {
+tags = {
 func
 }
 
 data "aws_ec2_host" "test" {
-  filter {
+filter {
 me= "ilability-zone"
 lues = [aws_ec2_host.test.availability_zone]
-  }
+}
 
-  filter {
+filter {
 me= "tance-type"
 lues = [aws_ec2_host.test.instance_type]
-  }
+}
 
-  filter {
+filter {
 me= "-key"
 lues = [%[1]q]
-  }
+}
 }
 `, rName))
 }

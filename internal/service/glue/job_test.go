@@ -27,10 +27,10 @@ func TestAccGlueJob_basic(t *testing.T) {
 	roleResourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_required(rName),
@@ -49,8 +49,8 @@ func TestAccGlueJob_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -64,10 +64,10 @@ func TestAccGlueJob_disappears(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_required(rName),
@@ -89,10 +89,10 @@ func TestAccGlueJob_basicStreaming(t *testing.T) {
 	roleResourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_requiredStreaming(rName),
@@ -111,8 +111,8 @@ func TestAccGlueJob_basicStreaming(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -126,10 +126,10 @@ func TestAccGlueJob_command(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_command(rName, "testscriptlocation1"),
@@ -148,8 +148,8 @@ func TestAccGlueJob_command(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -163,10 +163,10 @@ func TestAccGlueJob_defaultArguments(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_defaultArguments(rName, "job-bookmark-disable", "python"),
@@ -187,8 +187,8 @@ func TestAccGlueJob_defaultArguments(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -202,10 +202,10 @@ func TestAccGlueJob_nonOverridableArguments(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_nonOverridableArguments(rName, "job-bookmark-disable", "python"),
@@ -226,8 +226,8 @@ func TestAccGlueJob_nonOverridableArguments(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -241,10 +241,10 @@ func TestAccGlueJob_description(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_description(rName, "First Description"),
@@ -261,8 +261,8 @@ func TestAccGlueJob_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -276,10 +276,10 @@ func TestAccGlueJob_glueVersion(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_versionMaxCapacity(rName, "0.9"),
@@ -296,8 +296,8 @@ func TestAccGlueJob_glueVersion(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -318,10 +318,10 @@ func TestAccGlueJob_executionClass(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_executionClass(rName, "FLEX"),
@@ -338,8 +338,8 @@ func TestAccGlueJob_executionClass(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -353,13 +353,13 @@ func TestAccGlueJob_executionProperty(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccJobConfig_executionProperty(rName, 0),
+				Config:testAccJobConfig_executionProperty(rName, 0),
 				ExpectError: regexache.MustCompile(`expected execution_property.0.max_concurrent_runs to be at least`),
 			},
 			{
@@ -379,8 +379,8 @@ func TestAccGlueJob_executionProperty(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -394,13 +394,13 @@ func TestAccGlueJob_maxRetries(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccJobConfig_maxRetries(rName, 11),
+				Config:testAccJobConfig_maxRetries(rName, 11),
 				ExpectError: regexache.MustCompile(`expected max_retries to be in the range`),
 			},
 			{
@@ -418,8 +418,8 @@ func TestAccGlueJob_maxRetries(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -433,13 +433,13 @@ func TestAccGlueJob_notificationProperty(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccJobConfig_notificationProperty(rName, 0),
+				Config:testAccJobConfig_notificationProperty(rName, 0),
 				ExpectError: regexache.MustCompile(`expected notification_property.0.notify_delay_after to be at least`),
 			},
 			{
@@ -459,8 +459,8 @@ func TestAccGlueJob_notificationProperty(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -474,10 +474,10 @@ func TestAccGlueJob_tags(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_tags1(rName, "key1", "value1"),
@@ -488,8 +488,8 @@ func TestAccGlueJob_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -520,10 +520,10 @@ func TestAccGlueJob_streamingTimeout(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_timeout(rName, 1),
@@ -540,8 +540,8 @@ func TestAccGlueJob_streamingTimeout(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -555,10 +555,10 @@ func TestAccGlueJob_timeout(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_timeout(rName, 1),
@@ -575,8 +575,8 @@ func TestAccGlueJob_timeout(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -590,10 +590,10 @@ func TestAccGlueJob_security(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_securityConfiguration(rName, "default_encryption"),
@@ -610,8 +610,8 @@ func TestAccGlueJob_security(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -625,10 +625,10 @@ func TestAccGlueJob_workerType(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_workerType(rName, "Standard"),
@@ -652,8 +652,8 @@ func TestAccGlueJob_workerType(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -667,10 +667,10 @@ func TestAccGlueJob_pythonShell(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_pythonShell(rName),
@@ -683,8 +683,8 @@ func TestAccGlueJob_pythonShell(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -698,8 +698,8 @@ func TestAccGlueJob_pythonShell(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -733,10 +733,10 @@ func TestAccGlueJob_rayJob(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_rayJob(rName),
@@ -761,10 +761,10 @@ func TestAccGlueJob_maxCapacity(t *testing.T) {
 	resourceName := "aws_glue_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobDestroy(ctx),
+		CheckDestroy: testAccCheckJobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobConfig_maxCapacity(rName, 10),
@@ -784,8 +784,8 @@ func TestAccGlueJob_maxCapacity(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -848,32 +848,32 @@ func testAccJobConfig_base(rName string) string {
 data "aws_partition" "current" {}
 
 data "aws_iam_policy" "AWSGlueServiceRole" {
-  arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSGlueServiceRole"
+arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSGlueServiceRole"
 }
 
 resource "aws_iam_role" "test" {
-  name = %[1]q
+name = %[1]q
 
-  assume_role_policy = <<POLICY
+assume_role_policy = <<POLICY
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "glue.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
+"Version": "2012-10-17",
+"Statement": [
+{
+"Action": "sts:AssumeRole",
+"Principal": {
+"Service": "glue.${data.aws_partition.current.dns_suffix}"
+},
+"Effect": "Allow",
+"Sid": ""
+}
+]
 }
 POLICY
 }
 
 resource "aws_iam_role_policy_attachment" "test" {
-  policy_arn = data.aws_iam_policy.AWSGlueServiceRole.arn
-  role       = aws_iam_role.test.name
+policy_arn = data.aws_iam_policy.AWSGlueServiceRole.arn
+role = aws_iam_role.test.name
 }
 `, rName)
 }
@@ -881,15 +881,15 @@ resource "aws_iam_role_policy_attachment" "test" {
 func testAccJobConfig_command(rName, scriptLocation string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  max_capacity = 10
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
+max_capacity = 10
+name = %[1]q
+role_arn = aws_iam_role.test.arn
 
-  command {
-    script_location = %[2]q
-  }
+command {
+script_location = %[2]q
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, scriptLocation))
 }
@@ -897,20 +897,20 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_defaultArguments(rName, jobBookmarkOption, jobLanguage string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  max_capacity = 10
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
+max_capacity = 10
+name = %[1]q
+role_arn = aws_iam_role.test.arn
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  default_arguments = {
-    "--job-bookmark-option" = %[2]q
-    "--job-language"        = %[3]q
-  }
+default_arguments = {
+"--job-bookmark-option" = %[2]q
+"--job-language"= %[3]q
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, jobBookmarkOption, jobLanguage))
 }
@@ -918,20 +918,20 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_nonOverridableArguments(rName, jobBookmarkOption, jobLanguage string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  max_capacity = 10
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
+max_capacity = 10
+name = %[1]q
+role_arn = aws_iam_role.test.arn
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  non_overridable_arguments = {
-    "--job-bookmark-option" = %[2]q
-    "--job-language"        = %[3]q
-  }
+non_overridable_arguments = {
+"--job-bookmark-option" = %[2]q
+"--job-language"= %[3]q
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, jobBookmarkOption, jobLanguage))
 }
@@ -939,16 +939,16 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  description  = %[1]q
-  max_capacity = 10
-  name         = %[2]q
-  role_arn     = aws_iam_role.test.arn
+description= %[1]q
+max_capacity = 10
+name = %[2]q
+role_arn = aws_iam_role.test.arn
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, description, rName))
 }
@@ -956,16 +956,16 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_versionMaxCapacity(rName, glueVersion string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  glue_version = %[1]q
-  max_capacity = 10
-  name         = %[2]q
-  role_arn     = aws_iam_role.test.arn
+glue_version = %[1]q
+max_capacity = 10
+name = %[2]q
+role_arn = aws_iam_role.test.arn
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, glueVersion, rName))
 }
@@ -973,17 +973,17 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_versionNumberOfWorkers(rName, glueVersion string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  glue_version      = %[1]q
-  name              = %[2]q
-  number_of_workers = 2
-  role_arn          = aws_iam_role.test.arn
-  worker_type       = "Standard"
+glue_version= %[1]q
+name= %[2]q
+number_of_workers = 2
+role_arn= aws_iam_role.test.arn
+worker_type = "Standard"
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, glueVersion, rName))
 }
@@ -991,18 +991,18 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_executionClass(rName, executionClass string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  execution_class   = %[2]q
-  name              = %[1]q
-  number_of_workers = 2
-  role_arn          = aws_iam_role.test.arn
-  worker_type       = "G.1X"
-  glue_version      = "3.0"
+execution_class = %[2]q
+name= %[1]q
+number_of_workers = 2
+role_arn= aws_iam_role.test.arn
+worker_type = "G.1X"
+glue_version= "3.0"
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, executionClass))
 }
@@ -1010,19 +1010,19 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_executionProperty(rName string, maxConcurrentRuns int) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  max_capacity = 10
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
+max_capacity = 10
+name = %[1]q
+role_arn = aws_iam_role.test.arn
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  execution_property {
-    max_concurrent_runs = %[2]d
-  }
+execution_property {
+max_concurrent_runs = %[2]d
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, maxConcurrentRuns))
 }
@@ -1030,16 +1030,16 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_maxRetries(rName string, maxRetries int) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  max_capacity = 10
-  max_retries  = %[1]d
-  name         = %[2]q
-  role_arn     = aws_iam_role.test.arn
+max_capacity = 10
+max_retries= %[1]d
+name = %[2]q
+role_arn = aws_iam_role.test.arn
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, maxRetries, rName))
 }
@@ -1047,19 +1047,19 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_notificationProperty(rName string, notifyDelayAfter int) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  max_capacity = 10
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
+max_capacity = 10
+name = %[1]q
+role_arn = aws_iam_role.test.arn
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  notification_property {
-    notify_delay_after = %[2]d
-  }
+notification_property {
+notify_delay_after = %[2]d
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, notifyDelayAfter))
 }
@@ -1067,15 +1067,15 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_required(rName string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  max_capacity = 10
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
+max_capacity = 10
+name = %[1]q
+role_arn = aws_iam_role.test.arn
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
 }
@@ -1083,16 +1083,16 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_requiredStreaming(rName string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  max_capacity = 10
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
+max_capacity = 10
+name = %[1]q
+role_arn = aws_iam_role.test.arn
 
-  command {
-    name            = "gluestreaming"
-    script_location = "testscriptlocation"
-  }
+command {
+name= "gluestreaming"
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
 }
@@ -1100,20 +1100,20 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  name              = %[1]q
-  number_of_workers = 2
-  role_arn          = aws_iam_role.test.arn
-  worker_type       = "Standard"
+name= %[1]q
+number_of_workers = 2
+role_arn= aws_iam_role.test.arn
+worker_type = "Standard"
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  tags = {
-    %[2]q = %[3]q
-  }
+tags = {
+%[2]q = %[3]q
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -1121,21 +1121,21 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  name              = %[1]q
-  number_of_workers = 2
-  role_arn          = aws_iam_role.test.arn
-  worker_type       = "Standard"
+name= %[1]q
+number_of_workers = 2
+role_arn= aws_iam_role.test.arn
+worker_type = "Standard"
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -1143,16 +1143,16 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_timeout(rName string, timeout int) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  max_capacity = 10
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
-  timeout      = %[2]d
+max_capacity = 10
+name = %[1]q
+role_arn = aws_iam_role.test.arn
+timeout= %[2]d
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, timeout))
 }
@@ -1160,16 +1160,16 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_securityConfiguration(rName string, securityConfiguration string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  max_capacity           = 10
-  name    = %[1]q
-  role_arn= aws_iam_role.test.arn
-  security_configuration = %[2]q
+max_capacity = 10
+name= %[1]q
+role_arn= aws_iam_role.test.arn
+security_configuration = %[2]q
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, securityConfiguration))
 }
@@ -1177,16 +1177,16 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_workerType(rName string, workerType string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  name              = %[1]q
-  role_arn          = aws_iam_role.test.arn
-  worker_type       = %[2]q
-  number_of_workers = 10
+name= %[1]q
+role_arn= aws_iam_role.test.arn
+worker_type = %[2]q
+number_of_workers = 10
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, workerType))
 }
@@ -1194,16 +1194,16 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_pythonShell(rName string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
-  max_capacity = 0.0625
+name = %[1]q
+role_arn = aws_iam_role.test.arn
+max_capacity = 0.0625
 
-  command {
-    name            = "pythonshell"
-    script_location = "testscriptlocation"
-  }
+command {
+name= "pythonshell"
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
 }
@@ -1211,17 +1211,17 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_pythonShellVersion(rName string, pythonVersion string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
-  max_capacity = 0.0625
+name = %[1]q
+role_arn = aws_iam_role.test.arn
+max_capacity = 0.0625
 
-  command {
-    name            = "pythonshell"
-    script_location = "testscriptlocation"
-    python_version  = %[2]q
-  }
+command {
+name= "pythonshell"
+script_location = "testscriptlocation"
+python_version= %[2]q
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, pythonVersion))
 }
@@ -1229,20 +1229,20 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_rayJob(rName string) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  glue_version      = "4.0"
-  name              = %[1]q
-  role_arn          = aws_iam_role.test.arn
-  worker_type       = "Z.2X"
-  number_of_workers = 10
+glue_version= "4.0"
+name= %[1]q
+role_arn= aws_iam_role.test.arn
+worker_type = "Z.2X"
+number_of_workers = 10
 
-  command {
-    name            = "glueray"
-    python_version  = "3.9"
-    runtime         = "Ray2.4"
-    script_location = "testscriptlocation"
-  }
+command {
+name= "glueray"
+python_version= "3.9"
+runtime = "Ray2.4"
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
 }
@@ -1250,15 +1250,15 @@ resource "aws_glue_job" "test" {
 func testAccJobConfig_maxCapacity(rName string, maxCapacity float64) string {
 	return acctest.ConfigCompose(testAccJobConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_job" "test" {
-  name         = %[1]q
-  role_arn     = aws_iam_role.test.arn
-  max_capacity = %[2]g
+name = %[1]q
+role_arn = aws_iam_role.test.arn
+max_capacity = %[2]g
 
-  command {
-    script_location = "testscriptlocation"
-  }
+command {
+script_location = "testscriptlocation"
+}
 
-  depends_on = [aws_iam_role_policy_attachment.test]
+depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, maxCapacity))
 }

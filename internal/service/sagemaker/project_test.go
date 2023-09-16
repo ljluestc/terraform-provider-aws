@@ -216,14 +216,14 @@ func rs.Primary.ID == "" {
 func testAccProjectConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_s3_object" "test" {
 funcy"%[1]s.json"
 
-  content = jsonencode({
+content = jsonencode({
 STemplateFormatVersion = "2010-09-09"
 rameters = {
 MakerProjectName = {
@@ -253,39 +253,39 @@ PC"
 
 
 
-  })
+})
 }
 
 resource "aws_servicecatalog_product" "test" {
-  name  = %[1]q
-  owner = %[1]q
-  type  = "CLOUD_FORMATION_TEMPLATE"
+name= %[1]q
+owner = %[1]q
+type= "CLOUD_FORMATION_TEMPLATE"
 
-  provisioning_artifact_parameters {
+provisioning_artifact_parameters {
 sable_template_validation = true
 me
 mplate_urlws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
 peON_TEMPLATE"
-  }
+}
 }
 
 resource "aws_servicecatalog_portfolio" "test" {
-  name
-  description[1]q
-  provider_name = %[1]q
+name
+description[1]q
+provider_name = %[1]q
 }
 
 resource "aws_servicecatalog_product_portfolio_association" "test" {
-  portfolio_id = aws_servicecatalog_portfolio.test.id
-  product_idws_servicecatalog_product.test.id
+portfolio_id = aws_servicecatalog_portfolio.test.id
+product_idws_servicecatalog_product.test.id
 }
 
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "test" {
-  name = %[1]q
+name = %[1]q
 
-  assume_role_policy = jsonencode({
+assume_role_policy = jsonencode({
 rsion = "2012-10-17"
 atement = [{
 on = "sts:AssumeRole"
@@ -295,14 +295,14 @@ rvice = "servicecatalog.${data.aws_partition.current.dns_suffix}"
 
 = ""
 
-  })
+})
 }
 
 resource "aws_iam_role_policy" "test" {
-  name = %[1]q
-  role = aws_iam_role.test.id
+name = %[1]q
+role = aws_iam_role.test.id
 
-  policy = jsonencode({
+policy = jsonencode({
 rsion = "2012-10-17"
 atement = [
 
@@ -323,30 +323,30 @@ fectAllow"
 source = "*"
 
 
-  })
+})
 }
 
 resource "aws_servicecatalog_constraint" "test" {
-  portfolio_id = aws_servicecatalog_product_portfolio_association.test.portfolio_id
-  product_idws_servicecatalog_product_portfolio_association.test.product_id
-  type "LAUNCH"
+portfolio_id = aws_servicecatalog_product_portfolio_association.test.portfolio_id
+product_idws_servicecatalog_product_portfolio_association.test.product_id
+type "LAUNCH"
 
-  parameters = jsonencode({
+parameters = jsonencode({
 oleArn" : aws_iam_role.test.arn
-  })
+})
 
-  depends_on = [aws_iam_role_policy.test]
+depends_on = [aws_iam_role_policy.test]
 }
 
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_session_context" "test" {
-  arn = data.aws_caller_identity.current.arn
+arn = data.aws_caller_identity.current.arn
 }
 
 resource "aws_servicecatalog_principal_portfolio_association" "test" {
-  portfolio_id  = aws_servicecatalog_product_portfolio_association.test.portfolio_id
-  principal_arn = data.aws_iam_session_context.test.issuer_arn
+portfolio_id= aws_servicecatalog_product_portfolio_association.test.portfolio_id
+principal_arn = data.aws_iam_session_context.test.issuer_arn
 }
 `, rName)
 }
@@ -354,36 +354,36 @@ resource "aws_servicecatalog_principal_portfolio_association" "test" {
 func testAccProjectConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_project" "test" {
-  project_name = %[1]q
+project_name = %[1]q
 
-  service_catalog_provisioning_details {
+service_catalog_provisioning_details {
 oduct_id = aws_servicecatalog_constraint.test.product_id
-  }
+}
 }
 func
 
 func testAccProjectConfig_description(rName, desc string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_project" "test" {
-  project_name%[1]q
-  project_description = %[2]q
+project_name%[1]q
+project_description = %[2]q
 
-  service_catalog_provisioning_details {
+service_catalog_provisioning_details {
 oduct_id = aws_servicecatalog_constraint.test.product_id
-  }
+}
 }
 func
 
 func testAccProjectConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_project" "test" {
-  project_name = %[1]q
+project_name = %[1]q
 
-  service_catalog_provisioning_details {
+service_catalog_provisioning_details {
 oduct_id = aws_servicecatalog_constraint.test.product_id
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
 func
 `, rName, tagKey1, tagValue1))
@@ -392,13 +392,13 @@ func
 func testAccProjectConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_base(rName), fmt.Sprintf(`
 resource "aws_sagemaker_project" "test" {
-  project_name = %[1]q
+project_name = %[1]q
 
-  service_catalog_provisioning_details {
+service_catalog_provisioning_details {
 oduct_id = aws_servicecatalog_constraint.test.product_id
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
 func

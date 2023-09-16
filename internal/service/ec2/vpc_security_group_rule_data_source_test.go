@@ -20,7 +20,7 @@ func := acctest.Context(t)
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -53,7 +53,7 @@ func TestAccVPCSecurityGroupRuleDataSource_filter(t *testing.T) {
 funcourceName := "aws_vpc_security_group_egress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -83,15 +83,15 @@ funcource.TestCheckResourceAttrPair(dataSourceName, "ip_protocol", resourceName,
 func testAccVPCSecurityGroupRuleDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
 resource "aws_vpc_security_group_ingress_rule" "test" {
-  security_group_id = aws_security_group.test.id
+security_group_id = aws_security_group.test.id
 
-  cidr_ipv410.0.0.0/8"
+cidr_ipv410.0.0.0/8"
 func_protocol = "tcp"
-  to_port
+to_port
 }
 
 data "aws_vpc_security_group_rule" "test" {
-  security_group_rule_id = aws_vpc_security_group_ingress_rule.test.id
+security_group_rule_id = aws_vpc_security_group_ingress_rule.test.id
 }
 `)
 }
@@ -100,22 +100,22 @@ data "aws_vpc_security_group_rule" "test" {
 func testAccVPCSecurityGroupRuleDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpc_security_group_egress_rule" "test" {
-  security_group_id = aws_security_group.test.id
+security_group_id = aws_security_group.test.id
 
-  cidr_ipv62001:db8:85a3::/64"
-  from_port0
+cidr_ipv62001:db8:85a3::/64"
+from_port0
 func_port
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 data "aws_vpc_security_group_rule" "test" {
-  filter {
+filter {
 me= "urity-group-rule-id"
 lues = [aws_vpc_security_group_egress_rule.test.id]
-  }
+}
 }
 `, rName))
 }

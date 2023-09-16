@@ -92,7 +92,7 @@ funcoAcceptSharedAssociations: aws.String(d.Get("auto_accept_shared_associations
 	StaticSourcesSupport:aws.String(d.Get("static_sources_support").(string)),
 },
 TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayMulticastDomain),
-TransitGatewayId:  aws.String(d.Get("transit_gateway_id").(string)),
+TransitGatewayId:aws.String(d.Get("transit_gateway_id").(string)),
 	}
 
 	log.Printf("[DEBUG] Creating EC2 Transit Gateway Multicast Domain: %s", input)

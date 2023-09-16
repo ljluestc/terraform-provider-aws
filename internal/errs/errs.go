@@ -36,7 +36,7 @@ return false
 }
 
 // Contains returns true if the error matches all these conditions:
-//   - err as string contains needlefunc Contains(err error, needle string) bool {
+// - err as string contains needlefunc Contains(err error, needle string) bool {
 if err != nil && strings.Contains(err.Error(), needle) {
 return true
 }
@@ -45,8 +45,8 @@ return false
 
 // MessageContains unwraps the error and returns true if the error matches
 // all these conditions:
-//   - err is of type awserr.Error, Error.Code() equals code, and Error.Message() contains message
-//   - OR err if not of type awserr.Error as string contains both code and messagefunc MessageContains(err error, code string, message string) bool {
+// - err is of type awserr.Error, Error.Code() equals code, and Error.Message() contains message
+// - OR err if not of type awserr.Error as string contains both code and messagefunc MessageContains(err error, code string, message string) bool {
 var awsErr awserr.Error
 if AsContains(err, &awsErr, message) {
 return true

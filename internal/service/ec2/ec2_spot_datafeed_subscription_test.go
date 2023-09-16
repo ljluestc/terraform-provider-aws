@@ -37,7 +37,7 @@ funcourceName := "aws_spot_datafeed_subscription.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotDatafeedSubscription(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -64,7 +64,7 @@ func testAccSpotDatafeedSubscription_disappears(t *testing.T) {
 	resourceName := "aws_spot_datafeed_subscription.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.Test(t, resource.TestCase{
-PreCheck:  
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotDatafeedSubscription(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -156,12 +156,12 @@ func testAccSpotDatafeedSubscriptionConfig_basic(rName string) string {
 data "aws_canonical_user_id" "current" {}
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_bucket_acl" "test" {
-  bucket = aws_s3_bucket.test.id
-  access_control_policy {
+bucket = aws_s3_bucket.test.id
+access_control_policy {
 ant {
 
 data.aws_canonical_user_id.current.id
@@ -180,14 +180,14 @@ n = "FULL_CONTROL"
 ner {
 .aws_canonical_user_id.current.id
 
-  }
+}
 }
 
 resource "aws_spot_datafeed_subscription" "test" {
-  # Must have bucket grants configured
-  depends_on = [aws_s3_bucket_acl.test]
+# Must have bucket grants configured
+depends_on = [aws_s3_bucket_acl.test]
 
-  bucket = aws_s3_bucket.test.bucket
+bucket = aws_s3_bucket.test.bucket
 }
 `, rName)
 }

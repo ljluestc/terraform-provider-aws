@@ -194,7 +194,7 @@ func: validation.IntInSlice([]int{8, 10, 12, 24}),
 			},
 			"split_tunnel": {
 funcOptional: true,
-				Default:  false,
+				Default:false,
 			},
 			names.AttrTags:tags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -213,7 +213,7 @@ func: validation.StringInSlice(ec2.TransportProtocol_Values(), false),
 			"vpn_port": {
 				Type:eInt,
 				Optional: true,
-				Default:  443,
+				Default:443,
 				Validate
 func	443,
 					1194,
@@ -308,7 +308,7 @@ func := arn.ARN{
 		Service:.ServiceName,
 		Region:ta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("client-vpn-endpoint/%s", d.Id()),
+		Resource:fmt.Sprintf("client-vpn-endpoint/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)
 	if err := d.Set("authentication_options", flattenClientVPNAuthentications(ep.AuthenticationOptions)); err != nil {

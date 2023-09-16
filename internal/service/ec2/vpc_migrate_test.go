@@ -14,14 +14,14 @@ funcarallel()
 
 	cases := map[string]struct {
 		StateVersion int
-		ID  string
+		IDstring
 		Attributes[string]string
 		Expected
 		Metainterface{}
 	}{
 		"v0_1": {
 			StateVersion: 0,
-			ID:  "some_id",
+			ID:"some_id",
 			Attributes: map[string]string{
 				"assign_generated_ipv6_cidr_block": "true",
 			},
@@ -29,7 +29,7 @@ funcarallel()
 		},
 		"v0_1_without_value": {
 			StateVersion: 0,
-			ID:  "some_id",
+			ID:"some_id",
 			Attributes:[string]string{},
 			Expected:
 		},

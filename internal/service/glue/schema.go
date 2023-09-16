@@ -26,7 +26,7 @@ import (
 func ResourceSchema() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSchemaCreate,
-		ReadWithoutTimeout:   resourceSchemaRead,
+		ReadWithoutTimeout: resourceSchemaRead,
 		UpdateWithoutTimeout: resourceSchemaUpdate,
 		DeleteWithoutTimeout: resourceSchemaDelete,
 		Importer: &schema.ResourceImporter{
@@ -37,48 +37,48 @@ func ResourceSchema() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type: schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 2048),
 			},
 			"registry_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type: schema.TypeString,
+				Optional: true,
+				Computed: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"registry_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"latest_schema_version": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"next_schema_version": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"schema_checkpoint": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"compatibility": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type: schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringInSlice(glue.Compatibility_Values(), false),
 			},
 			"data_format": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type: schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringInSlice(glue.DataFormat_Values(), false),
 			},
 			"schema_definition": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 170000),
@@ -86,7 +86,7 @@ func ResourceSchema() *schema.Resource {
 				),
 			},
 			"schema_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -94,7 +94,7 @@ func ResourceSchema() *schema.Resource {
 					validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z_$#-]+$`), ""),
 				),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -105,10 +105,10 @@ func resourceSchemaCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	conn := meta.(*conns.AWSClient).GlueConn(ctx)
 
 	input := &glue.CreateSchemaInput{
-		SchemaName:       aws.String(d.Get("schema_name").(string)),
+		SchemaName: aws.String(d.Get("schema_name").(string)),
 		SchemaDefinition: aws.String(d.Get("schema_definition").(string)),
-		DataFormat:       aws.String(d.Get("data_format").(string)),
-		Tags:             getTagsIn(ctx),
+		DataFormat: aws.String(d.Get("data_format").(string)),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("registry_arn"); ok {
@@ -217,7 +217,7 @@ func resourceSchemaUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("schema_definition") {
 		defInput := &glue.RegisterSchemaVersionInput{
-			SchemaId:         createSchemaID(d.Id()),
+			SchemaId: createSchemaID(d.Id()),
 			SchemaDefinition: aws.String(d.Get("schema_definition").(string)),
 		}
 

@@ -26,10 +26,10 @@ func TestAccGlueSecurityConfiguration_basic(t *testing.T) {
 	resourceName := "aws_glue_security_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckSecurityConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecurityConfigurationConfig_basic(rName),
@@ -49,8 +49,8 @@ func TestAccGlueSecurityConfiguration_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -66,10 +66,10 @@ func TestAccGlueSecurityConfiguration_CloudWatchEncryptionCloudWatchEncryptionMo
 	resourceName := "aws_glue_security_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckSecurityConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecurityConfigurationConfig_cloudWatchEncryptionModeSSEKMS(rName),
@@ -82,8 +82,8 @@ func TestAccGlueSecurityConfiguration_CloudWatchEncryptionCloudWatchEncryptionMo
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -99,10 +99,10 @@ func TestAccGlueSecurityConfiguration_JobBookmarksEncryptionJobBookmarksEncrypti
 	resourceName := "aws_glue_security_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckSecurityConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecurityConfigurationConfig_jobBookmarksEncryptionModeCSEKMS(rName),
@@ -115,8 +115,8 @@ func TestAccGlueSecurityConfiguration_JobBookmarksEncryptionJobBookmarksEncrypti
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -132,10 +132,10 @@ func TestAccGlueSecurityConfiguration_S3EncryptionS3EncryptionMode_sseKMS(t *tes
 	resourceName := "aws_glue_security_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckSecurityConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecurityConfigurationConfig_s3EncryptionModeSSEKMS(rName),
@@ -148,8 +148,8 @@ func TestAccGlueSecurityConfiguration_S3EncryptionS3EncryptionMode_sseKMS(t *tes
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -164,10 +164,10 @@ func TestAccGlueSecurityConfiguration_S3EncryptionS3EncryptionMode_sseS3(t *test
 	resourceName := "aws_glue_security_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckSecurityConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecurityConfigurationConfig_s3EncryptionModeSSES3(rName),
@@ -180,8 +180,8 @@ func TestAccGlueSecurityConfiguration_S3EncryptionS3EncryptionMode_sseS3(t *test
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -255,21 +255,21 @@ func testAccCheckSecurityConfigurationDestroy(ctx context.Context) resource.Test
 func testAccSecurityConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_glue_security_configuration" "test" {
-  name = %q
+name = %q
 
-  encryption_configuration {
-    cloudwatch_encryption {
-      cloudwatch_encryption_mode = "DISABLED"
-    }
+encryption_configuration {
+cloudwatch_encryption {
+cloudwatch_encryption_mode = "DISABLED"
+}
 
-    job_bookmarks_encryption {
-      job_bookmarks_encryption_mode = "DISABLED"
-    }
+job_bookmarks_encryption {
+job_bookmarks_encryption_mode = "DISABLED"
+}
 
-    s3_encryption {
-      s3_encryption_mode = "DISABLED"
-    }
-  }
+s3_encryption {
+s3_encryption_mode = "DISABLED"
+}
+}
 }
 `, rName)
 }
@@ -277,26 +277,26 @@ resource "aws_glue_security_configuration" "test" {
 func testAccSecurityConfigurationConfig_cloudWatchEncryptionModeSSEKMS(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  deletion_window_in_days = 7
+deletion_window_in_days = 7
 }
 
 resource "aws_glue_security_configuration" "test" {
-  name = %q
+name = %q
 
-  encryption_configuration {
-    cloudwatch_encryption {
-      cloudwatch_encryption_mode = "SSE-KMS"
-      kms_key_arn = aws_kms_key.test.arn
-    }
+encryption_configuration {
+cloudwatch_encryption {
+cloudwatch_encryption_mode = "SSE-KMS"
+kms_key_arn = aws_kms_key.test.arn
+}
 
-    job_bookmarks_encryption {
-      job_bookmarks_encryption_mode = "DISABLED"
-    }
+job_bookmarks_encryption {
+job_bookmarks_encryption_mode = "DISABLED"
+}
 
-    s3_encryption {
-      s3_encryption_mode = "DISABLED"
-    }
-  }
+s3_encryption {
+s3_encryption_mode = "DISABLED"
+}
+}
 }
 `, rName)
 }
@@ -304,26 +304,26 @@ resource "aws_glue_security_configuration" "test" {
 func testAccSecurityConfigurationConfig_jobBookmarksEncryptionModeCSEKMS(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  deletion_window_in_days = 7
+deletion_window_in_days = 7
 }
 
 resource "aws_glue_security_configuration" "test" {
-  name = %q
+name = %q
 
-  encryption_configuration {
-    cloudwatch_encryption {
-      cloudwatch_encryption_mode = "DISABLED"
-    }
+encryption_configuration {
+cloudwatch_encryption {
+cloudwatch_encryption_mode = "DISABLED"
+}
 
-    job_bookmarks_encryption {
-      job_bookmarks_encryption_mode = "CSE-KMS"
-      kms_key_arn    = aws_kms_key.test.arn
-    }
+job_bookmarks_encryption {
+job_bookmarks_encryption_mode = "CSE-KMS"
+kms_key_arn= aws_kms_key.test.arn
+}
 
-    s3_encryption {
-      s3_encryption_mode = "DISABLED"
-    }
-  }
+s3_encryption {
+s3_encryption_mode = "DISABLED"
+}
+}
 }
 `, rName)
 }
@@ -331,26 +331,26 @@ resource "aws_glue_security_configuration" "test" {
 func testAccSecurityConfigurationConfig_s3EncryptionModeSSEKMS(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  deletion_window_in_days = 7
+deletion_window_in_days = 7
 }
 
 resource "aws_glue_security_configuration" "test" {
-  name = %q
+name = %q
 
-  encryption_configuration {
-    cloudwatch_encryption {
-      cloudwatch_encryption_mode = "DISABLED"
-    }
+encryption_configuration {
+cloudwatch_encryption {
+cloudwatch_encryption_mode = "DISABLED"
+}
 
-    job_bookmarks_encryption {
-      job_bookmarks_encryption_mode = "DISABLED"
-    }
+job_bookmarks_encryption {
+job_bookmarks_encryption_mode = "DISABLED"
+}
 
-    s3_encryption {
-      kms_key_arn        = aws_kms_key.test.arn
-      s3_encryption_mode = "SSE-KMS"
-    }
-  }
+s3_encryption {
+kms_key_arn= aws_kms_key.test.arn
+s3_encryption_mode = "SSE-KMS"
+}
+}
 }
 `, rName)
 }
@@ -358,21 +358,21 @@ resource "aws_glue_security_configuration" "test" {
 func testAccSecurityConfigurationConfig_s3EncryptionModeSSES3(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_glue_security_configuration" "test" {
-  name = %q
+name = %q
 
-  encryption_configuration {
-    cloudwatch_encryption {
-      cloudwatch_encryption_mode = "DISABLED"
-    }
+encryption_configuration {
+cloudwatch_encryption {
+cloudwatch_encryption_mode = "DISABLED"
+}
 
-    job_bookmarks_encryption {
-      job_bookmarks_encryption_mode = "DISABLED"
-    }
+job_bookmarks_encryption {
+job_bookmarks_encryption_mode = "DISABLED"
+}
 
-    s3_encryption {
-      s3_encryption_mode = "SSE-S3"
-    }
-  }
+s3_encryption {
+s3_encryption_mode = "SSE-S3"
+}
+}
 }
 `, rName)
 }

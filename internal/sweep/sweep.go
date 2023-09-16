@@ -60,7 +60,7 @@ servicePackageMap[servicePackageName] = sp
 meta.ServicePackages = servicePackageMap
 
 conf := &conns.Config{
-Region:           region,
+Region: region,
 SuppressDebugLog: true,
 }
 

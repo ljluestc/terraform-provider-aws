@@ -630,39 +630,39 @@ GetObject",
 
 
 sources = ["*"]
-  }
+}
 }
 func "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "assume_role" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 ce"
 tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
 
-  }
+}
 }
 
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy" "test" {
-  rolews_iam_role.test.name
-  policy = data.aws_iam_policy_document.access.json
+rolews_iam_role.test.name
+policy = data.aws_iam_policy_document.access.json
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 data "aws_sagemaker_prebuilt_ecr_image" "monitor" {
-  repository_name = "sagemaker-model-monitor-analyzer"
-  image_taglatest"
+repository_name = "sagemaker-model-monitor-analyzer"
+image_taglatest"
 }
 `, rName)
 }
@@ -670,7 +670,7 @@ data "aws_sagemaker_prebuilt_ecr_image" "monitor" {
 func testAccDataQualityJobDefinitionConfig_endpointBase(rName string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "access" {
-  statement {
+statement {
 fect = "Allow"
 
 tions = [
@@ -687,71 +687,71 @@ GetObject",
 
 
 sources = ["*"]
-  }
+}
 }
 
 func
 data "aws_iam_policy_document" "assume_role" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 ce"
 tifiers = ["sagemaker.${data.aws_partition.current.dns_suffix}"]
 
-  }
+}
 }
 
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy" "test" {
-  rolews_iam_role.test.name
-  policy = data.aws_iam_policy_document.access.json
+rolews_iam_role.test.name
+policy = data.aws_iam_policy_document.access.json
 }
 
 resource "aws_s3_bucket" "test" {
-  bucket = %[1]q
+bucket = %[1]q
 }
 
 resource "aws_s3_object" "test" {
-  bucket = aws_s3_bucket.test.id
-  key"model.tar.gz"
-  source = "test-fixtures/sagemaker-tensorflow-serving-test-model.tar.gz"
+bucket = aws_s3_bucket.test.id
+key"model.tar.gz"
+source = "test-fixtures/sagemaker-tensorflow-serving-test-model.tar.gz"
 }
 
 data "aws_sagemaker_prebuilt_ecr_image" "test" {
-  repository_name = "sagemaker-tensorflow-serving"
-  image_tag1.12-cpu"
+repository_name = "sagemaker-tensorflow-serving"
+image_tag1.12-cpu"
 }
 
 resource "aws_sagemaker_model" "test" {
-  name
-  execution_role_arn = aws_iam_role.test.arn
+name
+execution_role_arn = aws_iam_role.test.arn
 
-  primary_container {
+primary_container {
 age_sagemaker_prebuilt_ecr_image.test.registry_path
 del_data_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-  }
+}
 
-  depends_on = [aws_iam_role_policy.test]
+depends_on = [aws_iam_role_policy.test]
 }
 
 resource "aws_sagemaker_endpoint_configuration" "test" {
-  name = %[1]q
+name = %[1]q
 
-  production_variants {
+production_variants {
 itial_instance_count = 1
 itial_variant_weight = 1
 stance_typeedium"
 del_nameagemaker_model.test.name
 riant_namet-1"
-  }
+}
 
-  data_capture_config {
+data_capture_config {
 itial_sampling_percentage = 100
 
 stination_s3_uri = "s3://${aws_s3_bucket.test.bucket_regional_domain_name}/capture"
@@ -762,17 +762,17 @@ ure_mode = "Input"
 pture_options {
 ure_mode = "Output"
 
-  }
+}
 }
 
 resource "aws_sagemaker_endpoint" "test" {
-  endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
-  name
+endpoint_config_name = aws_sagemaker_endpoint_configuration.test.name
+name
 }
 
 data "aws_sagemaker_prebuilt_ecr_image" "monitor" {
-  repository_name = "sagemaker-model-monitor-analyzer"
-  image_taglatest"
+repository_name = "sagemaker-model-monitor-analyzer"
+image_taglatest"
 }
 `, rName)
 }
@@ -780,29 +780,29 @@ data "aws_sagemaker_prebuilt_ecr_image" "monitor" {
 func testAccDataQualityJobDefinitionConfig_endpointBasic(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_endpointBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 dpoint_input {
 oint_name = aws_sagemaker_endpoint.test.name
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 func
-  role_arn = aws_iam_role.test.arn
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -810,37 +810,37 @@ func
 func testAccDataQualityJobDefinitionConfig_appSpecificationOptional(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
 vironment = {
 = "bar"
 
 cord_preprocessor_source_urittps://${aws_s3_bucket.test.bucket_regional_domain_name}/pre.sh"
 st_analytics_processor_source_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/post.sh"
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 func
-  job_resources {
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -848,40 +848,40 @@ me_size_in_gb = 20
 func testAccDataQualityJobDefinitionConfig_baselineConfig(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_baseline_config {
+}
+data_quality_baseline_config {
 nstraints_resource {
 ri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/constraints"
 
 atistics_resource {
 ri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/statistics"
 
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 func
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -889,32 +889,32 @@ me_size_in_gb = 20
 func testAccDataQualityJobDefinitionConfig_batchTransformBasic(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 func
-  role_arn = aws_iam_role.test.arn
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -922,11 +922,11 @@ func
 func testAccDataQualityJobDefinitionConfig_batchTransformCSVHeader(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
@@ -935,21 +935,21 @@ rue
 
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 func
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -957,32 +957,32 @@ func
 func testAccDataQualityJobDefinitionConfig_batchTransformJSON(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 on {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 
-  }
+}
 func
 `, rName))
 }
@@ -990,11 +990,11 @@ func
 func testAccDataQualityJobDefinitionConfig_batchTransformJSONLine(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
@@ -1003,15 +1003,15 @@ e
 
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
@@ -1025,11 +1025,11 @@ funcle_arn = aws_iam_role.test.arn
 func testAccDataQualityJobDefinitionConfig_batchTransformOptional(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
@@ -1039,15 +1039,15 @@ l_path = "/ng/local_path"
 ata_distribution_type = "ShardedByS3Key"
 nput_mode
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
@@ -1061,71 +1061,71 @@ funcle_arn = aws_iam_role.test.arn
 func testAccDataQualityJobDefinitionConfig_endpointOptional(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_endpointBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 dpoint_input {
 oint_nameer_endpoint.test.name
 l_path = "/ng/local_path"
 ata_distribution_type = "ShardedByS3Key"
 nput_mode
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 func
 func testAccDataQualityJobDefinitionConfig_outputConfigKMSKeyID(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 10
+description
+deletion_window_in_days = 10
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 s_key_id = aws_kms_key.test.arn
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 func
-  role_arn = aws_iam_role.test.arn
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -1133,19 +1133,19 @@ func
 func testAccDataQualityJobDefinitionConfig_outputConfigOptional(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uris://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
@@ -1153,53 +1153,53 @@ _upload_mode = "Continuous"
 cal_path= "/o/processing/local_path"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 func
 func testAccDataQualityJobDefinitionConfig_jobResourcesVolumeKMSKeyID(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description
-  deletion_window_in_days = 10
+description
+deletion_window_in_days = 10
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 me_kms_key_id = aws_kms_key.test.arn
 
-  }
+}
 func
 `, rName))
 }
@@ -1207,111 +1207,111 @@ func
 func testAccDataQualityJobDefinitionConfig_stoppingCondition(rName string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 
-  }
-  stopping_condition {
+}
+stopping_condition {
 x_runtime_in_seconds = 600
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
 func testAccDataQualityJobDefinitionConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
 func testAccDataQualityJobDefinitionConfig_tags2(rName string, tagKey1, tagValue1 string, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccDataQualityJobDefinitionConfig_batchTransformBase(rName), fmt.Sprintf(`
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
@@ -1321,48 +1321,48 @@ func testAccDataQualityJobDefinitionConfig_networkConfig(rName string) string {
 		testAccDataQualityJobDefinitionConfig_batchTransformBase(rName),
 		fmt.Sprintf(`
 resource "aws_security_group" "test" {
-  count = 1
+count = 1
 
-  name = "%[1]s-${count.index}"
+name = "%[1]s-${count.index}"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 func
-  }
-  network_config {
+}
+network_config {
 c_config {
-ets  = atest[*].id
+ets= atest[*].id
 rity_group_ids = aws_security_group.test[*].id
 
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -1373,49 +1373,49 @@ func testAccDataQualityJobDefinitionConfig_networkConfigTrafficEncryption(rName 
 		testAccDataQualityJobDefinitionConfig_batchTransformBase(rName),
 		fmt.Sprintf(`
 resource "aws_security_group" "test" {
-  count = 1
+count = 1
 
-  name = "%[1]s-${count.index}"
+name = "%[1]s-${count.index}"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
 me_size_in_gb = 20
 func
-  network_config {
+network_config {
 able_inter_container_traffic_encryption = true
 c_config {
-ets  = atest[*].id
+ets= atest[*].id
 rity_group_ids = aws_security_group.test[*].id
 
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -1426,36 +1426,36 @@ func testAccDataQualityJobDefinitionConfig_networkConfigEnableNetworkIsolation(r
 		testAccDataQualityJobDefinitionConfig_batchTransformBase(rName),
 		fmt.Sprintf(`
 resource "aws_security_group" "test" {
-  count = 1
+count = 1
 
-  name = "%[1]s-${count.index}"
+name = "%[1]s-${count.index}"
 
-  tags = {
+tags = {
 me = %[1]q
-  }
+}
 }
 
 resource "aws_sagemaker_data_quality_job_definition" "test" {
-  name = %[1]q
-  data_quality_app_specification {
+name = %[1]q
+data_quality_app_specification {
 age_uri = data.aws_sagemaker_prebuilt_ecr_image.monitor.registry_path
-  }
-  data_quality_job_input {
+}
+data_quality_job_input {
 tch_transform_input {
 _captured_destination_s3_uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/captured"
 set_format {
 v {}
 
 
-  }
-  data_quality_job_output_config {
+}
+data_quality_job_output_config {
 nitoring_outputs {
 utput {
 _uri = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/output"
 
 
-  }
-  job_resources {
+}
+job_resources {
 uster_config {
 ance_count1
 ance_type= "mledium"
@@ -1464,11 +1464,11 @@ me_size_in_gb = 20
 functwork_config {
 able_network_isolation = true
 c_config {
-ets  = atest[*].id
+ets= atest[*].id
 rity_group_ids = aws_security_group.test[*].id
 
-  }
-  role_arn = aws_iam_role.test.arn
+}
+role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }

@@ -90,7 +90,7 @@ funcIf the TGW attachment is already associated with a TGW route table, disassoc
 	transitGatewayPolicyTableID := d.Get("transit_gateway_policy_table_id").(string)
 	id := TransitGatewayPolicyTableAssociationCreateResourceID(transitGatewayPolicyTableID, transitGatewayAttachmentID)
 	input := &ec2.AssociateTransitGatewayPolicyTableInput{
-		TransitGatewayAttachmentId:  aws.String(transitGatewayAttachmentID),
+		TransitGatewayAttachmentId:aws.String(transitGatewayAttachmentID),
 		TransitGatewayPolicyTableId: aws.String(transitGatewayPolicyTableID),
 	}
 
@@ -151,7 +151,7 @@ funcerr != nil {
 
 	log.Printf("[DEBUG] Deleting EC2 Transit Gateway Policy Table Association: %s", d.Id())
 	_, err = conn.DisassociateTransitGatewayPolicyTableWithContext(ctx, &ec2.DisassociateTransitGatewayPolicyTableInput{
-		TransitGatewayAttachmentId:  aws.String(transitGatewayAttachmentID),
+		TransitGatewayAttachmentId:aws.String(transitGatewayAttachmentID),
 		TransitGatewayPolicyTableId: aws.String(transitGatewayPolicyTableID),
 	})
 

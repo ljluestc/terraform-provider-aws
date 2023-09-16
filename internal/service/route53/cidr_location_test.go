@@ -24,7 +24,7 @@ func := acctest.Context(t)
 	locationName := sdkacctest.RandString(16)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckCIDRLocationDestroy(ctx),
 Steps: []resource.TestStep{
@@ -63,7 +63,7 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	locationName := sdkacctest.RandString(16)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestrofuncs: []resource.TestStep{
@@ -86,7 +86,7 @@ func TestAccRoute53CIDRLocation_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:CheckCIDRLocationDestroy(ctx),
@@ -176,25 +176,25 @@ return err
 func testAccCIDRLocation_basic(rName, locationName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_cidr_collection" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_route53_cidr_location" "test" {
-  cidr_collection_id = aws_route53_cidr_collection.test.id
-  name= %[2]q
-  cidr_blocks["200.5.3.0/24", "200.6.3.0/24"]
+cidr_collection_id = aws_route53_cidr_collection.test.id
+name= %[2]q
+cidr_blocks["200.5.3.0/24", "200.6.3.0/24"]
 funcName, locationName)
 }
 
 func testAccCIDRLocation_updated(rName, locationName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_cidr_collection" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_route53_cidr_location" "test" {
-  cidr_collection_id = aws_route53_cidr_collection.test.id
-  name= %[2]q
-  cidr_blocks["200.5.2.0/24", "200.6.3.0/24", "200.6.5.0/24"]
+cidr_collection_id = aws_route53_cidr_collection.test.id
+name= %[2]q
+cidr_blocks["200.5.2.0/24", "200.6.3.0/24", "200.6.5.0/24"]
 }
 func

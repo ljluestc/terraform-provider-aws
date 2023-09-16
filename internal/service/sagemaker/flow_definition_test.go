@@ -243,42 +243,42 @@ funceturn fmt.Errorf("No SageMaker Flow Definition ID is set")
 func testAccFlowDefinitionBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sagemaker_human_task_ui" "test" {
-  human_task_ui_name = %[1]q
+human_task_ui_name = %[1]q
 
-  ui_template {
+ui_template {
 ntent = file("test-fixtures/sagemaker-human-task-ui-tmpl.html")
-  }
+}
 }
 funcurce "aws_s3_bucket" "test" {
-  bucket%[1]q
-  force_destroy = true
+bucket%[1]q
+force_destroy = true
 }
 
 resource "aws_iam_role" "test" {
-  name
-  path
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+name
+path
+assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 data "aws_iam_policy_document" "assume_role" {
-  statement {
+statement {
 tions = ["sts:AssumeRole"]
 
 incipals {
 ce"
 tifiers = ["sagemaker.amazonaws.com"]
 
-  }
+}
 }
 
 resource "aws_iam_role_policy" "test" {
-  name = %[1]q
-  role = aws_iam_role.test.id
+name = %[1]q
+role = aws_iam_role.test.id
 
-  policy = <<EOF
+policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
+"Version": "2012-10-17",
+"Statement": [
 
 ect": "Allow",
 ion": [
@@ -297,7 +297,7 @@ ource": [
 "
 
 
-  ]
+]
 }
 EOF
 }
@@ -309,20 +309,20 @@ func testAccFlowDefinitionConfig_basic(rName string) string {
 		testAccWorkteamConfig_cognito(rName),
 		fmt.Sprintf(`
 resource "aws_sagemaker_flow_definition" "test" {
-  flow_definition_name = %[1]q
-  role_arnam_role.test.arn
+flow_definition_name = %[1]q
+role_arnam_role.test.arn
 
-  human_loop_config {
+human_loop_config {
 man_task_ui_arnan_task_ui.test.arn
 funcount
 sk_description
 sk_title
 rkteam_arn.test.arn
-  }
+}
 
-  output_config {
+output_config {
 _output_path = "s3://${aws_s3_bucket.test.bucket}/"
-  }
+}
 }
 `, rName))
 }
@@ -335,8 +335,8 @@ data "aws_region" "current" {}
 data "aws_partition" "current" {}
 
 resource "aws_sagemaker_flow_definition" "test" {
-  flow_definition_name = %[1]q
-  role_arnam_role.test.arn
+flow_definition_name = %[1]q
+role_arnam_role.test.arn
 
 functask_ui_arnan_task_ui.test.arn
 sk_availability_lifetime_in_seconds = 1
@@ -351,11 +351,11 @@ nts = 1
 nth_fractions_of_a_cent = 2
 
 
-  }
+}
 
-  output_config {
+output_config {
 _output_path = "s3://${aws_s3_bucket.test.bucket}/"
-  }
+}
 }
 `, rName))
 }
@@ -365,41 +365,41 @@ func testAccFlowDefinitionConfig_humanLoopRequestSource(rName string) string {
 		testAccWorkteamConfig_cognito(rName),
 		fmt.Sprintf(`
 resource "aws_sagemaker_flow_definition" "test" {
-  flow_definition_name = %[1]q
-  role_arnam_role.test.arn
+flow_definition_name = %[1]q
+role_arnam_role.test.arn
 
-  human_loop_config {
+human_loop_config {
 man_task_ui_arnan_task_ui.test.arn
 sk_availability_lifetime_in_seconds = 1
 sk_count
 funcitle
 rkteam_arn.test.arn
-  }
+}
 
-  human_loop_request_source {
+human_loop_request_source {
 s_managed_human_loop_request_source = "AWS/Textract/AnalyzeDocument/Forms/V1"
-  }
+}
 
-  human_loop_activation_config {
+human_loop_activation_config {
 man_loop_activation_conditions_config {
 n_loop_activation_conditions = <<EOF
 
 			"Conditions": [
-			  {
+			{
 				"ConditionType": "Sampling",
 				"ConditionParameters": {
-				  "RandomSamplingPercentage": 5
+				"RandomSamplingPercentage": 5
 				}
-			  }
+			}
 			]
 		}
 F
 
-  }
+}
 
-  output_config {
+output_config {
 _output_path = "s3://${aws_s3_bucket.test.bucket}/"
-  }
+}
 }
 `, rName))
 }
@@ -409,24 +409,24 @@ func testAccFlowDefinitionConfig_tags1(rName, tagKey1, tagValue1 string) string 
 		testAccWorkteamConfig_cognito(rName),
 		fmt.Sprintf(`
 resource "aws_sagemaker_flow_definition" "test" {
-  flow_definition_name = %[1]q
-  role_arnam_role.test.arn
+flow_definition_name = %[1]q
+role_arnam_role.test.arn
 
-  human_loop_config {
+human_loop_config {
 man_task_ui_arnan_task_ui.test.arn
 sk_availability_lifetime_in_seconds = 1
 sk_count
 sk_description
 funcam_arn.test.arn
-  }
+}
 
-  output_config {
+output_config {
 _output_path = "s3://${aws_s3_bucket.test.bucket}/"
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
@@ -436,10 +436,10 @@ func testAccFlowDefinitionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagVa
 		testAccWorkteamConfig_cognito(rName),
 		fmt.Sprintf(`
 resource "aws_sagemaker_flow_definition" "test" {
-  flow_definition_name = %[1]q
-  role_arnam_role.test.arn
+flow_definition_name = %[1]q
+role_arnam_role.test.arn
 
-  human_loop_config {
+human_loop_config {
 man_task_ui_arnan_task_ui.test.arn
 sk_availability_lifetime_in_seconds = 1
 sk_count
@@ -447,14 +447,14 @@ sk_description
 sk_title
 func
 
-  output_config {
+output_config {
 _output_path = "s3://${aws_s3_bucket.test.bucket}/"
-  }
+}
 
-  tags = {
+tags = {
 2]q = %[3]q
 4]q = %[5]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
