@@ -1,3 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0//go:build sweep
-// +build sweeppackage oam
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0//go:buildsweep//+buildsweeppackageoam

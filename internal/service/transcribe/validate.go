@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package transcribeimport ("github.com/aws/aws-sdk-go-v2/service/transcribe/types")func out []stringfor _, v := range t {out = append(out, string(v))}return out}
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagetranscribeimport("github.com/aws/aws-sdk-go-v2/service/transcribe/types")funcout[]stringfor_,v:=ranget{out=append(out,string(v))}returnout}

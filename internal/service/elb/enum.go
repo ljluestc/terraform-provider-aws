@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package elbconst (InstanceStateInService = "InService")const (ReferenceSecurityPolicy  = "Reference-Security-Policy"SSLNegotiationPolicyType = "SSLNegotiationPolicyType")
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageelbconst(InstanceStateInService="InService")const(ReferenceSecurityPolicy="Reference-Security-Policy"SSLNegotiationPolicyType="SSLNegotiationPolicyType")

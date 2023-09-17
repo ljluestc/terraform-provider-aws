@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package kmsimport ("time")const (AliasNamePrefix = "alias/")const (PolicyNameDefault = "default")const (propagationTimeout = 2 * time.Minute)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagekmsimport("time")const(AliasNamePrefix="alias/")const(PolicyNameDefault="default")const(propagationTimeout=2*time.Minute)

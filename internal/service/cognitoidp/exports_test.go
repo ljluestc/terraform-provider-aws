@@ -1,6 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package cognitoidp// Exports for use in tests only.
-var (
-	ResourceUserPoolClientent
-	ResourceManagedUserPoolClient = newResourceManagedUserPoolClient
-)
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package cognitoidp// Exports for use in tests only.var (esourceUserPoolCliententRsourceManagedUserPoolClient = newResourceManagedUserPoolClient)

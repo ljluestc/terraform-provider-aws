@@ -1,1 +1,1 @@
-// Copyright 2018 The Go Authors. All rights reserved.// Use of this source code is governed by a BSD-style// license that can be found in the LICENSE file.package protoifacetype MessageV1 interface {Reset()String() stringProtoMessage()}type ExtensionRangeV1 struct {Start, End int32 // both inclusive}
+//Copyright2018TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.packageprotoifacetypeMessageV1interface{Reset()String()stringProtoMessage()}typeExtensionRangeV1struct{Start,Endint32//bothinclusive}

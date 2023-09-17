@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package acctest// Exports for use in tests only.var (CloseVCRRecorder = closeVCRRecorder)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageacctest//Exportsforuseintestsonly.var(CloseVCRRecorder=closeVCRRecorder)

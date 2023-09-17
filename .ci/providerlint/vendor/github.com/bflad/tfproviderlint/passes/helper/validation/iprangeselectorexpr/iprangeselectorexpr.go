@@ -1,1 +1,1 @@
-packageiprangeselectorexprimport(	"github.com/bflad/tfproviderlint/helper/analysisutils"	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation")varAnalyzer=analysisutils.SelectorExprAnalyzer(	"iprangeselectorexpr",	validation.Is	validation.PackagePath,	validation.IPRange,)
+packageiprangeselectorexprimport("github.com/bflad/tfproviderlint/helper/analysisutils""github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation")varAnalyzer=analysisutils.SelectorExprAnalyzer("iprangeselectorexpr",validation.Isvalidation.PackagePath,validation.IPRange,)

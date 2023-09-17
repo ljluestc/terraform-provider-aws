@@ -1,1 +1,1 @@
-//go:build go1.13// +build go1.13package ed25519import cryptoEd25519 "crypto/ed25519"// PublicKey is the type of Ed25519 public keys.type PublicKey cryptoEd25519.PublicKey
+//go:buildgo1.13//+buildgo1.13packageed25519importcryptoEd25519"crypto/ed25519"//PublicKeyisthetypeofEd25519publickeys.typePublicKeycryptoEd25519.PublicKey

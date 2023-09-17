@@ -1,1 +1,1 @@
-package msgpacktype Marshaler interface {MarshalMsgpack() ([]byte, error)}type Unmarshaler interface {UnmarshalMsgpack([]byte) error}type CustomEncoder interface {EncodeMsgpack(*Encoder) error}type CustomDecoder interface {DecodeMsgpack(*Decoder) error}
+packagemsgpacktypeMarshalerinterface{MarshalMsgpack()([]byte,error)}typeUnmarshalerinterface{UnmarshalMsgpack([]byte)error}typeCustomEncoderinterface{EncodeMsgpack(*Encoder)error}typeCustomDecoderinterface{DecodeMsgpack(*Decoder)error}

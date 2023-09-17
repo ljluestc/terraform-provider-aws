@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package resourceimport ("bytes""encoding/json")arshalJSON(data []byte, v interface{}) error {dec := json.NewDecoder(bytes.NewReader(data))dec.UseNumber()return dec.Decode(v)}
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageresourceimport("bytes""encoding/json")arshalJSON(data[]byte,vinterface{})error{dec:=json.NewDecoder(bytes.NewReader(data))dec.UseNumber()returndec.Decode(v)}

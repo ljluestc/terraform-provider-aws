@@ -1,4 +1,1 @@
-//Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0//go:generategorun../../generate/tags/main.go-ListTags-ListTagsOp=ListTagsForStream-ListTagsInIDElem=StreamName-ServiceTagsSlice-TagOp=AddTagsToStream-TagOpBatchSize=10-TagInCustomVal=aws.StringMap(updatedTags.IgnoreAWS().Map())-TagInIDElem=StreamName-UntagOp=RemoveTagsFromStream-UpdateTags-CreateTags
-//go:generategorun../../generate/servicepackage/main.go
-//ONLYgeneratedirectivesandpackagedeclaration!Donotaddanythingelsetothisfile.packagekinesis
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0//go:generategorun../../generate/tags/main.go-ListTags-ListTagsOp=ListTagsForStream-ListTagsInIDElem=StreamName-ServiceTagsSlice-TagOp=AddTagsToStream-TagOpBatchSize=10-TagInCustomVal=aws.StringMap(updatedTags.IgnoreAWS().Map())-TagInIDElem=StreamName-UntagOp=RemoveTagsFromStream-UpdateTags-CreateTags//go:generategorun../../generate/servicepackage/main.go//ONLYgeneratedirectivesandpackagedeclaration!Donotaddanythingelsetothisfile.packagekinesis

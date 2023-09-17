@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package rolesanywherefunc result []stringfor _, rawVal := range tfList {if v, ok := rawVal.(string); ok && v != "" {result = append(result, v)}}return result}
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagerolesanywherefuncresult[]stringfor_,rawVal:=rangetfList{ifv,ok:=rawVal.(string);ok&&v!=""{result=append(result,v)}}returnresult}

@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package internetmonitor// Exports for use in tests only.var (ResourceMonitor = resourceMonitorFindMonitorByName = findMonitorByName)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageinternetmonitor//Exportsforuseintestsonly.var(ResourceMonitor=resourceMonitorFindMonitorByName=findMonitorByName)

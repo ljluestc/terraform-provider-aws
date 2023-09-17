@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package connect// Error code constants missing from AWS Go SDK:// https://docs.aws.amazon.com/sdk-for-go/api/service/connect/#pkg-constantsconst (ErrCodeAccessDeniedException = "AccessDeniedException")
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageconnect//ErrorcodeconstantsmissingfromAWSGoSDK://https://docs.aws.amazon.com/sdk-for-go/api/service/connect/#pkg-constantsconst(ErrCodeAccessDeniedException="AccessDeniedException")

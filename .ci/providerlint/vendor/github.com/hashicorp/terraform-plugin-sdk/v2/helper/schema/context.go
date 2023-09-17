@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package schematype Key stringvar (	StopContextKey = Key("StopContext"))
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package schematype Key stringvar (StopContextKey = Key("StopContext"))

@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package backupconst (errCodeAccessDeniedException = "AccessDeniedException")
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagebackupconst(errCodeAccessDeniedException="AccessDeniedException")

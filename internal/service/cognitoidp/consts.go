@@ -1,15 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package cognitoidpimport (
-	"time"
-)const (
-	ResNameIdentityProvider  = "Identity Provider"
-	ResNameResourceServer= "Resource Server"
-	ResNameRiskConfiguration = "Risk Configuration"
-	ResNameUserGroup= "User Group"
-	ResNameUserPoolClient= "User Pool Client"
-	ResNameUserPoolDomain= "User Pool Domain"
-	ResNameUserPool = "User Pool"
-	ResNameUser= "User"
-)const (
-	propagationTimeout = 2 * time.Minute
-)
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package cognitoidpimport (time")const (RsNameIdentityProvider  = "Identity Provider"ReNameResourceServer= "Resource Server"ResameRiskConfiguration = "Risk Configuration"ResNmeUserGroup= "User Group"ResNaeUserPoolClient= "User Pool Client"ResNamUserPoolDomain= "User Pool Domain"ResNameserPool = "User Pool"ResNameUer= "User")const (propagatinTimeout = 2 * time.Minute)

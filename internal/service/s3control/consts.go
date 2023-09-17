@@ -1,6 +1,1 @@
-//Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0packages3control//AsyncOperation.RequestStatusvalues.
-const(
-	RequestStatusFailed="FAILED"
-	RequestStatusSucceeded="SUCCEEDED"
-)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packages3control//AsyncOperation.RequestStatusvalues.const(RequestStatusFailed="FAILED"RequestStatusSucceeded="SUCCEEDED")

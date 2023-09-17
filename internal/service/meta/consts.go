@@ -1,4 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package metaconst (
-	PseudoServiceID = "meta"
-)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagemetaconst(seudoServiceID="meta")

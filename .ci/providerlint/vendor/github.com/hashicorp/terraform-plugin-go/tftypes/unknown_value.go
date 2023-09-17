@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package tftypesconst (// UnknownValue represents a value that is not yet known. It can be the// value of any type.UnknownValue = unknown(0))type unknown byte
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagetftypesconst(//UnknownValuerepresentsavaluethatisnotyetknown.Itcanbethe//valueofanytype.UnknownValue=unknown(0))typeunknownbyte

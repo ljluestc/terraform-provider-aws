@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package swf// Exports for use in tests only.var (FindDomainByName = findDomainByNameResourceDomain = resourceDomain)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageswf//Exportsforuseintestsonly.var(FindDomainByName=findDomainByNameResourceDomain=resourceDomain)

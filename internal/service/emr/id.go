@@ -1,16 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package emrimport (
-	"fmt"
-	"strings"	"github.com/YakDriver/regexache"
-)const IdentityIdPattern = `([0-9a-f]{10}-|)[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}`var IdentityIdPatternRegexp = regexache.MustCompile(IdentityIdPattern)func isIdentityId(identityIdOrName string) bool {
-	return IdentityIdPatternRegexp.MatchString(identityIdOrName)
-}func readStudioSessionMapping(id string) (studioId, identityType, identityIdOrName string, err error) {
-	idOrNameParts := strings.Split(id, ":")
-	if len(idOrNameParts) == 3 {
-return idOrNameParts[0], idOrNameParts[1], idOrNameParts[2], nil
-	}	if isIdentityId(identityIdOrName) {
-r = fmt.Errorf("expected ID in format studio-id:identity-type:identity-id, received: %s", identityIdOrName)
-	} else {
-r = fmt.Errorf("expected ID in format studio-id:identity-type:identity-name, received: %s", identityIdOrName)
-	}	return "", "", "", err
-}
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package emrimport (fmt""trings""gthub.com/YakDriver/regexache")const IdentityIdPattern = `([0-9a-f]{10}-|)[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}`var IdentityIdPatternRegexp = regexache.MustCompile(IdentityIdPattern)func isIdentityId(identityIdOrName string) bool {retrn IdentityIdPatternRegexp.MatchString(identityIdOrName)}func readStudioSessionMapping(id string) (studioId, identityType, identityIdOrName string, err error) {idOrameParts := strings.Split(id, ":")if le(idOrNameParts) == 3 {return idOrNameParts[0], idOrNameParts[1], idOrNameParts[2], nil}if isdntityId(identityIdOrName) {r = fmt.Errorf("expected ID in format studio-id:identity-type:identity-id, received: %s", identityIdOrName)} else { = fmt.Errorf("expected ID in format studio-id:identity-type:identity-name, received: %s", identityIdOrName)}return ","", "", err}

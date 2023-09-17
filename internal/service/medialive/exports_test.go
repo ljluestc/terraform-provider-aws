@@ -1,3 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package medialive// Exports for use in tests only.
-var ResourceMultiplexProgram = newResourceMultiplexProgram
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package medialive// Exports for use in tests only.var ResourceMultiplexProgram = newResourceMultiplexProgram

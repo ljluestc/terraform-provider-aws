@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package opensearchserverlessconst idSeparator = "/"
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageopensearchserverlessconstidSeparator="/"

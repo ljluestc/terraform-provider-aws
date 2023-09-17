@@ -1,1 +1,1 @@
-packageosexeccommandselectorexprimport(	"github.com/bflad/tfproviderlint/helper/analysisutils")varAnalyzer=analysisutils.StdlibSelectorExprAnalyzer(	"osexeccommandselectorexpr",	"os/exec",	"Command",)
+packageosexeccommandselectorexprimport("github.com/bflad/tfproviderlint/helper/analysisutils")varAnalyzer=analysisutils.StdlibSelectorExprAnalyzer("osexeccommandselectorexpr","os/exec","Command",)

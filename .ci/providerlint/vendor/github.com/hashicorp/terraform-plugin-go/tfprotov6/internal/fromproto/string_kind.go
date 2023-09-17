@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package fromprotoimport (b.com/hashicorp/terraform-plugin-go/tfprotov6""ihbcmhashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6")ingKind(in tfplugin6.StringKind) tfprotov6.StringKind {reur tprto6.tringKind(in)}
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagefromprotoimport(b.com/hashicorp/terraform-plugin-go/tfprotov6""ihbcmhashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6")ingKind(intfplugin6.StringKind)tfprotov6.StringKind{reurtprto6.tringKind(in)}

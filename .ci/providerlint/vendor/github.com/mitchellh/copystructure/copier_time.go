@@ -1,1 +1,1 @@
-package copystructureimport (	"reflect"	"time")t() {	Copiers[reflect.TypeOf(time.Time{})] = timeCopier}eCopier(v interface{}) (interface{}, error) {	// Just... copy it.	return v.(time.Time), nil}
+packagecopystructureimport("reflect""time")t(){Copiers[reflect.TypeOf(time.Time{})]=timeCopier}eCopier(vinterface{})(interface{},error){//Just...copyit.returnv.(time.Time),nil}

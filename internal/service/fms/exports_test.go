@@ -1,8 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package fms// Exports for use in tests only.
-var (
-	ResourceAdminAccount = resourceAdminAccount
-	ResourcePolicy= resourcePolicy	FindAdminAccount = findAdminAccount
-	FindPolicyByID= findPolicyByID
-	RemoveEmptyFieldsFromJSON = removeEmptyFieldsFromJSON
-)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagefms//Exportsforuseintestsonly.var(ResourceAdminAccount=resourceAdminAccountResourcePolicy=resourcePolicyFindAdminAccount=findAdminAccountFindPolicyByID=findPolicyByIDRemoveEmptyFieldsFromJSON=removeEmptyFieldsFromJSON)

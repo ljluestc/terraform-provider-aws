@@ -1,1 +1,1 @@
-// Copyright 2018 The Go Authors. All rights reserved.// Use of this source code is governed by a BSD-style// license that can be found in the LICENSE file.//go:build mips || mipsle// +build mips mipslepackage cpuconst cacheLineSize = 32 initOptions() {}
+//Copyright2018TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.//go:buildmips||mipsle//+buildmipsmipslepackagecpuconstcacheLineSize=32initOptions(){}

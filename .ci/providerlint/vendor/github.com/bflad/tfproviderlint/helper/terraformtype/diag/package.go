@@ -1,1 +1,1 @@
-package diagimport "github.com/bflad/tfproviderlint/helper/terraformtype"const (	PackageModule= terraformtype.ModuleTerraformPluginSdk	PackageModulePath = `diag`)
+packagediagimport"github.com/bflad/tfproviderlint/helper/terraformtype"const(PackageModule=terraformtype.ModuleTerraformPluginSdkPackageModulePath=`diag`)

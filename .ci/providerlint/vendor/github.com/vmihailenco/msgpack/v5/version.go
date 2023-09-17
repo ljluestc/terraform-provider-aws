@@ -1,1 +1,1 @@
-package msgpack // Version is the current release version.sion() string {return "5.3.5"}
+packagemsgpack//Versionisthecurrentreleaseversion.sion()string{return"5.3.5"}

@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package apigatewayimport ("strings")// escapeJSONPointer escapes string per RFC 6901// so it can be used as path in JSON patch operationsfunch = strings.Replace(path, "~", "~0", -1)path = strings.Replace(path, "/", "~1", -1)return path}
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageapigatewayimport("strings")//escapeJSONPointerescapesstringperRFC6901//soitcanbeusedaspathinJSONpatchoperationsfunch=strings.Replace(path,"~","~0",-1)path=strings.Replace(path,"/","~1",-1)returnpath}

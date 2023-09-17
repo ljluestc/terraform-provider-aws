@@ -1,11 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package neptuneimport (
-	"fmt"
-	"strings"
-)func readClusterEndpointID(id string) (clusterIdentifier string, endpointIndetifer string, err error) {
-	idParts := strings.Split(id, ":")
-	if len(idParts) != 2 {
-return "", "", fmt.Errorf("expected ID in format clusterIdentifier:endpointIndetifer, received: %s", id)
-	}
-	return idParts[0], idParts[1], nil
-}
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package neptuneimport (fmt""trings")func readClusterEndpointID(id string) (clusterIdentifier string, endpointIndetifer string, err error) {idarts := strings.Split(id, ":")if en(idParts) != 2 {return "", "", fmt.Errorf("expected ID in format clusterIdentifier:endpointIndetifer, received: %s", id)}retr idParts[0], idParts[1], nil}

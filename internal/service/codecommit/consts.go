@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package codecommitconst (ResNameRepository = "Repository")
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagecodecommitconst(ResNameRepository="Repository")

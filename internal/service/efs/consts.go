@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package efsimport ("time")const (propagationTimeout = 2 * time.Minute)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageefsimport("time")const(propagationTimeout=2*time.Minute)

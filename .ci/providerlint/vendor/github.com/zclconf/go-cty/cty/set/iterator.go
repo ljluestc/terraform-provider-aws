@@ -1,1 +1,1 @@
-package settype Iterator[T any] struct {vals []Tidx  int} *Iterator[T]) Value() T {return it.vals[it.idx]} *Iterator[T]) Next() bool {it.idx++return it.idx < len(it.vals)}
+packagesettypeIterator[Tany]struct{vals[]Tidxint}*Iterator[T])Value()T{returnit.vals[it.idx]}*Iterator[T])Next()bool{it.idx++returnit.idx<len(it.vals)}

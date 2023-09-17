@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package redshiftconst (errCodeInvalidParameterValue = "InvalidParameterValue")
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageredshiftconst(errCodeInvalidParameterValue="InvalidParameterValue")

@@ -1,1 +1,1 @@
-//go:build !amd64 || purego// +build !amd64 puregopackage fp448v(x, y *Elt, n uint)  { cmovGeneric(x, y, n) }ap(x, y *Elt, n uint) { cswapGeneric(x, y, n) }(z, x, y *Elt)z, x, y *Elt){ subGenx, y) }s*Elt){ aeric(z, x, y *Elt){ mc(z, x, y) }(t){ric(z, x) }
+//go:build!amd64||purego//+build!amd64puregopackagefp448v(x,y*Elt,nuint){cmovGeneric(x,y,n)}ap(x,y*Elt,nuint){cswapGeneric(x,y,n)}(z,x,y*Elt)z,x,y*Elt){subGenx,y)}s*Elt){aeric(z,x,y*Elt){mc(z,x,y)}(t){ric(z,x)}

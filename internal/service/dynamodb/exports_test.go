@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package dynamodb// Exports for use in tests only.var (	ListTags = listTags)
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package dynamodb// Exports for use in tests only.var (istTags = listTags)

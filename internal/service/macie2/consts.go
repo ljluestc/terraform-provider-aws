@@ -1,8 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package macie2const (
-tagScopeTermKeyTag = "TAG"
-)func tagScopeTermKey_Values() []string {
-return []string{
-tagScopeTermKeyTag,
-}
-}
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package macie2const (tagScopeTermKeyTag = "TAG")func tagScopeTermKey_Values() []string {return []string{tagScopeTermKeyTag,}}
