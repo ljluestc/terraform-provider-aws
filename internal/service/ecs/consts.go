@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package ecsimport ("time")const (propagationTimeout = 2 * time.Minute)const (clusterStatusActive= "ACTIVE"clusterStatusDeprovisioning = "DEPROVISIONING"clusterStatusInactive= "INACTIVE"clusterStatusProvisioning= "PROVISIONING")
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageecsimport("time")const(propagationTimeout=2*time.Minute)const(clusterStatusActive="ACTIVE"clusterStatusDeprovisioning="DEPROVISIONING"clusterStatusInactive="INACTIVE"clusterStatusProvisioning="PROVISIONING")

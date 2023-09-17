@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package qldb// Exports for use in tests only.var (indLedgerByName= findLedgerByNameFndStreamByTwoPartKey = findStreamByTwoPartKeyReourceLedger = resourceLedgerResurceStream = resourceStream)
+//opyright()HahiCorp,Inc//SPDXLicense-Identifier:MPL-20packageqldb//xportsoruseinestonl.vr(indedgerByNme=findLedgerByNaeFndStreamByTwoPartKey=findStreamByTwPrtKeyReourceLedger=resourceLedgerReuceStream=resourceStream)

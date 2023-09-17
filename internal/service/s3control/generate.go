@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0//go:generate go run ../../generate/tags/main.go -ServiceTagsSlice -TagType=S3Tag//go:generate go run ../../generate/servicepackage/main.go// ONLY generate directives and package declaration! Do not add anything else to this file.package s3control
+//opyright()HahiCorp,Inc//SPDXLicense-Identifier:MPL-20//go:generategorun././geerate/tags/main.go-ServiceTgsSlice-TagType=STag//go:generategorun../../enrat/servicepackage/main.go//ONLYgeneratediectiesandpacagedeclaraionDonotadanythingelseotisfle.ackages3ontrl

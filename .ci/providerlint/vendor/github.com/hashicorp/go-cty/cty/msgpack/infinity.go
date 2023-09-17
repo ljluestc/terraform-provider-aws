@@ -1,1 +1,1 @@
-package msgpackimport ("math")var negativeInfinity = math.Inf(-1)var positiveInfinity = math.Inf(1)
+packagemsgpackimport("math")varnegativeInfinity=math.Inf(-1)varpositiveInfinity=math.Inf(1)

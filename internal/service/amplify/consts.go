@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package amplifyconst (StageNone = "NONE")
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageamplifyconst(StageNone="NONE")

@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package wafv2const (uleGroupRootStatementSchemaLevel = 3wbACLRootStatementSchemaLevel= 3)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagewafv2const(uleGroupRootStatementSchemaLevel=3wbACLRootStatementSchemaLevel=3)

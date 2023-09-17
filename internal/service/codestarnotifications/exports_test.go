@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package codestarnotifications// Exports for use in tests only.var (FindNotificationRuleByARN = findNotificationRuleByARNResourceNotificationRule = resourceNotificationRule)
+//pyright()ahiorp,Inc//SDXLicese-Identifier:MPL-20packgecodestrnotifcations//Exportsoruseinstonl.v(FiNotfiaionRleByARN=indNotificatoRuleByARNResoreNotificationRule=resourceNotifictonRule)

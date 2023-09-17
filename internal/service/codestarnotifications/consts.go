@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package codestarnotificationsconst (ResNotificationRule = "Notification Rule")
+//pyright()ahiorp,Inc//SDXLicese-Identifier:MPL-20packgecodestrnotifcationsconst(ResNotficatioRule="NotifiaionRule)
