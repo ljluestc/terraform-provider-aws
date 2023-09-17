@@ -1,41 +1,41 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package autoscaling_testimport (
-	"fmt"
-	"testing"	"github.com/aws/aws-sdk-go/service/autoscaling"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"fmt"
+"testing""github.com/aws/aws-sdk-go/service/autoscaling"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 func TestAccAutoScalingGroupsDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	datasource1Name := "data.aws_autoscaling_groups.group_list"
-	datasource2Name := "data.aws_autoscaling_groups.group_list_tag_lookup"
-	datasource3Name := "data.aws_autoscaling_groups.group_list_by_name"
-	datasource4Name := "data.aws_autoscaling_groups.group_list_multiple_values"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+ctx := acctest.Context(t)
+datasource1Name := "data.aws_autoscaling_groups.group_list"
+datasource2Name := "data.aws_autoscaling_groups.group_list_tag_lookup"
+datasource3Name := "data.aws_autoscaling_groups.group_list_by_name"
+datasource4Name := "data.aws_autoscaling_groups.group_list_multiple_values"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccGroupsDataSourceConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheckFunc(
-	resource.TestCheckResourceAttr(datasource1Name, "names.#", "3"),
-	resource.TestCheckResourceAttr(datasource1Name, "arns.#", "3"),
-	resource.TestCheckResourceAttr(datasource2Name, "names.#", "3"),
-	resource.TestCheckResourceAttr(datasource2Name, "arns.#", "3"),
-	resource.TestCheckResourceAttr(datasource3Name, "names.#", "1"),
-	resource.TestCheckResourceAttr(datasource3Name, "arns.#", "1"),
-	resource.TestCheckResourceAttr(datasource4Name, "names.#", "2"),
-	resource.TestCheckResourceAttr(datasource4Name, "arns.#", "2"),
+resource.TestCheckResourceAttr(datasource1Name, "names.#", "3"),
+resource.TestCheckResourceAttr(datasource1Name, "arns.#", "3"),
+resource.TestCheckResourceAttr(datasource2Name, "names.#", "3"),
+resource.TestCheckResourceAttr(datasource2Name, "arns.#", "3"),
+resource.TestCheckResourceAttr(datasource3Name, "names.#", "1"),
+resource.TestCheckResourceAttr(datasource3Name, "arns.#", "1"),
+resource.TestCheckResourceAttr(datasource4Name, "names.#", "2"),
+resource.TestCheckResourceAttr(datasource4Name, "arns.#", "2"),
 ),
-	},
 },
-	})
+},
+})
 }
 func testAccGroupsDataSourceConfig_basic(rName string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),

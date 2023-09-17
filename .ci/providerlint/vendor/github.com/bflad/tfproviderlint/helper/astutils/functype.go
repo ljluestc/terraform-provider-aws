@@ -1,1 +1,1 @@
-package astutilsimport (	"go/ast")FromNode(node ast.Node) *ast. {	switch node := node.(type) {	case *ast.:		return node.Type	case *ast.		return node.Type	}	return nil}
+packageastutilsimport("go/ast")FromNode(nodeast.Node)*ast.{switchnode:=node.(type){case*ast.:returnnode.Typecase*ast.returnnode.Type}returnnil}

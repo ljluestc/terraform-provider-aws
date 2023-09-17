@@ -1,69 +1,69 @@
-package S024
+packageS024
 
-import (
-	"go/ast"
+import(
+"go/ast"
 
-	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
-	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/helper/schema/resourceinfodatasourceonly"
-	"golang.org/x/tools/go/analysis"
+"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
+"github.com/bflad/tfproviderlint/passes/commentignore"
+"github.com/bflad/tfproviderlint/passes/helper/schema/resourceinfodatasourceonly"
+"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Schema that should omit ForceNew in data source schema attributes
+constDoc=`checkforSchemathatshouldomitForceNewindatasourceschemaattributes
 
-The S024 analyzer reports usage of ForceNew in data source schema attributes,
-which is unnecessary.`
+TheS024analyzerreportsusageofForceNewindatasourceschemaattributes,
+whichisunnecessary.`
 
-const analyzerName = "S024"
+constanalyzerName="S024"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
-		commentignore.Analyzer,
-		resourceinfodatasourceonly.Analyzer,
-	},
-	Run: run,
+varAnalyzer=&analysis.Analyzer{
+Name:analyzerName,
+Doc:Doc,
+Requires:[]*analysis.Analyzer{
+commentignore.Analyzer,
+resourceinfodatasourceonly.Analyzer,
+},
+Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	resourceInfos := pass.ResultOf[resourceinfodatasourceonly.Analyzer].([]*schema.ResourceInfo)
-	for _, resourceInfo := range resourceInfos {
-		if ignorer.ShouldIgnore(analyzerName, resourceInfo.AstCompositeLit) {
-			continue
-		}
+run(pass*analysis.Pass)(interface{},error){
+ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+resourceInfos:=pass.ResultOf[resourceinfodatasourceonly.Analyzer].([]*schema.ResourceInfo)
+for_,resourceInfo:=rangeresourceInfos{
+ifignorer.ShouldIgnore(analyzerName,resourceInfo.AstCompositeLit){
+continue
+}
 
-		var schemaInfos []*schema.SchemaInfo
+varschemaInfos[]*schema.SchemaInfo
 
-		ast.Inspect(resourceInfo.AstCompositeLit, 
-(n ast.Node) bool {
-			compositeLit, ok := n.(*ast.CompositeLit)
+ast.Inspect(resourceInfo.AstCompositeLit,
+(nast.Node)bool{
+compositeLit,ok:=n.(*ast.CompositeLit)
 
-			if !ok {
-				return true
-			}
+if!ok{
+returntrue
+}
 
-			if schema.IsMapStringSchema(compositeLit, pass.TypesInfo) {
-				for _, mapSchema := range schema.GetSchemaMapSchemas(compositeLit) {
-					schemaInfos = append(schemaInfos, schema.NewSchemaInfo(mapSchema, pass.TypesInfo))
-				}
-			} else if schema.IsTypeSchema(pass.TypesInfo.TypeOf(compositeLit.Type)) {
-				schemaInfos = append(schemaInfos, schema.NewSchemaInfo(compositeLit, pass.TypesInfo))
-			}
+ifschema.IsMapStringSchema(compositeLit,pass.TypesInfo){
+for_,mapSchema:=rangeschema.GetSchemaMapSchemas(compositeLit){
+schemaInfos=append(schemaInfos,schema.NewSchemaInfo(mapSchema,pass.TypesInfo))
+}
+}elseifschema.IsTypeSchema(pass.TypesInfo.TypeOf(compositeLit.Type)){
+schemaInfos=append(schemaInfos,schema.NewSchemaInfo(compositeLit,pass.TypesInfo))
+}
 
-			return true
-		})
+returntrue
+})
 
-		for _, schemaInfo := range schemaInfos {
-			if !schemaInfo.DeclaresField(schema.SchemaFieldForceNew) {
-				continue
-			}
+for_,schemaInfo:=rangeschemaInfos{
+if!schemaInfo.DeclaresField(schema.SchemaFieldForceNew){
+continue
+}
 
-			pass.Reportf(schemaInfo.Fields[schema.SchemaFieldForceNew].Pos(), "%s: ForceNew is extraneous in data source schema attributes", analyzerName)
-		}
-	}
+pass.Reportf(schemaInfo.Fields[schema.SchemaFieldForceNew].Pos(),"%s:ForceNewisextraneousindatasourceschemaattributes",analyzerName)
+}
+}
 
-	return nil, nil
+returnnil,nil
 }

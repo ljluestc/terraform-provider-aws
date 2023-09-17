@@ -1,58 +1,58 @@
-package V010
+packageV010
 
-import (
-	"go/ast"
+import(
+"go/ast"
 
-	"golang.org/x/tools/go/analysis"
+"golang.org/x/tools/go/analysis"
 
-	"github.com/bflad/tfproviderlint/helper/astutils"
-	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/helper/validation/stringdoesnotmatchcallexpr"
+"github.com/bflad/tfproviderlint/helper/astutils"
+"github.com/bflad/tfproviderlint/passes/commentignore"
+"github.com/bflad/tfproviderlint/passes/helper/validation/stringdoesnotmatchcallexpr"
 )
 
-const Doc = `check for validation.StringDoesNotMatch() calls with empty message argument
+constDoc=`checkforvalidation.StringDoesNotMatch()callswithemptymessageargument
 
-The V010 analyzer reports when the second argument for a validation.StringDoesNotMatch()
-call is an empty string. It is preferred to provide a friendly validation
-message, rather than allowing the 
-tion to return the raw regular expression
-as the message, since not all practitioners may be familiar with regular
-expression syntax.`
+TheV010analyzerreportswhenthesecondargumentforavalidation.StringDoesNotMatch()
+callisanemptystring.Itispreferredtoprovideafriendlyvalidation
+message,ratherthanallowingthe
+tiontoreturntherawregularexpression
+asthemessage,sincenotallpractitionersmaybefamiliarwithregular
+expressionsyntax.`
 
-const analyzerName = "V010"
+constanalyzerName="V010"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
-		commentignore.Analyzer,
-		stringdoesnotmatchcallexpr.Analyzer,
-	},
-	Run: run,
+varAnalyzer=&analysis.Analyzer{
+Name:analyzerName,
+Doc:Doc,
+Requires:[]*analysis.Analyzer{
+commentignore.Analyzer,
+stringdoesnotmatchcallexpr.Analyzer,
+},
+Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	sets := pass.ResultOf[stringdoesnotmatchcallexpr.Analyzer].([]*ast.CallExpr)
-	for _, set := range sets {
-		if ignorer.ShouldIgnore(analyzerName, set) {
-			continue
-		}
+run(pass*analysis.Pass)(interface{},error){
+ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+sets:=pass.ResultOf[stringdoesnotmatchcallexpr.Analyzer].([]*ast.CallExpr)
+for_,set:=rangesets{
+ifignorer.ShouldIgnore(analyzerName,set){
+continue
+}
 
-		if len(set.Args) < 2 {
-			continue
-		}
+iflen(set.Args)<2{
+continue
+}
 
-		switch v := set.Args[1].(type) {
-		default:
-			continue
-		case *ast.BasicLit:
-			if value := astutils.ExprStringValue(v); value != nil && *value == "" {
-				pass.Reportf(v.Pos(), "%s: validation.StringDoesNotMatch() message argument should be non-empty", analyzerName)
-			}
-		}
-	}
+switchv:=set.Args[1].(type){
+default:
+continue
+case*ast.BasicLit:
+ifvalue:=astutils.ExprStringValue(v);value!=nil&&*value==""{
+pass.Reportf(v.Pos(),"%s:validation.StringDoesNotMatch()messageargumentshouldbenon-empty",analyzerName)
+}
+}
+}
 
-	return nil, nil
+returnnil,nil
 }

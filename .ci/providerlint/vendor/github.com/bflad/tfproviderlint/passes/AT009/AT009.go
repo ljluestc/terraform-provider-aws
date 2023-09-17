@@ -1,6 +1,6 @@
-package AT009
+packageAT009
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/acctest"
@@ -9,43 +9,43 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for acctest.RandStringFromCharSet() calls that can be acctest.RandString()
+constDoc=`checkforacctest.RandStringFromCharSet()callsthatcanbeacctest.RandString()
 
-The AT009 analyzer reports where the second parameter of a
-RandStringFromCharSet call is acctest.CharSetAlpha, which is equivalent to
-calling RandString.`
+TheAT009analyzerreportswherethesecondparameterofa
+RandStringFromCharSetcallisacctest.CharSetAlpha,whichisequivalentto
+callingRandString.`
 
-const analyzerName = "AT009"
+constanalyzerName="AT009"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		randstringfromcharsetcallexpr.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	callExprs := pass.ResultOf[randstringfromcharsetcallexpr.Analyzer].([]*ast.CallExpr)
-	for _, callExpr := range callExprs {
-		if ignorer.ShouldIgnore(analyzerName, callExpr) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	callExprs:=pass.ResultOf[randstringfromcharsetcallexpr.Analyzer].([]*ast.CallExpr)
+	for_,callExpr:=rangecallExprs{
+		ifignorer.ShouldIgnore(analyzerName,callExpr){
 			continue
 		}
 
-		if len(callExpr.Args) < 2 {
+		iflen(callExpr.Args)<2{
 			continue
 		}
 
-		if !acctest.IsConst(callExpr.Args[1], pass.TypesInfo, acctest.ConstNameCharSetAlphaNum) {
+		if!acctest.IsConst(callExpr.Args[1],pass.TypesInfo,acctest.ConstNameCharSetAlphaNum){
 			continue
 		}
 
-		pass.Reportf(callExpr.Pos(), "%s: should use RandString call instead", analyzerName)
+		pass.Reportf(callExpr.Pos(),"%s:shoulduseRandStringcallinstead",analyzerName)
 	}
 
-	return nil, nil
+	returnnil,nil
 }

@@ -4,206 +4,206 @@
 package servicediscovery
 
 import (
-	"context"
+"context"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/servicediscovery"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/servicediscovery"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 func FindInstanceByServiceIDAndInstanceID(ctx context.Context, conn *servicediscovery.ServiceDiscovery, serviceID, instanceID string) (*servicediscovery.Instance, error) {
-	input := &servicediscovery.GetInstanceInput{
-		InstanceId: aws.String(instanceID),
-		ServiceId:  aws.String(serviceID),
-	}
+input := &servicediscovery.GetInstanceInput{
+InstanceId: aws.String(instanceID),
+ServiceId:  aws.String(serviceID),
+}
 
-	output, err := conn.GetInstanceWithContext(ctx, input)
+output, err := conn.GetInstanceWithContext(ctx, input)
 
-	if tfawserr.ErrCodeEquals(err, servicediscovery.ErrCodeInstanceNotFound) {
-		return nil, &retry.NotFoundError{
-			LastError:err,
-			LastRequest: input,
-		}
-	}
+if tfawserr.ErrCodeEquals(err, servicediscovery.ErrCodeInstanceNotFound) {
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: input,
+}
+}
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	if output == nil || output.Instance == nil {
-		return nil, tfresource.NewEmptyResultError(input)
-	}
+if output == nil || output.Instance == nil {
+return nil, tfresource.NewEmptyResultError(input)
+}
 
-	return output.Instance, nil
+return output.Instance, nil
 }
 func findNamespaces(ctx context.Context, conn *servicediscovery.ServiceDiscovery, input *servicediscovery.ListNamespacesInput) ([]*servicediscovery.NamespaceSummary, error) {
-	var output []*servicediscovery.NamespaceSummary
+var output []*servicediscovery.NamespaceSummary
 
-	err := conn.ListNamespacesPagesWithContext(ctx, input, func(page *servicediscovery.ListNamespacesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
+err := conn.ListNamespacesPagesWithContext(ctx, input, func(page *servicediscovery.ListNamespacesOutput, lastPage bool) bool {
+if page == nil {
+return !lastPage
+}
 
-		for _, v := range page.Namespaces {
-			if v != nil {
-				output = append(output, v)
-			}
-		}
+for _, v := range page.Namespaces {
+if v != nil {
+output = append(output, v)
+}
+}
 
-		return !lastPage
-	})
+return !lastPage
+})
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	return output, nil
+return output, nil
 }
 func findNamespacesByType(ctx context.Context, conn *servicediscovery.ServiceDiscovery, nsType string) ([]*servicediscovery.NamespaceSummary, error) {
-	input := &servicediscovery.ListNamespacesInput{
-		Filters: []*servicediscovery.NamespaceFilter{{
-			Condition: aws.String(servicediscovery.FilterConditionEq),
-			Name:ring(servicediscovery.NamespaceFilterNameType),
-			Values: aws.StringSlice([]string{nsType}),
-		}},
-	}
+input := &servicediscovery.ListNamespacesInput{
+Filters: []*servicediscovery.NamespaceFilter{{
+Condition: aws.String(servicediscovery.FilterConditionEq),
+Name:ring(servicediscovery.NamespaceFilterNameType),
+Values: aws.StringSlice([]string{nsType}),
+}},
+}
 
-	return findNamespaces(ctx, conn, input)
+return findNamespaces(ctx, conn, input)
 }
 func findNamespaceByNameAndType(ctx context.Context, conn *servicediscovery.ServiceDiscovery, name, nsType string) (*servicediscovery.NamespaceSummary, error) {
-	output, err := findNamespacesByType(ctx, conn, nsType)
+output, err := findNamespacesByType(ctx, conn, nsType)
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	for _, v := range output {
-		if aws.StringValue(v.Name) == name {
-			return v, nil
-		}
-	}
+for _, v := range output {
+if aws.StringValue(v.Name) == name {
+return v, nil
+}
+}
 
-	return nil, &retry.NotFoundError{}
+return nil, &retry.NotFoundError{}
 }
 func FindNamespaceByID(ctx context.Context, conn *servicediscovery.ServiceDiscovery, id string) (*servicediscovery.Namespace, error) {
-	input := &servicediscovery.GetNamespaceInput{
-		Id: aws.String(id),
-	}
+input := &servicediscovery.GetNamespaceInput{
+Id: aws.String(id),
+}
 
-	output, err := conn.GetNamespaceWithContext(ctx, input)
+output, err := conn.GetNamespaceWithContext(ctx, input)
 
-	if tfawserr.ErrCodeEquals(err, servicediscovery.ErrCodeNamespaceNotFound) {
-		return nil, &retry.NotFoundError{
-			LastError:err,
-			LastRequest: input,
-		}
-	}
+if tfawserr.ErrCodeEquals(err, servicediscovery.ErrCodeNamespaceNotFound) {
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: input,
+}
+}
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	if output == nil || output.Namespace == nil {
-		return nil, tfresource.NewEmptyResultError(input)
-	}
+if output == nil || output.Namespace == nil {
+return nil, tfresource.NewEmptyResultError(input)
+}
 
-	return output.Namespace, nil
+return output.Namespace, nil
 }
 func FindOperationByID(ctx context.Context, conn *servicediscovery.ServiceDiscovery, id string) (*servicediscovery.Operation, error) {
-	input := &servicediscovery.GetOperationInput{
-		OperationId: aws.String(id),
-	}
+input := &servicediscovery.GetOperationInput{
+OperationId: aws.String(id),
+}
 
-	output, err := conn.GetOperationWithContext(ctx, input)
+output, err := conn.GetOperationWithContext(ctx, input)
 
-	if tfawserr.ErrCodeEquals(err, servicediscovery.ErrCodeOperationNotFound) {
-		return nil, &retry.NotFoundError{
-			LastError:err,
-			LastRequest: input,
-		}
-	}
+if tfawserr.ErrCodeEquals(err, servicediscovery.ErrCodeOperationNotFound) {
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: input,
+}
+}
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	if output == nil || output.Operation == nil {
-		return nil, tfresource.NewEmptyResultError(input)
-	}
+if output == nil || output.Operation == nil {
+return nil, tfresource.NewEmptyResultError(input)
+}
 
-	return output.Operation, nil
+return output.Operation, nil
 }
 func findServices(ctx context.Context, conn *servicediscovery.ServiceDiscovery, input *servicediscovery.ListServicesInput) ([]*servicediscovery.ServiceSummary, error) {
-	var output []*servicediscovery.ServiceSummary
+var output []*servicediscovery.ServiceSummary
 
-	err := conn.ListServicesPagesWithContext(ctx, input, func(page *servicediscovery.ListServicesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
+err := conn.ListServicesPagesWithContext(ctx, input, func(page *servicediscovery.ListServicesOutput, lastPage bool) bool {
+if page == nil {
+return !lastPage
+}
 
-		for _, v := range page.Services {
-			if v != nil {
-				output = append(output, v)
-			}
-		}
+for _, v := range page.Services {
+if v != nil {
+output = append(output, v)
+}
+}
 
-		return !lastPage
-	})
+return !lastPage
+})
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	return output, nil
+return output, nil
 }
 func findServicesByNamespaceID(ctx context.Context, conn *servicediscovery.ServiceDiscovery, namespaceID string) ([]*servicediscovery.ServiceSummary, error) {
-	input := &servicediscovery.ListServicesInput{
-		Filters: []*servicediscovery.ServiceFilter{{
-			Condition: aws.String(servicediscovery.FilterConditionEq),
-			Name:ring(servicediscovery.ServiceFilterNameNamespaceId),
-			Values: aws.StringSlice([]string{namespaceID}),
-		}},
-	}
+input := &servicediscovery.ListServicesInput{
+Filters: []*servicediscovery.ServiceFilter{{
+Condition: aws.String(servicediscovery.FilterConditionEq),
+Name:ring(servicediscovery.ServiceFilterNameNamespaceId),
+Values: aws.StringSlice([]string{namespaceID}),
+}},
+}
 
-	return findServices(ctx, conn, input)
+return findServices(ctx, conn, input)
 }
 func findServiceByNameAndNamespaceID(ctx context.Context, conn *servicediscovery.ServiceDiscovery, name, namespaceID string) (*servicediscovery.ServiceSummary, error) {
-	output, err := findServicesByNamespaceID(ctx, conn, namespaceID)
+output, err := findServicesByNamespaceID(ctx, conn, namespaceID)
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	for _, v := range output {
-		if aws.StringValue(v.Name) == name {
-			return v, nil
-		}
-	}
+for _, v := range output {
+if aws.StringValue(v.Name) == name {
+return v, nil
+}
+}
 
-	return nil, &retry.NotFoundError{}
+return nil, &retry.NotFoundError{}
 }
 func FindServiceByID(ctx context.Context, conn *servicediscovery.ServiceDiscovery, id string) (*servicediscovery.Service, error) {
-	input := &servicediscovery.GetServiceInput{
-		Id: aws.String(id),
-	}
+input := &servicediscovery.GetServiceInput{
+Id: aws.String(id),
+}
 
-	output, err := conn.GetServiceWithContext(ctx, input)
+output, err := conn.GetServiceWithContext(ctx, input)
 
-	if tfawserr.ErrCodeEquals(err, servicediscovery.ErrCodeServiceNotFound) {
-		return nil, &retry.NotFoundError{
-			LastError:err,
-			LastRequest: input,
-		}
-	}
+if tfawserr.ErrCodeEquals(err, servicediscovery.ErrCodeServiceNotFound) {
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: input,
+}
+}
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	if output == nil || output.Service == nil {
-		return nil, tfresource.NewEmptyResultError(input)
-	}
+if output == nil || output.Service == nil {
+return nil, tfresource.NewEmptyResultError(input)
+}
 
-	return output.Service, nil
+return output.Service, nil
 }

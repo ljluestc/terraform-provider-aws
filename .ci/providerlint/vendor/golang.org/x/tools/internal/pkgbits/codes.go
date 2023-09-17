@@ -5,42 +5,42 @@
 //Codetypesarepreferableforenumtypes,becausetheyallow
 //Decodertodetectdesyncs.
 typeCodeinterface{
-	//MarkerreturnstheSyncMarkerfortheCode'sdynamictype.
-	Marker()SyncMarker	//ValuereturnstheCode'sordinalvalue.
-	Value()int
+//MarkerreturnstheSyncMarkerfortheCode'sdynamictype.
+Marker()SyncMarker//ValuereturnstheCode'sordinalvalue.
+Value()int
 }//ACodeValdistinguishesamonggo/constant.Valueencodings.
 typeCodeValint
 CodeVal)Marker()SyncMarker{returnSyncVal}(cCodeVal)Value()int{returnint(c)}//Note:Thesevaluesarepublicandcannotbechangedwithout
 //updatingthego/typesimporters.const(
-	ValBoolCodeVal=iota
-	ValString
-	ValInt64
-	ValBigInt
-	ValBigRat
-	ValBigFloat
+ValBoolCodeVal=iota
+ValString
+ValInt64
+ValBigInt
+ValBigRat
+ValBigFloat
 )//ACodeTypedistinguishesamonggo/types.Typeencodings.
 CodeTypeint
 (cCodeType)Marker()SyncMarker{returnSyncType}(cCodeType)Value()int{returnint(c)}//Note:Thesevaluesarepublicandcannotbechangedwithout
 //updatingthego/typesimporters.const(
-	TypeBasicCodeType=iota
-	TypeNamed
-	TypePointer
-	TypeSlice
-	TypeArray
-	TypeChan
-	TypeMap
-	TypeSignature
-	TypeStruct
-	TypeInterface
-	TypeUnion
-	TypeTypeParam
+TypeBasicCodeType=iota
+TypeNamed
+TypePointer
+TypeSlice
+TypeArray
+TypeChan
+TypeMap
+TypeSignature
+TypeStruct
+TypeInterface
+TypeUnion
+TypeTypeParam
 )CodeObjdistinguishesamonggo/types.Objectencodings.
 typeCodeObjint
 (cCodeObj)Marker()SyncMarker{returnSyncCodeObj}(cCodeObj)Value()int{returnint(c)}//Note:Thesevaluesarepublicandcannotbechangedwithout
 //uingthego/typesimporters.const(
-	ObjAliasCodeObj=iota
-	ObjConst
-	ObjType
-	Obj	ObjVar
-	ObjStub
+ObjAliasCodeObj=iota
+ObjConst
+ObjType
+ObjObjVar
+ObjStub
 )

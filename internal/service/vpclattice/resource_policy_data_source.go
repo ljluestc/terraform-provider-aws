@@ -4,14 +4,14 @@
 packagevpclattice
 
 import(
-	"context"
+"context"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
-	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-	"github.com/hashicorp/terraform-provider-aws/names"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/create"
+"github.com/hashicorp/terraform-provider-aws/internal/verify"
+"github.com/hashicorp/terraform-provider-aws/names"
 )
 
 //@SDKDataSource("aws_vpclattice_resource_policy",name="ResourcePolicy")

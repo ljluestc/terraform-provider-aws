@@ -4,14 +4,14 @@
 package kms
 
 import (
-	"context"
-	"time"
+"context"
+"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/kms"
-	awspolicy "github.com/hashicorp/awspolicyequivalence"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/kms"
+awspolicy "github.com/hashicorp/awspolicyequivalence"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
 const (

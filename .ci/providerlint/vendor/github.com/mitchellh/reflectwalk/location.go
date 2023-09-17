@@ -1,1 +1,1 @@
-package reflectwalk //go:generate stringer -type=Location location.gotype Location uintconst (	None Location = iota	Map	MapKey	MapValue	Slice	SliceElem	Array	ArrayElem	Struct	StructField	WalkLoc)
+packagereflectwalk//go:generatestringer-type=Locationlocation.gotypeLocationuintconst(NoneLocation=iotaMapMapKeyMapValueSliceSliceElemArrayArrayElemStructStructFieldWalkLoc)

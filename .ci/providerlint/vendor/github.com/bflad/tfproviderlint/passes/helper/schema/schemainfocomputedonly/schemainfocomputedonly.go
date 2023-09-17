@@ -1,6 +1,6 @@
-package schemainfocomputedonly
+packageschemainfocomputedonly
 
-import (
+import(
 	"reflect"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
@@ -8,29 +8,29 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name: "schemainfocomputedonly",
-	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/schema.Schema literals with Computed: true only for later passes",
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:"schemainfocomputedonly",
+	Doc:"findgithub.com/hashicorp/terraform-plugin-sdk/helper/schema.SchemaliteralswithComputed:trueonlyforlaterpasses",
+	Requires:[]*analysis.Analyzer{
 		schemainfo.Analyzer,
 	},
-	Run:        run,
-	ResultType: reflect.TypeOf([]*schema.SchemaInfo{}),
+	Run:run,
+	ResultType:reflect.TypeOf([]*schema.SchemaInfo{}),
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
+run(pass*analysis.Pass)(interface{},error){
+	schemaInfos:=pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
 
-	var result []*schema.SchemaInfo
+	varresult[]*schema.SchemaInfo
 
-	for _, schemaInfo := range schemaInfos {
-		if !schemaInfo.Schema.Computed || schemaInfo.Schema.Optional || schemaInfo.Schema.Required {
+	for_,schemaInfo:=rangeschemaInfos{
+		if!schemaInfo.Schema.Computed||schemaInfo.Schema.Optional||schemaInfo.Schema.Required{
 			continue
 		}
 
-		result = append(result, schemaInfo)
+		result=append(result,schemaInfo)
 	}
 
-	return result, nil
+	returnresult,nil
 }

@@ -1,9 +1,9 @@
 package multierrorimport "sync"// Group is a collection of goroutines which return errors that need to be
 // coalesced.
 type Group struct {
-	mutex sync.Mutex
-	err   *Error
-	wg    sync.WaitGroup
+mutex sync.Mutex
+err   *Error
+wg    sync.WaitGroup
 }// Go calls the given 
 tion in a new goroutine.
 //
@@ -11,17 +11,17 @@ tion in a new goroutine.
  returns an e it is added to the group multierror which
 // is returned by Wait.*Group) Go(f 
 () error) {
-	g.wg.Add(1)	go 
+g.wg.Add(1)go 
 () {
-		defer g.wg.Done()		if err := f(); err != nil {
-			g.mutex.Lock()
-			g.err = Append(g.err, err)
-			g.mutex.Unlock()
-		}}// Wait blocks until all 
+defer g.wg.Done()if err := f(); err != nil {
+g.mutex.Lock()
+g.err = Append(g.err, err)
+g.mutex.Unlock()
+}}// Wait blocks until all 
 tion calls from the Go method have returned, then
 // returns the multierror. (g *Group) Wait() *Error {
-	g.wg.Wait()
-	g.mutex.Lock()
-	defer g.mutex.Unlock()
-	return g.err
+g.wg.Wait()
+g.mutex.Lock()
+defer g.mutex.Unlock()
+return g.err
 }

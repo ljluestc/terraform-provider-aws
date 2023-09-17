@@ -4,45 +4,45 @@
 package servicecatalog_test
 
 import (
-	"fmt"
-	"testing"
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/service/servicecatalog"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/aws/aws-sdk-go/service/servicecatalog"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
 func TestAccServiceCatalogLaunchPathsDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_servicecatalog_launch_paths.test"
-	resourceNameProduct := "aws_servicecatalog_product.test"
-	resourceNamePortfolio := "aws_servicecatalog_portfolio.test"
+ctx := acctest.Context(t)
+dataSourceName := "data.aws_servicecatalog_launch_paths.test"
+resourceNameProduct := "aws_servicecatalog_product.test"
+resourceNamePortfolio := "aws_servicecatalog_portfolio.test"
 
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccLaunchPathsDataSourceConfig_basic(rName, domain, acctest.DefaultEmailAddress),
 Check: resource.ComposeTestCheckFunc(
-	resource.TestCheckResourceAttr(dataSourceName, "accept_language", "en"),
-	resource.TestCheckResourceAttrPair(dataSourceName, "product_id", resourceNameProduct, "id"),
-	resource.TestCheckResourceAttr(dataSourceName, "summaries.#", "1"),
-	resource.TestCheckResourceAttrPair(dataSourceName, "summaries.0.name", resourceNamePortfolio, "name"),
-	resource.TestCheckResourceAttrSet(dataSourceName, "summaries.0.path_id"),
+resource.TestCheckResourceAttr(dataSourceName, "accept_language", "en"),
+resource.TestCheckResourceAttrPair(dataSourceName, "product_id", resourceNameProduct, "id"),
+resource.TestCheckResourceAttr(dataSourceName, "summaries.#", "1"),
+resource.TestCheckResourceAttrPair(dataSourceName, "summaries.0.name", resourceNamePortfolio, "name"),
+resource.TestCheckResourceAttrSet(dataSourceName, "summaries.0.path_id"),
 ),
-	},
 },
-	})
+},
+})
 }
 
 func testAccLaunchPathsDataSourceConfig_base(rName, domain, email string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_cloudformation_stack" "test" {
   name = %[1]q
 
@@ -133,7 +133,7 @@ resource "aws_servicecatalog_principal_portfolio_association" "test" {
 }
 
 func testAccLaunchPathsDataSourceConfig_basic(rName, domain, email string) string {
-	return acctest.ConfigCompose(testAccLaunchPathsDataSourceConfig_base(rName, domain, email), `
+return acctest.ConfigCompose(testAccLaunchPathsDataSourceConfig_base(rName, domain, email), `
 data "aws_servicecatalog_launch_paths" "test" {
   product_id = aws_servicecatalog_product_portfolio_association.test.product_id
 }

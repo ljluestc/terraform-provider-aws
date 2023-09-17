@@ -1,6 +1,6 @@
-package resource
+packageresource
 
-import (
+import(
 	"fmt"
 	"go/ast"
 	"go/types"
@@ -9,38 +9,38 @@ import (
 	"github.com/bflad/tfproviderlint/helper/terraformtype"
 )
 
-const (
-	PackageModule     = terraformtype.ModuleTerraformPluginSdk
-	PackageModulePath = `helper/resource`
-	PackageName       = `resource`
-	PackagePath       = PackageModule + `/` + PackageModulePath
+const(
+	PackageModule=terraformtype.ModuleTerraformPluginSdk
+	PackageModulePath=`helper/resource`
+	PackageName=`resource`
+	PackagePath=PackageModule+`/`+PackageModulePath
 )
 
-// Is
- if the 
-tion call is in the resourcekage
+//Is
+ifthe
+tioncallisintheresourcekage
 
- Is
-(e ast.Expr, info *types.Info, 
- string) bool {
-	return astutils.IsModulePackage
-(e, info, PackageModule, PackageModulePath, 
+Is
+(east.Expr,info*types.Info,
+string)bool{
+	returnastutils.IsModulePackage
+(e,info,PackageModule,PackageModulePath,
 Name)
 }
 
-// IsNamedType returns if the type name matches and is from the helper/resource package
+//IsNamedTypereturnsifthetypenamematchesandisfromthehelper/resourcepackage
 
- IsNamedType(t *types.Named, typeName string) bool {
-	return astutils.IsModulePackageNamedType(t, PackageModule, PackageModulePath, typeName)
+IsNamedType(t*types.Named,typeNamestring)bool{
+	returnastutils.IsModulePackageNamedType(t,PackageModule,PackageModulePath,typeName)
 }
 
-// PackagePathVersion returns the import path for a module version
+//PackagePathVersionreturnstheimportpathforamoduleversion
 
- PackagePathVersion(moduleVersion int) string {
-	switch moduleVersion {
-	case 0, 1:
-		return PackagePath
+PackagePathVersion(moduleVersionint)string{
+	switchmoduleVersion{
+	case0,1:
+		returnPackagePath
 	default:
-		return fmt.Sprintf("%s/v%d/%s", PackageModule, moduleVersion, PackageModulePath)
+		returnfmt.Sprintf("%s/v%d/%s",PackageModule,moduleVersion,PackageModulePath)
 	}
 }

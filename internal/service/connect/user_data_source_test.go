@@ -1,103 +1,103 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package connect_testimport (
-	"fmt"
-	"testing"	"github.com/aws/aws-sdk-go/service/connect"
-	sdkacctest "github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"fmt"
+"testing""github.com/aws/aws-sdk-go/service/connect"
+sdkacctest "github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 func testAccUserDataSource_userID(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	domain := acctest.RandomDomainName()
-	email := acctest.RandomEmailAddress(domain)
-	resourceName := "aws_connect_user.test"
-	datasourceName := "data.aws_connect_user.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+domain := acctest.RandomDomainName()
+email := acctest.RandomEmailAddress(domain)
+resourceName := "aws_connect_user.test"
+datasourceName := "data.aws_connect_user.test"resource.Test(t, resource.TestCase{
 PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccUserDataSourceConfig_id(rName, rName2, rName3, rName4, rName5, email),
 Check: resource.ComposeAggregateTestCheckFunc(
-	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(datasourceName, "directory_user_id", resourceName, "directory_user_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_group_id", resourceName, "hierarchy_group_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "identity_info.#", resourceName, "identity_info.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.email", resourceName, "identity_info.0.email"),
-	resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.first_name", resourceName, "identity_info.0.first_name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.last_name", resourceName, "identity_info.0.last_name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "phone_config.#", resourceName, "phone_config.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.after_contact_work_time_limit", resourceName, "phone_config.0.after_contact_work_time_limit"),
-	resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.auto_accept", resourceName, "phone_config.0.auto_accept"),
-	resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.desk_phone_number", resourceName, "phone_config.0.desk_phone_number"),
-	resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.phone_type", resourceName, "phone_config.0.phone_type"),
-	resource.TestCheckResourceAttrPair(datasourceName, "routing_profile_id", resourceName, "routing_profile_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "security_profile_ids.#", resourceName, "security_profile_ids.#"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "security_profile_ids.*", resourceName, "security_profile_ids.0"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "security_profile_ids.*", resourceName, "security_profile_ids.1"),
-	resource.TestCheckResourceAttrPair(datasourceName, "user_id", resourceName, "user_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-	resource.TestCheckResourceAttrPair(datasourceName, "tags.Key1", resourceName, "tags.Key1"),
+resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+resource.TestCheckResourceAttrPair(datasourceName, "directory_user_id", resourceName, "directory_user_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_group_id", resourceName, "hierarchy_group_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "identity_info.#", resourceName, "identity_info.#"),
+resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.email", resourceName, "identity_info.0.email"),
+resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.first_name", resourceName, "identity_info.0.first_name"),
+resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.last_name", resourceName, "identity_info.0.last_name"),
+resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+resource.TestCheckResourceAttrPair(datasourceName, "phone_config.#", resourceName, "phone_config.#"),
+resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.after_contact_work_time_limit", resourceName, "phone_config.0.after_contact_work_time_limit"),
+resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.auto_accept", resourceName, "phone_config.0.auto_accept"),
+resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.desk_phone_number", resourceName, "phone_config.0.desk_phone_number"),
+resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.phone_type", resourceName, "phone_config.0.phone_type"),
+resource.TestCheckResourceAttrPair(datasourceName, "routing_profile_id", resourceName, "routing_profile_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "security_profile_ids.#", resourceName, "security_profile_ids.#"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "security_profile_ids.*", resourceName, "security_profile_ids.0"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "security_profile_ids.*", resourceName, "security_profile_ids.1"),
+resource.TestCheckResourceAttrPair(datasourceName, "user_id", resourceName, "user_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttrPair(datasourceName, "tags.Key1", resourceName, "tags.Key1"),
 ),
-	},
 },
-	})
+},
+})
 }
 func testAccUserDataSource_name(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	domain := acctest.RandomDomainName()
-	email := acctest.RandomEmailAddress(domain)
-	resourceName := "aws_connect_user.test"
-	datasourceName := "data.aws_connect_user.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+domain := acctest.RandomDomainName()
+email := acctest.RandomEmailAddress(domain)
+resourceName := "aws_connect_user.test"
+datasourceName := "data.aws_connect_user.test"resource.Test(t, resource.TestCase{
 PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccUserDataSourceConfig_name(rName, rName2, rName3, rName4, rName5, email),
 Check: resource.ComposeAggregateTestCheckFunc(
-	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(datasourceName, "directory_user_id", resourceName, "directory_user_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_group_id", resourceName, "hierarchy_group_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "identity_info.#", resourceName, "identity_info.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.email", resourceName, "identity_info.0.email"),
-	resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.first_name", resourceName, "identity_info.0.first_name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.last_name", resourceName, "identity_info.0.last_name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "phone_config.#", resourceName, "phone_config.#"),
-	resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.after_contact_work_time_limit", resourceName, "phone_config.0.after_contact_work_time_limit"),
-	resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.auto_accept", resourceName, "phone_config.0.auto_accept"),
-	resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.desk_phone_number", resourceName, "phone_config.0.desk_phone_number"),
-	resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.phone_type", resourceName, "phone_config.0.phone_type"),
-	resource.TestCheckResourceAttrPair(datasourceName, "routing_profile_id", resourceName, "routing_profile_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "security_profile_ids.#", resourceName, "security_profile_ids.#"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "security_profile_ids.*", resourceName, "security_profile_ids.0"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "security_profile_ids.*", resourceName, "security_profile_ids.1"),
-	resource.TestCheckResourceAttrPair(datasourceName, "user_id", resourceName, "user_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-	resource.TestCheckResourceAttrPair(datasourceName, "tags.Key1", resourceName, "tags.Key1"),
+resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+resource.TestCheckResourceAttrPair(datasourceName, "directory_user_id", resourceName, "directory_user_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_group_id", resourceName, "hierarchy_group_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "identity_info.#", resourceName, "identity_info.#"),
+resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.email", resourceName, "identity_info.0.email"),
+resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.first_name", resourceName, "identity_info.0.first_name"),
+resource.TestCheckResourceAttrPair(datasourceName, "identity_info.0.last_name", resourceName, "identity_info.0.last_name"),
+resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+resource.TestCheckResourceAttrPair(datasourceName, "phone_config.#", resourceName, "phone_config.#"),
+resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.after_contact_work_time_limit", resourceName, "phone_config.0.after_contact_work_time_limit"),
+resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.auto_accept", resourceName, "phone_config.0.auto_accept"),
+resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.desk_phone_number", resourceName, "phone_config.0.desk_phone_number"),
+resource.TestCheckResourceAttrPair(datasourceName, "phone_config.0.phone_type", resourceName, "phone_config.0.phone_type"),
+resource.TestCheckResourceAttrPair(datasourceName, "routing_profile_id", resourceName, "routing_profile_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "security_profile_ids.#", resourceName, "security_profile_ids.#"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "security_profile_ids.*", resourceName, "security_profile_ids.0"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "security_profile_ids.*", resourceName, "security_profile_ids.1"),
+resource.TestCheckResourceAttrPair(datasourceName, "user_id", resourceName, "user_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttrPair(datasourceName, "tags.Key1", resourceName, "tags.Key1"),
 ),
-	},
 },
-	})
+},
+})
 }
 func testAccUserBaseDataSourceConfig(rName, rName2, rName3, rName4, rName5, email string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccUserConfig_base(rName, rName2, rName3, rName4),
 fmt.Sprintf(`
 resource "aws_connect_user" "test" {
@@ -124,7 +124,7 @@ hierarchy_group_id = aws_connect_user_hierarchy_group.parent.hierarchy_group_ids
 `, rName5, email))
 }
 func testAccUserDataSourceConfig_id(rName, rName2, rName3, rName4, rName5, email string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccUserBaseDataSourceConfig(rName, rName2, rName3, rName4, rName5, email),
 `
 data "aws_connect_user" "test" {
@@ -134,7 +134,7 @@ user_id= aws_connect_user.test.user_id
 `)
 }
 func testAccUserDataSourceConfig_name(rName, rName2, rName3, rName4, rName5, email string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccUserBaseDataSourceConfig(rName, rName2, rName3, rName4, rName5, email),
 `
 data "aws_connect_user" "test" {

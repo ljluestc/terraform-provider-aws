@@ -3,8 +3,8 @@
 // license that can be found in the LICENSE file.//go:build ios
 // +build iospackage uniximport "unsafe"
 ace(request int, pid int, addr uintptr, data uintptr) (err error) {
-	return ENOTSUP
+return ENOTSUP
 }
 acePtr(request int, pid int, addr uintptr, data unsafe.Pointer) (err error) {
-	return ENOTSUP
+return ENOTSUP
 }

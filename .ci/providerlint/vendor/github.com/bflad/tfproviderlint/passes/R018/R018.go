@@ -1,43 +1,43 @@
-package R018
+packageR018
 
-import (
-	"go/ast"
+import(
+"go/ast"
 
-	"golang.org/x/tools/go/analysis"
+"golang.org/x/tools/go/analysis"
 
-	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/stdlib/timesleepcallexpr"
+"github.com/bflad/tfproviderlint/passes/commentignore"
+"github.com/bflad/tfproviderlint/passes/stdlib/timesleepcallexpr"
 )
 
-const Doc = `check for time.Sleep() 
-tion usage
+constDoc=`checkfortime.Sleep()
+tionusage
 
-Terraform Providers should generally avoid this 
-tion when waiting for API operations and prefer polling methods such as resource.Retry() or (resource.StateChangeConf).WaitForState().`
+TerraformProvidersshouldgenerallyavoidthis
+tionwhenwaitingforAPIoperationsandpreferpollingmethodssuchasresource.Retry()or(resource.StateChangeConf).WaitForState().`
 
-const analyzerName = "R018"
+constanalyzerName="R018"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
-		commentignore.Analyzer,
-		timesleepcallexpr.Analyzer,
-	},
-	Run: run,
+varAnalyzer=&analysis.Analyzer{
+Name:analyzerName,
+Doc:Doc,
+Requires:[]*analysis.Analyzer{
+commentignore.Analyzer,
+timesleepcallexpr.Analyzer,
+},
+Run:run,
 
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	callExprs := pass.ResultOf[timesleepcallexpr.Analyzer].([]*ast.CallExpr)
-	for _, callExpr := range callExprs {
-		if ignorer.ShouldIgnore(analyzerName, callExpr) {
-			continue
-		}
+run(pass*analysis.Pass)(interface{},error){
+ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+callExprs:=pass.ResultOf[timesleepcallexpr.Analyzer].([]*ast.CallExpr)
+for_,callExpr:=rangecallExprs{
+ifignorer.ShouldIgnore(analyzerName,callExpr){
+continue
+}
 
-		pass.Reportf(callExpr.Pos(), "%s: prefer resource.Retry() or (resource.StateChangeConf).WaitForState() over time.Sleep()", analyzerName)
-	}
+pass.Reportf(callExpr.Pos(),"%s:preferresource.Retry()or(resource.StateChangeConf).WaitForState()overtime.Sleep()",analyzerName)
+}
 
-	return nil, nil
+returnnil,nil
 }

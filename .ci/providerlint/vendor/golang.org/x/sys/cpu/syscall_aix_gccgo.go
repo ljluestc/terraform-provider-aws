@@ -6,10 +6,10 @@
 // Moreover, this file will be used during the building of
 // gccgo's libgo and thus must not used a CGo method.//go:build aix && gccgo
 // +build aix,gccgopackage cpuimport (
-	"syscall"
+"syscall"
 )//extern getsystemcfg gccgoGetsystemcfg(label uint32) (r uint64)
  callgetsystemcfg(label int) (r1 uintptr, e1 syscall.Errno) {
-	r1 = uintptr(gccgoGetsystemcfg(uint32(label)))
-	e1 = syscall.GetErrno()
-	return
+r1 = uintptr(gccgoGetsystemcfg(uint32(label)))
+e1 = syscall.GetErrno()
+return
 }

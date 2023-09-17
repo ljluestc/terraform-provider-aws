@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package oam
+packageoam
 
-import (
+import(
 "context"
 
 "github.com/aws/aws-sdk-go-v2/service/oam"
@@ -15,46 +15,46 @@ import (
 "github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKDataSource("aws_oam_sinks")
-func DataSourceSinks() *schema.Resource {
-return &schema.Resource{
-ReadWithoutTimeout: dataSourceSinksRead,
+//@SDKDataSource("aws_oam_sinks")
+funcDataSourceSinks()*schema.Resource{
+return&schema.Resource{
+ReadWithoutTimeout:dataSourceSinksRead,
 
-Schema: map[string]*schema.Schema{
-"arns": {
-Type:     schema.TypeSet,
-Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Schema:map[string]*schema.Schema{
+"arns":{
+Type:schema.TypeSet,
+Computed:true,
+Elem:&schema.Schema{Type:schema.TypeString},
 },
 },
 }
 }
 
-const (
-DSNameSinks = "Sinks Data Source"
+const(
+DSNameSinks="SinksDataSource"
 )
 
-func dataSourceSinksRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)
-listSinksInput := &oam.ListSinksInput{}
+funcdataSourceSinksRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)
+listSinksInput:=&oam.ListSinksInput{}
 
-paginator := oam.NewListSinksPaginator(conn, listSinksInput)
-var arns []string
+paginator:=oam.NewListSinksPaginator(conn,listSinksInput)
+vararns[]string
 
-for paginator.HasMorePages() {
-page, err := paginator.NextPage(ctx)
+forpaginator.HasMorePages(){
+page,err:=paginator.NextPage(ctx)
 
-if err != nil {
-return create.DiagError(names.ObservabilityAccessManager, create.ErrActionReading, DSNameSinks, "", err)
+iferr!=nil{
+returncreate.DiagError(names.ObservabilityAccessManager,create.ErrActionReading,DSNameSinks,"",err)
 }
 
-for _, listSinksItem := range page.Items {
-arns = append(arns, aws.StringValue(listSinksItem.Arn))
+for_,listSinksItem:=rangepage.Items{
+arns=append(arns,aws.StringValue(listSinksItem.Arn))
 }
 }
 
 d.SetId(meta.(*conns.AWSClient).Region)
-d.Set("arns", arns)
+d.Set("arns",arns)
 
-return nil
+returnnil
 }

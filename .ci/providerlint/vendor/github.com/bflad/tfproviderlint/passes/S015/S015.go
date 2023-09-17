@@ -1,9 +1,9 @@
-// Package S015 defines an Analyzer that checks for
-// Schema that attribute names contain only lowercase
-// alphanumerics and underscores
-package S015
+//PackageS015definesanAnalyzerthatchecksfor
+//Schemathatattributenamescontainonlylowercase
+//alphanumericsandunderscores
+packageS015
 
-import (
+import(
 	"go/ast"
 	"strings"
 
@@ -14,47 +14,47 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemamapcompositelit"
 )
 
-const Doc = `check for Schema that attribute names are valid
+constDoc=`checkforSchemathatattributenamesarevalid
 
-The S015 analyzer reports cases of schemas which the attribute name
-includes characters outside lowercase alphanumerics and underscores,
-which will fail provider schema validation.`
+TheS015analyzerreportscasesofschemaswhichtheattributename
+includescharactersoutsidelowercasealphanumericsandunderscores,
+whichwillfailproviderschemavalidation.`
 
-const analyzerName = "S015"
+constanalyzerName="S015"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemamapcompositelit.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemamapcompositelits := pass.ResultOf[schemamapcompositelit.Analyzer].([]*ast.CompositeLit)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemamapcompositelits:=pass.ResultOf[schemamapcompositelit.Analyzer].([]*ast.CompositeLit)
 
-	for _, smap := range schemamapcompositelits {
-		if ignorer.ShouldIgnore(analyzerName, smap) {
+	for_,smap:=rangeschemamapcompositelits{
+		ifignorer.ShouldIgnore(analyzerName,smap){
 			continue
 		}
 
-		for _, attributeName := range schema.GetSchemaMapAttributeNames(smap) {
-			switch t := attributeName.(type) {
+		for_,attributeName:=rangeschema.GetSchemaMapAttributeNames(smap){
+			switcht:=attributeName.(type){
 			default:
 				continue
-			case *ast.BasicLit:
-				value := strings.Trim(t.Value, `"`)
+			case*ast.BasicLit:
+				value:=strings.Trim(t.Value,`"`)
 
-				if !schema.AttributeNameRegexp.MatchString(value) {
-					pass.Reportf(t.Pos(), "%s: schema attribute names should only be lowercase alphanumeric characters or underscores", analyzerName)
+				if!schema.AttributeNameRegexp.MatchString(value){
+					pass.Reportf(t.Pos(),"%s:schemaattributenamesshouldonlybelowercasealphanumericcharactersorunderscores",analyzerName)
 				}
 			}
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

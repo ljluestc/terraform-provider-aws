@@ -1,11 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package comprehendimport (
-	"time"
-)const iamPropagationTimeout = 2 * time.Minute// Avoid service throttling
-const entityRegcognizerCreatedDelay = 10 * time.Minute
-const entityRegcognizerStoppedDelay = 0
-const entityRegcognizerDeletedDelay = 5 * time.Minute
-const entityRegcognizerPollInterval = 1 * time.Minuteconst documentClassifierCreatedDelay = 15 * time.Minute
-const documentClassifierStoppedDelay = 0
-const documentClassifierDeletedDelay = 5 * time.Minute
-const documentClassifierPollInterval = 1 * time.Minute
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package comprehendimport ("time")const iamPropagationTimeout = 2 * time.Minute// Avoid service throttlingconst entityRegcognizerCreatedDelay = 10 * time.Minuteconst entityRegcognizerStoppedDelay = 0const entityRegcognizerDeletedDelay = 5 * time.Minuteconst entityRegcognizerPollInterval = 1 * time.Minuteconst documentClassifierCreatedDelay = 15 * time.Minuteconst documentClassifierStoppedDelay = 0const documentClassifierDeletedDelay = 5 * time.Minuteconst documentClassifierPollInterval = 1 * time.Minute

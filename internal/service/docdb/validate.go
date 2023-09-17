@@ -1,191 +1,191 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package docdb
+packagedocdb
 
-import (
-	"fmt"
+import(
+"fmt"
 
-	"github.com/YakDriver/regexache"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/id"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+"github.com/YakDriver/regexache"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/id"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
-func validClusterIdentifier(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only lowercase alphanumeric characters and hyphens allowed in %q", k))
-	}
-	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"first character of %q must be a letter", k))
-	}
-	if regexache.MustCompile(`--`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot contain two consecutive hyphens", k))
-	}
-	if regexache.MustCompile(`-$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot end with a hyphen", k))
-	}
-	return
+funcvalidClusterIdentifier(vinterface{},kstring)(ws[]string,errors[]error){
+value:=v.(string)
+if!regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"onlylowercasealphanumericcharactersandhyphensallowedin%q",k))
 }
-func validClusterSnapshotIdentifier(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only lowercase alphanumeric characters and hyphens allowed in %q", k))
-	}
-	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"first character of %q must be a letter", k))
-	}
-	if regexache.MustCompile(`--`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot contain two consecutive hyphens", k))
-	}
-	if regexache.MustCompile(`-$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot end with a hyphen", k))
-	}
-	return
+if!regexache.MustCompile(`^[a-z]`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"firstcharacterof%qmustbealetter",k))
 }
-func validEngine() schema.SchemaValidateFunc {
-	return validation.StringInSlice([]string{
-		"docdb",
-	}, false)
+ifregexache.MustCompile(`--`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"%qcannotcontaintwoconsecutivehyphens",k))
 }
-func validIdentifier(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only lowercase alphanumeric characters and hyphens allowed in %q", k))
-	}
-	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"first character of %q must be a letter", k))
-	}
-	if regexache.MustCompile(`--`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot contain two consecutive hyphens", k))
-	}
-	if regexache.MustCompile(`-$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot end with a hyphen", k))
-	}
-	if len(value) > 63 {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot be greater than 63 characters", k))
-	}
-	return
+ifregexache.MustCompile(`-$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"%qcannotendwithahyphen",k))
 }
-func validIdentifierPrefix(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only lowercase alphanumeric characters and hyphens allowed in %q", k))
-	}
-	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"first character of %q must be a letter", k))
-	}
-	if regexache.MustCompile(`--`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot contain two consecutive hyphens", k))
-	}
-	return
+return
 }
-func validParamGroupName(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only lowercase alphanumeric characters and hyphens allowed in parameter group %q", k))
-	}
-	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"first character of parameter group %q must be a letter", k))
-	}
-	if regexache.MustCompile(`--`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"parameter group %q cannot contain two consecutive hyphens", k))
-	}
-	if regexache.MustCompile(`-$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"parameter group %q cannot end with a hyphen", k))
-	}
-	if len(value) > 255 {
-		errors = append(errors, fmt.Errorf(
-			"parameter group %q cannot be greater than 255 characters", k))
-	}
-	return
+funcvalidClusterSnapshotIdentifier(vinterface{},kstring)(ws[]string,errors[]error){
+value:=v.(string)
+if!regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"onlylowercasealphanumericcharactersandhyphensallowedin%q",k))
 }
-func validGlobalCusterIdentifier(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only alphanumeric characters and hyphens allowed in %q", k))
-	}
-	if !regexache.MustCompile(`^[A-Za-z]`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"first character of %q must be a letter", k))
-	}
-	if regexache.MustCompile(`--`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot contain two consecutive hyphens", k))
-	}
-	if len(value) > 255 {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot be greater than 255 characters", k))
-	}
-	return
+if!regexache.MustCompile(`^[a-z]`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"firstcharacterof%qmustbealetter",k))
 }
-func validParamGroupNamePrefix(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only lowercase alphanumeric characters and hyphens allowed in parameter group %q", k))
-	}
-	if !regexache.MustCompile(`^[a-z]`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"first character of parameter group %q must be a letter", k))
-	}
-	if regexache.MustCompile(`--`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"parameter group %q cannot contain two consecutive hyphens", k))
-	}
-	if len(value) > 255 {
-		errors = append(errors, fmt.Errorf(
-			"parameter group %q cannot be greater than 226 characters", k))
-	}
-	return
+ifregexache.MustCompile(`--`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"%qcannotcontaintwoconsecutivehyphens",k))
 }
-func validSubnetGroupName(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[0-9a-z_ .-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only lowercase alphanumeric characters, hyphens, underscores, periods, and spaces allowed in %q", k))
-	}
-	if len(value) > 255 {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot be longer than 255 characters", k))
-	}
-	if value == "default" {
-		errors = append(errors, fmt.Errorf(
-			"%q is not allowed as %q", "Default", k))
-	}
-	return
+ifregexache.MustCompile(`-$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"%qcannotendwithahyphen",k))
 }
-func validSubnetGroupNamePrefix(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if !regexache.MustCompile(`^[0-9a-z_ .-]+$`).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"only lowercase alphanumeric characters, hyphens, underscores, periods, and spaces allowed in %q", k))
-	}
-	prefixMaxLength := 255 - id.UniqueIDSuffixLength
-	if len(value) > prefixMaxLength {
-		errors = append(errors, fmt.Errorf(
-			"%q cannot be longer than %d characters", k, prefixMaxLength))
-	}
-	return
+return
+}
+funcvalidEngine()schema.SchemaValidateFunc{
+returnvalidation.StringInSlice([]string{
+"docdb",
+},false)
+}
+funcvalidIdentifier(vinterface{},kstring)(ws[]string,errors[]error){
+value:=v.(string)
+if!regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"onlylowercasealphanumericcharactersandhyphensallowedin%q",k))
+}
+if!regexache.MustCompile(`^[a-z]`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"firstcharacterof%qmustbealetter",k))
+}
+ifregexache.MustCompile(`--`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"%qcannotcontaintwoconsecutivehyphens",k))
+}
+ifregexache.MustCompile(`-$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"%qcannotendwithahyphen",k))
+}
+iflen(value)>63{
+errors=append(errors,fmt.Errorf(
+"%qcannotbegreaterthan63characters",k))
+}
+return
+}
+funcvalidIdentifierPrefix(vinterface{},kstring)(ws[]string,errors[]error){
+value:=v.(string)
+if!regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"onlylowercasealphanumericcharactersandhyphensallowedin%q",k))
+}
+if!regexache.MustCompile(`^[a-z]`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"firstcharacterof%qmustbealetter",k))
+}
+ifregexache.MustCompile(`--`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"%qcannotcontaintwoconsecutivehyphens",k))
+}
+return
+}
+funcvalidParamGroupName(vinterface{},kstring)(ws[]string,errors[]error){
+value:=v.(string)
+if!regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"onlylowercasealphanumericcharactersandhyphensallowedinparametergroup%q",k))
+}
+if!regexache.MustCompile(`^[a-z]`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"firstcharacterofparametergroup%qmustbealetter",k))
+}
+ifregexache.MustCompile(`--`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"parametergroup%qcannotcontaintwoconsecutivehyphens",k))
+}
+ifregexache.MustCompile(`-$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"parametergroup%qcannotendwithahyphen",k))
+}
+iflen(value)>255{
+errors=append(errors,fmt.Errorf(
+"parametergroup%qcannotbegreaterthan255characters",k))
+}
+return
+}
+funcvalidGlobalCusterIdentifier(vinterface{},kstring)(ws[]string,errors[]error){
+value:=v.(string)
+if!regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"onlyalphanumericcharactersandhyphensallowedin%q",k))
+}
+if!regexache.MustCompile(`^[A-Za-z]`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"firstcharacterof%qmustbealetter",k))
+}
+ifregexache.MustCompile(`--`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"%qcannotcontaintwoconsecutivehyphens",k))
+}
+iflen(value)>255{
+errors=append(errors,fmt.Errorf(
+"%qcannotbegreaterthan255characters",k))
+}
+return
+}
+funcvalidParamGroupNamePrefix(vinterface{},kstring)(ws[]string,errors[]error){
+value:=v.(string)
+if!regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"onlylowercasealphanumericcharactersandhyphensallowedinparametergroup%q",k))
+}
+if!regexache.MustCompile(`^[a-z]`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"firstcharacterofparametergroup%qmustbealetter",k))
+}
+ifregexache.MustCompile(`--`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"parametergroup%qcannotcontaintwoconsecutivehyphens",k))
+}
+iflen(value)>255{
+errors=append(errors,fmt.Errorf(
+"parametergroup%qcannotbegreaterthan226characters",k))
+}
+return
+}
+funcvalidSubnetGroupName(vinterface{},kstring)(ws[]string,errors[]error){
+value:=v.(string)
+if!regexache.MustCompile(`^[0-9a-z_.-]+$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"onlylowercasealphanumericcharacters,hyphens,underscores,periods,andspacesallowedin%q",k))
+}
+iflen(value)>255{
+errors=append(errors,fmt.Errorf(
+"%qcannotbelongerthan255characters",k))
+}
+ifvalue=="default"{
+errors=append(errors,fmt.Errorf(
+"%qisnotallowedas%q","Default",k))
+}
+return
+}
+funcvalidSubnetGroupNamePrefix(vinterface{},kstring)(ws[]string,errors[]error){
+value:=v.(string)
+if!regexache.MustCompile(`^[0-9a-z_.-]+$`).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"onlylowercasealphanumericcharacters,hyphens,underscores,periods,andspacesallowedin%q",k))
+}
+prefixMaxLength:=255-id.UniqueIDSuffixLength
+iflen(value)>prefixMaxLength{
+errors=append(errors,fmt.Errorf(
+"%qcannotbelongerthan%dcharacters",k,prefixMaxLength))
+}
+return
 }

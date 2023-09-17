@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package elasticbeanstalk_test
+packageelasticbeanstalk_test
 
-import (
+import(
 	"testing"
 
 	"github.com/YakDriver/regexache"
@@ -11,30 +11,30 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-func TestAccElasticBeanstalkSolutionStackDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_elastic_beanstalk_solution_stack.test"
+funcTestAccElasticBeanstalkSolutionStackDataSource_basic(t*testing.T){
+	ctx:=acctest.Context(t)
+	dataSourceName:="data.aws_elastic_beanstalk_solution_stack.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:acctest.PreCheck(ctx, t) },
-		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
+	resource.ParallelTest(t,resource.TestCase{
+		PreCheck:acctest.PreCheck(ctx,t)},
+		ErrorCheck:orCheck(t,elasticbeanstalk.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+		Steps:[]resource.TestStep{
 			{
-				Config: testAccSolutionStackDataSourceConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestMatchResourceAttr(dataSourceName, "name", regexache.MustCompile("^64bit Amazon Linux (.*) running Python (.*)$")),
+				Config:testAccSolutionStackDataSourceConfig_basic,
+				Check:resource.ComposeTestCheckFunc(
+					resource.TestMatchResourceAttr(dataSourceName,"name",regexache.MustCompile("^64bitAmazonLinux(.*)runningPython(.*)$")),
 				),
 			},
 		},
 	})
 }
 
-const testAccSolutionStackDataSourceConfig_basic = `
-data "aws_elastic_beanstalk_solution_stack" "test" {
-  most_recent = true
+consttestAccSolutionStackDataSourceConfig_basic=`
+data"aws_elastic_beanstalk_solution_stack""test"{
+most_recent=true
 
-  # e.g. "64bit Amazon Linux 2018.03 v2.10.14 running Python 3.6"
-  name_regex = "^64bit Amazon Linux (.*) running Python (.*)$"
+#e.g."64bitAmazonLinux2018.03v2.10.14runningPython3.6"
+name_regex="^64bitAmazonLinux(.*)runningPython(.*)$"
 }
 `

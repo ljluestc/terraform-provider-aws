@@ -1,8 +1,8 @@
-// Package S021 defines an Analyzer that checks for
-// Schema that should omit ComputedWhen
-package S021
+//PackageS021definesanAnalyzerthatchecksfor
+//SchemathatshouldomitComputedWhen
+packageS021
 
-import (
+import(
 	"golang.org/x/tools/go/analysis"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
@@ -10,38 +10,38 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemainfo"
 )
 
-const Doc = `check for Schema that should omit ComputedWhen
+constDoc=`checkforSchemathatshouldomitComputedWhen
 
-The S021 analyzer reports cases of schema that declare ComputedWhen that should
-be removed.`
+TheS021analyzerreportscasesofschemathatdeclareComputedWhenthatshould
+beremoved.`
 
-const analyzerName = "S021"
+constanalyzerName="S021"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemainfo.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		field := schema.SchemaFieldComputedWhen
+		field:=schema.SchemaFieldComputedWhen
 
-		if schemaInfo.DeclaresField(field) {
-			pass.Reportf(schemaInfo.Fields[field].Value.Pos(), "%s: schema should omit ComputedWhen", analyzerName)
+		ifschemaInfo.DeclaresField(field){
+			pass.Reportf(schemaInfo.Fields[field].Value.Pos(),"%s:schemashouldomitComputedWhen",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

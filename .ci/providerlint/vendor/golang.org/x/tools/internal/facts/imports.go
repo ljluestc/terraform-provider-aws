@@ -1,7 +1,7 @@
 //Copyright2018TheGoAuthors.Allrightsreserved.
 //UseofthissourcecodeisgovernedbyaBSD-style
 //licensethatcanbefoundintheLICENSEfile.packagefactsimport(
-	"go/types"	"golang.org/x/tools/internal/typeparams"
+"go/types""golang.org/x/tools/internal/typeparams"
 )//importMapcomputestheimportmapforapackagebytraversingthe
 //entireexportedAPIeachofitsimports.
 //
@@ -15,99 +15,99 @@
 //
 //TODO(adonovan):opt:computethisinformationmoreefficiently
 //byobtainingitfromtheinternalsofthegcexportdatadecoder.importMap(imports[]*types.Package)map[string]*types.Package{
-	objects:=make(map[types.Object]bool)
-	typs:=make(map[types.Type]bool)//NamedandTypeParam
-	packages:=make(map[string]*types.Package)	varaddObj
+objects:=make(map[types.Object]bool)
+typs:=make(map[types.Type]bool)//NamedandTypeParam
+packages:=make(map[string]*types.Package)varaddObj
 (objtypes.Object)
-	varaddTy
-(Ttypes.Type)	addObj=
+varaddTy
+(Ttypes.Type)addObj=
 (objtypes.Object){
-		if!objects[obj]{
-			objects[obj]=true
-			addType(obj.Type())
-			ifpkg:=obj.Pkg();pkg!=nil{
-				packages[pkg.Path()]=pkg
-			}
-		}
-	}	addType=
+if!objects[obj]{
+objects[obj]=true
+addType(obj.Type())
+ifpkg:=obj.Pkg();pkg!=nil{
+packages[pkg.Path()]=pkg
+}
+}
+}addType=
 (Ttypes.Type){
-		switchT:=T.(type){
-		case*types.Basic:
-			//nop
-		case*types.Named:
-			//Removeinfiniteexpansionsof*types.Namedbyalwayslookingattheorigin.
-			//Somenamedtypeswithtypeparameters[thatwillnottypecheck]have
-			//infiniteexpansions:
-			//typeN[Tany]struct{F*N[N[T]]}
-			//importMap()iscalledonsuchtypeswhenAnalyzer.RunDespiteErrorsistrue.
-			T=typeparams.NamedTypeOrigin(T).(*types.Named)
-			if!typs[T]{
-				typs[T]=true
-				addObj(T.Obj())
-				addType(T.Underlying())
-				fori:=0;i<T.NumMethods();i++{
-					addObj(T.Method(i))
-				}
-				iftparams:=typeparams.ForNamed(T);tparams!=nil{
-					fori:=0;i<tparams.Len();i++{
-						addType(tparams.At(i))
-					}
-				}
-				iftargs:=typeparams.NamedTypeArgs(T);targs!=nil{
-					fori:=0;i<targs.Len();i++{
-						addType(targs.At(i))
-					}
-				}
-			}
-		case*types.Pointer:
-			addType(T.Elem())
-		case*types.Slice:
-			addType(T.Elem())
-		case*types.Array:
-			addType(T.Elem())
-		case*types.Chan:
-			addType(T.Elem())
-		case*types.Map:
-			addType(T.Key())
-			addType(T.Elem())
-		case*types.Signature:
-			addType(T.Params())
-			addType(T.Results())
-			iftparams:=typeparams.ForSignature(T);tparams!=nil{
-				fori:=0;i<tparams.Len();i++{
-					addType(tparams.At(i))
-				}
-			}
-		case*types.Struct:
-			fori:=0;i<T.NumFields();i++{
-				addObj(T.Field(i))
-			}
-		case*types.Tuple:
-			fori:=0;i<T.Len();i++{
-				addObj(T.At(i))
-			}
-		case*types.Interface:
-			fori:=0;i<T.NumMethods();i++{
-				addObj(T.Method(i))
-			}
-			fori:=0;i<T.NumEmbeddeds();i++{
-				addType(T.EmbeddedType(i))//walkEmbeddedforimplicits
-			}
-		case*typeparams.Union:
-			fori:=0;i<T.Len();i++{
-				addType(T.Term(i).Type())
-			}
-		case*typeparams.TypeParam:
-			if!typs[T]{
-				typs[T]=true
-				addObj(T.Obj())
-				addType(T.Constraint())
-			}
-		}
-	}	for_,imp:=rangeimports{
-		packages[imp.Path()]=imp		scope:=imp.Scope()
-		for_,name:=rangescope.Names(){
-			addObj(scope.Lookup(name))
-		}
-	}	returnpackages
+switchT:=T.(type){
+case*types.Basic:
+//nop
+case*types.Named:
+//Removeinfiniteexpansionsof*types.Namedbyalwayslookingattheorigin.
+//Somenamedtypeswithtypeparameters[thatwillnottypecheck]have
+//infiniteexpansions:
+//typeN[Tany]struct{F*N[N[T]]}
+//importMap()iscalledonsuchtypeswhenAnalyzer.RunDespiteErrorsistrue.
+T=typeparams.NamedTypeOrigin(T).(*types.Named)
+if!typs[T]{
+typs[T]=true
+addObj(T.Obj())
+addType(T.Underlying())
+fori:=0;i<T.NumMethods();i++{
+addObj(T.Method(i))
+}
+iftparams:=typeparams.ForNamed(T);tparams!=nil{
+fori:=0;i<tparams.Len();i++{
+addType(tparams.At(i))
+}
+}
+iftargs:=typeparams.NamedTypeArgs(T);targs!=nil{
+fori:=0;i<targs.Len();i++{
+addType(targs.At(i))
+}
+}
+}
+case*types.Pointer:
+addType(T.Elem())
+case*types.Slice:
+addType(T.Elem())
+case*types.Array:
+addType(T.Elem())
+case*types.Chan:
+addType(T.Elem())
+case*types.Map:
+addType(T.Key())
+addType(T.Elem())
+case*types.Signature:
+addType(T.Params())
+addType(T.Results())
+iftparams:=typeparams.ForSignature(T);tparams!=nil{
+fori:=0;i<tparams.Len();i++{
+addType(tparams.At(i))
+}
+}
+case*types.Struct:
+fori:=0;i<T.NumFields();i++{
+addObj(T.Field(i))
+}
+case*types.Tuple:
+fori:=0;i<T.Len();i++{
+addObj(T.At(i))
+}
+case*types.Interface:
+fori:=0;i<T.NumMethods();i++{
+addObj(T.Method(i))
+}
+fori:=0;i<T.NumEmbeddeds();i++{
+addType(T.EmbeddedType(i))//walkEmbeddedforimplicits
+}
+case*typeparams.Union:
+fori:=0;i<T.Len();i++{
+addType(T.Term(i).Type())
+}
+case*typeparams.TypeParam:
+if!typs[T]{
+typs[T]=true
+addObj(T.Obj())
+addType(T.Constraint())
+}
+}
+}for_,imp:=rangeimports{
+packages[imp.Path()]=impscope:=imp.Scope()
+for_,name:=rangescope.Names(){
+addObj(scope.Lookup(name))
+}
+}returnpackages
 }

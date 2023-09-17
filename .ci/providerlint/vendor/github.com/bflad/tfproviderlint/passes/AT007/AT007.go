@@ -1,8 +1,8 @@
-// Package AT007 defines an Analyzer that checks for
-// acceptance tests containing multiple resource.ParallelTest() invocations
-package AT007
+//PackageAT007definesanAnalyzerthatchecksfor
+//acceptancetestscontainingmultipleresource.ParallelTest()invocations
+packageAT007
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/resource"
@@ -12,70 +12,70 @@ decl"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for acceptance tests containing multiple resource.ParallelTest() invocations
+constDoc=`checkforacceptancetestscontainingmultipleresource.ParallelTest()invocations
 
-The AT007 analyzer reports acceptance test 
-tions that contain multiple
-resource.ParallelTest() invocations. Acceptance tests should be split by
-invocation and multiple resource.ParallelTest() will cause a panic.`
+TheAT007analyzerreportsacceptancetest
+tionsthatcontainmultiple
+resource.ParallelTest()invocations.Acceptancetestsshouldbesplitby
+invocationandmultipleresource.ParallelTest()willcauseapanic.`
 
-const analyzerName = "AT007"
+constanalyzerName="AT007"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
 	Requires*analysis.Analyzer{
 		commentignore.Analyzer,
 		testacc
 decl.Analyzer,
 	},
-: run,
+:run,
 }
 
 
- run(pasnalysis.Pass) erface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Anal].(*commentignore.Ignorer)
+run(pasnalysis.Pass)erface{},error){
+	ignorer:=pass.ResultOf[commentignore.Anal].(*commentignore.Ignorer)
 	test
-s := pass.ResultOf[testacc
+s:=pass.ResultOf[testacc
 decl.Analyzer].([]*ast.
 Decl)
 
-	for _, test
- := range test
-s {
-		if ignorer.ShouldIgnore(analyzerName, test
-) {
+	for_,test
+:=rangetest
+s{
+		ifignorer.ShouldIgnore(analyzerName,test
+){
 			continue
 		}
 
-		var resourceParallelTestInvocations int
+		varresourceParallelTestInvocationsint
 
 		ast.Inspect(test
-.Body, 
-(n ast.Node) bool
-			callExpr, ok := n.(*ast.CallExpr)
+.Body,
+(nast.Node)bool
+			callExpr,ok:=n.(*ast.CallExpr)
 
-			if !ok {
-				return true
+			if!ok{
+				returntrue
 			}
 
-			if resource.Is
-(callExpr.Fun, pass.TypesInfo, resource.
-NameParallelTest) {
-				resourceParallelTestInvocations += 1
+			ifresource.Is
+(callExpr.Fun,pass.TypesInfo,resource.
+NameParallelTest){
+				resourceParallelTestInvocations+=1
 			}
 
-			if resourceParallelTestInvocations > 1 {
+			ifresourceParallelTestInvocations>1{
 				pass.Reportf(test
-.Pos(), "%s: acceptance test 
-tion should contain only one ParallelTest invocation", analyzerName)
-				return false
+.Pos(),"%s:acceptancetest
+tionshouldcontainonlyoneParallelTestinvocation",analyzerName)
+				returnfalse
 			}
 
-			return true
+			returntrue
 		})
 
 	}
 
-	return nil, nil
+	returnnil,nil
 }

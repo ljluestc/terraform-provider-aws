@@ -1,55 +1,55 @@
-package AT011
+packageAT011
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/resource"
 	"github.com/bflad/tfproviderlint/passes/commentignore"
 	"github.com/bflad/tfproviderlint/passes/helper/resource/testcaseinfo"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for TestCase including IDRefreshIgnore implementation without IDRefreshName
+constDoc=`checkforTestCaseincludingIDRefreshIgnoreimplementationwithoutIDRefreshName
 
-The AT011 analyzer reports likely extraneous use of ID-only refresh testing.
-Most resources should prefer to include a TestStep with ImportState instead
-since it will cover the same testing 
-tionality along with verifying
-resource import support.
+TheAT011analyzerreportslikelyextraneoususeofID-onlyrefreshtesting.
+MostresourcesshouldprefertoincludeaTestStepwithImportStateinstead
+sinceitwillcoverthesametesting
+tionalityalongwithverifying
+resourceimportsupport.
 
-However for cases where IDRefreshName is being already being used, the
-IDRefreshIgnore field is considered valid. If IDRefreshName is not being used,
-then this analyzer will return a report.
+HoweverforcaseswhereIDRefreshNameisbeingalreadybeingused,the
+IDRefreshIgnorefieldisconsideredvalid.IfIDRefreshNameisnotbeingused,
+thenthisanalyzerwillreturnareport.
 `
 
-const analyzerName = "AT011"
+constanalyzerName="AT011"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		testcaseinfo.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	testCases := pass.ResultOf[testcaseinfo.Analyzer].([]*resource.TestCaseInfo)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	testCases:=pass.ResultOf[testcaseinfo.Analyzer].([]*resource.TestCaseInfo)
 
-	for _, testCase := range testCases {
-		field, ok := testCase.Fields[resource.TestCaseFieldIDRefreshIgnore]
+	for_,testCase:=rangetestCases{
+		field,ok:=testCase.Fields[resource.TestCaseFieldIDRefreshIgnore]
 
-		if !ok || field == nil || testCase.DeclaresField(resource.TestCaseFieldIDRefreshName) {
+		if!ok||field==nil||testCase.DeclaresField(resource.TestCaseFieldIDRefreshName){
 			continue
 		}
 
-		if ignorer.ShouldIgnore(analyzerName, field) {
+		ifignorer.ShouldIgnore(analyzerName,field){
 			continue
 		}
 
-		pass.Reportf(field.Pos(), "%s: extraneous TestCase IDRefreshIgnore without IDRefreshName", analyzerName)
+		pass.Reportf(field.Pos(),"%s:extraneousTestCaseIDRefreshIgnorewithoutIDRefreshName",analyzerName)
 	}
 
-	return nil, nil
+	returnnil,nil
 }

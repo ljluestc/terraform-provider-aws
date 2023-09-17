@@ -1,70 +1,70 @@
-package resource
+packageresource
 
-import (
+import(
 	"go/ast"
 	"go/types"
 
 	"github.com/bflad/tfproviderlint/helper/astutils"
 )
 
-const (
-	TestCaseFieldCheckDestroy              = `CheckDestroy`
-	TestCaseFieldErrorCheck                = `ErrorCheck`
-	TestCaseFieldIDRefreshName             = `IDRefreshName`
-	TestCaseFieldIDRefreshIgnore           = `IDRefreshIgnore`
-	TestCaseFieldIsUnitTest                = `IsUnitTest`
-	TestCaseFieldPreCheck                  = `PreCheck`
-	TestCaseFieldPreventPostDestroyRefresh = `PreventPostDestroyRefresh`
-	TestCaseFieldProviders                 = `Providers`
-	TestCaseFieldProviderFactories         = `ProviderFactories`
-	TestCaseFieldSteps                     = `Steps`
+const(
+	TestCaseFieldCheckDestroy=`CheckDestroy`
+	TestCaseFieldErrorCheck=`ErrorCheck`
+	TestCaseFieldIDRefreshName=`IDRefreshName`
+	TestCaseFieldIDRefreshIgnore=`IDRefreshIgnore`
+	TestCaseFieldIsUnitTest=`IsUnitTest`
+	TestCaseFieldPreCheck=`PreCheck`
+	TestCaseFieldPreventPostDestroyRefresh=`PreventPostDestroyRefresh`
+	TestCaseFieldProviders=`Providers`
+	TestCaseFieldProviderFactories=`ProviderFactories`
+	TestCaseFieldSteps=`Steps`
 
-	TypeNameTestCase = `TestCase`
+	TypeNameTestCase=`TestCase`
 )
 
-// testCaseType is an internal representation of the SDK helper/resource.TestCase type
+//testCaseTypeisaninternalrepresentationoftheSDKhelper/resource.TestCasetype
 //
-// This is used to prevent importing the real type since the project supports
-// multiple versions of the Terraform Plugin SDK, while allowing passes to
-// access the data in a familiar manner.
-type testCaseType struct{}
+//Thisisusedtopreventimportingtherealtypesincetheprojectsupports
+//multipleversionsoftheTerraformPluginSDK,whileallowingpassesto
+//accessthedatainafamiliarmanner.
+typetestCaseTypestruct{}
 
-// TestCaseInfo represents all gathered TestCase data for easier access
-type TestCaseInfo struct {
-	AstCompositeLit *ast.CompositeLit
-	Fields          map[string]*ast.KeyValueExpr
-	TestCase        *testCaseType
-	TypesInfo       *types.Info
+//TestCaseInforepresentsallgatheredTestCasedataforeasieraccess
+typeTestCaseInfostruct{
+	AstCompositeLit*ast.CompositeLit
+	Fieldsmap[string]*ast.KeyValueExpr
+	TestCase*testCaseType
+	TypesInfo*types.Info
 }
 
-// NewTestCaseInfo instantiates a TestCaseInfo
+//NewTestCaseInfoinstantiatesaTestCaseInfo
 
- NewTestCaseInfo(cl *ast.CompositeLit, info *types.Info) *TestCaseInfo {
-	result := &TestCaseInfo{
-		AstCompositeLit: cl,
-		Fields:          astutils.CompositeLitFields(cl),
-		TestCase:        &testCaseType{},
-		TypesInfo:       info,
+NewTestCaseInfo(cl*ast.CompositeLit,info*types.Info)*TestCaseInfo{
+	result:=&TestCaseInfo{
+		AstCompositeLit:cl,
+		Fields:astutils.CompositeLitFields(cl),
+		TestCase:&testCaseType{},
+		TypesInfo:info,
 	}
 
-	return result
+	returnresult
 }
 
-eclaresField returns true if the field name is present in the AST
+eclaresFieldreturnstrueifthefieldnameispresentintheAST
 
- (info *TestCaseInfo) DeclaresField(fieldName string) bool {
-	return info.Fields[fieldName] != nil
+(info*TestCaseInfo)DeclaresField(fieldNamestring)bool{
+	returninfo.Fields[fieldName]!=nil
 }
 
-// IsTypeTestCase returns if the type is TestCase from the helper/schema package
+//IsTypeTestCasereturnsifthetypeisTestCasefromthehelper/schemapackage
 
- IsTypeTestCase(t types.Type) bool {
-	switch t := t.(type) {
-	case *types.Named:
-		return IsNamedType(t, TypeNameTestCase)
-	case *types.Pointer:
-		return IsTypeTestCase(t.Elem())
+IsTypeTestCase(ttypes.Type)bool{
+	switcht:=t.(type){
+	case*types.Named:
+		returnIsNamedType(t,TypeNameTestCase)
+	case*types.Pointer:
+		returnIsTypeTestCase(t.Elem())
 	default:
-		return false
+		returnfalse
 	}
 }

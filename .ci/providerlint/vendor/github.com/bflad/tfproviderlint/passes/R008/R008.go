@@ -1,13 +1,13 @@
-package R008
+packageR008
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/analysisutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
 	"github.com/bflad/tfproviderlint/passes/helper/schema/resourcedatasetpartialcallexpr"
 	"github.com/bflad/tfproviderlint/passes/helper/schema/resourcedatasetpartialselectorexpr"
 )
 
-var Analyzer = analysisutils.DeprecatedReceiverMethodSelectorExprAnalyzer(
+varAnalyzer=analysisutils.DeprecatedReceiverMethodSelectorExprAnalyzer(
 	"R008",
 	resourcedatasetpartialcallexpr.Analyzer,
 	resourcedatasetpartialselectorexpr.Analyzer,

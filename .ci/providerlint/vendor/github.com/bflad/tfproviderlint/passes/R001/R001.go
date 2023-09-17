@@ -1,8 +1,8 @@
-// Package R001 defines an Analyzer that checks for
-// ResourceData.Set() calls using complex key argument
-package R001
+//PackageR001definesanAnalyzerthatchecksfor
+//ResourceData.Set()callsusingcomplexkeyargument
+packageR001
 
-import (
+import(
 	"go/ast"
 
 	"golang.org/x/tools/go/analysis"
@@ -11,43 +11,43 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/resourcedatasetcallexpr"
 )
 
-const Doc = `check for ResourceData.Set() calls using complex key argument
+constDoc=`checkforResourceData.Set()callsusingcomplexkeyargument
 
-The R001 analyzer reports a complex key argument for a Set()
-call. It is preferred to explicitly use a string literal as the key argument.`
+TheR001analyzerreportsacomplexkeyargumentforaSet()
+call.Itispreferredtoexplicitlyuseastringliteralasthekeyargument.`
 
-const analyzerName = "R001"
+constanalyzerName="R001"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		resourcedatasetcallexpr.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	sets := pass.ResultOf[resourcedatasetcallexpr.Analyzer].([]*ast.CallExpr)
-	for _, set := range sets {
-		if ignorer.ShouldIgnore(analyzerName, set) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	sets:=pass.ResultOf[resourcedatasetcallexpr.Analyzer].([]*ast.CallExpr)
+	for_,set:=rangesets{
+		ifignorer.ShouldIgnore(analyzerName,set){
 			continue
 		}
 
-		if len(set.Args) < 2 {
+		iflen(set.Args)<2{
 			continue
 		}
 
-		switch v := set.Args[0].(type) {
+		switchv:=set.Args[0].(type){
 		default:
-			pass.Reportf(v.Pos(), "%s: ResourceData.Set() key argument should be string literal", analyzerName)
-		case *ast.BasicLit:
+			pass.Reportf(v.Pos(),"%s:ResourceData.Set()keyargumentshouldbestringliteral",analyzerName)
+		case*ast.BasicLit:
 			continue
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

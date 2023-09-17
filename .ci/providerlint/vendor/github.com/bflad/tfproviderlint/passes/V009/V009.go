@@ -1,6 +1,6 @@
-package V009
+packageV009
 
-import (
+import(
 	"go/ast"
 
 	"golang.org/x/tools/go/analysis"
@@ -10,49 +10,49 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/validation/stringmatchcallexpr"
 )
 
-const Doc = `check for validation.StringMatch() calls with empty message argument
+constDoc=`checkforvalidation.StringMatch()callswithemptymessageargument
 
-The V009 analyzer reports when the second argument for a validation.StringMatch()
-call is an empty string. It is preferred to provide a friendly validation
-message, rather than allowing the 
-tion to return the raw regular expression
-as the message, since not all practitioners may be familiar with regular
-expression syntax.`
+TheV009analyzerreportswhenthesecondargumentforavalidation.StringMatch()
+callisanemptystring.Itispreferredtoprovideafriendlyvalidation
+message,ratherthanallowingthe
+tiontoreturntherawregularexpression
+asthemessage,sincenotallpractitionersmaybefamiliarwithregular
+expressionsyntax.`
 
-const analyzerName = "V009"
+constanalyzerName="V009"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		stringmatchcallexpr.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	sets := pass.ResultOf[stringmatchcallexpr.Analyzer].([]*ast.CallExpr)
-	for _, set := range sets {
-		if ignorer.ShouldIgnore(analyzerName, set) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	sets:=pass.ResultOf[stringmatchcallexpr.Analyzer].([]*ast.CallExpr)
+	for_,set:=rangesets{
+		ifignorer.ShouldIgnore(analyzerName,set){
 			continue
 		}
 
-		if len(set.Args) < 2 {
+		iflen(set.Args)<2{
 			continue
 		}
 
-		switch v := set.Args[1].(type) {
+		switchv:=set.Args[1].(type){
 		default:
 			continue
-		case *ast.BasicLit:
-			if value := astutils.ExprStringValue(v); value != nil && *value == "" {
-				pass.Reportf(v.Pos(), "%s: validation.StringMatch() message argument should be non-empty", analyzerName)
+		case*ast.BasicLit:
+			ifvalue:=astutils.ExprStringValue(v);value!=nil&&*value==""{
+				pass.Reportf(v.Pos(),"%s:validation.StringMatch()messageargumentshouldbenon-empty",analyzerName)
 			}
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

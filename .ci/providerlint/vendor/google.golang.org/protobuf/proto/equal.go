@@ -5,9 +5,9 @@
 package proto
 
 import (
-	"reflect"
+"reflect"
 
-	"google.golang.org/protobuf/reflect/protoreflect"
+"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 // Equal reports whether two messages are equal,
@@ -40,19 +40,19 @@ import (
 // serialization, then Equal is guaranteed to report true.
 
  Equal(x, y Message) bool {
-	if x == nil || y == nil {
-		return x == nil && y == nil
-	}
-	if reflect.TypeOf(x).Kind() == reflect.Ptr && x == y {
-		// Avoid an expensive comparison if both inputs are identical pointers.
-		return true
-	}
-	mx := x.ProtoReflect()
-	my := y.ProtoReflect()
-	if mx.IsValid() != my.IsValid() {
-		return false
-	}
-	vx := protoreflect.ValueOfMessage(mx)
-	vy := protoreflect.ValueOfMessage(my)
-	return vx.Equal(vy)
+if x == nil || y == nil {
+return x == nil && y == nil
+}
+if reflect.TypeOf(x).Kind() == reflect.Ptr && x == y {
+// Avoid an expensive comparison if both inputs are identical pointers.
+return true
+}
+mx := x.ProtoReflect()
+my := y.ProtoReflect()
+if mx.IsValid() != my.IsValid() {
+return false
+}
+vx := protoreflect.ValueOfMessage(mx)
+vy := protoreflect.ValueOfMessage(my)
+return vx.Equal(vy)
 }

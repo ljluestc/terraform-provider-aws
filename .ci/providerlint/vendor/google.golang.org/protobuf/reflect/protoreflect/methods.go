@@ -5,7 +5,7 @@
 package protoreflect
 
 import (
-	"google.golang.org/protobuf/internal/pragma"
+"google.golang.org/protobuf/internal/pragma"
 )
 
 // The following types are used by the fast-path Message.ProtoMethods method.
@@ -15,69 +15,69 @@ import (
 // in the runtime/protoiface package. The definitions here and in protoiface
 // must be kept in sync.
 type (
-	methods = struct {
-		pragma.NoUnkeyedLiterals
-		Flags            supportFlags
-		Size             
+methods = struct {
+pragma.NoUnkeyedLiterals
+Flags            supportFlags
+Size             
 (sizeInput) sizput
-		Marshal          
+Marshal          
 (marshalInput) shalOutput, error)
-		Unmarshal        
+Unmarshal        
 (unmarshalInput) (unmarshalOutput, error)
-		Merge            
+Merge            
 (mergeInput) mergeOutput
-		CheckInitialized 
+CheckInitialized 
 (checkInitializedInput) (checkInitializedOutput, error)
-	}
-	supportFlags = uint64
-	sizeInput    = struct {
-		pragma.NoUnkeyedLiterals
-		Message Message
-		Flags   uint8
-	}
-	sizeOutput = struct {
-		pragma.NoUnkeyedLiterals
-		Size int
-	}
-	marshalInput = struct {
-		pragma.NoUnkeyedLiterals
-		Message Message
-		Buf     []byte
-		Flags   uint8
-	}
-	marshalOutput = struct {
-		pragma.NoUnkeyedLiterals
-		Buf []byte
-	}
-	unmarshalInput = struct {
-		pragma.NoUnkeyedLiterals
-		Message  Message
-		Buf      []byte
-		Flags    uint8
-		Resolver interface {
-			FindExtensionByName(field FullName) (ExtensionType, error)
-			FindExtensionByNumber(message FullName, field FieldNumber) (ExtensionType, error)
-		}
-		Depth int
-	}
-	unmarshalOutput = struct {
-		pragma.NoUnkeyedLiterals
-		Flags uint8
-	}
-	mergeInput = struct {
-		pragma.NoUnkeyedLiterals
-		Source      Message
-		Destination Message
-	}
-	mergeOutput = struct {
-		pragma.NoUnkeyedLiterals
-		Flags uint8
-	}
-	checkInitializedInput = struct {
-		pragma.NoUnkeyedLiterals
-		Message Message
-	}
-	checkInitializedOutput = struct {
-		pragma.NoUnkeyedLiterals
-	}
+}
+supportFlags = uint64
+sizeInput    = struct {
+pragma.NoUnkeyedLiterals
+Message Message
+Flags   uint8
+}
+sizeOutput = struct {
+pragma.NoUnkeyedLiterals
+Size int
+}
+marshalInput = struct {
+pragma.NoUnkeyedLiterals
+Message Message
+Buf     []byte
+Flags   uint8
+}
+marshalOutput = struct {
+pragma.NoUnkeyedLiterals
+Buf []byte
+}
+unmarshalInput = struct {
+pragma.NoUnkeyedLiterals
+Message  Message
+Buf      []byte
+Flags    uint8
+Resolver interface {
+FindExtensionByName(field FullName) (ExtensionType, error)
+FindExtensionByNumber(message FullName, field FieldNumber) (ExtensionType, error)
+}
+Depth int
+}
+unmarshalOutput = struct {
+pragma.NoUnkeyedLiterals
+Flags uint8
+}
+mergeInput = struct {
+pragma.NoUnkeyedLiterals
+Source      Message
+Destination Message
+}
+mergeOutput = struct {
+pragma.NoUnkeyedLiterals
+Flags uint8
+}
+checkInitializedInput = struct {
+pragma.NoUnkeyedLiterals
+Message Message
+}
+checkInitializedOutput = struct {
+pragma.NoUnkeyedLiterals
+}
 )

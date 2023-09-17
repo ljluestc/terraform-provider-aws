@@ -1,6 +1,6 @@
-package S028
+packageS028
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
@@ -9,48 +9,48 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Schema with only Computed enabled and Default
- configured
+constDoc=`checkforSchemawithonlyComputedenabledandDefault
+configured
 
-The S028 analyzer repocases of schemas which only enables Computed
-and configures Default
-, which is not valid.`
+TheS028analyzerrepocasesofschemaswhichonlyenablesComputed
+andconfiguresDefault
+,whichisnotvalid.`
 
-const analyzerName = "S028"
+constanalyzerName="S028"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		schemainfocomputedonly.Analyzer,
 	},
-	Run: run,
+	Run:run,
 
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		if schemaInfo.Schema.Default
- == nil {
+		ifschemaInfo.Schema.Default
+==nil{
 			continue
 		}
 
-		switch t := schemaInfo.AstCompositeLit.Type.(type) {
+		switcht:=schemaInfo.AstCompositeLit.Type.(type){
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not only enable Computed and configure Default
-", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema should not only enable Computed and configure Default
-", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace,"%s:schemashouldnotonlyenableComputedandconfigureDefault
+",analyzerName)
+		case*ast.SelectorExpr:
+			pass.Reportf(t.Sel.Pos(),"%s:schemashouldnotonlyenableComputedandconfigureDefault
+",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

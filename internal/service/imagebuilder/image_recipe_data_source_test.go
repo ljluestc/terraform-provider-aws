@@ -4,55 +4,55 @@
 package imagebuilder_test
 
 import (
-	"fmt"
-	"testing"
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/service/imagebuilder"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/aws/aws-sdk-go/service/imagebuilder"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
 func TestAccImageBuilderImageRecipeDataSource_arn(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_imagebuilder_image_recipe.test"
-	resourceName := "aws_imagebuilder_image_recipe.test"
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+dataSourceName := "data.aws_imagebuilder_image_recipe.test"
+resourceName := "aws_imagebuilder_image_recipe.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:acctest.PreCheck(ctx, t) },
-		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:mageRecipeDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccImageRecipeDataSourceConfig_arn(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "block_device_mapping.#", resourceName, "block_device_mapping.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "component.#", resourceName, "component.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "component.0.component_arn", resourceName, "component.0.component_arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "component.0.parameter.#", resourceName, "component.0.parameter.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "component.0.parameter.0.name", resourceName, "component.0.parameter.0.name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "component.0.parameter.0.value", resourceName, "component.0.parameter.0.value"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "date_created", resourceName, "date_created"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "owner", resourceName, "owner"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "parent_image", resourceName, "parent_image"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "platform", resourceName, "platform"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "user_data_base64", resourceName, "user_data_base64"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "version", resourceName, "version"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "working_directory", resourceName, "working_directory"),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:acctest.PreCheck(ctx, t) },
+ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:mageRecipeDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccImageRecipeDataSourceConfig_arn(rName),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+resource.TestCheckResourceAttrPair(dataSourceName, "block_device_mapping.#", resourceName, "block_device_mapping.#"),
+resource.TestCheckResourceAttrPair(dataSourceName, "component.#", resourceName, "component.#"),
+resource.TestCheckResourceAttrPair(dataSourceName, "component.0.component_arn", resourceName, "component.0.component_arn"),
+resource.TestCheckResourceAttrPair(dataSourceName, "component.0.parameter.#", resourceName, "component.0.parameter.#"),
+resource.TestCheckResourceAttrPair(dataSourceName, "component.0.parameter.0.name", resourceName, "component.0.parameter.0.name"),
+resource.TestCheckResourceAttrPair(dataSourceName, "component.0.parameter.0.value", resourceName, "component.0.parameter.0.value"),
+resource.TestCheckResourceAttrPair(dataSourceName, "date_created", resourceName, "date_created"),
+resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+resource.TestCheckResourceAttrPair(dataSourceName, "owner", resourceName, "owner"),
+resource.TestCheckResourceAttrPair(dataSourceName, "parent_image", resourceName, "parent_image"),
+resource.TestCheckResourceAttrPair(dataSourceName, "platform", resourceName, "platform"),
+resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttrPair(dataSourceName, "user_data_base64", resourceName, "user_data_base64"),
+resource.TestCheckResourceAttrPair(dataSourceName, "version", resourceName, "version"),
+resource.TestCheckResourceAttrPair(dataSourceName, "working_directory", resourceName, "working_directory"),
+),
+},
+},
+})
 }
 
 func testAccImageRecipeDataSourceConfig_arn(rName string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 data "aws_region" "current" {}
 
 data "aws_partition" "current" {}

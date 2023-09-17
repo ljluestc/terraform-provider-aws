@@ -1,50 +1,50 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package cloudformation_testimport (
-	"fmt"
-	"testing"	"github.com/aws/aws-sdk-go/service/cloudformation"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"fmt"
+"testing""github.com/aws/aws-sdk-go/service/cloudformation"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )func TestAccCloudFormationExportDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_cloudformation_export.test"	resource.ParallelTest(t, resource.TestCase{
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+dataSourceName := "data.aws_cloudformation_export.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccExportDataSourceConfig_staticValue(rName),
 PreventPostDestroyRefresh: true,
 Check: resource.ComposeTestCheckFunc(
-	resource.TestCheckResourceAttr(dataSourceName, "value", "waiter"),
+resource.TestCheckResourceAttr(dataSourceName, "value", "waiter"),
 ),
-	},
 },
-	})
+},
+})
 }func TestAccCloudFormationExportDataSource_resourceReference(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_cloudformation_export.test"
-	resourceName := "aws_cloudformation_stack.test"	resource.ParallelTest(t, resource.TestCase{
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+dataSourceName := "data.aws_cloudformation_export.test"
+resourceName := "aws_cloudformation_stack.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, cloudformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccExportDataSourceConfig_resourceReference(rName),
 PreventPostDestroyRefresh: true,
 Check: resource.ComposeTestCheckFunc(
-	resource.TestCheckResourceAttrPair(dataSourceName, "exporting_stack_id", resourceName, "id"),
-	resource.TestCheckResourceAttrPair(dataSourceName, "value", resourceName, "outputs.MyVpcId"),
+resource.TestCheckResourceAttrPair(dataSourceName, "exporting_stack_id", resourceName, "id"),
+resource.TestCheckResourceAttrPair(dataSourceName, "value", resourceName, "outputs.MyVpcId"),
 ),
-	},
 },
-	})
+},
+})
 }func testAccExportDataSourceConfig_staticValue(rName string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_cloudformation_stack" "test" {
   name = %[1]q  template_body = <<STACK
 {
@@ -73,7 +73,7 @@ STACK  tags = {
 }
 `, rName)
 }func testAccExportDataSourceConfig_resourceReference(rName string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_cloudformation_stack" "test" {
   name = %[1]q  parameters = {
  CIDR = "10.10.10.0/24"

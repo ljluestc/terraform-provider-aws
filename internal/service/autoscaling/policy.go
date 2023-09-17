@@ -1,103 +1,103 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package autoscalingimport (
-	"bytes"
-	"context"
-	"fmt"
-	"log"
-	"strconv"
-	"strings"	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/autoscaling"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
-	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-	"github.com/hashicorp/terraform-provider-aws/internal/types/nullable"
+"bytes"
+"context"
+"fmt"
+"log"
+"strconv"
+"strings""github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/autoscaling"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/create"
+"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/hashicorp/terraform-provider-aws/internal/types/nullable"
 )// @SDKResource("aws_autoscaling_policy")
 func ResourcePolicy() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourcePolicyCreate,
-		ReadWithoutTimeout:resourcePolicyRead,
-		UpdateWithoutTimeout: resourcePolicyUpdate,
-		DeleteWithoutTimeout: resourcePolicyDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: resourcePolicyImport,
-		},		Schema: map[string]*schema.Schema{
-			"adjustment_type": {
-				Type:schema.TypeString,
-				Optional: true,
-			},
-			"arn": {
-				Type:schema.TypeString,
-				Computed: true,
-			},
-			"autoscaling_group_name": {
-				Type:schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"cooldown": {
-				Type:schema.TypeInt,
-				Optional: true,
-			},
-			"enabled": {
-				Type:schema.TypeBool,
-				Optional: true,
-				Default:  true,
-			},
-			"estimated_instance_warmup": {
-				Type:schema.TypeInt,
-				Optional: true,
-			},
-			"metric_aggregation_type": {
-				Type:schema.TypeString,
-				Optional: true,
-				Computed: true,
-			},
-			"min_adjustment_magnitude": {
-				Type:schema.TypeInt,
-				Optional:true,
-				ValidateFunc: validation.IntAtLeast(1),
-			},
-			"name": {
-				Type:schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"policy_type": {
-				Type:schema.TypeString,
-				Optional:true,
-				Default:PolicyTypeSimpleScaling, // preserve AWS's default to make validation easier.
-				ValidateFunc: validation.StringInSlice(PolicyType_Values(), false),
-			},
-			"predictive_scaling_configuration": {
-				Type:schema.TypeList,
-				Optional: true,
-				MaxItems: 1,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"max_capacity_breach_behavior": {
-							Type:schema.TypeString,
-							Optional:true,
-							Default:autoscaling.PredictiveScalingMaxCapacityBreachBehaviorHonorMaxCapacity,
-							ValidateFunc: validation.StringInSlice(autoscaling.PredictiveScalingMaxCapacityBreachBehavior_Values(), false),
-						},
-						"max_capacity_buffer": {
-							Type:nullable.TypeNullableInt,
-							Optional:true,
-							ValidateFunc: nullable.ValidateTypeStringNullableIntBetween(0, 100),
-						},
-						"metric_specification": {
-							Type:schema.TypeList,
-							Required: true,
-							MaxItems: 1,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"customized_capacity_metric_specification": {
+return &schema.Resource{
+CreateWithoutTimeout: resourcePolicyCreate,
+ReadWithoutTimeout:resourcePolicyRead,
+UpdateWithoutTimeout: resourcePolicyUpdate,
+DeleteWithoutTimeout: resourcePolicyDelete,
+Importer: &schema.ResourceImporter{
+StateContext: resourcePolicyImport,
+},Schema: map[string]*schema.Schema{
+"adjustment_type": {
+Type:schema.TypeString,
+Optional: true,
+},
+"arn": {
+Type:schema.TypeString,
+Computed: true,
+},
+"autoscaling_group_name": {
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
+},
+"cooldown": {
+Type:schema.TypeInt,
+Optional: true,
+},
+"enabled": {
+Type:schema.TypeBool,
+Optional: true,
+Default:  true,
+},
+"estimated_instance_warmup": {
+Type:schema.TypeInt,
+Optional: true,
+},
+"metric_aggregation_type": {
+Type:schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"min_adjustment_magnitude": {
+Type:schema.TypeInt,
+Optional:true,
+ValidateFunc: validation.IntAtLeast(1),
+},
+"name": {
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
+},
+"policy_type": {
+Type:schema.TypeString,
+Optional:true,
+Default:PolicyTypeSimpleScaling, // preserve AWS's default to make validation easier.
+ValidateFunc: validation.StringInSlice(PolicyType_Values(), false),
+},
+"predictive_scaling_configuration": {
+Type:schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"max_capacity_breach_behavior": {
+Type:schema.TypeString,
+Optional:true,
+Default:autoscaling.PredictiveScalingMaxCapacityBreachBehaviorHonorMaxCapacity,
+ValidateFunc: validation.StringInSlice(autoscaling.PredictiveScalingMaxCapacityBreachBehavior_Values(), false),
+},
+"max_capacity_buffer": {
+Type:nullable.TypeNullableInt,
+Optional:true,
+ValidateFunc: nullable.ValidateTypeStringNullableIntBetween(0, 100),
+},
+"metric_specification": {
+Type:schema.TypeList,
+Required: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+						"customized_capacity_metric_specification": {
 										Type: schema.TypeList,
 										Optional:true,
 										MaxItems:1,

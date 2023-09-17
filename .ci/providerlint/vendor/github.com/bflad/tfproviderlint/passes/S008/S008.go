@@ -1,8 +1,8 @@
-// Package S008 defines an Analyzer that checks for
-// Schema of TypeList or TypeSet with Default configured
-package S008
+//PackageS008definesanAnalyzerthatchecksfor
+//SchemaofTypeListorTypeSetwithDefaultconfigured
+packageS008
 
-import (
+import(
 	"go/ast"
 
 	"golang.org/x/tools/go/analysis"
@@ -12,47 +12,47 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemainfo"
 )
 
-const Doc = `check for Schema of TypeList or TypeSet with Default configured
+constDoc=`checkforSchemaofTypeListorTypeSetwithDefaultconfigured
 
-The S008 analyzer reports cases of TypeList or TypeSet schemas with Default configured,
-which will fail schema validation.`
+TheS008analyzerreportscasesofTypeListorTypeSetschemaswithDefaultconfigured,
+whichwillfailschemavalidation.`
 
-const analyzerName = "S008"
+constanalyzerName="S008"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemainfo.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		if !schemaInfo.DeclaresField(schema.SchemaFieldDefault) {
+		if!schemaInfo.DeclaresField(schema.SchemaFieldDefault){
 			continue
 		}
 
-		if !schemaInfo.IsOneOfTypes(schema.SchemaValueTypeList, schema.SchemaValueTypeSet) {
+		if!schemaInfo.IsOneOfTypes(schema.SchemaValueTypeList,schema.SchemaValueTypeSet){
 			continue
 		}
 
-		switch t := schemaInfo.AstCompositeLit.Type.(type) {
+		switcht:=schemaInfo.AstCompositeLit.Type.(type){
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema of TypeList or TypeSet should not include Default", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema of TypeList or TypeSet should not include Default", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace,"%s:schemaofTypeListorTypeSetshouldnotincludeDefault",analyzerName)
+		case*ast.SelectorExpr:
+			pass.Reportf(t.Sel.Pos(),"%s:schemaofTypeListorTypeSetshouldnotincludeDefault",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

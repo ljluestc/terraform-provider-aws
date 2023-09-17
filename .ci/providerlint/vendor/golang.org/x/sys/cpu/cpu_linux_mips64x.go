@@ -4,13 +4,13 @@
 // +build linux
 // +build mips64 mips64lepackage cpu// HWCAP bits. These are exposed by the Linux kernel 5.4.
 const (
-	// CPU features
-	hwcap_MIPS_MSA = 1 << 1
+// CPU features
+hwcap_MIPS_MSA = 1 << 1
 )
  doinit() {
-	// HWCAP feature bits
-	MIPS64X.HasMSA = isSet(hwCap, hwcap_MIPS_MSA)
+// HWCAP feature bits
+MIPS64X.HasMSA = isSet(hwCap, hwcap_MIPS_MSA)
 }
  isSet(hwc uint, value uint) bool {
-	return hwc&value != 0
+return hwc&value != 0
 }

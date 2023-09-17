@@ -1,6 +1,6 @@
-package R009
+packageR009
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/gopaniccheck/passes/logpaniccallexpr"
@@ -11,67 +11,67 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Go panic usage
+constDoc=`checkforGopanicusage
 
-The R009 analyzer reports usage of Go panics, which should be avoided.
-Any errors should be surfaced to Terraform, which will display them in the
-user interface and ensures any necessary state actions (e.g. cleanup) are
-performed as expected.`
+TheR009analyzerreportsusageofGopanics,whichshouldbeavoided.
+AnyerrorsshouldbesurfacedtoTerraform,whichwilldisplaytheminthe
+userinterfaceandensuresanynecessarystateactions(e.g.cleanup)are
+performedasexpected.`
 
-const analyzerName = "R009"
+constanalyzerName="R009"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		logpaniccallexpr.Analyzer,
 		logpanicfcallexpr.Analyzer,
 		logpaniclncallexpr.Analyzer,
 		paniccallexpr.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	logPanicCallExprs := pass.ResultOf[logpaniccallexpr.Analyzer].([]*ast.CallExpr)
-	logPanicfCallExprs := pass.ResultOf[logpanicfcallexpr.Analyzer].([]*ast.CallExpr)
-	logPaniclnCallExprs := pass.ResultOf[logpaniclncallexpr.Analyzer].([]*ast.CallExpr)
-	panicCallExprs := pass.ResultOf[paniccallexpr.Analyzer].([]*ast.CallExpr)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	logPanicCallExprs:=pass.ResultOf[logpaniccallexpr.Analyzer].([]*ast.CallExpr)
+	logPanicfCallExprs:=pass.ResultOf[logpanicfcallexpr.Analyzer].([]*ast.CallExpr)
+	logPaniclnCallExprs:=pass.ResultOf[logpaniclncallexpr.Analyzer].([]*ast.CallExpr)
+	panicCallExprs:=pass.ResultOf[paniccallexpr.Analyzer].([]*ast.CallExpr)
 
-	for _, logPanicCallExpr := range logPanicCallExprs {
-		if ignorer.ShouldIgnore(analyzerName, logPanicCallExpr) {
+	for_,logPanicCallExpr:=rangelogPanicCallExprs{
+		ifignorer.ShouldIgnore(analyzerName,logPanicCallExpr){
 			continue
 		}
 
-		pass.Reportf(logPanicCallExpr.Pos(), "%s: avoid log.Panic() usage", analyzerName)
+		pass.Reportf(logPanicCallExpr.Pos(),"%s:avoidlog.Panic()usage",analyzerName)
 	}
 
-	for _, logPanicfCallExpr := range logPanicfCallExprs {
-		if ignorer.ShouldIgnore(analyzerName, logPanicfCallExpr) {
+	for_,logPanicfCallExpr:=rangelogPanicfCallExprs{
+		ifignorer.ShouldIgnore(analyzerName,logPanicfCallExpr){
 			continue
 		}
 
-		pass.Reportf(logPanicfCallExpr.Pos(), "%s: avoid log.Panicf() usage", analyzerName)
+		pass.Reportf(logPanicfCallExpr.Pos(),"%s:avoidlog.Panicf()usage",analyzerName)
 	}
 
-	for _, logPaniclnCallExpr := range logPaniclnCallExprs {
-		if ignorer.ShouldIgnore(analyzerName, logPaniclnCallExpr) {
+	for_,logPaniclnCallExpr:=rangelogPaniclnCallExprs{
+		ifignorer.ShouldIgnore(analyzerName,logPaniclnCallExpr){
 			continue
 		}
 
-		pass.Reportf(logPaniclnCallExpr.Pos(), "%s: avoid log.Panicln() usage", analyzerName)
+		pass.Reportf(logPaniclnCallExpr.Pos(),"%s:avoidlog.Panicln()usage",analyzerName)
 	}
 
-	for _, panicCallExpr := range panicCallExprs {
-		if ignorer.ShouldIgnore(analyzerName, panicCallExpr) {
+	for_,panicCallExpr:=rangepanicCallExprs{
+		ifignorer.ShouldIgnore(analyzerName,panicCallExpr){
 			continue
 		}
 
-		pass.Reportf(panicCallExpr.Pos(), "%s: avoid panic() usage", analyzerName)
+		pass.Reportf(panicCallExpr.Pos(),"%s:avoidpanic()usage",analyzerName)
 	}
 
-	return nil, nil
+	returnnil,nil
 }

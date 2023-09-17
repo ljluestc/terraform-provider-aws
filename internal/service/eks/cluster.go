@@ -1,1015 +1,1015 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package eks
+packageeks
 
-import (
-	"context"
-	"log"
-	"time"
+import(
+"context"
+"log"
+"time"
 
-	"github.com/YakDriver/regexache"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/eks"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/customdiff"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/flex"
-	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-	"github.com/hashicorp/terraform-provider-aws/names"
+"github.com/YakDriver/regexache"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/eks"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/customdiff"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/flex"
+tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/hashicorp/terraform-provider-aws/internal/verify"
+"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKResource("aws_eks_cluster", name="Cluster")
-// @Tags(identifierAttribute="arn")
-func ResourceCluster() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceClusterCreate,
-		ReadWithoutTimeout:   resourceClusterRead,
-		UpdateWithoutTimeout: resourceClusterUpdate,
-		DeleteWithoutTimeout: resourceClusterDelete,
+//@SDKResource("aws_eks_cluster",name="Cluster")
+//@Tags(identifierAttribute="arn")
+funcResourceCluster()*schema.Resource{
+return&schema.Resource{
+CreateWithoutTimeout:resourceClusterCreate,
+ReadWithoutTimeout:resourceClusterRead,
+UpdateWithoutTimeout:resourceClusterUpdate,
+DeleteWithoutTimeout:resourceClusterDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer:&schema.ResourceImporter{
+StateContext:schema.ImportStatePassthroughContext,
+},
 
-		CustomizeDiff: customdiff.Sequence(
-			verify.SetTagsDiff,
-			customdiff.ForceNewIfChange("encryption_config", func(_ context.Context, old, new, meta interface{}) bool {
-				// You cannot disable envelope encryption after enabling it. This action is irreversible.
-				return len(old.([]interface{})) == 1 && len(new.([]interface{})) == 0
-			}),
-		),
+CustomizeDiff:customdiff.Sequence(
+verify.SetTagsDiff,
+customdiff.ForceNewIfChange("encryption_config",func(_context.Context,old,new,metainterface{})bool{
+//Youcannotdisableenvelopeencryptionafterenablingit.Thisactionisirreversible.
+returnlen(old.([]interface{}))==1&&len(new.([]interface{}))==0
+}),
+),
 
-		Timeouts: &schema.ResourceTimeout{
-			Create: schema.DefaultTimeout(30 * time.Minute),
-			Update: schema.DefaultTimeout(60 * time.Minute),
-			Delete: schema.DefaultTimeout(15 * time.Minute),
-		},
+Timeouts:&schema.ResourceTimeout{
+Create:schema.DefaultTimeout(30*time.Minute),
+Update:schema.DefaultTimeout(60*time.Minute),
+Delete:schema.DefaultTimeout(15*time.Minute),
+},
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:schema.TypeString,
-				Computed: true,
-			},
-			"certificate_authority": {
-				Type:schema.TypeList,
-				Computed: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"data": {
-							Type:schema.TypeString,
-							Computed: true,
-						},
-					},
-				},
-			},
-			"cluster_id": {
-				Type:schema.TypeString,
-				Computed: true,
-			},
-			"created_at": {
-				Type:schema.TypeString,
-				Computed: true,
-			},
-			"enabled_cluster_log_types": {
-				Type:schema.TypeSet,
-				Optional: true,
-				Elem: &schema.Schema{
-					Type:schema.TypeString,
-					ValidateFunc: validation.StringInSlice(eks.LogType_Values(), true),
-				},
-				Set: schema.HashString,
-			},
-			"encryption_config": {
-				Type:schema.TypeList,
-				MaxItems: 1,
-				Optional: true,
-				ConflictsWith: []string{"outpost_config"},
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"provider": {
-							Type:schema.TypeList,
-							MaxItems: 1,
-							Required: true,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"key_arn": {
-										Type:schema.TypeString,
-										Required: true,
-									},
-								},
-							},
-						},
-						"resources": {
-							Type:schema.TypeSet,
-							Required: true,
-							Elem: &schema.Schema{
-								Type:schema.TypeString,
-								ValidateFunc: validation.StringInSlice(Resources_Values(), false),
-							},
-						},
-					},
-				},
-			},
-			"endpoint": {
-				Type:schema.TypeString,
-				Computed: true,
-			},
-			"identity": {
-				Type:schema.TypeList,
-				Computed: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"oidc": {
-							Type:schema.TypeList,
-							Computed: true,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"issuer": {
-										Type:schema.TypeString,
-										Computed: true,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			"kubernetes_network_config": {
-				Type:schema.TypeList,
-				Optional: true,
-				Computed: true,
-				MaxItems: 1,
-				ConflictsWith: []string{"outpost_config"},
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"ip_family": {
-							Type:schema.TypeString,
-							Optional:true,
-							Computed:true,
-							ForceNew:true,
-							ValidateFunc: validation.StringInSlice(eks.IpFamily_Values(), false),
-						},
-						"service_ipv4_cidr": {
-							Type:schema.TypeString,
-							Optional: true,
-							Computed: true,
-							ForceNew: true,
-							ValidateFunc: validation.All(
-								validation.IsCIDRNetwork(12, 24),
-								validation.StringMatch(regexache.MustCompile(`^(10|172\.(1[6-9]|2[0-9]|3[0-1])|192\.168)\..*`), "must be within 10.0.0.0/8, 172.16.0.0/12, or 192.168.0.0/16"),
-							),
-						},
-						"service_ipv6_cidr": {
-							Type:schema.TypeString,
-							Computed: true,
-						},
-					},
-				},
-			},
-			"name": {
-				Type:schema.TypeString,
-				Required:true,
-				ForceNew:true,
-				ValidateFunc: validClusterName,
-			},
-			"outpost_config": {
-				Type:schema.TypeList,
-				MaxItems: 1,
-				Optional: true,
-				ConflictsWith: []string{"encryption_config", "kubernetes_network_config"},
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"control_plane_instance_type": {
-							Type:schema.TypeString,
-							Required: true,
-							ForceNew: true,
-						},
-						"control_plane_placement": {
-							Type:schema.TypeList,
-							MaxItems: 1,
-							Optional: true,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"group_name": {
-										Type:schema.TypeString,
-										Required: true,
-										ForceNew: true,
-									},
-								},
-							},
-						},
-						"outpost_arns": {
-							Type:schema.TypeSet,
-							Required: true,
-							MinItems: 1,
-							Elem: &schema.Schema{
-								Type: schema.TypeString,
-							},
-						},
-					},
-				},
-			},
-			"platform_version": {
-				Type:schema.TypeString,
-				Computed: true,
-			},
-			"role_arn": {
-				Type:schema.TypeString,
-				Required:true,
-				ForceNew:true,
-				ValidateFunc: verify.ValidARN,
-			},
-			"status": {
-				Type:schema.TypeString,
-				Computed: true,
-			},
-			names.AttrTags:tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-			"version": {
-				Type:schema.TypeString,
-				Optional: true,
-				Computed: true,
-			},
-			"vpc_config": {
-				Type:schema.TypeList,
-				MinItems: 1,
-				MaxItems: 1,
-				Required: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"cluster_security_group_id": {
-							Type:schema.TypeString,
-							Computed: true,
-						},
-						"endpoint_private_access": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:  false,
-						},
-						"endpoint_public_access": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:  true,
-						},
-						"public_access_cidrs": {
-							Type:schema.TypeSet,
-							Optional: true,
-							Computed: true,
-							Elem: &schema.Schema{
-								Type:schema.TypeString,
-								ValidateFunc: verify.ValidCIDRNetworkAddress,
-							},
-						},
-						"security_group_ids": {
-							Type:schema.TypeSet,
-							Optional: true,
-							ForceNew: true,
-							Elem:&schema.Schema{Type: schema.TypeString},
-						},
-						"subnet_ids": {
-							Type:schema.TypeSet,
-							Required: true,
-							ForceNew: true,
-							MinItems: 1,
-							Elem:&schema.Schema{Type: schema.TypeString},
-						},
-						"vpc_id": {
-							Type:schema.TypeString,
-							Computed: true,
-						},
-					},
-				},
-			},
-		},
-	}
+Schema:map[string]*schema.Schema{
+"arn":{
+Type:schema.TypeString,
+Computed:true,
+},
+"certificate_authority":{
+Type:schema.TypeList,
+Computed:true,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"data":{
+Type:schema.TypeString,
+Computed:true,
+},
+},
+},
+},
+"cluster_id":{
+Type:schema.TypeString,
+Computed:true,
+},
+"created_at":{
+Type:schema.TypeString,
+Computed:true,
+},
+"enabled_cluster_log_types":{
+Type:schema.TypeSet,
+Optional:true,
+Elem:&schema.Schema{
+Type:schema.TypeString,
+ValidateFunc:validation.StringInSlice(eks.LogType_Values(),true),
+},
+Set:schema.HashString,
+},
+"encryption_config":{
+Type:schema.TypeList,
+MaxItems:1,
+Optional:true,
+ConflictsWith:[]string{"outpost_config"},
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"provider":{
+Type:schema.TypeList,
+MaxItems:1,
+Required:true,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"key_arn":{
+Type:schema.TypeString,
+Required:true,
+},
+},
+},
+},
+"resources":{
+Type:schema.TypeSet,
+Required:true,
+Elem:&schema.Schema{
+Type:schema.TypeString,
+ValidateFunc:validation.StringInSlice(Resources_Values(),false),
+},
+},
+},
+},
+},
+"endpoint":{
+Type:schema.TypeString,
+Computed:true,
+},
+"identity":{
+Type:schema.TypeList,
+Computed:true,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"oidc":{
+Type:schema.TypeList,
+Computed:true,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"issuer":{
+Type:schema.TypeString,
+Computed:true,
+},
+},
+},
+},
+},
+},
+},
+"kubernetes_network_config":{
+Type:schema.TypeList,
+Optional:true,
+Computed:true,
+MaxItems:1,
+ConflictsWith:[]string{"outpost_config"},
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"ip_family":{
+Type:schema.TypeString,
+Optional:true,
+Computed:true,
+ForceNew:true,
+ValidateFunc:validation.StringInSlice(eks.IpFamily_Values(),false),
+},
+"service_ipv4_cidr":{
+Type:schema.TypeString,
+Optional:true,
+Computed:true,
+ForceNew:true,
+ValidateFunc:validation.All(
+validation.IsCIDRNetwork(12,24),
+validation.StringMatch(regexache.MustCompile(`^(10|172\.(1[6-9]|2[0-9]|3[0-1])|192\.168)\..*`),"mustbewithin10.0.0.0/8,172.16.0.0/12,or192.168.0.0/16"),
+),
+},
+"service_ipv6_cidr":{
+Type:schema.TypeString,
+Computed:true,
+},
+},
+},
+},
+"name":{
+Type:schema.TypeString,
+Required:true,
+ForceNew:true,
+ValidateFunc:validClusterName,
+},
+"outpost_config":{
+Type:schema.TypeList,
+MaxItems:1,
+Optional:true,
+ConflictsWith:[]string{"encryption_config","kubernetes_network_config"},
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"control_plane_instance_type":{
+Type:schema.TypeString,
+Required:true,
+ForceNew:true,
+},
+"control_plane_placement":{
+Type:schema.TypeList,
+MaxItems:1,
+Optional:true,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"group_name":{
+Type:schema.TypeString,
+Required:true,
+ForceNew:true,
+},
+},
+},
+},
+"outpost_arns":{
+Type:schema.TypeSet,
+Required:true,
+MinItems:1,
+Elem:&schema.Schema{
+Type:schema.TypeString,
+},
+},
+},
+},
+},
+"platform_version":{
+Type:schema.TypeString,
+Computed:true,
+},
+"role_arn":{
+Type:schema.TypeString,
+Required:true,
+ForceNew:true,
+ValidateFunc:verify.ValidARN,
+},
+"status":{
+Type:schema.TypeString,
+Computed:true,
+},
+names.AttrTags:tftags.TagsSchema(),
+names.AttrTagsAll:tftags.TagsSchemaComputed(),
+"version":{
+Type:schema.TypeString,
+Optional:true,
+Computed:true,
+},
+"vpc_config":{
+Type:schema.TypeList,
+MinItems:1,
+MaxItems:1,
+Required:true,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"cluster_security_group_id":{
+Type:schema.TypeString,
+Computed:true,
+},
+"endpoint_private_access":{
+Type:schema.TypeBool,
+Optional:true,
+Default:false,
+},
+"endpoint_public_access":{
+Type:schema.TypeBool,
+Optional:true,
+Default:true,
+},
+"public_access_cidrs":{
+Type:schema.TypeSet,
+Optional:true,
+Computed:true,
+Elem:&schema.Schema{
+Type:schema.TypeString,
+ValidateFunc:verify.ValidCIDRNetworkAddress,
+},
+},
+"security_group_ids":{
+Type:schema.TypeSet,
+Optional:true,
+ForceNew:true,
+Elem:&schema.Schema{Type:schema.TypeString},
+},
+"subnet_ids":{
+Type:schema.TypeSet,
+Required:true,
+ForceNew:true,
+MinItems:1,
+Elem:&schema.Schema{Type:schema.TypeString},
+},
+"vpc_id":{
+Type:schema.TypeString,
+Computed:true,
+},
+},
+},
+},
+},
+}
 }
 
-func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EKSConn(ctx)
+funcresourceClusterCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).EKSConn(ctx)
 
-	name := d.Get("name").(string)
-	input := &eks.CreateClusterInput{
-		EncryptionConfig:   expandEncryptionConfig(d.Get("encryption_config").([]interface{})),
-		Logging:  expandLogging(d.Get("enabled_cluster_log_types").(*schema.Set)),
-		Name:  aws.String(name),
-		ResourcesVpcConfig: expandVPCConfigRequestForCreate(d.Get("vpc_config").([]interface{})),
-		RoleArn:  aws.String(d.Get("role_arn").(string)),
-		Tags:  getTagsIn(ctx),
-	}
-
-	if _, ok := d.GetOk("kubernetes_network_config"); ok {
-		input.KubernetesNetworkConfig = expandKubernetesNetworkConfigRequest(d.Get("kubernetes_network_config").([]interface{}))
-	}
-
-	if _, ok := d.GetOk("outpost_config"); ok {
-		input.OutpostConfig = expandOutpostConfigRequest(d.Get("outpost_config").([]interface{}))
-	}
-
-	if v, ok := d.GetOk("version"); ok {
-		input.Version = aws.String(v.(string))
-	}
-
-	outputRaw, err := tfresource.RetryWhen(ctx, propagationTimeout,
-		func() (interface{}, error) {
-			return conn.CreateClusterWithContext(ctx, input)
-		},
-		func(err error) (bool, error) {
-			// InvalidParameterException: roleArn, arn:aws:iam::123456789012:role/XXX, does not exist
-			if tfawserr.ErrMessageContains(err, eks.ErrCodeInvalidParameterException, "does not exist") {
-				return true, err
-			}
-
-			// InvalidParameterException: Error in role params
-			if tfawserr.ErrMessageContains(err, eks.ErrCodeInvalidParameterException, "Error in role params") {
-				return true, err
-			}
-
-			if tfawserr.ErrMessageContains(err, eks.ErrCodeInvalidParameterException, "Role could not be assumed because the trusted entity is not correct") {
-				return true, err
-			}
-
-			// InvalidParameterException: The provided role doesn't have the Amazon EKS Managed Policies associated with it. Please ensure the following policy is attached: arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
-			if tfawserr.ErrMessageContains(err, eks.ErrCodeInvalidParameterException, "The provided role doesn't have the Amazon EKS Managed Policies associated with it") {
-				return true, err
-			}
-
-			// InvalidParameterException: IAM role's policy must include the `ec2:DescribeSubnets` action
-			if tfawserr.ErrMessageContains(err, eks.ErrCodeInvalidParameterException, "IAM role's policy must include") {
-				return true, err
-			}
-
-			return false, err
-		},
-	)
-
-	if err != nil {
-		return diag.Errorf("creating EKS Cluster (%s): %s", name, err)
-	}
-
-	d.SetId(aws.StringValue(outputRaw.(*eks.CreateClusterOutput).Cluster.Name))
-
-	if _, err := waitClusterCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
-		return diag.Errorf("waiting for EKS Cluster (%s) create: %s", d.Id(), err)
-	}
-
-	return resourceClusterRead(ctx, d, meta)
+name:=d.Get("name").(string)
+input:=&eks.CreateClusterInput{
+EncryptionConfig:expandEncryptionConfig(d.Get("encryption_config").([]interface{})),
+Logging:expandLogging(d.Get("enabled_cluster_log_types").(*schema.Set)),
+Name:aws.String(name),
+ResourcesVpcConfig:expandVPCConfigRequestForCreate(d.Get("vpc_config").([]interface{})),
+RoleArn:aws.String(d.Get("role_arn").(string)),
+Tags:getTagsIn(ctx),
 }
 
-func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EKSConn(ctx)
-
-	cluster, err := FindClusterByName(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] EKS Cluster (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
-	}
-
-	if err != nil {
-		return diag.Errorf("reading EKS Cluster (%s): %s", d.Id(), err)
-	}
-
-	d.Set("arn", cluster.Arn)
-	if err := d.Set("certificate_authority", flattenCertificate(cluster.CertificateAuthority)); err != nil {
-		return diag.Errorf("setting certificate_authority: %s", err)
-	}
-	// cluster_id is only relevant for clusters on Outposts.
-	if cluster.OutpostConfig != nil {
-		d.Set("cluster_id", cluster.Id)
-	}
-	d.Set("created_at", aws.TimeValue(cluster.CreatedAt).String())
-	if err := d.Set("enabled_cluster_log_types", flattenLogging(cluster.Logging)); err != nil {
-		return diag.Errorf("setting enabled_cluster_log_types: %s", err)
-	}
-	if err := d.Set("encryption_config", flattenEncryptionConfig(cluster.EncryptionConfig)); err != nil {
-		return diag.Errorf("setting encryption_config: %s", err)
-	}
-	d.Set("endpoint", cluster.Endpoint)
-	if err := d.Set("identity", flattenIdentity(cluster.Identity)); err != nil {
-		return diag.Errorf("setting identity: %s", err)
-	}
-	if err := d.Set("kubernetes_network_config", flattenKubernetesNetworkConfigResponse(cluster.KubernetesNetworkConfig)); err != nil {
-		return diag.Errorf("setting kubernetes_network_config: %s", err)
-	}
-	d.Set("name", cluster.Name)
-	if err := d.Set("outpost_config", flattenOutpostConfigResponse(cluster.OutpostConfig)); err != nil {
-		return diag.Errorf("setting outpost_config: %s", err)
-	}
-	d.Set("platform_version", cluster.PlatformVersion)
-	d.Set("role_arn", cluster.RoleArn)
-	d.Set("status", cluster.Status)
-	d.Set("version", cluster.Version)
-	if err := d.Set("vpc_config", flattenVPCConfigResponse(cluster.ResourcesVpcConfig)); err != nil {
-		return diag.Errorf("setting vpc_config: %s", err)
-	}
-
-	setTagsOut(ctx, cluster.Tags)
-
-	return nil
+if_,ok:=d.GetOk("kubernetes_network_config");ok{
+input.KubernetesNetworkConfig=expandKubernetesNetworkConfigRequest(d.Get("kubernetes_network_config").([]interface{}))
 }
 
-func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EKSConn(ctx)
-
-	// Do any version update first.
-	if d.HasChange("version") {
-		input := &eks.UpdateClusterVersionInput{
-			Name:aws.String(d.Id()),
-			Version: aws.String(d.Get("version").(string)),
-		}
-
-		output, err := conn.UpdateClusterVersionWithContext(ctx, input)
-
-		if err != nil {
-			return diag.Errorf("updating EKS Cluster (%s) version: %s", d.Id(), err)
-		}
-
-		updateID := aws.StringValue(output.Update.Id)
-
-		_, err = waitClusterUpdateSuccessful(ctx, conn, d.Id(), updateID, d.Timeout(schema.TimeoutUpdate))
-
-		if err != nil {
-			return diag.Errorf("waiting for EKS Cluster (%s) version update (%s): %s", d.Id(), updateID, err)
-		}
-	}
-
-	if d.HasChange("encryption_config") {
-		o, n := d.GetChange("encryption_config")
-
-		if len(o.([]interface{})) == 0 && len(n.([]interface{})) == 1 {
-			input := &eks.AssociateEncryptionConfigInput{
-				ClusterName: aws.String(d.Id()),
-				EncryptionConfig: expandEncryptionConfig(d.Get("encryption_config").([]interface{})),
-			}
-
-			output, err := conn.AssociateEncryptionConfigWithContext(ctx, input)
-
-			if err != nil {
-				return diag.Errorf("associating EKS Cluster (%s) encryption config: %s", d.Id(), err)
-			}
-
-			updateID := aws.StringValue(output.Update.Id)
-
-			_, err = waitClusterUpdateSuccessful(ctx, conn, d.Id(), updateID, d.Timeout(schema.TimeoutUpdate))
-
-			if err != nil {
-				return diag.Errorf("waiting for EKS Cluster (%s) encryption config association (%s): %s", d.Id(), updateID, err)
-			}
-		}
-	}
-
-	if d.HasChange("enabled_cluster_log_types") {
-		input := &eks.UpdateClusterConfigInput{
-			Logging: expandLogging(d.Get("enabled_cluster_log_types").(*schema.Set)),
-			Name:aws.String(d.Id()),
-		}
-
-		output, err := conn.UpdateClusterConfigWithContext(ctx, input)
-
-		if err != nil {
-			return diag.Errorf("updating EKS Cluster (%s) logging: %s", d.Id(), err)
-		}
-
-		updateID := aws.StringValue(output.Update.Id)
-
-		_, err = waitClusterUpdateSuccessful(ctx, conn, d.Id(), updateID, d.Timeout(schema.TimeoutUpdate))
-
-		if err != nil {
-			return diag.Errorf("waiting for EKS Cluster (%s) logging update (%s): %s", d.Id(), updateID, err)
-		}
-	}
-
-	if d.HasChanges("vpc_config.0.endpoint_private_access", "vpc_config.0.endpoint_public_access", "vpc_config.0.public_access_cidrs") {
-		input := &eks.UpdateClusterConfigInput{
-			Name:  aws.String(d.Id()),
-			ResourcesVpcConfig: expandVPCConfigRequestForUpdate(d.Get("vpc_config").([]interface{})),
-		}
-
-		output, err := conn.UpdateClusterConfigWithContext(ctx, input)
-
-		if err != nil {
-			return diag.Errorf("updating EKS Cluster (%s) VPC config: %s", d.Id(), err)
-		}
-
-		updateID := aws.StringValue(output.Update.Id)
-
-		_, err = waitClusterUpdateSuccessful(ctx, conn, d.Id(), updateID, d.Timeout(schema.TimeoutUpdate))
-
-		if err != nil {
-			return diag.Errorf("waiting for EKS Cluster (%s) VPC config update (%s): %s", d.Id(), updateID, err)
-		}
-	}
-
-	return resourceClusterRead(ctx, d, meta)
+if_,ok:=d.GetOk("outpost_config");ok{
+input.OutpostConfig=expandOutpostConfigRequest(d.Get("outpost_config").([]interface{}))
 }
 
-func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EKSConn(ctx)
-
-	log.Printf("[DEBUG] Deleting EKS Cluster: %s", d.Id())
-
-	input := &eks.DeleteClusterInput{
-		Name: aws.String(d.Id()),
-	}
-
-	// If a cluster is scaling up due to load a delete request will fail
-	// This is a temporary workaround until EKS supports multiple parallel mutating operations
-	err := tfresource.Retry(ctx, clusterDeleteRetryTimeout, func() *retry.RetryError {
-		var err error
-
-		_, err = conn.DeleteClusterWithContext(ctx, input)
-
-		if tfawserr.ErrMessageContains(err, eks.ErrCodeResourceInUseException, "in progress") {
-			return retry.RetryableError(err)
-		}
-
-		if err != nil {
-			return retry.NonRetryableError(err)
-		}
-
-		return nil
-	}, tfresource.WithDelayRand(1*time.Minute), tfresource.WithPollInterval(30*time.Second))
-
-	if tfresource.TimedOut(err) {
-		_, err = conn.DeleteClusterWithContext(ctx, input)
-	}
-
-	if tfawserr.ErrCodeEquals(err, eks.ErrCodeResourceNotFoundException) {
-		return nil
-	}
-
-	// Sometimes the EKS API returns the ResourceNotFound error in this form:
-	// ClientException: No cluster found for name: tf-acc-test-0o1f8
-	if tfawserr.ErrMessageContains(err, eks.ErrCodeClientException, "No cluster found for name:") {
-		return nil
-	}
-
-	if err != nil {
-		return diag.Errorf("deleting EKS Cluster (%s): %s", d.Id(), err)
-	}
-
-	if _, err = waitClusterDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
-		return diag.Errorf("waiting for EKS Cluster (%s) delete: %s", d.Id(), err)
-	}
-
-	return nil
+ifv,ok:=d.GetOk("version");ok{
+input.Version=aws.String(v.(string))
 }
 
-func FindClusterByName(ctx context.Context, conn *eks.EKS, name string) (*eks.Cluster, error) {
-	input := &eks.DescribeClusterInput{
-		Name: aws.String(name),
-	}
-
-	output, err := conn.DescribeClusterWithContext(ctx, input)
-
-	// Sometimes the EKS API returns the ResourceNotFound error in this form:
-	// ClientException: No cluster found for name: tf-acc-test-0o1f8
-	if tfawserr.ErrCodeEquals(err, eks.ErrCodeResourceNotFoundException) || tfawserr.ErrMessageContains(err, eks.ErrCodeClientException, "No cluster found for name:") {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
-	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	if output == nil || output.Cluster == nil {
-		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output.Cluster, nil
+outputRaw,err:=tfresource.RetryWhen(ctx,propagationTimeout,
+func()(interface{},error){
+returnconn.CreateClusterWithContext(ctx,input)
+},
+func(errerror)(bool,error){
+//InvalidParameterException:roleArn,arn:aws:iam::123456789012:role/XXX,doesnotexist
+iftfawserr.ErrMessageContains(err,eks.ErrCodeInvalidParameterException,"doesnotexist"){
+returntrue,err
 }
 
-func findClusterUpdateByTwoPartKey(ctx context.Context, conn *eks.EKS, name, id string) (*eks.Update, error) {
-	input := &eks.DescribeUpdateInput{
-		Name:aws.String(name),
-		UpdateId: aws.String(id),
-	}
-
-	output, err := conn.DescribeUpdateWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, eks.ErrCodeResourceNotFoundException) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
-	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	if output == nil || output.Update == nil {
-		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output.Update, nil
+//InvalidParameterException:Errorinroleparams
+iftfawserr.ErrMessageContains(err,eks.ErrCodeInvalidParameterException,"Errorinroleparams"){
+returntrue,err
 }
 
-func statusCluster(ctx context.Context, conn *eks.EKS, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindClusterByName(ctx, conn, name)
-
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
-		if err != nil {
-			return nil, "", err
-		}
-
-		return output, aws.StringValue(output.Status), nil
-	}
+iftfawserr.ErrMessageContains(err,eks.ErrCodeInvalidParameterException,"Rolecouldnotbeassumedbecausethetrustedentityisnotcorrect"){
+returntrue,err
 }
 
-func statusClusterUpdate(ctx context.Context, conn *eks.EKS, name, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := findClusterUpdateByTwoPartKey(ctx, conn, name, id)
-
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
-		if err != nil {
-			return nil, "", err
-		}
-
-		return output, aws.StringValue(output.Status), nil
-	}
+//InvalidParameterException:Theprovidedroledoesn'thavetheAmazonEKSManagedPoliciesassociatedwithit.Pleaseensurethefollowingpolicyisattached:arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+iftfawserr.ErrMessageContains(err,eks.ErrCodeInvalidParameterException,"Theprovidedroledoesn'thavetheAmazonEKSManagedPoliciesassociatedwithit"){
+returntrue,err
 }
 
-func waitClusterCreated(ctx context.Context, conn *eks.EKS, name string, timeout time.Duration) (*eks.Cluster, error) {
-	stateConf := &retry.StateChangeConf{
-		Pending: []string{eks.ClusterStatusPending, eks.ClusterStatusCreating},
-		Target:  []string{eks.ClusterStatusActive},
-		Refresh: statusCluster(ctx, conn, name),
-		Timeout: timeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*eks.Cluster); ok {
-		return output, err
-	}
-
-	return nil, err
+//InvalidParameterException:IAMrole'spolicymustincludethe`ec2:DescribeSubnets`action
+iftfawserr.ErrMessageContains(err,eks.ErrCodeInvalidParameterException,"IAMrole'spolicymustinclude"){
+returntrue,err
 }
 
-func waitClusterDeleted(ctx context.Context, conn *eks.EKS, name string, timeout time.Duration) (*eks.Cluster, error) {
-	stateConf := &retry.StateChangeConf{
-		Pending: []string{eks.ClusterStatusActive, eks.ClusterStatusDeleting},
-		Target:  []string{},
-		Refresh: statusCluster(ctx, conn, name),
-		Timeout: timeout,
-	}
+returnfalse,err
+},
+)
 
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*eks.Cluster); ok {
-		return output, err
-	}
-
-	return nil, err
+iferr!=nil{
+returndiag.Errorf("creatingEKSCluster(%s):%s",name,err)
 }
 
-func waitClusterUpdateSuccessful(ctx context.Context, conn *eks.EKS, name, id string, timeout time.Duration) (*eks.Update, error) { //nolint:unparam
-	stateConf := &retry.StateChangeConf{
-		Pending: []string{eks.UpdateStatusInProgress},
-		Target:  []string{eks.UpdateStatusSuccessful},
-		Refresh: statusClusterUpdate(ctx, conn, name, id),
-		Timeout: timeout,
-	}
+d.SetId(aws.StringValue(outputRaw.(*eks.CreateClusterOutput).Cluster.Name))
 
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*eks.Update); ok {
-		if status := aws.StringValue(output.Status); status == eks.UpdateStatusCancelled || status == eks.UpdateStatusFailed {
-			tfresource.SetLastError(err, ErrorDetailsError(output.Errors))
-		}
-
-		return output, err
-	}
-
-	return nil, err
+if_,err:=waitClusterCreated(ctx,conn,d.Id(),d.Timeout(schema.TimeoutCreate));err!=nil{
+returndiag.Errorf("waitingforEKSCluster(%s)create:%s",d.Id(),err)
 }
 
-func expandEncryptionConfig(tfList []interface{}) []*eks.EncryptionConfig {
-	if len(tfList) == 0 {
-		return nil
-	}
-
-	var apiObjects []*eks.EncryptionConfig
-
-	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-
-		if !ok {
-			continue
-		}
-
-		apiObject := &eks.EncryptionConfig{
-			Provider: expandProvider(tfMap["provider"].([]interface{})),
-		}
-
-		if v, ok := tfMap["resources"].(*schema.Set); ok && v.Len() > 0 {
-			apiObject.Resources = flex.ExpandStringSet(v)
-		}
-
-		apiObjects = append(apiObjects, apiObject)
-	}
-
-	return apiObjects
+returnresourceClusterRead(ctx,d,meta)
 }
 
-func expandProvider(tfList []interface{}) *eks.Provider {
-	tfMap, ok := tfList[0].(map[string]interface{})
+funcresourceClusterRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).EKSConn(ctx)
 
-	if !ok {
-		return nil
-	}
+cluster,err:=FindClusterByName(ctx,conn,d.Id())
 
-	apiObject := &eks.Provider{}
-
-	if v, ok := tfMap["key_arn"].(string); ok && v != "" {
-		apiObject.KeyArn = aws.String(v)
-	}
-
-	return apiObject
+if!d.IsNewResource()&&tfresource.NotFound(err){
+log.Printf("[WARN]EKSCluster(%s)notfound,removingfromstate",d.Id())
+d.SetId("")
+returnnil
 }
 
-func expandOutpostConfigRequest(l []interface{}) *eks.OutpostConfigRequest {
-	tfMap, ok := l[0].(map[string]interface{})
-
-	if !ok {
-		return nil
-	}
-
-	outpostConfigRequest := &eks.OutpostConfigRequest{}
-
-	if v, ok := tfMap["control_plane_instance_type"].(string); ok && v != "" {
-		outpostConfigRequest.ControlPlaneInstanceType = aws.String(v)
-	}
-
-	if v, ok := tfMap["control_plane_placement"].([]interface{}); ok {
-		outpostConfigRequest.ControlPlanePlacement = expandControlPlanePlacement(v)
-	}
-
-	if v, ok := tfMap["outpost_arns"].(*schema.Set); ok && v.Len() > 0 {
-		outpostConfigRequest.OutpostArns = flex.ExpandStringSet(v)
-	}
-
-	return outpostConfigRequest
+iferr!=nil{
+returndiag.Errorf("readingEKSCluster(%s):%s",d.Id(),err)
 }
 
-func expandControlPlanePlacement(tfList []interface{}) *eks.ControlPlanePlacementRequest {
-	if len(tfList) == 0 {
-		return nil
-	}
-
-	tfMap, ok := tfList[0].(map[string]interface{})
-
-	if !ok {
-		return nil
-	}
-
-	apiObject := &eks.ControlPlanePlacementRequest{}
-
-	if v, ok := tfMap["group_name"].(string); ok && v != "" {
-		apiObject.GroupName = aws.String(v)
-	}
-
-	return apiObject
+d.Set("arn",cluster.Arn)
+iferr:=d.Set("certificate_authority",flattenCertificate(cluster.CertificateAuthority));err!=nil{
+returndiag.Errorf("settingcertificate_authority:%s",err)
+}
+//cluster_idisonlyrelevantforclustersonOutposts.
+ifcluster.OutpostConfig!=nil{
+d.Set("cluster_id",cluster.Id)
+}
+d.Set("created_at",aws.TimeValue(cluster.CreatedAt).String())
+iferr:=d.Set("enabled_cluster_log_types",flattenLogging(cluster.Logging));err!=nil{
+returndiag.Errorf("settingenabled_cluster_log_types:%s",err)
+}
+iferr:=d.Set("encryption_config",flattenEncryptionConfig(cluster.EncryptionConfig));err!=nil{
+returndiag.Errorf("settingencryption_config:%s",err)
+}
+d.Set("endpoint",cluster.Endpoint)
+iferr:=d.Set("identity",flattenIdentity(cluster.Identity));err!=nil{
+returndiag.Errorf("settingidentity:%s",err)
+}
+iferr:=d.Set("kubernetes_network_config",flattenKubernetesNetworkConfigResponse(cluster.KubernetesNetworkConfig));err!=nil{
+returndiag.Errorf("settingkubernetes_network_config:%s",err)
+}
+d.Set("name",cluster.Name)
+iferr:=d.Set("outpost_config",flattenOutpostConfigResponse(cluster.OutpostConfig));err!=nil{
+returndiag.Errorf("settingoutpost_config:%s",err)
+}
+d.Set("platform_version",cluster.PlatformVersion)
+d.Set("role_arn",cluster.RoleArn)
+d.Set("status",cluster.Status)
+d.Set("version",cluster.Version)
+iferr:=d.Set("vpc_config",flattenVPCConfigResponse(cluster.ResourcesVpcConfig));err!=nil{
+returndiag.Errorf("settingvpc_config:%s",err)
 }
 
-func expandVPCConfigRequestForCreate(l []interface{}) *eks.VpcConfigRequest {
-	if len(l) == 0 {
-		return nil
-	}
+setTagsOut(ctx,cluster.Tags)
 
-	m := l[0].(map[string]interface{})
-
-	vpcConfigRequest := &eks.VpcConfigRequest{
-		EndpointPrivateAccess: aws.Bool(m["endpoint_private_access"].(bool)),
-		EndpointPublicAccess:  aws.Bool(m["endpoint_public_access"].(bool)),
-		SecurityGroupIds: flex.ExpandStringSet(m["security_group_ids"].(*schema.Set)),
-		SubnetIds:flex.ExpandStringSet(m["subnet_ids"].(*schema.Set)),
-	}
-
-	if v, ok := m["public_access_cidrs"].(*schema.Set); ok && v.Len() > 0 {
-		vpcConfigRequest.PublicAccessCidrs = flex.ExpandStringSet(v)
-	}
-
-	return vpcConfigRequest
+returnnil
 }
 
-func expandVPCConfigRequestForUpdate(l []interface{}) *eks.VpcConfigRequest {
-	if len(l) == 0 {
-		return nil
-	}
+funcresourceClusterUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).EKSConn(ctx)
 
-	m := l[0].(map[string]interface{})
-
-	vpcConfigRequest := &eks.VpcConfigRequest{
-		EndpointPrivateAccess: aws.Bool(m["endpoint_private_access"].(bool)),
-		EndpointPublicAccess:  aws.Bool(m["endpoint_public_access"].(bool)),
-	}
-
-	if v, ok := m["public_access_cidrs"].(*schema.Set); ok && v.Len() > 0 {
-		vpcConfigRequest.PublicAccessCidrs = flex.ExpandStringSet(v)
-	}
-
-	return vpcConfigRequest
+//Doanyversionupdatefirst.
+ifd.HasChange("version"){
+input:=&eks.UpdateClusterVersionInput{
+Name:aws.String(d.Id()),
+Version:aws.String(d.Get("version").(string)),
 }
 
-func expandKubernetesNetworkConfigRequest(tfList []interface{}) *eks.KubernetesNetworkConfigRequest {
-	tfMap, ok := tfList[0].(map[string]interface{})
+output,err:=conn.UpdateClusterVersionWithContext(ctx,input)
 
-	if !ok {
-		return nil
-	}
-
-	apiObject := &eks.KubernetesNetworkConfigRequest{}
-
-	if v, ok := tfMap["service_ipv4_cidr"].(string); ok && v != "" {
-		apiObject.ServiceIpv4Cidr = aws.String(v)
-	}
-
-	if v, ok := tfMap["ip_family"].(string); ok && v != "" {
-		apiObject.IpFamily = aws.String(v)
-	}
-
-	return apiObject
+iferr!=nil{
+returndiag.Errorf("updatingEKSCluster(%s)version:%s",d.Id(),err)
 }
 
-func expandLogging(vEnabledLogTypes *schema.Set) *eks.Logging {
-	vEksLogTypes := []interface{}{}
-	for _, eksLogType := range eks.LogType_Values() {
-		vEksLogTypes = append(vEksLogTypes, eksLogType)
-	}
-	vAllLogTypes := schema.NewSet(schema.HashString, vEksLogTypes)
+updateID:=aws.StringValue(output.Update.Id)
 
-	return &eks.Logging{
-		ClusterLogging: []*eks.LogSetup{
-			{
-				Enabled: aws.Bool(true),
-				Types:   flex.ExpandStringSet(vEnabledLogTypes),
-			},
-			{
-				Enabled: aws.Bool(false),
-				Types:   flex.ExpandStringSet(vAllLogTypes.Difference(vEnabledLogTypes)),
-			},
-		},
-	}
+_,err=waitClusterUpdateSuccessful(ctx,conn,d.Id(),updateID,d.Timeout(schema.TimeoutUpdate))
+
+iferr!=nil{
+returndiag.Errorf("waitingforEKSCluster(%s)versionupdate(%s):%s",d.Id(),updateID,err)
+}
 }
 
-func flattenCertificate(certificate *eks.Certificate) []map[string]interface{} {
-	if certificate == nil {
-		return []map[string]interface{}{}
-	}
+ifd.HasChange("encryption_config"){
+o,n:=d.GetChange("encryption_config")
 
-	m := map[string]interface{}{
-		"data": aws.StringValue(certificate.Data),
-	}
-
-	return []map[string]interface{}{m}
+iflen(o.([]interface{}))==0&&len(n.([]interface{}))==1{
+input:=&eks.AssociateEncryptionConfigInput{
+ClusterName:aws.String(d.Id()),
+EncryptionConfig:expandEncryptionConfig(d.Get("encryption_config").([]interface{})),
 }
 
-func flattenIdentity(identity *eks.Identity) []map[string]interface{} {
-	if identity == nil {
-		return []map[string]interface{}{}
-	}
+output,err:=conn.AssociateEncryptionConfigWithContext(ctx,input)
 
-	m := map[string]interface{}{
-		"oidc": flattenOIDC(identity.Oidc),
-	}
-
-	return []map[string]interface{}{m}
+iferr!=nil{
+returndiag.Errorf("associatingEKSCluster(%s)encryptionconfig:%s",d.Id(),err)
 }
 
-func flattenOIDC(oidc *eks.OIDC) []map[string]interface{} {
-	if oidc == nil {
-		return []map[string]interface{}{}
-	}
+updateID:=aws.StringValue(output.Update.Id)
 
-	m := map[string]interface{}{
-		"issuer": aws.StringValue(oidc.Issuer),
-	}
+_,err=waitClusterUpdateSuccessful(ctx,conn,d.Id(),updateID,d.Timeout(schema.TimeoutUpdate))
 
-	return []map[string]interface{}{m}
+iferr!=nil{
+returndiag.Errorf("waitingforEKSCluster(%s)encryptionconfigassociation(%s):%s",d.Id(),updateID,err)
+}
+}
 }
 
-func flattenEncryptionConfig(apiObjects []*eks.EncryptionConfig) []interface{} {
-	if len(apiObjects) == 0 {
-		return nil
-	}
-
-	var tfList []interface{}
-
-	for _, apiObject := range apiObjects {
-		tfMap := map[string]interface{}{
-			"provider":  flattenProvider(apiObject.Provider),
-			"resources": aws.StringValueSlice(apiObject.Resources),
-		}
-
-		tfList = append(tfList, tfMap)
-	}
-
-	return tfList
+ifd.HasChange("enabled_cluster_log_types"){
+input:=&eks.UpdateClusterConfigInput{
+Logging:expandLogging(d.Get("enabled_cluster_log_types").(*schema.Set)),
+Name:aws.String(d.Id()),
 }
 
-func flattenProvider(apiObject *eks.Provider) []interface{} {
-	if apiObject == nil {
-		return nil
-	}
+output,err:=conn.UpdateClusterConfigWithContext(ctx,input)
 
-	tfMap := map[string]interface{}{
-		"key_arn": aws.StringValue(apiObject.KeyArn),
-	}
-
-	return []interface{}{tfMap}
+iferr!=nil{
+returndiag.Errorf("updatingEKSCluster(%s)logging:%s",d.Id(),err)
 }
 
-func flattenVPCConfigResponse(vpcConfig *eks.VpcConfigResponse) []map[string]interface{} {
-	if vpcConfig == nil {
-		return []map[string]interface{}{}
-	}
+updateID:=aws.StringValue(output.Update.Id)
 
-	m := map[string]interface{}{
-		"cluster_security_group_id": aws.StringValue(vpcConfig.ClusterSecurityGroupId),
-		"endpoint_private_access":   aws.BoolValue(vpcConfig.EndpointPrivateAccess),
-		"endpoint_public_access":aws.BoolValue(vpcConfig.EndpointPublicAccess),
-		"security_group_ids":   flex.FlattenStringSet(vpcConfig.SecurityGroupIds),
-		"subnet_ids":   flex.FlattenStringSet(vpcConfig.SubnetIds),
-		"public_access_cidrs":  flex.FlattenStringSet(vpcConfig.PublicAccessCidrs),
-		"vpc_id":  aws.StringValue(vpcConfig.VpcId),
-	}
+_,err=waitClusterUpdateSuccessful(ctx,conn,d.Id(),updateID,d.Timeout(schema.TimeoutUpdate))
 
-	return []map[string]interface{}{m}
+iferr!=nil{
+returndiag.Errorf("waitingforEKSCluster(%s)loggingupdate(%s):%s",d.Id(),updateID,err)
+}
 }
 
-func flattenLogging(logging *eks.Logging) *schema.Set {
-	enabledLogTypes := []*string{}
-
-	if logging != nil {
-		logSetups := logging.ClusterLogging
-		for _, logSetup := range logSetups {
-			if logSetup == nil || !aws.BoolValue(logSetup.Enabled) {
-				continue
-			}
-
-			enabledLogTypes = append(enabledLogTypes, logSetup.Types...)
-		}
-	}
-
-	return flex.FlattenStringSet(enabledLogTypes)
+ifd.HasChanges("vpc_config.0.endpoint_private_access","vpc_config.0.endpoint_public_access","vpc_config.0.public_access_cidrs"){
+input:=&eks.UpdateClusterConfigInput{
+Name:aws.String(d.Id()),
+ResourcesVpcConfig:expandVPCConfigRequestForUpdate(d.Get("vpc_config").([]interface{})),
 }
 
-func flattenKubernetesNetworkConfigResponse(apiObject *eks.KubernetesNetworkConfigResponse) []interface{} {
-	if apiObject == nil {
-		return nil
-	}
+output,err:=conn.UpdateClusterConfigWithContext(ctx,input)
 
-	tfMap := map[string]interface{}{
-		"service_ipv4_cidr": aws.StringValue(apiObject.ServiceIpv4Cidr),
-		"service_ipv6_cidr": aws.StringValue(apiObject.ServiceIpv6Cidr),
-		"ip_family":aws.StringValue(apiObject.IpFamily),
-	}
-
-	return []interface{}{tfMap}
+iferr!=nil{
+returndiag.Errorf("updatingEKSCluster(%s)VPCconfig:%s",d.Id(),err)
 }
 
-func flattenOutpostConfigResponse(apiObject *eks.OutpostConfigResponse) []interface{} {
-	if apiObject == nil {
-		return nil
-	}
+updateID:=aws.StringValue(output.Update.Id)
 
-	tfMap := map[string]interface{}{
-		"control_plane_instance_type": aws.StringValue(apiObject.ControlPlaneInstanceType),
-		"control_plane_placement":flattenControlPlanePlacementResponse(apiObject.ControlPlanePlacement),
-		"outpost_arns":   aws.StringValueSlice(apiObject.OutpostArns),
-	}
+_,err=waitClusterUpdateSuccessful(ctx,conn,d.Id(),updateID,d.Timeout(schema.TimeoutUpdate))
 
-	return []interface{}{tfMap}
+iferr!=nil{
+returndiag.Errorf("waitingforEKSCluster(%s)VPCconfigupdate(%s):%s",d.Id(),updateID,err)
+}
 }
 
-func flattenControlPlanePlacementResponse(apiObject *eks.ControlPlanePlacementResponse) []interface{} {
-	if apiObject == nil {
-		return nil
-	}
+returnresourceClusterRead(ctx,d,meta)
+}
 
-	tfMap := map[string]interface{}{
-		"group_name": aws.StringValue(apiObject.GroupName),
-	}
+funcresourceClusterDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).EKSConn(ctx)
 
-	return []interface{}{tfMap}
+log.Printf("[DEBUG]DeletingEKSCluster:%s",d.Id())
+
+input:=&eks.DeleteClusterInput{
+Name:aws.String(d.Id()),
+}
+
+//Ifaclusterisscalingupduetoloadadeleterequestwillfail
+//ThisisatemporaryworkarounduntilEKSsupportsmultipleparallelmutatingoperations
+err:=tfresource.Retry(ctx,clusterDeleteRetryTimeout,func()*retry.RetryError{
+varerrerror
+
+_,err=conn.DeleteClusterWithContext(ctx,input)
+
+iftfawserr.ErrMessageContains(err,eks.ErrCodeResourceInUseException,"inprogress"){
+returnretry.RetryableError(err)
+}
+
+iferr!=nil{
+returnretry.NonRetryableError(err)
+}
+
+returnnil
+},tfresource.WithDelayRand(1*time.Minute),tfresource.WithPollInterval(30*time.Second))
+
+iftfresource.TimedOut(err){
+_,err=conn.DeleteClusterWithContext(ctx,input)
+}
+
+iftfawserr.ErrCodeEquals(err,eks.ErrCodeResourceNotFoundException){
+returnnil
+}
+
+//SometimestheEKSAPIreturnstheResourceNotFounderrorinthisform:
+//ClientException:Noclusterfoundforname:tf-acc-test-0o1f8
+iftfawserr.ErrMessageContains(err,eks.ErrCodeClientException,"Noclusterfoundforname:"){
+returnnil
+}
+
+iferr!=nil{
+returndiag.Errorf("deletingEKSCluster(%s):%s",d.Id(),err)
+}
+
+if_,err=waitClusterDeleted(ctx,conn,d.Id(),d.Timeout(schema.TimeoutDelete));err!=nil{
+returndiag.Errorf("waitingforEKSCluster(%s)delete:%s",d.Id(),err)
+}
+
+returnnil
+}
+
+funcFindClusterByName(ctxcontext.Context,conn*eks.EKS,namestring)(*eks.Cluster,error){
+input:=&eks.DescribeClusterInput{
+Name:aws.String(name),
+}
+
+output,err:=conn.DescribeClusterWithContext(ctx,input)
+
+//SometimestheEKSAPIreturnstheResourceNotFounderrorinthisform:
+//ClientException:Noclusterfoundforname:tf-acc-test-0o1f8
+iftfawserr.ErrCodeEquals(err,eks.ErrCodeResourceNotFoundException)||tfawserr.ErrMessageContains(err,eks.ErrCodeClientException,"Noclusterfoundforname:"){
+returnnil,&retry.NotFoundError{
+LastError:err,
+LastRequest:input,
+}
+}
+
+iferr!=nil{
+returnnil,err
+}
+
+ifoutput==nil||output.Cluster==nil{
+returnnil,tfresource.NewEmptyResultError(input)
+}
+
+returnoutput.Cluster,nil
+}
+
+funcfindClusterUpdateByTwoPartKey(ctxcontext.Context,conn*eks.EKS,name,idstring)(*eks.Update,error){
+input:=&eks.DescribeUpdateInput{
+Name:aws.String(name),
+UpdateId:aws.String(id),
+}
+
+output,err:=conn.DescribeUpdateWithContext(ctx,input)
+
+iftfawserr.ErrCodeEquals(err,eks.ErrCodeResourceNotFoundException){
+returnnil,&retry.NotFoundError{
+LastError:err,
+LastRequest:input,
+}
+}
+
+iferr!=nil{
+returnnil,err
+}
+
+ifoutput==nil||output.Update==nil{
+returnnil,tfresource.NewEmptyResultError(input)
+}
+
+returnoutput.Update,nil
+}
+
+funcstatusCluster(ctxcontext.Context,conn*eks.EKS,namestring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+output,err:=FindClusterByName(ctx,conn,name)
+
+iftfresource.NotFound(err){
+returnnil,"",nil
+}
+
+iferr!=nil{
+returnnil,"",err
+}
+
+returnoutput,aws.StringValue(output.Status),nil
+}
+}
+
+funcstatusClusterUpdate(ctxcontext.Context,conn*eks.EKS,name,idstring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+output,err:=findClusterUpdateByTwoPartKey(ctx,conn,name,id)
+
+iftfresource.NotFound(err){
+returnnil,"",nil
+}
+
+iferr!=nil{
+returnnil,"",err
+}
+
+returnoutput,aws.StringValue(output.Status),nil
+}
+}
+
+funcwaitClusterCreated(ctxcontext.Context,conn*eks.EKS,namestring,timeouttime.Duration)(*eks.Cluster,error){
+stateConf:=&retry.StateChangeConf{
+Pending:[]string{eks.ClusterStatusPending,eks.ClusterStatusCreating},
+Target:[]string{eks.ClusterStatusActive},
+Refresh:statusCluster(ctx,conn,name),
+Timeout:timeout,
+}
+
+outputRaw,err:=stateConf.WaitForStateContext(ctx)
+
+ifoutput,ok:=outputRaw.(*eks.Cluster);ok{
+returnoutput,err
+}
+
+returnnil,err
+}
+
+funcwaitClusterDeleted(ctxcontext.Context,conn*eks.EKS,namestring,timeouttime.Duration)(*eks.Cluster,error){
+stateConf:=&retry.StateChangeConf{
+Pending:[]string{eks.ClusterStatusActive,eks.ClusterStatusDeleting},
+Target:[]string{},
+Refresh:statusCluster(ctx,conn,name),
+Timeout:timeout,
+}
+
+outputRaw,err:=stateConf.WaitForStateContext(ctx)
+
+ifoutput,ok:=outputRaw.(*eks.Cluster);ok{
+returnoutput,err
+}
+
+returnnil,err
+}
+
+funcwaitClusterUpdateSuccessful(ctxcontext.Context,conn*eks.EKS,name,idstring,timeouttime.Duration)(*eks.Update,error){//nolint:unparam
+stateConf:=&retry.StateChangeConf{
+Pending:[]string{eks.UpdateStatusInProgress},
+Target:[]string{eks.UpdateStatusSuccessful},
+Refresh:statusClusterUpdate(ctx,conn,name,id),
+Timeout:timeout,
+}
+
+outputRaw,err:=stateConf.WaitForStateContext(ctx)
+
+ifoutput,ok:=outputRaw.(*eks.Update);ok{
+ifstatus:=aws.StringValue(output.Status);status==eks.UpdateStatusCancelled||status==eks.UpdateStatusFailed{
+tfresource.SetLastError(err,ErrorDetailsError(output.Errors))
+}
+
+returnoutput,err
+}
+
+returnnil,err
+}
+
+funcexpandEncryptionConfig(tfList[]interface{})[]*eks.EncryptionConfig{
+iflen(tfList)==0{
+returnnil
+}
+
+varapiObjects[]*eks.EncryptionConfig
+
+for_,tfMapRaw:=rangetfList{
+tfMap,ok:=tfMapRaw.(map[string]interface{})
+
+if!ok{
+continue
+}
+
+apiObject:=&eks.EncryptionConfig{
+Provider:expandProvider(tfMap["provider"].([]interface{})),
+}
+
+ifv,ok:=tfMap["resources"].(*schema.Set);ok&&v.Len()>0{
+apiObject.Resources=flex.ExpandStringSet(v)
+}
+
+apiObjects=append(apiObjects,apiObject)
+}
+
+returnapiObjects
+}
+
+funcexpandProvider(tfList[]interface{})*eks.Provider{
+tfMap,ok:=tfList[0].(map[string]interface{})
+
+if!ok{
+returnnil
+}
+
+apiObject:=&eks.Provider{}
+
+ifv,ok:=tfMap["key_arn"].(string);ok&&v!=""{
+apiObject.KeyArn=aws.String(v)
+}
+
+returnapiObject
+}
+
+funcexpandOutpostConfigRequest(l[]interface{})*eks.OutpostConfigRequest{
+tfMap,ok:=l[0].(map[string]interface{})
+
+if!ok{
+returnnil
+}
+
+outpostConfigRequest:=&eks.OutpostConfigRequest{}
+
+ifv,ok:=tfMap["control_plane_instance_type"].(string);ok&&v!=""{
+outpostConfigRequest.ControlPlaneInstanceType=aws.String(v)
+}
+
+ifv,ok:=tfMap["control_plane_placement"].([]interface{});ok{
+outpostConfigRequest.ControlPlanePlacement=expandControlPlanePlacement(v)
+}
+
+ifv,ok:=tfMap["outpost_arns"].(*schema.Set);ok&&v.Len()>0{
+outpostConfigRequest.OutpostArns=flex.ExpandStringSet(v)
+}
+
+returnoutpostConfigRequest
+}
+
+funcexpandControlPlanePlacement(tfList[]interface{})*eks.ControlPlanePlacementRequest{
+iflen(tfList)==0{
+returnnil
+}
+
+tfMap,ok:=tfList[0].(map[string]interface{})
+
+if!ok{
+returnnil
+}
+
+apiObject:=&eks.ControlPlanePlacementRequest{}
+
+ifv,ok:=tfMap["group_name"].(string);ok&&v!=""{
+apiObject.GroupName=aws.String(v)
+}
+
+returnapiObject
+}
+
+funcexpandVPCConfigRequestForCreate(l[]interface{})*eks.VpcConfigRequest{
+iflen(l)==0{
+returnnil
+}
+
+m:=l[0].(map[string]interface{})
+
+vpcConfigRequest:=&eks.VpcConfigRequest{
+EndpointPrivateAccess:aws.Bool(m["endpoint_private_access"].(bool)),
+EndpointPublicAccess:aws.Bool(m["endpoint_public_access"].(bool)),
+SecurityGroupIds:flex.ExpandStringSet(m["security_group_ids"].(*schema.Set)),
+SubnetIds:flex.ExpandStringSet(m["subnet_ids"].(*schema.Set)),
+}
+
+ifv,ok:=m["public_access_cidrs"].(*schema.Set);ok&&v.Len()>0{
+vpcConfigRequest.PublicAccessCidrs=flex.ExpandStringSet(v)
+}
+
+returnvpcConfigRequest
+}
+
+funcexpandVPCConfigRequestForUpdate(l[]interface{})*eks.VpcConfigRequest{
+iflen(l)==0{
+returnnil
+}
+
+m:=l[0].(map[string]interface{})
+
+vpcConfigRequest:=&eks.VpcConfigRequest{
+EndpointPrivateAccess:aws.Bool(m["endpoint_private_access"].(bool)),
+EndpointPublicAccess:aws.Bool(m["endpoint_public_access"].(bool)),
+}
+
+ifv,ok:=m["public_access_cidrs"].(*schema.Set);ok&&v.Len()>0{
+vpcConfigRequest.PublicAccessCidrs=flex.ExpandStringSet(v)
+}
+
+returnvpcConfigRequest
+}
+
+funcexpandKubernetesNetworkConfigRequest(tfList[]interface{})*eks.KubernetesNetworkConfigRequest{
+tfMap,ok:=tfList[0].(map[string]interface{})
+
+if!ok{
+returnnil
+}
+
+apiObject:=&eks.KubernetesNetworkConfigRequest{}
+
+ifv,ok:=tfMap["service_ipv4_cidr"].(string);ok&&v!=""{
+apiObject.ServiceIpv4Cidr=aws.String(v)
+}
+
+ifv,ok:=tfMap["ip_family"].(string);ok&&v!=""{
+apiObject.IpFamily=aws.String(v)
+}
+
+returnapiObject
+}
+
+funcexpandLogging(vEnabledLogTypes*schema.Set)*eks.Logging{
+vEksLogTypes:=[]interface{}{}
+for_,eksLogType:=rangeeks.LogType_Values(){
+vEksLogTypes=append(vEksLogTypes,eksLogType)
+}
+vAllLogTypes:=schema.NewSet(schema.HashString,vEksLogTypes)
+
+return&eks.Logging{
+ClusterLogging:[]*eks.LogSetup{
+{
+Enabled:aws.Bool(true),
+Types:flex.ExpandStringSet(vEnabledLogTypes),
+},
+{
+Enabled:aws.Bool(false),
+Types:flex.ExpandStringSet(vAllLogTypes.Difference(vEnabledLogTypes)),
+},
+},
+}
+}
+
+funcflattenCertificate(certificate*eks.Certificate)[]map[string]interface{}{
+ifcertificate==nil{
+return[]map[string]interface{}{}
+}
+
+m:=map[string]interface{}{
+"data":aws.StringValue(certificate.Data),
+}
+
+return[]map[string]interface{}{m}
+}
+
+funcflattenIdentity(identity*eks.Identity)[]map[string]interface{}{
+ifidentity==nil{
+return[]map[string]interface{}{}
+}
+
+m:=map[string]interface{}{
+"oidc":flattenOIDC(identity.Oidc),
+}
+
+return[]map[string]interface{}{m}
+}
+
+funcflattenOIDC(oidc*eks.OIDC)[]map[string]interface{}{
+ifoidc==nil{
+return[]map[string]interface{}{}
+}
+
+m:=map[string]interface{}{
+"issuer":aws.StringValue(oidc.Issuer),
+}
+
+return[]map[string]interface{}{m}
+}
+
+funcflattenEncryptionConfig(apiObjects[]*eks.EncryptionConfig)[]interface{}{
+iflen(apiObjects)==0{
+returnnil
+}
+
+vartfList[]interface{}
+
+for_,apiObject:=rangeapiObjects{
+tfMap:=map[string]interface{}{
+"provider":flattenProvider(apiObject.Provider),
+"resources":aws.StringValueSlice(apiObject.Resources),
+}
+
+tfList=append(tfList,tfMap)
+}
+
+returntfList
+}
+
+funcflattenProvider(apiObject*eks.Provider)[]interface{}{
+ifapiObject==nil{
+returnnil
+}
+
+tfMap:=map[string]interface{}{
+"key_arn":aws.StringValue(apiObject.KeyArn),
+}
+
+return[]interface{}{tfMap}
+}
+
+funcflattenVPCConfigResponse(vpcConfig*eks.VpcConfigResponse)[]map[string]interface{}{
+ifvpcConfig==nil{
+return[]map[string]interface{}{}
+}
+
+m:=map[string]interface{}{
+"cluster_security_group_id":aws.StringValue(vpcConfig.ClusterSecurityGroupId),
+"endpoint_private_access":aws.BoolValue(vpcConfig.EndpointPrivateAccess),
+"endpoint_public_access":aws.BoolValue(vpcConfig.EndpointPublicAccess),
+"security_group_ids":flex.FlattenStringSet(vpcConfig.SecurityGroupIds),
+"subnet_ids":flex.FlattenStringSet(vpcConfig.SubnetIds),
+"public_access_cidrs":flex.FlattenStringSet(vpcConfig.PublicAccessCidrs),
+"vpc_id":aws.StringValue(vpcConfig.VpcId),
+}
+
+return[]map[string]interface{}{m}
+}
+
+funcflattenLogging(logging*eks.Logging)*schema.Set{
+enabledLogTypes:=[]*string{}
+
+iflogging!=nil{
+logSetups:=logging.ClusterLogging
+for_,logSetup:=rangelogSetups{
+iflogSetup==nil||!aws.BoolValue(logSetup.Enabled){
+continue
+}
+
+enabledLogTypes=append(enabledLogTypes,logSetup.Types...)
+}
+}
+
+returnflex.FlattenStringSet(enabledLogTypes)
+}
+
+funcflattenKubernetesNetworkConfigResponse(apiObject*eks.KubernetesNetworkConfigResponse)[]interface{}{
+ifapiObject==nil{
+returnnil
+}
+
+tfMap:=map[string]interface{}{
+"service_ipv4_cidr":aws.StringValue(apiObject.ServiceIpv4Cidr),
+"service_ipv6_cidr":aws.StringValue(apiObject.ServiceIpv6Cidr),
+"ip_family":aws.StringValue(apiObject.IpFamily),
+}
+
+return[]interface{}{tfMap}
+}
+
+funcflattenOutpostConfigResponse(apiObject*eks.OutpostConfigResponse)[]interface{}{
+ifapiObject==nil{
+returnnil
+}
+
+tfMap:=map[string]interface{}{
+"control_plane_instance_type":aws.StringValue(apiObject.ControlPlaneInstanceType),
+"control_plane_placement":flattenControlPlanePlacementResponse(apiObject.ControlPlanePlacement),
+"outpost_arns":aws.StringValueSlice(apiObject.OutpostArns),
+}
+
+return[]interface{}{tfMap}
+}
+
+funcflattenControlPlanePlacementResponse(apiObject*eks.ControlPlanePlacementResponse)[]interface{}{
+ifapiObject==nil{
+returnnil
+}
+
+tfMap:=map[string]interface{}{
+"group_name":aws.StringValue(apiObject.GroupName),
+}
+
+return[]interface{}{tfMap}
 }

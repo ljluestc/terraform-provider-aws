@@ -1,149 +1,149 @@
 //Copyright(c)HashiCorp,Inc.
 //SPDX-License-Identifier:MPL-2.0packageproviderimport(
-	"context"
-	"os"
-	"strings"
-	"testing"	"github.com/hashicorp/terraform-provider-aws/names"
+"context"
+"os"
+"strings"
+"testing""github.com/hashicorp/terraform-provider-aws/names"
 )funcTestProvider(t*testing.T){
-	t.Parallel()	p,err:=New(context.Background())	iferr!=nil{
-		t.Fatal(err)
-	}	err=p.InternalValidate()	iferr!=nil{
-		t.Fatal(err)
-	}
+t.Parallel()p,err:=New(context.Background())iferr!=nil{
+t.Fatal(err)
+}err=p.InternalValidate()iferr!=nil{
+t.Fatal(err)
+}
 }funcTestExpandEndpoints(t*testing.T){//nolint:paralleltest
-	oldEnv:=stashEnv()
-	deferpopEnv(oldEnv)	ctx:=context.Background()
-	endpoints:=make(map[string]interface{})
-	for_,serviceKey:=rangenames.Aliases(){
-		endpoints[serviceKey]=""
-	}
-	endpoints["sts"]="https://sts.fake.test"	results,err:=expandEndpoints(ctx,[]interface{}{endpoints})
-	iferr!=nil{
-		t.Fatalf("Unexpectederror:%s",err)
-	}	iflen(results)!=1{
-		t.Errorf("Expected1endpoint,got%d",len(results))
-	}	ifv:=results["sts"];v!="https://sts.fake.test"{
-		t.Errorf("Expectedendpoint%q,got%v","https://sts.fake.test",results)
-	}
-}funcTestEndpointMultipleKeys(t*testing.T){//nolint:paralleltest
-	ctx:=context.Background()
-	testcases:=[]struct{
-		endpointsmap[string]string
-		expectedServicestring
-		expectedEndpointstring
-	}{
-		{
-endpoints:map[string]string{
-	"transcribe":"https://transcribe.fake.test",
-},
-expectedService:names.Transcribe,
-expectedEndpoint:"https://transcribe.fake.test",
-		},
-		{
-endpoints:map[string]string{
-	"transcribeservice":"https://transcribe.fake.test",
-},
-expectedService:names.Transcribe,
-expectedEndpoint:"https://transcribe.fake.test",
-		},
-		{
-endpoints:map[string]string{
-	"transcribe":"https://transcribe.fake.test",
-	"transcribeservice":"https://transcribeservice.fake.test",
-},
-expectedService:names.Transcribe,
-expectedEndpoint:"https://transcribe.fake.test",
-		},
-	}	for_,testcase:=rangetestcases{
-		oldEnv:=stashEnv()
-		deferpopEnv(oldEnv)		endpoints:=make(map[string]interface{})
-		for_,serviceKey:=rangenames.Aliases(){
+oldEnv:=stashEnv()
+deferpopEnv(oldEnv)ctx:=context.Background()
+endpoints:=make(map[string]interface{})
+for_,serviceKey:=rangenames.Aliases(){
 endpoints[serviceKey]=""
-		}
-		fork,v:=rangetestcase.endpoints{
-endpoints[k]=v
-		}		results,err:=expandEndpoints(ctx,[]interface{}{endpoints})
-		iferr!=nil{
+}
+endpoints["sts"]="https://sts.fake.test"results,err:=expandEndpoints(ctx,[]interface{}{endpoints})
+iferr!=nil{
 t.Fatalf("Unexpectederror:%s",err)
-		}		ifa,e:=len(results),1;a!=e{
+}iflen(results)!=1{
 t.Errorf("Expected1endpoint,got%d",len(results))
-		}		ifv:=results[testcase.expectedService];v!=testcase.expectedEndpoint{
+}ifv:=results["sts"];v!="https://sts.fake.test"{
+t.Errorf("Expectedendpoint%q,got%v","https://sts.fake.test",results)
+}
+}funcTestEndpointMultipleKeys(t*testing.T){//nolint:paralleltest
+ctx:=context.Background()
+testcases:=[]struct{
+endpointsmap[string]string
+expectedServicestring
+expectedEndpointstring
+}{
+{
+endpoints:map[string]string{
+"transcribe":"https://transcribe.fake.test",
+},
+expectedService:names.Transcribe,
+expectedEndpoint:"https://transcribe.fake.test",
+},
+{
+endpoints:map[string]string{
+"transcribeservice":"https://transcribe.fake.test",
+},
+expectedService:names.Transcribe,
+expectedEndpoint:"https://transcribe.fake.test",
+},
+{
+endpoints:map[string]string{
+"transcribe":"https://transcribe.fake.test",
+"transcribeservice":"https://transcribeservice.fake.test",
+},
+expectedService:names.Transcribe,
+expectedEndpoint:"https://transcribe.fake.test",
+},
+}for_,testcase:=rangetestcases{
+oldEnv:=stashEnv()
+deferpopEnv(oldEnv)endpoints:=make(map[string]interface{})
+for_,serviceKey:=rangenames.Aliases(){
+endpoints[serviceKey]=""
+}
+fork,v:=rangetestcase.endpoints{
+endpoints[k]=v
+}results,err:=expandEndpoints(ctx,[]interface{}{endpoints})
+iferr!=nil{
+t.Fatalf("Unexpectederror:%s",err)
+}ifa,e:=len(results),1;a!=e{
+t.Errorf("Expected1endpoint,got%d",len(results))
+}ifv:=results[testcase.expectedService];v!=testcase.expectedEndpoint{
 t.Errorf("Expectedendpoint[%s]tobe%q,got%v",testcase.expectedService,testcase.expectedEndpoint,results)
-		}
-	}
+}
+}
 }funcTestEndpointEnvVarPrecedence(t*testing.T){//nolint:paralleltest
-	ctx:=context.Background()
-	testcases:=[]struct{
-		endpointsmap[string]string
-		envvarsmap[string]string
-		expectedServicestring
-		expectedEndpointstring
-	}{
-		{
+ctx:=context.Background()
+testcases:=[]struct{
+endpointsmap[string]string
+envvarsmap[string]string
+expectedServicestring
+expectedEndpointstring
+}{
+{
 endpoints:map[string]string{},
 envvars:map[string]string{
-	"TF_AWS_STS_ENDPOINT":"https://sts.fake.test",
+"TF_AWS_STS_ENDPOINT":"https://sts.fake.test",
 },
 expectedService:names.STS,
 expectedEndpoint:"https://sts.fake.test",
-		},
-		{
+},
+{
 endpoints:map[string]string{},
 envvars:map[string]string{
-	"AWS_STS_ENDPOINT":"https://sts-deprecated.fake.test",
+"AWS_STS_ENDPOINT":"https://sts-deprecated.fake.test",
 },
 expectedService:names.STS,
 expectedEndpoint:"https://sts-deprecated.fake.test",
-		},
-		{
+},
+{
 endpoints:map[string]string{},
 envvars:map[string]string{
-	"TF_AWS_STS_ENDPOINT":"https://sts.fake.test",
-	"AWS_STS_ENDPOINT":"https://sts-deprecated.fake.test",
+"TF_AWS_STS_ENDPOINT":"https://sts.fake.test",
+"AWS_STS_ENDPOINT":"https://sts-deprecated.fake.test",
 },
 expectedService:names.STS,
 expectedEndpoint:"https://sts.fake.test",
-		},
-		{
+},
+{
 endpoints:map[string]string{
-	"sts":"https://sts-config.fake.test",
+"sts":"https://sts-config.fake.test",
 },
 envvars:map[string]string{
-	"TF_AWS_STS_ENDPOINT":"https://sts-env.fake.test",
+"TF_AWS_STS_ENDPOINT":"https://sts-env.fake.test",
 },
 expectedService:names.STS,
 expectedEndpoint:"https://sts-config.fake.test",
-		},
-	}	for_,testcase:=rangetestcases{
-		oldEnv:=stashEnv()
-		deferpopEnv(oldEnv)		fork,v:=rangetestcase.envvars{
+},
+}for_,testcase:=rangetestcases{
+oldEnv:=stashEnv()
+deferpopEnv(oldEnv)fork,v:=rangetestcase.envvars{
 os.Setenv(k,v)
-		}		endpoints:=make(map[string]interface{})
-		for_,serviceKey:=rangenames.Aliases(){
+}endpoints:=make(map[string]interface{})
+for_,serviceKey:=rangenames.Aliases(){
 endpoints[serviceKey]=""
-		}
-		fork,v:=rangetestcase.endpoints{
+}
+fork,v:=rangetestcase.endpoints{
 endpoints[k]=v
-		}		results,err:=expandEndpoints(ctx,[]interface{}{endpoints})
-		iferr!=nil{
+}results,err:=expandEndpoints(ctx,[]interface{}{endpoints})
+iferr!=nil{
 t.Fatalf("Unexpectederror:%s",err)
-		}		ifa,e:=len(results),1;a!=e{
+}ifa,e:=len(results),1;a!=e{
 t.Errorf("Expected1endpoint,got%d",len(results))
-		}		ifv:=results[testcase.expectedService];v!=testcase.expectedEndpoint{
+}ifv:=results[testcase.expectedService];v!=testcase.expectedEndpoint{
 t.Errorf("Expectedendpoint[%s]tobe%q,got%v",testcase.expectedService,testcase.expectedEndpoint,results)
-		}
-	}
+}
+}
 }funcstashEnv()[]string{
-	env:=os.Environ()
-	os.Clearenv()
-	returnenv
+env:=os.Environ()
+os.Clearenv()
+returnenv
 }funcpopEnv(env[]string){
-	os.Clearenv()	for_,e:=rangeenv{
-		p:=strings.SplitN(e,"=",2)
-		k,v:=p[0],""
-		iflen(p)>1{
+os.Clearenv()for_,e:=rangeenv{
+p:=strings.SplitN(e,"=",2)
+k,v:=p[0],""
+iflen(p)>1{
 v=p[1]
-		}
-		os.Setenv(k,v)
-	}
+}
+os.Setenv(k,v)
+}
 }

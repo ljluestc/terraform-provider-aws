@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package sweepimport ("github.com/hashicorp/terraform-provider-aws/internal/sweep/sdk")var NewSweepResource = sdk.NewSweepResource
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagesweepimport("github.com/hashicorp/terraform-provider-aws/internal/sweep/sdk")varNewSweepResource=sdk.NewSweepResource

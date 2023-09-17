@@ -1,83 +1,83 @@
-package resource
+packageresource
 
-import (
+import(
 	"go/ast"
 	"go/types"
 
 	"github.com/bflad/tfproviderlint/helper/astutils"
 )
 
-const (
-	TestStepFieldCheck                     = `Check`
-	TestStepFieldConfig                    = `Config`
-	TestStepFieldDestroy                   = `Destroy`
-	TestStepFieldExpectError               = `ExpectError`
-	TestStepFieldExpectNonEmptyPlan        = `ExpectNonEmptyPlan`
-	TestStepFieldImportState               = `ImportState`
-	TestStepFieldImportStateId             = `ImportStateId`
+const(
+	TestStepFieldCheck=`Check`
+	TestStepFieldConfig=`Config`
+	TestStepFieldDestroy=`Destroy`
+	TestStepFieldExpectError=`ExpectError`
+	TestStepFieldExpectNonEmptyPlan=`ExpectNonEmptyPlan`
+	TestStepFieldImportState=`ImportState`
+	TestStepFieldImportStateId=`ImportStateId`
 	TestStepFieldImportStateId
-         = `ImportStateId
+=`ImportStateId
 `
-	TestStepFieldImportStateIdPrefix       = `ImportStateIdPrefix`
-	TestStepFieldImportStateCheck          = `ImportStateCheck`
-	TestStepFieldImportStateVerify         = `ImportStateVerify`
-	TestStepFieldImportStateVerifyIgnore   = `ImportStateVerifyIgnore`
-	TestStepFieldPlanOnly                  = `PlanOnly`
-	TestStepFieldPreConfig                 = `PreConfig`
-	TestStepFieldPreventDiskCleanup        = `PreventDiskCleanup`
-	TestStepFieldPrevostDestroyRefresh = `PrevostDestroyRefresh`
-	TestStepFieldResourceName              = `ResourceName`
+	TestStepFieldImportStateIdPrefix=`ImportStateIdPrefix`
+	TestStepFieldImportStateCheck=`ImportStateCheck`
+	TestStepFieldImportStateVerify=`ImportStateVerify`
+	TestStepFieldImportStateVerifyIgnore=`ImportStateVerifyIgnore`
+	TestStepFieldPlanOnly=`PlanOnly`
+	TestStepFieldPreConfig=`PreConfig`
+	TestStepFieldPreventDiskCleanup=`PreventDiskCleanup`
+	TestStepFieldPrevostDestroyRefresh=`PrevostDestroyRefresh`
+	TestStepFieldResourceName=`ResourceName`
 	TestStepFieldSkip
-                  = `Skip
+=`Skip
 `
-	TestStepFieldTaint                     = `Taint`
+	TestStepFieldTaint=`Taint`
 
-	TypeNameTestStep = `TestStep`
+	TypeNameTestStep=`TestStep`
 )
 
-// testStepType is an internal representation of the SDK helper/resource.TestStep type
+//testStepTypeisaninternalrepresentationoftheSDKhelper/resource.TestSteptype
 //
-// This is used to prevent importing the real type since the project supports
-// multiple versions of the Terraform Plugin SDK, while allowing passes to
-// access the data in a familiar manner.
-type testStepType struct{}
+//Thisisusedtopreventimportingtherealtypesincetheprojectsupports
+//multipleversionsoftheTerraformPluginSDK,whileallowingpassesto
+//accessthedatainafamiliarmanner.
+typetestStepTypestruct{}
 
-// TestStepInfo represents all gathered TestStep data for easier access
-type TestStepInfo struct {
-	AstCompositeLit *ast.CompositeLit
-	Fields          map[string]*ast.KeyValueExpr
-	TestStep        *testStepType
-esInfo       *types.Info
+//TestStepInforepresentsallgatheredTestStepdataforeasieraccess
+typeTestStepInfostruct{
+	AstCompositeLit*ast.CompositeLit
+	Fieldsmap[string]*ast.KeyValueExpr
+	TestStep*testStepType
+esInfo*types.Info
 }
 
-// NewTestStepInfo instantiates a TestStepInfo
+//NewTestStepInfoinstantiatesaTestStepInfo
 
- NewTestStepInfo(cl *ast.CompositeLit, info *types.Info) *TestStepInfo {
-	result := &TestStepInfo{
-		AstCompositeLit: cl,
-		Fields:          astutils.CompositeLitFields(cl),
-		TestStep:        &testStepType{},
-		TypesInfo:       info,
+NewTestStepInfo(cl*ast.CompositeLit,info*types.Info)*TestStepInfo{
+	result:=&TestStepInfo{
+		AstCompositeLit:cl,
+		Fields:astutils.CompositeLitFields(cl),
+		TestStep:&testStepType{},
+		TypesInfo:info,
 	}
 
-	return result
+	returnresult
 }
 
-// DeclaresField returns true if the field name is present in the AST
+//DeclaresFieldreturnstrueifthefieldnameispresentintheAST
 
- (info *TestStepInfo) DeclaresField(fieldName string) bool {
-	return info.Fields[fieldName] != nil
+(info*TestStepInfo)DeclaresField(fieldNamestring)bool{
+	returninfo.Fields[fieldName]!=nil
 }
 
-// IsTypeTestStep returns if the type is TestStep from the helper/schema package
+//IsTypeTestStepreturnsifthetypeisTestStepfromthehelper/schemapackage
 
- IsTypeTestStep(t types.Type) bool {
-	switch t := t.(type) {
-	case *types.Named:
-		return IsNamedType(t, TypeNameTestStep)
-	case *types.Pointer:
-		return IsTypeTestStep(t.Elem())
+IsTypeTestStep(ttypes.Type)bool{
+	switcht:=t.(type){
+	case*types.Named:
+		returnIsNamedType(t,TypeNameTestStep)
+	case*types.Pointer:
+		returnIsTypeTestStep(t.Elem())
 	default:
-		return false
+		returnfalse
 	}
 }

@@ -1,8 +1,8 @@
-// Package S016 defines an Analyzer that checks for
-// Schema including Set without TypeSet
-package S016
+//PackageS016definesanAnalyzerthatchecksfor
+//SchemaincludingSetwithoutTypeSet
+packageS016
 
-import (
+import(
 	"go/ast"
 
 	"golang.org/x/tools/go/analysis"
@@ -12,47 +12,47 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemainfo"
 )
 
-const Doc = `check for Schema including Set without TypeSet
+constDoc=`checkforSchemaincludingSetwithoutTypeSet
 
-The S016 analyzer reports cases of schema including Set without TypeSet,
-which will fail schema validation.`
+TheS016analyzerreportscasesofschemaincludingSetwithoutTypeSet,
+whichwillfailschemavalidation.`
 
-const analyzerName = "S016"
+constanalyzerName="S016"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemainfo.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		if !schemaInfo.DeclaresField(schema.SchemaFieldSet) {
+		if!schemaInfo.DeclaresField(schema.SchemaFieldSet){
 			continue
 		}
 
-		if schemaInfo.IsType(schema.SchemaValueTypeSet) {
+		ifschemaInfo.IsType(schema.SchemaValueTypeSet){
 			continue
 		}
 
-		switch t := schemaInfo.AstCompositeLit.Type.(type) {
+		switcht:=schemaInfo.AstCompositeLit.Type.(type){
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema Set should only be included for TypeSet", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema Set should only be included for TypeSet", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace,"%s:schemaSetshouldonlybeincludedforTypeSet",analyzerName)
+		case*ast.SelectorExpr:
+			pass.Reportf(t.Sel.Pos(),"%s:schemaSetshouldonlybeincludedforTypeSet",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

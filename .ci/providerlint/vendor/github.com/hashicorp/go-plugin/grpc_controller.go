@@ -1,13 +1,13 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package pluginimport (
-	"context"	"github.com/hashicorp/go-plugin/internal/plugin"
+"context""github.com/hashicorp/go-plugin/internal/plugin"
 )// GRPCControllerServer handles shutdown calls to terminate the server when the
 // plugin client is closed.
 type grpcControllerServer struct {
-	server *GRPCServer
+server *GRPCServer
 }// Shutdown stops the grpc server. It first will attempt a graceful stop, then a
 // full stop on the server. (s *grpcControllerServer) Shutdown(ctx context.Context, _ *plugin.Empty) (*plugin.Empty, error) {
-	resp := &plugin.Empty{}	// TODO: figure out why GracefullStop doesn't work.
-	s.server.Stop()
-	return resp, nil
+resp := &plugin.Empty{}// TODO: figure out why GracefullStop doesn't work.
+s.server.Stop()
+return resp, nil
 }

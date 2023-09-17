@@ -4,32 +4,32 @@
 packageprovider
 
 import(
-	"context"
+"context"
 
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	"github.com/hashicorp/go-cty/cty"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/errs"
-	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-	"github.com/hashicorp/terraform-provider-aws/internal/slices"
-	tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-	"github.com/hashicorp/terraform-provider-aws/internal/types"
-	"github.com/hashicorp/terraform-provider-aws/names"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+"github.com/hashicorp/go-cty/cty"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/errs"
+"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
+"github.com/hashicorp/terraform-provider-aws/internal/slices"
+tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/hashicorp/terraform-provider-aws/internal/types"
+"github.com/hashicorp/terraform-provider-aws/names"
 )
 
 //schemaResourceDataisaninterfacethatimplementsfunctionsfromschema.ResourceData
 typeschemaResourceDatainterface{
-	Get(keystring)any
-	GetChange(keystring)(any,any)
-	GetRawConfig()cty.Value
-	GetRawPlan()cty.Value
-	GetRawState()cty.Value
-	HasChange(keystring)bool
-	Id()string
-	Set(string,any)error
+Get(keystring)any
+GetChange(keystring)(any,any)
+GetRawConfig()cty.Value
+GetRawPlan()cty.Value
+GetRawState()cty.Value
+HasChange(keystring)bool
+Id()string
+Set(string,any)error
 }
 
 //AninterceptorisfunctionalityinvokedduringtheCRUDrequestlifecycle.
@@ -37,20 +37,20 @@ typeschemaResourceDatainterface{
 //nofurtherinterceptorsinthechainarerunandneitheristheschema'smethod.
 //Inothercasesallinterceptorsinthechainarerun.
 typeinterceptorinterface{
-	run(context.Context,schemaResourceData,any,when,why,diag.Diagnostics)(context.Context,diag.Diagnostics)
+run(context.Context,schemaResourceData,any,when,why,diag.Diagnostics)(context.Context,diag.Diagnostics)
 }
 
 typeinterceptorFuncfunc(context.Context,schemaResourceData,any,when,why,diag.Diagnostics)(context.Context,diag.Diagnostics)
 
 func(finterceptorFunc)run(ctxcontext.Context,dschemaResourceData,metaany,whenwhen,whywhy,diagsdiag.Diagnostics)(context.Context,diag.Diagnostics){
-	returnf(ctx,d,meta,when,why,diags)
+returnf(ctx,d,meta,when,why,diags)
 }
 
 //interceptorItemrepresentsasingleinterceptorinvocation.
 typeinterceptorItemstruct{
-	whenwhen
-	whywhy
-	interceptorinterceptor
+whenwhen
+whywhy
+interceptorinterceptor
 }
 
 //whenrepresentsthepointintheCRUDrequestlifecyclethataninterceptorisrun.
@@ -58,10 +58,10 @@ typeinterceptorItemstruct{
 typewhenuint16
 
 const(
-	Beforewhen=1<<iota//Interceptorisinvokedbeforecalltomethodinschema
-	After//Interceptorisinvokedaftersuccessfulcalltomethodinschema
-	OnError//Interceptorisinvokedafterunsuccessfulcalltomethodinschema
-	Finally//InterceptorisinvokedafterAfterorOnError
+Beforewhen=1<<iota//Interceptorisinvokedbeforecalltomethodinschema
+After//Interceptorisinvokedaftersuccessfulcalltomethodinschema
+OnError//Interceptorisinvokedafterunsuccessfulcalltomethodinschema
+Finally//InterceptorisinvokedafterAfterorOnError
 )
 
 //whyrepresentstheCRUDoperation(s)thataninterceptorisrun.
@@ -69,67 +69,67 @@ const(
 typewhyuint16
 
 const(
-	Createwhy=1<<iota//InterceptorisinvokedforaCreatecall
-	Read//InterceptorisinvokedforaReadcall
-	Update//InterceptorisinvokedforanUpdatecall
-	Delete//InterceptorisinvokedforaDeletecall
+Createwhy=1<<iota//InterceptorisinvokedforaCreatecall
+Read//InterceptorisinvokedforaReadcall
+Update//InterceptorisinvokedforanUpdatecall
+Delete//InterceptorisinvokedforaDeletecall
 
-	AllOps=Create|Read|Update|Delete//Interceptorisinvokedforallcalls
+AllOps=Create|Read|Update|Delete//Interceptorisinvokedforallcalls
 )
 
 typeinterceptorItems[]interceptorItem
 
 //whyreturnsasliceofinterceptorsthatrunforthespecifiedCRUDoperation.
 func(sinterceptorItems)why(whywhy)interceptorItems{
-	returnslices.Filter(s,func(einterceptorItem)bool{
-		returne.why&why!=0
-	})
+returnslices.Filter(s,func(einterceptorItem)bool{
+returne.why&why!=0
+})
 }
 
 //interceptedHandlerreturnsahandlerthatinvokesthespecifiedCRUDhandler,runninganyinterceptors.
 funcinterceptedHandler[F~func(context.Context,*schema.ResourceData,any)diag.Diagnostics](bootstrapContextcontextFunc,interceptorsinterceptorItems,fF,whywhy)F{
-	returnfunc(ctxcontext.Context,d*schema.ResourceData,metaany)diag.Diagnostics{
-		vardiagsdiag.Diagnostics
-		ctx=bootstrapContext(ctx,meta)
-		//Beforeinterceptorsarerunfirsttolast.
-		forward:=interceptors.why(why)
+returnfunc(ctxcontext.Context,d*schema.ResourceData,metaany)diag.Diagnostics{
+vardiagsdiag.Diagnostics
+ctx=bootstrapContext(ctx,meta)
+//Beforeinterceptorsarerunfirsttolast.
+forward:=interceptors.why(why)
 
-		when:=Before
-		for_,v:=rangeforward{
+when:=Before
+for_,v:=rangeforward{
 ifv.when&when!=0{
-	ctx,diags=v.interceptor.run(ctx,d,meta,when,why,diags)
+ctx,diags=v.interceptor.run(ctx,d,meta,when,why,diags)
 
-	//ShortcircuitifanyBeforeinterceptorerrors.
-	ifdiags.HasError(){
-		returndiags
-	}
+//ShortcircuitifanyBeforeinterceptorerrors.
+ifdiags.HasError(){
+returndiags
 }
-		}
+}
+}
 
-		//Allotherinterceptorsarerunlasttofirst.
-		reverse:=slices.Reverse(forward)
-		diags=f(ctx,d,meta)
+//Allotherinterceptorsarerunlasttofirst.
+reverse:=slices.Reverse(forward)
+diags=f(ctx,d,meta)
 
-		ifdiags.HasError(){
+ifdiags.HasError(){
 when=OnError
-		}else{
+}else{
 when=After
-		}
-		for_,v:=rangereverse{
-ifv.when&when!=0{
-	ctx,diags=v.interceptor.run(ctx,d,meta,when,why,diags)
 }
-		}
-
-		when=Finally
-		for_,v:=rangereverse{
+for_,v:=rangereverse{
 ifv.when&when!=0{
-	ctx,diags=v.interceptor.run(ctx,d,meta,when,why,diags)
+ctx,diags=v.interceptor.run(ctx,d,meta,when,why,diags)
 }
-		}
+}
 
-		returndiags
-	}
+when=Finally
+for_,v:=rangereverse{
+ifv.when&when!=0{
+ctx,diags=v.interceptor.run(ctx,d,meta,when,why,diags)
+}
+}
+
+returndiags
+}
 }
 
 //contextFuncaugmentsContext.
@@ -137,105 +137,105 @@ typecontextFuncfunc(context.Context,any)context.Context
 
 //wrappedDataSourcerepresentsaninterceptordispatcherforaPluginSDKv2datasource.
 typewrappedDataSourcestruct{
-	//bootstrapContextisrunonallwrappedmethodsbeforeanyinterceptors.
-	bootstrapContextcontextFunc
-	interceptorsinterceptorItems
+//bootstrapContextisrunonallwrappedmethodsbeforeanyinterceptors.
+bootstrapContextcontextFunc
+interceptorsinterceptorItems
 }
 
 func(ds*wrappedDataSource)Read(fschema.ReadContextFunc)schema.ReadContextFunc{
-	returninterceptedHandler(ds.bootstrapContext,ds.interceptors,f,Read)
+returninterceptedHandler(ds.bootstrapContext,ds.interceptors,f,Read)
 }
 
 //wrappedResourcerepresentsaninterceptordispatcherforaPluginSDKv2resource.
 typewrappedResourcestruct{
-	//bootstrapContextisrunonallwrappedmethodsbeforeanyinterceptors.
-	bootstrapContextcontextFunc
-	interceptorsinterceptorItems
+//bootstrapContextisrunonallwrappedmethodsbeforeanyinterceptors.
+bootstrapContextcontextFunc
+interceptorsinterceptorItems
 }
 
 func(r*wrappedResource)Create(fschema.CreateContextFunc)schema.CreateContextFunc{
-	returninterceptedHandler(r.bootstrapContext,r.interceptors,f,Create)
+returninterceptedHandler(r.bootstrapContext,r.interceptors,f,Create)
 }
 
 func(r*wrappedResource)Read(fschema.ReadContextFunc)schema.ReadContextFunc{
-	returninterceptedHandler(r.bootstrapContext,r.interceptors,f,Read)
+returninterceptedHandler(r.bootstrapContext,r.interceptors,f,Read)
 }
 
 func(r*wrappedResource)Update(fschema.UpdateContextFunc)schema.UpdateContextFunc{
-	returninterceptedHandler(r.bootstrapContext,r.interceptors,f,Update)
+returninterceptedHandler(r.bootstrapContext,r.interceptors,f,Update)
 }
 
 func(r*wrappedResource)Delete(fschema.DeleteContextFunc)schema.DeleteContextFunc{
-	returninterceptedHandler(r.bootstrapContext,r.interceptors,f,Delete)
+returninterceptedHandler(r.bootstrapContext,r.interceptors,f,Delete)
 }
 
 func(r*wrappedResource)State(fschema.StateContextFunc)schema.StateContextFunc{
-	returnfunc(ctxcontext.Context,d*schema.ResourceData,metaany)([]*schema.ResourceData,error){
-		ctx=r.bootstrapContext(ctx,meta)
+returnfunc(ctxcontext.Context,d*schema.ResourceData,metaany)([]*schema.ResourceData,error){
+ctx=r.bootstrapContext(ctx,meta)
 
-		returnf(ctx,d,meta)
-	}
+returnf(ctx,d,meta)
+}
 }
 
 func(r*wrappedResource)CustomizeDiff(fschema.CustomizeDiffFunc)schema.CustomizeDiffFunc{
-	returnfunc(ctxcontext.Context,d*schema.ResourceDiff,metaany)error{
-		ctx=r.bootstrapContext(ctx,meta)
+returnfunc(ctxcontext.Context,d*schema.ResourceDiff,metaany)error{
+ctx=r.bootstrapContext(ctx,meta)
 
-		returnf(ctx,d,meta)
-	}
+returnf(ctx,d,meta)
+}
 }
 
 func(r*wrappedResource)StateUpgrade(fschema.StateUpgradeFunc)schema.StateUpgradeFunc{
-	returnfunc(ctxcontext.Context,rawStatemap[string]interface{},metaany)(map[string]interface{},error){
-		ctx=r.bootstrapContext(ctx,meta)
+returnfunc(ctxcontext.Context,rawStatemap[string]interface{},metaany)(map[string]interface{},error){
+ctx=r.bootstrapContext(ctx,meta)
 
-		returnf(ctx,rawState,meta)
-	}
+returnf(ctx,rawState,meta)
+}
 }
 
 typetagsCRUDFuncfunc(context.Context,schemaResourceData,conns.ServicePackage,*types.ServicePackageResourceTags,string,string,any,diag.Diagnostics)(context.Context,diag.Diagnostics)
 
 //tagsResourceInterceptorimplementstransparenttaggingforresources.
 typetagsResourceInterceptorstruct{
-	tags*types.ServicePackageResourceTags
-	updateFunctagsCRUDFunc
-	readFunctagsCRUDFunc
+tags*types.ServicePackageResourceTags
+updateFunctagsCRUDFunc
+readFunctagsCRUDFunc
 }
 
 func(rtagsResourceInterceptor)run(ctxcontext.Context,dschemaResourceData,metaany,whenwhen,whywhy,diagsdiag.Diagnostics)(context.Context,diag.Diagnostics){
-	ifr.tags==nil{
-		returnctx,diags
-	}
+ifr.tags==nil{
+returnctx,diags
+}
 
-	inContext,ok:=conns.FromContext(ctx)
-	if!ok{
-		returnctx,diags
-	}
+inContext,ok:=conns.FromContext(ctx)
+if!ok{
+returnctx,diags
+}
 
-	sp,ok:=meta.(*conns.AWSClient).ServicePackages[inContext.ServicePackageName]
-	if!ok{
-		returnctx,diags
-	}
+sp,ok:=meta.(*conns.AWSClient).ServicePackages[inContext.ServicePackageName]
+if!ok{
+returnctx,diags
+}
 
-	serviceName,err:=names.HumanFriendly(inContext.ServicePackageName)
-	iferr!=nil{
-		serviceName="<service>"
-	}
+serviceName,err:=names.HumanFriendly(inContext.ServicePackageName)
+iferr!=nil{
+serviceName="<service>"
+}
 
-	resourceName:=inContext.ResourceName
-	ifresourceName==""{
-		resourceName="<thing>"
-	}
+resourceName:=inContext.ResourceName
+ifresourceName==""{
+resourceName="<thing>"
+}
 
-	tagsInContext,ok:=tftags.FromContext(ctx)
-	if!ok{
-		returnctx,diags
-	}
+tagsInContext,ok:=tftags.FromContext(ctx)
+if!ok{
+returnctx,diags
+}
 
-	switchwhen{
-	caseBefore:
-		switchwhy{
-		caseCreate,Update:
+switchwhen{
+caseBefore:
+switchwhy{
+caseCreate,Update:
 //Mergetheresource'sconfiguredtagswithanyproviderconfigureddefault_tags.
 tags:=tagsInContext.DefaultConfig.MergeTags(tftags.New(ctx,d.Get(names.AttrTags).(map[string]interface{})))
 //Removesystemtags.
@@ -244,106 +244,106 @@ tags=tags.IgnoreSystem(inContext.ServicePackageName)
 tagsInContext.TagsIn=types.Some(tags)
 
 ifwhy==Create{
-	break
+break
 }
 
 ifd.GetRawPlan().GetAttr("tags_all").IsWhollyKnown(){
-	ifd.HasChange(names.AttrTagsAll){
-		ifidentifierAttribute:=r.tags.IdentifierAttribute;identifierAttribute!=""{
+ifd.HasChange(names.AttrTagsAll){
+ifidentifierAttribute:=r.tags.IdentifierAttribute;identifierAttribute!=""{
 varidentifierstring
 ifidentifierAttribute=="id"{
-	identifier=d.Id()
+identifier=d.Id()
 }else{
-	identifier=d.Get(identifierAttribute).(string)
+identifier=d.Get(identifierAttribute).(string)
 }
 
 //SomeoldresourcesmaynothavetherequiredattributesetafterRead:
 //https://github.com/hashicorp/terraform-provider-aws/issues/31180
 ifidentifier!=""{
-	o,n:=d.GetChange(names.AttrTagsAll)
+o,n:=d.GetChange(names.AttrTagsAll)
 
-	//Iftheservicepackagehasagenericresourceupdatetagsmethods,callit.
-	varerrerror
-
-	ifv,ok:=sp.(interface{
-		UpdateTags(context.Context,any,string,any,any)error
-	});ok{
-		err=v.UpdateTags(ctx,meta,identifier,o,n)
-	}elseifv,ok:=sp.(interface{
-		UpdateTags(context.Context,any,string,string,any,any)error
-	});ok&&r.tags.ResourceType!=""{
-		err=v.UpdateTags(ctx,meta,identifier,r.tags.ResourceType,o,n)
-	}
-
-	//ISOpartitionsmaynotsupporttagging,givingerror.
-	iferrs.IsUnsupportedOperationInPartitionError(meta.(*conns.AWSClient).Partition,err){
-		returnctx,diags
-	}
-
-	iferr!=nil{
-		returnctx,sdkdiag.AppendErrorf(diags,"updatingtagsfor%s%s(%s):%s",serviceName,resourceName,identifier,err)
-	}
-}
-//TODOIftheonlychangewastotagsitwouldbenicetonotcalltheresource'sUhandler.
-		}
-	}
-}
-		}
-	caseAfter:
-		//Settagsandtags_allinstateafterCRU.
-		//C&UhandlersareassumedtotailcalltheRhandler.
-		switchwhy{
-		caseRead:
-//WilloccuronarefreshwhentheresourcedoesnotexistinAWSandneedstoberecreated,e.g."_disappears"tests.
-ifd.Id()==""{
-	returnctx,diags
-}
-
-fallthrough
-		caseCreate,Update:
-//IftheRhandlerdidn'tsettags,tryandreadthemfromtheserviceAPI.
-iftagsInContext.TagsOut.IsNone(){
-	ifidentifierAttribute:=r.tags.IdentifierAttribute;identifierAttribute!=""{
-		varidentifierstring
-		ifidentifierAttribute=="id"{
-identifier=d.Id()
-		}else{
-identifier=d.Get(identifierAttribute).(string)
-		}
-
-		//SomeoldresourcesmaynothavetherequiredattributesetafterRead:
-		//https://github.com/hashicorp/terraform-provider-aws/issues/31180
-		ifidentifier!=""{
-//Iftheservicepackagehasagenericresourcelisttagsmethods,callit.
+//Iftheservicepackagehasagenericresourceupdatetagsmethods,callit.
 varerrerror
 
 ifv,ok:=sp.(interface{
-	ListTags(context.Context,any,string)error
+UpdateTags(context.Context,any,string,any,any)error
 });ok{
-	err=v.ListTags(ctx,meta,identifier)//SetstagsinContext
+err=v.UpdateTags(ctx,meta,identifier,o,n)
 }elseifv,ok:=sp.(interface{
-	ListTags(context.Context,any,string,string)error
+UpdateTags(context.Context,any,string,string,any,any)error
 });ok&&r.tags.ResourceType!=""{
-	err=v.ListTags(ctx,meta,identifier,r.tags.ResourceType)//SetstagsinContext
+err=v.UpdateTags(ctx,meta,identifier,r.tags.ResourceType,o,n)
 }
 
 //ISOpartitionsmaynotsupporttagging,givingerror.
 iferrs.IsUnsupportedOperationInPartitionError(meta.(*conns.AWSClient).Partition,err){
-	returnctx,diags
-}
-
-ifinContext.ServicePackageName==names.DynamoDB&&err!=nil{
-	//WhenaDynamoDBTableis`ARCHIVED`,ListTagsreturns`ResourceNotFoundException`.
-	iftfresource.NotFound(err)||tfawserr.ErrMessageContains(err,"UnknownOperationException","TaggingisnotcurrentlysupportedinDynamoDBLocal."){
-		err=nil
-	}
+returnctx,diags
 }
 
 iferr!=nil{
-	returnctx,sdkdiag.AppendErrorf(diags,"listingtagsfor%s%s(%s):%s",serviceName,resourceName,identifier,err)
+returnctx,sdkdiag.AppendErrorf(diags,"updatingtagsfor%s%s(%s):%s",serviceName,resourceName,identifier,err)
 }
-		}
-	}
+}
+//TODOIftheonlychangewastotagsitwouldbenicetonotcalltheresource'sUhandler.
+}
+}
+}
+}
+caseAfter:
+//Settagsandtags_allinstateafterCRU.
+//C&UhandlersareassumedtotailcalltheRhandler.
+switchwhy{
+caseRead:
+//WilloccuronarefreshwhentheresourcedoesnotexistinAWSandneedstoberecreated,e.g."_disappears"tests.
+ifd.Id()==""{
+returnctx,diags
+}
+
+fallthrough
+caseCreate,Update:
+//IftheRhandlerdidn'tsettags,tryandreadthemfromtheserviceAPI.
+iftagsInContext.TagsOut.IsNone(){
+ifidentifierAttribute:=r.tags.IdentifierAttribute;identifierAttribute!=""{
+varidentifierstring
+ifidentifierAttribute=="id"{
+identifier=d.Id()
+}else{
+identifier=d.Get(identifierAttribute).(string)
+}
+
+//SomeoldresourcesmaynothavetherequiredattributesetafterRead:
+//https://github.com/hashicorp/terraform-provider-aws/issues/31180
+ifidentifier!=""{
+//Iftheservicepackagehasagenericresourcelisttagsmethods,callit.
+varerrerror
+
+ifv,ok:=sp.(interface{
+ListTags(context.Context,any,string)error
+});ok{
+err=v.ListTags(ctx,meta,identifier)//SetstagsinContext
+}elseifv,ok:=sp.(interface{
+ListTags(context.Context,any,string,string)error
+});ok&&r.tags.ResourceType!=""{
+err=v.ListTags(ctx,meta,identifier,r.tags.ResourceType)//SetstagsinContext
+}
+
+//ISOpartitionsmaynotsupporttagging,givingerror.
+iferrs.IsUnsupportedOperationInPartitionError(meta.(*conns.AWSClient).Partition,err){
+returnctx,diags
+}
+
+ifinContext.ServicePackageName==names.DynamoDB&&err!=nil{
+//WhenaDynamoDBTableis`ARCHIVED`,ListTagsreturns`ResourceNotFoundException`.
+iftfresource.NotFound(err)||tfawserr.ErrMessageContains(err,"UnknownOperationException","TaggingisnotcurrentlysupportedinDynamoDBLocal."){
+err=nil
+}
+}
+
+iferr!=nil{
+returnctx,sdkdiag.AppendErrorf(diags,"listingtagsfor%s%s(%s):%s",serviceName,resourceName,identifier,err)
+}
+}
+}
 }
 
 //Removeanyproviderconfiguredignore_tagsandsystemtagsfromthosereturnedfromtheserviceAPI.
@@ -351,82 +351,82 @@ tags:=tagsInContext.TagsOut.UnwrapOrDefault().IgnoreSystem(inContext.ServicePack
 
 //Theresource'sconfiguredtagscannowincludeduplicatetagsthathavebeenconfiguredontheprovider.
 iferr:=d.Set(names.AttrTags,tags.ResolveDuplicates(ctx,tagsInContext.DefaultConfig,tagsInContext.IgnoreConfig,d).Map());err!=nil{
-	returnctx,sdkdiag.AppendErrorf(diags,"setting%s:%s",names.AttrTags,err)
+returnctx,sdkdiag.AppendErrorf(diags,"setting%s:%s",names.AttrTags,err)
 }
 
 //Computedtags_alldo.
 iferr:=d.Set(names.AttrTagsAll,tags.Map());err!=nil{
-	returnctx,sdkdiag.AppendErrorf(diags,"setting%s:%s",names.AttrTagsAll,err)
+returnctx,sdkdiag.AppendErrorf(diags,"setting%s:%s",names.AttrTagsAll,err)
 }
-		}
-	caseFinally:
-		switchwhy{
-		caseUpdate:
+}
+caseFinally:
+switchwhy{
+caseUpdate:
 ifr.tags.IdentifierAttribute!=""&&!d.GetRawPlan().GetAttr(names.AttrTagsAll).IsWhollyKnown(){
-	ctx,diags=r.updateFunc(ctx,d,sp,r.tags,serviceName,resourceName,meta,diags)
-	ctx,diags=r.readFunc(ctx,d,sp,r.tags,serviceName,resourceName,meta,diags)
+ctx,diags=r.updateFunc(ctx,d,sp,r.tags,serviceName,resourceName,meta,diags)
+ctx,diags=r.readFunc(ctx,d,sp,r.tags,serviceName,resourceName,meta,diags)
 }
-		}
-	}
+}
+}
 
-	returnctx,diags
+returnctx,diags
 }
 
 //tagsResourceInterceptorimplementstransparenttaggingfordatasources.
 typetagsDataSourceInterceptorstruct{
-	tags*types.ServicePackageResourceTags
+tags*types.ServicePackageResourceTags
 }
 
 func(rtagsDataSourceInterceptor)run(ctxcontext.Context,dschemaResourceData,metaany,whenwhen,whywhy,diagsdiag.Diagnostics)(context.Context,diag.Diagnostics){
-	ifr.tags==nil{
-		returnctx,diags
-	}
+ifr.tags==nil{
+returnctx,diags
+}
 
-	inContext,ok:=conns.FromContext(ctx)
-	if!ok{
-		returnctx,diags
-	}
+inContext,ok:=conns.FromContext(ctx)
+if!ok{
+returnctx,diags
+}
 
-	//sp,ok:=meta.(*conns.AWSClient).ServicePackages[inContext.ServicePackageName]
-	//if!ok{
-	//	returnctx,diags
-	//}
+//sp,ok:=meta.(*conns.AWSClient).ServicePackages[inContext.ServicePackageName]
+//if!ok{
+//returnctx,diags
+//}
 
-	//serviceName,err:=names.HumanFriendly(inContext.ServicePackageName)
-	//iferr!=nil{
-	//	serviceName="<service>"
-	//}
+//serviceName,err:=names.HumanFriendly(inContext.ServicePackageName)
+//iferr!=nil{
+//serviceName="<service>"
+//}
 
-	//resourceName:=inContext.ResourceName
-	//ifresourceName==""{
-	//	resourceName="<thing>"
-	//}
+//resourceName:=inContext.ResourceName
+//ifresourceName==""{
+//resourceName="<thing>"
+//}
 
-	tagsInContext,ok:=tftags.FromContext(ctx)
-	if!ok{
-		returnctx,diags
-	}
+tagsInContext,ok:=tftags.FromContext(ctx)
+if!ok{
+returnctx,diags
+}
 
-	switchwhen{
-	caseBefore:
-		switchwhy{
-		caseRead:
+switchwhen{
+caseBefore:
+switchwhy{
+caseRead:
 //Getthedatasource'sconfiguredtags.
 tags:=tftags.New(ctx,d.Get(names.AttrTags).(map[string]interface{}))
 tagsInContext.TagsIn=types.Some(tags)
-		}
-	caseAfter:
-		//Settagsandtags_allinstateafterCRU.
-		//C&UhandlersareassumedtotailcalltheRhandler.
-		switchwhy{
-		caseRead:
+}
+caseAfter:
+//Settagsandtags_allinstateafterCRU.
+//C&UhandlersareassumedtotailcalltheRhandler.
+switchwhy{
+caseRead:
 //WilloccuronarefreshwhentheresourcedoesnotexistinAWSandneedstoberecreated,e.g."_disappears"tests.
 ifd.Id()==""{
-	returnctx,diags
+returnctx,diags
 }
 
 fallthrough
-		caseCreate,Update:
+caseCreate,Update:
 //IftheRhandlerdidn'tsettags,tryandreadthemfromtheserviceAPI.
 //TODO.
 //iftagsInContext.TagsOut.IsNone(){
@@ -435,10 +435,10 @@ fallthrough
 //Removeanyproviderconfiguredignore_tagsandsystemtagsfromthosereturnedfromtheserviceAPI.
 tags:=tagsInContext.TagsOut.UnwrapOrDefault().IgnoreSystem(inContext.ServicePackageName).IgnoreConfig(tagsInContext.IgnoreConfig)
 iferr:=d.Set(names.AttrTags,tags.Map());err!=nil{
-	returnctx,sdkdiag.AppendErrorf(diags,"setting%s:%s",names.AttrTags,err)
+returnctx,sdkdiag.AppendErrorf(diags,"setting%s:%s",names.AttrTags,err)
 }
-		}
-	}
+}
+}
 
-	returnctx,diags
+returnctx,diags
 }

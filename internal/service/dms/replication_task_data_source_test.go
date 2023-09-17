@@ -4,41 +4,41 @@
 package dms_test
 
 import (
-	"fmt"
-	"testing"
+"fmt"
+"testing"
 
-	dms "github.com/aws/aws-sdk-go/service/databasemigrationservice"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+dms "github.com/aws/aws-sdk-go/service/databasemigrationservice"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 func TestAccDMSReplicationTaskDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_dms_replication_task.test"
-	dataSourceName := "data.aws_dms_replication_task.test"
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_dms_replication_task.test"
+dataSourceName := "data.aws_dms_replication_task.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckReplicationTaskDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccReplicationTaskDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckReplicationTaskExists(ctx, dataSourceName),
-					resource.TestCheckResourceAttrPair(dataSourceName, "replication_task_id", resourceName, "replication_task_id"),
-				),
-			},
-		},
-	})
+ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckReplicationTaskDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccReplicationTaskDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckReplicationTaskExists(ctx, dataSourceName),
+resource.TestCheckResourceAttrPair(dataSourceName, "replication_task_id", resourceName, "replication_task_id"),
+),
+},
+},
+})
 }
 func testAccReplicationTaskDataSourceConfig_basic(rName string) string {
-	return acctest.ConfigCompose(
-		replicationTaskConfigBase(rName),
-		fmt.Sprintf(`
+return acctest.ConfigCompose(
+replicationTaskConfigBase(rName),
+fmt.Sprintf(`
 resource "aws_dms_replication_task" "test" {
   migration_type= "full-load"
   replication_instance_arn  = aws_dms_replication_instance.test.replication_instance_arn

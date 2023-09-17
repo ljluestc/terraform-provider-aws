@@ -1,9 +1,9 @@
-// Package S019 defines an Analyzer that checks for
-// Schema that should omit Computed, Optional, or Required
-// set to false
-package S019
+//PackageS019definesanAnalyzerthatchecksfor
+//SchemathatshouldomitComputed,Optional,orRequired
+//settofalse
+packageS019
 
-import (
+import(
 	"golang.org/x/tools/go/analysis"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
@@ -11,38 +11,38 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemainfo"
 )
 
-const Doc = `check for Schema that should omit Computed, Optional, or Required set to false
+constDoc=`checkforSchemathatshouldomitComputed,Optional,orRequiredsettofalse
 
-The S019 analyzer reports cases of schema that use Computed: false, Optional: false, or
-Required: false that should be removed.`
+TheS019analyzerreportscasesofschemathatuseComputed:false,Optional:false,or
+Required:falsethatshouldberemoved.`
 
-const analyzerName = "S019"
+constanalyzerName="S019"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemainfo.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		for _, field := range []string{schema.SchemaFieldComputed, schema.SchemaFieldOptional, schema.SchemaFieldRequired} {
-			if schemaInfo.DeclaresBoolFieldWithZeroValue(field) {
-				pass.Reportf(schemaInfo.Fields[field].Value.Pos(), "%s: schema should omit Computed, Optional, or Required set to false", analyzerName)
+		for_,field:=range[]string{schema.SchemaFieldComputed,schema.SchemaFieldOptional,schema.SchemaFieldRequired}{
+			ifschemaInfo.DeclaresBoolFieldWithZeroValue(field){
+				pass.Reportf(schemaInfo.Fields[field].Value.Pos(),"%s:schemashouldomitComputed,Optional,orRequiredsettofalse",analyzerName)
 			}
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

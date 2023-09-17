@@ -1,8 +1,8 @@
-// Package R004 defines an Analyzer that checks for
-// ResourceData.Set() calls using incompatible value types
-package R004
+//PackageR004definesanAnalyzerthatchecksfor
+//ResourceData.Set()callsusingincompatiblevaluetypes
+packageR004
 
-import (
+import(
 	"go/ast"
 	"go/types"
 
@@ -13,79 +13,79 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/resourcedatasetcallexpr"
 )
 
-const Doc = `check for ResourceData.Set() calls using incompatible value types
+constDoc=`checkforResourceData.Set()callsusingincompatiblevaluetypes
 
-The R004 analyzer reports incorrect types for a Set() call value.
-The Set() 
-tion only supports a subset of basic types, slices and maps of that
-subset of basic types, and the schema.Set type.`
+TheR004analyzerreportsincorrecttypesforaSet()callvalue.
+TheSet()
+tiononlysupportsasubsetofbasictypes,slicesandmapsofthat
+subsetofbasictypes,andtheschema.Settype.`
 
-const analyzerName = "R004"
+constanalyzerName="R004"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		resourcedatasetcallexpr.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	sets := pass.ResultOf[resourcedatasetcallexpr.Analyzer].([]*ast.CallExpr)
-	for _, set := range sets {
-		if ignorer.ShouldIgnore(analyzerName, set) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	sets:=pass.ResultOf[resourcedatasetcallexpr.Analyzer].([]*ast.CallExpr)
+	for_,set:=rangesets{
+		ifignorer.ShouldIgnore(analyzerName,set){
 			continue
 		}
 
-		if len(set.Args) < 2 {
+		iflen(set.Args)<2{
 			continue
 		}
 
-		pos := set.Args[1].Pos()
-		t := pass.TypesInfo.TypeOf(set.Args[1]).Underlying()
+		pos:=set.Args[1].Pos()
+		t:=pass.TypesInfo.TypeOf(set.Args[1]).Underlying()
 
-		if !isAllowedType(t) {
-			pass.Reportf(pos, "%s: ResourceData.Set() incompatible value type: %s", analyzerName, t.String())
+		if!isAllowedType(t){
+			pass.Reportf(pos,"%s:ResourceData.Set()incompatiblevaluetype:%s",analyzerName,t.String())
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 
 
 
- isAllowedType(t types.Type) bool {
-	switch t := t.(type) {
+isAllowedType(ttypes.Type)bool{
+	switcht:=t.(type){
 	default:
-		return false
-	case *types.Basic:
-		return isAllowedBasicType(t)
-	case *types.Interface:
-		return true
-	case *types.Map:
-		switch k := t.Key().Underlying().(type) {
+		returnfalse
+	case*types.Basic:
+		returnisAllowedBasicType(t)
+	case*types.Interface:
+		returntrue
+	case*types.Map:
+		switchk:=t.Key().Underlying().(type){
 		default:
-			return false
-		case *types.Basic:
-			if k.Kind() != types.String {
-				return false
+			returnfalse
+		case*types.Basic:
+			ifk.Kind()!=types.String{
+				returnfalse
 			}
 
-			return isAllowedType(t.Elem().Underlying())
+			returnisAllowedType(t.Elem().Underlying())
 		}
-	case *types.Named:
-		return schema.IsNamedType(t, schema.TypeNameSet)
-	case *types.Pointer:
-		return isAllowedType(t.Elem())
-	case *types.Slice:
-		return isAllowedType(t.Elem().Underlying())
+	case*types.Named:
+		returnschema.IsNamedType(t,schema.TypeNameSet)
+	case*types.Pointer:
+		returnisAllowedType(t.Elem())
+	case*types.Slice:
+		returnisAllowedType(t.Elem().Underlying())
 	}
 }
 
-var allowedBasicKindTypes = []types.BasicKind{
+varallowedBasicKindTypes=[]types.BasicKind{
 	types.Bool,
 	types.Float32,
 	types.Float64,
@@ -99,12 +99,12 @@ es.UntypedNil,
 }
 
 
- isAllowedBasicType(b *types.Basic) bool {
-	for _, allowedBasicKindType := range allowedBasicKindTypes {
-		if b.Kind() == allowedBasicKindType {
-			return true
+isAllowedBasicType(b*types.Basic)bool{
+	for_,allowedBasicKindType:=rangeallowedBasicKindTypes{
+		ifb.Kind()==allowedBasicKindType{
+			returntrue
 		}
 	}
 
-	return false
+	returnfalse
 }

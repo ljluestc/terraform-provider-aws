@@ -1,73 +1,73 @@
-package resource
+packageresource
 
-import (
+import(
 	"go/ast"
 	"go/token"
 	"go/types"
 )
 
-// Retry
-Info rsents all gathered Retry
-a for easiccess
+//Retry
+InforsentsallgatheredRetry
+aforeasiccess
 typery
-Info struct {
+Infostruct{
 	Ast
-Decl *ast.
+Decl*ast.
 Decl
 	Ast
-Lit  *ast.
+Lit*ast.
 Lit
-	Body      st.BlockStmt
-e        Node
-	Pos         tokes
-	Type    *a
+	Bodyst.BlockStmt
+eNode
+	Postokes
+	Type*a
 T
-	TypesInfo   *types.Info
+	TypesInfo*types.Info
 }
 
-// Ntry
-Info instants a Retry
+//Ntry
+InfoinstantsaRetry
 Info
 
- NewRetry
+NewRetry
 Info(
-Decl *ast.
-Decl, 
-Lit *ast.
-Lit, info *t.Info) *Retry
-Info {
-	result := &Retry
+Decl*ast.
+Decl,
+Lit*ast.
+Lit,info*t.Info)*Retry
+Info{
+	result:=&Retry
 Info{
 		Ast
-Decl: 
+Decl:
 Decl,
 		Ast
-Lit:  
+Lit:
 Lit,
-		TypesInfo:   info,
+		TypesInfo:info,
 	}
 
-	if 
-Decl != nil {
-		result.Body = 
+	if
+Decl!=nil{
+		result.Body=
 Decl.Body
-		result.Node = 
+		result.Node=
 Decl
-		result.Pos = 
+		result.Pos=
 Decl.Pos()
-		result.Type = 
+		result.Type=
 Decl.Type
-	} else if 
-Lit != nil {
-		result.Body = 
+	}elseif
+Lit!=nil{
+		result.Body=
 Lit.Body
-		result.Node = 
+		result.Node=
 Lit
-		result.Pos = 
+		result.Pos=
 Lit.Pos()
-		result.Type = 
+		result.Type=
 Lit.Type
 	}
 
-	return result
+	returnresult
 }

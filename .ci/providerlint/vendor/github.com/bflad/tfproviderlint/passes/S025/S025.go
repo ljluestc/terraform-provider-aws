@@ -1,6 +1,6 @@
-package S025
+packageS025
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
@@ -9,43 +9,43 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Schema with only Computed enabled and AtLeastOneOf configured
+constDoc=`checkforSchemawithonlyComputedenabledandAtLeastOneOfconfigured
 
-The S025 analyzer reports cases of schemas which only enables Computed
-and configures AtLeastOneOf, which is not valid.`
+TheS025analyzerreportscasesofschemaswhichonlyenablesComputed
+andconfiguresAtLeastOneOf,whichisnotvalid.`
 
-const analyzerName = "S025"
+constanalyzerName="S025"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		schemainfocomputedonly.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		if schemaInfo.Schema.AtLeastOneOf == nil {
+		ifschemaInfo.Schema.AtLeastOneOf==nil{
 			continue
 		}
 
-		switch t := schemaInfo.AstCompositeLit.Type.(type) {
+		switcht:=schemaInfo.AstCompositeLit.Type.(type){
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not only enable Computed and configure AtLeastOneOf", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema should not only enable Computed and configure AtLeastOneOf", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace,"%s:schemashouldnotonlyenableComputedandconfigureAtLeastOneOf",analyzerName)
+		case*ast.SelectorExpr:
+			pass.Reportf(t.Sel.Pos(),"%s:schemashouldnotonlyenableComputedandconfigureAtLeastOneOf",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

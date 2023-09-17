@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package appconfig
+packageappconfig
 
-import (
+import(
 	"context"
 	"fmt"
 	"log"
@@ -17,157 +17,157 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
+	tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKResource("aws_appconfig_application", name="Application")
-// @Tags(identifierAttribute="arn")
-func ResourceApplication() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceApplicationCreate,
-		ReadWithoutTimeout:   resourceApplicationRead,
-		UpdateWithoutTimeout: resourceApplicationUpdate,
-		DeleteWithoutTimeout: resourceApplicationDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
+//@SDKResource("aws_appconfig_application",name="Application")
+//@Tags(identifierAttribute="arn")
+funcResourceApplication()*schema.Resource{
+	return&schema.Resource{
+		CreateWithoutTimeout:resourceApplicationCreate,
+		ReadWithoutTimeout:resourceApplicationRead,
+		UpdateWithoutTimeout:resourceApplicationUpdate,
+		DeleteWithoutTimeout:resourceApplicationDelete,
+		Importer:&schema.ResourceImporter{
+			StateContext:schema.ImportStatePassthroughContext,
 		},
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type: schema.TypeString,
-				Computed: true,
-			},
-			"description": {
+		Schema:map[string]*schema.Schema{
+			"arn":{
 				Type:schema.TypeString,
-				Optional: true,
-				ValidateFunc: validation.StringLenBetween(0, 1024),
+				Computed:true,
 			},
-			"name": {
+			"description":{
 				Type:schema.TypeString,
-				Required: true,
-				ValidateFunc: validation.StringLenBetween(1, 64),
+				Optional:true,
+				ValidateFunc:validation.StringLenBetween(0,1024),
+			},
+			"name":{
+				Type:schema.TypeString,
+				Required:true,
+				ValidateFunc:validation.StringLenBetween(1,64),
 			},
 			names.AttrTags:tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
+			names.AttrTagsAll:tftags.TagsSchemaComputed(),
 		},
-		CustomizeDiff: verify.SetTagsDiff,
+		CustomizeDiff:verify.SetTagsDiff,
 	}
 }
 
-func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
+funcresourceApplicationCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
 
-	applicationName := d.Get("name").(string)
-	input := &appconfig.CreateApplicationInput{
-		Name: aws.String(applicationName),
-		Tags: getTagsIn(ctx),
+	applicationName:=d.Get("name").(string)
+	input:=&appconfig.CreateApplicationInput{
+		Name:aws.String(applicationName),
+		Tags:getTagsIn(ctx),
 	}
 
-	if v, ok := d.GetOk("description"); ok {
-		input.Description = aws.String(v.(string))
+	ifv,ok:=d.GetOk("description");ok{
+		input.Description=aws.String(v.(string))
 	}
 
-	app, err := conn.CreateApplicationWithContext(ctx, input)
+	app,err:=conn.CreateApplicationWithContext(ctx,input)
 
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating AppConfig Application (%s): %s", applicationName, err)
+	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"creatingAppConfigApplication(%s):%s",applicationName,err)
 	}
 
-	if app == nil {
-		return sdkdiag.AppendErrorf(diags, "creating AppConfig Application (%s): empty response", applicationName)
+	ifapp==nil{
+		returnsdkdiag.AppendErrorf(diags,"creatingAppConfigApplication(%s):emptyresponse",applicationName)
 	}
 
 	d.SetId(aws.StringValue(app.Id))
 
-	return append(diags, resourceApplicationRead(ctx, d, meta)...)
+	returnappend(diags,resourceApplicationRead(ctx,d,meta)...)
 }
 
-func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
+funcresourceApplicationRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
 
-	input := &appconfig.GetApplicationInput{
-		ApplicationId: aws.String(d.Id()),
+	input:=&appconfig.GetApplicationInput{
+		ApplicationId:aws.String(d.Id()),
 	}
 
-	output, err := conn.GetApplicationWithContext(ctx, input)
+	output,err:=conn.GetApplicationWithContext(ctx,input)
 
-	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, appconfig.ErrCodeResourceNotFoundException) {
-		log.Printf("[WARN] Appconfig Application (%s) not found, removing from state", d.Id())
+	if!d.IsNewResource()&&tfawserr.ErrCodeEquals(err,appconfig.ErrCodeResourceNotFoundException){
+		log.Printf("[WARN]AppconfigApplication(%s)notfound,removingfromstate",d.Id())
 		d.SetId("")
-		return diags
+		returndiags
 	}
 
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "getting AppConfig Application (%s): %s", d.Id(), err)
+	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"gettingAppConfigApplication(%s):%s",d.Id(),err)
 	}
 
-	if output == nil {
-		return sdkdiag.AppendErrorf(diags, "getting AppConfig Application (%s): empty response", d.Id())
+	ifoutput==nil{
+		returnsdkdiag.AppendErrorf(diags,"gettingAppConfigApplication(%s):emptyresponse",d.Id())
 	}
 
-	arn := arn.ARN{
-		AccountID: meta.(*conns.AWSClient).AccountID,
-		Partition: meta.(*conns.AWSClient).Partition,
+	arn:=arn.ARN{
+		AccountID:meta.(*conns.AWSClient).AccountID,
+		Partition:meta.(*conns.AWSClient).Partition,
 		Region:meta.(*conns.AWSClient).Region,
-		Resource:  fmt.Sprintf("application/%s", aws.StringValue(output.Id)),
-		Service:   "appconfig",
+		Resource:fmt.Sprintf("application/%s",aws.StringValue(output.Id)),
+		Service:"appconfig",
 	}.String()
 
-	d.Set("arn", arn)
-	d.Set("name", output.Name)
-	d.Set("description", output.Description)
+	d.Set("arn",arn)
+	d.Set("name",output.Name)
+	d.Set("description",output.Description)
 
-	return diags
+	returndiags
 }
 
-func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
+funcresourceApplicationUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
 
-	if d.HasChangesExcept("tags", "tags_all") {
-		updateInput := &appconfig.UpdateApplicationInput{
-			ApplicationId: aws.String(d.Id()),
+	ifd.HasChangesExcept("tags","tags_all"){
+		updateInput:=&appconfig.UpdateApplicationInput{
+			ApplicationId:aws.String(d.Id()),
 		}
 
-		if d.HasChange("description") {
-			updateInput.Description = aws.String(d.Get("description").(string))
+		ifd.HasChange("description"){
+			updateInput.Description=aws.String(d.Get("description").(string))
 		}
 
-		if d.HasChange("name") {
-			updateInput.Name = aws.String(d.Get("name").(string))
+		ifd.HasChange("name"){
+			updateInput.Name=aws.String(d.Get("name").(string))
 		}
 
-		_, err := conn.UpdateApplicationWithContext(ctx, updateInput)
+		_,err:=conn.UpdateApplicationWithContext(ctx,updateInput)
 
-		if err != nil {
-			return sdkdiag.AppendErrorf(diags, "updating AppConfig Application(%s): %s", d.Id(), err)
+		iferr!=nil{
+			returnsdkdiag.AppendErrorf(diags,"updatingAppConfigApplication(%s):%s",d.Id(),err)
 		}
 	}
 
-	return append(diags, resourceApplicationRead(ctx, d, meta)...)
+	returnappend(diags,resourceApplicationRead(ctx,d,meta)...)
 }
 
-func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
+funcresourceApplicationDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
 
-	input := &appconfig.DeleteApplicationInput{
-		ApplicationId: aws.String(d.Id()),
+	input:=&appconfig.DeleteApplicationInput{
+		ApplicationId:aws.String(d.Id()),
 	}
 
-	_, err := conn.DeleteApplicationWithContext(ctx, input)
+	_,err:=conn.DeleteApplicationWithContext(ctx,input)
 
-	if tfawserr.ErrCodeEquals(err, appconfig.ErrCodeResourceNotFoundException) {
-		return diags
+	iftfawserr.ErrCodeEquals(err,appconfig.ErrCodeResourceNotFoundException){
+		returndiags
 	}
 
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting Appconfig Application (%s): %s", d.Id(), err)
+	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"deletingAppconfigApplication(%s):%s",d.Id(),err)
 	}
 
-	return diags
+	returndiags
 }

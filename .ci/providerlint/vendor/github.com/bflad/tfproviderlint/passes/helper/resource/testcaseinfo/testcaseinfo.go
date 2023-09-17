@@ -1,6 +1,6 @@
-package testcaseinfo
+packagetestcaseinfo
 
-import (
+import(
 	"go/ast"
 	"reflect"
 
@@ -10,44 +10,44 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name: "testcaseinfo",
-	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/resource.TestCase literals for later passes",
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:"testcaseinfo",
+	Doc:"findgithub.com/hashicorp/terraform-plugin-sdk/helper/resource.TestCaseliteralsforlaterpasses",
+	Requires:[]*analysis.Analyzer{
 		inspect.Analyzer,
 	},
-	Run:        run,
-	ResultType: reflect.TypeOf([]*resource.TestCaseInfo{}),
+	Run:run,
+	ResultType:reflect.TypeOf([]*resource.TestCaseInfo{}),
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
-	nodeFilter := []ast.Node{
+run(pass*analysis.Pass)(interface{},error){
+	inspect:=pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	nodeFilter:=[]ast.Node{
 		(*ast.CompositeLit)(nil),
 	}
-	var result []*resource.TestCaseInfo
+	varresult[]*resource.TestCaseInfo
 
-	inspect.Preorder(nodeFilter, 
-(n ast.Node) {
-		x := n.(*ast.CompositeLit)
+	inspect.Preorder(nodeFilter,
+(nast.Node){
+		x:=n.(*ast.CompositeLit)
 
-		if !isResourceTestCase(pass, x) {
+		if!isResourceTestCase(pass,x){
 			return
 		}
 
-		result = append(result, resource.NewTestCaseInfo(x, pass.TypesInfo))
+		result=append(result,resource.NewTestCaseInfo(x,pass.TypesInfo))
 	})
 
-	return result, nil
+	returnresult,nil
 
 
 
- isResourceTestCase(pass *analysis.Pass, cl *ast.CompositeLit) bool {
-	switch v := cl.Type.(type) {
+isResourceTestCase(pass*analysis.Pass,cl*ast.CompositeLit)bool{
+	switchv:=cl.Type.(type){
 	default:
-		return false
-	case *ast.SelectorExpr:
-		return resource.IsTypeTestCase(pass.TypesInfo.TypeOf(v))
+		returnfalse
+	case*ast.SelectorExpr:
+		returnresource.IsTypeTestCase(pass.TypesInfo.TypeOf(v))
 	}
 }

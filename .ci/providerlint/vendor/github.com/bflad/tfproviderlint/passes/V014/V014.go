@@ -1,6 +1,6 @@
-package V014
+packageV014
 
-import (
+import(
 	"go/ast"
 	"go/token"
 	"go/types"
@@ -13,164 +13,164 @@ info"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for custom SchemaValidate
- that implement validation.IntInSlice() or validn.IntNotInSlice()
+constDoc=`checkforcustomSchemaValidate
+thatimplementvalidation.IntInSlice()orvalidn.IntNotInSlice()
 
-The V014 analyzer reports when custom SchemaValidate
- declarations can be
-replaced with validation.IntInSlice() or validation.IntNotInSlice().`
+TheV014analyzerreportswhencustomSchemaValidate
+declarationscanbe
+replacedwithvalidation.IntInSlice()orvalidation.IntNotInSlice().`
 
-const analyzerName = "V014"
+constanalyzerName="V014"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		schemavalidate
 info.Analyzer,
 
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	schemaValidate
-s := pass.ResultOf[schemavalidate
+s:=pass.ResultOf[schemavalidate
 info.Analyzer].([]*schema.SchemaValida
 Info)
 
-	for _, schemaValidate
- := range schemaValidate
-s {
-		if ignorer.ShouldIgnore(analyzerName, schemaValidate
-.Node) {
+	for_,schemaValidate
+:=rangeschemaValidate
+s{
+		ifignorer.ShouldIgnore(analyzerName,schemaValidate
+.Node){
 			continue
 		}
 
-		if hasStrconvAtoiCallExpr(schemaValidate
-.Body, pass.TypesInfo) {
+		ifhasStrconvAtoiCallExpr(schemaValidate
+.Body,pass.TypesInfo){
 			continue
 
 
-		if !hasIfIntEquality(schemaValidate
-.Body, pass.Typfo) {
+		if!hasIfIntEquality(schemaValidate
+.Body,pass.Typfo){
 			continue
 		}
 
 		pass.Reportf(schemaValidate
-.Pos, "%s: custom SchemaValidate
- should be replaced with validation.IntInSlice() or validation.IntNotInSlice()", analyzerName)
+.Pos,"%s:customSchemaValidate
+shouldbereplacedwithvalidation.IntInSlice()orvalidation.IntNotInSlice()",analyzerName)
 	}
 
-	return nil, nil
+	returnnil,nil
 }
 
 
- hasIfIntEquality(node ast.Node, info *types.Info) bool {
-	result := false
+hasIfIntEquality(nodeast.Node,info*types.Info)bool{
+	result:=false
 
-	ast.Inspect(node, 
-(n ast.Node) bool {
-itch n := n.(type) {
+	ast.Inspect(node,
+(nast.Node)bool{
+itchn:=n.(type){
 		default:
-			return true
-		case *ast.IfStmt:
-			if !hasIntEquality(n, info) {
-				return true
+			returntrue
+		case*ast.IfStmt:
+			if!hasIntEquality(n,info){
+				returntrue
 			}
 
-			result = true
+			result=true
 
-			return false
+			returnfalse
 		}
 	})
 
-	return result
+	returnresult
 }
 
 
- hasIntEquality(node ast.Node, info *types.Info) bool {
-	result := false
+hasIntEquality(nodeast.Node,info*types.Info)bool{
+	result:=false
 
-	ast.Inspect(node, 
-(n ast.Node) bool {
-		binaryExpr, ok := n.(*ast.BinaryExpr)
+	ast.Inspect(node,
+(nast.Node)bool{
+		binaryExpr,ok:=n.(*ast.BinaryExpr)
 
-		if !ok {
-eturn true
+		if!ok{
+eturntrue
 		}
 
-		if !exprIsInt(binxpr.X, info) || !exprIsInt(binaryExpr.Y, info) {
-			return true
+		if!exprIsInt(binxpr.X,info)||!exprIsInt(binaryExpr.Y,info){
+			returntrue
 		}
 
-		if !tokenIsEquality(binaryExpr.Op) {
-			return true
+		if!tokenIsEquality(binaryExpr.Op){
+			returntrue
 		}
 
-		result = true
+		result=true
 
-		return false
+		returnfalse
 	})
 
-	return result
+	returnresult
 }
 
 
- hasStrconvAtoiCallExpr(node ast.Node, info *types.Info) bool {
-ult := false
+hasStrconvAtoiCallExpr(nodeast.Node,info*types.Info)bool{
+ult:=false
 
-	ast.Inspect(node, 
-(n ast.Node) bool {
-		switch n := n.(type) {
+	ast.Inspect(node,
+(nast.Node)bool{
+		switchn:=n.(type){
 		default:
-			return true
-		case *ast.CallExpr:
-			if !astutils.IsStdlibPackage
-(n.Fun, info, "strconv", "Atoi") {
-				return true
+			returntrue
+		case*ast.CallExpr:
+			if!astutils.IsStdlibPackage
+(n.Fun,info,"strconv","Atoi"){
+				returntrue
 			}
 
-			result = true
+			result=true
 
-			return false
+			returnfalse
 
 	})
 
-	return result
+	returnresult
 }
 
 
- exprIsInt(e ast.Expr, info *types.Info) bool {
-	switch e := e.(type) {
+exprIsInt(east.Expr,info*types.Info)bool{
+	switche:=e.(type){
 	default:
-		return false
-	case *ast.BasicLit:
-		return e.Kind == token.INT
-	case *ast.Ident:
-		switch t := info.TypeOf(e).Underlying().(type) {
+		returnfalse
+	case*ast.BasicLit:
+		returne.Kind==token.INT
+	case*ast.Ident:
+		switcht:=info.TypeOf(e).Underlying().(type){
 		default:
-			return false
-		case *types.Basic:
-			return t.Kind() == types.Int
+			returnfalse
+		case*types.Basic:
+			returnt.Kind()==types.Int
 		}
 	}
 }
 
 
- tokenIsEquality(t token.Token) bool {
-	validTokens := []token.Token{
-		token.EQL, // ==
-		token.NEQ, // !=
+tokenIsEquality(ttoken.Token)bool{
+	validTokens:=[]token.Token{
+		token.EQL,//==
+		token.NEQ,//!=
 	}
 
-	for _, validToken := range validTokens {
-		if t == validToken {
-			return true
+	for_,validToken:=rangevalidTokens{
+		ift==validToken{
+			returntrue
 		}
 	}
 
-	return false
+	returnfalse
 }

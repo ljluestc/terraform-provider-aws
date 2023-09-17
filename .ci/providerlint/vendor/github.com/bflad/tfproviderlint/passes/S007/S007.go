@@ -1,8 +1,8 @@
-// Package S007 defines an Analyzer that checks for
-// Schema with Required enabled and ConflictsWith configured
-package S007
+//PackageS007definesanAnalyzerthatchecksfor
+//SchemawithRequiredenabledandConflictsWithconfigured
+packageS007
 
-import (
+import(
 	"go/ast"
 
 	"golang.org/x/tools/go/analysis"
@@ -12,43 +12,43 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemainfo"
 )
 
-const Doc = `check for Schema with Required enabled and ConflictsWith configured
+constDoc=`checkforSchemawithRequiredenabledandConflictsWithconfigured
 
-The S007 analyzer reports cases of schemas which enables Required
-and configures ConflictsWith, which will fail provider schema validation.`
+TheS007analyzerreportscasesofschemaswhichenablesRequired
+andconfiguresConflictsWith,whichwillfailproviderschemavalidation.`
 
-const analyzerName = "S007"
+constanalyzerName="S007"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemainfo.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		if !schemaInfo.Schema.Required || schemaInfo.Schema.ConflictsWith == nil {
+		if!schemaInfo.Schema.Required||schemaInfo.Schema.ConflictsWith==nil{
 			continue
 		}
 
-		switch t := schemaInfo.AstCompositeLit.Type.(type) {
+		switcht:=schemaInfo.AstCompositeLit.Type.(type){
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not enable Required and configure ConflictsWith", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema should not enable Required and configure ConflictsWith", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace,"%s:schemashouldnotenableRequiredandconfigureConflictsWith",analyzerName)
+		case*ast.SelectorExpr:
+			pass.Reportf(t.Sel.Pos(),"%s:schemashouldnotenableRequiredandconfigureConflictsWith",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

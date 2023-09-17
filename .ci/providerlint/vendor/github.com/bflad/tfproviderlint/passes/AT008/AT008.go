@@ -1,6 +1,6 @@
-package AT008
+packageAT008
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/passes/commentignore"
@@ -9,62 +9,62 @@ decl"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for acceptance test 
-tion declaration *testing.T parameter naming
+constDoc=`checkforacceptancetest
+tiondeclaration*testing.Tparameternaming
 
-The AT008 analyzer reports where the *testing.T parameter of an acceptance test
-declaration is not named t, which is a standard convention.`
+TheAT008analyzerreportswherethe*testing.Tparameterofanacceptancetest
+declarationisnotnamedt,whichisastandardconvention.`
 
-const analyzerName = "AT008"
+constanalyzerName="AT008"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
 	Requires*analysis.Analyzer{
 		commentignore.Analyzer,
 		testacc
 decl.Analyzer,
 	},
-: run,
+:run,
 }
 
 
- run(pass *analysis.Pass) (interfaceerror) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+run(pass*analysis.Pass)(interfaceerror){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	
-Decls := pass.ResultOf[testacc
+Decls:=pass.ResultOf[testacc
 decl.Anar].([]*ast.
 Decl)
-	for _, 
-Decl := range 
-Decls {
-		if ignorer.ShouldIgnore(analyzerName, 
-Decl) {
+	for_,
+Decl:=range
+Decls{
+		ifignorer.ShouldIgnore(analyzerName,
+Decl){
 			continue
 		}
 
-		params := 
+		params:=
 Decl.Type.Params
 
-		if params == nil || len(params.List) != 1 {
+		ifparams==nil||len(params.List)!=1{
 			continue
 		}
 
-		firstParam := params.List[0]
+		firstParam:=params.List[0]
 
-		if firstParam == nil || len(firstParam.Names) != 1 {
+		iffirstParam==nil||len(firstParam.Names)!=1{
 			continue
 		}
 
-		name := firstParam.Names[0]
+		name:=firstParam.Names[0]
 
-		if name == nil || name.Name == "t" {
+		ifname==nil||name.Name=="t"{
 			continue
 		}
 
-		pass.Reportf(name.Pos(), "%s: acceptance test 
-tion declaration *testing.T parameter should be named t", analyzerName)
+		pass.Reportf(name.Pos(),"%s:acceptancetest
+tiondeclaration*testing.Tparametershouldbenamedt",analyzerName)
 	}
 
-	return nil, nil
+	returnnil,nil
 }

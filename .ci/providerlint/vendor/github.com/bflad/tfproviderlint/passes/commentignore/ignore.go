@@ -1,6 +1,6 @@
-package commentignore
+packagecommentignore
 
-import (
+import(
 	"go/ast"
 	"go/token"
 	"reflect"
@@ -9,59 +9,59 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const commentIgnorePrefix = "lintignore:"
+constcommentIgnorePrefix="lintignore:"
 
-var Analyzer = &analysis.Analyzer{
-	Name:       "commentignore",
-	Doc:        "find ignore comments for later passes",
-	Run:        run,
-	ResultType: reflect.TypeOf(new(Ignorer)),
+varAnalyzer=&analysis.Analyzer{
+	Name:"commentignore",
+	Doc:"findignorecommentsforlaterpasses",
+	Run:run,
+	ResultType:reflect.TypeOf(new(Ignorer)),
 }
 
-type ignore struct {
-	Pos token.Pos
-	End token.Pos
+typeignorestruct{
+	Postoken.Pos
+	Endtoken.Pos
 }
 
-type Ignorer struct {
-	ignores map[string][]ignore
+typeIgnorerstruct{
+	ignoresmap[string][]ignore
 }
 
 
- (ignorer *Ignorer) ShouldIgnore(key string, n ast.Node) bool {
-	for _, ig := range ignorer.ignores[key] {
-		if ig.Pos <= n.Pos() && ig.End >= n.End() {
-			return true
+(ignorer*Ignorer)ShouldIgnore(keystring,nast.Node)bool{
+	for_,ig:=rangeignorer.ignores[key]{
+		ifig.Pos<=n.Pos()&&ig.End>=n.End(){
+			returntrue
 		}
 	}
 
-	return false
+	returnfalse
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignores := map[string][]ignore{}
-	for _, f := range pass.Files {
-		for n, commentGroups := range ast.NewCommentMap(pass.Fset, f, f.Comments) {
-			for _, commentGroup := range commentGroups {
-				for _, comment := range commentGroup.List {
-					if comment == nil {
+run(pass*analysis.Pass)(interface{},error){
+	ignores:=map[string][]ignore{}
+	for_,f:=rangepass.Files{
+		forn,commentGroups:=rangeast.NewCommentMap(pass.Fset,f,f.Comments){
+			for_,commentGroup:=rangecommentGroups{
+				for_,comment:=rangecommentGroup.List{
+					ifcomment==nil{
 						continue
 					}
 
-					// Remove // comment prefix
-					commentText := strings.TrimLeft(strings.TrimPrefix(comment.Text, "//"), " ")
+					//Remove//commentprefix
+					commentText:=strings.TrimLeft(strings.TrimPrefix(comment.Text,"//"),"")
 
-					if strings.HasPrefix(commentText, commentIgnorePrefix) {
-						commentIgnore := strings.TrimPrefix(commentText, commentIgnorePrefix)
-						// Allow extra // comment after keys
-						commentIgnoreParts := strings.Split(commentIgnore, "//")
-						keys := strings.TrimSpace(commentIgnoreParts[0])
+					ifstrings.HasPrefix(commentText,commentIgnorePrefix){
+						commentIgnore:=strings.TrimPrefix(commentText,commentIgnorePrefix)
+						//Allowextra//commentafterkeys
+						commentIgnoreParts:=strings.Split(commentIgnore,"//")
+						keys:=strings.TrimSpace(commentIgnoreParts[0])
 
-						// Allow multiple comma separated ignores
-						for _, key := range strings.Split(keys, ",") {
-							// is it possible for nested pos/end to be outside the largest nodes?
-							ignores[key] = append(ignores[key], ignore{n.Pos(), n.End()})
+						//Allowmultiplecommaseparatedignores
+						for_,key:=rangestrings.Split(keys,","){
+							//isitpossiblefornestedpos/endtobeoutsidethelargestnodes?
+							ignores[key]=append(ignores[key],ignore{n.Pos(),n.End()})
 						}
 					}
 				}
@@ -69,7 +69,7 @@ type Ignorer struct {
 		}
 	}
 
-	return &Ignorer{
-		ignores: ignores,
-	}, nil
+	return&Ignorer{
+		ignores:ignores,
+	},nil
 }

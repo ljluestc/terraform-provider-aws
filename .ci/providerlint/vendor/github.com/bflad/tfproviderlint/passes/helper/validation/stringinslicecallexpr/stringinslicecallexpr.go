@@ -1,16 +1,16 @@
-package stringinslicecallexpr
+packagestringinslicecallexpr
 
-import (
-	"github.com/bflad/tfproviderlint/helper/analysisutils"
-	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
+import(
+"github.com/bflad/tfproviderlint/helper/analysisutils"
+"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
 )
 
-var Analyzer = analysisutils.
+varAnalyzer=analysisutils.
 CallExprAnalyzer(
-	"stringinslicecallexpr",
-	validation.Is
+"stringinslicecallexpr",
+validation.Is
 
-	validation.PackagePath,
-	validation.
+validation.PackagePath,
+validation.
 StringInSlice,
 )

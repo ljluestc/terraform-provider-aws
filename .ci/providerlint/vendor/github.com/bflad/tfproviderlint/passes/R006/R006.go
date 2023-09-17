@@ -1,9 +1,9 @@
-// Package R006 defines an Analyzer that checks for
-// Retry
- that omit retryable errors
-package R006
+//PackageR006definesanAnalyzerthatchecksfor
+//Retry
+thatomitretryableerrors
+packageR006
 
-import (
+import(
 	"flag"
 	"go/ast"
 	"go/types"
@@ -17,106 +17,106 @@ info"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Retry
- that omit retryable errors
+constDoc=`checkforRetry
+thatomitretryableerrors
 
-The R006 analyzer reports when Retry
- declarations are missing
-retryable errors and should not be used as Retry
+TheR006analyzerreportswhenRetry
+declarationsaremissing
+retryableerrorsandshouldnotbeusedasRetry
 .
 
-Optional parameters:
-  - package-aliases Comma-separated list of additional Go import paths to consider as aliases for helper/resource, defaults to none.
+Optionalparameters:
+-package-aliasesComma-separatedlistofadditionalGoimportpathstoconsiderasaliasesforhelper/resource,defaultstonone.
 `
 
-const analyzerName = "R006"
+constanalyzerName="R006"
 
-var (
-	packageAliases string
+var(
+	packageAliasesstring
 )
 
 
- parseFlags() flag.FlagSet {
-	var flags = flag.NewFlagSet(analyzerName, flag.ExitOnError)
-	flags.StringVar(&packageAliases, "package-aliases", "", "Comma-separated list of additional Go import paths to consider as aliases for helper/resource")
-	return *flags
+parseFlags()flag.FlagSet{
+	varflags=flag.NewFlagSet(analyzerName,flag.ExitOnError)
+	flags.StringVar(&packageAliases,"package-aliases","","Comma-separatedlistofadditionalGoimportpathstoconsiderasaliasesforhelper/resource")
+	return*flags
 }
 
-var Anar = &analysis.Analyzer{
-	Name:  analyzerName,
-	Doc:   Doc,
-	Flags: parseFlags(),
-	Requires: []*analysis.Analyzer{
+varAnar=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Flags:parseFlags(),
+	Requires:[]*analysis.Analyzer{
 mmentignore.Analyzer,
 		retry
 info.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- isPackageAliasIgnored(e ast.Expr, info *types.Info, packageAliasesList string) bool {
-	packageAliases := strings.Split(packageAliasesList, ",")
+isPackageAliasIgnored(east.Expr,info*types.Info,packageAliasesListstring)bool{
+	packageAliases:=strings.Split(packageAliasesList,",")
 
-	for _, packageAlias := range packageAliases {
- astutils.IsModulePackage
-(e, info, packageAlias, "", resource.
-NatryableError) {
-			return true
+	for_,packageAlias:=rangepackageAliases{
+astutils.IsModulePackage
+(e,info,packageAlias,"",resource.
+NatryableError){
+			returntrue
 		}
 	}
 
-	return false
+	returnfalse
 }
 
 
- run(pass *anal.Pass) erface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+run(pass*anal.Pass)erface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	retry
-s := pass.ResultOf[retry
+s:=pass.ResultOf[retry
 info.Analyzer].([]*resource.Retry
 Info)
 
-	for _, retry
- := range retry
-s {
-		if ignorer.ShouldIgnore(analyzerName, retry
-.Node) {
+	for_,retry
+:=rangeretry
+s{
+		ifignorer.ShouldIgnore(analyzerName,retry
+.Node){
 			continue
 		}
 
-		var retryableErrorFound bool
+		varretryableErrorFoundbool
 
 		ast.Inspect(retry
-.Body, 
-(n ast.Node) bool {
-			callExpr, ok := n.(*ast.CallExpr)
+.Body,
+(nast.Node)bool{
+			callExpr,ok:=n.(*ast.CallExpr)
 
-			if !ok {
-				return true
+			if!ok{
+				returntrue
 			}
 
-			if resource.Is
-(callExpr.Fun, pass.TypesInfo, resource.
-NameRetryableError) {
-				retryableErrorFound = true
-				return false
+			ifresource.Is
+(callExpr.Fun,pass.TypesInfo,resource.
+NameRetryableError){
+				retryableErrorFound=true
+				returnfalse
 			}
 
-			if packageAliases != "" && isPackageAliasIgnored(callExpr.Fun, pass.TypesInfo, packageAliases) {
-				retryableErrorFound = true
-				return false
+			ifpackageAliases!=""&&isPackageAliasIgnored(callExpr.Fun,pass.TypesInfo,packageAliases){
+				retryableErrorFound=true
+				returnfalse
 			}
 
-			return true
+			returntrue
 		})
 
-		if !retryableErrorFound {
+		if!retryableErrorFound{
 			pass.Reportf(retry
-.Pos, "%s: Retry
- should include RetryableError() handling or be removed", analyzerName)
+.Pos,"%s:Retry
+shouldincludeRetryableError()handlingorberemoved",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package sdktypesimport ("testing""time""github.com/YakDriver/regexache")
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagesdktypesimport("testing""time""github.com/YakDriver/regexache")

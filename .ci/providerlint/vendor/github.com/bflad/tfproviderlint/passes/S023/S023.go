@@ -1,8 +1,8 @@
-// Package S023 defines an Analyzer that checks for
-// Schema that should omit Elem with incompatible Type
-package S023
+//PackageS023definesanAnalyzerthatchecksfor
+//SchemathatshouldomitElemwithincompatibleType
+packageS023
 
-import (
+import(
 	"golang.org/x/tools/go/analysis"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
@@ -10,42 +10,42 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemainfo"
 )
 
-const Doc = `check for Schema that should omit Elem with incompatible Type
+constDoc=`checkforSchemathatshouldomitElemwithincompatibleType
 
-The S023 analyzer reports cases of schema that declare Elem that should
-be removed with incompatible Type.`
+TheS023analyzerreportscasesofschemathatdeclareElemthatshould
+beremovedwithincompatibleType.`
 
-const analyzerName = "S023"
+constanalyzerName="S023"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemainfo.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		if schemaInfo.IsOneOfTypes(schema.SchemaValueTypeList, schema.SchemaValueTypeMap, schema.SchemaValueTypeSet) {
+		ifschemaInfo.IsOneOfTypes(schema.SchemaValueTypeList,schema.SchemaValueTypeMap,schema.SchemaValueTypeSet){
 			continue
 		}
 
-		if !schemaInfo.DeclaresField(schema.SchemaFieldElem) {
+		if!schemaInfo.DeclaresField(schema.SchemaFieldElem){
 			continue
 		}
 
-		pass.Reportf(schemaInfo.Fields[schema.SchemaFieldElem].Value.Pos(), "%s: schema should not include Elem with incompatible Type", analyzerName)
+		pass.Reportf(schemaInfo.Fields[schema.SchemaFieldElem].Value.Pos(),"%s:schemashouldnotincludeElemwithincompatibleType",analyzerName)
 	}
 
-	return nil, nil
+	returnnil,nil
 }

@@ -1,11 +1,11 @@
-package resourcedatasetidcallexpr
+packageresourcedatasetidcallexpr
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/analysisutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
 )
 
-var Analyzer = analysisutils.ReceiverMethodCallExprAnalyzer(
+varAnalyzer=analysisutils.ReceiverMethodCallExprAnalyzer(
 	"resourcedatasetidcallexpr",
 	schema.IsReceiverMethod,
 	schema.PackagePath,

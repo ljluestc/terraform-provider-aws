@@ -1,9 +1,9 @@
-// Package S013 defines an Analyzer that checks for
-// Schema that one of Computed, Optional, or Required
-// is not configured
-package S013
+//PackageS013definesanAnalyzerthatchecksfor
+//SchemathatoneofComputed,Optional,orRequired
+//isnotconfigured
+packageS013
 
-import (
+import(
 	"go/ast"
 
 	"golang.org/x/tools/go/analysis"
@@ -13,49 +13,49 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemamapcompositelit"
 )
 
-const Doc = `check for Schema that are missing required fields
+constDoc=`checkforSchemathataremissingrequiredfields
 
-The S013 analyzer reports cases of schemas which one of Computed,
-Optional, or Required is not configured, which will fail provider
-schema validation.`
+TheS013analyzerreportscasesofschemaswhichoneofComputed,
+Optional,orRequiredisnotconfigured,whichwillfailprovider
+schemavalidation.`
 
-const analyzerName = "S013"
+constanalyzerName="S013"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemamapcompositelit.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemamapcompositelits := pass.ResultOf[schemamapcompositelit.Analyzer].([]*ast.CompositeLit)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemamapcompositelits:=pass.ResultOf[schemamapcompositelit.Analyzer].([]*ast.CompositeLit)
 
-	for _, smap := range schemamapcompositelits {
-		for _, schemaCompositeLit := range schema.GetSchemaMapSchemas(smap) {
-			schemaInfo := schema.NewSchemaInfo(schemaCompositeLit, pass.TypesInfo)
+	for_,smap:=rangeschemamapcompositelits{
+		for_,schemaCompositeLit:=rangeschema.GetSchemaMapSchemas(smap){
+			schemaInfo:=schema.NewSchemaInfo(schemaCompositeLit,pass.TypesInfo)
 
-			if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+			ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 				continue
 			}
 
-			if schemaInfo.Schema.Computed || schemaInfo.Schema.Optional || schemaInfo.Schema.Required {
+			ifschemaInfo.Schema.Computed||schemaInfo.Schema.Optional||schemaInfo.Schema.Required{
 				continue
 			}
 
-			switch t := schemaInfo.AstCompositeLit.Type.(type) {
+			switcht:=schemaInfo.AstCompositeLit.Type.(type){
 			default:
-				pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should configure one of Computed, Optional, or Required", analyzerName)
-			case *ast.SelectorExpr:
-				pass.Reportf(t.Sel.Pos(), "%s: schema should configure one of Computed, Optional, or Required", analyzerName)
+				pass.Reportf(schemaInfo.AstCompositeLit.Lbrace,"%s:schemashouldconfigureoneofComputed,Optional,orRequired",analyzerName)
+			case*ast.SelectorExpr:
+				pass.Reportf(t.Sel.Pos(),"%s:schemashouldconfigureoneofComputed,Optional,orRequired",analyzerName)
 			}
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

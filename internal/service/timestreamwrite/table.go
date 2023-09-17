@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package timestreamwrite
+packagetimestreamwrite
 
-import (
+import(
 "context"
 "fmt"
 "log"
@@ -20,598 +20,598 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 "github.com/hashicorp/terraform-provider-aws/internal/enum"
 "github.com/hashicorp/terraform-provider-aws/internal/errs"
-tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
+tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 "github.com/hashicorp/terraform-provider-aws/internal/verify"
 "github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKResource("aws_timestreamwrite_table", name="Table")
-// @Tags(identifierAttribute="arn")
-func resourceTable() *schema.Resource {
-return &schema.Resource{
-CreateWithoutTimeout: resourceTableCreate,
-ReadWithoutTimeout:   resourceTableRead,
-UpdateWithoutTimeout: resourceTableUpdate,
-DeleteWithoutTimeout: resourceTableDelete,
+//@SDKResource("aws_timestreamwrite_table",name="Table")
+//@Tags(identifierAttribute="arn")
+funcresourceTable()*schema.Resource{
+return&schema.Resource{
+CreateWithoutTimeout:resourceTableCreate,
+ReadWithoutTimeout:resourceTableRead,
+UpdateWithoutTimeout:resourceTableUpdate,
+DeleteWithoutTimeout:resourceTableDelete,
 
-Importer: &schema.ResourceImporter{
-StateContext: schema.ImportStatePassthroughContext,
+Importer:&schema.ResourceImporter{
+StateContext:schema.ImportStatePassthroughContext,
 },
 
-Schema: map[string]*schema.Schema{
-"arn": {
-Type:     schema.TypeString,
-Computed: true,
-},
-"database_name": {
-Type:     schema.TypeString,
-Required: true,
-ForceNew: true,
-ValidateFunc: validation.All(
-validation.StringLenBetween(3, 64),
-validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+$`), "must only include alphanumeric, underscore, period, or hyphen characters"),
-),
-},
-"magnetic_store_write_properties": {
-Type:     schema.TypeList,
-Optional: true,
-Computed: true,
-MaxItems: 1,
-Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-"enable_magnetic_store_writes": {
-Type:     schema.TypeBool,
-Optional: true,
-Default:  false,
-},
-"magnetic_store_rejected_data_location": {
-Type:     schema.TypeList,
-Optional: true,
-MaxItems: 1,
-Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-"s3_configuration": {
-Type:     schema.TypeList,
-Optional: true,
-MaxItems: 1,
-Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-"bucket_name": {
-Type:     schema.TypeString,
-Optional: true,
-},
-"encryption_option": {
-Type:    schema.TypeString,
-Optional:true,
-ValidateDiagFunc: enum.Validate[types.S3EncryptionOption](),
-},
-"kms_key_id": {
+Schema:map[string]*schema.Schema{
+"arn":{
 Type:schema.TypeString,
-Optional:     true,
-ValidateFunc: verify.ValidARN,
+Computed:true,
 },
-"object_key_prefix": {
-Type:     schema.TypeString,
-Optional: true,
-},
-},
-},
-},
-},
-},
-},
-},
-},
-},
-"retention_properties": {
-Type:     schema.TypeList,
-Optional: true,
-Computed: true,
-MaxItems: 1,
-Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-"magnetic_store_retention_period_in_days": {
-Type:schema.TypeInt,
-Required:     true,
-ValidateFunc: validation.IntBetween(1, 73000),
-},
-"memory_store_retention_period_in_hours": {
-Type:schema.TypeInt,
-Required:     true,
-ValidateFunc: validation.IntBetween(1, 8766),
-},
-},
-},
-},
-"schema": {
-Type:     schema.TypeList,
-Optional: true,
-Computed: true,
-ForceNew: true,
-MaxItems: 1,
-Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-"composite_partition_key": {
-Type:     schema.TypeList,
-Optional: true,
-Computed: true,
-ForceNew: true,
-MaxItems: 1,
-Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-"enforcement_in_record": {
-Type:    schema.TypeString,
-Optional:true,
-ValidateDiagFunc: enum.Validate[types.PartitionKeyEnforcementLevel](),
-},
-"name": {
-Type:     schema.TypeString,
-Optional: true,
-ForceNew: true,
-},
-"type": {
-Type:    schema.TypeString,
+"database_name":{
+Type:schema.TypeString,
 Required:true,
 ForceNew:true,
-ValidateDiagFunc: enum.Validate[types.PartitionKeyType](),
-},
-},
-},
-},
-},
-},
-},
-"table_name": {
-Type:     schema.TypeString,
-Required: true,
-ForceNew: true,
-ValidateFunc: validation.All(
-validation.StringLenBetween(3, 64),
-validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+$`), "must only include alphanumeric, underscore, period, or hyphen characters"),
+ValidateFunc:validation.All(
+validation.StringLenBetween(3,64),
+validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+$`),"mustonlyincludealphanumeric,underscore,period,orhyphencharacters"),
 ),
 },
-names.AttrTags:    tftags.TagsSchema(),
-names.AttrTagsAll: tftags.TagsSchemaComputed(),
+"magnetic_store_write_properties":{
+Type:schema.TypeList,
+Optional:true,
+Computed:true,
+MaxItems:1,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"enable_magnetic_store_writes":{
+Type:schema.TypeBool,
+Optional:true,
+Default:false,
+},
+"magnetic_store_rejected_data_location":{
+Type:schema.TypeList,
+Optional:true,
+MaxItems:1,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"s3_configuration":{
+Type:schema.TypeList,
+Optional:true,
+MaxItems:1,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"bucket_name":{
+Type:schema.TypeString,
+Optional:true,
+},
+"encryption_option":{
+Type:schema.TypeString,
+Optional:true,
+ValidateDiagFunc:enum.Validate[types.S3EncryptionOption](),
+},
+"kms_key_id":{
+Type:schema.TypeString,
+Optional:true,
+ValidateFunc:verify.ValidARN,
+},
+"object_key_prefix":{
+Type:schema.TypeString,
+Optional:true,
+},
+},
+},
+},
+},
+},
+},
+},
+},
+},
+"retention_properties":{
+Type:schema.TypeList,
+Optional:true,
+Computed:true,
+MaxItems:1,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"magnetic_store_retention_period_in_days":{
+Type:schema.TypeInt,
+Required:true,
+ValidateFunc:validation.IntBetween(1,73000),
+},
+"memory_store_retention_period_in_hours":{
+Type:schema.TypeInt,
+Required:true,
+ValidateFunc:validation.IntBetween(1,8766),
+},
+},
+},
+},
+"schema":{
+Type:schema.TypeList,
+Optional:true,
+Computed:true,
+ForceNew:true,
+MaxItems:1,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"composite_partition_key":{
+Type:schema.TypeList,
+Optional:true,
+Computed:true,
+ForceNew:true,
+MaxItems:1,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"enforcement_in_record":{
+Type:schema.TypeString,
+Optional:true,
+ValidateDiagFunc:enum.Validate[types.PartitionKeyEnforcementLevel](),
+},
+"name":{
+Type:schema.TypeString,
+Optional:true,
+ForceNew:true,
+},
+"type":{
+Type:schema.TypeString,
+Required:true,
+ForceNew:true,
+ValidateDiagFunc:enum.Validate[types.PartitionKeyType](),
+},
+},
+},
+},
+},
+},
+},
+"table_name":{
+Type:schema.TypeString,
+Required:true,
+ForceNew:true,
+ValidateFunc:validation.All(
+validation.StringLenBetween(3,64),
+validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+$`),"mustonlyincludealphanumeric,underscore,period,orhyphencharacters"),
+),
+},
+names.AttrTags:tftags.TagsSchema(),
+names.AttrTagsAll:tftags.TagsSchemaComputed(),
 },
 
-CustomizeDiff: verify.SetTagsDiff,
+CustomizeDiff:verify.SetTagsDiff,
 }
 }
 
-func resourceTableCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).TimestreamWriteClient(ctx)
+funcresourceTableCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).TimestreamWriteClient(ctx)
 
-databaseName := d.Get("database_name").(string)
-tableName := d.Get("table_name").(string)
-id := tableCreateResourceID(tableName, databaseName)
-input := &timestreamwrite.CreateTableInput{
-DatabaseName: aws.String(databaseName),
-TableName:    aws.String(tableName),
+databaseName:=d.Get("database_name").(string)
+tableName:=d.Get("table_name").(string)
+id:=tableCreateResourceID(tableName,databaseName)
+input:=&timestreamwrite.CreateTableInput{
+DatabaseName:aws.String(databaseName),
+TableName:aws.String(tableName),
 Tags:getTagsIn(ctx),
 }
 
-if v, ok := d.GetOk("magnetic_store_write_properties"); ok && len(v.([]interface{})) > 0 && v.([]interface{}) != nil {
-input.MagneticStoreWriteProperties = expandMagneticStoreWriteProperties(v.([]interface{}))
+ifv,ok:=d.GetOk("magnetic_store_write_properties");ok&&len(v.([]interface{}))>0&&v.([]interface{})!=nil{
+input.MagneticStoreWriteProperties=expandMagneticStoreWriteProperties(v.([]interface{}))
 }
 
-if v, ok := d.GetOk("retention_properties"); ok && len(v.([]interface{})) > 0 && v.([]interface{}) != nil {
-input.RetentionProperties = expandRetentionProperties(v.([]interface{}))
+ifv,ok:=d.GetOk("retention_properties");ok&&len(v.([]interface{}))>0&&v.([]interface{})!=nil{
+input.RetentionProperties=expandRetentionProperties(v.([]interface{}))
 }
 
-if v, ok := d.GetOk("schema"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
-input.Schema = expandSchema(v.([]interface{})[0].(map[string]interface{}))
+ifv,ok:=d.GetOk("schema");ok&&len(v.([]interface{}))>0&&v.([]interface{})[0]!=nil{
+input.Schema=expandSchema(v.([]interface{})[0].(map[string]interface{}))
 }
 
-_, err := conn.CreateTable(ctx, input)
+_,err:=conn.CreateTable(ctx,input)
 
-if err != nil {
-return diag.Errorf("creating Timestream Table (%s): %s", id, err)
+iferr!=nil{
+returndiag.Errorf("creatingTimestreamTable(%s):%s",id,err)
 }
 
 d.SetId(id)
 
-return resourceTableRead(ctx, d, meta)
+returnresourceTableRead(ctx,d,meta)
 }
 
-func resourceTableRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).TimestreamWriteClient(ctx)
+funcresourceTableRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).TimestreamWriteClient(ctx)
 
-tableName, databaseName, err := tableParseResourceID(d.Id())
-if err != nil {
-return diag.FromErr(err)
+tableName,databaseName,err:=tableParseResourceID(d.Id())
+iferr!=nil{
+returndiag.FromErr(err)
 }
 
-table, err := findTableByTwoPartKey(ctx, conn, databaseName, tableName)
+table,err:=findTableByTwoPartKey(ctx,conn,databaseName,tableName)
 
-if !d.IsNewResource() && tfresource.NotFound(err) {
-log.Printf("[WARN] Timestream Table %s not found, removing from state", d.Id())
+if!d.IsNewResource()&&tfresource.NotFound(err){
+log.Printf("[WARN]TimestreamTable%snotfound,removingfromstate",d.Id())
 d.SetId("")
-return nil
+returnnil
 }
 
-d.Set("arn", table.Arn)
-d.Set("database_name", table.DatabaseName)
-if err := d.Set("magnetic_store_write_properties", flattenMagneticStoreWriteProperties(table.MagneticStoreWriteProperties)); err != nil {
-return diag.Errorf("setting magnetic_store_write_properties: %s", err)
+d.Set("arn",table.Arn)
+d.Set("database_name",table.DatabaseName)
+iferr:=d.Set("magnetic_store_write_properties",flattenMagneticStoreWriteProperties(table.MagneticStoreWriteProperties));err!=nil{
+returndiag.Errorf("settingmagnetic_store_write_properties:%s",err)
 }
-if err := d.Set("retention_properties", flattenRetentionProperties(table.RetentionProperties)); err != nil {
-return diag.Errorf("setting retention_properties: %s", err)
+iferr:=d.Set("retention_properties",flattenRetentionProperties(table.RetentionProperties));err!=nil{
+returndiag.Errorf("settingretention_properties:%s",err)
 }
-if table.Schema != nil {
-if err := d.Set("schema", []interface{}{flattenSchema(table.Schema)}); err != nil {
-return diag.Errorf("setting schema: %s", err)
+iftable.Schema!=nil{
+iferr:=d.Set("schema",[]interface{}{flattenSchema(table.Schema)});err!=nil{
+returndiag.Errorf("settingschema:%s",err)
 }
-} else {
-d.Set("schema", nil)
+}else{
+d.Set("schema",nil)
 }
-d.Set("table_name", table.TableName)
+d.Set("table_name",table.TableName)
 
-return nil
-}
-
-func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).TimestreamWriteClient(ctx)
-
-if d.HasChangesExcept("tags", "tags_all") {
-tableName, databaseName, err := tableParseResourceID(d.Id())
-if err != nil {
-return diag.FromErr(err)
+returnnil
 }
 
-input := &timestreamwrite.UpdateTableInput{
-DatabaseName: aws.String(databaseName),
-TableName:    aws.String(tableName),
+funcresourceTableUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).TimestreamWriteClient(ctx)
+
+ifd.HasChangesExcept("tags","tags_all"){
+tableName,databaseName,err:=tableParseResourceID(d.Id())
+iferr!=nil{
+returndiag.FromErr(err)
 }
 
-if d.HasChange("magnetic_store_write_properties") {
-input.MagneticStoreWriteProperties = expandMagneticStoreWriteProperties(d.Get("magnetic_store_write_properties").([]interface{}))
+input:=&timestreamwrite.UpdateTableInput{
+DatabaseName:aws.String(databaseName),
+TableName:aws.String(tableName),
 }
 
-if d.HasChange("retention_properties") {
-input.RetentionProperties = expandRetentionProperties(d.Get("retention_properties").([]interface{}))
+ifd.HasChange("magnetic_store_write_properties"){
+input.MagneticStoreWriteProperties=expandMagneticStoreWriteProperties(d.Get("magnetic_store_write_properties").([]interface{}))
 }
 
-if d.HasChange("schema") {
-if v, ok := d.GetOk("schema"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
-input.Schema = expandSchema(v.([]interface{})[0].(map[string]interface{}))
-}
+ifd.HasChange("retention_properties"){
+input.RetentionProperties=expandRetentionProperties(d.Get("retention_properties").([]interface{}))
 }
 
-_, err = conn.UpdateTable(ctx, input)
-
-if err != nil {
-return diag.Errorf("updating Timestream Table (%s): %s", d.Id(), err)
+ifd.HasChange("schema"){
+ifv,ok:=d.GetOk("schema");ok&&len(v.([]interface{}))>0&&v.([]interface{})[0]!=nil{
+input.Schema=expandSchema(v.([]interface{})[0].(map[string]interface{}))
 }
 }
 
-return resourceTableRead(ctx, d, meta)
+_,err=conn.UpdateTable(ctx,input)
+
+iferr!=nil{
+returndiag.Errorf("updatingTimestreamTable(%s):%s",d.Id(),err)
+}
 }
 
-func resourceTableDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).TimestreamWriteClient(ctx)
-
-tableName, databaseName, err := tableParseResourceID(d.Id())
-if err != nil {
-return diag.FromErr(err)
+returnresourceTableRead(ctx,d,meta)
 }
 
-log.Printf("[INFO] Deleting Timestream Table: %s", d.Id())
-_, err = conn.DeleteTable(ctx, &timestreamwrite.DeleteTableInput{
-DatabaseName: aws.String(databaseName),
-TableName:    aws.String(tableName),
+funcresourceTableDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).TimestreamWriteClient(ctx)
+
+tableName,databaseName,err:=tableParseResourceID(d.Id())
+iferr!=nil{
+returndiag.FromErr(err)
+}
+
+log.Printf("[INFO]DeletingTimestreamTable:%s",d.Id())
+_,err=conn.DeleteTable(ctx,&timestreamwrite.DeleteTableInput{
+DatabaseName:aws.String(databaseName),
+TableName:aws.String(tableName),
 })
 
-if errs.IsA[*types.ResourceNotFoundException](err) {
-return nil
+iferrs.IsA[*types.ResourceNotFoundException](err){
+returnnil
 }
 
-if err != nil {
-return diag.Errorf("deleting Timestream Table (%s): %s", d.Id(), err)
+iferr!=nil{
+returndiag.Errorf("deletingTimestreamTable(%s):%s",d.Id(),err)
 }
 
-return nil
+returnnil
 }
 
-func findTableByTwoPartKey(ctx context.Context, conn *timestreamwrite.Client, databaseName, tableName string) (*types.Table, error) {
-input := &timestreamwrite.DescribeTableInput{
-DatabaseName: aws.String(databaseName),
-TableName:    aws.String(tableName),
+funcfindTableByTwoPartKey(ctxcontext.Context,conn*timestreamwrite.Client,databaseName,tableNamestring)(*types.Table,error){
+input:=&timestreamwrite.DescribeTableInput{
+DatabaseName:aws.String(databaseName),
+TableName:aws.String(tableName),
 }
 
-output, err := conn.DescribeTable(ctx, input)
+output,err:=conn.DescribeTable(ctx,input)
 
-if errs.IsA[*types.ResourceNotFoundException](err) {
-return nil, &retry.NotFoundError{
-LastError:   err,
-LastRequest: input,
+iferrs.IsA[*types.ResourceNotFoundException](err){
+returnnil,&retry.NotFoundError{
+LastError:err,
+LastRequest:input,
 }
 }
 
-if err != nil {
-return nil, err
+iferr!=nil{
+returnnil,err
 }
 
-if output == nil || output.Table == nil {
-return nil, tfresource.NewEmptyResultError(input)
+ifoutput==nil||output.Table==nil{
+returnnil,tfresource.NewEmptyResultError(input)
 }
 
-return output.Table, nil
+returnoutput.Table,nil
 }
 
-func expandRetentionProperties(tfList []interface{}) *types.RetentionProperties {
-if len(tfList) == 0 || tfList[0] == nil {
-return nil
+funcexpandRetentionProperties(tfList[]interface{})*types.RetentionProperties{
+iflen(tfList)==0||tfList[0]==nil{
+returnnil
 }
 
-tfMap, ok := tfList[0].(map[string]interface{})
+tfMap,ok:=tfList[0].(map[string]interface{})
 
-if !ok {
-return nil
+if!ok{
+returnnil
 }
 
-apiObject := &types.RetentionProperties{}
+apiObject:=&types.RetentionProperties{}
 
-if v, ok := tfMap["magnetic_store_retention_period_in_days"].(int); ok {
-apiObject.MagneticStoreRetentionPeriodInDays = int64(v)
+ifv,ok:=tfMap["magnetic_store_retention_period_in_days"].(int);ok{
+apiObject.MagneticStoreRetentionPeriodInDays=int64(v)
 }
 
-if v, ok := tfMap["memory_store_retention_period_in_hours"].(int); ok {
-apiObject.MemoryStoreRetentionPeriodInHours = int64(v)
+ifv,ok:=tfMap["memory_store_retention_period_in_hours"].(int);ok{
+apiObject.MemoryStoreRetentionPeriodInHours=int64(v)
 }
 
-return apiObject
+returnapiObject
 }
 
-func flattenRetentionProperties(apiObject *types.RetentionProperties) []interface{} {
-if apiObject == nil {
-return []interface{}{}
+funcflattenRetentionProperties(apiObject*types.RetentionProperties)[]interface{}{
+ifapiObject==nil{
+return[]interface{}{}
 }
 
-tfMap := map[string]interface{}{
-"magnetic_store_retention_period_in_days": apiObject.MagneticStoreRetentionPeriodInDays,
-"memory_store_retention_period_in_hours":  apiObject.MemoryStoreRetentionPeriodInHours,
+tfMap:=map[string]interface{}{
+"magnetic_store_retention_period_in_days":apiObject.MagneticStoreRetentionPeriodInDays,
+"memory_store_retention_period_in_hours":apiObject.MemoryStoreRetentionPeriodInHours,
 }
 
-return []interface{}{tfMap}
+return[]interface{}{tfMap}
 }
 
-func expandMagneticStoreWriteProperties(tfList []interface{}) *types.MagneticStoreWriteProperties {
-if len(tfList) == 0 || tfList[0] == nil {
-return nil
+funcexpandMagneticStoreWriteProperties(tfList[]interface{})*types.MagneticStoreWriteProperties{
+iflen(tfList)==0||tfList[0]==nil{
+returnnil
 }
 
-tfMap, ok := tfList[0].(map[string]interface{})
+tfMap,ok:=tfList[0].(map[string]interface{})
 
-if !ok {
-return nil
+if!ok{
+returnnil
 }
 
-apiObject := &types.MagneticStoreWriteProperties{
-EnableMagneticStoreWrites: aws.Bool(tfMap["enable_magnetic_store_writes"].(bool)),
+apiObject:=&types.MagneticStoreWriteProperties{
+EnableMagneticStoreWrites:aws.Bool(tfMap["enable_magnetic_store_writes"].(bool)),
 }
 
-if v, ok := tfMap["magnetic_store_rejected_data_location"].([]interface{}); ok && len(v) > 0 {
-apiObject.MagneticStoreRejectedDataLocation = expandMagneticStoreRejectedDataLocation(v)
+ifv,ok:=tfMap["magnetic_store_rejected_data_location"].([]interface{});ok&&len(v)>0{
+apiObject.MagneticStoreRejectedDataLocation=expandMagneticStoreRejectedDataLocation(v)
 }
 
-return apiObject
+returnapiObject
 }
 
-func flattenMagneticStoreWriteProperties(apiObject *types.MagneticStoreWriteProperties) []interface{} {
-if apiObject == nil {
-return []interface{}{}
+funcflattenMagneticStoreWriteProperties(apiObject*types.MagneticStoreWriteProperties)[]interface{}{
+ifapiObject==nil{
+return[]interface{}{}
 }
 
-tfMap := map[string]interface{}{
-"enable_magnetic_store_writes": aws.ToBool(apiObject.EnableMagneticStoreWrites),
-"magnetic_store_rejected_data_location": flattenMagneticStoreRejectedDataLocation(apiObject.MagneticStoreRejectedDataLocation),
+tfMap:=map[string]interface{}{
+"enable_magnetic_store_writes":aws.ToBool(apiObject.EnableMagneticStoreWrites),
+"magnetic_store_rejected_data_location":flattenMagneticStoreRejectedDataLocation(apiObject.MagneticStoreRejectedDataLocation),
 }
 
-return []interface{}{tfMap}
+return[]interface{}{tfMap}
 }
 
-func expandMagneticStoreRejectedDataLocation(tfList []interface{}) *types.MagneticStoreRejectedDataLocation {
-if len(tfList) == 0 || tfList[0] == nil {
-return nil
+funcexpandMagneticStoreRejectedDataLocation(tfList[]interface{})*types.MagneticStoreRejectedDataLocation{
+iflen(tfList)==0||tfList[0]==nil{
+returnnil
 }
 
-tfMap, ok := tfList[0].(map[string]interface{})
+tfMap,ok:=tfList[0].(map[string]interface{})
 
-if !ok {
-return nil
+if!ok{
+returnnil
 }
 
-apiObject := &types.MagneticStoreRejectedDataLocation{}
+apiObject:=&types.MagneticStoreRejectedDataLocation{}
 
-if v, ok := tfMap["s3_configuration"].([]interface{}); ok && len(v) > 0 {
-apiObject.S3Configuration = expandS3Configuration(v)
+ifv,ok:=tfMap["s3_configuration"].([]interface{});ok&&len(v)>0{
+apiObject.S3Configuration=expandS3Configuration(v)
 }
 
-return apiObject
+returnapiObject
 }
 
-func flattenMagneticStoreRejectedDataLocation(apiObject *types.MagneticStoreRejectedDataLocation) []interface{} {
-if apiObject == nil {
-return []interface{}{}
+funcflattenMagneticStoreRejectedDataLocation(apiObject*types.MagneticStoreRejectedDataLocation)[]interface{}{
+ifapiObject==nil{
+return[]interface{}{}
 }
 
-tfMap := map[string]interface{}{
-"s3_configuration": flattenS3Configuration(apiObject.S3Configuration),
+tfMap:=map[string]interface{}{
+"s3_configuration":flattenS3Configuration(apiObject.S3Configuration),
 }
 
-return []interface{}{tfMap}
+return[]interface{}{tfMap}
 }
 
-func expandS3Configuration(tfList []interface{}) *types.S3Configuration {
-if len(tfList) == 0 || tfList[0] == nil {
-return nil
+funcexpandS3Configuration(tfList[]interface{})*types.S3Configuration{
+iflen(tfList)==0||tfList[0]==nil{
+returnnil
 }
 
-tfMap, ok := tfList[0].(map[string]interface{})
+tfMap,ok:=tfList[0].(map[string]interface{})
 
-if !ok {
-return nil
+if!ok{
+returnnil
 }
 
-apiObject := &types.S3Configuration{}
+apiObject:=&types.S3Configuration{}
 
-if v, ok := tfMap["bucket_name"].(string); ok && v != "" {
-apiObject.BucketName = aws.String(v)
+ifv,ok:=tfMap["bucket_name"].(string);ok&&v!=""{
+apiObject.BucketName=aws.String(v)
 }
 
-if v, ok := tfMap["encryption_option"].(string); ok && v != "" {
-apiObject.EncryptionOption = types.S3EncryptionOption(v)
+ifv,ok:=tfMap["encryption_option"].(string);ok&&v!=""{
+apiObject.EncryptionOption=types.S3EncryptionOption(v)
 }
 
-if v, ok := tfMap["kms_key_id"].(string); ok && v != "" {
-apiObject.KmsKeyId = aws.String(v)
+ifv,ok:=tfMap["kms_key_id"].(string);ok&&v!=""{
+apiObject.KmsKeyId=aws.String(v)
 }
 
-if v, ok := tfMap["object_key_prefix"].(string); ok && v != "" {
-apiObject.ObjectKeyPrefix = aws.String(v)
+ifv,ok:=tfMap["object_key_prefix"].(string);ok&&v!=""{
+apiObject.ObjectKeyPrefix=aws.String(v)
 }
 
-return apiObject
+returnapiObject
 }
 
-func flattenS3Configuration(apiObject *types.S3Configuration) []interface{} {
-if apiObject == nil {
-return []interface{}{}
+funcflattenS3Configuration(apiObject*types.S3Configuration)[]interface{}{
+ifapiObject==nil{
+return[]interface{}{}
 }
 
-tfMap := map[string]interface{}{
-"bucket_name":       aws.ToString(apiObject.BucketName),
-"encryption_option": string(apiObject.EncryptionOption),
-"kms_key_id":        aws.ToString(apiObject.KmsKeyId),
-"object_key_prefix": aws.ToString(apiObject.ObjectKeyPrefix),
+tfMap:=map[string]interface{}{
+"bucket_name":aws.ToString(apiObject.BucketName),
+"encryption_option":string(apiObject.EncryptionOption),
+"kms_key_id":aws.ToString(apiObject.KmsKeyId),
+"object_key_prefix":aws.ToString(apiObject.ObjectKeyPrefix),
 }
 
-return []interface{}{tfMap}
+return[]interface{}{tfMap}
 }
 
-func expandSchema(tfMap map[string]interface{}) *types.Schema {
-if tfMap == nil {
-return nil
+funcexpandSchema(tfMapmap[string]interface{})*types.Schema{
+iftfMap==nil{
+returnnil
 }
 
-apiObject := &types.Schema{}
+apiObject:=&types.Schema{}
 
-if v, ok := tfMap["composite_partition_key"].([]interface{}); ok && len(v) > 0 {
-apiObject.CompositePartitionKey = expandPartitionKeys(v)
+ifv,ok:=tfMap["composite_partition_key"].([]interface{});ok&&len(v)>0{
+apiObject.CompositePartitionKey=expandPartitionKeys(v)
 }
 
-return apiObject
+returnapiObject
 }
 
-func expandPartitionKey(tfMap map[string]interface{}) *types.PartitionKey {
-if tfMap == nil {
-return nil
+funcexpandPartitionKey(tfMapmap[string]interface{})*types.PartitionKey{
+iftfMap==nil{
+returnnil
 }
 
-apiObject := &types.PartitionKey{}
+apiObject:=&types.PartitionKey{}
 
-if v, ok := tfMap["enforcement_in_record"].(string); ok && v != "" {
-apiObject.EnforcementInRecord = types.PartitionKeyEnforcementLevel(v)
+ifv,ok:=tfMap["enforcement_in_record"].(string);ok&&v!=""{
+apiObject.EnforcementInRecord=types.PartitionKeyEnforcementLevel(v)
 }
 
-if v, ok := tfMap["name"].(string); ok && v != "" {
-apiObject.Name = aws.String(v)
+ifv,ok:=tfMap["name"].(string);ok&&v!=""{
+apiObject.Name=aws.String(v)
 }
 
-if v, ok := tfMap["type"].(string); ok && v != "" {
-apiObject.Type = types.PartitionKeyType(v)
+ifv,ok:=tfMap["type"].(string);ok&&v!=""{
+apiObject.Type=types.PartitionKeyType(v)
 }
 
-return apiObject
+returnapiObject
 }
 
-func expandPartitionKeys(tfList []interface{}) []types.PartitionKey {
-if len(tfList) == 0 {
-return nil
+funcexpandPartitionKeys(tfList[]interface{})[]types.PartitionKey{
+iflen(tfList)==0{
+returnnil
 }
 
-var apiObjects []types.PartitionKey
+varapiObjects[]types.PartitionKey
 
-for _, tfMapRaw := range tfList {
-tfMap, ok := tfMapRaw.(map[string]interface{})
+for_,tfMapRaw:=rangetfList{
+tfMap,ok:=tfMapRaw.(map[string]interface{})
 
-if !ok {
+if!ok{
 continue
 }
 
-apiObject := expandPartitionKey(tfMap)
+apiObject:=expandPartitionKey(tfMap)
 
-if apiObject == nil {
+ifapiObject==nil{
 continue
 }
 
-apiObjects = append(apiObjects, *apiObject)
+apiObjects=append(apiObjects,*apiObject)
 }
 
-return apiObjects
+returnapiObjects
 }
 
-func flattenSchema(apiObject *types.Schema) map[string]interface{} {
-if apiObject == nil {
-return nil
+funcflattenSchema(apiObject*types.Schema)map[string]interface{}{
+ifapiObject==nil{
+returnnil
 }
 
-tfMap := map[string]interface{}{}
+tfMap:=map[string]interface{}{}
 
-if v := apiObject.CompositePartitionKey; v != nil {
-tfMap["composite_partition_key"] = flattenPartitionKeys(v)
+ifv:=apiObject.CompositePartitionKey;v!=nil{
+tfMap["composite_partition_key"]=flattenPartitionKeys(v)
 }
 
-return tfMap
+returntfMap
 }
 
-func flattenPartitionKey(apiObject *types.PartitionKey) map[string]interface{} {
-if apiObject == nil {
-return nil
+funcflattenPartitionKey(apiObject*types.PartitionKey)map[string]interface{}{
+ifapiObject==nil{
+returnnil
 }
 
-tfMap := map[string]interface{}{
-"enforcement_in_record": apiObject.EnforcementInRecord,
+tfMap:=map[string]interface{}{
+"enforcement_in_record":apiObject.EnforcementInRecord,
 "type":apiObject.Type,
 }
 
-if v := apiObject.Name; v != nil {
-tfMap["name"] = aws.ToString(v)
+ifv:=apiObject.Name;v!=nil{
+tfMap["name"]=aws.ToString(v)
 }
 
-return tfMap
+returntfMap
 }
 
-func flattenPartitionKeys(apiObjects []types.PartitionKey) []interface{} {
-if len(apiObjects) == 0 {
-return nil
+funcflattenPartitionKeys(apiObjects[]types.PartitionKey)[]interface{}{
+iflen(apiObjects)==0{
+returnnil
 }
 
-var tfList []interface{}
+vartfList[]interface{}
 
-for _, apiObject := range apiObjects {
-tfList = append(tfList, flattenPartitionKey(&apiObject))
+for_,apiObject:=rangeapiObjects{
+tfList=append(tfList,flattenPartitionKey(&apiObject))
 }
 
-return tfList
+returntfList
 }
 
-const tableIDSeparator = ":"
+consttableIDSeparator=":"
 
-func tableCreateResourceID(tableName, databaseName string) string {
-parts := []string{tableName, databaseName}
-id := strings.Join(parts, tableIDSeparator)
+functableCreateResourceID(tableName,databaseNamestring)string{
+parts:=[]string{tableName,databaseName}
+id:=strings.Join(parts,tableIDSeparator)
 
-return id
+returnid
 }
 
-func tableParseResourceID(id string) (string, string, error) {
-parts := strings.SplitN(id, tableIDSeparator, 2)
+functableParseResourceID(idstring)(string,string,error){
+parts:=strings.SplitN(id,tableIDSeparator,2)
 
-if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
-return "", "", fmt.Errorf("unexpected format of ID (%[1]s), expected table_name%[2]sdatabase_name", id, tableIDSeparator)
+iflen(parts)!=2||parts[0]==""||parts[1]==""{
+return"","",fmt.Errorf("unexpectedformatofID(%[1]s),expectedtable_name%[2]sdatabase_name",id,tableIDSeparator)
 }
 
-return parts[0], parts[1], nil
+returnparts[0],parts[1],nil
 }

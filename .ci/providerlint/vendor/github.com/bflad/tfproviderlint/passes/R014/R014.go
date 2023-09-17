@@ -1,6 +1,6 @@
-package R014
+packageR014
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/astutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
 	"github.com/bflad/tfproviderlint/passes/commentignore"
@@ -9,98 +9,98 @@ info"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Create
-, CreateContext
-, Delete
-, DeleteContext
-, Read
-, ReadContext
-, Update
-, and UpdateContext
- parameter naming
+constDoc=`checkforCreate
+,CreateContext
+,Delete
+,DeleteContext
+,Read
+,ReadContext
+,Update
+,andUpdateContext
+parameternaming
 
-The R014 analyzer reports when Create
-, CreateContext
-, Delete
+TheR014analyzerreportswhenCreate
+,CreateContext
+,Delete
 ,
 Deleteext
-, Read
-, ReadContext
-, Update
-, and UpdateContext
+,Read
+,ReadContext
+,Update
+,andUpdateContext
 
-declarations do not use d as the name for the *schema.ResourceData parameter
-or mes the name for the intee{} parameter. This parameter ng is the
-standard convention for resources.`
+declarationsdonotusedasthenameforthe*schema.ResourceDataparameter
+ormesthenamefortheintee{}parameter.Thisparameterngisthe
+standardconventionforresources.`
 
-const analyzerName = "R014"
+constanalyzerName="R014"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		crud
 info.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	crud
-s := pass.ResultOf[crud
+s:=pass.ResultOf[crud
 info.Analyzer].([]*schema.CRUD
 Info)
 
-	for _, crud
- := range crud
-s {
-		if ignorer.ShouldIgnore(analyzerName, crud
-.Node) {
+	for_,crud
+:=rangecrud
+s{
+		ifignorer.ShouldIgnore(analyzerName,crud
+.Node){
 			continue
 		}
 
-		params := crud
+		params:=crud
 .Type.Params
-		paramCount := len(params.List)
+		paramCount:=len(params.List)
 
-		switch paramCount {
-		case 2:
-			if name := astutils.FieldListName(params, 0, 0); name != nil && *name != "_" && *name != "d" {
-				pass.Reportf(params.List[0].Pos(), "%s: *schema.ResourceData parameter of Create
-, Read
-, Update
-, or Delete
- should be named d", analyzerName)
+		switchparamCount{
+		case2:
+			ifname:=astutils.FieldListName(params,0,0);name!=nil&&*name!="_"&&*name!="d"{
+				pass.Reportf(params.List[0].Pos(),"%s:*schema.ResourceDataparameterofCreate
+,Read
+,Update
+,orDelete
+shouldbenamedd",analyzerName)
 			}
 
-			if name := astutils.FieldListName(params, 1, 0); name != nil && *name != "_" && *name != "meta" {
-				pass.Reportf(params.List[1].Pos(), "%s: interface{} parameter of Create
-, Read
-, Update
-, or Delete
- should be named meta", analyzerName)
+			ifname:=astutils.FieldListName(params,1,0);name!=nil&&*name!="_"&&*name!="meta"{
+				pass.Reportf(params.List[1].Pos(),"%s:interface{}parameterofCreate
+,Read
+,Update
+,orDelete
+shouldbenamedmeta",analyzerName)
 			}
-		case 3:
-			if name := astutils.FieldListName(params, 1, 0); name != nil && *name != "_" && *name != "d" {
-				pass.Reportf(params.List[1].Pos(), "%s: *schema.ResourceData parameter of CreateContext
-, ReadContext
-, UpdateContext
-, or DeleteContext
- should be named d", analyzerName)
+		case3:
+			ifname:=astutils.FieldListName(params,1,0);name!=nil&&*name!="_"&&*name!="d"{
+				pass.Reportf(params.List[1].Pos(),"%s:*schema.ResourceDataparameterofCreateContext
+,ReadContext
+,UpdateContext
+,orDeleteContext
+shouldbenamedd",analyzerName)
 			}
 
-			if name := astutils.FieldListName(params, 2, 0); name != nil && *name != "_" && *name != "meta" {
-				pass.Reportf(params.List[2].Pos(), "%s: interface{} parameter of CreateContext
-, ReadContext
-, UpdateContext
-, or DeleteContext
- should be named meta", analyzerName)
+			ifname:=astutils.FieldListName(params,2,0);name!=nil&&*name!="_"&&*name!="meta"{
+				pass.Reportf(params.List[2].Pos(),"%s:interface{}parameterofCreateContext
+,ReadContext
+,UpdateContext
+,orDeleteContext
+shouldbenamedmeta",analyzerName)
 			}
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

@@ -1,8 +1,8 @@
-// Package AT004 defines an Analyzer that checks for
-// TestStep Config containing provider configuration
-package AT004
+//PackageAT004definesanAnalyzerthatchecksfor
+//TestStepConfigcontainingproviderconfiguration
+packageAT004
 
-import (
+import(
 	"go/ast"
 	"go/token"
 	"strings"
@@ -13,49 +13,49 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
-const Doc = `check for TestStep Config containing provider configuration
+constDoc=`checkforTestStepConfigcontainingproviderconfiguration
 
-The AT004 analyzer reports likely incorrect uses of TestStep
-Config which define a provider configuration. Provider configurations should
-be handled outside individual test configurations (e.g. environment variables).`
+TheAT004analyzerreportslikelyincorrectusesofTestStep
+Configwhichdefineaproviderconfiguration.Providerconfigurationsshould
+behandledoutsideindividualtestconfigurations(e.g.environmentvariables).`
 
-const analyzerName = "AT004"
+constanalyzerName="AT004"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		inspect.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	inspect:=pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 
-	nodeFilter := []ast.Node{
+	nodeFilter:=[]ast.Node{
 		(*ast.BasicLit)(nil),
 	}
-	inspect.Preorder(nodeFilter, 
-(n ast.Node) {
-		x := n.(*ast.BasicLit)
+	inspect.Preorder(nodeFilter,
+(nast.Node){
+		x:=n.(*ast.BasicLit)
 
-		if ignorer.ShouldIgnore(analyzerName, x) {
+		ifignorer.ShouldIgnore(analyzerName,x){
 			return
 		}
 
-		if x.Kind != token.STRING {
+		ifx.Kind!=token.STRING{
 			return
 		}
 
-		if !strings.Contains(x.Value, `provider "`) {
+		if!strings.Contains(x.Value,`provider"`){
 			return
 		}
 
-		pass.Reportf(x.ValuePos, "%s: provider declaration should be omitted", analyzerName)
+		pass.Reportf(x.ValuePos,"%s:providerdeclarationshouldbeomitted",analyzerName)
 	})
-	return nil, nil
+	returnnil,nil
 }

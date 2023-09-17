@@ -1,8 +1,8 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.package protoimport (
-	"google.golang.org/protobuf/internal/errors"
-	"google.golang.org/protobuf/reflect/protoreflect"
+"google.golang.org/protobuf/internal/errors"
+"google.golang.org/protobuf/reflect/protoreflect"
 )// Message is the top-level interface that all messages must implement.
 // It provides access to a reflective view of a message.
 // Any implementation of this interface may be used with all 
@@ -22,11 +22,11 @@ type Message = protoreflect.ProtoMessage// Error matches all errors produced by 
 // by this module.
 var Error error
  init() {
-	Error = errors.Error
+Error = errors.Error
 }essageName returns the full name of m.
 // If m is nil, it returns an empty string. MessageName(m Message) protoreflect.FullName {
-	if m == nil {
-		return ""
-	}
-	return m.ProtoReflect().Descriptor().FullName()
+if m == nil {
+return ""
+}
+return m.ProtoReflect().Descriptor().FullName()
 }

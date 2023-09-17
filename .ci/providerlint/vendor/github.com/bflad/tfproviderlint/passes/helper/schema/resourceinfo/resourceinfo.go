@@ -1,6 +1,6 @@
-package resourceinfo
+packageresourceinfo
 
-import (
+import(
 	"go/ast"
 	"reflect"
 
@@ -10,44 +10,44 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name: "resourceinfo",
-	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/schema.Resource literals for later passes",
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:"resourceinfo",
+	Doc:"findgithub.com/hashicorp/terraform-plugin-sdk/helper/schema.Resourceliteralsforlaterpasses",
+	Requires:[]*analysis.Analyzer{
 		inspect.Analyzer,
 	},
-	Run:        run,
-	ResultType: reflect.TypeOf([]*schema.ResourceInfo{}),
+	Run:run,
+	ResultType:reflect.TypeOf([]*schema.ResourceInfo{}),
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
-	nodeFilter := []ast.Node{
+run(pass*analysis.Pass)(interface{},error){
+	inspect:=pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	nodeFilter:=[]ast.Node{
 		(*ast.CompositeLit)(nil),
 	}
-	var result []*schema.ResourceInfo
+	varresult[]*schema.ResourceInfo
 
-	inspect.Preorder(nodeFilter, 
-(n ast.Node) {
-		x := n.(*ast.CompositeLit)
+	inspect.Preorder(nodeFilter,
+(nast.Node){
+		x:=n.(*ast.CompositeLit)
 
-		if !isSchemaResource(pass, x) {
+		if!isSchemaResource(pass,x){
 			return
 		}
 
-		result = append(result, schema.NewResourceInfo(x, pass.TypesInfo))
+		result=append(result,schema.NewResourceInfo(x,pass.TypesInfo))
 	})
 
-	return result, nil
+	returnresult,nil
 
 
 
- isSchemaResource(pass *analysis.Pass, cl *ast.CompositeLit) bool {
-	switch v := cl.Type.(type) {
+isSchemaResource(pass*analysis.Pass,cl*ast.CompositeLit)bool{
+	switchv:=cl.Type.(type){
 	default:
-		return false
-	case *ast.SelectorExpr:
-		return schema.IsTypeResource(pass.TypesInfo.TypeOf(v))
+		returnfalse
+	case*ast.SelectorExpr:
+		returnschema.IsTypeResource(pass.TypesInfo.TypeOf(v))
 	}
 }

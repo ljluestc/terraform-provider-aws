@@ -1,6 +1,6 @@
-package R010
+packageR010
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/passes/commentignore"
@@ -8,42 +8,42 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for (schema.ResourceData).GetChange() usage that should prefer (schema.ResourceData).Get()
+constDoc=`checkfor(schema.ResourceData).GetChange()usagethatshouldprefer(schema.ResourceData).Get()
 
-The R010 analyzer reports when (schema.ResourceData).GetChange() assignments
-are not using the first return value (assigned to _), which should be
-replaced with (schema.ResourceData).Get() instead.`
+TheR010analyzerreportswhen(schema.ResourceData).GetChange()assignments
+arenotusingthefirstreturnvalue(assignedto_),whichshouldbe
+replacedwith(schema.ResourceData).Get()instead.`
 
-const analyzerName = "R010"
+constanalyzerName="R010"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		resourcedatagetchangeassignstmt.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	assignStmts := pass.ResultOf[resourcedatagetchangeassignstmt.Analyzer].([]*ast.AssignStmt)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	assignStmts:=pass.ResultOf[resourcedatagetchangeassignstmt.Analyzer].([]*ast.AssignStmt)
 
-	for _, assignStmt := range assignStmts {
-		if ignorer.ShouldIgnore(analyzerName, assignStmt) {
+	for_,assignStmt:=rangeassignStmts{
+		ifignorer.ShouldIgnore(analyzerName,assignStmt){
 			continue
 		}
 
-		ident, ok := assignStmt.Lhs[0].(*ast.Ident)
+		ident,ok:=assignStmt.Lhs[0].(*ast.Ident)
 
-		if !ok || ident.Name != "_" {
+		if!ok||ident.Name!="_"{
 			continue
 		}
 
-		pass.Reportf(assignStmt.Pos(), "%s: prefer d.Get() over d.GetChange() when only using second return value", analyzerName)
+		pass.Reportf(assignStmt.Pos(),"%s:preferd.Get()overd.GetChange()whenonlyusingsecondreturnvalue",analyzerName)
 	}
 
-	return nil, nil
+	returnnil,nil
 }

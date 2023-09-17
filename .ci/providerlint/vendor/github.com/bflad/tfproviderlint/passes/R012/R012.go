@@ -1,6 +1,6 @@
-package R012
+packageR012
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
@@ -9,43 +9,43 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for data source Resource with CustomizeDiff configured
+constDoc=`checkfordatasourceResourcewithCustomizeDiffconfigured
 
-The R012 analyzer reports cases of data sources which configure CustomizeDiff,
-which is not valid.`
+TheR012analyzerreportscasesofdatasourceswhichconfigureCustomizeDiff,
+whichisnotvalid.`
 
-const analyzerName = "R012"
+constanalyzerName="R012"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		resourceinfodatasourceonly.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	resourceInfos := pass.ResultOf[resourceinfodatasourceonly.Analyzer].([]*schema.ResourceInfo)
-	for _, resourceInfo := range resourceInfos {
-		if ignorer.ShouldIgnore(analyzerName, resourceInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	resourceInfos:=pass.ResultOf[resourceinfodatasourceonly.Analyzer].([]*schema.ResourceInfo)
+	for_,resourceInfo:=rangeresourceInfos{
+		ifignorer.ShouldIgnore(analyzerName,resourceInfo.AstCompositeLit){
 			continue
 		}
 
-		if !resourceInfo.DeclaresField(schema.ResourceFieldCustomizeDiff) {
+		if!resourceInfo.DeclaresField(schema.ResourceFieldCustomizeDiff){
 			continue
 		}
 
-		switch t := resourceInfo.AstCompositeLit.Type.(type) {
+		switcht:=resourceInfo.AstCompositeLit.Type.(type){
 		default:
-			pass.Reportf(resourceInfo.AstCompositeLit.Lbrace, "%s: data source should not configure CustomizeDiff", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: data source should not configure CustomizeDiff", analyzerName)
+			pass.Reportf(resourceInfo.AstCompositeLit.Lbrace,"%s:datasourceshouldnotconfigureCustomizeDiff",analyzerName)
+		case*ast.SelectorExpr:
+			pass.Reportf(t.Sel.Pos(),"%s:datasourceshouldnotconfigureCustomizeDiff",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

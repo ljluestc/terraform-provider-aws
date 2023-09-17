@@ -1,15 +1,15 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package appconfig
+packageappconfig
 
-const (
-	configurationProfileTypeFeatureFlags = "AWS.AppConfig.FeatureFlags"
-	configurationProfileTypeFreeform = "AWS.Freeform"
+const(
+	configurationProfileTypeFeatureFlags="AWS.AppConfig.FeatureFlags"
+	configurationProfileTypeFreeform="AWS.Freeform"
 )
 
-func ConfigurationProfileType_Values() []string {
-	return []string{
+funcConfigurationProfileType_Values()[]string{
+	return[]string{
 		configurationProfileTypeFeatureFlags,
 		configurationProfileTypeFreeform,
 	}

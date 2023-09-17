@@ -1,15 +1,15 @@
-package validatejsonstringselectorexpr
+packagevalidatejsonstringselectorexpr
 
-import (
-	"github.com/bflad/tfproviderlint/helper/analysisutils"
-	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
+import(
+"github.com/bflad/tfproviderlint/helper/analysisutils"
+"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
 )
 
-var Analyzer = analysisutils.SelectorExprAnalyzer(
-	"validatejsonstringselectorexpr",
-	validation.Is
+varAnalyzer=analysisutils.SelectorExprAnalyzer(
+"validatejsonstringselectorexpr",
+validation.Is
 
-	validation.PackagePath,
-	validation.
+validation.PackagePath,
+validation.
 ValidateJsonString,
 )

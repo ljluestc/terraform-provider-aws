@@ -1,741 +1,741 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package autoscalingimport (
-	"context"	"github.com/aws/aws-sdk-go/service/autoscaling"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-provider-aws/internal/types/nullable"
+"context""github.com/aws/aws-sdk-go/service/autoscaling"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-provider-aws/internal/types/nullable"
 )// aws_autoscaling_group resource's Schema @v5.11.0 minus validators.
 func resourceGroupV0() *schema.Resource {
-	return &schema.Resource{
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:chema.TypeString,
-				Computed: true,
-			},
-			"availability_zones": {
-				Type:chema.TypeSet,
-				Optional: true,
-				Computed: true,
-				Elem:schema.Schema{Type: schema.TypeString},
-			},
-			"capacity_rebalance": {
-				Type:chema.TypeBool,
-				Optional: true,
-			},
-			"context": {
-				Type:chema.TypeString,
-				Optional: true,
-			},
-			"default_cooldown": {
-				Type:chema.TypeInt,
-				Optional: true,
-				Computed: true,
-			},
-			"default_instance_warmup": {
-				Type:chema.TypeInt,
-				Optional: true,
-			},
-			"desired_capacity": {
-				Type:chema.TypeInt,
-				Optional: true,
-				Computed: true,
-			},
-			"desired_capacity_type": {
-				Type:chema.TypeString,
-				Optional: true,
-			},
-			"enabled_metrics": {
-				Type:chema.TypeSet,
-				Optional: true,
-				Elem:schema.Schema{Type: schema.TypeString},
-			},
-			"force_delete": {
-				Type:chema.TypeBool,
-				Optional: true,
-				Default:  false,
-			},
-			"force_delete_warm_pool": {
-				Type:chema.TypeBool,
-				Optional: true,
-				Default:  false,
-			},
-			"health_check_grace_period": {
-				Type:chema.TypeInt,
-				Optional: true,
-				Default:  300,
-			},
-			"health_check_type": {
-				Type:chema.TypeString,
-				Optional: true,
-				Computed: true,
-			},
-			"initial_lifecycle_hook": {
-				Type:chema.TypeSet,
-				Optional: true,
-				ForceNew: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"default_result": {
-							Type:chema.TypeString,
-							Optional: true,
-							Computed: true,
-						},
-						"heartbeat_timeout": {
-							Type:chema.TypeInt,
-							Optional: true,
-						},
-						"lifecycle_transition": {
-							Type:chema.TypeString,
-							Required: true,
-						},
-						"name": {
-							Type:chema.TypeString,
-							Required: true,
-						},
-						"notification_metadata": {
-							Type:chema.TypeString,
-							Optional: true,
-						},
-						"notification_target_arn": {
-							Type:chema.TypeString,
-							Optional: true,
-						},
-						"role_arn": {
-							Type:chema.TypeString,
-							Optional: true,
-						},
-					},
-				},
-			},
-			"instance_refresh": {
-				Type:chema.TypeList,
-				MaxItems: 1,
-				Optional: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"preferences": {
-							Type:chema.TypeList,
-							MaxItems: 1,
-							Optional: true,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"auto_rollback": {
-										Type:chema.TypeBool,
-										Optional: true,
-									},
-									"checkpoint_delay": {
-										Type:ullable.TypeNullableInt,
-										Optional: true,
-									},
-									"checkpoint_percentages": {
-										Type:chema.TypeList,
-										Optional: true,
-										Elem: &schema.Schema{
-											Type: schema.TypeInt,
-										},
-									},
-									"instance_warmup": {
-										Type:ullable.TypeNullableInt,
-										Optional: true,
-									},
-									"min_healthy_percentage": {
-										Type:chema.TypeInt,
-										Optional: true,
-										Default:  90,
-									},
-									"skip_matching": {
-										Type:chema.TypeBool,
-										Optional: true,
-										Default:  false,
-									},
-								},
-							},
-						},
-						"strategy": {
-							Type:chema.TypeString,
-							Required: true,
-						},
-						"triggers": {
-							Type:chema.TypeSet,
-							Optional: true,
-							Elem: &schema.Schema{
-								Type: schema.TypeString,
-							},
-						},
-					},
-				},
-			},
-			"launch_configuration": {
-				Type:chema.TypeString,
-				Optional: true,
-			},
-			"launch_template": {
-				Type:chema.TypeList,
-				MaxItems: 1,
-				Optional: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"id": {
-							Type:chema.TypeString,
-							Optional: true,
-							Computed: true,
-						},
-						"name": {
-							Type:chema.TypeString,
-							Optional: true,
-							Computed: true,
-						},
-						"version": {
-							Type:chema.TypeString,
-							Optional: true,
-						},
-					},
-				},
-			},
-			"load_balancers": {
-				Type:chema.TypeSet,
-				Optional: true,
-				Computed: true,
-				Elem:schema.Schema{Type: schema.TypeString},
-			},
-			"max_instance_lifetime": {
-				Type:chema.TypeInt,
-				Optional: true,
-			},
-			"max_size": {
-				Type:chema.TypeInt,
-				Required: true,
-			},
-			"metrics_granularity": {
-				Type:chema.TypeString,
-				Optional: true,
-				Default:  DefaultEnabledMetricsGranularity,
-			},
-			"min_elb_capacity": {
-				Type:chema.TypeInt,
-				Optional: true,
-			},
-			"min_size": {
-				Type:chema.TypeInt,
-				Required: true,
-			},
-			"mixed_instances_policy": {
-				Type:chema.TypeList,
-				Optional: true,
-				MaxItems: 1,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"instances_distribution": {
-							Type:chema.TypeList,
-							Optional: true,
-							MaxItems: 1,
-							Computed: true,
-							// Ideally we'd want to detect drift detection,
-							// but a DiffSuppressFunc here does not behave nicely
-							// for detecting missing configuration blocks
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									// These fields are returned from calls to the API
-									// even if not provided at input time and can be omitted in requests;
-									// thus, to prevent non-empty plans, we set these
-									// to Computed and remove Defaults
-									"on_demand_allocation_strategy": {
-										Type:chema.TypeString,
-										Optional: true,
-										Computed: true,
-									},
-									"on_demand_base_capacity": {
-										Type:chema.TypeInt,
-										Optional: true,
-										Computed: true,
-									},
-									"on_demand_percentage_above_base_capacity": {
-										Type:chema.TypeInt,
-										Optional: true,
-										Computed: true,
-									},
-									"spot_allocation_strategy": {
-										Type:chema.TypeString,
-										Optional: true,
-										Computed: true,
-									},
-									"spot_instance_pools": {
-										Type:chema.TypeInt,
-										Optional: true,
-										Computed: true,
-									},
-									"spot_max_price": {
-										Type:chema.TypeString,
-										Optional: true,
-									},
-								},
-							},
-						},
-						"launch_template": {
-							Type:chema.TypeList,
-							Required: true,
-							MinItems: 1,
-							MaxItems: 1,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"launch_template_specification": {
-										Type:chema.TypeList,
-										Required: true,
-										MinItems: 1,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"launch_template_id": {
-													Type:chema.TypeString,
-													Optional: true,
-													Computed: true,
-												},
-												"launch_template_name": {
-													Type:chema.TypeString,
-													Optional: true,
-													Computed: true,
-												},
-												"version": {
-													Type:chema.TypeString,
-													Optional: true,
-													Default:  "$Default",
-												},
-											},
-										},
-									},
-									"override": {
-										Type:chema.TypeList,
-										Optional: true,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"instance_requirements": {
-													Type:chema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"accelerator_count": {
-																Type:chema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"max": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																		"min": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																	},
-																},
-															},
-															"accelerator_manufacturers": {
-																Type:chema.TypeSet,
-																Optional: true,
-																Elem: &schema.Schema{
-																	Type: schema.TypeString,
-																},
-															},
-															"accelerator_names": {
-																Type:chema.TypeSet,
-																Optional: true,
-																Elem: &schema.Schema{
-																	Type: schema.TypeString,
-																},
-															},
-															"accelerator_total_memory_mib": {
-																Type:chema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"max": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																		"min": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																	},
-																},
-															},
-															"accelerator_types": {
-																Type:chema.TypeSet,
-																Optional: true,
-																Elem: &schema.Schema{
-																	Type: schema.TypeString,
-																},
-															},
-															"allowed_instance_types": {
-																Type:chema.TypeSet,
-																Optional: true,
-																MaxItems: 400,
-																Elem:schema.Schema{Type: schema.TypeString},
-															},
-															"bare_metal": {
-																Type:chema.TypeString,
-																Optional: true,
-															},
-															"baseline_ebs_bandwidth_mbps": {
-																Type:chema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"max": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																		"min": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																	},
-																},
-															},
-															"burstable_performance": {
-																Type:chema.TypeString,
-																Optional: true,
-															},
-															"cpu_manufacturers": {
-																Type:chema.TypeSet,
-																Optional: true,
-																Elem: &schema.Schema{
-																	Type: schema.TypeString,
-																},
-															},
-															"excluded_instance_types": {
-																Type:chema.TypeSet,
-																Optional: true,
-																MaxItems: 400,
-																Elem:schema.Schema{Type: schema.TypeString},
-															},
-															"instance_generations": {
-																Type:chema.TypeSet,
-																Optional: true,
-																Elem: &schema.Schema{
-																	Type: schema.TypeString,
-																},
-															},
-															"local_storage": {
-																Type:chema.TypeString,
-																Optional: true,
-															},
-															"local_storage_types": {
-																Type:chema.TypeSet,
-																Optional: true,
-																Elem: &schema.Schema{
-																	Type: schema.TypeString,
-																},
-															},
-															"memory_gib_per_vcpu": {
-																Type:chema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"max": {
-																			Type:chema.TypeFloat,
-																			Optional: true,
-																		},
-																		"min": {
-																			Type:chema.TypeFloat,
-																			Optional: true,
-																		},
-																	},
-																},
-															},
-															"memory_mib": {
-																Type:chema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"max": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																		"min": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																	},
-																},
-															},
-															"network_bandwidth_gbps": {
-																Type:chema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"max": {
-																			Type:chema.TypeFloat,
-																			Optional: true,
-																		},
-																		"min": {
-																			Type:chema.TypeFloat,
-																			Optional: true,
-																		},
-																	},
-																},
-															},
-															"network_interface_count": {
-																Type:chema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"max": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																		"min": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																	},
-																},
-															},
-															"on_demand_max_price_percentage_over_lowest_price": {
-																Type:chema.TypeInt,
-																Optional: true,
-															},
-															"require_hibernate_support": {
-																Type:chema.TypeBool,
-																Optional: true,
-															},
-															"spot_max_price_percentage_over_lowest_price": {
-																Type:chema.TypeInt,
-																Optional: true,
-															},
-															"total_local_storage_gb": {
-																Type:chema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"max": {
-																			Type:chema.TypeFloat,
-																			Optional: true,
-																		},
-																		"min": {
-																			Type:chema.TypeFloat,
-																			Optional: true,
-																		},
-																	},
-																},
-															},
-															"vcpu_count": {
-																Type:chema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"max": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																		"min": {
-																			Type:chema.TypeInt,
-																			Optional: true,
-																		},
-																	},
-																},
-															},
-														},
-													},
-												},
-												"instance_type": {
-													Type:chema.TypeString,
-													Optional: true,
-												},
-												"launch_template_specification": {
-													Type:chema.TypeList,
-													Optional: true,
-													MinItems: 0,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"launch_template_id": {
-																Type:chema.TypeString,
-																Optional: true,
-																Computed: true,
-															},
-															"launch_template_name": {
-																Type:chema.TypeString,
-																Optional: true,
-																Computed: true,
-															},
-															"version": {
-																Type:chema.TypeString,
-																Optional: true,
-																Default:  "$Default",
-															},
-														},
-													},
-												},
-												"weighted_capacity": {
-													Type:chema.TypeString,
-													Optional: true,
-												},
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			"name": {
-				Type:chema.TypeString,
-				Optional: true,
-				Computed: true,
-				ForceNew: true,
-			},
-			"name_prefix": {
-				Type:chema.TypeString,
-				Optional: true,
-				Computed: true,
-				ForceNew: true,
-			},
-			"placement_group": {
-				Type:chema.TypeString,
-				Optional: true,
-			},
-			"predicted_capacity": {
-				Type:chema.TypeInt,
-				Computed: true,
-			},
-			"protect_from_scale_in": {
-				Type:chema.TypeBool,
-				Optional: true,
-				Default:  false,
-			},
-			"service_linked_role_arn": {
-				Type:chema.TypeString,
-				Optional: true,
-				Computed: true,
-			},
-			"suspended_processes": {
-				Type:chema.TypeSet,
-				Optional: true,
-				Elem:schema.Schema{Type: schema.TypeString},
-			},
-			"tag": {
-				Type:chema.TypeSet,
-				Optional: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"key": {
-							Type:chema.TypeString,
-							Required: true,
-						},
-						"propagate_at_launch": {
-							Type:chema.TypeBool,
-							Required: true,
-						},
-						"value": {
-							Type:chema.TypeString,
-							Required: true,
-						},
-					},
-				},
-			},
-			"target_group_arns": {
-				Type:chema.TypeSet,
-				Optional: true,
-				Computed: true,
-				Elem:schema.Schema{Type: schema.TypeString},
-			},
-			"termination_policies": {
-				Type:chema.TypeList,
-				Optional: true,
-				Elem:schema.Schema{Type: schema.TypeString},
-			},
-			"traffic_source": {
-				Type:chema.TypeSet,
-				Optional: true,
-				Computed: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"identifier": {
-							Type:chema.TypeString,
-							Required: true,
-						},
-						"type": {
-							Type:chema.TypeString,
-							Optional: true,
-						},
-					},
-				},
-			},
-			"vpc_zone_identifier": {
-				Type:chema.TypeSet,
-				Optional: true,
-				Computed: true,
-				Elem:schema.Schema{Type: schema.TypeString},
-			},
-			"wait_for_capacity_timeout": {
-				Type:chema.TypeString,
-				Optional: true,
-				Default:  "10m",
-			},
-			"wait_for_elb_capacity": {
-				Type:chema.TypeInt,
-				Optional: true,
-			},
-			"warm_pool": {
-				Type:chema.TypeList,
-				Optional: true,
-				MaxItems: 1,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"instance_reuse_policy": {
-							Type:chema.TypeList,
-							Optional: true,
-							MaxItems: 1,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"reuse_on_scale_in": {
-										Type:chema.TypeBool,
-										Optional: true,
-										Default:  false,
-									},
-								},
-							},
-						},
-						"max_group_prepared_capacity": {
-							Type:chema.TypeInt,
-							Optional: true,
-							Default:  DefaultWarmPoolMaxGroupPreparedCapacity,
-						},
-						"min_size": {
-							Type:chema.TypeInt,
-							Optional: true,
-							Default:  0,
-						},
-						"pool_state": {
-							Type:chema.TypeString,
-							Optional: true,
-							Default:  autoscaling.WarmPoolStateStopped,
-						},
-					},
-				},
-			},
-			"warm_pool_size": {
-				Type:chema.TypeInt,
-				Computed: true,
-			},
-		},
-	}
+return &schema.Resource{
+Schema: map[string]*schema.Schema{
+"arn": {
+Type:chema.TypeString,
+Computed: true,
+},
+"availability_zones": {
+Type:chema.TypeSet,
+Optional: true,
+Computed: true,
+Elem:schema.Schema{Type: schema.TypeString},
+},
+"capacity_rebalance": {
+Type:chema.TypeBool,
+Optional: true,
+},
+"context": {
+Type:chema.TypeString,
+Optional: true,
+},
+"default_cooldown": {
+Type:chema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"default_instance_warmup": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"desired_capacity": {
+Type:chema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"desired_capacity_type": {
+Type:chema.TypeString,
+Optional: true,
+},
+"enabled_metrics": {
+Type:chema.TypeSet,
+Optional: true,
+Elem:schema.Schema{Type: schema.TypeString},
+},
+"force_delete": {
+Type:chema.TypeBool,
+Optional: true,
+Default:  false,
+},
+"force_delete_warm_pool": {
+Type:chema.TypeBool,
+Optional: true,
+Default:  false,
+},
+"health_check_grace_period": {
+Type:chema.TypeInt,
+Optional: true,
+Default:  300,
+},
+"health_check_type": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"initial_lifecycle_hook": {
+Type:chema.TypeSet,
+Optional: true,
+ForceNew: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"default_result": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"heartbeat_timeout": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"lifecycle_transition": {
+Type:chema.TypeString,
+Required: true,
+},
+"name": {
+Type:chema.TypeString,
+Required: true,
+},
+"notification_metadata": {
+Type:chema.TypeString,
+Optional: true,
+},
+"notification_target_arn": {
+Type:chema.TypeString,
+Optional: true,
+},
+"role_arn": {
+Type:chema.TypeString,
+Optional: true,
+},
+},
+},
+},
+"instance_refresh": {
+Type:chema.TypeList,
+MaxItems: 1,
+Optional: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"preferences": {
+Type:chema.TypeList,
+MaxItems: 1,
+Optional: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auto_rollback": {
+Type:chema.TypeBool,
+Optional: true,
+},
+"checkpoint_delay": {
+Type:ullable.TypeNullableInt,
+Optional: true,
+},
+"checkpoint_percentages": {
+Type:chema.TypeList,
+Optional: true,
+Elem: &schema.Schema{
+Type: schema.TypeInt,
+},
+},
+"instance_warmup": {
+Type:ullable.TypeNullableInt,
+Optional: true,
+},
+"min_healthy_percentage": {
+Type:chema.TypeInt,
+Optional: true,
+Default:  90,
+},
+"skip_matching": {
+Type:chema.TypeBool,
+Optional: true,
+Default:  false,
+},
+},
+},
+},
+"strategy": {
+Type:chema.TypeString,
+Required: true,
+},
+"triggers": {
+Type:chema.TypeSet,
+Optional: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+},
+},
+},
+},
+},
+"launch_configuration": {
+Type:chema.TypeString,
+Optional: true,
+},
+"launch_template": {
+Type:chema.TypeList,
+MaxItems: 1,
+Optional: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"id": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"name": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"version": {
+Type:chema.TypeString,
+Optional: true,
+},
+},
+},
+},
+"load_balancers": {
+Type:chema.TypeSet,
+Optional: true,
+Computed: true,
+Elem:schema.Schema{Type: schema.TypeString},
+},
+"max_instance_lifetime": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"max_size": {
+Type:chema.TypeInt,
+Required: true,
+},
+"metrics_granularity": {
+Type:chema.TypeString,
+Optional: true,
+Default:  DefaultEnabledMetricsGranularity,
+},
+"min_elb_capacity": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"min_size": {
+Type:chema.TypeInt,
+Required: true,
+},
+"mixed_instances_policy": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"instances_distribution": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Computed: true,
+// Ideally we'd want to detect drift detection,
+// but a DiffSuppressFunc here does not behave nicely
+// for detecting missing configuration blocks
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+// These fields are returned from calls to the API
+// even if not provided at input time and can be omitted in requests;
+// thus, to prevent non-empty plans, we set these
+// to Computed and remove Defaults
+"on_demand_allocation_strategy": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"on_demand_base_capacity": {
+Type:chema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"on_demand_percentage_above_base_capacity": {
+Type:chema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"spot_allocation_strategy": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"spot_instance_pools": {
+Type:chema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"spot_max_price": {
+Type:chema.TypeString,
+Optional: true,
+},
+},
+},
+},
+"launch_template": {
+Type:chema.TypeList,
+Required: true,
+MinItems: 1,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"launch_template_specification": {
+Type:chema.TypeList,
+Required: true,
+MinItems: 1,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"launch_template_id": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"launch_template_name": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"version": {
+Type:chema.TypeString,
+Optional: true,
+Default:  "$Default",
+},
+},
+},
+},
+"override": {
+Type:chema.TypeList,
+Optional: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"instance_requirements": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"accelerator_count": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"max": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"min": {
+Type:chema.TypeInt,
+Optional: true,
+},
+},
+},
+},
+"accelerator_manufacturers": {
+Type:chema.TypeSet,
+Optional: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+},
+},
+"accelerator_names": {
+Type:chema.TypeSet,
+Optional: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+},
+},
+"accelerator_total_memory_mib": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"max": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"min": {
+Type:chema.TypeInt,
+Optional: true,
+},
+},
+},
+},
+"accelerator_types": {
+Type:chema.TypeSet,
+Optional: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+},
+},
+"allowed_instance_types": {
+Type:chema.TypeSet,
+Optional: true,
+MaxItems: 400,
+Elem:schema.Schema{Type: schema.TypeString},
+},
+"bare_metal": {
+Type:chema.TypeString,
+Optional: true,
+},
+"baseline_ebs_bandwidth_mbps": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"max": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"min": {
+Type:chema.TypeInt,
+Optional: true,
+},
+},
+},
+},
+"burstable_performance": {
+Type:chema.TypeString,
+Optional: true,
+},
+"cpu_manufacturers": {
+Type:chema.TypeSet,
+Optional: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+},
+},
+"excluded_instance_types": {
+Type:chema.TypeSet,
+Optional: true,
+MaxItems: 400,
+Elem:schema.Schema{Type: schema.TypeString},
+},
+"instance_generations": {
+Type:chema.TypeSet,
+Optional: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+},
+},
+"local_storage": {
+Type:chema.TypeString,
+Optional: true,
+},
+"local_storage_types": {
+Type:chema.TypeSet,
+Optional: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+},
+},
+"memory_gib_per_vcpu": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"max": {
+Type:chema.TypeFloat,
+Optional: true,
+},
+"min": {
+Type:chema.TypeFloat,
+Optional: true,
+},
+},
+},
+},
+"memory_mib": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"max": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"min": {
+Type:chema.TypeInt,
+Optional: true,
+},
+},
+},
+},
+"network_bandwidth_gbps": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"max": {
+Type:chema.TypeFloat,
+Optional: true,
+},
+"min": {
+Type:chema.TypeFloat,
+Optional: true,
+},
+},
+},
+},
+"network_interface_count": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"max": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"min": {
+Type:chema.TypeInt,
+Optional: true,
+},
+},
+},
+},
+"on_demand_max_price_percentage_over_lowest_price": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"require_hibernate_support": {
+Type:chema.TypeBool,
+Optional: true,
+},
+"spot_max_price_percentage_over_lowest_price": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"total_local_storage_gb": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"max": {
+Type:chema.TypeFloat,
+Optional: true,
+},
+"min": {
+Type:chema.TypeFloat,
+Optional: true,
+},
+},
+},
+},
+"vcpu_count": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"max": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"min": {
+Type:chema.TypeInt,
+Optional: true,
+},
+},
+},
+},
+},
+},
+},
+"instance_type": {
+Type:chema.TypeString,
+Optional: true,
+},
+"launch_template_specification": {
+Type:chema.TypeList,
+Optional: true,
+MinItems: 0,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"launch_template_id": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"launch_template_name": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"version": {
+Type:chema.TypeString,
+Optional: true,
+Default:  "$Default",
+},
+},
+},
+},
+"weighted_capacity": {
+Type:chema.TypeString,
+Optional: true,
+},
+},
+},
+},
+},
+},
+},
+},
+},
+},
+"name": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+ForceNew: true,
+},
+"name_prefix": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+ForceNew: true,
+},
+"placement_group": {
+Type:chema.TypeString,
+Optional: true,
+},
+"predicted_capacity": {
+Type:chema.TypeInt,
+Computed: true,
+},
+"protect_from_scale_in": {
+Type:chema.TypeBool,
+Optional: true,
+Default:  false,
+},
+"service_linked_role_arn": {
+Type:chema.TypeString,
+Optional: true,
+Computed: true,
+},
+"suspended_processes": {
+Type:chema.TypeSet,
+Optional: true,
+Elem:schema.Schema{Type: schema.TypeString},
+},
+"tag": {
+Type:chema.TypeSet,
+Optional: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"key": {
+Type:chema.TypeString,
+Required: true,
+},
+"propagate_at_launch": {
+Type:chema.TypeBool,
+Required: true,
+},
+"value": {
+Type:chema.TypeString,
+Required: true,
+},
+},
+},
+},
+"target_group_arns": {
+Type:chema.TypeSet,
+Optional: true,
+Computed: true,
+Elem:schema.Schema{Type: schema.TypeString},
+},
+"termination_policies": {
+Type:chema.TypeList,
+Optional: true,
+Elem:schema.Schema{Type: schema.TypeString},
+},
+"traffic_source": {
+Type:chema.TypeSet,
+Optional: true,
+Computed: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"identifier": {
+Type:chema.TypeString,
+Required: true,
+},
+"type": {
+Type:chema.TypeString,
+Optional: true,
+},
+},
+},
+},
+"vpc_zone_identifier": {
+Type:chema.TypeSet,
+Optional: true,
+Computed: true,
+Elem:schema.Schema{Type: schema.TypeString},
+},
+"wait_for_capacity_timeout": {
+Type:chema.TypeString,
+Optional: true,
+Default:  "10m",
+},
+"wait_for_elb_capacity": {
+Type:chema.TypeInt,
+Optional: true,
+},
+"warm_pool": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"instance_reuse_policy": {
+Type:chema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"reuse_on_scale_in": {
+Type:chema.TypeBool,
+Optional: true,
+Default:  false,
+},
+},
+},
+},
+"max_group_prepared_capacity": {
+Type:chema.TypeInt,
+Optional: true,
+Default:  DefaultWarmPoolMaxGroupPreparedCapacity,
+},
+"min_size": {
+Type:chema.TypeInt,
+Optional: true,
+Default:  0,
+},
+"pool_state": {
+Type:chema.TypeString,
+Optional: true,
+Default:  autoscaling.WarmPoolStateStopped,
+},
+},
+},
+},
+"warm_pool_size": {
+Type:chema.TypeInt,
+Computed: true,
+},
+},
+}
 }
 func GroupStateUpgradeV0(_ context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
-	if rawState == nil {
-		rawState = map[string]interface{}{}
-	}	if _, ok := rawState["ignore_failed_scaling_activities"]; !ok {
-		rawState["ignore_failed_scaling_activities"] = "false"
-	}	return rawState, nil
+if rawState == nil {
+rawState = map[string]interface{}{}
+}if _, ok := rawState["ignore_failed_scaling_activities"]; !ok {
+rawState["ignore_failed_scaling_activities"] = "false"
+}return rawState, nil
 }

@@ -4,14 +4,14 @@
 // gob-encode the underlying structure. This is a valid error interface
 // implementer that we will push across.
 type BasicError struct {
-	Message string
+Message string
 }// NewBasicError is used to create a BasicError.
 //
 // err is allowed to be nil. NewBasicError(err error) *BasicError {
-	if err == nil {
-		return nil
-	}	return &BasicError{err.Error()}
+if err == nil {
+return nil
+}return &BasicError{err.Error()}
 }
  (e *BasicError) Error() string {
-	return e.Message
+return e.Message
 }

@@ -4,33 +4,33 @@
 package servicecatalog
 
 import (
-	"testing"
+"testing"
 )
 
 func TestValidSharePrincipal(t *testing.T) {
-	t.Parallel()
+t.Parallel()
 
-	v := ""
-	_, errors := validSharePrincipal(v, "arn")
-	if len(errors) == 0 {
+v := ""
+_, errors := validSharePrincipal(v, "arn")
+if len(errors) == 0 {
 t.Fatalf("%q should not be validated as a principal %d: %q", v, len(errors), errors)
-	}
+}
 
-	validNames := []string{
+validNames := []string{
 "123456789012", // lintignore:AWSAT005 // Example Account ID (Valid looking but not real)
 "111122223333", // lintignore:AWSAT005 // Example Account ID (Valid looking but not real)
 "arn:aws:organizations::111122223333:organization/o-abcdefghijkl",    // lintignore:AWSAT005    // organization
 "arn:aws:organizations::111122223333:ou/o-abcdefghijkl/ou-ab00-cdefgh",        // lintignore:AWSAT005    // ou
 "arn:aws-us-gov:organizations::111122223333:ou/o-abcdefghijkl/ou-ab00-cdefgh", // lintignore:AWSAT005    // GovCloud ou
-	}
-	for _, v := range validNames {
+}
+for _, v := range validNames {
 _, errors := validSharePrincipal(v, "arn")
 if len(errors) != 0 {
-	t.Fatalf("%q should be a valid principal: %q", v, errors)
+t.Fatalf("%q should be a valid principal: %q", v, errors)
 }
-	}
+}
 
-	invalidNames := []string{
+invalidNames := []string{
 "IAM_ALLOWED_PRINCIPALS",     // Special principal
 "IAM_NOT_ALLOWED_PRINCIPALS", // doesn't exist
 "arn",
@@ -52,11 +52,11 @@ if len(errors) != 0 {
 "arn:aws:iam::111122223333:saml-provider/idp1:group/data-scientists",// lintignore:AWSAT005 // SAML group
 "arn:aws:iam::111122223333:saml-provider/idp1:user/Paul",   // lintignore:AWSAT005 // SAML user
 "arn:aws:quicksight:us-east-1:111122223333:group/default/data_scientists", // lintignore:AWSAT003,AWSAT005 // quicksight group
-	}
-	for _, v := range invalidNames {
+}
+for _, v := range invalidNames {
 _, errors := validSharePrincipal(v, "arn")
 if len(errors) == 0 {
-	t.Fatalf("%q should be an invalid principal", v)
+t.Fatalf("%q should be an invalid principal", v)
 }
-	}
+}
 }

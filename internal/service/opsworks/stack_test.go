@@ -4,546 +4,546 @@
 package opsworks_test
 
 import (
-	"context"
-	"fmt"
-	"testing"
+"context"
+"fmt"
+"testing"
 
-	"github.com/YakDriver/regexache"
-	"github.com/aws/aws-sdk-go/aws/arn"
-	"github.com/aws/aws-sdk-go/aws/endpoints"
-	"github.com/aws/aws-sdk-go/service/opsworks"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tfopsworks "github.com/hashicorp/terraform-provider-aws/internal/service/opsworks"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/YakDriver/regexache"
+"github.com/aws/aws-sdk-go/aws/arn"
+"github.com/aws/aws-sdk-go/aws/endpoints"
+"github.com/aws/aws-sdk-go/service/opsworks"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+tfopsworks "github.com/hashicorp/terraform-provider-aws/internal/service/opsworks"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
 
 func TestAccOpsWorksStack_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_opsworks_stack.test"
-	var v opsworks.Stack
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_opsworks_stack.test"
+var v opsworks.Stack
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
-	testAccPreCheckStacks(ctx, t)
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
+testAccPreCheckStacks(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccStackConfig_basic(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttrSet(resourceName, "agent_version"),
-	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "opsworks", regexache.MustCompile(`stack/.+/`)),
-	resource.TestCheckResourceAttr(resourceName, "berkshelf_version", "3.2.0"),
-	resource.TestCheckResourceAttr(resourceName, "color", ""),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "11.10"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "custom_json", ""),
-	resource.TestCheckResourceAttrPair(resourceName, "default_availability_zone", "data.aws_availability_zones.available", "names.0"),
-	resource.TestCheckResourceAttrSet(resourceName, "default_instance_profile_arn"),
-	resource.TestCheckResourceAttr(resourceName, "default_os", "Ubuntu 12.04 LTS"),
-	resource.TestCheckResourceAttr(resourceName, "default_root_device_type", "instance-store"),
-	resource.TestCheckResourceAttr(resourceName, "default_ssh_key_name", ""),
-	resource.TestCheckResourceAttrPair(resourceName, "default_subnet_id", "aws_subnet.test.0", "id"),
-	resource.TestCheckResourceAttr(resourceName, "hostname_theme", "Layer_Dependent"),
-	resource.TestCheckResourceAttr(resourceName, "manage_berkshelf", "false"),
-	resource.TestCheckResourceAttr(resourceName, "name", rName),
-	resource.TestCheckResourceAttr(resourceName, "region", acctest.Region()),
-	resource.TestCheckResourceAttrSet(resourceName, "service_role_arn"),
-	resource.TestCheckResourceAttr(resourceName, "stack_endpoint", acctest.Region()),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-	resource.TestCheckResourceAttr(resourceName, "use_custom_cookbooks", "false"),
-	resource.TestCheckResourceAttr(resourceName, "use_opsworks_security_groups", "false"),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttrSet(resourceName, "agent_version"),
+acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "opsworks", regexache.MustCompile(`stack/.+/`)),
+resource.TestCheckResourceAttr(resourceName, "berkshelf_version", "3.2.0"),
+resource.TestCheckResourceAttr(resourceName, "color", ""),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "11.10"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "custom_json", ""),
+resource.TestCheckResourceAttrPair(resourceName, "default_availability_zone", "data.aws_availability_zones.available", "names.0"),
+resource.TestCheckResourceAttrSet(resourceName, "default_instance_profile_arn"),
+resource.TestCheckResourceAttr(resourceName, "default_os", "Ubuntu 12.04 LTS"),
+resource.TestCheckResourceAttr(resourceName, "default_root_device_type", "instance-store"),
+resource.TestCheckResourceAttr(resourceName, "default_ssh_key_name", ""),
+resource.TestCheckResourceAttrPair(resourceName, "default_subnet_id", "aws_subnet.test.0", "id"),
+resource.TestCheckResourceAttr(resourceName, "hostname_theme", "Layer_Dependent"),
+resource.TestCheckResourceAttr(resourceName, "manage_berkshelf", "false"),
+resource.TestCheckResourceAttr(resourceName, "name", rName),
+resource.TestCheckResourceAttr(resourceName, "region", acctest.Region()),
+resource.TestCheckResourceAttrSet(resourceName, "service_role_arn"),
+resource.TestCheckResourceAttr(resourceName, "stack_endpoint", acctest.Region()),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+resource.TestCheckResourceAttr(resourceName, "use_custom_cookbooks", "false"),
+resource.TestCheckResourceAttr(resourceName, "use_opsworks_security_groups", "false"),
+resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
 ),
-	},
-	{
+},
+{
 ResourceName: resourceName,
 ImportState:  true,
 ImportStateVerify: true,
-	},
 },
-	})
+},
+})
 }
 
 
 func TestAccOpsWorksStack_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_opsworks_stack.test"
-	var v opsworks.Stack
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_opsworks_stack.test"
+var v opsworks.Stack
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
-	testAccPreCheckStacks(ctx, t)
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
+testAccPreCheckStacks(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccStackConfig_basic(rName),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfopsworks.ResourceStack(), resourceName),
+testAccCheckStackExists(ctx, resourceName, &v),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfopsworks.ResourceStack(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
 },
-	})
+},
+})
 }
 
 
 func TestAccOpsWorksStack_noVPC_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_opsworks_stack.test"
-	var v opsworks.Stack
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_opsworks_stack.test"
+var v opsworks.Stack
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
-	testAccPreCheckStacks(ctx, t)
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
+testAccPreCheckStacks(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccStackConfig_noVPC(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestMatchResourceAttr(resourceName, "default_availability_zone", regexache.MustCompile(fmt.Sprintf("%s[a-z]", acctest.Region()))),
-	resource.TestMatchResourceAttr(resourceName, "default_subnet_id", regexache.MustCompile("subnet-[[:alnum:]]")),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "data.aws_vpc.default", "id"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestMatchResourceAttr(resourceName, "default_availability_zone", regexache.MustCompile(fmt.Sprintf("%s[a-z]", acctest.Region()))),
+resource.TestMatchResourceAttr(resourceName, "default_subnet_id", regexache.MustCompile("subnet-[[:alnum:]]")),
+resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "data.aws_vpc.default", "id"),
 ),
-	},
-	{
+},
+{
 ResourceName: resourceName,
 ImportState:  true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config:   testAccStackConfig_defaultVPC(rName),
 PlanOnly: true,
-	},
-	{
+},
+{
 Config:   testAccStackConfig_noVPC(rName),
 PlanOnly: true,
-	},
 },
-	})
+},
+})
 }
 
 
 func TestAccOpsWorksStack_noVPC_defaultAZ(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_opsworks_stack.test"
-	var v opsworks.Stack
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_opsworks_stack.test"
+var v opsworks.Stack
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
-	testAccPreCheckStacks(ctx, t)
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
+testAccPreCheckStacks(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccStackConfig_noVPCDefaultAZ(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttrPair(resourceName, "default_availability_zone", "data.aws_availability_zones.available", "names.1"),
-	resource.TestMatchResourceAttr(resourceName, "default_subnet_id", regexache.MustCompile("subnet-[[:alnum:]]")),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "data.aws_vpc.default", "id"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttrPair(resourceName, "default_availability_zone", "data.aws_availability_zones.available", "names.1"),
+resource.TestMatchResourceAttr(resourceName, "default_subnet_id", regexache.MustCompile("subnet-[[:alnum:]]")),
+resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "data.aws_vpc.default", "id"),
 ),
-	},
-	{
+},
+{
 ResourceName: resourceName,
 ImportState:  true,
 ImportStateVerify: true,
-	},
 },
-	})
+},
+})
 }
 
 
 func TestAccOpsWorksStack_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_opsworks_stack.test"
-	var v opsworks.Stack
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_opsworks_stack.test"
+var v opsworks.Stack
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
-	testAccPreCheckStacks(ctx, t)
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
+testAccPreCheckStacks(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccStackConfig_tags1(rName, "key1", "value1"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
-	},
-	{
+},
+{
 ResourceName: resourceName,
 ImportState:  true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccStackConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
-	},
-	{
+},
+{
 Config: testAccStackConfig_tags1(rName, "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
-	},
 },
-	})
+},
+})
 }
 
 
 func TestAccOpsWorksStack_tagsAlternateRegion(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_opsworks_stack.test"
-	var v opsworks.Stack
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_opsworks_stack.test"
+var v opsworks.Stack
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
-	testAccPreCheckStacks(ctx, t)
-	// This test requires a very particular AWS Region configuration
-	// in order to exercise the OpsWorks classic endpoint 
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
+testAccPreCheckStacks(ctx, t)
+// This test requires a very particular AWS Region configuration
+// in order to exercise the OpsWorks classic endpoint 
 functionality.
-	acctest.PreCheckMultipleRegion(t, 2)
-	acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
-	acctest.PreCheckAlternateRegionIs(t, endpoints.UsWest1RegionID)
+acctest.PreCheckMultipleRegion(t, 2)
+acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
+acctest.PreCheckAlternateRegionIs(t, endpoints.UsWest1RegionID)
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
 CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccStackConfig_tags1AlternateRegion(rName, "key1", "value1"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttrWith(resourceName, "arn", 
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttrWith(resourceName, "arn", 
 func(value string) error {
 if !regexache.MustCompile(arn.ARN{
-	Partition: acctest.Partition(),
-	Service:   opsworks.ServiceName,
-	Region:acctest.AlternateRegion(),
-	AccountID: acctest.AccountID(),
-	Resource:  `stack/.+/`,
+Partition: acctest.Partition(),
+Service:   opsworks.ServiceName,
+Region:acctest.AlternateRegion(),
+AccountID: acctest.AccountID(),
+Resource:  `stack/.+/`,
 }.String()).MatchString(value) {
-	return fmt.Errorf("%s doesn't match ARN pattern", value)
+return fmt.Errorf("%s doesn't match ARN pattern", value)
 }
 
 return nil
-	}),
-	resource.TestCheckResourceAttr(resourceName, "region", acctest.AlternateRegion()),
-	// "In this case, the actual API endpoint of the stack is in us-east-1."
-	resource.TestCheckResourceAttr(resourceName, "stack_endpoint", endpoints.UsEast1RegionID),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+}),
+resource.TestCheckResourceAttr(resourceName, "region", acctest.AlternateRegion()),
+// "In this case, the actual API endpoint of the stack is in us-east-1."
+resource.TestCheckResourceAttr(resourceName, "stack_endpoint", endpoints.UsEast1RegionID),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
-	},
-	{
+},
+{
 ResourceName: resourceName,
 ImportState:  true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccStackConfig_tags2AlternateRegion(rName, "key1", "value1updated", "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
-	},
-	{
+},
+{
 Config: testAccStackConfig_tags1AlternateRegion(rName, "key2", "value2"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ),
-	},
 },
-	})
+},
+})
 }
 
 
 func TestAccOpsWorksStack_allAttributes(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_opsworks_stack.test"
-	var v opsworks.Stack
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_opsworks_stack.test"
+var v opsworks.Stack
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
-	testAccPreCheckStacks(ctx, t)
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
+testAccPreCheckStacks(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccStackConfig_allAttributes(rName, "4039-20200430042739", "rgb(186, 65, 50)", "main", testAccCustomJSON1, "test1", "Baked_Goods"),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "agent_version", "4039-20200430042739"),
-	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "opsworks", regexache.MustCompile(`stack/.+/`)),
-	resource.TestCheckResourceAttr(resourceName, "berkshelf_version", "3.2.0"),
-	resource.TestCheckResourceAttr(resourceName, "color", "rgb(186, 65, 50)"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "12"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.password", "avoid-plaintext-passwords"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.revision", "main"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.ssh_key", ""),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.type", "git"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.url", "https://github.com/aws/opsworks-example-cookbooks.git"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.username", "tfacctest"),
-	resource.TestCheckResourceAttr(resourceName, "custom_json", testAccCustomJSON1),
-	resource.TestCheckResourceAttrPair(resourceName, "default_availability_zone", "data.aws_availability_zones.available", "names.0"),
-	resource.TestCheckResourceAttrSet(resourceName, "default_instance_profile_arn"),
-	resource.TestCheckResourceAttr(resourceName, "default_os", "Amazon Linux 2"),
-	resource.TestCheckResourceAttr(resourceName, "default_root_device_type", "ebs"),
-	resource.TestCheckResourceAttr(resourceName, "default_ssh_key_name", "test1"),
-	resource.TestCheckResourceAttrPair(resourceName, "default_subnet_id", "aws_subnet.test.0", "id"),
-	resource.TestCheckResourceAttr(resourceName, "hostname_theme", "Baked_Goods"),
-	resource.TestCheckResourceAttr(resourceName, "manage_berkshelf", "false"),
-	resource.TestCheckResourceAttr(resourceName, "name", rName),
-	resource.TestCheckResourceAttr(resourceName, "region", acctest.Region()),
-	resource.TestCheckResourceAttrSet(resourceName, "service_role_arn"),
-	resource.TestCheckResourceAttr(resourceName, "stack_endpoint", acctest.Region()),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-	resource.TestCheckResourceAttr(resourceName, "use_custom_cookbooks", "true"),
-	resource.TestCheckResourceAttr(resourceName, "use_opsworks_security_groups", "false"),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "agent_version", "4039-20200430042739"),
+acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "opsworks", regexache.MustCompile(`stack/.+/`)),
+resource.TestCheckResourceAttr(resourceName, "berkshelf_version", "3.2.0"),
+resource.TestCheckResourceAttr(resourceName, "color", "rgb(186, 65, 50)"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "12"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.password", "avoid-plaintext-passwords"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.revision", "main"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.ssh_key", ""),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.type", "git"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.url", "https://github.com/aws/opsworks-example-cookbooks.git"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.username", "tfacctest"),
+resource.TestCheckResourceAttr(resourceName, "custom_json", testAccCustomJSON1),
+resource.TestCheckResourceAttrPair(resourceName, "default_availability_zone", "data.aws_availability_zones.available", "names.0"),
+resource.TestCheckResourceAttrSet(resourceName, "default_instance_profile_arn"),
+resource.TestCheckResourceAttr(resourceName, "default_os", "Amazon Linux 2"),
+resource.TestCheckResourceAttr(resourceName, "default_root_device_type", "ebs"),
+resource.TestCheckResourceAttr(resourceName, "default_ssh_key_name", "test1"),
+resource.TestCheckResourceAttrPair(resourceName, "default_subnet_id", "aws_subnet.test.0", "id"),
+resource.TestCheckResourceAttr(resourceName, "hostname_theme", "Baked_Goods"),
+resource.TestCheckResourceAttr(resourceName, "manage_berkshelf", "false"),
+resource.TestCheckResourceAttr(resourceName, "name", rName),
+resource.TestCheckResourceAttr(resourceName, "region", acctest.Region()),
+resource.TestCheckResourceAttrSet(resourceName, "service_role_arn"),
+resource.TestCheckResourceAttr(resourceName, "stack_endpoint", acctest.Region()),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+resource.TestCheckResourceAttr(resourceName, "use_custom_cookbooks", "true"),
+resource.TestCheckResourceAttr(resourceName, "use_opsworks_security_groups", "false"),
+resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
 ),
-	},
-	{
+},
+{
 ResourceName: resourceName,
 ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
-	"custom_cookbooks_source.0.password",
+"custom_cookbooks_source.0.password",
 },
-	},
-	{
+},
+{
 Config: testAccStackConfig_allAttributes(rName, "4038-20200305044341", "rgb(186, 65, 50)", "main", testAccCustomJSON1, "test2", "Scottish_Islands"),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "agent_version", "4038-20200305044341"),
-	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "opsworks", regexache.MustCompile(`stack/.+/`)),
-	resource.TestCheckResourceAttr(resourceName, "berkshelf_version", "3.2.0"),
-	resource.TestCheckResourceAttr(resourceName, "color", "rgb(186, 65, 50)"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "12"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.password", "avoid-plaintext-passwords"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.revision", "main"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.ssh_key", ""),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.type", "git"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.url", "https://github.com/aws/opsworks-example-cookbooks.git"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.username", "tfacctest"),
-	resource.TestCheckResourceAttr(resourceName, "custom_json", testAccCustomJSON1),
-	resource.TestCheckResourceAttrPair(resourceName, "default_availability_zone", "data.aws_availability_zones.available", "names.0"),
-	resource.TestCheckResourceAttrSet(resourceName, "default_instance_profile_arn"),
-	resource.TestCheckResourceAttr(resourceName, "default_os", "Amazon Linux 2"),
-	resource.TestCheckResourceAttr(resourceName, "default_root_device_type", "ebs"),
-	resource.TestCheckResourceAttr(resourceName, "default_ssh_key_name", "test2"),
-	resource.TestCheckResourceAttrPair(resourceName, "default_subnet_id", "aws_subnet.test.0", "id"),
-	resource.TestCheckResourceAttr(resourceName, "hostname_theme", "Scottish_Islands"),
-	resource.TestCheckResourceAttr(resourceName, "manage_berkshelf", "false"),
-	resource.TestCheckResourceAttr(resourceName, "name", rName),
-	resource.TestCheckResourceAttr(resourceName, "region", acctest.Region()),
-	resource.TestCheckResourceAttrSet(resourceName, "service_role_arn"),
-	resource.TestCheckResourceAttr(resourceName, "stack_endpoint", acctest.Region()),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-	resource.TestCheckResourceAttr(resourceName, "use_custom_cookbooks", "true"),
-	resource.TestCheckResourceAttr(resourceName, "use_opsworks_security_groups", "false"),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "agent_version", "4038-20200305044341"),
+acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "opsworks", regexache.MustCompile(`stack/.+/`)),
+resource.TestCheckResourceAttr(resourceName, "berkshelf_version", "3.2.0"),
+resource.TestCheckResourceAttr(resourceName, "color", "rgb(186, 65, 50)"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "12"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.password", "avoid-plaintext-passwords"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.revision", "main"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.ssh_key", ""),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.type", "git"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.url", "https://github.com/aws/opsworks-example-cookbooks.git"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.username", "tfacctest"),
+resource.TestCheckResourceAttr(resourceName, "custom_json", testAccCustomJSON1),
+resource.TestCheckResourceAttrPair(resourceName, "default_availability_zone", "data.aws_availability_zones.available", "names.0"),
+resource.TestCheckResourceAttrSet(resourceName, "default_instance_profile_arn"),
+resource.TestCheckResourceAttr(resourceName, "default_os", "Amazon Linux 2"),
+resource.TestCheckResourceAttr(resourceName, "default_root_device_type", "ebs"),
+resource.TestCheckResourceAttr(resourceName, "default_ssh_key_name", "test2"),
+resource.TestCheckResourceAttrPair(resourceName, "default_subnet_id", "aws_subnet.test.0", "id"),
+resource.TestCheckResourceAttr(resourceName, "hostname_theme", "Scottish_Islands"),
+resource.TestCheckResourceAttr(resourceName, "manage_berkshelf", "false"),
+resource.TestCheckResourceAttr(resourceName, "name", rName),
+resource.TestCheckResourceAttr(resourceName, "region", acctest.Region()),
+resource.TestCheckResourceAttrSet(resourceName, "service_role_arn"),
+resource.TestCheckResourceAttr(resourceName, "stack_endpoint", acctest.Region()),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+resource.TestCheckResourceAttr(resourceName, "use_custom_cookbooks", "true"),
+resource.TestCheckResourceAttr(resourceName, "use_opsworks_security_groups", "false"),
+resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
 ),
-	},
-	{
+},
+{
 Config: testAccStackConfig_allAttributes(rName, "4038-20200305044341", "rgb(209, 105, 41)", "dev", testAccCustomJSON2, "test2", "Scottish_Islands"),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "agent_version", "4038-20200305044341"),
-	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "opsworks", regexache.MustCompile(`stack/.+/`)),
-	resource.TestCheckResourceAttr(resourceName, "berkshelf_version", "3.2.0"),
-	resource.TestCheckResourceAttr(resourceName, "color", "rgb(209, 105, 41)"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "12"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.password", "avoid-plaintext-passwords"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.revision", "dev"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.ssh_key", ""),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.type", "git"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.url", "https://github.com/aws/opsworks-example-cookbooks.git"),
-	resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.username", "tfacctest"),
-	resource.TestCheckResourceAttr(resourceName, "custom_json", testAccCustomJSON2),
-	resource.TestCheckResourceAttrPair(resourceName, "default_availability_zone", "data.aws_availability_zones.available", "names.0"),
-	resource.TestCheckResourceAttrSet(resourceName, "default_instance_profile_arn"),
-	resource.TestCheckResourceAttr(resourceName, "default_os", "Amazon Linux 2"),
-	resource.TestCheckResourceAttr(resourceName, "default_root_device_type", "ebs"),
-	resource.TestCheckResourceAttr(resourceName, "default_ssh_key_name", "test2"),
-	resource.TestCheckResourceAttrPair(resourceName, "default_subnet_id", "aws_subnet.test.0", "id"),
-	resource.TestCheckResourceAttr(resourceName, "hostname_theme", "Scottish_Islands"),
-	resource.TestCheckResourceAttr(resourceName, "manage_berkshelf", "false"),
-	resource.TestCheckResourceAttr(resourceName, "name", rName),
-	resource.TestCheckResourceAttr(resourceName, "region", acctest.Region()),
-	resource.TestCheckResourceAttrSet(resourceName, "service_role_arn"),
-	resource.TestCheckResourceAttr(resourceName, "stack_endpoint", acctest.Region()),
-	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-	resource.TestCheckResourceAttr(resourceName, "use_custom_cookbooks", "true"),
-	resource.TestCheckResourceAttr(resourceName, "use_opsworks_security_groups", "false"),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "agent_version", "4038-20200305044341"),
+acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "opsworks", regexache.MustCompile(`stack/.+/`)),
+resource.TestCheckResourceAttr(resourceName, "berkshelf_version", "3.2.0"),
+resource.TestCheckResourceAttr(resourceName, "color", "rgb(209, 105, 41)"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "12"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.password", "avoid-plaintext-passwords"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.revision", "dev"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.ssh_key", ""),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.type", "git"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.url", "https://github.com/aws/opsworks-example-cookbooks.git"),
+resource.TestCheckResourceAttr(resourceName, "custom_cookbooks_source.0.username", "tfacctest"),
+resource.TestCheckResourceAttr(resourceName, "custom_json", testAccCustomJSON2),
+resource.TestCheckResourceAttrPair(resourceName, "default_availability_zone", "data.aws_availability_zones.available", "names.0"),
+resource.TestCheckResourceAttrSet(resourceName, "default_instance_profile_arn"),
+resource.TestCheckResourceAttr(resourceName, "default_os", "Amazon Linux 2"),
+resource.TestCheckResourceAttr(resourceName, "default_root_device_type", "ebs"),
+resource.TestCheckResourceAttr(resourceName, "default_ssh_key_name", "test2"),
+resource.TestCheckResourceAttrPair(resourceName, "default_subnet_id", "aws_subnet.test.0", "id"),
+resource.TestCheckResourceAttr(resourceName, "hostname_theme", "Scottish_Islands"),
+resource.TestCheckResourceAttr(resourceName, "manage_berkshelf", "false"),
+resource.TestCheckResourceAttr(resourceName, "name", rName),
+resource.TestCheckResourceAttr(resourceName, "region", acctest.Region()),
+resource.TestCheckResourceAttrSet(resourceName, "service_role_arn"),
+resource.TestCheckResourceAttr(resourceName, "stack_endpoint", acctest.Region()),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+resource.TestCheckResourceAttr(resourceName, "use_custom_cookbooks", "true"),
+resource.TestCheckResourceAttr(resourceName, "use_opsworks_security_groups", "false"),
+resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id"),
 ),
-	},
 },
-	})
+},
+})
 }
 
 
 func TestAccOpsWorksStack_windows(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_opsworks_stack.test"
-	var v opsworks.Stack
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_opsworks_stack.test"
+var v opsworks.Stack
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
-	testAccPreCheckStacks(ctx, t)
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
+testAccPreCheckStacks(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccStackConfig_windows(rName, "Microsoft Windows Server 2012 R2 Base"),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttrSet(resourceName, "agent_version"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "12.2"),
-	resource.TestCheckResourceAttr(resourceName, "default_os", "Microsoft Windows Server 2012 R2 Base"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttrSet(resourceName, "agent_version"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "12.2"),
+resource.TestCheckResourceAttr(resourceName, "default_os", "Microsoft Windows Server 2012 R2 Base"),
 ),
-	},
-	{
+},
+{
 ResourceName: resourceName,
 ImportState:  true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccStackConfig_windows(rName, "Microsoft Windows Server 2012 R2 with SQL Server Standard"),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckStackExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttrSet(resourceName, "agent_version"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
-	resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "12.2"),
-	resource.TestCheckResourceAttr(resourceName, "default_os", "Microsoft Windows Server 2012 R2 with SQL Server Standard"),
+testAccCheckStackExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttrSet(resourceName, "agent_version"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_name", "Chef"),
+resource.TestCheckResourceAttr(resourceName, "configuration_manager_version", "12.2"),
+resource.TestCheckResourceAttr(resourceName, "default_os", "Microsoft Windows Server 2012 R2 with SQL Server Standard"),
 ),
-	},
 },
-	})
+},
+})
 }
 
 
 func testAccPreCheckStacks(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 
-	input := &opsworks.DescribeStacksInput{}
+input := &opsworks.DescribeStacksInput{}
 
-	_, err := conn.DescribeStacksWithContext(ctx, input)
+_, err := conn.DescribeStacksWithContext(ctx, input)
 
-	if acctest.PreCheckSkipError(err) {
+if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
-	}
+}
 
-	if err != nil {
+if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
-	}
+}
 }
 
 
 func testAccCheckStackExists(ctx context.Context, n string, v *opsworks.Stack) resource.TestCheck
 func {
-	return 
+return 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
-	return fmt.Errorf("Not found: %s", n)
+return fmt.Errorf("Not found: %s", n)
 }
 
 if rs.Primary.ID == "" {
-	return fmt.Errorf("No OpsWorks Stack ID is set")
+return fmt.Errorf("No OpsWorks Stack ID is set")
 }
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
@@ -551,47 +551,47 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 output, err := tfopsworks.FindStackByID(ctx, conn, rs.Primary.ID)
 
 if err != nil {
-	return err
+return err
 }
 
 *v = *output
 
 return nil
-	}
+}
 }
 
 
 func testAccCheckStackDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
+return 
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
-	if rs.Type != "aws_opsworks_stack" {
+if rs.Type != "aws_opsworks_stack" {
 continue
-	}
+}
 
-	_, err := tfopsworks.FindStackByID(ctx, conn, rs.Primary.ID)
+_, err := tfopsworks.FindStackByID(ctx, conn, rs.Primary.ID)
 
-	if tfresource.NotFound(err) {
+if tfresource.NotFound(err) {
 continue
-	}
+}
 
-	if err != nil {
+if err != nil {
 return err
-	}
+}
 
-	return fmt.Errorf("OpsWorks Stack %s still exists", rs.Primary.ID)
+return fmt.Errorf("OpsWorks Stack %s still exists", rs.Primary.ID)
 }
 
 return nil
-	}
+}
 }
 
 
 func testAccStackConfig_baseIAM(rName string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_iam_role" "opsworks_service" {
   name = "%[1]s-service"
 
@@ -657,15 +657,15 @@ resource "aws_iam_instance_profile" "opsworks_instance" {
 
 
 func testAccStackConfig_baseVPC(rName string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccStackConfig_baseIAM(rName),
 acctest.ConfigVPCWithSubnets(rName, 2),
-	)
+)
 }
 
 
 func testAccStackConfig_baseVPCAlternateRegion(rName string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 acctest.ConfigMultipleRegionProvider(2),
 testAccStackConfig_baseIAM(rName),
 fmt.Sprintf(`
@@ -709,7 +709,7 @@ Name = %[1]q
 
 
 func testAccStackConfig_basic(rName string) string {
-	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
   region   = %[2]q
@@ -724,7 +724,7 @@ resource "aws_opsworks_stack" "test" {
 
 
 func testAccStackConfig_noVPC(rName string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccStackConfig_baseIAM(rName),
 fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
@@ -743,7 +743,7 @@ data "aws_vpc" "default" {
 
 
 func testAccStackConfig_defaultVPC(rName string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccStackConfig_baseIAM(rName),
 fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
@@ -763,7 +763,7 @@ data "aws_vpc" "default" {
 
 
 func testAccStackConfig_noVPCDefaultAZ(rName string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccStackConfig_baseIAM(rName),
 acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 fmt.Sprintf(`
@@ -784,7 +784,7 @@ data "aws_vpc" "default" {
 
 
 func testAccStackConfig_tags1(rName, tagKey1, tagValue1 string) string {
-	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
   region   = %[2]q
@@ -803,7 +803,7 @@ resource "aws_opsworks_stack" "test" {
 
 
 func testAccStackConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
-	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
   region   = %[2]q
@@ -823,7 +823,7 @@ resource "aws_opsworks_stack" "test" {
 
 
 func testAccStackConfig_tags1AlternateRegion(rName, tagKey1, tagValue1 string) string {
-	return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
   region   = %[2]q
@@ -842,7 +842,7 @@ resource "aws_opsworks_stack" "test" {
 
 
 func testAccStackConfig_tags2AlternateRegion(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
-	return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
   region   = %[2]q
@@ -862,7 +862,7 @@ resource "aws_opsworks_stack" "test" {
 
 
 func testAccStackConfig_allAttributes(rName, agentVersion, color, customCookbookRevision, customJSON, defaultSSHKeyName, hostnameTheme string) string {
-	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
   region   = %[2]q
@@ -897,7 +897,7 @@ username = "tfacctest"
 
 
 func testAccStackConfig_windows(rName, defaultOS string) string {
-	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
   region   = %[2]q
@@ -916,7 +916,7 @@ resource "aws_opsworks_stack" "test" {
 // Layers
 
 func testAccStackConfig_vpcCreate(rName string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -1035,6 +1035,6 @@ resource "aws_iam_instance_profile" "opsworks_instance" {
 }
 
 const (
-	testAccCustomJSON1 = `{"key1":"value1"}`
-	testAccCustomJSON2 = `{"key2":"value2"}`
+testAccCustomJSON1 = `{"key1":"value1"}`
+testAccCustomJSON2 = `{"key2":"value2"}`
 )

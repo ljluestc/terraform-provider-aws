@@ -4,36 +4,36 @@
 package lambda
 
 import (
-	"time"
+"time"
 )
 
 const (
-	eventSourceMappingStateCreating  = "Creating"
-	eventSourceMappingStateDeleting  = "Deleting"
-	eventSourceMappingStateDisabled  = "Disabled"
-	eventSourceMappingStateDisabling = "Disabling"
-	eventSourceMappingStateEnabled= "Enabled"
-	eventSourceMappingStateEnabling  = "Enabling"
-	eventSourceMappingStateUpdating  = "Updating"
+eventSourceMappingStateCreating  = "Creating"
+eventSourceMappingStateDeleting  = "Deleting"
+eventSourceMappingStateDisabled  = "Disabled"
+eventSourceMappingStateDisabling = "Disabling"
+eventSourceMappingStateEnabled= "Enabled"
+eventSourceMappingStateEnabling  = "Enabling"
+eventSourceMappingStateUpdating  = "Updating"
 )
 
 const (
-	propagationTimeout = 5 * time.Minute
+propagationTimeout = 5 * time.Minute
 )
 
 const (
-	invocationActionCreate = "create"
-	invocationActionDelete = "delete"
-	invocationActionUpdate = "update"
+invocationActionCreate = "create"
+invocationActionDelete = "delete"
+invocationActionUpdate = "update"
 )
 
 const (
-	lifecycleScopeCreateOnly = "CREATE_ONLY"
-	lifecycleScopeCrud  = "CRUD"
+lifecycleScopeCreateOnly = "CREATE_ONLY"
+lifecycleScopeCrud  = "CRUD"
 )
 func lifecycleScope_Values() []string {
-	return []string{
-		lifecycleScopeCreateOnly,
-		lifecycleScopeCrud,
-	}
+return []string{
+lifecycleScopeCreateOnly,
+lifecycleScopeCrud,
+}
 }

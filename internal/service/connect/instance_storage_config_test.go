@@ -1,459 +1,459 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package connect_testimport (
-	"context"
-	"fmt"
-	"strconv"
-	"testing"	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/connect"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tfconnect "github.com/hashicorp/terraform-provider-aws/internal/service/connect"
+"context"
+"fmt"
+"strconv"
+"testing""github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/connect"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+tfconnect "github.com/hashicorp/terraform-provider-aws/internal/service/connect"
 )func testAccInstanceStorageConfig_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v connect.DescribeInstanceStorageConfigOutput
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_instance_storage_config.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+var v connect.DescribeInstanceStorageConfigOutput
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_instance_storage_config.test"resource.Test(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccInstanceStorageConfigConfig_basic(rName, rName2),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttrSet(resourceName, "association_id"),
-	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeChatTranscripts),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", "tf-test-Chat-Transcripts"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttrSet(resourceName, "association_id"),
+resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeChatTranscripts),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", "tf-test-Chat-Transcripts"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
 ),
-	},
-	{
+},
+{
 ResourceName:resourceName,
 ImportState: true,
 ImportStateVerify: true,
-	},
 },
-	})
+},
+})
 }func testAccInstanceStorageConfig_KinesisFirehoseConfig_FirehoseARN(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v connect.DescribeInstanceStorageConfigOutput
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_instance_storage_config.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+var v connect.DescribeInstanceStorageConfigOutput
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_instance_storage_config.test"resource.Test(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccInstanceStorageConfigConfig_kinesisFirehoseConfig_firehoseARN(rName, rName2, rName3, rName4, "first"),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeContactTraceRecords),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_firehose_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_firehose_config.0.firehose_arn", "aws_kinesis_firehose_delivery_stream.test", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisFirehose),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeContactTraceRecords),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_firehose_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_firehose_config.0.firehose_arn", "aws_kinesis_firehose_delivery_stream.test", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisFirehose),
 ),
-	},
-	{
+},
+{
 ResourceName:resourceName,
 ImportState: true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccInstanceStorageConfigConfig_kinesisFirehoseConfig_firehoseARN(rName, rName2, rName3, rName4, "second"),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeContactTraceRecords),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_firehose_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_firehose_config.0.firehose_arn", "aws_kinesis_firehose_delivery_stream.test2", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisFirehose),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeContactTraceRecords),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_firehose_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_firehose_config.0.firehose_arn", "aws_kinesis_firehose_delivery_stream.test2", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisFirehose),
 ),
-	},
 },
-	})
+},
+})
 }func testAccInstanceStorageConfig_KinesisStreamConfig_StreamARN(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v connect.DescribeInstanceStorageConfigOutput
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_instance_storage_config.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+var v connect.DescribeInstanceStorageConfigOutput
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_instance_storage_config.test"resource.Test(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccInstanceStorageConfigConfig_kinesisStreamConfig_streamARN(rName, rName2, rName3, "first"),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeContactTraceRecords),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_stream_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_stream_config.0.stream_arn", "aws_kinesis_stream.test", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisStream),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeContactTraceRecords),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_stream_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_stream_config.0.stream_arn", "aws_kinesis_stream.test", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisStream),
 ),
-	},
-	{
+},
+{
 ResourceName:resourceName,
 ImportState: true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccInstanceStorageConfigConfig_kinesisStreamConfig_streamARN(rName, rName2, rName3, "second"),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeContactTraceRecords),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_stream_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_stream_config.0.stream_arn", "aws_kinesis_stream.test2", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisStream),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeContactTraceRecords),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_stream_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_stream_config.0.stream_arn", "aws_kinesis_stream.test2", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisStream),
 ),
-	},
 },
-	})
+},
+})
 }func testAccInstanceStorageConfig_KinesisVideoStreamConfig_Prefix(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v connect.DescribeInstanceStorageConfigOutput
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_instance_storage_config.test"	originalPrefix := "originalPrefix"
-	updatedPrefix := "updatedPrefix"	retention := 1	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+var v connect.DescribeInstanceStorageConfigOutput
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_instance_storage_config.test"originalPrefix := "originalPrefix"
+updatedPrefix := "updatedPrefix"retention := 1resource.Test(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_prefixRetention(rName, originalPrefix, retention),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.prefix", fmt.Sprintf("%s-connect-%s-contact-", originalPrefix, rName)),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.retention_period_hours", strconv.Itoa(retention)),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.prefix", fmt.Sprintf("%s-connect-%s-contact-", originalPrefix, rName)),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.retention_period_hours", strconv.Itoa(retention)),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
 ),
-	},
-	{
+},
+{
 ResourceName:resourceName,
 ImportState: true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_prefixRetention(rName, updatedPrefix, retention),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.prefix", fmt.Sprintf("%s-connect-%s-contact-", updatedPrefix, rName)),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.retention_period_hours", strconv.Itoa(retention)),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.prefix", fmt.Sprintf("%s-connect-%s-contact-", updatedPrefix, rName)),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.retention_period_hours", strconv.Itoa(retention)),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
 ),
-	},
 },
-	})
+},
+})
 }func testAccInstanceStorageConfig_KinesisVideoStreamConfig_Retention(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v connect.DescribeInstanceStorageConfigOutput
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_instance_storage_config.test"	prefix := "examplePrefix"	originalRetention := 0
-	updatedRetention := 87600	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+var v connect.DescribeInstanceStorageConfigOutput
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_instance_storage_config.test"prefix := "examplePrefix"originalRetention := 0
+updatedRetention := 87600resource.Test(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_prefixRetention(rName, prefix, originalRetention),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.prefix", fmt.Sprintf("%s-connect-%s-contact-", prefix, rName)),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.retention_period_hours", strconv.Itoa(originalRetention)),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.prefix", fmt.Sprintf("%s-connect-%s-contact-", prefix, rName)),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.retention_period_hours", strconv.Itoa(originalRetention)),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
 ),
-	},
-	{
+},
+{
 ResourceName:resourceName,
 ImportState: true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_prefixRetention(rName, prefix, updatedRetention),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.prefix", fmt.Sprintf("%s-connect-%s-contact-", prefix, rName)),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.retention_period_hours", strconv.Itoa(updatedRetention)),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.prefix", fmt.Sprintf("%s-connect-%s-contact-", prefix, rName)),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.retention_period_hours", strconv.Itoa(updatedRetention)),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
 ),
-	},
 },
-	})
+},
+})
 }func testAccInstanceStorageConfig_KinesisVideoStreamConfig_EncryptionConfig(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v connect.DescribeInstanceStorageConfigOutput
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_instance_storage_config.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+var v connect.DescribeInstanceStorageConfigOutput
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_instance_storage_config.test"resource.Test(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_encryptionConfig(rName, "first"),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
 ),
-	},
-	{
+},
+{
 ResourceName:resourceName,
 ImportState: true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_encryptionConfig(rName, "second"),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test2", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "resource_type", connect.InstanceStorageResourceTypeMediaStreams),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.kinesis_video_stream_config.0.encryption_config.0.key_id", "aws_kms_key.test2", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeKinesisVideoStream),
 ),
-	},
 },
-	})
+},
+})
 }func testAccInstanceStorageConfig_S3Config_BucketName(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v connect.DescribeInstanceStorageConfigOutput
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_instance_storage_config.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+var v connect.DescribeInstanceStorageConfigOutput
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_instance_storage_config.test"resource.Test(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccInstanceStorageConfigConfig_S3Config_bucketName(rName, rName2, rName3, "first"),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", "tf-test-Chat-Transcripts"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", "tf-test-Chat-Transcripts"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
 ),
-	},
-	{
+},
+{
 ResourceName:resourceName,
 ImportState: true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccInstanceStorageConfigConfig_S3Config_bucketName(rName, rName2, rName3, "second"),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test2", "id"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", "tf-test-Chat-Transcripts"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test2", "id"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", "tf-test-Chat-Transcripts"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
 ),
-	},
 },
-	})
+},
+})
 }func testAccInstanceStorageConfig_S3Config_BucketPrefix(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v connect.DescribeInstanceStorageConfigOutput
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_instance_storage_config.test"	originalBucketPrefix := "originalBucketPrefix"
-	updatedBucketPrefix := "updatedBucketPrefix"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+var v connect.DescribeInstanceStorageConfigOutput
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_instance_storage_config.test"originalBucketPrefix := "originalBucketPrefix"
+updatedBucketPrefix := "updatedBucketPrefix"resource.Test(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccInstanceStorageConfigConfig_S3Config_bucketPrefix(rName, rName2, originalBucketPrefix),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", originalBucketPrefix),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", originalBucketPrefix),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
 ),
-	},
-	{
+},
+{
 ResourceName:resourceName,
 ImportState: true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccInstanceStorageConfigConfig_S3Config_bucketPrefix(rName, rName2, updatedBucketPrefix),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", updatedBucketPrefix),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", updatedBucketPrefix),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
 ),
-	},
 },
-	})
+},
+})
 }func testAccInstanceStorageConfig_S3Config_EncryptionConfig(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v connect.DescribeInstanceStorageConfigOutput
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_instance_storage_config.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+var v connect.DescribeInstanceStorageConfigOutput
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_instance_storage_config.test"resource.Test(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccInstanceStorageConfigConfig_S3Config_encryptionConfig(rName, rName2, "first"),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", "tf-test-Chat-Transcripts"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.encryption_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", "tf-test-Chat-Transcripts"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.encryption_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.encryption_config.0.key_id", "aws_kms_key.test", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
 ),
-	},
-	{
+},
+{
 ResourceName:resourceName,
 ImportState: true,
 ImportStateVerify: true,
-	},
-	{
+},
+{
 Config: testAccInstanceStorageConfigConfig_S3Config_encryptionConfig(rName, rName2, "second"),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", "tf-test-Chat-Transcripts"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.encryption_config.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
-	resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.encryption_config.0.key_id", "aws_kms_key.test2", "arn"),
-	resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "storage_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.bucket_name", "aws_s3_bucket.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.bucket_prefix", "tf-test-Chat-Transcripts"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.encryption_config.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.s3_config.0.encryption_config.0.encryption_type", connect.EncryptionTypeKms),
+resource.TestCheckResourceAttrPair(resourceName, "storage_config.0.s3_config.0.encryption_config.0.key_id", "aws_kms_key.test2", "arn"),
+resource.TestCheckResourceAttr(resourceName, "storage_config.0.storage_type", connect.StorageTypeS3),
 ),
-	},
 },
-	})
+},
+})
 }func testAccInstanceStorageConfig_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v connect.DescribeInstanceStorageConfigOutput
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_instance_storage_config.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+var v connect.DescribeInstanceStorageConfigOutput
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_instance_storage_config.test"resource.Test(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccInstanceStorageConfigConfig_basic(rName, rName2),
 Check: resource.ComposeTestCheckfunc(
-	testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
-	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceInstanceStorageConfig(), resourceName),
+testAccCheckInstanceStorageConfigExists(ctx, resourceName, &v),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceInstanceStorageConfig(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
 },
-	})
+},
+})
 }func testAccCheckInstanceStorageConfigExists(ctx context.Context, resourceName string, function *connect.DescribeInstanceStorageConfigOutput) resource.TestCheckfunc {
-	return func(s *terraform.State) error {
+return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
-	return fmt.Errorf("Connect Instance Storage Config not found: %s", resourceName)
+return fmt.Errorf("Connect Instance Storage Config not found: %s", resourceName)
 }if rs.Primary.ID == "" {
-	return fmt.Errorf("Connect Instance Storage Config ID not set")
+return fmt.Errorf("Connect Instance Storage Config ID not set")
 }
 instanceId, associationId, resourceType, err := tfconnect.InstanceStorageConfigParseId(rs.Primary.ID)if err != nil {
-	return err
-}conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)params := &connect.DescribeInstanceStorageConfigInput{
-	AssociationId: aws.String(associationId),
-	InstanceId: aws.String(instanceId),
-	ResourceType:aws.String(resourceType),
-}getfunction, err := conn.DescribeInstanceStorageConfigWithContext(ctx, params)
-if err != nil {
-	return err
-}*function = *getfunctionreturn nil
-	}
-}func testAccCheckInstanceStorageConfigDestroy(ctx context.Context) resource.TestCheckfunc {
-	return func(s *terraform.State) error {
-for _, rs := range s.RootModule().Resources {
-	if rs.Type != "aws_connect_instance_storage_config" {
-continue
-	}	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)	instanceId, associationId, resourceType, err := tfconnect.InstanceStorageConfigParseId(rs.Primary.ID)	if err != nil {
 return err
-	}	params := &connect.DescribeInstanceStorageConfigInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)params := &connect.DescribeInstanceStorageConfigInput{
 AssociationId: aws.String(associationId),
 InstanceId: aws.String(instanceId),
 ResourceType:aws.String(resourceType),
-	}	_, err = conn.DescribeInstanceStorageConfigWithContext(ctx, params)	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
-continue
-	}	if err != nil {
+}getfunction, err := conn.DescribeInstanceStorageConfigWithContext(ctx, params)
+if err != nil {
 return err
-	}
+}*function = *getfunctionreturn nil
+}
+}func testAccCheckInstanceStorageConfigDestroy(ctx context.Context) resource.TestCheckfunc {
+return func(s *terraform.State) error {
+for _, rs := range s.RootModule().Resources {
+if rs.Type != "aws_connect_instance_storage_config" {
+continue
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)instanceId, associationId, resourceType, err := tfconnect.InstanceStorageConfigParseId(rs.Primary.ID)if err != nil {
+return err
+}params := &connect.DescribeInstanceStorageConfigInput{
+AssociationId: aws.String(associationId),
+InstanceId: aws.String(instanceId),
+ResourceType:aws.String(resourceType),
+}_, err = conn.DescribeInstanceStorageConfigWithContext(ctx, params)if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
+continue
+}if err != nil {
+return err
+}
 }return nil
-	}
+}
 }func testAccInstanceStorageConfigConfig_base(rName string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
 identity_management_type = "CONNECT_MANAGED"
 inbound_calls_enabled = true
@@ -462,7 +462,7 @@ outbound_calls_enabled= true
 }
 `, rName)
 }func testAccInstanceStorageConfigConfig_basic(rName, rName2 string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccInstanceStorageConfigConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
@@ -480,7 +480,7 @@ bucket_prefix = "tf-test-Chat-Transcripts"
 }
 `, rName2))
 }func testAccInstanceStorageDeliveryStreamConfig_Base(rName string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}resource "aws_iam_role" "firehose" {
 name = %[1]qassume_role_policy = <<EOF
@@ -553,7 +553,7 @@ EOF
 }
 `, rName)
 }func testAccInstanceStorageConfigConfig_kinesisFirehoseConfig_firehoseARN(rName, rName2, rName3, rName4, selectFirehose string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccInstanceStorageConfigConfig_base(rName),
 testAccInstanceStorageDeliveryStreamConfig_Base(rName2),
 fmt.Sprintf(`
@@ -584,7 +584,7 @@ firehose_arn = local.select_firehose == "first" ? aws_kinesis_firehose_delivery_
 }
 `, rName3, rName4, selectFirehose))
 }func testAccInstanceStorageConfigConfig_kinesisStreamConfig_streamARN(rName, rName2, rName3, selectStream string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccInstanceStorageConfigConfig_base(rName),
 fmt.Sprintf(`
 locals {
@@ -606,7 +606,7 @@ stream_arn = local.select_stream == "first" ? aws_kinesis_stream.test.arn : aws_
 }
 `, rName2, rName3, selectStream))
 }func testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_prefixRetention(rName, prefix string, retention int) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccInstanceStorageConfigConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -627,7 +627,7 @@ key_id = aws_kms_key.test.arn
 }
 `, prefix, retention))
 }func testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_encryptionConfig(rName, selectKey string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccInstanceStorageConfigConfig_base(rName),
 fmt.Sprintf(`
 locals {
@@ -653,7 +653,7 @@ key_id = local.select_key == "first" ? aws_kms_key.test.arn : aws_kms_key.test2.
 }
 `, selectKey))
 }func testAccInstanceStorageConfigConfig_S3Config_bucketName(rName, rName2, rName3, selectBucket string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccInstanceStorageConfigConfig_base(rName),
 fmt.Sprintf(`
 locals {
@@ -676,7 +676,7 @@ bucket_prefix = "tf-test-Chat-Transcripts"
 }
 `, rName2, rName3, selectBucket))
 }func testAccInstanceStorageConfigConfig_S3Config_bucketPrefix(rName, rName2, bucketPrefix string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccInstanceStorageConfigConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
@@ -694,7 +694,7 @@ bucket_prefix = %[2]q
 }
 `, rName2, bucketPrefix))
 }func testAccInstanceStorageConfigConfig_S3Config_encryptionConfig(rName, rName2, selectKey string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccInstanceStorageConfigConfig_base(rName),
 fmt.Sprintf(`
 locals {

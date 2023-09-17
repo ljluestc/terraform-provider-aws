@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package s3
+packages3
 
-import (
+import(
 	"context"
 	"log"
 	"time"
@@ -20,62 +20,62 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_s3_bucket_object_lock_configuration")func ResourceBucketObjectLockConfiguration() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceBucketObjectLockConfigurationCreate,
-		ReadWithoutTimeout:   resourceBucketObjectLockConfigurationRead,
-		UpdateWithoutTimeout: resourceBucketObjectLockConfigurationUpdate,
-		DeleteWithoutTimeout: resourceBucketObjectLockConfigurationDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
+//@SDKResource("aws_s3_bucket_object_lock_configuration")funcResourceBucketObjectLockConfiguration()*schema.Resource{
+	return&schema.Resource{
+		CreateWithoutTimeout:resourceBucketObjectLockConfigurationCreate,
+		ReadWithoutTimeout:resourceBucketObjectLockConfigurationRead,
+		UpdateWithoutTimeout:resourceBucketObjectLockConfigurationUpdate,
+		DeleteWithoutTimeout:resourceBucketObjectLockConfigurationDelete,
+		Importer:&schema.ResourceImporter{
+			StateContext:schema.ImportStatePassthroughContext,
 		},
 
-		Schema: map[string]*schema.Schema{
-			"bucket": {
+		Schema:map[string]*schema.Schema{
+			"bucket":{
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 63),
+				Required:true,
+				ForceNew:true,
+				ValidateFunc:validation.StringLenBetween(1,63),
 			},
-			"expected_bucket_owner": {
+			"expected_bucket_owner":{
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				ValidateFunc: verify.ValidAccountID,
+				Optional:true,
+				ForceNew:true,
+				ValidateFunc:verify.ValidAccountID,
 			},
-			"object_lock_enabled": {
+			"object_lock_enabled":{
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      s3.ObjectLockEnabledEnabled,
-				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(s3.ObjectLockEnabled_Values(), false),
+				Optional:true,
+				Default:s3.ObjectLockEnabledEnabled,
+				ForceNew:true,
+				ValidateFunc:validation.StringInSlice(s3.ObjectLockEnabled_Values(),false),
 			},
-			"rule": {
-				Type:     schema.TypeList,
-				Optional: true,
-				MaxItems: 1,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"default_retention": {
-							Type:     schema.TypeList,
-							Required: true,
-							MaxItems: 1,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"days": {
-										Type: schema.TypeInt,
-										Optional:      true,
-										ConflictsWith: []string{"rule.0.default_retention.0.years"},
+			"rule":{
+				Type:schema.TypeList,
+				Optional:true,
+				MaxItems:1,
+				Elem:&schema.Resource{
+					Schema:map[string]*schema.Schema{
+						"default_retention":{
+							Type:schema.TypeList,
+							Required:true,
+							MaxItems:1,
+							Elem:&schema.Resource{
+								Schema:map[string]*schema.Schema{
+									"days":{
+										Type:schema.TypeInt,
+										Optional:true,
+										ConflictsWith:[]string{"rule.0.default_retention.0.years"},
 									},
-									"mode": {
+									"mode":{
 										Type:schema.TypeString,
-										Optional:     true,
-										ValidateFunc: validation.StringInSlice(s3.ObjectLockRetentionMode_Values(), false),
+										Optional:true,
+										ValidateFunc:validation.StringInSlice(s3.ObjectLockRetentionMode_Values(),false),
 									},
-									"years": {
-										Type: schema.TypeInt,
-										Optional:      true,
-										ConflictsWith: []string{"rule.0.default_retention.0.days"},
+									"years":{
+										Type:schema.TypeInt,
+										Optional:true,
+										ConflictsWith:[]string{"rule.0.default_retention.0.days"},
 									},
 								},
 							},
@@ -83,239 +83,239 @@ import (
 					},
 				},
 			},
-			"token": {
-				Type:      schema.TypeString,
-				Optional:  true,
-				Sensitive: true,
+			"token":{
+				Type:schema.TypeString,
+				Optional:true,
+				Sensitive:true,
 			},
 		},
 	}
-}funcn := meta.(*conns.AWSClient).S3Conn(ctx)
+}funcn:=meta.(*conns.AWSClient).S3Conn(ctx)
 
-	bucket := d.Get("bucket").(string)
-	expectedBucketOwner := d.Get("expected_bucket_owner").(string)
-	input := &s3.PutObjectLockConfigurationInput{
-		Bucket: aws.String(bucket),
-		ObjectLockConfiguration: &s3.ObjectLockConfiguration{
-			// ObjectLockEnabled is required by the API, even if configured directly on the S3 bucket
-			// during creation, else a MalformedXML error will be returned.
-			ObjectLockEnabled: aws.String(d.Get("object_lock_enabled").(string)),
-			Rule:     expandBucketObjectLockConfigurationRule(d.Get("rule").([]interface{})),
+	bucket:=d.Get("bucket").(string)
+	expectedBucketOwner:=d.Get("expected_bucket_owner").(string)
+	input:=&s3.PutObjectLockConfigurationInput{
+		Bucket:aws.String(bucket),
+		ObjectLockConfiguration:&s3.ObjectLockConfiguration{
+			//ObjectLockEnabledisrequiredbytheAPI,evenifconfigureddirectlyontheS3bucket
+			//duringcreation,elseaMalformedXMLerrorwillbereturned.
+			ObjectLockEnabled:aws.String(d.Get("object_lock_enabled").(string)),
+			Rule:expandBucketObjectLockConfigurationRule(d.Get("rule").([]interface{})),
 		},
 	}
 
-	if expectedBucketOwner != "" {
-		input.ExpectedBucketOwner = aws.String(expectedBucketOwner)
+	ifexpectedBucketOwner!=""{
+		input.ExpectedBucketOwner=aws.String(expectedBucketOwner)
 	}
 
-	if v, ok := d.GetOk("request_payer"); ok {
-		input.RequestPayer = aws.String(v.(string))
+	ifv,ok:=d.GetOk("request_payer");ok{
+		input.RequestPayer=aws.String(v.(string))
 	}
 
-	if v, ok := d.GetOk("token"); ok {
-		input.Token = aws.String(v.(string))
+	ifv,ok:=d.GetOk("token");ok{
+		input.Token=aws.String(v.(string))
 	}
 
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 2*time.Minute, func() (interface{}, error) {
-		return conn.PutObjectLockConfigurationWithContext(ctx, input)
-	}, s3.ErrCodeNoSuchBucket)
+	_,err:=tfresource.RetryWhenAWSErrCodeEquals(ctx,2*time.Minute,func()(interface{},error){
+		returnconn.PutObjectLockConfigurationWithContext(ctx,input)
+	},s3.ErrCodeNoSuchBucket)
 
-	if err != nil {
-		return diag.Errorf("creating S3 Bucket (%s) Object Lock configuration: %s", bucket, err)
+	iferr!=nil{
+		returndiag.Errorf("creatingS3Bucket(%s)ObjectLockconfiguration:%s",bucket,err)
 	}
 
-	d.SetId(CreateResourceID(bucket, expectedBucketOwner))
+	d.SetId(CreateResourceID(bucket,expectedBucketOwner))
 
-	return resourceBucketObjectLockConfigurationRead(ctx, d, meta)
-}func resourceBucketObjectLockConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	returnresourceBucketObjectLockConfigurationRead(ctx,d,meta)
+}funcresourceBucketObjectLockConfigurationRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	func
-	bucket, expectedBucketOwner, err := ParseResourceID(d.Id())
+	bucket,expectedBucketOwner,err:=ParseResourceID(d.Id())
 
-	if err != nil {
-		return diag.FromErr(err)
+	iferr!=nil{
+		returndiag.FromErr(err)
 	}
 
-	objLockConfig, err := FindObjectLockConfiguration(ctx, conn, bucket, expectedBucketOwner)
+	objLockConfig,err:=FindObjectLockConfiguration(ctx,conn,bucket,expectedBucketOwner)
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] S3 Bucket Object Lock Configuration (%s) not found, removing from state", d.Id())
+	if!d.IsNewResource()&&tfresource.NotFound(err){
+		log.Printf("[WARN]S3BucketObjectLockConfiguration(%s)notfound,removingfromstate",d.Id())
 		d.SetId("")
-		return nil
+		returnnil
 	}
 
-	if err != nil {
-		return diag.Errorf("reading S3 Bucket Object Lock Configuration (%s): %s", d.Id(), err)
+	iferr!=nil{
+		returndiag.Errorf("readingS3BucketObjectLockConfiguration(%s):%s",d.Id(),err)
 	}
 
-	d.Set("bucket", bucket)
-	d.Set("expected_bucket_owner", expectedBucketOwner)
-	d.Set("object_lock_enabled", objLockConfig.ObjectLockEnabled)
-	if err := d.Set("rule", flattenBucketObjectLockConfigurationRule(objLockConfig.Rule)); err != nil {
-		return diag.Errorf("setting rule: %s", err)
+	d.Set("bucket",bucket)
+	d.Set("expected_bucket_owner",expectedBucketOwner)
+	d.Set("object_lock_enabled",objLockConfig.ObjectLockEnabled)
+	iferr:=d.Set("rule",flattenBucketObjectLockConfigurationRule(objLockConfig.Rule));err!=nil{
+		returndiag.Errorf("settingrule:%s",err)
 	}
 
-	return nil
-}func resourceBucketObjectLockConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
+	returnnil
+}funcresourceBucketObjectLockConfigurationUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	conn:=meta.(*conns.AWSClient).S3Conn(ctx)
+funcket,expectedBucketOwner,err:=ParseResourceID(d.Id())
 
-	if err != nil {
-		return diag.FromErr(err)
+	iferr!=nil{
+		returndiag.FromErr(err)
 	}
 
-	input := &s3.PutObjectLockConfigurationInput{
-		Bucket: aws.String(bucket),
-		ObjectLockConfiguration: &s3.ObjectLockConfiguration{
-			// ObjectLockEnabled is required by the API, even if configured directly on the S3 bucket
-			// during creation, else a MalformedXML error will be returned.
-			ObjectLockEnabled: aws.String(d.Get("object_lock_enabled").(string)),
-			Rule:     expandBucketObjectLockConfigurationRule(d.Get("rule").([]interface{})),
+	input:=&s3.PutObjectLockConfigurationInput{
+		Bucket:aws.String(bucket),
+		ObjectLockConfiguration:&s3.ObjectLockConfiguration{
+			//ObjectLockEnabledisrequiredbytheAPI,evenifconfigureddirectlyontheS3bucket
+			//duringcreation,elseaMalformedXMLerrorwillbereturned.
+			ObjectLockEnabled:aws.String(d.Get("object_lock_enabled").(string)),
+			Rule:expandBucketObjectLockConfigurationRule(d.Get("rule").([]interface{})),
 		},
 	}
 
-	if expectedBucketOwner != "" {
-		input.ExpectedBucketOwner = aws.String(expectedBucketOwner)
+	ifexpectedBucketOwner!=""{
+		input.ExpectedBucketOwner=aws.String(expectedBucketOwner)
 	}
 
-	if v, ok := d.GetOk("request_payer"); ok {
-		input.RequestPayer = aws.String(v.(string))
+	ifv,ok:=d.GetOk("request_payer");ok{
+		input.RequestPayer=aws.String(v.(string))
 	}
 
-	if v, ok := d.GetOk("token"); ok {
-		input.Token = aws.String(v.(string))
+	ifv,ok:=d.GetOk("token");ok{
+		input.Token=aws.String(v.(string))
 	}
 
-	_, err = conn.PutObjectLockConfigurationWithContext(ctx, input)
+	_,err=conn.PutObjectLockConfigurationWithContext(ctx,input)
 
-	if err != nil {
-		return diag.Errorf("updating S3 Bucket Object Lock Configuration (%s): %s", d.Id(), err)
+	iferr!=nil{
+		returndiag.Errorf("updatingS3BucketObjectLockConfiguration(%s):%s",d.Id(),err)
 	}
 
-	return resourceBucketObjectLockConfigurationRead(ctx, d, meta)
-}func resourceBucketObjectLockConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
+	returnresourceBucketObjectLockConfigurationRead(ctx,d,meta)
+}funcresourceBucketObjectLockConfigurationDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	conn:=meta.(*conns.AWSClient).S3Conn(ctx)
 
 	func
-	if err != nil {
-		return diag.FromErr(err)
+	iferr!=nil{
+		returndiag.FromErr(err)
 	}
 
-	input := &s3.PutObjectLockConfigurationInput{
-		Bucket: aws.String(bucket),
-		ObjectLockConfiguration: &s3.ObjectLockConfiguration{
-			// ObjectLockEnabled is required by the API, even if configured directly on the S3 bucket
-			// during creation, else a MalformedXML error will be returned.
-			ObjectLockEnabled: aws.String(d.Get("object_lock_enabled").(string)),
+	input:=&s3.PutObjectLockConfigurationInput{
+		Bucket:aws.String(bucket),
+		ObjectLockConfiguration:&s3.ObjectLockConfiguration{
+			//ObjectLockEnabledisrequiredbytheAPI,evenifconfigureddirectlyontheS3bucket
+			//duringcreation,elseaMalformedXMLerrorwillbereturned.
+			ObjectLockEnabled:aws.String(d.Get("object_lock_enabled").(string)),
 		},
 	}
 
-	if expectedBucketOwner != "" {
-		input.ExpectedBucketOwner = aws.String(expectedBucketOwner)
+	ifexpectedBucketOwner!=""{
+		input.ExpectedBucketOwner=aws.String(expectedBucketOwner)
 	}
 
-	_, err = conn.PutObjectLockConfigurationWithContext(ctx, input)
+	_,err=conn.PutObjectLockConfigurationWithContext(ctx,input)
 
-	if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket) || tfawserr.ErrCodeContains(err, errCodeObjectLockConfigurationNotFound) {
-		return nil
+	iftfawserr.ErrCodeEquals(err,s3.ErrCodeNoSuchBucket)||tfawserr.ErrCodeContains(err,errCodeObjectLockConfigurationNotFound){
+		returnnil
 	}
 
-	if err != nil {
-		return diag.Errorf("deleting S3 Bucket Object Lock Configuration (%s): %s", d.Id(), err)
+	iferr!=nil{
+		returndiag.Errorf("deletingS3BucketObjectLockConfiguration(%s):%s",d.Id(),err)
 	}
 
-	return nil
-}func FindObjectLockConfiguration(ctx context.Context, conn *s3.S3, bucket, expectedBucketOwner string) (*s3.ObjectLockConfiguration, error) {
-	input := &s3.GetObjectLockConfigurationInput{
-		Bucket: aws.String(bucket),
+	returnnil
+}funcFindObjectLockConfiguration(ctxcontext.Context,conn*s3.S3,bucket,expectedBucketOwnerstring)(*s3.ObjectLockConfiguration,error){
+	input:=&s3.GetObjectLockConfigurationInput{
+		Bucket:aws.String(bucket),
 	}
-	funcput.ExpectedBucketOwner = aws.String(expectedBucketOwner)
+	funcput.ExpectedBucketOwner=aws.String(expectedBucketOwner)
 	}
 
-	output, err := conn.GetObjectLockConfigurationWithContext(ctx, input)
+	output,err:=conn.GetObjectLockConfigurationWithContext(ctx,input)
 
-	if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket) || tfawserr.ErrCodeContains(err, errCodeObjectLockConfigurationNotFound) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
+	iftfawserr.ErrCodeEquals(err,s3.ErrCodeNoSuchBucket)||tfawserr.ErrCodeContains(err,errCodeObjectLockConfigurationNotFound){
+		returnnil,&retry.NotFoundError{
+			LastError:err,
+			LastRequest:input,
 		}
 	}
 
-	if err != nil {
-		return nil, err
+	iferr!=nil{
+		returnnil,err
 	}
 
-	if output == nil || output.ObjectLockConfiguration == nil {
-		return nil, tfresource.NewEmptyResultError(input)
+	ifoutput==nil||output.ObjectLockConfiguration==nil{
+		returnnil,tfresource.NewEmptyResultError(input)
 	}
 
-	return output.ObjectLockConfiguration, nil
-}func expandBucketObjectLockConfigurationRule(l []interface{}) *s3.ObjectLockRule {
-	if len(l) == 0 || l[0] == nil {
-		return nil
+	returnoutput.ObjectLockConfiguration,nil
+}funcexpandBucketObjectLockConfigurationRule(l[]interface{})*s3.ObjectLockRule{
+	iflen(l)==0||l[0]==nil{
+		returnnil
 	}
 
-	func!ok {
-		return nil
+	func!ok{
+		returnnil
 	}
 
-	rule := &s3.ObjectLockRule{}
+	rule:=&s3.ObjectLockRule{}
 
-	if v, ok := tfMap["default_retention"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
-		rule.DefaultRetention = expandBucketObjectLockConfigurationCorsRuleDefaultRetention(v)
+	ifv,ok:=tfMap["default_retention"].([]interface{});ok&&len(v)>0&&v[0]!=nil{
+		rule.DefaultRetention=expandBucketObjectLockConfigurationCorsRuleDefaultRetention(v)
 	}
 
-	return rule
-}func expandBucketObjectLockConfigurationCorsRuleDefaultRetention(l []interface{}) *s3.DefaultRetention {
-	if len(l) == 0 || l[0] == nil {
-		return nil
+	returnrule
+}funcexpandBucketObjectLockConfigurationCorsRuleDefaultRetention(l[]interface{})*s3.DefaultRetention{
+	iflen(l)==0||l[0]==nil{
+		returnnil
 	}
 
-	tfMap, ok := l[0].(map[string]interface{})
-	functurn nil
+	tfMap,ok:=l[0].(map[string]interface{})
+	functurnnil
 	}
 
-	dr := &s3.DefaultRetention{}
+	dr:=&s3.DefaultRetention{}
 
-	if v, ok := tfMap["days"].(int); ok && v > 0 {
-		dr.Days = aws.Int64(int64(v))
+	ifv,ok:=tfMap["days"].(int);ok&&v>0{
+		dr.Days=aws.Int64(int64(v))
 	}
 
-	if v, ok := tfMap["mode"].(string); ok && v != "" {
-		dr.Mode = aws.String(v)
+	ifv,ok:=tfMap["mode"].(string);ok&&v!=""{
+		dr.Mode=aws.String(v)
 	}
 
-	if v, ok := tfMap["years"].(int); ok && v > 0 {
-		dr.Years = aws.Int64(int64(v))
+	ifv,ok:=tfMap["years"].(int);ok&&v>0{
+		dr.Years=aws.Int64(int64(v))
 	}
 
-	return dr
-}func flattenBucketObjectLockConfigurationRule(rule *s3.ObjectLockRule) []interface{} {
-	if rule == nil {
-		return []interface{}{}
+	returndr
+}funcflattenBucketObjectLockConfigurationRule(rule*s3.ObjectLockRule)[]interface{}{
+	ifrule==nil{
+		return[]interface{}{}
 	}
 
-	m := make(map[string]interface{})
+	m:=make(map[string]interface{})
 
-	func"default_retention"] = flattenBucketObjectLockConfigurationRuleDefaultRetention(rule.DefaultRetention)
+	func"default_retention"]=flattenBucketObjectLockConfigurationRuleDefaultRetention(rule.DefaultRetention)
 	}
-	return []interface{}{m}
-}func flattenBucketObjectLockConfigurationRuleDefaultRetention(dr *s3.DefaultRetention) []interface{} {
-	if dr == nil {
-		return []interface{}{}
+	return[]interface{}{m}
+}funcflattenBucketObjectLockConfigurationRuleDefaultRetention(dr*s3.DefaultRetention)[]interface{}{
+	ifdr==nil{
+		return[]interface{}{}
 	}
 
-	m := make(map[string]interface{})
+	m:=make(map[string]interface{})
 
-	if dr.Days != nil {
+	ifdr.Days!=nil{
 	func
 
-	if dr.Mode != nil {
-		m["mode"] = aws.StringValue(dr.Mode)
+	ifdr.Mode!=nil{
+		m["mode"]=aws.StringValue(dr.Mode)
 	}
 
-	if dr.Years != nil {
-		m["years"] = int(aws.Int64Value(dr.Years))
+	ifdr.Years!=nil{
+		m["years"]=int(aws.Int64Value(dr.Years))
 	}
 
-	return []interface{}{m}
+	return[]interface{}{m}
 }

@@ -1,13 +1,13 @@
 //Copyright2021TheGoAuthors.Allrightsreserved.
 //UseofthissourcecodeisgovernedbyaBSD-style
 //licensethatcanbefoundintheLICENSEfile.packagepkgbitsimport(
-	"bytes"
-	"crypto/md5"
-	"encoding/binary"
-	"go/constant"
-	"io"
-	"math/big"
-	"runtime"
+"bytes"
+"crypto/md5"
+"encoding/binary"
+"go/constant"
+"io"
+"math/big"
+"runtime"
 )//currentVersionisthecurrentversionnumber.
 //
 //-v0:initialprototype
@@ -16,13 +16,13 @@
 constcurrentVersionuint32=1//APkgEncoderprovidesmethodsforencodingapackage'sUnifiedIR
 //exportdata.
 typePkgEncoderstruct{
-	//elemsholdsthebitstreamforpreviouslyencodedelements.
-	elems[numRelocs][]string	//stringsIdxmapspreviouslyencodedstringstotheirindexwithin
-	//theRelocStringsection,toallowdeduplication.Thatis,
-	//elems[RelocString][stringsIdx[s]]==s(ifpresent).
-	stringsIdxmap[string]Index	//syncFramesisthenumberofframestowriteateachsync
-	//marker.Anegativevaluemeanssyncmarkersareomitted.
-	syncFramesint
+//elemsholdsthebitstreamforpreviouslyencodedelements.
+elems[numRelocs][]string//stringsIdxmapspreviouslyencodedstringstotheirindexwithin
+//theRelocStringsection,toallowdeduplication.Thatis,
+//elems[RelocString][stringsIdx[s]]==s(ifpresent).
+stringsIdxmap[string]Index//syncFramesisthenumberofframestowriteateachsync
+//marker.Anegativevaluemeanssyncmarkersareomitted.
+syncFramesint
 }//SyncMarkersreportswhetherpwusessyncmarkers.(pw*PkgEncoder)SyncMarkers()bool{returnpw.syncFrames>=0}//NewPkgEncoderreturnsaninitializedPkgEncoder.
 //
 //syncFramesisthenumberofcallerframesthatshouldbeserialized
@@ -30,234 +30,234 @@ typePkgEncoderstruct{
 //exportdatafiles,butcanhelpdiagnosingdesyncerrorsin
 //higher-levelUnifiedIRreader/writercode.IfsyncFramesis
 egative,thensyncmarkersareomittedentirely.NewPkgEncoder(syncFramesint)PkgEncoder{
-	returnPkgEncoder{
-		stringsIdx:make(map[string]Index),
-		syncFrames:syncFrames,
-	}
+returnPkgEncoder{
+stringsIdx:make(map[string]Index),
+syncFrames:syncFrames,
+}
 }umpTowritesthepackage'sencodeddatatoout0andreturnsthe
 //packagefingerprint.(pw*PkgEncoder)DumpTo(out0io.Writer)(fingerprint[8]byte){
-	h:=md5.New()
-	out:=io.MultiWriter(out0,h)	writeUint32:=
+h:=md5.New()
+out:=io.MultiWriter(out0,h)writeUint32:=
 (xuint32){
-		assert(binary.Write(out,binary.LittleEndian,x)==nil)
-	}	writeUint32(currentVersion)	varflagsuint32
-	ifpw.SyncMarkers(){
-		flags|=flagSyncMarkers
-	}
-	writeUint32(flags)	//WriteelemEndsEnds.
-	varsumuint32
-	for_,elems:=range&pw.elems{
-		sum+=uint32(len(elems))
-		writeUint32(sum)
-	}	//WriteelemEnds.
-	sum=0
-	for_,elems:=range&pw.elems{
-		for_,elem:=rangeelems{
-			sum+=uint32(len(elem))
-			writeUint32(sum)
-		}
-	}	//WriteelemData.
-	for_,elems:=range&pw.elems{
-		for_,elem:=rangeelems{
-			_,err:=io.WriteString(out,elem)
-			assert(err==nil)
-		}
-	}	//Writefingerprint.
-	copy(fingerprint[:],h.Sum(nil))
-	_,err:=out0.Write(fingerprint[:])
-	assert(err==nil)	return
+assert(binary.Write(out,binary.LittleEndian,x)==nil)
+}writeUint32(currentVersion)varflagsuint32
+ifpw.SyncMarkers(){
+flags|=flagSyncMarkers
+}
+writeUint32(flags)//WriteelemEndsEnds.
+varsumuint32
+for_,elems:=range&pw.elems{
+sum+=uint32(len(elems))
+writeUint32(sum)
+}//WriteelemEnds.
+sum=0
+for_,elems:=range&pw.elems{
+for_,elem:=rangeelems{
+sum+=uint32(len(elem))
+writeUint32(sum)
+}
+}//WriteelemData.
+for_,elems:=range&pw.elems{
+for_,elem:=rangeelems{
+_,err:=io.WriteString(out,elem)
+assert(err==nil)
+}
+}//Writefingerprint.
+copy(fingerprint[:],h.Sum(nil))
+_,err:=out0.Write(fingerprint[:])
+assert(err==nil)return
 //StringIdxaddsastringvaluetothestringssection,ifnot
 //alreadypresent,andreturnsitsindex.(pw*PkgEncoder)StringIdx(sstring)Index{
-	ifidx,ok:=pw.stringsIdx[s];ok{
-		assert(pw.elems[RelocString][idx]==s)
-		returnidx
-	}	idx:=Index(len(pw.elems[RelocString]))
-	pw.elems[RelocString]=append(pw.elems[RelocString],s)
-	pw.stringsIdx[s]=idx
-	returnidx
+ifidx,ok:=pw.stringsIdx[s];ok{
+assert(pw.elems[RelocString][idx]==s)
+returnidx
+}idx:=Index(len(pw.elems[RelocString]))
+pw.elems[RelocString]=append(pw.elems[RelocString],s)
+pw.stringsIdx[s]=idx
+returnidx
 //NewEncoderreturnsanEncoderforanewelementwithinthegiven
 //section,andencodesthegivenSyncMarkerasthestartofthe
 //elementbitstream.(pw*PkgEncoder)NewEncoder(kRelocKind,markerSyncMarker)Encoder{
-	e:=pw.NewEncoderRaw(k)
-	e.Sync(marker)
-	returne
+e:=pw.NewEncoderRaw(k)
+e.Sync(marker)
+returne
 //NewEncoderRawreturnsanEncoderforanewelementwithinthegiven
 //section.
 //
 //MostcallersshoulduseNewEncoderinstead.(pw*PkgEncoder)NewEncoderRaw(kRelocKind)Encoder{
-	idx:=Index(len(pw.elems[k]))
-	pw.elems[k]=append(pw.elems[k],"")//placeholder	returnEncoder{
-		p:pw,
-		k:k,
-		Idx:idx,
-	}
+idx:=Index(len(pw.elems[k]))
+pw.elems[k]=append(pw.elems[k],"")//placeholderreturnEncoder{
+p:pw,
+k:k,
+Idx:idx,
+}
 }//AnEncoderprovidesmethodsforencodinganindividualelement's
 //bitstreamdata.
 typeEncoderstruct{
-	p*PkgEncoder	Relocs[]RelocEnt
-	RelocMapmap[RelocEnt]uint32
-	Databytes.Buffer//accumulatedelementbitstreamdataodingRelocHeaderbool	kRelocKind
-	IdxIndex//indexwithinrelocationsection
+p*PkgEncoderRelocs[]RelocEnt
+RelocMapmap[RelocEnt]uint32
+Databytes.Buffer//accumulatedelementbitstreamdataodingRelocHeaderboolkRelocKind
+IdxIndex//indexwithinrelocationsection
 }//Flushfinalizestheelement'sbitstreamandreturnsitsIndex.(w*Encoder)Flush()Index
-	varsbbytes.Buffer//TODO(mdempsky):strings.Builderafter#44505isresolved	//Backupthedatasowewritetherelocationsatthefront.
-	vartmpbytes.Buffer
-	io.Copy(&tmp,&w.Data)	//TODO(mdempsky):Considerwritingtheseoutseparatelysothey're
-	//easiertostrip,alongwith
+varsbbytes.Buffer//TODO(mdempsky):strings.Builderafter#44505isresolved//Backupthedatasowewritetherelocationsatthefront.
+vartmpbytes.Buffer
+io.Copy(&tmp,&w.Data)//TODO(mdempsky):Considerwritingtheseoutseparatelysothey're
+//easiertostrip,alongwith
 tionbodies,sothatwecanprune
-	//downtojustthedatathat'srelevanttogo/types.
-	ifw.encodingRelocHeader{
-		panic("encodingRelocHeaderalreadytrue;recursiveflush?")
-	}
-	w.encodingRelocHeader=true
-	w.Sync(SyncRelocs)
-	w.Len(len(w.Relocs))
-	for_,rEnt:=rangew.Relocs{
-		w.Sync(SyncReloc)
-		w.Len(int(rEnt.Kind))
-		w.Len(int(rEnt.Idx))
-	io.Copy(&sb,&w.Data)
-	io.Copy(&sb,&tmp)
-	w.p.elems[w.k][w.Idx]=sb.String()urnw.Idx
+//downtojustthedatathat'srelevanttogo/types.
+ifw.encodingRelocHeader{
+panic("encodingRelocHeaderalreadytrue;recursiveflush?")
+}
+w.encodingRelocHeader=true
+w.Sync(SyncRelocs)
+w.Len(len(w.Relocs))
+for_,rEnt:=rangew.Relocs{
+w.Sync(SyncReloc)
+w.Len(int(rEnt.Kind))
+w.Len(int(rEnt.Idx))
+io.Copy(&sb,&w.Data)
+io.Copy(&sb,&tmp)
+w.p.elems[w.k][w.Idx]=sb.String()urnw.Idx
 }
 (w*Encoder)checkErr(errerror){
-	iferr!=nil{
-		errorf("unexpectedencodingerror:%v",err)}
+iferr!=nil{
+errorf("unexpectedencodingerror:%v",err)}
 (w*Encoder)rawUvarint(xuint64){
-	varbuf[binary.MaxVarintLen64]byte
-	n:=binary.PutUvarint(buf[:],x)
-	_,err:=w.Data.Write(buf[:n])
-	w.checkErr(err)
+varbuf[binary.MaxVarintLen64]byte
+n:=binary.PutUvarint(buf[:],x)
+_,err:=w.Data.Write(buf[:n])
+w.checkErr(err)
 }
 (w*Encoder)rawVarint(xint64){
-	//Zig-zagencode.
-	ux:=uint64(x)<<1
-	ifx<0{
-		ux=^ux
-	}	w.rawUvarint(ux)
+//Zig-zagencode.
+ux:=uint64(x)<<1
+ifx<0{
+ux=^ux
+}w.rawUvarint(ux)
 }
 (w*Encoder)rawReloc(rRelocKind,idxIndex)int{
-	e:=RelocEnt{r,idx}
-	ifw.RelocMap!=nil{
+e:=RelocEnt{r,idx}
+ifw.RelocMap!=nil{
 i,ok:=w.RelocMap[e];ok{
-			returnint(i)
-		}
-	}else{
-		w.RelocMap=make(map[RelocEnt]uint32)
-	}	i:=len(w.Relocs)
-	w.RelocMap[e]=uint32(i)
-	w.Relocs=append(w.Relocs,e)
-	returni
+returnint(i)
+}
+}else{
+w.RelocMap=make(map[RelocEnt]uint32)
+}i:=len(w.Relocs)
+w.RelocMap[e]=uint32(i)
+w.Relocs=append(w.Relocs,e)
+returni
 }
 (w*Encoder)Sync(mSyncMarker){
-	if!w.p.SyncMarkers(){
-		return
-	}	//Writingoutstackframestringreferencesrequiresworking
-	//relocations,butwritingouttherelocationsthemselvesinvolves
-	//syncmarkers.Topreventinfiniterecursion,wesimplytrimthe
-	//stackframeforsyncmarkerswithintherelocationheader.
-	varframes[]string
-	if!w.encodingRelocHeader&&w.p.syncFrames>0{
-		pcs:=make([]uintptr,w.p.syncFrames)
-		n:=runtime.Callers(2,pcs)
-		frames=fmtFrames(pcs[:n]...)
-	}	//TODO(mdempsky):Savespacebywritingoutstackframesasa
-	//linkedlistsowecansharecommonstackframes.
-	w.rawUvarint(uint64(m))
-	w.rawUvarint(uint64(len(frames)))
-	for_,frame:=rangeframes{
-		w.rawUvarint(uint64(w.rawReloc(RelocString,w.p.StringIdx(frame))))
-	}
+if!w.p.SyncMarkers(){
+return
+}//Writingoutstackframestringreferencesrequiresworking
+//relocations,butwritingouttherelocationsthemselvesinvolves
+//syncmarkers.Topreventinfiniterecursion,wesimplytrimthe
+//stackframeforsyncmarkerswithintherelocationheader.
+varframes[]string
+if!w.encodingRelocHeader&&w.p.syncFrames>0{
+pcs:=make([]uintptr,w.p.syncFrames)
+n:=runtime.Callers(2,pcs)
+frames=fmtFrames(pcs[:n]...)
+}//TODO(mdempsky):Savespacebywritingoutstackframesasa
+//linkedlistsowecansharecommonstackframes.
+w.rawUvarint(uint64(m))
+w.rawUvarint(uint64(len(frames)))
+for_,frame:=rangeframes{
+w.rawUvarint(uint64(w.rawReloc(RelocString,w.p.StringIdx(frame))))
+}
 }//Boolencodesandwritesaboolvalueintotheelementbitstream,
 //andthenreturnstheboolvalue.
 //
 //Forsimple,2-alternativeencodings,theidiomaticwaytocallBool
 //issomethinglike:
 //
-//	ifw.Bool(x!=0){
-//		//alternative#1
-//	}else{
-//		//alternative#2
-//	}//Formulti-alternativeencodings,useCodeinstead.(w*Encoder)Bool(bbool)bool{
-	w.Sync(SyncBool)
-	varxbyte
+//ifw.Bool(x!=0){
+////alternative#1
+//}else{
+////alternative#2
+//}//Formulti-alternativeencodings,useCodeinstead.(w*Encoder)Bool(bbool)bool{
+w.Sync(SyncBool)
+varxbyte
 b{
-		x=1
-	}
-	err:=w.Data.WriteByte(x)
-	w.checkErr(err)
-	returnb
+x=1
+}
+err:=w.Data.WriteByte(x)
+w.checkErr(err)
+returnb
 //Int64encodesandwritesanint64valueintotheelementbitstream.(w*Encoder)Int64(xint64){
-	w.Sync(SyncInt64)
+w.Sync(SyncInt64)
 awVarint(x)
 }//Uint64encodesandwritesauint64valueintotheelementbitstream.(w*Encoder)Uint64(xuint64){
-	w.Sync(SyncUint64)
-	w.rawUvarint(x)
+w.Sync(SyncUint64)
+w.rawUvarint(x)
 //Lenencodesandwritesanon-negativeintvalueintotheelementbitstream.(w*Encoder)Len(xint){assert(x>=0);w.Uint64(uint64(x))}ntencodesandwritesanintvalueintotheelementbitstream.(w*Encoder)Int(xint){w.Int64(int64(x))}//Uintencodesandwritesauintvalueintotheelementbitstream.(w*Encoder)Uint(xuint){w.Uint64(uint64(x))}//Relocencodesandwritesarelocationforthegiven(section,
 //index)pairintotheelementbitstream.
 //
 ote:Onlytheindexisformallywrittenintotheelement
 //bitstream,sobitstreamdecodersmustknowfromcontextwhich
 //sectionanencodedrelocationrefersto.(w*Encoder)Reloc(rRelocKind,idxIndex){
-	w.Sync(SyncUseReloc)
-	w.Len(w.rawReloc(r,idx))
+w.Sync(SyncUseReloc)
+w.Len(w.rawReloc(r,idx))
 //CodeencodesandwritesaCodevalueintotheelementbitstream.(w*Encoder)Code(cCode){
-	w.Sync(c.Marker())
-	w.Len(c.Value())
+w.Sync(c.Marker())
+w.Len(c.Value())
 }tringencodesandwritesastringvalueintotheelement
 //bitstream.
 //
 //Internally,stringsarededuplicatedbyaddingthemtothestrings
 //section(ifnotalreadypresent),andthenwritingarelocation
 //intotheelementbitstream.(w*Encoder)String(sstring){
-	w.Sync(SyncString)
-	w.Reloc(RelocString,w.p.StringIdx(s))
+w.Sync(SyncString)
+w.Reloc(RelocString,w.p.StringIdx(s))
 //Stringsencodesandwritesavariable-lengthsliceofstringsinto
 //theelementbitstream.(w*Encoder)Strings(ss[]string){
-	w.Len(len(ss))
-	for_,s:=rangess{
-		w.String(s)
-	}
+w.Len(len(ss))
+for_,s:=rangess{
+w.String(s)
+}
 }//Valueencodesandwritesaconstant.Valueintotheelement
 //bitstream.(w*Encoder)Value(valconstant.Value){
-	w.Sync(SyncValue)
-	ifw.Bool(val.Kind()==constant.Complex){
-		w.scalar(constant.Real(val))
-		w.scalar(constant.Imag(val))
-	}else{
-		w.scalar(val)
-	}
+w.Sync(SyncValue)
+ifw.Bool(val.Kind()==constant.Complex){
+w.scalar(constant.Real(val))
+w.scalar(constant.Imag(val))
+}else{
+w.scalar(val)
+}
 }
 *Encoder)scalar(valconstant.Value){
-	switchv:=constant.Val(val).(type){
-	default:
-		errorf("unhandled%v(%v)",val,val.Kind())
-	casebool:
-		w.Code(ValBool)
+switchv:=constant.Val(val).(type){
+default:
+errorf("unhandled%v(%v)",val,val.Kind())
+casebool:
+w.Code(ValBool)
 Bool(v)
-	casestring:
-		w.Code(ValString)
-		w.String(v)
-	caseint64:
-		w.Code(ValInt64)
-		w.Int64(v)
-	case*big.Int:
-		w.Code(ValBigInt)
-		w.bigInt(v)
-	case*big.Rat:
-		w.Code(ValBigRat)
-		w.bigInt(v.Num())
-		w.bigInt(v.Denom())
-	case*big.Float:
-		w.Code(ValBigFloat)
-		w.bigFloat(v)
-	}
+casestring:
+w.Code(ValString)
+w.String(v)
+caseint64:
+w.Code(ValInt64)
+w.Int64(v)
+case*big.Int:
+w.Code(ValBigInt)
+w.bigInt(v)
+case*big.Rat:
+w.Code(ValBigRat)
+w.bigInt(v.Num())
+w.bigInt(v.Denom())
+case*big.Float:
+w.Code(ValBigFloat)
+w.bigFloat(v)
+}
 }
 (w*Encoder)bigInt(v*big.Int){
-	b:=v.Bytes()
-	w.String(string(b))//TODO:Moreefficientencoding.
-	w.Bool(v.Sign()<0)
+b:=v.Bytes()
+w.String(string(b))//TODO:Moreefficientencoding.
+w.Bool(v.Sign()<0)
 }
 (w*Encoder)bigFloat(v*big.Float){
-	b:=v.Append(nil,'p',-1)
-	w.String(string(b))//TODO:Moreefficientencoding.
+b:=v.Append(nil,'p',-1)
+w.String(string(b))//TODO:Moreefficientencoding.
 }

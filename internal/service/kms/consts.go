@@ -4,17 +4,17 @@
 package kms
 
 import (
-	"time"
+"time"
 )
 
 const (
-	AliasNamePrefix = "alias/"
+AliasNamePrefix = "alias/"
 )
 
 const (
-	PolicyNameDefault = "default"
+PolicyNameDefault = "default"
 )
 
 const (
-	propagationTimeout = 2 * time.Minute
+propagationTimeout = 2 * time.Minute
 )

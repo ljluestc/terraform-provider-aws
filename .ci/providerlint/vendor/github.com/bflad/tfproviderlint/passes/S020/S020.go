@@ -1,9 +1,9 @@
-// Package S020 defines an Analyzer that checks for
-// Schema with only Computed enabled and Validate
- configured
-package S020
+//PackageS020definesanAnalyzerthatchecksfor
+//SchemawithonlyComputedenabledandValidate
+configured
+packageS020
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
@@ -12,47 +12,47 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Schema with only Computed enabled and ForceNew enabled
+constDoc=`checkforSchemawithonlyComputedenabledandForceNewenabled
 
-The S020 analyzer reports cases of schemas which only enables Computed
-and enables ForceNew, which is not valid.`
+TheS020analyzerreportscasesofschemaswhichonlyenablesComputed
+andenablesForceNew,whichisnotvalid.`
 
-const analyzerName = "S020"
+constanalyzerName="S020"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		schemainfocomputedonly.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		if !schemaInfo.Schema.Computed || schemaInfo.Schema.Optional || schemaInfo.Schema.Required {
+		if!schemaInfo.Schema.Computed||schemaInfo.Schema.Optional||schemaInfo.Schema.Required{
 			continue
 		}
 
-		if !schemaInfo.Schema.ForceNew {
+		if!schemaInfo.Schema.ForceNew{
 			continue
 		}
 
-		switch t := schemaInfo.AstCompositeLit.Type.(type) {
+		switcht:=schemaInfo.AstCompositeLit.Type.(type){
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not only enable Computed and enable ForceNew", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema should not only enable Computed and enable ForceNew", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace,"%s:schemashouldnotonlyenableComputedandenableForceNew",analyzerName)
+		case*ast.SelectorExpr:
+			pass.Reportf(t.Sel.Pos(),"%s:schemashouldnotonlyenableComputedandenableForceNew",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

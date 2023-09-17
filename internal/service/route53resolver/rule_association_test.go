@@ -4,155 +4,155 @@
 package route53resolver_test
 
 import (
-	"context"
-	"fmt"
-	"testing"
+"context"
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/service/route53resolver"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
-	tfroute53resolver "github.com/hashicorp/terraform-provider-aws/internal/service/route53resolver"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/aws/aws-sdk-go/service/route53resolver"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
+tfroute53resolver "github.com/hashicorp/terraform-provider-aws/internal/service/route53resolver"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
 
 func TestAccRoute53ResolverRuleAssociation_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	var assn route53resolver.ResolverRuleAssociation
-	resourceName := "aws_route53_resolver_rule_association.test"
-	vpcResourceName := "aws_vpc.test"
-	ruleResourceName := "aws_route53_resolver_rule.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
+ctx := acctest.Context(t)
+var assn route53resolver.ResolverRuleAssociation
+resourceName := "aws_route53_resolver_rule_association.test"
+vpcResourceName := "aws_vpc.test"
+ruleResourceName := "aws_route53_resolver_rule.test"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+domainName := acctest.RandomDomainName()
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRuleAssociationDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccRuleAssociationConfig_basic(rName, domainName),
 Check: resource.ComposeAggregateTestCheck
 func(
-	testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
-	resource.TestCheckResourceAttr(resourceName, "name", rName),
-	resource.TestCheckResourceAttrPair(resourceName, "resolver_rule_id", ruleResourceName, "id"),
-	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpcResourceName, "id"),
+testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
+resource.TestCheckResourceAttr(resourceName, "name", rName),
+resource.TestCheckResourceAttrPair(resourceName, "resolver_rule_id", ruleResourceName, "id"),
+resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpcResourceName, "id"),
 ),
-	},
-	{
+},
+{
 ResourceName: resourceName,
 ImportState:  true,
 ImportStateVerify: true,
-	},
 },
-	})
+},
+})
 }
 
 
 func TestAccRoute53ResolverRuleAssociation_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var assn route53resolver.ResolverRuleAssociation
-	resourceName := "aws_route53_resolver_rule_association.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
+ctx := acctest.Context(t)
+var assn route53resolver.ResolverRuleAssociation
+resourceName := "aws_route53_resolver_rule_association.test"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+domainName := acctest.RandomDomainName()
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRuleAssociationDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccRuleAssociationConfig_basic(rName, domainName),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
-	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceRuleAssociation(), resourceName),
+testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceRuleAssociation(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
 },
-	})
+},
+})
 }
 
 
 func TestAccRoute53ResolverRuleAssociation_Disappears_vpc(t *testing.T) {
-	ctx := acctest.Context(t)
-	var assn route53resolver.ResolverRuleAssociation
-	resourceName := "aws_route53_resolver_rule_association.test"
-	vpcResourceName := "aws_vpc.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
+ctx := acctest.Context(t)
+var assn route53resolver.ResolverRuleAssociation
+resourceName := "aws_route53_resolver_rule_association.test"
+vpcResourceName := "aws_vpc.test"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+domainName := acctest.RandomDomainName()
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRuleAssociationDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccRuleAssociationConfig_basic(rName, domainName),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
-	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPC(), vpcResourceName),
+testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPC(), vpcResourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
 },
-	})
+},
+})
 }
 
 
 func testAccCheckRuleAssociationDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
+return 
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
-	if rs.Type != "aws_route53_resolver_rule_association" {
+if rs.Type != "aws_route53_resolver_rule_association" {
 continue
-	}
+}
 
-	_, err := tfroute53resolver.FindResolverRuleAssociationByID(ctx, conn, rs.Primary.ID)
+_, err := tfroute53resolver.FindResolverRuleAssociationByID(ctx, conn, rs.Primary.ID)
 
-	if tfresource.NotFound(err) {
+if tfresource.NotFound(err) {
 continue
-	}
+}
 
-	if err != nil {
+if err != nil {
 return err
-	}
+}
 
-	return fmt.Errorf("Route53 Resolver Rule Association still exists: %s", rs.Primary.ID)
+return fmt.Errorf("Route53 Resolver Rule Association still exists: %s", rs.Primary.ID)
 }
 
 return nil
-	}
+}
 }
 
 
 func testAccCheckRuleAssociationExists(ctx context.Context, n string, v *route53resolver.ResolverRuleAssociation) resource.TestCheck
 func {
-	return 
+return 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
-	return fmt.Errorf("Not found: %s", n)
+return fmt.Errorf("Not found: %s", n)
 }
 
 if rs.Primary.ID == "" {
-	return fmt.Errorf("No Route53 Resolver Rule Association ID is set")
+return fmt.Errorf("No Route53 Resolver Rule Association ID is set")
 }
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -160,18 +160,18 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 output, err := tfroute53resolver.FindResolverRuleAssociationByID(ctx, conn, rs.Primary.ID)
 
 if err != nil {
-	return err
+return err
 }
 
 *v = *output
 
 return nil
-	}
+}
 }
 
 
 func testAccRuleAssociationConfig_basic(rName, domainName string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block  = "10.6.0.0/16"
   enable_dns_hostnames = true

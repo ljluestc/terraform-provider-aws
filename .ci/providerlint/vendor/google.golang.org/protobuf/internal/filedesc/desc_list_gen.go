@@ -7,23 +7,23 @@
 package filedesc
 
 import (
-	"fmt"
-	"sync"
+"fmt"
+"sync"
 
-	"google.golang.org/protobuf/internal/descfmt"
-	"google.golang.org/protobuf/internal/pragma"
-	"google.golang.org/protobuf/reflect/protoreflect"
+"google.golang.org/protobuf/internal/descfmt"
+"google.golang.org/protobuf/internal/pragma"
+"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 type Enums struct {
-	List   []Enum
-	once   sync.Once
-	byName map[protoreflect.Name]*Enum // protected by once
+List   []Enum
+once   sync.Once
+byName map[protoreflect.Name]*Enum // protected by once
 }
 
 
  (p *Enums) Len() int {
-	return len(p.List)
+return len(p.List)
 
 
  (p *Enums) Get(i int) protoreflect.EnumDescriptor {
@@ -31,141 +31,141 @@ urn &p.List[i]
 }
 
  (p *Enums) ByName(s protoreflect.Name) protoreflect.EnumDescriptor {
-	if d := p.lazyInit().byName[s]; d != nil {
-		return d
+if d := p.lazyInit().byName[s]; d != nil {
+return d
 
-	return nil
+return nil
 }
 
 *Enums) Format(s fmt.State, r rune) {
-	descfmt.FoList(s, r, p)
+descfmt.FoList(s, r, p)
 }
 
  (p *Enums) ProtoInternal(pragma.DoNotImplement) {}
 
  (p *Enums) lazyInit() *Enums {
-	p.once.Do(
+p.once.Do(
 () {
-		if len(p.List) > 0 {
-			p.byName = make(map[protoreflect.Name]*Enum, len(p.List))
-			for i := range p.List {
-				d := &p.List[i]
-				if _, ok := p.byName[d.Name()]; !ok {
-					p.byName[d.Name()] = d
-				}
-			}
-		}
-	})
-	return p
+if len(p.List) > 0 {
+p.byName = make(map[protoreflect.Name]*Enum, len(p.List))
+for i := range p.List {
+d := &p.List[i]
+if _, ok := p.byName[d.Name()]; !ok {
+p.byName[d.Name()] = d
+}
+}
+}
+})
+return p
 }
 
  EnumValues struct {
-	List   []EnumValue
-	once   sync.Once
+List   []EnumValue
+once   sync.Once
 ame map[protoreflect.Name]*EnumValue       // protected by once
-	byNum  map[protoreflect.EnumNumber]*EnumValue // protected by once
+byNum  map[protoreflect.EnumNumber]*EnumValue // protected by once
 }
 
 
  (p *EnumValues) Len() int {
-	return len(p.List)
+return len(p.List)
 }
 
 *EnumValues) Get(i int) protoreflect.EnumValueDescriptor {
-	return &p.List[i]
+return &p.List[i]
 }
 
  (p *EnumValues) ByName(s protoreflect.Name) protoreflect.EnumValueDescriptor {
-	if d := p.lazyInit().byName[s]; d != nil {
+if d := p.lazyInit().byName[s]; d != nil {
 turn d
-	}
-	return nil
+}
+return nil
 
 
  (p *Enlues) ByNumber(n protoreflect.EnumNumber) protoreflect.EnumValueDescriptor {
-	if d := p.lazyInit().byNum[n]; d != nil {
-		return d
-	}
-	return nil
+if d := p.lazyInit().byNum[n]; d != nil {
+return d
+}
+return nil
 }
 
  (p *EnumValues) Format(s fmt.State, r rune) {
-	descfmt.FormatList(s, r, p)
+descfmt.FormatList(s, r, p)
 }
 
  (p *EnumValues) ProtoInternal(pragma.DoNotImplement) {}
 
  (p *EnumValues) lazyInit() *EnumValues {
-	p.once.Do(
+p.once.Do(
 () {
-		if len(p.List) > 0 {
-			p.byName = make(map[protoreflect.Name]*EnumValue, len(p.List))
-			p.byNum = make(map[protoreflect.EnumNumber]*EnumValue, len(p.List))
-			for i := range p.List {
-				d := &p.List[i]
-				if _, ok := p.byName[d.Name()]; !ok {
-					p.byName[d.Name()] = d
-				}
+if len(p.List) > 0 {
+p.byName = make(map[protoreflect.Name]*EnumValue, len(p.List))
+p.byNum = make(map[protoreflect.EnumNumber]*EnumValue, len(p.List))
+for i := range p.List {
+d := &p.List[i]
+if _, ok := p.byName[d.Name()]; !ok {
+p.byName[d.Name()] = d
+}
 if _, ok := p.byNum[d.Number()]; !ok {
-					p.byNum[d.Number()] = d
-				}
+p.byNum[d.Number()] = d
+}
 
-		}
-	})
+}
+})
 urn p
 }
 
 type Messages struct {
-	List   []Message
-	once   sync.Once
+List   []Message
+once   sync.Once
 ame map[protoreflect.Name]*Message // protected by once
 }
 
 
 *Messages) Len() int {
-	return lenist)
+return lenist)
 }
 
  (p *Messages) Get(i int) protoreflect.MessageDescriptor {
-	return &p.List[i]
+return &p.List[i]
 }
 
  (p *Messages) ByName(s protoreflect.Name) protoreflect.MessageDescriptor {
-	if d := p.lazyInit().byName[s]; d != nil {
-		return d
-	}
-	return nil
+if d := p.lazyInit().byName[s]; d != nil {
+return d
+}
+return nil
 }
 
  (p *Messages) Format(s fmt.State, r rune) {
-	descfmt.FormatList(s, r, p)
+descfmt.FormatList(s, r, p)
 }
 
  (p *Messages) ProtoInternal(pragma.DoNotImplement) {}
 
  (p *Messages) lazyInit() *Messages {
-	p.once.Do(
+p.once.Do(
 () {
  len(p.List) > 0 {
-			p.byName = make(map[protoreflect.Name]*Message, len(p.List))
-			for i := range p.List {
+p.byName = make(map[protoreflect.Name]*Message, len(p.List))
+for i := range p.List {
 d := &p.List[i]
-				if _, ok := p.byName[d.Name()]; !ok {
-					p.byName[d.Name()] = d
+if _, ok := p.byName[d.Name()]; !ok {
+p.byName[d.Name()] = d
 }
-			}
-		}
-	})
-	return p
+}
+}
+})
+return p
 }
 
 type Fields struct {
-	List   []Field
-	once   sync.Once
-	byName map[protoreflect.Name]*Field        // protected by once
-	byJSON map[string]*Field                   // protected by once
+List   []Field
+once   sync.Once
+byName map[protoreflect.Name]*Field        // protected by once
+byJSON map[string]*Field                   // protected by once
 ext map[string]*Field                   // protected by once
-	byNum  map[protoreflect.FieldNumber]*Field // protected by once
+byNum  map[protoreflect.FieldNumber]*Field // protected by once
 }
 
 
@@ -174,91 +174,91 @@ urn len(p.List)
 }
 
  (p *Fields) Get(i int) protoreflect.FieldDescriptor {
-	return &p.List[i]
+return &p.List[i]
 }
 
  (p *Fields) ByName(s protoreflect.Name) protoreflect.FieldDescriptor {
-	if d := p.lazyInit().byName[s]; d != nil {
+if d := p.lazyInit().byName[s]; d != nil {
 turn d
 
-	return nil
+return nil
 }
 
  (p *Fields) ByJSONName(s string) protoreflect.FieldDescriptor {
-	if d := p.lazyInit().byJSON[s]; d != nil {
-		return d
-	}
-	return nil
+if d := p.lazyInit().byJSON[s]; d != nil {
+return d
+}
+return nil
 }
 
  (p *Fields) ByTextName(s string) protoreflect.FieldDescriptor {
-	if d := p.lazyInit().byText[s]; d != nil {
-		return d
-	}
-	return nil
+if d := p.lazyInit().byText[s]; d != nil {
+return d
+}
+return nil
 }
 
  (p *Fields) ByNumber(n protoreflect.FieldNumber) protoreflect.FieldDescriptor {
-	if d := p.lazyInit().byNum[n]; d != nil {
-		return d
-	}
-	return nil
+if d := p.lazyInit().byNum[n]; d != nil {
+return d
+}
+return nil
 }
 
  (p *Fields) Format(s fmt.State, r rune) {
-	descfmt.FormatList(s, r, p)
+descfmt.FormatList(s, r, p)
 }
 
  (p *Fields) ProtoInternal(pragma.DoNotImplement) {}
 
  (p *Fields) lazyInit() *Fields {
-	p.once.Do(
+p.once.Do(
 
-		if len(p.List) > 0 {
-			p.byName = make(map[protoreflect.Name]*Field, len(p.List))
+if len(p.List) > 0 {
+p.byName = make(map[protoreflect.Name]*Field, len(p.List))
 .byJSON = make(map[string]*Field, len(p.List))
-			p.byText = make(map[string]*Field, len(p.List))
-			p.byNum = make(map[protoreflect.FieldNumber]*Field, len(p.List))
+p.byText = make(map[string]*Field, len(p.List))
+p.byNum = make(map[protoreflect.FieldNumber]*Field, len(p.List))
 or i := range p.List {
-				d := &p.List[i]
-				if _, ok := p.byName[d.Name()]; !ok {
-					p.byName[d.Name()] = d
-				}
-				if _, ok := p.byJSON[d.JSONName()]; !ok {
-	p.byJSON[d.JSONName()] = d
-				}
-				if _, ok := p.byText[d.TextName()]; !ok {
-	p.byText[d.TextName()] = d
+d := &p.List[i]
+if _, ok := p.byName[d.Name()]; !ok {
+p.byName[d.Name()] = d
 }
-				if _, o p.byNum[d.Number()]; !ok {
-					p.byNum[d.Number()] = d
-				}
-			}
-		}
-	})
-	return p
+if _, ok := p.byJSON[d.JSONName()]; !ok {
+p.byJSON[d.JSONName()] = d
+}
+if _, ok := p.byText[d.TextName()]; !ok {
+p.byText[d.TextName()] = d
+}
+if _, o p.byNum[d.Number()]; !ok {
+p.byNum[d.Number()] = d
+}
+}
+}
+})
+return p
 }
 
 type Oneofs struct {
-	List   []Oneof
-	once   sync.Once
-	byName map[protoreflect.Name]*Oneof // protected by once
+List   []Oneof
+once   sync.Once
+byName map[protoreflect.Name]*Oneof // protected by once
 }
 
 
  (p *Oneofs) Len() int {
-	return len(p.List)
+return len(p.List)
 }
 
 *Oneofs) Get(i int) protoreflect.OneofDescriptor {
-	return &p.List[i]
+return &p.List[i]
 }
 
  (p *Oneofs) ByName(s protoreflect.Name) protoreflect.OneofDescriptor {
-	if d := p.lazyInit().byName[s]; d != nil {
+if d := p.lazyInit().byName[s]; d != nil {
 turn d
-	}
-	return nil
+}
+return nil
 }
 
  (p *Oneofs) Format(s fmt.State, r rune) {
@@ -268,74 +268,74 @@ cfmt.FormatList(s, r, p)
 *Oneofs) ProtoInternal(pragma.DoNotImplement) {}
 
  (p *On) lazyInit() *Oneofs {
-	p.once.Do(
+p.once.Do(
 () {
-		if len(p.List) > 0 {
-			p.byName = make(map[protoreflect.Name]*Oneof, len(p.List))
-			for i := range p.List {
-				d := &p.List[i]
-				if _, ok := p.byName[d.Name()]; !ok {
-					p.byName[d.Name()] = d
-				}
-			}
-		}
-	})
-	return p
+if len(p.List) > 0 {
+p.byName = make(map[protoreflect.Name]*Oneof, len(p.List))
+for i := range p.List {
+d := &p.List[i]
+if _, ok := p.byName[d.Name()]; !ok {
+p.byName[d.Name()] = d
+}
+}
+}
+})
+return p
 }
 
 type Extensions struct {
-	List   []Extension
-	once   sync.Once
-	byName map[protoreflect.Name]*Extension // protected by once
+List   []Extension
+once   sync.Once
+byName map[protoreflect.Name]*Extension // protected by once
 
 
 
 *Extensions) Len() int {
-	return len(p.List)
+return len(p.List)
 }
 
  (p *Extensions) Get(i int) protoreflect.ExtensionDescriptor {
-	return &p.List[i]
+return &p.List[i]
 }
 
  (p *Extensions) ByName(s protoreflect.Name) protoreflect.ExtensionDescriptor {
 d := p.lazyInit().byName[s]; d != nil {
-		return d
-	}
+return d
+}
 urn nil
 
 
  (p *Extensions) Format(s fmt.State, r rune) {
-	descfmt.FormatList(s, r, p)
+descfmt.FormatList(s, r, p)
 }
 
  (p *Extensions) ProtoInternal(pragma.DoNotImplement) {}
 
  (p *Extensions) lazyInit() *Extensions {
-	p.once.Do(
+p.once.Do(
 () {
-		if len(p.List) > 0 {
-			p.byName = make(map[protoreflect.Name]*Extension, len(p.List))
-			for i := range p.List {
-				d := &p.List[i]
-				if _, ok := p.byName[d.Name()]; !ok {
-					p.byName[d.Name()] = d
-				}
-			}
-		}
-	})
+if len(p.List) > 0 {
+p.byName = make(map[protoreflect.Name]*Extension, len(p.List))
+for i := range p.List {
+d := &p.List[i]
+if _, ok := p.byName[d.Name()]; !ok {
+p.byName[d.Name()] = d
+}
+}
+}
+})
 urn p
 }
 
  Services struct {
-	List   []Service
-	once   sync.Once
+List   []Service
+once   sync.Once
 ame map[protoreflect.Name]*Service // protected by once
 }
 
 
  (p *Services) Len() int {
-	return len(p.List)
+return len(p.List)
 
 
  (p *Services) Get(i int) protoreflect.ServiceDescriptor {
@@ -343,74 +343,74 @@ urn &p.List[i]
 
 
  (p *Services) ByName(s protoreflect.Name) protoreflect.ServiceDescriptor {
-	if d := p.lazyInit().byName[s]; d != nil {
-		return d
-	}
-	return nil
+if d := p.lazyInit().byName[s]; d != nil {
+return d
+}
+return nil
 }
 
  (p *Services) Format(s fmt.State, r rune) {
-	descfmt.FormatList(s, r, p)
+descfmt.FormatList(s, r, p)
 }
 
  (p *Services) ProtoInternal(pragma.DoNotImplement) {}
 
  (p *Services) lazyInit() *Services {
-	p.once.Do(
+p.once.Do(
 () {
-		if len(p.List) > 0 {
-			p.byName = make(map[protoreflect.Name]*Service, len(p.List))
-			for i := range p.List {
-				d := &p.List[i]
-				if _, ok := p.byName[d.Name()]; !ok {
-					p.byName[d.Name()] = d
-				}
-			}
-		}
-	})
-	return p
+if len(p.List) > 0 {
+p.byName = make(map[protoreflect.Name]*Service, len(p.List))
+for i := range p.List {
+d := &p.List[i]
+if _, ok := p.byName[d.Name()]; !ok {
+p.byName[d.Name()] = d
+}
+}
+}
+})
+return p
 }
 
 type Methods struct {
-	List   []Method
-	once   sync.Once
-	byName map[protoreflect.Name]*Method // protected by once
+List   []Method
+once   sync.Once
+byName map[protoreflect.Name]*Method // protected by once
 }
 
 
  (p *Methods) Len() int {
-	return len(p.List)
+return len(p.List)
 }
 
  (p *Methods) Get(i int) protoreflect.MethodDescriptor {
-	return &p.List[i]
+return &p.List[i]
 }
 
  (p *Methods) ByName(s protoreflect.Name) protoreflect.MethodDescriptor {
-	if d := p.lazyInit().byName[s]; d != nil {
-		return d
-	}
-	return nil
+if d := p.lazyInit().byName[s]; d != nil {
+return d
+}
+return nil
 }
 
  (p *Methods) Format(s fmt.State, r rune) {
-	descfmt.FormatList(s, r, p)
+descfmt.FormatList(s, r, p)
 }
 
  (p *Methods) ProtoInternal(pragma.DoNotImplement) {}
 
  (p *Methods) lazyInit() *Methods {
-	p.once.Do(
+p.once.Do(
 () {
-		if len(p.List) > 0 {
-			p.byName = make(map[protoreflect.Name]*Method, len(p.List))
-			for i := range p.List {
-				d := &p.List[i]
-				if _, ok := p.byName[d.Name()]; !ok {
-					p.byName[d.Name()] = d
-				}
-			}
-		}
-	})
-	return p
+if len(p.List) > 0 {
+p.byName = make(map[protoreflect.Name]*Method, len(p.List))
+for i := range p.List {
+d := &p.List[i]
+if _, ok := p.byName[d.Name()]; !ok {
+p.byName[d.Name()] = d
+}
+}
+}
+})
+return p
 }

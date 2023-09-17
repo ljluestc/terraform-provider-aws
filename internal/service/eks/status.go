@@ -1,109 +1,109 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package eks
+packageeks
 
-import (
-	"context"
+import(
+"context"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/eks"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/eks"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func statusAddon(ctx context.Context, conn *eks.EKS, clusterName, addonName string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindAddonByClusterNameAndAddonName(ctx, conn, clusterName, addonName)
+funcstatusAddon(ctxcontext.Context,conn*eks.EKS,clusterName,addonNamestring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+output,err:=FindAddonByClusterNameAndAddonName(ctx,conn,clusterName,addonName)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
-		if err != nil {
-			return nil, "", err
-		}
-
-		return output, aws.StringValue(output.Status), nil
-	}
+iftfresource.NotFound(err){
+returnnil,"",nil
 }
 
-func statusAddonUpdate(ctx context.Context, conn *eks.EKS, clusterName, addonName, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindAddonUpdateByClusterNameAddonNameAndID(ctx, conn, clusterName, addonName, id)
-
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
-		if err != nil {
-			return nil, "", err
-		}
-
-		return output, aws.StringValue(output.Status), nil
-	}
+iferr!=nil{
+returnnil,"",err
 }
 
-func statusFargateProfile(ctx context.Context, conn *eks.EKS, clusterName, fargateProfileName string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindFargateProfileByClusterNameAndFargateProfileName(ctx, conn, clusterName, fargateProfileName)
-
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
-		if err != nil {
-			return nil, "", err
-		}
-
-		return output, aws.StringValue(output.Status), nil
-	}
+returnoutput,aws.StringValue(output.Status),nil
+}
 }
 
-func statusNodegroup(ctx context.Context, conn *eks.EKS, clusterName, nodeGroupName string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindNodegroupByClusterNameAndNodegroupName(ctx, conn, clusterName, nodeGroupName)
+funcstatusAddonUpdate(ctxcontext.Context,conn*eks.EKS,clusterName,addonName,idstring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+output,err:=FindAddonUpdateByClusterNameAddonNameAndID(ctx,conn,clusterName,addonName,id)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
-		if err != nil {
-			return nil, "", err
-		}
-
-		return output, aws.StringValue(output.Status), nil
-	}
+iftfresource.NotFound(err){
+returnnil,"",nil
 }
 
-func statusNodegroupUpdate(ctx context.Context, conn *eks.EKS, clusterName, nodeGroupName, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindNodegroupUpdateByClusterNameNodegroupNameAndID(ctx, conn, clusterName, nodeGroupName, id)
-
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
-
-		if err != nil {
-			return nil, "", err
-		}
-
-		return output, aws.StringValue(output.Status), nil
-	}
+iferr!=nil{
+returnnil,"",err
 }
 
-func statusOIDCIdentityProviderConfig(ctx context.Context, conn *eks.EKS, clusterName, configName string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindOIDCIdentityProviderConfigByClusterNameAndConfigName(ctx, conn, clusterName, configName)
+returnoutput,aws.StringValue(output.Status),nil
+}
+}
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+funcstatusFargateProfile(ctxcontext.Context,conn*eks.EKS,clusterName,fargateProfileNamestring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+output,err:=FindFargateProfileByClusterNameAndFargateProfileName(ctx,conn,clusterName,fargateProfileName)
 
-		if err != nil {
-			return nil, "", err
-		}
+iftfresource.NotFound(err){
+returnnil,"",nil
+}
 
-		return output, aws.StringValue(output.Status), nil
-	}
+iferr!=nil{
+returnnil,"",err
+}
+
+returnoutput,aws.StringValue(output.Status),nil
+}
+}
+
+funcstatusNodegroup(ctxcontext.Context,conn*eks.EKS,clusterName,nodeGroupNamestring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+output,err:=FindNodegroupByClusterNameAndNodegroupName(ctx,conn,clusterName,nodeGroupName)
+
+iftfresource.NotFound(err){
+returnnil,"",nil
+}
+
+iferr!=nil{
+returnnil,"",err
+}
+
+returnoutput,aws.StringValue(output.Status),nil
+}
+}
+
+funcstatusNodegroupUpdate(ctxcontext.Context,conn*eks.EKS,clusterName,nodeGroupName,idstring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+output,err:=FindNodegroupUpdateByClusterNameNodegroupNameAndID(ctx,conn,clusterName,nodeGroupName,id)
+
+iftfresource.NotFound(err){
+returnnil,"",nil
+}
+
+iferr!=nil{
+returnnil,"",err
+}
+
+returnoutput,aws.StringValue(output.Status),nil
+}
+}
+
+funcstatusOIDCIdentityProviderConfig(ctxcontext.Context,conn*eks.EKS,clusterName,configNamestring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+output,err:=FindOIDCIdentityProviderConfigByClusterNameAndConfigName(ctx,conn,clusterName,configName)
+
+iftfresource.NotFound(err){
+returnnil,"",nil
+}
+
+iferr!=nil{
+returnnil,"",err
+}
+
+returnoutput,aws.StringValue(output.Status),nil
+}
 }

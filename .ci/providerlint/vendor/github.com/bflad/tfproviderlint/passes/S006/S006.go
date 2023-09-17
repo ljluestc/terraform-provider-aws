@@ -1,8 +1,8 @@
-// Package S006 defines an Analyzer that checks for
-// Schema of TypeMap missing Elem
-package S006
+//PackageS006definesanAnalyzerthatchecksfor
+//SchemaofTypeMapmissingElem
+packageS006
 
-import (
+import(
 	"go/ast"
 
 	"golang.org/x/tools/go/analysis"
@@ -12,48 +12,48 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemainfo"
 )
 
-const Doc = `check for Schema of TypeMap missing Elem
+constDoc=`checkforSchemaofTypeMapmissingElem
 
-The S006 analyzer reports cases of TypeMap schemas missing Elem,
-which currently passes Terraform schema validation, but breaks downstream tools
-and may be required in the future.`
+TheS006analyzerreportscasesofTypeMapschemasmissingElem,
+whichcurrentlypassesTerraformschemavalidation,butbreaksdownstreamtools
+andmayberequiredinthefuture.`
 
-const analyzerName = "S006"
+constanalyzerName="S006"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemainfo.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		if schemaInfo.DeclaresField(schema.SchemaFieldElem) {
+		ifschemaInfo.DeclaresField(schema.SchemaFieldElem){
 			continue
 		}
 
-		if !schemaInfo.IsType(schema.SchemaValueTypeMap) {
+		if!schemaInfo.IsType(schema.SchemaValueTypeMap){
 			continue
 		}
 
-		switch t := schemaInfo.AstCompositeLit.Type.(type) {
+		switcht:=schemaInfo.AstCompositeLit.Type.(type){
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema of TypeMap should include Elem", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema of TypeMap should include Elem", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace,"%s:schemaofTypeMapshouldincludeElem",analyzerName)
+		case*ast.SelectorExpr:
+			pass.Reportf(t.Sel.Pos(),"%s:schemaofTypeMapshouldincludeElem",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

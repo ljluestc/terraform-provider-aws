@@ -1,10 +1,10 @@
-package timesleepcallexpr
+packagetimesleepcallexpr
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/analysisutils"
 )
 
-var Analyzer = analysisutils.Stdlib
+varAnalyzer=analysisutils.Stdlib
 CallExprAnalyzer(
 	"timesleepcallexpr",
 	"time",

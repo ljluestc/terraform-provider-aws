@@ -4,46 +4,46 @@
 package servicecatalog_test
 
 import (
-	"fmt"
-	"testing"
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/service/servicecatalog"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	tfservicecatalog "github.com/hashicorp/terraform-provider-aws/internal/service/servicecatalog"
+"github.com/aws/aws-sdk-go/service/servicecatalog"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+tfservicecatalog "github.com/hashicorp/terraform-provider-aws/internal/service/servicecatalog"
 )
 
 func TestAccServiceCatalogProvisioningArtifactsDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_servicecatalog_provisioning_artifacts.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
+ctx := acctest.Context(t)
+dataSourceName := "data.aws_servicecatalog_provisioning_artifacts.test"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProvisioningArtifactsDataSourceConfig_basic(rName, domain),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "accept_language", tfservicecatalog.AcceptLanguageEnglish),
-					resource.TestCheckResourceAttrPair(dataSourceName, "product_id", "aws_servicecatalog_product.test", "id"),
-					resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.#", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.0.active", "true"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "provisioning_artifact_details.0.description"),
-					resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.0.guidance", servicecatalog.ProvisioningArtifactGuidanceDefault),
-					resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.0.name", rName),
-					resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.0.type", servicecatalog.ProductTypeCloudFormationTemplate),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:        func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+{
+Config: testAccProvisioningArtifactsDataSourceConfig_basic(rName, domain),
+Check: resource.ComposeAggregateTestCheckFunc(
+resource.TestCheckResourceAttr(dataSourceName, "accept_language", tfservicecatalog.AcceptLanguageEnglish),
+resource.TestCheckResourceAttrPair(dataSourceName, "product_id", "aws_servicecatalog_product.test", "id"),
+resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.#", "1"),
+resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.0.active", "true"),
+resource.TestCheckResourceAttrSet(dataSourceName, "provisioning_artifact_details.0.description"),
+resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.0.guidance", servicecatalog.ProvisioningArtifactGuidanceDefault),
+resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.0.name", rName),
+resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.0.type", servicecatalog.ProductTypeCloudFormationTemplate),
+),
+},
+},
+})
 }
 
 func testAccProvisioningArtifactsDataSourceConfig_base(rName, domain string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket        = %[1]q
   force_destroy = true
@@ -114,7 +114,7 @@ resource "aws_servicecatalog_provisioning_artifact" "test" {
 }
 
 func testAccProvisioningArtifactsDataSourceConfig_basic(rName, domain string) string {
-	return acctest.ConfigCompose(testAccProvisioningArtifactsDataSourceConfig_base(rName, domain), `
+return acctest.ConfigCompose(testAccProvisioningArtifactsDataSourceConfig_base(rName, domain), `
 data "aws_servicecatalog_provisioning_artifacts" "test" {
   product_id = aws_servicecatalog_product.test.id
 }

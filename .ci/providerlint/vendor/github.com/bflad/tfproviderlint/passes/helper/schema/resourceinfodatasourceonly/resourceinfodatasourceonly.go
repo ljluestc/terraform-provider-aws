@@ -1,6 +1,6 @@
-package resourceinfodatasourceonly
+packageresourceinfodatasourceonly
 
-import (
+import(
 	"reflect"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
@@ -8,29 +8,29 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name: "resourceinfodatasourceonly",
-	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/schema.Resource literals of Data Sources for later passes",
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:"resourceinfodatasourceonly",
+	Doc:"findgithub.com/hashicorp/terraform-plugin-sdk/helper/schema.ResourceliteralsofDataSourcesforlaterpasses",
+	Requires:[]*analysis.Analyzer{
 		resourceinfo.Analyzer,
 	},
-	Run:        run,
-	ResultType: reflect.TypeOf([]*schema.ResourceInfo{}),
+	Run:run,
+	ResultType:reflect.TypeOf([]*schema.ResourceInfo{}),
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	resourceInfos := pass.ResultOf[resourceinfo.Analyzer].([]*schema.ResourceInfo)
+run(pass*analysis.Pass)(interface{},error){
+	resourceInfos:=pass.ResultOf[resourceinfo.Analyzer].([]*schema.ResourceInfo)
 
-	var result []*schema.ResourceInfo
+	varresult[]*schema.ResourceInfo
 
-	for _, resourceInfo := range resourceInfos {
-		if !resourceInfo.IsDataSource() {
+	for_,resourceInfo:=rangeresourceInfos{
+		if!resourceInfo.IsDataSource(){
 			continue
 		}
 
-		result = append(result, resourceInfo)
+		result=append(result,resourceInfo)
 	}
 
-	return result, nil
+	returnresult,nil
 }

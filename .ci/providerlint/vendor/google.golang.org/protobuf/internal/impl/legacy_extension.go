@@ -1,15 +1,15 @@
-// Copyright 2018 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+//Copyright2018TheGoAuthors.Allrightsreserved.
+//UseofthissourcecodeisgovernedbyaBSD-style
+//licensethatcanbefoundintheLICENSEfile.
 
-package impl
+packageimpl
 
-import (
+import(
 	"reflect"
 
 	"google.golang.org/protobuf/internal/descopts"
 	"google.golang.org/protobuf/internal/encoding/messageset"
-	ptag "google.golang.org/protobuf/internal/encoding/tag"
+	ptag"google.golang.org/protobuf/internal/encoding/tag"
 	"google.golang.org/protobuf/internal/filedesc"
 	"google.golang.org/protobuf/internal/pragma"
 	"google.golang.org/protobuf/reflect/protoreflect"
@@ -18,193 +18,193 @@ import (
 )
 
 
- (xi *ExtensionInfo) initToLegacy() {
-	xd := xi.desc
-	var parent protoiface.MessageV1
-	messageName := xd.ContainingMessage().FullName()
-	if mt, _ := protoregistry.GlobalTypes.FindMessageByName(messageName); mt != nil {
-		// Create a new parent message and unwrap it if possible.
-		mv := mt.New().Interface()
-		t := reflect.TypeOf(mv)
-		if mv, ok := mv.(unwrapper); ok {
-			t = reflect.TypeOf(mv.protoUnwrap())
+(xi*ExtensionInfo)initToLegacy(){
+	xd:=xi.desc
+	varparentprotoiface.MessageV1
+	messageName:=xd.ContainingMessage().FullName()
+	ifmt,_:=protoregistry.GlobalTypes.FindMessageByName(messageName);mt!=nil{
+		//Createanewparentmessageandunwrapitifpossible.
+		mv:=mt.New().Interface()
+		t:=reflect.TypeOf(mv)
+		ifmv,ok:=mv.(unwrapper);ok{
+			t=reflect.TypeOf(mv.protoUnwrap())
 		}
 
-		// Check whether the message implements the legacy v1 Message interface.
-		mz := reflect.Zero(t).Interface()
-		if mz, ok := mz.(protoiface.MessageV1); ok {
-			parent = mz
+		//Checkwhetherthemessageimplementsthelegacyv1Messageinterface.
+		mz:=reflect.Zero(t).Interface()
+		ifmz,ok:=mz.(protoiface.MessageV1);ok{
+			parent=mz
 		}
 	}
 
-	// Determine the v1 extension type, which is unfortunately not the same as
-	// the v2 ExtensionType.GoType.
-	extType := xi.goType
-	switch extType.Kind() {
-	case reflect.Bool, reflect.Int32, reflect.Int64, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64, reflect.String:
-		extType = reflect.PtrTo(extType) // T -> *T for singular scalar fields
+	//Determinethev1extensiontype,whichisunfortunatelynotthesameas
+	//thev2ExtensionType.GoType.
+	extType:=xi.goType
+	switchextType.Kind(){
+	casereflect.Bool,reflect.Int32,reflect.Int64,reflect.Uint32,reflect.Uint64,reflect.Float32,reflect.Float64,reflect.String:
+		extType=reflect.PtrTo(extType)//T->*Tforsingularscalarfields
 	}
 
-	// Reconstruct the legacy enum full name.
-	var enumName string
-	if xd.Kind() == protoreflect.EnumKind {
-		enumName = legacyEnumName(xd.Enum())
+	//Reconstructthelegacyenumfullname.
+	varenumNamestring
+	ifxd.Kind()==protoreflect.EnumKind{
+		enumName=legacyEnumName(xd.Enum())
 	}
 
-	// Derive the proto file that the extension was declared within.
-	var filename string
-	if fd := xd.ParentFile(); fd != nil {
-		filename = fd.Path()
+	//Derivetheprotofilethattheextensionwasdeclaredwithin.
+	varfilenamestring
+	iffd:=xd.ParentFile();fd!=nil{
+		filename=fd.Path()
 	}
 
-	// For MessageSet extensions, the name used is the parent message.
-	name := xd.FullName()
-	if messageset.IsMessageSetExtension(xd) {
-		name = name.Parent()
+	//ForMessageSetextensions,thenameusedistheparentmessage.
+	name:=xd.FullName()
+	ifmessageset.IsMessageSetExtension(xd){
+		name=name.Parent()
 	}
 
-	xi.ExtendedType = parent
-	xi.ExtensionType = reflect.Zero(extType).Interface()
-	xi.Field = int32(xd.Number())
-	xi.Name = string(name)
-	xi.Tag = ptag.Marshal(xd, enumName)
-	xi.Filename = filename
+	xi.ExtendedType=parent
+	xi.ExtensionType=reflect.Zero(extType).Interface()
+	xi.Field=int32(xd.Number())
+	xi.Name=string(name)
+	xi.Tag=ptag.Marshal(xd,enumName)
+	xi.Filename=filename
 }
 
-// initFromLegacy initializes an ExtensionInfo from
-he contents of the deprecated exported fields of the type.
+//initFromLegacyinitializesanExtensionInfofrom
+hecontentsofthedeprecatedexportedfieldsofthetype.
 
- (xi *ExtensionInfo) initFromLegacy() {
-	// The v1 API returns "type incomplete" descriptors where only the
-	// field number is specified. In such a case, use a placeholder.
-	if xi.ExtendedType == nil || xi.ExtensionType == nil {
-		xd := placeholderExtension{
-			name:   protoreflect.FullName(xi.Name),
-			number: protoreflect.FieldNumber(xi.Field),
+(xi*ExtensionInfo)initFromLegacy(){
+	//Thev1APIreturns"typeincomplete"descriptorswhereonlythe
+	//fieldnumberisspecified.Insuchacase,useaplaceholder.
+	ifxi.ExtendedType==nil||xi.ExtensionType==nil{
+		xd:=placeholderExtension{
+			name:protoreflect.FullName(xi.Name),
+			number:protoreflect.FieldNumber(xi.Field),
 		}
-		xi.desc = extensionTypeDescriptor{xd, xi}
+		xi.desc=extensionTypeDescriptor{xd,xi}
 		return
 	}
 
-	// Resolve enum or message dependencies.
-	var ed protoreflect.EnumDescriptor
-	var md protoreflect.MessageDescriptor
-	t := reflect.TypeOf(xi.ExtensionType)
-	isOptional := t.Kind() == reflect.Ptr && t.Elem().Kind() != reflect.Struct
-	isRepeated := t.Kind() == reflect.Slice && t.Elem().Kind() != reflect.Uint8
-	if isOptional || isRepeated {
-		t = t.Elem()
+	//Resolveenumormessagedependencies.
+	varedprotoreflect.EnumDescriptor
+	varmdprotoreflect.MessageDescriptor
+	t:=reflect.TypeOf(xi.ExtensionType)
+	isOptional:=t.Kind()==reflect.Ptr&&t.Elem().Kind()!=reflect.Struct
+	isRepeated:=t.Kind()==reflect.Slice&&t.Elem().Kind()!=reflect.Uint8
+	ifisOptional||isRepeated{
+		t=t.Elem()
 	}
-	switch v := reflect.Zero(t).Interface().(type) {
-	case protoreflect.Enum:
-		ed = v.Descriptor()
-	case enumV1:
-		ed = LegacyLoadEnumDesc(t)
-	case protoreflect.ProtoMessage:
-		md = v.ProtoReflect().Descriptor()
-	case messageV1:
-		md = LegacyLoadMessageDesc(t)
-	}
-
-	// Derive basic field information from the struct tag.
-	var evs protoreflect.EnumValueDescriptors
-	if ed != nil {
-		evs = ed.Values()
-	}
-	fd := ptag.Unmarshal(xi.Tag, t, evs).(*filedesc.Field)
-
-	// Construct a v2 ExtensionType.
-	xd := &filedesc.Extension{L2: new(filedesc.ExtensionL2)}
-	xd.L0.ParentFile = filedesc.SurrogateProto2
-	xd.L0.FullName = protoreflect.FullName(xi.Name)
-	xd.L1.Number = protoreflect.FieldNumber(xi.Field)
-	xd.L1.Cardinality = fd.L1.Cardinality
-	xd.L1.Kind = fd.L1.Kind
-	xd.L2.IsPacked = fd.L1.IsPacked
-	xd.L2.Default = fd.L1.Default
-	xd.L1.Extendee = Export{}.MessageDescriptorOf(xi.ExtendedType)
-	xd.L2.Enum = ed
-	xd.L2.Message = md
-
-	// Derive real extension field name for MessageSets.
-	if messageset.IsMessageSet(xd.L1.Extendee) && md.FullName() == xd.L0.FullName {
-		xd.L0.FullName = xd.L0.FullName.Append(messageset.ExtensionName)
+	switchv:=reflect.Zero(t).Interface().(type){
+	caseprotoreflect.Enum:
+		ed=v.Descriptor()
+	caseenumV1:
+		ed=LegacyLoadEnumDesc(t)
+	caseprotoreflect.ProtoMessage:
+		md=v.ProtoReflect().Descriptor()
+	casemessageV1:
+		md=LegacyLoadMessageDesc(t)
 	}
 
-	tt := reflect.TypeOf(xi.ExtensionType)
-	if isOptional {
-		tt = tt.Elem()
+	//Derivebasicfieldinformationfromthestructtag.
+	varevsprotoreflect.EnumValueDescriptors
+	ifed!=nil{
+		evs=ed.Values()
 	}
-	xi.goType = tt
-	xi.desc = extensionTypeDescriptor{xd, xi}
+	fd:=ptag.Unmarshal(xi.Tag,t,evs).(*filedesc.Field)
+
+	//Constructav2ExtensionType.
+	xd:=&filedesc.Extension{L2:new(filedesc.ExtensionL2)}
+	xd.L0.ParentFile=filedesc.SurrogateProto2
+	xd.L0.FullName=protoreflect.FullName(xi.Name)
+	xd.L1.Number=protoreflect.FieldNumber(xi.Field)
+	xd.L1.Cardinality=fd.L1.Cardinality
+	xd.L1.Kind=fd.L1.Kind
+	xd.L2.IsPacked=fd.L1.IsPacked
+	xd.L2.Default=fd.L1.Default
+	xd.L1.Extendee=Export{}.MessageDescriptorOf(xi.ExtendedType)
+	xd.L2.Enum=ed
+	xd.L2.Message=md
+
+	//DeriverealextensionfieldnameforMessageSets.
+	ifmessageset.IsMessageSet(xd.L1.Extendee)&&md.FullName()==xd.L0.FullName{
+		xd.L0.FullName=xd.L0.FullName.Append(messageset.ExtensionName)
+	}
+
+	tt:=reflect.TypeOf(xi.ExtensionType)
+	ifisOptional{
+		tt=tt.Elem()
+	}
+	xi.goType=tt
+	xi.desc=extensionTypeDescriptor{xd,xi}
 }
 
-type placeholderExtension struct {
-	name   protoreflect.FullName
-	number protoreflect.FieldNumber
+typeplaceholderExtensionstruct{
+	nameprotoreflect.FullName
+	numberprotoreflect.FieldNumber
 
 
 
-placeholderExtension) ParentFile() protoreflect.FileDescriptor            { return nil }
+placeholderExtension)ParentFile()protoreflect.FileDescriptor{returnnil}
 
-placeholderExtension) Parent() protoreflect.Descriptor                    { return nil }
+placeholderExtension)Parent()protoreflect.Descriptor{returnnil}
 
-placeholderExtension) Index() int                                         { return 0 }
+placeholderExtension)Index()int{return0}
 
-placeholderExtension) Syntax() protoreflect.Syntax                        { return 0 }
+placeholderExtension)Syntax()protoreflect.Syntax{return0}
 
-placeholderExtension) Name() protoreflect.Name                            { return x.name.Name() }
+placeholderExtension)Name()protoreflect.Name{returnx.name.Name()}
 
-placeholderExtension) FullName() protoreflect.FullName                    { return x.name }
+placeholderExtension)FullName()protoreflect.FullName{returnx.name}
 
-placeholderExtension) IsPlaceholder() bool                                { return true }
+placeholderExtension)IsPlaceholder()bool{returntrue}
 
-placeholderExtension) Options() protoreflect.ProtoMessage                 { return descopts.Field }
+placeholderExtension)Options()protoreflect.ProtoMessage{returndescopts.Field}
 
-placeholderExtension) Number() protoreflect.FieldNumber                   { return x.number }
+placeholderExtension)Number()protoreflect.FieldNumber{returnx.number}
 
-placeholderExtension) Cardinality() protoreflect.Cardinality              { return 0 }
+placeholderExtension)Cardinality()protoreflect.Cardinality{return0}
 
-placeholderExtension) Kind() protoreflect.Kind                            { return 0 }
+placeholderExtension)Kind()protoreflect.Kind{return0}
 
-placeholderExtension) HasJSONName() bool                                  { return false }
+placeholderExtension)HasJSONName()bool{returnfalse}
 
-placeholderExtension) JSONName() string                                   { return "[" + string(x.name) + "]" }
+placeholderExtension)JSONName()string{return"["+string(x.name)+"]"}
 
-placeholderExtension) TextName() string                                   { return "[" + string(x.name) + "]" }
+placeholderExtension)TextName()string{return"["+string(x.name)+"]"}
 
-placeholderExtension) HasPresence() bool                                  { return false }
+placeholderExtension)HasPresence()bool{returnfalse}
 
- (x placeholderExtension) HasOptionalKeyword() bool                           { return false }
+(xplaceholderExtension)HasOptionalKeyword()bool{returnfalse}
 
- (x placeholderExtension) IsExtension() bool                                  { return true }
+(xplaceholderExtension)IsExtension()bool{returntrue}
 
- (x placeholderExtension) IsWeak() bool                                       { return false }
+(xplaceholderExtension)IsWeak()bool{returnfalse}
 
- (x placeholderExtension) IsPacked() bool                                     { return false }
+(xplaceholderExtension)IsPacked()bool{returnfalse}
 
- (x placeholderExtension) IsList() bool                                       { return false }
+(xplaceholderExtension)IsList()bool{returnfalse}
 
- (x placeholderExtension) IsMap() bool                                        { return false }
+(xplaceholderExtension)IsMap()bool{returnfalse}
 
- (x placeholderExtension) MapKey() protoreflect.FieldDescriptor               { return nil }
+(xplaceholderExtension)MapKey()protoreflect.FieldDescriptor{returnnil}
 
- (x placeholderExtension) MapValue() protoreflect.FieldDescriptor             { return nil }
+(xplaceholderExtension)MapValue()protoreflect.FieldDescriptor{returnnil}
 
- (x placeholderExtension) HasDefault() bool                                   { return false }
+(xplaceholderExtension)HasDefault()bool{returnfalse}
 
- (x placeholderExtension) Default() protoreflect.Value                        { return protoreflect.Value{} }
+(xplaceholderExtension)Default()protoreflect.Value{returnprotoreflect.Value{}}
 
- (x placeholderExtension) DefaultEnumValue() protoreflect.EnumValueDescriptor { return nil }
+(xplaceholderExtension)DefaultEnumValue()protoreflect.EnumValueDescriptor{returnnil}
 
- (x placeholderExtension) ContainingOneof() protoreflect.OneofDescriptor      { return nil }
+(xplaceholderExtension)ContainingOneof()protoreflect.OneofDescriptor{returnnil}
 
- (x placeholderExtension) ContainingMessage() protoreflect.MessageDescriptor  { return nil }
+(xplaceholderExtension)ContainingMessage()protoreflect.MessageDescriptor{returnnil}
 
- (x placeholderExtension) Enum() protoreflect.EnumDescriptor                  { return nil }
+(xplaceholderExtension)Enum()protoreflect.EnumDescriptor{returnnil}
 
- (x placeholderExtension) Message() protoreflect.MessageDescriptor            { return nil }
+(xplaceholderExtension)Message()protoreflect.MessageDescriptor{returnnil}
 
- (x placeholderExtension) ProtoType(protoreflect.FieldDescriptor)             { return }
+(xplaceholderExtension)ProtoType(protoreflect.FieldDescriptor){return}
 
- (x placeholderExtension) ProtoInternal(pragma.DoNotImplement)                { return }
+(xplaceholderExtension)ProtoInternal(pragma.DoNotImplement){return}

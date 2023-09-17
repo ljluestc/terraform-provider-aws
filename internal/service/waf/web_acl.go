@@ -1,59 +1,59 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package wafimport (
-	"context"
-	"fmt"
-	"log"	"github.com/YakDriver/regexache"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/arn"
-	"github.com/aws/aws-sdk-go/service/waf"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-	"github.com/hashicorp/terraform-provider-aws/names"
+"context"
+"fmt"
+"log""github.com/YakDriver/regexache"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/aws/arn"
+"github.com/aws/aws-sdk-go/service/waf"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
+tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
+"github.com/hashicorp/terraform-provider-aws/internal/verify"
+"github.com/hashicorp/terraform-provider-aws/names"
 )// @SDKResource("aws_waf_web_acl", name="Web ACL")
 // @Tags(identifierAttribute="arn")
 func ResourceWebACL() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceWebACLCreate,
-		ReadWithoutTimeout:resourceWebACLRead,
-		UpdateWithoutTimeout: resourceWebACLUpdate,
-		DeleteWithoutTimeout: resourceWebACLDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:schema.TypeString,
-				Computed: true,
-			},
-			"name": {
-				Type:schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"default_action": {
-				Type:schema.TypeList,
-				Required: true,
-				MaxItems: 1,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"type": {
-							Type:schema.TypeString,
-							Required: true,
-						},
-					},
-				},
-			},
-			"metric_name": {
-				Type:ema.TypeString,
-				Required:true,
-				ForceNew:true,
-				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), "must contain only alphanumeric characters"),
-			},
+return &schema.Resource{
+CreateWithoutTimeout: resourceWebACLCreate,
+ReadWithoutTimeout:resourceWebACLRead,
+UpdateWithoutTimeout: resourceWebACLUpdate,
+DeleteWithoutTimeout: resourceWebACLDelete,
+Importer: &schema.ResourceImporter{
+StateContext: schema.ImportStatePassthroughContext,
+},Schema: map[string]*schema.Schema{
+"arn": {
+Type:schema.TypeString,
+Computed: true,
+},
+"name": {
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
+},
+"default_action": {
+Type:schema.TypeList,
+Required: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"type": {
+Type:schema.TypeString,
+Required: true,
+},
+},
+},
+},
+"metric_name": {
+Type:ema.TypeString,
+Required:true,
+ForceNew:true,
+ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), "must contain only alphanumeric characters"),
+		},
 			"logging_configuration": {
 				Type:schema.TypeList,
 				Optional: true,

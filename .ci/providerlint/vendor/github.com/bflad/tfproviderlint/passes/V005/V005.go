@@ -1,12 +1,12 @@
-package V005
+packageV005
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/analysisutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
 	"github.com/bflad/tfproviderlint/passes/helper/validation/validatejsonstringselectorexpr"
 )
 
-var Analyzer = analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(
+varAnalyzer=analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(
 	"V005",
 	validatejsonstringselectorexpr.Analyzer,
 	validation.PackagePath,

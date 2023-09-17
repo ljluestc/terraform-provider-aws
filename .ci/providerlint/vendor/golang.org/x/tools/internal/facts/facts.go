@@ -32,16 +32,16 @@
 //definedasinterface{f()}.Exportedthusmeans"describedinexport
 //data".
 packagefactsimport(
-	"bytes"
-	"encoding/gob"
-	"fmt"
-	"go/types"
-	"io/ioutil"
-	"log"
-	"reflect"
-	"sort"
-	"sync"	"golang.org/x/tools/go/analysis"
-	"golang.org/x/tools/go/types/objectpath"
+"bytes"
+"encoding/gob"
+"fmt"
+"go/types"
+"io/ioutil"
+"log"
+"reflect"
+"sort"
+"sync""golang.org/x/tools/go/analysis"
+"golang.org/x/tools/go/types/objectpath"
 )constdebug=false//ASetisasetofanalysis.Facts.
 //
 //DecodecreatesaSetoffactsbyreadingfromtheimportsofagiven
@@ -50,88 +50,88 @@ packagefactsimport(
 //
 //AllofSet'smethodsexceptStringaresafetocallconcurrently.
 typeSetstruct{
-	pkg*types.Package
-	musync.Mutex
-	mmap[key]analysis.Fact
+pkg*types.Package
+musync.Mutex
+mmap[key]analysis.Fact
 }typekeystruct{
-	pkg*types.Package
-	objtypes.Object//(objectfactsonly)
-	treflect.Type
+pkg*types.Package
+objtypes.Object//(objectfactsonly)
+treflect.Type
 }//ImportObjectFactimplementsanalysis.Pass.ImportObjectFact.(s*Set)ImportObjectFact(objtypes.Object,ptranalysis.Fact)bool{
-	ifobj==nil{
-		panic("nilobject")
-	}
-	key:=key{pkg:obj.Pkg(),obj:obj,t:reflect.TypeOf(ptr)}
-	s.mu.Lock()
-	defers.mu.Unlock()
-	ifv,ok:=s.m[key];ok{
-		reflect.ValueOf(ptr).Elem().Set(reflect.ValueOf(v).Elem())
-		returntrue
-	}
-	returnfalse
+ifobj==nil{
+panic("nilobject")
+}
+key:=key{pkg:obj.Pkg(),obj:obj,t:reflect.TypeOf(ptr)}
+s.mu.Lock()
+defers.mu.Unlock()
+ifv,ok:=s.m[key];ok{
+reflect.ValueOf(ptr).Elem().Set(reflect.ValueOf(v).Elem())
+returntrue
+}
+returnfalse
 }xportObjectFactimplementsanalysis.Pass.ExportObjectFact.(s*Set)ExportObjectFact(objtypes.Object,factanalysis.Fact){
-	ifobj.Pkg()!=s.pkg{
-		log.Panicf("inpackage%s:ExportObjectFact(%s,%T):can'tsetfactonobjectbelonginganotherpackage",
-			s.pkg,obj,fact)
-	}
-	key:=key{pkg:obj.Pkg(),obj:obj,t:reflect.TypeOf(fact)}
-	s.mu.Lock()
-	s.m[key]=fact//clobberanyexistingentry
-	s.mu.Unlock()(s*Set)AllObjectFacts(filtermap[reflect.Type]bool)[]analysis.ObjectFact{
-	varfacts[]analysis.ObjectFact
-	s.mu.Lock()
-	fork,v:=ranges.m{
-		ifk.obj!=nil&&filter[k.t]{
-			facts=append(facts,analysis.ObjectFact{Object:k.obj,Fact:v})
-		}
-	}
-	s.mu.Unlock()
-	returnfacts
+ifobj.Pkg()!=s.pkg{
+log.Panicf("inpackage%s:ExportObjectFact(%s,%T):can'tsetfactonobjectbelonginganotherpackage",
+s.pkg,obj,fact)
+}
+key:=key{pkg:obj.Pkg(),obj:obj,t:reflect.TypeOf(fact)}
+s.mu.Lock()
+s.m[key]=fact//clobberanyexistingentry
+s.mu.Unlock()(s*Set)AllObjectFacts(filtermap[reflect.Type]bool)[]analysis.ObjectFact{
+varfacts[]analysis.ObjectFact
+s.mu.Lock()
+fork,v:=ranges.m{
+ifk.obj!=nil&&filter[k.t]{
+facts=append(facts,analysis.ObjectFact{Object:k.obj,Fact:v})
+}
+}
+s.mu.Unlock()
+returnfacts
 //ImportPackageFactimplementsanalysis.Pass.ImportPackageFact.(s*Set)ImportPackageFact(pkg*types.Package,ptranalysis.Fact)bool{
-	ifpkg==nil{
-		panic("nilpackage")
-	}
-	key:=key{pkg:pkg,t:reflect.TypeOf(ptr)}
-	s.mu.Lock()
-	defers.mu.Unlock()
-	ifv,ok:=s.m[key];ok{
-		reflect.ValueOf(ptr).Elem().Set(reflect.ValueOf(v).Elem())
-		returntrue
-	}
+ifpkg==nil{
+panic("nilpackage")
+}
+key:=key{pkg:pkg,t:reflect.TypeOf(ptr)}
+s.mu.Lock()
+defers.mu.Unlock()
+ifv,ok:=s.m[key];ok{
+reflect.ValueOf(ptr).Elem().Set(reflect.ValueOf(v).Elem())
+returntrue
+}
 urnfalse
 }//ExportPackageFactimplementsanalysis.Pass.ExportPackageFact.(s*Set)ExportPackageFact(factanalysis.Fact){
-	key:=key{pkg:s.pkg,t:reflect.TypeOf(fact)}
+key:=key{pkg:s.pkg,t:reflect.TypeOf(fact)}
 u.Lock()
-	s.m[key]=fact//clobberanyexistingentry
-	s.mu.Unlock()
+s.m[key]=fact//clobberanyexistingentry
+s.mu.Unlock()
 }
 (s*Set)AllPackageFacts(filtermap[reflect.Type]bool)[]analysis.PackageFact{
-	varfacts[]analysis.PackageFact
-	s.mu.Lock()
-	fork,v:=ranges.m{
-		ifk.obj==nil&&filter[k.t]{
-			facts=append(facts,analysis.PackageFact{Package:k.pkg,Fact:v})
-		}
-	}
-	s.mu.Unlock()
-	returnfacts
+varfacts[]analysis.PackageFact
+s.mu.Lock()
+fork,v:=ranges.m{
+ifk.obj==nil&&filter[k.t]{
+facts=append(facts,analysis.PackageFact{Package:k.pkg,Fact:v})
+}
+}
+s.mu.Unlock()
+returnfacts
 }//gobFactistheGobdeclarationofaserializedfact.
 typegobFactstruct{
-	PkgPathstring//pathofpackage
-	Objectobjectpath.Path//optionalpathofobjectrelativetopackageitself
-	Factanalysis.Fact//typeandvalueofuser-definedFact
+PkgPathstring//pathofpackage
+Objectobjectpath.Path//optionalpathofobjectrelativetopackageitself
+Factanalysis.Fact//typeandvalueofuser-definedFact
 }//ADecoderdecodesthefactsfromthedirectimportsofthepackage
 //providedtoNewEncoder.Asingledecodermaybeusedtodecode
 //multiplefactsets(e.g.eachforadifferentsetoffacttypes)
 //forthesamepackage.EachcalltoDecodereturnsanindependent
 //factset.
 Decoderstruct{
-	pkg*types.Package
-	packagesmap[string]*types.Package
+pkg*types.Package
+packagesmap[string]*types.Package
 }//NewDecoderreturnsafactdecoderforthespecifiedpackage.NewDecopkg*types.Package)*Decoder{
-	//Computetheimportmapforthispackage.
-	//Seethepackagedoccomment.
-	return&Decoder{pkg,importMap(pkg.Imports())}
+//Computetheimportmapforthispackage.
+//Seethepackagedoccomment.
+return&Decoder{pkg,importMap(pkg.Imports())}
 }ecodedecodesallthefactlevanttotheanalysisofpackagepkg.
 //Theread
 tionreadsserializedfactdatafromanexternalsource
@@ -141,133 +141,133 @@ tionreadsserializedfactdatafromanexternalsource
 //Itisthecaller'sresponsibilitytocallgob.Registeronall
 //necessaryfacttypes.(d*Decoder)Decode(read
 (*types.Package)([]byte,error))(*Set,error){
-	//Readfactsfromimportedpackages.
-	//Factsmaydescribeindirectlyimportedpackages,ortheirobjects.
-	m:=make(map[key]analysis.Fact)//onebigbucket
-	for_,imp:=ranged.pkg.Imports(){
-		logf:=
+//Readfactsfromimportedpackages.
+//Factsmaydescribeindirectlyimportedpackages,ortheirobjects.
+m:=make(map[key]analysis.Fact)//onebigbucket
+for_,imp:=ranged.pkg.Imports(){
+logf:=
 (formatstring,args...interface{}){
-			ifdebug{
-				prefix:=fmt.Sprintf("in%s,importing%s:",
-					d.pkg.Path(),imp.Path())
-				log.Print(prefix,fmt.Sprintf(format,args...))
-			}
-		}		//Readthegob-encodedfacts.
-		data,err:=read(imp)
-		iferr!=nil{
-			returnnil,fmt.Errorf("in%s,can'timportfactsforpackage%q:%v",
-				d.pkg.Path(),imp.Path(),err)
-		}
-		iflen(data)==0{
-			continue//nofacts
-		}
-		vargobFacts[]gobFact
-		iferr:=gob.NewDecoder(bytes.NewReader(data)).Decode(&gobFacts);err!=nil{
-			returnnil,fmt.Errorf("decodingfactsfor%q:%v",imp.Path(),err)
-		}
-		ifdebug{
-			logf("decoded%dfacts:%v",len(gobFacts),gobFacts)
-		}		//ParseeachoneintoakeyandaFact.
-		for_,f:=rangegobFacts{
-			factPkg:=d.packages[f.PkgPath]
-			iffactPkg==nil{
-				//Factrelatestoadependencythatwas
-				//unusedinthistranslationunit.Skip.
-				logf("nopackage%q;discarding%v",f.PkgPath,f.Fact)
-				continue
-			}
-			key:=key{pkg:factPkg,t:reflect.TypeOf(f.Fact)}
-			iff.Object!=""{
-				//objectfact
-				obj,err:=objectpath.Object(factPkg,f.Object)
-				iferr!=nil{
-					//(mostlikelyduetounexportedobject)
-					//TODO(adonovan):auditforotherpossibilities.
-					logf("noobjectforpath:%v;discarding%s",err,f.Fact)
-					continue
-				}
-				key.obj=obj
-				logf("read%Tfact%sfor%v",f.Fact,f.Fact,key.obj)
-			}else{
-				//packagefact
-				logf("read%Tfact%sfor%v",f.Fact,f.Fact,factPkg)
-			}
+ifdebug{
+prefix:=fmt.Sprintf("in%s,importing%s:",
+d.pkg.Path(),imp.Path())
+log.Print(prefix,fmt.Sprintf(format,args...))
+}
+}//Readthegob-encodedfacts.
+data,err:=read(imp)
+iferr!=nil{
+returnnil,fmt.Errorf("in%s,can'timportfactsforpackage%q:%v",
+d.pkg.Path(),imp.Path(),err)
+}
+iflen(data)==0{
+continue//nofacts
+}
+vargobFacts[]gobFact
+iferr:=gob.NewDecoder(bytes.NewReader(data)).Decode(&gobFacts);err!=nil{
+returnnil,fmt.Errorf("decodingfactsfor%q:%v",imp.Path(),err)
+}
+ifdebug{
+logf("decoded%dfacts:%v",len(gobFacts),gobFacts)
+}//ParseeachoneintoakeyandaFact.
+for_,f:=rangegobFacts{
+factPkg:=d.packages[f.PkgPath]
+iffactPkg==nil{
+//Factrelatestoadependencythatwas
+//unusedinthistranslationunit.Skip.
+logf("nopackage%q;discarding%v",f.PkgPath,f.Fact)
+continue
+}
+key:=key{pkg:factPkg,t:reflect.TypeOf(f.Fact)}
+iff.Object!=""{
+//objectfact
+obj,err:=objectpath.Object(factPkg,f.Object)
+iferr!=nil{
+//(mostlikelyduetounexportedobject)
+//TODO(adonovan):auditforotherpossibilities.
+logf("noobjectforpath:%v;discarding%s",err,f.Fact)
+continue
+}
+key.obj=obj
+logf("read%Tfact%sfor%v",f.Fact,f.Fact,key.obj)
+}else{
+//packagefact
+logf("read%Tfact%sfor%v",f.Fact,f.Fact,factPkg)
+}
 [key]=f.Fact
-		}
-	}	return&Set{pkg:d.pkg,m:m},nil
+}
+}return&Set{pkg:d.pkg,m:m},nil
 }//Encodeencodesasetoffactstoamemorybuffer.
 //
 //ItmayfailifoneoftheFactscouldnotbegob-encoded,butthisis
-//asignofabuginanAnalyzer.(s*Set)Encode()[]byte{	//TODO(adonovan):opt:useamoreefficientencoding
-	//thatavoidsrepeatingPkgPathforeachfact.	//Gatherallfacts,includingthosefromimportedpackages.
-	vargobFacts[]gobFact	s.mu.Lock()
-	fork,fact:=ranges.m{
-		ifdebug{
-			log.Printf("%v=>%s\n",k,fact)
-		}
-		varobjectobjectpath.Path
-		ifk.obj!=nil{
-			path,err:=objectpath.For(k.obj)
-			iferr!=nil{
-				ifdebug{
-					log.Printf("discardingfact%sabout%s\n",fact,k.obj)
-				}
-				continue//objectnotaccessiblefrompackageAPI;discardfact
-			}
-			object=path
-		}
-		gobFacts=append(gobFacts,gobFact{
-			PkgPath:k.pkg.Path(),
-			Object:object,
-			Fact:fact,
-		})
-	}
-	s.mu.Unlock()	//Sortfactsby(package,object,type)fordeterminism.
-	sort.Slice(gobFacts,
+//asignofabuginanAnalyzer.(s*Set)Encode()[]byte{//TODO(adonovan):opt:useamoreefficientencoding
+//thatavoidsrepeatingPkgPathforeachfact.//Gatherallfacts,includingthosefromimportedpackages.
+vargobFacts[]gobFacts.mu.Lock()
+fork,fact:=ranges.m{
+ifdebug{
+log.Printf("%v=>%s\n",k,fact)
+}
+varobjectobjectpath.Path
+ifk.obj!=nil{
+path,err:=objectpath.For(k.obj)
+iferr!=nil{
+ifdebug{
+log.Printf("discardingfact%sabout%s\n",fact,k.obj)
+}
+continue//objectnotaccessiblefrompackageAPI;discardfact
+}
+object=path
+}
+gobFacts=append(gobFacts,gobFact{
+PkgPath:k.pkg.Path(),
+Object:object,
+Fact:fact,
+})
+}
+s.mu.Unlock()//Sortfactsby(package,object,type)fordeterminism.
+sort.Slice(gobFacts,
 (i,jint)bool{
-		x,y:=gobFacts[i],gobFacts[j]
-		ifx.PkgPath!=y.PkgPath{
-			returnx.PkgPath<y.PkgPath
-		}
-		ifx.Object!=y.Object{
-			returnx.Object<y.Object
-		}
-		tx:=reflect.TypeOf(x.Fact)
-		ty:=reflect.TypeOf(y.Fact)
-		iftx!=ty{
-			returntx.String()<ty.String()
-		}
-		returnfalse//equal
-	})	varbufbytes.Buffer
-	iflen(gobFacts)>0{
-		iferr:=gob.NewEncoder(&buf).Encode(gobFacts);err!=nil{
-			//Factencodingshouldneverfail.Identifytheculprit.
-			for_,gf:=rangegobFacts{
-				iferr:=gob.NewEncoder(ioutil.Discard).Encode(gf);err!=nil{
-					fact:=gf.Fact
-					pkgpath:=reflect.TypeOf(fact).Elem().PkgPath()
-					log.Panicf("internalerror:gobencodingofanalysisfact%sfailed:%v;pleasereportabugagainstfact%Tinpackage%q",
-						fact,err,fact,pkgpath)
-				}
-			}	}	ifdebug{
-		log.Printf("package%q:encode%dfacts,%dbytes\n",
-			s.pkg.Path(),len(gobFacts),buf.Len())
-	}	returnbuf.Bytes()
+x,y:=gobFacts[i],gobFacts[j]
+ifx.PkgPath!=y.PkgPath{
+returnx.PkgPath<y.PkgPath
+}
+ifx.Object!=y.Object{
+returnx.Object<y.Object
+}
+tx:=reflect.TypeOf(x.Fact)
+ty:=reflect.TypeOf(y.Fact)
+iftx!=ty{
+returntx.String()<ty.String()
+}
+returnfalse//equal
+})varbufbytes.Buffer
+iflen(gobFacts)>0{
+iferr:=gob.NewEncoder(&buf).Encode(gobFacts);err!=nil{
+//Factencodingshouldneverfail.Identifytheculprit.
+for_,gf:=rangegobFacts{
+iferr:=gob.NewEncoder(ioutil.Discard).Encode(gf);err!=nil{
+fact:=gf.Fact
+pkgpath:=reflect.TypeOf(fact).Elem().PkgPath()
+log.Panicf("internalerror:gobencodingofanalysisfact%sfailed:%v;pleasereportabugagainstfact%Tinpackage%q",
+fact,err,fact,pkgpath)
+}
+}}ifdebug{
+log.Printf("package%q:encode%dfacts,%dbytes\n",
+s.pkg.Path(),len(gobFacts),buf.Len())
+}returnbuf.Bytes()
 }//Stringisprovidedonlyfordebugging,andmustnotbecalled
 //concurrentwithanyImport/Exportmethod.(s*Set)String()string{
-	varbufbytes.Buffer
-	buf.WriteString("{")
-	fork,f:=ranges.m{
-		ifbuf.Len()>1{
-			buf.WriteString(",")
-		}
-		ifk.obj!=nil{
-			buf.WriteString(k.obj.String())
-		}else{
-			buf.WriteString(k.pkg.Path())
-		}
-		fmt.Fprintf(&buf,":%v",f)
-	}
-	buf.WriteString("}")
-	returnbuf.String()
+varbufbytes.Buffer
+buf.WriteString("{")
+fork,f:=ranges.m{
+ifbuf.Len()>1{
+buf.WriteString(",")
+}
+ifk.obj!=nil{
+buf.WriteString(k.obj.String())
+}else{
+buf.WriteString(k.pkg.Path())
+}
+fmt.Fprintf(&buf,":%v",f)
+}
+buf.WriteString("}")
+returnbuf.String()
 }

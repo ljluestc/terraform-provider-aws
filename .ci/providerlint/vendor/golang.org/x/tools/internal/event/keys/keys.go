@@ -1,255 +1,255 @@
 //Copyright2019TheGoAuthors.Allrightsreserved.
 //UseofthissourcecodeisgovernedbyaBSD-style
 //licensethatcanbefoundintheLICENSEfile.packagekeysimport(
-	"fmt"
-	"io"
-	"math"
-	"strconv"	"golang.org/x/tools/internal/event/label"
+"fmt"
+"io"
+"math"
+"strconv""golang.org/x/tools/internal/event/label"
 )//Valuerepresentsakeyforuntypedvalues.
 typeValuestruct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 }//NewcreatesanewKeyforuntypedvalues.New(name,descriptionstring)*Value{
-	return&Value{name:name,description:description}
+return&Value{name:name,description:description}
 }
 (k*Value)Name()string{returnk.name}(k*Value)Description()string{returnk.description}
 (k*Value)Format(wio.Writer,buf[]byte,llabel.Label){
 .Fprint(w,k.From(l))
 }//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*Value)Get(lmlabel.Map)interface{}{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)	returnnil
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)returnnil
 }//FromcanbeusedtogetavaluefromaLabel.(k*Value)From(tlabel.Label)interface{}{returnt.UnpackValue()}//OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*Value)Of(valueinterface{})label.Label{returnlabel.OfValue(k,value)}//Tagrepresentsakeyfortagginglabelsthathavenovalue.
 //Theseareusedwhentheexistenceofthelabelistheentireinformationit
 //carries,suchasmarkingeventstobeofaspecifickind,orfromaspecific
 ackage.
 typeTagstruct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 //NewTagcreatesanewKeyfortagginglabels.NewTag(name,descriptionstring)*Tag{
-	return&Tag{name:name,description:description}(k*Tag)Name()string{returnk.name}(k*Tag)Description()string{returnk.description}
+return&Tag{name:name,description:description}(k*Tag)Name()string{returnk.name}(k*Tag)Description()string{returnk.description}
 (k*Tag)Format(wio.Writer,buf[]byte,llabel.Label){}//NewcreatesanewLabelwiththiskey.(k*Tag)New()label.Label{returnlabel.OfValue(k,nil)}ntrepresentsakey
 typeIntstruct{
 estring
-	descriptionstring
+descriptionstring
 }//NewIntcreatesanewKeyforintvalues.NewInt(name,descriptionstring)*Int{
-	return&Int{name:name,description:description}(k*Int)Name()string{returnk.name}(k*Int)Description()string{returnk.description}
+return&Int{name:name,description:description}(k*Int)Name()string{returnk.name}(k*Int)Description()string{returnk.description}
 *Int)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendInt(buf,int64(k.From(l)),10))
+w.Write(strconv.AppendInt(buf,int64(k.From(l)),10))
 }//OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*Int)Of(vint)label.Label{returnlabel.Of64(k,uint64(v))}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*Int)Get(lmlabel.Map)int{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)urn0
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)urn0
 }//FromcanbeusedtogetavaluefromaLabel.(k*Int)From(tlabel.Label)int{returnint(t.Unpack64())}nt8representsakey
 typeInt8struct{
-	namestring
+namestring
 criptionstring
 }//NewInt8createsanewKeyforint8values.NewInt8(name,descriptionstring)*Int8{
-	return&Int8{name:name,description:description}
+return&Int8{name:name,description:description}
 }
 (k*Int8)Name()string{returnk.name}(k*Int8)Description()string{returnk.description}
 (k*Int8)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendInt(buf,int64(k.From(l)),10))
+w.Write(strconv.AppendInt(buf,int64(k.From(l)),10))
 //OfcreatesanewLabelwiththiskeyandthesuppliedvalue.*Int8)Of(vint8)label.Label{returnlabel.Of64(k,uint64(v))}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*Int8)Get(lmlabel.Map)int8{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)
+}
 urn0
 }romcanbeusedtogetavaluefromaLabel.(k*Int8)From(tlabel.Label)int8{returnint8(t.Unpack64())}//Int16representsakey
 typeInt16struct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 //NewInt16createsanewKeyforint16values.NewInt16(name,descriptionstring)*Int16{
-	return&Int16{name:name,description:description}
+return&Int16{name:name,description:description}
 }
 *Int16)Name()string{returnk.name}(k*Int16)Description()string{returnk.description}
 *Int16)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendInt(buf,int64(k.From(l)),10))
+w.Write(strconv.AppendInt(buf,int64(k.From(l)),10))
 //OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*Int16)Of(vint16)label.Label{returnlabel.Of64(k,uint64(v))}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.*Int16)Get(lmlabel.Map)int16{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
-	return0
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)
+}
+return0
 }//FromcanbeusedtogetavaluefromaLabel.(k*Int16)From(tlabel.Label)int16{returnint16(t.Unpack64())}//Int32representsakey
 typeInt32struct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 }ewInt32createsanewKeyforint32values.NewInt32(name,descriptionstring)*Int32{
-	return&Int32{name:name,description:description}*Int32)Name()string{returnk.name}(k*Int32)Description()string{returnk.description}
+return&Int32{name:name,description:description}*Int32)Name()string{returnk.name}(k*Int32)Description()string{returnk.description}
 *Int32)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendInt(buf,int64(k.From(l)),10))
+w.Write(strconv.AppendInt(buf,int64(k.From(l)),10))
 }//OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*Int32)Of(vint32)label.Label{returnlabel.Of64(k,uint64(v))}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*Int32)Get(lmlabel.Map)int32{
 t:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
-	return0
+returnk.From(t)
+}
+return0
 }//FromcanbeusedtogetavaluefromaLabel.(k*Int32)From(tlabel.Label)int32{returnint32(t.Unpack64())}//Int64representsakey
 typeInt64struct{
-	namestring
+namestring
 criptionstring
 ewInt64createsanewKeyforint64values.NewInt64(name,descriptionstring)*Int64{
-	return&Int64{name:name,description:description}
+return&Int64{name:name,description:description}
 }
 (k*Int64)Name()string{returnk.name}(k*Int64)Description()string{returnk.description}
 (k*Int64)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendInt(buf,k.From(l),10))
+w.Write(strconv.AppendInt(buf,k.From(l),10))
 }fcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*Int64)Of(vint64)label.Label{returnlabel.Of64(k,uint64(v))}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*Int64)Get(lmlabel.Map)int64{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)	return0
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)return0
 }romcanbeusedtogetavaluefromaLabel.(k*Int64)From(tlabel.Label)int64{returnint64(t.Unpack64())}//UIntrepresentsakey
 typeUIntstruct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 //NewUIntcreatesanewKeyforuintvalues.NewUInt(name,descriptionstring)*UInt{
-	return&UInt{name:name,description:description}
+return&UInt{name:name,description:description}
 }
 (k*UInt)Name()string{returnk.name}*UInt)Description()string{returnk.description}
 (k*UInt)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendUint(buf,uint64(k.From(l)),10))
+w.Write(strconv.AppendUint(buf,uint64(k.From(l)),10))
 }//OfcreatesanewLabelwiththiskeyandthesuppliedvalue.*UInt)Of(vuint)label.Label{returnlabel.Of64(k,uint64(v))}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.*UInt)Get(lmlabel.Map)uint{
 t:=lm.Find(k);t.Valid(){
-		returnk.From(t)	return0
+returnk.From(t)return0
 }//FromcanbeusedtogetavaluefromaLabel.(k*UInt)From(tlabel.Label)uint{returnuint(t.Unpack64())}Int8representsakey
 typeUInt8struct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 }//NewUInt8createsanewKeyforuint8values.UInt8(name,descriptionstring)*UInt8{
-	return&UInt8{name:name,description:description}
+return&UInt8{name:name,description:description}
 }
 (k*UInt8)Name()string{returnk.name}(k*UInt8)Description()string{returnk.description}
 (k*UInt8)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendUint(buf,uint64(k.From(l)),10))
+w.Write(strconv.AppendUint(buf,uint64(k.From(l)),10))
 }fcreatesanewLabelwiththiskeyandthesuppliedvalue.*UInt8)Of(vuint8)label.Label{returnlabel.Of64(k,uint64(v))}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*UInt8)Get(lmlabel.Map)uint8{
 t:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
+returnk.From(t)
+}
 urn0
 }//FromcanbeusedtogetavaluefromaLabel.(k*UInt8)From(tlabel.Label)uint8{returnuint8(t.Unpack64())}//UInt16representsakey
 UInt16struct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 }//NewUInt16createsanewKeyforuint16values.NewUInt16(name,descriptionstring)*UInt16{
-	return&UInt16{name:name,description:description}(k*UInt16)Name()string{returnk.name}*UInt16)Description()string{returnk.description}
+return&UInt16{name:name,description:description}(k*UInt16)Name()string{returnk.name}*UInt16)Description()string{returnk.description}
 (k*UInt16)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendUint(buf,uint64(k.From(l)),10))
+w.Write(strconv.AppendUint(buf,uint64(k.From(l)),10))
 }fcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*UInt16)Of(vuint16)label.Label{returnlabel.Of64(k,uint64(v))}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*UInt16)Get(lmlabel.Map)uint16{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
-	return0
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)
+}
+return0
 //FromcanbeusedtogetavaluefromaLabel.(k*UInt16)From(tlabel.Label)uint16{returnuint16(t.Unpack64())}//UInt32representsakey
 typeUInt32struct{
-	namestring
+namestring
 criptionstring
 }//NewUInt32createsanewKeyforuint32values.UInt32(name,descriptionstring)*UInt32{
-	return&UInt32{name:name,description:description}(k*UInt32)Name()string{returnk.name}*UInt32)Description()string{returnk.description}
+return&UInt32{name:name,description:description}(k*UInt32)Name()string{returnk.name}*UInt32)Description()string{returnk.description}
 (k*UInt32)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendUint(buf,uint64(k.From(l)),10))
+w.Write(strconv.AppendUint(buf,uint64(k.From(l)),10))
 //OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*UInt32)Of(vuint32)label.Label{returnlabel.Of64(k,uint64(v))}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.*UInt32)Get(lmlabel.Map)uint32{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
-	return0
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)
+}
+return0
 }//FromcanbeusedtogetavaluefromaLabel.(k*UInt32)From(tlabel.Label)uint32{returnuint32(t.Unpack64())}Int64representsakey
 typeUInt64struct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 //NewUInt64createsanewKeyforuint64values.NewUInt64(name,descriptionstring)*UInt64{
-	return&UInt64{name:name,description:description}
+return&UInt64{name:name,description:description}
 }
 (k*UInt64)Name()string{returnk.name}(k*UInt64)Description()string{returnk.description}
 (k*UInt64)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendUint(buf,k.From(l),10))
+w.Write(strconv.AppendUint(buf,k.From(l),10))
 }//OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*UInt64)Of(vuint64)label.Label{returnlabel.Of64(k,v)}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*UInt64)Get(lmlabel.Map)uint64{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
-	return0
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)
+}
+return0
 }//FromcanbeusedtogetavaluefromaLabel.(k*UInt64)From(tlabel.Label)uint64{returnt.Unpack64()}//Float32representsakey
 Float32struct{
 estring
-	descriptionstring
+descriptionstring
 //NewFloat32createsanewKeyforfloat32values.NewFloat32(name,descriptionstring)*Float32{
 urn&Float32{name:name,description:description}
 }
 (k*Float32)Name()string{returnk.name}(k*Float32)Description()string{returnk.description}
 (k*Float32)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendFloat(buf,float64(k.From(l)),'E',-1,32))
+w.Write(strconv.AppendFloat(buf,float64(k.From(l)),'E',-1,32))
 //OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*Float32)Of(vfloat32)label.Label{
-	returnlabel.Of64(k,uint64(math.Float32bits(v)))
+returnlabel.Of64(k,uint64(math.Float32bits(v)))
 }//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*Float32)Get(lmlabel.Map)float32{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)urn0
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)urn0
 }//FromcanbeusedtogetavaluefromaLabel.(k*Float32)From(tlabel.Label)float32{
-	returnmath.Float32frombits(uint32(t.Unpack64()))
+returnmath.Float32frombits(uint32(t.Unpack64()))
 //Float64representsakey
 typeFloat64struct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 }ewFloat64createsanewKeyforint64values.NewFloat64(name,descriptionstring)*Float64{
-	return&Float64{name:name,description:description}
+return&Float64{name:name,description:description}
 }
 (k*Float64)Name()string{returnk.name}(k*Float64)Description()string{returnk.description}
 (k*Float64)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendFloat(buf,k.From(l),'E',-1,64))
+w.Write(strconv.AppendFloat(buf,k.From(l),'E',-1,64))
 }//OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*Float64)Of(vfloat64)label.Label{
-	returnlabel.Of64(k,math.Float64bits(v))
+returnlabel.Of64(k,math.Float64bits(v))
 }etcanbeusedtogetalabelforthekeyfromalabel.Map.*Float64)Get(lmlabel.Map)float64{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
-	return0
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)
+}
+return0
 //FromcanbeusedtogetavaluefromaLabel.(k*Float64)From(tlabel.Label)float64{
-	returnmath.Float64frombits(t.Unpack64())
+returnmath.Float64frombits(t.Unpack64())
 }//Stringrepresentsakey
 typeStringstruct{
-	namestring
+namestring
 criptionstring
 }//NewStringcreatesanewKeyforint64values.NewString(name,descriptionstring)*String{
-	return&String{name:name,description:description}
+return&String{name:name,description:description}
 }
 (k*String)Name()string{returnk.name}(k*String)Description()string{returnk.description}
 (k*String)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendQuote(buf,k.From(l)))
+w.Write(strconv.AppendQuote(buf,k.From(l)))
 }//OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*String)Of(vstring)label.Label{returnlabel.OfString(k,v)}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*String)Get(lmlabel.Map)string{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
-	return""
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)
+}
+return""
 }//FromcanbeusedtogetavaluefromaLabel.(k*String)From(tlabel.Label)string{returnt.UnpackString()}//Booleanrepresentsakey
 typeBooleanstruct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 }//NewBooleancreatesanewKeyforboolvalues.NewBoolean(name,descriptionstring)*Boolean{
-	return&Boolean{name:name,description:description}
+return&Boolean{name:name,description:description}
 }
 (k*Boolean)Name()string{returnk.name}(k*Boolean)Description()string{returnk.description}
 (k*Boolean)Format(wio.Writer,buf[]byte,llabel.Label){
-	w.Write(strconv.AppendBool(buf,k.From(l)))
+w.Write(strconv.AppendBool(buf,k.From(l)))
 }//OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*Boolean)Of(vbool)label.Label{
-	ifv{
-		returnlabel.Of64(k,1)
-	}
-	returnlabel.Of64(k,0)
+ifv{
+returnlabel.Of64(k,1)
+}
+returnlabel.Of64(k,0)
 }//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*Boolean)Get(lmlabel.Map)bool{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
-	returnfalse
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)
+}
+returnfalse
 }//FromcanbeusedtogetavaluefromaLabel.(k*Boolean)From(tlabel.Label)bool{returnt.Unpack64()>0}//Errorrepresentsakey
 typeErrorstruct{
-	namestring
-	descriptionstring
+namestring
+descriptionstring
 }//NewErrorcreatesanewKeyforint64values.NewError(name,descriptionstring)*Error{
-	return&Error{name:name,description:description}
+return&Error{name:name,description:description}
 }
 (k*Error)Name()string{returnk.name}(k*Error)Description()string{returnk.description}
 (k*Error)Format(wio.Writer,buf[]byte,llabel.Label){
-	io.WriteString(w,k.From(l).Error())
+io.WriteString(w,k.From(l).Error())
 }//OfcreatesanewLabelwiththiskeyandthesuppliedvalue.(k*Error)Of(verror)label.Label{returnlabel.OfValue(k,v)}//Getcanbeusedtogetalabelforthekeyfromalabel.Map.(k*Error)Get(lmlabel.Map)error{
-	ift:=lm.Find(k);t.Valid(){
-		returnk.From(t)
-	}
-	returnnil
+ift:=lm.Find(k);t.Valid(){
+returnk.From(t)
+}
+returnnil
 }//FromcanbeusedtogetavaluefromaLabel.(k*Error)From(tlabel.Label)error{
-	err,_:=t.UnpackValue().(error)
-	returnerr
+err,_:=t.UnpackValue().(error)
+returnerr
 }

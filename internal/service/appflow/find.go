@@ -4,97 +4,97 @@
 package appflow
 
 import (
-	"context"
-	"fmt"
+"context"
+"fmt"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/appflow"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/appflow"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 )
 
 func FindFlowByARN(ctx context.Context, conn *appflow.Appflow, arn string) (*appflow.FlowDefinition, error) {
-	in := &appflow.ListFlowsInput{}
-	var result *appflow.FlowDefinition
+in := &appflow.ListFlowsInput{}
+var result *appflow.FlowDefinition
 
-	err := conn.ListFlowsPagesWithContext(ctx, in, func(page *appflow.ListFlowsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
+err := conn.ListFlowsPagesWithContext(ctx, in, func(page *appflow.ListFlowsOutput, lastPage bool) bool {
+if page == nil {
+return !lastPage
+}
 
-		for _, flow := range page.Flows {
-			if flow == nil {
-				continue
-			}
+for _, flow := range page.Flows {
+if flow == nil {
+continue
+}
 
-			if aws.StringValue(flow.FlowArn) == arn {
-				result = flow
-				return false
-			}
-		}
-		return !lastPage
-	})
+if aws.StringValue(flow.FlowArn) == arn {
+result = flow
+return false
+}
+}
+return !lastPage
+})
 
-	if tfawserr.ErrCodeEquals(err, appflow.ErrCodeResourceNotFoundException) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: in,
-		}
-	}
+if tfawserr.ErrCodeEquals(err, appflow.ErrCodeResourceNotFoundException) {
+return nil, &retry.NotFoundError{
+LastError:   err,
+LastRequest: in,
+}
+}
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	if result == nil {
-		return nil, &retry.NotFoundError{
-			Message: fmt.Sprintf("No flow with arn %q", arn),
-			LastRequest: in,
-		}
-	}
+if result == nil {
+return nil, &retry.NotFoundError{
+Message: fmt.Sprintf("No flow with arn %q", arn),
+LastRequest: in,
+}
+}
 
-	return result, nil
+return result, nil
 }
 
 func FindConnectorProfileByARN(ctx context.Context, conn *appflow.Appflow, arn string) (*appflow.ConnectorProfile, error) {
-	params := &appflow.DescribeConnectorProfilesInput{}
-	var result *appflow.ConnectorProfile
+params := &appflow.DescribeConnectorProfilesInput{}
+var result *appflow.ConnectorProfile
 
-	err := conn.DescribeConnectorProfilesPagesWithContext(ctx, params, func(page *appflow.DescribeConnectorProfilesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
+err := conn.DescribeConnectorProfilesPagesWithContext(ctx, params, func(page *appflow.DescribeConnectorProfilesOutput, lastPage bool) bool {
+if page == nil {
+return !lastPage
+}
 
-		for _, connectorProfile := range page.ConnectorProfileDetails {
-			if connectorProfile == nil {
-				continue
-			}
+for _, connectorProfile := range page.ConnectorProfileDetails {
+if connectorProfile == nil {
+continue
+}
 
-			if aws.StringValue(connectorProfile.ConnectorProfileArn) == arn {
-				result = connectorProfile
-				return false
-			}
-		}
-		return !lastPage
-	})
+if aws.StringValue(connectorProfile.ConnectorProfileArn) == arn {
+result = connectorProfile
+return false
+}
+}
+return !lastPage
+})
 
-	if tfawserr.ErrCodeEquals(err, appflow.ErrCodeResourceNotFoundException) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: params,
-		}
-	}
+if tfawserr.ErrCodeEquals(err, appflow.ErrCodeResourceNotFoundException) {
+return nil, &retry.NotFoundError{
+LastError:   err,
+LastRequest: params,
+}
+}
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	if result == nil {
-		return nil, &retry.NotFoundError{
-			Message: fmt.Sprintf("No connector profile with arn %q", arn),
-			LastRequest: params,
-		}
-	}
+if result == nil {
+return nil, &retry.NotFoundError{
+Message: fmt.Sprintf("No connector profile with arn %q", arn),
+LastRequest: params,
+}
+}
 
-	return result, nil
+return result, nil
 }

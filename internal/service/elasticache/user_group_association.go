@@ -1,5 +1,5 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package elasticacheimport (
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0packageelasticacheimport(
 	"context"
 	"fmt"
 	"log"
@@ -13,87 +13,87 @@
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)// @SDKResource("aws_elasticache_user_group_association")
-func ResourceUserGroupAssociation() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceUserGroupAssociationCreate,
+)//@SDKResource("aws_elasticache_user_group_association")
+funcResourceUserGroupAssociation()*schema.Resource{
+	return&schema.Resource{
+		CreateWithoutTimeout:resourceUserGroupAssociationCreate,
 		ReadWithoutTimeout:resourceUserGroupAssociationRead,
-		DeleteWithoutTimeout: resourceUserGroupAssociationDelete,		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},		Schema: map[string]*schema.Schema{
-			"user_group_id": {
+		DeleteWithoutTimeout:resourceUserGroupAssociationDelete,		Importer:&schema.ResourceImporter{
+			StateContext:schema.ImportStatePassthroughContext,
+		},		Schema:map[string]*schema.Schema{
+			"user_group_id":{
 				Type:schema.TypeString,
-				Required: true,
-				ForceNew: true,
+				Required:true,
+				ForceNew:true,
 			},
-			"user_id": {
+			"user_id":{
 				Type:schema.TypeString,
-				Required: true,
-				ForceNew: true,
+				Required:true,
+				ForceNew:true,
 			},
 		},
 	}
-}func resourceUserGroupAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)	userGroupID := d.Get("user_group_id").(string)
-	userID := d.Get("user_id").(string)
-	id := userGroupAssociationCreateResourceID(userGroupID, userID)
-	input := &elasticache.ModifyUserGroupInput{
+}funcresourceUserGroupAssociationCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).ElastiCacheConn(ctx)	userGroupID:=d.Get("user_group_id").(string)
+	userID:=d.Get("user_id").(string)
+	id:=userGroupAssociationCreateResourceID(userGroupID,userID)
+	input:=&elasticache.ModifyUserGroupInput{
 		UserGroupId:aws.String(userGroupID),
-		UserIdsToAdd: aws.StringSlice([]string{userID}),
-	}	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 10*time.Minute, 
-func() (interface{}, error) {
-		return conn.ModifyUserGroupWithContext(ctx, input)
-	}, elasticache.ErrCodeInvalidUserGroupStateFault)	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating ElastiCache User Group Association (%s): %s", id, err)
-	}	d.SetId(id)	if _, err := waitUserGroupUpdated(ctx, conn, userGroupID, d.Timeout(schema.TimeoutCreate)); err != nil {
-		return sdkdiag.AppendErrorf(diags, "waiting for ElastiCache User Group Association (%s) create: %s", d.Id(), err)
-	}	return append(diags, resourceUserGroupAssociationRead(ctx, d, meta)...)
-}func resourceUserGroupAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)	userGroupID, userID, err := UserGroupAssociationParseResourceID(d.Id())	if err != nil {
-		return sdkdiag.AppendFromErr(diags, err)
-	}	err = FindUserGroupAssociation(ctx, conn, userGroupID, userID)	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] ElastiCache User Group Association (%s) not found, removing from state", d.Id())
+		UserIdsToAdd:aws.StringSlice([]string{userID}),
+	}	_,err:=tfresource.RetryWhenAWSErrCodeEquals(ctx,10*time.Minute,
+func()(interface{},error){
+		returnconn.ModifyUserGroupWithContext(ctx,input)
+	},elasticache.ErrCodeInvalidUserGroupStateFault)	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"creatingElastiCacheUserGroupAssociation(%s):%s",id,err)
+	}	d.SetId(id)	if_,err:=waitUserGroupUpdated(ctx,conn,userGroupID,d.Timeout(schema.TimeoutCreate));err!=nil{
+		returnsdkdiag.AppendErrorf(diags,"waitingforElastiCacheUserGroupAssociation(%s)create:%s",d.Id(),err)
+	}	returnappend(diags,resourceUserGroupAssociationRead(ctx,d,meta)...)
+}funcresourceUserGroupAssociationRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).ElastiCacheConn(ctx)	userGroupID,userID,err:=UserGroupAssociationParseResourceID(d.Id())	iferr!=nil{
+		returnsdkdiag.AppendFromErr(diags,err)
+	}	err=FindUserGroupAssociation(ctx,conn,userGroupID,userID)	if!d.IsNewResource()&&tfresource.NotFound(err){
+		log.Printf("[WARN]ElastiCacheUserGroupAssociation(%s)notfound,removingfromstate",d.Id())
 		d.SetId("")
-		return diags
-	}	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading ElastiCache User Group Association (%s): %s", d.Id(), err)
-	}	d.Set("user_group_id", userGroupID)
-	d.Set("user_id", userID)	return diags
-}func resourceUserGroupAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)	userGroupID, userID, err := UserGroupAssociationParseResourceID(d.Id())	if err != nil {
-		return sdkdiag.AppendFromErr(diags, err)
-	}	log.Printf("[INFO] Deleting ElastiCache User Group Association: %s", d.Id())
-	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, 10*time.Minute, 
-func() (interface{}, error) {
-		return conn.ModifyUserGroupWithContext(ctx, &elasticache.ModifyUserGroupInput{
+		returndiags
+	}	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"readingElastiCacheUserGroupAssociation(%s):%s",d.Id(),err)
+	}	d.Set("user_group_id",userGroupID)
+	d.Set("user_id",userID)	returndiags
+}funcresourceUserGroupAssociationDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).ElastiCacheConn(ctx)	userGroupID,userID,err:=UserGroupAssociationParseResourceID(d.Id())	iferr!=nil{
+		returnsdkdiag.AppendFromErr(diags,err)
+	}	log.Printf("[INFO]DeletingElastiCacheUserGroupAssociation:%s",d.Id())
+	_,err=tfresource.RetryWhenAWSErrCodeEquals(ctx,10*time.Minute,
+func()(interface{},error){
+		returnconn.ModifyUserGroupWithContext(ctx,&elasticache.ModifyUserGroupInput{
 			UserGroupId:aws.String(userGroupID),
-			UserIdsToRemove: aws.StringSlice([]string{userID}),
+			UserIdsToRemove:aws.StringSlice([]string{userID}),
 		})
-	}, elasticache.ErrCodeInvalidUserGroupStateFault)	if tfawserr.ErrMessageContains(err, elasticache.ErrCodeInvalidParameterValueException, "not a member") {
-		return diags
-	}	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting ElastiCache User Group Association (%s): %s", d.Id(), err)
-	}	if _, err := waitUserGroupUpdated(ctx, conn, userGroupID, d.Timeout(schema.TimeoutDelete)); err != nil {
-		return sdkdiag.AppendErrorf(diags, "waiting for ElastiCache User Group Association (%s) delete: %s", d.Id(), err)
-	}	return diags
-}func FindUserGroupAssociation(ctx context.Context, conn *elasticache.ElastiCache, userGroupID, userID string) error {
-	userGroup, err := FindUserGroupByID(ctx, conn, userGroupID)	if err != nil {
-		return err
-	}	for _, v := range userGroup.UserIds {
-		if aws.StringValue(v) == userID {
-			return nil
+	},elasticache.ErrCodeInvalidUserGroupStateFault)	iftfawserr.ErrMessageContains(err,elasticache.ErrCodeInvalidParameterValueException,"notamember"){
+		returndiags
+	}	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"deletingElastiCacheUserGroupAssociation(%s):%s",d.Id(),err)
+	}	if_,err:=waitUserGroupUpdated(ctx,conn,userGroupID,d.Timeout(schema.TimeoutDelete));err!=nil{
+		returnsdkdiag.AppendErrorf(diags,"waitingforElastiCacheUserGroupAssociation(%s)delete:%s",d.Id(),err)
+	}	returndiags
+}funcFindUserGroupAssociation(ctxcontext.Context,conn*elasticache.ElastiCache,userGroupID,userIDstring)error{
+	userGroup,err:=FindUserGroupByID(ctx,conn,userGroupID)	iferr!=nil{
+		returnerr
+	}	for_,v:=rangeuserGroup.UserIds{
+		ifaws.StringValue(v)==userID{
+			returnnil
 		}
-	}	return &retry.NotFoundError{}
-}const userGroupAssociationResourceIDSeparator = ","func userGroupAssociationCreateResourceID(userGroupID, userID string) string {
-	parts := []string{userGroupID, userID}
-	id := strings.Join(parts, userGroupAssociationResourceIDSeparator)
-	return id
-}func UserGroupAssociationParseResourceID(id string) (string, string, error) {
-	parts := strings.Split(id, userGroupAssociationResourceIDSeparator)
-	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
-		return parts[0], parts[1], nil
-	}	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected '<user group ID>%[2]s<user ID>'", id, userGroupAssociationResourceIDSeparator)
+	}	return&retry.NotFoundError{}
+}constuserGroupAssociationResourceIDSeparator=","funcuserGroupAssociationCreateResourceID(userGroupID,userIDstring)string{
+	parts:=[]string{userGroupID,userID}
+	id:=strings.Join(parts,userGroupAssociationResourceIDSeparator)
+	returnid
+}funcUserGroupAssociationParseResourceID(idstring)(string,string,error){
+	parts:=strings.Split(id,userGroupAssociationResourceIDSeparator)
+	iflen(parts)==2&&parts[0]!=""&&parts[1]!=""{
+		returnparts[0],parts[1],nil
+	}	return"","",fmt.Errorf("unexpectedformatforID(%[1]s),expected'<usergroupID>%[2]s<userID>'",id,userGroupAssociationResourceIDSeparator)
 }

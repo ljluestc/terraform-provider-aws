@@ -1,120 +1,120 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package codeartifact_test
+packagecodeartifact_test
 
-import (
-	"fmt"
-	"testing"
+import(
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/service/codeartifact"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/aws/aws-sdk-go/service/codeartifact"
+sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-func testAccAuthorizationTokenDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_codeartifact_authorization_token.test"
+functestAccAuthorizationTokenDataSource_basic(t*testing.T){
+ctx:=acctest.Context(t)
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+dataSourceName:="data.aws_codeartifact_authorization_token.test"
 
-	resource.Test(t, resource.TestCase{
-		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAuthorizationTokenDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet(dataSourceName, "authorization_token"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "expiration"),
-					acctest.CheckResourceAttrAccountID(dataSourceName, "domain_owner"),
-				),
-			},
-		},
-	})
+resource.Test(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,codeartifact.EndpointsID)},
+ErrorCheck:acctest.ErrorCheck(t,codeartifact.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+Steps:[]resource.TestStep{
+{
+Config:testAccAuthorizationTokenDataSourceConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrSet(dataSourceName,"authorization_token"),
+resource.TestCheckResourceAttrSet(dataSourceName,"expiration"),
+acctest.CheckResourceAttrAccountID(dataSourceName,"domain_owner"),
+),
+},
+},
+})
 }
-func testAccAuthorizationTokenDataSource_owner(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_codeartifact_authorization_token.test"
+functestAccAuthorizationTokenDataSource_owner(t*testing.T){
+ctx:=acctest.Context(t)
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+dataSourceName:="data.aws_codeartifact_authorization_token.test"
 
-	resource.Test(t, resource.TestCase{
-		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAuthorizationTokenDataSourceConfig_owner(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet(dataSourceName, "authorization_token"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "expiration"),
-					acctest.CheckResourceAttrAccountID(dataSourceName, "domain_owner"),
-				),
-			},
-		},
-	})
+resource.Test(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,codeartifact.EndpointsID)},
+ErrorCheck:acctest.ErrorCheck(t,codeartifact.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+Steps:[]resource.TestStep{
+{
+Config:testAccAuthorizationTokenDataSourceConfig_owner(rName),
+Check:resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrSet(dataSourceName,"authorization_token"),
+resource.TestCheckResourceAttrSet(dataSourceName,"expiration"),
+acctest.CheckResourceAttrAccountID(dataSourceName,"domain_owner"),
+),
+},
+},
+})
 }
-func testAccAuthorizationTokenDataSource_duration(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_codeartifact_authorization_token.test"
+functestAccAuthorizationTokenDataSource_duration(t*testing.T){
+ctx:=acctest.Context(t)
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+dataSourceName:="data.aws_codeartifact_authorization_token.test"
 
-	resource.Test(t, resource.TestCase{
-		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAuthorizationTokenDataSourceConfig_duration(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet(dataSourceName, "authorization_token"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "expiration"),
-					resource.TestCheckResourceAttr(dataSourceName, "duration_seconds", "900"),
-					acctest.CheckResourceAttrAccountID(dataSourceName, "domain_owner"),
-				),
-			},
-		},
-	})
+resource.Test(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,codeartifact.EndpointsID)},
+ErrorCheck:acctest.ErrorCheck(t,codeartifact.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+Steps:[]resource.TestStep{
+{
+Config:testAccAuthorizationTokenDataSourceConfig_duration(rName),
+Check:resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrSet(dataSourceName,"authorization_token"),
+resource.TestCheckResourceAttrSet(dataSourceName,"expiration"),
+resource.TestCheckResourceAttr(dataSourceName,"duration_seconds","900"),
+acctest.CheckResourceAttrAccountID(dataSourceName,"domain_owner"),
+),
+},
+},
+})
 }
-func testAccCheckAuthorizationTokenBaseConfig(rName string) string {
-	return fmt.Sprintf(`
-resource "aws_kms_key" "test" {
-  description= %[1]q
-  deletion_window_in_days = 7
+functestAccCheckAuthorizationTokenBaseConfig(rNamestring)string{
+returnfmt.Sprintf(`
+resource"aws_kms_key""test"{
+description=%[1]q
+deletion_window_in_days=7
 }
 
-resource "aws_codeartifact_domain" "test" {
-  domain[1]q
-  encryption_key = aws_kms_key.test.arn
+resource"aws_codeartifact_domain""test"{
+domain[1]q
+encryption_key=aws_kms_key.test.arn
 }
-`, rName)
+`,rName)
 }
-func testAccAuthorizationTokenDataSourceConfig_basic(rName string) string {
-	return acctest.ConfigCompose(
-		testAccCheckAuthorizationTokenBaseConfig(rName),
-		`
-data "aws_codeartifact_authorization_token" "test" {
-  domain = aws_codeartifact_domain.test.domain
+functestAccAuthorizationTokenDataSourceConfig_basic(rNamestring)string{
+returnacctest.ConfigCompose(
+testAccCheckAuthorizationTokenBaseConfig(rName),
+`
+data"aws_codeartifact_authorization_token""test"{
+domain=aws_codeartifact_domain.test.domain
 }
 `)
 }
-func testAccAuthorizationTokenDataSourceConfig_owner(rName string) string {
-	return acctest.ConfigCompose(
-		testAccCheckAuthorizationTokenBaseConfig(rName),
-		`
-data "aws_codeartifact_authorization_token" "test" {
-  domain_codeartifact_domain.test.domain
-  domain_owner = aws_codeartifact_domain.test.owner
+functestAccAuthorizationTokenDataSourceConfig_owner(rNamestring)string{
+returnacctest.ConfigCompose(
+testAccCheckAuthorizationTokenBaseConfig(rName),
+`
+data"aws_codeartifact_authorization_token""test"{
+domain_codeartifact_domain.test.domain
+domain_owner=aws_codeartifact_domain.test.owner
 }
 `)
 }
-func testAccAuthorizationTokenDataSourceConfig_duration(rName string) string {
-	return acctest.ConfigCompose(
-		testAccCheckAuthorizationTokenBaseConfig(rName),
-		`
-data "aws_codeartifact_authorization_token" "test" {
-  domain aws_codeartifact_domain.test.domain
-  duration_seconds = 900
+functestAccAuthorizationTokenDataSourceConfig_duration(rNamestring)string{
+returnacctest.ConfigCompose(
+testAccCheckAuthorizationTokenBaseConfig(rName),
+`
+data"aws_codeartifact_authorization_token""test"{
+domainaws_codeartifact_domain.test.domain
+duration_seconds=900
 }
 `)
 }

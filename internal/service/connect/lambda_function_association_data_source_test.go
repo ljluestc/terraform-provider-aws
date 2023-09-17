@@ -1,18 +1,18 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package connect_testimport (
-	"fmt"
-	"testing"	"github.com/aws/aws-sdk-go/service/connect"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"fmt"
+"testing""github.com/aws/aws-sdk-go/service/connect"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )functionAssociationDataSource_basic(t *testing.T) {
 funcme := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_lambda_
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_lambda_
 function_association.test"
-	datasourceName := "data.aws_connect_lambda_
+datasourceName := "data.aws_connect_lambda_
 func
-	resource.Test(t, resource.TestCase{
+resource.Test(t, resource.TestCase{
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -21,16 +21,16 @@ funcig: testAccLambda
 functionAssociationDataSourceConfig_basic(rName, rName2),
 Check: resource.ComposeAggregateTestCheck
 func(
-	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "
+resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "
 function_arn"),
 ),
 func
-	})
+})
 }
 func
 functionAssociationDataSourceConfig_base(rName string, rName2 string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 data "aws_partition" "current" {}resource "aws_lambda_
 function" "test" {
 filename= "test-fixtures/lambdatest.zip"
@@ -67,7 +67,7 @@ function.test.arn
 }
 func testAccLambda
 functionAssociationDataSourceConfig_basic(rName string, rName2 string) string {
-	return fmt.Sprintf(testAccLambda
+return fmt.Sprintf(testAccLambda
 func "aws_connect_lambda_
 func
 function_arn = aws_connect_lambda_

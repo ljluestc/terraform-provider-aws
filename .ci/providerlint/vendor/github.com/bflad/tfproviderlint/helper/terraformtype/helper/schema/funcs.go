@@ -1,1 +1,1 @@
-package schemaconst (	ImportStatePassthrough = `ImportStatePassthrough`	Noop                   = `Noop`)
+packageschemaconst(	ImportStatePassthrough=`ImportStatePassthrough`	Noop=`Noop`)

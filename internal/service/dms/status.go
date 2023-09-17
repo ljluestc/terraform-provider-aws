@@ -4,26 +4,26 @@
 package dms
 
 import (
-	"context"
+"context"
 
-	"github.com/aws/aws-sdk-go/aws"
-	dms "github.com/aws/aws-sdk-go/service/databasemigrationservice"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/aws/aws-sdk-go/aws"
+dms "github.com/aws/aws-sdk-go/service/databasemigrationservice"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 func statusReplicationTask(ctx context.Context, conn *dms.DatabaseMigrationService, id string) retry.StateRefreshFunc {
-	return 
+return 
 func() (interface{}, string, error) {
-		output, err := FindReplicationTaskByID(ctx, conn, id)
+output, err := FindReplicationTaskByID(ctx, conn, id)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+if tfresource.NotFound(err) {
+return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+return nil, "", err
+}
 
-		return output, aws.StringValue(output.Status), nil
-	}
+return output, aws.StringValue(output.Status), nil
+}
 }

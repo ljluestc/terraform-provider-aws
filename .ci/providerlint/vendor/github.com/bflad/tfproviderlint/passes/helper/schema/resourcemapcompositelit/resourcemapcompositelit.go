@@ -1,6 +1,6 @@
-package resourcemapcompositelit
+packageresourcemapcompositelit
 
-import (
+import(
 	"go/ast"
 	"reflect"
 
@@ -10,34 +10,34 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name: "resourcemapcompositelit",
-	Doc:  "find map[string]*schema.Resource literals for later passes",
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:"resourcemapcompositelit",
+	Doc:"findmap[string]*schema.Resourceliteralsforlaterpasses",
+	Requires:[]*analysis.Analyzer{
 		inspect.Analyzer,
 	},
-	Run:        run,
-	ResultType: reflect.TypeOf([]*ast.CompositeLit{}),
+	Run:run,
+	ResultType:reflect.TypeOf([]*ast.CompositeLit{}),
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
-	nodeFilter := []ast.Node{
+run(pass*analysis.Pass)(interface{},error){
+	inspect:=pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	nodeFilter:=[]ast.Node{
 		(*ast.CompositeLit)(nil),
 	}
-	var result []*ast.CompositeLit
+	varresult[]*ast.CompositeLit
 
-	inspect.Preorder(nodeFilter, 
-(n ast.Node) {
-		x := n.(*ast.CompositeLit)
+	inspect.Preorder(nodeFilter,
+(nast.Node){
+		x:=n.(*ast.CompositeLit)
 
-		if !schema.IsMapStringResource(x, pass.TypesInfo) {
+		if!schema.IsMapStringResource(x,pass.TypesInfo){
 			return
 		}
 
-		result = append(result, x)
+		result=append(result,x)
 	})
 
-	return result, nil
+	returnresult,nil
 }

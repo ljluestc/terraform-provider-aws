@@ -4,43 +4,43 @@
 package organizations_test
 
 import (
-	"fmt"
-	"testing"
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/service/organizations"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/aws/aws-sdk-go/service/organizations"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
 
 func testAccDelegatedAdministratorsDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_organizations_delegated_administrators.test"
-	servicePrincipal := "config-multiaccountsetup.amazonaws.com"
+ctx := acctest.Context(t)
+dataSourceName := "data.aws_organizations_delegated_administrators.test"
+servicePrincipal := "config-multiaccountsetup.amazonaws.com"
 
-	resource.Test(t, resource.TestCase{
+resource.Test(t, resource.TestCase{
 PreCheck: 
 func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckAlternateAccount(t)
-	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+acctest.PreCheck(ctx, t)
+acctest.PreCheckAlternateAccount(t)
+acctest.PreCheckOrganizationManagementAccount(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccDelegatedAdministratorsDataSourceConfig_basic(servicePrincipal),
 Check: resource.ComposeTestCheckFunc(
-	acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "delegated_administrators.#", 1),
+acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "delegated_administrators.#", 1),
 ),
-	},
 },
-	})
+},
+})
 }
 
 
 func testAccDelegatedAdministratorsDataSourceConfig_basic(servicePrincipal string) string {
-	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
+return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 data "aws_caller_identity" "delegated" {
   provider = "awsalternate"
 }

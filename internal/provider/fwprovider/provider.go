@@ -4,285 +4,285 @@
 packagefwprovider
 
 import(
-	"context"
-	"fmt"
+"context"
+"fmt"
 
-	multierror"github.com/hashicorp/go-multierror"
-	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
-	"github.com/hashicorp/terraform-plugin-framework/datasource"
-	"github.com/hashicorp/terraform-plugin-framework/provider"
-	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
-	"github.com/hashicorp/terraform-plugin-framework/resource"
-	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
-	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	fwtypes"github.com/hashicorp/terraform-provider-aws/internal/framework/types"
-	tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
-	"github.com/hashicorp/terraform-provider-aws/names"
+multierror"github.com/hashicorp/go-multierror"
+"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
+"github.com/hashicorp/terraform-plugin-framework/datasource"
+"github.com/hashicorp/terraform-plugin-framework/provider"
+"github.com/hashicorp/terraform-plugin-framework/provider/schema"
+"github.com/hashicorp/terraform-plugin-framework/resource"
+"github.com/hashicorp/terraform-plugin-framework/schema/validator"
+"github.com/hashicorp/terraform-plugin-framework/types"
+"github.com/hashicorp/terraform-plugin-log/tflog"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+fwtypes"github.com/hashicorp/terraform-provider-aws/internal/framework/types"
+tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
+"github.com/hashicorp/terraform-provider-aws/names"
 )
 
 //Newreturnsanew,initializedTerraformPluginFramework-styleproviderinstance.
 //Theproviderinstanceisfullyconfiguredoncethe`Configure`methodhasbeencalled.
 funcNew(primaryinterface{Meta()interface{}})provider.Provider{
-	return&fwprovider{
-		Primary:primary,
-	}
+return&fwprovider{
+Primary:primary,
+}
 }
 
 typefwproviderstruct{
-	Primaryinterface{Meta()interface{}}
+Primaryinterface{Meta()interface{}}
 }
 
 func(p*fwprovider)Metadata(ctxcontext.Context,reqprovider.MetadataRequest,resp*provider.MetadataResponse){
-	resp.TypeName="aws"
+resp.TypeName="aws"
 }
 
 //Schemareturnstheschemaforthisprovider'sconfiguration.
 func(p*fwprovider)Schema(ctxcontext.Context,reqprovider.SchemaRequest,resp*provider.SchemaResponse){
-	//ThisschemamustmatchexactlytheTerraformProtocolv5(TerraformPluginSDKv2)provider'sschema.
-	resp.Schema=schema.Schema{
-		Attributes:map[string]schema.Attribute{
+//ThisschemamustmatchexactlytheTerraformProtocolv5(TerraformPluginSDKv2)provider'sschema.
+resp.Schema=schema.Schema{
+Attributes:map[string]schema.Attribute{
 "access_key":schema.StringAttribute{
-	Optional:true,
-	Description:"TheaccesskeyforAPIoperations.Youcanretrievethis\nfromthe'Security&Credentials'sectionoftheAWSconsole.",
+Optional:true,
+Description:"TheaccesskeyforAPIoperations.Youcanretrievethis\nfromthe'Security&Credentials'sectionoftheAWSconsole.",
 },
 "allowed_account_ids":schema.SetAttribute{
-	ElementType:types.StringType,
-	Optional:true,
+ElementType:types.StringType,
+Optional:true,
 },
 "custom_ca_bundle":schema.StringAttribute{
-	Optional:true,
-	Description:"Filecontainingcustomrootandintermediatecertificates.Canalsobeconfiguredusingthe`AWS_CA_BUNDLE`environmentvariable.(Setting`ca_bundle`inthesharedconfigfileisnotsupported.)",
+Optional:true,
+Description:"Filecontainingcustomrootandintermediatecertificates.Canalsobeconfiguredusingthe`AWS_CA_BUNDLE`environmentvariable.(Setting`ca_bundle`inthesharedconfigfileisnotsupported.)",
 },
 "ec2_metadata_service_endpoint":schema.StringAttribute{
-	Optional:true,
-	Description:"AddressoftheEC2metadataserviceendpointtouse.Canalsobeconfiguredusingthe`AWS_EC2_METADATA_SERVICE_ENDPOINT`environmentvariable.",
+Optional:true,
+Description:"AddressoftheEC2metadataserviceendpointtouse.Canalsobeconfiguredusingthe`AWS_EC2_METADATA_SERVICE_ENDPOINT`environmentvariable.",
 },
 "ec2_metadata_service_endpoint_mode":schema.StringAttribute{
-	Optional:true,
-	Description:"ProtocoltousewithEC2metadataserviceendpoint.Validvaluesare`IPv4`and`IPv6`.Canalsobeconfiguredusingthe`AWS_EC2_METADATA_SERVICE_ENDPOINT_MODE`environmentvariable.",
+Optional:true,
+Description:"ProtocoltousewithEC2metadataserviceendpoint.Validvaluesare`IPv4`and`IPv6`.Canalsobeconfiguredusingthe`AWS_EC2_METADATA_SERVICE_ENDPOINT_MODE`environmentvariable.",
 },
 "forbidden_account_ids":schema.SetAttribute{
-	ElementType:types.StringType,
-	Optional:true,
+ElementType:types.StringType,
+Optional:true,
 },
 "http_proxy":schema.StringAttribute{
-	Optional:true,
-	Description:"TheaddressofanHTTPproxytousewhenaccessingtheAWSAPI.Canalsobeconfiguredusingthe`HTTP_PROXY`or`HTTPS_PROXY`environmentvariables.",
+Optional:true,
+Description:"TheaddressofanHTTPproxytousewhenaccessingtheAWSAPI.Canalsobeconfiguredusingthe`HTTP_PROXY`or`HTTPS_PROXY`environmentvariables.",
 },
 "insecure":schema.BoolAttribute{
-	Optional:true,
-	Description:"Explicitlyallowtheprovidertoperform\"insecure\"SSLrequests.Ifomitted,defaultvalueis`false`",
+Optional:true,
+Description:"Explicitlyallowtheprovidertoperform\"insecure\"SSLrequests.Ifomitted,defaultvalueis`false`",
 },
 "max_retries":schema.Int64Attribute{
-	Optional:true,
-	Description:"ThemaximumnumberoftimesanAWSAPIrequestis\nbeingexecuted.IftheAPIrequeststillfails,anerroris\nthrown.",
+Optional:true,
+Description:"ThemaximumnumberoftimesanAWSAPIrequestis\nbeingexecuted.IftheAPIrequeststillfails,anerroris\nthrown.",
 },
 "profile":schema.StringAttribute{
-	Optional:true,
-	Description:"TheprofileforAPIoperations.Ifnotset,thedefaultprofile\ncreatedwith`awsconfigure`willbeused.",
+Optional:true,
+Description:"TheprofileforAPIoperations.Ifnotset,thedefaultprofile\ncreatedwith`awsconfigure`willbeused.",
 },
 "region":schema.StringAttribute{
-	Optional:true,
-	Description:"TheregionwhereAWSoperationswilltakeplace.Examples\nareus-east-1,us-west-2,etc.",//lintignore:AWSAT003
+Optional:true,
+Description:"TheregionwhereAWSoperationswilltakeplace.Examples\nareus-east-1,us-west-2,etc.",//lintignore:AWSAT003
 },
 "retry_mode":schema.StringAttribute{
-	Optional:true,
-	Description:"Specifieshowretriesareattempted.Validvaluesare`standard`and`adaptive`.Canalsobeconfiguredusingthe`AWS_RETRY_MODE`environmentvariable.",
+Optional:true,
+Description:"Specifieshowretriesareattempted.Validvaluesare`standard`and`adaptive`.Canalsobeconfiguredusingthe`AWS_RETRY_MODE`environmentvariable.",
 },
 "s3_use_path_style":schema.BoolAttribute{
-	Optional:true,
-	Description:"Setthistotruetoenabletherequesttousepath-styleaddressing,\ni.e.,https://s3.amazonaws.com/BUCKET/KEY.Bydefault,theS3clientwill\nusevirtualhostedbucketaddressingwhenpossible\n(https://BUCKET.s3.amazonaws.com/KEY).SpecifictotheAmazonS3service.",
+Optional:true,
+Description:"Setthistotruetoenabletherequesttousepath-styleaddressing,\ni.e.,https://s3.amazonaws.com/BUCKET/KEY.Bydefault,theS3clientwill\nusevirtualhostedbucketaddressingwhenpossible\n(https://BUCKET.s3.amazonaws.com/KEY).SpecifictotheAmazonS3service.",
 },
 "s3_us_east_1_regional_endpoint":schema.StringAttribute{
-	Optional:true,
-	Description:"SpecifieswhetherS3APIcallsinthe`us-east-1`regionusethelegacyglobalendpointoraregionalendpoint."+//lintignore:AWSAT003
-		"Validvaluesare`legacy`or`regional`."+
-		"Canalsobeconfiguredusingthe`AWS_S3_US_EAST_1_REGIONAL_ENDPOINT`environmentvariableorthe`s3_us_east_1_regional_endpoint`sharedconfigfileparameter",
+Optional:true,
+Description:"SpecifieswhetherS3APIcallsinthe`us-east-1`regionusethelegacyglobalendpointoraregionalendpoint."+//lintignore:AWSAT003
+"Validvaluesare`legacy`or`regional`."+
+"Canalsobeconfiguredusingthe`AWS_S3_US_EAST_1_REGIONAL_ENDPOINT`environmentvariableorthe`s3_us_east_1_regional_endpoint`sharedconfigfileparameter",
 },
 "secret_key":schema.StringAttribute{
-	Optional:true,
-	Description:"ThesecretkeyforAPIoperations.Youcanretrievethis\nfromthe'Security&Credentials'sectionoftheAWSconsole.",
+Optional:true,
+Description:"ThesecretkeyforAPIoperations.Youcanretrievethis\nfromthe'Security&Credentials'sectionoftheAWSconsole.",
 },
 "shared_config_files":schema.ListAttribute{
-	ElementType:types.StringType,
-	Optional:true,
-	Description:"Listofpathstosharedconfigfiles.Ifnotset,defaultsto[~/.aws/config].",
+ElementType:types.StringType,
+Optional:true,
+Description:"Listofpathstosharedconfigfiles.Ifnotset,defaultsto[~/.aws/config].",
 },
 "shared_credentials_files":schema.ListAttribute{
-	ElementType:types.StringType,
-	Optional:true,
-	Description:"Listofpathstosharedcredentialsfiles.Ifnotset,defaultsto[~/.aws/credentials].",
+ElementType:types.StringType,
+Optional:true,
+Description:"Listofpathstosharedcredentialsfiles.Ifnotset,defaultsto[~/.aws/credentials].",
 },
 "skip_credentials_validation":schema.BoolAttribute{
-	Optional:true,
-	Description:"SkipthecredentialsvalidationviaSTSAPI.UsedforAWSAPIimplementationsthatdonothaveSTSavailable/implemented.",
+Optional:true,
+Description:"SkipthecredentialsvalidationviaSTSAPI.UsedforAWSAPIimplementationsthatdonothaveSTSavailable/implemented.",
 },
 "skip_metadata_api_check":schema.StringAttribute{
-	Optional:true,
-	Description:"SkiptheAWSMetadataAPIcheck.UsedforAWSAPIimplementationsthatdonothaveametadataapiendpoint.",
+Optional:true,
+Description:"SkiptheAWSMetadataAPIcheck.UsedforAWSAPIimplementationsthatdonothaveametadataapiendpoint.",
 },
 "skip_region_validation":schema.BoolAttribute{
-	Optional:true,
-	Description:"Skipstaticvalidationofregionname.UsedbyusersofalternativeAWS-likeAPIsorusersw/accesstoregionsthatarenotpublic(yet).",
+Optional:true,
+Description:"Skipstaticvalidationofregionname.UsedbyusersofalternativeAWS-likeAPIsorusersw/accesstoregionsthatarenotpublic(yet).",
 },
 "skip_requesting_account_id":schema.BoolAttribute{
-	Optional:true,
-	Description:"SkiprequestingtheaccountID.UsedforAWSAPIimplementationsthatdonothaveIAM/STSAPIand/ormetadataAPI.",
+Optional:true,
+Description:"SkiprequestingtheaccountID.UsedforAWSAPIimplementationsthatdonothaveIAM/STSAPIand/ormetadataAPI.",
 },
 "sts_region":schema.StringAttribute{
-	Optional:true,
-	Description:"TheregionwhereAWSSTSoperationswilltakeplace.Examples\nareus-east-1andus-west-2.",//lintignore:AWSAT003
+Optional:true,
+Description:"TheregionwhereAWSSTSoperationswilltakeplace.Examples\nareus-east-1andus-west-2.",//lintignore:AWSAT003
 },
 "token":schema.StringAttribute{
-	Optional:true,
-	Description:"sessiontoken.Asessiontokenisonlyrequiredifyouare\nusingtemporarysecuritycredentials.",
+Optional:true,
+Description:"sessiontoken.Asessiontokenisonlyrequiredifyouare\nusingtemporarysecuritycredentials.",
 },
 "use_dualstack_endpoint":schema.BoolAttribute{
-	Optional:true,
-	Description:"ResolveanendpointwithDualStackcapability",
+Optional:true,
+Description:"ResolveanendpointwithDualStackcapability",
 },
 "use_fips_endpoint":schema.BoolAttribute{
-	Optional:true,
-	Description:"ResolveanendpointwithFIPScapability",
+Optional:true,
+Description:"ResolveanendpointwithFIPScapability",
 },
-		},
-		Blocks:map[string]schema.Block{
+},
+Blocks:map[string]schema.Block{
 "assume_role":schema.ListNestedBlock{
-	Validators:[]validator.List{
-		listvalidator.SizeAtMost(1),
-	},
-	NestedObject:schema.NestedBlockObject{
-		Attributes:map[string]schema.Attribute{
+Validators:[]validator.List{
+listvalidator.SizeAtMost(1),
+},
+NestedObject:schema.NestedBlockObject{
+Attributes:map[string]schema.Attribute{
 "duration":schema.StringAttribute{
-	CustomType:fwtypes.DurationType,
-	Optional:true,
-	Description:"Theduration,between15minutesand12hours,oftherolesession.Validtimeunitsarens,us(orµs),ms,s,h,orm.",
+CustomType:fwtypes.DurationType,
+Optional:true,
+Description:"Theduration,between15minutesand12hours,oftherolesession.Validtimeunitsarens,us(orµs),ms,s,h,orm.",
 },
 "external_id":schema.StringAttribute{
-	Optional:true,
-	Description:"Auniqueidentifierthatmightberequiredwhenyouassumearoleinanotheraccount.",
+Optional:true,
+Description:"Auniqueidentifierthatmightberequiredwhenyouassumearoleinanotheraccount.",
 },
 "policy":schema.StringAttribute{
-	Optional:true,
-	Description:"IAMPolicyJSONdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
+Optional:true,
+Description:"IAMPolicyJSONdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
 },
 "policy_arns":schema.SetAttribute{
-	ElementType:types.StringType,
-	Optional:true,
-	Description:"AmazonResourceNames(ARNs)ofIAMPoliciesdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
+ElementType:types.StringType,
+Optional:true,
+Description:"AmazonResourceNames(ARNs)ofIAMPoliciesdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
 },
 "role_arn":schema.StringAttribute{
-	Optional:true,
-	Description:"AmazonResourceName(ARN)ofanIAMRoletoassumepriortomakingAPIcalls.",
+Optional:true,
+Description:"AmazonResourceName(ARN)ofanIAMRoletoassumepriortomakingAPIcalls.",
 },
 "session_name":schema.StringAttribute{
-	Optional:true,
-	Description:"Anidentifierfortheassumedrolesession.",
+Optional:true,
+Description:"Anidentifierfortheassumedrolesession.",
 },
 "source_identity":schema.StringAttribute{
-	Optional:true,
-	Description:"Sourceidentityspecifiedbytheprincipalassumingtherole.",
+Optional:true,
+Description:"Sourceidentityspecifiedbytheprincipalassumingtherole.",
 },
 "tags":schema.MapAttribute{
-	ElementType:types.StringType,
-	Optional:true,
-	Description:"Assumerolesessiontags.",
+ElementType:types.StringType,
+Optional:true,
+Description:"Assumerolesessiontags.",
 },
 "transitive_tag_keys":schema.SetAttribute{
-	ElementType:types.StringType,
-	Optional:true,
-	Description:"Assumerolesessiontagkeystopasstoanysubsequentsessions.",
+ElementType:types.StringType,
+Optional:true,
+Description:"Assumerolesessiontagkeystopasstoanysubsequentsessions.",
 },
-		},
-	},
+},
+},
 },
 "assume_role_with_web_identity":schema.ListNestedBlock{
-	Validators:[]validator.List{
-		listvalidator.SizeAtMost(1),
-	},
-	NestedObject:schema.NestedBlockObject{
-		Attributes:map[string]schema.Attribute{
+Validators:[]validator.List{
+listvalidator.SizeAtMost(1),
+},
+NestedObject:schema.NestedBlockObject{
+Attributes:map[string]schema.Attribute{
 "duration":schema.StringAttribute{
-	CustomType:fwtypes.DurationType,
-	Optional:true,
-	Description:"Theduration,between15minutesand12hours,oftherolesession.Validtimeunitsarens,us(orµs),ms,s,h,orm.",
+CustomType:fwtypes.DurationType,
+Optional:true,
+Description:"Theduration,between15minutesand12hours,oftherolesession.Validtimeunitsarens,us(orµs),ms,s,h,orm.",
 },
 "policy":schema.StringAttribute{
-	Optional:true,
-	Description:"IAMPolicyJSONdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
+Optional:true,
+Description:"IAMPolicyJSONdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
 },
 "policy_arns":schema.SetAttribute{
-	ElementType:types.StringType,
-	Optional:true,
-	Description:"AmazonResourceNames(ARNs)ofIAMPoliciesdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
+ElementType:types.StringType,
+Optional:true,
+Description:"AmazonResourceNames(ARNs)ofIAMPoliciesdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
 },
 "role_arn":schema.StringAttribute{
-	Optional:true,
-	Description:"AmazonResourceName(ARN)ofanIAMRoletoassumepriortomakingAPIcalls.",
+Optional:true,
+Description:"AmazonResourceName(ARN)ofanIAMRoletoassumepriortomakingAPIcalls.",
 },
 "session_name":schema.StringAttribute{
-	Optional:true,
-	Description:"Anidentifierfortheassumedrolesession.",
+Optional:true,
+Description:"Anidentifierfortheassumedrolesession.",
 },
 "web_identity_token":schema.StringAttribute{
-	Optional:true,
+Optional:true,
 },
 "web_identity_token_file":schema.StringAttribute{
-	Optional:true,
+Optional:true,
 },
-		},
-	},
+},
+},
 },
 "default_tags":schema.ListNestedBlock{
-	Validators:[]validator.List{
-		listvalidator.SizeAtMost(1),
-	},
-	Description:"Configurationblockwithsettingstodefaultresourcetagsacrossallresources.",
-	NestedObject:schema.NestedBlockObject{
-		Attributes:map[string]schema.Attribute{
-"tags":schema.MapAttribute{
-	ElementType:types.StringType,
-	Optional:true,
-	Description:"Resourcetagstodefaultacrossallresources",
+Validators:[]validator.List{
+listvalidator.SizeAtMost(1),
 },
-		},
-	},
+Description:"Configurationblockwithsettingstodefaultresourcetagsacrossallresources.",
+NestedObject:schema.NestedBlockObject{
+Attributes:map[string]schema.Attribute{
+"tags":schema.MapAttribute{
+ElementType:types.StringType,
+Optional:true,
+Description:"Resourcetagstodefaultacrossallresources",
+},
+},
+},
 },
 "endpoints":endpointsBlock(),
 "ignore_tags":schema.ListNestedBlock{
-	Validators:[]validator.List{
-		listvalidator.SizeAtMost(1),
-	},
-	Description:"Configurationblockwithsettingstoignoreresourcetagsacrossallresources.",
-	NestedObject:schema.NestedBlockObject{
-		Attributes:map[string]schema.Attribute{
+Validators:[]validator.List{
+listvalidator.SizeAtMost(1),
+},
+Description:"Configurationblockwithsettingstoignoreresourcetagsacrossallresources.",
+NestedObject:schema.NestedBlockObject{
+Attributes:map[string]schema.Attribute{
 "key_prefixes":schema.SetAttribute{
-	ElementType:types.StringType,
-	Optional:true,
-	Description:"Resourcetagkeyprefixestoignoreacrossallresources.",
+ElementType:types.StringType,
+Optional:true,
+Description:"Resourcetagkeyprefixestoignoreacrossallresources.",
 },
 "keys":schema.SetAttribute{
-	ElementType:types.StringType,
-	Optional:true,
-	Description:"Resourcetagkeystoignoreacrossallresources.",
+ElementType:types.StringType,
+Optional:true,
+Description:"Resourcetagkeystoignoreacrossallresources.",
 },
-		},
-	},
 },
-		},
-	}
+},
+},
+},
+}
 }
 
 //Configureiscalledatthebeginningoftheproviderlifecycle,when
 //Terraformsendstotheproviderthevaluestheuserspecifiedinthe
 //providerconfigurationblock.
 func(p*fwprovider)Configure(ctxcontext.Context,requestprovider.ConfigureRequest,response*provider.ConfigureResponse){
-	//Provider'sparsedconfiguration(itsinstancestate)isavailablethroughtheprimaryprovider'sMeta()method.
-	v:=p.Primary.Meta()
-	response.DataSourceData=v
-	response.ResourceData=v
+//Provider'sparsedconfiguration(itsinstancestate)isavailablethroughtheprimaryprovider'sMeta()method.
+v:=p.Primary.Meta()
+response.DataSourceData=v
+response.ResourceData=v
 }
 
 //DataSourcesreturnsasliceoffunctionstoinstantiateeachDataSource
@@ -291,23 +291,23 @@ func(p*fwprovider)Configure(ctxcontext.Context,requestprovider.ConfigureRequest,
 //ThedatasourcetypenameisdeterminedbytheDataSourceimplementing
 //theMetadatamethod.Alldatasourcesmusthaveuniquenames.
 func(p*fwprovider)DataSources(ctxcontext.Context)[]func()datasource.DataSource{
-	varerrs*multierror.Error
-	vardataSources[]func()datasource.DataSource
+varerrs*multierror.Error
+vardataSources[]func()datasource.DataSource
 
-	forn,sp:=rangep.Primary.Meta().(*conns.AWSClient).ServicePackages{
-		servicePackageName:=sp.ServicePackageName()
+forn,sp:=rangep.Primary.Meta().(*conns.AWSClient).ServicePackages{
+servicePackageName:=sp.ServicePackageName()
 
-		for_,v:=rangesp.FrameworkDataSources(ctx){
+for_,v:=rangesp.FrameworkDataSources(ctx){
 v:=v
 inner,err:=v.Factory(ctx)
 
 iferr!=nil{
-	tflog.Warn(ctx,"creatingdatasource",map[string]interface{}{
-		"service_package_name":n,
-		"error":err.Error(),
-	})
+tflog.Warn(ctx,"creatingdatasource",map[string]interface{}{
+"service_package_name":n,
+"error":err.Error(),
+})
 
-	continue
+continue
 }
 
 metadataResponse:=datasource.MetadataResponse{}
@@ -316,47 +316,47 @@ typeName:=metadataResponse.TypeName
 
 //bootstrapContextisrunonallwrappedmethodsbeforeanyinterceptors.
 bootstrapContext:=func(ctxcontext.Context,meta*conns.AWSClient)context.Context{
-	ctx=conns.NewDataSourceContext(ctx,servicePackageName,v.Name)
-	ifmeta!=nil{
-		ctx=tftags.NewContext(ctx,meta.DefaultTagsConfig,meta.IgnoreTagsConfig)
-	}
+ctx=conns.NewDataSourceContext(ctx,servicePackageName,v.Name)
+ifmeta!=nil{
+ctx=tftags.NewContext(ctx,meta.DefaultTagsConfig,meta.IgnoreTagsConfig)
+}
 
-	returnctx
+returnctx
 }
 interceptors:=dataSourceInterceptors{}
 
 ifv.Tags!=nil{
-	//Thedatasourcehasoptedintotransparenttagging.
-	//EnsurethattheschemalookOK.
-	schemaResponse:=datasource.SchemaResponse{}
-	inner.Schema(ctx,datasource.SchemaRequest{},&schemaResponse)
+//Thedatasourcehasoptedintotransparenttagging.
+//EnsurethattheschemalookOK.
+schemaResponse:=datasource.SchemaResponse{}
+inner.Schema(ctx,datasource.SchemaRequest{},&schemaResponse)
 
-	ifv,ok:=schemaResponse.Schema.Attributes[names.AttrTags];ok{
-		if!v.IsComputed(){
+ifv,ok:=schemaResponse.Schema.Attributes[names.AttrTags];ok{
+if!v.IsComputed(){
 errs=multierror.Append(errs,fmt.Errorf("`%s`attributemustbeComputed:%s",names.AttrTags,typeName))
 continue
-		}
-	}else{
-		errs=multierror.Append(errs,fmt.Errorf("no`%s`attributedefinedinschema:%s",names.AttrTags,typeName))
-		continue
-	}
+}
+}else{
+errs=multierror.Append(errs,fmt.Errorf("no`%s`attributedefinedinschema:%s",names.AttrTags,typeName))
+continue
+}
 
-	interceptors=append(interceptors,tagsDataSourceInterceptor{tags:v.Tags})
+interceptors=append(interceptors,tagsDataSourceInterceptor{tags:v.Tags})
 }
 
 dataSources=append(dataSources,func()datasource.DataSource{
-	returnnewWrappedDataSource(bootstrapContext,inner,interceptors)
+returnnewWrappedDataSource(bootstrapContext,inner,interceptors)
 })
-		}
-	}
+}
+}
 
-	iferr:=errs.ErrorOrNil();err!=nil{
-		tflog.Warn(ctx,"registeringdatasources",map[string]interface{}{
+iferr:=errs.ErrorOrNil();err!=nil{
+tflog.Warn(ctx,"registeringdatasources",map[string]interface{}{
 "error":err.Error(),
-		})
-	}
+})
+}
 
-	returndataSources
+returndataSources
 }
 
 //ResourcesreturnsasliceoffunctionstoinstantiateeachResource
@@ -365,19 +365,19 @@ dataSources=append(dataSources,func()datasource.DataSource{
 //TheresourcetypenameisdeterminedbytheResourceimplementing
 //theMetadatamethod.Allresourcesmusthaveuniquenames.
 func(p*fwprovider)Resources(ctxcontext.Context)[]func()resource.Resource{
-	varerrs*multierror.Error
-	varresources[]func()resource.Resource
+varerrs*multierror.Error
+varresources[]func()resource.Resource
 
-	for_,sp:=rangep.Primary.Meta().(*conns.AWSClient).ServicePackages{
-		servicePackageName:=sp.ServicePackageName()
+for_,sp:=rangep.Primary.Meta().(*conns.AWSClient).ServicePackages{
+servicePackageName:=sp.ServicePackageName()
 
-		for_,v:=rangesp.FrameworkResources(ctx){
+for_,v:=rangesp.FrameworkResources(ctx){
 v:=v
 inner,err:=v.Factory(ctx)
 
 iferr!=nil{
-	errs=multierror.Append(errs,fmt.Errorf("creatingresource:%w",err))
-	continue
+errs=multierror.Append(errs,fmt.Errorf("creatingresource:%w",err))
+continue
 }
 
 metadataResponse:=resource.MetadataResponse{}
@@ -386,71 +386,71 @@ typeName:=metadataResponse.TypeName
 
 //bootstrapContextisrunonallwrappedmethodsbeforeanyinterceptors.
 bootstrapContext:=func(ctxcontext.Context,meta*conns.AWSClient)context.Context{
-	ctx=conns.NewResourceContext(ctx,servicePackageName,v.Name)
-	ifmeta!=nil{
-		ctx=tftags.NewContext(ctx,meta.DefaultTagsConfig,meta.IgnoreTagsConfig)
-	}
+ctx=conns.NewResourceContext(ctx,servicePackageName,v.Name)
+ifmeta!=nil{
+ctx=tftags.NewContext(ctx,meta.DefaultTagsConfig,meta.IgnoreTagsConfig)
+}
 
-	returnctx
+returnctx
 }
 interceptors:=resourceInterceptors{}
 
 ifv.Tags!=nil{
-	//Theresourcehasoptedintotransparenttagging.
-	//EnsurethattheschemalookOK.
-	schemaResponse:=resource.SchemaResponse{}
-	inner.Schema(ctx,resource.SchemaRequest{},&schemaResponse)
+//Theresourcehasoptedintotransparenttagging.
+//EnsurethattheschemalookOK.
+schemaResponse:=resource.SchemaResponse{}
+inner.Schema(ctx,resource.SchemaRequest{},&schemaResponse)
 
-	ifv,ok:=schemaResponse.Schema.Attributes[names.AttrTags];ok{
-		ifv.IsComputed(){
+ifv,ok:=schemaResponse.Schema.Attributes[names.AttrTags];ok{
+ifv.IsComputed(){
 errs=multierror.Append(errs,fmt.Errorf("`%s`attributecannotbeComputed:%s",names.AttrTags,typeName))
 continue
-		}
-	}else{
-		errs=multierror.Append(errs,fmt.Errorf("no`%s`attributedefinedinschema:%s",names.AttrTags,typeName))
-		continue
-	}
-	ifv,ok:=schemaResponse.Schema.Attributes[names.AttrTagsAll];ok{
-		if!v.IsComputed(){
+}
+}else{
+errs=multierror.Append(errs,fmt.Errorf("no`%s`attributedefinedinschema:%s",names.AttrTags,typeName))
+continue
+}
+ifv,ok:=schemaResponse.Schema.Attributes[names.AttrTagsAll];ok{
+if!v.IsComputed(){
 errs=multierror.Append(errs,fmt.Errorf("`%s`attributemustbeComputed:%s",names.AttrTagsAll,typeName))
 continue
-		}
-	}else{
-		errs=multierror.Append(errs,fmt.Errorf("no`%s`attributedefinedinschema:%s",names.AttrTagsAll,typeName))
-		continue
-	}
+}
+}else{
+errs=multierror.Append(errs,fmt.Errorf("no`%s`attributedefinedinschema:%s",names.AttrTagsAll,typeName))
+continue
+}
 
-	interceptors=append(interceptors,tagsResourceInterceptor{tags:v.Tags})
+interceptors=append(interceptors,tagsResourceInterceptor{tags:v.Tags})
 }
 
 resources=append(resources,func()resource.Resource{
-	returnnewWrappedResource(bootstrapContext,inner,interceptors)
+returnnewWrappedResource(bootstrapContext,inner,interceptors)
 })
-		}
-	}
+}
+}
 
-	iferr:=errs.ErrorOrNil();err!=nil{
-		tflog.Warn(ctx,"registeringresources",map[string]interface{}{
+iferr:=errs.ErrorOrNil();err!=nil{
+tflog.Warn(ctx,"registeringresources",map[string]interface{}{
 "error":err.Error(),
-		})
-	}
+})
+}
 
-	returnresources
+returnresources
 }
 
 funcendpointsBlock()schema.SetNestedBlock{
-	endpointsAttributes:=make(map[string]schema.Attribute)
+endpointsAttributes:=make(map[string]schema.Attribute)
 
-	for_,serviceKey:=rangenames.Aliases(){
-		endpointsAttributes[serviceKey]=schema.StringAttribute{
+for_,serviceKey:=rangenames.Aliases(){
+endpointsAttributes[serviceKey]=schema.StringAttribute{
 Optional:true,
 Description:"UsethistooverridethedefaultserviceendpointURL",
-		}
-	}
+}
+}
 
-	returnschema.SetNestedBlock{
-		NestedObject:schema.NestedBlockObject{
+returnschema.SetNestedBlock{
+NestedObject:schema.NestedBlockObject{
 Attributes:endpointsAttributes,
-		},
-	}
+},
+}
 }

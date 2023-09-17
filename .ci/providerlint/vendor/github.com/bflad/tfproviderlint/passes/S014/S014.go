@@ -1,9 +1,9 @@
-// Package S014 defines an Analyzer that checks for
-// Schema that within Elem, Computed, Optional, and Required
-// are not configured
-package S014
+//PackageS014definesanAnalyzerthatchecksfor
+//SchemathatwithinElem,Computed,Optional,andRequired
+//arenotconfigured
+packageS014
 
-import (
+import(
 	"go/ast"
 	"go/token"
 
@@ -14,61 +14,61 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemamapcompositelit"
 )
 
-const Doc = `check for Schema that Elem does not contain extraneous fields
+constDoc=`checkforSchemathatElemdoesnotcontainextraneousfields
 
-The S014 analyzer reports cases of schemas which within Elem, that
-Computed, Optional, and Required are not configured, which will fail
-provider schema validation.`
+TheS014analyzerreportscasesofschemaswhichwithinElem,that
+Computed,Optional,andRequiredarenotconfigured,whichwillfail
+providerschemavalidation.`
 
-const analyzerName = "S014"
+constanalyzerName="S014"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemamapcompositelit.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemamapcompositelits := pass.ResultOf[schemamapcompositelit.Analyzer].([]*ast.CompositeLit)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemamapcompositelits:=pass.ResultOf[schemamapcompositelit.Analyzer].([]*ast.CompositeLit)
 
-	for _, smap := range schemamapcompositelits {
-		for _, schemaCompositeLit := range schema.GetSchemaMapSchemas(smap) {
-			schemaInfo := schema.NewSchemaInfo(schemaCompositeLit, pass.TypesInfo)
+	for_,smap:=rangeschemamapcompositelits{
+		for_,schemaCompositeLit:=rangeschema.GetSchemaMapSchemas(smap){
+			schemaInfo:=schema.NewSchemaInfo(schemaCompositeLit,pass.TypesInfo)
 
-			if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+			ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 				continue
 			}
 
-			elemKvExpr := schemaInfo.Fields[schema.SchemaFieldElem]
+			elemKvExpr:=schemaInfo.Fields[schema.SchemaFieldElem]
 
-			if elemKvExpr == nil {
+			ifelemKvExpr==nil{
 				continue
 			}
 
-			// search within Elem
-			switch elemValue := elemKvExpr.Value.(type) {
+			//searchwithinElem
+			switchelemValue:=elemKvExpr.Value.(type){
 			default:
 				continue
-			case *ast.UnaryExpr:
-				if elemValue.Op != token.AND || !schema.IsTypeSchema(pass.TypesInfo.TypeOf(elemValue.X)) {
+			case*ast.UnaryExpr:
+				ifelemValue.Op!=token.AND||!schema.IsTypeSchema(pass.TypesInfo.TypeOf(elemValue.X)){
 					continue
 				}
 
-				switch tElemSchema := elemValue.X.(type) {
+				switchtElemSchema:=elemValue.X.(type){
 				default:
 					continue
-				case *ast.CompositeLit:
-					elemSchema := schema.NewSchemaInfo(tElemSchema, pass.TypesInfo)
+				case*ast.CompositeLit:
+					elemSchema:=schema.NewSchemaInfo(tElemSchema,pass.TypesInfo)
 
-					for _, field := range []string{schema.SchemaFieldComputed, schema.SchemaFieldOptional, schema.SchemaFieldRequired} {
-						if kvExpr := elemSchema.Fields[field]; kvExpr != nil {
-							pass.Reportf(kvExpr.Pos(), "%s: schema within Elem should not configure Computed, Optional, or Required", analyzerName)
+					for_,field:=range[]string{schema.SchemaFieldComputed,schema.SchemaFieldOptional,schema.SchemaFieldRequired}{
+						ifkvExpr:=elemSchema.Fields[field];kvExpr!=nil{
+							pass.Reportf(kvExpr.Pos(),"%s:schemawithinElemshouldnotconfigureComputed,Optional,orRequired",analyzerName)
 							break
 						}
 					}
@@ -77,5 +77,5 @@ var Analyzer = &analysis.Analyzer{
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

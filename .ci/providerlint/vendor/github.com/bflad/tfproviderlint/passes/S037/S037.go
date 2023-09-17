@@ -1,8 +1,8 @@
-package S037
+packageS037
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/analysisutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
 )
 
-var Analyzer = analysisutils.SchemaAttributeReferencesAnalyzer("S037", schema.SchemaFieldExactlyOneOf)
+varAnalyzer=analysisutils.SchemaAttributeReferencesAnalyzer("S037",schema.SchemaFieldExactlyOneOf)

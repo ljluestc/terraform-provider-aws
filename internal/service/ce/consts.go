@@ -1,8 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package ceconst (
-	ResNameAnomalyMonitor= "Anomaly Monitor"
-	ResNameAnomalySubscription = "Anomaly Subscription"
-	ResNameCostCategory= "Cost Category"
-	ResNameCostAllocationTag= "Cost Allocation Tags"
-	DSNameTags= "Tags Data Source"
-)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagececonst(ResNameAnomalyMonitor="AnomalyMonitor"ResNameAnomalySubscription="AnomalySubscription"ResNameCostCategory="CostCategory"ResNameCostAllocationTag="CostAllocationTags"DSNameTags="TagsDataSource")

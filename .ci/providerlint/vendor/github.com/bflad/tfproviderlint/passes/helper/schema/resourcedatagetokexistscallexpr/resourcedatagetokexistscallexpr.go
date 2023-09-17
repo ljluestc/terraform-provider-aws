@@ -1,11 +1,11 @@
-package resourcedatagetokexistscallexpr
+packageresourcedatagetokexistscallexpr
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/analysisutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
 )
 
-var Analyzer = analysisutils.ReceiverMethodCallExprAnalyzer(
+varAnalyzer=analysisutils.ReceiverMethodCallExprAnalyzer(
 	"resourcedatagetokexistscallexpr",
 	schema.IsReceiverMethod,
 	schema.PackagePath,

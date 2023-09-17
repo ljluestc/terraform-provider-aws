@@ -1,115 +1,115 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package connect_testimport (
-	"fmt"
-	"testing"	"github.com/aws/aws-sdk-go/service/connect"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"fmt"
+"testing""github.com/aws/aws-sdk-go/service/connect"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 func testAccRoutingProfileDataSource_routingProfileID(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_routing_profile.test"
-	datasourceName := "data.aws_connect_routing_profile.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_routing_profile.test"
+datasourceName := "data.aws_connect_routing_profile.test"resource.Test(t, resource.TestCase{
 PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccRoutingProfileDataSourceConfig_id(rName, rName2, rName3, rName4),
 Check: resource.ComposeAggregateTestCheckFunc(
-	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(datasourceName, "default_outbound_queue_id", resourceName, "default_outbound_queue_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "media_concurrencies.#", resourceName, "media_concurrencies.#"),
-	resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
+resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+resource.TestCheckResourceAttrPair(datasourceName, "default_outbound_queue_id", resourceName, "default_outbound_queue_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "media_concurrencies.#", resourceName, "media_concurrencies.#"),
+resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
 "channel":"VOICE",
 "concurrency": "1",
-	}),
-	resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
+}),
+resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
 "channel":"CHAT",
 "concurrency": "2",
-	}),
-	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "queue_configs.#", resourceName, "queue_configs.#"),
-	resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.0.channel"),
-	resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.0.delay"),
-	resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.0.priority"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_arn", "aws_connect_queue.default_outbound_queue", "arn"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_id", "aws_connect_queue.default_outbound_queue", "queue_id"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_name", "aws_connect_queue.default_outbound_queue", "name"),
-	resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.1.channel"),
-	resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.1.delay"),
-	resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.1.priority"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_arn", "aws_connect_queue.test", "arn"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_id", "aws_connect_queue.test", "queue_id"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_name", "aws_connect_queue.test", "name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "routing_profile_id", resourceName, "routing_profile_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-	resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
+}),
+resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+resource.TestCheckResourceAttrPair(datasourceName, "queue_configs.#", resourceName, "queue_configs.#"),
+resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.0.channel"),
+resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.0.delay"),
+resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.0.priority"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_arn", "aws_connect_queue.default_outbound_queue", "arn"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_id", "aws_connect_queue.default_outbound_queue", "queue_id"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_name", "aws_connect_queue.default_outbound_queue", "name"),
+resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.1.channel"),
+resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.1.delay"),
+resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.1.priority"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_arn", "aws_connect_queue.test", "arn"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_id", "aws_connect_queue.test", "queue_id"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_name", "aws_connect_queue.test", "name"),
+resource.TestCheckResourceAttrPair(datasourceName, "routing_profile_id", resourceName, "routing_profile_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
 ),
-	},
 },
-	})
+},
+})
 }
 func testAccRoutingProfileDataSource_name(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_routing_profile.test"
-	datasourceName := "data.aws_connect_routing_profile.test"	resource.Test(t, resource.TestCase{
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_connect_routing_profile.test"
+datasourceName := "data.aws_connect_routing_profile.test"resource.Test(t, resource.TestCase{
 PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccRoutingProfileDataSourceConfig_name(rName, rName2, rName3, rName4),
 Check: resource.ComposeAggregateTestCheckFunc(
-	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-	resource.TestCheckResourceAttrPair(datasourceName, "default_outbound_queue_id", resourceName, "default_outbound_queue_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "media_concurrencies.#", resourceName, "media_concurrencies.#"),
-	resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
+resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+resource.TestCheckResourceAttrPair(datasourceName, "default_outbound_queue_id", resourceName, "default_outbound_queue_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "media_concurrencies.#", resourceName, "media_concurrencies.#"),
+resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
 "channel":"VOICE",
 "concurrency": "1",
-	}),
-	resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
+}),
+resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
 "channel":"CHAT",
 "concurrency": "2",
-	}),
-	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "queue_configs.#", resourceName, "queue_configs.#"),
-	resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.0.channel"),
-	resource.TestCheckResourceAttr(datasourceName, "queue_configs.0.delay", "1"),
-	resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.0.priority"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_arn", "aws_connect_queue.default_outbound_queue", "arn"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_id", "aws_connect_queue.default_outbound_queue", "queue_id"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_name", "aws_connect_queue.default_outbound_queue", "name"),
-	resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.1.channel"),
-	resource.TestCheckResourceAttr(datasourceName, "queue_configs.1.delay", "1"),
-	resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.1.priority"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_arn", "aws_connect_queue.test", "arn"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_id", "aws_connect_queue.test", "queue_id"),
-	resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_name", "aws_connect_queue.test", "name"),
-	resource.TestCheckResourceAttrPair(datasourceName, "routing_profile_id", resourceName, "routing_profile_id"),
-	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-	resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
+}),
+resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+resource.TestCheckResourceAttrPair(datasourceName, "queue_configs.#", resourceName, "queue_configs.#"),
+resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.0.channel"),
+resource.TestCheckResourceAttr(datasourceName, "queue_configs.0.delay", "1"),
+resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.0.priority"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_arn", "aws_connect_queue.default_outbound_queue", "arn"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_id", "aws_connect_queue.default_outbound_queue", "queue_id"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_name", "aws_connect_queue.default_outbound_queue", "name"),
+resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.1.channel"),
+resource.TestCheckResourceAttr(datasourceName, "queue_configs.1.delay", "1"),
+resource.TestCheckResourceAttrSet(datasourceName, "queue_configs.1.priority"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_arn", "aws_connect_queue.test", "arn"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_id", "aws_connect_queue.test", "queue_id"),
+resource.TestCheckTypeSetElemAttrPair(datasourceName, "queue_configs.*.queue_name", "aws_connect_queue.test", "name"),
+resource.TestCheckResourceAttrPair(datasourceName, "routing_profile_id", resourceName, "routing_profile_id"),
+resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
 ),
-	},
 },
-	})
+},
+})
 }
 func testAccRoutingProfileBaseDataSourceConfig(rName, rName2, rName3, rName4 string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
 identity_management_type = "CONNECT_MANAGED"
 inbound_calls_enabled = true
@@ -155,7 +155,7 @@ description= "Test Routing Profile Data Source"media_concurrencies {
 `, rName, rName2, rName3, rName4)
 }
 func testAccRoutingProfileDataSourceConfig_id(rName, rName2, rName3, rName4 string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccRoutingProfileBaseDataSourceConfig(rName, rName2, rName3, rName4),
 `
 data "aws_connect_routing_profile" "test" {
@@ -165,7 +165,7 @@ routing_profile_id = aws_connect_routing_profile.test.routing_profile_id
 `)
 }
 func testAccRoutingProfileDataSourceConfig_name(rName, rName2, rName3, rName4 string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccRoutingProfileBaseDataSourceConfig(rName, rName2, rName3, rName4),
 `
 data "aws_connect_routing_profile" "test" {

@@ -1,64 +1,64 @@
-package R019
+packageR019
 
-import (
-	"flag"
-	"go/ast"
+import(
+"flag"
+"go/ast"
 
-	"golang.org/x/tools/go/analysis"
+"golang.org/x/tools/go/analysis"
 
-	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/helper/schema/resourcedatahaschangescallexpr"
+"github.com/bflad/tfproviderlint/passes/commentignore"
+"github.com/bflad/tfproviderlint/passes/helper/schema/resourcedatahaschangescallexpr"
 )
 
-const Doc = `check for (*schema.ResourceData).HasChanges() calls with many arguments
+constDoc=`checkfor(*schema.ResourceData).HasChanges()callswithmanyarguments
 
-The R019 analyzer reports when there are a large number of arguments being
-passed to (*schema.ResourceData).HasChanges(), which it may be preferable to
-use (*schema.ResourceData).HasChangesExcept() instead.
+TheR019analyzerreportswhentherearealargenumberofargumentsbeing
+passedto(*schema.ResourceData).HasChanges(),whichitmaybepreferableto
+use(*schema.ResourceData).HasChangesExcept()instead.
 
-Optional parameters:
-  -threshold=5 Number of arguments for reporting
+Optionalparameters:
+-threshold=5Numberofargumentsforreporting
 `
 
-const analyzerName = "R019"
+constanalyzerName="R019"
 
-var (
-	threshold int
+var(
+thresholdint
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name:  analyzerName,
-	Doc:   Doc,
-	Flags: parseFlags(),
-	Requires: []*analysis.Analyzer{
-		commentignore.Analyzer,
-		resourcedatahaschangescallexpr.Analyzer,
-	},
-	Run: run,
+varAnalyzer=&analysis.Analyzer{
+Name:analyzerName,
+Doc:Doc,
+Flags:parseFlags(),
+Requires:[]*analysis.Analyzer{
+commentignore.Analyzer,
+resourcedatahaschangescallexpr.Analyzer,
+},
+Run:run,
 }
 
 
- parseFlags() flag.FlagSet {
-	var flags = flag.NewFlagSet(analyzerName, flag.ExitOnError)
-	flags.IntVar(&threshold, "threshold", 5, "Number of arguments for reporting")
-	return *flags
+parseFlags()flag.FlagSet{
+varflags=flag.NewFlagSet(analyzerName,flag.ExitOnError)
+flags.IntVar(&threshold,"threshold",5,"Numberofargumentsforreporting")
+return*flags
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	callExprs := pass.ResultOf[resourcedatahaschangescallexpr.Analyzer].([]*ast.CallExpr)
-	for _, callExpr := range callExprs {
-		if ignorer.ShouldIgnore(analyzerName, callExpr) {
-			continue
-		}
+run(pass*analysis.Pass)(interface{},error){
+ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+callExprs:=pass.ResultOf[resourcedatahaschangescallexpr.Analyzer].([]*ast.CallExpr)
+for_,callExpr:=rangecallExprs{
+ifignorer.ShouldIgnore(analyzerName,callExpr){
+continue
+}
 
-		if len(callExpr.Args) < threshold {
-			continue
-		}
+iflen(callExpr.Args)<threshold{
+continue
+}
 
-		pass.Reportf(callExpr.Pos(), "%s: d.HasChanges() has many arguments, consider d.HasChangesExcept()", analyzerName)
-	}
+pass.Reportf(callExpr.Pos(),"%s:d.HasChanges()hasmanyarguments,considerd.HasChangesExcept()",analyzerName)
+}
 
-	return nil, nil
+returnnil,nil
 }

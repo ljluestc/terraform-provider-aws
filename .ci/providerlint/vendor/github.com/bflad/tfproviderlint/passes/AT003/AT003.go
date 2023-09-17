@@ -1,8 +1,8 @@
-// Package AT003 defines an Analyzer that checks for
-// acceptance test names missing an underscore
-package AT003
+//PackageAT003definesanAnalyzerthatchecksfor
+//acceptancetestnamesmissinganunderscore
+packageAT003
 
-import (
+import(
 	"go/ast"
 	"strings"
 
@@ -13,49 +13,49 @@ import (
 decl"
 )
 
-const Doc = `check for acceptance test 
-tion names missing an underscore
+constDoc=`checkforacceptancetest
+tionnamesmissinganunderscore
 
-The AT003 analyzer reports where an underscore is not
-present in the 
-tion name, which could make per-resource testing harder to
-execute in larger providers or those with overlapping resource names.`
+TheAT003analyzerreportswhereanunderscoreisnot
+presentinthe
+tionname,whichcouldmakeper-resourcetestingharderto
+executeinlargerprovidersorthosewithoverlappingresourcenames.`
 
-const analyzerName = "AT003"
+constanalyzerName="AT003"
 
-var Analyzer = &analysis.Analyzer{
-	Name: anerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:anerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		testacc
 decl.Analyzer,
 		commentignore.Analyzer,
 
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	testAcc
-s := pass.ResultOf[testacc
+s:=pass.ResultOf[testacc
 decl.Analyzer].([]*
 Decl)
-	for _, testAcc
- := range testAcc
-s {
-		if ignorer.ShouldIgnore(analyzerName, testAcc
-) {
+	for_,testAcc
+:=rangetestAcc
+s{
+		ifignorer.ShouldIgnore(analyzerName,testAcc
+){
 			continue
 		}
 
-		if !strings.Contains(testAcc
-.Name.Name, "_") {
+		if!strings.Contains(testAcc
+.Name.Name,"_"){
 			pass.Reportf(testAcc
-.Name.NamePos, "%s: acceptance test 
-tion name should include underscore", analyzerName)
+.Name.NamePos,"%s:acceptancetest
+tionnameshouldincludeunderscore",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

@@ -1,16 +1,16 @@
-package singleipcallexpr
+packagesingleipcallexpr
 
-import (
-	"github.com/bflad/tfproviderlint/helper/analysisutils"
-	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
+import(
+"github.com/bflad/tfproviderlint/helper/analysisutils"
+"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
 )
 
-var Analyzer = analysisutils.
+varAnalyzer=analysisutils.
 CallExprAnalyzer(
-	"singleipcallexpr",
-	validation.Is
+"singleipcallexpr",
+validation.Is
 
-	validation.PackagePath,
-	validation.
+validation.PackagePath,
+validation.
 SingleIP,
 )

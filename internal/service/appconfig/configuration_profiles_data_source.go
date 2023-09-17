@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package appconfig
+packageappconfig
 
-import (
+import(
 	"context"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -15,61 +15,61 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKDataSource("aws_appconfig_configuration_profiles")
-func DataSourceConfigurationProfiles() *schema.Resource {
-	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceConfigurationProfilesRead,
-		Schema: map[string]*schema.Schema{
-			"application_id": {
-				Type: schema.TypeString,
-				Required: true,
+//@SDKDataSource("aws_appconfig_configuration_profiles")
+funcDataSourceConfigurationProfiles()*schema.Resource{
+	return&schema.Resource{
+		ReadWithoutTimeout:dataSourceConfigurationProfilesRead,
+		Schema:map[string]*schema.Schema{
+			"application_id":{
+				Type:schema.TypeString,
+				Required:true,
 			},
-			"configuration_profile_ids": {
-				Type: schema.TypeSet,
-				Computed: true,
-				Elem: &schema.Schema{Type: schema.TypeString},
+			"configuration_profile_ids":{
+				Type:schema.TypeSet,
+				Computed:true,
+				Elem:&schema.Schema{Type:schema.TypeString},
 			},
 		},
 	}
 }
 
-const (
-	DSNameConfigurationProfiles = "Configuration Profiles Data Source"
+const(
+	DSNameConfigurationProfiles="ConfigurationProfilesDataSource"
 )
 
-func dataSourceConfigurationProfilesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
-	appId := d.Get("application_id").(string)
+funcdataSourceConfigurationProfilesRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
+	appId:=d.Get("application_id").(string)
 
-	out, err := findConfigurationProfileSummariesByApplication(ctx, conn, appId)
-	if err != nil {
-		return create.DiagError(names.AppConfig, create.ErrActionReading, DSNameConfigurationProfiles, appId, err)
+	out,err:=findConfigurationProfileSummariesByApplication(ctx,conn,appId)
+	iferr!=nil{
+		returncreate.DiagError(names.AppConfig,create.ErrActionReading,DSNameConfigurationProfiles,appId,err)
 	}
 
 	d.SetId(appId)
 
-	var configIds []*string
-	for _, v := range out {
-		configIds = append(configIds, v.Id)
+	varconfigIds[]*string
+	for_,v:=rangeout{
+		configIds=append(configIds,v.Id)
 	}
 
-	d.Set("configuration_profile_ids", aws.StringValueSlice(configIds))
+	d.Set("configuration_profile_ids",aws.StringValueSlice(configIds))
 
-	return nil
+	returnnil
 }
 
-func findConfigurationProfileSummariesByApplication(ctx context.Context, conn *appconfig.AppConfig, applicationId string) ([]*appconfig.ConfigurationProfileSummary, error) {
-	var outputs []*appconfig.ConfigurationProfileSummary
-	err := conn.ListConfigurationProfilesPagesWithContext(ctx, &appconfig.ListConfigurationProfilesInput{
-		ApplicationId: aws.String(applicationId),
-	}, func(output *appconfig.ListConfigurationProfilesOutput, lastPage bool) bool {
-		outputs = append(outputs, output.Items...)
-		return !lastPage
+funcfindConfigurationProfileSummariesByApplication(ctxcontext.Context,conn*appconfig.AppConfig,applicationIdstring)([]*appconfig.ConfigurationProfileSummary,error){
+	varoutputs[]*appconfig.ConfigurationProfileSummary
+	err:=conn.ListConfigurationProfilesPagesWithContext(ctx,&appconfig.ListConfigurationProfilesInput{
+		ApplicationId:aws.String(applicationId),
+	},func(output*appconfig.ListConfigurationProfilesOutput,lastPagebool)bool{
+		outputs=append(outputs,output.Items...)
+		return!lastPage
 	})
 
-	if err != nil {
-		return nil, err
+	iferr!=nil{
+		returnnil,err
 	}
 
-	return outputs, nil
+	returnoutputs,nil
 }

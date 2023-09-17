@@ -1,8 +1,8 @@
-// Package S018 defines an Analyzer that checks for
-// Schema that should prefer TypeList with MaxItems 1
-package S018
+//PackageS018definesanAnalyzerthatchecksfor
+//SchemathatshouldpreferTypeListwithMaxItems1
+packageS018
 
-import (
+import(
 	"go/ast"
 
 	"golang.org/x/tools/go/analysis"
@@ -12,47 +12,47 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemainfo"
 )
 
-const Doc = `check for Schema that should prefer TypeList with MaxItems 1
+constDoc=`checkforSchemathatshouldpreferTypeListwithMaxItems1
 
-The S018 analyzer reports cases of schema including MaxItems 1 and TypeSet
-that should be simplified.`
+TheS018analyzerreportscasesofschemaincludingMaxItems1andTypeSet
+thatshouldbesimplified.`
 
-const analyzerName = "S018"
+constanalyzerName="S018"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		schemainfo.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyzerName, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfo.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyzerName,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		if !schemaInfo.IsType(schema.SchemaValueTypeSet) {
+		if!schemaInfo.IsType(schema.SchemaValueTypeSet){
 			continue
 		}
 
-		if schemaInfo.Schema.MaxItems != 1 {
+		ifschemaInfo.Schema.MaxItems!=1{
 			continue
 		}
 
-		switch t := schemaInfo.AstCompositeLit.Type.(type) {
+		switcht:=schemaInfo.AstCompositeLit.Type.(type){
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should use TypeList with MaxItems 1", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema should use TypeList with MaxItems 1", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace,"%s:schemashoulduseTypeListwithMaxItems1",analyzerName)
+		case*ast.SelectorExpr:
+			pass.Reportf(t.Sel.Pos(),"%s:schemashoulduseTypeListwithMaxItems1",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

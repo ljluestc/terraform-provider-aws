@@ -9,119 +9,119 @@ package memorydb
 // unlikely to be exhaustive.
 
 const (
-	ACLStatusActive= "active"
-	ACLStatusCreating  = "creating"
-	ACLStatusDeleting  = "deleting"
-	ACLStatusModifying = "modifying"
+ACLStatusActive= "active"
+ACLStatusCreating  = "creating"
+ACLStatusDeleting  = "deleting"
+ACLStatusModifying = "modifying"
 )
 
 func ACLStatus_Values() []string {
-	return []string{
-		ACLStatusActive,
-		ACLStatusCreating,
-		ACLStatusDeleting,
-		ACLStatusModifying,
-	}
+return []string{
+ACLStatusActive,
+ACLStatusCreating,
+ACLStatusDeleting,
+ACLStatusModifying,
+}
 }
 
 const (
-	ClusterStatusAvailable= "available"
-	ClusterStatusCreating = "creating"
-	ClusterStatusDeleting = "deleting"
-	ClusterStatusSnapshotting = "snapshotting"
-	ClusterStatusUpdating = "updating"
+ClusterStatusAvailable= "available"
+ClusterStatusCreating = "creating"
+ClusterStatusDeleting = "deleting"
+ClusterStatusSnapshotting = "snapshotting"
+ClusterStatusUpdating = "updating"
 )
 
 func ClusterStatus_Values() []string {
-	return []string{
-		ClusterStatusAvailable,
-		ClusterStatusCreating,
-		ClusterStatusDeleting,
-		ClusterStatusSnapshotting,
-		ClusterStatusUpdating,
-	}
+return []string{
+ClusterStatusAvailable,
+ClusterStatusCreating,
+ClusterStatusDeleting,
+ClusterStatusSnapshotting,
+ClusterStatusUpdating,
+}
 }
 
 const (
-	ClusterParameterGroupStatusApplying = "applying"
-	ClusterParameterGroupStatusInSync   = "in-sync"
+ClusterParameterGroupStatusApplying = "applying"
+ClusterParameterGroupStatusInSync   = "in-sync"
 )
 
 func ClusterParameterGroupStatus_Values() []string {
-	return []string{
-		ClusterParameterGroupStatusApplying,
-		ClusterParameterGroupStatusInSync,
-	}
+return []string{
+ClusterParameterGroupStatusApplying,
+ClusterParameterGroupStatusInSync,
+}
 }
 
 const (
-	ClusterSecurityGroupStatusActive= "active"
-	ClusterSecurityGroupStatusModifying = "modifying"
+ClusterSecurityGroupStatusActive= "active"
+ClusterSecurityGroupStatusModifying = "modifying"
 )
 
 func ClusterSecurityGroupStatus_Values() []string {
-	return []string{
-		ClusterSecurityGroupStatusActive,
-		ClusterSecurityGroupStatusModifying,
-	}
+return []string{
+ClusterSecurityGroupStatusActive,
+ClusterSecurityGroupStatusModifying,
+}
 }
 
 const (
-	ClusterShardStatusAvailable = "available"
-	ClusterShardStatusCreating  = "creating"
-	ClusterShardStatusDeleting  = "deleting"
-	ClusterShardStatusModifying = "modifying"
+ClusterShardStatusAvailable = "available"
+ClusterShardStatusCreating  = "creating"
+ClusterShardStatusDeleting  = "deleting"
+ClusterShardStatusModifying = "modifying"
 )
 
 func ClusterShardStatus_Values() []string {
-	return []string{
-		ClusterShardStatusAvailable,
-		ClusterShardStatusCreating,
-		ClusterShardStatusDeleting,
-		ClusterShardStatusModifying,
-	}
+return []string{
+ClusterShardStatusAvailable,
+ClusterShardStatusCreating,
+ClusterShardStatusDeleting,
+ClusterShardStatusModifying,
+}
 }
 
 const (
-	ClusterSNSTopicStatusActive   = "ACTIVE"
-	ClusterSNSTopicStatusInactive = "INACTIVE"
+ClusterSNSTopicStatusActive   = "ACTIVE"
+ClusterSNSTopicStatusInactive = "INACTIVE"
 )
 
 func ClusterSNSTopicStatus_Values() []string {
-	return []string{
-		ClusterSNSTopicStatusActive,
-		ClusterSNSTopicStatusInactive,
-	}
+return []string{
+ClusterSNSTopicStatusActive,
+ClusterSNSTopicStatusInactive,
+}
 }
 
 const (
-	SnapshotStatusAvailable = "available"
-	SnapshotStatusCopying   = "copying"
-	SnapshotStatusCreating  = "creating"
-	SnapshotStatusDeleting  = "deleting"
-	SnapshotStatusRestoring = "restoring"
+SnapshotStatusAvailable = "available"
+SnapshotStatusCopying   = "copying"
+SnapshotStatusCreating  = "creating"
+SnapshotStatusDeleting  = "deleting"
+SnapshotStatusRestoring = "restoring"
 )
 
 func SnapshotStatus_Values() []string {
-	return []string{
-		SnapshotStatusCreating,
-		SnapshotStatusAvailable,
-		SnapshotStatusRestoring,
-		SnapshotStatusCopying,
-		SnapshotStatusDeleting,
-	}
+return []string{
+SnapshotStatusCreating,
+SnapshotStatusAvailable,
+SnapshotStatusRestoring,
+SnapshotStatusCopying,
+SnapshotStatusDeleting,
+}
 }
 
 const (
-	UserStatusActive= "active"
-	UserStatusDeleting  = "deleting"
-	UserStatusModifying = "modifying"
+UserStatusActive= "active"
+UserStatusDeleting  = "deleting"
+UserStatusModifying = "modifying"
 )
 
 func UserStatus_Values() []string {
-	return []string{
-		UserStatusActive,
-		UserStatusDeleting,
-		UserStatusModifying,
-	}
+return []string{
+UserStatusActive,
+UserStatusDeleting,
+UserStatusModifying,
+}
 }

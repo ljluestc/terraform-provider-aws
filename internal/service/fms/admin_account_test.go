@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package fms_test
+packagefms_test
 
-import (
+import(
 	"context"
 	"fmt"
 	"testing"
@@ -14,92 +14,92 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tffms "github.com/hashicorp/terraform-provider-aws/internal/service/fms"
+	tffms"github.com/hashicorp/terraform-provider-aws/internal/service/fms"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func testAccAdminAccount_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	resourceName := "aws_fms_admin_account.test"
+functestAccAdminAccount_basic(t*testing.T){
+	ctx:=acctest.Context(t)
+	resourceName:="aws_fms_admin_account.test"
 
-	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
-			acctest.PreCheckOrganizationsEnabled(ctx, t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
+	resource.Test(t,resource.TestCase{
+		PreCheck:func(){
+			acctest.PreCheck(ctx,t)
+			acctest.PreCheckRegion(t,endpoints.UsEast1RegionID)
+			acctest.PreCheckOrganizationsEnabled(ctx,t)
+			acctest.PreCheckOrganizationManagementAccount(ctx,t)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckAdminAccountDestroy(ctx),
-		Steps: []resource.TestStep{
+		ErrorCheck:acctest.ErrorCheck(t,fms.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckAdminAccountDestroy(ctx),
+		Steps:[]resource.TestStep{
 			{
-				Config: testAccAdminAccountConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
-					acctest.CheckResourceAttrAccountID(resourceName, "account_id"),
+				Config:testAccAdminAccountConfig_basic,
+				Check:resource.ComposeTestCheckFunc(
+					acctest.CheckResourceAttrAccountID(resourceName,"account_id"),
 				),
 			},
 		},
 	})
 }
 
-func testAccAdminAccount_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	resourceName := "aws_fms_admin_account.test"
+functestAccAdminAccount_disappears(t*testing.T){
+	ctx:=acctest.Context(t)
+	resourceName:="aws_fms_admin_account.test"
 
-	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
-			acctest.PreCheckOrganizationsEnabled(ctx, t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
+	resource.Test(t,resource.TestCase{
+		PreCheck:func(){
+			acctest.PreCheck(ctx,t)
+			acctest.PreCheckRegion(t,endpoints.UsEast1RegionID)
+			acctest.PreCheckOrganizationsEnabled(ctx,t)
+			acctest.PreCheckOrganizationManagementAccount(ctx,t)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckAdminAccountDestroy(ctx),
-		Steps: []resource.TestStep{
+		ErrorCheck:acctest.ErrorCheck(t,fms.EndpointsID),
+		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+		CheckDestroy:testAccCheckAdminAccountDestroy(ctx),
+		Steps:[]resource.TestStep{
 			{
-				Config: testAccAdminAccountConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
-					acctest.CheckResourceAttrAccountID(resourceName, "account_id"),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tffms.ResourceAdminAccount(), resourceName),
+				Config:testAccAdminAccountConfig_basic,
+				Check:resource.ComposeTestCheckFunc(
+					acctest.CheckResourceAttrAccountID(resourceName,"account_id"),
+					acctest.CheckResourceDisappears(ctx,acctest.Provider,tffms.ResourceAdminAccount(),resourceName),
 				),
-				ExpectNonEmptyPlan: true,
+				ExpectNonEmptyPlan:true,
 			},
 		},
 	})
 }
 
-func testAccCheckAdminAccountDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).FMSConn(ctx)
+functestAccCheckAdminAccountDestroy(ctxcontext.Context)resource.TestCheckFunc{
+	returnfunc(s*terraform.State)error{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).FMSConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_fms_admin_account" {
+		for_,rs:=ranges.RootModule().Resources{
+			ifrs.Type!="aws_fms_admin_account"{
 				continue
 			}
 
-			_, err := tffms.FindAdminAccount(ctx, conn)
+			_,err:=tffms.FindAdminAccount(ctx,conn)
 
-			if tfresource.NotFound(err) {
+			iftfresource.NotFound(err){
 				continue
 			}
 
-			if err != nil {
-				return err
+			iferr!=nil{
+				returnerr
 			}
 
-			return fmt.Errorf("FMS Admin Account %s still exists", rs.Primary.ID)
+			returnfmt.Errorf("FMSAdminAccount%sstillexists",rs.Primary.ID)
 		}
 
-		return nil
+		returnnil
 	}
 }
 
-const testAccAdminAccountConfig_basic = `
-data "aws_caller_identity" "current" {}
+consttestAccAdminAccountConfig_basic=`
+data"aws_caller_identity""current"{}
 
-resource "aws_fms_admin_account" "test" {
-  account_id = data.aws_caller_identity.current.account_id
+resource"aws_fms_admin_account""test"{
+account_id=data.aws_caller_identity.current.account_id
 }
 `

@@ -1,5 +1,5 @@
-package diag
+packagediag
 
-const (
-	TypeNameDiagnostics = `Diagnostics`
+const(
+TypeNameDiagnostics=`Diagnostics`
 )

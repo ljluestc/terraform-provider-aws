@@ -1,13 +1,13 @@
-package V003
+packageV003
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/analysisutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
 	"github.com/bflad/tfproviderlint/passes/helper/validation/iprangecallexpr"
 	"github.com/bflad/tfproviderlint/passes/helper/validation/iprangeselectorexpr"
 )
 
-var Analyzer = analysisutils.DeprecatedEmptyCallExprWithReplacementSelectorExprAnalyzer(
+varAnalyzer=analysisutils.DeprecatedEmptyCallExprWithReplacementSelectorExprAnalyzer(
 	"V003",
 	iprangecallexpr.Analyzer,
 	iprangeselectorexpr.Analyzer,

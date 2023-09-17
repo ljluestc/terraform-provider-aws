@@ -1,235 +1,235 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package hclsyntaximport (
-	"fmt"	"github.com/hashicorp/hcl/v2"
-	"github.com/zclconf/go-cty/cty"
-	"github.com/zclconf/go-cty/cty/convert"
-	"github.com/zclconf/go-cty/cty/
+"fmt""github.com/hashicorp/hcl/v2"
+"github.com/zclconf/go-cty/cty"
+"github.com/zclconf/go-cty/cty/convert"
+"github.com/zclconf/go-cty/cty/
 tion"
-	"github.com/zclconf/go-cty/cty/
+"github.com/zclconf/go-cty/cty/
 tion/stdlib"
 )type Operation struct {
-	Impl 
+Impl 
 tion.
 tion
-	Type cty.Type
+Type cty.Type
 }var (
-	OpLogicalOr = &Operation{
-		Impl: stdlib.Or
+OpLogicalOr = &Operation{
+Impl: stdlib.Or
 ,
-		Type: cty.Bool,
-	}
-	OpLogicalAnd = &Otion{
-		Impl: stdlib.And
+Type: cty.Bool,
+}
+OpLogicalAnd = &Otion{
+Impl: stdlib.And
 ,
-		Type: cty.Bool,
-	}
-	OpLogicalNot = &Opeon{
-		Impl: stdlib.Not
+Type: cty.Bool,
+}
+OpLogicalNot = &Opeon{
+Impl: stdlib.Not
 ,
-		Type: cty.Bool,
-	}	OpEqual = &Operation{
-		Impl: stdlib.Equal
+Type: cty.Bool,
+}OpEqual = &Operation{
+Impl: stdlib.Equal
 ,
-		Type: cty.Bool,
-	}
-	OpNotEqual = &Operation{
-		Impl: stdlib.NotEqual
+Type: cty.Bool,
+}
+OpNotEqual = &Operation{
+Impl: stdlib.NotEqual
 ,
-		Type: cty.Bool,
-	}	OpGreaterThan = &Opera{
-		Impl: stdlib.GreaterThan
+Type: cty.Bool,
+}OpGreaterThan = &Opera{
+Impl: stdlib.GreaterThan
 ,
-		Type: cty.Bool,
-	}
-	OpGreaterThanOrEqual = &Operation{
-		Impl: stdlib.GreaterThanOrEqualTo
+Type: cty.Bool,
+}
+OpGreaterThanOrEqual = &Operation{
+Impl: stdlib.GreaterThanOrEqualTo
 ,
-		Type: cty.Bool,
-	}
-	OpLessThan = &Operation{
-		Impl: stdlib.LessThan
+Type: cty.Bool,
+}
+OpLessThan = &Operation{
+Impl: stdlib.LessThan
 ,
-		Type: cty.Bool,
-	}
-	OpLessThanOrEqual = &Operation{
-		Impl: stdlib.LessThanOrEqualTo
+Type: cty.Bool,
+}
+OpLessThanOrEqual = &Operation{
+Impl: stdlib.LessThanOrEqualTo
 ,
-		Type: cty.Bool,
-	}	OpAdd = &Operation{
-		Impl: stdlib.Add
+Type: cty.Bool,
+}OpAdd = &Operation{
+Impl: stdlib.Add
 ,
-		Type: cty.Number,
-	}
-	OpSubtract = &Operation{
-		Impl: stdlib.Subtract
+Type: cty.Number,
+}
+OpSubtract = &Operation{
+Impl: stdlib.Subtract
 ,
-		Type: cty.Number,
-	}
-	OpMultiply = &Operation{
-		Impl: stdlib.Multiply
+Type: cty.Number,
+}
+OpMultiply = &Operation{
+Impl: stdlib.Multiply
 ,
-		Type: cty.Number,
-	}
+Type: cty.Number,
+}
 ivide = &Operation{
-		Impl: stdlib.Divide
+Impl: stdlib.Divide
 ,
-		Type: cty.Number,
-	}
-	OpModulo = &Operation{
-		Impl: stdlib.Modulo
+Type: cty.Number,
+}
+OpModulo = &Operation{
+Impl: stdlib.Modulo
 ,
-		Type: cty.Number,
-	}
-	OpNegate = &Operation{
-		Impl: stdlib.Negate
+Type: cty.Number,
+}
+OpNegate = &Operation{
+Impl: stdlib.Negate
 ,
-		Type: cty.Number,
-	}
+Type: cty.Number,
+}
 )var binaryOps []map[TokenType]*Operation
  init() {
-	// This operation table maps from the operator's token type
-	// to the AST operation type. All expressions produced from
-	// binary operators are BinaryOp nodes.
-	//
-	// Binary operator groups are listed in order of precedence, with
-	// the *lowest* precedence first. Operators within the same group
-	// have left-to-right associativity.
-	binaryOps = []map[TokenType]*Operation{
-		{
-			TokenOr: OpLogicalOr,
-		},
-		{
-			TokenAnd: OpLogicalAnd,
-		},
-		{
-			TokenEqualOp:  OpEqual,
-			TokenNotEqual: OpNotEqual,
-		},
-		{
-			TokenGreaterThan:   OpGreaterThan,
-			TokenGreaterThanEq: OpGreaterThanOrEqual,
-			TokenLessThan:      OpLessThan,
-			TokenLessThanEq:    OpLessThanOrEqual,
-		},			TokenPlus:  OpAdd,
-			TokenMinus: OpSubtract,
-		},
-		{
+// This operation table maps from the operator's token type
+// to the AST operation type. All expressions produced from
+// binary operators are BinaryOp nodes.
+//
+// Binary operator groups are listed in order of precedence, with
+// the *lowest* precedence first. Operators within the same group
+// have left-to-right associativity.
+binaryOps = []map[TokenType]*Operation{
+{
+TokenOr: OpLogicalOr,
+},
+{
+TokenAnd: OpLogicalAnd,
+},
+{
+TokenEqualOp:  OpEqual,
+TokenNotEqual: OpNotEqual,
+},
+{
+TokenGreaterThan:   OpGreaterThan,
+TokenGreaterThanEq: OpGreaterThanOrEqual,
+TokenLessThan:      OpLessThan,
+TokenLessThanEq:    OpLessThanOrEqual,
+},TokenPlus:  OpAdd,
+TokenMinus: OpSubtract,
+},
+{
 okenStar:    OpMultiply,
-			TokenSlash:   OpDivide,
-			TokenPercent: OpModulo,
-		},
-	}
+TokenSlash:   OpDivide,
+TokenPercent: OpModulo,
+},
+}
 }type BinaryOpExpr struct {
-	LHS Expression
-	Op  *Operation
-	RHS Expression	SrcRange hcl.Range
+LHS Expression
+Op  *Operation
+RHS ExpressionSrcRange hcl.Range
 }
  (e *BinaryOpExpr) walkChildNodes(w internalWalk
 ) {
-	w(e.LHS)
-	w(e.RHS)
+w(e.LHS)
+w(e.RHS)
 }
  (e *BinaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
-	impl := e.Op.Impl // assumed to be a 
+impl := e.Op.Impl // assumed to be a 
 tion taking exactly two arguments
-	params := impl.Params()
-	lhsParam := params[0]
-	rhsParam := params[1]	var diags hcl.Diagnostics	givenLHSVal, lhsDiags := e.LHS.Value(ctx)
-	givenRHSVal, rhsDiags := e.RHS.Value(ctx)
-	diags = append(diags, lhsDiags...)
-	diags = append(diags, rhsDiags...)	lhsVal, err := convert.Convert(givenLHSVal, lhsParam.Type)
-	if err != nil {
-		diags = append(diags, &hcl.Diagnostic{
-			Severity:    hcl.DiagError,
-			Summary:     "Invalid operand",
-			Detail:      fmt.Sprintf("Unsuitable value for left operand: %s.", err),
-			Subject:     e.LHS.Range().Ptr(),
-			Context:     &e.SrcRange,
-			Expression:  e.LHS,
-			EvalContext: ctx,
-		})
-	}
-	rhsVal, err := convert.Convert(givenRHSVal, rhsParam.Type)
-	if err != nil {
-		diags = append(diags, &hcl.Diagnostic{
-			Severity:    hcl.DiagError,
-			Summary:     "Invalid operand",
-			Detail:      fmt.Sprintf("Unsuitable value for right operand: %s.", err),
-			Subject:     e.RHS.Range().Ptr(),
-			Context:     &e.SrcRange,
-			Expression:  e.RHS,
-			EvalContext: ctx,
-		})
-	}diags.HasErrors() {
-		// Don't actually try the call if we have errors already, since the
-		// this will probably just produce a confusing duplicative diagnostic.
-		return cty.UnknownVal(e.Op.Type), diags
-	args := []cty.Value{lhsVal, rhsVal}
-	result, err := impl.Call(args)
-	if err != nil {
-		diags = append(diags, &hcl.Diagnostic{
-			// FIXME: This diagnostic is useless.
-			Severity:    hcl.DiagError,
-			Summary:     "Operation failed",
-			Detail:      fmt.Sprintf("Error during operation: %s.", err),
-			Subject:     &e.SrcRange,
-			Expression:  e,
+params := impl.Params()
+lhsParam := params[0]
+rhsParam := params[1]var diags hcl.DiagnosticsgivenLHSVal, lhsDiags := e.LHS.Value(ctx)
+givenRHSVal, rhsDiags := e.RHS.Value(ctx)
+diags = append(diags, lhsDiags...)
+diags = append(diags, rhsDiags...)lhsVal, err := convert.Convert(givenLHSVal, lhsParam.Type)
+if err != nil {
+diags = append(diags, &hcl.Diagnostic{
+Severity:    hcl.DiagError,
+Summary:     "Invalid operand",
+Detail:      fmt.Sprintf("Unsuitable value for left operand: %s.", err),
+Subject:     e.LHS.Range().Ptr(),
+Context:     &e.SrcRange,
+Expression:  e.LHS,
+EvalContext: ctx,
+})
+}
+rhsVal, err := convert.Convert(givenRHSVal, rhsParam.Type)
+if err != nil {
+diags = append(diags, &hcl.Diagnostic{
+Severity:    hcl.DiagError,
+Summary:     "Invalid operand",
+Detail:      fmt.Sprintf("Unsuitable value for right operand: %s.", err),
+Subject:     e.RHS.Range().Ptr(),
+Context:     &e.SrcRange,
+Expression:  e.RHS,
+EvalContext: ctx,
+})
+}diags.HasErrors() {
+// Don't actually try the call if we have errors already, since the
+// this will probably just produce a confusing duplicative diagnostic.
+return cty.UnknownVal(e.Op.Type), diags
+args := []cty.Value{lhsVal, rhsVal}
+result, err := impl.Call(args)
+if err != nil {
+diags = append(diags, &hcl.Diagnostic{
+// FIXME: This diagnostic is useless.
+Severity:    hcl.DiagError,
+Summary:     "Operation failed",
+Detail:      fmt.Sprintf("Error during operation: %s.", err),
+Subject:     &e.SrcRange,
+Expression:  e,
 valContext: ctx,
-		})
-		return cty.UnknownVal(e.Op.Type), diags
-	}	return result, diags
+})
+return cty.UnknownVal(e.Op.Type), diags
+}return result, diags
 }
  (e *BinaryOpExpr) Range() hcl.Range {
-	return e.SrcRange
+return e.SrcRange
 }
  (e *BinaryOpExpr) StartRange() hcl.Range {
-	return e.LHS.StartRange()
+return e.LHS.StartRange()
 }type UnaryOpExpr struct {
-	Op  *Operation
-	Val Expression	SrcRange    hcl.Range
-	SymbolRange hcl.Range
+Op  *Operation
+Val ExpressionSrcRange    hcl.Range
+SymbolRange hcl.Range
 }
  (e *UnaryOpExpr) walkChildNodes(w internalWalk
 ) {
-	w(e.Val)
+w(e.Val)
 }
  (e *UnaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
-	impl := e.Op.Impl // assumed to be a 
+impl := e.Op.Impl // assumed to be a 
 tion taking exactly one argument
-	params := impl.Params()
-	param := params[0]	givenVal, diags := e.Val.Value(ctx)	val, err := convert.Convert(givenVal, param.Type)
-	if err != nil {
-		diags = append(diags, &hcl.Diagnostic{
-			Severity:    hcl.DiagError,
-			Summary:     "Invalid operand",
-			Detail:      fmt.Sprintf("Unsuitable value for unary operand: %s.", err),
-			Subject:     e.Val.Range().Ptr(),
+params := impl.Params()
+param := params[0]givenVal, diags := e.Val.Value(ctx)val, err := convert.Convert(givenVal, param.Type)
+if err != nil {
+diags = append(diags, &hcl.Diagnostic{
+Severity:    hcl.DiagError,
+Summary:     "Invalid operand",
+Detail:      fmt.Sprintf("Unsuitable value for unary operand: %s.", err),
+Subject:     e.Val.Range().Ptr(),
 ontext:     &e.SrcRange,
-			Expression:  e.Val,
-			EvalContext: ctx,
-		})
-	if diags.HasErrors() {
-		// Don't actually try the call if we have errors already, since the
-		// this will probably just produce a confusing duplicative diagnostic.
-		return cty.UnknownVal(e.Op.Type), diags
-	}	args := []cty.Value{val}
-	result, err := impl.Call(args)
-	if err != nil {
-		diags = append(diags, &hcl.Diagnostic{
-			// FIXME: This diagnostic is useless.
-			Severity:    hcl.DiagError,
-			Summary:     "Operation failed",
-			Detail:      fmt.Sprintf("Error during operation: %s.", err),
-			Subject:     &e.SrcRange,
-			Expression:  e,
-			EvalContext: ctx,
-		})
-		return cty.UnknownVal(e.Op.Type), diags
-	}	return result, diags
+Expression:  e.Val,
+EvalContext: ctx,
+})
+if diags.HasErrors() {
+// Don't actually try the call if we have errors already, since the
+// this will probably just produce a confusing duplicative diagnostic.
+return cty.UnknownVal(e.Op.Type), diags
+}args := []cty.Value{val}
+result, err := impl.Call(args)
+if err != nil {
+diags = append(diags, &hcl.Diagnostic{
+// FIXME: This diagnostic is useless.
+Severity:    hcl.DiagError,
+Summary:     "Operation failed",
+Detail:      fmt.Sprintf("Error during operation: %s.", err),
+Subject:     &e.SrcRange,
+Expression:  e,
+EvalContext: ctx,
+})
+return cty.UnknownVal(e.Op.Type), diags
+}return result, diags
 }
  (e *UnaryOpExpr) Range() hcl.Range {
-	return e.SrcRange
+return e.SrcRange
 }
  (e *UnaryOpExpr) StartRange() hcl.Range {
-	return e.SymbolRange
+return e.SymbolRange
 }

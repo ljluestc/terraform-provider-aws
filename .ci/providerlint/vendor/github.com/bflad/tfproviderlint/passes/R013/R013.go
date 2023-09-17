@@ -1,6 +1,6 @@
-package R013
+packageR013
 
-import (
+import(
 	"go/ast"
 	"strings"
 
@@ -11,49 +11,49 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for resource names that do not contain at least one underscore
+constDoc=`checkforresourcenamesthatdonotcontainatleastoneunderscore
 
-The R013 analyzer reports cases of resource names which do not include at least
-one underscore character (_). Resources should be named with the provider name
-and API resource name separated by an underscore to clarify where a resource is
-declared and configured.`
+TheR013analyzerreportscasesofresourcenameswhichdonotincludeatleast
+oneunderscorecharacter(_).Resourcesshouldbenamedwiththeprovidername
+andAPIresourcenameseparatedbyanunderscoretoclarifywherearesourceis
+declaredandconfigured.`
 
-const analyzerName = "R013"
+constanalyzerName="R013"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		resourcemapcompositelit.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	compositeLits := pass.ResultOf[resourcemapcompositelit.Analyzer].([]*ast.CompositeLit)
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	compositeLits:=pass.ResultOf[resourcemapcompositelit.Analyzer].([]*ast.CompositeLit)
 
-	for _, compositeLit := range compositeLits {
-		if ignorer.ShouldIgnore(analyzerName, compositeLit) {
+	for_,compositeLit:=rangecompositeLits{
+		ifignorer.ShouldIgnore(analyzerName,compositeLit){
 			continue
 		}
 
-		for _, expr := range schema.GetResourceMapResourceNames(compositeLit) {
-			resourceName := astutils.ExprStringValue(expr)
+		for_,expr:=rangeschema.GetResourceMapResourceNames(compositeLit){
+			resourceName:=astutils.ExprStringValue(expr)
 
-			if resourceName == nil {
+			ifresourceName==nil{
 				continue
 			}
 
-			if strings.ContainsAny(*resourceName, "_") {
+			ifstrings.ContainsAny(*resourceName,"_"){
 				continue
 			}
 
-			pass.Reportf(expr.Pos(), "%s: resource names should include the provider name and at least one underscore (_)", analyzerName)
+			pass.Reportf(expr.Pos(),"%s:resourcenamesshouldincludetheprovidernameandatleastoneunderscore(_)",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

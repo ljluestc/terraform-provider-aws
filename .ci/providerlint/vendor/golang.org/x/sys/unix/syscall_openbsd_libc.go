@@ -7,5 +7,5 @@
 //go:linkname syscall_rawSyscall syscall.rawSyscall
 //go:linkname syscall_rawSyscall6 syscall.rawSyscall6
  syscall_syscall9(fn, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, err Errno) {
-	return syscall_syscall10(fn, a1, a2, a3, a4, a5, a6, a7, a8, a9, 0)
+return syscall_syscall10(fn, a1, a2, a3, a4, a5, a6, a7, a8, a9, 0)
 }

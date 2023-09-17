@@ -1,28 +1,28 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package eks
+packageeks
 
-import (
-	"fmt"
+import(
+"fmt"
 
-	"github.com/YakDriver/regexache"
+"github.com/YakDriver/regexache"
 )
 
-func validClusterName(v interface{}, k string) (ws []string, errors []error) {
-	value := v.(string)
-	if len(value) < 1 || len(value) > 100 {
-		errors = append(errors, fmt.Errorf(
-			"%q length must be between 1-100 characters: %q", k, value))
-	}
+funcvalidClusterName(vinterface{},kstring)(ws[]string,errors[]error){
+value:=v.(string)
+iflen(value)<1||len(value)>100{
+errors=append(errors,fmt.Errorf(
+"%qlengthmustbebetween1-100characters:%q",k,value))
+}
 
-	// https://docs.aws.amazon.com/eks/latest/APIReference/API_CreateCluster.html#API_CreateCluster_RequestSyntax
-	pattern := `^[0-9A-Za-z][0-9A-Za-z_-]+$`
-	if !regexache.MustCompile(pattern).MatchString(value) {
-		errors = append(errors, fmt.Errorf(
-			"%q doesn't comply with restrictions (%q): %q",
-			k, pattern, value))
-	}
+//https://docs.aws.amazon.com/eks/latest/APIReference/API_CreateCluster.html#API_CreateCluster_RequestSyntax
+pattern:=`^[0-9A-Za-z][0-9A-Za-z_-]+$`
+if!regexache.MustCompile(pattern).MatchString(value){
+errors=append(errors,fmt.Errorf(
+"%qdoesn'tcomplywithrestrictions(%q):%q",
+k,pattern,value))
+}
 
-	return
+return
 }

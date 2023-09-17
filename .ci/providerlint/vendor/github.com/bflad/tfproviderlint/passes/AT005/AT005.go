@@ -1,8 +1,8 @@
-// Package AT005 defines an Analyzer that checks for
-// acceptance tests prefixed with Test but not TestAcc
-package AT005
+//PackageAT005definesanAnalyzerthatchecksfor
+//acceptancetestsprefixedwithTestbutnotTestAcc
+packageAT005
 
-import (
+import(
 	"go/ast"
 	"strings"
 
@@ -13,75 +13,75 @@ decl"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for acceptance test 
-tion names missing TestAcc px
+constDoc=`checkforacceptancetest
+tionnamesmissingTestAccpx
 
-The AT005 analyzer reports test 
-tion names (Test prefix) that contain
-resource.Test() or resource.ParallelTest(), which should be named with
-the TestAcc prefix.`
+TheAT005analyzerreportstest
+tionnames(Testprefix)thatcontain
+resource.Test()orresource.ParallelTest(),whichshouldbenamedwith
+theTestAccprefix.`
 
-const analyzerName = "AT005"
+constanalyzerName="AT005"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc: ,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		test
 decl.Analyzer,
 
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, r) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+run(pass*analysis.Pass)(interface{},r){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
 	test
-s := pass.ResultOf[test
+s:=pass.ResultOf[test
 decl.Analyzer].([]*ast.
 Decl)
 
-	for _, test
- := range test
-s {
-		if ignorer.ShouldIgnore(analyzerName, test
-) {
+	for_,test
+:=rangetest
+s{
+		ifignorer.ShouldIgnore(analyzerName,test
+){
 			continue
 		}
 
-		if strings.HasPrefix(test
-.Name.Name, "TestAcc") {
+		ifstrings.HasPrefix(test
+.Name.Name,"TestAcc"){
 			continue
 		}
 
 		ast.Inspect(test
-.Body, 
-(n ast.Node) boo
-			callExpr, ok := n.(*ast.CallExpr)
+.Body,
+(nast.Node)boo
+			callExpr,ok:=n.(*ast.CallExpr)
 
-			if !ok {
-				return true
+			if!ok{
+				returntrue
 			}
 
-			isResourceTest := resource.Is
-(callExpr.Fun, pass.TypesInfo, resource.
+			isResourceTest:=resource.Is
+(callExpr.Fun,pass.TypesInfo,resource.
 NameTest)
-			isResourceParallelTest := resource.Is
-(callExpr.Fun, pass.TypesInfo, resource.
+			isResourceParallelTest:=resource.Is
+(callExpr.Fun,pass.TypesInfo,resource.
 NameParallelTest)
 
-			if !isResourceTest && !isResourceParallelTest {
-				return true
+			if!isResourceTest&&!isResourceParallelTest{
+				returntrue
 			}
 
 			pass.Reportf(test
-.Pos(), "%s: acceptance test 
-tion name should begin with TestAcc", analyzerName)
-			return true
+.Pos(),"%s:acceptancetest
+tionnameshouldbeginwithTestAcc",analyzerName)
+			returntrue
 		})
 
 	}
 
-	return nil, nil
+	returnnil,nil
 }

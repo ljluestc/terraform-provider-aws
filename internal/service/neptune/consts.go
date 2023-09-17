@@ -4,18 +4,18 @@
 package neptune
 
 import (
-	"time"
+"time"
 )
 
 const (
-	propagationTimeout = 2 * time.Minute
+propagationTimeout = 2 * time.Minute
 )
 
 const (
-	GlobalClusterStatusAvailable = "available"
-	GlobalClusterStatusCreating  = "creating"
-	GlobalClusterStatusDeleted   = "deleted"
-	GlobalClusterStatusDeleting  = "deleting"
-	GlobalClusterStatusModifying = "modifying"
-	GlobalClusterStatusUpgrading = "upgrading"
+GlobalClusterStatusAvailable = "available"
+GlobalClusterStatusCreating  = "creating"
+GlobalClusterStatusDeleted   = "deleted"
+GlobalClusterStatusDeleting  = "deleting"
+GlobalClusterStatusModifying = "modifying"
+GlobalClusterStatusUpgrading = "upgrading"
 )

@@ -1,140 +1,140 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package globalaccelerator_test
+packageglobalaccelerator_test
 
-import (
+import(
 	"regexp"
 	"testing"
 
 	"github.com/YakDriver/regexache"
-	tfglobalaccelerator "github.com/hashicorp/terraform-provider-aws/internal/service/globalaccelerator"
+	tfglobalaccelerator"github.com/hashicorp/terraform-provider-aws/internal/service/globalaccelerator"
 )
-func TestEndpointGroupARNToListenerARN(t *testing.T) {
+funcTestEndpointGroupARNToListenerARN(t*testing.T){
 	t.Parallel()
 
-	testCases := []struct {
+	testCases:=[]struct{
 TestNamestring
 InputARNstring
-ExpectedError *regexp.Regexp
+ExpectedError*regexp.Regexp
 ExpectedARNstring
 	}{
 {
-	TestName:"empty ARN",
+	TestName:"emptyARN",
 	InputARN:"",
-	ExpectedError: regexache.MustCompile(`parsing ARN`),
+	ExpectedError:regexache.MustCompile(`parsingARN`),
 },
 {
-	TestName:"unparsable ARN",
+	TestName:"unparsableARN",
 	InputARN:"test",
-	ExpectedError: regexache.MustCompile(`parsing ARN`),
+	ExpectedError:regexache.MustCompile(`parsingARN`),
 },
 {
-	TestName:"invalid ARN service",
-	InputARN:"arn:aws:ec2::123456789012:accelerator/a-123/listener/l-456/endpoint-group/eg-789", //lintignore:AWSAT005
-	ExpectedError: regexache.MustCompile(`expected service globalaccelerator`),
+	TestName:"invalidARNservice",
+	InputARN:"arn:aws:ec2::123456789012:accelerator/a-123/listener/l-456/endpoint-group/eg-789",//lintignore:AWSAT005
+	ExpectedError:regexache.MustCompile(`expectedserviceglobalaccelerator`),
 },
 {
-	TestName:"invalid ARN resource parts",
-	InputARN:"arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456", //lintignore:AWSAT005
-	ExpectedError: regexache.MustCompile(`expected at least 6 resource parts`),
+	TestName:"invalidARNresourceparts",
+	InputARN:"arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456",//lintignore:AWSAT005
+	ExpectedError:regexache.MustCompile(`expectedatleast6resourceparts`),
 },
 {
-	TestName: "valid ARN",
-	InputARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456/endpoint-group/eg-789", //lintignore:AWSAT005
-	ExpectedARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456",  //lintignore:AWSAT005
+	TestName:"validARN",
+	InputARN:"arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456/endpoint-group/eg-789",//lintignore:AWSAT005
+	ExpectedARN:"arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456",//lintignore:AWSAT005
 },
 	}
 
-	for _, testCase := range testCases {
-testCase := testCase
-t.Run(testCase.TestName, 
-func(t *testing.T) {
+	for_,testCase:=rangetestCases{
+testCase:=testCase
+t.Run(testCase.TestName,
+func(t*testing.T){
 	t.Parallel()
 
-	got, err := tfglobalaccelerator.EndpointGroupARNToListenerARN(testCase.InputARN)
+	got,err:=tfglobalaccelerator.EndpointGroupARNToListenerARN(testCase.InputARN)
 
-	if err == nil && testCase.ExpectedError != nil {
-t.Fatalf("expected error %s, got no error", testCase.ExpectedError.String())
+	iferr==nil&&testCase.ExpectedError!=nil{
+t.Fatalf("expectederror%s,gotnoerror",testCase.ExpectedError.String())
 	}
 
-	if err != nil && testCase.ExpectedError == nil {
-t.Fatalf("got unexpected error: %s", err)
+	iferr!=nil&&testCase.ExpectedError==nil{
+t.Fatalf("gotunexpectederror:%s",err)
 	}
 
-	if err != nil && !testCase.ExpectedError.MatchString(err.Error()) {
-t.Fatalf("expected error %s, got: %s", testCase.ExpectedError.String(), err)
+	iferr!=nil&&!testCase.ExpectedError.MatchString(err.Error()){
+t.Fatalf("expectederror%s,got:%s",testCase.ExpectedError.String(),err)
 	}
 
-	if got != testCase.ExpectedARN {
-t.Errorf("got %s, expected %s", got, testCase.ExpectedARN)
+	ifgot!=testCase.ExpectedARN{
+t.Errorf("got%s,expected%s",got,testCase.ExpectedARN)
 	}
 })
 	}
 }
-func TestListenerOrEndpointGroupARNToAcceleratorARN(t *testing.T) {
+funcTestListenerOrEndpointGroupARNToAcceleratorARN(t*testing.T){
 	t.Parallel()
 
-	testCases := []struct {
+	testCases:=[]struct{
 TestNamestring
 InputARNstring
-ExpectedError *regexp.Regexp
+ExpectedError*regexp.Regexp
 ExpectedARNstring
 	}{
 {
-	TestName:"empty ARN",
+	TestName:"emptyARN",
 	InputARN:"",
-	ExpectedError: regexache.MustCompile(`parsing ARN`),
+	ExpectedError:regexache.MustCompile(`parsingARN`),
 },
 {
-	TestName:"unparsable ARN",
+	TestName:"unparsableARN",
 	InputARN:"test",
-	ExpectedError: regexache.MustCompile(`parsing ARN`),
+	ExpectedError:regexache.MustCompile(`parsingARN`),
 },
 {
-	TestName:"invalid ARN service",
-	InputARN:"arn:aws:ec2::123456789012:accelerator/a-123/listener/l-456", //lintignore:AWSAT005
-	ExpectedError: regexache.MustCompile(`expected service globalaccelerator`),
+	TestName:"invalidARNservice",
+	InputARN:"arn:aws:ec2::123456789012:accelerator/a-123/listener/l-456",//lintignore:AWSAT005
+	ExpectedError:regexache.MustCompile(`expectedserviceglobalaccelerator`),
 },
 {
-	TestName:"invalid ARN resource parts",
-	InputARN:"arn:aws:globalaccelerator::123456789012:accelerator/a-123", //lintignore:AWSAT005
-	ExpectedError: regexache.MustCompile(`expected at least 4 resource parts`),
+	TestName:"invalidARNresourceparts",
+	InputARN:"arn:aws:globalaccelerator::123456789012:accelerator/a-123",//lintignore:AWSAT005
+	ExpectedError:regexache.MustCompile(`expectedatleast4resourceparts`),
 },
 {
-	TestName: "valid listener ARN",
-	InputARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456", //lintignore:AWSAT005
-	ExpectedARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123", //lintignore:AWSAT005
+	TestName:"validlistenerARN",
+	InputARN:"arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456",//lintignore:AWSAT005
+	ExpectedARN:"arn:aws:globalaccelerator::123456789012:accelerator/a-123",//lintignore:AWSAT005
 },
 {
-	TestName: "valid endpoint group ARN",
-	InputARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456/endpoint-group/eg-789", //lintignore:AWSAT005
-	ExpectedARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123",  //lintignore:AWSAT005
+	TestName:"validendpointgroupARN",
+	InputARN:"arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456/endpoint-group/eg-789",//lintignore:AWSAT005
+	ExpectedARN:"arn:aws:globalaccelerator::123456789012:accelerator/a-123",//lintignore:AWSAT005
 },
 	}
 
-	for _, testCase := range testCases {
-testCase := testCase
-t.Run(testCase.TestName, 
-func(t *testing.T) {
+	for_,testCase:=rangetestCases{
+testCase:=testCase
+t.Run(testCase.TestName,
+func(t*testing.T){
 	t.Parallel()
 
-	got, err := tfglobalaccelerator.ListenerOrEndpointGroupARNToAcceleratorARN(testCase.InputARN)
+	got,err:=tfglobalaccelerator.ListenerOrEndpointGroupARNToAcceleratorARN(testCase.InputARN)
 
-	if err == nil && testCase.ExpectedError != nil {
-t.Fatalf("expected error %s, got no error", testCase.ExpectedError.String())
+	iferr==nil&&testCase.ExpectedError!=nil{
+t.Fatalf("expectederror%s,gotnoerror",testCase.ExpectedError.String())
 	}
 
-	if err != nil && testCase.ExpectedError == nil {
-t.Fatalf("got unexpected error: %s", err)
+	iferr!=nil&&testCase.ExpectedError==nil{
+t.Fatalf("gotunexpectederror:%s",err)
 	}
 
-	if err != nil && !testCase.ExpectedError.MatchString(err.Error()) {
-t.Fatalf("expected error %s, got: %s", testCase.ExpectedError.String(), err)
+	iferr!=nil&&!testCase.ExpectedError.MatchString(err.Error()){
+t.Fatalf("expectederror%s,got:%s",testCase.ExpectedError.String(),err)
 	}
 
-	if got != testCase.ExpectedARN {
-t.Errorf("got %s, expected %s", got, testCase.ExpectedARN)
+	ifgot!=testCase.ExpectedARN{
+t.Errorf("got%s,expected%s",got,testCase.ExpectedARN)
 	}
 })
 	}

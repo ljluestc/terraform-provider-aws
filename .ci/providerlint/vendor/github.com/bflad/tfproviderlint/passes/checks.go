@@ -1,6 +1,6 @@
-package passes
+packagepasses
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/passes/AT001"
 	"github.com/bflad/tfproviderlint/passes/AT002"
 	"github.com/bflad/tfproviderlint/passes/AT003"
@@ -86,10 +86,10 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-// AllChecks contains all Analyzers that report issues
-// This can be consumed via multichecker.Main(passes.AllChecks...) or by
-// combining these Analyzers with additional custom Analyzers
-var AllChecks = []*analysis.Analyzer{
+//AllCheckscontainsallAnalyzersthatreportissues
+//Thiscanbeconsumedviamultichecker.Main(passes.AllChecks...)orby
+//combiningtheseAnalyzerswithadditionalcustomAnalyzers
+varAllChecks=[]*analysis.Analyzer{
 	AT001.Analyzer,
 	AT002.Analyzer,
 	AT003.Analyzer,

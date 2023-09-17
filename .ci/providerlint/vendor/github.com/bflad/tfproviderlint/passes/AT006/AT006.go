@@ -1,8 +1,8 @@
-// Package AT006 defines an Analyzer that checks for
-// acceptance tests containing multiple resource.Test() invocations
-package AT006
+//PackageAT006definesanAnalyzerthatchecksfor
+//acceptancetestscontainingmultipleresource.Test()invocations
+packageAT006
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/resource"
@@ -12,69 +12,69 @@ decl"
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for acceptance tests containing multiple resource.Test() invocations
+constDoc=`checkforacceptancetestscontainingmultipleresource.Test()invocations
 
-The AT006 analyzer reports acceptance test 
-tions that contain multiple
-resource.Test() invocations. Acceptance tests should be split by invocation.`
+TheAT006analyzerreportsacceptancetest
+tionsthatcontainmultiple
+resource.Test()invocations.Acceptancetestsshouldbesplitbyinvocation.`
 
-const analyzerName = "AT006"
+constanalyzerName="AT006"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
 	Requires*analysis.Analyzer{
 		commentignore.Analyzer,
 		testacc
 decl.Analyzer,
 	},
-: run,
+:run,
 }
 
 
- run(pasnalysis.Pass) erface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Anal].(*commentignore.Ignorer)
+run(pasnalysis.Pass)erface{},error){
+	ignorer:=pass.ResultOf[commentignore.Anal].(*commentignore.Ignorer)
 	test
-s := pass.ResultOf[testacc
+s:=pass.ResultOf[testacc
 decl.Analyzer].([]*ast.
 Decl)
 
-	for _, test
- := range test
-s {
-		if ignorer.ShouldIgnore(analyzerName, test
-) {
+	for_,test
+:=rangetest
+s{
+		ifignorer.ShouldIgnore(analyzerName,test
+){
 			continue
 		}
 
-		var resourceTestInvocations int
+		varresourceTestInvocationsint
 
 		ast.Inspect(test
-.Body, 
-(n ast.Node) bool
-			callExpr, ok := n.(*ast.CallExpr)
+.Body,
+(nast.Node)bool
+			callExpr,ok:=n.(*ast.CallExpr)
 
-			if !ok {
-				return true
+			if!ok{
+				returntrue
 			}
 
-			if resource.Is
-(callExpr.Fun, pass.TypesInfo, resource.
-NameTest) {
-				resourceTestInvocations += 1
+			ifresource.Is
+(callExpr.Fun,pass.TypesInfo,resource.
+NameTest){
+				resourceTestInvocations+=1
 			}
 
-			if resourceTestInvocations > 1 {
+			ifresourceTestInvocations>1{
 				pass.Reportf(test
-.Pos(), "%s: acceptance test 
-tion should contain only one Test invocation", analyzerName)
-				return false
+.Pos(),"%s:acceptancetest
+tionshouldcontainonlyoneTestinvocation",analyzerName)
+				returnfalse
 			}
 
-			return true
+			returntrue
 		})
 
 	}
 
-	return nil, nil
+	returnnil,nil
 }

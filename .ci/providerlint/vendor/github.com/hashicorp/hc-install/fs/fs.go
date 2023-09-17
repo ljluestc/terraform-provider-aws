@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package fsimport (	"io/ioutil"	"log"	"time")var (	defaultTimeout = 10 * time.Second	discardLogger  = log.New(ioutil.Discard, "", 0))type fileCheckh string) error
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package fsimport ("io/ioutil""log""time")var (defaultTimeout = 10 * time.SeconddiscardLogger  = log.New(ioutil.Discard, "", 0))type fileCheckh string) error

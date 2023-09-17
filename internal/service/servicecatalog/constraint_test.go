@@ -4,166 +4,166 @@
 package servicecatalog_test
 
 import (
-	"context"
-	"fmt"
-	"testing"
+"context"
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/servicecatalog"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tfservicecatalog "github.com/hashicorp/terraform-provider-aws/internal/service/servicecatalog"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/servicecatalog"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+tfservicecatalog "github.com/hashicorp/terraform-provider-aws/internal/service/servicecatalog"
 )
 
 // add sweeper to delete known test servicecat constraints
 
 func TestAccServiceCatalogConstraint_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	resourceName := "aws_servicecatalog_constraint.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+resourceName := "aws_servicecatalog_constraint.test"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckConstraintDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConstraintConfig_basic(rName, rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConstraintExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "accept_language", tfservicecatalog.AcceptLanguageEnglish),
-					resource.TestCheckResourceAttr(resourceName, "description", rName),
-					resource.TestCheckResourceAttr(resourceName, "type", "NOTIFICATION"),
-					resource.TestCheckResourceAttrPair(resourceName, "portfolio_id", "aws_servicecatalog_portfolio.test", "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "product_id", "aws_servicecatalog_product.test", "id"),
-					resource.TestCheckResourceAttrSet(resourceName, "owner"),
-					resource.TestCheckResourceAttrSet(resourceName, "parameters"),
-					resource.TestCheckResourceAttrSet(resourceName, "status"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:        func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckConstraintDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccConstraintConfig_basic(rName, rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckConstraintExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "accept_language", tfservicecatalog.AcceptLanguageEnglish),
+resource.TestCheckResourceAttr(resourceName, "description", rName),
+resource.TestCheckResourceAttr(resourceName, "type", "NOTIFICATION"),
+resource.TestCheckResourceAttrPair(resourceName, "portfolio_id", "aws_servicecatalog_portfolio.test", "id"),
+resource.TestCheckResourceAttrPair(resourceName, "product_id", "aws_servicecatalog_product.test", "id"),
+resource.TestCheckResourceAttrSet(resourceName, "owner"),
+resource.TestCheckResourceAttrSet(resourceName, "parameters"),
+resource.TestCheckResourceAttrSet(resourceName, "status"),
+),
+},
+{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+},
+},
+})
 }
 
 func TestAccServiceCatalogConstraint_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	resourceName := "aws_servicecatalog_constraint.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+resourceName := "aws_servicecatalog_constraint.test"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckConstraintDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConstraintConfig_basic(rName, rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConstraintExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfservicecatalog.ResourceConstraint(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:        func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckConstraintDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccConstraintConfig_basic(rName, rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckConstraintExists(ctx, resourceName),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfservicecatalog.ResourceConstraint(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+},
+},
+})
 }
 
 func TestAccServiceCatalogConstraint_update(t *testing.T) {
-	ctx := acctest.Context(t)
-	resourceName := "aws_servicecatalog_constraint.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+resourceName := "aws_servicecatalog_constraint.test"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckConstraintDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConstraintConfig_basic(rName, rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "description", rName),
-				),
-			},
-			{
-				Config: testAccConstraintConfig_basic(rName, rName2),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "description", rName2),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:        func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckConstraintDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccConstraintConfig_basic(rName, rName),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttr(resourceName, "description", rName),
+),
+},
+{
+Config: testAccConstraintConfig_basic(rName, rName2),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttr(resourceName, "description", rName2),
+),
+},
+},
+})
 }
 
 func testAccCheckConstraintDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)
+return func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_servicecatalog_constraint" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+if rs.Type != "aws_servicecatalog_constraint" {
+continue
+}
 
-			input := &servicecatalog.DescribeConstraintInput{
-				Id: aws.String(rs.Primary.ID),
-			}
+input := &servicecatalog.DescribeConstraintInput{
+Id: aws.String(rs.Primary.ID),
+}
 
-			output, err := conn.DescribeConstraintWithContext(ctx, input)
+output, err := conn.DescribeConstraintWithContext(ctx, input)
 
-			if tfawserr.ErrCodeEquals(err, servicecatalog.ErrCodeResourceNotFoundException) {
-				continue
-			}
+if tfawserr.ErrCodeEquals(err, servicecatalog.ErrCodeResourceNotFoundException) {
+continue
+}
 
-			if err != nil {
-				return fmt.Errorf("error getting Service Catalog Constraint (%s): %w", rs.Primary.ID, err)
-			}
+if err != nil {
+return fmt.Errorf("error getting Service Catalog Constraint (%s): %w", rs.Primary.ID, err)
+}
 
-			if output != nil {
-				return fmt.Errorf("Service Catalog Constraint (%s) still exists", rs.Primary.ID)
-			}
-		}
+if output != nil {
+return fmt.Errorf("Service Catalog Constraint (%s) still exists", rs.Primary.ID)
+}
+}
 
-		return nil
-	}
+return nil
+}
 }
 
 func testAccCheckConstraintExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
+return func(s *terraform.State) error {
+rs, ok := s.RootModule().Resources[resourceName]
 
-		if !ok {
-			return fmt.Errorf("resource not found: %s", resourceName)
-		}
+if !ok {
+return fmt.Errorf("resource not found: %s", resourceName)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)
 
-		input := &servicecatalog.DescribeConstraintInput{
-			Id: aws.String(rs.Primary.ID),
-		}
+input := &servicecatalog.DescribeConstraintInput{
+Id: aws.String(rs.Primary.ID),
+}
 
-		_, err := conn.DescribeConstraintWithContext(ctx, input)
+_, err := conn.DescribeConstraintWithContext(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("error describing Service Catalog Constraint (%s): %w", rs.Primary.ID, err)
-		}
+if err != nil {
+return fmt.Errorf("error describing Service Catalog Constraint (%s): %w", rs.Primary.ID, err)
+}
 
-		return nil
-	}
+return nil
+}
 }
 
 func testAccConstraintConfig_base(rName string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket        = %[1]q
   force_destroy = true
@@ -226,7 +226,7 @@ resource "aws_servicecatalog_product_portfolio_association" "test" {
 }
 
 func testAccConstraintConfig_basic(rName, description string) string {
-	return acctest.ConfigCompose(testAccConstraintConfig_base(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccConstraintConfig_base(rName), fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
 }

@@ -4,368 +4,368 @@
 package budgets
 
 import (
-	"context"
-	"fmt"
-	"log"
-	"strconv"
-	"strings"
-	"time"
+"context"
+"fmt"
+"log"
+"strconv"
+"strings"
+"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/arn"
-	"github.com/aws/aws-sdk-go/service/budgets"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
-	"github.com/hashicorp/terraform-provider-aws/internal/flex"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-	"github.com/shopspring/decimal"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/aws/arn"
+"github.com/aws/aws-sdk-go/service/budgets"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/create"
+"github.com/hashicorp/terraform-provider-aws/internal/flex"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/hashicorp/terraform-provider-aws/internal/verify"
+"github.com/shopspring/decimal"
 )
 
 // @SDKResource("aws_budgets_budget")
 func ResourceBudget() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceBudgetCreate,
-		ReadWithoutTimeout:resourceBudgetRead,
-		UpdateWithoutTimeout: resourceBudgetUpdate,
-		DeleteWithoutTimeout: resourceBudgetDelete,
+return &schema.Resource{
+CreateWithoutTimeout: resourceBudgetCreate,
+ReadWithoutTimeout:resourceBudgetRead,
+UpdateWithoutTimeout: resourceBudgetUpdate,
+DeleteWithoutTimeout: resourceBudgetDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"account_id": {
-				Type:schema.TypeString,
-				Computed:true,
-				Optional:true,
-				ForceNew:true,
-				ValidateFunc: verify.ValidAccountID,
-			},
-			"arn": {
-				Type:schema.TypeString,
-				Computed: true,
-			},
-			"auto_adjust_data": {
-				Type:schema.TypeList,
-				Optional: true,
-				MaxItems: 1,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"auto_adjust_type": {
-							Type:schema.TypeString,
-							Required:true,
-							ValidateFunc: validation.StringInSlice(budgets.AutoAdjustType_Values(), false),
-						},
-						"historical_options": {
-							Type:schema.TypeList,
-							Optional: true,
-							MaxItems: 1,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"budget_adjustment_period": {
-										Type:schema.TypeInt,
-										Required:true,
-										ValidateFunc: validation.IntBetween(1, 60),
-									},
-									"lookback_available_periods": {
-										Type:schema.TypeInt,
-										Computed: true,
-									},
-								},
-							},
-						},
-						"last_auto_adjust_time": {
-							Type:schema.TypeString,
-							Computed: true,
-						},
-					},
-				},
-			},
-			"budget_type": {
-				Type:schema.TypeString,
-				Required:true,
-				ValidateFunc: validation.StringInSlice(budgets.BudgetType_Values(), false),
-			},
-			"cost_filter": {
-				Type:schema.TypeSet,
-				Optional: true,
-				Computed: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"name": {
-							Type:schema.TypeString,
-							Required: true,
-						},
-						"values": {
-							Type:schema.TypeList,
-							Required: true,
-							Elem: &schema.Schema{
-								Type: schema.TypeString,
-							},
-						},
-					},
-				},
-			},
-			"cost_types": {
-				Type:schema.TypeList,
-				Computed: true,
-				Optional: true,
-				MaxItems: 1,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"include_credit": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:true,
-						},
-						"include_discount": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:true,
-						},
-						"include_other_subscription": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:true,
-						},
-						"include_recurring": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:true,
-						},
-						"include_refund": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:true,
-						},
-						"include_subscription": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:true,
-						},
-						"include_support": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:true,
-						},
-						"include_tax": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:true,
-						},
-						"include_upfront": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:true,
-						},
-						"use_amortized": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:false,
-						},
-						"use_blended": {
-							Type:schema.TypeBool,
-							Optional: true,
-							Default:false,
-						},
-					},
-				},
-			},
-			"limit_amount": {
-				Type: schema.TypeString,
-				Optional:true,
-				Computed:true,
-				DiffSuppressFunc: suppressEquivalentBudgetLimitAmount,
-				ConflictsWith: []string{"planned_limit"},
-			},
-			"limit_unit": {
-				Type: schema.TypeString,
-				Optional: true,
-				Computed: true,
-				ConflictsWith: []string{"planned_limit"},
-			},
-			"name": {
-				Type: schema.TypeString,
-				Optional: true,
-				Computed: true,
-				ForceNew: true,
-				ConflictsWith: []string{"name_prefix"},
-			},
-			"name_prefix": {
-				Type: schema.TypeString,
-				Optional: true,
-				Computed: true,
-				ForceNew: true,
-				ConflictsWith: []string{"name"},
-			},
-			"notification": {
-				Type:schema.TypeSet,
-				Optional: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"comparison_operator": {
-							Type:schema.TypeString,
-							Required:true,
-							ValidateFunc: validation.StringInSlice(budgets.ComparisonOperator_Values(), false),
-						},
-						"notification_type": {
-							Type:schema.TypeString,
-							Required:true,
-							ValidateFunc: validation.StringInSlice(budgets.NotificationType_Values(), false),
-						},
-						"subscriber_email_addresses": {
-							Type:schema.TypeSet,
-							Optional: true,
-							Elem:&schema.Schema{Type: schema.TypeString},
-						},
-						"subscriber_sns_topic_arns": {
-							Type:schema.TypeSet,
-							Optional: true,
-							Elem: &schema.Schema{
-								Type:schema.TypeString,
-								ValidateFunc: verify.ValidARN,
-							},
-						},
-						"threshold": {
-							Type:schema.TypeFloat,
-							Required: true,
-						},
-						"threshold_type": {
-							Type:schema.TypeString,
-							Required:true,
-							ValidateFunc: validation.StringInSlice(budgets.ThresholdType_Values(), false),
-						},
-					},
-				},
-			},
-			"planned_limit": {
-				Type:schema.TypeSet,
-				Optional: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"amount": {
-							Type: schema.TypeString,
-							Required:true,
-							DiffSuppressFunc: suppressEquivalentBudgetLimitAmount,
-						},
-						"start_time": {
-							Type:schema.TypeString,
-							Required:true,
-							ValidateFunc: validTimePeriodTimestamp,
-						},
-						"unit": {
-							Type:schema.TypeString,
-							Required: true,
-						},
-					},
-				},
-				ConflictsWith: []string{"limit_amount", "limit_unit"},
-			},
-			"time_period_end": {
-				Type:schema.TypeString,
-				Optional:true,
-				Default: "2087-06-15_00:00",
-				ValidateFunc: validTimePeriodTimestamp,
-			},
-			"time_period_start": {
-				Type:schema.TypeString,
-				Optional:true,
-				Computed:true,
-				ValidateFunc: validTimePeriodTimestamp,
-			},
-			"time_unit": {
-				Type:schema.TypeString,
-				Required:true,
-				ValidateFunc: validation.StringInSlice(budgets.TimeUnit_Values(), false),
-			},
-		},
-	}
+Schema: map[string]*schema.Schema{
+"account_id": {
+Type:schema.TypeString,
+Computed:true,
+Optional:true,
+ForceNew:true,
+ValidateFunc: verify.ValidAccountID,
+},
+"arn": {
+Type:schema.TypeString,
+Computed: true,
+},
+"auto_adjust_data": {
+Type:schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auto_adjust_type": {
+Type:schema.TypeString,
+Required:true,
+ValidateFunc: validation.StringInSlice(budgets.AutoAdjustType_Values(), false),
+},
+"historical_options": {
+Type:schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"budget_adjustment_period": {
+Type:schema.TypeInt,
+Required:true,
+ValidateFunc: validation.IntBetween(1, 60),
+},
+"lookback_available_periods": {
+Type:schema.TypeInt,
+Computed: true,
+},
+},
+},
+},
+"last_auto_adjust_time": {
+Type:schema.TypeString,
+Computed: true,
+},
+},
+},
+},
+"budget_type": {
+Type:schema.TypeString,
+Required:true,
+ValidateFunc: validation.StringInSlice(budgets.BudgetType_Values(), false),
+},
+"cost_filter": {
+Type:schema.TypeSet,
+Optional: true,
+Computed: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"name": {
+Type:schema.TypeString,
+Required: true,
+},
+"values": {
+Type:schema.TypeList,
+Required: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+},
+},
+},
+},
+},
+"cost_types": {
+Type:schema.TypeList,
+Computed: true,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"include_credit": {
+Type:schema.TypeBool,
+Optional: true,
+Default:true,
+},
+"include_discount": {
+Type:schema.TypeBool,
+Optional: true,
+Default:true,
+},
+"include_other_subscription": {
+Type:schema.TypeBool,
+Optional: true,
+Default:true,
+},
+"include_recurring": {
+Type:schema.TypeBool,
+Optional: true,
+Default:true,
+},
+"include_refund": {
+Type:schema.TypeBool,
+Optional: true,
+Default:true,
+},
+"include_subscription": {
+Type:schema.TypeBool,
+Optional: true,
+Default:true,
+},
+"include_support": {
+Type:schema.TypeBool,
+Optional: true,
+Default:true,
+},
+"include_tax": {
+Type:schema.TypeBool,
+Optional: true,
+Default:true,
+},
+"include_upfront": {
+Type:schema.TypeBool,
+Optional: true,
+Default:true,
+},
+"use_amortized": {
+Type:schema.TypeBool,
+Optional: true,
+Default:false,
+},
+"use_blended": {
+Type:schema.TypeBool,
+Optional: true,
+Default:false,
+},
+},
+},
+},
+"limit_amount": {
+Type: schema.TypeString,
+Optional:true,
+Computed:true,
+DiffSuppressFunc: suppressEquivalentBudgetLimitAmount,
+ConflictsWith: []string{"planned_limit"},
+},
+"limit_unit": {
+Type: schema.TypeString,
+Optional: true,
+Computed: true,
+ConflictsWith: []string{"planned_limit"},
+},
+"name": {
+Type: schema.TypeString,
+Optional: true,
+Computed: true,
+ForceNew: true,
+ConflictsWith: []string{"name_prefix"},
+},
+"name_prefix": {
+Type: schema.TypeString,
+Optional: true,
+Computed: true,
+ForceNew: true,
+ConflictsWith: []string{"name"},
+},
+"notification": {
+Type:schema.TypeSet,
+Optional: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"comparison_operator": {
+Type:schema.TypeString,
+Required:true,
+ValidateFunc: validation.StringInSlice(budgets.ComparisonOperator_Values(), false),
+},
+"notification_type": {
+Type:schema.TypeString,
+Required:true,
+ValidateFunc: validation.StringInSlice(budgets.NotificationType_Values(), false),
+},
+"subscriber_email_addresses": {
+Type:schema.TypeSet,
+Optional: true,
+Elem:&schema.Schema{Type: schema.TypeString},
+},
+"subscriber_sns_topic_arns": {
+Type:schema.TypeSet,
+Optional: true,
+Elem: &schema.Schema{
+Type:schema.TypeString,
+ValidateFunc: verify.ValidARN,
+},
+},
+"threshold": {
+Type:schema.TypeFloat,
+Required: true,
+},
+"threshold_type": {
+Type:schema.TypeString,
+Required:true,
+ValidateFunc: validation.StringInSlice(budgets.ThresholdType_Values(), false),
+},
+},
+},
+},
+"planned_limit": {
+Type:schema.TypeSet,
+Optional: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"amount": {
+Type: schema.TypeString,
+Required:true,
+DiffSuppressFunc: suppressEquivalentBudgetLimitAmount,
+},
+"start_time": {
+Type:schema.TypeString,
+Required:true,
+ValidateFunc: validTimePeriodTimestamp,
+},
+"unit": {
+Type:schema.TypeString,
+Required: true,
+},
+},
+},
+ConflictsWith: []string{"limit_amount", "limit_unit"},
+},
+"time_period_end": {
+Type:schema.TypeString,
+Optional:true,
+Default: "2087-06-15_00:00",
+ValidateFunc: validTimePeriodTimestamp,
+},
+"time_period_start": {
+Type:schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateFunc: validTimePeriodTimestamp,
+},
+"time_unit": {
+Type:schema.TypeString,
+Required:true,
+ValidateFunc: validation.StringInSlice(budgets.TimeUnit_Values(), false),
+},
+},
+}
 }
 func resourceBudgetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).BudgetsConn(ctx)
+conn := meta.(*conns.AWSClient).BudgetsConn(ctx)
 
-	budget, err := expandBudgetUnmarshal(d)
+budget, err := expandBudgetUnmarshal(d)
 
-	if err != nil {
-		return diag.Errorf("expandBudgetUnmarshal: %s", err)
-	}
+if err != nil {
+return diag.Errorf("expandBudgetUnmarshal: %s", err)
+}
 
-	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
-	budget.BudgetName = aws.String(name)
+name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
+budget.BudgetName = aws.String(name)
 
-	accountID := d.Get("account_id").(string)
-	if accountID == "" {
-		accountID = meta.(*conns.AWSClient).AccountID
-	}
+accountID := d.Get("account_id").(string)
+if accountID == "" {
+accountID = meta.(*conns.AWSClient).AccountID
+}
 
-	_, err = conn.CreateBudgetWithContext(ctx, &budgets.CreateBudgetInput{
-		AccountId: aws.String(accountID),
-		Budget: budget,
-	})
+_, err = conn.CreateBudgetWithContext(ctx, &budgets.CreateBudgetInput{
+AccountId: aws.String(accountID),
+Budget: budget,
+})
 
-	if err != nil {
-		return diag.Errorf("creating Budget (%s): %s", name, err)
-	}
+if err != nil {
+return diag.Errorf("creating Budget (%s): %s", name, err)
+}
 
-	d.SetId(BudgetCreateResourceID(accountID, aws.StringValue(budget.BudgetName)))
+d.SetId(BudgetCreateResourceID(accountID, aws.StringValue(budget.BudgetName)))
 
-	notificationsRaw := d.Get("notification").(*schema.Set).List()
-	notifications, subscribers := expandBudgetNotificationsUnmarshal(notificationsRaw)
+notificationsRaw := d.Get("notification").(*schema.Set).List()
+notifications, subscribers := expandBudgetNotificationsUnmarshal(notificationsRaw)
 
-	err = createBudgetNotifications(ctx, conn, notifications, subscribers, *budget.BudgetName, accountID)
+err = createBudgetNotifications(ctx, conn, notifications, subscribers, *budget.BudgetName, accountID)
 
-	if err != nil {
-		return diag.Errorf("creating Budget (%s) notifications: %s", d.Id(), err)
-	}
+if err != nil {
+return diag.Errorf("creating Budget (%s) notifications: %s", d.Id(), err)
+}
 
-	return resourceBudgetRead(ctx, d, meta)
+return resourceBudgetRead(ctx, d, meta)
 }
 func resourceBudgetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).BudgetsConn(ctx)
+conn := meta.(*conns.AWSClient).BudgetsConn(ctx)
 
-	accountID, budgetName, err := BudgetParseResourceID(d.Id())
+accountID, budgetName, err := BudgetParseResourceID(d.Id())
 
-	if err != nil {
-		return diag.FromErr(err)
-	}
+if err != nil {
+return diag.FromErr(err)
+}
 
-	budget, err := FindBudgetByTwoPartKey(ctx, conn, accountID, budgetName)
+budget, err := FindBudgetByTwoPartKey(ctx, conn, accountID, budgetName)
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] Budget (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
-	}
+if !d.IsNewResource() && tfresource.NotFound(err) {
+log.Printf("[WARN] Budget (%s) not found, removing from state", d.Id())
+d.SetId("")
+return nil
+}
 
-	if err != nil {
-		return diag.Errorf("reading Budget (%s): %s", d.Id(), err)
-	}
+if err != nil {
+return diag.Errorf("reading Budget (%s): %s", d.Id(), err)
+}
 
-	d.Set("account_id", accountID)
-	arn := arn.ARN{
-		Partition: meta.(*conns.AWSClient).Partition,
-		Service:"budgets",
-		AccountID: accountID,
-		Resource:fmt.Sprintf("budget/%s", budgetName),
-	}
-	d.Set("arn", arn.String())
-	d.Set("budget_type", budget.BudgetType)
+d.Set("account_id", accountID)
+arn := arn.ARN{
+Partition: meta.(*conns.AWSClient).Partition,
+Service:"budgets",
+AccountID: accountID,
+Resource:fmt.Sprintf("budget/%s", budgetName),
+}
+d.Set("arn", arn.String())
+d.Set("budget_type", budget.BudgetType)
 
-	if err := d.Set("cost_filter", convertCostFiltersToMap(budget.CostFilters)); err != nil {
-		return diag.Errorf("setting cost_filter: %s", err)
-	}
-	if err := d.Set("cost_types", flattenCostTypes(budget.CostTypes)); err != nil {
-		return diag.Errorf("setting cost_types: %s", err)
-	}
-	if err := d.Set("auto_adjust_data", flattenAutoAdjustData(budget.AutoAdjustData)); err != nil {
-		return diag.Errorf("setting auto_adjust_data: %s", err)
-	}
+if err := d.Set("cost_filter", convertCostFiltersToMap(budget.CostFilters)); err != nil {
+return diag.Errorf("setting cost_filter: %s", err)
+}
+if err := d.Set("cost_types", flattenCostTypes(budget.CostTypes)); err != nil {
+return diag.Errorf("setting cost_types: %s", err)
+}
+if err := d.Set("auto_adjust_data", flattenAutoAdjustData(budget.AutoAdjustData)); err != nil {
+return diag.Errorf("setting auto_adjust_data: %s", err)
+}
 
 	if budget.BudgetLimit != nil {
 		d.Set("limit_amount", budget.BudgetLimit.Amount)

@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package resourcegroups
+packageresourcegroups
 
-import (
+import(
 	"context"
 	"errors"
 	"fmt"
@@ -23,224 +23,224 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// @SDKResource("aws_resourcegroups_resource", name="Resource")
-func ResourceResource() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceResourceCreate,
-		ReadWithoutTimeout:   resourceResourceRead,
-		DeleteWithoutTimeout: resourceResourceDelete,
+//@SDKResource("aws_resourcegroups_resource",name="Resource")
+funcResourceResource()*schema.Resource{
+	return&schema.Resource{
+		CreateWithoutTimeout:resourceResourceCreate,
+		ReadWithoutTimeout:resourceResourceRead,
+		DeleteWithoutTimeout:resourceResourceDelete,
 
-		Timeouts: &schema.ResourceTimeout{
-			Create: schema.DefaultTimeout(5 * time.Minute),
-			Delete: schema.DefaultTimeout(5 * time.Minute),
+		Timeouts:&schema.ResourceTimeout{
+			Create:schema.DefaultTimeout(5*time.Minute),
+			Delete:schema.DefaultTimeout(5*time.Minute),
 		},
 
-		Schema: map[string]*schema.Schema{
-			"group_arn": {
-				Type: schema.TypeString,
-				Required: true,
-				ForceNew: true,
+		Schema:map[string]*schema.Schema{
+			"group_arn":{
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 			},
-			"resource_arn": {
-				Type: schema.TypeString,
-				Required: true,
-				ForceNew: true,
+			"resource_arn":{
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 			},
-			"resource_type": {
-				Type: schema.TypeString,
-				Computed: true,
+			"resource_type":{
+				Type:schema.TypeString,
+				Computed:true,
 			},
 		},
 	}
 }
 
-func resourceResourceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).ResourceGroupsConn(ctx)
+funcresourceResourceCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	conn:=meta.(*conns.AWSClient).ResourceGroupsConn(ctx)
 
-	groupARN := d.Get("group_arn").(string)
-	resourceARN := d.Get("resource_arn").(string)
-	id := strings.Join([]string{strings.Split(strings.ToLower(groupARN), "/")[1], strings.Split(resourceARN, "/")[1]}, "_")
-	input := &resourcegroups.GroupResourcesInput{
+	groupARN:=d.Get("group_arn").(string)
+	resourceARN:=d.Get("resource_arn").(string)
+	id:=strings.Join([]string{strings.Split(strings.ToLower(groupARN),"/")[1],strings.Split(resourceARN,"/")[1]},"_")
+	input:=&resourcegroups.GroupResourcesInput{
 		Group:aws.String(groupARN),
-		ResourceArns: aws.StringSlice([]string{resourceARN}),
+		ResourceArns:aws.StringSlice([]string{resourceARN}),
 	}
 
-	output, err := conn.GroupResourcesWithContext(ctx, input)
+	output,err:=conn.GroupResourcesWithContext(ctx,input)
 
-	if err == nil {
-		err = FailedResourcesError(output.Failed)
+	iferr==nil{
+		err=FailedResourcesError(output.Failed)
 	}
 
-	if err != nil {
-		return diag.Errorf("creating Resource Groups Resource (%s): %s", id, err)
+	iferr!=nil{
+		returndiag.Errorf("creatingResourceGroupsResource(%s):%s",id,err)
 	}
 
 	d.SetId(id)
 
-	if _, err := waitResourceCreated(ctx, conn, groupARN, resourceARN, d.Timeout(schema.TimeoutDelete)); err != nil {
-		return diag.Errorf("waiting for Resource Groups Resource (%s) create: %s", d.Id(), err)
+	if_,err:=waitResourceCreated(ctx,conn,groupARN,resourceARN,d.Timeout(schema.TimeoutDelete));err!=nil{
+		returndiag.Errorf("waitingforResourceGroupsResource(%s)create:%s",d.Id(),err)
 	}
 
-	return resourceResourceRead(ctx, d, meta)
+	returnresourceResourceRead(ctx,d,meta)
 }
 
-func resourceResourceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).ResourceGroupsConn(ctx)
+funcresourceResourceRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	conn:=meta.(*conns.AWSClient).ResourceGroupsConn(ctx)
 
-	output, err := FindResourceByTwoPartKey(ctx, conn, d.Get("group_arn").(string), d.Get("resource_arn").(string))
+	output,err:=FindResourceByTwoPartKey(ctx,conn,d.Get("group_arn").(string),d.Get("resource_arn").(string))
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] ResourceGroups Resource (%s) not found, removing from state", d.Id())
+	if!d.IsNewResource()&&tfresource.NotFound(err){
+		log.Printf("[WARN]ResourceGroupsResource(%s)notfound,removingfromstate",d.Id())
 		d.SetId("")
-		return nil
+		returnnil
 	}
 
-	if err != nil {
-		return diag.Errorf("reading Resource Groups Resource (%s): %s", d.Id(), err)
+	iferr!=nil{
+		returndiag.Errorf("readingResourceGroupsResource(%s):%s",d.Id(),err)
 	}
 
-	d.Set("resource_arn", output.Identifier.ResourceArn)
-	d.Set("resource_type", output.Identifier.ResourceType)
+	d.Set("resource_arn",output.Identifier.ResourceArn)
+	d.Set("resource_type",output.Identifier.ResourceType)
 
-	return nil
+	returnnil
 }
 
-func resourceResourceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).ResourceGroupsConn(ctx)
+funcresourceResourceDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	conn:=meta.(*conns.AWSClient).ResourceGroupsConn(ctx)
 
-	groupARN := d.Get("group_arn").(string)
-	resourceARN := d.Get("resource_arn").(string)
-	log.Printf("[INFO] Deleting Resource Groups Resource: %s", d.Id())
-	output, err := conn.UngroupResourcesWithContext(ctx, &resourcegroups.UngroupResourcesInput{
+	groupARN:=d.Get("group_arn").(string)
+	resourceARN:=d.Get("resource_arn").(string)
+	log.Printf("[INFO]DeletingResourceGroupsResource:%s",d.Id())
+	output,err:=conn.UngroupResourcesWithContext(ctx,&resourcegroups.UngroupResourcesInput{
 		Group:aws.String(groupARN),
-		ResourceArns: aws.StringSlice([]string{resourceARN}),
+		ResourceArns:aws.StringSlice([]string{resourceARN}),
 	})
 
-	if err == nil {
-		err = FailedResourcesError(output.Failed)
+	iferr==nil{
+		err=FailedResourcesError(output.Failed)
 	}
 
-	if err != nil {
-		return diag.Errorf("deleting Resource Groups Resource (%s): %s", d.Id(), err)
+	iferr!=nil{
+		returndiag.Errorf("deletingResourceGroupsResource(%s):%s",d.Id(),err)
 	}
 
-	if _, err := waitResourceDeleted(ctx, conn, groupARN, resourceARN, d.Timeout(schema.TimeoutDelete)); err != nil {
-		return diag.Errorf("waiting for Resource Groups Resource (%s) delete: %s", d.Id(), err)
+	if_,err:=waitResourceDeleted(ctx,conn,groupARN,resourceARN,d.Timeout(schema.TimeoutDelete));err!=nil{
+		returndiag.Errorf("waitingforResourceGroupsResource(%s)delete:%s",d.Id(),err)
 	}
 
-	return nil
+	returnnil
 }
 
-func FindResourceByTwoPartKey(ctx context.Context, conn *resourcegroups.ResourceGroups, groupARN, resourceARN string) (*resourcegroups.ListGroupResourcesItem, error) {
-	input := &resourcegroups.ListGroupResourcesInput{
-		Group: aws.String(groupARN),
+funcFindResourceByTwoPartKey(ctxcontext.Context,conn*resourcegroups.ResourceGroups,groupARN,resourceARNstring)(*resourcegroups.ListGroupResourcesItem,error){
+	input:=&resourcegroups.ListGroupResourcesInput{
+		Group:aws.String(groupARN),
 	}
-	var output []*resourcegroups.ListGroupResourcesItem
+	varoutput[]*resourcegroups.ListGroupResourcesItem
 
-	err := conn.ListGroupResourcesPagesWithContext(ctx, input, func(page *resourcegroups.ListGroupResourcesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
+	err:=conn.ListGroupResourcesPagesWithContext(ctx,input,func(page*resourcegroups.ListGroupResourcesOutput,lastPagebool)bool{
+		ifpage==nil{
+			return!lastPage
 		}
 
-		output = append(output, page.Resources...)
+		output=append(output,page.Resources...)
 
-		return !lastPage
+		return!lastPage
 	})
 
-	if tfawserr.ErrCodeEquals(err, resourcegroups.ErrCodeNotFoundException) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
+	iftfawserr.ErrCodeEquals(err,resourcegroups.ErrCodeNotFoundException){
+		returnnil,&retry.NotFoundError{
+			LastError:err,
+			LastRequest:input,
 		}
 	}
 
-	if err != nil {
-		return nil, err
+	iferr!=nil{
+		returnnil,err
 	}
 
-	output = slices.Filter(output, func(v *resourcegroups.ListGroupResourcesItem) bool {
-		return v.Identifier != nil && aws.StringValue(v.Identifier.ResourceArn) == resourceARN
+	output=slices.Filter(output,func(v*resourcegroups.ListGroupResourcesItem)bool{
+		returnv.Identifier!=nil&&aws.StringValue(v.Identifier.ResourceArn)==resourceARN
 	})
 
-	return tfresource.AssertSinglePtrResult(output)
+	returntfresource.AssertSinglePtrResult(output)
 }
 
-func statusResource(ctx context.Context, conn *resourcegroups.ResourceGroups, groupARN, resourceARN string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindResourceByTwoPartKey(ctx, conn, groupARN, resourceARN)
+funcstatusResource(ctxcontext.Context,conn*resourcegroups.ResourceGroups,groupARN,resourceARNstring)retry.StateRefreshFunc{
+	returnfunc()(interface{},string,error){
+		output,err:=FindResourceByTwoPartKey(ctx,conn,groupARN,resourceARN)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
+		iftfresource.NotFound(err){
+			returnnil,"",nil
 		}
 
-		if err != nil {
-			return nil, "", err
+		iferr!=nil{
+			returnnil,"",err
 		}
 
-		if output.Status == nil {
-			return output, "", nil
+		ifoutput.Status==nil{
+			returnoutput,"",nil
 		}
 
-		return output, aws.StringValue(output.Status.Name), nil
+		returnoutput,aws.StringValue(output.Status.Name),nil
 	}
 }
 
-func waitResourceCreated(ctx context.Context, conn *resourcegroups.ResourceGroups, groupARN, resourceARN string, timeout time.Duration) (*resourcegroups.ListGroupResourcesItem, error) {
-	stateConf := &retry.StateChangeConf{
-		Pending: []string{resourcegroups.ResourceStatusValuePending},
-		Target:  []string{""},
-		Refresh: statusResource(ctx, conn, groupARN, resourceARN),
-		Timeout: timeout,
+funcwaitResourceCreated(ctxcontext.Context,conn*resourcegroups.ResourceGroups,groupARN,resourceARNstring,timeouttime.Duration)(*resourcegroups.ListGroupResourcesItem,error){
+	stateConf:=&retry.StateChangeConf{
+		Pending:[]string{resourcegroups.ResourceStatusValuePending},
+		Target:[]string{""},
+		Refresh:statusResource(ctx,conn,groupARN,resourceARN),
+		Timeout:timeout,
 	}
 
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
+	outputRaw,err:=stateConf.WaitForStateContext(ctx)
 
-	if output, ok := outputRaw.(*resourcegroups.ListGroupResourcesItem); ok {
-		return output, err
+	ifoutput,ok:=outputRaw.(*resourcegroups.ListGroupResourcesItem);ok{
+		returnoutput,err
 	}
 
-	return nil, err
+	returnnil,err
 }
 
-func waitResourceDeleted(ctx context.Context, conn *resourcegroups.ResourceGroups, groupARN, resourceARN string, timeout time.Duration) (*resourcegroups.ListGroupResourcesItem, error) {
-	stateConf := &retry.StateChangeConf{
-		Pending: []string{resourcegroups.ResourceStatusValuePending},
-		Target:  []string{},
-		Refresh: statusResource(ctx, conn, groupARN, resourceARN),
-		Timeout: timeout,
+funcwaitResourceDeleted(ctxcontext.Context,conn*resourcegroups.ResourceGroups,groupARN,resourceARNstring,timeouttime.Duration)(*resourcegroups.ListGroupResourcesItem,error){
+	stateConf:=&retry.StateChangeConf{
+		Pending:[]string{resourcegroups.ResourceStatusValuePending},
+		Target:[]string{},
+		Refresh:statusResource(ctx,conn,groupARN,resourceARN),
+		Timeout:timeout,
 	}
 
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
+	outputRaw,err:=stateConf.WaitForStateContext(ctx)
 
-	if output, ok := outputRaw.(*resourcegroups.ListGroupResourcesItem); ok {
-		return output, err
+	ifoutput,ok:=outputRaw.(*resourcegroups.ListGroupResourcesItem);ok{
+		returnoutput,err
 	}
 
-	return nil, err
+	returnnil,err
 }
 
-func FailedResourceError(apiObject *resourcegroups.FailedResource) error {
-	if apiObject == nil {
-		return nil
+funcFailedResourceError(apiObject*resourcegroups.FailedResource)error{
+	ifapiObject==nil{
+		returnnil
 	}
 
-	return awserr.New(aws.StringValue(apiObject.ErrorCode), aws.StringValue(apiObject.ErrorMessage), nil)
+	returnawserr.New(aws.StringValue(apiObject.ErrorCode),aws.StringValue(apiObject.ErrorMessage),nil)
 }
 
-func FailedResourcesError(apiObjects []*resourcegroups.FailedResource) error {
-	var errs []error
+funcFailedResourcesError(apiObjects[]*resourcegroups.FailedResource)error{
+	varerrs[]error
 
-	for _, apiObject := range apiObjects {
-		if apiObject == nil {
+	for_,apiObject:=rangeapiObjects{
+		ifapiObject==nil{
 			continue
 		}
 
-		err := FailedResourceError(apiObject)
+		err:=FailedResourceError(apiObject)
 
-		if err != nil {
-			errs = append(errs, fmt.Errorf("%s: %w", aws.StringValue(apiObject.ResourceArn), err))
+		iferr!=nil{
+			errs=append(errs,fmt.Errorf("%s:%w",aws.StringValue(apiObject.ResourceArn),err))
 		}
 	}
 
-	return errors.Join(errs...)
+	returnerrors.Join(errs...)
 }

@@ -4,30 +4,30 @@
 package opsworks_test
 
 import (
-	"context"
-	"fmt"
+"context"
+"fmt"
 
-	"github.com/aws/aws-sdk-go/service/opsworks"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tfopsworks "github.com/hashicorp/terraform-provider-aws/internal/service/opsworks"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/aws/aws-sdk-go/service/opsworks"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+tfopsworks "github.com/hashicorp/terraform-provider-aws/internal/service/opsworks"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
 
 func testAccCheckLayerExists(ctx context.Context, n string, v *opsworks.Layer) resource.TestCheck
 func {
-	return 
+return 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
-	return fmt.Errorf("Not found: %s", n)
+return fmt.Errorf("Not found: %s", n)
 }
 
 if rs.Primary.ID == "" {
-	return fmt.Errorf("No OpsWorks Layer ID is set")
+return fmt.Errorf("No OpsWorks Layer ID is set")
 }
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
@@ -35,43 +35,43 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 output, err := tfopsworks.FindLayerByID(ctx, conn, rs.Primary.ID)
 
 if err != nil {
-	return err
+return err
 }
 
 *v = *output
 
 return nil
-	}
+}
 }
 
 
 func testAccCheckLayerDestroy(ctx context.Context, resourceType string, s *terraform.State) error { // nosemgrep:ci.semgrep.acctest.naming.destroy-check-signature
-	conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 
-	for _, rs := range s.RootModule().Resources {
+for _, rs := range s.RootModule().Resources {
 if rs.Type != resourceType {
-	continue
+continue
 }
 
 _, err := tfopsworks.FindLayerByID(ctx, conn, rs.Primary.ID)
 
 if tfresource.NotFound(err) {
-	continue
+continue
 }
 
 if err != nil {
-	return err
+return err
 }
 
 return fmt.Errorf("OpsWorks Layer %s still exists", rs.Primary.ID)
-	}
+}
 
-	return nil
+return nil
 }
 
 
 func testAccLayerConfig_base(rName string) string {
-	return acctest.ConfigCompose(testAccStackConfig_basic(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccStackConfig_basic(rName), fmt.Sprintf(`
 resource "aws_security_group" "test" {
   count = 2
 
@@ -94,7 +94,7 @@ Name = %[1]q
 
 
 func testAccLayerConfig_baseAlternateRegion(rName string) string {
-	return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
   region   = %[2]q

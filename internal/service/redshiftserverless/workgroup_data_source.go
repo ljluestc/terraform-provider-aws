@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package redshiftserverless
+packageredshiftserverless
 
-import (
+import(
 	"context"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -12,65 +12,65 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
 
-// @SDKDataSource("aws_redshiftserverless_workgroup")
-func DataSourceWorkgroup() *schema.Resource {
-	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceWorkgroupRead,
+//@SDKDataSource("aws_redshiftserverless_workgroup")
+funcDataSourceWorkgroup()*schema.Resource{
+	return&schema.Resource{
+		ReadWithoutTimeout:dataSourceWorkgroupRead,
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
+		Schema:map[string]*schema.Schema{
+			"arn":{
 				Type:schema.TypeString,
-				Computed: true,
+				Computed:true,
 			},
-			"endpoint": {
+			"endpoint":{
 				Type:schema.TypeList,
-				Computed: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"address": {
+				Computed:true,
+				Elem:&schema.Resource{
+					Schema:map[string]*schema.Schema{
+						"address":{
 							Type:schema.TypeString,
-							Computed: true,
+							Computed:true,
 						},
-						"port": {
+						"port":{
 							Type:schema.TypeInt,
-							Computed: true,
+							Computed:true,
 						},
-						"vpc_endpoint": {
+						"vpc_endpoint":{
 							Type:schema.TypeList,
-							Computed: true,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"network_interface": {
+							Computed:true,
+							Elem:&schema.Resource{
+								Schema:map[string]*schema.Schema{
+									"network_interface":{
 										Type:schema.TypeList,
-										Computed: true,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"availability_zone": {
+										Computed:true,
+										Elem:&schema.Resource{
+											Schema:map[string]*schema.Schema{
+												"availability_zone":{
 													Type:schema.TypeString,
-													Computed: true,
+													Computed:true,
 												},
-												"network_interface_id": {
+												"network_interface_id":{
 													Type:schema.TypeString,
-													Computed: true,
+													Computed:true,
 												},
-												"private_ip_address": {
+												"private_ip_address":{
 													Type:schema.TypeString,
-													Computed: true,
+													Computed:true,
 												},
-												"subnet_id": {
+												"subnet_id":{
 													Type:schema.TypeString,
-													Computed: true,
+													Computed:true,
 												},
 											},
 										},
 									},
-									"vpc_endpoint_id": {
+									"vpc_endpoint_id":{
 										Type:schema.TypeString,
-										Computed: true,
+										Computed:true,
 									},
-									"vpc_id": {
+									"vpc_id":{
 										Type:schema.TypeString,
-										Computed: true,
+										Computed:true,
 									},
 								},
 							},
@@ -78,67 +78,67 @@ func DataSourceWorkgroup() *schema.Resource {
 					},
 				},
 			},
-			"enhanced_vpc_routing": {
+			"enhanced_vpc_routing":{
 				Type:schema.TypeBool,
-				Computed: true,
+				Computed:true,
 			},
-			"namespace_name": {
+			"namespace_name":{
 				Type:schema.TypeString,
-				Computed: true,
+				Computed:true,
 			},
-			"publicly_accessible": {
+			"publicly_accessible":{
 				Type:schema.TypeBool,
-				Computed: true,
+				Computed:true,
 			},
-			"security_group_ids": {
+			"security_group_ids":{
 				Type:schema.TypeSet,
-				Computed: true,
-				Elem: &schema.Schema{
-					Type: schema.TypeString,
+				Computed:true,
+				Elem:&schema.Schema{
+					Type:schema.TypeString,
 				},
 			},
-			"subnet_ids": {
+			"subnet_ids":{
 				Type:schema.TypeSet,
-				Computed: true,
-				Elem: &schema.Schema{
-					Type: schema.TypeString,
+				Computed:true,
+				Elem:&schema.Schema{
+					Type:schema.TypeString,
 				},
 			},
-			"workgroup_id": {
+			"workgroup_id":{
 				Type:schema.TypeString,
-				Computed: true,
+				Computed:true,
 			},
-			"workgroup_name": {
+			"workgroup_name":{
 				Type:schema.TypeString,
-				Required: true,
+				Required:true,
 			},
 		},
 	}
 }
 
-func dataSourceWorkgroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
+funcdataSourceWorkgroupRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
 
-	workgroupName := d.Get("workgroup_name").(string)
+	workgroupName:=d.Get("workgroup_name").(string)
 
-	resource, err := FindWorkgroupByName(ctx, conn, workgroupName)
+	resource,err:=FindWorkgroupByName(ctx,conn,workgroupName)
 
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading Redshift Serverless Workgroup (%s): %s", workgroupName, err)
+	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"readingRedshiftServerlessWorkgroup(%s):%s",workgroupName,err)
 	}
 
 	d.SetId(workgroupName)
-	d.Set("arn", resource.WorkgroupArn)
-	if err := d.Set("endpoint", []interface{}{flattenEndpoint(resource.Endpoint)}); err != nil {
-		return sdkdiag.AppendErrorf(diags, "setting endpoint: %s", err)
+	d.Set("arn",resource.WorkgroupArn)
+	iferr:=d.Set("endpoint",[]interface{}{flattenEndpoint(resource.Endpoint)});err!=nil{
+		returnsdkdiag.AppendErrorf(diags,"settingendpoint:%s",err)
 	}
-	d.Set("enhanced_vpc_routing", resource.EnhancedVpcRouting)
-	d.Set("namespace_name", resource.NamespaceName)
-	d.Set("publicly_accessible", resource.PubliclyAccessible)
-	d.Set("security_group_ids", resource.SecurityGroupIds)
-	d.Set("subnet_ids", resource.SubnetIds)
-	d.Set("workgroup_id", resource.WorkgroupId)
+	d.Set("enhanced_vpc_routing",resource.EnhancedVpcRouting)
+	d.Set("namespace_name",resource.NamespaceName)
+	d.Set("publicly_accessible",resource.PubliclyAccessible)
+	d.Set("security_group_ids",resource.SecurityGroupIds)
+	d.Set("subnet_ids",resource.SubnetIds)
+	d.Set("workgroup_id",resource.WorkgroupId)
 
-	return diags
+	returndiags
 }

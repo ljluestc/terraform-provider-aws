@@ -4,82 +4,82 @@
 package vpclattice_test
 
 import (
-	"fmt"
-	"testing"
+"fmt"
+"testing"
 
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/names"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/names"
 )
 
 func TestAccVPCLatticeServiceNetworkDataSource_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_vpclattice_service_network.test"
-	dataSourceName := "data.aws_vpclattice_service_network.test"
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_vpclattice_service_network.test"
+dataSourceName := "data.aws_vpclattice_service_network.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccServiceNetworkDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "auth_type", dataSourceName, "auth_type"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "created_at"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "last_updated_at"),
-					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
-					resource.TestCheckResourceAttr(dataSourceName, "number_of_associated_services", "0"),
-					resource.TestCheckResourceAttr(dataSourceName, "number_of_associated_vpcs", "0"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
+testAccPreCheck(ctx, t)
+},
+ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+{
+Config: testAccServiceNetworkDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+resource.TestCheckResourceAttrPair(resourceName, "auth_type", dataSourceName, "auth_type"),
+resource.TestCheckResourceAttrSet(dataSourceName, "created_at"),
+resource.TestCheckResourceAttrSet(dataSourceName, "last_updated_at"),
+resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
+resource.TestCheckResourceAttr(dataSourceName, "number_of_associated_services", "0"),
+resource.TestCheckResourceAttr(dataSourceName, "number_of_associated_vpcs", "0"),
+resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
+),
+},
+},
+})
 }
 
 func TestAccVPCLatticeServiceNetworkDataSource_shared(t *testing.T) {
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_vpclattice_service_network.test"
-	dataSourceName := "data.aws_vpclattice_service_network.test"
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_vpclattice_service_network.test"
+dataSourceName := "data.aws_vpclattice_service_network.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccServiceNetworkDataSourceConfig_shared(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "auth_type", dataSourceName, "auth_type"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "created_at"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "last_updated_at"),
-					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
-					resource.TestCheckResourceAttr(dataSourceName, "number_of_associated_services", "0"),
-					resource.TestCheckResourceAttr(dataSourceName, "number_of_associated_vpcs", "0"),
-					resource.TestCheckNoResourceAttr(dataSourceName, "tags.%"),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckAlternateAccount(t)
+acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
+testAccPreCheck(ctx, t)
+},
+ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+Steps: []resource.TestStep{
+{
+Config: testAccServiceNetworkDataSourceConfig_shared(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+resource.TestCheckResourceAttrPair(resourceName, "auth_type", dataSourceName, "auth_type"),
+resource.TestCheckResourceAttrSet(dataSourceName, "created_at"),
+resource.TestCheckResourceAttrSet(dataSourceName, "last_updated_at"),
+resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
+resource.TestCheckResourceAttr(dataSourceName, "number_of_associated_services", "0"),
+resource.TestCheckResourceAttr(dataSourceName, "number_of_associated_vpcs", "0"),
+resource.TestCheckNoResourceAttr(dataSourceName, "tags.%"),
+),
+},
+},
+})
 }
 
 func testAccServiceNetworkDataSourceConfig_basic(rName string) string {
-	return fmt.Sprintf(`  
+return fmt.Sprintf(`  
 resource "aws_vpclattice_service_network" "test" {
   name = %[1]q
 
@@ -95,7 +95,7 @@ data "aws_vpclattice_service_network" "test" {
 }
 
 func testAccServiceNetworkDataSourceConfig_shared(rName string) string {
-	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
+return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 data "aws_caller_identity" "source" {}
 
 data "aws_caller_identity" "target" {

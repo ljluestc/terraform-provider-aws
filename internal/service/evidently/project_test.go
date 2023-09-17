@@ -4,415 +4,415 @@
 package evidently_test
 
 import (
-	"context"
-	"fmt"
-	"testing"
+"context"
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/service/cloudwatchevidently"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tfcloudwatchevidently "github.com/hashicorp/terraform-provider-aws/internal/service/evidently"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/aws/aws-sdk-go/service/cloudwatchevidently"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+tfcloudwatchevidently "github.com/hashicorp/terraform-provider-aws/internal/service/evidently"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
 func TestAccEvidentlyProject_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	var project cloudwatchevidently.Project
+ctx := acctest.Context(t)
+var project cloudwatchevidently.Project
 
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	originalDescription := "original description"
-	updatedDescription := "updated description"
-	resourceName := "aws_evidently_project.test"
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+originalDescription := "original description"
+updatedDescription := "updated description"
+resourceName := "aws_evidently_project.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
-		},
-		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckProjectDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProjectConfig_basic(rName, originalDescription),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttrSet(resourceName, "active_experiment_count"),
-					resource.TestCheckResourceAttrSet(resourceName, "active_launch_count"),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "evidently", fmt.Sprintf("project/%s", rName)),
-					resource.TestCheckResourceAttrSet(resourceName, "created_time"),
-					resource.TestCheckResourceAttr(resourceName, "description", originalDescription),
-					resource.TestCheckResourceAttrSet(resourceName, "experiment_count"),
-					resource.TestCheckResourceAttrSet(resourceName, "feature_count"),
-					resource.TestCheckResourceAttrSet(resourceName, "last_updated_time"),
-					resource.TestCheckResourceAttrSet(resourceName, "launch_count"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", cloudwatchevidently.ProjectStatusAvailable),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccProjectConfig_basic(rName, updatedDescription),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet(resourceName, "active_experiment_count"),
-					resource.TestCheckResourceAttrSet(resourceName, "active_launch_count"),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "evidently", fmt.Sprintf("project/%s", rName)),
-					resource.TestCheckResourceAttrSet(resourceName, "created_time"),
-					resource.TestCheckResourceAttr(resourceName, "description", updatedDescription),
-					resource.TestCheckResourceAttrSet(resourceName, "experiment_count"),
-					resource.TestCheckResourceAttrSet(resourceName, "feature_count"),
-					resource.TestCheckResourceAttrSet(resourceName, "last_updated_time"),
-					resource.TestCheckResourceAttrSet(resourceName, "launch_count"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttrSet(resourceName, "status"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
+},
+ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckProjectDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccProjectConfig_basic(rName, originalDescription),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttrSet(resourceName, "active_experiment_count"),
+resource.TestCheckResourceAttrSet(resourceName, "active_launch_count"),
+acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "evidently", fmt.Sprintf("project/%s", rName)),
+resource.TestCheckResourceAttrSet(resourceName, "created_time"),
+resource.TestCheckResourceAttr(resourceName, "description", originalDescription),
+resource.TestCheckResourceAttrSet(resourceName, "experiment_count"),
+resource.TestCheckResourceAttrSet(resourceName, "feature_count"),
+resource.TestCheckResourceAttrSet(resourceName, "last_updated_time"),
+resource.TestCheckResourceAttrSet(resourceName, "launch_count"),
+resource.TestCheckResourceAttr(resourceName, "name", rName),
+resource.TestCheckResourceAttr(resourceName, "status", cloudwatchevidently.ProjectStatusAvailable),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:   true,
+ImportStateVerify: true,
+},
+{
+Config: testAccProjectConfig_basic(rName, updatedDescription),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrSet(resourceName, "active_experiment_count"),
+resource.TestCheckResourceAttrSet(resourceName, "active_launch_count"),
+acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "evidently", fmt.Sprintf("project/%s", rName)),
+resource.TestCheckResourceAttrSet(resourceName, "created_time"),
+resource.TestCheckResourceAttr(resourceName, "description", updatedDescription),
+resource.TestCheckResourceAttrSet(resourceName, "experiment_count"),
+resource.TestCheckResourceAttrSet(resourceName, "feature_count"),
+resource.TestCheckResourceAttrSet(resourceName, "last_updated_time"),
+resource.TestCheckResourceAttrSet(resourceName, "launch_count"),
+resource.TestCheckResourceAttr(resourceName, "name", rName),
+resource.TestCheckResourceAttrSet(resourceName, "status"),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
+),
+},
+},
+})
 }
 
 func TestAccEvidentlyProject_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	var project cloudwatchevidently.Project
+ctx := acctest.Context(t)
+var project cloudwatchevidently.Project
 
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	description := "example description"
-	resourceName := "aws_evidently_project.test"
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+description := "example description"
+resourceName := "aws_evidently_project.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
-		},
-		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckProjectDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProjectConfig_basic(rName, description),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccProjectConfig_tags1(rName, description),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccProjectConfig_tags2(rName, description),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
+},
+ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckProjectDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccProjectConfig_basic(rName, description),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:   true,
+ImportStateVerify: true,
+},
+{
+Config: testAccProjectConfig_tags1(rName, description),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
+resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:   true,
+ImportStateVerify: true,
+},
+{
+Config: testAccProjectConfig_tags2(rName, description),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
+resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
+resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
+),
+},
+},
+})
 }
 
 func TestAccEvidentlyProject_updateDataDeliveryCloudWatchLogGroup(t *testing.T) {
-	ctx := acctest.Context(t)
-	var project cloudwatchevidently.Project
+ctx := acctest.Context(t)
+var project cloudwatchevidently.Project
 
-	rName := sdkacctest.RandomWithPrefix("tf-test-bucket")
-	rName2 := sdkacctest.RandomWithPrefix("tf-test-bucket")
-	rName3 := sdkacctest.RandomWithPrefix(fmt.Sprintf("/aws/vendedlogs/%s", acctest.ResourcePrefix))
-	rName4 := sdkacctest.RandomWithPrefix(fmt.Sprintf("/aws/vendedlogs/%s", acctest.ResourcePrefix))
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_evidently_project.test"
+rName := sdkacctest.RandomWithPrefix("tf-test-bucket")
+rName2 := sdkacctest.RandomWithPrefix("tf-test-bucket")
+rName3 := sdkacctest.RandomWithPrefix(fmt.Sprintf("/aws/vendedlogs/%s", acctest.ResourcePrefix))
+rName4 := sdkacctest.RandomWithPrefix(fmt.Sprintf("/aws/vendedlogs/%s", acctest.ResourcePrefix))
+rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_evidently_project.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
-		},
-		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckProjectDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProjectConfig_dataDeliveryCloudWatchLogs(rName, rName2, rName3, rName4, rName5, "first"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.cloudwatch_logs.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.cloudwatch_logs.0.log_group", "aws_cloudwatch_log_group.test", "name")),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccProjectConfig_dataDeliveryCloudWatchLogs(rName, rName2, rName3, rName4, rName5, "second"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.cloudwatch_logs.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.cloudwatch_logs.0.log_group", "aws_cloudwatch_log_group.test2", "name")),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
+},
+ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckProjectDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccProjectConfig_dataDeliveryCloudWatchLogs(rName, rName2, rName3, rName4, rName5, "first"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.cloudwatch_logs.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.cloudwatch_logs.0.log_group", "aws_cloudwatch_log_group.test", "name")),
+},
+{
+ResourceName:  resourceName,
+ImportState:   true,
+ImportStateVerify: true,
+},
+{
+Config: testAccProjectConfig_dataDeliveryCloudWatchLogs(rName, rName2, rName3, rName4, rName5, "second"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.cloudwatch_logs.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.cloudwatch_logs.0.log_group", "aws_cloudwatch_log_group.test2", "name")),
+},
+},
+})
 }
 
 func TestAccEvidentlyProject_updateDataDeliveryS3Bucket(t *testing.T) {
-	ctx := acctest.Context(t)
-	var project cloudwatchevidently.Project
+ctx := acctest.Context(t)
+var project cloudwatchevidently.Project
 
-	rName := sdkacctest.RandomWithPrefix("tf-test-bucket")
-	rName2 := sdkacctest.RandomWithPrefix("tf-test-bucket")
-	rName3 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName4 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_evidently_project.test"
-	prefix := "tests3prefix"
+rName := sdkacctest.RandomWithPrefix("tf-test-bucket")
+rName2 := sdkacctest.RandomWithPrefix("tf-test-bucket")
+rName3 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+rName4 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_evidently_project.test"
+prefix := "tests3prefix"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
-		},
-		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckProjectDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, prefix, "first"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.s3_destination.0.bucket", "aws_s3_bucket.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.prefix", prefix),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, prefix, "second"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.s3_destination.0.bucket", "aws_s3_bucket.test2", "id"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.prefix", prefix),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
+},
+ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckProjectDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, prefix, "first"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.s3_destination.0.bucket", "aws_s3_bucket.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.prefix", prefix),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:   true,
+ImportStateVerify: true,
+},
+{
+Config: testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, prefix, "second"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.s3_destination.0.bucket", "aws_s3_bucket.test2", "id"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.prefix", prefix),
+),
+},
+},
+})
 }
 
 func TestAccEvidentlyProject_updateDataDeliveryS3Prefix(t *testing.T) {
-	ctx := acctest.Context(t)
-	var project cloudwatchevidently.Project
+ctx := acctest.Context(t)
+var project cloudwatchevidently.Project
 
-	rName := sdkacctest.RandomWithPrefix("tf-test-bucket")
-	rName2 := sdkacctest.RandomWithPrefix("tf-test-bucket")
-	rName3 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName4 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_evidently_project.test"
-	originalPrefix := "original-prefix"
-	updatedPrefix := "updated-prefix"
+rName := sdkacctest.RandomWithPrefix("tf-test-bucket")
+rName2 := sdkacctest.RandomWithPrefix("tf-test-bucket")
+rName3 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+rName4 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_evidently_project.test"
+originalPrefix := "original-prefix"
+updatedPrefix := "updated-prefix"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
-		},
-		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckProjectDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, originalPrefix, "first"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.s3_destination.0.bucket", "aws_s3_bucket.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.prefix", originalPrefix),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, updatedPrefix, "first"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.s3_destination.0.bucket", "aws_s3_bucket.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.prefix", updatedPrefix),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
+},
+ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckProjectDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, originalPrefix, "first"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.s3_destination.0.bucket", "aws_s3_bucket.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.prefix", originalPrefix),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:   true,
+ImportStateVerify: true,
+},
+{
+Config: testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, updatedPrefix, "first"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.s3_destination.0.bucket", "aws_s3_bucket.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.prefix", updatedPrefix),
+),
+},
+},
+})
 }
 
 func TestAccEvidentlyProject_updateDataDeliveryCloudWatchToS3(t *testing.T) {
-	ctx := acctest.Context(t)
-	var project cloudwatchevidently.Project
+ctx := acctest.Context(t)
+var project cloudwatchevidently.Project
 
-	rName := sdkacctest.RandomWithPrefix("tf-test-bucket")
-	rName2 := sdkacctest.RandomWithPrefix("tf-test-bucket")
-	rName3 := sdkacctest.RandomWithPrefix(fmt.Sprintf("/aws/vendedlogs/%s", acctest.ResourcePrefix))
-	rName4 := sdkacctest.RandomWithPrefix(fmt.Sprintf("/aws/vendedlogs/%s", acctest.ResourcePrefix))
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_evidently_project.test"
-	prefix := "tests3prefix"
+rName := sdkacctest.RandomWithPrefix("tf-test-bucket")
+rName2 := sdkacctest.RandomWithPrefix("tf-test-bucket")
+rName3 := sdkacctest.RandomWithPrefix(fmt.Sprintf("/aws/vendedlogs/%s", acctest.ResourcePrefix))
+rName4 := sdkacctest.RandomWithPrefix(fmt.Sprintf("/aws/vendedlogs/%s", acctest.ResourcePrefix))
+rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
+resourceName := "aws_evidently_project.test"
+prefix := "tests3prefix"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
-		},
-		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckProjectDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProjectConfig_dataDeliveryCloudWatchLogs(rName, rName2, rName3, rName4, rName5, "first"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.cloudwatch_logs.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.cloudwatch_logs.0.log_group", "aws_cloudwatch_log_group.test", "name")),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, prefix, "first"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.s3_destination.0.bucket", "aws_s3_bucket.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.prefix", prefix),
-				),
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
+},
+ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckProjectDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccProjectConfig_dataDeliveryCloudWatchLogs(rName, rName2, rName3, rName4, rName5, "first"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.cloudwatch_logs.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.cloudwatch_logs.0.log_group", "aws_cloudwatch_log_group.test", "name")),
+},
+{
+ResourceName:  resourceName,
+ImportState:   true,
+ImportStateVerify: true,
+},
+{
+Config: testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, prefix, "first"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.#", "1"),
+resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.s3_destination.0.bucket", "aws_s3_bucket.test", "id"),
+resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.prefix", prefix),
+),
+},
+},
+})
 }
 
 func TestAccEvidentlyProject_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var project cloudwatchevidently.Project
+ctx := acctest.Context(t)
+var project cloudwatchevidently.Project
 
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	description := "disappears"
-	resourceName := "aws_evidently_project.test"
+rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+description := "disappears"
+resourceName := "aws_evidently_project.test"
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckProjectDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProjectConfig_basic(rName, description),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProjectExists(ctx, resourceName, &project),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfcloudwatchevidently.ResourceProject(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckProjectDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccProjectConfig_basic(rName, description),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckProjectExists(ctx, resourceName, &project),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfcloudwatchevidently.ResourceProject(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+},
+},
+})
 }
 
 func testAccCheckProjectDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EvidentlyConn(ctx)
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_evidently_project" {
-				continue
-			}
+return func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).EvidentlyConn(ctx)
+for _, rs := range s.RootModule().Resources {
+if rs.Type != "aws_evidently_project" {
+continue
+}
 
-			_, err := tfcloudwatchevidently.FindProjectByNameOrARN(ctx, conn, rs.Primary.ID)
+_, err := tfcloudwatchevidently.FindProjectByNameOrARN(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+if tfresource.NotFound(err) {
+continue
+}
 
-			if err != nil {
-				return err
-			}
+if err != nil {
+return err
+}
 
-			return fmt.Errorf("CloudWatch Evidently Project %s still exists", rs.Primary.ID)
-		}
+return fmt.Errorf("CloudWatch Evidently Project %s still exists", rs.Primary.ID)
+}
 
-		return nil
-	}
+return nil
+}
 }
 
 func testAccCheckProjectExists(ctx context.Context, n string, v *cloudwatchevidently.Project) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
+return func(s *terraform.State) error {
+rs, ok := s.RootModule().Resources[n]
 
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+if !ok {
+return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No CloudWatch Evidently Project ID is set")
-		}
+if rs.Primary.ID == "" {
+return fmt.Errorf("No CloudWatch Evidently Project ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EvidentlyConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EvidentlyConn(ctx)
 
-		output, err := tfcloudwatchevidently.FindProjectByNameOrARN(ctx, conn, rs.Primary.ID)
+output, err := tfcloudwatchevidently.FindProjectByNameOrARN(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
-	}
+return nil
+}
 }
 
 func testAccProjectConfig_basic(rName, description string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_evidently_project" "test" {
   name= %[1]q
   description = %[2]q
@@ -425,7 +425,7 @@ resource "aws_evidently_project" "test" {
 }
 
 func testAccProjectConfig_tags1(rName, description string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_evidently_project" "test" {
   name= %[1]q
   description = %[2]q
@@ -439,7 +439,7 @@ resource "aws_evidently_project" "test" {
 }
 
 func testAccProjectConfig_tags2(rName, description string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_evidently_project" "test" {
   name= %[1]q
   description = %[2]q
@@ -454,7 +454,7 @@ resource "aws_evidently_project" "test" {
 }
 
 func testAccProjectBaseConfig(rName, rName2, rName3, rName4 string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket= %[1]q
   force_destroy = true
@@ -476,9 +476,9 @@ resource "aws_cloudwatch_log_group" "test2" {
 }
 
 func testAccProjectConfig_dataDeliveryCloudWatchLogs(rName, rName2, rName3, rName4, rName5, selectLogGroup string) string {
-	return acctest.ConfigCompose(
-		testAccProjectBaseConfig(rName, rName2, rName3, rName4),
-		fmt.Sprintf(`
+return acctest.ConfigCompose(
+testAccProjectBaseConfig(rName, rName2, rName3, rName4),
+fmt.Sprintf(`
 locals {
   select_log_group = %[2]q
 }
@@ -496,9 +496,9 @@ cloudwatch_logs {
 }
 
 func testAccProjectConfig_dataDeliveryS3Bucket(rName, rName2, rName3, rName4, rName5, prefix, selectBucket string) string {
-	return acctest.ConfigCompose(
-		testAccProjectBaseConfig(rName, rName2, rName3, rName4),
-		fmt.Sprintf(`
+return acctest.ConfigCompose(
+testAccProjectBaseConfig(rName, rName2, rName3, rName4),
+fmt.Sprintf(`
 locals {
   select_bucket = %[3]q
 }

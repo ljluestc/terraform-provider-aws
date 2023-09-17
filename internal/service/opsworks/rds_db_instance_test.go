@@ -4,112 +4,112 @@
 package opsworks_test
 
 import (
-	"context"
-	"fmt"
-	"testing"
+"context"
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/service/opsworks"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tfopsworks "github.com/hashicorp/terraform-provider-aws/internal/service/opsworks"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/aws/aws-sdk-go/service/opsworks"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+tfopsworks "github.com/hashicorp/terraform-provider-aws/internal/service/opsworks"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
 
 func TestAccOpsWorksRDSDBInstance_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	if testing.Short() {
+ctx := acctest.Context(t)
+if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
+}
 
-	var v opsworks.RdsDbInstance
-	resourceName := "aws_opsworks_rds_db_instance.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+var v opsworks.RdsDbInstance
+resourceName := "aws_opsworks_rds_db_instance.test"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckRDSDBInstanceDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccRDSDBInstanceConfig_basic(rName, "user1", "password1"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "db_password", "password1"),
-	resource.TestCheckResourceAttr(resourceName, "db_user", "user1"),
+testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "db_password", "password1"),
+resource.TestCheckResourceAttr(resourceName, "db_user", "user1"),
 ),
-	},
-	{
+},
+{
 Config: testAccRDSDBInstanceConfig_basic(rName, "user2", "password1"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "db_password", "password1"),
-	resource.TestCheckResourceAttr(resourceName, "db_user", "user2"),
+testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "db_password", "password1"),
+resource.TestCheckResourceAttr(resourceName, "db_user", "user2"),
 ),
-	},
-	{
+},
+{
 Config: testAccRDSDBInstanceConfig_basic(rName, "user2", "password2"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
-	resource.TestCheckResourceAttr(resourceName, "db_password", "password2"),
-	resource.TestCheckResourceAttr(resourceName, "db_user", "user2"),
+testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttr(resourceName, "db_password", "password2"),
+resource.TestCheckResourceAttr(resourceName, "db_user", "user2"),
 ),
-	},
 },
-	})
+},
+})
 }
 
 
 func TestAccOpsWorksRDSDBInstance_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	if testing.Short() {
+ctx := acctest.Context(t)
+if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
+}
 
-	var v opsworks.RdsDbInstance
-	resourceName := "aws_opsworks_rds_db_instance.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+var v opsworks.RdsDbInstance
+resourceName := "aws_opsworks_rds_db_instance.test"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
+resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckRDSDBInstanceDestroy(ctx),
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccRDSDBInstanceConfig_basic(rName, "user1", "password1"),
 Check: resource.ComposeTestCheck
 func(
-	testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
-	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfopsworks.ResourceRDSDBInstance(), resourceName),
+testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfopsworks.ResourceRDSDBInstance(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
-	},
 },
-	})
+},
+})
 }
 
 
 func testAccCheckRDSDBInstanceExists(ctx context.Context, n string, v *opsworks.RdsDbInstance) resource.TestCheck
 func {
-	return 
+return 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
-	return fmt.Errorf("Not found: %s", n)
+return fmt.Errorf("Not found: %s", n)
 }
 
 if rs.Primary.ID == "" {
-	return fmt.Errorf("No OpsWorks RDS DB Instance ID is set")
+return fmt.Errorf("No OpsWorks RDS DB Instance ID is set")
 }
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
@@ -117,47 +117,47 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 output, err := tfopsworks.FindRDSDBInstanceByTwoPartKey(ctx, conn, rs.Primary.Attributes["rds_db_instance_arn"], rs.Primary.Attributes["stack_id"])
 
 if err != nil {
-	return err
+return err
 }
 
 *v = *output
 
 return nil
-	}
+}
 }
 
 
 func testAccCheckRDSDBInstanceDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
+return 
 func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
-	if rs.Type != "aws_opsworks_rds_db_instance" {
+if rs.Type != "aws_opsworks_rds_db_instance" {
 continue
-	}
+}
 
-	_, err := tfopsworks.FindRDSDBInstanceByTwoPartKey(ctx, conn, rs.Primary.Attributes["rds_db_instance_arn"], rs.Primary.Attributes["stack_id"])
+_, err := tfopsworks.FindRDSDBInstanceByTwoPartKey(ctx, conn, rs.Primary.Attributes["rds_db_instance_arn"], rs.Primary.Attributes["stack_id"])
 
-	if tfresource.NotFound(err) {
+if tfresource.NotFound(err) {
 continue
-	}
+}
 
-	if err != nil {
+if err != nil {
 return err
-	}
+}
 
-	return fmt.Errorf("OpsWorks RDS DB Instance %s still exists", rs.Primary.ID)
+return fmt.Errorf("OpsWorks RDS DB Instance %s still exists", rs.Primary.ID)
 }
 
 return nil
-	}
+}
 }
 
 
 func testAccRDSDBInstanceConfig_basic(rName, userName, password string) string {
-	return acctest.ConfigCompose(testAccStackConfig_basic(rName), fmt.Sprintf(`
+return acctest.ConfigCompose(testAccStackConfig_basic(rName), fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
   engine = "mysql"
 }

@@ -1,92 +1,92 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package eks
+packageeks
 
-import (
-	"fmt"
-	"strings"
+import(
+"fmt"
+"strings"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/service/eks"
-	multierror "github.com/hashicorp/go-multierror"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/aws/awserr"
+"github.com/aws/aws-sdk-go/service/eks"
+multierror"github.com/hashicorp/go-multierror"
 )
 
-func AddonIssueError(apiObject *eks.AddonIssue) error {
-	if apiObject == nil {
-		return nil
-	}
-
-	return awserr.New(aws.StringValue(apiObject.Code), aws.StringValue(apiObject.Message), nil)
+funcAddonIssueError(apiObject*eks.AddonIssue)error{
+ifapiObject==nil{
+returnnil
 }
 
-func AddonIssuesError(apiObjects []*eks.AddonIssue) error {
-	var errors *multierror.Error
-
-	for _, apiObject := range apiObjects {
-		if apiObject == nil {
-			continue
-		}
-
-		err := AddonIssueError(apiObject)
-
-		if err != nil {
-			errors = multierror.Append(errors, fmt.Errorf("%s: %w", strings.Join(aws.StringValueSlice(apiObject.ResourceIds), ", "), err))
-		}
-	}
-
-	return errors.ErrorOrNil()
+returnawserr.New(aws.StringValue(apiObject.Code),aws.StringValue(apiObject.Message),nil)
 }
 
-func ErrorDetailError(apiObject *eks.ErrorDetail) error {
-	if apiObject == nil {
-		return nil
-	}
+funcAddonIssuesError(apiObjects[]*eks.AddonIssue)error{
+varerrors*multierror.Error
 
-	return awserr.New(aws.StringValue(apiObject.ErrorCode), aws.StringValue(apiObject.ErrorMessage), nil)
+for_,apiObject:=rangeapiObjects{
+ifapiObject==nil{
+continue
 }
 
-func ErrorDetailsError(apiObjects []*eks.ErrorDetail) error {
-	var errors *multierror.Error
+err:=AddonIssueError(apiObject)
 
-	for _, apiObject := range apiObjects {
-		if apiObject == nil {
-			continue
-		}
-
-		err := ErrorDetailError(apiObject)
-
-		if err != nil {
-			errors = multierror.Append(errors, fmt.Errorf("%s: %w", strings.Join(aws.StringValueSlice(apiObject.ResourceIds), ", "), err))
-		}
-	}
-
-	return errors.ErrorOrNil()
+iferr!=nil{
+errors=multierror.Append(errors,fmt.Errorf("%s:%w",strings.Join(aws.StringValueSlice(apiObject.ResourceIds),","),err))
+}
 }
 
-func IssueError(apiObject *eks.Issue) error {
-	if apiObject == nil {
-		return nil
-	}
-
-	return awserr.New(aws.StringValue(apiObject.Code), aws.StringValue(apiObject.Message), nil)
+returnerrors.ErrorOrNil()
 }
 
-func IssuesError(apiObjects []*eks.Issue) error {
-	var errors *multierror.Error
+funcErrorDetailError(apiObject*eks.ErrorDetail)error{
+ifapiObject==nil{
+returnnil
+}
 
-	for _, apiObject := range apiObjects {
-		if apiObject == nil {
-			continue
-		}
+returnawserr.New(aws.StringValue(apiObject.ErrorCode),aws.StringValue(apiObject.ErrorMessage),nil)
+}
 
-		err := IssueError(apiObject)
+funcErrorDetailsError(apiObjects[]*eks.ErrorDetail)error{
+varerrors*multierror.Error
 
-		if err != nil {
-			errors = multierror.Append(errors, fmt.Errorf("%s: %w", strings.Join(aws.StringValueSlice(apiObject.ResourceIds), ", "), err))
-		}
-	}
+for_,apiObject:=rangeapiObjects{
+ifapiObject==nil{
+continue
+}
 
-	return errors.ErrorOrNil()
+err:=ErrorDetailError(apiObject)
+
+iferr!=nil{
+errors=multierror.Append(errors,fmt.Errorf("%s:%w",strings.Join(aws.StringValueSlice(apiObject.ResourceIds),","),err))
+}
+}
+
+returnerrors.ErrorOrNil()
+}
+
+funcIssueError(apiObject*eks.Issue)error{
+ifapiObject==nil{
+returnnil
+}
+
+returnawserr.New(aws.StringValue(apiObject.Code),aws.StringValue(apiObject.Message),nil)
+}
+
+funcIssuesError(apiObjects[]*eks.Issue)error{
+varerrors*multierror.Error
+
+for_,apiObject:=rangeapiObjects{
+ifapiObject==nil{
+continue
+}
+
+err:=IssueError(apiObject)
+
+iferr!=nil{
+errors=multierror.Append(errors,fmt.Errorf("%s:%w",strings.Join(aws.StringValueSlice(apiObject.ResourceIds),","),err))
+}
+}
+
+returnerrors.ErrorOrNil()
 }

@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package lakeformation
+packagelakeformation
 
-import (
+import(
 	"context"
 	"fmt"
 	"log"
@@ -21,244 +21,244 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 )
 
-// This value is defined by AWS API
-const lfTagsValuesMaxBatchSize = 50
+//ThisvalueisdefinedbyAWSAPI
+constlfTagsValuesMaxBatchSize=50
 
-// @SDKResource("aws_lakeformation_lf_tag")
-func ResourceLFTag() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceLFTagCreate,
-		ReadWithoutTimeout:   resourceLFTagRead,
-		UpdateWithoutTimeout: resourceLFTagUpdate,
-		DeleteWithoutTimeout: resourceLFTagDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
+//@SDKResource("aws_lakeformation_lf_tag")
+funcResourceLFTag()*schema.Resource{
+	return&schema.Resource{
+		CreateWithoutTimeout:resourceLFTagCreate,
+		ReadWithoutTimeout:resourceLFTagRead,
+		UpdateWithoutTimeout:resourceLFTagUpdate,
+		DeleteWithoutTimeout:resourceLFTagDelete,
+		Importer:&schema.ResourceImporter{
+			StateContext:schema.ImportStatePassthroughContext,
 		},
 
-		Schema: map[string]*schema.Schema{
-			"catalog_id": {
-				Type:     schema.TypeString,
-				ForceNew: true,
-				Optional: true,
-				Computed: true,
-			},
-			"key": {
+		Schema:map[string]*schema.Schema{
+			"catalog_id":{
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 128),
+				ForceNew:true,
+				Optional:true,
+				Computed:true,
 			},
-			"values": {
-				Type:     schema.TypeSet,
-				Required: true,
-				MinItems: 1,
-				// Soft limit stated in AWS Doc
-				// https://docs.aws.amazon.com/lake-formation/latest/dg/TBAC-notes.html
-				MaxItems: 1000,
-				Elem: &schema.Schema{
+			"key":{
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
+				ValidateFunc:validation.StringLenBetween(1,128),
+			},
+			"values":{
+				Type:schema.TypeSet,
+				Required:true,
+				MinItems:1,
+				//SoftlimitstatedinAWSDoc
+				//https://docs.aws.amazon.com/lake-formation/latest/dg/TBAC-notes.html
+				MaxItems:1000,
+				Elem:&schema.Schema{
 					Type:schema.TypeString,
-					ValidateFunc: validateLFTagValues(),
+					ValidateFunc:validateLFTagValues(),
 				},
-				Set: schema.HashString,
+				Set:schema.HashString,
 			},
 		},
 	}
 }
 
-func resourceLFTagCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).LakeFormationConn(ctx)
+funcresourceLFTagCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).LakeFormationConn(ctx)
 
-	tagKey := d.Get("key").(string)
-	tagValues := d.Get("values").(*schema.Set)
+	tagKey:=d.Get("key").(string)
+	tagValues:=d.Get("values").(*schema.Set)
 
-	var catalogID string
-	if v, ok := d.GetOk("catalog_id"); ok {
-		catalogID = v.(string)
-	} else {
-		catalogID = meta.(*conns.AWSClient).AccountID
+	varcatalogIDstring
+	ifv,ok:=d.GetOk("catalog_id");ok{
+		catalogID=v.(string)
+	}else{
+		catalogID=meta.(*conns.AWSClient).AccountID
 	}
 
-	tagValueChunks := splitLFTagValues(tagValues.List(), lfTagsValuesMaxBatchSize)
+	tagValueChunks:=splitLFTagValues(tagValues.List(),lfTagsValuesMaxBatchSize)
 
-	input := &lakeformation.CreateLFTagInput{
-		CatalogId: aws.String(catalogID),
-		TagKey:    aws.String(tagKey),
-		TagValues: flex.ExpandStringList(tagValueChunks[0]),
+	input:=&lakeformation.CreateLFTagInput{
+		CatalogId:aws.String(catalogID),
+		TagKey:aws.String(tagKey),
+		TagValues:flex.ExpandStringList(tagValueChunks[0]),
 	}
 
-	_, err := conn.CreateLFTagWithContext(ctx, input)
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating Lake Formation LF-Tag: %s", err)
+	_,err:=conn.CreateLFTagWithContext(ctx,input)
+	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"creatingLakeFormationLF-Tag:%s",err)
 	}
 
-	if len(tagValueChunks) > 1 {
-		tagValueChunks = tagValueChunks[1:]
+	iflen(tagValueChunks)>1{
+		tagValueChunks=tagValueChunks[1:]
 
-		for _, v := range tagValueChunks {
-			in := &lakeformation.UpdateLFTagInput{
-				CatalogId:      aws.String(catalogID),
+		for_,v:=rangetagValueChunks{
+			in:=&lakeformation.UpdateLFTagInput{
+				CatalogId:aws.String(catalogID),
 				TagKey:aws.String(tagKey),
-				TagValuesToAdd: flex.ExpandStringList(v),
+				TagValuesToAdd:flex.ExpandStringList(v),
 			}
 
-			_, err := conn.UpdateLFTagWithContext(ctx, in)
-			if err != nil {
-				return sdkdiag.AppendErrorf(diags, "creating Lake Formation LF-Tag: %s", err)
+			_,err:=conn.UpdateLFTagWithContext(ctx,in)
+			iferr!=nil{
+				returnsdkdiag.AppendErrorf(diags,"creatingLakeFormationLF-Tag:%s",err)
 			}
 		}
 	}
 
-	d.SetId(fmt.Sprintf("%s:%s", catalogID, tagKey))
+	d.SetId(fmt.Sprintf("%s:%s",catalogID,tagKey))
 
-	return append(diags, resourceLFTagRead(ctx, d, meta)...)
+	returnappend(diags,resourceLFTagRead(ctx,d,meta)...)
 }
 
-func resourceLFTagRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).LakeFormationConn(ctx)
+funcresourceLFTagRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).LakeFormationConn(ctx)
 
-	catalogID, tagKey, err := ReadLFTagID(d.Id())
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading Lake Formation LF-Tag (%s): %s", d.Id(), err)
+	catalogID,tagKey,err:=ReadLFTagID(d.Id())
+	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"readingLakeFormationLF-Tag(%s):%s",d.Id(),err)
 	}
 
-	input := &lakeformation.GetLFTagInput{
-		CatalogId: aws.String(catalogID),
-		TagKey:    aws.String(tagKey),
+	input:=&lakeformation.GetLFTagInput{
+		CatalogId:aws.String(catalogID),
+		TagKey:aws.String(tagKey),
 	}
 
-	output, err := conn.GetLFTagWithContext(ctx, input)
-	if !d.IsNewResource() {
-		if tfawserr.ErrCodeEquals(err, lakeformation.ErrCodeEntityNotFoundException) {
-			log.Printf("[WARN] Lake Formation LF-Tag (%s) not found, removing from state", d.Id())
+	output,err:=conn.GetLFTagWithContext(ctx,input)
+	if!d.IsNewResource(){
+		iftfawserr.ErrCodeEquals(err,lakeformation.ErrCodeEntityNotFoundException){
+			log.Printf("[WARN]LakeFormationLF-Tag(%s)notfound,removingfromstate",d.Id())
 			d.SetId("")
-			return diags
+			returndiags
 		}
 	}
 
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading Lake Formation LF-Tag (%s): %s", d.Id(), err)
+	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"readingLakeFormationLF-Tag(%s):%s",d.Id(),err)
 	}
 
-	d.Set("key", output.TagKey)
-	d.Set("values", flex.FlattenStringSet(output.TagValues))
-	d.Set("catalog_id", output.CatalogId)
+	d.Set("key",output.TagKey)
+	d.Set("values",flex.FlattenStringSet(output.TagValues))
+	d.Set("catalog_id",output.CatalogId)
 
-	return diags
+	returndiags
 }
 
-func resourceLFTagUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).LakeFormationConn(ctx)
+funcresourceLFTagUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).LakeFormationConn(ctx)
 
-	catalogID, tagKey, err := ReadLFTagID(d.Id())
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "updating Lake Formation LF-Tag (%s): %s", d.Id(), err)
+	catalogID,tagKey,err:=ReadLFTagID(d.Id())
+	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"updatingLakeFormationLF-Tag(%s):%s",d.Id(),err)
 	}
 
-	o, n := d.GetChange("values")
-	os := o.(*schema.Set)
-	ns := n.(*schema.Set)
-	toAdd := ns.Difference(os)
-	toDelete := os.Difference(ns)
+	o,n:=d.GetChange("values")
+	os:=o.(*schema.Set)
+	ns:=n.(*schema.Set)
+	toAdd:=ns.Difference(os)
+	toDelete:=os.Difference(ns)
 
-	var toAddChunks, toDeleteChunks [][]interface{}
-	if len(toAdd.List()) > 0 {
-		toAddChunks = splitLFTagValues(toAdd.List(), lfTagsValuesMaxBatchSize)
+	vartoAddChunks,toDeleteChunks[][]interface{}
+	iflen(toAdd.List())>0{
+		toAddChunks=splitLFTagValues(toAdd.List(),lfTagsValuesMaxBatchSize)
 	}
 
-	if len(toDelete.List()) > 0 {
-		toDeleteChunks = splitLFTagValues(toDelete.List(), lfTagsValuesMaxBatchSize)
+	iflen(toDelete.List())>0{
+		toDeleteChunks=splitLFTagValues(toDelete.List(),lfTagsValuesMaxBatchSize)
 	}
 
-	for {
-		if len(toAddChunks) == 0 && len(toDeleteChunks) == 0 {
+	for{
+		iflen(toAddChunks)==0&&len(toDeleteChunks)==0{
 			break
 		}
 
-		input := &lakeformation.UpdateLFTagInput{
-			CatalogId: aws.String(catalogID),
-			TagKey:    aws.String(tagKey),
+		input:=&lakeformation.UpdateLFTagInput{
+			CatalogId:aws.String(catalogID),
+			TagKey:aws.String(tagKey),
 		}
 
-		toAddEnd, toDeleteEnd := len(toAddChunks), len(toDeleteChunks)
-		var indexAdd, indexDelete int
-		if indexAdd < toAddEnd {
-			input.TagValuesToAdd = flex.ExpandStringList(toAddChunks[indexAdd])
+		toAddEnd,toDeleteEnd:=len(toAddChunks),len(toDeleteChunks)
+		varindexAdd,indexDeleteint
+		ifindexAdd<toAddEnd{
+			input.TagValuesToAdd=flex.ExpandStringList(toAddChunks[indexAdd])
 			indexAdd++
 		}
-		if indexDelete < toDeleteEnd {
-			input.TagValuesToDelete = flex.ExpandStringList(toDeleteChunks[indexDelete])
+		ifindexDelete<toDeleteEnd{
+			input.TagValuesToDelete=flex.ExpandStringList(toDeleteChunks[indexDelete])
 			indexDelete++
 		}
 
-		toAddChunks = toAddChunks[indexAdd:]
-		toDeleteChunks = toDeleteChunks[indexDelete:]
+		toAddChunks=toAddChunks[indexAdd:]
+		toDeleteChunks=toDeleteChunks[indexDelete:]
 
-		_, err = conn.UpdateLFTagWithContext(ctx, input)
-		if err != nil {
-			return sdkdiag.AppendErrorf(diags, "updating Lake Formation LF-Tag (%s): %s", d.Id(), err)
+		_,err=conn.UpdateLFTagWithContext(ctx,input)
+		iferr!=nil{
+			returnsdkdiag.AppendErrorf(diags,"updatingLakeFormationLF-Tag(%s):%s",d.Id(),err)
 		}
 	}
 
-	return append(diags, resourceLFTagRead(ctx, d, meta)...)
+	returnappend(diags,resourceLFTagRead(ctx,d,meta)...)
 }
 
-func resourceLFTagDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).LakeFormationConn(ctx)
+funcresourceLFTagDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	vardiagsdiag.Diagnostics
+	conn:=meta.(*conns.AWSClient).LakeFormationConn(ctx)
 
-	catalogID, tagKey, err := ReadLFTagID(d.Id())
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting Lake Formation LF-Tag (%s): %s", d.Id(), err)
+	catalogID,tagKey,err:=ReadLFTagID(d.Id())
+	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"deletingLakeFormationLF-Tag(%s):%s",d.Id(),err)
 	}
 
-	input := &lakeformation.DeleteLFTagInput{
-		CatalogId: aws.String(catalogID),
-		TagKey:    aws.String(tagKey),
+	input:=&lakeformation.DeleteLFTagInput{
+		CatalogId:aws.String(catalogID),
+		TagKey:aws.String(tagKey),
 	}
 
-	_, err = conn.DeleteLFTagWithContext(ctx, input)
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting Lake Formation LF-Tag (%s): %s", d.Id(), err)
+	_,err=conn.DeleteLFTagWithContext(ctx,input)
+	iferr!=nil{
+		returnsdkdiag.AppendErrorf(diags,"deletingLakeFormationLF-Tag(%s):%s",d.Id(),err)
 	}
 
-	return diags
+	returndiags
 }
 
-func ReadLFTagID(id string) (string, string, error) {
-	catalogID, tagKey, found := strings.Cut(id, ":")
+funcReadLFTagID(idstring)(string,string,error){
+	catalogID,tagKey,found:=strings.Cut(id,":")
 
-	if !found {
-		return "", "", fmt.Errorf("unexpected format of ID (%q), expected CATALOG-ID:TAG-KEY", id)
+	if!found{
+		return"","",fmt.Errorf("unexpectedformatofID(%q),expectedCATALOG-ID:TAG-KEY",id)
 	}
 
-	return catalogID, tagKey, nil
+	returncatalogID,tagKey,nil
 }
 
-func validateLFTagValues() schema.SchemaValidateFunc {
-	return validation.All(
-		validation.StringLenBetween(1, 255),
-		validation.StringMatch(regexache.MustCompile(`^([\p{L}\p{Z}\p{N}_.:\*\/=+\-@%]*)$`), ""),
+funcvalidateLFTagValues()schema.SchemaValidateFunc{
+	returnvalidation.All(
+		validation.StringLenBetween(1,255),
+		validation.StringMatch(regexache.MustCompile(`^([\p{L}\p{Z}\p{N}_.:\*\/=+\-@%]*)$`),""),
 	)
 }
 
-func splitLFTagValues(in []interface{}, size int) [][]interface{} {
-	var out [][]interface{}
+funcsplitLFTagValues(in[]interface{},sizeint)[][]interface{}{
+	varout[][]interface{}
 
-	for {
-		if len(in) == 0 {
+	for{
+		iflen(in)==0{
 			break
 		}
 
-		if len(in) < size {
-			size = len(in)
+		iflen(in)<size{
+			size=len(in)
 		}
 
-		out = append(out, in[0:size])
-		in = in[size:]
+		out=append(out,in[0:size])
+		in=in[size:]
 	}
 
-	return out
+	returnout
 }

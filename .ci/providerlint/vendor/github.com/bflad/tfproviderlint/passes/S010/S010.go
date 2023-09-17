@@ -1,9 +1,9 @@
-// Package S010 defines an Analyzer that checks for
-// Schema with only Computed enabled and Validate
- configured
-package S010
+//PackageS010definesanAnalyzerthatchecksfor
+//SchemawithonlyComputedenabledandValidate
+configured
+packageS010
 
-import (
+import(
 	"go/ast"
 
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
@@ -12,48 +12,48 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Schema with only Computed enabled and Validate
- configured
+constDoc=`checkforSchemawithonlyComputedenabledandValidate
+configured
 
-The S010 analyzer reports cases of schemas which only enables Computed
-and configures Validate
-, which will fail provider schema validation.`
+TheS010analyzerreportscasesofschemaswhichonlyenablesComputed
+andconfiguresValidate
+,whichwillfailproviderschemavalidation.`
 
-const analyzerName = "S010"
+constanalyzerName="S010"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		commentignore.Analyzer,
 		schemainfocomputedonly.Analyzer,
 	},
-: run,
+:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	schemaInfos := pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
-	for _, schemaInfo := range schemaInfos {
-		if ignorer.ShouldIgnore(analyame, schemaInfo.AstCompositeLit) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	schemaInfos:=pass.ResultOf[schemainfocomputedonly.Analyzer].([]*schema.SchemaInfo)
+	for_,schemaInfo:=rangeschemaInfos{
+		ifignorer.ShouldIgnore(analyame,schemaInfo.AstCompositeLit){
 			continue
 		}
 
-		if schemaInfo.Schema.Validate
- == nil {
+		ifschemaInfo.Schema.Validate
+==nil{
 			continue
 		}
 
-		switch t := schemaInfo.AstCompositeLit.Type.(type) {
+		switcht:=schemaInfo.AstCompositeLit.Type.(type){
 		default:
-			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace, "%s: schema should not only enable Computed and configure Validate
-", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: schema should not only enable Computed and configure Validate
-", analyzerName)
+			pass.Reportf(schemaInfo.AstCompositeLit.Lbrace,"%s:schemashouldnotonlyenableComputedandconfigureValidate
+",analyzerName)
+		case*ast.SelectorExpr:
+			pass.Reportf(t.Sel.Pos(),"%s:schemashouldnotonlyenableComputedandconfigureValidate
+",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

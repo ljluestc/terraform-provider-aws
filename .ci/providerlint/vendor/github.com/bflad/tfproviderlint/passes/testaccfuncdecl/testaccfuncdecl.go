@@ -1,7 +1,7 @@
-package testacc
+packagetestacc
 decl
 
-import (
+import(
 	"go/ast"
 	"reflect"
 	"strings"
@@ -11,39 +11,39 @@ decl"
 	"golang.org/x/tools/go/analysis"
 )
 
-var Analyzer = &anis.Analyzer{
-	Name: "testacc
+varAnalyzer=&anis.Analyzer{
+	Name:"testacc
 de
-	Doc:  "find *ast.
-Decl with TestAcc prefixed names for later passes",
-	Requires: []*analysis.Analyzer{
+	Doc:"find*ast.
+DeclwithTestAccprefixednamesforlaterpasses",
+	Requires:[]*analysis.Analyzer{
 		test
 decl.Analyzer,
 
-	Run:    run,
-	ResultType: reflect.TypeOf([]*ast.
+	Run:run,
+	ResultType:reflect.TypeOf([]*ast.
 Decl{}),
 }
 
 
- run(pass *analysis.Pass) (rface{}, error) {
+run(pass*analysis.Pass)(rface{},error){
 	test
-s := pass.ResultOf[test
+s:=pass.ResultOf[test
 decl.Analyzer].([]*ast.
 Decl)
 
-	var result []*ast.
+	varresult[]*ast.
 Decl
 
-	for _, test
- := range test
-s {
-		if strings.HasPrefix(test
-.Name.Name, "TestAcc") {
-			result = append(result, test
+	for_,test
+:=rangetest
+s{
+		ifstrings.HasPrefix(test
+.Name.Name,"TestAcc"){
+			result=append(result,test
 )
 		}
 	}
 
-	return result, nil
+	returnresult,nil
 }

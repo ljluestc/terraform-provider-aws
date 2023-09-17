@@ -4,341 +4,341 @@
 package docdb_test
 
 import (
-	"context"
-	"fmt"
-	"strings"
-	"testing"
-	"time"
+"context"
+"fmt"
+"strings"
+"testing"
+"time"
 
-	"github.com/YakDriver/regexache"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/docdb"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/YakDriver/regexache"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/docdb"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 func TestAccDocDBClusterInstance_basic(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v docdb.DBInstance
-	resourceName := "aws_docdb_cluster_instance.cluster_instances"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+var v docdb.DBInstance
+resourceName := "aws_docdb_cluster_instance.cluster_instances"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckClusterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					testAccCheckClusterInstanceAttributes(&v),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "rds", regexache.MustCompile(`db:.+`)),
-					resource.TestCheckResourceAttr(resourceName, "auto_minor_version_upgrade", "true"),
-					resource.TestCheckResourceAttrSet(resourceName, "preferred_maintenance_window"),
-					resource.TestCheckResourceAttrSet(resourceName, "preferred_backup_window"),
-					resource.TestCheckResourceAttrSet(resourceName, "dbi_resource_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
-					resource.TestCheckResourceAttrSet(resourceName, "engine_version"),
-					resource.TestCheckResourceAttrSet(resourceName, "ca_cert_identifier"),
-					resource.TestCheckResourceAttr(resourceName, "engine", "docdb"),
-				),
-			},
-			{
-				Config: testAccClusterInstanceConfig_modified(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					testAccCheckClusterInstanceAttributes(&v),
-					resource.TestCheckResourceAttr(resourceName, "auto_minor_version_upgrade", "false"),
-				),
-			},
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckClusterDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccClusterInstanceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+testAccCheckClusterInstanceAttributes(&v),
+acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "rds", regexache.MustCompile(`db:.+`)),
+resource.TestCheckResourceAttr(resourceName, "auto_minor_version_upgrade", "true"),
+resource.TestCheckResourceAttrSet(resourceName, "preferred_maintenance_window"),
+resource.TestCheckResourceAttrSet(resourceName, "preferred_backup_window"),
+resource.TestCheckResourceAttrSet(resourceName, "dbi_resource_id"),
+resource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
+resource.TestCheckResourceAttrSet(resourceName, "engine_version"),
+resource.TestCheckResourceAttrSet(resourceName, "ca_cert_identifier"),
+resource.TestCheckResourceAttr(resourceName, "engine", "docdb"),
+),
+},
+{
+Config: testAccClusterInstanceConfig_modified(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+testAccCheckClusterInstanceAttributes(&v),
+resource.TestCheckResourceAttr(resourceName, "auto_minor_version_upgrade", "false"),
+),
+},
 
-			{
-				ResourceName:ceName,
-				ImportState:
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
-	})
+{
+ResourceName:ceName,
+ImportState:
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+"apply_immediately",
+"identifier_prefix",
+},
+},
+},
+})
 }
 func TestAccDocDBClusterInstance_performanceInsights(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v docdb.DBInstance
-	resourceName := "aws_docdb_cluster_instance.test"
-	rNamePrefix := acctest.ResourcePrefix
-	rName := sdkacctest.RandomWithPrefix(rNamePrefix)
+ctx := acctest.Context(t)
+var v docdb.DBInstance
+resourceName := "aws_docdb_cluster_instance.test"
+rNamePrefix := acctest.ResourcePrefix
+rName := sdkacctest.RandomWithPrefix(rNamePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckClusterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_performanceInsights(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					testAccCheckClusterInstanceAttributes(&v),
-					resource.TestCheckResourceAttrSet(resourceName, "enable_performance_insights"),
-					resource.TestCheckResourceAttrSet(resourceName, "performance_insights_kms_key_id"),
-				),
-			},
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckClusterDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccClusterInstanceConfig_performanceInsights(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+testAccCheckClusterInstanceAttributes(&v),
+resource.TestCheckResourceAttrSet(resourceName, "enable_performance_insights"),
+resource.TestCheckResourceAttrSet(resourceName, "performance_insights_kms_key_id"),
+),
+},
 
-			{
-				ResourceName:ceName,
-				ImportState:
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-					"enable_performance_insights",
-					"performance_insights_kms_key_id",
-				},
-			},
-		},
-	})
+{
+ResourceName:ceName,
+ImportState:
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+"apply_immediately",
+"identifier_prefix",
+"enable_performance_insights",
+"performance_insights_kms_key_id",
+},
+},
+},
+})
 }
 func TestAccDocDBClusterInstance_az(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v docdb.DBInstance
-	resourceName := "aws_docdb_cluster_instance.cluster_instances"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+var v docdb.DBInstance
+resourceName := "aws_docdb_cluster_instance.cluster_instances"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckClusterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_az(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					testAccCheckClusterInstanceAttributes(&v),
-					resource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
-				),
-			},
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckClusterDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccClusterInstanceConfig_az(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+testAccCheckClusterInstanceAttributes(&v),
+resource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
+),
+},
 
-			{
-				ResourceName:ceName,
-				ImportState:
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
-	})
+{
+ResourceName:ceName,
+ImportState:
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+"apply_immediately",
+"identifier_prefix",
+},
+},
+},
+})
 }
 func TestAccDocDBClusterInstance_namePrefix(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v docdb.DBInstance
-	resourceName := "aws_docdb_cluster_instance.test"
-	rNamePrefix := acctest.ResourcePrefix
-	rName := sdkacctest.RandomWithPrefix(rNamePrefix)
+ctx := acctest.Context(t)
+var v docdb.DBInstance
+resourceName := "aws_docdb_cluster_instance.test"
+rNamePrefix := acctest.ResourcePrefix
+rName := sdkacctest.RandomWithPrefix(rNamePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckClusterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_namePrefix(rName, rNamePrefix),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					testAccCheckClusterInstanceAttributes(&v),
-					resource.TestCheckResourceAttr(resourceName, "db_subnet_group_name", rName),
-					resource.TestMatchResourceAttr(resourceName, "identifier", regexache.MustCompile(fmt.Sprintf("^%s", rNamePrefix))),
-				),
-			},
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckClusterDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccClusterInstanceConfig_namePrefix(rName, rNamePrefix),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+testAccCheckClusterInstanceAttributes(&v),
+resource.TestCheckResourceAttr(resourceName, "db_subnet_group_name", rName),
+resource.TestMatchResourceAttr(resourceName, "identifier", regexache.MustCompile(fmt.Sprintf("^%s", rNamePrefix))),
+),
+},
 
-			{
-				ResourceName:ceName,
-				ImportState:
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
-	})
+{
+ResourceName:ceName,
+ImportState:
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+"apply_immediately",
+"identifier_prefix",
+},
+},
+},
+})
 }
 func TestAccDocDBClusterInstance_generatedName(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v docdb.DBInstance
-	resourceName := "aws_docdb_cluster_instance.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+var v docdb.DBInstance
+resourceName := "aws_docdb_cluster_instance.test"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckClusterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_generatedName(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					testAccCheckClusterInstanceAttributes(&v),
-					resource.TestMatchResourceAttr(resourceName, "identifier", regexache.MustCompile("^tf-")),
-				),
-			},
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckClusterDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccClusterInstanceConfig_generatedName(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+testAccCheckClusterInstanceAttributes(&v),
+resource.TestMatchResourceAttr(resourceName, "identifier", regexache.MustCompile("^tf-")),
+),
+},
 
-			{
-				ResourceName:ceName,
-				ImportState:
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
-	})
+{
+ResourceName:ceName,
+ImportState:
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+"apply_immediately",
+"identifier_prefix",
+},
+},
+},
+})
 }
 func TestAccDocDBClusterInstance_kmsKey(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v docdb.DBInstance
-	resourceName := "aws_docdb_cluster_instance.cluster_instances"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+var v docdb.DBInstance
+resourceName := "aws_docdb_cluster_instance.cluster_instances"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckClusterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_kmsKey(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", "aws_kms_key.foo", "arn"),
-				),
-			},
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckClusterDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccClusterInstanceConfig_kmsKey(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", "aws_kms_key.foo", "arn"),
+),
+},
 
-			{
-				ResourceName:ceName,
-				ImportState:
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
-	})
+{
+ResourceName:ceName,
+ImportState:
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+"apply_immediately",
+"identifier_prefix",
+},
+},
+},
+})
 }
 
 // https://github.com/hashicorp/terraform/issues/5350
 func TestAccDocDBClusterInstance_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var v docdb.DBInstance
-	resourceName := "aws_docdb_cluster_instance.cluster_instances"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+var v docdb.DBInstance
+resourceName := "aws_docdb_cluster_instance.cluster_instances"
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckClusterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					testAccClusterInstanceDisappears(ctx, &v),
-				),
-				// A non-empty plan is what we want. A crash is what we don't want. :)
-				ExpectNonEmptyPlan: true,
-			},
-		},
-	})
+resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckClusterDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccClusterInstanceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+testAccClusterInstanceDisappears(ctx, &v),
+),
+// A non-empty plan is what we want. A crash is what we don't want. :)
+ExpectNonEmptyPlan: true,
+},
+},
+})
 }
 func testAccCheckClusterInstanceAttributes(v *docdb.DBInstance) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		if *v.Engine != "docdb" {
-			return fmt.Errorf("bad engine, expected \"docdb\": %#v", *v.Engine)
-		}
+return func(s *terraform.State) error {
+if *v.Engine != "docdb" {
+return fmt.Errorf("bad engine, expected \"docdb\": %#v", *v.Engine)
+}
 
-		if !strings.HasPrefix(*v.DBClusterIdentifier, acctest.ResourcePrefix) {
-			return fmt.Errorf("Bad Cluster Identifier prefix:\nexpected: %s-*\ngot: %s", acctest.ResourcePrefix, *v.DBClusterIdentifier)
-		}
+if !strings.HasPrefix(*v.DBClusterIdentifier, acctest.ResourcePrefix) {
+return fmt.Errorf("Bad Cluster Identifier prefix:\nexpected: %s-*\ngot: %s", acctest.ResourcePrefix, *v.DBClusterIdentifier)
+}
 
-		return nil
-	}
+return nil
+}
 }
 func testAccClusterInstanceDisappears(ctx context.Context, v *docdb.DBInstance) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DocDBConn(ctx)
-		opts := &docdb.DeleteDBInstanceInput{
-			DBInstanceIdentifier: v.DBInstanceIdentifier,
-		}
-		if _, err := conn.DeleteDBInstanceWithContext(ctx, opts); err != nil {
-			return err
-		}
-		return retry.RetryContext(ctx, 40*time.Minute, func() *retry.RetryError {
-			opts := &docdb.DescribeDBInstancesInput{
-				DBInstanceIdentifier: v.DBInstanceIdentifier,
-			}
-			_, err := conn.DescribeDBInstancesWithContext(ctx, opts)
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, docdb.ErrCodeDBInstanceNotFoundFault) {
-					return nil
-				}
-				return retry.NonRetryableError(
-					fmt.Errorf("Error retrieving DB Instances: %s", err))
-			}
-			return retry.RetryableError(fmt.Errorf(
-				"Waiting for instance to be deleted: %v", v.DBInstanceIdentifier))
-		})
-	}
+return func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).DocDBConn(ctx)
+opts := &docdb.DeleteDBInstanceInput{
+DBInstanceIdentifier: v.DBInstanceIdentifier,
+}
+if _, err := conn.DeleteDBInstanceWithContext(ctx, opts); err != nil {
+return err
+}
+return retry.RetryContext(ctx, 40*time.Minute, func() *retry.RetryError {
+opts := &docdb.DescribeDBInstancesInput{
+DBInstanceIdentifier: v.DBInstanceIdentifier,
+}
+_, err := conn.DescribeDBInstancesWithContext(ctx, opts)
+if err != nil {
+if tfawserr.ErrCodeEquals(err, docdb.ErrCodeDBInstanceNotFoundFault) {
+return nil
+}
+return retry.NonRetryableError(
+fmt.Errorf("Error retrieving DB Instances: %s", err))
+}
+return retry.RetryableError(fmt.Errorf(
+"Waiting for instance to be deleted: %v", v.DBInstanceIdentifier))
+})
+}
 }
 func testAccCheckClusterInstanceExists(ctx context.Context, n string, v *docdb.DBInstance) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+return func(s *terraform.State) error {
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No DB Instance ID is set")
-		}
+if rs.Primary.ID == "" {
+return fmt.Errorf("No DB Instance ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DocDBConn(ctx)
-		resp, err := conn.DescribeDBInstancesWithContext(ctx, &docdb.DescribeDBInstancesInput{
-			DBInstanceIdentifier: aws.String(rs.Primary.ID),
-		})
+conn := acctest.Provider.Meta().(*conns.AWSClient).DocDBConn(ctx)
+resp, err := conn.DescribeDBInstancesWithContext(ctx, &docdb.DescribeDBInstancesInput{
+DBInstanceIdentifier: aws.String(rs.Primary.ID),
+})
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+return err
+}
 
-		for _, d := range resp.DBInstances {
-			if *d.DBInstanceIdentifier == rs.Primary.ID {
-				*v = *d
-				return nil
-			}
-		}
+for _, d := range resp.DBInstances {
+if *d.DBInstanceIdentifier == rs.Primary.ID {
+*v = *d
+return nil
+}
+}
 
-		return fmt.Errorf("DB Cluster (%s) not found", rs.Primary.ID)
-	}
+return fmt.Errorf("DB Cluster (%s) not found", rs.Primary.ID)
+}
 }
 
 // Add some random to the name, to avoid collision
 func testAccClusterInstanceConfig_basic(rName string) string {
-	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
+return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_docdb_cluster" "default" {
   cluster_identifier  = %[1]q
   availability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
@@ -361,7 +361,7 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
 `, rName))
 }
 func testAccClusterInstanceConfig_modified(rName string) string {
-	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
+return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_docdb_cluster" "default" {
   cluster_identifier  = %[1]q
   availability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
@@ -385,7 +385,7 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
 `, rName))
 }
 func testAccClusterInstanceConfig_performanceInsights(rName string) string {
-	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
+return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description = "Terraform acc test %[1]s"
 
@@ -395,14 +395,14 @@ resource "aws_kms_key" "test" {
   "Id": "kms-tf-1",
   "Statement": [
  {
-  	  "Sid": "Enable IAM User Permissions",
-	  "Effect": "Allow",
-	  "Principal": {
-	 "AWS": "*"
-	  },
-	  "Action": "kms:*",
-	  "Resource": "*"
-	}
+    "Sid": "Enable IAM User Permissions",
+  "Effect": "Allow",
+  "Principal": {
+ "AWS": "*"
+  },
+  "Action": "kms:*",
+  "Resource": "*"
+}
   ]
 }
 POLICY
@@ -431,7 +431,7 @@ resource "aws_docdb_cluster_instance" "test" {
 `, rName))
 }
 func testAccClusterInstanceConfig_az(rName string) string {
-	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
+return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_docdb_cluster" "default" {
   cluster_identifier  = %[1]q
   availability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
@@ -455,7 +455,7 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
 `, rName))
 }
 func testAccClusterInstanceConfig_namePrefix(rName, rNamePrefix string) string {
-	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
+return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 data "aws_docdb_orderable_db_instance" "test" {
   engineocdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
@@ -510,7 +510,7 @@ resource "aws_docdb_subnet_group" "test" {
 `, rName, rNamePrefix))
 }
 func testAccClusterInstanceConfig_generatedName(rName string) string {
-	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
+return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 data "aws_docdb_orderable_db_instance" "test" {
   engineocdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
@@ -564,7 +564,7 @@ resource "aws_docdb_subnet_group" "test" {
 `, rName))
 }
 func testAccClusterInstanceConfig_kmsKey(rName string) string {
-	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
+return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_kms_key" "foo" {
   description = "Terraform acc test %[1]s"
 

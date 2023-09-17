@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package codebuild
+packagecodebuild
 
-import (
+import(
 "context"
 
 "github.com/aws/aws-sdk-go/aws"
@@ -13,103 +13,103 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// FindReportGroupByARN returns the Report Group corresponding to the specified Arn.
+//FindReportGroupByARNreturnstheReportGroupcorrespondingtothespecifiedArn.
 
-func FindReportGroupByARN(ctx context.Context, conn *codebuild.CodeBuild, arn string) (*codebuild.ReportGroup, error) {
-output, err := conn.BatchGetReportGroupsWithContext(ctx, &codebuild.BatchGetReportGroupsInput{
-ReportGroupArns: aws.StringSlice([]string{arn}),
+funcFindReportGroupByARN(ctxcontext.Context,conn*codebuild.CodeBuild,arnstring)(*codebuild.ReportGroup,error){
+output,err:=conn.BatchGetReportGroupsWithContext(ctx,&codebuild.BatchGetReportGroupsInput{
+ReportGroupArns:aws.StringSlice([]string{arn}),
 })
-if err != nil {
-return nil, err
+iferr!=nil{
+returnnil,err
 }
 
-if output == nil {
-return nil, nil
+ifoutput==nil{
+returnnil,nil
 }
 
-if len(output.ReportGroups) == 0 {
-return nil, nil
+iflen(output.ReportGroups)==0{
+returnnil,nil
 }
 
-reportGroup := output.ReportGroups[0]
-if reportGroup == nil {
-return nil, nil
+reportGroup:=output.ReportGroups[0]
+ifreportGroup==nil{
+returnnil,nil
 }
 
-return reportGroup, nil
+returnreportGroup,nil
 }
 
-func FindProjectByARN(ctx context.Context, conn *codebuild.CodeBuild, arn string) (*codebuild.Project, error) {
-input := &codebuild.BatchGetProjectsInput{
-Names: []*string{aws.String(arn)},
+funcFindProjectByARN(ctxcontext.Context,conn*codebuild.CodeBuild,arnstring)(*codebuild.Project,error){
+input:=&codebuild.BatchGetProjectsInput{
+Names:[]*string{aws.String(arn)},
 }
 
-output, err := conn.BatchGetProjectsWithContext(ctx, input)
-if err != nil {
-return nil, err
+output,err:=conn.BatchGetProjectsWithContext(ctx,input)
+iferr!=nil{
+returnnil,err
 }
 
-if output == nil || len(output.Projects) == 0 || output.Projects[0] == nil {
-return nil, tfresource.NewEmptyResultError(input)
+ifoutput==nil||len(output.Projects)==0||output.Projects[0]==nil{
+returnnil,tfresource.NewEmptyResultError(input)
 }
 
-if count := len(output.Projects); count > 1 {
-return nil, tfresource.NewTooManyResultsError(count, input)
+ifcount:=len(output.Projects);count>1{
+returnnil,tfresource.NewTooManyResultsError(count,input)
 }
 
-return output.Projects[0], nil
+returnoutput.Projects[0],nil
 }
 
-func FindResourcePolicyByARN(ctx context.Context, conn *codebuild.CodeBuild, arn string) (*codebuild.GetResourcePolicyOutput, error) {
-input := &codebuild.GetResourcePolicyInput{
-ResourceArn: aws.String(arn),
+funcFindResourcePolicyByARN(ctxcontext.Context,conn*codebuild.CodeBuild,arnstring)(*codebuild.GetResourcePolicyOutput,error){
+input:=&codebuild.GetResourcePolicyInput{
+ResourceArn:aws.String(arn),
 }
 
-output, err := conn.GetResourcePolicyWithContext(ctx, input)
-if tfawserr.ErrMessageContains(err, codebuild.ErrCodeResourceNotFoundException, "Resource ARN does not exist") ||
-tfawserr.ErrMessageContains(err, codebuild.ErrCodeResourceNotFoundException, "Resource ARN resource policy does not exist") {
-return nil, &retry.NotFoundError{
-LastError:   err,
-LastRequest: input,
+output,err:=conn.GetResourcePolicyWithContext(ctx,input)
+iftfawserr.ErrMessageContains(err,codebuild.ErrCodeResourceNotFoundException,"ResourceARNdoesnotexist")||
+tfawserr.ErrMessageContains(err,codebuild.ErrCodeResourceNotFoundException,"ResourceARNresourcepolicydoesnotexist"){
+returnnil,&retry.NotFoundError{
+LastError:err,
+LastRequest:input,
 }
 }
 
-if err != nil {
-return nil, err
+iferr!=nil{
+returnnil,err
 }
 
-return output, nil
+returnoutput,nil
 }
 
-func FindSourceCredentialByARN(ctx context.Context, conn *codebuild.CodeBuild, arn string) (*codebuild.SourceCredentialsInfo, error) {
-var result *codebuild.SourceCredentialsInfo
-input := &codebuild.ListSourceCredentialsInput{}
-output, err := conn.ListSourceCredentialsWithContext(ctx, input)
-if err != nil {
-return nil, err
+funcFindSourceCredentialByARN(ctxcontext.Context,conn*codebuild.CodeBuild,arnstring)(*codebuild.SourceCredentialsInfo,error){
+varresult*codebuild.SourceCredentialsInfo
+input:=&codebuild.ListSourceCredentialsInput{}
+output,err:=conn.ListSourceCredentialsWithContext(ctx,input)
+iferr!=nil{
+returnnil,err
 }
 
-if output == nil {
-return nil, tfresource.NewEmptyResultError(input)
+ifoutput==nil{
+returnnil,tfresource.NewEmptyResultError(input)
 }
 
-for _, sourceCred := range output.SourceCredentialsInfos {
-if sourceCred == nil {
+for_,sourceCred:=rangeoutput.SourceCredentialsInfos{
+ifsourceCred==nil{
 continue
 }
 
-if aws.StringValue(sourceCred.Arn) == arn {
-result = sourceCred
+ifaws.StringValue(sourceCred.Arn)==arn{
+result=sourceCred
 break
 }
 }
 
-if result == nil {
-return nil, &retry.NotFoundError{
-LastError:   err,
-LastRequest: input,
+ifresult==nil{
+returnnil,&retry.NotFoundError{
+LastError:err,
+LastRequest:input,
 }
 }
 
-return result, nil
+returnresult,nil
 }

@@ -4,11 +4,11 @@
 package servicediscovery
 
 import (
-	"github.com/YakDriver/regexache"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+"github.com/YakDriver/regexache"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
 var validNamespaceName = validation.All(
-	validation.StringLenBetween(1, 1024),
-	validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z._-]+$`), ""),
+validation.StringLenBetween(1, 1024),
+validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z._-]+$`), ""),
 )

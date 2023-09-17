@@ -1,6 +1,6 @@
-package schemainfo
+packageschemainfo
 
-import (
+import(
 	"go/ast"
 	"reflect"
 
@@ -12,52 +12,52 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/schemamapcompositelit"
 )
 
-var Analyzer = &analysis.Analyzer{
-	Name: "schemainfo",
-	Doc:  "find github.com/hashicorp/terraform-plugin-sdk/helper/schema.Schema literals for later passes",
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:"schemainfo",
+	Doc:"findgithub.com/hashicorp/terraform-plugin-sdk/helper/schema.Schemaliteralsforlaterpasses",
+	Requires:[]*analysis.Analyzer{
 		inspect.Analyzer,
 		schemamapcompositelit.Analyzer,
 	},
-	Run:        run,
-	ResultType: reflect.TypeOf([]*schema.SchemaInfo{}),
+	Run:run,
+	ResultType:reflect.TypeOf([]*schema.SchemaInfo{}),
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
-	schemamapcompositelits := pass.ResultOf[schemamapcompositelit.Analyzer].([]*ast.CompositeLit)
-	nodeFilter := []ast.Node{
+run(pass*analysis.Pass)(interface{},error){
+	inspect:=pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	schemamapcompositelits:=pass.ResultOf[schemamapcompositelit.Analyzer].([]*ast.CompositeLit)
+	nodeFilter:=[]ast.Node{
 		(*ast.CompositeLit)(nil),
 	}
-	var result []*schema.SchemaInfo
+	varresult[]*schema.SchemaInfo
 
-	for _, smap := range schemamapcompositelits {
-		for _, mapSchema := range schema.GetSchemaMapSchemas(smap) {
-			result = append(result, schema.NewSchemaInfo(mapSchema, pass.TypesInfo))
+	for_,smap:=rangeschemamapcompositelits{
+		for_,mapSchema:=rangeschema.GetSchemaMapSchemas(smap){
+			result=append(result,schema.NewSchemaInfo(mapSchema,pass.TypesInfo))
 		}
 	}
 
-	inspect.Preorder(nodeFilter, 
-(n ast.Node) {
-		x := n.(*ast.CompositeLit)
+	inspect.Preorder(nodeFilter,
+(nast.Node){
+		x:=n.(*ast.CompositeLit)
 
-		if !isSchemaSchema(pass, x) {
+		if!isSchemaSchema(pass,x){
 			return
 		}
 
-		result = append(result, schema.NewSchemaInfo(x, pass.TypesInfo))
+		result=append(result,schema.NewSchemaInfo(x,pass.TypesInfo))
 	})
 
-	return result, nil
+	returnresult,nil
 
 
 
- isSchemaSchema(pass *analysis.Pass, cl *ast.CompositeLit) bool {
-	switch v := cl.Type.(type) {
+isSchemaSchema(pass*analysis.Pass,cl*ast.CompositeLit)bool{
+	switchv:=cl.Type.(type){
 	default:
-		return false
-	case *ast.SelectorExpr:
-		return schema.IsTypeSchema(pass.TypesInfo.TypeOf(v))
+		returnfalse
+	case*ast.SelectorExpr:
+		returnschema.IsTypeSchema(pass.TypesInfo.TypeOf(v))
 	}
 }

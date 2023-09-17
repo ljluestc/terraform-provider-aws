@@ -4,106 +4,106 @@
 package ds
 
 import (
-	"context"
+"context"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/directoryservice"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/directoryservice"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
 func statusDirectoryStage(ctx context.Context, conn *directoryservice.DirectoryService, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindDirectoryByID(ctx, conn, id)
+return func() (interface{}, string, error) {
+output, err := FindDirectoryByID(ctx, conn, id)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+if tfresource.NotFound(err) {
+return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+return nil, "", err
+}
 
-		return output, aws.StringValue(output.Stage), nil
-	}
+return output, aws.StringValue(output.Stage), nil
+}
 }
 
 func statusDirectoryShareStatus(ctx context.Context, conn *directoryservice.DirectoryService, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindDirectoryByID(ctx, conn, id)
+return func() (interface{}, string, error) {
+output, err := FindDirectoryByID(ctx, conn, id)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+if tfresource.NotFound(err) {
+return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+return nil, "", err
+}
 
-		return output, aws.StringValue(output.ShareStatus), nil
-	}
+return output, aws.StringValue(output.ShareStatus), nil
+}
 }
 
 func statusDomainController(ctx context.Context, conn *directoryservice.DirectoryService, directoryID, domainControllerID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindDomainController(ctx, conn, directoryID, domainControllerID)
+return func() (interface{}, string, error) {
+output, err := FindDomainController(ctx, conn, directoryID, domainControllerID)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+if tfresource.NotFound(err) {
+return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+return nil, "", err
+}
 
-		return output, aws.StringValue(output.Status), nil
-	}
+return output, aws.StringValue(output.Status), nil
+}
 }
 
 func statusRadius(ctx context.Context, conn *directoryservice.DirectoryService, directoryID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindDirectoryByID(ctx, conn, directoryID)
+return func() (interface{}, string, error) {
+output, err := FindDirectoryByID(ctx, conn, directoryID)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+if tfresource.NotFound(err) {
+return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+return nil, "", err
+}
 
-		return output, aws.StringValue(output.RadiusStatus), nil
-	}
+return output, aws.StringValue(output.RadiusStatus), nil
+}
 }
 
 func statusRegion(ctx context.Context, conn *directoryservice.DirectoryService, directoryID, regionName string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindRegion(ctx, conn, directoryID, regionName)
+return func() (interface{}, string, error) {
+output, err := FindRegion(ctx, conn, directoryID, regionName)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+if tfresource.NotFound(err) {
+return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+return nil, "", err
+}
 
-		return output, aws.StringValue(output.Status), nil
-	}
+return output, aws.StringValue(output.Status), nil
+}
 }
 
 func statusSharedDirectory(ctx context.Context, conn *directoryservice.DirectoryService, ownerDirectoryID, sharedDirectoryID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindSharedDirectory(ctx, conn, ownerDirectoryID, sharedDirectoryID)
+return func() (interface{}, string, error) {
+output, err := FindSharedDirectory(ctx, conn, ownerDirectoryID, sharedDirectoryID)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+if tfresource.NotFound(err) {
+return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+return nil, "", err
+}
 
-		return output, aws.StringValue(output.ShareStatus), nil
-	}
+return output, aws.StringValue(output.ShareStatus), nil
+}
 }

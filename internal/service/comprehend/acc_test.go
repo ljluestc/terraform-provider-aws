@@ -1,21 +1,21 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package comprehend_testimport (
-	"context"
-	"fmt"
-	"testing"	"github.com/aws/aws-sdk-go-v2/service/comprehend"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/id"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"context"
+"fmt"
+"testing""github.com/aws/aws-sdk-go-v2/service/comprehend"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/id"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-funcn := acctest.Provider.Meta().(*conns.AWSClient).ComprehendClient(ctx)	input := &comprehend.ListEntityRecognizersInput{}	_, err := conn.ListEntityRecognizers(ctx, input)	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
-	}	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
-	}
+funcn := acctest.Provider.Meta().(*conns.AWSClient).ComprehendClient(ctx)input := &comprehend.ListEntityRecognizersInput{}_, err := conn.ListEntityRecognizers(ctx, input)if acctest.PreCheckSkipError(err) {
+t.Skipf("skipping acceptance testing: %s", err)
+}if err != nil {
+t.Fatalf("unexpected PreCheck error: %s", err)
+}
 }
 func configVPCWithSubnetsAndDNS(rName string, subnetCount int) string {
 funcctest.ConfigAvailableAZsNoOptInDefaultExclude(),
-		fmt.Sprintf(`
+fmt.Sprintf(`
 resource "aws_vpc" "test" {
 cidr_block = "10.0.0.0/16"enable_dns_support= true
 enable_dns_hostnames = truetags = {
@@ -29,12 +29,12 @@ cidr_block= cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)tags = {
 }
 }
 `, rName, subnetCount),
-	)
+)
 }
 func uniqueIDPattern() string {
-	return prefixedUniqueIDPattern(id.UniqueIdPrefix)
+return prefixedUniqueIDPattern(id.UniqueIdPrefix)
 func
 func prefixedUniqueIDPattern(prefix string) string {
-	return fmt.Sprintf("%s[[:xdigit:]]{%d}", prefix, id.UniqueIDSuffixLength)
+return fmt.Sprintf("%s[[:xdigit:]]{%d}", prefix, id.UniqueIDSuffixLength)
 }
 func

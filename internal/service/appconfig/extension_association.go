@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package appconfig
+packageappconfig
 
-import (
+import(
 	"context"
 	"errors"
 
@@ -18,139 +18,139 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-const (
-	ResExtensionAssociation = "ExtensionAssociation"
+const(
+	ResExtensionAssociation="ExtensionAssociation"
 )
 
-// @SDKResource("aws_appconfig_extension_association")
-func ResourceExtensionAssociation() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceExtensionAssociationCreate,
-		ReadWithoutTimeout:   resourceExtensionAssociationRead,
-		UpdateWithoutTimeout: resourceExtensionAssociationUpdate,
-		DeleteWithoutTimeout: resourceExtensionAssociationDelete,
+//@SDKResource("aws_appconfig_extension_association")
+funcResourceExtensionAssociation()*schema.Resource{
+	return&schema.Resource{
+		CreateWithoutTimeout:resourceExtensionAssociationCreate,
+		ReadWithoutTimeout:resourceExtensionAssociationRead,
+		UpdateWithoutTimeout:resourceExtensionAssociationUpdate,
+		DeleteWithoutTimeout:resourceExtensionAssociationDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
+		Importer:&schema.ResourceImporter{
+			StateContext:schema.ImportStatePassthroughContext,
 		},
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type: schema.TypeString,
-				Computed: true,
+		Schema:map[string]*schema.Schema{
+			"arn":{
+				Type:schema.TypeString,
+				Computed:true,
 			},
-			"extension_arn": {
-				Type: schema.TypeString,
-				Required: true,
-				ForceNew: true,
+			"extension_arn":{
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 			},
-			"parameters": {
-				Type: schema.TypeMap,
-				Optional: true,
-				Elem: &schema.Schema{Type: schema.TypeString},
+			"parameters":{
+				Type:schema.TypeMap,
+				Optional:true,
+				Elem:&schema.Schema{Type:schema.TypeString},
 			},
-			"resource_arn": {
-				Type: schema.TypeString,
-				Required: true,
-				ForceNew: true,
+			"resource_arn":{
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 			},
-			"extension_version": {
-				Type: schema.TypeInt,
-				Computed: true,
+			"extension_version":{
+				Type:schema.TypeInt,
+				Computed:true,
 			},
 		},
 	}
 }
 
-func resourceExtensionAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
+funcresourceExtensionAssociationCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
 
-	in := appconfig.CreateExtensionAssociationInput{
-		ExtensionIdentifier: aws.String(d.Get("extension_arn").(string)),
-		ResourceIdentifier:  aws.String(d.Get("resource_arn").(string)),
+	in:=appconfig.CreateExtensionAssociationInput{
+		ExtensionIdentifier:aws.String(d.Get("extension_arn").(string)),
+		ResourceIdentifier:aws.String(d.Get("resource_arn").(string)),
 	}
 
-	if v, ok := d.GetOk("parameters"); ok {
-		in.Parameters = flex.ExpandStringMap(v.(map[string]interface{}))
+	ifv,ok:=d.GetOk("parameters");ok{
+		in.Parameters=flex.ExpandStringMap(v.(map[string]interface{}))
 	}
 
-	out, err := conn.CreateExtensionAssociationWithContext(ctx, &in)
+	out,err:=conn.CreateExtensionAssociationWithContext(ctx,&in)
 
-	if err != nil {
-		return create.DiagError(names.AppConfig, create.ErrActionCreating, ResExtensionAssociation, d.Get("extension_arn").(string), err)
+	iferr!=nil{
+		returncreate.DiagError(names.AppConfig,create.ErrActionCreating,ResExtensionAssociation,d.Get("extension_arn").(string),err)
 	}
 
-	if out == nil {
-		return create.DiagError(names.AppConfig, create.ErrActionCreating, ResExtensionAssociation, d.Get("extension_arn").(string), errors.New("No Extension Association returned with create request."))
+	ifout==nil{
+		returncreate.DiagError(names.AppConfig,create.ErrActionCreating,ResExtensionAssociation,d.Get("extension_arn").(string),errors.New("NoExtensionAssociationreturnedwithcreaterequest."))
 	}
 
 	d.SetId(aws.StringValue(out.Id))
 
-	return resourceExtensionAssociationRead(ctx, d, meta)
+	returnresourceExtensionAssociationRead(ctx,d,meta)
 }
 
-func resourceExtensionAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
+funcresourceExtensionAssociationRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
 
-	out, err := FindExtensionAssociationById(ctx, conn, d.Id())
+	out,err:=FindExtensionAssociationById(ctx,conn,d.Id())
 
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-		create.LogNotFoundRemoveState(names.AppConfig, create.ErrActionReading, ResExtensionAssociation, d.Id())
+	if!d.IsNewResource()&&tfresource.NotFound(err){
+		create.LogNotFoundRemoveState(names.AppConfig,create.ErrActionReading,ResExtensionAssociation,d.Id())
 		d.SetId("")
-		return nil
+		returnnil
 	}
 
-	if err != nil {
-		return create.DiagError(names.AppConfig, create.ErrActionReading, ResExtensionAssociation, d.Id(), err)
+	iferr!=nil{
+		returncreate.DiagError(names.AppConfig,create.ErrActionReading,ResExtensionAssociation,d.Id(),err)
 	}
 
-	d.Set("arn", out.Arn)
-	d.Set("extension_arn", out.ExtensionArn)
-	d.Set("parameters", out.Parameters)
-	d.Set("resource_arn", out.ResourceArn)
-	d.Set("extension_version", out.ExtensionVersionNumber)
+	d.Set("arn",out.Arn)
+	d.Set("extension_arn",out.ExtensionArn)
+	d.Set("parameters",out.Parameters)
+	d.Set("resource_arn",out.ResourceArn)
+	d.Set("extension_version",out.ExtensionVersionNumber)
 
-	return nil
+	returnnil
 }
 
-func resourceExtensionAssociationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
-	requestUpdate := false
+funcresourceExtensionAssociationUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
+	requestUpdate:=false
 
-	in := &appconfig.UpdateExtensionAssociationInput{
-		ExtensionAssociationId: aws.String(d.Id()),
+	in:=&appconfig.UpdateExtensionAssociationInput{
+		ExtensionAssociationId:aws.String(d.Id()),
 	}
 
-	if d.HasChange("parameters") {
-		in.Parameters = flex.ExpandStringMap(d.Get("parameters").(map[string]interface{}))
-		requestUpdate = true
+	ifd.HasChange("parameters"){
+		in.Parameters=flex.ExpandStringMap(d.Get("parameters").(map[string]interface{}))
+		requestUpdate=true
 	}
 
-	if requestUpdate {
-		out, err := conn.UpdateExtensionAssociationWithContext(ctx, in)
+	ifrequestUpdate{
+		out,err:=conn.UpdateExtensionAssociationWithContext(ctx,in)
 
-		if err != nil {
-			return create.DiagError(names.AppConfig, create.ErrActionWaitingForUpdate, ResExtensionAssociation, d.Id(), err)
+		iferr!=nil{
+			returncreate.DiagError(names.AppConfig,create.ErrActionWaitingForUpdate,ResExtensionAssociation,d.Id(),err)
 		}
 
-		if out == nil {
-			return create.DiagError(names.AppConfig, create.ErrActionWaitingForUpdate, ResExtensionAssociation, d.Id(), errors.New("No ExtensionAssociation returned with update request."))
+		ifout==nil{
+			returncreate.DiagError(names.AppConfig,create.ErrActionWaitingForUpdate,ResExtensionAssociation,d.Id(),errors.New("NoExtensionAssociationreturnedwithupdaterequest."))
 		}
 	}
 
-	return resourceExtensionAssociationRead(ctx, d, meta)
+	returnresourceExtensionAssociationRead(ctx,d,meta)
 }
 
-func resourceExtensionAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
+funcresourceExtensionAssociationDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
 
-	_, err := conn.DeleteExtensionAssociationWithContext(ctx, &appconfig.DeleteExtensionAssociationInput{
-		ExtensionAssociationId: aws.String(d.Id()),
+	_,err:=conn.DeleteExtensionAssociationWithContext(ctx,&appconfig.DeleteExtensionAssociationInput{
+		ExtensionAssociationId:aws.String(d.Id()),
 	})
 
-	if err != nil {
-		return create.DiagError(names.AppConfig, create.ErrActionDeleting, ResExtensionAssociation, d.Id(), err)
+	iferr!=nil{
+		returncreate.DiagError(names.AppConfig,create.ErrActionDeleting,ResExtensionAssociation,d.Id(),err)
 	}
 
-	return nil
+	returnnil
 }

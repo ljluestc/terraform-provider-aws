@@ -1,12 +1,12 @@
-package V007
+packageV007
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/analysisutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
 	"github.com/bflad/tfproviderlint/passes/helper/validation/validateregexpselectorexpr"
 )
 
-var Analyzer = analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(
+varAnalyzer=analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(
 	"V007",
 	validateregexpselectorexpr.Analyzer,
 	validation.PackagePath,

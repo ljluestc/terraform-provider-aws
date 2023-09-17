@@ -1,8 +1,8 @@
-// Package R002 defines an Analyzer that checks for
-// ResourceData.Set() calls using * dereferences
-package R002
+//PackageR002definesanAnalyzerthatchecksfor
+//ResourceData.Set()callsusing*dereferences
+packageR002
 
-import (
+import(
 	"go/ast"
 
 	"golang.org/x/tools/go/analysis"
@@ -11,45 +11,45 @@ import (
 	"github.com/bflad/tfproviderlint/passes/helper/schema/resourcedatasetcallexpr"
 )
 
-const Doc = `check for ResourceData.Set() calls using * dereferences
+constDoc=`checkforResourceData.Set()callsusing*dereferences
 
-The R002 analyzer reports likely extraneous uses of
-star (*) dereferences for a Set() call. The Set() 
-tion automatically
-handles pointers and * dereferences without nil checks can panic.`
+TheR002analyzerreportslikelyextraneoususesof
+star(*)dereferencesforaSet()call.TheSet()
+tionautomatically
+handlespointersand*dereferenceswithoutnilcheckscanpanic.`
 
-const analyzerName = "R002"
+constanalyzerName="R002"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
+varAnalyzer=&analysis.Analyzer{
+	Name:analyzerName,
+	Doc:Doc,
+	Requires:[]*analysis.Analyzer{
 		resourcedatasetcallexpr.Analyzer,
 		commentignore.Analyzer,
 	},
-	Run: run,
+	Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	sets := pass.ResultOf[resourcedatasetcallexpr.Analyzer].([]*ast.CallExpr)
-	for _, set := range sets {
-		if ignorer.ShouldIgnore(analyzerName, set) {
+run(pass*analysis.Pass)(interface{},error){
+	ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+	sets:=pass.ResultOf[resourcedatasetcallexpr.Analyzer].([]*ast.CallExpr)
+	for_,set:=rangesets{
+		ifignorer.ShouldIgnore(analyzerName,set){
 			continue
 		}
 
-		if len(set.Args) < 2 {
+		iflen(set.Args)<2{
 			continue
 		}
 
-		switch v := set.Args[1].(type) {
+		switchv:=set.Args[1].(type){
 		default:
 			continue
-		case *ast.StarExpr:
-			pass.Reportf(v.Pos(), "%s: ResourceData.Set() pointer value dereference is extraneous", analyzerName)
+		case*ast.StarExpr:
+			pass.Reportf(v.Pos(),"%s:ResourceData.Set()pointervaluedereferenceisextraneous",analyzerName)
 		}
 	}
 
-	return nil, nil
+	returnnil,nil
 }

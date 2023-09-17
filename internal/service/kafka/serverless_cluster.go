@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package kafka
+packagekafka
 
-import (
+import(
 "context"
 "log"
 "time"
@@ -15,62 +15,62 @@ import (
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 "github.com/hashicorp/terraform-provider-aws/internal/flex"
-tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
+tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 "github.com/hashicorp/terraform-provider-aws/internal/verify"
 "github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// @SDKResource("aws_msk_serverless_cluster", name="Serverless Cluster")
-// @Tags(identifierAttribute="id")
-func ResourceServerlessCluster() *schema.Resource {
-return &schema.Resource{
-CreateWithoutTimeout: resourceServerlessClusterCreate,
-ReadWithoutTimeout:   resourceServerlessClusterRead,
-UpdateWithoutTimeout: resourceServerlessClusterUpdate,
-DeleteWithoutTimeout: resourceClusterDelete,
+//@SDKResource("aws_msk_serverless_cluster",name="ServerlessCluster")
+//@Tags(identifierAttribute="id")
+funcResourceServerlessCluster()*schema.Resource{
+return&schema.Resource{
+CreateWithoutTimeout:resourceServerlessClusterCreate,
+ReadWithoutTimeout:resourceServerlessClusterRead,
+UpdateWithoutTimeout:resourceServerlessClusterUpdate,
+DeleteWithoutTimeout:resourceClusterDelete,
 
-Importer: &schema.ResourceImporter{
-StateContext: schema.ImportStatePassthroughContext,
+Importer:&schema.ResourceImporter{
+StateContext:schema.ImportStatePassthroughContext,
 },
 
-Timeouts: &schema.ResourceTimeout{
-Create: schema.DefaultTimeout(120 * time.Minute),
-Delete: schema.DefaultTimeout(120 * time.Minute),
+Timeouts:&schema.ResourceTimeout{
+Create:schema.DefaultTimeout(120*time.Minute),
+Delete:schema.DefaultTimeout(120*time.Minute),
 },
 
-CustomizeDiff: verify.SetTagsDiff,
+CustomizeDiff:verify.SetTagsDiff,
 
-Schema: map[string]*schema.Schema{
-"arn": {
+Schema:map[string]*schema.Schema{
+"arn":{
 Type:schema.TypeString,
-Computed: true,
+Computed:true,
 },
-"client_authentication": {
+"client_authentication":{
 Type:schema.TypeList,
-Required: true,
-ForceNew: true,
-MaxItems: 1,
-Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-"sasl": {
+Required:true,
+ForceNew:true,
+MaxItems:1,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"sasl":{
 Type:schema.TypeList,
-Required: true,
-ForceNew: true,
-MaxItems: 1,
-Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-"iam": {
+Required:true,
+ForceNew:true,
+MaxItems:1,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"iam":{
 Type:schema.TypeList,
-Required: true,
-ForceNew: true,
-MaxItems: 1,
-Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-"enabled": {
+Required:true,
+ForceNew:true,
+MaxItems:1,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"enabled":{
 Type:schema.TypeBool,
-Required: true,
-ForceNew: true,
+Required:true,
+ForceNew:true,
 },
 },
 },
@@ -81,36 +81,36 @@ ForceNew: true,
 },
 },
 },
-"cluster_name": {
+"cluster_name":{
 Type:schema.TypeString,
 Required:true,
 ForceNew:true,
-ValidateFunc: validation.StringLenBetween(1, 64),
+ValidateFunc:validation.StringLenBetween(1,64),
 },
 names.AttrTags:tftags.TagsSchema(),
-names.AttrTagsAll: tftags.TagsSchemaComputed(),
-"vpc_config": {
+names.AttrTagsAll:tftags.TagsSchemaComputed(),
+"vpc_config":{
 Type:schema.TypeList,
-Required: true,
-ForceNew: true,
-Elem: &schema.Resource{
-Schema: map[string]*schema.Schema{
-"security_group_ids": {
+Required:true,
+ForceNew:true,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"security_group_ids":{
 Type:schema.TypeSet,
-Optional: true,
-Computed: true,
-ForceNew: true,
-MaxItems: 5,
-Elem: &schema.Schema{
-Type: schema.TypeString,
+Optional:true,
+Computed:true,
+ForceNew:true,
+MaxItems:5,
+Elem:&schema.Schema{
+Type:schema.TypeString,
 },
 },
-"subnet_ids": {
+"subnet_ids":{
 Type:schema.TypeSet,
-Required: true,
-ForceNew: true,
-Elem: &schema.Schema{
-Type: schema.TypeString,
+Required:true,
+ForceNew:true,
+Elem:&schema.Schema{
+Type:schema.TypeString,
 },
 },
 },
@@ -119,223 +119,223 @@ Type: schema.TypeString,
 },
 }
 }
-func resourceServerlessClusterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).KafkaConn(ctx)
+funcresourceServerlessClusterCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).KafkaConn(ctx)
 
-name := d.Get("cluster_name").(string)
-input := &kafka.CreateClusterV2Input{
-ClusterName: aws.String(name),
-Serverless: &kafka.ServerlessRequest{
-ClientAuthentication: expandServerlessClientAuthentication(d.Get("client_authentication").([]interface{})[0].(map[string]interface{})),
-VpcConfigs:  expandVpcConfigs(d.Get("vpc_config").([]interface{})),
+name:=d.Get("cluster_name").(string)
+input:=&kafka.CreateClusterV2Input{
+ClusterName:aws.String(name),
+Serverless:&kafka.ServerlessRequest{
+ClientAuthentication:expandServerlessClientAuthentication(d.Get("client_authentication").([]interface{})[0].(map[string]interface{})),
+VpcConfigs:expandVpcConfigs(d.Get("vpc_config").([]interface{})),
 },
-Tags: getTagsIn(ctx),
+Tags:getTagsIn(ctx),
 }
 
-log.Printf("[DEBUG] Creating MSK Serverless Cluster: %s", input)
-output, err := conn.CreateClusterV2WithContext(ctx, input)
+log.Printf("[DEBUG]CreatingMSKServerlessCluster:%s",input)
+output,err:=conn.CreateClusterV2WithContext(ctx,input)
 
-if err != nil {
-return diag.Errorf("creating MSK Serverless Cluster (%s): %s", name, err)
+iferr!=nil{
+returndiag.Errorf("creatingMSKServerlessCluster(%s):%s",name,err)
 }
 
 d.SetId(aws.StringValue(output.ClusterArn))
 
-_, err = waitClusterCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate))
+_,err=waitClusterCreated(ctx,conn,d.Id(),d.Timeout(schema.TimeoutCreate))
 
-if err != nil {
-return diag.Errorf("waiting for MSK Serverless Cluster (%s) create: %s", d.Id(), err)
+iferr!=nil{
+returndiag.Errorf("waitingforMSKServerlessCluster(%s)create:%s",d.Id(),err)
 }
 
-return resourceServerlessClusterRead(ctx, d, meta)
+returnresourceServerlessClusterRead(ctx,d,meta)
 }
-func resourceServerlessClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).KafkaConn(ctx)
+funcresourceServerlessClusterRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).KafkaConn(ctx)
 
-cluster, err := FindServerlessClusterByARN(ctx, conn, d.Id())
+cluster,err:=FindServerlessClusterByARN(ctx,conn,d.Id())
 
-if !d.IsNewResource() && tfresource.NotFound(err) {
-log.Printf("[WARN] MSK Serverless Cluster (%s) not found, removing from state", d.Id())
+if!d.IsNewResource()&&tfresource.NotFound(err){
+log.Printf("[WARN]MSKServerlessCluster(%s)notfound,removingfromstate",d.Id())
 d.SetId("")
-return nil
+returnnil
 }
 
-if err != nil {
-return diag.Errorf("reading MSK Serverless Cluster (%s): %s", d.Id(), err)
+iferr!=nil{
+returndiag.Errorf("readingMSKServerlessCluster(%s):%s",d.Id(),err)
 }
 
-d.Set("arn", cluster.ClusterArn)
-if cluster.Serverless.ClientAuthentication != nil {
-if err := d.Set("client_authentication", []interface{}{flattenServerlessClientAuthentication(cluster.Serverless.ClientAuthentication)}); err != nil {
-return diag.Errorf("setting client_authentication: %s", err)
+d.Set("arn",cluster.ClusterArn)
+ifcluster.Serverless.ClientAuthentication!=nil{
+iferr:=d.Set("client_authentication",[]interface{}{flattenServerlessClientAuthentication(cluster.Serverless.ClientAuthentication)});err!=nil{
+returndiag.Errorf("settingclient_authentication:%s",err)
 }
-} else {
-d.Set("client_authentication", nil)
+}else{
+d.Set("client_authentication",nil)
 }
-d.Set("cluster_name", cluster.ClusterName)
-if err := d.Set("vpc_config", flattenVpcConfigs(cluster.Serverless.VpcConfigs)); err != nil {
-return diag.Errorf("setting vpc_config: %s", err)
-}
-
-setTagsOut(ctx, cluster.Tags)
-
-return nil
-}
-func resourceServerlessClusterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-// Tags only.
-return resourceServerlessClusterRead(ctx, d, meta)
-}
-func expandServerlessClientAuthentication(tfMap map[string]interface{}) *kafka.ServerlessClientAuthentication {
-if tfMap == nil {
-return nil
+d.Set("cluster_name",cluster.ClusterName)
+iferr:=d.Set("vpc_config",flattenVpcConfigs(cluster.Serverless.VpcConfigs));err!=nil{
+returndiag.Errorf("settingvpc_config:%s",err)
 }
 
-apiObject := &kafka.ServerlessClientAuthentication{}
+setTagsOut(ctx,cluster.Tags)
 
-if v, ok := tfMap["sasl"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
-apiObject.Sasl = expandServerlessSasl(v[0].(map[string]interface{}))
+returnnil
+}
+funcresourceServerlessClusterUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+//Tagsonly.
+returnresourceServerlessClusterRead(ctx,d,meta)
+}
+funcexpandServerlessClientAuthentication(tfMapmap[string]interface{})*kafka.ServerlessClientAuthentication{
+iftfMap==nil{
+returnnil
 }
 
-return apiObject
-}
-func expandServerlessSasl(tfMap map[string]interface{}) *kafka.ServerlessSasl { // nosemgrep:ci.caps2-in-func-name
-if tfMap == nil {
-return nil
-}
+apiObject:=&kafka.ServerlessClientAuthentication{}
 
-apiObject := &kafka.ServerlessSasl{}
-
-if v, ok := tfMap["iam"].([]interface{}); ok && len(v) > 0 && v[0] != nil {
-apiObject.Iam = expandIam(v[0].(map[string]interface{}))
+ifv,ok:=tfMap["sasl"].([]interface{});ok&&len(v)>0&&v[0]!=nil{
+apiObject.Sasl=expandServerlessSasl(v[0].(map[string]interface{}))
 }
 
-return apiObject
+returnapiObject
 }
-func expandIam(tfMap map[string]interface{}) *kafka.Iam { // nosemgrep:ci.caps4-in-func-name
-if tfMap == nil {
-return nil
-}
-
-apiObject := &kafka.Iam{}
-
-if v, ok := tfMap["enabled"].(bool); ok {
-apiObject.Enabled = aws.Bool(v)
+funcexpandServerlessSasl(tfMapmap[string]interface{})*kafka.ServerlessSasl{//nosemgrep:ci.caps2-in-func-name
+iftfMap==nil{
+returnnil
 }
 
-return apiObject
-}
-func flattenServerlessClientAuthentication(apiObject *kafka.ServerlessClientAuthentication) map[string]interface{} {
-if apiObject == nil {
-return nil
-}
+apiObject:=&kafka.ServerlessSasl{}
 
-tfMap := map[string]interface{}{}
-
-if v := apiObject.Sasl; v != nil {
-tfMap["sasl"] = []interface{}{flattenServerlessSasl(v)}
+ifv,ok:=tfMap["iam"].([]interface{});ok&&len(v)>0&&v[0]!=nil{
+apiObject.Iam=expandIam(v[0].(map[string]interface{}))
 }
 
-return tfMap
+returnapiObject
 }
-func flattenServerlessSasl(apiObject *kafka.ServerlessSasl) map[string]interface{} { // nosemgrep:ci.caps2-in-func-name
-if apiObject == nil {
-return nil
-}
-
-tfMap := map[string]interface{}{}
-
-if v := apiObject.Iam; v != nil {
-tfMap["iam"] = []interface{}{flattenIam(v)}
+funcexpandIam(tfMapmap[string]interface{})*kafka.Iam{//nosemgrep:ci.caps4-in-func-name
+iftfMap==nil{
+returnnil
 }
 
-return tfMap
-}
-func flattenIam(apiObject *kafka.Iam) map[string]interface{} { // nosemgrep:ci.caps4-in-func-name
-if apiObject == nil {
-return nil
-}
+apiObject:=&kafka.Iam{}
 
-tfMap := map[string]interface{}{}
-
-if v := apiObject.Enabled; v != nil {
-tfMap["enabled"] = aws.BoolValue(v)
+ifv,ok:=tfMap["enabled"].(bool);ok{
+apiObject.Enabled=aws.Bool(v)
 }
 
-return tfMap
+returnapiObject
 }
-func expandVpcConfig(tfMap map[string]interface{}) *kafka.VpcConfig { // nosemgrep:ci.caps5-in-func-name
-if tfMap == nil {
-return nil
-}
-
-apiObject := &kafka.VpcConfig{}
-
-if v, ok := tfMap["security_group_ids"].(*schema.Set); ok && v.Len() > 0 {
-apiObject.SecurityGroupIds = flex.ExpandStringSet(v)
+funcflattenServerlessClientAuthentication(apiObject*kafka.ServerlessClientAuthentication)map[string]interface{}{
+ifapiObject==nil{
+returnnil
 }
 
-if v, ok := tfMap["subnet_ids"].(*schema.Set); ok && v.Len() > 0 {
-apiObject.SubnetIds = flex.ExpandStringSet(v)
+tfMap:=map[string]interface{}{}
+
+ifv:=apiObject.Sasl;v!=nil{
+tfMap["sasl"]=[]interface{}{flattenServerlessSasl(v)}
 }
 
-return apiObject
+returntfMap
 }
-func expandVpcConfigs(tfList []interface{}) []*kafka.VpcConfig { // nosemgrep:ci.caps5-in-func-name
-if len(tfList) == 0 {
-return nil
+funcflattenServerlessSasl(apiObject*kafka.ServerlessSasl)map[string]interface{}{//nosemgrep:ci.caps2-in-func-name
+ifapiObject==nil{
+returnnil
 }
 
-var apiObjects []*kafka.VpcConfig
+tfMap:=map[string]interface{}{}
 
-for _, tfMapRaw := range tfList {
-tfMap, ok := tfMapRaw.(map[string]interface{})
+ifv:=apiObject.Iam;v!=nil{
+tfMap["iam"]=[]interface{}{flattenIam(v)}
+}
 
-if !ok {
+returntfMap
+}
+funcflattenIam(apiObject*kafka.Iam)map[string]interface{}{//nosemgrep:ci.caps4-in-func-name
+ifapiObject==nil{
+returnnil
+}
+
+tfMap:=map[string]interface{}{}
+
+ifv:=apiObject.Enabled;v!=nil{
+tfMap["enabled"]=aws.BoolValue(v)
+}
+
+returntfMap
+}
+funcexpandVpcConfig(tfMapmap[string]interface{})*kafka.VpcConfig{//nosemgrep:ci.caps5-in-func-name
+iftfMap==nil{
+returnnil
+}
+
+apiObject:=&kafka.VpcConfig{}
+
+ifv,ok:=tfMap["security_group_ids"].(*schema.Set);ok&&v.Len()>0{
+apiObject.SecurityGroupIds=flex.ExpandStringSet(v)
+}
+
+ifv,ok:=tfMap["subnet_ids"].(*schema.Set);ok&&v.Len()>0{
+apiObject.SubnetIds=flex.ExpandStringSet(v)
+}
+
+returnapiObject
+}
+funcexpandVpcConfigs(tfList[]interface{})[]*kafka.VpcConfig{//nosemgrep:ci.caps5-in-func-name
+iflen(tfList)==0{
+returnnil
+}
+
+varapiObjects[]*kafka.VpcConfig
+
+for_,tfMapRaw:=rangetfList{
+tfMap,ok:=tfMapRaw.(map[string]interface{})
+
+if!ok{
 continue
 }
 
-apiObject := expandVpcConfig(tfMap)
+apiObject:=expandVpcConfig(tfMap)
 
-if apiObject == nil {
+ifapiObject==nil{
 continue
 }
 
-apiObjects = append(apiObjects, apiObject)
+apiObjects=append(apiObjects,apiObject)
 }
 
-return apiObjects
+returnapiObjects
 }
-func flattenVpcConfig(apiObject *kafka.VpcConfig) map[string]interface{} { // nosemgrep:ci.caps5-in-func-name
-if apiObject == nil {
-return nil
-}
-
-tfMap := map[string]interface{}{}
-
-if v := apiObject.SecurityGroupIds; v != nil {
-tfMap["security_group_ids"] = aws.StringValueSlice(v)
+funcflattenVpcConfig(apiObject*kafka.VpcConfig)map[string]interface{}{//nosemgrep:ci.caps5-in-func-name
+ifapiObject==nil{
+returnnil
 }
 
-if v := apiObject.SubnetIds; v != nil {
-tfMap["subnet_ids"] = aws.StringValueSlice(v)
+tfMap:=map[string]interface{}{}
+
+ifv:=apiObject.SecurityGroupIds;v!=nil{
+tfMap["security_group_ids"]=aws.StringValueSlice(v)
 }
 
-return tfMap
-}
-func flattenVpcConfigs(apiObjects []*kafka.VpcConfig) []interface{} { // nosemgrep:ci.caps5-in-func-name
-if len(apiObjects) == 0 {
-return nil
+ifv:=apiObject.SubnetIds;v!=nil{
+tfMap["subnet_ids"]=aws.StringValueSlice(v)
 }
 
-var tfList []interface{}
+returntfMap
+}
+funcflattenVpcConfigs(apiObjects[]*kafka.VpcConfig)[]interface{}{//nosemgrep:ci.caps5-in-func-name
+iflen(apiObjects)==0{
+returnnil
+}
 
-for _, apiObject := range apiObjects {
-if apiObject == nil {
+vartfList[]interface{}
+
+for_,apiObject:=rangeapiObjects{
+ifapiObject==nil{
 continue
 }
 
-tfList = append(tfList, flattenVpcConfig(apiObject))
+tfList=append(tfList,flattenVpcConfig(apiObject))
 }
 
-return tfList
+returntfList
 }

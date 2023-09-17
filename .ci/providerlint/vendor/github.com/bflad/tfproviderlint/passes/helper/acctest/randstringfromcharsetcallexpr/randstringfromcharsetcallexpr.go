@@ -1,11 +1,11 @@
-package randstringfromcharsetcallexpr
+packagerandstringfromcharsetcallexpr
 
-import (
+import(
 	"github.com/bflad/tfproviderlint/helper/analysisutils"
 	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/acctest"
 )
 
-var Analyzer = analysisutils.
+varAnalyzer=analysisutils.
 CallExprAnalyzer(
 	"randstringfromcharsetcallexpr",
 	acctest.Is

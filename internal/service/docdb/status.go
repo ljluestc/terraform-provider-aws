@@ -1,105 +1,105 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package docdb
+packagedocdb
 
-import (
-	"context"
-	"fmt"
+import(
+"context"
+"fmt"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/docdb"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/docdb"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-func statusGlobalClusterRefreshFunc(ctx context.Context, conn *docdb.DocDB, globalClusterID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		globalCluster, err := FindGlobalClusterById(ctx, conn, globalClusterID)
+funcstatusGlobalClusterRefreshFunc(ctxcontext.Context,conn*docdb.DocDB,globalClusterIDstring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+globalCluster,err:=FindGlobalClusterById(ctx,conn,globalClusterID)
 
-		if tfawserr.ErrCodeEquals(err, docdb.ErrCodeGlobalClusterNotFoundFault) || globalCluster == nil {
-			return nil, GlobalClusterStatusDeleted, nil
-		}
-
-		if err != nil {
-			return nil, "", fmt.Errorf("reading DocumentDB Global Cluster (%s): %w", globalClusterID, err)
-		}
-
-		return globalCluster, aws.StringValue(globalCluster.Status), nil
-	}
+iftfawserr.ErrCodeEquals(err,docdb.ErrCodeGlobalClusterNotFoundFault)||globalCluster==nil{
+returnnil,GlobalClusterStatusDeleted,nil
 }
-func statusDBClusterRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBClusterID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		dBCluster, err := FindDBClusterById(ctx, conn, dBClusterID)
 
-		if tfawserr.ErrCodeEquals(err, docdb.ErrCodeDBClusterNotFoundFault) || dBCluster == nil {
-			return nil, DBClusterStatusDeleted, nil
-		}
-
-		if err != nil {
-			return nil, "", fmt.Errorf("reading DocumentDB Cluster (%s): %w", dBClusterID, err)
-		}
-
-		return dBCluster, aws.StringValue(dBCluster.Status), nil
-	}
+iferr!=nil{
+returnnil,"",fmt.Errorf("readingDocumentDBGlobalCluster(%s):%w",globalClusterID,err)
 }
-func statusDBClusterSnapshotRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBClusterSnapshotID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		dBClusterSnapshot, err := FindDBClusterSnapshotById(ctx, conn, dBClusterSnapshotID)
 
-		if tfawserr.ErrCodeEquals(err, docdb.ErrCodeDBClusterSnapshotNotFoundFault) || dBClusterSnapshot == nil {
-			return nil, DBClusterSnapshotStatusDeleted, nil
-		}
-
-		if err != nil {
-			return nil, "", fmt.Errorf("reading DocumentDB Cluster Snapshot (%s): %w", dBClusterSnapshotID, err)
-		}
-
-		return dBClusterSnapshot, aws.StringValue(dBClusterSnapshot.Status), nil
-	}
+returnglobalCluster,aws.StringValue(globalCluster.Status),nil
 }
-func statusDBInstanceRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBInstanceID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		dBInstance, err := FindDBInstanceById(ctx, conn, dBInstanceID)
-
-		if tfawserr.ErrCodeEquals(err, docdb.ErrCodeDBInstanceNotFoundFault) || dBInstance == nil {
-			return nil, DBInstanceStatusDeleted, nil
-		}
-
-		if err != nil {
-			return nil, "", fmt.Errorf("reading DocumentDB Instance (%s): %w", dBInstanceID, err)
-		}
-
-		return dBInstance, aws.StringValue(dBInstance.DBInstanceStatus), nil
-	}
 }
-func statusDBSubnetGroupRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBSubnetGroupName string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		dBSubnetGroup, err := FindDBSubnetGroupByName(ctx, conn, dBSubnetGroupName)
+funcstatusDBClusterRefreshFunc(ctxcontext.Context,conn*docdb.DocDB,dBClusterIDstring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+dBCluster,err:=FindDBClusterById(ctx,conn,dBClusterID)
 
-		if tfawserr.ErrCodeEquals(err, docdb.ErrCodeDBSubnetGroupNotFoundFault) || dBSubnetGroup == nil {
-			return nil, DBSubnetGroupStatusDeleted, nil
-		}
-
-		if err != nil {
-			return nil, "", fmt.Errorf("reading DocumentDB Subnet Group (%s): %w", dBSubnetGroupName, err)
-		}
-
-		return dBSubnetGroup, aws.StringValue(dBSubnetGroup.SubnetGroupStatus), nil
-	}
+iftfawserr.ErrCodeEquals(err,docdb.ErrCodeDBClusterNotFoundFault)||dBCluster==nil{
+returnnil,DBClusterStatusDeleted,nil
 }
-func statusEventSubscription(ctx context.Context, conn *docdb.DocDB, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-		output, err := FindEventSubscriptionByID(ctx, conn, id)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+iferr!=nil{
+returnnil,"",fmt.Errorf("readingDocumentDBCluster(%s):%w",dBClusterID,err)
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+returndBCluster,aws.StringValue(dBCluster.Status),nil
+}
+}
+funcstatusDBClusterSnapshotRefreshFunc(ctxcontext.Context,conn*docdb.DocDB,dBClusterSnapshotIDstring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+dBClusterSnapshot,err:=FindDBClusterSnapshotById(ctx,conn,dBClusterSnapshotID)
 
-		return output, aws.StringValue(output.Status), nil
-	}
+iftfawserr.ErrCodeEquals(err,docdb.ErrCodeDBClusterSnapshotNotFoundFault)||dBClusterSnapshot==nil{
+returnnil,DBClusterSnapshotStatusDeleted,nil
+}
+
+iferr!=nil{
+returnnil,"",fmt.Errorf("readingDocumentDBClusterSnapshot(%s):%w",dBClusterSnapshotID,err)
+}
+
+returndBClusterSnapshot,aws.StringValue(dBClusterSnapshot.Status),nil
+}
+}
+funcstatusDBInstanceRefreshFunc(ctxcontext.Context,conn*docdb.DocDB,dBInstanceIDstring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+dBInstance,err:=FindDBInstanceById(ctx,conn,dBInstanceID)
+
+iftfawserr.ErrCodeEquals(err,docdb.ErrCodeDBInstanceNotFoundFault)||dBInstance==nil{
+returnnil,DBInstanceStatusDeleted,nil
+}
+
+iferr!=nil{
+returnnil,"",fmt.Errorf("readingDocumentDBInstance(%s):%w",dBInstanceID,err)
+}
+
+returndBInstance,aws.StringValue(dBInstance.DBInstanceStatus),nil
+}
+}
+funcstatusDBSubnetGroupRefreshFunc(ctxcontext.Context,conn*docdb.DocDB,dBSubnetGroupNamestring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+dBSubnetGroup,err:=FindDBSubnetGroupByName(ctx,conn,dBSubnetGroupName)
+
+iftfawserr.ErrCodeEquals(err,docdb.ErrCodeDBSubnetGroupNotFoundFault)||dBSubnetGroup==nil{
+returnnil,DBSubnetGroupStatusDeleted,nil
+}
+
+iferr!=nil{
+returnnil,"",fmt.Errorf("readingDocumentDBSubnetGroup(%s):%w",dBSubnetGroupName,err)
+}
+
+returndBSubnetGroup,aws.StringValue(dBSubnetGroup.SubnetGroupStatus),nil
+}
+}
+funcstatusEventSubscription(ctxcontext.Context,conn*docdb.DocDB,idstring)retry.StateRefreshFunc{
+returnfunc()(interface{},string,error){
+output,err:=FindEventSubscriptionByID(ctx,conn,id)
+
+iftfresource.NotFound(err){
+returnnil,"",nil
+}
+
+iferr!=nil{
+returnnil,"",err
+}
+
+returnoutput,aws.StringValue(output.Status),nil
+}
 }

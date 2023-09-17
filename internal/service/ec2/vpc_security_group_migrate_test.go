@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package ec2_testimport ("testing""github.com/hashicorp/terraform-plugin-sdk/v2/terraform"tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2")
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageec2_testimport("testing""github.com/hashicorp/terraform-plugin-sdk/v2/terraform"tfec2"github.com/hashicorp/terraform-provider-aws/internal/service/ec2")

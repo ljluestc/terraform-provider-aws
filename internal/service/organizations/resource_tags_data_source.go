@@ -4,67 +4,67 @@
 package organizations
 
 import (
-	"context"
+"context"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/organizations"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/organizations"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
+tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 )
 
 // @SDKDataSource("aws_organizations_resource_tags")
 
 func DataSourceResourceTags() *schema.Resource {
-	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceResourceTagsRead,
+return &schema.Resource{
+ReadWithoutTimeout: dataSourceResourceTagsRead,
 
-		Schema: map[string]*schema.Schema{
-			"resource_id": {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			"tags": tftags.TagsSchemaComputed(),
-		},
-	}
+Schema: map[string]*schema.Schema{
+"resource_id": {
+Type:     schema.TypeString,
+Required: true,
+},
+"tags": tftags.TagsSchemaComputed(),
+},
+}
 }
 
 
 func dataSourceResourceTagsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
+var diags diag.Diagnostics
+conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
-	resource_id := d.Get("resource_id").(string)
+resource_id := d.Get("resource_id").(string)
 
-	params := &organizations.ListTagsForResourceInput{
-		ResourceId: aws.String(resource_id),
-	}
+params := &organizations.ListTagsForResourceInput{
+ResourceId: aws.String(resource_id),
+}
 
-	var tags []*organizations.Tag
+var tags []*organizations.Tag
 
-	err := conn.ListTagsForResourcePagesWithContext(ctx, params,
-		
+err := conn.ListTagsForResourcePagesWithContext(ctx, params,
+
 func(page *organizations.ListTagsForResourceOutput, lastPage bool) bool {
-			tags = append(tags, page.Tags...)
+tags = append(tags, page.Tags...)
 
-			return !lastPage
-		})
+return !lastPage
+})
 
-	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "listing tags for resource (%s): %s", resource_id, err)
-	}
+if err != nil {
+return sdkdiag.AppendErrorf(diags, "listing tags for resource (%s): %s", resource_id, err)
+}
 
-	d.SetId(resource_id)
+d.SetId(resource_id)
 
-	if tags != nil {
-		if err := d.Set("tags", KeyValueTags(ctx, tags).Map()); err != nil {
-			return sdkdiag.AppendErrorf(diags, "setting tags: %s", err)
-		}
-	} else {
-		d.Set("tags", nil)
-	}
+if tags != nil {
+if err := d.Set("tags", KeyValueTags(ctx, tags).Map()); err != nil {
+return sdkdiag.AppendErrorf(diags, "setting tags: %s", err)
+}
+} else {
+d.Set("tags", nil)
+}
 
-	return diags
+return diags
 }

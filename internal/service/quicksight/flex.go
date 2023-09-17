@@ -1,117 +1,117 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package quicksight
+packagequicksight
 
-import (
+import(
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/quicksight"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 )
 
-func expandResourcePermissions(tfList []interface{}) []*quicksight.ResourcePermission {
-	permissions := make([]*quicksight.ResourcePermission, len(tfList))
+funcexpandResourcePermissions(tfList[]interface{})[]*quicksight.ResourcePermission{
+	permissions:=make([]*quicksight.ResourcePermission,len(tfList))
 
-	for i, tfListRaw := range tfList {
-		tfMap := tfListRaw.(map[string]interface{})
+	fori,tfListRaw:=rangetfList{
+		tfMap:=tfListRaw.(map[string]interface{})
 
-		permission := &quicksight.ResourcePermission{
-			Actions:   flex.ExpandStringSet(tfMap["actions"].(*schema.Set)),
-			Principal: aws.String(tfMap["principal"].(string)),
+		permission:=&quicksight.ResourcePermission{
+			Actions:flex.ExpandStringSet(tfMap["actions"].(*schema.Set)),
+			Principal:aws.String(tfMap["principal"].(string)),
 		}
 
-		permissions[i] = permission
+		permissions[i]=permission
 	}
-	return permissions
+	returnpermissions
 }
 
-func DiffPermissions(o, n []interface{}) ([]*quicksight.ResourcePermission, []*quicksight.ResourcePermission) {
-	old := expandResourcePermissions(o)
-	new := expandResourcePermissions(n)
+funcDiffPermissions(o,n[]interface{})([]*quicksight.ResourcePermission,[]*quicksight.ResourcePermission){
+	old:=expandResourcePermissions(o)
+	new:=expandResourcePermissions(n)
 
-	var toGrant, toRevoke []*quicksight.ResourcePermission
+	vartoGrant,toRevoke[]*quicksight.ResourcePermission
 
-	for _, op := range old {
-		found := false
+	for_,op:=rangeold{
+		found:=false
 
-		for _, np := range new {
-			if aws.StringValue(np.Principal) != aws.StringValue(op.Principal) {
+		for_,np:=rangenew{
+			ifaws.StringValue(np.Principal)!=aws.StringValue(op.Principal){
 				continue
 			}
 
-			found = true
-			newActions := flex.FlattenStringSet(np.Actions)
-			oldActions := flex.FlattenStringSet(op.Actions)
+			found=true
+			newActions:=flex.FlattenStringSet(np.Actions)
+			oldActions:=flex.FlattenStringSet(op.Actions)
 
-			if newActions.Equal(oldActions) {
+			ifnewActions.Equal(oldActions){
 				break
 			}
 
-			toRemove := oldActions.Difference(newActions)
+			toRemove:=oldActions.Difference(newActions)
 
-			if toRemove.Len() > 0 {
-				toRevoke = append(toRevoke, &quicksight.ResourcePermission{
-					Actions:   flex.ExpandStringSet(toRemove),
-					Principal: np.Principal,
+			iftoRemove.Len()>0{
+				toRevoke=append(toRevoke,&quicksight.ResourcePermission{
+					Actions:flex.ExpandStringSet(toRemove),
+					Principal:np.Principal,
 				})
 			}
 
-			if newActions.Len() > 0 {
-				toGrant = append(toGrant, &quicksight.ResourcePermission{
-					Actions:   flex.ExpandStringSet(newActions),
-					Principal: np.Principal,
+			ifnewActions.Len()>0{
+				toGrant=append(toGrant,&quicksight.ResourcePermission{
+					Actions:flex.ExpandStringSet(newActions),
+					Principal:np.Principal,
 				})
 			}
 		}
 
-		if !found {
-			toRevoke = append(toRevoke, op)
+		if!found{
+			toRevoke=append(toRevoke,op)
 		}
 	}
 
-	for _, np := range new {
-		found := false
+	for_,np:=rangenew{
+		found:=false
 
-		for _, op := range old {
-			if aws.StringValue(np.Principal) == aws.StringValue(op.Principal) {
-				found = true
+		for_,op:=rangeold{
+			ifaws.StringValue(np.Principal)==aws.StringValue(op.Principal){
+				found=true
 				break
 			}
 		}
 
-		if !found {
-			toGrant = append(toGrant, np)
+		if!found{
+			toGrant=append(toGrant,np)
 		}
 	}
 
-	return toGrant, toRevoke
+	returntoGrant,toRevoke
 }
 
-func flattenPermissions(perms []*quicksight.ResourcePermission) []interface{} {
-	if len(perms) == 0 {
-		return []interface{}{}
+funcflattenPermissions(perms[]*quicksight.ResourcePermission)[]interface{}{
+	iflen(perms)==0{
+		return[]interface{}{}
 	}
 
-	values := make([]interface{}, 0)
+	values:=make([]interface{},0)
 
-	for _, p := range perms {
-		if p == nil {
+	for_,p:=rangeperms{
+		ifp==nil{
 			continue
 		}
 
-		perm := make(map[string]interface{})
+		perm:=make(map[string]interface{})
 
-		if p.Principal != nil {
-			perm["principal"] = aws.StringValue(p.Principal)
+		ifp.Principal!=nil{
+			perm["principal"]=aws.StringValue(p.Principal)
 		}
 
-		if p.Actions != nil {
-			perm["actions"] = flex.FlattenStringList(p.Actions)
+		ifp.Actions!=nil{
+			perm["actions"]=flex.FlattenStringList(p.Actions)
 		}
 
-		values = append(values, perm)
+		values=append(values,perm)
 	}
 
-	return values
+	returnvalues
 }

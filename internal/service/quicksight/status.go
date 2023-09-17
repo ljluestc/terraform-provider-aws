@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package quicksight
+packagequicksight
 
-import (
+import(
 	"context"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -12,103 +12,103 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-// status fetches the DataSource and its Status
+//statusfetchestheDataSourceanditsStatus
 
-func status(ctx context.Context, conn *quicksight.QuickSight, accountId, datasourceId string) retry.StateRefresh
-func {
-	return 
-func() (interface{}, string, error) {
-		input := &quicksight.DescribeDataSourceInput{
-			AwsAccountId: aws.String(accountId),
-			DataSourceId: aws.String(datasourceId),
+funcstatus(ctxcontext.Context,conn*quicksight.QuickSight,accountId,datasourceIdstring)retry.StateRefresh
+func{
+	return
+func()(interface{},string,error){
+		input:=&quicksight.DescribeDataSourceInput{
+			AwsAccountId:aws.String(accountId),
+			DataSourceId:aws.String(datasourceId),
 		}
 
-		output, err := conn.DescribeDataSourceWithContext(ctx, input)
+		output,err:=conn.DescribeDataSourceWithContext(ctx,input)
 
-		if err != nil {
-			return nil, "", err
+		iferr!=nil{
+			returnnil,"",err
 		}
 
-		if output == nil || output.DataSource == nil {
-			return nil, "", nil
+		ifoutput==nil||output.DataSource==nil{
+			returnnil,"",nil
 		}
 
-		return output.DataSource, aws.StringValue(output.DataSource.Status), nil
+		returnoutput.DataSource,aws.StringValue(output.DataSource.Status),nil
 	}
 }
 
-// Fetch Template status
+//FetchTemplatestatus
 
-func statusTemplate(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefresh
-func {
-	return 
-func() (interface{}, string, error) {
-		out, err := FindTemplateByID(ctx, conn, id)
-		if tfresource.NotFound(err) {
-			return nil, "", nil
+funcstatusTemplate(ctxcontext.Context,conn*quicksight.QuickSight,idstring)retry.StateRefresh
+func{
+	return
+func()(interface{},string,error){
+		out,err:=FindTemplateByID(ctx,conn,id)
+		iftfresource.NotFound(err){
+			returnnil,"",nil
 		}
 
-		if err != nil {
-			return nil, "", err
+		iferr!=nil{
+			returnnil,"",err
 		}
 
-		return out, *out.Version.Status, nil
+		returnout,*out.Version.Status,nil
 	}
 }
 
-// Fetch Dashboard status
+//FetchDashboardstatus
 
-func statusDashboard(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefresh
-func {
-	return 
-func() (interface{}, string, error) {
-		out, err := FindDashboardByID(ctx, conn, id)
-		if tfresource.NotFound(err) {
-			return nil, "", nil
+funcstatusDashboard(ctxcontext.Context,conn*quicksight.QuickSight,idstring)retry.StateRefresh
+func{
+	return
+func()(interface{},string,error){
+		out,err:=FindDashboardByID(ctx,conn,id)
+		iftfresource.NotFound(err){
+			returnnil,"",nil
 		}
 
-		if err != nil {
-			return nil, "", err
+		iferr!=nil{
+			returnnil,"",err
 		}
 
-		return out, *out.Version.Status, nil
+		returnout,*out.Version.Status,nil
 	}
 }
 
-// Fetch Analysis status
+//FetchAnalysisstatus
 
-func statusAnalysis(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefresh
-func {
-	return 
-func() (interface{}, string, error) {
-		out, err := FindAnalysisByID(ctx, conn, id)
-		if tfresource.NotFound(err) {
-			return nil, "", nil
+funcstatusAnalysis(ctxcontext.Context,conn*quicksight.QuickSight,idstring)retry.StateRefresh
+func{
+	return
+func()(interface{},string,error){
+		out,err:=FindAnalysisByID(ctx,conn,id)
+		iftfresource.NotFound(err){
+			returnnil,"",nil
 		}
 
-		if err != nil {
-			return nil, "", err
+		iferr!=nil{
+			returnnil,"",err
 		}
 
-		return out, *out.Status, nil
+		returnout,*out.Status,nil
 	}
 }
 
-// Fetch Theme status
+//FetchThemestatus
 
-func statusTheme(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefresh
-func {
-	return 
-func() (interface{}, string, error) {
-		out, err := FindThemeByID(ctx, conn, id)
-		if tfresource.NotFound(err) {
-			return nil, "", nil
+funcstatusTheme(ctxcontext.Context,conn*quicksight.QuickSight,idstring)retry.StateRefresh
+func{
+	return
+func()(interface{},string,error){
+		out,err:=FindThemeByID(ctx,conn,id)
+		iftfresource.NotFound(err){
+			returnnil,"",nil
 		}
 
-		if err != nil {
-			return nil, "", err
+		iferr!=nil{
+			returnnil,"",err
 		}
 
-		return out, *out.Version.Status, nil
+		returnout,*out.Version.Status,nil
 	}
 }

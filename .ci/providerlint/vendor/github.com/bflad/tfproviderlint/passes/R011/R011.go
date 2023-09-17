@@ -1,53 +1,53 @@
-package R011
+packageR011
 
-import (
-	"go/ast"
+import(
+"go/ast"
 
-	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
-	"github.com/bflad/tfproviderlint/passes/commentignore"
-	"github.com/bflad/tfproviderlint/passes/helper/schema/resourceinfo"
-	"golang.org/x/tools/go/analysis"
+"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
+"github.com/bflad/tfproviderlint/passes/commentignore"
+"github.com/bflad/tfproviderlint/passes/helper/schema/resourceinfo"
+"golang.org/x/tools/go/analysis"
 )
 
-const Doc = `check for Resource with MigrateState configured
+constDoc=`checkforResourcewithMigrateStateconfigured
 
-The R011 analyzer reports cases of resources which configure MigrateState.
-After Terraform 0.12, resources must configure new state migrations via
-StateUpgraders. Existing implementations of MigrateState prior to Terraform
-0.12 can be ignored currently.`
+TheR011analyzerreportscasesofresourceswhichconfigureMigrateState.
+AfterTerraform0.12,resourcesmustconfigurenewstatemigrationsvia
+StateUpgraders.ExistingimplementationsofMigrateStatepriortoTerraform
+0.12canbeignoredcurrently.`
 
-const analyzerName = "R011"
+constanalyzerName="R011"
 
-var Analyzer = &analysis.Analyzer{
-	Name: analyzerName,
-	Doc:  Doc,
-	Requires: []*analysis.Analyzer{
-		commentignore.Analyzer,
-		resourceinfo.Analyzer,
-	},
-	Run: run,
+varAnalyzer=&analysis.Analyzer{
+Name:analyzerName,
+Doc:Doc,
+Requires:[]*analysis.Analyzer{
+commentignore.Analyzer,
+resourceinfo.Analyzer,
+},
+Run:run,
 }
 
 
- run(pass *analysis.Pass) (interface{}, error) {
-	ignorer := pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
-	resourceInfos := pass.ResultOf[resourceinfo.Analyzer].([]*schema.ResourceInfo)
-	for _, resourceInfo := range resourceInfos {
-		if ignorer.ShouldIgnore(analyzerName, resourceInfo.AstCompositeLit) {
-			continue
-		}
+run(pass*analysis.Pass)(interface{},error){
+ignorer:=pass.ResultOf[commentignore.Analyzer].(*commentignore.Ignorer)
+resourceInfos:=pass.ResultOf[resourceinfo.Analyzer].([]*schema.ResourceInfo)
+for_,resourceInfo:=rangeresourceInfos{
+ifignorer.ShouldIgnore(analyzerName,resourceInfo.AstCompositeLit){
+continue
+}
 
-		if resourceInfo.Resource.MigrateState == nil {
-			continue
-		}
+ifresourceInfo.Resource.MigrateState==nil{
+continue
+}
 
-		switch t := resourceInfo.AstCompositeLit.Type.(type) {
-		default:
-			pass.Reportf(resourceInfo.AstCompositeLit.Lbrace, "%s: resource should configure StateUpgraders instead of MigrateState (implementations prior to Terraform 0.12 can be ignored)", analyzerName)
-		case *ast.SelectorExpr:
-			pass.Reportf(t.Sel.Pos(), "%s: resource should configure StateUpgraders instead of MigrateState (implementations prior to Terraform 0.12 can be ignored)", analyzerName)
-		}
-	}
+switcht:=resourceInfo.AstCompositeLit.Type.(type){
+default:
+pass.Reportf(resourceInfo.AstCompositeLit.Lbrace,"%s:resourceshouldconfigureStateUpgradersinsteadofMigrateState(implementationspriortoTerraform0.12canbeignored)",analyzerName)
+case*ast.SelectorExpr:
+pass.Reportf(t.Sel.Pos(),"%s:resourceshouldconfigureStateUpgradersinsteadofMigrateState(implementationspriortoTerraform0.12canbeignored)",analyzerName)
+}
+}
 
-	return nil, nil
+returnnil,nil
 }
