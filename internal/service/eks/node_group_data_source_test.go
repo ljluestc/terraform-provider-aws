@@ -1,26 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package eks_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package eks_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/eks"
+	"testing"	"github.com/aws/aws-sdk-go/service/eks"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccEKSNodeGroupDataSource_basic(t *testing.T) {
+)func TestAccEKSNodeGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var nodeGroup eks.Nodegroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceResourceName := "data.aws_eks_node_group.test"
-	resourceName := "aws_eks_node_group.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_eks_node_group.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -57,9 +47,7 @@ func TestAccEKSNodeGroupDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccNodeGroupDataSourceConfig_basic(rName string) string {
+}func testAccNodeGroupDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccNodeGroupConfig_dataSourceName(rName), fmt.Sprintf(`
 data "aws_eks_node_group" "test" {
   cluster_name= aws_eks_cluster.test.name

@@ -16,8 +16,7 @@ var itc s3.IntelligentTieringConfiguration
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_s3_bucket_intelligent_tiering_configuration.test"
 bucketResourceName := "aws_s3_bucket.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-() { acctest.PreCheck(ctx, t) },
+PreCheck:() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckBucketIntelligentTieringConfigurationDestroy(ctx),
@@ -46,8 +45,7 @@ ImportStateVerify: true,
  TestAccS3BucketIntelligentTieringConfiguration_disappears(t *testing.T) { itc s3.IntelligentTieringConfiguration
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_s3_bucket_intelligent_tiering_configuration.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-() { acctest.PreCheck(ctx, t) },
+PreCheck:() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckBucketIntelligentTieringConfigurationDestroy(ctx),
@@ -67,8 +65,7 @@ ExpectNonEmptyPlan: true,
 ctx := acctest.Context(t)me := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_s3_bucket_intelligent_tiering_configuration.test"
 bucketResourceName := "aws_s3_bucket.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-() { acctest.PreCheck(ctx, t) },
+PreCheck:() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckBucketIntelligentTieringConfigurationDestroy(ctx),
@@ -179,7 +176,6 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "tiering.*", map[string]s
  testAccBucketIntelligentTieringConfigurationConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_s3_bucket_intelligent_tiering_configuration" "test" {
- 
 me = %[1]qtiering {
 access_tier = "DEEP_ARCHIVE_ACCESS"
 days= 180
@@ -265,7 +261,6 @@ resource "aws_s3_bucket_intelligent_tiering_configuration" "test" {
 bucket = aws_s3_bucket.test.bucket
 name = %[1]qfilter {
 tags = {
- 
 Environment2 = "test"
 }
 }tiering {
@@ -278,8 +273,7 @@ bucket = %[1]q
 `, rName)
 }
  testAccCheckBucketIntelligentTieringConfigurationExists(ctx context.Context, n string, v *s3.IntelligentTieringConfiguration) resource.TestCheckFunc {
-return 
-(s *terraform.State) error {
+return(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
@@ -293,8 +287,7 @@ return err
 }
 }
  testAccCheckBucketIntelligentTieringConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
-return 
-(s *terraform.State) error {
+return(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_s3_bucket_intelligent_tiering_configuration" {
 continue

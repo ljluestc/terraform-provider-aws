@@ -1,17 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appsync
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appsyncimport (
 	"context"
-	"time"
-
-	"github.com/aws/aws-sdk-go/service/appsync"
+	"time"	"github.com/aws/aws-sdk-go/service/appsync"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-)
-
-const (
+)const (
 	apiCacheAvailableTimeout = 60 * time.Minute
 	apiCacheDeletedTimeout= 60 * time.Minute
 	domainNameAPIAssociationTimeout= 60 * time.Minute
@@ -23,11 +15,7 @@ func waitAPICacheAvailable(ctx context.Context, conn *appsync.AppSync, id string
 		Target:  []string{appsync.ApiCacheStatusAvailable},
 		Refresh: StatusAPICache(ctx, conn, id),
 		Timeout: apiCacheAvailableTimeout,
-	}
-
-	_, err := stateConf.WaitForStateContext(ctx)
-
-	return err
+	}	_, err := stateConf.WaitForStateContext(ctx)	return err
 }
 func waitAPICacheDeleted(ctx context.Context, conn *appsync.AppSync, id string) error {
 	stateConf := &retry.StateChangeConf{
@@ -35,11 +23,7 @@ func waitAPICacheDeleted(ctx context.Context, conn *appsync.AppSync, id string) 
 		Target:  []string{},
 		Refresh: StatusAPICache(ctx, conn, id),
 		Timeout: apiCacheDeletedTimeout,
-	}
-
-	_, err := stateConf.WaitForStateContext(ctx)
-
-	return err
+	}	_, err := stateConf.WaitForStateContext(ctx)	return err
 }
 func waitDomainNameAPIAssociation(ctx context.Context, conn *appsync.AppSync, id string) error {
 	stateConf := &retry.StateChangeConf{
@@ -47,11 +31,7 @@ func waitDomainNameAPIAssociation(ctx context.Context, conn *appsync.AppSync, id
 		Target:  []string{appsync.AssociationStatusSuccess},
 		Refresh: statusDomainNameAPIAssociation(ctx, conn, id),
 		Timeout: domainNameAPIAssociationTimeout,
-	}
-
-	_, err := stateConf.WaitForStateContext(ctx)
-
-	return err
+	}	_, err := stateConf.WaitForStateContext(ctx)	return err
 }
 func waitDomainNameAPIDisassociation(ctx context.Context, conn *appsync.AppSync, id string) error {
 	stateConf := &retry.StateChangeConf{
@@ -59,9 +39,5 @@ func waitDomainNameAPIDisassociation(ctx context.Context, conn *appsync.AppSync,
 		Target:  []string{},
 		Refresh: statusDomainNameAPIAssociation(ctx, conn, id),
 		Timeout: domainNameAPIDisassociationTimeout,
-	}
-
-	_, err := stateConf.WaitForStateContext(ctx)
-
-	return err
+	}	_, err := stateConf.WaitForStateContext(ctx)	return err
 }

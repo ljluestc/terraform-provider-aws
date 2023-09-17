@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cognitoidp_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cognitoidp_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
+	"testing"	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -17,14 +11,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcognitoidp "github.com/hashicorp/terraform-provider-aws/internal/service/cognitoidp"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccCognitoIDPRiskConfiguration_exception(t *testing.T) {
+)func TestAccCognitoIDPRiskConfiguration_exception(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cognito_risk_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_risk_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -67,14 +57,10 @@ func TestAccCognitoIDPRiskConfiguration_exception(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCognitoIDPRiskConfiguration_client(t *testing.T) {
+}func TestAccCognitoIDPRiskConfiguration_client(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cognito_risk_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_risk_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -101,14 +87,10 @@ func TestAccCognitoIDPRiskConfiguration_client(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCognitoIDPRiskConfiguration_compromised(t *testing.T) {
+}func TestAccCognitoIDPRiskConfiguration_compromised(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cognito_risk_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_risk_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -135,14 +117,10 @@ func TestAccCognitoIDPRiskConfiguration_compromised(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCognitoIDPRiskConfiguration_disappears(t *testing.T) {
+}func TestAccCognitoIDPRiskConfiguration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cognito_risk_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_risk_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -158,14 +136,10 @@ func TestAccCognitoIDPRiskConfiguration_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCognitoIDPRiskConfiguration_disappears_userPool(t *testing.T) {
+}func TestAccCognitoIDPRiskConfiguration_disappears_userPool(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cognito_risk_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_risk_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -181,13 +155,9 @@ func TestAccCognitoIDPRiskConfiguration_disappears_userPool(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCognitoIDPRiskConfiguration_empty(t *testing.T) {
+}func TestAccCognitoIDPRiskConfiguration_empty(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -203,13 +173,9 @@ func TestAccCognitoIDPRiskConfiguration_empty(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCognitoIDPRiskConfiguration_nullRiskException(t *testing.T) {
+}func TestAccCognitoIDPRiskConfiguration_nullRiskException(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -224,13 +190,9 @@ func TestAccCognitoIDPRiskConfiguration_nullRiskException(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCognitoIDPRiskConfiguration_emptyRiskException(t *testing.T) {
+}func TestAccCognitoIDPRiskConfiguration_emptyRiskException(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -242,167 +204,103 @@ func TestAccCognitoIDPRiskConfiguration_emptyRiskException(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckRiskConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckRiskConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_cognito_risk_configuration" {
 				continue
-			}
-
-			_, err := tfcognitoidp.FindRiskConfigurationById(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfcognitoidp.FindRiskConfigurationById(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckRiskConfigurationExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckRiskConfigurationExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return errors.New("No Cognito Risk Configuration ID set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
-
-		_, err := tfcognitoidp.FindRiskConfigurationById(ctx, conn, rs.Primary.ID)
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)		_, err := tfcognitoidp.FindRiskConfigurationById(ctx, conn, rs.Primary.ID)		return err
 	}
-}
-
-func testAccRiskConfigurationConfig_riskException(rName string) string {
+}func testAccRiskConfigurationConfig_riskException(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_risk_configuration" "test" {
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  risk_exception_configuration {
+  user_pool_id = aws_cognito_user_pool.test.id  risk_exception_configuration {
     blocked_ip_range_list = ["10.10.10.10/32"]
   }
-}
-
-resource "aws_cognito_user_pool" "test" {
+}resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccRiskConfigurationConfig_riskExceptionUpdated(rName string) string {
+}func testAccRiskConfigurationConfig_riskExceptionUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_risk_configuration" "test" {
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  risk_exception_configuration {
+  user_pool_id = aws_cognito_user_pool.test.id  risk_exception_configuration {
     blocked_ip_range_list = ["10.10.10.10/32", "10.10.10.11/32"]
     skipped_ip_range_list = ["10.10.10.12/32"]
   }
-}
-
-resource "aws_cognito_user_pool" "test" {
+}resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccRiskConfigurationConfig_compromised(rName string) string {
+}func testAccRiskConfigurationConfig_compromised(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_risk_configuration" "test" {
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  compromised_credentials_risk_configuration {
+  user_pool_id = aws_cognito_user_pool.test.id  compromised_credentials_risk_configuration {
     event_filter = ["SIGN_IN"]
     actions {
       event_action = "BLOCK"
     }
   }
-}
-
-resource "aws_cognito_user_pool" "test" {
+}resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccRiskConfigurationConfig_riskExceptionClient(rName string) string {
+}func testAccRiskConfigurationConfig_riskExceptionClient(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_risk_configuration" "test" {
   user_pool_id = aws_cognito_user_pool.test.id
-  client_id    = aws_cognito_user_pool_client.test.id
-
-  risk_exception_configuration {
+  client_id    = aws_cognito_user_pool_client.test.id  risk_exception_configuration {
     blocked_ip_range_list = ["10.10.10.10/32"]
   }
-}
-
-resource "aws_cognito_user_pool" "test" {
+}resource "aws_cognito_user_pool" "test" {
   name = %[1]q
-}
-
-resource "aws_cognito_user_pool_client" "test" {
+}resource "aws_cognito_user_pool_client" "test" {
   name = %[1]q
   user_pool_id        = aws_cognito_user_pool.test.id
   explicit_auth_flows = ["ADMIN_NO_SRP_AUTH"]
 }
 `, rName)
-}
-
-func testAccRiskConfigurationConfig_empty(rName string) string {
+}func testAccRiskConfigurationConfig_empty(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_risk_configuration" "test" {
   user_pool_id = aws_cognito_user_pool.test.id
-}
-
-resource "aws_cognito_user_pool" "test" {
+}resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccRiskConfigurationConfig_nullRiskException(rName string) string {
+}func testAccRiskConfigurationConfig_nullRiskException(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_risk_configuration" "test" {
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  risk_exception_configuration {
+  user_pool_id = aws_cognito_user_pool.test.id  risk_exception_configuration {
     blocked_ip_range_list = null
     skipped_ip_range_list = null
   }
-}
-
-resource "aws_cognito_user_pool" "test" {
+}resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccRiskConfigurationConfig_emptyRiskException(rName string) string {
+}func testAccRiskConfigurationConfig_emptyRiskException(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_risk_configuration" "test" {
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  risk_exception_configuration {
+  user_pool_id = aws_cognito_user_pool.test.id  risk_exception_configuration {
     blocked_ip_range_list = []
     skipped_ip_range_list = []
   }
-}
-
-resource "aws_cognito_user_pool" "test" {
+}resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 }
 `, rName)

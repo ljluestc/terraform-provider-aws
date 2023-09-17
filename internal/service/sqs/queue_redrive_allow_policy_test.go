@@ -1,27 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package sqs_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package sqs_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/sqs"
+	"testing"	"github.com/aws/aws-sdk-go/service/sqs"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfsqs "github.com/hashicorp/terraform-provider-aws/internal/service/sqs"
-)
-
-func TestAccSQSQueueRedriveAllowPolicy_basic(t *testing.T) {
+)func TestAccSQSQueueRedriveAllowPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue_redrive_allow_policy.test"
 	queueResourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -48,16 +38,12 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSQSQueueRedriveAllowPolicy_disappears(t *testing.T) {
+}func TestAccSQSQueueRedriveAllowPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue_redrive_allow_policy.test"
 	queueResourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -73,15 +59,11 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueueRedriveAllowPolicy_Disappears_queue(t *testing.T) {
+}func TestAccSQSQueueRedriveAllowPolicy_Disappears_queue(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	queueResourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -97,16 +79,12 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueueRedriveAllowPolicy_update(t *testing.T) {
+}func TestAccSQSQueueRedriveAllowPolicy_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue_redrive_allow_policy.test"
 	queueResourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -132,23 +110,17 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccQueueRedriveAllowPolicyConfig_basic(rName string) string {
+}func testAccQueueRedriveAllowPolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue" "test_src" {
+}resource "aws_sqs_queue" "test_src" {
   name = "%[1]s_src"
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.test.arn
     maxReceiveCount     = 4
   })
-}
-
-resource "aws_sqs_queue_redrive_allow_policy" "test" {
+}resource "aws_sqs_queue_redrive_allow_policy" "test" {
   queue_url = aws_sqs_queue.test.id
   redrive_allow_policy = jsonencode({
     redrivePermission = "byQueue",
@@ -156,23 +128,17 @@ resource "aws_sqs_queue_redrive_allow_policy" "test" {
   })
 }
 `, rName)
-}
-
-func testAccQueueRedriveAllowPolicyConfig_updated(rName string) string {
+}func testAccQueueRedriveAllowPolicyConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue" "test_src" {
+}resource "aws_sqs_queue" "test_src" {
   name = "%[1]s_src"
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.test.arn
     maxReceiveCount     = 4
   })
-}
-
-resource "aws_sqs_queue_redrive_allow_policy" "test" {
+}resource "aws_sqs_queue_redrive_allow_policy" "test" {
   queue_url = aws_sqs_queue.test.id
   redrive_allow_policy = jsonencode({
     redrivePermission = "allowAll"

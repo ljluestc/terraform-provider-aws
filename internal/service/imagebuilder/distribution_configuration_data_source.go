@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package imagebuilderimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -14,14 +8,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKDataSource("aws_imagebuilder_distribution_configuration")
+)// @SDKDataSource("aws_imagebuilder_distribution_configuration")
 func DataSourceDistributionConfiguration() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceDistributionConfigurationRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceDistributionConfigurationRead,		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:schema.TypeString,
 				Required:     true,
@@ -236,39 +226,21 @@ func DataSourceDistributionConfiguration() *schema.Resource {
 			"tags": tftags.TagsSchemaComputed(),
 		},
 	}
-}
-
-func dataSourceDistributionConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceDistributionConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	input := &imagebuilder.GetDistributionConfigurationInput{}
-
-	if v, ok := d.GetOk("arn"); ok {
+	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig	input := &imagebuilder.GetDistributionConfigurationInput{}	if v, ok := d.GetOk("arn"); ok {
 		input.DistributionConfigurationArn = aws.String(v.(string))
-	}
-
-	output, err := conn.GetDistributionConfigurationWithContext(ctx, input)
-
-	if err != nil {
+	}	output, err := conn.GetDistributionConfigurationWithContext(ctx, input)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "getting Image Builder Distribution Configuration (%s): %s", d.Id(), err)
-	}
-
-	if output == nil || output.DistributionConfiguration == nil {
+	}	if output == nil || output.DistributionConfiguration == nil {
 		return sdkdiag.AppendErrorf(diags, "getting Image Builder Distribution Configuration (%s): empty response", d.Id())
-	}
-
-	distributionConfiguration := output.DistributionConfiguration
-
-	d.SetId(aws.StringValue(distributionConfiguration.Arn))
+	}	distributionConfiguration := output.DistributionConfiguration	d.SetId(aws.StringValue(distributionConfiguration.Arn))
 	d.Set("arn", distributionConfiguration.Arn)
 	d.Set("date_created", distributionConfiguration.DateCreated)
 	d.Set("date_updated", distributionConfiguration.DateUpdated)
 	d.Set("description", distributionConfiguration.Description)
 	d.Set("distribution", flattenDistributions(distributionConfiguration.Distributions))
 	d.Set("name", distributionConfiguration.Name)
-	d.Set("tags", KeyValueTags(ctx, distributionConfiguration.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map())
-
-	return diags
+	d.Set("tags", KeyValueTags(ctx, distributionConfiguration.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map())	return diags
 }

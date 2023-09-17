@@ -1,17 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iam
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iamimport (
 	"encoding/json"
 	"reflect"
-	"testing"
-
-	"github.com/hashicorp/terraform-provider-aws/internal/errs"
-)funcarallel()
-
-	testcases := map[string]struct {
+	"testing"	"github.com/hashicorp/terraform-provider-aws/internal/errs"
+)funcarallel()	testcases := map[string]struct {
 		json  string
 		valid bool
 		err   func(t *testing.T, err error)
@@ -198,16 +190,10 @@ import (
 				}
 			},
 		},
-	}
-
-	for name, testcase := range testcases {
+	}	for name, testcase := range testcases {
 		testcase := testcase
 		t.Run(name, func(t *testing.T) {
-			t.Parallel()
-
-			valid, err := PolicyHasValidAWSPrincipals(testcase.json)
-
-			if testcase.err == nil {
+			t.Parallel()			valid, err := PolicyHasValidAWSPrincipals(testcase.json)			if testcase.err == nil {
 				if err != nil {
 					t.Fatalf("expected no error, got %s", err)
 				}
@@ -216,9 +202,7 @@ import (
 					t.Fatalf("expected error, not none")
 				}
 				testcase.err(t, err)
-			}
-
-			if a, e := valid, testcase.valid; a != e {
+			}			if a, e := valid, testcase.valid; a != e {
 				t.Fatalf("expected %t, got %t", e, a)
 			}
 		})
@@ -245,16 +229,10 @@ import (
 			value: "AROAS5MHDZS6NEXAMPLE",
 			valid: false,
 		},
-	}
-
-	for name, testcase := range testcases {
+	}	for name, testcase := range testcases {
 		testcase := testcase
 		t.Run(name, func(t *testing.T) {
-			t.Parallel()
-
-			a := isValidPolicyAWSPrincipal(testcase.value)
-
-			if e := testcase.valid; a != e {
+			t.Parallel()			a := isValidPolicyAWSPrincipal(testcase.value)			if e := testcase.valid; a != e {
 				t.Fatalf("expected %t, got %t", e, a)
 			}
 		})
@@ -368,9 +346,7 @@ functcases := map[string]struct {
 	for name, tc := range testcases {
 		tc := tc
 		t.Run(name, func(t *testing.T) {
-			t.Parallel()
-
-			got, err := tc.cs.MarshalJSON()
+			t.Parallel()			got, err := tc.cs.MarshalJSON()
 			if (err != nil) != tc.wantErr {
 				t.Errorf("IAMPolicyStatementConditionSet.MarshalJSON() error = %v, wantErr %v", err, tc.wantErr)
 				return

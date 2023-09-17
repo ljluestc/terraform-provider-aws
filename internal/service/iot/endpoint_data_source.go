@@ -1,21 +1,13 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iot
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package iotimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/iot"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// @SDKDataSource("aws_iot_endpoint")
+)// @SDKDataSource("aws_iot_endpoint")
 func DataSourceEndpoint() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceEndpointRead,
@@ -36,18 +28,12 @@ func DataSourceEndpoint() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceEndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceEndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IoTConn(ctx)
-	input := &iot.DescribeEndpointInput{}
-
-	if v, ok := d.GetOk("endpoint_type"); ok {
+	input := &iot.DescribeEndpointInput{}	if v, ok := d.GetOk("endpoint_type"); ok {
 		input.EndpointType = aws.String(v.(string))
-	}
-
-	output, err := conn.DescribeEndpointWithContext(ctx, input)
+	}	output, err := conn.DescribeEndpointWithContext(ctx, input)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "while describing iot endpoint: %s", err)
 	}

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iot_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iot_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/iot"
+	"testing"	"github.com/aws/aws-sdk-go/service/iot"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,15 +10,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiot "github.com/hashicorp/terraform-provider-aws/internal/service/iot"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccIoTThingGroupMembership_basic(t *testing.T) {
+)func TestAccIoTThingGroupMembership_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iot_thing_group_membership.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_thing_group_membership.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -46,15 +36,11 @@ func TestAccIoTThingGroupMembership_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTThingGroupMembership_disappears(t *testing.T) {
+}func TestAccIoTThingGroupMembership_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iot_thing_group_membership.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_thing_group_membership.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -70,16 +56,12 @@ func TestAccIoTThingGroupMembership_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTThingGroupMembership_disappears_Thing(t *testing.T) {
+}func TestAccIoTThingGroupMembership_disappears_Thing(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_iot_thing_group_membership.test"
-	thingResourceName := "aws_iot_thing.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	thingResourceName := "aws_iot_thing.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -95,16 +77,12 @@ func TestAccIoTThingGroupMembership_disappears_Thing(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTThingGroupMembership_disappears_ThingGroup(t *testing.T) {
+}func TestAccIoTThingGroupMembership_disappears_ThingGroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_iot_thing_group_membership.test"
-	thingGroupResourceName := "aws_iot_thing_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	thingGroupResourceName := "aws_iot_thing_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -120,15 +98,11 @@ func TestAccIoTThingGroupMembership_disappears_ThingGroup(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTThingGroupMembership_overrideDynamicGroup(t *testing.T) {
+}func TestAccIoTThingGroupMembership_overrideDynamicGroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iot_thing_group_membership.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_thing_group_membership.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -151,95 +125,51 @@ func TestAccIoTThingGroupMembership_overrideDynamicGroup(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckThingGroupMembershipExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckThingGroupMembershipExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No IoT Thing Group Membership ID is set")
-		}
-
-		thingGroupName, thingName, err := tfiot.ThingGroupMembershipParseResourceID(rs.Primary.ID)
-
-		if err != nil {
+		}		thingGroupName, thingName, err := tfiot.ThingGroupMembershipParseResourceID(rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)
-
-		return tfiot.FindThingGroupMembership(ctx, conn, thingGroupName, thingName)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)		return tfiot.FindThingGroupMembership(ctx, conn, thingGroupName, thingName)
 	}
-}
-
-func testAccCheckThingGroupMembershipDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckThingGroupMembershipDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iot_thing_group_membership" {
 				continue
-			}
-
-			thingGroupName, thingName, err := tfiot.ThingGroupMembershipParseResourceID(rs.Primary.ID)
-
-			if err != nil {
+			}			thingGroupName, thingName, err := tfiot.ThingGroupMembershipParseResourceID(rs.Primary.ID)			if err != nil {
 				return err
-			}
-
-			err = tfiot.FindThingGroupMembership(ctx, conn, thingGroupName, thingName)
-
-			if tfresource.NotFound(err) {
+			}			err = tfiot.FindThingGroupMembership(ctx, conn, thingGroupName, thingName)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("IoT Thing Group Membership %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("IoT Thing Group Membership %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccThingGroupMembershipConfig_basic(rName1, rName2 string) string {
+}func testAccThingGroupMembershipConfig_basic(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_thing_group" "test" {
   name = %[1]q
-}
-
-resource "aws_iot_thing" "test" {
+}resource "aws_iot_thing" "test" {
   name = %[2]q
-}
-
-resource "aws_iot_thing_group_membership" "test" {
+}resource "aws_iot_thing_group_membership" "test" {
   thing_group_name = aws_iot_thing_group.test.name
   thing_name   = aws_iot_thing.test.name
 }
 `, rName1, rName2)
-}
-
-func testAccThingGroupMembershipConfig_overrideDynamic(rName1, rName2 string) string {
+}func testAccThingGroupMembershipConfig_overrideDynamic(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_thing_group" "test" {
   name = %[1]q
-}
-
-resource "aws_iot_thing" "test" {
+}resource "aws_iot_thing" "test" {
   name = %[2]q
-}
-
-resource "aws_iot_thing_group_membership" "test" {
+}resource "aws_iot_thing_group_membership" "test" {
   thing_group_name = aws_iot_thing_group.test.name
-  thing_name   = aws_iot_thing.test.name
-
-  override_dynamic_group = true
+  thing_name   = aws_iot_thing.test.name  override_dynamic_group = true
 }
 `, rName1, rName2)
 }

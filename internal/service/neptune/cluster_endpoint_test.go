@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package neptune_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package neptune_testimport (
 //"errors"
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/service/neptune"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -19,15 +13,11 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfneptune "github.com/hashicorp/terraform-provider-aws/internal/service/neptune"
-)
-
-func TestAccNeptuneClusterEndpoint_basic(t *testing.T) {
+)func TestAccNeptuneClusterEndpoint_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var dbCluster neptune.DBClusterEndpoint
 rName := sdkacctest.RandomWithPrefix("tf-acc")
-resourceName := "aws_neptune_cluster_endpoint.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_neptune_cluster_endpoint.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -53,19 +43,13 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccNeptuneClusterEndpoint_tags(t *testing.T) {
+}func TestAccNeptuneClusterEndpoint_tags(t *testing.T) {
 ctx := acctest.Context(t)
 if acctest.Partition() == "aws-us-gov" {
 t.Skip("Neptune Cluster Endpoint tags are not supported in GovCloud partition")
-}
-
-var v neptune.DBClusterEndpoint
+}var v neptune.DBClusterEndpoint
 rName := sdkacctest.RandomWithPrefix("tf-acc")
-resourceName := "aws_neptune_cluster_endpoint.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_neptune_cluster_endpoint.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -103,15 +87,11 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-func TestAccNeptuneClusterEndpoint_disappears(t *testing.T) {
+}func TestAccNeptuneClusterEndpoint_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var dbCluster neptune.DBClusterEndpoint
 rName := sdkacctest.RandomWithPrefix("tf-acc")
-resourceName := "aws_neptune_cluster_endpoint.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_neptune_cluster_endpoint.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -127,15 +107,11 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccNeptuneClusterEndpoint_Disappears_cluster(t *testing.T) {
+}func TestAccNeptuneClusterEndpoint_Disappears_cluster(t *testing.T) {
 ctx := acctest.Context(t)
 var dbCluster neptune.DBClusterEndpoint
 rName := sdkacctest.RandomWithPrefix("tf-acc")
-resourceName := "aws_neptune_cluster_endpoint.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_neptune_cluster_endpoint.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -151,73 +127,45 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func testAccCheckClusterEndpointDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckClusterEndpointDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 return testAccCheckClusterEndpointDestroyWithProvider(ctx)(s, acctest.Provider)
 }
-}
-
-func testAccCheckClusterEndpointDestroyWithProvider(ctx context.Context) acctest.TestCheckWithProviderFunc {
+}func testAccCheckClusterEndpointDestroyWithProvider(ctx context.Context) acctest.TestCheckWithProviderFunc {
 return func(s *terraform.State, provider *schema.Provider) error {
-conn := provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_neptune_cluster_endpoint" {
 continue
-}
-
-_, err := tfneptune.FindEndpointByID(ctx, conn, rs.Primary.ID)
+}_, err := tfneptune.FindEndpointByID(ctx, conn, rs.Primary.ID)
 // Return nil if the cluster is already destroyed
 if err != nil {
 if tfawserr.ErrCodeEquals(err, neptune.ErrCodeDBClusterNotFoundFault) {
 return nil
 }
+}return err
+}return nil
 }
-
-return err
-}
-
-return nil
-}
-}
-
-func testAccCheckClusterEndpointExists(ctx context.Context, n string, v *neptune.DBClusterEndpoint) resource.TestCheckFunc {
+}func testAccCheckClusterEndpointExists(ctx context.Context, n string, v *neptune.DBClusterEndpoint) resource.TestCheckFunc {
 return testAccCheckClusterEndpointExistsWithProvider(ctx, n, v, func() *schema.Provider { return acctest.Provider })
-}
-
-func testAccCheckClusterEndpointExistsWithProvider(ctx context.Context, n string, v *neptune.DBClusterEndpoint, providerF func() *schema.Provider) resource.TestCheckFunc {
+}func testAccCheckClusterEndpointExistsWithProvider(ctx context.Context, n string, v *neptune.DBClusterEndpoint, providerF func() *schema.Provider) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No Neptune Instance ID is set")
-}
-
-provider := providerF()
+}provider := providerF()
 conn := provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)
 resp, err := tfneptune.FindEndpointByID(ctx, conn, rs.Primary.ID)
 if err != nil {
 return fmt.Errorf("Neptune Cluster Endpoint (%s) not found: %w", rs.Primary.ID, err)
+}*v = *respreturn nil
 }
-
-*v = *resp
-
-return nil
-}
-}
-
-func testAccClusterEndpointBaseConfig(rName string) string {
+}func testAccClusterEndpointBaseConfig(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 locals {
   availability_zone_names = slice(data.aws_availability_zones.available.names, 0, min(3, length(data.aws_availability_zones.available.names)))
-}
-
-resource "aws_neptune_cluster" "test" {
+}resource "aws_neptune_cluster" "test" {
   cluster_identifier      = %[1]q
   availability_zones      = local.availability_zone_names
   engine     = "neptune"
@@ -225,9 +173,7 @@ resource "aws_neptune_cluster" "test" {
   skip_final_snapshot     = true
 }
 `, rName))
-}
-
-func testAccClusterEndpointConfig_basic(rName string) string {
+}func testAccClusterEndpointConfig_basic(rName string) string {
 return acctest.ConfigCompose(testAccClusterEndpointBaseConfig(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_endpoint" "test" {
   cluster_identifier = aws_neptune_cluster.test.cluster_identifier
@@ -235,30 +181,22 @@ resource "aws_neptune_cluster_endpoint" "test" {
   endpoint_type  = "READER"
 }
 `, rName))
-}
-
-func testAccClusterEndpointConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccClusterEndpointConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(testAccClusterEndpointBaseConfig(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_endpoint" "test" {
   cluster_identifier = aws_neptune_cluster.test.cluster_identifier
   cluster_endpoint_identifier = %[1]q
-  endpoint_type  = "READER"
-
-  tags = {
+  endpoint_type  = "READER"  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccClusterEndpointConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccClusterEndpointConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(testAccClusterEndpointBaseConfig(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_endpoint" "test" {
   cluster_identifier = aws_neptune_cluster.test.cluster_identifier
   cluster_endpoint_identifier = %[1]q
-  endpoint_type  = "READER"
-
-  tags = {
+  endpoint_type  = "READER"  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }

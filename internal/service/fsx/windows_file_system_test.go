@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package fsx_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package fsx_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/fsx"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -18,16 +12,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tffsx "github.com/hashicorp/terraform-provider-aws/internal/service/fsx"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccFSxWindowsFileSystem_basic(t *testing.T) {
+)func TestAccFSxWindowsFileSystem_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -76,16 +66,12 @@ func TestAccFSxWindowsFileSystem_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_disappears(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -101,16 +87,12 @@ func TestAccFSxWindowsFileSystem_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_singleAz2(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_singleAz2(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -152,16 +134,12 @@ func TestAccFSxWindowsFileSystem_singleAz2(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_storageTypeHdd(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_storageTypeHdd(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -186,16 +164,12 @@ func TestAccFSxWindowsFileSystem_storageTypeHdd(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_multiAz(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_multiAz(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -236,16 +210,12 @@ func TestAccFSxWindowsFileSystem_multiAz(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_aliases(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_aliases(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2, filesystem3 fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -289,16 +259,12 @@ func TestAccFSxWindowsFileSystem_aliases(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_automaticBackupRetentionDays(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_automaticBackupRetentionDays(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2, filesystem3 fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -338,16 +304,12 @@ func TestAccFSxWindowsFileSystem_automaticBackupRetentionDays(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_copyTagsToBackups(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_copyTagsToBackups(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2 fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -379,16 +341,12 @@ func TestAccFSxWindowsFileSystem_copyTagsToBackups(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_dailyAutomaticBackupStartTime(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_dailyAutomaticBackupStartTime(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2 fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -420,18 +378,14 @@ func TestAccFSxWindowsFileSystem_dailyAutomaticBackupStartTime(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_kmsKeyID(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_kmsKeyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2 fsx.FileSystem
 	kmsKeyResourceName1 := "aws_kms_key.test1"
 	kmsKeyResourceName2 := "aws_kms_key.test2"
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -463,16 +417,12 @@ func TestAccFSxWindowsFileSystem_kmsKeyID(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_securityGroupIDs(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_securityGroupIDs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2 fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -504,16 +454,12 @@ func TestAccFSxWindowsFileSystem_securityGroupIDs(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_selfManagedActiveDirectory(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_selfManagedActiveDirectory(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -538,16 +484,12 @@ func TestAccFSxWindowsFileSystem_selfManagedActiveDirectory(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_storageCapacity(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_storageCapacity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2 fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -581,16 +523,12 @@ func TestAccFSxWindowsFileSystem_storageCapacity(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_fromBackup(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_fromBackup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -615,16 +553,12 @@ func TestAccFSxWindowsFileSystem_fromBackup(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_tags(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2, filesystem3 fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -668,16 +602,12 @@ func TestAccFSxWindowsFileSystem_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_throughputCapacity(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_throughputCapacity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2 fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -709,16 +639,12 @@ func TestAccFSxWindowsFileSystem_throughputCapacity(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_weeklyMaintenanceStartTime(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_weeklyMaintenanceStartTime(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2 fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -750,16 +676,12 @@ func TestAccFSxWindowsFileSystem_weeklyMaintenanceStartTime(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_audit(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_audit(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -796,16 +718,12 @@ func TestAccFSxWindowsFileSystem_audit(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxWindowsFileSystem_diskIops(t *testing.T) {
+}func TestAccFSxWindowsFileSystem_diskIops(t *testing.T) {
 	ctx := acctest.Context(t)
 	var filesystem1, filesystem2 fsx.FileSystem
 	resourceName := "aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -841,91 +759,53 @@ func TestAccFSxWindowsFileSystem_diskIops(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckWindowsFileSystemExists(ctx context.Context, n string, v *fsx.FileSystem) resource.TestCheckFunc {
+}func testAccCheckWindowsFileSystemExists(ctx context.Context, n string, v *fsx.FileSystem) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-		output, err := tffsx.FindWindowsFileSystemByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		output, err := tffsx.FindWindowsFileSystemByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccCheckWindowsFileSystemDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckWindowsFileSystemDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_fsx_windows_file_system" {
 				continue
-			}
-
-			_, err := tffsx.FindWindowsFileSystemByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tffsx.FindWindowsFileSystemByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("FSx for Windows File Server File System (%s) still exists", rs.Primary.ID)
+			}			return fmt.Errorf("FSx for Windows File Server File System (%s) still exists", rs.Primary.ID)
 		}
 		return nil
 	}
-}
-
-func testAccCheckWindowsFileSystemNotRecreated(i, j *fsx.FileSystem) resource.TestCheckFunc {
+}func testAccCheckWindowsFileSystemNotRecreated(i, j *fsx.FileSystem) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if aws.StringValue(i.FileSystemId) != aws.StringValue(j.FileSystemId) {
 			return fmt.Errorf("FSx for Windows File Server File System (%s) recreated", aws.StringValue(i.FileSystemId))
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckWindowsFileSystemRecreated(i, j *fsx.FileSystem) resource.TestCheckFunc {
+}func testAccCheckWindowsFileSystemRecreated(i, j *fsx.FileSystem) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if aws.StringValue(i.FileSystemId) == aws.StringValue(j.FileSystemId) {
 			return fmt.Errorf("FSx for Windows File Server File System (%s) not recreated", aws.StringValue(i.FileSystemId))
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccWindowsFileSystemConfig_base(rName, domain string) string {
+}func testAccWindowsFileSystemConfig_base(rName, domain string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_directory_service_directory" "test" {
   edition  = "Standard"
   name = %[1]q
   password = "SuperSecretPassw0rd"
-  type = "MicrosoftAD"
-
-  vpc_settings {
+  type = "MicrosoftAD"  vpc_settings {
 subnet_ids = aws_subnet.test[*].id
 vpc_id = aws_vpc.test.id
   }
 }
 `, domain))
-}
-
-func testAccWindowsFileSystemConfig_basic(rName, domain string) string {
+}func testAccWindowsFileSystemConfig_basic(rName, domain string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), `
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
@@ -935,45 +815,31 @@ resource "aws_fsx_windows_file_system" "test" {
   throughput_capacity = 8
 }
 `)
-}
-
-func testAccWindowsFileSystemConfig_aliases1(rName, domain, alias1 string) string {
+}func testAccWindowsFileSystemConfig_aliases1(rName, domain, alias1 string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  aliases = [%[2]q]
-
-  tags = {
+  throughput_capacity = 8  aliases = [%[2]q]  tags = {
 Name = %[1]q
   }
 }
 `, rName, alias1))
-}
-
-func testAccWindowsFileSystemConfig_aliases2(rName, domain, alias1, alias2 string) string {
+}func testAccWindowsFileSystemConfig_aliases2(rName, domain, alias1, alias2 string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  aliases = [%[2]q, %[3]q]
-
-  tags = {
+  throughput_capacity = 8  aliases = [%[2]q, %[3]q]  tags = {
 Name = %[1]q
   }
 }
 `, rName, alias1, alias2))
-}
-
-func testAccWindowsFileSystemConfig_automaticBackupRetentionDays(rName, domain string, automaticBackupRetentionDays int) string {
+}func testAccWindowsFileSystemConfig_automaticBackupRetentionDays(rName, domain string, automaticBackupRetentionDays int) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id= aws_directory_service_directory.test.id
@@ -981,16 +847,12 @@ resource "aws_fsx_windows_file_system" "test" {
   skip_final_backup= true
   storage_capacity = 32
   subnet_ids   = [aws_subnet.test[0].id]
-  throughput_capacity= 8
-
-  tags = {
+  throughput_capacity= 8  tags = {
 Name = %[1]q
   }
 }
 `, rName, automaticBackupRetentionDays))
-}
-
-func testAccWindowsFileSystemConfig_copyTagsToBackups(rName, domain string, copyTagsToBackups bool) string {
+}func testAccWindowsFileSystemConfig_copyTagsToBackups(rName, domain string, copyTagsToBackups bool) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id  = aws_directory_service_directory.test.id
@@ -998,16 +860,12 @@ resource "aws_fsx_windows_file_system" "test" {
   skip_final_backup= true
   storage_capacity = 32
   subnet_ids  = [aws_subnet.test[0].id]
-  throughput_capacity  = 8
-
-  tags = {
+  throughput_capacity  = 8  tags = {
 Name = %[1]q
   }
 }
 `, rName, copyTagsToBackups))
-}
-
-func testAccWindowsFileSystemConfig_dailyAutomaticBackupStartTime(rName, domain, dailyAutomaticBackupStartTime string) string {
+}func testAccWindowsFileSystemConfig_dailyAutomaticBackupStartTime(rName, domain, dailyAutomaticBackupStartTime string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id= aws_directory_service_directory.test.id
@@ -1015,201 +873,143 @@ resource "aws_fsx_windows_file_system" "test" {
   skip_final_backup  = true
   storage_capacity   = 32
   subnet_ids= [aws_subnet.test[0].id]
-  throughput_capacity= 8
-
-  tags = {
+  throughput_capacity= 8  tags = {
 Name = %[1]q
   }
 }
 `, rName, dailyAutomaticBackupStartTime))
-}
-
-func testAccWindowsFileSystemConfig_kmsKeyID1(rName, domain string) string {
+}func testAccWindowsFileSystemConfig_kmsKeyID1(rName, domain string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_kms_key" "test1" {
   description= "%[1]s-1"
   deletion_window_in_days = 7
-}
-
-resource "aws_fsx_windows_file_system" "test" {
+}resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   kms_key_id = aws_kms_key.test1.arn
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  tags = {
+  throughput_capacity = 8  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccWindowsFileSystemConfig_kmsKeyID2(rName, domain string) string {
+}func testAccWindowsFileSystemConfig_kmsKeyID2(rName, domain string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_kms_key" "test2" {
   description= "%[1]s-2"
   deletion_window_in_days = 7
-}
-
-resource "aws_fsx_windows_file_system" "test" {
+}resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   kms_key_id = aws_kms_key.test2.arn
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  tags = {
+  throughput_capacity = 8  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccWindowsFileSystemConfig_securityGroupIDs1(rName, domain string) string {
+}func testAccWindowsFileSystemConfig_securityGroupIDs1(rName, domain string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_security_group" "test1" {
   name   = "%[1]s-1"
-  vpc_id = aws_vpc.test.id
-
-  ingress {
+  vpc_id = aws_vpc.test.id  ingress {
 cidr_blocks = [aws_vpc.test.cidr_block]
 from_port   = 0
 protocol= -1
 to_port = 0
-  }
-
-  egress {
+  }  egress {
 cidr_blocks = ["0.0.0.0/0"]
 from_port   = 0
 protocol= "-1"
 to_port = 0
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_fsx_windows_file_system" "test" {
+}resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   security_group_ids  = [aws_security_group.test1.id]
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  tags = {
+  throughput_capacity = 8  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccWindowsFileSystemConfig_securityGroupIDs2(rName, domain string) string {
+}func testAccWindowsFileSystemConfig_securityGroupIDs2(rName, domain string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_security_group" "test1" {
   name   = "%[1]s-1"
-  vpc_id = aws_vpc.test.id
-
-  ingress {
+  vpc_id = aws_vpc.test.id  ingress {
 cidr_blocks = [aws_vpc.test.cidr_block]
 from_port   = 0
 protocol= -1
 to_port = 0
-  }
-
-  egress {
+  }  egress {
 cidr_blocks = ["0.0.0.0/0"]
 from_port   = 0
 protocol= "-1"
 to_port = 0
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test2" {
+}resource "aws_security_group" "test2" {
   name   = "%[1]s-2"
-  vpc_id = aws_vpc.test.id
-
-  ingress {
+  vpc_id = aws_vpc.test.id  ingress {
 cidr_blocks = [aws_vpc.test.cidr_block]
 from_port   = 0
 protocol= -1
 to_port = 0
-  }
-
-  egress {
+  }  egress {
 cidr_blocks = ["0.0.0.0/0"]
 from_port   = 0
 protocol= "-1"
 to_port = 0
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_fsx_windows_file_system" "test" {
+}resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   security_group_ids  = [aws_security_group.test1.id, aws_security_group.test2.id]
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  tags = {
+  throughput_capacity = 8  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccWindowsFileSystemConfig_selfManagedActiveDirectory(rName, domain string) string {
+}func testAccWindowsFileSystemConfig_selfManagedActiveDirectory(rName, domain string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  self_managed_active_directory {
+  throughput_capacity = 8  self_managed_active_directory {
 dns_ips = aws_directory_service_directory.test.dns_ip_addresses
 domain_name = aws_directory_service_directory.test.name
 password= aws_directory_service_directory.test.password
 username= "Admin"
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccWindowsFileSystemConfig_storageCapacity(rName, domain string, storageCapacity, throughputCapacity int) string {
+}func testAccWindowsFileSystemConfig_storageCapacity(rName, domain string, storageCapacity, throughputCapacity int) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   skip_final_backup   = true
   storage_capacity= %[2]d
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = %[3]d
-
-  tags = {
+  throughput_capacity = %[3]d  tags = {
 Name = %[1]q
   }
 }
 `, rName, storageCapacity, throughputCapacity))
-}
-
-func testAccWindowsFileSystemConfig_subnetIDs1SingleType(rName, domain, azType string) string {
+}func testAccWindowsFileSystemConfig_subnetIDs1SingleType(rName, domain, azType string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
@@ -1217,16 +1017,12 @@ resource "aws_fsx_windows_file_system" "test" {
   storage_capacity= 32
   deployment_type = %[2]q
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  tags = {
+  throughput_capacity = 8  tags = {
 Name = %[1]q
   }
 }
 `, rName, azType))
-}
-
-func testAccWindowsFileSystemConfig_subnetIDs1StorageType(rName, domain, azType, storageType string) string {
+}func testAccWindowsFileSystemConfig_subnetIDs1StorageType(rName, domain, azType, storageType string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
@@ -1235,16 +1031,12 @@ resource "aws_fsx_windows_file_system" "test" {
   deployment_type = %[2]q
   subnet_ids = [aws_subnet.test[0].id]
   throughput_capacity = 8
-  storage_type= %[3]q
-
-  tags = {
+  storage_type= %[3]q  tags = {
 Name = %[1]q
   }
 }
 `, rName, azType, storageType))
-}
-
-func testAccWindowsFileSystemConfig_subnetIDs2(rName, domain string) string {
+}func testAccWindowsFileSystemConfig_subnetIDs2(rName, domain string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
@@ -1253,101 +1045,73 @@ resource "aws_fsx_windows_file_system" "test" {
   deployment_type = "MULTI_AZ_1"
   subnet_ids = [aws_subnet.test[0].id, aws_subnet.test[1].id]
   preferred_subnet_id = aws_subnet.test[0].id
-  throughput_capacity = 8
-
-  tags = {
+  throughput_capacity = 8  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccWindowsFileSystemConfig_fromBackup(rName, domain string) string {
+}func testAccWindowsFileSystemConfig_fromBackup(rName, domain string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "base" {
   active_directory_id = aws_directory_service_directory.test.id
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  tags = {
+  throughput_capacity = 8  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_fsx_backup" "test" {
-  file_system_id = aws_fsx_windows_file_system.base.id
-
-  tags = {
+}resource "aws_fsx_backup" "test" {
+  file_system_id = aws_fsx_windows_file_system.base.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_fsx_windows_file_system" "test" {
+}resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   backup_id  = aws_fsx_backup.test.id
   skip_final_backup   = true
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  tags = {
+  throughput_capacity = 8  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccWindowsFileSystemConfig_tags1(rName, domain, tagKey1, tagValue1 string) string {
+}func testAccWindowsFileSystemConfig_tags1(rName, domain, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  tags = {
+  throughput_capacity = 8  tags = {
 %[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
-}
-
-func testAccWindowsFileSystemConfig_tags2(rName, domain, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccWindowsFileSystemConfig_tags2(rName, domain, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  tags = {
+  throughput_capacity = 8  tags = {
 %[1]q = %[2]q
 %[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
-func testAccWindowsFileSystemConfig_throughputCapacity(rName, domain string, throughputCapacity int) string {
+}func testAccWindowsFileSystemConfig_throughputCapacity(rName, domain string, throughputCapacity int) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = %[2]d
-
-  tags = {
+  throughput_capacity = %[2]d  tags = {
 Name = %[1]q
   }
 }
 `, rName, throughputCapacity))
-}
-
-func testAccWindowsFileSystemConfig_weeklyMaintenanceStartTime(rName, domain, weeklyMaintenanceStartTime string) string {
+}func testAccWindowsFileSystemConfig_weeklyMaintenanceStartTime(rName, domain, weeklyMaintenanceStartTime string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id  = aws_directory_service_directory.test.id
@@ -1355,42 +1119,30 @@ resource "aws_fsx_windows_file_system" "test" {
   storage_capacity = 32
   subnet_ids = [aws_subnet.test[0].id]
   throughput_capacity  = 8
-  weekly_maintenance_start_time = %[2]q
-
-  tags = {
+  weekly_maintenance_start_time = %[2]q  tags = {
 Name = %[1]q
   }
 }
 `, rName, weeklyMaintenanceStartTime))
-}
-
-func testAccWindowsFileSystemConfig_audit(rName, domain, status string) string {
+}func testAccWindowsFileSystemConfig_audit(rName, domain, status string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource aws_cloudwatch_log_group "test" {
   name = "/aws/fsx/%[1]s"
-}
-
-resource "aws_fsx_windows_file_system" "test" {
+}resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   skip_final_backup   = true
   storage_capacity= 32
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 32
-
-  audit_log_configuration {
+  throughput_capacity = 32  audit_log_configuration {
 audit_log_destination= aws_cloudwatch_log_group.test.arn
 file_access_audit_log_level   = %[2]q
 file_share_access_audit_log_level = %[2]q
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
   }
 }
 `, rName, status))
-}
-
-func testAccWindowsFileSystemConfig_diskIOPSConfiguration(rName, domain string, iops int) string {
+}func testAccWindowsFileSystemConfig_diskIOPSConfiguration(rName, domain string, iops int) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_base(rName, domain), fmt.Sprintf(`
 resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
@@ -1398,14 +1150,10 @@ resource "aws_fsx_windows_file_system" "test" {
   storage_capacity= 64
   storage_type= "SSD"
   subnet_ids = [aws_subnet.test[0].id]
-  throughput_capacity = 8
-
-  disk_iops_configuration {
+  throughput_capacity = 8  disk_iops_configuration {
 mode = "USER_PROVISIONED"
 iops = %[2]d
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
   }
 }

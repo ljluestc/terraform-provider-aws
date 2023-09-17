@@ -1,15 +1,9 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageivs_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageivs_testimport(
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/ivs"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -24,11 +18,7 @@ import(
 )
 funcTestAccIVSChannel_basic(t*testing.T){
 	ctx:=acctest.Context(t)
-	varchannelivs.Channel
-
-	resourceName:="aws_ivs_channel.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	varchannelivs.Channel	resourceName:="aws_ivs_channel.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,names.IVS)
@@ -59,11 +49,7 @@ funcTestAccIVSChannel_basic(t*testing.T){
 }
 funcTestAccIVSChannel_tags(t*testing.T){
 	ctx:=acctest.Context(t)
-	varchannelivs.Channel
-
-	resourceName:="aws_ivs_channel.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	varchannelivs.Channel	resourceName:="aws_ivs_channel.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,names.IVS)
@@ -108,15 +94,11 @@ funcTestAccIVSChannel_tags(t*testing.T){
 }
 funcTestAccIVSChannel_update(t*testing.T){
 	ctx:=acctest.Context(t)
-	varv1,v2ivs.Channel
-
-	resourceName:="aws_ivs_channel.test"
+	varv1,v2ivs.Channel	resourceName:="aws_ivs_channel.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	authorized:="true"
 	latencyMode:="NORMAL"
-	channelType:="BASIC"
-
-	resource.ParallelTest(t,resource.TestCase{
+	channelType:="BASIC"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,names.IVS)
@@ -153,11 +135,7 @@ funcTestAccIVSChannel_update(t*testing.T){
 }
 funcTestAccIVSChannel_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
-	varchannelivs.Channel
-
-	resourceName:="aws_ivs_channel.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	varchannelivs.Channel	resourceName:="aws_ivs_channel.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,ivs.EndpointsID)
@@ -183,9 +161,7 @@ funcTestAccIVSChannel_recordingConfiguration(t*testing.T){
 	varchannelivs.Channel
 	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName:="aws_ivs_channel.test"
-	recordingConfigurationResourceName:="aws_ivs_recording_configuration.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	recordingConfigurationResourceName:="aws_ivs_recording_configuration.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,ivs.EndpointsID)
@@ -212,67 +188,37 @@ funcTestAccIVSChannel_recordingConfiguration(t*testing.T){
 }
 functestAccCheckChannelDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_ivs_channel"{
 				continue
-			}
-
-			input:=&ivs.GetChannelInput{
+			}			input:=&ivs.GetChannelInput{
 				Arn:aws.String(rs.Primary.ID),
 			}
 			_,err:=conn.GetChannelWithContext(ctx,input)
 			iferr!=nil{
 				iftfawserr.ErrCodeEquals(err,ivs.ErrCodeResourceNotFoundException){
 					returnnil
-				}
-
-				returnerr
-			}
-
-			returncreate.Error(names.IVS,create.ErrActionCheckingDestroyed,tfivs.ResNameChannel,rs.Primary.ID,errors.New("notdestroyed"))
-		}
-
-		returnnil
+				}				returnerr
+			}			returncreate.Error(names.IVS,create.ErrActionCheckingDestroyed,tfivs.ResNameChannel,rs.Primary.ID,errors.New("notdestroyed"))
+		}		returnnil
 	}
 }
 functestAccCheckChannelExists(ctxcontext.Context,namestring,channel*ivs.Channel)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		rs,ok:=s.RootModule().Resources[name]
-
-		if!ok{
+		rs,ok:=s.RootModule().Resources[name]		if!ok{
 			returncreate.Error(names.IVS,create.ErrActionCheckingExistence,tfivs.ResNameChannel,name,errors.New("notfound"))
-		}
-
-		ifrs.Primary.ID==""{
+		}		ifrs.Primary.ID==""{
 			returncreate.Error(names.IVS,create.ErrActionCheckingExistence,tfivs.ResNameChannel,name,errors.New("notset"))
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)
-
-		output,err:=tfivs.FindChannelByID(ctx,conn,rs.Primary.ID)
-
-		iferr!=nil{
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)		output,err:=tfivs.FindChannelByID(ctx,conn,rs.Primary.ID)		iferr!=nil{
 			returncreate.Error(names.IVS,create.ErrActionCheckingExistence,tfivs.ResNameChannel,rs.Primary.ID,err)
-		}
-
-		*channel=*output
-
-		returnnil
+		}		*channel=*output		returnnil
 	}
 }
 functestAccChannelPreCheck(ctxcontext.Context,t*testing.T){
-	conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)
-
-	input:=&ivs.ListChannelsInput{}
-	_,err:=conn.ListChannelsWithContext(ctx,input)
-
-	ifacctest.PreCheckSkipError(err){
+	conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)	input:=&ivs.ListChannelsInput{}
+	_,err:=conn.ListChannelsWithContext(ctx,input)	ifacctest.PreCheckSkipError(err){
 		t.Skipf("skippingacceptancetesting:%s",err)
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 		t.Fatalf("unexpectedPreCheckerror:%s",err)
 	}
 }
@@ -280,9 +226,7 @@ functestAccCheckChannelNotRecreated(before,after*ivs.Channel)resource.TestCheckF
 	returnfunc(s*terraform.State)error{
 		ifbefore,after:=aws.StringValue(before.Arn),aws.StringValue(after.Arn);before!=after{
 			returncreate.Error(names.IVS,create.ErrActionCheckingNotRecreated,tfivs.ResNameChannel,before,errors.New("recreated"))
-		}
-
-		returnnil
+		}		returnnil
 	}
 }
 functestAccChannelConfig_basic()string{
@@ -306,17 +250,13 @@ functestAccChannelConfig_recordingConfiguration(bucketNamestring)string{
 resource"aws_s3_bucket""test"{
 bucket1]q
 force_destroy=true
-}
-
-resource"aws_ivs_recording_configuration""test"{
+}resource"aws_ivs_recording_configuration""test"{
 destination_configuration{
 s3{
 _name=aws_s3_bucket.test.id
 }
 }
-}
-
-resource"aws_ivs_channel""test"{
+}resource"aws_ivs_channel""test"{
 recording_configuration_arn=aws_ivs_recording_configuration.test.id
 }
 `,bucketName)

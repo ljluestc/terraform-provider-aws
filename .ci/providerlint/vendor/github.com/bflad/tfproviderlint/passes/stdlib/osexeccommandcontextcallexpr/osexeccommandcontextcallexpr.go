@@ -1,12 +1,1 @@
-packageosexeccommandcontextcallexpr
-
-import(
-	"github.com/bflad/tfproviderlint/helper/analysisutils"
-)
-
-varAnalyzer=analysisutils.Stdlib
-CallExprAnalyzer(
-	"osexeccommandcontextcallexpr",
-	"os/exec",
-	"CommandContext",
-)
+packageosexeccommandcontextcallexprimport(	"github.com/bflad/tfproviderlint/helper/analysisutils")varAnalyzer=analysisutils.StdlibCallExprAnalyzer(	"osexeccommandcontextcallexpr",	"os/exec",	"CommandContext",)

@@ -1,8 +1,4 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-//go:generategorun../../generate/tags/main.go-ListTags-ListTagsInIDElem=ResourceARN-ServiceTagsSlice-TagInIDElem=ResourceARN-UpdateTags
+//SPDX-License-Identifier:MPL-2.0//go:generategorun../../generate/tags/main.go-ListTags-ListTagsInIDElem=ResourceARN-ServiceTagsSlice-TagInIDElem=ResourceARN-UpdateTags
 //go:generategorun../../generate/servicepackage/main.go
-//ONLYgeneratedirectivesandpackagedeclaration!Donotaddanythingelsetothisfile.
-
-packagefsx
+//ONLYgeneratedirectivesandpackagedeclaration!Donotaddanythingelsetothisfile.packagefsx

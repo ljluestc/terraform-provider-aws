@@ -1,23 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iot_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iot_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/iot"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccIoTCertificate_csr(t *testing.T) {
+)func TestAccIoTCertificate_csr(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
@@ -38,9 +30,7 @@ func TestAccIoTCertificate_csr(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTCertificate_Keys_certificate(t *testing.T) {
+}func TestAccIoTCertificate_Keys_certificate(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
@@ -61,14 +51,10 @@ func TestAccIoTCertificate_Keys_certificate(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTCertificate_Keys_existingCertificate(t *testing.T) {
+}func TestAccIoTCertificate_Keys_existingCertificate(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := acctest.TLSRSAPrivateKeyPEM(t, 2048)
-	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "testcert")
-
-	resource.ParallelTest(t, resource.TestCase{
+	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "testcert")	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -87,55 +73,35 @@ func TestAccIoTCertificate_Keys_existingCertificate(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckCertificateDestroy_basic(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckCertificateDestroy_basic(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iot_certificate" {
 				continue
-			}
-
-			// Try to find the Cert
+			}			// Try to find the Cert
 			DescribeCertOpts := &iot.DescribeCertificateInput{
 				CertificateId: aws.String(rs.Primary.ID),
-			}
-
-			resp, err := conn.DescribeCertificateWithContext(ctx, DescribeCertOpts)
-
-			if err == nil {
+			}			resp, err := conn.DescribeCertificateWithContext(ctx, DescribeCertOpts)			if err == nil {
 				if resp.CertificateDescription != nil {
 					return fmt.Errorf("Device Certificate still exists")
 				}
-			}
-
-			if err != nil {
+			}			if err != nil {
 				if !tfawserr.ErrCodeEquals(err, iot.ErrCodeResourceNotFoundException) {
 					return err
 				}
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-var testAccCertificateConfig_csr = `
+}var testAccCertificateConfig_csr = `
 resource "aws_iot_certificate" "foo_cert" {
   csr= file("test-fixtures/iot-csr.pem")
   active = true
 }
-`
-
-var testAccCertificateConfig_keys = `
+`var testAccCertificateConfig_keys = `
 resource "aws_iot_certificate" "foo_cert" {
   active = true
 }
-`
-
-func testAccCertificateConfig_existingCertificate(pem string) string {
+`func testAccCertificateConfig_existingCertificate(pem string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_certificate" "foo_cert" {
   active = true

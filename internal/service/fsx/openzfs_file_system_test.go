@@ -1,14 +1,8 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packagefsx_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packagefsx_testimport(
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/fsx"
 	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -18,25 +12,17 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tffsx"github.com/hashicorp/terraform-provider-aws/internal/service/fsx"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-funcinit(){
+)funcinit(){
 	acctest.RegisterServiceErrorCheckFunc(fsx.EndpointsID,testAccErrorCheckSkip)
-}
-
-functestAccErrorCheckSkip(t*testing.T)resource.ErrorCheckFunc{
+}functestAccErrorCheckSkip(t*testing.T)resource.ErrorCheckFunc{
 	returnacctest.ErrorCheckSkipMessagesContaining(t,
 "AmazonFSxdoesnotcurrentlysupportOpenZFSfilesystemcreationinthefollowingAvailabilityZones",
 	)
-}
-
-funcTestAccFSxOpenZFSFileSystem_basic(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystemfsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -93,15 +79,11 @@ ImportStateVerify:true,
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_diskIops(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_diskIops(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystemfsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -133,15 +115,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_disappears(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystemfsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -157,15 +135,11 @@ ExpectNonEmptyPlan:true,
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_rootVolume(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_rootVolume(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2,filesystem3fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -340,15 +314,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_securityGroupIDs(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_securityGroupIDs(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -377,15 +347,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_tags(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_tags(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2,filesystem3fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -426,15 +392,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_copyTags(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_copyTags(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -468,15 +430,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_throughput(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_throughput(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -505,15 +463,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_storageType(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_storageType(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -534,15 +488,11 @@ ImportStateVerifyIgnore:[]string{"security_group_ids"},
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_weeklyMaintenanceStartTime(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_weeklyMaintenanceStartTime(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -571,15 +521,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_automaticBackupRetentionDays(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_automaticBackupRetentionDays(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -615,15 +561,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_kmsKeyID(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_kmsKeyID(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystemfsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -644,15 +586,11 @@ ImportStateVerifyIgnore:[]string{"security_group_ids"},
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_dailyAutomaticBackupStartTime(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_dailyAutomaticBackupStartTime(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -681,15 +619,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_throughputCapacity(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_throughputCapacity(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -718,15 +652,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_storageCapacity(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_storageCapacity(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -755,15 +685,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_deploymentType(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_deploymentType(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystem1,filesystem2fsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -794,15 +720,11 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_multiAZ(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_multiAZ(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystemfsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -861,15 +783,11 @@ ImportStateVerify:true,
 	},
 },
 	})
-}
-
-funcTestAccFSxOpenZFSFileSystem_routeTableIDs(t*testing.T){
+}funcTestAccFSxOpenZFSFileSystem_routeTableIDs(t*testing.T){
 	ctx:=acctest.Context(t)
 	varfilesystemfsx.FileSystem
 	resourceName:="aws_fsx_openzfs_file_system.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -907,84 +825,44 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-functestAccCheckOpenZFSFileSystemExists(ctxcontext.Context,nstring,v*fsx.FileSystem)resource.TestCheckFunc{
+}functestAccCheckOpenZFSFileSystemExists(ctxcontext.Context,nstring,v*fsx.FileSystem)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 rs,ok:=s.RootModule().Resources[n]
 if!ok{
 	returnfmt.Errorf("Notfound:%s",n)
-}
-
-conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-output,err:=tffsx.FindOpenZFSFileSystemByID(ctx,conn,rs.Primary.ID)
-
-iferr!=nil{
+}conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)output,err:=tffsx.FindOpenZFSFileSystemByID(ctx,conn,rs.Primary.ID)iferr!=nil{
 	returnerr
-}
-
-*v=*output
-
-returnnil
+}*v=*outputreturnnil
 	}
-}
-
-functestAccCheckOpenZFSFileSystemDestroy(ctxcontext.Context)resource.TestCheckFunc{
+}functestAccCheckOpenZFSFileSystemDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-for_,rs:=ranges.RootModule().Resources{
+conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)for_,rs:=ranges.RootModule().Resources{
 	ifrs.Type!="aws_fsx_openzfs_file_system"{
 continue
-	}
-
-	_,err:=tffsx.FindOpenZFSFileSystemByID(ctx,conn,rs.Primary.ID)
-
-	iftfresource.NotFound(err){
+	}	_,err:=tffsx.FindOpenZFSFileSystemByID(ctx,conn,rs.Primary.ID)	iftfresource.NotFound(err){
 continue
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 returnerr
+	}	returnfmt.Errorf("FSxforOpenZFSFileSystem%sstillexists",rs.Primary.ID)
+}returnnil
 	}
-
-	returnfmt.Errorf("FSxforOpenZFSFileSystem%sstillexists",rs.Primary.ID)
-}
-
-returnnil
-	}
-}
-
-functestAccCheckOpenZFSFileSystemNotRecreated(i,j*fsx.FileSystem)resource.TestCheckFunc{
+}functestAccCheckOpenZFSFileSystemNotRecreated(i,j*fsx.FileSystem)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 ifaws.StringValue(i.FileSystemId)!=aws.StringValue(j.FileSystemId){
 	returnfmt.Errorf("FSxforOpenZFSFileSystem(%s)recreated",aws.StringValue(i.FileSystemId))
-}
-
-returnnil
+}returnnil
 	}
-}
-
-functestAccCheckOpenZFSFileSystemRecreated(i,j*fsx.FileSystem)resource.TestCheckFunc{
+}functestAccCheckOpenZFSFileSystemRecreated(i,j*fsx.FileSystem)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 ifaws.StringValue(i.FileSystemId)==aws.StringValue(j.FileSystemId){
 	returnfmt.Errorf("FSxforOpenZFSFileSystem(%s)notrecreated",aws.StringValue(i.FileSystemId))
-}
-
-returnnil
+}returnnil
 	}
-}
-
-functestAccOpenZFSFileSystemConfig_baseSingleAZ(rNamestring)string{
+}functestAccOpenZFSFileSystemConfig_baseSingleAZ(rNamestring)string{
 	returnacctest.ConfigVPCWithSubnets(rName,1)
-}
-
-functestAccOpenZFSFileSystemConfig_baseMultiAZ(rNamestring)string{
+}functestAccOpenZFSFileSystemConfig_baseMultiAZ(rNamestring)string{
 	returnacctest.ConfigVPCWithSubnets(rName,2)
-}
-
-functestAccOpenZFSFileSystemConfig_basic(rNamestring)string{
+}functestAccOpenZFSFileSystemConfig_basic(rNamestring)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
@@ -993,9 +871,7 @@ deployment_type="SINGLE_AZ_1"
 throughput_capacity=64
 }
 `)
-}
-
-functestAccOpenZFSFileSystemConfig_diskIOPSConfiguration(rNamestring,iopsint)string{
+}functestAccOpenZFSFileSystemConfig_diskIOPSConfiguration(rNamestring,iopsint)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
@@ -1006,152 +882,108 @@ throughput_capacity=64
 disk_iops_configuration{
 mode="USER_PROVISIONED"
 iops=%[2]d
-}
-
-tags={
+}tags={
 Name=%[1]q
 }
 }
 `,rName,iops))
-}
-
-functestAccOpenZFSFileSystemConfig_securityGroupIDs1(rNamestring)string{
+}functestAccOpenZFSFileSystemConfig_securityGroupIDs1(rNamestring)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_security_group""test1"{
 name="%[1]s-1"
-vpc_id=aws_vpc.test.id
-
-ingress{
+vpc_id=aws_vpc.test.idingress{
 cidr_blocks=[aws_vpc.test.cidr_block]
 from_port=0
 protocol=-1
 to_port=0
-}
-
-egress{
+}egress{
 cidr_blocks=["0.0.0.0/0"]
 from_port=0
 protocol="-1"
 to_port=0
-}
-
-tags={
+}tags={
 Name=%[1]q
 }
-}
-
-resource"aws_fsx_openzfs_file_system""test"{
+}resource"aws_fsx_openzfs_file_system""test"{
 security_group_ids=[aws_security_group.test1.id]
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
 throughput_capacity=512
-storage_type="SSD"
-
-tags={
+storage_type="SSD"tags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccOpenZFSFileSystemConfig_securityGroupIDs2(rNamestring)string{
+}functestAccOpenZFSFileSystemConfig_securityGroupIDs2(rNamestring)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_security_group""test1"{
 name="%[1]s-1"
-vpc_id=aws_vpc.test.id
-
-ingress{
+vpc_id=aws_vpc.test.idingress{
 cidr_blocks=[aws_vpc.test.cidr_block]
 from_port=0
 protocol=-1
 to_port=0
-}
-
-egress{
+}egress{
 cidr_blocks=["0.0.0.0/0"]
 from_port=0
 protocol="-1"
 to_port=0
-}
-
-tags={
+}tags={
 Name=%[1]q
 }
-}
-
-resource"aws_security_group""test2"{
+}resource"aws_security_group""test2"{
 name="%[1]s-2"
-vpc_id=aws_vpc.test.id
-
-ingress{
+vpc_id=aws_vpc.test.idingress{
 cidr_blocks=[aws_vpc.test.cidr_block]
 from_port=0
 protocol=-1
 to_port=0
-}
-
-egress{
+}egress{
 cidr_blocks=["0.0.0.0/0"]
 from_port=0
 protocol="-1"
 to_port=0
-}
-
-tags={
+}tags={
 Name=%[1]q
 }
-}
-
-resource"aws_fsx_openzfs_file_system""test"{
+}resource"aws_fsx_openzfs_file_system""test"{
 security_group_ids=[aws_security_group.test1.id,aws_security_group.test2.id]
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
 throughput_capacity=512
-storage_type="SSD"
-
-tags={
+storage_type="SSD"tags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccOpenZFSFileSystemConfig_tags1(rName,tagKey1,tagValue1string)string{
+}functestAccOpenZFSFileSystemConfig_tags1(rName,tagKey1,tagValue1string)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
 throughput_capacity=512
-storage_type="SSD"
-
-tags={
+storage_type="SSD"tags={
 %[1]q=%[2]q
 }
 }
 `,tagKey1,tagValue1))
-}
-
-functestAccOpenZFSFileSystemConfig_tags2(rName,tagKey1,tagValue1,tagKey2,tagValue2string)string{
+}functestAccOpenZFSFileSystemConfig_tags2(rName,tagKey1,tagValue1,tagKey2,tagValue2string)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
 throughput_capacity=512
-storage_type="SSD"
-
-tags={
+storage_type="SSD"tags={
 %[1]q=%[2]q
 %[3]q=%[4]q
 }
 }
 `,tagKey1,tagValue1,tagKey2,tagValue2))
-}
-
-functestAccOpenZFSFileSystemConfig_copyTags(rName,tagKey1,tagValue1,copyTagsstring)string{
+}functestAccOpenZFSFileSystemConfig_copyTags(rName,tagKey1,tagValue1,copyTagsstring)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
@@ -1160,16 +992,12 @@ deployment_type="SINGLE_AZ_1"
 throughput_capacity=512
 storage_type="SSD"
 copy_tags_to_backups=%[3]s
-copy_tags_to_volumes=%[3]s
-
-tags={
+copy_tags_to_volumes=%[3]stags={
 %[1]q=%[2]q
 }
 }
 `,tagKey1,tagValue1,copyTags))
-}
-
-functestAccOpenZFSFileSystemConfig_weeklyMaintenanceStartTime(rName,weeklyMaintenanceStartTimestring)string{
+}functestAccOpenZFSFileSystemConfig_weeklyMaintenanceStartTime(rName,weeklyMaintenanceStartTimestring)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
@@ -1177,16 +1005,12 @@ subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
 throughput_capacity=512
 storage_type="SSD"
-weekly_maintenance_start_time=%[2]q
-
-tags={
+weekly_maintenance_start_time=%[2]qtags={
 Name=%[1]q
 }
 }
 `,rName,weeklyMaintenanceStartTime))
-}
-
-functestAccOpenZFSFileSystemConfig_dailyAutomaticBackupStartTime(rName,dailyAutomaticBackupStartTimestring)string{
+}functestAccOpenZFSFileSystemConfig_dailyAutomaticBackupStartTime(rName,dailyAutomaticBackupStartTimestring)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
@@ -1195,16 +1019,12 @@ deployment_type="SINGLE_AZ_1"
 throughput_capacity=512
 storage_type="SSD"
 daily_automatic_backup_start_time=%[2]q
-automatic_backup_retention_days=1
-
-tags={
+automatic_backup_retention_days=1tags={
 Name=%[1]q
 }
 }
 `,rName,dailyAutomaticBackupStartTime))
-}
-
-functestAccOpenZFSFileSystemConfig_automaticBackupRetentionDays(rNamestring,retentionint)string{
+}functestAccOpenZFSFileSystemConfig_automaticBackupRetentionDays(rNamestring,retentionint)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
@@ -1212,90 +1032,64 @@ subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
 throughput_capacity=512
 storage_type="SSD"
-automatic_backup_retention_days=%[2]d
-
-tags={
+automatic_backup_retention_days=%[2]dtags={
 Name=%[1]q
 }
 }
 `,rName,retention))
-}
-
-functestAccOpenZFSFileSystemConfig_kmsKeyID(rNamestring)string{
+}functestAccOpenZFSFileSystemConfig_kmsKeyID(rNamestring)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_kms_key""test"{
 description=%[1]q
 deletion_window_in_days=7
-}
-
-resource"aws_fsx_openzfs_file_system""test"{
+}resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
 throughput_capacity=64
 storage_type="SSD"
-kms_key_id=aws_kms_key.test.arn
-
-tags={
+kms_key_id=aws_kms_key.test.arntags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccOpenZFSFileSystemConfig_throughput(rNamestring,throughputint)string{
+}functestAccOpenZFSFileSystemConfig_throughput(rNamestring,throughputint)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
-throughput_capacity=%[2]d
-
-tags={
+throughput_capacity=%[2]dtags={
 Name=%[1]q
 }
 }
 `,rName,throughput))
-}
-
-functestAccOpenZFSFileSystemConfig_storageType(rName,storageTypestring)string{
+}functestAccOpenZFSFileSystemConfig_storageType(rName,storageTypestring)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
 storage_type=%[2]q
-throughput_capacity=64
-
-tags={
+throughput_capacity=64tags={
 Name=%[1]q
 }
 }
 `,rName,storageType))
-}
-
-functestAccOpenZFSFileSystemConfig_rootVolume1(rName,dataCompression,readOnlystring,quotaSizeint)string{
+}functestAccOpenZFSFileSystemConfig_rootVolume1(rName,dataCompression,readOnlystring,quotaSizeint)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
-throughput_capacity=64
-
-root_volume_configuration{
+throughput_capacity=64root_volume_configuration{
 copy_tags_to_snapshots=true
-data_compression_type=%[2]q
-
-nfs_exports{
+data_compression_type=%[2]qnfs_exports{
 client_configurations{
 clients="10.0.1.0/24"
 options=["sync","rw"]
 }
-}
-
-read_only=%[3]s
-
-user_and_group_quotas{
+}read_only=%[3]suser_and_group_quotas{
 id=10
 storage_capacity_quota_gib=%[4]d
 type="USER"
@@ -1310,38 +1104,26 @@ id=0
 storage_capacity_quota_gib=0
 type="GROUP"
 }
-}
-
-tags={
+}tags={
 Name=%[1]q
 }
 }
 `,rName,dataCompression,readOnly,quotaSize))
-}
-
-functestAccOpenZFSFileSystemConfig_rootVolume2(rName,dataCompression,readOnlystring,quotaSize,recordSizeKiBint)string{
+}functestAccOpenZFSFileSystemConfig_rootVolume2(rName,dataCompression,readOnlystring,quotaSize,recordSizeKiBint)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
-throughput_capacity=64
-
-root_volume_configuration{
+throughput_capacity=64root_volume_configuration{
 copy_tags_to_snapshots=true
-data_compression_type=%[2]q
-
-nfs_exports{
+data_compression_type=%[2]qnfs_exports{
 client_configurations{
 clients="10.0.1.0/24"
 options=["async","rw"]
 }
-}
-
-read_only=%[3]s
-record_size_kib=%[5]d
-
-user_and_group_quotas{
+}read_only=%[3]s
+record_size_kib=%[5]duser_and_group_quotas{
 id=10
 storage_capacity_quota_gib=%[4]d
 type="USER"
@@ -1356,28 +1138,20 @@ id=0
 storage_capacity_quota_gib=0
 type="GROUP"
 }
-}
-
-tags={
+}tags={
 Name=%[1]q
 }
 }
 `,rName,dataCompression,readOnly,quotaSize,recordSizeKiB))
-}
-
-functestAccOpenZFSFileSystemConfig_rootVolume3Client(rName,dataCompression,readOnlystring,userQuota,groupQuota,recordSizeKiBint)string{
+}functestAccOpenZFSFileSystemConfig_rootVolume3Client(rName,dataCompression,readOnlystring,userQuota,groupQuota,recordSizeKiBint)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
-throughput_capacity=64
-
-root_volume_configuration{
+throughput_capacity=64root_volume_configuration{
 copy_tags_to_snapshots=true
-data_compression_type=%[2]q
-
-nfs_exports{
+data_compression_type=%[2]qnfs_exports{
 client_configurations{
 clients="10.0.1.0/24"
 options=["async","rw"]
@@ -1386,12 +1160,8 @@ client_configurations{
 clients="*"
 options=["sync","rw"]
 }
-}
-
-read_only=%[3]s
-record_size_kib=%[6]d
-
-user_and_group_quotas{
+}read_only=%[3]s
+record_size_kib=%[6]duser_and_group_quotas{
 id=10
 storage_capacity_quota_gib=%[4]d
 type="USER"
@@ -1421,28 +1191,20 @@ id=0
 storage_capacity_quota_gib=0
 type="GROUP"
 }
-}
-
-tags={
+}tags={
 Name=%[1]q
 }
 }
 `,rName,dataCompression,readOnly,userQuota,groupQuota,recordSizeKiB))
-}
-
-functestAccOpenZFSFileSystemConfig_rootVolume4(rName,dataCompression,readOnlystring,userQuota,groupQuotaint)string{
+}functestAccOpenZFSFileSystemConfig_rootVolume4(rName,dataCompression,readOnlystring,userQuota,groupQuotaint)string{
 	returnacctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
 subnet_ids=aws_subnet.test[*].id
 deployment_type="SINGLE_AZ_1"
-throughput_capacity=64
-
-root_volume_configuration{
+throughput_capacity=64root_volume_configuration{
 copy_tags_to_snapshots=true
-data_compression_type=%[2]q
-
-user_and_group_quotas{
+data_compression_type=%[2]quser_and_group_quotas{
 id=10
 storage_capacity_quota_gib=%[4]d
 type="USER"
@@ -1472,110 +1234,76 @@ id=0
 storage_capacity_quota_gib=0
 type="GROUP"
 }
-}
-
-tags={
+}tags={
 Name=%[1]q
 }
 }
 `,rName,dataCompression,readOnly,userQuota,groupQuota))
-}
-
-functestAccOpenZFSFileSystemConfig_throughputCapacity(rNamestring)string{
+}functestAccOpenZFSFileSystemConfig_throughputCapacity(rNamestring)string{
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity= 64
   subnet_ids = aws_subnet.test[*].id
   deployment_type = "SINGLE_AZ_1"
-  throughput_capacity = 128
-
-  tags = {
+  throughput_capacity = 128  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccOpenZFSFileSystemConfig_storageCapacity(rName string) string {
+}func testAccOpenZFSFileSystemConfig_storageCapacity(rName string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity= 75
   subnet_ids = aws_subnet.test[*].id
   deployment_type = "SINGLE_AZ_1"
-  throughput_capacity = 64
-
-  tags = {
+  throughput_capacity = 64  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccOpenZFSFileSystemConfig_deploymentType(rName, deploymentType string, throughput int) string {
+}func testAccOpenZFSFileSystemConfig_deploymentType(rName, deploymentType string, throughput int) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity= 64
   subnet_ids = aws_subnet.test[*].id
   deployment_type = %[2]q
-  throughput_capacity = %[3]d
-
-  tags = {
+  throughput_capacity = %[3]d  tags = {
 Name = %[1]q
   }
 }
 `, rName, deploymentType, throughput))
-}
-
-func testAccOpenZFSFileSystemConfig_multiAZ(rName string) string {
+}func testAccOpenZFSFileSystemConfig_multiAZ(rName string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseMultiAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity= 64
   subnet_ids = aws_subnet.test[*].id
   preferred_subnet_id = aws_subnet.test[0].id
   deployment_type = "MULTI_AZ_1"
-  throughput_capacity = 160
-
-  tags = {
+  throughput_capacity = 160  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccOpenZFSFileSystemConfig_routeTableIDs(rName string, n int) string {
+}func testAccOpenZFSFileSystemConfig_routeTableIDs(rName string, n int) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseMultiAZ(rName), fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+  vpc_id = aws_vpc.test.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_route_table" "test" {
-  count = %[2]d
-
-  vpc_id = aws_vpc.test.id
-
-  route {
+}resource "aws_route_table" "test" {
+  count = %[2]d  vpc_id = aws_vpc.test.id  route {
 cidr_block = "0.0.0.0/0"
 gateway_id = aws_internet_gateway.test.id
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_fsx_openzfs_file_system" "test" {
+}resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity= 64
   subnet_ids = aws_subnet.test[*].id
   preferred_subnet_id = aws_subnet.test[0].id
   deployment_type = "MULTI_AZ_1"
   throughput_capacity = 160
-  route_table_ids = aws_route_table.test[*].id
-
-  tags = {
+  route_table_ids = aws_route_table.test[*].id  tags = {
 Name = %[1]q
   }
 }

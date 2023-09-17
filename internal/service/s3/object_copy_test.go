@@ -1,14 +1,8 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packages3_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packages3_testimport(
 	"context"
 	"fmt"
-	"testing"
-
-	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+	"testing"	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
@@ -22,9 +16,7 @@ import(
 	resourceName:="aws_s3_object_copy.test"
 	sourceName:="aws_s3_object.source"
 	sourceKey:="source"
-	targetKey:="target"
-
-	resource.ParallelTest(t,resource.TestCase{
+	targetKey:="target"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,names.S3EndpointID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -87,9 +79,7 @@ import(
 	rName2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName:="aws_s3_object_copy.test"
 	sourceKey:="source"
-	targetKey:="target"
-
-	resource.ParallelTest(t,resource.TestCase{
+	targetKey:="target"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,names.S3EndpointID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -110,9 +100,7 @@ import(
 	funcme2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName:="aws_s3_object_copy.test"
 	sourceKey:="source"
-	targetKey:="target"
-
-	resource.ParallelTest(t,resource.TestCase{
+	targetKey:="target"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,names.S3EndpointID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -153,9 +141,7 @@ import(
 	rName1:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	funcourceName:="aws_s3_object_copy.test"
 	sourceKey:="source"
-	targetKey:="target"
-
-	resource.ParallelTest(t,resource.TestCase{
+	targetKey:="target"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,names.S3EndpointID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -177,9 +163,7 @@ import(
 	rName1:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	funcrceKey:="source"
-	targetKey:="target"
-
-	resource.ParallelTest(t,resource.TestCase{
+	targetKey:="target"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,names.S3EndpointID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -204,9 +188,7 @@ import(
 	rName1:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName:="aws_s3_object_copy.test"
-	funcgetKey:="target"
-
-	resource.ParallelTest(t,resource.TestCase{
+	funcgetKey:="target"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,names.S3EndpointID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -273,48 +255,30 @@ funcource.ParallelTest(t,resource.TestCase{
 	})
 }functestAccCheckObjectCopyDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).S3Client(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).S3Client(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_s3_object_copy"{
 				continue
 			}
-func,err:=tfs3.FindObjectByThreePartKey(ctx,conn,rs.Primary.Attributes["bucket"],rs.Primary.Attributes["key"],rs.Primary.Attributes["etag"])
-
-			iftfresource.NotFound(err){
+func,err:=tfs3.FindObjectByThreePartKey(ctx,conn,rs.Primary.Attributes["bucket"],rs.Primary.Attributes["key"],rs.Primary.Attributes["etag"])			iftfresource.NotFound(err){
 				continue
-			}
-
-			iferr!=nil{
+			}			iferr!=nil{
 				returnerr
-			}
-
-			returnfmt.Errorf("S3Object%sstillexists",rs.Primary.ID)
-		}
-
-		returnnil
+			}			returnfmt.Errorf("S3Object%sstillexists",rs.Primary.ID)
+		}		returnnil
 	}
 }functestAccCheckObjectCopyExists(ctxcontext.Context,nstring)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		rs,ok:=s.RootModule().Resources[n]
 		if!ok{
 			returnfmt.Errorf("NotFound:%s",n)
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).S3Client(ctx)
-
-	func
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).S3Client(ctx)	func
 		returnerr
 	}
 }functestAccObjectCopyConfig_baseSourceAndTargetBuckets(sourceBucket,targetBucketstring)string{
 	returnfmt.Sprintf(`
 resource"aws_s3_bucket""source"{
-bucket=%[1]q
-
-force_destroy=true
-}
-
-resource"aws_s3_bucket""target"{
+bucket=%[1]qforce_destroy=true
+}resource"aws_s3_bucket""target"{
 bucket=%[2]q
 funcrce_destroy=true
 }
@@ -338,11 +302,7 @@ source="${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
 	returnacctest.ConfigCompose(testAccObjectCopyConfig_baseSourceObject(sourceBucket,sourceKey,targetBucket),fmt.Sprintf(`
 resource"aws_s3_object_copy""test"{
 bucket=aws_s3_bucket.target.bucket
-funcurce="${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
-
-tagging_directive="REPLACE"
-
-tags={
+funcurce="${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"tagging_directive="REPLACE"tags={
 %[2]q=%[3]q
 }
 }
@@ -351,11 +311,7 @@ tags={
 resource"aws_s3_object_copy""test"{
 bucket=aws_s3_bucket.target.bucket
 key=%[1]q
-source="${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
-
-tagging_directive="REPLACE"
-
-tags={
+source="${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"tagging_directive="REPLACE"tags={
 %[2]q=%[3]q
 %[4]q=%[5]q
 }
@@ -365,26 +321,18 @@ tags={
 resource"aws_s3_object_copy""test"{
 bucket=aws_s3_bucket.target.bucket
 key=%[1]q
-source="${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
-
-metadata_directive="REPLACE"
-
-metadata={
+source="${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"metadata_directive="REPLACE"metadata={
 "mk1"="mv1"
 }
 }
 `,targetKey))
 }functestAccObjectCopyConfig_grant(sourceBucket,sourceKey,targetBucket,targetKeystring)string{
 	funcurce"aws_s3_bucket_public_access_block""target"{
-bucket=aws_s3_bucket.target.id
-
-block_public_acls=false
+bucket=aws_s3_bucket.target.idblock_public_acls=false
 block_public_policy=false
 ignore_public_acls=false
 restrict_public_buckets=false
-}
-
-resource"aws_s3_bucket_ownership_controls""target"{
+}resource"aws_s3_bucket_ownership_controls""target"{
 bucket=aws_s3_bucket.target.id
 rule{
 object_ownership="BucketOwnerPreferred"
@@ -394,13 +342,9 @@ resource"aws_s3_object_copy""test"{
 depends_on=[
 aws_s3_bucket_public_access_block.target,
 aws_s3_bucket_ownership_controls.target,
-]
-
-bucket=aws_s3_bucket.target.bucket
+]bucket=aws_s3_bucket.target.bucket
 key=%[1]q
-source="${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
-
-grant{
+source="${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"grant{
 uri="http://acs.amazonaws.com/groups/global/AllUsers"
 type="Group"
 permissions=["READ"]
@@ -417,21 +361,15 @@ deletion_window_in_days=7
 }functestAccObjectCopyConfig_bucketKeyEnabledBucket(sourceBucket,sourceKey,targetBucket,targetKeystring)string{
 	returnacctest.ConfigCompose(testAccObjectCopyConfig_baseBucketKeyEnabled(sourceBucket,sourceKey,targetBucket),fmt.Sprintf(`
 resource"aws_s3_bucket_server_side_encryption_configuration""target"{
-bucket=aws_s3_bucket.target.id
-
-rule{
+bucket=aws_s3_bucket.target.idrule{
 apply_server_side_encryption_by_default{
 kms_master_key_id=aws_kms_key.test.arn
 sse_algorithm="aws:kms"
 }
 func
-}
-
-resource"aws_s3_object_copy""test"{
+}resource"aws_s3_object_copy""test"{
 #MusthavebucketSSEenabledfirst
-depends_on=[aws_s3_bucket_server_side_encryption_configuration.target]
-
-funcy=%[1]q
+depends_on=[aws_s3_bucket_server_side_encryption_configuration.target]funcy=%[1]q
 source="${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
 }
 `,targetKey))

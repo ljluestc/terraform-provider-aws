@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opensearch_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opensearch_testimport (
 	"context"
 	"fmt"
 	"testing"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	"github.com/aws/aws-sdk-go/service/opensearchservice"
@@ -22,9 +16,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 func TestEBSVolumeTypePermitsIopsInput(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
+	t.Parallel()	testCases := []struct {
 		name       string
 		volumeType string
 		want       bool
@@ -38,18 +30,14 @@ func TestEBSVolumeTypePermitsIopsInput(t *testing.T) {
 	for _, testCase := range testCases {
 		testCase := testCase
 		t.Run(testCase.name, func(t *testing.T) {
-			t.Parallel()
-
-			if got := tfopensearch.EBSVolumeTypePermitsIopsInput(testCase.volumeType); got != testCase.want {
+			t.Parallel()			if got := tfopensearch.EBSVolumeTypePermitsIopsInput(testCase.volumeType); got != testCase.want {
 				t.Errorf("EBSVolumeTypePermitsIopsInput() = %v, want %v", got, testCase.want)
 			}
 		})
 	}
 }
 func TestEBSVolumeTypePermitsThroughputInput(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
+	t.Parallel()	testCases := []struct {
 		name       string
 		volumeType string
 		want       bool
@@ -63,18 +51,14 @@ func TestEBSVolumeTypePermitsThroughputInput(t *testing.T) {
 	for _, testCase := range testCases {
 		testCase := testCase
 		t.Run(testCase.name, func(t *testing.T) {
-			t.Parallel()
-
-			if got := tfopensearch.EBSVolumeTypePermitsThroughputInput(testCase.volumeType); got != testCase.want {
+			t.Parallel()			if got := tfopensearch.EBSVolumeTypePermitsThroughputInput(testCase.volumeType); got != testCase.want {
 				t.Errorf("EBSVolumeTypePermitsThroughputInput() = %v, want %v", got, testCase.want)
 			}
 		})
 	}
 }
 func TestParseEngineVersion(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
+	t.Parallel()	testCases := []struct {
 		TestName  string
 		InputEngineVersion string
 		ExpectError        bool
@@ -101,28 +85,16 @@ func TestParseEngineVersion(t *testing.T) {
 			ExpectedEngineType: "Elasticsearch",
 			ExpectedSemver:     "7.2",
 		},
-	}
-
-	for _, testCase := range testCases {
+	}	for _, testCase := range testCases {
 		testCase := testCase
 		t.Run(testCase.TestName, func(t *testing.T) {
-			t.Parallel()
-
-			engineType, semver, err := tfopensearch.ParseEngineVersion(testCase.InputEngineVersion)
-
-			if err == nil && testCase.ExpectError {
+			t.Parallel()			engineType, semver, err := tfopensearch.ParseEngineVersion(testCase.InputEngineVersion)			if err == nil && testCase.ExpectError {
 				t.Fatal("expected error, got no error")
-			}
-
-			if err != nil && !testCase.ExpectError {
+			}			if err != nil && !testCase.ExpectError {
 				t.Fatalf("got unexpected error: %s", err)
-			}
-
-			if engineType != testCase.ExpectedEngineType {
+			}			if engineType != testCase.ExpectedEngineType {
 				t.Errorf("engine type got %s, expected %s", engineType, testCase.ExpectedEngineType)
-			}
-
-			if semver != testCase.ExpectedSemver {
+			}			if semver != testCase.ExpectedSemver {
 				t.Errorf("semver got %s, expected %s", semver, testCase.ExpectedSemver)
 			}
 		})
@@ -132,13 +104,9 @@ func TestAccOpenSearchDomain_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -168,9 +136,7 @@ func TestAccOpenSearchDomain_basic(t *testing.T) {
 func TestAccOpenSearchDomain_requireHTTPS(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
-	rName := testAccRandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := testAccRandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -203,17 +169,13 @@ func TestAccOpenSearchDomain_customEndpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
 	resourceName := "aws_opensearch_domain.test"
 	customEndpoint := fmt.Sprintf("%s.example.com", rName)
 	certResourceName := "aws_acm_certificate.test"
 	certKey := acctest.TLSRSAPrivateKeyPEM(t, 2048)
-	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, certKey, customEndpoint)
-
-	resource.ParallelTest(t, resource.TestCase{
+	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, certKey, customEndpoint)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -258,9 +220,7 @@ func TestAccOpenSearchDomain_Cluster_zoneAwareness(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain1, domain2, domain3, domain4 opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -317,13 +277,9 @@ func TestAccOpenSearchDomain_Cluster_coldStorage(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -358,9 +314,7 @@ func TestAccOpenSearchDomain_Cluster_warm(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -415,9 +369,7 @@ func TestAccOpenSearchDomain_Cluster_dedicatedMaster(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -454,13 +406,9 @@ func TestAccOpenSearchDomain_Cluster_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var input opensearchservice.DomainStatus
+	}	var input opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -494,9 +442,7 @@ func TestAccOpenSearchDomain_Cluster_multiAzWithStandbyEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -529,13 +475,9 @@ func TestAccOpenSearchDomain_duplicate(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -560,9 +502,7 @@ func TestAccOpenSearchDomain_duplicate(t *testing.T) {
 					})
 					if err != nil {
 						t.Fatal(err)
-					}
-
-					err = tfopensearch.WaitForDomainCreation(ctx, conn, rName, 60*time.Minute)
+					}					err = tfopensearch.WaitForDomainCreation(ctx, conn, rName, 60*time.Minute)
 					if err != nil {
 						t.Fatal(err)
 					}
@@ -581,13 +521,9 @@ func TestAccOpenSearchDomain_v23(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -614,13 +550,9 @@ func TestAccOpenSearchDomain_complex(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -645,13 +577,9 @@ func TestAccOpenSearchDomain_VPC_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -676,9 +604,7 @@ func TestAccOpenSearchDomain_VPC_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -711,13 +637,9 @@ func TestAccOpenSearchDomain_VPC_internetToVPCEndpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -748,14 +670,10 @@ func TestAccOpenSearchDomain_autoTuneOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
 	autoTuneStartAtTime := testAccGetValidStartAtTime(t, "24h")
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -791,13 +709,9 @@ func TestAccOpenSearchDomain_AdvancedSecurityOptions_userDB(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -828,13 +742,9 @@ func TestAccOpenSearchDomain_AdvancedSecurityOptions_anonymousAuth(t *testing.T)
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -872,13 +782,9 @@ func TestAccOpenSearchDomain_AdvancedSecurityOptions_iam(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -909,13 +815,9 @@ func TestAccOpenSearchDomain_AdvancedSecurityOptions_disabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -945,13 +847,9 @@ func TestAccOpenSearchDomain_LogPublishingOptions_indexSlowLogs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -980,13 +878,9 @@ func TestAccOpenSearchDomain_LogPublishingOptions_searchSlowLogs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1015,13 +909,9 @@ func TestAccOpenSearchDomain_LogPublishingOptions_applicationLogs(t *testing.T) 
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1050,13 +940,9 @@ func TestAccOpenSearchDomain_LogPublishingOptions_auditLogs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1087,13 +973,9 @@ func TestAccOpenSearchDomain_CognitoOptions_createAndRemove(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckCognitoIdentityProvider(ctx, t)
@@ -1130,13 +1012,9 @@ func TestAccOpenSearchDomain_CognitoOptions_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckCognitoIdentityProvider(ctx, t)
@@ -1173,13 +1051,9 @@ func TestAccOpenSearchDomain_Policy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	resourceName := "aws_opensearch_domain.test"
-	rName := testAccRandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := testAccRandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1204,13 +1078,9 @@ func TestAccOpenSearchDomain_Policy_ignoreEquivalent(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	resourceName := "aws_opensearch_domain.test"
-	rName := testAccRandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := testAccRandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1233,13 +1103,9 @@ func TestAccOpenSearchDomain_Encryption_atRestDefaultKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	resourceName := "aws_opensearch_domain.test"
-	rName := testAccRandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := testAccRandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1265,13 +1131,9 @@ func TestAccOpenSearchDomain_Encryption_atRestSpecifyKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	resourceName := "aws_opensearch_domain.test"
-	rName := testAccRandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := testAccRandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1297,13 +1159,9 @@ func TestAccOpenSearchDomain_Encryption_atRestEnable(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain1, domain2 opensearchservice.DomainStatus
+	}	var domain1, domain2 opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1338,13 +1196,9 @@ func TestAccOpenSearchDomain_Encryption_atRestEnableLegacy(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain1, domain2 opensearchservice.DomainStatus
+	}	var domain1, domain2 opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1371,13 +1225,9 @@ func TestAccOpenSearchDomain_Encryption_nodeToNode(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	resourceName := "aws_opensearch_domain.test"
-	rName := testAccRandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := testAccRandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1403,13 +1253,9 @@ func TestAccOpenSearchDomain_Encryption_nodeToNodeEnable(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain1, domain2 opensearchservice.DomainStatus
+	}	var domain1, domain2 opensearchservice.DomainStatus
 	resourceName := "aws_opensearch_domain.test"
-	rName := testAccRandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := testAccRandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1444,13 +1290,9 @@ func TestAccOpenSearchDomain_Encryption_nodeToNodeEnableLegacy(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain1, domain2 opensearchservice.DomainStatus
+	}	var domain1, domain2 opensearchservice.DomainStatus
 	resourceName := "aws_opensearch_domain.test"
-	rName := testAccRandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := testAccRandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1484,13 +1326,9 @@ func TestAccOpenSearchDomain_offPeakWindowOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1545,13 +1383,9 @@ func TestAccOpenSearchDomain_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1595,13 +1429,9 @@ func TestAccOpenSearchDomain_VolumeType_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var input opensearchservice.DomainStatus
+	}	var input opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1641,9 +1471,7 @@ func TestAccOpenSearchDomain_VolumeType_update(t *testing.T) {
 				),
 			},
 		}})
-}
-
-// Verifies that EBS volume_type can be changed from gp3 to a type which does not
+}// Verifies that EBS volume_type can be changed from gp3 to a type which does not
 // support the throughput and iops input values (ex. gp2)
 //
 // Reference: https://github.com/hashicorp/terraform-provider-aws/issues/27467
@@ -1651,13 +1479,9 @@ func TestAccOpenSearchDomain_VolumeType_gp3ToGP2(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var input opensearchservice.DomainStatus
+	}	var input opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1690,20 +1514,14 @@ func TestAccOpenSearchDomain_VolumeType_gp3ToGP2(t *testing.T) {
 				),
 			},
 		}})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/13867
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/13867
 func TestAccOpenSearchDomain_VolumeType_missing(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	resourceName := "aws_opensearch_domain.test"
-	rName := testAccRandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := testAccRandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1735,9 +1553,7 @@ func TestAccOpenSearchDomain_versionUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain1, domain2, domain3 opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1778,13 +1594,9 @@ func TestAccOpenSearchDomain_softwareUpdateOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var domain opensearchservice.DomainStatus
+	}	var domain opensearchservice.DomainStatus
 	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1811,12 +1623,8 @@ func TestAccOpenSearchDomain_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := testAccRandomDomainName()
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	rName := testAccRandomDomainName()
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1952,17 +1760,13 @@ func testAccCheckNodeToNodeEncrypted(encrypted bool, status *opensearchservice.D
 }
 func testAccCheckAdvancedSecurityOptions(enabled bool, userDbEnabled bool, anonymousAuthEnabled bool, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conf := status.AdvancedSecurityOptions
-
-		if aws.BoolValue(conf.Enabled) != enabled {
+		conf := status.AdvancedSecurityOptions		if aws.BoolValue(conf.Enabled) != enabled {
 			return fmt.Errorf(
 				"AdvancedSecurityOptions.Enabled not set properly. Given: %t, Expected: %t",
 				aws.BoolValue(conf.Enabled),
 				enabled,
 			)
-		}
-
-		if aws.BoolValue(conf.Enabled) {
+		}		if aws.BoolValue(conf.Enabled) {
 			if aws.BoolValue(conf.InternalUserDatabaseEnabled) != userDbEnabled {
 				return fmt.Errorf(
 					"AdvancedSecurityOptions.InternalUserDatabaseEnabled not set properly. Given: %t, Expected: %t",
@@ -1970,9 +1774,7 @@ func testAccCheckAdvancedSecurityOptions(enabled bool, userDbEnabled bool, anony
 					userDbEnabled,
 				)
 			}
-		}
-
-		if aws.BoolValue(conf.Enabled) {
+		}		if aws.BoolValue(conf.Enabled) {
 			if aws.BoolValue(conf.AnonymousAuthEnabled) != anonymousAuthEnabled {
 				return fmt.Errorf(
 					"AdvancedSecurityOptions.AnonymousAuthEnabled not set properly. Given: %t, Expected: %t",
@@ -1980,9 +1782,7 @@ func testAccCheckAdvancedSecurityOptions(enabled bool, userDbEnabled bool, anony
 					anonymousAuthEnabled,
 				)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccCheckCognitoOptions(enabled bool, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
@@ -1999,25 +1799,15 @@ func testAccCheckDomainExists(ctx context.Context, n string, domain *opensearchs
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No OpenSearch Domain ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchConn(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchConn(ctx)
 		resp, err := tfopensearch.FindDomainByName(ctx, conn, rs.Primary.Attributes["domain_name"])
 		if err != nil {
 			return fmt.Errorf("Error describing domain: %s", err.Error())
-		}
-
-		*domain = *resp
-
-		return nil
+		}		*domain = *resp		return nil
 	}
-}
-
-// testAccCheckDomainNotRecreated does not work. Inexplicably, a deleted
+}// testAccCheckDomainNotRecreated does not work. Inexplicably, a deleted
 // domain's create time (& endpoint) carry over to a newly created domain with
 // the same name, if it's created within any reasonable time after deletion.
 // Also, domain ID is not unique and is simply the domain name so won't work
@@ -2025,23 +1815,17 @@ func testAccCheckDomainExists(ctx context.Context, n string, domain *opensearchs
 func testAccCheckDomainNotRecreated(domain1, domain2 *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		/*
-		   	conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchConn(ctx)
-
-		   	ic, err := conn.DescribeDomainConfig(&opensearchservice.DescribeDomainConfigInput{
+		   	conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchConn(ctx)		   	ic, err := conn.DescribeDomainConfig(&opensearchservice.DescribeDomainConfigInput{
 		   DomainName: domain1.DomainName,
 		   	})
 		   	if err != nil {
 		   return fmt.Errorf("while checking if domain (%s) was not recreated, describing domain config: %w", aws.StringValue(domain1.DomainName), err)
-		   	}
-
-		   	jc, err := conn.DescribeDomainConfig(&opensearchservice.DescribeDomainConfigInput{
+		   	}		   	jc, err := conn.DescribeDomainConfig(&opensearchservice.DescribeDomainConfigInput{
 		   DomainName: domain2.DomainName,
 		   	})
 		   	if err != nil {
 		   return fmt.Errorf("while checking if domain (%s) was not recreated, describing domain config: %w", aws.StringValue(domain2.DomainName), err)
-		   	}
-
-		   	if aws.StringValue(domain1.Endpoint) != aws.StringValue(domain2.Endpoint) || !aws.TimeValue(ic.DomainConfig.ClusterConfig.Status.CreationDate).Equal(aws.TimeValue(jc.DomainConfig.ClusterConfig.Status.CreationDate)) {
+		   	}		   	if aws.StringValue(domain1.Endpoint) != aws.StringValue(domain2.Endpoint) || !aws.TimeValue(ic.DomainConfig.ClusterConfig.Status.CreationDate).Equal(aws.TimeValue(jc.DomainConfig.ClusterConfig.Status.CreationDate)) {
 		   return fmt.Errorf("domain (%s) was recreated, before endpoint (%s, create time: %s), after endpoint (%s, create time: %s)",
 		   	aws.StringValue(domain1.DomainName),
 		   	aws.StringValue(domain1.Endpoint),
@@ -2050,9 +1834,7 @@ func testAccCheckDomainNotRecreated(domain1, domain2 *opensearchservice.DomainSt
 		   	aws.TimeValue(jc.DomainConfig.ClusterConfig.Status.CreationDate),
 		   )
 		   	}
-		*/
-
-		return nil
+		*/		return nil
 	}
 }
 func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
@@ -2060,20 +1842,12 @@ func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_opensearch_domain" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchConn(ctx)
-			_, err := tfopensearch.FindDomainByName(ctx, conn, rs.Primary.Attributes["domain_name"])
-
-			if tfresource.NotFound(err) {
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchConn(ctx)
+			_, err := tfopensearch.FindDomainByName(ctx, conn, rs.Primary.Attributes["domain_name"])			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("OpenSearch domain %s still exists", rs.Primary.ID)
+			}			return fmt.Errorf("OpenSearch domain %s still exists", rs.Primary.ID)
 		}
 		return nil
 	}
@@ -2090,28 +1864,18 @@ func testAccPreCheckIAMServiceLinkedRole(ctx context.Context, t *testing.T) {
 	acctest.PreCheckIAMServiceLinkedRole(ctx, t, "/aws-service-role/opensearchservice")
 }
 func testAccPreCheckCognitoIdentityProvider(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
-
-	input := &cognitoidentityprovider.ListUserPoolsInput{
+	conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)	input := &cognitoidentityprovider.ListUserPoolsInput{
 		MaxResults: aws.Int64(1),
-	}
-
-	_, err := conn.ListUserPoolsWithContext(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+	}	_, err := conn.ListUserPoolsWithContext(ctx, input)	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 func testAccDomainConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -2122,28 +1886,18 @@ func testAccDomainConfig_autoTuneOptions(rName, autoTuneStartAtTime string) stri
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_6.7"
-
-  ebs_options {
+  engine_version = "Elasticsearch_6.7"  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  auto_tune_options {
-    desired_state = "ENABLED"
-
-    maintenance_schedule {
+  }  auto_tune_options {
+    desired_state = "ENABLED"    maintenance_schedule {
       start_at = %[2]q
       duration {
         value = "2"
         unit  = "HOURS"
       }
       cron_expression_for_recurrence = "cron(0 0 ? * 1 *)"
-    }
-
-    rollback_on_disable = "NO_ROLLBACK"
-
-  }
+    }    rollback_on_disable = "NO_ROLLBACK"  }
 }
 `, rName, autoTuneStartAtTime)
 }
@@ -2151,14 +1905,10 @@ func testAccDomainConfig_disabledEBSNullVolume(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_6.0"
-
-  cluster_config {
+  engine_version = "Elasticsearch_6.0"  cluster_config {
     instance_type  = "i3.xlarge.search"
     instance_count = 1
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = false
     volume_size = 0
     volume_type = null
@@ -2169,14 +1919,10 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_endpointOptions(rName string, enforceHttps bool, tlsSecurityPolicy string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  domain_endpoint_options {
+  domain_name = %[1]q  domain_endpoint_options {
     enforce_https       = %[2]t
     tls_security_policy = %[3]q
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -2188,20 +1934,14 @@ func testAccDomainConfig_customEndpoint(rName string, enforceHttps bool, tlsSecu
 resource "aws_acm_certificate" "test" {
   private_key      = "%[6]s"
   certificate_body = "%[7]s"
-}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  domain_endpoint_options {
+}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  domain_endpoint_options {
     enforce_https    = %[2]t
     tls_security_policy= %[3]q
     custom_endpoint_enabled= %[4]t
     custom_endpoint  = "%[5]s"
     custom_endpoint_certificate_arn = aws_acm_certificate.test.arn
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -2212,19 +1952,13 @@ func testAccDomainConfig_clusterZoneAwarenessAZCount(rName string, availabilityZ
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_1.5"
-
-  cluster_config {
+  engine_version = "Elasticsearch_1.5"  cluster_config {
     instance_type = "t2.small.search"
     instance_count= 6
-    zone_awareness_enabled = true
-
-    zone_awareness_config {
+    zone_awareness_enabled = true    zone_awareness_config {
       availability_zone_count = %[2]d
     }
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -2238,40 +1972,28 @@ func testAccDomainConfig_clusterColdStorageOptions(rName string, warmEnabled boo
 	warm_count = "2"
 	warm_type = "ultrawarm1.medium.search"
 `
-	}
-
-	coldConfig := ""
+	}	coldConfig := ""
 	if csEnabled {
 		coldConfig = `
 	cold_storage_options {
 	  enabled = true
 	}
 `
-	}
-
-	return fmt.Sprintf(`
+	}	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_7.9"
-
-  cluster_config {
+  engine_version = "Elasticsearch_7.9"  cluster_config {
     zone_awareness_enabled   = true
     instance_type   = "c5.large.search"
     instance_count  = "3"
     dedicated_master_enabled = true
     dedicated_master_count   = "3"
     dedicated_master_type    = "c5.large.search"
-    warm_enabled= %[2]t
-
-    %[3]s
-    %[4]s
-
-    zone_awareness_config {
+    warm_enabled= %[2]t    %[3]s
+    %[4]s    zone_awareness_config {
       availability_zone_count = 3
     }
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -2282,15 +2004,11 @@ func testAccDomainConfig_clusterZoneAwarenessEnabled(rName string, zoneAwareness
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_1.5"
-
-  cluster_config {
+  engine_version = "Elasticsearch_1.5"  cluster_config {
     instance_type = "t2.small.search"
     instance_count= 6
     zone_awareness_enabled = %[2]t
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -2304,30 +2022,20 @@ func testAccDomainConfig_clusterWarm(rName, warmType string, enabled bool, warmC
     warm_count = %[1]d
     warm_type = %[2]q
 `, warmCnt, warmType)
-	}
-
-	return fmt.Sprintf(`
+	}	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_6.8"
-
-  cluster_config {
+  engine_version = "Elasticsearch_6.8"  cluster_config {
     zone_awareness_enabled   = true
     instance_type   = "c5.large.search"
     instance_count  = "3"
     dedicated_master_enabled = true
     dedicated_master_count   = "3"
     dedicated_master_type    = "c5.large.search"
-    warm_enabled= %[2]t
-
-    %[3]s
-
-    zone_awareness_config {
+    warm_enabled= %[2]t    %[3]s    zone_awareness_config {
       availability_zone_count = 3
     }
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -2337,17 +2045,13 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_dedicatedClusterMaster(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  cluster_config {
+  domain_name = %[1]q  cluster_config {
     instance_type   = "t2.small.search"
     instance_count  = "1"
     dedicated_master_enabled = %t
     dedicated_master_count   = "3"
     dedicated_master_type    = "t2.small.search"
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -2358,36 +2062,24 @@ func testAccDomainConfig_multiAzWithStandbyEnabled(rName string, enableStandby b
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "OpenSearch_2.7"
-
-  domain_endpoint_options {
+  engine_version = "OpenSearch_2.7"  domain_endpoint_options {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-0-2019-07"
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 20
-  }
-
-  auto_tune_options {
+  }  auto_tune_options {
     desired_state       = "ENABLED"
     rollback_on_disable = "NO_ROLLBACK"
-  }
-
-  cluster_config {
+  }  cluster_config {
     zone_awareness_enabled   = true
     instance_count  = 3
     instance_type   = "m6g.large.search"
     dedicated_master_enabled = true
     dedicated_master_count   = 3
-    dedicated_master_type    = "m6g.large.search"
-
-    zone_awareness_config {
+    dedicated_master_type    = "m6g.large.search"    zone_awareness_config {
       availability_zone_count = 3
-    }
-
-    multi_az_with_standby_enabled = %[2]t
+    }    multi_az_with_standby_enabled = %[2]t
   }
 }
 `, rName, enableStandby)
@@ -2395,28 +2087,18 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_clusterUpdate(rName string, instanceInt, snapshotInt int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  advanced_options = {
+  domain_name = %[1]q  advanced_options = {
     "indices.fielddata.cache.size" = 80
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_count= %d
     zone_awareness_enabled = true
     instance_type = "t2.small.search"
-  }
-
-  snapshot_options {
+  }  snapshot_options {
     automated_snapshot_start_hour = %d
-  }
-
-  timeouts {
+  }  timeouts {
     update = "180m"
   }
 }
@@ -2425,23 +2107,15 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_clusterUpdateEBSVolume(rName string, volumeSize int, volumeThroughput int, volumeIops int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  engine_version = "Elasticsearch_6.0"
-
-  advanced_options = {
+  domain_name = %[1]q  engine_version = "Elasticsearch_6.0"  advanced_options = {
     "indices.fielddata.cache.size" = 80
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = %d
     throughput  = %d
     volume_type = "gp3"
     iops        = %d
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_count= 2
     zone_awareness_enabled = true
     instance_type = "t3.small.search"
@@ -2452,15 +2126,11 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_clusterEBSVolumeGP3DefaultIopsThroughput(rName string, volumeSize int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = %[2]d
     volume_type = "gp3"
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_type = "t3.small.search"
   }
 }
@@ -2469,15 +2139,11 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_clusterEBSVolumeGP2(rName string, volumeSize int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = %[2]d
     volume_type = "gp2"
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_type = "t3.small.search"
   }
 }
@@ -2486,16 +2152,10 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_clusterUpdateVersion(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  engine_version = %[2]q
-
-  ebs_options {
+  domain_name = %[1]q  engine_version = %[2]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_count= 1
     zone_awareness_enabled = false
     instance_type = "t2.small.search"
@@ -2506,19 +2166,11 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_clusterUpdateInstanceStore(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  engine_version = "Elasticsearch_6.0"
-
-  advanced_options = {
+  domain_name = %[1]q  engine_version = "Elasticsearch_6.0"  advanced_options = {
     "indices.fielddata.cache.size" = 80
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = false
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_count= 2
     zone_awareness_enabled = true
     instance_type = "i3.large.search"
@@ -2529,14 +2181,10 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
   }
 }
@@ -2559,17 +2207,11 @@ resource "aws_opensearch_domain" "test" {
 }
 func testAccDomainConfig_policy(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+data "aws_partition" "current" {}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  access_policies = jsonencode({
+  }  access_policies = jsonencode({
     Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"
@@ -2580,18 +2222,12 @@ resource "aws_opensearch_domain" "test" {
       Resource = "arn:${data.aws_partition.current.partition}:es:*"
     }]
   })
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   name= %[1]q
   assume_role_policy = data.aws_iam_policy_document.test.json
-}
-
-data "aws_iam_policy_document" "test" {
+}data "aws_iam_policy_document" "test" {
   statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
+    actions = ["sts:AssumeRole"]    principals {
       type        = "Service"
       identifiers = ["ec2.${data.aws_partition.current.dns_suffix}"]
     }
@@ -2601,17 +2237,11 @@ data "aws_iam_policy_document" "test" {
 }
 func testAccDomainConfig_policyOrder(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+data "aws_partition" "current" {}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  access_policies = jsonencode({
+  }  access_policies = jsonencode({
     Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"
@@ -2625,23 +2255,15 @@ resource "aws_opensearch_domain" "test" {
       Resource = "arn:${data.aws_partition.current.partition}:es:*"
     }]
   })
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   name= %[1]q
   assume_role_policy = data.aws_iam_policy_document.test.json
-}
-
-resource "aws_iam_role" "test2" {
+}resource "aws_iam_role" "test2" {
   name= "%[1]s-2"
   assume_role_policy = data.aws_iam_policy_document.test.json
-}
-
-data "aws_iam_policy_document" "test" {
+}data "aws_iam_policy_document" "test" {
   statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
+    actions = ["sts:AssumeRole"]    principals {
       type        = "Service"
       identifiers = ["ec2.${data.aws_partition.current.dns_suffix}"]
     }
@@ -2651,17 +2273,11 @@ data "aws_iam_policy_document" "test" {
 }
 func testAccDomainConfig_policyNewOrder(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+data "aws_partition" "current" {}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  access_policies = jsonencode({
+  }  access_policies = jsonencode({
     Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"
@@ -2675,23 +2291,15 @@ resource "aws_opensearch_domain" "test" {
       Resource = "arn:${data.aws_partition.current.partition}:es:*"
     }]
   })
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   name= %[1]q
   assume_role_policy = data.aws_iam_policy_document.test.json
-}
-
-resource "aws_iam_role" "test2" {
+}resource "aws_iam_role" "test2" {
   name= "%[1]s-2"
   assume_role_policy = data.aws_iam_policy_document.test.json
-}
-
-data "aws_iam_policy_document" "test" {
+}data "aws_iam_policy_document" "test" {
   statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
+    actions = ["sts:AssumeRole"]    principals {
       type        = "Service"
       identifiers = ["ec2.${data.aws_partition.current.dns_suffix}"]
     }
@@ -2702,20 +2310,12 @@ data "aws_iam_policy_document" "test" {
 func testAccDomainConfig_encryptAtRestDefaultKey(rName, version string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  engine_version = %[2]q
-
-  cluster_config {
+  domain_name = %[1]q  engine_version = %[2]q  cluster_config {
     instance_type = "m4.large.search"
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  encrypt_at_rest {
+  }  encrypt_at_rest {
     enabled = %[3]t
   }
 }
@@ -2726,24 +2326,14 @@ func testAccDomainConfig_encryptAtRestKey(rName, version string, enabled bool) s
 resource "aws_kms_key" "test" {
   description= %[1]q
   deletion_window_in_days = 7
-}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  engine_version = %[2]q
-
-  # Encrypt at rest requires m4/c4/r4/i2 instances. See http://docs.aws.amazon.com/opensearch-service/latest/developerguide/aes-supported-instance-types.html
+}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  engine_version = %[2]q  # Encrypt at rest requires m4/c4/r4/i2 instances. See http://docs.aws.amazon.com/opensearch-service/latest/developerguide/aes-supported-instance-types.html
   cluster_config {
     instance_type = "m4.large.search"
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  encrypt_at_rest {
+  }  encrypt_at_rest {
     enabled    = %[3]t
     kms_key_id = aws_kms_key.test.key_id
   }
@@ -2753,20 +2343,12 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_nodeToNodeEncryption(rName, version string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  engine_version = %[2]q
-
-  cluster_config {
+  domain_name = %[1]q  engine_version = %[2]q  cluster_config {
     instance_type = "m4.large.search"
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  node_to_node_encryption {
+  }  node_to_node_encryption {
     enabled = %[3]t
   }
 }
@@ -2775,28 +2357,18 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_complex(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  advanced_options = {
+  domain_name = %[1]q  advanced_options = {
     "indices.fielddata.cache.size" = 80
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_count= 2
     zone_awareness_enabled = true
     instance_type = "t2.small.search"
-  }
-
-  snapshot_options {
+  }  snapshot_options {
     automated_snapshot_start_hour = 23
-  }
-
-  tags = {
+  }  tags = {
     bar = "complex"
   }
 }
@@ -2805,14 +2377,10 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_v23(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  engine_version = "Elasticsearch_2.3"
+  }  engine_version = "Elasticsearch_2.3"
 }
 `, rName)
 }
@@ -2821,56 +2389,34 @@ func testAccDomainConfig_vpc(rName string) string {
 		acctest.ConfigAvailableAZsNoOptIn(),
 		fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "192.168.0.0/22"
-
-  tags = {
+  cidr_block = "192.168.0.0/22"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test" {
+}resource "aws_subnet" "test" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "192.168.0.0/24"
-
-  tags = {
+  cidr_block        = "192.168.0.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test2" {
+}resource "aws_subnet" "test2" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
-  cidr_block        = "192.168.1.0/24"
-
-  tags = {
+  cidr_block        = "192.168.1.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test" {
+}resource "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_security_group" "test2" {
+}resource "aws_security_group" "test2" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_count= 2
     zone_awareness_enabled = true
     instance_type = "t2.small.search"
-  }
-
-  vpc_options {
+  }  vpc_options {
     security_group_ids = [aws_security_group.test.id, aws_security_group.test2.id]
     subnet_ids= [aws_subnet.test.id, aws_subnet.test2.id]
   }
@@ -2882,76 +2428,46 @@ func testAccDomainConfig_vpcUpdate1(rName string) string {
 		acctest.ConfigAvailableAZsNoOptIn(),
 		fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "192.168.0.0/22"
-
-  tags = {
+  cidr_block = "192.168.0.0/22"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "az1_first" {
+}resource "aws_subnet" "az1_first" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "192.168.0.0/24"
-
-  tags = {
+  cidr_block        = "192.168.0.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "az2_first" {
+}resource "aws_subnet" "az2_first" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
-  cidr_block        = "192.168.1.0/24"
-
-  tags = {
+  cidr_block        = "192.168.1.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "az1_second" {
+}resource "aws_subnet" "az1_second" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "192.168.2.0/24"
-
-  tags = {
+  cidr_block        = "192.168.2.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "az2_second" {
+}resource "aws_subnet" "az2_second" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
-  cidr_block        = "192.168.3.0/24"
-
-  tags = {
+  cidr_block        = "192.168.3.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test" {
+}resource "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_security_group" "test2" {
+}resource "aws_security_group" "test2" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_count= 2
     zone_awareness_enabled = true
     instance_type = "t2.small.search"
-  }
-
-  vpc_options {
+  }  vpc_options {
     security_group_ids = [aws_security_group.test.id]
     subnet_ids= [aws_subnet.az1_first.id, aws_subnet.az2_first.id]
   }
@@ -2963,76 +2479,46 @@ func testAccDomainConfig_vpcUpdate2(rName string) string {
 		acctest.ConfigAvailableAZsNoOptIn(),
 		fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "192.168.0.0/22"
-
-  tags = {
+  cidr_block = "192.168.0.0/22"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "az1_first" {
+}resource "aws_subnet" "az1_first" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "192.168.0.0/24"
-
-  tags = {
+  cidr_block        = "192.168.0.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "az2_first" {
+}resource "aws_subnet" "az2_first" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
-  cidr_block        = "192.168.1.0/24"
-
-  tags = {
+  cidr_block        = "192.168.1.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "az1_second" {
+}resource "aws_subnet" "az1_second" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "192.168.2.0/24"
-
-  tags = {
+  cidr_block        = "192.168.2.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "az2_second" {
+}resource "aws_subnet" "az2_second" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
-  cidr_block        = "192.168.3.0/24"
-
-  tags = {
+  cidr_block        = "192.168.3.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test" {
+}resource "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_security_group" "test2" {
+}resource "aws_security_group" "test2" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_count= 2
     zone_awareness_enabled = true
     instance_type = "t2.small.search"
-  }
-
-  vpc_options {
+  }  vpc_options {
     security_group_ids = [aws_security_group.test.id, aws_security_group.test2.id]
     subnet_ids= [aws_subnet.az1_second.id, aws_subnet.az2_second.id]
   }
@@ -3044,56 +2530,34 @@ func testAccDomainConfig_internetToVPCEndpoint(rName string) string {
 		acctest.ConfigAvailableAZsNoOptIn(),
 		fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "192.168.0.0/22"
-
-  tags = {
+  cidr_block = "192.168.0.0/22"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test" {
+}resource "aws_subnet" "test" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "192.168.0.0/24"
-
-  tags = {
+  cidr_block        = "192.168.0.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test2" {
+}resource "aws_subnet" "test2" {
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
-  cidr_block        = "192.168.1.0/24"
-
-  tags = {
+  cidr_block        = "192.168.1.0/24"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test" {
+}resource "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_security_group" "test2" {
+}resource "aws_security_group" "test2" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  cluster_config {
+  }  cluster_config {
     instance_count= 2
     zone_awareness_enabled = true
     instance_type = "t2.small.search"
-  }
-
-  vpc_options {
+  }  vpc_options {
     security_group_ids = [aws_security_group.test.id, aws_security_group.test2.id]
     subnet_ids= [aws_subnet.test.id, aws_subnet.test2.id]
   }
@@ -3104,35 +2568,23 @@ func testAccDomainConfig_advancedSecurityOptionsUserDB(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_7.1"
-
-  cluster_config {
+  engine_version = "Elasticsearch_7.1"  cluster_config {
     instance_type = "r5.large.search"
-  }
-
-  advanced_security_options {
+  }  advanced_security_options {
     enabled= true
     internal_user_database_enabled = true
     master_user_options {
       master_user_name     = "testmasteruser"
       master_user_password = "Barbarbarbar1!"
     }
-  }
-
-  encrypt_at_rest {
+  }  encrypt_at_rest {
     enabled = true
-  }
-
-  domain_endpoint_options {
+  }  domain_endpoint_options {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
-  }
-
-  node_to_node_encryption {
+  }  node_to_node_encryption {
     enabled = true
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -3143,13 +2595,9 @@ func testAccDomainConfig_advancedSecurityOptionsAnonymousAuth(rName string, enab
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_7.1"
-
-  cluster_config {
+  engine_version = "Elasticsearch_7.1"  cluster_config {
     instance_type = "r5.large.search"
-  }
-
-  advanced_security_options {
+  }  advanced_security_options {
     enabled= %[2]t
     anonymous_auth_enabled= true
     internal_user_database_enabled = true
@@ -3157,22 +2605,14 @@ resource "aws_opensearch_domain" "test" {
       master_user_name     = "testmasteruser"
       master_user_password = "Barbarbarbar1!"
     }
-  }
-
-  encrypt_at_rest {
+  }  encrypt_at_rest {
     enabled = true
-  }
-
-  domain_endpoint_options {
+  }  domain_endpoint_options {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
-  }
-
-  node_to_node_encryption {
+  }  node_to_node_encryption {
     enabled = true
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -3183,38 +2623,24 @@ func testAccDomainConfig_advancedSecurityOptionsIAM(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   name = %[1]q
-}
-
-resource "aws_opensearch_domain" "test" {
+}resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_7.1"
-
-  cluster_config {
+  engine_version = "Elasticsearch_7.1"  cluster_config {
     instance_type = "r5.large.search"
-  }
-
-  advanced_security_options {
+  }  advanced_security_options {
     enabled= true
     internal_user_database_enabled = false
     master_user_options {
       master_user_arn = aws_iam_user.test.arn
     }
-  }
-
-  encrypt_at_rest {
+  }  encrypt_at_rest {
     enabled = true
-  }
-
-  domain_endpoint_options {
+  }  domain_endpoint_options {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
-  }
-
-  node_to_node_encryption {
+  }  node_to_node_encryption {
     enabled = true
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -3225,35 +2651,23 @@ func testAccDomainConfig_advancedSecurityOptionsDisabled(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_7.1"
-
-  cluster_config {
+  engine_version = "Elasticsearch_7.1"  cluster_config {
     instance_type = "r5.large.search"
-  }
-
-  advanced_security_options {
+  }  advanced_security_options {
     enabled= false
     internal_user_database_enabled = true
     master_user_options {
       master_user_name     = "testmasteruser"
       master_user_password = "Barbarbarbar1!"
     }
-  }
-
-  encrypt_at_rest {
+  }  encrypt_at_rest {
     enabled = true
-  }
-
-  domain_endpoint_options {
+  }  domain_endpoint_options {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
-  }
-
-  node_to_node_encryption {
+  }  node_to_node_encryption {
     enabled = true
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
@@ -3262,16 +2676,10 @@ resource "aws_opensearch_domain" "test" {
 }
 func testAccDomain_logPublishingOptionsBase(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_cloudwatch_log_group" "test" {
+data "aws_partition" "current" {}resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
-}
-
-resource "aws_cloudwatch_log_resource_policy" "test" {
-  policy_name = %[1]q
-
-  policy_document = jsonencode({
+}resource "aws_cloudwatch_log_resource_policy" "test" {
+  policy_name = %[1]q  policy_document = jsonencode({
     Version = "2012-10-17"
     Statement = [{
       Effect = "Allow"
@@ -3317,16 +2725,10 @@ node_to_node_encryption {
 	return acctest.ConfigCompose(testAccDomain_logPublishingOptionsBase(rName), fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_7.1" # needed for ESApplication/Audit Log Types
-
-  ebs_options {
+  engine_version = "Elasticsearch_7.1" # needed for ESApplication/Audit Log Types  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-    %[2]s
-
-  log_publishing_options {
+  }    %[2]s  log_publishing_options {
     log_type  = %[3]q
     cloudwatch_log_group_arn = aws_cloudwatch_log_group.test.arn
   }
@@ -3345,65 +2747,39 @@ cognito_options {
 }`
 	} else {
 		cognitoOptions = ""
-	}
-
-	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_cognito_user_pool" "test" {
+	}	return fmt.Sprintf(`
+data "aws_partition" "current" {}resource "aws_cognito_user_pool" "test" {
   name = %[1]q
-}
-
-resource "aws_cognito_user_pool_domain" "test" {
+}resource "aws_cognito_user_pool_domain" "test" {
   domain       = %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
-}
-
-resource "aws_cognito_identity_pool" "test" {
+}resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= %[1]q
-  allow_unauthenticated_identities = false
-
-  lifecycle {
+  allow_unauthenticated_identities = false  lifecycle {
     ignore_changes = [cognito_identity_providers]
   }
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   name= %[1]q
   path= "/service-role/"
   assume_role_policy = data.aws_iam_policy_document.test.json
-}
-
-data "aws_iam_policy_document" "test" {
+}data "aws_iam_policy_document" "test" {
   statement {
     actions = ["sts:AssumeRole"]
-    effect  = "Allow"
-
-    principals {
+    effect  = "Allow"    principals {
       type = "Service"
       identifiers = [
         "es.${data.aws_partition.current.dns_suffix}",
       ]
     }
   }
-}
-
-resource "aws_iam_role_policy_attachment" "test" {
+}resource "aws_iam_role_policy_attachment" "test" {
   role       = aws_iam_role.test.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonOpenSearchServiceCognitoAccess"
-}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  %[2]s
-
-  ebs_options {
+}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  %[2]s  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  depends_on = [
+  }  depends_on = [
     aws_cognito_user_pool_domain.test,
     aws_iam_role_policy_attachment.test,
   ]
@@ -3414,14 +2790,10 @@ func testAccDomainConfig_offPeakWindowOptions(rName string, h, m int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name    = %[1]q
-  engine_version = "Elasticsearch_6.7"
-
-  ebs_options {
+  engine_version = "Elasticsearch_6.7"  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  off_peak_window_options {
+  }  off_peak_window_options {
     off_peak_window {
       window_start_time {
         hours   = %[2]d
@@ -3435,14 +2807,10 @@ resource "aws_opensearch_domain" "test" {
 func testAccDomainConfig_softwareUpdateOptions(rName string, option bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+  domain_name = %[1]q  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  software_update_options {
+  }  software_update_options {
     auto_software_update_enabled = %[2]t
   }
 }

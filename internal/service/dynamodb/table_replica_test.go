@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package dynamodb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package dynamodb_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"log"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -21,18 +15,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	tfdynamodb "github.com/hashicorp/terraform-provider-aws/internal/service/dynamodb"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccDynamoDBTableReplica_basic(t *testing.T) {
+)func TestAccDynamoDBTableReplica_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	resourceName := "aws_dynamodb_table_replica.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resourceName := "aws_dynamodb_table_replica.test"
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
@@ -52,18 +40,12 @@ func TestAccDynamoDBTableReplica_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDynamoDBTableReplica_disappears(t *testing.T) {
+}func TestAccDynamoDBTableReplica_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	resourceName := "aws_dynamodb_table_replica.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resourceName := "aws_dynamodb_table_replica.test"
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
@@ -79,18 +61,12 @@ func TestAccDynamoDBTableReplica_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDynamoDBTableReplica_pitr(t *testing.T) {
+}func TestAccDynamoDBTableReplica_pitr(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	resourceName := "aws_dynamodb_table_replica.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resourceName := "aws_dynamodb_table_replica.test"
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
@@ -110,18 +86,12 @@ func TestAccDynamoDBTableReplica_pitr(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDynamoDBTableReplica_pitrKMS(t *testing.T) {
+}func TestAccDynamoDBTableReplica_pitrKMS(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	resourceName := "aws_dynamodb_table_replica.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resourceName := "aws_dynamodb_table_replica.test"
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
@@ -158,18 +128,12 @@ func TestAccDynamoDBTableReplica_pitrKMS(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDynamoDBTableReplica_pitrDefault(t *testing.T) {
+}func TestAccDynamoDBTableReplica_pitrDefault(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	resourceName := "aws_dynamodb_table_replica.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resourceName := "aws_dynamodb_table_replica.test"
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
@@ -206,18 +170,12 @@ func TestAccDynamoDBTableReplica_pitrDefault(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDynamoDBTableReplica_tags(t *testing.T) {
+}func TestAccDynamoDBTableReplica_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	resourceName := "aws_dynamodb_table_replica.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resourceName := "aws_dynamodb_table_replica.test"
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
@@ -268,18 +226,12 @@ func TestAccDynamoDBTableReplica_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDynamoDBTableReplica_tableClass(t *testing.T) {
+}func TestAccDynamoDBTableReplica_tableClass(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	resourceName := "aws_dynamodb_table_replica.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resourceName := "aws_dynamodb_table_replica.test"
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
@@ -306,18 +258,12 @@ func TestAccDynamoDBTableReplica_tableClass(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDynamoDBTableReplica_keys(t *testing.T) {
+}func TestAccDynamoDBTableReplica_keys(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	resourceName := "aws_dynamodb_table_replica.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resourceName := "aws_dynamodb_table_replica.test"
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
@@ -344,105 +290,55 @@ func TestAccDynamoDBTableReplica_keys(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckTableReplicaDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckTableReplicaDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DynamoDBConn(ctx)
-		replicaRegion := aws.StringValue(conn.Config.Region)
-
-		for _, rs := range s.RootModule().Resources {
+		replicaRegion := aws.StringValue(conn.Config.Region)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_dynamodb_table_replica" {
 				continue
-			}
-
-			log.Printf("[DEBUG] Checking if DynamoDB table replica %s was destroyed", rs.Primary.ID)
-
-			if rs.Primary.ID == "" {
+			}			log.Printf("[DEBUG] Checking if DynamoDB table replica %s was destroyed", rs.Primary.ID)			if rs.Primary.ID == "" {
 				return create.Error(names.DynamoDB, create.ErrActionCheckingDestroyed, tfdynamodb.ResNameTableReplica, rs.Primary.ID, errors.New("no ID"))
-			}
-
-			tableName, mainRegion, err := tfdynamodb.TableReplicaParseID(rs.Primary.ID)
+			}			tableName, mainRegion, err := tfdynamodb.TableReplicaParseID(rs.Primary.ID)
 			if err != nil {
 				return create.Error(names.DynamoDB, create.ErrActionCheckingDestroyed, tfdynamodb.ResNameTableReplica, rs.Primary.ID, err)
-			}
-
-			session, err := conns.NewSessionForRegion(&conn.Config, mainRegion, acctest.Provider.Meta().(*conns.AWSClient).TerraformVersion)
+			}			session, err := conns.NewSessionForRegion(&conn.Config, mainRegion, acctest.Provider.Meta().(*conns.AWSClient).TerraformVersion)
 			if err != nil {
 				return create.Error(names.DynamoDB, create.ErrActionCheckingDestroyed, tfdynamodb.ResNameTableReplica, rs.Primary.ID, fmt.Errorf("region %s: %w", mainRegion, err))
-			}
-
-			conn = dynamodb.New(session) // now global table region
-
-			params := &dynamodb.DescribeTableInput{
+			}			conn = dynamodb.New(session) // now global table region			params := &dynamodb.DescribeTableInput{
 				TableName: aws.String(tableName),
-			}
-
-			result, err := conn.DescribeTableWithContext(ctx, params)
-
-			if tfawserr.ErrCodeEquals(err, dynamodb.ErrCodeResourceNotFoundException) {
+			}			result, err := conn.DescribeTableWithContext(ctx, params)			if tfawserr.ErrCodeEquals(err, dynamodb.ErrCodeResourceNotFoundException) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return create.Error(names.DynamoDB, create.ErrActionCheckingDestroyed, tfdynamodb.ResNameTableReplica, rs.Primary.ID, err)
-			}
-
-			if result == nil || result.Table == nil {
+			}			if result == nil || result.Table == nil {
 				continue
-			}
-
-			if _, err := tfdynamodb.FilterReplicasByRegion(result.Table.Replicas, replicaRegion); err == nil {
+			}			if _, err := tfdynamodb.FilterReplicasByRegion(result.Table.Replicas, replicaRegion); err == nil {
 				return create.Error(names.DynamoDB, create.ErrActionCheckingDestroyed, tfdynamodb.ResNameTableReplica, rs.Primary.ID, errors.New("still exists"))
-			}
-
-			return err
-		}
-
-		return nil
+			}			return err
+		}		return nil
 	}
-}
-
-func testAccCheckTableReplicaExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckTableReplicaExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		log.Printf("[DEBUG] Trying to create initial table replica state!")
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return create.Error(names.DynamoDB, create.ErrActionCheckingExistence, tfdynamodb.ResNameTableReplica, rs.Primary.ID, fmt.Errorf("not found: %s", n))
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return create.Error(names.DynamoDB, create.ErrActionCheckingExistence, tfdynamodb.ResNameTableReplica, rs.Primary.ID, errors.New("no ID"))
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DynamoDBConn(ctx)
-
-		tableName, mainRegion, err := tfdynamodb.TableReplicaParseID(rs.Primary.ID)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).DynamoDBConn(ctx)		tableName, mainRegion, err := tfdynamodb.TableReplicaParseID(rs.Primary.ID)
 		if err != nil {
 			return create.Error(names.DynamoDB, create.ErrActionCheckingExistence, tfdynamodb.ResNameTableReplica, rs.Primary.ID, err)
-		}
-
-		session, err := conns.NewSessionForRegion(&conn.Config, mainRegion, acctest.Provider.Meta().(*conns.AWSClient).TerraformVersion)
+		}		session, err := conns.NewSessionForRegion(&conn.Config, mainRegion, acctest.Provider.Meta().(*conns.AWSClient).TerraformVersion)
 		if err != nil {
 			return create.Error(names.DynamoDB, create.ErrActionCheckingExistence, tfdynamodb.ResNameTableReplica, rs.Primary.ID, fmt.Errorf("region %s: %w", mainRegion, err))
-		}
-
-		conn = dynamodb.New(session) // now global table region
-
-		params := &dynamodb.DescribeTableInput{
+		}		conn = dynamodb.New(session) // now global table region		params := &dynamodb.DescribeTableInput{
 			TableName: aws.String(tableName),
-		}
-
-		_, err = conn.DescribeTableWithContext(ctx, params)
+		}		_, err = conn.DescribeTableWithContext(ctx, params)
 		if err != nil {
 			return create.Error(names.DynamoDB, create.ErrActionCheckingExistence, tfdynamodb.ResNameTableReplica, rs.Primary.ID, err)
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccTableReplicaConfig_basic(rName string) string {
+}func testAccTableReplicaConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
@@ -452,30 +348,20 @@ resource "aws_dynamodb_table" "test" {
   hash_key= "TestTableHashKey"
   billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
-
-  attribute {
+  stream_view_type = "NEW_AND_OLD_IMAGES"  attribute {
 name = "TestTableHashKey"
 type = "S"
-  }
-
-  lifecycle {
+  }  lifecycle {
 ignore_changes = [replica]
   }
-}
-
-resource "aws_dynamodb_table_replica" "test" {
-  global_table_arn = aws_dynamodb_table.test.arn
-
-  tags = {
+}resource "aws_dynamodb_table_replica" "test" {
+  global_table_arn = aws_dynamodb_table.test.arn  tags = {
 Name = %[1]q
 Pozo = "Amargo"
   }
 }
 `, rName))
-}
-
-func testAccTableReplicaConfig_pitr(rName string) string {
+}func testAccTableReplicaConfig_pitr(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
@@ -484,73 +370,51 @@ resource "aws_dynamodb_table" "test" {
   hash_key= "TestTableHashKey"
   billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
-
-  attribute {
+  stream_view_type = "NEW_AND_OLD_IMAGES"  attribute {
 name = "TestTableHashKey"
 type = "S"
-  }
-
-  lifecycle {
+  }  lifecycle {
 ignore_changes = [replica]
   }
-}
-
-resource "aws_dynamodb_table_replica" "test" {
+}resource "aws_dynamodb_table_replica" "test" {
   provider= "awsalternate"
   global_table_arn   = aws_dynamodb_table.test.arn
   point_in_time_recovery = true
 }
 `, rName))
-}
-
-func testAccTableReplicaConfig_pitrKMS(rName string, pitr bool) string {
+}func testAccTableReplicaConfig_pitrKMS(rName string, pitr bool) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description= %[1]q
   deletion_window_in_days = 7
-}
-
-resource "aws_dynamodb_table" "test" {
+}resource "aws_dynamodb_table" "test" {
   name= %[1]q
   hash_key= "TestTableHashKey"
   billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
-
-  attribute {
+  stream_view_type = "NEW_AND_OLD_IMAGES"  attribute {
 name = "TestTableHashKey"
 type = "S"
-  }
-
-  server_side_encryption {
+  }  server_side_encryption {
 enabled = true
 kms_key_arn = aws_kms_key.test.arn
-  }
-
-  lifecycle {
+  }  lifecycle {
 ignore_changes = [replica]
   }
-}
-
-resource "aws_kms_key" "alternate" {
+}resource "aws_kms_key" "alternate" {
   provider = awsalternate
   description= %[1]q
   deletion_window_in_days = 7
-}
-
-resource "aws_dynamodb_table_replica" "test" {
+}resource "aws_dynamodb_table_replica" "test" {
   provider= awsalternate
   global_table_arn   = aws_dynamodb_table.test.arn
   point_in_time_recovery = %[2]t
   kms_key_arn   = aws_kms_key.alternate.arn
 }
 `, rName, pitr))
-}
-
-func testAccTableReplicaConfig_pitrDefault(rName string, pitr bool) string {
+}func testAccTableReplicaConfig_pitrDefault(rName string, pitr bool) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
@@ -559,31 +423,21 @@ resource "aws_dynamodb_table" "test" {
   hash_key= "TestTableHashKey"
   billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
-
-  attribute {
+  stream_view_type = "NEW_AND_OLD_IMAGES"  attribute {
 name = "TestTableHashKey"
 type = "S"
-  }
-
-  server_side_encryption {
+  }  server_side_encryption {
 enabled = true
-  }
-
-  lifecycle {
+  }  lifecycle {
 ignore_changes = [replica]
   }
-}
-
-resource "aws_dynamodb_table_replica" "test" {
+}resource "aws_dynamodb_table_replica" "test" {
   provider= awsalternate
   global_table_arn   = aws_dynamodb_table.test.arn
   point_in_time_recovery = %[2]t
 }
 `, rName, pitr))
-}
-
-func testAccTableReplicaConfig_tags1(rName string) string {
+}func testAccTableReplicaConfig_tags1(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
@@ -592,35 +446,23 @@ resource "aws_dynamodb_table" "test" {
   hash_key= "TestTableHashKey"
   billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
-
-  attribute {
+  stream_view_type = "NEW_AND_OLD_IMAGES"  attribute {
 name = "TestTableHashKey"
 type = "S"
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
-  }
-
-  lifecycle {
+  }  lifecycle {
 ignore_changes = [replica]
   }
-}
-
-resource "aws_dynamodb_table_replica" "test" {
+}resource "aws_dynamodb_table_replica" "test" {
   provider= "awsalternate"
-  global_table_arn = aws_dynamodb_table.test.arn
-
-  tags = {
+  global_table_arn = aws_dynamodb_table.test.arn  tags = {
 Name = %[1]q
 tape = "Valladolid"
   }
 }
 `, rName))
-}
-
-func testAccTableReplicaConfig_tags2(rName string) string {
+}func testAccTableReplicaConfig_tags2(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
@@ -629,27 +471,17 @@ resource "aws_dynamodb_table" "test" {
   hash_key= "TestTableHashKey"
   billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
-
-  attribute {
+  stream_view_type = "NEW_AND_OLD_IMAGES"  attribute {
 name = "TestTableHashKey"
 type = "S"
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
-  }
-
-  lifecycle {
+  }  lifecycle {
 ignore_changes = [replica]
   }
-}
-
-resource "aws_dynamodb_table_replica" "test" {
+}resource "aws_dynamodb_table_replica" "test" {
   provider= "awsalternate"
-  global_table_arn = aws_dynamodb_table.test.arn
-
-  tags = {
+  global_table_arn = aws_dynamodb_table.test.arn  tags = {
 Name  = %[1]q
 tape  = "Valladolid"
 brightest = "Lights"
@@ -658,9 +490,7 @@ shooting  = "Stars"
   }
 }
 `, rName))
-}
-
-func testAccTableReplicaConfig_tags3(rName string) string {
+}func testAccTableReplicaConfig_tags3(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
@@ -669,34 +499,22 @@ resource "aws_dynamodb_table" "test" {
   hash_key= "TestTableHashKey"
   billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
-
-  attribute {
+  stream_view_type = "NEW_AND_OLD_IMAGES"  attribute {
 name = "TestTableHashKey"
 type = "S"
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
-  }
-
-  lifecycle {
+  }  lifecycle {
 ignore_changes = [replica]
   }
-}
-
-resource "aws_dynamodb_table_replica" "test" {
+}resource "aws_dynamodb_table_replica" "test" {
   provider= "awsalternate"
-  global_table_arn = aws_dynamodb_table.test.arn
-
-  tags = {
+  global_table_arn = aws_dynamodb_table.test.arn  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccTableReplicaConfig_tableClass(rName, class string) string {
+}func testAccTableReplicaConfig_tableClass(rName, class string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
@@ -706,34 +524,22 @@ resource "aws_dynamodb_table" "test" {
   hash_key= "ArticLake"
   billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
-
-  attribute {
+  stream_view_type = "NEW_AND_OLD_IMAGES"  attribute {
 name = "ArticLake"
 type = "S"
-  }
-
-  tags = {
+  }  tags = {
 Name = %[1]q
-  }
-
-  lifecycle {
+  }  lifecycle {
 ignore_changes = [replica]
   }
-}
-
-resource "aws_dynamodb_table_replica" "test" {
+}resource "aws_dynamodb_table_replica" "test" {
   global_table_arn = aws_dynamodb_table.test.arn
-  table_class_override = %[2]q
-
-  tags = {
+  table_class_override = %[2]q  tags = {
 Name = %[1]q
   }
 }
 `, rName, class))
-}
-
-func testAccTableReplicaConfig_keys(rName, key string) string {
+}func testAccTableReplicaConfig_keys(rName, key string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigMultipleRegionProvider(2),
 		fmt.Sprintf(`
@@ -742,21 +548,15 @@ resource "aws_kms_key" "alternate" {
   description= "Julie test KMS key A"
   multi_region   = false
   deletion_window_in_days = 7
-}
-
-resource "aws_kms_key" "test1" {
+}resource "aws_kms_key" "test1" {
   description= "Julie test KMS key Z"
   multi_region   = false
   deletion_window_in_days = 7
-}
-
-resource "aws_kms_key" "test2" {
+}resource "aws_kms_key" "test2" {
   description= "Julie test KMS key Z"
   multi_region   = false
   deletion_window_in_days = 7
-}
-
-resource "aws_dynamodb_table" "test" {
+}resource "aws_dynamodb_table" "test" {
   provider= awsalternate
   name= %[1]q
   hash_key= "ParticipantId"
@@ -764,33 +564,21 @@ resource "aws_dynamodb_table" "test" {
   billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
-  table_class  = "STANDARD"
-
-  point_in_time_recovery {
+  table_class  = "STANDARD"  point_in_time_recovery {
 enabled = true
-  }
-
-  server_side_encryption {
+  }  server_side_encryption {
 enabled = true
 kms_key_arn = aws_kms_key.alternate.arn
-  }
-
-  attribute {
+  }  attribute {
 name = "ParticipantId"
 type = "S"
-  }
-
-  attribute {
+  }  attribute {
 name = "SubscriptionId"
 type = "S"
-  }
-
-  lifecycle {
+  }  lifecycle {
 ignore_changes = [replica]
   }
-}
-
-resource "aws_dynamodb_table_replica" "test" {
+}resource "aws_dynamodb_table_replica" "test" {
   global_table_arn   = aws_dynamodb_table.test.arn
   kms_key_arn   = aws_kms_key.%[2]s.arn
   point_in_time_recovery = true

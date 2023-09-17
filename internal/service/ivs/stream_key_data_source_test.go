@@ -1,13 +1,7 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageivs_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageivs_testimport(
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/ivs"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,9 +10,7 @@ import(
 funcTestAccIVSStreamKeyDataSource_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	dataSourceName:="data.aws_ivs_stream_key.test"
-	channelResourceName:="aws_ivs_channel.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	channelResourceName:="aws_ivs_channel.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:t.ErrorCheck(t,ivs.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -40,9 +32,7 @@ functestAccCheckStreamKeyDataSource(nstring)resource.TestCheckFunc{
 		rs,ok:=s.RootModule().Resources[n]
 		if!ok{
 			returnfmt.Errorf("Can'tfindStreamKeydatasource:%s",n)
-		}
-
-		ifrs.Primary.ID==""{
+		}		ifrs.Primary.ID==""{
 			returnfmt.Errorf("StreamKeydatasourceIDnotset")
 		}
 		returnnil
@@ -51,9 +41,7 @@ functestAccCheckStreamKeyDataSource(nstring)resource.TestCheckFunc{
 functestAccStreamKeyDataSourceConfig_basic()string{
 	return`
 resource"aws_ivs_channel""test"{
-}
-
-data"aws_ivs_stream_key""test"{
+}data"aws_ivs_stream_key""test"{
 channel_arn=aws_ivs_channel.test.arn
 }
 `

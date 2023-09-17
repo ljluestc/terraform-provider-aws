@@ -1,28 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ssmincidents_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ssmincidents_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func testReplicationSetDataSource_basic(t *testing.T) {
+)func testReplicationSetDataSource_basic(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ssmincidents_replication_set.test"
-	resourceName := "aws_ssmincidents_replication_set.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_ssmincidents_replication_set.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -44,32 +32,21 @@ func testReplicationSetDataSource_basic(t *testing.T) {
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "region.0.name", dataSourceName, "region.0.name"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "region.0.kms_key_arn", dataSourceName, "region.0.kms_key_arn"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "region.0.status", dataSourceName, "region.0.status"),
-					resource.TestCheckTypeSetElemAttrPair(resourceName, "region.0.status_message", dataSourceName, "region.0.status_message"),
-
-					acctest.MatchResourceAttrGlobalARN(dataSourceName, "arn", "ssm-incidents", regexache.MustCompile(`replication-set\/+.`)),
+					resource.TestCheckTypeSetElemAttrPair(resourceName, "region.0.status_message", dataSourceName, "region.0.status_message"),					acctest.MatchResourceAttrGlobalARN(dataSourceName, "arn", "ssm-incidents", regexache.MustCompile(`replication-set\/+.`)),
 				),
 			},
 		},
 	})
-}
-
-func testAccReplicationSetDataSourceConfig_basic() string {
+}func testAccReplicationSetDataSourceConfig_basic() string {
 	return fmt.Sprintf(`
 resource "aws_ssmincidents_replication_set" "test" {
   region {
     name = %[1]q
-  }
-
-  tags = {
+  }  tags = {
     a = "tag1"
     b = ""
   }
-}
-
-data "aws_ssmincidents_replication_set" "test" {
+}data "aws_ssmincidents_replication_set" "test" {
   depends_on = [aws_ssmincidents_replication_set.test]
-}
-
-
-`, acctest.Region())
+}`, acctest.Region())
 }

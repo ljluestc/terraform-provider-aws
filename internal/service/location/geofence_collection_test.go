@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package location_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package location_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/locationservice"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -20,14 +14,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	tflocation "github.com/hashicorp/terraform-provider-aws/internal/service/location"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccLocationGeofenceCollection_basic(t *testing.T) {
+)func TestAccLocationGeofenceCollection_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_geofence_collection.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_geofence_collection.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -53,14 +43,10 @@ func TestAccLocationGeofenceCollection_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLocationGeofenceCollection_disappears(t *testing.T) {
+}func TestAccLocationGeofenceCollection_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_geofence_collection.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_geofence_collection.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -76,14 +62,10 @@ func TestAccLocationGeofenceCollection_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLocationGeofenceCollection_description(t *testing.T) {
+}func TestAccLocationGeofenceCollection_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_geofence_collection.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_geofence_collection.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -110,14 +92,10 @@ func TestAccLocationGeofenceCollection_description(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLocationGeofenceCollection_kmsKeyID(t *testing.T) {
+}func TestAccLocationGeofenceCollection_kmsKeyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_geofence_collection.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_geofence_collection.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -137,14 +115,10 @@ func TestAccLocationGeofenceCollection_kmsKeyID(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLocationGeofenceCollection_tags(t *testing.T) {
+}func TestAccLocationGeofenceCollection_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_geofence_collection.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_geofence_collection.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -182,108 +156,70 @@ func TestAccLocationGeofenceCollection_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckGeofenceCollectionDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckGeofenceCollectionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_location_geofence_collection" {
 				continue
-			}
-
-			input := &locationservice.DescribeGeofenceCollectionInput{
+			}			input := &locationservice.DescribeGeofenceCollectionInput{
 				CollectionName: aws.String(rs.Primary.ID),
-			}
-
-			_, err := conn.DescribeGeofenceCollectionWithContext(ctx, input)
+			}			_, err := conn.DescribeGeofenceCollectionWithContext(ctx, input)
 			if err != nil {
 				if tfawserr.ErrCodeEquals(err, locationservice.ErrCodeResourceNotFoundException) {
 					return nil
 				}
 				return err
-			}
-
-			return create.Error(names.Location, create.ErrActionCheckingDestroyed, tflocation.ResNameGeofenceCollection, rs.Primary.ID, errors.New("not destroyed"))
-		}
-
-		return nil
+			}			return create.Error(names.Location, create.ErrActionCheckingDestroyed, tflocation.ResNameGeofenceCollection, rs.Primary.ID, errors.New("not destroyed"))
+		}		return nil
 	}
-}
-
-func testAccCheckGeofenceCollectionExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckGeofenceCollectionExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.Location, create.ErrActionCheckingExistence, tflocation.ResNameGeofenceCollection, name, errors.New("not found"))
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return create.Error(names.Location, create.ErrActionCheckingExistence, tflocation.ResNameGeofenceCollection, name, errors.New("not set"))
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)
 		_, err := conn.DescribeGeofenceCollectionWithContext(ctx, &locationservice.DescribeGeofenceCollectionInput{
 			CollectionName: aws.String(rs.Primary.ID),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return create.Error(names.Location, create.ErrActionCheckingExistence, tflocation.ResNameGeofenceCollection, rs.Primary.ID, err)
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccGeofenceCollectionConfig_basic(rName string) string {
+}func testAccGeofenceCollectionConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_location_geofence_collection" "test" {
   collection_name = %[1]q
 }
 `, rName)
-}
-
-func testAccGeofenceCollectionConfig_description(rName, description string) string {
+}func testAccGeofenceCollectionConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_location_geofence_collection" "test" {
   collection_name = %[1]q
   description     = %[2]q
 }
 `, rName, description)
-}
-
-func testAccGeofenceCollectionConfig_kmsKeyID(rName string) string {
+}func testAccGeofenceCollectionConfig_kmsKeyID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   deletion_window_in_days = 7
-}
-
-resource "aws_location_geofence_collection" "test" {
+}resource "aws_location_geofence_collection" "test" {
   collection_name = %[1]q
   kms_key_id      = aws_kms_key.test.arn
 }
 `, rName)
-}
-
-func testAccGeofenceCollectionConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccGeofenceCollectionConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_location_geofence_collection" "test" {
-  collection_name = %[1]q
-
-  tags = {
+  collection_name = %[1]q  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccGeofenceCollectionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccGeofenceCollectionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_location_geofence_collection" "test" {
-  collection_name = %[1]q
-
-  tags = {
+  collection_name = %[1]q  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }

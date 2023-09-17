@@ -1,5 +1,1 @@
-// Copyright 2019 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.//go:build gc
-// +build gcpackage cpu
- getisar0() uint64 getisar1() uint64 getpfr0() uint64
+// Copyright 2019 The Go Authors. All rights reserved.// Use of this source code is governed by a BSD-style// license that can be found in the LICENSE file.//go:build gc// +build gcpackage cpu getisar0() uint64 getisar1() uint64 getpfr0() uint64

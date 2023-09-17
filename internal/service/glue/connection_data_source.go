@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package glue
-
-import (
+// SPDX-License-Identifier: MPL-2.0package glueimport (
 	"context"
-	"fmt"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"fmt"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/arn"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -16,9 +10,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-// @SDKDataSource("aws_glue_connection")
+)// @SDKDataSource("aws_glue_connection")
 func DataSourceConnection() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceConnectionRead,
@@ -85,63 +77,39 @@ func DataSourceConnection() *schema.Resource {
 			"tags": tftags.TagsSchemaComputed(),
 		},
 	}
-}
-
-func dataSourceConnectionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceConnectionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).GlueConn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	id := d.Get("id").(string)
+	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig	id := d.Get("id").(string)
 	catalogID, connectionName, err := DecodeConnectionID(id)
 	if err != nil {
 		return diag.Errorf("decoding Glue Connection %s: %s", id, err)
-	}
-
-	connection, err := FindConnectionByName(ctx, conn, connectionName, catalogID)
+	}	connection, err := FindConnectionByName(ctx, conn, connectionName, catalogID)
 	if err != nil {
 		if tfresource.NotFound(err) {
 			return diag.Errorf("Glue Connection (%s) not found", id)
 		}
 		return diag.Errorf("reading Glue Connection (%s): %s", id, err)
-	}
-
-	d.SetId(id)
+	}	d.SetId(id)
 	d.Set("catalog_id", catalogID)
 	d.Set("connection_type", connection.ConnectionType)
 	d.Set("name", connection.Name)
-	d.Set("description", connection.Description)
-
-	connectionArn := arn.ARN{
+	d.Set("description", connection.Description)	connectionArn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:   "glue",
 		Region:    meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("connection/%s", connectionName),
 	}.String()
-	d.Set("arn", connectionArn)
-
-	if err := d.Set("connection_properties", aws.StringValueMap(connection.ConnectionProperties)); err != nil {
+	d.Set("arn", connectionArn)	if err := d.Set("connection_properties", aws.StringValueMap(connection.ConnectionProperties)); err != nil {
 		return diag.Errorf("setting connection_properties: %s", err)
-	}
-
-	if err := d.Set("physical_connection_requirements", flattenPhysicalConnectionRequirements(connection.PhysicalConnectionRequirements)); err != nil {
+	}	if err := d.Set("physical_connection_requirements", flattenPhysicalConnectionRequirements(connection.PhysicalConnectionRequirements)); err != nil {
 		return diag.Errorf("setting physical_connection_requirements: %s", err)
-	}
-
-	if err := d.Set("match_criteria", flex.FlattenStringList(connection.MatchCriteria)); err != nil {
+	}	if err := d.Set("match_criteria", flex.FlattenStringList(connection.MatchCriteria)); err != nil {
 		return diag.Errorf("setting match_criteria: %s", err)
-	}
-
-	tags, err := listTags(ctx, conn, connectionArn)
-
-	if err != nil {
+	}	tags, err := listTags(ctx, conn, connectionArn)	if err != nil {
 		return diag.Errorf("listing tags for Glue Connection (%s): %s", connectionArn, err)
-	}
-
-	//lintignore:AWSR002
+	}	//lintignore:AWSR002
 	if err := d.Set("tags", tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
 		return diag.Errorf("setting tags: %s", err)
-	}
-
-	return nil
+	}	return nil
 }

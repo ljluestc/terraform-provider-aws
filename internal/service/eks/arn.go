@@ -1,26 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-/*
+// SPDX-License-Identifier: MPL-2.0/*
 This file is a hard copy of:
-https://github.com/kubernetes-sigs/aws-iam-authenticator/blob/7547c74e660f8d34d9980f2c69aa008eed1f48d0/pkg/arn/arn.go
-
-With the following modifications:
+https://github.com/kubernetes-sigs/aws-iam-authenticator/blob/7547c74e660f8d34d9980f2c69aa008eed1f48d0/pkg/arn/arn.goWith the following modifications:
  - Rename package eks
  - Ignore errorlint reports
-*/
-
-package eks
-
-import (
+*/package eksimport (
 	"fmt"
-	"strings"
-
-	awsarn "github.com/aws/aws-sdk-go/aws/arn"
+	"strings"	awsarn "github.com/aws/aws-sdk-go/aws/arn"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
-)
-
-// Canonicalize validates IAM resources are appropriate for the authenticator
+)// Canonicalize validates IAM resources are appropriate for the authenticator
 // and converts STS assumed roles into the IAM role resource.
 //
 // Supported IAM resources are:
@@ -33,16 +21,10 @@ func Canonicalize(arn string) (string, error) {
 	parsed, err := awsarn.Parse(arn)
 	if err != nil {
 		return "", fmt.Errorf("arn %q is invalid: %w", arn, err)
-	}
-
-	if err := checkPartition(parsed.Partition); err != nil {
+	}	if err := checkPartition(parsed.Partition); err != nil {
 		return "", fmt.Errorf("arn %q does not have a recognized partition", arn)
-	}
-
-	parts := strings.Split(parsed.Resource, "/")
-	resource := parts[0]
-
-	switch parsed.Service {
+	}	parts := strings.Split(parsed.Resource, "/")
+	resource := parts[0]	switch parsed.Service {
 	case "sts":
 		switch resource {
 		case "federated-user":
@@ -64,12 +46,8 @@ func Canonicalize(arn string) (string, error) {
 		default:
 			return "", fmt.Errorf("unrecognized resource %q for service iam", parsed.Resource)
 		}
-	}
-
-	return "", fmt.Errorf("service %q in arn %q is not a valid service for identities", parsed.Service, arn)
-}
-
-func checkPartition(partition string) error {
+	}	return "", fmt.Errorf("service %q in arn %q is not a valid service for identities", parsed.Service, arn)
+}func checkPartition(partition string) error {
 	switch partition {
 	case endpoints.AwsPartitionID:
 	case endpoints.AwsCnPartitionID:

@@ -9,10 +9,7 @@ import (
 	"github.com/YakDriver/regexache"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-)
-
-
-func validCustomAMIID(v interface{}, k string) (ws []string, errors []error) {
+)func validCustomAMIID(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if len(value) > 256 {
 		errors = append(errors, fmt.Errorf("%q cannot be longer than 256 characters", k))
@@ -24,10 +21,7 @@ func validCustomAMIID(v interface{}, k string) (ws []string, errors []error) {
 	}
 
 	return
-}
-
-
-func validEBSVolumeType() schema.SchemaValidate
+}func validEBSVolumeType() schema.SchemaValidate
 func {
 	return validation.StringInSlice([]string{
 		"gp3",

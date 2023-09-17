@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafv2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package wafv2_testimport (
 	"context"
 	"fmt"
 	"regexp"
 	"testing"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/wafv2"
@@ -35,9 +29,7 @@ func TestAccWAFV2WebACL_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -80,9 +72,7 @@ func TestAccWAFV2WebACL_Update_rule(t *testing.T) {
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl.test"
 	ruleName1 := fmt.Sprintf("%s-1", webACLName)
-	ruleName2 := fmt.Sprintf("%s-2", webACLName)
-
-	resource.ParallelTest(t, resource.TestCase{
+	ruleName2 := fmt.Sprintf("%s-2", webACLName)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -218,9 +208,7 @@ func TestAccWAFV2WebACL_Update_ruleProperties(t *testing.T) {
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl.test"
 	ruleName1 := fmt.Sprintf("%s-1", webACLName)
-	ruleName2 := fmt.Sprintf("%s-2", webACLName)
-
-	resource.ParallelTest(t, resource.TestCase{
+	ruleName2 := fmt.Sprintf("%s-2", webACLName)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -423,9 +411,7 @@ func TestAccWAFV2WebACL_Update_nameForceNew(t *testing.T) {
 	var before, after wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	ruleGroupNewName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -474,9 +460,7 @@ func TestAccWAFV2WebACL_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -497,9 +481,7 @@ func TestAccWAFV2WebACL_ManagedRuleGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -631,9 +613,7 @@ func TestAccWAFV2WebACL_ManagedRuleGroup_ManagedRuleGroupConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -703,9 +683,7 @@ func TestAccWAFV2WebACL_ManagedRuleGroup_ManagedRuleGroupConfig_ATPRuleSet(t *te
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -788,9 +766,7 @@ func TestAccWAFV2WebACL_ManagedRuleGroup_ManagedRuleGroupConfig_BotControl(t *te
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -824,9 +800,7 @@ func TestAccWAFV2WebACL_ManagedRuleGroup_specifyVersion(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -890,9 +864,7 @@ func TestAccWAFV2WebACL_minimal(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -923,9 +895,7 @@ func TestAccWAFV2WebACL_RateBased_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -992,9 +962,7 @@ func TestAccWAFV2WebACL_ByteMatchStatement_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1053,9 +1021,7 @@ func TestAccWAFV2WebACL_ByteMatchStatement_jsonBody(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1112,9 +1078,7 @@ func TestAccWAFV2WebACL_ByteMatchStatement_body(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1161,9 +1125,7 @@ func TestAccWAFV2WebACL_GeoMatch_basic(t *testing.T) {
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl.test"
 	countryCode := fmt.Sprintf("%q", "US")
-	countryCodes := fmt.Sprintf("%s, %q", countryCode, "CA")
-
-	resource.ParallelTest(t, resource.TestCase{
+	countryCodes := fmt.Sprintf("%s, %q", countryCode, "CA")	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1251,9 +1213,7 @@ func TestAccWAFV2WebACL_GeoMatch_forwardedIP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1316,9 +1276,7 @@ func TestAccWAFV2WebACL_LabelMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1367,9 +1325,7 @@ func TestAccWAFV2WebACL_RuleLabels(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1414,9 +1370,7 @@ func TestAccWAFV2WebACL_IPSetReference_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1460,9 +1414,7 @@ func TestAccWAFV2WebACL_IPSetReference_forwardedIP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1564,9 +1516,7 @@ func TestAccWAFV2WebACL_RateBased_forwardedIP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1633,9 +1583,7 @@ func TestAccWAFV2WebACL_RuleGroupReference_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1693,18 +1641,14 @@ func TestAccWAFV2WebACL_RuleGroupReference_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-// Ensure magically-added (i.e., AWS-added) rule for Shield with CF distribution DDoS auto
+}// Ensure magically-added (i.e., AWS-added) rule for Shield with CF distribution DDoS auto
 // mitigation does not cause diff and provider doesn't attempt to remove.
 // See https://github.com/hashicorp/terraform-provider-aws/issues/22869
 func TestAccWAFV2WebACL_RuleGroupReference_shieldMitigation(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1723,71 +1667,37 @@ func TestAccWAFV2WebACL_RuleGroupReference_shieldMitigation(t *testing.T) {
 				// DDoS mitigation with Shield for CF distribution. Doing so adds an out-of-band rule
 				// similar to the one added below.
 				PreConfig: func() {
-					conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)
-
-					input := &wafv2.ListWebACLsInput{
+					conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)					input := &wafv2.ListWebACLsInput{
 						Scope: aws.String("REGIONAL"),
-					}
-
-					aclID := ""
-					lockToken := ""
-
-					err := tfwafv2.ListWebACLsPages(ctx, conn, input, func(page *wafv2.ListWebACLsOutput, lastPage bool) bool {
+					}					aclID := ""
+					lockToken := ""					err := tfwafv2.ListWebACLsPages(ctx, conn, input, func(page *wafv2.ListWebACLsOutput, lastPage bool) bool {
 						if page == nil {
 							return !lastPage
-						}
-
-						for _, acl := range page.WebACLs {
+						}						for _, acl := range page.WebACLs {
 							if aws.StringValue(acl.Name) == webACLName {
 								aclID = aws.StringValue(acl.Id)
-								lockToken = aws.StringValue(acl.LockToken)
-
-								return false
+								lockToken = aws.StringValue(acl.LockToken)								return false
 							}
-						}
-
-						return !lastPage
-					})
-
-					if err != nil {
+						}						return !lastPage
+					})					if err != nil {
 						t.Fatalf("finding WebACL (%s): %s", webACLName, err)
-					}
-
-					if aclID == "" {
+					}					if aclID == "" {
 						t.Fatalf("couldn't find WebACL (%s)", webACLName)
-					}
-
-					in := &wafv2.ListRuleGroupsInput{
+					}					in := &wafv2.ListRuleGroupsInput{
 						Scope: aws.String("REGIONAL"),
-					}
-
-					rgARN := ""
-
-					err = tfwafv2.ListRuleGroupsPages(ctx, conn, in, func(page *wafv2.ListRuleGroupsOutput, lastPage bool) bool {
+					}					rgARN := ""					err = tfwafv2.ListRuleGroupsPages(ctx, conn, in, func(page *wafv2.ListRuleGroupsOutput, lastPage bool) bool {
 						if page == nil {
 							return !lastPage
-						}
-
-						for _, rg := range page.RuleGroups {
+						}						for _, rg := range page.RuleGroups {
 							if aws.StringValue(rg.Name) == fmt.Sprintf("rule-group-%s", webACLName) {
-								rgARN = aws.StringValue(rg.ARN)
-
-								return false
+								rgARN = aws.StringValue(rg.ARN)								return false
 							}
-						}
-
-						return !lastPage
-					})
-
-					if err != nil {
+						}						return !lastPage
+					})					if err != nil {
 						t.Fatalf("finding rule group (%s): %s", webACLName, err)
-					}
-
-					if rgARN == "" {
+					}					if rgARN == "" {
 						t.Fatalf("couldn't find Rule Group (%s)", webACLName)
-					}
-
-					_, err = conn.UpdateWebACLWithContext(ctx, &wafv2.UpdateWebACLInput{
+					}					_, err = conn.UpdateWebACLWithContext(ctx, &wafv2.UpdateWebACLInput{
 						DefaultAction: &wafv2.DefaultAction{
 							Allow: &wafv2.AllowAction{},
 						},
@@ -1820,16 +1730,10 @@ func TestAccWAFV2WebACL_RuleGroupReference_shieldMitigation(t *testing.T) {
 					})
 					if err != nil {
 						t.Fatalf("adding rule in PreConfig: %s", err)
-					}
-
-					time.Sleep(15 * time.Second) // mitigate possible eventual consistency lag
-
-					output, err := tfwafv2.FindWebACLByThreePartKey(ctx, conn, aclID, webACLName, "REGIONAL")
+					}					time.Sleep(15 * time.Second) // mitigate possible eventual consistency lag					output, err := tfwafv2.FindWebACLByThreePartKey(ctx, conn, aclID, webACLName, "REGIONAL")
 					if err != nil {
 						t.Fatalf("finding WebACL (%s) in PreConfig: %s", webACLName, err)
-					}
-
-					if len(output.WebACL.Rules) < 1 {
+					}					if len(output.WebACL.Rules) < 1 {
 						t.Fatalf("out-of-band added rule (%s) not found, cannot test handling of rule", webACLName)
 					}
 				},
@@ -1850,18 +1754,14 @@ func TestAccWAFV2WebACL_RuleGroupReference_shieldMitigation(t *testing.T) {
 			},
 		},
 	})
-}
-
-// Ensure magically-added (i.e., AWS-added) rule for Shield with CF distribution DDoS auto
+}// Ensure magically-added (i.e., AWS-added) rule for Shield with CF distribution DDoS auto
 // mitigation does not cause diff and provider doesn't attempt to remove.
 // See https://github.com/hashicorp/terraform-provider-aws/issues/22869
 func TestAccWAFV2WebACL_RuleGroupReference_manageShieldMitigationRule(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1898,9 +1798,7 @@ func TestAccWAFV2WebACL_Custom_requestHandling(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2049,9 +1947,7 @@ func TestAccWAFV2WebACL_Custom_response(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2168,9 +2064,7 @@ func TestAccWAFV2WebACL_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2209,16 +2103,12 @@ func TestAccWAFV2WebACL_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/13862
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/13862
 func TestAccWAFV2WebACL_RateBased_maxNested(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2260,9 +2150,7 @@ func TestAccWAFV2WebACL_Operators_maxNested(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2306,9 +2194,7 @@ func TestAccWAFV2WebACL_tokenDomains(t *testing.T) {
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	domain1 := "mywebsite.com"
 	domain2 := "myotherwebsite.com"
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2349,9 +2235,7 @@ func TestAccWAFV2WebACL_associationConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, testAccCloudFrontScopeRegion())
@@ -2395,9 +2279,7 @@ func TestAccWAFV2WebACL_CloudFrontScope(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.WebACL
 	webACLName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, testAccCloudFrontScopeRegion())
@@ -2456,45 +2338,25 @@ func testAccCloudFrontScopeRegion() string {
 	}
 }
 func testAccPreCheckScopeCloudFront(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)
-
-	input := &wafv2.ListWebACLsInput{
+	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)	input := &wafv2.ListWebACLsInput{
 		Scope: aws.String(wafv2.ScopeCloudfront),
-	}
-
-	_, err := conn.ListWebACLsWithContext(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+	}	_, err := conn.ListWebACLsWithContext(ctx, input)	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 func testAccCheckWebACLDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_wafv2_web_acl" {
 				continue
-			}
-
-			_, err := tfwafv2.FindWebACLByThreePartKey(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"])
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfwafv2.FindWebACLByThreePartKey(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"])			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("WAFv2 WebACL %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("WAFv2 WebACL %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
 func testAccCheckWebACLExists(ctx context.Context, n string, v *wafv2.WebACL) resource.TestCheckFunc {
@@ -2502,19 +2364,9 @@ func testAccCheckWebACLExists(ctx context.Context, n string, v *wafv2.WebACL) re
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)
-
-		output, err := tfwafv2.FindWebACLByThreePartKey(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"])
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)		output, err := tfwafv2.FindWebACLByThreePartKey(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"])		if err != nil {
 			return err
-		}
-
-		*v = *output.WebACL
-
-		return nil
+		}		*v = *output.WebACL		return nil
 	}
 }
 func testAccWebACLImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
@@ -2522,9 +2374,7 @@ func testAccWebACLImportStateIdFunc(resourceName string) resource.ImportStateIdF
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		return fmt.Sprintf("%s/%s/%s", rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"]), nil
+		}		return fmt.Sprintf("%s/%s/%s", rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"]), nil
 	}
 }
 func testAccWebACLConfig_basic(rName string) string {
@@ -2532,13 +2382,9 @@ func testAccWebACLConfig_basic(rName string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2551,49 +2397,31 @@ func testAccWebACLConfig_basicRule(rName string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = "Updated"
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     block {}
-  }
-
-  rule {
+  }  rule {
     name     = "%[1]s-1"
-    priority = 10
-
-    action {
+    priority = 10    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       size_constraint_statement {
         comparison_operator = "LT"
-        size   = 50
-
-        field_to_match {
+        size   = 50        field_to_match {
  query_string {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 5
  type     = "NONE"
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 2
  type     = "CMD_LINE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "%[1]s-metric-name-1"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2606,70 +2434,44 @@ func testAccWebACLConfig_updateRuleNamePriorityMetric(rName, ruleName1, ruleName
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = "Updated"
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     block {}
-  }
-
-  rule {
+  }  rule {
     name     = %[2]q
-    priority = %[3]d
-
-    action {
+    priority = %[3]d    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       size_constraint_statement {
         comparison_operator = "LT"
-        size   = 50
-
-        field_to_match {
+        size   = 50        field_to_match {
  query_string {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 5
  type     = "NONE"
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 2
  type     = "CMD_LINE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = %[2]q
       sampled_requests_enabled   = false
     }
-  }
-
-  rule {
+  }  rule {
     name     = %[4]q
-    priority = %[5]d
-
-    action {
+    priority = %[5]d    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = %[4]q
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2682,21 +2484,13 @@ func testAccWebACLConfig_byteMatchStatement(rName, positionalConstraint, searchS
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         field_to_match {
  all_query_arguments {}
@@ -2708,16 +2502,12 @@ resource "aws_wafv2_web_acl" "test" {
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2730,21 +2520,13 @@ func testAccWebACLConfig_byteMatchStatementJSONBody(rName, matchScope, invalidFa
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         field_to_match {
  json_body {
@@ -2763,16 +2545,12 @@ resource "aws_wafv2_web_acl" "test" {
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2785,21 +2563,13 @@ func testAccWebACLConfig_byteMatchStatementBody(rName, oversizeHandling string) 
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         field_to_match {
  body {
@@ -2813,16 +2583,12 @@ resource "aws_wafv2_web_acl" "test" {
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2835,39 +2601,25 @@ func testAccWebACLConfig_geoMatchStatement(rName, countryCodes string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = [%[2]s]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2993,46 +2745,32 @@ func testAccWebACLConfig_customRequestHandlingAllow(rName, firstHeader string, s
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {
         custom_request_handling {
  insert_header {
    name  = %[2]q
    value = "test-value-1"
- }
-
- insert_header {
+ } insert_header {
    name  = %[3]q
    value = "test-value-2"
  }
         }
       }
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "CA"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3045,58 +2783,40 @@ func testAccWebACLConfig_customRequestHandlingCaptcha(rName, firstHeader string,
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       captcha {
         custom_request_handling {
  insert_header {
    name  = %[2]q
    value = "test-value-1"
- }
-
- insert_header {
+ } insert_header {
    name  = %[3]q
    value = "test-value-2"
  }
         }
       }
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "CA"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
-    }
-
-    captcha_config {
+    }    captcha_config {
       immunity_time_property {
         immunity_time = 240
       }
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
-  }
-
-  captcha_config {
+  }  captcha_config {
     immunity_time_property {
       immunity_time = 120
     }
@@ -3109,34 +2829,22 @@ func testAccWebACLConfig_customRequestHandlingChallenge(rName string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       challenge {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "CA"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3149,46 +2857,32 @@ func testAccWebACLConfig_customRequestHandlingCount(rName, firstHeader string, s
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {
         custom_request_handling {
  insert_header {
    name  = %[2]q
    value = "test-value-1"
- }
-
- insert_header {
+ } insert_header {
    name  = %[3]q
    value = "test-value-2"
  }
         }
       }
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "CA"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3201,47 +2895,33 @@ func testAccWebACLConfig_customResponse(rName string, defaultStatusCode int, cou
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     block {
       custom_response {
         response_code = %[2]d
       }
     }
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       block {
         custom_response {
- response_code = %[3]d
-
- response_header {
+ response_code = %[3]d response_header {
    name  = %[4]q
    value = "custom-response-header-value"
  }
         }
       }
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "CA"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3302,29 +2982,19 @@ func testAccWebACLConfig_geoMatchStatementForwardedIP(rName, fallbackBehavior, h
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     block {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       or_statement {
         statement {
  geo_match_statement {
    country_codes = ["US"]
  }
-        }
-
-        statement {
+        }        statement {
  geo_match_statement {
    country_codes = ["CA"]
    forwarded_ip_config {
@@ -3334,16 +3004,12 @@ resource "aws_wafv2_web_acl" "test" {
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3358,39 +3024,25 @@ resource "aws_wafv2_ip_set" "test" {
   scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses = ["1.1.1.1/32", "2.2.2.2/32"]
-}
-
-resource "aws_wafv2_web_acl" "test" {
+}resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     block {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       ip_set_reference_statement {
         arn = aws_wafv2_ip_set.test.arn
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3405,26 +3057,16 @@ resource "aws_wafv2_ip_set" "test" {
   scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses = ["1.1.1.1/32", "2.2.2.2/32"]
-}
-
-resource "aws_wafv2_web_acl" "test" {
+}resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     block {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       ip_set_reference_statement {
         arn = aws_wafv2_ip_set.test.arn
         ip_set_forwarded_ip_config {
@@ -3433,16 +3075,12 @@ resource "aws_wafv2_web_acl" "test" {
  position = %[4]q
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3455,40 +3093,26 @@ func testAccWebACLConfig_managedRuleGroupStatement(rName string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       none {}
-    }
-
-    statement {
+    }    statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesCommonRuleSet"
         vendor_name = "AWS"
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3501,26 +3125,16 @@ func testAccWebACLConfig_managedRuleGroupStatementManagedRuleGroupConfig(rName s
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       none {}
-    }
-
-    statement {
+    }    statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesATPRuleSet"
-        vendor_name = "AWS"
-
-        managed_rule_group_configs {
+        vendor_name = "AWS"        managed_rule_group_configs {
  login_path = "/login"
         }
         managed_rule_group_configs {
@@ -3537,21 +3151,15 @@ resource "aws_wafv2_web_acl" "test" {
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3564,26 +3172,16 @@ func testAccWebACLConfig_managedRuleGroupStatementManagedRuleGroupConfigUpdate(r
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       none {}
-    }
-
-    statement {
+    }    statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesATPRuleSet"
-        vendor_name = "AWS"
-
-        managed_rule_group_configs {
+        vendor_name = "AWS"        managed_rule_group_configs {
  login_path = "/app-login"
         }
         managed_rule_group_configs {
@@ -3600,21 +3198,15 @@ resource "aws_wafv2_web_acl" "test" {
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3627,26 +3219,16 @@ func testAccWebACLConfig_managedRuleGroupStatementManagedRuleGroupConfig_atpRule
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       none {}
-    }
-
-    statement {
+    }    statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesATPRuleSet"
-        vendor_name = "AWS"
-
-        managed_rule_group_configs {
+        vendor_name = "AWS"        managed_rule_group_configs {
  aws_managed_rules_atp_rule_set {
    login_path = "/api/1/signin"
    request_inspection {
@@ -3661,21 +3243,15 @@ resource "aws_wafv2_web_acl" "test" {
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3688,31 +3264,19 @@ func testAccWebACLConfig_managedRuleGroupStatementManagedRuleGroupConfig_atpRule
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       none {}
-    }
-
-    statement {
+    }    statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesATPRuleSet"
-        vendor_name = "AWS"
-
-        managed_rule_group_configs {
+        vendor_name = "AWS"        managed_rule_group_configs {
  aws_managed_rules_atp_rule_set {
    enable_regex_in_path = true
-   login_path  = "/api/2/signin"
-
-   request_inspection {
+   login_path  = "/api/2/signin"   request_inspection {
  password_field {
    identifier = "/pass"
  }
@@ -3724,21 +3288,15 @@ resource "aws_wafv2_web_acl" "test" {
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3751,46 +3309,30 @@ func testAccWebACLConfig_managedRuleGroupStatementManagedRuleGroupConfig_botCont
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       none {}
-    }
-
-    statement {
+    }    statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesBotControlRuleSet"
-        vendor_name = "AWS"
-
-        managed_rule_group_configs {
+        vendor_name = "AWS"        managed_rule_group_configs {
  aws_managed_rules_bot_control_rule_set {
    inspection_level = "TARGETED"
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3803,62 +3345,38 @@ func testAccWebACLConfig_managedRuleGroupStatementUpdate(rName string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       count {}
-    }
-
-    statement {
+    }    statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesCommonRuleSet"
-        vendor_name = "AWS"
-
-        rule_action_override {
+        vendor_name = "AWS"        rule_action_override {
  action_to_use {
    count {}
- }
-
- name = "SizeRestrictions_QUERYSTRING"
-        }
-
-        rule_action_override {
+ } name = "SizeRestrictions_QUERYSTRING"
+        }        rule_action_override {
  action_to_use {
    count {}
- }
-
- name = "NoUserAgent_HEADER"
-        }
-
-        scope_down_statement {
+ } name = "NoUserAgent_HEADER"
+        }        scope_down_statement {
  geo_match_statement {
    country_codes = ["US", "NL"]
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3871,62 +3389,38 @@ func testAccWebACLConfig_managedRuleGroupStatementRuleActionOverrides(rName stri
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       count {}
-    }
-
-    statement {
+    }    statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesCommonRuleSet"
-        vendor_name = "AWS"
-
-        rule_action_override {
+        vendor_name = "AWS"        rule_action_override {
  action_to_use {
    count {}
- }
-
- name = "SizeRestrictions_QUERYSTRING"
-        }
-
-        rule_action_override {
+ } name = "SizeRestrictions_QUERYSTRING"
+        }        rule_action_override {
  action_to_use {
    count {}
- }
-
- name = "NoUserAgent_HEADER"
-        }
-
-        scope_down_statement {
+ } name = "NoUserAgent_HEADER"
+        }        scope_down_statement {
  geo_match_statement {
    country_codes = ["US", "NL"]
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3939,41 +3433,27 @@ func testAccWebACLConfig_managedRuleGroupStatementVersionVersion10(rName string)
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       none {}
-    }
-
-    statement {
+    }    statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesCommonRuleSet"
         vendor_name = "AWS"
         version     = "Version_1.0"
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3986,39 +3466,25 @@ func testAccWebACLConfig_rateBasedStatement(rName string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     block {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       rate_based_statement {
         limit = 50000
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4031,21 +3497,13 @@ func testAccWebACLConfig_rateBasedStatementForwardedIP(rName, fallbackBehavior, 
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     block {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       rate_based_statement {
         aggregate_key_type = "FORWARDED_IP"
         forwarded_ip_config {
@@ -4054,21 +3512,15 @@ resource "aws_wafv2_web_acl" "test" {
         }
         limit = 50000
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4081,46 +3533,30 @@ func testAccWebACLConfig_rateBasedStatementUpdate(rName string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     block {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       rate_based_statement {
         limit = 10000
-        aggregate_key_type = "IP"
-
-        scope_down_statement {
+        aggregate_key_type = "IP"        scope_down_statement {
  geo_match_statement {
    country_codes = ["US", "NL"]
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4133,50 +3569,32 @@ func testAccWebACLConfig_ruleGroupReferenceStatement(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 10
   name     = "rule-group-%[1]s"
-  scope    = "REGIONAL"
-
-  visibility_config {
+  scope    = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
-}
-
-resource "aws_wafv2_web_acl" "test" {
+}resource "aws_wafv2_web_acl" "test" {
   name  = %[1]q
-  scope = "REGIONAL"
-
-  default_action {
+  scope = "REGIONAL"  default_action {
     block {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       count {}
-    }
-
-    statement {
+    }    statement {
       rule_group_reference_statement {
         arn = aws_wafv2_rule_group.test.arn
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4189,129 +3607,79 @@ func testAccWebACLConfig_ruleGroupReferenceStatementUpdate(rName string) string 
 resource "aws_wafv2_rule_group" "test" {
   capacity = 10
   name     = "rule-group-%[1]s"
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  rule {
+  }  rule {
     name     = "rule-to-exclude-a"
-    priority = 10
-
-    action {
+    priority = 10    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  rule {
+  }  rule {
     name     = "rule-to-exclude-b"
-    priority = 15
-
-    action {
+    priority = 15    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["GB"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
-}
-
-resource "aws_wafv2_web_acl" "test" {
+}resource "aws_wafv2_web_acl" "test" {
   name  = %[1]q
-  scope = "REGIONAL"
-
-  default_action {
+  scope = "REGIONAL"  default_action {
     block {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       count {}
-    }
-
-    statement {
+    }    statement {
       rule_group_reference_statement {
-        arn = aws_wafv2_rule_group.test.arn
-
-        rule_action_override {
+        arn = aws_wafv2_rule_group.test.arn        rule_action_override {
  action_to_use {
    count {}
- }
-
- name = "rule-to-exclude-b"
-        }
-
-        rule_action_override {
+ } name = "rule-to-exclude-b"
+        }        rule_action_override {
  action_to_use {
    count {}
- }
-
- name = "rule-to-exclude-a"
+ } name = "rule-to-exclude-a"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  tags = {
+  }  tags = {
     Tag1 = "Value1"
     Tag2 = "Value2"
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4323,13 +3691,9 @@ func testAccWebACLConfig_minimal(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_web_acl" "test" {
   name  = %[1]q
-  scope = "REGIONAL"
-
-  default_action {
+  scope = "REGIONAL"  default_action {
     allow {}
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4342,19 +3706,13 @@ func testAccWebACLConfig_tags1(rName, tagKey1, tagValue1 string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
   }
 }
@@ -4365,19 +3723,13 @@ func testAccWebACLConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 str
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
@@ -4388,77 +3740,49 @@ func testAccWebACLConfig_multipleNestedRateBasedStatements(rName string) string 
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
   name  = %[1]q
-  scope = "REGIONAL"
-
-  regular_expression {
+  scope = "REGIONAL"  regular_expression {
     regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
   }
-}
-
-resource "aws_wafv2_ip_set" "test" {
+}resource "aws_wafv2_ip_set" "test" {
   name  = %[1]q
   scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses = ["1.2.3.4/32", "5.6.7.8/32"]
-}
-
-resource "aws_wafv2_web_acl" "test" {
+}resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule"
-    priority = 0
-
-    action {
+    priority = 0    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       rate_based_statement {
         limit = 300
-        aggregate_key_type = "IP"
-
-        scope_down_statement {
+        aggregate_key_type = "IP"        scope_down_statement {
  not_statement {
    statement {
  or_statement {
    statement {
      regex_pattern_set_reference_statement {
-       arn = aws_wafv2_regex_pattern_set.test.arn
-
-       field_to_match {
+       arn = aws_wafv2_regex_pattern_set.test.arn       field_to_match {
     uri_path {}
-  }
-
-  text_transformation {
+  }  text_transformation {
     type     = "LOWERCASE"
     priority = 1
   }
 }
-       }
-
-       statement {
+       }       statement {
 regex_match_statement {
-  regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
-
-  field_to_match {
+  regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"  field_to_match {
     uri_path {}
-  }
-
-  text_transformation {
+  }  text_transformation {
     type     = "LOWERCASE"
     priority = 1
   }
 }
-       }
-
-       statement {
+       }       statement {
 ip_set_reference_statement {
   arn = aws_wafv2_ip_set.test.arn
 }
@@ -4468,16 +3792,12 @@ ip_set_reference_statement {
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name       = "rule"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name       = "waf"
     sampled_requests_enabled   = false
@@ -4489,38 +3809,24 @@ func testAccWebACLConfig_multipleNestedOperatorStatements(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
   name  = %[1]q
-  scope = "REGIONAL"
-
-  regular_expression {
+  scope = "REGIONAL"  regular_expression {
     regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
   }
-}
-
-resource "aws_wafv2_ip_set" "test" {
+}resource "aws_wafv2_ip_set" "test" {
   name      = %[1]q
   scope     = "REGIONAL"
   ip_address_version = "IPV4"
   addresses = ["1.2.3.4/32", "5.6.7.8/32"]
-}
-
-resource "aws_wafv2_web_acl" "test" {
+}resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule"
-    priority = 0
-
-    action {
+    priority = 0    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       and_statement {
         statement {
  not_statement {
@@ -4528,35 +3834,23 @@ resource "aws_wafv2_web_acl" "test" {
      or_statement {
        statement {
 regex_pattern_set_reference_statement {
-  arn = aws_wafv2_regex_pattern_set.test.arn
-
-  field_to_match {
+  arn = aws_wafv2_regex_pattern_set.test.arn  field_to_match {
     uri_path {}
-  }
-
-  text_transformation {
+  }  text_transformation {
     type     = "LOWERCASE"
     priority = 1
   }
 }
-       }
-
-       statement {
+       }       statement {
 regex_match_statement {
-  regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
-
-  field_to_match {
+  regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"  field_to_match {
     uri_path {}
-  }
-
-  text_transformation {
+  }  text_transformation {
     type     = "LOWERCASE"
     priority = 1
   }
 }
-       }
-
-       statement {
+       }       statement {
 ip_set_reference_statement {
   arn = aws_wafv2_ip_set.test.arn
 }
@@ -4564,24 +3858,18 @@ ip_set_reference_statement {
      }
    }
  }
-        }
-
-        statement {
+        }        statement {
  geo_match_statement {
    country_codes = ["NL"]
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name       = "rule"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name       = "waf"
     sampled_requests_enabled   = false
@@ -4594,49 +3882,29 @@ func testAccWebACLConfig_ruleGroupShieldMitigation(rName, description string) st
 resource "aws_wafv2_rule_group" "test" {
   capacity = 10
   name     = "rule-group-%[1]s"
-  scope    = "REGIONAL"
-
-  visibility_config {
+  scope    = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name       = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
-}
-
-data "aws_caller_identity" "current" {}
-
-resource "aws_wafv2_web_acl" "test" {
+}data "aws_caller_identity" "current" {}resource "aws_wafv2_web_acl" "test" {
   name  = %[1]q
-  scope = "REGIONAL"
-
-  default_action {
+  scope = "REGIONAL"  default_action {
     block {}
-  }
-
-  description = %[2]q
-
-  rule {
+  }  description = %[2]q  rule {
     name     = "ShieldMitigationRuleGroup_${data.aws_caller_identity.current.account_id}_5e665b1c-1641-4b7a-8db1-567871a18b2a_uniqueid"
-    priority = 11
-
-    override_action {
+    priority = 11    override_action {
       none {}
-    }
-
-    statement {
+    }    statement {
       rule_group_reference_statement {
         arn = aws_wafv2_rule_group.test.arn
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = true
       metric_name       = "ShieldMitigationRuleGroup_${data.aws_caller_identity.current.account_id}_5e665b1c-1641-4b7a-8db1-567871a18b2a_uniqueid"
       sampled_requests_enabled   = true
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = true
     metric_name       = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4649,26 +3917,16 @@ func testAccWebACLConfig_ruleGroupForShieldMitigation(rName, description string)
 resource "aws_wafv2_rule_group" "test" {
   capacity = 10
   name     = "rule-group-%[1]s"
-  scope    = "REGIONAL"
-
-  visibility_config {
+  scope    = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name       = "friendly-metric-name"
     sampled_requests_enabled   = false
   }
-}
-
-resource "aws_wafv2_web_acl" "test" {
+}resource "aws_wafv2_web_acl" "test" {
   name  = %[1]q
-  scope = "REGIONAL"
-
-  default_action {
+  scope = "REGIONAL"  default_action {
     block {}
-  }
-
-  description = %[2]q
-
-  visibility_config {
+  }  description = %[2]q  visibility_config {
     cloudwatch_metrics_enabled = true
     metric_name       = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4681,13 +3939,9 @@ func testAccWebACLConfig_tokenDomains(rName, domain1, domain2 string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  token_domains = [%[2]q, %[3]q]
+  }  token_domains = [%[2]q, %[3]q]
   visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name       = "friendly-metric-name"
@@ -4701,26 +3955,16 @@ func testAccWebACLConfig_CloudFrontScope(rName string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "CLOUDFRONT"
-
-  default_action {
+  scope       = "CLOUDFRONT"  default_action {
     allow {}
-  }
-
-  rule {
+  }  rule {
     name     = "rule-1"
-    priority = 1
-
-    override_action {
+    priority = 1    override_action {
       count {}
-    }
-
-    statement {
+    }    statement {
       managed_rule_group_statement {
         name        = "AWSManagedRulesATPRuleSet"
-        vendor_name = "AWS"
-
-        managed_rule_group_configs {
+        vendor_name = "AWS"        managed_rule_group_configs {
  aws_managed_rules_atp_rule_set {
    login_path = "/api/1/signin"
    request_inspection {
@@ -4747,9 +3991,7 @@ resource "aws_wafv2_web_acl" "test" {
       metric_name       = "AWSManagedRulesATPRuleSet_json"
       sampled_requests_enabled   = true
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name       = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4762,21 +4004,15 @@ func testAccWebACLConfig_associationConfig(rName string) string {
 resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = %[1]q
-  scope       = "CLOUDFRONT"
-
-  default_action {
+  scope       = "CLOUDFRONT"  default_action {
     allow {}
-  }
-
-  association_config {
+  }  association_config {
     request_body {
       cloudfront {
         default_size_inspection_limit = "KB_64"
       }
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name       = "friendly-metric-name"
     sampled_requests_enabled   = false

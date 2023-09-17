@@ -82,17 +82,13 @@ func: validation.StringInSlice(wafregional.PredicateType_Values(), false),
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-
-func resourceRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 	region := meta.(*conns.AWSClient).Region
 
 	wr := NewRetryer(conn, region)
-	out, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+	out, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 		input := &waf.CreateRuleInput{
 			ChangeToken: token,
 			MetricName:  aws.String(d.Get("metric_name").(string)),
@@ -117,10 +113,7 @@ func(token *string) (interface{}, error) {
 		}
 	}
 	return append(diags, resourceRuleRead(ctx, d, meta)...)
-}
-
-
-func resourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 
@@ -152,10 +145,7 @@ func resourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interfac
 	d.Set("metric_name", resp.Rule.MetricName)
 
 	return diags
-}
-
-
-func resourceRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
 	if d.HasChange("predicate") {
@@ -169,10 +159,7 @@ func resourceRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	return append(diags, resourceRuleRead(ctx, d, meta)...)
-}
-
-
-func resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 	region := meta.(*conns.AWSClient).Region
@@ -187,8 +174,7 @@ func resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+	_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 		req := &waf.DeleteRuleInput{
 			ChangeToken: token,
 			RuleId:aws.String(d.Id()),
@@ -201,16 +187,12 @@ func(token *string) (interface{}, error) {
 	}
 
 	return diags
-}
-
-
-func updateRuleResource(ctx context.Context, id string, oldP, newP []interface{}, meta interface{}) error {
+}func updateRuleResource(ctx context.Context, id string, oldP, newP []interface{}, meta interface{}) error {
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 	region := meta.(*conns.AWSClient).Region
 
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+	_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 		req := &waf.UpdateRuleInput{
 			ChangeToken: token,
 			RuleId:aws.String(id),
@@ -225,10 +207,7 @@ func(token *string) (interface{}, error) {
 	}
 
 	return nil
-}
-
-
-func flattenPredicates(ts []*waf.Predicate) []interface{} {
+}func flattenPredicates(ts []*waf.Predicate) []interface{} {
 	out := make([]interface{}, len(ts))
 	for i, p := range ts {
 		m := make(map[string]interface{})

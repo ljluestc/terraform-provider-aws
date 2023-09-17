@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package fsx
-
-import (
+// SPDX-License-Identifier: MPL-2.0package fsximport (
 	"context"
 	"log"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/fsx"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -23,28 +17,20 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_fsx_file_cache", name="File Cache")
+)// @SDKResource("aws_fsx_file_cache", name="File Cache")
 // @Tags(identifierAttribute="arn")
 func ResourceFileCache() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFileCacheCreate,
 		ReadWithoutTimeout:   resourceFileCacheRead,
 		UpdateWithoutTimeout: resourceFileCacheUpdate,
-		DeleteWithoutTimeout: resourceFileCacheDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceFileCacheDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Timeouts: &schema.ResourceTimeout{
+		},		Timeouts: &schema.ResourceTimeout{
 			Create: schema.DefaultTimeout(30 * time.Minute),
 			Update: schema.DefaultTimeout(30 * time.Minute),
 			Delete: schema.DefaultTimeout(30 * time.Minute),
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type: schema.TypeString,
 				Computed: true,
@@ -292,16 +278,10 @@ func ResourceFileCache() *schema.Resource {
 		},
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-const (
+}const (
 	ResNameFileCache = "File Cache"
-)
-
-func resourceFileCacheCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).FSxConn(ctx)
-
-	input := &fsx.CreateFileCacheInput{
+)func resourceFileCacheCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).FSxConn(ctx)	input := &fsx.CreateFileCacheInput{
 		ClientRequestToken:   aws.String(id.UniqueId()),
 		FileCacheType:aws.String(d.Get("file_cache_type").(string)),
 		FileCacheTypeVersion: aws.String(d.Get("file_cache_type_version").(string)),
@@ -323,39 +303,19 @@ func resourceFileCacheCreate(ctx context.Context, d *schema.ResourceData, meta i
 	}
 	if v, ok := d.GetOk("security_group_ids"); ok {
 		input.SecurityGroupIds = flex.ExpandStringSet(v.(*schema.Set))
-	}
-
-	result, err := conn.CreateFileCacheWithContext(ctx, input)
-
-	if err != nil {
+	}	result, err := conn.CreateFileCacheWithContext(ctx, input)	if err != nil {
 		return create.DiagError(names.FSx, create.ErrActionCreating, ResNameFileCache, "", err)
-	}
-
-	d.SetId(aws.StringValue(result.FileCache.FileCacheId))
-
-	if _, err := waitFileCacheCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
+	}	d.SetId(aws.StringValue(result.FileCache.FileCacheId))	if _, err := waitFileCacheCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
 		return create.DiagError(names.FSx, create.ErrActionWaitingForCreation, ResNameFileCache, d.Id(), err)
-	}
-
-	return resourceFileCacheRead(ctx, d, meta)
-}
-
-func resourceFileCacheRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).FSxConn(ctx)
-
-	filecache, err := findFileCacheByID(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	}	return resourceFileCacheRead(ctx, d, meta)
+}func resourceFileCacheRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).FSxConn(ctx)	filecache, err := findFileCacheByID(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] FSx FileCache (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return create.DiagError(names.FSx, create.ErrActionReading, ResNameFileCache, d.Id(), err)
-	}
-
-	d.Set("arn", filecache.ResourceARN)
+	}	d.Set("arn", filecache.ResourceARN)
 	d.Set("dns_name", filecache.DNSName)
 	d.Set("file_cache_id", filecache.FileCacheId)
 	d.Set("file_cache_type", filecache.FileCacheType)
@@ -364,9 +324,7 @@ func resourceFileCacheRead(ctx context.Context, d *schema.ResourceData, meta int
 	d.Set("owner_id", filecache.OwnerId)
 	d.Set("storage_capacity", filecache.StorageCapacity)
 	d.Set("subnet_ids", aws.StringValueSlice(filecache.SubnetIds))
-	d.Set("vpc_id", filecache.VpcId)
-
-	dataRepositoryAssociationIDs := aws.StringValueSlice(filecache.DataRepositoryAssociationIds)
+	d.Set("vpc_id", filecache.VpcId)	dataRepositoryAssociationIDs := aws.StringValueSlice(filecache.DataRepositoryAssociationIds)
 	d.Set("data_repository_association_ids", dataRepositoryAssociationIDs)
 	if err := d.Set("lustre_configuration", flattenFileCacheLustreConfiguration(filecache.LustreConfiguration)); err != nil {
 		return create.DiagError(names.FSx, create.ErrActionSetting, ResNameFileCache, d.Id(), err)
@@ -376,38 +334,20 @@ func resourceFileCacheRead(ctx context.Context, d *schema.ResourceData, meta int
 	}
 	if err := d.Set("subnet_ids", aws.StringValueSlice(filecache.SubnetIds)); err != nil {
 		return create.DiagError(names.FSx, create.ErrActionSetting, ResNameFileCache, d.Id(), err)
-	}
-
-	// Lookup and set Data Repository Associations
-
-	dataRepositoryAssociations, _ := findDataRepositoryAssociationsByIDs(ctx, conn, dataRepositoryAssociationIDs)
-
-	defaultTagsConfig := meta.(*conns.AWSClient).DefaultTagsConfig
+	}	// Lookup and set Data Repository Associations	dataRepositoryAssociations, _ := findDataRepositoryAssociationsByIDs(ctx, conn, dataRepositoryAssociationIDs)	defaultTagsConfig := meta.(*conns.AWSClient).DefaultTagsConfig
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
 	if err := d.Set("data_repository_association", flattenDataRepositoryAssociations(ctx, dataRepositoryAssociations, defaultTagsConfig, ignoreTagsConfig)); err != nil {
 		return create.DiagError(names.FSx, create.ErrActionSetting, ResNameFileCache, d.Id(), err)
-	}
-
-	return nil
-}
-
-func resourceFileCacheUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).FSxConn(ctx)
-
-	if d.HasChangesExcept("tags_all") {
+	}	return nil
+}func resourceFileCacheUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).FSxConn(ctx)	if d.HasChangesExcept("tags_all") {
 		input := &fsx.UpdateFileCacheInput{
 			ClientRequestToken:  aws.String(id.UniqueId()),
 			FileCacheId:aws.String(d.Id()),
 			LustreConfiguration: &fsx.UpdateFileCacheLustreConfiguration{},
-		}
-
-		if d.HasChanges("lustre_configuration") {
+		}		if d.HasChanges("lustre_configuration") {
 			input.LustreConfiguration = expandUpdateFileCacheLustreConfiguration(d.Get("lustre_configuration").([]interface{}))
-		}
-
-		log.Printf("[DEBUG] Updating FSx FileCache (%s): %#v", d.Id(), input)
-
-		result, err := conn.UpdateFileCacheWithContext(ctx, input)
+		}		log.Printf("[DEBUG] Updating FSx FileCache (%s): %#v", d.Id(), input)		result, err := conn.UpdateFileCacheWithContext(ctx, input)
 		if err != nil {
 			return create.DiagError(names.FSx, create.ErrActionUpdating, ResNameFileCache, d.Id(), err)
 		}
@@ -416,18 +356,12 @@ func resourceFileCacheUpdate(ctx context.Context, d *schema.ResourceData, meta i
 		}
 	}
 	return resourceFileCacheRead(ctx, d, meta)
-}
-
-func resourceFileCacheDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceFileCacheDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).FSxConn(ctx)
-	log.Printf("[INFO] Deleting FSx FileCache %s", d.Id())
-
-	_, err := conn.DeleteFileCacheWithContext(ctx, &fsx.DeleteFileCacheInput{
+	log.Printf("[INFO] Deleting FSx FileCache %s", d.Id())	_, err := conn.DeleteFileCacheWithContext(ctx, &fsx.DeleteFileCacheInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
 		FileCacheId:aws.String(d.Id()),
-	})
-
-	if tfawserr.ErrCodeEquals(err, fsx.ErrCodeFileCacheNotFound) {
+	})	if tfawserr.ErrCodeEquals(err, fsx.ErrCodeFileCacheNotFound) {
 		return nil
 	}
 	if err != nil {
@@ -435,22 +369,12 @@ func resourceFileCacheDelete(ctx context.Context, d *schema.ResourceData, meta i
 	}
 	if _, err := waitFileCacheDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
 		return create.DiagError(names.FSx, create.ErrActionWaitingForDeletion, ResNameFileCache, d.Id(), err)
-	}
-
-	return nil
-}
-
-func flattenDataRepositoryAssociations(ctx context.Context, dataRepositoryAssociations []*fsx.DataRepositoryAssociation, defaultTagsConfig *tftags.DefaultConfig, ignoreTagsConfig *tftags.IgnoreConfig) []interface{} {
+	}	return nil
+}func flattenDataRepositoryAssociations(ctx context.Context, dataRepositoryAssociations []*fsx.DataRepositoryAssociation, defaultTagsConfig *tftags.DefaultConfig, ignoreTagsConfig *tftags.IgnoreConfig) []interface{} {
 	if len(dataRepositoryAssociations) == 0 {
 		return nil
-	}
-
-	var flattenedDataRepositoryAssociations []interface{}
-
-	for _, dataRepositoryAssociation := range dataRepositoryAssociations {
-		tags := KeyValueTags(ctx, dataRepositoryAssociation.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig)
-
-		values := map[string]interface{}{
+	}	var flattenedDataRepositoryAssociations []interface{}	for _, dataRepositoryAssociation := range dataRepositoryAssociations {
+		tags := KeyValueTags(ctx, dataRepositoryAssociation.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig)		values := map[string]interface{}{
 			"association_id":dataRepositoryAssociation.AssociationId,
 			"data_repository_path":  dataRepositoryAssociation.DataRepositoryPath,
 			"data_repository_subdirectories": aws.StringValueSlice(dataRepositoryAssociation.DataRepositorySubdirectories),
@@ -464,27 +388,19 @@ func flattenDataRepositoryAssociations(ctx context.Context, dataRepositoryAssoci
 		flattenedDataRepositoryAssociations = append(flattenedDataRepositoryAssociations, values)
 	}
 	return flattenedDataRepositoryAssociations
-}
-
-func flattenNFSDataRepositoryConfiguration(nfsDataRepositoryConfiguration *fsx.NFSDataRepositoryConfiguration) []map[string]interface{} {
+}func flattenNFSDataRepositoryConfiguration(nfsDataRepositoryConfiguration *fsx.NFSDataRepositoryConfiguration) []map[string]interface{} {
 	if nfsDataRepositoryConfiguration == nil {
 		return []map[string]interface{}{}
-	}
-
-	values := map[string]interface{}{
+	}	values := map[string]interface{}{
 		"dns_ips": aws.StringValueSlice(nfsDataRepositoryConfiguration.DnsIps),
 		"version": aws.StringValue(nfsDataRepositoryConfiguration.Version),
 	}
 	return []map[string]interface{}{values}
-}
-
-func flattenFileCacheLustreConfiguration(fileCacheLustreConfiguration *fsx.FileCacheLustreConfiguration) []interface{} {
+}func flattenFileCacheLustreConfiguration(fileCacheLustreConfiguration *fsx.FileCacheLustreConfiguration) []interface{} {
 	if fileCacheLustreConfiguration == nil {
 		return []interface{}{}
 	}
-	values := make(map[string]interface{})
-
-	if fileCacheLustreConfiguration.DeploymentType != nil {
+	values := make(map[string]interface{})	if fileCacheLustreConfiguration.DeploymentType != nil {
 		values["deployment_type"] = aws.StringValue(fileCacheLustreConfiguration.DeploymentType)
 	}
 	if fileCacheLustreConfiguration.LogConfiguration != nil {
@@ -501,36 +417,20 @@ func flattenFileCacheLustreConfiguration(fileCacheLustreConfiguration *fsx.FileC
 	}
 	if fileCacheLustreConfiguration.WeeklyMaintenanceStartTime != nil {
 		values["weekly_maintenance_start_time"] = aws.StringValue(fileCacheLustreConfiguration.WeeklyMaintenanceStartTime)
-	}
-
-	return []interface{}{values}
-}
-
-func flattenFileCacheLustreMetadataConfiguration(fileCacheLustreMetadataConfiguration *fsx.FileCacheLustreMetadataConfiguration) []interface{} {
+	}	return []interface{}{values}
+}func flattenFileCacheLustreMetadataConfiguration(fileCacheLustreMetadataConfiguration *fsx.FileCacheLustreMetadataConfiguration) []interface{} {
 	values := make(map[string]interface{})
 	if fileCacheLustreMetadataConfiguration.StorageCapacity != nil {
 		values["storage_capacity"] = aws.Int64Value(fileCacheLustreMetadataConfiguration.StorageCapacity)
-	}
-
-	return []interface{}{values}
-}
-
-func expandDataRepositoryAssociations(l []interface{}) []*fsx.FileCacheDataRepositoryAssociation {
+	}	return []interface{}{values}
+}func expandDataRepositoryAssociations(l []interface{}) []*fsx.FileCacheDataRepositoryAssociation {
 	if len(l) == 0 {
 		return nil
-	}
-
-	var dataRepositoryAssociations []*fsx.FileCacheDataRepositoryAssociation
-
-	for _, tfMapRaw := range l {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-
-		if !ok {
+	}	var dataRepositoryAssociations []*fsx.FileCacheDataRepositoryAssociation	for _, tfMapRaw := range l {
+		tfMap, ok := tfMapRaw.(map[string]interface{})		if !ok {
 			continue
 		}
-		req := &fsx.FileCacheDataRepositoryAssociation{}
-
-		if v, ok := tfMap["data_repository_path"].(string); ok {
+		req := &fsx.FileCacheDataRepositoryAssociation{}		if v, ok := tfMap["data_repository_path"].(string); ok {
 			req.DataRepositoryPath = aws.String(v)
 		}
 		if v, ok := tfMap["data_repository_subdirectories"]; ok {
@@ -543,51 +443,31 @@ func expandDataRepositoryAssociations(l []interface{}) []*fsx.FileCacheDataRepos
 			req.NFS = expandFileCacheNFSConfiguration(v.(*schema.Set).List())
 		}
 		dataRepositoryAssociations = append(dataRepositoryAssociations, req)
-	}
-
-	return dataRepositoryAssociations
-}
-
-func expandFileCacheNFSConfiguration(l []interface{}) *fsx.FileCacheNFSConfiguration {
+	}	return dataRepositoryAssociations
+}func expandFileCacheNFSConfiguration(l []interface{}) *fsx.FileCacheNFSConfiguration {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
-	data := l[0].(map[string]interface{})
-
-	req := &fsx.FileCacheNFSConfiguration{}
+	data := l[0].(map[string]interface{})	req := &fsx.FileCacheNFSConfiguration{}
 	if v, ok := data["dns_ips"]; ok {
 		req.DnsIps = flex.ExpandStringSet(v.(*schema.Set))
 	}
 	if v, ok := data["version"].(string); ok {
 		req.Version = aws.String(v)
-	}
-
-	return req
-}
-
-func expandUpdateFileCacheLustreConfiguration(l []interface{}) *fsx.UpdateFileCacheLustreConfiguration {
+	}	return req
+}func expandUpdateFileCacheLustreConfiguration(l []interface{}) *fsx.UpdateFileCacheLustreConfiguration {
 	if len(l) == 0 || l[0] == nil {
 		return nil
-	}
-
-	data := l[0].(map[string]interface{})
-	req := &fsx.UpdateFileCacheLustreConfiguration{}
-
-	if v, ok := data["weekly_maintenance_start_time"].(string); ok {
+	}	data := l[0].(map[string]interface{})
+	req := &fsx.UpdateFileCacheLustreConfiguration{}	if v, ok := data["weekly_maintenance_start_time"].(string); ok {
 		req.WeeklyMaintenanceStartTime = aws.String(v)
-	}
-
-	return req
-}
-
-func expandCreateFileCacheLustreConfiguration(l []interface{}) *fsx.CreateFileCacheLustreConfiguration {
+	}	return req
+}func expandCreateFileCacheLustreConfiguration(l []interface{}) *fsx.CreateFileCacheLustreConfiguration {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
 	data := l[0].(map[string]interface{})
-	req := &fsx.CreateFileCacheLustreConfiguration{}
-
-	if v, ok := data["deployment_type"].(string); ok {
+	req := &fsx.CreateFileCacheLustreConfiguration{}	if v, ok := data["deployment_type"].(string); ok {
 		req.DeploymentType = aws.String(v)
 	}
 	if v, ok := data["metadata_configuration"]; ok && len(v.(*schema.Set).List()) > 0 {
@@ -598,28 +478,18 @@ func expandCreateFileCacheLustreConfiguration(l []interface{}) *fsx.CreateFileCa
 	}
 	if v, ok := data["weekly_maintenance_start_time"].(string); ok {
 		req.WeeklyMaintenanceStartTime = aws.String(v)
-	}
-
-	return req
-}
-
-func expandFileCacheLustreMetadataConfiguration(l []interface{}) *fsx.FileCacheLustreMetadataConfiguration {
+	}	return req
+}func expandFileCacheLustreMetadataConfiguration(l []interface{}) *fsx.FileCacheLustreMetadataConfiguration {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
 	data := l[0].(map[string]interface{})
-	req := &fsx.FileCacheLustreMetadataConfiguration{}
-
-	if v, ok := data["storage_capacity"].(int); ok {
+	req := &fsx.FileCacheLustreMetadataConfiguration{}	if v, ok := data["storage_capacity"].(int); ok {
 		req.StorageCapacity = aws.Int64(int64(v))
 	}
 	return req
-}
-
-func findDataRepositoryAssociationsByIDs(ctx context.Context, conn *fsx.FSx, ids []string) ([]*fsx.DataRepositoryAssociation, error) {
+}func findDataRepositoryAssociationsByIDs(ctx context.Context, conn *fsx.FSx, ids []string) ([]*fsx.DataRepositoryAssociation, error) {
 	input := &fsx.DescribeDataRepositoryAssociationsInput{
 		AssociationIds: aws.StringSlice(ids),
-	}
-
-	return findDataRepositoryAssociations(ctx, conn, input)
+	}	return findDataRepositoryAssociations(ctx, conn, input)
 }

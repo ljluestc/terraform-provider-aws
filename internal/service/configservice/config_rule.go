@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configservice
-
-import (
+// SPDX-License-Identifier: MPL-2.0package configserviceimport (
 	"bytes"
 	"context"
 	"fmt"
 	"log"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/configservice"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -24,22 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_config_config_rule", name="Config Rule")
+)// @SDKResource("aws_config_config_rule", name="Config Rule")
 // @Tags(identifierAttribute="arn")
 func ResourceConfigRule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRulePutConfig,
 		ReadWithoutTimeout:   resourceConfigRuleRead,
 		UpdateWithoutTimeout: resourceRulePutConfig,
-		DeleteWithoutTimeout: resourceConfigRuleDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceConfigRuleDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"name": {
 				Type:schema.TypeString,
 				Required:     true,
@@ -182,28 +170,18 @@ func ResourceConfigRule() *schema.Resource {
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
-
-		CustomizeDiff: verify.SetTagsDiff,
+		},		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-const (
+}const (
 	ResNameConfigRule = "Config Rule"
-)
-
-func resourceRulePutConfig(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+)func resourceRulePutConfig(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)
-
-	name := d.Get("name").(string)
+	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)	name := d.Get("name").(string)
 	ruleInput := configservice.ConfigRule{
 		ConfigRuleName: aws.String(name),
 		Scope: expandRuleScope(d.Get("scope").([]interface{})),
 		Source:expandRuleSource(d.Get("source").([]interface{})),
-	}
-
-	if v, ok := d.GetOk("description"); ok {
+	}	if v, ok := d.GetOk("description"); ok {
 		ruleInput.Description = aws.String(v.(string))
 	}
 	if v, ok := d.GetOk("input_parameters"); ok {
@@ -211,9 +189,7 @@ func resourceRulePutConfig(ctx context.Context, d *schema.ResourceData, meta int
 	}
 	if v, ok := d.GetOk("maximum_execution_frequency"); ok {
 		ruleInput.MaximumExecutionFrequency = aws.String(v.(string))
-	}
-
-	input := configservice.PutConfigRuleInput{
+	}	input := configservice.PutConfigRuleInput{
 		ConfigRule: &ruleInput,
 		Tags:       getTagsIn(ctx),
 	}
@@ -224,64 +200,36 @@ func resourceRulePutConfig(ctx context.Context, d *schema.ResourceData, meta int
 			if tfawserr.ErrCodeEquals(err, configservice.ErrCodeInsufficientPermissionsException) {
 				// IAM is eventually consistent
 				return retry.RetryableError(err)
-			}
-
-			return retry.NonRetryableError(fmt.Errorf("Failed to create AWSConfig rule: %w", err))
-		}
-
-		return nil
+			}			return retry.NonRetryableError(fmt.Errorf("Failed to create AWSConfig rule: %w", err))
+		}		return nil
 	})
 	if tfresource.TimedOut(err) {
 		_, err = conn.PutConfigRuleWithContext(ctx, &input)
 	}
 	if err != nil {
 		return append(diags, create.DiagError(names.ConfigService, create.ErrActionUpdating, ResNameConfigRule, name, err)...)
-	}
-
-	d.SetId(name)
-
-	return append(diags, resourceConfigRuleRead(ctx, d, meta)...)
-}
-
-func resourceConfigRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	d.SetId(name)	return append(diags, resourceConfigRuleRead(ctx, d, meta)...)
+}func resourceConfigRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)
-
-	rule, err := FindConfigRule(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)	rule, err := FindConfigRule(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] ConfigService Config Rule (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
 	}
 	if err != nil {
 		return append(diags, create.DiagError(names.ConfigService, create.ErrActionReading, ResNameConfigRule, d.Id(), err)...)
-	}
-
-	arn := aws.StringValue(rule.ConfigRuleArn)
+	}	arn := aws.StringValue(rule.ConfigRuleArn)
 	d.Set("arn", arn)
 	d.Set("rule_id", rule.ConfigRuleId)
 	d.Set("name", rule.ConfigRuleName)
 	d.Set("description", rule.Description)
 	d.Set("input_parameters", rule.InputParameters)
-	d.Set("maximum_execution_frequency", rule.MaximumExecutionFrequency)
-
-	if rule.Scope != nil {
+	d.Set("maximum_execution_frequency", rule.MaximumExecutionFrequency)	if rule.Scope != nil {
 		d.Set("scope", flattenRuleScope(rule.Scope))
-	}
-
-	d.Set("source", flattenRuleSource(rule.Source))
-
-	return diags
-}
-
-func resourceConfigRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	d.Set("source", flattenRuleSource(rule.Source))	return diags
+}func resourceConfigRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)
-
-	name := d.Get("name").(string)
-
-	log.Printf("[DEBUG] Deleting AWS Config config rule %q", name)
+	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)	name := d.Get("name").(string)	log.Printf("[DEBUG] Deleting AWS Config config rule %q", name)
 	input := &configservice.DeleteConfigRuleInput{
 		ConfigRuleName: aws.String(name),
 	}
@@ -300,16 +248,10 @@ func resourceConfigRuleDelete(ctx context.Context, d *schema.ResourceData, meta 
 	}
 	if err != nil {
 		return append(diags, create.DiagError(names.ConfigService, create.ErrActionDeleting, ResNameConfigRule, d.Id(), err)...)
-	}
-
-	if _, err := waitRuleDeleted(ctx, conn, d.Id()); err != nil {
+	}	if _, err := waitRuleDeleted(ctx, conn, d.Id()); err != nil {
 		return append(diags, create.DiagError(names.ConfigService, create.ErrActionWaitingForDeletion, ResNameConfigRule, d.Id(), err)...)
-	}
-
-	return diags
-}
-
-func ruleSourceDetailsHash(v interface{}) int {
+	}	return diags
+}func ruleSourceDetailsHash(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
 	if v, ok := m["message_type"]; ok {

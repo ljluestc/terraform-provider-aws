@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ecs
-
-import (
-"fmt"
-
-"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package ecsimport (
+"fmt""github.com/YakDriver/regexache"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-)
-
-func validateClusterName(v interface{}, k string) (ws []string, errors []error) {
+)func validateClusterName(v interface{}, k string) (ws []string, errors []error) {
 return validation.All(
 validation.StringLenBetween(1, 255),
 validation.StringMatch(
 regexache.MustCompile("[0-9A-Za-z_-]+"),
 "The cluster name must consist of alphanumerics, hyphens, and underscores."),
 )(v, k)
-}
-
-// Validates that ECS Placement Constraints are set correctly
+}// Validates that ECS Placement Constraints are set correctly
 // Takes type, and expression as strings
 func validPlacementConstraint(constType, constExpr string) error {
 switch constType {
@@ -34,9 +24,7 @@ default:
 return fmt.Errorf("Unknown type provided: %q", constType)
 }
 return nil
-}
-
-// Validates that an Ecs placement strategy is set correctly
+}// Validates that an Ecs placement strategy is set correctly
 // Takes type, and field as strings
 func validPlacementStrategy(stratType, stratField string) error {
 switch stratType {

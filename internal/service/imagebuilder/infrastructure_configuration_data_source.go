@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package imagebuilderimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -14,14 +8,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKDataSource("aws_imagebuilder_infrastructure_configuration")
+)// @SDKDataSource("aws_imagebuilder_infrastructure_configuration")
 func DataSourceInfrastructureConfiguration() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceInfrastructureConfigurationRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceInfrastructureConfigurationRead,		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:schema.TypeString,
 				Required:     true,
@@ -117,44 +107,24 @@ func DataSourceInfrastructureConfiguration() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceInfrastructureConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceInfrastructureConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	input := &imagebuilder.GetInfrastructureConfigurationInput{}
-
-	if v, ok := d.GetOk("arn"); ok {
+	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig	input := &imagebuilder.GetInfrastructureConfigurationInput{}	if v, ok := d.GetOk("arn"); ok {
 		input.InfrastructureConfigurationArn = aws.String(v.(string))
-	}
-
-	output, err := conn.GetInfrastructureConfigurationWithContext(ctx, input)
-
-	if err != nil {
+	}	output, err := conn.GetInfrastructureConfigurationWithContext(ctx, input)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "getting Image Builder Infrastructure Configuration (%s): %s", d.Id(), err)
-	}
-
-	if output == nil || output.InfrastructureConfiguration == nil {
+	}	if output == nil || output.InfrastructureConfiguration == nil {
 		return sdkdiag.AppendErrorf(diags, "getting Image Builder Infrastructure Configuration (%s): empty response", d.Id())
-	}
-
-	infrastructureConfiguration := output.InfrastructureConfiguration
-
-	d.SetId(aws.StringValue(infrastructureConfiguration.Arn))
+	}	infrastructureConfiguration := output.InfrastructureConfiguration	d.SetId(aws.StringValue(infrastructureConfiguration.Arn))
 	d.Set("arn", infrastructureConfiguration.Arn)
 	d.Set("date_created", infrastructureConfiguration.DateCreated)
 	d.Set("date_updated", infrastructureConfiguration.DateUpdated)
-	d.Set("description", infrastructureConfiguration.Description)
-
-	if infrastructureConfiguration.InstanceMetadataOptions != nil {
+	d.Set("description", infrastructureConfiguration.Description)	if infrastructureConfiguration.InstanceMetadataOptions != nil {
 		d.Set("instance_metadata_options", []interface{}{flattenInstanceMetadataOptions(infrastructureConfiguration.InstanceMetadataOptions)})
 	} else {
 		d.Set("instance_metadata_options", nil)
-	}
-
-	d.Set("instance_profile_name", infrastructureConfiguration.InstanceProfileName)
+	}	d.Set("instance_profile_name", infrastructureConfiguration.InstanceProfileName)
 	d.Set("instance_types", aws.StringValueSlice(infrastructureConfiguration.InstanceTypes))
 	d.Set("key_pair", infrastructureConfiguration.KeyPair)
 	if infrastructureConfiguration.Logging != nil {
@@ -168,7 +138,5 @@ func dataSourceInfrastructureConfigurationRead(ctx context.Context, d *schema.Re
 	d.Set("sns_topic_arn", infrastructureConfiguration.SnsTopicArn)
 	d.Set("subnet_id", infrastructureConfiguration.SubnetId)
 	d.Set("tags", KeyValueTags(ctx, infrastructureConfiguration.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map())
-	d.Set("terminate_instance_on_failure", infrastructureConfiguration.TerminateInstanceOnFailure)
-
-	return diags
+	d.Set("terminate_instance_on_failure", infrastructureConfiguration.TerminateInstanceOnFailure)	return diags
 }

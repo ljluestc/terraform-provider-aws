@@ -1,33 +1,19 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lakeformation_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lakeformation_testimport (
 "fmt"
 "reflect"
-"testing"
-
-"github.com/aws/aws-sdk-go/aws"
+"testing""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/lakeformation"
 tflakeformation "github.com/hashicorp/terraform-provider-aws/internal/service/lakeformation"
-)
-
-func TestFilterPermissions(t *testing.T) {
-t.Parallel()
-
-// primitives to make test cases easier
+)func TestFilterPermissions(t *testing.T) {
+t.Parallel()// primitives to make test cases easier
 accountID := "481516234248"
 dbName := "Hiliji"
 altDBName := "Hiuhbum"
-tableName := "Ladocmoc"
-
-principal := &lakeformation.DataLakePrincipal{
+tableName := "Ladocmoc"principal := &lakeformation.DataLakePrincipal{
 //lintignore:AWSAT005
 DataLakePrincipalIdentifier: aws.String(fmt.Sprintf("arn:aws-us-gov:iam::%s:role/Zepotiz-Bulgaria", accountID)),
-}
-
-testCases := []struct {
+}testCases := []struct {
 Name   string
 Input  *lakeformation.ListPermissionsInput
 TableType  string
@@ -539,16 +525,10 @@ Name:aws.String(tableName),
 },
 },
 },
-}
-
-for _, testCase := range testCases {
+}for _, testCase := range testCases {
 testCase := testCase
 t.Run(testCase.Name, func(t *testing.T) {
-t.Parallel()
-
-got := tflakeformation.FilterPermissions(testCase.Input, testCase.TableType, testCase.ColumnNames, testCase.ExcludedColumnNames, testCase.ColumnWildcard, testCase.All)
-
-if !reflect.DeepEqual(testCase.ExpectedClean, got) {
+t.Parallel()got := tflakeformation.FilterPermissions(testCase.Input, testCase.TableType, testCase.ColumnNames, testCase.ExcludedColumnNames, testCase.ColumnWildcard, testCase.All)if !reflect.DeepEqual(testCase.ExpectedClean, got) {
 t.Errorf("got %v, expected %v, input %v", got, testCase.ExpectedClean, testCase.Input)
 }
 })

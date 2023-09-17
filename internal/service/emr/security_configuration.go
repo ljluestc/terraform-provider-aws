@@ -63,10 +63,7 @@ Computed: true,
 },
 },
 }
-}
-
-
-func resourceSecurityConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceSecurityConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -92,10 +89,7 @@ return sdkdiag.AppendErrorf(diags, "creating EMR Security Configuration (%s): %s
 
 d.SetId(aws.StringValue(resp.Name))
 return append(diags, resourceSecurityConfigurationRead(ctx, d, meta)...)
-}
-
-
-func resourceSecurityConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceSecurityConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -116,10 +110,7 @@ d.Set("name", resp.Name)
 d.Set("configuration", resp.SecurityConfiguration)
 
 return diags
-}
-
-
-func resourceSecurityConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceSecurityConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EMRConn(ctx)
 

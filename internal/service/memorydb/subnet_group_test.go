@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package memorydb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package memorydb_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/aws/endpoints"
+"testing""github.com/aws/aws-sdk-go/aws/endpoints"
 "github.com/aws/aws-sdk-go/service/memorydb"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,18 +11,12 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfmemorydb "github.com/hashicorp/terraform-provider-aws/internal/service/memorydb"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func testAccPreCheck(t *testing.T) {
+)func testAccPreCheck(t *testing.T) {
 acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
-}
-
-func TestAccMemoryDBSubnetGroup_basic(t *testing.T) {
+}func TestAccMemoryDBSubnetGroup_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_subnet_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -56,14 +44,10 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccMemoryDBSubnetGroup_disappears(t *testing.T) {
+}func TestAccMemoryDBSubnetGroup_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_subnet_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -79,14 +63,10 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccMemoryDBSubnetGroup_nameGenerated(t *testing.T) {
+}func TestAccMemoryDBSubnetGroup_nameGenerated(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_subnet_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -102,14 +82,10 @@ resource.TestCheckResourceAttr(resourceName, "name_prefix", "terraform-"),
 },
 },
 })
-}
-
-func TestAccMemoryDBSubnetGroup_namePrefix(t *testing.T) {
+}func TestAccMemoryDBSubnetGroup_namePrefix(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_subnet_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -125,14 +101,10 @@ resource.TestCheckResourceAttr(resourceName, "name_prefix", "tftest-"),
 },
 },
 })
-}
-
-func TestAccMemoryDBSubnetGroup_update_description(t *testing.T) {
+}func TestAccMemoryDBSubnetGroup_update_description(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_subnet_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -164,14 +136,10 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccMemoryDBSubnetGroup_update_subnetIds(t *testing.T) {
+}func TestAccMemoryDBSubnetGroup_update_subnetIds(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_subnet_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -221,14 +189,10 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccMemoryDBSubnetGroup_update_tags(t *testing.T) {
+}func TestAccMemoryDBSubnetGroup_update_tags(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_subnet_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -294,70 +258,40 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func testAccCheckSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_memorydb_subnet_group" {
 continue
-}
-
-_, err := tfmemorydb.FindSubnetGroupByName(ctx, conn, rs.Primary.Attributes["name"])
-
-if tfresource.NotFound(err) {
+}_, err := tfmemorydb.FindSubnetGroupByName(ctx, conn, rs.Primary.Attributes["name"])if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("MemoryDB Subnet Group %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("MemoryDB Subnet Group %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccCheckSubnetGroupExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckSubnetGroupExists(ctx context.Context, n string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No MemoryDB Subnet Group ID is set")
+}conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)_, err := tfmemorydb.FindSubnetGroupByName(ctx, conn, rs.Primary.Attributes["name"])return err
 }
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)
-
-_, err := tfmemorydb.FindSubnetGroupByName(ctx, conn, rs.Primary.Attributes["name"])
-
-return err
-}
-}
-
-func testAccSubnetGroupConfig_basic(rName string) string {
+}func testAccSubnetGroupConfig_basic(rName string) string {
 return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_memorydb_subnet_group" "test" {
   name   = %[1]q
-  subnet_ids = aws_subnet.test[*].id
-
-  tags = {
+  subnet_ids = aws_subnet.test[*].id  tags = {
 Test = "test"
   }
 }
 `, rName),
 )
-}
-
-func testAccSubnetGroupConfig_noName(rName string) string {
+}func testAccSubnetGroupConfig_noName(rName string) string {
 return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 `
@@ -366,9 +300,7 @@ resource "aws_memorydb_subnet_group" "test" {
 }
 `,
 )
-}
-
-func testAccSubnetGroupConfig_namePrefix(rName, rNamePrefix string) string {
+}func testAccSubnetGroupConfig_namePrefix(rName, rNamePrefix string) string {
 return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
@@ -378,9 +310,7 @@ resource "aws_memorydb_subnet_group" "test" {
 }
 `, rNamePrefix),
 )
-}
-
-func testAccSubnetGroupConfig_description(rName, description string) string {
+}func testAccSubnetGroupConfig_description(rName, description string) string {
 return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
@@ -391,9 +321,7 @@ resource "aws_memorydb_subnet_group" "test" {
 }
 `, rName, description),
 )
-}
-
-func testAccSubnetGroupConfig_count(rName string, subnetCount int) string {
+}func testAccSubnetGroupConfig_count(rName string, subnetCount int) string {
 return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, subnetCount),
 fmt.Sprintf(`
@@ -403,9 +331,7 @@ resource "aws_memorydb_subnet_group" "test" {
 }
 `, rName),
 )
-}
-
-func testAccSubnetGroupConfig_tags0(rName string) string {
+}func testAccSubnetGroupConfig_tags0(rName string) string {
 return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
@@ -415,33 +341,25 @@ resource "aws_memorydb_subnet_group" "test" {
 }
 `, rName),
 )
-}
-
-func testAccSubnetGroupConfig_tags1(rName, tag1Key, tag1Value string) string {
+}func testAccSubnetGroupConfig_tags1(rName, tag1Key, tag1Value string) string {
 return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_memorydb_subnet_group" "test" {
   name   = %[1]q
-  subnet_ids = aws_subnet.test[*].id
-
-  tags = {
+  subnet_ids = aws_subnet.test[*].id  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tag1Key, tag1Value),
 )
-}
-
-func testAccSubnetGroupConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
+}func testAccSubnetGroupConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_memorydb_subnet_group" "test" {
   name   = %[1]q
-  subnet_ids = aws_subnet.test[*].id
-
-  tags = {
+  subnet_ids = aws_subnet.test[*].id  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

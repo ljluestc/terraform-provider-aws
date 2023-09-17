@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail
-
-import (
-	"context"
-
-	"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package lightsailimport (
+	"context"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail/types"
@@ -20,13 +14,9 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-const (
+)const (
 	BucketResourceAccessIdPartsCount = 2
-)
-
-// @SDKResource("aws_lightsail_bucket_resource_access")
+)// @SDKResource("aws_lightsail_bucket_resource_access")
 func ResourceBucketResourceAccess() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketResourceAccessCreate,
@@ -34,9 +24,7 @@ func ResourceBucketResourceAccess() *schema.Resource {
 		DeleteWithoutTimeout: resourceBucketResourceAccessDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"bucket_name": {
 				Type:schema.TypeString,
 				Required:     true,
@@ -53,137 +41,71 @@ func ResourceBucketResourceAccess() *schema.Resource {
 	}
 }
 func resourceBucketResourceAccessCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
-
-	in := lightsail.SetResourceAccessForBucketInput{
+	conn := meta.(*conns.AWSClient).LightsailClient(ctx)	in := lightsail.SetResourceAccessForBucketInput{
 		BucketName:   aws.String(d.Get("bucket_name").(string)),
 		ResourceName: aws.String(d.Get("resource_name").(string)),
 		Access:       types.ResourceBucketAccessAllow,
-	}
-
-	out, err := conn.SetResourceAccessForBucket(ctx, &in)
-
-	if err != nil {
+	}	out, err := conn.SetResourceAccessForBucket(ctx, &in)	if err != nil {
 		return create.DiagError(names.Lightsail, string(types.OperationTypeSetResourceAccessForBucket), ResBucketResourceAccess, d.Get("bucket_name").(string), err)
-	}
-
-	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeSetResourceAccessForBucket, ResBucketResourceAccess, d.Get("bucket_name").(string))
-
-	if diag != nil {
+	}	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeSetResourceAccessForBucket, ResBucketResourceAccess, d.Get("bucket_name").(string))	if diag != nil {
 		return diag
-	}
-
-	idParts := []string{d.Get("bucket_name").(string), d.Get("resource_name").(string)}
-	id, err := flex.FlattenResourceId(idParts, BucketResourceAccessIdPartsCount, false)
-
-	if err != nil {
+	}	idParts := []string{d.Get("bucket_name").(string), d.Get("resource_name").(string)}
+	id, err := flex.FlattenResourceId(idParts, BucketResourceAccessIdPartsCount, false)	if err != nil {
 		return create.DiagError(names.Lightsail, create.ErrActionFlatteningResourceId, ResBucketResourceAccess, d.Get("bucket_name").(string), err)
-	}
-
-	d.SetId(id)
-
-	return resourceBucketResourceAccessRead(ctx, d, meta)
+	}	d.SetId(id)	return resourceBucketResourceAccessRead(ctx, d, meta)
 }
 func resourceBucketResourceAccessRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
-
-	out, err := FindBucketResourceAccessById(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	conn := meta.(*conns.AWSClient).LightsailClient(ctx)	out, err := FindBucketResourceAccessById(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		create.LogNotFoundRemoveState(names.Lightsail, create.ErrActionReading, ResBucketResourceAccess, d.Id())
 		d.SetId("")
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return create.DiagError(names.Lightsail, create.ErrActionReading, ResBucketResourceAccess, d.Id(), err)
-	}
-
-	parts, err := flex.ExpandResourceId(d.Id(), BucketResourceAccessIdPartsCount, false)
-
-	if err != nil {
+	}	parts, err := flex.ExpandResourceId(d.Id(), BucketResourceAccessIdPartsCount, false)	if err != nil {
 		return create.DiagError(names.Lightsail, create.ErrActionExpandingResourceId, ResBucketResourceAccess, d.Id(), err)
-	}
-
-	d.Set("bucket_name", parts[0])
-	d.Set("resource_name", out.Name)
-
-	return nil
+	}	d.Set("bucket_name", parts[0])
+	d.Set("resource_name", out.Name)	return nil
 }
 func resourceBucketResourceAccessDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
-	parts, err := flex.ExpandResourceId(d.Id(), BucketResourceAccessIdPartsCount, false)
-
-	if err != nil {
+	parts, err := flex.ExpandResourceId(d.Id(), BucketResourceAccessIdPartsCount, false)	if err != nil {
 		return create.DiagError(names.Lightsail, create.ErrActionExpandingResourceId, ResBucketResourceAccess, d.Id(), err)
-	}
-
-	out, err := conn.SetResourceAccessForBucket(ctx, &lightsail.SetResourceAccessForBucketInput{
+	}	out, err := conn.SetResourceAccessForBucket(ctx, &lightsail.SetResourceAccessForBucketInput{
 		BucketName:   aws.String(parts[0]),
 		ResourceName: aws.String(parts[1]),
 		Access:       types.ResourceBucketAccessDeny,
-	})
-
-	if err != nil && errs.IsA[*types.NotFoundException](err) {
+	})	if err != nil && errs.IsA[*types.NotFoundException](err) {
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return create.DiagError(names.Lightsail, string(types.OperationTypeSetResourceAccessForBucket), ResBucketResourceAccess, d.Id(), err)
-	}
-
-	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeSetResourceAccessForBucket, ResBucketResourceAccess, d.Id())
-
-	if diag != nil {
+	}	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeSetResourceAccessForBucket, ResBucketResourceAccess, d.Id())	if diag != nil {
 		return diag
-	}
-
-	return nil
+	}	return nil
 }
 func FindBucketResourceAccessById(ctx context.Context, conn *lightsail.Client, id string) (*types.ResourceReceivingAccess, error) {
-	parts, err := flex.ExpandResourceId(id, BucketAccessKeyIdPartsCount, false)
-
-	if err != nil {
+	parts, err := flex.ExpandResourceId(id, BucketAccessKeyIdPartsCount, false)	if err != nil {
 		return nil, err
-	}
-
-	in := &lightsail.GetBucketsInput{
+	}	in := &lightsail.GetBucketsInput{
 		BucketName:(parts[0]),
 		IncludeConnectedResources: aws.Bool(true),
-	}
-
-	out, err := conn.GetBuckets(ctx, in)
-
-	if IsANotFoundError(err) {
+	}	out, err := conn.GetBuckets(ctx, in)	if IsANotFoundError(err) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: in,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if out == nil || len(out.Buckets) == 0 {
+	}	if out == nil || len(out.Buckets) == 0 {
 		return nil, tfresource.NewEmptyResultError(in)
-	}
-
-	bucket := out.Buckets[0]
+	}	bucket := out.Buckets[0]
 	var entry types.ResourceReceivingAccess
-	entryExists := false
-
-	for _, n := range bucket.ResourcesReceivingAccess {
+	entryExists := false	for _, n := range bucket.ResourcesReceivingAccess {
 		if parts[1] == aws.ToString(n.Name) {
 			entry = n
 			entryExists = true
 			break
 		}
-	}
-
-	if !entryExists {
+	}	if !entryExists {
 		return nil, tfresource.NewEmptyResultError(in)
-	}
-
-	return &entry, nil
+	}	return &entry, nil
 }

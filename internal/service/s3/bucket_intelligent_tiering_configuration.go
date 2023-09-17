@@ -97,8 +97,7 @@ Bucket:aws.String(bucketName),
 Id:aws.String(configurationName),
 IntelligentTieringConfiguration: apiObject,
 }log.Printf("[DEBUG] Creating S3 Intelligent-Tiering Configuration: %s", input)
-_, err := retryWhenBucketNotFound(ctx, 
-() (interface{}, error) {
+_, err := retryWhenBucketNotFound(ctx,() (interface{}, error) {
 return conn.PutBucketIntelligentTieringConfigurationWithContext(ctx, input)
 })if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating S3 Intelligent-Tiering Configuration (%s): %s", resourceID, err)

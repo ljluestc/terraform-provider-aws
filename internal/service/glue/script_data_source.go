@@ -1,22 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package glue
-
-import (
+// SPDX-License-Identifier: MPL-2.0package glueimport (
 	"context"
-	"log"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"log"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/glue"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// @SDKDataSource("aws_glue_script")
+)// @SDKDataSource("aws_glue_script")
 func DataSourceScript() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceScriptRead,
@@ -101,45 +93,25 @@ func DataSourceScript() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceScriptRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceScriptRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).GlueConn(ctx)
-
-	dagEdge := d.Get("dag_edge").([]interface{})
-	dagNode := d.Get("dag_node").([]interface{})
-
-	input := &glue.CreateScriptInput{
+	conn := meta.(*conns.AWSClient).GlueConn(ctx)	dagEdge := d.Get("dag_edge").([]interface{})
+	dagNode := d.Get("dag_node").([]interface{})	input := &glue.CreateScriptInput{
 		DagEdges: expandCodeGenEdges(dagEdge),
 		DagNodes: expandCodeGenNodes(dagNode),
-	}
-
-	if v, ok := d.GetOk("language"); ok {
+	}	if v, ok := d.GetOk("language"); ok {
 		input.Language = aws.String(v.(string))
-	}
-
-	log.Printf("[DEBUG] Creating Glue Script: %s", input)
+	}	log.Printf("[DEBUG] Creating Glue Script: %s", input)
 	output, err := conn.CreateScriptWithContext(ctx, input)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating Glue script: %s", err)
-	}
-
-	if output == nil {
+	}	if output == nil {
 		return sdkdiag.AppendErrorf(diags, "script not created")
-	}
-
-	d.SetId(meta.(*conns.AWSClient).Region)
+	}	d.SetId(meta.(*conns.AWSClient).Region)
 	d.Set("python_script", output.PythonScript)
-	d.Set("scala_code", output.ScalaCode)
-
-	return diags
-}
-
-func expandCodeGenNodeArgs(l []interface{}) []*glue.CodeGenNodeArg {
-	args := []*glue.CodeGenNodeArg{}
-
-	for _, mRaw := range l {
+	d.Set("scala_code", output.ScalaCode)	return diags
+}func expandCodeGenNodeArgs(l []interface{}) []*glue.CodeGenNodeArg {
+	args := []*glue.CodeGenNodeArg{}	for _, mRaw := range l {
 		m := mRaw.(map[string]interface{})
 		arg := &glue.CodeGenNodeArg{
 			Name:  aws.String(m["name"].(string)),
@@ -147,15 +119,9 @@ func expandCodeGenNodeArgs(l []interface{}) []*glue.CodeGenNodeArg {
 			Value: aws.String(m["value"].(string)),
 		}
 		args = append(args, arg)
-	}
-
-	return args
-}
-
-func expandCodeGenEdges(l []interface{}) []*glue.CodeGenEdge {
-	edges := []*glue.CodeGenEdge{}
-
-	for _, mRaw := range l {
+	}	return args
+}func expandCodeGenEdges(l []interface{}) []*glue.CodeGenEdge {
+	edges := []*glue.CodeGenEdge{}	for _, mRaw := range l {
 		m := mRaw.(map[string]interface{})
 		edge := &glue.CodeGenEdge{
 			Source: aws.String(m["source"].(string)),
@@ -165,15 +131,9 @@ func expandCodeGenEdges(l []interface{}) []*glue.CodeGenEdge {
 			edge.TargetParameter = aws.String(v.(string))
 		}
 		edges = append(edges, edge)
-	}
-
-	return edges
-}
-
-func expandCodeGenNodes(l []interface{}) []*glue.CodeGenNode {
-	nodes := []*glue.CodeGenNode{}
-
-	for _, mRaw := range l {
+	}	return edges
+}func expandCodeGenNodes(l []interface{}) []*glue.CodeGenNode {
+	nodes := []*glue.CodeGenNode{}	for _, mRaw := range l {
 		m := mRaw.(map[string]interface{})
 		node := &glue.CodeGenNode{
 			Args:     expandCodeGenNodeArgs(m["args"].([]interface{})),
@@ -184,7 +144,5 @@ func expandCodeGenNodes(l []interface{}) []*glue.CodeGenNode {
 			node.LineNumber = aws.Int64(int64(v.(int)))
 		}
 		nodes = append(nodes, node)
-	}
-
-	return nodes
+	}	return nodes
 }

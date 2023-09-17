@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package deploy_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package deploy_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/codedeploy"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,15 +11,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccDeployDeploymentConfig_basic(t *testing.T) {
+)func TestAccDeployDeploymentConfig_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config1 codedeploy.DeploymentConfigInfo
 	resourceName := "aws_codedeploy_deployment_config.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -47,15 +37,11 @@ func TestAccDeployDeploymentConfig_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDeployDeploymentConfig_fleetPercent(t *testing.T) {
+}func TestAccDeployDeploymentConfig_fleetPercent(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config1, config2 codedeploy.DeploymentConfigInfo
 	resourceName := "aws_codedeploy_deployment_config.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -91,15 +77,11 @@ func TestAccDeployDeploymentConfig_fleetPercent(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDeployDeploymentConfig_hostCount(t *testing.T) {
+}func TestAccDeployDeploymentConfig_hostCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config1, config2 codedeploy.DeploymentConfigInfo
 	resourceName := "aws_codedeploy_deployment_config.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -135,15 +117,11 @@ func TestAccDeployDeploymentConfig_hostCount(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDeployDeploymentConfig_trafficCanary(t *testing.T) {
+}func TestAccDeployDeploymentConfig_trafficCanary(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config1, config2 codedeploy.DeploymentConfigInfo
 	resourceName := "aws_codedeploy_deployment_config.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -185,15 +163,11 @@ func TestAccDeployDeploymentConfig_trafficCanary(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDeployDeploymentConfig_trafficLinear(t *testing.T) {
+}func TestAccDeployDeploymentConfig_trafficLinear(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config1, config2 codedeploy.DeploymentConfigInfo
 	resourceName := "aws_codedeploy_deployment_config.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -235,125 +209,75 @@ func TestAccDeployDeploymentConfig_trafficLinear(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckDeploymentConfigDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckDeploymentConfigDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DeployConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).DeployConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_codedeploy_deployment_config" {
 				continue
-			}
-
-			resp, err := conn.GetDeploymentConfigWithContext(ctx, &codedeploy.GetDeploymentConfigInput{
+			}			resp, err := conn.GetDeploymentConfigWithContext(ctx, &codedeploy.GetDeploymentConfigInput{
 				DeploymentConfigName: aws.String(rs.Primary.ID),
-			})
-
-			if tfawserr.ErrCodeEquals(err, codedeploy.ErrCodeDeploymentConfigDoesNotExistException) {
+			})			if tfawserr.ErrCodeEquals(err, codedeploy.ErrCodeDeploymentConfigDoesNotExistException) {
 				continue
-			}
-
-			if err == nil {
+			}			if err == nil {
 				if resp.DeploymentConfigInfo != nil {
 					return fmt.Errorf("CodeDeploy deployment config still exists:\n%#v", *resp.DeploymentConfigInfo.DeploymentConfigName)
 				}
-			}
-
-			return err
-		}
-
-		return nil
+			}			return err
+		}		return nil
 	}
-}
-
-func testAccCheckDeploymentConfigExists(ctx context.Context, name string, config *codedeploy.DeploymentConfigInfo) resource.TestCheckFunc {
+}func testAccCheckDeploymentConfigExists(ctx context.Context, name string, config *codedeploy.DeploymentConfigInfo) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DeployConn(ctx)
-
-		resp, err := conn.GetDeploymentConfigWithContext(ctx, &codedeploy.GetDeploymentConfigInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).DeployConn(ctx)		resp, err := conn.GetDeploymentConfigWithContext(ctx, &codedeploy.GetDeploymentConfigInput{
 			DeploymentConfigName: aws.String(rs.Primary.ID),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return err
-		}
-
-		*config = *resp.DeploymentConfigInfo
-
-		return nil
+		}		*config = *resp.DeploymentConfigInfo		return nil
 	}
-}
-
-func testAccCheckDeploymentConfigRecreated(i, j *codedeploy.DeploymentConfigInfo) resource.TestCheckFunc {
+}func testAccCheckDeploymentConfigRecreated(i, j *codedeploy.DeploymentConfigInfo) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if aws.TimeValue(i.CreateTime).Equal(aws.TimeValue(j.CreateTime)) {
 			return errors.New("CodeDeploy Deployment Config was not recreated")
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccDeploymentConfigConfig_fleet(rName string, value int) string {
+}func testAccDeploymentConfigConfig_fleet(rName string, value int) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_config" "test" {
-  deployment_config_name = %q
-
-  minimum_healthy_hosts {
+  deployment_config_name = %q  minimum_healthy_hosts {
     type  = "FLEET_PERCENT"
     value = %d
   }
 }
 `, rName, value)
-}
-
-func testAccDeploymentConfigConfig_hostCount(rName string, value int) string {
+}func testAccDeploymentConfigConfig_hostCount(rName string, value int) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_config" "test" {
-  deployment_config_name = %q
-
-  minimum_healthy_hosts {
+  deployment_config_name = %q  minimum_healthy_hosts {
     type  = "HOST_COUNT"
     value = %d
   }
 }
 `, rName, value)
-}
-
-func testAccDeploymentConfigConfig_trafficCanary(rName string, interval, percentage int) string {
+}func testAccDeploymentConfigConfig_trafficCanary(rName string, interval, percentage int) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_config" "test" {
   deployment_config_name = %q
-  compute_platform       = "Lambda"
-
-  traffic_routing_config {
-    type = "TimeBasedCanary"
-
-    time_based_canary {
+  compute_platform       = "Lambda"  traffic_routing_config {
+    type = "TimeBasedCanary"    time_based_canary {
       interval   = %d
       percentage = %d
     }
   }
 }
 `, rName, interval, percentage)
-}
-
-func testAccDeploymentConfigConfig_trafficLinear(rName string, interval, percentage int) string {
+}func testAccDeploymentConfigConfig_trafficLinear(rName string, interval, percentage int) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_config" "test" {
   deployment_config_name = %q
-  compute_platform       = "Lambda"
-
-  traffic_routing_config {
-    type = "TimeBasedLinear"
-
-    time_based_linear {
+  compute_platform       = "Lambda"  traffic_routing_config {
+    type = "TimeBasedLinear"    time_based_linear {
       interval   = %d
       percentage = %d
     }

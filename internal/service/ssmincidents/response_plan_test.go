@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ssmincidents_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ssmincidents_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+	"testing"	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
@@ -18,21 +12,13 @@ import (
 	tfssmincidents "github.com/hashicorp/terraform-provider-aws/internal/service/ssmincidents"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func testResponsePlan_basic(t *testing.T) {
+)func testResponsePlan_basic(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rTitle := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rImpact := "3"
-
-	resourceName := "aws_ssmincidents_response_plan.test"
-
-	resource.Test(t, resource.TestCase{
+	rImpact := "3"	resourceName := "aws_ssmincidents_response_plan.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -47,9 +33,7 @@ func testResponsePlan_basic(t *testing.T) {
 					testAccCheckResponsePlanExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "incident_template.0.title", rTitle),
-					resource.TestCheckResourceAttr(resourceName, "incident_template.0.impact", rImpact),
-
-					acctest.CheckResourceAttrGlobalARN(resourceName, "arn", "ssm-incidents", fmt.Sprintf("response-plan/%s", rName)),
+					resource.TestCheckResourceAttr(resourceName, "incident_template.0.impact", rImpact),					acctest.CheckResourceAttrGlobalARN(resourceName, "arn", "ssm-incidents", fmt.Sprintf("response-plan/%s", rName)),
 				),
 			},
 			{
@@ -67,25 +51,15 @@ func testResponsePlan_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testResponsePlan_updateRequiredFields(t *testing.T) {
+}func testResponsePlan_updateRequiredFields(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	iniName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	updName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	iniTitle := "initialTitle"
+	updName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	iniTitle := "initialTitle"
 	updTitle := "updatedTitle"
 	iniImpact := "1"
-	updImpact := "5"
-
-	resourceName := "aws_ssmincidents_response_plan.test"
-
-	resource.Test(t, resource.TestCase{
+	updImpact := "5"	resourceName := "aws_ssmincidents_response_plan.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -100,9 +74,7 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 					testAccCheckResponsePlanExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "name", iniName),
 					resource.TestCheckResourceAttr(resourceName, "incident_template.0.title", iniTitle),
-					resource.TestCheckResourceAttr(resourceName, "incident_template.0.impact", iniImpact),
-
-					acctest.CheckResourceAttrGlobalARN(resourceName, "arn", "ssm-incidents", fmt.Sprintf("response-plan/%s", iniName)),
+					resource.TestCheckResourceAttr(resourceName, "incident_template.0.impact", iniImpact),					acctest.CheckResourceAttrGlobalARN(resourceName, "arn", "ssm-incidents", fmt.Sprintf("response-plan/%s", iniName)),
 				),
 			},
 			{
@@ -117,9 +89,7 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 					testAccCheckResponsePlanExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "name", iniName),
 					resource.TestCheckResourceAttr(resourceName, "incident_template.0.title", updTitle),
-					resource.TestCheckResourceAttr(resourceName, "incident_template.0.impact", updImpact),
-
-					acctest.CheckResourceAttrGlobalARN(resourceName, "arn", "ssm-incidents", fmt.Sprintf("response-plan/%s", iniName)),
+					resource.TestCheckResourceAttr(resourceName, "incident_template.0.impact", updImpact),					acctest.CheckResourceAttrGlobalARN(resourceName, "arn", "ssm-incidents", fmt.Sprintf("response-plan/%s", iniName)),
 				),
 			},
 			{
@@ -134,9 +104,7 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 					testAccCheckResponsePlanExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "name", updName),
 					resource.TestCheckResourceAttr(resourceName, "incident_template.0.title", updTitle),
-					resource.TestCheckResourceAttr(resourceName, "incident_template.0.impact", updImpact),
-
-					acctest.CheckResourceAttrGlobalARN(resourceName, "arn", "ssm-incidents", fmt.Sprintf("response-plan/%s", updName)),
+					resource.TestCheckResourceAttr(resourceName, "incident_template.0.impact", updImpact),					acctest.CheckResourceAttrGlobalARN(resourceName, "arn", "ssm-incidents", fmt.Sprintf("response-plan/%s", updName)),
 				),
 			},
 			{
@@ -147,36 +115,24 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testResponsePlan_updateTags(t *testing.T) {
+}func testResponsePlan_updateTags(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rTitle := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	rKey1 := sdkacctest.RandString(26)
+	rTitle := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	rKey1 := sdkacctest.RandString(26)
 	rVal1Ini := sdkacctest.RandString(26)
 	rVal1Upd := sdkacctest.RandString(26)
 	rKey2 := sdkacctest.RandString(26)
 	rVal2 := sdkacctest.RandString(26)
 	rKey3 := sdkacctest.RandString(26)
-	rVal3 := sdkacctest.RandString(26)
-
-	rProviderKey1 := sdkacctest.RandString(26)
+	rVal3 := sdkacctest.RandString(26)	rProviderKey1 := sdkacctest.RandString(26)
 	rProviderVal1Ini := sdkacctest.RandString(26)
 	rProviderVal1Upd := sdkacctest.RandString(26)
 	rProviderKey2 := sdkacctest.RandString(26)
 	rProviderVal2 := sdkacctest.RandString(26)
 	rProviderKey3 := sdkacctest.RandString(26)
-	rProviderVal3 := sdkacctest.RandString(26)
-
-	resourceName := "aws_ssmincidents_response_plan.test"
-
-	resource.Test(t, resource.TestCase{
+	rProviderVal3 := sdkacctest.RandString(26)	resourceName := "aws_ssmincidents_response_plan.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -246,23 +202,13 @@ func testResponsePlan_updateTags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testResponsePlan_updateEmptyTags(t *testing.T) {
+}func testResponsePlan_updateEmptyTags(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rTitle := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	rKey1 := sdkacctest.RandString(26)
-	rKey2 := sdkacctest.RandString(26)
-
-	resourceName := "aws_ssmincidents_response_plan.test"
-
-	resource.Test(t, resource.TestCase{
+	rTitle := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	rKey1 := sdkacctest.RandString(26)
+	rKey2 := sdkacctest.RandString(26)	resourceName := "aws_ssmincidents_response_plan.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -316,20 +262,14 @@ func testResponsePlan_updateEmptyTags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testResponsePlan_disappears(t *testing.T) {
+}func testResponsePlan_disappears(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rTitle := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	impact := "3"
-	resourceName := "aws_ssmincidents_response_plan.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_ssmincidents_response_plan.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -348,33 +288,21 @@ func testResponsePlan_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testResponsePlan_incidentTemplateOptionalFields(t *testing.T) {
+}func testResponsePlan_incidentTemplateOptionalFields(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rTitle := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	rDedupeStringIni := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	rTitle := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	rDedupeStringIni := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rDedupeStringUpd := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rSummaryIni := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rSummaryUpd := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rTagKeyIni := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rTagValIni := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rTagKeyUpd := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rTagValUpd := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	snsTopic1 := "aws_sns_topic.topic1"
+	rTagValUpd := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	snsTopic1 := "aws_sns_topic.topic1"
 	snsTopic2 := "aws_sns_topic.topic2"
-	snsTopic3 := "aws_sns_topic.topic3"
-
-	resourceName := "aws_ssmincidents_response_plan.test"
-
-	resource.Test(t, resource.TestCase{
+	snsTopic3 := "aws_sns_topic.topic3"	resourceName := "aws_ssmincidents_response_plan.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -421,21 +349,13 @@ func testResponsePlan_incidentTemplateOptionalFields(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testResponsePlan_displayName(t *testing.T) {
+}func testResponsePlan_displayName(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	oldDisplayName := rName + "-old-display-name"
-	newDisplayName := rName + "-new-display-name"
-
-	resourceName := "aws_ssmincidents_response_plan.test"
-
-	resource.Test(t, resource.TestCase{
+	newDisplayName := rName + "-new-display-name"	resourceName := "aws_ssmincidents_response_plan.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -472,21 +392,13 @@ func testResponsePlan_displayName(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testResponsePlan_chatChannel(t *testing.T) {
+}func testResponsePlan_chatChannel(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	chatChannelTopic1 := "aws_sns_topic.topic1"
-	chatChannelTopic2 := "aws_sns_topic.topic2"
-
-	resourceName := "aws_ssmincidents_response_plan.test"
-
-	resource.Test(t, resource.TestCase{
+	chatChannelTopic2 := "aws_sns_topic.topic2"	resourceName := "aws_ssmincidents_response_plan.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -553,25 +465,17 @@ func testResponsePlan_chatChannel(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testResponsePlan_engagement(t *testing.T) {
+}func testResponsePlan_engagement(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	//lintignore:AWSAT003
 	//lintignore:AWSAT005
 	contactArn1 := "arn:aws:ssm-contacts:us-east-2:111122223333:contact/test1"
 	//lintignore:AWSAT003
 	//lintignore:AWSAT005
-	contactArn2 := "arn:aws:ssm-contacts:us-east-2:111122223333:contact/test2"
-
-	resourceName := "aws_ssmincidents_response_plan.test"
-
-	resource.Test(t, resource.TestCase{
+	contactArn2 := "arn:aws:ssm-contacts:us-east-2:111122223333:contact/test2"	resourceName := "aws_ssmincidents_response_plan.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -638,19 +542,11 @@ func testResponsePlan_engagement(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testResponsePlan_action(t *testing.T) {
+}func testResponsePlan_action(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resourceName := "aws_ssmincidents_response_plan.test"
-
-	resource.Test(t, resource.TestCase{
+	}	ctx := acctest.Context(t)
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resourceName := "aws_ssmincidents_response_plan.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMIncidentsEndpointID)
@@ -778,9 +674,7 @@ func testResponsePlan_action(t *testing.T) {
 			},
 		},
 	})
-}
-
-//
+}//
 //	Comment out integration test as the configured PagerDuty secretId is invalid and the test will fail,
 //	as we do not want to expose credentials to public repository.
 //
@@ -844,59 +738,31 @@ func testResponsePlan_action(t *testing.T) {
 //			},
 //		},
 //	})
-//}
-
-func testAccCheckResponsePlanDestroy(ctx context.Context) resource.TestCheckFunc {
+//}func testAccCheckResponsePlanDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		client := acctest.Provider.Meta().(*conns.AWSClient).SSMIncidentsClient(ctx)
-
-		for _, resource := range s.RootModule().Resources {
+		client := acctest.Provider.Meta().(*conns.AWSClient).SSMIncidentsClient(ctx)		for _, resource := range s.RootModule().Resources {
 			if resource.Type != "aws_ssmincidents_response_plan" {
 				continue
-			}
-
-			_, err := tfssmincidents.FindResponsePlanByID(ctx, client, resource.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfssmincidents.FindResponsePlanByID(ctx, client, resource.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return create.Error(names.SSMIncidents, create.ErrActionCheckingDestroyed, tfssmincidents.ResNameResponsePlan, resource.Primary.ID,
 					errors.New("expected resource not found error, received an unexpected error"))
-			}
-
-			return create.Error(names.SSMIncidents, create.ErrActionCheckingDestroyed, tfssmincidents.ResNameResponsePlan, resource.Primary.ID, errors.New("not destroyed"))
-		}
-
-		return nil
+			}			return create.Error(names.SSMIncidents, create.ErrActionCheckingDestroyed, tfssmincidents.ResNameResponsePlan, resource.Primary.ID, errors.New("not destroyed"))
+		}		return nil
 	}
-}
-
-func testAccCheckResponsePlanExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckResponsePlanExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		resource, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.SSMIncidents, create.ErrActionCheckingExistence, tfssmincidents.ResNameResponsePlan, name, errors.New("not found"))
-		}
-
-		if resource.Primary.ID == "" {
+		}		if resource.Primary.ID == "" {
 			return create.Error(names.SSMIncidents, create.ErrActionCheckingExistence, tfssmincidents.ResNameResponsePlan, name, errors.New("not set"))
-		}
-
-		client := acctest.Provider.Meta().(*conns.AWSClient).SSMIncidentsClient(ctx)
-
-		_, err := tfssmincidents.FindResponsePlanByID(ctx, client, resource.Primary.ID)
-
-		if err != nil {
+		}		client := acctest.Provider.Meta().(*conns.AWSClient).SSMIncidentsClient(ctx)		_, err := tfssmincidents.FindResponsePlanByID(ctx, client, resource.Primary.ID)		if err != nil {
 			return create.Error(names.SSMIncidents, create.ErrActionCheckingExistence, tfssmincidents.ResNameResponsePlan, resource.Primary.ID, err)
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccResponsePlanConfig_base() string {
+}func testAccResponsePlanConfig_base() string {
 	return fmt.Sprintf(`
 resource "aws_ssmincidents_replication_set" "test_replication_set" {
   region {
@@ -904,264 +770,164 @@ resource "aws_ssmincidents_replication_set" "test_replication_set" {
   }
 }
 `, acctest.Region())
-}
-
-func testAccResponsePlanConfig_baseSNSTopic() string {
+}func testAccResponsePlanConfig_baseSNSTopic() string {
 	return `
 resource "aws_sns_topic" "topic1" {}
 resource "aws_sns_topic" "topic2" {}
 resource "aws_sns_topic" "topic3" {}
 `
-}
-
-func testAccResponsePlanConfig_basic(name, title, impact string) string {
+}func testAccResponsePlanConfig_basic(name, title, impact string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[2]q
     impact = %[3]q
-  }
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name, title, impact))
-}
-
-func testAccResponsePlanConfig_none() string {
+}func testAccResponsePlanConfig_none() string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 	)
-}
-
-func testAccResponsePlanConfig_oneTag(name, title, tagKey, tagVal string) string {
+}func testAccResponsePlanConfig_oneTag(name, title, tagKey, tagVal string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[2]q
     impact = "3"
-  }
-
-  tags = {
+  }  tags = {
     %[3]q = %[4]q
-  }
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name, title, tagKey, tagVal))
-}
-
-func testAccResponsePlanConfig_twoTags(name, title, tag1Key, tag1Val, tag2Key, tag2Val string) string {
+}func testAccResponsePlanConfig_twoTags(name, title, tag1Key, tag1Val, tag2Key, tag2Val string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[2]q
     impact = "3"
-  }
-
-  tags = {
+  }  tags = {
     %[3]q = %[4]q
     %[5]q = %[6]q
-  }
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name, title, tag1Key, tag1Val, tag2Key, tag2Val))
-}
-
-func testAccResponsePlanConfig_incidentTemplateOptionalFields(name, title, dedupeString, summary, tagKey, tagVal, snsTopic1, snsTopic2 string) string {
+}func testAccResponsePlanConfig_incidentTemplateOptionalFields(name, title, dedupeString, summary, tagKey, tagVal, snsTopic1, snsTopic2 string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		testAccResponsePlanConfig_baseSNSTopic(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title= %[2]q
     impact        = "3"
     dedupe_string = %[3]q
-    summary       = %[4]q
-
-    incident_tags = {
+    summary       = %[4]q    incident_tags = {
       %[5]q = %[6]q
-    }
-
-    notification_target {
+    }    notification_target {
       sns_topic_arn = %[7]s
-    }
-
-    notification_target {
+    }    notification_target {
       sns_topic_arn = %[8]s
     }
-  }
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name, title, dedupeString, summary, tagKey, tagVal, snsTopic1+".arn", snsTopic2+".arn"))
-}
-
-func testAccResponsePlanConfig_displayName(name, displayName string) string {
+}func testAccResponsePlanConfig_displayName(name, displayName string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[1]q
     impact = "1"
-  }
-
-  display_name = %[2]q
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  display_name = %[2]q  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name, displayName))
-}
-
-func testAccResponsePlanConfig_chatChannel(name, chatChannelTopic string) string {
+}func testAccResponsePlanConfig_chatChannel(name, chatChannelTopic string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		testAccResponsePlanConfig_baseSNSTopic(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[1]q
     impact = "1"
-  }
-
-  chat_channel = [%[2]s]
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  chat_channel = [%[2]s]  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name, chatChannelTopic+".arn"))
-}
-
-func testAccResponsePlanConfig_twoChatChannels(name, chatChannelOneTopic, chatChannelTwoTopic string) string {
+}func testAccResponsePlanConfig_twoChatChannels(name, chatChannelOneTopic, chatChannelTwoTopic string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		testAccResponsePlanConfig_baseSNSTopic(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[1]q
     impact = "1"
-  }
-
-  chat_channel = [%[2]s, %[3]s]
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  chat_channel = [%[2]s, %[3]s]  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name, chatChannelOneTopic+".arn", chatChannelTwoTopic+".arn"))
-}
-
-func testAccResponsePlanConfig_emptyChatChannel(name string) string {
+}func testAccResponsePlanConfig_emptyChatChannel(name string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[1]q
     impact = "1"
-  }
-
-  chat_channel = []
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  chat_channel = []  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name))
-}
-
-func testAccResponsePlanConfig_engagement(name, contactArn string) string {
+}func testAccResponsePlanConfig_engagement(name, contactArn string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[1]q
     impact = "1"
-  }
-
-  engagements = [%[2]q]
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  engagements = [%[2]q]  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name, contactArn))
-}
-
-func testAccResponsePlanConfig_twoEngagements(name, contactArn1, contactArn2 string) string {
+}func testAccResponsePlanConfig_twoEngagements(name, contactArn1, contactArn2 string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[1]q
     impact = "1"
-  }
-
-  engagements = [%[2]q, %[3]q]
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  engagements = [%[2]q, %[3]q]  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name, contactArn1, contactArn2))
-}
-
-func testAccResponsePlanConfig_emptyEngagements(name string) string {
+}func testAccResponsePlanConfig_emptyEngagements(name string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[1]q
     impact = "1"
-  }
-
-  engagements = []
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  engagements = []  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name))
-}
-
-func testAccResponsePlanConfig_action1(name string) string {
+}func testAccResponsePlanConfig_action1(name string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		testAccResponsePlanConfig_baseIAMRole(name),
 		testAccResponsePlanConfig_baseSSMDocument(name),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[1]q
     impact = "1"
-  }
-
-  action {
+  }  action {
     ssm_automation {
       document_name    = aws_ssm_document.document1.name
       role_arn= aws_iam_role.role1.arn
@@ -1175,28 +941,20 @@ resource "aws_ssmincidents_response_plan" "test" {
         anotherKey = "INVOLVED_RESOURCES"
       }
     }
-  }
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name))
-}
-
-func testAccResponsePlanConfig_action2(name string) string {
+}func testAccResponsePlanConfig_action2(name string) string {
 	return acctest.ConfigCompose(
 		testAccResponsePlanConfig_base(),
 		testAccResponsePlanConfig_baseIAMRole(name),
 		testAccResponsePlanConfig_baseSSMDocument(name),
 		fmt.Sprintf(`
 resource "aws_ssmincidents_response_plan" "test" {
-  name = %[1]q
-
-  incident_template {
+  name = %[1]q  incident_template {
     title  = %[1]q
     impact = "1"
-  }
-
-  action {
+  }  action {
     ssm_automation {
       document_name    = aws_ssm_document.document2.name
       role_arn= aws_iam_role.role2.arn
@@ -1210,14 +968,10 @@ resource "aws_ssmincidents_response_plan" "test" {
         someKey = "INCIDENT_RECORD_ARN"
       }
     }
-  }
-
-  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
+  }  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }
 `, name))
-}
-
-func testAccResponsePlanConfig_baseIAMRole(name string) string {
+}func testAccResponsePlanConfig_baseIAMRole(name string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "role1" {
   assume_role_policy = <<EOF
@@ -1237,12 +991,8 @@ resource "aws_iam_role" "role1" {
     }
   ]
 }
-EOF
-
-  name = %[1]q
-}
-
-resource "aws_iam_role" "role2" {
+EOF  name = %[1]q
+}resource "aws_iam_role" "role2" {
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -1260,26 +1010,18 @@ resource "aws_iam_role" "role2" {
     }
   ]
 }
-EOF
-
-  name = %[2]q
+EOF  name = %[2]q
 }
 `, name+"-role-one", name+"-role-two")
-}
-
-func testAccResponsePlanConfig_baseSSMDocument(name string) string {
+}func testAccResponsePlanConfig_baseSSMDocument(name string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "document1" {
   name = %[1]q
-  document_type = "Command"
-
-  content = <<DOC
+  document_type = "Command"  content = <<DOC
   {
     "schemaVersion": "1.2",
     "description": "Check ip configuration of a Linux instance.",
-    "parameters": {
-
-    },
+    "parameters": {    },
     "runtimeConfig": {
       "aws:runShellScript": {
         "properties": [
@@ -1292,19 +1034,13 @@ resource "aws_ssm_document" "document1" {
     }
   }
 DOC
-}
-
-resource "aws_ssm_document" "document2" {
+}resource "aws_ssm_document" "document2" {
   name = %[2]q
-  document_type = "Command"
-
-  content = <<DOC
+  document_type = "Command"  content = <<DOC
   {
     "schemaVersion": "1.2",
     "description": "Check ip configuration of a Linux instance.",
-    "parameters": {
-
-    },
+    "parameters": {    },
     "runtimeConfig": {
       "aws:runShellScript": {
         "properties": [
@@ -1319,9 +1055,7 @@ resource "aws_ssm_document" "document2" {
 DOC
 }
 `, name+"-test-documen-one", name+"-test-documen-two")
-}
-
-//func testAccResponsePlanConfig_pagerdutyIntegration(
+}//func testAccResponsePlanConfig_pagerdutyIntegration(
 //	name,
 //	pagerdutyName,
 //	pagerdutyServiceId,

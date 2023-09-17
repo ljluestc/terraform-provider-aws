@@ -1,33 +1,21 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iot
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iotimport (
 	"context"
-	"log"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"log"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/iot"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-// @SDKResource("aws_iot_indexing_configuration")
+)// @SDKResource("aws_iot_indexing_configuration")
 func ResourceIndexingConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceIndexingConfigurationPut,
 		ReadWithoutTimeout:   resourceIndexingConfigurationRead,
 		UpdateWithoutTimeout: resourceIndexingConfigurationPut,
-		DeleteWithoutTimeout: schema.NoopContext,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: schema.NoopContext,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"thing_group_indexing_configuration": {
 				Type: schema.TypeList,
 				Optional: true,
@@ -150,43 +138,19 @@ func ResourceIndexingConfiguration() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceIndexingConfigurationPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IoTConn(ctx)
-
-	input := &iot.UpdateIndexingConfigurationInput{}
-
-	if v, ok := d.GetOk("thing_group_indexing_configuration"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
+}func resourceIndexingConfigurationPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).IoTConn(ctx)	input := &iot.UpdateIndexingConfigurationInput{}	if v, ok := d.GetOk("thing_group_indexing_configuration"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input.ThingGroupIndexingConfiguration = expandThingGroupIndexingConfiguration(v.([]interface{})[0].(map[string]interface{}))
-	}
-
-	if v, ok := d.GetOk("thing_indexing_configuration"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
+	}	if v, ok := d.GetOk("thing_indexing_configuration"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input.ThingIndexingConfiguration = expandThingIndexingConfiguration(v.([]interface{})[0].(map[string]interface{}))
-	}
-
-	log.Printf("[DEBUG] Updating IoT Indexing Configuration: %s", input)
-	_, err := conn.UpdateIndexingConfigurationWithContext(ctx, input)
-
-	if err != nil {
+	}	log.Printf("[DEBUG] Updating IoT Indexing Configuration: %s", input)
+	_, err := conn.UpdateIndexingConfigurationWithContext(ctx, input)	if err != nil {
 		return diag.Errorf("updating IoT Indexing Configuration: %s", err)
-	}
-
-	d.SetId(meta.(*conns.AWSClient).Region)
-
-	return resourceIndexingConfigurationRead(ctx, d, meta)
-}
-
-func resourceIndexingConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IoTConn(ctx)
-
-	output, err := conn.GetIndexingConfigurationWithContext(ctx, &iot.GetIndexingConfigurationInput{})
-
-	if err != nil {
+	}	d.SetId(meta.(*conns.AWSClient).Region)	return resourceIndexingConfigurationRead(ctx, d, meta)
+}func resourceIndexingConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).IoTConn(ctx)	output, err := conn.GetIndexingConfigurationWithContext(ctx, &iot.GetIndexingConfigurationInput{})	if err != nil {
 		return diag.Errorf("reading IoT Indexing Configuration: %s", err)
-	}
-
-	if output.ThingGroupIndexingConfiguration != nil {
+	}	if output.ThingGroupIndexingConfiguration != nil {
 		if err := d.Set("thing_group_indexing_configuration", []interface{}{flattenThingGroupIndexingConfiguration(output.ThingGroupIndexingConfiguration)}); err != nil {
 			return diag.Errorf("setting thing_group_indexing_configuration: %s", err)
 		}
@@ -199,199 +163,91 @@ func resourceIndexingConfigurationRead(ctx context.Context, d *schema.ResourceDa
 		}
 	} else {
 		d.Set("thing_indexing_configuration", nil)
-	}
-
-	return nil
-}
-
-func flattenThingGroupIndexingConfiguration(apiObject *iot.ThingGroupIndexingConfiguration) map[string]interface{} {
+	}	return nil
+}func flattenThingGroupIndexingConfiguration(apiObject *iot.ThingGroupIndexingConfiguration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
-	tfMap := map[string]interface{}{}
-
-	if v := apiObject.CustomFields; v != nil {
+	}	tfMap := map[string]interface{}{}	if v := apiObject.CustomFields; v != nil {
 		tfMap["custom_field"] = flattenFields(v)
-	}
-
-	if v := apiObject.ManagedFields; v != nil {
+	}	if v := apiObject.ManagedFields; v != nil {
 		tfMap["managed_field"] = flattenFields(v)
-	}
-
-	if v := apiObject.ThingGroupIndexingMode; v != nil {
+	}	if v := apiObject.ThingGroupIndexingMode; v != nil {
 		tfMap["thing_group_indexing_mode"] = aws.StringValue(v)
-	}
-
-	return tfMap
-}
-
-func flattenThingIndexingConfiguration(apiObject *iot.ThingIndexingConfiguration) map[string]interface{} {
+	}	return tfMap
+}func flattenThingIndexingConfiguration(apiObject *iot.ThingIndexingConfiguration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
-	tfMap := map[string]interface{}{}
-
-	if v := apiObject.CustomFields; v != nil {
+	}	tfMap := map[string]interface{}{}	if v := apiObject.CustomFields; v != nil {
 		tfMap["custom_field"] = flattenFields(v)
-	}
-
-	if v := apiObject.DeviceDefenderIndexingMode; v != nil {
+	}	if v := apiObject.DeviceDefenderIndexingMode; v != nil {
 		tfMap["device_defender_indexing_mode"] = aws.StringValue(v)
-	}
-
-	if v := apiObject.ManagedFields; v != nil {
+	}	if v := apiObject.ManagedFields; v != nil {
 		tfMap["managed_field"] = flattenFields(v)
-	}
-
-	if v := apiObject.NamedShadowIndexingMode; v != nil {
+	}	if v := apiObject.NamedShadowIndexingMode; v != nil {
 		tfMap["named_shadow_indexing_mode"] = aws.StringValue(v)
-	}
-
-	if v := apiObject.ThingConnectivityIndexingMode; v != nil {
+	}	if v := apiObject.ThingConnectivityIndexingMode; v != nil {
 		tfMap["thing_connectivity_indexing_mode"] = aws.StringValue(v)
-	}
-
-	if v := apiObject.ThingIndexingMode; v != nil {
+	}	if v := apiObject.ThingIndexingMode; v != nil {
 		tfMap["thing_indexing_mode"] = aws.StringValue(v)
-	}
-
-	return tfMap
-}
-
-func flattenField(apiObject *iot.Field) map[string]interface{} {
+	}	return tfMap
+}func flattenField(apiObject *iot.Field) map[string]interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
-	tfMap := map[string]interface{}{}
-
-	if v := apiObject.Name; v != nil {
+	}	tfMap := map[string]interface{}{}	if v := apiObject.Name; v != nil {
 		tfMap["name"] = aws.StringValue(v)
-	}
-
-	if v := apiObject.Type; v != nil {
+	}	if v := apiObject.Type; v != nil {
 		tfMap["type"] = aws.StringValue(v)
-	}
-
-	return tfMap
-}
-
-func flattenFields(apiObjects []*iot.Field) []interface{} {
+	}	return tfMap
+}func flattenFields(apiObjects []*iot.Field) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
-	}
-
-	var tfList []interface{}
-
-	for _, apiObject := range apiObjects {
+	}	var tfList []interface{}	for _, apiObject := range apiObjects {
 		if apiObject == nil {
 			continue
-		}
-
-		tfList = append(tfList, flattenField(apiObject))
-	}
-
-	return tfList
-}
-
-func expandThingGroupIndexingConfiguration(tfMap map[string]interface{}) *iot.ThingGroupIndexingConfiguration {
+		}		tfList = append(tfList, flattenField(apiObject))
+	}	return tfList
+}func expandThingGroupIndexingConfiguration(tfMap map[string]interface{}) *iot.ThingGroupIndexingConfiguration {
 	if tfMap == nil {
 		return nil
-	}
-
-	apiObject := &iot.ThingGroupIndexingConfiguration{}
-
-	if v, ok := tfMap["custom_field"].(*schema.Set); ok && v.Len() > 0 {
+	}	apiObject := &iot.ThingGroupIndexingConfiguration{}	if v, ok := tfMap["custom_field"].(*schema.Set); ok && v.Len() > 0 {
 		apiObject.CustomFields = expandFields(v.List())
-	}
-
-	if v, ok := tfMap["managed_field"].(*schema.Set); ok && v.Len() > 0 {
+	}	if v, ok := tfMap["managed_field"].(*schema.Set); ok && v.Len() > 0 {
 		apiObject.ManagedFields = expandFields(v.List())
-	}
-
-	if v, ok := tfMap["thing_group_indexing_mode"].(string); ok && v != "" {
+	}	if v, ok := tfMap["thing_group_indexing_mode"].(string); ok && v != "" {
 		apiObject.ThingGroupIndexingMode = aws.String(v)
-	}
-
-	return apiObject
-}
-
-func expandThingIndexingConfiguration(tfMap map[string]interface{}) *iot.ThingIndexingConfiguration {
+	}	return apiObject
+}func expandThingIndexingConfiguration(tfMap map[string]interface{}) *iot.ThingIndexingConfiguration {
 	if tfMap == nil {
 		return nil
-	}
-
-	apiObject := &iot.ThingIndexingConfiguration{}
-
-	if v, ok := tfMap["custom_field"].(*schema.Set); ok && v.Len() > 0 {
+	}	apiObject := &iot.ThingIndexingConfiguration{}	if v, ok := tfMap["custom_field"].(*schema.Set); ok && v.Len() > 0 {
 		apiObject.CustomFields = expandFields(v.List())
-	}
-
-	if v, ok := tfMap["device_defender_indexing_mode"].(string); ok && v != "" {
+	}	if v, ok := tfMap["device_defender_indexing_mode"].(string); ok && v != "" {
 		apiObject.DeviceDefenderIndexingMode = aws.String(v)
-	}
-
-	if v, ok := tfMap["managed_field"].(*schema.Set); ok && v.Len() > 0 {
+	}	if v, ok := tfMap["managed_field"].(*schema.Set); ok && v.Len() > 0 {
 		apiObject.ManagedFields = expandFields(v.List())
-	}
-
-	if v, ok := tfMap["named_shadow_indexing_mode"].(string); ok && v != "" {
+	}	if v, ok := tfMap["named_shadow_indexing_mode"].(string); ok && v != "" {
 		apiObject.NamedShadowIndexingMode = aws.String(v)
-	}
-
-	if v, ok := tfMap["thing_connectivity_indexing_mode"].(string); ok && v != "" {
+	}	if v, ok := tfMap["thing_connectivity_indexing_mode"].(string); ok && v != "" {
 		apiObject.ThingConnectivityIndexingMode = aws.String(v)
-	}
-
-	if v, ok := tfMap["thing_indexing_mode"].(string); ok && v != "" {
+	}	if v, ok := tfMap["thing_indexing_mode"].(string); ok && v != "" {
 		apiObject.ThingIndexingMode = aws.String(v)
-	}
-
-	return apiObject
-}
-
-func expandField(tfMap map[string]interface{}) *iot.Field {
+	}	return apiObject
+}func expandField(tfMap map[string]interface{}) *iot.Field {
 	if tfMap == nil {
 		return nil
-	}
-
-	apiObject := &iot.Field{}
-
-	if v, ok := tfMap["name"].(string); ok && v != "" {
+	}	apiObject := &iot.Field{}	if v, ok := tfMap["name"].(string); ok && v != "" {
 		apiObject.Name = aws.String(v)
-	}
-
-	if v, ok := tfMap["type"].(string); ok && v != "" {
+	}	if v, ok := tfMap["type"].(string); ok && v != "" {
 		apiObject.Type = aws.String(v)
-	}
-
-	return apiObject
-}
-
-func expandFields(tfList []interface{}) []*iot.Field {
+	}	return apiObject
+}func expandFields(tfList []interface{}) []*iot.Field {
 	if len(tfList) == 0 {
 		return nil
-	}
-
-	var apiObjects []*iot.Field
-
-	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-
-		if !ok {
+	}	var apiObjects []*iot.Field	for _, tfMapRaw := range tfList {
+		tfMap, ok := tfMapRaw.(map[string]interface{})		if !ok {
 			continue
-		}
-
-		apiObject := expandField(tfMap)
-
-		if apiObject == nil {
+		}		apiObject := expandField(tfMap)		if apiObject == nil {
 			continue
-		}
-
-		apiObjects = append(apiObjects, apiObject)
-	}
-
-	return apiObjects
+		}		apiObjects = append(apiObjects, apiObject)
+	}	return apiObjects
 }

@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package memorydb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package memorydb_testimport (
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/memorydb"
+"testing""github.com/aws/aws-sdk-go/service/memorydb"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccMemoryDBUserDataSource_basic(t *testing.T) {
+)func TestAccMemoryDBUserDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
 resourceName := "aws_memorydb_user.test"
-dataSourceName := "data.aws_memorydb_user.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_memorydb_user.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -39,25 +29,17 @@ resource.TestCheckResourceAttrPair(dataSourceName, "user_name", resourceName, "u
 },
 },
 })
-}
-
-func testAccUserDataSourceConfig_basic(rName string) string {
+}func testAccUserDataSourceConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name = %[1]q
-
-  authentication_mode {
+  user_name = %[1]q  authentication_mode {
 type  = "password"
 passwords = ["aaaaaaaaaaaaaaaa"]
-  }
-
-  tags = {
+  }  tags = {
 Test = "test"
   }
-}
-
-data "aws_memorydb_user" "test" {
+}data "aws_memorydb_user" "test" {
   user_name = aws_memorydb_user.test.user_name
 }
 `, rName)

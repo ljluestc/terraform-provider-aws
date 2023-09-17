@@ -1,21 +1,13 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package fsx
-
-import (
+// SPDX-License-Identifier: MPL-2.0package fsximport (
 	"context"
 	"log"
-	"strings"
-
-	"github.com/aws/aws-sdk-go/service/fsx"
+	"strings"	"github.com/aws/aws-sdk-go/service/fsx"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func ResourceOntapStorageVirtualMachineV0() *schema.Resource {
+)func ResourceOntapStorageVirtualMachineV0() *schema.Resource {
 	return &schema.Resource{
 		SchemaVersion: 0,
 		Schema: map[string]*schema.Schema{
@@ -208,14 +200,8 @@ func ResourceOntapStorageVirtualMachineV0() *schema.Resource {
 			},
 		},
 	}
-}
-
-func ResourceOntapStorageVirtualMachineStateUpgradeV0(_ context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
-	log.Printf("[DEBUG] Attributes before migration: %#v", rawState)
-
-	rawState["active_directory_configuration.0.self_managed_active_directory_configuration.0.organizational_unit_distinguished_name"] = rawState["active_directory_configuration.0.self_managed_active_directory_configuration.0.organizational_unit_distinguidshed_name"]
-	delete(rawState, "active_directory_configuration.0.self_managed_active_directory_configuration.0.organizational_unit_distinguidshed_name")
-
-	log.Printf("[DEBUG] Attributes after migration: %#v", rawState)
+}func ResourceOntapStorageVirtualMachineStateUpgradeV0(_ context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
+	log.Printf("[DEBUG] Attributes before migration: %#v", rawState)	rawState["active_directory_configuration.0.self_managed_active_directory_configuration.0.organizational_unit_distinguished_name"] = rawState["active_directory_configuration.0.self_managed_active_directory_configuration.0.organizational_unit_distinguidshed_name"]
+	delete(rawState, "active_directory_configuration.0.self_managed_active_directory_configuration.0.organizational_unit_distinguidshed_name")	log.Printf("[DEBUG] Attributes after migration: %#v", rawState)
 	return rawState, nil
 }

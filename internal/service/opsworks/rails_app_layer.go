@@ -1,22 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opsworks
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opsworksimport (
 "github.com/aws/aws-sdk-go/service/opsworks"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-)
-
-// @SDKResource("aws_opsworks_rails_app_layer", name="Rails App Layer")
-// @Tags(identifierAttribute="arn")
-
-func ResourceRailsAppLayer() *schema.Resource {
+)// @SDKResource("aws_opsworks_rails_app_layer", name="Rails App Layer")
+// @Tags(identifierAttribute="arn")func ResourceRailsAppLayer() *schema.Resource {
 layerType := &opsworksLayerType{
 TypeName:opsworks.LayerTypeRailsApp,
-DefaultLayerName: "Rails App Server",
-
-Attributes: map[string]*opsworksLayerTypeAttribute{
+DefaultLayerName: "Rails App Server",Attributes: map[string]*opsworksLayerTypeAttribute{
 "app_server": {
 AttrName: opsworks.LayerAttributesKeysRailsStack,
 Type:schema.TypeString,
@@ -48,7 +38,5 @@ Type:schema.TypeString,
 Default:  "2.2.2",
 },
 },
-}
-
-return layerType.resourceSchema()
+}return layerType.resourceSchema()
 }

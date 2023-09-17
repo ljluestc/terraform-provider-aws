@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshift_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package redshift_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/redshift"
+	"testing"	"github.com/aws/aws-sdk-go/service/redshift"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,15 +10,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfredshift "github.com/hashicorp/terraform-provider-aws/internal/service/redshift"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccRedshiftAuthenticationProfile_basic(t *testing.T) {
+)func TestAccRedshiftAuthenticationProfile_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_redshift_authentication_profile.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rNameUpdated := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rNameUpdated := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -51,14 +41,10 @@ func TestAccRedshiftAuthenticationProfile_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftAuthenticationProfile_disappears(t *testing.T) {
+}func TestAccRedshiftAuthenticationProfile_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_redshift_authentication_profile.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -74,54 +60,28 @@ func TestAccRedshiftAuthenticationProfile_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckAuthenticationProfileDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckAuthenticationProfileDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_redshift_authentication_profile" {
 				continue
-			}
-
-			_, err := tfredshift.FindAuthenticationProfileByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfredshift.FindAuthenticationProfileByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Redshift Authentication Profile %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Redshift Authentication Profile %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckAuthenticationProfileExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckAuthenticationProfileExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("not found: %s", name)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("Authentication Profile ID is not set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-		_, err := tfredshift.FindAuthenticationProfileByID(ctx, conn, rs.Primary.ID)
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)		_, err := tfredshift.FindAuthenticationProfileByID(ctx, conn, rs.Primary.ID)		return err
 	}
-}
-
-func testAccAuthenticationProfileConfig_basic(rName, id string) string {
+}func testAccAuthenticationProfileConfig_basic(rName, id string) string {
 	return fmt.Sprintf(`
 resource "aws_redshift_authentication_profile" "test" {
   authentication_profile_name = %[1]q

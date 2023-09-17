@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package location_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package location_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/locationservice"
+	"testing"	"github.com/aws/aws-sdk-go/service/locationservice"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccLocationTrackerDataSource_indexName(t *testing.T) {
+)func TestAccLocationTrackerDataSource_indexName(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_location_tracker.test"
-	resourceName := "aws_location_tracker.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_tracker.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, locationservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -40,15 +30,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccTrackerDataSourceConfig_indexName(rName string) string {
+}func testAccTrackerDataSourceConfig_indexName(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_location_tracker" "test" {
   tracker_name = %[1]q
-}
-
-data "aws_location_tracker" "test" {
+}data "aws_location_tracker" "test" {
   tracker_name = aws_location_tracker.test.tracker_name
 }
 `, rName)

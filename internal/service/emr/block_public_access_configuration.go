@@ -66,10 +66,7 @@ const (
 	ResNameBlockPublicAccessConfiguration       = "Block Public Access Configuration"
 	dummyIDBlockPublicAccessConfiguration       = "emr-block-public-access-configuration"
 	defaultPermittedPublicSecurityGroupRulePort = 22
-)
-
-
-func resourceBlockPublicAccessConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+)func resourceBlockPublicAccessConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
 	blockPublicAccessConfiguration := &emr.BlockPublicAccessConfiguration{}
@@ -91,10 +88,7 @@ func resourceBlockPublicAccessConfigurationCreate(ctx context.Context, d *schema
 	d.SetId(dummyIDBlockPublicAccessConfiguration)
 
 	return resourceBlockPublicAccessConfigurationRead(ctx, d, meta)
-}
-
-
-func resourceBlockPublicAccessConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBlockPublicAccessConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
 	out, err := FindBlockPublicAccessConfiguration(ctx, conn)
@@ -109,10 +103,7 @@ func resourceBlockPublicAccessConfigurationRead(ctx context.Context, d *schema.R
 	}
 
 	return nil
-}
-
-
-func resourceBlockPublicAccessConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceBlockPublicAccessConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
 	log.Print("[INFO] Restoring EMR Block Public Access Configuration to default settings")
@@ -128,10 +119,7 @@ func resourceBlockPublicAccessConfigurationDelete(ctx context.Context, d *schema
 	}
 
 	return nil
-}
-
-
-func findDefaultBlockPublicAccessConfiguration() *emr.BlockPublicAccessConfiguration {
+}func findDefaultBlockPublicAccessConfiguration() *emr.BlockPublicAccessConfiguration {
 	defaultPort := int64(defaultPermittedPublicSecurityGroupRulePort)
 	defaultPortPointer := &defaultPort
 	portRange := &emr.PortRange{MinRange: defaultPortPointer, MaxRange: defaultPortPointer}
@@ -141,10 +129,7 @@ func findDefaultBlockPublicAccessConfiguration() *emr.BlockPublicAccessConfigura
 		PermittedPublicSecurityGroupRuleRanges: permittedPublicSecurityGroupRuleRanges,
 	}
 	return blockPublicAccessConfiguration
-}
-
-
-func flattenPermittedPublicSecurityGroupRuleRange(apiObject *emr.PortRange) map[string]interface{} {
+}func flattenPermittedPublicSecurityGroupRuleRange(apiObject *emr.PortRange) map[string]interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -160,10 +145,7 @@ func flattenPermittedPublicSecurityGroupRuleRange(apiObject *emr.PortRange) map[
 	}
 
 	return m
-}
-
-
-func flattenPermittedPublicSecurityGroupRuleRanges(apiObjects []*emr.PortRange) []interface{} {
+}func flattenPermittedPublicSecurityGroupRuleRanges(apiObjects []*emr.PortRange) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
 	}
@@ -179,10 +161,7 @@ func flattenPermittedPublicSecurityGroupRuleRanges(apiObjects []*emr.PortRange) 
 	}
 
 	return l
-}
-
-
-func expandPermittedPublicSecurityGroupRuleRange(tfMap map[string]interface{}) *emr.PortRange {
+}func expandPermittedPublicSecurityGroupRuleRange(tfMap map[string]interface{}) *emr.PortRange {
 	a := &emr.PortRange{}
 
 	a.MinRange = aws.Int64(int64(tfMap["min_range"].(int)))
@@ -190,10 +169,7 @@ func expandPermittedPublicSecurityGroupRuleRange(tfMap map[string]interface{}) *
 	a.MaxRange = aws.Int64(int64(tfMap["max_range"].(int)))
 
 	return a
-}
-
-
-func expandPermittedPublicSecurityGroupRuleRanges(tfList []interface{}) []*emr.PortRange {
+}func expandPermittedPublicSecurityGroupRuleRanges(tfList []interface{}) []*emr.PortRange {
 	if len(tfList) == 0 {
 		return nil
 	}

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cloudwatch
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cloudwatchimport (
 	"context"
 	"log"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudwatch"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -24,30 +18,20 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_cloudwatch_metric_stream", name="Metric Alarm")
+)// @SDKResource("aws_cloudwatch_metric_stream", name="Metric Alarm")
 // @Tags(identifierAttribute="arn")
 func ResourceMetricStream() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceMetricStreamCreate,
 		ReadWithoutTimeout:   resourceMetricStreamRead,
 		UpdateWithoutTimeout: resourceMetricStreamUpdate,
-		DeleteWithoutTimeout: resourceMetricStreamDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceMetricStreamDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Timeouts: &schema.ResourceTimeout{
+		},		Timeouts: &schema.ResourceTimeout{
 			Create: schema.DefaultTimeout(1 * time.Minute),
 			Update: schema.DefaultTimeout(1 * time.Minute),
 			Delete: schema.DefaultTimeout(2 * time.Minute),
-		},
-
-		CustomizeDiff: verify.SetTagsDiff,
-
-		Schema: map[string]*schema.Schema{
+		},		CustomizeDiff: verify.SetTagsDiff,		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -196,12 +180,8 @@ func ResourceMetricStream() *schema.Resource {
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
-}
-
-func resourceMetricStreamCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CloudWatchConn(ctx)
-
-	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
+}func resourceMetricStreamCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).CloudWatchConn(ctx)	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &cloudwatch.PutMetricStreamInput{
 		FirehoseArn:aws.String(d.Get("firehose_arn").(string)),
 		IncludeLinkedAccountsMetrics: aws.Bool(d.Get("include_linked_accounts_metrics").(bool)),
@@ -209,72 +189,36 @@ func resourceMetricStreamCreate(ctx context.Context, d *schema.ResourceData, met
 		OutputFormat:        aws.String(d.Get("output_format").(string)),
 		RoleArn:    aws.String(d.Get("role_arn").(string)),
 		Tags:       getTagsIn(ctx),
-	}
-
-	if v, ok := d.GetOk("exclude_filter"); ok && v.(*schema.Set).Len() > 0 {
+	}	if v, ok := d.GetOk("exclude_filter"); ok && v.(*schema.Set).Len() > 0 {
 		input.ExcludeFilters = expandMetricStreamFilters(v.(*schema.Set))
-	}
-
-	if v, ok := d.GetOk("include_filter"); ok && v.(*schema.Set).Len() > 0 {
+	}	if v, ok := d.GetOk("include_filter"); ok && v.(*schema.Set).Len() > 0 {
 		input.IncludeFilters = expandMetricStreamFilters(v.(*schema.Set))
-	}
-
-	if v, ok := d.GetOk("statistics_configuration"); ok && v.(*schema.Set).Len() > 0 {
+	}	if v, ok := d.GetOk("statistics_configuration"); ok && v.(*schema.Set).Len() > 0 {
 		input.StatisticsConfigurations = expandMetricStreamStatisticsConfigurations(v.(*schema.Set))
-	}
-
-	output, err := conn.PutMetricStreamWithContext(ctx, input)
-
-	// Some partitions (e.g. ISO) may not support tag-on-create.
+	}	output, err := conn.PutMetricStreamWithContext(ctx, input)	// Some partitions (e.g. ISO) may not support tag-on-create.
 	if input.Tags != nil && errs.IsUnsupportedOperationInPartitionError(conn.PartitionID, err) {
-		input.Tags = nil
-
-		output, err = conn.PutMetricStreamWithContext(ctx, input)
-	}
-
-	if err != nil {
+		input.Tags = nil		output, err = conn.PutMetricStreamWithContext(ctx, input)
+	}	if err != nil {
 		return diag.Errorf("creating CloudWatch Metric Stream (%s): %s", name, err)
-	}
-
-	d.SetId(name)
-
-	if _, err := waitMetricStreamRunning(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
+	}	d.SetId(name)	if _, err := waitMetricStreamRunning(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
 		return diag.Errorf("waiting for CloudWatch Metric Stream (%s) create: %s", d.Id(), err)
-	}
-
-	// For partitions not supporting tag-on-create, attempt tag after create.
+	}	// For partitions not supporting tag-on-create, attempt tag after create.
 	if tags := getTagsIn(ctx); input.Tags == nil && len(tags) > 0 {
-		err := createTags(ctx, conn, aws.StringValue(output.Arn), tags)
-
-		// If default tags only, continue. Otherwise, error.
+		err := createTags(ctx, conn, aws.StringValue(output.Arn), tags)		// If default tags only, continue. Otherwise, error.
 		if v, ok := d.GetOk(names.AttrTags); (!ok || len(v.(map[string]interface{})) == 0) && errs.IsUnsupportedOperationInPartitionError(conn.PartitionID, err) {
 			return resourceMetricStreamRead(ctx, d, meta)
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return diag.Errorf("setting CloudWatch Metric Stream (%s) tags: %s", d.Id(), err)
 		}
-	}
-
-	return resourceMetricStreamRead(ctx, d, meta)
-}
-
-func resourceMetricStreamRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CloudWatchConn(ctx)
-
-	output, err := FindMetricStreamByName(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	}	return resourceMetricStreamRead(ctx, d, meta)
+}func resourceMetricStreamRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).CloudWatchConn(ctx)	output, err := FindMetricStreamByName(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] CloudWatch Metric Stream (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return diag.Errorf("reading CloudWatch Metric Stream (%s): %s", d.Id(), err)
-	}
-
-	d.Set("arn", output.Arn)
+	}	d.Set("arn", output.Arn)
 	d.Set("creation_date", output.CreationDate.Format(time.RFC3339))
 	d.Set("firehose_arn", output.FirehoseArn)
 	d.Set("include_linked_accounts_metrics", output.IncludeLinkedAccountsMetrics)
@@ -283,287 +227,151 @@ func resourceMetricStreamRead(ctx context.Context, d *schema.ResourceData, meta 
 	d.Set("name_prefix", create.NamePrefixFromName(aws.StringValue(output.Name)))
 	d.Set("output_format", output.OutputFormat)
 	d.Set("role_arn", output.RoleArn)
-	d.Set("state", output.State)
-
-	if output.IncludeFilters != nil {
+	d.Set("state", output.State)	if output.IncludeFilters != nil {
 		if err := d.Set("include_filter", flattenMetricStreamFilters(output.IncludeFilters)); err != nil {
 			return diag.Errorf("setting include_filter: %s", err)
 		}
-	}
-
-	if output.ExcludeFilters != nil {
+	}	if output.ExcludeFilters != nil {
 		if err := d.Set("exclude_filter", flattenMetricStreamFilters(output.ExcludeFilters)); err != nil {
 			return diag.Errorf("setting exclude_filter: %s", err)
 		}
-	}
-
-	if output.StatisticsConfigurations != nil {
+	}	if output.StatisticsConfigurations != nil {
 		if err := d.Set("statistics_configuration", flattenMetricStreamStatisticsConfigurations(output.StatisticsConfigurations)); err != nil {
 			return diag.Errorf("setting statistics_configuration: %s", err)
 		}
-	}
-
-	return nil
-}
-
-func resourceMetricStreamUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CloudWatchConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+	}	return nil
+}func resourceMetricStreamUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).CloudWatchConn(ctx)	if d.HasChangesExcept("tags", "tags_all") {
 		input := &cloudwatch.PutMetricStreamInput{
 			FirehoseArn:aws.String(d.Get("firehose_arn").(string)),
 			IncludeLinkedAccountsMetrics: aws.Bool(d.Get("include_linked_accounts_metrics").(bool)),
 			Name:       aws.String(d.Id()),
 			OutputFormat:        aws.String(d.Get("output_format").(string)),
 			RoleArn:    aws.String(d.Get("role_arn").(string)),
-		}
-
-		if v, ok := d.GetOk("exclude_filter"); ok && v.(*schema.Set).Len() > 0 {
+		}		if v, ok := d.GetOk("exclude_filter"); ok && v.(*schema.Set).Len() > 0 {
 			input.ExcludeFilters = expandMetricStreamFilters(v.(*schema.Set))
-		}
-
-		if v, ok := d.GetOk("include_filter"); ok && v.(*schema.Set).Len() > 0 {
+		}		if v, ok := d.GetOk("include_filter"); ok && v.(*schema.Set).Len() > 0 {
 			input.IncludeFilters = expandMetricStreamFilters(v.(*schema.Set))
-		}
-
-		if v, ok := d.GetOk("statistics_configuration"); ok && v.(*schema.Set).Len() > 0 {
+		}		if v, ok := d.GetOk("statistics_configuration"); ok && v.(*schema.Set).Len() > 0 {
 			input.StatisticsConfigurations = expandMetricStreamStatisticsConfigurations(v.(*schema.Set))
-		}
-
-		_, err := conn.PutMetricStreamWithContext(ctx, input)
-
-		if err != nil {
+		}		_, err := conn.PutMetricStreamWithContext(ctx, input)		if err != nil {
 			return diag.Errorf("updating CloudWatch Metric Stream (%s): %s", d.Id(), err)
-		}
-
-		if _, err := waitMetricStreamRunning(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate)); err != nil {
+		}		if _, err := waitMetricStreamRunning(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate)); err != nil {
 			return diag.Errorf("waiting for CloudWatch Metric Stream (%s) update: %s", d.Id(), err)
 		}
-	}
-
-	return resourceMetricStreamRead(ctx, d, meta)
-}
-
-func resourceMetricStreamDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).CloudWatchConn(ctx)
-
-	log.Printf("[INFO] Deleting CloudWatch Metric Stream: %s", d.Id())
+	}	return resourceMetricStreamRead(ctx, d, meta)
+}func resourceMetricStreamDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).CloudWatchConn(ctx)	log.Printf("[INFO] Deleting CloudWatch Metric Stream: %s", d.Id())
 	_, err := conn.DeleteMetricStreamWithContext(ctx, &cloudwatch.DeleteMetricStreamInput{
 		Name: aws.String(d.Id()),
-	})
-
-	if err != nil {
+	})	if err != nil {
 		return diag.Errorf("deleting CloudWatch Metric Stream (%s): %s", d.Id(), err)
-	}
-
-	if _, err := waitMetricStreamDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
+	}	if _, err := waitMetricStreamDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
 		return diag.Errorf("waiting for CloudWatch Metric Stream (%s) delete: %s", d.Id(), err)
-	}
-
-	return nil
-}
-
-func FindMetricStreamByName(ctx context.Context, conn *cloudwatch.CloudWatch, name string) (*cloudwatch.GetMetricStreamOutput, error) {
+	}	return nil
+}func FindMetricStreamByName(ctx context.Context, conn *cloudwatch.CloudWatch, name string) (*cloudwatch.GetMetricStreamOutput, error) {
 	input := &cloudwatch.GetMetricStreamInput{
 		Name: aws.String(name),
-	}
-
-	output, err := conn.GetMetricStreamWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, cloudwatch.ErrCodeResourceNotFoundException) {
+	}	output, err := conn.GetMetricStreamWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, cloudwatch.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if output == nil {
+	}	if output == nil {
 		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output, nil
-}
-
-func statusMetricStream(ctx context.Context, conn *cloudwatch.CloudWatch, name string) retry.StateRefreshFunc {
+	}	return output, nil
+}func statusMetricStream(ctx context.Context, conn *cloudwatch.CloudWatch, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindMetricStreamByName(ctx, conn, name)
-
-		if tfresource.NotFound(err) {
+		output, err := FindMetricStreamByName(ctx, conn, name)		if tfresource.NotFound(err) {
 			return nil, "", nil
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return nil, "", err
-		}
-
-		return output, aws.StringValue(output.State), nil
+		}		return output, aws.StringValue(output.State), nil
 	}
-}
-
-const (
+}const (
 	metricStreamStateRunning = "running"
 	metricStreamStateStopped = "stopped"
-)
-
-func waitMetricStreamDeleted(ctx context.Context, conn *cloudwatch.CloudWatch, name string, timeout time.Duration) (*cloudwatch.GetMetricStreamOutput, error) {
+)func waitMetricStreamDeleted(ctx context.Context, conn *cloudwatch.CloudWatch, name string, timeout time.Duration) (*cloudwatch.GetMetricStreamOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{metricStreamStateRunning, metricStreamStateStopped},
 		Target:  []string{},
 		Refresh: statusMetricStream(ctx, conn, name),
 		Timeout: timeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*cloudwatch.GetMetricStreamOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*cloudwatch.GetMetricStreamOutput); ok {
 		return output, err
-	}
-
-	return nil, err
-}
-
-func waitMetricStreamRunning(ctx context.Context, conn *cloudwatch.CloudWatch, name string, timeout time.Duration) (*cloudwatch.GetMetricStreamOutput, error) { //nolint:unparam
+	}	return nil, err
+}func waitMetricStreamRunning(ctx context.Context, conn *cloudwatch.CloudWatch, name string, timeout time.Duration) (*cloudwatch.GetMetricStreamOutput, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{metricStreamStateStopped},
 		Target:  []string{metricStreamStateRunning},
 		Refresh: statusMetricStream(ctx, conn, name),
 		Timeout: timeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*cloudwatch.GetMetricStreamOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*cloudwatch.GetMetricStreamOutput); ok {
 		return output, err
-	}
-
-	return nil, err
-}
-
-func validateMetricStreamName(v interface{}, k string) (ws []string, errors []error) {
+	}	return nil, err
+}func validateMetricStreamName(v interface{}, k string) (ws []string, errors []error) {
 	return validation.All(
 		validation.StringLenBetween(1, 255),
 		validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_-]*$`), "must match [0-9A-Za-z_-]"),
 	)(v, k)
-}
-
-func expandMetricStreamFilters(s *schema.Set) []*cloudwatch.MetricStreamFilter {
-	var filters []*cloudwatch.MetricStreamFilter
-
-	for _, filterRaw := range s.List() {
+}func expandMetricStreamFilters(s *schema.Set) []*cloudwatch.MetricStreamFilter {
+	var filters []*cloudwatch.MetricStreamFilter	for _, filterRaw := range s.List() {
 		filter := &cloudwatch.MetricStreamFilter{}
-		mFilter := filterRaw.(map[string]interface{})
-
-		if v, ok := mFilter["metric_names"].(*schema.Set); ok && v.Len() > 0 {
+		mFilter := filterRaw.(map[string]interface{})		if v, ok := mFilter["metric_names"].(*schema.Set); ok && v.Len() > 0 {
 			filter.MetricNames = flex.ExpandStringSet(v)
 		}
 		if v, ok := mFilter["namespace"].(string); ok && v != "" {
 			filter.Namespace = aws.String(v)
 		}
 		filters = append(filters, filter)
-	}
-
-	return filters
-}
-
-func flattenMetricStreamFilters(s []*cloudwatch.MetricStreamFilter) []map[string]interface{} {
-	filters := make([]map[string]interface{}, 0)
-
-	for _, bd := range s {
+	}	return filters
+}func flattenMetricStreamFilters(s []*cloudwatch.MetricStreamFilter) []map[string]interface{} {
+	filters := make([]map[string]interface{}, 0)	for _, bd := range s {
 		if bd.Namespace != nil {
 			stage := make(map[string]interface{})
 			stage["metric_names"] = aws.StringValueSlice(bd.MetricNames)
 			stage["namespace"] = aws.StringValue(bd.Namespace)
 			filters = append(filters, stage)
 		}
-	}
-
-	if len(filters) > 0 {
+	}	if len(filters) > 0 {
 		return filters
-	}
-
-	return nil
-}
-
-func expandMetricStreamStatisticsConfigurations(s *schema.Set) []*cloudwatch.MetricStreamStatisticsConfiguration {
-	var configurations []*cloudwatch.MetricStreamStatisticsConfiguration
-
-	for _, configurationRaw := range s.List() {
+	}	return nil
+}func expandMetricStreamStatisticsConfigurations(s *schema.Set) []*cloudwatch.MetricStreamStatisticsConfiguration {
+	var configurations []*cloudwatch.MetricStreamStatisticsConfiguration	for _, configurationRaw := range s.List() {
 		configuration := &cloudwatch.MetricStreamStatisticsConfiguration{}
-		mConfiguration := configurationRaw.(map[string]interface{})
-
-		if v, ok := mConfiguration["additional_statistics"].(*schema.Set); ok && v.Len() > 0 {
+		mConfiguration := configurationRaw.(map[string]interface{})		if v, ok := mConfiguration["additional_statistics"].(*schema.Set); ok && v.Len() > 0 {
 			configuration.AdditionalStatistics = flex.ExpandStringSet(v)
-		}
-
-		if v, ok := mConfiguration["include_metric"].(*schema.Set); ok && v.Len() > 0 {
+		}		if v, ok := mConfiguration["include_metric"].(*schema.Set); ok && v.Len() > 0 {
 			configuration.IncludeMetrics = expandMetricStreamStatisticsConfigurationsIncludeMetrics(v)
-		}
-
-		configurations = append(configurations, configuration)
-	}
-
-	if len(configurations) > 0 {
+		}		configurations = append(configurations, configuration)
+	}	if len(configurations) > 0 {
 		return configurations
-	}
-
-	return nil
-}
-
-func expandMetricStreamStatisticsConfigurationsIncludeMetrics(metrics *schema.Set) []*cloudwatch.MetricStreamStatisticsMetric {
-	var includeMetrics []*cloudwatch.MetricStreamStatisticsMetric
-
-	for _, metricRaw := range metrics.List() {
+	}	return nil
+}func expandMetricStreamStatisticsConfigurationsIncludeMetrics(metrics *schema.Set) []*cloudwatch.MetricStreamStatisticsMetric {
+	var includeMetrics []*cloudwatch.MetricStreamStatisticsMetric	for _, metricRaw := range metrics.List() {
 		metric := &cloudwatch.MetricStreamStatisticsMetric{}
-		mMetric := metricRaw.(map[string]interface{})
-
-		if v, ok := mMetric["metric_name"].(string); ok && v != "" {
+		mMetric := metricRaw.(map[string]interface{})		if v, ok := mMetric["metric_name"].(string); ok && v != "" {
 			metric.MetricName = aws.String(v)
-		}
-
-		if v, ok := mMetric["namespace"].(string); ok && v != "" {
+		}		if v, ok := mMetric["namespace"].(string); ok && v != "" {
 			metric.Namespace = aws.String(v)
-		}
-
-		includeMetrics = append(includeMetrics, metric)
-	}
-
-	if len(includeMetrics) > 0 {
+		}		includeMetrics = append(includeMetrics, metric)
+	}	if len(includeMetrics) > 0 {
 		return includeMetrics
-	}
-
-	return nil
-}
-
-func flattenMetricStreamStatisticsConfigurations(configurations []*cloudwatch.MetricStreamStatisticsConfiguration) []map[string]interface{} {
-	flatConfigurations := make([]map[string]interface{}, len(configurations))
-
-	for i, configuration := range configurations {
+	}	return nil
+}func flattenMetricStreamStatisticsConfigurations(configurations []*cloudwatch.MetricStreamStatisticsConfiguration) []map[string]interface{} {
+	flatConfigurations := make([]map[string]interface{}, len(configurations))	for i, configuration := range configurations {
 		flatConfiguration := map[string]interface{}{
 			"additional_statistics": flex.FlattenStringSet(configuration.AdditionalStatistics),
 			"include_metric":        flattenMetricStreamStatisticsConfigurationsIncludeMetrics(configuration.IncludeMetrics),
-		}
-
-		flatConfigurations[i] = flatConfiguration
-	}
-
-	return flatConfigurations
-}
-
-func flattenMetricStreamStatisticsConfigurationsIncludeMetrics(metrics []*cloudwatch.MetricStreamStatisticsMetric) []map[string]interface{} {
-	flatMetrics := make([]map[string]interface{}, len(metrics))
-
-	for i, metric := range metrics {
+		}		flatConfigurations[i] = flatConfiguration
+	}	return flatConfigurations
+}func flattenMetricStreamStatisticsConfigurationsIncludeMetrics(metrics []*cloudwatch.MetricStreamStatisticsMetric) []map[string]interface{} {
+	flatMetrics := make([]map[string]interface{}, len(metrics))	for i, metric := range metrics {
 		flatMetric := map[string]interface{}{
 			"metric_name": aws.StringValue(metric.MetricName),
 			"namespace":   aws.StringValue(metric.Namespace),
-		}
-
-		flatMetrics[i] = flatMetric
-	}
-
-	return flatMetrics
+		}		flatMetrics[i] = flatMetric
+	}	return flatMetrics
 }

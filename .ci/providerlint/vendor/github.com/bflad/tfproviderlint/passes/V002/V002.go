@@ -1,18 +1,1 @@
-packageV002
-
-import(
-	"github.com/bflad/tfproviderlint/helper/analysisutils"
-	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
-	"github.com/bflad/tfproviderlint/passes/helper/validation/cidrnetworkselectorexpr"
-)
-
-varAnalyzer=analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(
-	"V002",
-	cidrnetworkselectorexpr.Analyzer,
-	validation.PackagePath,
-	validation.
-CIDRNetwork,
-	validation.PackagePath,
-	validation.
-IsCIDRNetwork,
-)
+packageV002import(	"github.com/bflad/tfproviderlint/helper/analysisutils"	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"	"github.com/bflad/tfproviderlint/passes/helper/validation/cidrnetworkselectorexpr")varAnalyzer=analysisutils.DeprecatedWithReplacementSelectorExprAnalyzer(	"V002",	cidrnetworkselectorexpr.Analyzer,	validation.PackagePath,	validation.CIDRNetwork,	validation.PackagePath,	validation.IsCIDRNetwork,)

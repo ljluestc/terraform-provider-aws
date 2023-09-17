@@ -1,26 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package signer
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+// SPDX-License-Identifier: MPL-2.0package signerimport (
+	"context"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/signer"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-)
-
-// @SDKDataSource("aws_signer_signing_profile")
+)// @SDKDataSource("aws_signer_signing_profile")
 func DataSourceSigningProfile() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceSigningProfileRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceSigningProfileRead,		Schema: map[string]*schema.Schema{
 			"name": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -88,64 +78,36 @@ func DataSourceSigningProfile() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceSigningProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceSigningProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SignerClient(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	profileName := d.Get("name").(string)
+	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig	profileName := d.Get("name").(string)
 	signingProfileOutput, err := conn.GetSigningProfile(ctx, &signer.GetSigningProfileInput{
 		ProfileName: aws.String(profileName),
-	})
-
-	if err != nil {
+	})	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading Signer signing profile (%s): %s", d.Id(), err)
-	}
-
-	if err := d.Set("platform_id", signingProfileOutput.PlatformId); err != nil {
+	}	if err := d.Set("platform_id", signingProfileOutput.PlatformId); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting signer signing profile platform id: %s", err)
-	}
-
-	if err := d.Set("signature_validity_period", []interface{}{
+	}	if err := d.Set("signature_validity_period", []interface{}{
 		map[string]interface{}{
 			"value": signingProfileOutput.SignatureValidityPeriod.Value,
 			"type":  signingProfileOutput.SignatureValidityPeriod.Type,
 		},
 	}); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting signer signing profile signature validity period: %s", err)
-	}
-
-	if err := d.Set("platform_display_name", signingProfileOutput.PlatformDisplayName); err != nil {
+	}	if err := d.Set("platform_display_name", signingProfileOutput.PlatformDisplayName); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting signer signing profile platform display name: %s", err)
-	}
-
-	if err := d.Set("arn", signingProfileOutput.Arn); err != nil {
+	}	if err := d.Set("arn", signingProfileOutput.Arn); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting signer signing profile arn: %s", err)
-	}
-
-	if err := d.Set("version", signingProfileOutput.ProfileVersion); err != nil {
+	}	if err := d.Set("version", signingProfileOutput.ProfileVersion); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting signer signing profile version: %s", err)
-	}
-
-	if err := d.Set("version_arn", signingProfileOutput.ProfileVersionArn); err != nil {
+	}	if err := d.Set("version_arn", signingProfileOutput.ProfileVersionArn); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting signer signing profile version arn: %s", err)
-	}
-
-	if err := d.Set("status", signingProfileOutput.Status); err != nil {
+	}	if err := d.Set("status", signingProfileOutput.Status); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting signer signing profile status: %s", err)
-	}
-
-	if err := d.Set("tags", KeyValueTags(ctx, signingProfileOutput.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
+	}	if err := d.Set("tags", KeyValueTags(ctx, signingProfileOutput.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting signer signing profile tags: %s", err)
-	}
-
-	if err := d.Set("revocation_record", flattenSigningProfileRevocationRecord(signingProfileOutput.RevocationRecord)); err != nil {
+	}	if err := d.Set("revocation_record", flattenSigningProfileRevocationRecord(signingProfileOutput.RevocationRecord)); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting signer signing profile revocation record: %s", err)
-	}
-
-	d.SetId(aws.ToString(signingProfileOutput.ProfileName))
-
-	return diags
+	}	d.SetId(aws.ToString(signingProfileOutput.ProfileName))	return diags
 }

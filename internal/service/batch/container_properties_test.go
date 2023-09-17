@@ -1,17 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package batch_test
-
-import (
-"testing"
-
-tfbatch "github.com/hashicorp/terraform-provider-aws/internal/service/batch"
+// SPDX-License-Identifier: MPL-2.0package batch_testimport (
+"testing"tfbatch "github.com/hashicorp/terraform-provider-aws/internal/service/batch"
 )
 func TestEquivalentContainerPropertiesJSON(t *testing.T) {
-t.Parallel()
-
-testCases := map[string]struct {
+t.Parallel()testCases := map[string]struct {
 ApiJson string
 ConfigurationJson string
 ExpectEquivalent  bool
@@ -448,24 +440,14 @@ ConfigurationJson: `
 }`,
 ExpectEquivalent: true,
 },
-}
-
-for name, testCase := range testCases {
+}for name, testCase := range testCases {
 testCase := testCase
 t.Run(name, func(t *testing.T) {
-t.Parallel()
-
-got, err := tfbatch.EquivalentContainerPropertiesJSON(testCase.ConfigurationJson, testCase.ApiJson)
-
-if err != nil && !testCase.ExpectError {
+t.Parallel()got, err := tfbatch.EquivalentContainerPropertiesJSON(testCase.ConfigurationJson, testCase.ApiJson)if err != nil && !testCase.ExpectError {
 t.Errorf("got unexpected error: %s", err)
-}
-
-if err == nil && testCase.ExpectError {
+}if err == nil && testCase.ExpectError {
 t.Errorf("expected error, but received none")
-}
-
-if got != testCase.ExpectEquivalent {
+}if got != testCase.ExpectEquivalent {
 t.Errorf("got %t, expected %t", got, testCase.ExpectEquivalent)
 }
 })

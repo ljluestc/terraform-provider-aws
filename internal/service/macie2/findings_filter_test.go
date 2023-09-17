@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package macie2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package macie2_testimport (
 	"context"
 	"fmt"
 	"regexp"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/macie2"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -18,14 +12,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfmacie2 "github.com/hashicorp/terraform-provider-aws/internal/service/macie2"
-)
-
-func testAccFindingsFilter_basic(t *testing.T) {
+)func testAccFindingsFilter_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetFindingsFilterOutput
-	resourceName := "aws_macie2_findings_filter.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_macie2_findings_filter.test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFindingsFilterDestroy(ctx),
@@ -48,14 +38,10 @@ func testAccFindingsFilter_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccFindingsFilter_Name_Generated(t *testing.T) {
+}func testAccFindingsFilter_Name_Generated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetFindingsFilterOutput
-	resourceName := "aws_macie2_findings_filter.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_macie2_findings_filter.test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFindingsFilterDestroy(ctx),
@@ -76,15 +62,11 @@ func testAccFindingsFilter_Name_Generated(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccFindingsFilter_NamePrefix(t *testing.T) {
+}func testAccFindingsFilter_NamePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetFindingsFilterOutput
 	resourceName := "aws_macie2_findings_filter.test"
-	namePrefix := "tf-acc-test-prefix-"
-
-	resource.Test(t, resource.TestCase{
+	namePrefix := "tf-acc-test-prefix-"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFindingsFilterDestroy(ctx),
@@ -105,14 +87,10 @@ func testAccFindingsFilter_NamePrefix(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccFindingsFilter_disappears(t *testing.T) {
+}func testAccFindingsFilter_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetFindingsFilterOutput
-	resourceName := "aws_macie2_findings_filter.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_macie2_findings_filter.test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFindingsFilterDestroy(ctx),
@@ -130,17 +108,13 @@ func testAccFindingsFilter_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccFindingsFilter_complete(t *testing.T) {
+}func testAccFindingsFilter_complete(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetFindingsFilterOutput
 	resourceName := "aws_macie2_findings_filter.test"
 	dataSourceRegion := "data.aws_region.current"
 	description := "this is a description"
-	descriptionUpdated := "this is a description updated"
-
-	resource.Test(t, resource.TestCase{
+	descriptionUpdated := "this is a description updated"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFindingsFilterDestroy(ctx),
@@ -210,9 +184,7 @@ func testAccFindingsFilter_complete(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccFindingsFilter_WithDate(t *testing.T) {
+}func testAccFindingsFilter_WithDate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetFindingsFilterOutput
 	resourceName := "aws_macie2_findings_filter.test"
@@ -220,9 +192,7 @@ func testAccFindingsFilter_WithDate(t *testing.T) {
 	description := "this is a description"
 	descriptionUpdated := "this is a description updated"
 	startDate := "2020-01-01T00:00:00Z"
-	endDate := "2020-02-01T00:00:00Z"
-
-	resource.Test(t, resource.TestCase{
+	endDate := "2020-02-01T00:00:00Z"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFindingsFilterDestroy(ctx),
@@ -287,9 +257,7 @@ func testAccFindingsFilter_WithDate(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccFindingsFilter_WithNumber(t *testing.T) {
+}func testAccFindingsFilter_WithNumber(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetFindingsFilterOutput
 	resourceName := "aws_macie2_findings_filter.test"
@@ -297,9 +265,7 @@ func testAccFindingsFilter_WithNumber(t *testing.T) {
 	description := "this is a description"
 	descriptionUpdated := "this is a description updated"
 	firstNumber := "12"
-	secondNumber := "13"
-
-	resource.Test(t, resource.TestCase{
+	secondNumber := "13"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFindingsFilterDestroy(ctx),
@@ -359,15 +325,11 @@ func testAccFindingsFilter_WithNumber(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccFindingsFilter_withTags(t *testing.T) {
+}func testAccFindingsFilter_withTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetFindingsFilterOutput
 	resourceName := "aws_macie2_findings_filter.test"
-	description := "this is a description"
-
-	resource.Test(t, resource.TestCase{
+	description := "this is a description"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFindingsFilterDestroy(ctx),
@@ -401,69 +363,37 @@ func testAccFindingsFilter_withTags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckFindingsFilterExists(ctx context.Context, resourceName string, macie2Session *macie2.GetFindingsFilterOutput) resource.TestCheckFunc {
+}func testAccCheckFindingsFilterExists(ctx context.Context, resourceName string, macie2Session *macie2.GetFindingsFilterOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("not found: %s", resourceName)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
-		input := &macie2.GetFindingsFilterInput{Id: aws.String(rs.Primary.ID)}
-
-		resp, err := conn.GetFindingsFilterWithContext(ctx, input)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
+		input := &macie2.GetFindingsFilterInput{Id: aws.String(rs.Primary.ID)}		resp, err := conn.GetFindingsFilterWithContext(ctx, input)		if err != nil {
 			return err
-		}
-
-		if resp == nil {
+		}		if resp == nil {
 			return fmt.Errorf("macie FindingsFilter %q does not exist", rs.Primary.ID)
-		}
-
-		*macie2Session = *resp
-
-		return nil
+		}		*macie2Session = *resp		return nil
 	}
-}
-
-func testAccCheckFindingsFilterDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckFindingsFilterDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_macie2_findings_filter" {
 				continue
-			}
-
-			input := &macie2.GetFindingsFilterInput{Id: aws.String(rs.Primary.ID)}
-			resp, err := conn.GetFindingsFilterWithContext(ctx, input)
-
-			if tfawserr.ErrCodeEquals(err, macie2.ErrCodeResourceNotFoundException) ||
+			}			input := &macie2.GetFindingsFilterInput{Id: aws.String(rs.Primary.ID)}
+			resp, err := conn.GetFindingsFilterWithContext(ctx, input)			if tfawserr.ErrCodeEquals(err, macie2.ErrCodeResourceNotFoundException) ||
 				tfawserr.ErrMessageContains(err, macie2.ErrCodeAccessDeniedException, "Macie is not enabled") {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			if resp != nil {
+			}			if resp != nil {
 				return fmt.Errorf("macie FindingsFilter %q still exists", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccFindingsFilterConfig_nameGenerated() string {
+}func testAccFindingsFilterConfig_nameGenerated() string {
 	return `
-resource "aws_macie2_account" "test" {}
-
-resource "aws_macie2_findings_filter" "test" {
+resource "aws_macie2_account" "test" {}resource "aws_macie2_findings_filter" "test" {
   action = "ARCHIVE"
   finding_criteria {
     criterion {
@@ -473,13 +403,9 @@ resource "aws_macie2_findings_filter" "test" {
   depends_on = [aws_macie2_account.test]
 }
 `
-}
-
-func testAccFindingsFilterConfig_namePrefix(name string) string {
+}func testAccFindingsFilterConfig_namePrefix(name string) string {
 	return fmt.Sprintf(`
-resource "aws_macie2_account" "test" {}
-
-resource "aws_macie2_findings_filter" "test" {
+resource "aws_macie2_account" "test" {}resource "aws_macie2_findings_filter" "test" {
   name_prefix = %[1]q
   action      = "ARCHIVE"
   finding_criteria {
@@ -490,15 +416,9 @@ resource "aws_macie2_findings_filter" "test" {
   depends_on = [aws_macie2_account.test]
 }
 `, name)
-}
-
-func testAccFindingsFilterConfig_complete(description, action string, position int) string {
+}func testAccFindingsFilterConfig_complete(description, action string, position int) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_macie2_findings_filter" "test" {
+data "aws_region" "current" {}resource "aws_macie2_account" "test" {}resource "aws_macie2_findings_filter" "test" {
   description = %[1]q
   action      = %[2]q
   position    = %[3]d
@@ -511,15 +431,9 @@ resource "aws_macie2_findings_filter" "test" {
   depends_on = [aws_macie2_account.test]
 }
 `, description, action, position)
-}
-
-func testAccFindingsFilterConfig_completeMultipleCriterion(description, action, startDate, endDate string, position int) string {
+}func testAccFindingsFilterConfig_completeMultipleCriterion(description, action, startDate, endDate string, position int) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_macie2_findings_filter" "test" {
+data "aws_region" "current" {}resource "aws_macie2_account" "test" {}resource "aws_macie2_findings_filter" "test" {
   description = %[1]q
   action      = %[2]q
   position    = %[3]d
@@ -541,15 +455,9 @@ resource "aws_macie2_findings_filter" "test" {
   depends_on = [aws_macie2_account.test]
 }
 `, description, action, position, startDate, endDate)
-}
-
-func testAccFindingsFilterConfig_completeMultipleCriterionNumber(description, action, firstNum, secondNum string, position int) string {
+}func testAccFindingsFilterConfig_completeMultipleCriterionNumber(description, action, firstNum, secondNum string, position int) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_macie2_findings_filter" "test" {
+data "aws_region" "current" {}resource "aws_macie2_account" "test" {}resource "aws_macie2_findings_filter" "test" {
   description = %[1]q
   action      = %[2]q
   position    = %[3]d
@@ -571,15 +479,9 @@ resource "aws_macie2_findings_filter" "test" {
   depends_on = [aws_macie2_account.test]
 }
 `, description, action, position, firstNum, secondNum)
-}
-
-func testAccFindingsFilterConfig_tags(description, action string, position int) string {
+}func testAccFindingsFilterConfig_tags(description, action string, position int) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_macie2_findings_filter" "test" {
+data "aws_region" "current" {}resource "aws_macie2_account" "test" {}resource "aws_macie2_findings_filter" "test" {
   description = %[1]q
   action      = %[2]q
   position    = %[3]d

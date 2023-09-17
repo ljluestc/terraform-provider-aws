@@ -1,12 +1,1 @@
-//Copyright2019TheGoAuthors.Allrightsreserved.
-//UseofthissourcecodeisgovernedbyaBSD-style
-//licensethatcanbefoundintheLICENSEfile.packagerobustioimport(
-	"errors"
-	"syscall"
-)consterrFileNotFound=syscall.ENOENT//isEphemeralErrorreturnstrueiferrmayberesolvedbywaiting.phemeralError(errerror)bool{
-	varerrnosyscall.Errno
-	iferrors.As(err,&errno){
-		returnerrno==errFileNotFound
-	}
-	returnfalse
-}
+//Copyright2019TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.packagerobustioimport("errors""syscall")consterrFileNotFound=syscall.ENOENT//isEphemeralErrorreturnstrueiferrmayberesolvedbywaiting.phemeralError(errerror)bool{varerrnosyscall.Errnoiferrors.As(err,&errno){returnerrno==errFileNotFound}returnfalse}

@@ -1,40 +1,24 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package meta
-
-import (
+// SPDX-License-Identifier: MPL-2.0package metaimport (
 	"context"
 	"fmt"
-	"strings"
-
-	"github.com/aws/aws-sdk-go/aws/endpoints"
+	"strings"	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-provider-aws/internal/framework"
 	"github.com/hashicorp/terraform-provider-aws/internal/slices"
-)
-
-// @FrameworkDataSource
+)// @FrameworkDataSource
 func newDataSourceService(context.Context) (datasource.DataSourceWithConfigure, error) {
 	d := &dataSourceService{}
-	d.SetMigratedFromPluginSDK(true)
-
-	return d, nil
-}
-
-type dataSourceService struct {
+	d.SetMigratedFromPluginSDK(true)	return d, nil
+}type dataSourceService struct {
 	framework.DataSourceWithConfigure
-}
-
-// Metadata should return the full name of the data source, such as
+}// Metadata should return the full name of the data source, such as
 // examplecloud_thing.
 func (d *dataSourceService) Metadata(_ context.Context, request datasource.MetadataRequest, response *datasource.MetadataResponse) { // nosemgrep:ci.meta-in-func-name
 	response.TypeName = "aws_service"
-}
-
-// Schema returns the schema for this data source.
+}// Schema returns the schema for this data source.
 func (d *dataSourceService) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
@@ -70,87 +54,45 @@ func (d *dataSourceService) Schema(ctx context.Context, req datasource.SchemaReq
 			},
 		},
 	}
-}
-
-// Read is called when the provider must read data source values in order to update state.
+}// Read is called when the provider must read data source values in order to update state.
 // Config values should be read from the ReadRequest and new state values set on the ReadResponse.
 func (d *dataSourceService) Read(ctx context.Context, request datasource.ReadRequest, response *datasource.ReadResponse) {
-	var data dataSourceServiceData
-
-	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)
-
-	if response.Diagnostics.HasError() {
+	var data dataSourceServiceData	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)	if response.Diagnostics.HasError() {
 		return
-	}
-
-	if !data.ReverseDNSName.IsNull() {
+	}	if !data.ReverseDNSName.IsNull() {
 		v := data.ReverseDNSName.ValueString()
 		serviceParts := strings.Split(v, ".")
-		n := len(serviceParts)
-
-		if n < 4 {
-			response.Diagnostics.AddError("reverse service DNS names must have at least 4 parts", fmt.Sprintf("%s has %d", v, n))
-
-			return
-		}
-
-		data.Region = types.StringValue(serviceParts[n-2])
+		n := len(serviceParts)		if n < 4 {
+			response.Diagnostics.AddError("reverse service DNS names must have at least 4 parts", fmt.Sprintf("%s has %d", v, n))			return
+		}		data.Region = types.StringValue(serviceParts[n-2])
 		data.ReverseDNSPrefix = types.StringValue(strings.Join(serviceParts[0:n-2], "."))
 		data.ServiceID = types.StringValue(serviceParts[n-1])
-	}
-
-	if !data.DNSName.IsNull() {
+	}	if !data.DNSName.IsNull() {
 		v := data.DNSName.ValueString()
 		serviceParts := slices.Reverse(strings.Split(v, "."))
-		n := len(serviceParts)
-
-		if n < 4 {
-			response.Diagnostics.AddError("service DNS names must have at least 4 parts", fmt.Sprintf("%s has %d", v, n))
-
-			return
-		}
-
-		data.Region = types.StringValue(serviceParts[n-2])
+		n := len(serviceParts)		if n < 4 {
+			response.Diagnostics.AddError("service DNS names must have at least 4 parts", fmt.Sprintf("%s has %d", v, n))			return
+		}		data.Region = types.StringValue(serviceParts[n-2])
 		data.ReverseDNSPrefix = types.StringValue(strings.Join(serviceParts[0:n-2], "."))
 		data.ServiceID = types.StringValue(serviceParts[n-1])
-	}
-
-	if data.Region.IsNull() {
+	}	if data.Region.IsNull() {
 		data.Region = types.StringValue(d.Meta().Region)
-	}
-
-	if data.ServiceID.IsNull() {
-		response.Diagnostics.AddError("service ID not provided directly or through a DNS name", "")
-
-		return
-	}
-
-	if data.ReverseDNSPrefix.IsNull() {
+	}	if data.ServiceID.IsNull() {
+		response.Diagnostics.AddError("service ID not provided directly or through a DNS name", "")		return
+	}	if data.ReverseDNSPrefix.IsNull() {
 		dnsParts := strings.Split(d.Meta().DNSSuffix, ".")
 		data.ReverseDNSPrefix = types.StringValue(strings.Join(slices.Reverse(dnsParts), "."))
-	}
-
-	reverseDNSName := fmt.Sprintf("%s.%s.%s", data.ReverseDNSPrefix.ValueString(), data.Region.ValueString(), data.ServiceID.ValueString())
+	}	reverseDNSName := fmt.Sprintf("%s.%s.%s", data.ReverseDNSPrefix.ValueString(), data.Region.ValueString(), data.ServiceID.ValueString())
 	data.ReverseDNSName = types.StringValue(reverseDNSName)
-	data.DNSName = types.StringValue(strings.ToLower(strings.Join(slices.Reverse(strings.Split(reverseDNSName, ".")), ".")))
-
-	data.Supported = types.BoolValue(true)
+	data.DNSName = types.StringValue(strings.ToLower(strings.Join(slices.Reverse(strings.Split(reverseDNSName, ".")), ".")))	data.Supported = types.BoolValue(true)
 	if partition, ok := endpoints.PartitionForRegion(endpoints.DefaultPartitions(), data.Region.ValueString()); ok {
-		data.Partition = types.StringValue(partition.ID())
-
-		if _, ok := partition.Services()[data.ServiceID.ValueString()]; !ok {
+		data.Partition = types.StringValue(partition.ID())		if _, ok := partition.Services()[data.ServiceID.ValueString()]; !ok {
 			data.Supported = types.BoolValue(false)
 		}
 	} else {
 		data.Partition = types.StringNull()
-	}
-
-	data.ID = types.StringValue(reverseDNSName)
-
-	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
-}
-
-type dataSourceServiceData struct {
+	}	data.ID = types.StringValue(reverseDNSName)	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
+}type dataSourceServiceData struct {
 	DNSName types.String `tfsdk:"dns_name"`
 	ID  types.String `tfsdk:"id"`
 	Partitiontypes.String `tfsdk:"partition"`

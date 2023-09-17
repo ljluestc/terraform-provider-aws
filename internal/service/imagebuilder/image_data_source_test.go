@@ -1,24 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package imagebuilder_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccImageBuilderImageDataSource_ARN_aws(t *testing.T) { // nosemgrep:ci.aws-in-func-name
+)func TestAccImageBuilderImageDataSource_ARN_aws(t *testing.T) { // nosemgrep:ci.aws-in-func-name
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_imagebuilder_image.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_imagebuilder_image.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -45,16 +35,12 @@ func TestAccImageBuilderImageDataSource_ARN_aws(t *testing.T) { // nosemgrep:ci.
 			},
 		},
 	})
-}
-
-// Verify additional fields returned by Self owned Images
+}// Verify additional fields returned by Self owned Images
 func TestAccImageBuilderImageDataSource_ARN_self(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_imagebuilder_image.test"
-	resourceName := "aws_imagebuilder_image.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_image.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -81,15 +67,11 @@ func TestAccImageBuilderImageDataSource_ARN_self(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderImageDataSource_ARN_containerRecipe(t *testing.T) {
+}func TestAccImageBuilderImageDataSource_ARN_containerRecipe(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_imagebuilder_image.test"
-	resourceName := "aws_imagebuilder_image.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_image.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -108,41 +90,23 @@ func TestAccImageBuilderImageDataSource_ARN_containerRecipe(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccImageDataSourceConfig_arn() string {
+}func testAccImageDataSourceConfig_arn() string {
 	return `
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-data "aws_imagebuilder_image" "test" {
+data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_imagebuilder_image" "test" {
   arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
 }
 `
-}
-
-func testAccImageDataSourceConfig_arnSelf(rName string) string {
+}func testAccImageDataSourceConfig_arnSelf(rName string) string {
 	return fmt.Sprintf(`
 data "aws_imagebuilder_component" "update-linux" {
   arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/update-linux/1.0.0"
-}
-
-data "aws_region" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_iam_instance_profile" "test" {
+}data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_iam_instance_profile" "test" {
   name = aws_iam_role.test.name
-  role = aws_iam_role.test.name
-
-  depends_on = [
+  role = aws_iam_role.test.name  depends_on = [
     aws_iam_role_policy_attachment.AmazonSSMManagedInstanceCore,
     aws_iam_role_policy_attachment.EC2InstanceProfileForImageBuilder,
   ]
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -155,137 +119,83 @@ resource "aws_iam_role" "test" {
     }]
   })
   name = %[1]q
-}
-
-resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
+}resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.test.name
-}
-
-resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilder" {
+}resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilder" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/EC2InstanceProfileForImageBuilder"
   role       = aws_iam_role.test.name
-}
-
-resource "aws_vpc" "test" {
+}resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
-
-  route {
+}resource "aws_default_route_table" "test" {
+  default_route_table_id = aws_vpc.test.default_route_table_id  route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.test.id
   }
-}
-
-resource "aws_default_security_group" "test" {
-  vpc_id = aws_vpc.test.id
-
-  egress {
+}resource "aws_default_security_group" "test" {
+  vpc_id = aws_vpc.test.id  egress {
     cidr_blocks = ["0.0.0.0/0"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
-  }
-
-  ingress {
+  }  ingress {
     from_port = 0
     protocol  = -1
     self      = true
     to_port   = 0
   }
-}
-
-resource "aws_internet_gateway" "test" {
+}resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_subnet" "test" {
+}resource "aws_subnet" "test" {
   cidr_block(aws_vpc.test.cidr_block, 8, 0)
   map_public_ip_on_launch = true
   vpc_id   = aws_vpc.test.id
-}
-
-resource "aws_imagebuilder_image_recipe" "test" {
+}resource "aws_imagebuilder_image_recipe" "test" {
   component {
     component_arn = data.aws_imagebuilder_component.update-linux.arn
-  }
-
-  name= %[1]q
+  }  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
-}
-
-resource "aws_imagebuilder_infrastructure_configuration" "test" {
+}resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
   security_group_ids    = [aws_default_security_group.test.id]
-  subnet_idtest.id
-
-  depends_on = [aws_default_route_table.test]
-}
-
-resource "aws_imagebuilder_image" "test" {
+  subnet_idtest.id  depends_on = [aws_default_route_table.test]
+}resource "aws_imagebuilder_image" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-}
-
-data "aws_imagebuilder_image" "test" {
+}data "aws_imagebuilder_image" "test" {
   arn = aws_imagebuilder_image.test.arn
 }
 `, rName)
-}
-
-func testAccImageDataSourceConfig_arnContainerRecipe(rName string) string {
+}func testAccImageDataSourceConfig_arnContainerRecipe(rName string) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_vpc" "test" {
+data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
-
-  route {
+}resource "aws_default_route_table" "test" {
+  default_route_table_id = aws_vpc.test.default_route_table_id  route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.test.id
   }
-}
-
-resource "aws_default_security_group" "test" {
-  vpc_id = aws_vpc.test.id
-
-  egress {
+}resource "aws_default_security_group" "test" {
+  vpc_id = aws_vpc.test.id  egress {
     cidr_blocks = ["0.0.0.0/0"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
-  }
-
-  ingress {
+  }  ingress {
     from_port = 0
     protocol  = -1
     self      = true
     to_port   = 0
   }
-}
-
-resource "aws_internet_gateway" "test" {
+}resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_subnet" "test" {
+}resource "aws_subnet" "test" {
   cidr_block(aws_vpc.test.cidr_block, 8, 0)
   map_public_ip_on_launch = true
   vpc_id   = aws_vpc.test.id
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -298,49 +208,31 @@ resource "aws_iam_role" "test" {
     }]
   })
   name = %[1]q
-}
-
-resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
+}resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.test.name
-}
-
-resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilderECRContainerBuilds" {
+}resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilderECRContainerBuilds" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/EC2InstanceProfileForImageBuilderECRContainerBuilds"
   role       = aws_iam_role.test.name
-}
-
-resource "aws_iam_instance_profile" "test" {
+}resource "aws_iam_instance_profile" "test" {
   name = aws_iam_role.test.name
-  role = aws_iam_role.test.name
-
-  depends_on = [
+  role = aws_iam_role.test.name  depends_on = [
     aws_iam_role_policy_attachment.AmazonSSMManagedInstanceCore,
     aws_iam_role_policy_attachment.EC2InstanceProfileForImageBuilderECRContainerBuilds
   ]
-}
-
-resource "aws_ecr_repository" "test" {
+}resource "aws_ecr_repository" "test" {
   name= %[1]q
   force_delete = true
-}
-
-data "aws_imagebuilder_component" "update-linux" {
+}data "aws_imagebuilder_component" "update-linux" {
   arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/update-linux/1.0.0"
-}
-
-resource "aws_imagebuilder_container_recipe" "test" {
+}resource "aws_imagebuilder_container_recipe" "test" {
   component {
     component_arn = data.aws_imagebuilder_component.update-linux.arn
-  }
-
-  dockerfile_template_data = <<EOF
+  }  dockerfile_template_data = <<EOF
 FROM {{{ imagebuilder:parentImage }}}
 {{{ imagebuilder:environments }}}
 {{{ imagebuilder:components }}}
-EOF
-
-  name  = %[1]q
+EOF  name  = %[1]q
   container_type = "DOCKER"
   parent_image   = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-x86-latest/x.x.x"
   version        = "1.0.0"
@@ -348,23 +240,15 @@ EOF
     repository_name = aws_ecr_repository.test.name
     service= "ECR"
   }
-}
-
-resource "aws_imagebuilder_infrastructure_configuration" "test" {
+}resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
   security_group_ids    = [aws_default_security_group.test.id]
-  subnet_idtest.id
-
-  depends_on = [aws_default_route_table.test]
-}
-
-resource "aws_imagebuilder_image" "test" {
+  subnet_idtest.id  depends_on = [aws_default_route_table.test]
+}resource "aws_imagebuilder_image" "test" {
   container_recipe_arnilder_container_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-}
-
-data "aws_imagebuilder_image" "test" {
+}data "aws_imagebuilder_image" "test" {
   arn = aws_imagebuilder_image.test.arn
 }
 `, rName)

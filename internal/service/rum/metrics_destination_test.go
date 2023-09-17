@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rum_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rum_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/cloudwatchrum"
+	"testing"	"github.com/aws/aws-sdk-go/service/cloudwatchrum"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,15 +10,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcloudwatchrum "github.com/hashicorp/terraform-provider-aws/internal/service/rum"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccRUMMetricsDestination_basic(t *testing.T) {
+)func TestAccRUMMetricsDestination_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dest cloudwatchrum.MetricDestinationSummary
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_rum_metrics_destination.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_rum_metrics_destination.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, cloudwatchrum.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -45,15 +35,11 @@ func TestAccRUMMetricsDestination_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRUMMetricsDestination_disappears(t *testing.T) {
+}func TestAccRUMMetricsDestination_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dest cloudwatchrum.MetricDestinationSummary
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_rum_metrics_destination.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_rum_metrics_destination.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, cloudwatchrum.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -70,15 +56,11 @@ func TestAccRUMMetricsDestination_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRUMMetricsDestination_disappears_appMonitor(t *testing.T) {
+}func TestAccRUMMetricsDestination_disappears_appMonitor(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dest cloudwatchrum.MetricDestinationSummary
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_rum_metrics_destination.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_rum_metrics_destination.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, cloudwatchrum.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -95,35 +77,19 @@ func TestAccRUMMetricsDestination_disappears_appMonitor(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckMetricsDestinationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckMetricsDestinationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RUMConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).RUMConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_rum_metrics_destination" {
 				continue
-			}
-
-			_, err := tfcloudwatchrum.FindMetricsDestinationByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfcloudwatchrum.FindMetricsDestinationByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("CloudWatch RUM Metrics Destination %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("CloudWatch RUM Metrics Destination %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckMetricsDestinationExists(ctx context.Context, n string, v *cloudwatchrum.MetricDestinationSummary) resource.TestCheckFunc {
+}func testAccCheckMetricsDestinationExists(ctx context.Context, n string, v *cloudwatchrum.MetricDestinationSummary) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
@@ -131,30 +97,16 @@ func testAccCheckMetricsDestinationExists(ctx context.Context, n string, v *clou
 		}
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No CloudWatch RUM Metrics Destination ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RUMConn(ctx)
-
-		output, err := tfcloudwatchrum.FindMetricsDestinationByName(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).RUMConn(ctx)		output, err := tfcloudwatchrum.FindMetricsDestinationByName(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccMetricsDestinationConfig_basic(rName string) string {
+}func testAccMetricsDestinationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_rum_app_monitor" "test" {
   name   = %[1]q
   domain = "localhost"
-}
-
-resource "aws_rum_metrics_destination" "test" {
+}resource "aws_rum_metrics_destination" "test" {
   app_monitor_name = aws_rum_app_monitor.test.name
   destination      = "CloudWatch"
 }

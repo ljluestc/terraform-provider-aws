@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package dynamodb
-
-import (
+// SPDX-License-Identifier: MPL-2.0package dynamodbimport (
 	"bytes"
 	"encoding/base64"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/structure"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
-)
-
-func TestExpandTableItemAttributes(t *testing.T) {
-	t.Parallel()
-
-	cases := map[string]struct {
+)func TestExpandTableItemAttributes(t *testing.T) {
+	t.Parallel()	cases := map[string]struct {
 		inputstring
 		expected map[string]*dynamodb.AttributeValue
 	}{
@@ -118,26 +108,18 @@ func TestExpandTableItemAttributes(t *testing.T) {
 				},
 			},
 		},
-	}
-
-	for name, tc := range cases {
+	}	for name, tc := range cases {
 		tc := tc
 		t.Run(name, func(t *testing.T) {
-			t.Parallel()
-
-			actual, err := ExpandTableItemAttributes(tc.input)
+			t.Parallel()			actual, err := ExpandTableItemAttributes(tc.input)
 			if err != nil {
 				t.Fatalf("unexpected error: %s", err)
-			}
-
-			if !maps.EqualFunc(actual, tc.expected, attributeValuesEqual) {
+			}			if !maps.EqualFunc(actual, tc.expected, attributeValuesEqual) {
 				t.Fatalf("expected\n%s\ngot\n%s", tc.expected, actual)
 			}
 		})
 	}
-}
-
-func attributeValuesEqual(a, b *dynamodb.AttributeValue) bool {
+}func attributeValuesEqual(a, b *dynamodb.AttributeValue) bool {
 	if a.B != nil {
 		return bytes.Equal(a.B, b.B)
 	}
@@ -175,12 +157,8 @@ func attributeValuesEqual(a, b *dynamodb.AttributeValue) bool {
 		})
 	}
 	return false
-}
-
-func TestFlattenTableItemAttributes(t *testing.T) {
-	t.Parallel()
-
-	cases := map[string]struct {
+}func TestFlattenTableItemAttributes(t *testing.T) {
+	t.Parallel()	cases := map[string]struct {
 		attrsmap[string]*dynamodb.AttributeValue
 		expected string
 	}{
@@ -279,29 +257,19 @@ func TestFlattenTableItemAttributes(t *testing.T) {
 			},
 			expected: `{"attr":{"SS":["one","two"]}}`,
 		},
-	}
-
-	for name, tc := range cases {
+	}	for name, tc := range cases {
 		tc := tc
 		t.Run(name, func(t *testing.T) {
-			t.Parallel()
-
-			actual, err := flattenTableItemAttributes(tc.attrs)
+			t.Parallel()			actual, err := flattenTableItemAttributes(tc.attrs)
 			if err != nil {
 				t.Fatalf("unexpected error: %s", err)
-			}
-
-			e, err := structure.NormalizeJsonString(tc.expected)
+			}			e, err := structure.NormalizeJsonString(tc.expected)
 			if err != nil {
 				t.Fatalf("normalizing expected JSON: %s", err)
-			}
-
-			a, err := structure.NormalizeJsonString(actual)
+			}			a, err := structure.NormalizeJsonString(actual)
 			if err != nil {
 				t.Fatalf("normalizing returned JSON: %s", err)
-			}
-
-			if a != e {
+			}			if a != e {
 				t.Fatalf("expected\n%s\ngot\n%s", e, a)
 			}
 		})

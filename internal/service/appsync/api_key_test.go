@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appsync_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appsync_testimport (
 	"context"
 	"fmt"
 	"testing"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/appsync"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -25,9 +19,7 @@ func testAccAPIKey_basic(t *testing.T) {
 	var apiKey appsync.ApiKey
 	dateAfterSevenDays := time.Now().UTC().Add(time.Hour * 24 * time.Duration(7)).Truncate(time.Hour)
 	resourceName := "aws_appsync_api_key.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -54,9 +46,7 @@ func testAccAPIKey_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var apiKey appsync.ApiKey
 	resourceName := "aws_appsync_api_key.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -90,9 +80,7 @@ func testAccAPIKey_expires(t *testing.T) {
 	dateAfterTenDays := time.Now().UTC().Add(time.Hour * 24 * time.Duration(10)).Truncate(time.Hour)
 	dateAfterTwentyDays := time.Now().UTC().Add(time.Hour * 24 * time.Duration(20)).Truncate(time.Hour)
 	resourceName := "aws_appsync_api_key.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -126,26 +114,18 @@ func testAccCheckAPIKeyDestroy(ctx context.Context) resource.TestCheckFunc {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_appsync_api_key" {
 				continue
-			}
-
-			apiID, keyID, err := tfappsync.DecodeAPIKeyID(rs.Primary.ID)
+			}			apiID, keyID, err := tfappsync.DecodeAPIKeyID(rs.Primary.ID)
 			if err != nil {
 				return err
-			}
-
-			apiKey, err := tfappsync.GetAPIKey(ctx, apiID, keyID, conn)
+			}			apiKey, err := tfappsync.GetAPIKey(ctx, apiID, keyID, conn)
 			if err == nil {
 				if tfawserr.ErrCodeEquals(err, appsync.ErrCodeNotFoundException) {
 					return nil
 				}
 				return err
-			}
-
-			if apiKey != nil && aws.StringValue(apiKey.Id) == keyID {
+			}			if apiKey != nil && aws.StringValue(apiKey.Id) == keyID {
 				return fmt.Errorf("Appsync API Key ID %q still exists", rs.Primary.ID)
-			}
-
-			return nil
+			}			return nil
 		}
 		return nil
 	}
@@ -155,26 +135,16 @@ func testAccCheckAPIKeyExists(ctx context.Context, resourceName string, apiKey *
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Appsync API Key Not found in state: %s", resourceName)
-		}
-
-		apiID, keyID, err := tfappsync.DecodeAPIKeyID(rs.Primary.ID)
+		}		apiID, keyID, err := tfappsync.DecodeAPIKeyID(rs.Primary.ID)
 		if err != nil {
 			return err
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
 		key, err := tfappsync.GetAPIKey(ctx, apiID, keyID, conn)
 		if err != nil {
 			return err
-		}
-
-		if key == nil || key.Id == nil {
+		}		if key == nil || key.Id == nil {
 			return fmt.Errorf("Appsync API Key %q not found", rs.Primary.ID)
-		}
-
-		*apiKey = *key
-
-		return nil
+		}		*apiKey = *key		return nil
 	}
 }
 func testAccCheckAPIKeyExpiresDate(apiKey *appsync.ApiKey, expectedTime time.Time) resource.TestCheckFunc {
@@ -182,9 +152,7 @@ func testAccCheckAPIKeyExpiresDate(apiKey *appsync.ApiKey, expectedTime time.Tim
 		apiKeyExpiresTime := time.Unix(aws.Int64Value(apiKey.Expires), 0)
 		if !apiKeyExpiresTime.Equal(expectedTime) {
 			return fmt.Errorf("Appsync API Key expires difference: got %s and expected %s", apiKeyExpiresTime.Format(time.RFC3339), expectedTime.Format(time.RFC3339))
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccAPIKeyConfig_description(rName, description string) string {
@@ -192,9 +160,7 @@ func testAccAPIKeyConfig_description(rName, description string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %q
-}
-
-resource "aws_appsync_api_key" "test" {
+}resource "aws_appsync_api_key" "test" {
   api_id = aws_appsync_graphql_api.test.id
   description = %q
 }
@@ -205,9 +171,7 @@ func testAccAPIKeyConfig_expires(rName, expires string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %q
-}
-
-resource "aws_appsync_api_key" "test" {
+}resource "aws_appsync_api_key" "test" {
   api_id  = aws_appsync_graphql_api.test.id
   expires = %q
 }
@@ -218,9 +182,7 @@ func testAccAPIKeyConfig_required(rName string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %q
-}
-
-resource "aws_appsync_api_key" "test" {
+}resource "aws_appsync_api_key" "test" {
   api_id = aws_appsync_graphql_api.test.id
 }
 `, rName)

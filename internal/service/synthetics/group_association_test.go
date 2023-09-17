@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package synthetics_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package synthetics_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/synthetics"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,18 +11,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfsynthetics "github.com/hashicorp/terraform-provider-aws/internal/service/synthetics"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func TestAccSyntheticsGroupAssociation_basic(t *testing.T) {
+)func TestAccSyntheticsGroupAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
 	resourceName := "aws_synthetics_group_association.test"
-	var groupSummary synthetics.GroupSummary
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	var groupSummary synthetics.GroupSummary	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckGroupAssociationDestroy(ctx),
@@ -50,18 +38,12 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsGroupAssociation_disappears(t *testing.T) {
+}func TestAccSyntheticsGroupAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
 	resourceName := "aws_synthetics_group_association.test"
-	var groupSummary synthetics.GroupSummary
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	var groupSummary synthetics.GroupSummary	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckGroupAssociationDestroy(ctx),
@@ -76,76 +58,35 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func testAccCheckGroupAssociationExists(ctx context.Context, name string, v *synthetics.GroupSummary) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
+}func testAccCheckGroupAssociationExists(ctx context.Context, name string, v *synthetics.GroupSummary) resource.TestCheckFunc {
+	returnfunc(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("not found: %s", name)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("no Synthetics Group Association ID is set")
-		}
-
-		canaryArn, groupName, err := tfsynthetics.GroupAssociationParseResourceID(rs.Primary.ID)
-
-		if err != nil {
+		}		canaryArn, groupName, err := tfsynthetics.GroupAssociationParseResourceID(rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)
-		output, err := tfsynthetics.FindAssociatedGroup(ctx, conn, canaryArn, groupName)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)
+		output, err := tfsynthetics.FindAssociatedGroup(ctx, conn, canaryArn, groupName)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-
-func testAccCheckGroupAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+}func testAccCheckGroupAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
+	returnfunc(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_synthetics_group_association" {
 				continue
-			}
-
-			canaryArn, groupName, err := tfsynthetics.GroupAssociationParseResourceID(rs.Primary.ID)
-
-			if err != nil {
+			}			canaryArn, groupName, err := tfsynthetics.GroupAssociationParseResourceID(rs.Primary.ID)			if err != nil {
 				return err
-			}
-
-			_, err = tfsynthetics.FindAssociatedGroup(ctx, conn, canaryArn, groupName)
-
-			if tfresource.NotFound(err) {
+			}			_, err = tfsynthetics.FindAssociatedGroup(ctx, conn, canaryArn, groupName)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("association to group (%s) for canary (%s) still exists", groupName, canaryArn)
-		}
-
-		return nil
+			}			return fmt.Errorf("association to group (%s) for canary (%s) still exists", groupName, canaryArn)
+		}		return nil
 	}
-}
-
-
-func testAccGroupAssociationConfig_basic(rName string) string {
+}func testAccGroupAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_basic(rName), testAccGroupConfig_basic(rName), `
 resource "aws_synthetics_group_association" "test" {
   group_name = aws_synthetics_group.test.name

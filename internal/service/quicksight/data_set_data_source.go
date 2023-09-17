@@ -24,8 +24,7 @@ return &schema.Resource{
 ReadWithoutTimeout: dataSourceDataSetRead,
 
 Schema
-func: 
-func() map[string]*schema.Schema {
+func:func() map[string]*schema.Schema {
 return map[string]*schema.Schema{
 "arn": {
 Type:     schema.TypeString,
@@ -238,10 +237,7 @@ Deprecated: `this attribute has been deprecated`,
 }
 },
 }
-}
-
-
-func logicalTableMapDataSourceSchema() *schema.Resource {
+}func logicalTableMapDataSourceSchema() *schema.Resource {
 return &schema.Resource{
 Schema: map[string]*schema.Schema{
 "alias": {
@@ -470,10 +466,7 @@ Computed: true,
 },
 },
 }
-}
-
-
-func physicalTableMapDataSourceSchema() *schema.Resource {
+}func physicalTableMapDataSourceSchema() *schema.Resource {
 return &schema.Resource{
 Schema: map[string]*schema.Schema{
 "custom_sql": {
@@ -618,10 +611,7 @@ Computed: true,
 
 const (
 DSNameDataSet = "Data Set Data Source"
-)
-
-
-func dataSourceDataSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+)func dataSourceDataSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 defaultTagsConfig := meta.(*conns.AWSClient).DefaultTagsConfig
 ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig

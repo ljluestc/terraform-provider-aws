@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsailimport (
 	"context"
 	"fmt"
-	"strconv"
-
-	"github.com/YakDriver/regexache"
+	"strconv"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail/types"
@@ -20,21 +14,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_lightsail_lb_stickiness_policy")
+)// @SDKResource("aws_lightsail_lb_stickiness_policy")
 func ResourceLoadBalancerStickinessPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceLoadBalancerStickinessPolicyCreate,
 		ReadWithoutTimeout:   resourceLoadBalancerStickinessPolicyRead,
 		UpdateWithoutTimeout: resourceLoadBalancerStickinessPolicyUpdate,
-		DeleteWithoutTimeout: resourceLoadBalancerStickinessPolicyDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceLoadBalancerStickinessPolicyDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"cookie_duration": {
 				Type:     schema.TypeInt,
 				Required: true,
@@ -62,65 +50,35 @@ func resourceLoadBalancerStickinessPolicyCreate(ctx context.Context, d *schema.R
 	for _, v := range []string{"enabled", "cookie_duration"} {
 		in := lightsail.UpdateLoadBalancerAttributeInput{
 			LoadBalancerName: aws.String(lbName),
-		}
-
-		if v == "enabled" {
+		}		if v == "enabled" {
 			in.AttributeName = types.LoadBalancerAttributeNameSessionStickinessEnabled
 			in.AttributeValue = aws.String(fmt.Sprint(d.Get("enabled").(bool)))
-		}
-
-		if v == "cookie_duration" {
+		}		if v == "cookie_duration" {
 			in.AttributeName = types.LoadBalancerAttributeNameSessionStickinessLbCookieDurationSeconds
 			in.AttributeValue = aws.String(fmt.Sprint(d.Get("cookie_duration").(int)))
-		}
-
-		out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)
-
-		if err != nil {
+		}		out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)		if err != nil {
 			return create.DiagError(names.Lightsail, string(types.OperationTypeUpdateLoadBalancerAttribute), ResLoadBalancerStickinessPolicy, lbName, err)
-		}
-
-		diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerStickinessPolicy, lbName)
-
-		if diag != nil {
+		}		diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerStickinessPolicy, lbName)		if diag != nil {
 			return diag
 		}
-	}
-
-	d.SetId(lbName)
-
-	return resourceLoadBalancerStickinessPolicyRead(ctx, d, meta)
+	}	d.SetId(lbName)	return resourceLoadBalancerStickinessPolicyRead(ctx, d, meta)
 }
 func resourceLoadBalancerStickinessPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
-
-	out, err := FindLoadBalancerStickinessPolicyById(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	conn := meta.(*conns.AWSClient).LightsailClient(ctx)	out, err := FindLoadBalancerStickinessPolicyById(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		create.LogNotFoundRemoveState(names.Lightsail, create.ErrActionReading, ResLoadBalancerStickinessPolicy, d.Id())
 		d.SetId("")
 		return nil
-	}
-
+	}	if err != nil {
+		return create.DiagError(names.Lightsail, create.ErrActionReading, ResLoadBalancerStickinessPolicy, d.Id(), err)
+	}	boolValue, err := strconv.ParseBool(out[string(types.LoadBalancerAttributeNameSessionStickinessEnabled)])
 	if err != nil {
 		return create.DiagError(names.Lightsail, create.ErrActionReading, ResLoadBalancerStickinessPolicy, d.Id(), err)
-	}
-
-	boolValue, err := strconv.ParseBool(out[string(types.LoadBalancerAttributeNameSessionStickinessEnabled)])
+	}	intValue, err := strconv.Atoi(out[string(types.LoadBalancerAttributeNameSessionStickinessLbCookieDurationSeconds)])
 	if err != nil {
 		return create.DiagError(names.Lightsail, create.ErrActionReading, ResLoadBalancerStickinessPolicy, d.Id(), err)
-	}
-
-	intValue, err := strconv.Atoi(out[string(types.LoadBalancerAttributeNameSessionStickinessLbCookieDurationSeconds)])
-	if err != nil {
-		return create.DiagError(names.Lightsail, create.ErrActionReading, ResLoadBalancerStickinessPolicy, d.Id(), err)
-	}
-
-	d.Set("cookie_duration", intValue)
+	}	d.Set("cookie_duration", intValue)
 	d.Set("enabled", boolValue)
-	d.Set("lb_name", d.Id())
-
-	return nil
+	d.Set("lb_name", d.Id())	return nil
 }
 func resourceLoadBalancerStickinessPolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -130,42 +88,22 @@ func resourceLoadBalancerStickinessPolicyUpdate(ctx context.Context, d *schema.R
 			LoadBalancerName: aws.String(lbName),
 			AttributeName:    types.LoadBalancerAttributeNameSessionStickinessEnabled,
 			AttributeValue:   aws.String(fmt.Sprint(d.Get("enabled").(bool))),
-		}
-
-		out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)
-
-		if err != nil {
+		}		out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)		if err != nil {
 			return create.DiagError(names.Lightsail, string(types.OperationTypeUpdateLoadBalancerAttribute), ResLoadBalancerStickinessPolicy, lbName, err)
-		}
-
-		diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerStickinessPolicy, lbName)
-
-		if diag != nil {
+		}		diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerStickinessPolicy, lbName)		if diag != nil {
 			return diag
 		}
-	}
-
-	if d.HasChange("cookie_duration") {
+	}	if d.HasChange("cookie_duration") {
 		in := lightsail.UpdateLoadBalancerAttributeInput{
 			LoadBalancerName: aws.String(lbName),
 			AttributeName:    types.LoadBalancerAttributeNameSessionStickinessLbCookieDurationSeconds,
 			AttributeValue:   aws.String(fmt.Sprint(d.Get("cookie_duration").(int))),
-		}
-
-		out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)
-
-		if err != nil {
+		}		out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)		if err != nil {
 			return create.DiagError(names.Lightsail, string(types.OperationTypeUpdateLoadBalancerAttribute), ResLoadBalancerStickinessPolicy, lbName, err)
-		}
-
-		diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerStickinessPolicy, lbName)
-
-		if diag != nil {
+		}		diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerStickinessPolicy, lbName)		if diag != nil {
 			return diag
 		}
-	}
-
-	return resourceLoadBalancerStickinessPolicyRead(ctx, d, meta)
+	}	return resourceLoadBalancerStickinessPolicyRead(ctx, d, meta)
 }
 func resourceLoadBalancerStickinessPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -174,40 +112,22 @@ func resourceLoadBalancerStickinessPolicyDelete(ctx context.Context, d *schema.R
 		LoadBalancerName: aws.String(lbName),
 		AttributeName:    types.LoadBalancerAttributeNameSessionStickinessEnabled,
 		AttributeValue:   aws.String("false"),
-	}
-
-	out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)
-
-	if err != nil {
+	}	out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)	if err != nil {
 		return create.DiagError(names.Lightsail, string(types.OperationTypeUpdateLoadBalancerAttribute), ResLoadBalancerStickinessPolicy, lbName, err)
-	}
-
-	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerStickinessPolicy, lbName)
-
-	if diag != nil {
+	}	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerStickinessPolicy, lbName)	if diag != nil {
 		return diag
-	}
-
-	return nil
+	}	return nil
 }
 func FindLoadBalancerStickinessPolicyById(ctx context.Context, conn *lightsail.Client, id string) (map[string]string, error) {
 	in := &lightsail.GetLoadBalancerInput{LoadBalancerName: aws.String(id)}
-	out, err := conn.GetLoadBalancer(ctx, in)
-
-	if IsANotFoundError(err) {
+	out, err := conn.GetLoadBalancer(ctx, in)	if IsANotFoundError(err) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: in,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if out == nil || out.LoadBalancer.ConfigurationOptions == nil {
+	}	if out == nil || out.LoadBalancer.ConfigurationOptions == nil {
 		return nil, tfresource.NewEmptyResultError(in)
-	}
-
-	return out.LoadBalancer.ConfigurationOptions, nil
+	}	return out.LoadBalancer.ConfigurationOptions, nil
 }

@@ -1,22 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicecatalog
-
-import (
+// SPDX-License-Identifier: MPL-2.0package servicecatalogimport (
 "testing"
-)
-
-func TestValidSharePrincipal(t *testing.T) {
-t.Parallel()
-
-v := ""
+)func TestValidSharePrincipal(t *testing.T) {
+t.Parallel()v := ""
 _, errors := validSharePrincipal(v, "arn")
 if len(errors) == 0 {
 t.Fatalf("%q should not be validated as a principal %d: %q", v, len(errors), errors)
-}
-
-validNames := []string{
+}validNames := []string{
 "123456789012", // lintignore:AWSAT005 // Example Account ID (Valid looking but not real)
 "111122223333", // lintignore:AWSAT005 // Example Account ID (Valid looking but not real)
 "arn:aws:organizations::111122223333:organization/o-abcdefghijkl",    // lintignore:AWSAT005    // organization
@@ -28,9 +18,7 @@ _, errors := validSharePrincipal(v, "arn")
 if len(errors) != 0 {
 t.Fatalf("%q should be a valid principal: %q", v, errors)
 }
-}
-
-invalidNames := []string{
+}invalidNames := []string{
 "IAM_ALLOWED_PRINCIPALS",     // Special principal
 "IAM_NOT_ALLOWED_PRINCIPALS", // doesn't exist
 "arn",

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package storagegateway_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package storagegateway_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/service/storagegateway"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,18 +11,14 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfstoragegateway "github.com/hashicorp/terraform-provider-aws/internal/service/storagegateway"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccStorageGatewayNFSFileShare_basic(t *testing.T) {
+)func TestAccStorageGatewayNFSFileShare_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_nfs_file_share.test"
 gatewayResourceName := "aws_storagegateway_gateway.test"
 bucketResourceName := "aws_s3_bucket.test"
-iamResourceName := "aws_iam_role.test"
-
-resource.ParallelTest(t, resource.TestCase{
+iamResourceName := "aws_iam_role.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -70,17 +60,13 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_audit(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_audit(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_nfs_file_share.test"
 logResourceName := "aws_cloudwatch_log_group.test"
-logResourceNameSecond := "aws_cloudwatch_log_group.test2"
-
-resource.ParallelTest(t, resource.TestCase{
+logResourceNameSecond := "aws_cloudwatch_log_group.test2"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -107,15 +93,11 @@ resource.TestCheckResourceAttrPair(resourceName, "audit_destination_arn", logRes
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_tags(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -156,15 +138,11 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_fileShareName(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_fileShareName(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -191,15 +169,11 @@ resource.TestCheckResourceAttr(resourceName, "file_share_name", "test_2"),
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_clientList(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_clientList(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -237,15 +211,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_defaultStorageClass(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_defaultStorageClass(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -272,15 +242,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_guessMIMETypeEnabled(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_guessMIMETypeEnabled(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -307,15 +273,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_kmsEncrypted(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_kmsEncrypted(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -339,17 +301,13 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_kmsKeyARN(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_kmsKeyARN(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_nfs_file_share.test"
 keyName := "aws_kms_key.test.0"
-keyUpdatedName := "aws_kms_key.test.1"
-
-resource.ParallelTest(t, resource.TestCase{
+keyUpdatedName := "aws_kms_key.test.1"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -385,15 +343,11 @@ resource.TestCheckResourceAttr(resourceName, "kms_encrypted", "false"),
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_nFSFileShareDefaults(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_nFSFileShareDefaults(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -428,15 +382,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_objectACL(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_objectACL(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -463,15 +413,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_readOnly(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_readOnly(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -498,15 +444,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_requesterPays(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_requesterPays(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -533,15 +475,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_squash(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_squash(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -568,15 +506,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_notificationPolicy(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_notificationPolicy(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -610,15 +544,11 @@ resource.TestCheckResourceAttr(resourceName, "notification_policy", "{\"Upload\"
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_cacheAttributes(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_cacheAttributes(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -655,15 +585,11 @@ resource.TestCheckResourceAttr(resourceName, "cache_attributes.0.cache_stale_tim
 },
 },
 })
-}
-
-func TestAccStorageGatewayNFSFileShare_disappears(t *testing.T) {
+}func TestAccStorageGatewayNFSFileShare_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var nfsFileShare storagegateway.NFSFileShareInfo
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_nfs_file_share.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_nfs_file_share.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -680,61 +606,31 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func testAccCheckNFSFileShareDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckNFSFileShareDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).StorageGatewayConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).StorageGatewayConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_storagegateway_nfs_file_share" {
 continue
-}
-
-_, err := tfstoragegateway.FindNFSFileShareByARN(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+}_, err := tfstoragegateway.FindNFSFileShareByARN(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("Storage Gateway NFS File Share %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("Storage Gateway NFS File Share %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccCheckNFSFileShareExists(ctx context.Context, resourceName string, nfsFileShare *storagegateway.NFSFileShareInfo) resource.TestCheckFunc {
+}func testAccCheckNFSFileShareExists(ctx context.Context, resourceName string, nfsFileShare *storagegateway.NFSFileShareInfo) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 return fmt.Errorf("Not found: %s", resourceName)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).StorageGatewayConn(ctx)
-
-output, err := tfstoragegateway.FindNFSFileShareByARN(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).StorageGatewayConn(ctx)output, err := tfstoragegateway.FindNFSFileShareByARN(ctx, conn, rs.Primary.ID)if err != nil {
 return err
+}*nfsFileShare = *outputreturn nil
 }
-
-*nfsFileShare = *output
-
-return nil
-}
-}
-
-func testAcc_S3FileShareBase(rName string) string {
+}func testAcc_S3FileShareBase(rName string) string {
 return testAcc_FileGatewayBase(rName) + fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<POLICY
+  name = %[1]q  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -748,17 +644,11 @@ resource "aws_iam_role" "test" {
     }
   ]
 }
-POLICY
-
-  tags = {
+POLICY  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_iam_role_policy" "test" {
-  role = aws_iam_role.test.name
-
-  policy = <<POLICY
+}resource "aws_iam_role_policy" "test" {
+  role = aws_iam_role.test.name  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -774,31 +664,19 @@ resource "aws_iam_role_policy" "test" {
     }
   ]
 }
-POLICY
-
-}
-
-resource "aws_s3_bucket" "test" {
+POLICY}resource "aws_s3_bucket" "test" {
   bucket        = %[1]q
   force_destroy = true
-}
-
-resource "aws_storagegateway_gateway" "test" {
-  depends_on = [aws_iam_role_policy.test]
-
-  gateway_ip_address = aws_instance.test.public_ip
+}resource "aws_storagegateway_gateway" "test" {
+  depends_on = [aws_iam_role_policy.test]  gateway_ip_address = aws_instance.test.public_ip
   gateway_name       = %[1]q
   gateway_timezone   = "GMT"
-  gateway_type       = "FILE_S3"
-
-  tags = {
+  gateway_type       = "FILE_S3"  tags = {
     Name = %[1]q
   }
 }
 `, rName)
-}
-
-func testAccNFSFileShareConfig_required(rName string) string {
+}func testAccNFSFileShareConfig_required(rName string) string {
 return testAcc_S3FileShareBase(rName) + `
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
@@ -807,9 +685,7 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn     = aws_iam_role.test.arn
 }
 `
-}
-
-func testAccNFSFileShareConfig_name(rName, fsName string) string {
+}func testAccNFSFileShareConfig_name(rName, fsName string) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list     = ["0.0.0.0/0"]
@@ -819,40 +695,30 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   file_share_name = %[1]q
 }
 `, fsName)
-}
-
-func testAccNFSFileShareConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccNFSFileShareConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
   gateway_arn  = aws_storagegateway_gateway.test.arn
   location_arn = aws_s3_bucket.test.arn
-  role_arn     = aws_iam_role.test.arn
-
-  tags = {
+  role_arn     = aws_iam_role.test.arn  tags = {
     %q = %q
   }
 }
 `, tagKey1, tagValue1)
-}
-
-func testAccNFSFileShareConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccNFSFileShareConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
   gateway_arn  = aws_storagegateway_gateway.test.arn
   location_arn = aws_s3_bucket.test.arn
-  role_arn     = aws_iam_role.test.arn
-
-  tags = {
+  role_arn     = aws_iam_role.test.arn  tags = {
     %q = %q
     %q = %q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccNFSFileShareConfig_clientListSingle(rName, clientList1 string) string {
+}func testAccNFSFileShareConfig_clientListSingle(rName, clientList1 string) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = [%q]
@@ -861,9 +727,7 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn     = aws_iam_role.test.arn
 }
 `, clientList1)
-}
-
-func testAccNFSFileShareConfig_clientListMultiple(rName, clientList1, clientList2 string) string {
+}func testAccNFSFileShareConfig_clientListMultiple(rName, clientList1, clientList2 string) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = [%q, %q]
@@ -872,9 +736,7 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn     = aws_iam_role.test.arn
 }
 `, clientList1, clientList2)
-}
-
-func testAccNFSFileShareConfig_defaultStorageClass(rName, defaultStorageClass string) string {
+}func testAccNFSFileShareConfig_defaultStorageClass(rName, defaultStorageClass string) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
@@ -884,9 +746,7 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn = aws_iam_role.test.arn
 }
 `, defaultStorageClass)
-}
-
-func testAccNFSFileShareConfig_guessMIMETypeEnabled(rName string, guessMimeTypeEnabled bool) string {
+}func testAccNFSFileShareConfig_guessMIMETypeEnabled(rName string, guessMimeTypeEnabled bool) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list= ["0.0.0.0/0"]
@@ -896,9 +756,7 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn = aws_iam_role.test.arn
 }
 `, guessMimeTypeEnabled)
-}
-
-func testAccNFSFileShareConfig_kmsEncrypted(rName string, kmsEncrypted bool) string {
+}func testAccNFSFileShareConfig_kmsEncrypted(rName string, kmsEncrypted bool) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list   = ["0.0.0.0/0"]
@@ -908,18 +766,12 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn      = aws_iam_role.test.arn
 }
 `, kmsEncrypted)
-}
-
-func testAccNFSFileShareConfig_kmsKeyARN(rName string) string {
+}func testAccNFSFileShareConfig_kmsKeyARN(rName string) string {
 return testAcc_S3FileShareBase(rName) + `
 resource "aws_kms_key" "test" {
-  count = 2
-
-  deletion_window_in_days = 7
+  count = 2  deletion_window_in_days = 7
   description= "Terraform Acceptance Testing"
-}
-
-resource "aws_storagegateway_nfs_file_share" "test" {
+}resource "aws_storagegateway_nfs_file_share" "test" {
   client_list   = ["0.0.0.0/0"]
   gateway_arn   = aws_storagegateway_gateway.test.arn
   kms_encrypted = true
@@ -928,18 +780,12 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn      = aws_iam_role.test.arn
 }
 `
-}
-
-func testAccNFSFileShareConfig_kmsKeyARNUpdate(rName string) string {
+}func testAccNFSFileShareConfig_kmsKeyARNUpdate(rName string) string {
 return testAcc_S3FileShareBase(rName) + `
 resource "aws_kms_key" "test" {
-  count = 2
-
-  deletion_window_in_days = 7
+  count = 2  deletion_window_in_days = 7
   description= "Terraform Acceptance Testing"
-}
-
-resource "aws_storagegateway_nfs_file_share" "test" {
+}resource "aws_storagegateway_nfs_file_share" "test" {
   client_list   = ["0.0.0.0/0"]
   gateway_arn   = aws_storagegateway_gateway.test.arn
   kms_encrypted = true
@@ -948,17 +794,13 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn      = aws_iam_role.test.arn
 }
 `
-}
-
-func testAccNFSFileShareConfig_defaults(rName, directoryMode, fileMode string, groupID, ownerID int) string {
+}func testAccNFSFileShareConfig_defaults(rName, directoryMode, fileMode string, groupID, ownerID int) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
   gateway_arn  = aws_storagegateway_gateway.test.arn
   location_arn = aws_s3_bucket.test.arn
-  role_arn     = aws_iam_role.test.arn
-
-  nfs_file_share_defaults {
+  role_arn     = aws_iam_role.test.arn  nfs_file_share_defaults {
     directory_mode = %q
     file_mode      = %q
     group_id       = %d
@@ -966,9 +808,7 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   }
 }
 `, directoryMode, fileMode, groupID, ownerID)
-}
-
-func testAccNFSFileShareConfig_objectACL(rName, objectACL string) string {
+}func testAccNFSFileShareConfig_objectACL(rName, objectACL string) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
@@ -978,9 +818,7 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn     = aws_iam_role.test.arn
 }
 `, objectACL)
-}
-
-func testAccNFSFileShareConfig_readOnly(rName string, readOnly bool) string {
+}func testAccNFSFileShareConfig_readOnly(rName string, readOnly bool) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
@@ -990,9 +828,7 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn     = aws_iam_role.test.arn
 }
 `, readOnly)
-}
-
-func testAccNFSFileShareConfig_requesterPays(rName string, requesterPays bool) string {
+}func testAccNFSFileShareConfig_requesterPays(rName string, requesterPays bool) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list    = ["0.0.0.0/0"]
@@ -1002,9 +838,7 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   role_arn       = aws_iam_role.test.arn
 }
 `, requesterPays)
-}
-
-func testAccNFSFileShareConfig_squash(rName, squash string) string {
+}func testAccNFSFileShareConfig_squash(rName, squash string) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
@@ -1014,24 +848,18 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   squash       = %q
 }
 `, squash)
-}
-
-func testAccNFSFileShareConfig_cacheAttributes(rName string, timeout int) string {
+}func testAccNFSFileShareConfig_cacheAttributes(rName string, timeout int) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
   gateway_arn  = aws_storagegateway_gateway.test.arn
   location_arn = aws_s3_bucket.test.arn
-  role_arn     = aws_iam_role.test.arn
-
-  cache_attributes {
+  role_arn     = aws_iam_role.test.arn  cache_attributes {
     cache_stale_timeout_in_seconds = %[1]d
   }
 }
 `, timeout)
-}
-
-func testAccNFSFileShareConfig_notificationPolicy(rName string) string {
+}func testAccNFSFileShareConfig_notificationPolicy(rName string) string {
 return testAcc_S3FileShareBase(rName) + `
 resource "aws_storagegateway_nfs_file_share" "test" {
   client_list= ["0.0.0.0/0"]
@@ -1041,15 +869,11 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   notification_policy = "{\"Upload\": {\"SettlingTimeInSeconds\": 60}}"
 }
 `
-}
-
-func testAccNFSFileShareConfig_audit(rName string) string {
+}func testAccNFSFileShareConfig_audit(rName string) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
-}
-
-resource "aws_storagegateway_nfs_file_share" "test" {
+}resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
   gateway_arn  = aws_storagegateway_gateway.test.arn
   location_arn = aws_s3_bucket.test.arn
@@ -1057,19 +881,13 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   audit_destination_arn = aws_cloudwatch_log_group.test.arn
 }
 `, rName)
-}
-
-func testAccNFSFileShareConfig_auditUpdated(rName string) string {
+}func testAccNFSFileShareConfig_auditUpdated(rName string) string {
 return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
-}
-
-resource "aws_cloudwatch_log_group" "test2" {
+}resource "aws_cloudwatch_log_group" "test2" {
   name = "%[1]s-updated"
-}
-
-resource "aws_storagegateway_nfs_file_share" "test" {
+}resource "aws_storagegateway_nfs_file_share" "test" {
   client_list  = ["0.0.0.0/0"]
   gateway_arn  = aws_storagegateway_gateway.test.arn
   location_arn = aws_s3_bucket.test.arn

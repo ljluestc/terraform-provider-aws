@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package finspace_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package finspace_testimport (
 "context"
 "errors"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go-v2/aws"
+"testing""github.com/aws/aws-sdk-go-v2/aws"
 "github.com/aws/aws-sdk-go-v2/service/finspace"
 "github.com/aws/aws-sdk-go-v2/service/finspace/types"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -24,15 +18,11 @@ tffinspace "github.com/hashicorp/terraform-provider-aws/internal/service/finspac
 func TestAccFinSpaceKxEnvironment_basic(t *testing.T) {
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-ctx := acctest.Context(t)
+}ctx := acctest.Context(t)
 var kxenvironment finspace.GetKxEnvironmentOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_finspace_kx_environment.test"
-kmsKeyResourceName := "aws_kms_key.test"
-
-resource.ParallelTest(t, resource.TestCase{
+kmsKeyResourceName := "aws_kms_key.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
@@ -60,14 +50,10 @@ ImportStateVerify: true,
 func TestAccFinSpaceKxEnvironment_disappears(t *testing.T) {
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-ctx := acctest.Context(t)
+}ctx := acctest.Context(t)
 var kxenvironment finspace.GetKxEnvironmentOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_finspace_kx_environment.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_finspace_kx_environment.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
@@ -90,15 +76,11 @@ ExpectNonEmptyPlan: true,
 func TestAccFinSpaceKxEnvironment_updateName(t *testing.T) {
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-ctx := acctest.Context(t)
+}ctx := acctest.Context(t)
 var kxenvironment finspace.GetKxEnvironmentOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_finspace_kx_environment.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_finspace_kx_environment.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
@@ -127,14 +109,10 @@ resource.TestCheckResourceAttr(resourceName, "name", rName2),
 func TestAccFinSpaceKxEnvironment_description(t *testing.T) {
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-ctx := acctest.Context(t)
+}ctx := acctest.Context(t)
 var kxenvironment finspace.GetKxEnvironmentOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_finspace_kx_environment.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_finspace_kx_environment.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
@@ -163,14 +141,10 @@ resource.TestCheckResourceAttr(resourceName, "description", "description 2"),
 func TestAccFinSpaceKxEnvironment_customDNS(t *testing.T) {
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-ctx := acctest.Context(t)
+}ctx := acctest.Context(t)
 var kxenvironment finspace.GetKxEnvironmentOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_finspace_kx_environment.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_finspace_kx_environment.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
@@ -205,14 +179,10 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "custom_dns_configuration
 func TestAccFinSpaceKxEnvironment_transitGateway(t *testing.T) {
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-ctx := acctest.Context(t)
+}ctx := acctest.Context(t)
 var kxenvironment finspace.GetKxEnvironmentOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_finspace_kx_environment.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_finspace_kx_environment.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
@@ -236,14 +206,10 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "transit_gateway_configur
 func TestAccFinSpaceKxEnvironment_attachmentNetworkACLConfiguration(t *testing.T) {
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-ctx := acctest.Context(t)
+}ctx := acctest.Context(t)
 var kxenvironment finspace.GetKxEnvironmentOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_finspace_kx_environment.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_finspace_kx_environment.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
@@ -312,14 +278,10 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "transit_gateway_configur
 func TestAccFinSpaceKxEnvironment_tags(t *testing.T) {
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-ctx := acctest.Context(t)
+}ctx := acctest.Context(t)
 var kxenvironment finspace.GetKxEnvironmentOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_finspace_kx_environment.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_finspace_kx_environment.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
@@ -358,14 +320,10 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 }
 func testAccCheckKxEnvironmentDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).FinSpaceClient(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).FinSpaceClient(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_finspace_kx_environment" {
 continue
-}
-
-input := &finspace.GetKxEnvironmentInput{
+}input := &finspace.GetKxEnvironmentInput{
 EnvironmentId: aws.String(rs.Primary.ID),
 }
 out, err := conn.GetKxEnvironment(ctx, input)
@@ -380,9 +338,7 @@ if out.Status == types.EnvironmentStatusDeleted {
 return nil
 }
 return create.Error(names.FinSpace, create.ErrActionCheckingDestroyed, tffinspace.ResNameKxEnvironment, rs.Primary.ID, errors.New("not destroyed"))
-}
-
-return nil
+}return nil
 }
 }
 func testAccCheckKxEnvironmentExists(ctx context.Context, name string, kxenvironment *finspace.GetKxEnvironmentOutput) resource.TestCheckFunc {
@@ -390,24 +346,14 @@ return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return create.Error(names.FinSpace, create.ErrActionCheckingExistence, tffinspace.ResNameKxEnvironment, name, errors.New("not found"))
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return create.Error(names.FinSpace, create.ErrActionCheckingExistence, tffinspace.ResNameKxEnvironment, name, errors.New("not set"))
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).FinSpaceClient(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).FinSpaceClient(ctx)
 resp, err := conn.GetKxEnvironment(ctx, &finspace.GetKxEnvironmentInput{
 EnvironmentId: aws.String(rs.Primary.ID),
-})
-
-if err != nil {
+})if err != nil {
 return create.Error(names.FinSpace, create.ErrActionCheckingExistence, tffinspace.ResNameKxEnvironment, rs.Primary.ID, err)
-}
-
-*kxenvironment = *resp
-
-return nil
+}*kxenvironment = *respreturn nil
 }
 }
 func testAccKxEnvironmentConfigBase() string {
@@ -444,13 +390,9 @@ testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
   description = "test"
-}
-
-resource "aws_finspace_kx_environment" "test" {
+}resource "aws_finspace_kx_environment" "test" {
   name  = %[1]q
-  kms_key_id = aws_kms_key.test.arn
-
-  transit_gateway_configuration {
+  kms_key_id = aws_kms_key.test.arn  transit_gateway_configuration {
  transit_gateway_id  = aws_ec2_transit_gateway.test.id
  routable_cidr_space = %[2]q
   }
@@ -463,13 +405,9 @@ testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
   description = "test"
-}
-
-resource "aws_finspace_kx_environment" "test" {
+}resource "aws_finspace_kx_environment" "test" {
   name  = %[1]q
-  kms_key_id = aws_kms_key.test.arn
-
-  transit_gateway_configuration {
+  kms_key_id = aws_kms_key.test.arn  transit_gateway_configuration {
  transit_gateway_id  = aws_ec2_transit_gateway.test.id
  routable_cidr_space = %[2]q
  attachment_network_acl_configuration {
@@ -496,13 +434,9 @@ testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
   description = "test"
-}
-
-resource "aws_finspace_kx_environment" "test" {
+}resource "aws_finspace_kx_environment" "test" {
   name  = %[1]q
-  kms_key_id = aws_kms_key.test.arn
-
-  transit_gateway_configuration {
+  kms_key_id = aws_kms_key.test.arn  transit_gateway_configuration {
  transit_gateway_id  = aws_ec2_transit_gateway.test.id
  routable_cidr_space = %[2]q
  attachment_network_acl_configuration {
@@ -543,9 +477,7 @@ testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_finspace_kx_environment" "test" {
   name  = %[1]q
-  kms_key_id = aws_kms_key.test.arn
-
-  custom_dns_configuration {
+  kms_key_id = aws_kms_key.test.arn  custom_dns_configuration {
  custom_dns_server_name = %[2]q
  custom_dns_server_ip= %[3]q
   }
@@ -558,9 +490,7 @@ testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_finspace_kx_environment" "test" {
   name  = %[1]q
-  kms_key_id = aws_kms_key.test.arn
-
-  tags = {
+  kms_key_id = aws_kms_key.test.arn  tags = {
  %[2]q = %[3]q
   }
 }
@@ -572,9 +502,7 @@ testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_finspace_kx_environment" "test" {
   name  = %[1]q
-  kms_key_id = aws_kms_key.test.arn
-
-  tags = {
+  kms_key_id = aws_kms_key.test.arn  tags = {
  %[2]q = %[3]q
  %[4]q = %[5]q
   }

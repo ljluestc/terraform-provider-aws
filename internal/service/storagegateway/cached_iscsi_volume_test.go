@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package storagegateway_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package storagegateway_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/storagegateway"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -18,12 +12,8 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfstoragegateway "github.com/hashicorp/terraform-provider-aws/internal/service/storagegateway"
-)
-
-func TestParseVolumeGatewayARNAndTargetNameFromARN(t *testing.T) {
-t.Parallel()
-
-var testCases = []struct {
+)func TestParseVolumeGatewayARNAndTargetNameFromARN(t *testing.T) {
+t.Parallel()var testCases = []struct {
 Input string
 ExpectedGatewayARN string
 ExpectedTargetName string
@@ -59,9 +49,7 @@ ErrCount: 1,
 Input:    "sgw-12345678",
 ErrCount: 1,
 },
-}
-
-for _, tc := range testCases {
+}for _, tc := range testCases {
 gatewayARN, targetName, err := tfstoragegateway.ParseVolumeGatewayARNAndTargetNameFromARN(tc.Input)
 if tc.ErrCount == 0 && err != nil {
 t.Fatalf("expected %q not to trigger an error, received: %s", tc.Input, err)
@@ -76,15 +64,11 @@ if targetName != tc.ExpectedTargetName {
 t.Fatalf("expected %q to return Disk ID %q, received: %s", tc.Input, tc.ExpectedTargetName, targetName)
 }
 }
-}
-
-func TestAccStorageGatewayCachediSCSIVolume_basic(t *testing.T) {
+}func TestAccStorageGatewayCachediSCSIVolume_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var cachedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_cached_iscsi_volume.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_cached_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -116,16 +100,12 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayCachediSCSIVolume_kms(t *testing.T) {
+}func TestAccStorageGatewayCachediSCSIVolume_kms(t *testing.T) {
 ctx := acctest.Context(t)
 var cachedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_cached_iscsi_volume.test"
-keyResourceName := "aws_kms_key.test"
-
-resource.ParallelTest(t, resource.TestCase{
+keyResourceName := "aws_kms_key.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -146,15 +126,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayCachediSCSIVolume_tags(t *testing.T) {
+}func TestAccStorageGatewayCachediSCSIVolume_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var cachedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_cached_iscsi_volume.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_cached_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -195,15 +171,11 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-func TestAccStorageGatewayCachediSCSIVolume_snapshotID(t *testing.T) {
+}func TestAccStorageGatewayCachediSCSIVolume_snapshotID(t *testing.T) {
 ctx := acctest.Context(t)
 var cachedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_cached_iscsi_volume.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_cached_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -234,16 +206,12 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccStorageGatewayCachediSCSIVolume_sourceVolumeARN(t *testing.T) {
+}func TestAccStorageGatewayCachediSCSIVolume_sourceVolumeARN(t *testing.T) {
 acctest.Skip(t, "This test can cause Storage Gateway 2.0.10.0 to enter an irrecoverable state during volume deletion.")
 ctx := acctest.Context(t)
 var cachedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_cached_iscsi_volume.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_cached_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -274,15 +242,11 @@ ImportStateVerifyIgnore: []string{"source_volume_arn"},
 },
 },
 })
-}
-
-func TestAccStorageGatewayCachediSCSIVolume_disappears(t *testing.T) {
+}func TestAccStorageGatewayCachediSCSIVolume_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var storedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_storagegateway_cached_iscsi_volume.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_storagegateway_cached_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -298,53 +262,27 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func testAccCheckCachediSCSIVolumeExists(ctx context.Context, resourceName string, cachedIscsiVolume *storagegateway.CachediSCSIVolume) resource.TestCheckFunc {
+}func testAccCheckCachediSCSIVolumeExists(ctx context.Context, resourceName string, cachedIscsiVolume *storagegateway.CachediSCSIVolume) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 return fmt.Errorf("Not found: %s", resourceName)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).StorageGatewayConn(ctx)
-
-input := &storagegateway.DescribeCachediSCSIVolumesInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).StorageGatewayConn(ctx)input := &storagegateway.DescribeCachediSCSIVolumesInput{
 VolumeARNs: []*string{aws.String(rs.Primary.ID)},
-}
-
-output, err := conn.DescribeCachediSCSIVolumesWithContext(ctx, input)
-
-if err != nil {
+}output, err := conn.DescribeCachediSCSIVolumesWithContext(ctx, input)if err != nil {
 return fmt.Errorf("error reading Storage Gateway cached iSCSI volume: %s", err)
-}
-
-if output == nil || len(output.CachediSCSIVolumes) == 0 || output.CachediSCSIVolumes[0] == nil || aws.StringValue(output.CachediSCSIVolumes[0].VolumeARN) != rs.Primary.ID {
+}if output == nil || len(output.CachediSCSIVolumes) == 0 || output.CachediSCSIVolumes[0] == nil || aws.StringValue(output.CachediSCSIVolumes[0].VolumeARN) != rs.Primary.ID {
 return fmt.Errorf("Storage Gateway cached iSCSI volume %q not found", rs.Primary.ID)
+}*cachedIscsiVolume = *output.CachediSCSIVolumes[0]return nil
 }
-
-*cachedIscsiVolume = *output.CachediSCSIVolumes[0]
-
-return nil
-}
-}
-
-func testAccCheckCachediSCSIVolumeDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckCachediSCSIVolumeDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).StorageGatewayConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).StorageGatewayConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_storagegateway_cached_iscsi_volume" {
 continue
-}
-
-input := &storagegateway.DescribeCachediSCSIVolumesInput{
+}input := &storagegateway.DescribeCachediSCSIVolumesInput{
 VolumeARNs: []*string{aws.String(rs.Primary.ID)},
-}
-
-output, err := conn.DescribeCachediSCSIVolumesWithContext(ctx, input)
-
-if err != nil {
+}output, err := conn.DescribeCachediSCSIVolumesWithContext(ctx, input)if err != nil {
 if tfstoragegateway.IsErrGatewayNotFound(err) {
 return nil
 }
@@ -355,61 +293,41 @@ if tfawserr.ErrMessageContains(err, storagegateway.ErrCodeInvalidGatewayRequestE
 return nil
 }
 return err
-}
-
-if output != nil && len(output.CachediSCSIVolumes) > 0 && output.CachediSCSIVolumes[0] != nil && aws.StringValue(output.CachediSCSIVolumes[0].VolumeARN) == rs.Primary.ID {
+}if output != nil && len(output.CachediSCSIVolumes) > 0 && output.CachediSCSIVolumes[0] != nil && aws.StringValue(output.CachediSCSIVolumes[0].VolumeARN) == rs.Primary.ID {
 return fmt.Errorf("Storage Gateway cached iSCSI volume %q still exists", rs.Primary.ID)
 }
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccCachediSCSIVolumeBaseConfig(rName string) string {
+}func testAccCachediSCSIVolumeBaseConfig(rName string) string {
 return acctest.ConfigCompose(
 testAccGatewayConfig_typeCached(rName),
 fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = aws_instance.test.availability_zone
   size = 10
-  type = "gp2"
-
-  tags = {
+  type = "gp2"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_volume_attachment" "test" {
+}resource "aws_volume_attachment" "test" {
   device_name  = "/dev/xvdc"
   force_detach = true
   instance_id  = aws_instance.test.id
   volume_id    = aws_ebs_volume.test.id
-}
-
-data "aws_storagegateway_local_disk" "test" {
+}data "aws_storagegateway_local_disk" "test" {
   disk_node   = aws_volume_attachment.test.device_name
   gateway_arn = aws_storagegateway_gateway.test.arn
-}
-
-resource "aws_storagegateway_cache" "test" {
+}resource "aws_storagegateway_cache" "test" {
   # ACCEPTANCE TESTING WORKAROUND:
   # Data sources are not refreshed before plan after apply in TestStep
   # Step 0 error: After applying this step, the plan was not empty:
   #   disk_id:     "0b68f77a-709b-4c79-ad9d-d7728014b291" => "/dev/xvdc" (forces new resource)
-  # We expect this data source value to change due to how Storage Gateway works.
-
-  lifecycle {
+  # We expect this data source value to change due to how Storage Gateway works.  lifecycle {
     ignore_changes = ["disk_id"]
-  }
-
-  disk_id     = data.aws_storagegateway_local_disk.test.id
+  }  disk_id     = data.aws_storagegateway_local_disk.test.id
   gateway_arn = aws_storagegateway_gateway.test.arn
 }
 `, rName))
-}
-
-func testAccCachediSCSIVolumeConfig_basic(rName string) string {
+}func testAccCachediSCSIVolumeConfig_basic(rName string) string {
 return acctest.ConfigCompose(
 testAccCachediSCSIVolumeBaseConfig(rName),
 fmt.Sprintf(`
@@ -420,9 +338,7 @@ resource "aws_storagegateway_cached_iscsi_volume" "test" {
   volume_size_in_bytes = 5368709120
 }
 `, rName))
-}
-
-func testAccCachediSCSIVolumeConfig_kmsEncrypted(rName string) string {
+}func testAccCachediSCSIVolumeConfig_kmsEncrypted(rName string) string {
 return testAccCachediSCSIVolumeBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description = "Terraform acc test %[1]s"
@@ -443,9 +359,7 @@ resource "aws_kms_key" "test" {
    ]
  }
  POLICY
-}
-
-resource "aws_storagegateway_cached_iscsi_volume" "test" {
+}resource "aws_storagegateway_cached_iscsi_volume" "test" {
   gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
   target_name = %[1]q
@@ -454,9 +368,7 @@ resource "aws_storagegateway_cached_iscsi_volume" "test" {
   kms_key = aws_kms_key.test.arn
 }
 `, rName)
-}
-
-func testAccCachediSCSIVolumeConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccCachediSCSIVolumeConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(
 testAccCachediSCSIVolumeBaseConfig(rName),
 fmt.Sprintf(`
@@ -464,16 +376,12 @@ resource "aws_storagegateway_cached_iscsi_volume" "test" {
   gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
   target_name = %[1]q
-  volume_size_in_bytes = 5368709120
-
-  tags = {
+  volume_size_in_bytes = 5368709120  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccCachediSCSIVolumeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccCachediSCSIVolumeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(
 testAccCachediSCSIVolumeBaseConfig(rName),
 fmt.Sprintf(`
@@ -481,39 +389,27 @@ resource "aws_storagegateway_cached_iscsi_volume" "test" {
   gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
   target_name = %[1]q
-  volume_size_in_bytes = 5368709120
-
-  tags = {
+  volume_size_in_bytes = 5368709120  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
-func testAccCachediSCSIVolumeConfig_snapshotID(rName string) string {
+}func testAccCachediSCSIVolumeConfig_snapshotID(rName string) string {
 return acctest.ConfigCompose(
 testAccCachediSCSIVolumeBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_ebs_volume" "snapvolume" {
   availability_zone = aws_instance.test.availability_zone
   size = 5
-  type = "gp2"
-
-  tags = {
+  type = "gp2"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_ebs_snapshot" "test" {
-  volume_id = aws_ebs_volume.snapvolume.id
-
-  tags = {
+}resource "aws_ebs_snapshot" "test" {
+  volume_id = aws_ebs_volume.snapvolume.id  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_storagegateway_cached_iscsi_volume" "test" {
+}resource "aws_storagegateway_cached_iscsi_volume" "test" {
   gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
   snapshot_id = aws_ebs_snapshot.test.id
@@ -521,9 +417,7 @@ resource "aws_storagegateway_cached_iscsi_volume" "test" {
   volume_size_in_bytes = aws_ebs_snapshot.test.volume_size * 1024 * 1024 * 1024
 }
 `, rName))
-}
-
-func testAccCachediSCSIVolumeConfig_sourceARN(rName string) string {
+}func testAccCachediSCSIVolumeConfig_sourceARN(rName string) string {
 return acctest.ConfigCompose(
 testAccCachediSCSIVolumeBaseConfig(rName),
 fmt.Sprintf(`
@@ -532,9 +426,7 @@ resource "aws_storagegateway_cached_iscsi_volume" "source" {
   network_interface_id = aws_instance.test.private_ip
   target_name = "%[1]s-source"
   volume_size_in_bytes = 1073741824
-}
-
-resource "aws_storagegateway_cached_iscsi_volume" "test" {
+}resource "aws_storagegateway_cached_iscsi_volume" "test" {
   gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
   source_volume_arn    = aws_storagegateway_cached_iscsi_volume.source.arn

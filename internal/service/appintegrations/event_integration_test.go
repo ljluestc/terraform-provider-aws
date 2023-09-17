@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appintegrations_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appintegrations_testimport (
 	"context"
 	"fmt"
 	"os"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/appintegrationsservice"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,25 +11,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfappintegrations "github.com/hashicorp/terraform-provider-aws/internal/service/appintegrations"
-)
-
-func TestAccAppIntegrationsEventIntegration_basic(t *testing.T) {
+)func TestAccAppIntegrationsEventIntegration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var eventIntegration appintegrationsservice.GetEventIntegrationOutput
-
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+	var eventIntegration appintegrationsservice.GetEventIntegrationOutput	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	originalDescription := "original description"
 	updatedDescription := "updated description"
-	resourceName := "aws_appintegrations_event_integration.test"
-
-	key := "EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME"
+	resourceName := "aws_appintegrations_event_integration.test"	key := "EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME"
 	var sourceName string
 	sourceName = os.Getenv(key)
 	if sourceName == "" {
 		sourceName = "aws.partner/examplepartner.com"
-	}
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, appintegrationsservice.EndpointsID)
@@ -77,24 +63,16 @@ func TestAccAppIntegrationsEventIntegration_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccAppIntegrationsEventIntegration_updateTags(t *testing.T) {
+}func TestAccAppIntegrationsEventIntegration_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var eventIntegration appintegrationsservice.GetEventIntegrationOutput
-
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+	var eventIntegration appintegrationsservice.GetEventIntegrationOutput	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	description := "example description"
-	resourceName := "aws_appintegrations_event_integration.test"
-
-	key := "EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME"
+	resourceName := "aws_appintegrations_event_integration.test"	key := "EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME"
 	var sourceName string
 	sourceName = os.Getenv(key)
 	if sourceName == "" {
 		sourceName = "aws.partner/examplepartner.com"
-	}
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, appintegrationsservice.EndpointsID)
@@ -157,24 +135,16 @@ func TestAccAppIntegrationsEventIntegration_updateTags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccAppIntegrationsEventIntegration_disappears(t *testing.T) {
+}func TestAccAppIntegrationsEventIntegration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var eventIntegration appintegrationsservice.GetEventIntegrationOutput
-
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+	var eventIntegration appintegrationsservice.GetEventIntegrationOutput	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	description := "disappears"
-	resourceName := "aws_appintegrations_event_integration.test"
-
-	key := "EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME"
+	resourceName := "aws_appintegrations_event_integration.test"	key := "EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME"
 	var sourceName string
 	sourceName = os.Getenv(key)
 	if sourceName == "" {
 		sourceName = "aws.partner/examplepartner.com"
-	}
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, appintegrationsservice.EndpointsID)
@@ -193,106 +163,66 @@ func TestAccAppIntegrationsEventIntegration_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckEventIntegrationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckEventIntegrationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).AppIntegrationsConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_appintegrations_event_integration" {
 				continue
-			}
-
-			input := &appintegrationsservice.GetEventIntegrationInput{
+			}			input := &appintegrationsservice.GetEventIntegrationInput{
 				Name: aws.String(rs.Primary.ID),
-			}
-
-			resp, err := conn.GetEventIntegrationWithContext(ctx, input)
-
-			if err == nil {
+			}			resp, err := conn.GetEventIntegrationWithContext(ctx, input)			if err == nil {
 				if aws.StringValue(resp.Name) == rs.Primary.ID {
 					return fmt.Errorf("Event Integration '%s' was not deleted properly", rs.Primary.ID)
 				}
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckEventIntegrationExists(ctx context.Context, name string, eventIntegration *appintegrationsservice.GetEventIntegrationOutput) resource.TestCheckFunc {
+}func testAccCheckEventIntegrationExists(ctx context.Context, name string, eventIntegration *appintegrationsservice.GetEventIntegrationOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-
-		if !ok {
+		rs, ok := s.RootModule().Resources[name]		if !ok {
 			return fmt.Errorf("Not found: %s", name)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AppIntegrationsConn(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).AppIntegrationsConn(ctx)
 		input := &appintegrationsservice.GetEventIntegrationInput{
 			Name: aws.String(rs.Primary.ID),
 		}
-		resp, err := conn.GetEventIntegrationWithContext(ctx, input)
-
-		if err != nil {
+		resp, err := conn.GetEventIntegrationWithContext(ctx, input)		if err != nil {
 			return err
-		}
-
-		*eventIntegration = *resp
-
-		return nil
+		}		*eventIntegration = *resp		return nil
 	}
-}
-
-func testAccEventIntegrationConfig_basic(rName, label, sourceName string) string {
+}func testAccEventIntegrationConfig_basic(rName, label, sourceName string) string {
 	return fmt.Sprintf(`
 resource "aws_appintegrations_event_integration" "test" {
   name   = %[1]q
   description     = %[2]q
-  eventbridge_bus = "default"
-
-  event_filter {
+  eventbridge_bus = "default"  event_filter {
     source = %[3]q
-  }
-
-  tags = {
+  }  tags = {
     "Name" = "Test Event Integration"
   }
 }
 `, rName, label, sourceName)
-}
-
-func testAccEventIntegrationConfig_tags(rName, label, sourceName string) string {
+}func testAccEventIntegrationConfig_tags(rName, label, sourceName string) string {
 	return fmt.Sprintf(`
 resource "aws_appintegrations_event_integration" "test" {
   name   = %[1]q
   description     = %[2]q
-  eventbridge_bus = "default"
-
-  event_filter {
+  eventbridge_bus = "default"  event_filter {
     source = %[3]q
-  }
-
-  tags = {
+  }  tags = {
     "Name" = "Test Event Integration"
     "Key2" = "Value2a"
   }
 }
 `, rName, label, sourceName)
-}
-
-func testAccEventIntegrationConfig_tagsUpdated(rName, label, sourceName string) string {
+}func testAccEventIntegrationConfig_tagsUpdated(rName, label, sourceName string) string {
 	return fmt.Sprintf(`
 resource "aws_appintegrations_event_integration" "test" {
   name   = %[1]q
   description     = %[2]q
-  eventbridge_bus = "default"
-
-  event_filter {
+  eventbridge_bus = "default"  event_filter {
     source = %[3]q
-  }
-
-  tags = {
+  }  tags = {
     "Name" = "Test Event Integration"
     "Key2" = "Value2b"
     "Key3" = "Value3"

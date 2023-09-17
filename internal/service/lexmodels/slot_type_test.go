@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lexmodels_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lexmodels_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/aws"
+"testing""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/lexmodelbuildingservice"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,15 +11,11 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tflexmodels "github.com/hashicorp/terraform-provider-aws/internal/service/lexmodels"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccLexModelsSlotType_basic(t *testing.T) {
+)func TestAccLexModelsSlotType_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var v lexmodelbuildingservice.GetSlotTypeOutput
 rName := "aws_lex_slot_type.test"
-testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
-
-resource.ParallelTest(t, resource.TestCase{
+testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
@@ -63,15 +53,11 @@ ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
 })
-}
-
-func TestAccLexModelsSlotType_createVersion(t *testing.T) {
+}func TestAccLexModelsSlotType_createVersion(t *testing.T) {
 ctx := acctest.Context(t)
 var v lexmodelbuildingservice.GetSlotTypeOutput
 rName := "aws_lex_slot_type.test"
-testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
-
-resource.ParallelTest(t, resource.TestCase{
+testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
@@ -110,15 +96,11 @@ ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
 })
-}
-
-func TestAccLexModelsSlotType_description(t *testing.T) {
+}func TestAccLexModelsSlotType_description(t *testing.T) {
 ctx := acctest.Context(t)
 var v lexmodelbuildingservice.GetSlotTypeOutput
 rName := "aws_lex_slot_type.test"
-testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
-
-resource.ParallelTest(t, resource.TestCase{
+testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
@@ -155,15 +137,11 @@ ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
 })
-}
-
-func TestAccLexModelsSlotType_enumerationValues(t *testing.T) {
+}func TestAccLexModelsSlotType_enumerationValues(t *testing.T) {
 ctx := acctest.Context(t)
 var v lexmodelbuildingservice.GetSlotTypeOutput
 rName := "aws_lex_slot_type.test"
-testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
-
-resource.ParallelTest(t, resource.TestCase{
+testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
@@ -205,16 +183,12 @@ ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
 })
-}
-
-func TestAccLexModelsSlotType_name(t *testing.T) {
+}func TestAccLexModelsSlotType_name(t *testing.T) {
 ctx := acctest.Context(t)
 var v lexmodelbuildingservice.GetSlotTypeOutput
 rName := "aws_lex_slot_type.test"
 testSlotTypeID1 := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
-testSlotTypeID2 := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
-
-resource.ParallelTest(t, resource.TestCase{
+testSlotTypeID2 := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
@@ -251,15 +225,11 @@ ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
 })
-}
-
-func TestAccLexModelsSlotType_valueSelectionStrategy(t *testing.T) {
+}func TestAccLexModelsSlotType_valueSelectionStrategy(t *testing.T) {
 ctx := acctest.Context(t)
 var v lexmodelbuildingservice.GetSlotTypeOutput
 rName := "aws_lex_slot_type.test"
-testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
-
-resource.ParallelTest(t, resource.TestCase{
+testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
@@ -296,15 +266,11 @@ ImportStateVerify:       true,
 			},
 		},
 	})
-}
-
-func TestAccLexModelsSlotType_disappears(t *testing.T) {
+}func TestAccLexModelsSlotType_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v lexmodelbuildingservice.GetSlotTypeOutput
 	rName := "aws_lex_slot_type.test"
-	testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
-
-	resource.ParallelTest(t, resource.TestCase{
+	testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
@@ -323,21 +289,13 @@ func TestAccLexModelsSlotType_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLexModelsSlotType_computeVersion(t *testing.T) {
+}func TestAccLexModelsSlotType_computeVersion(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1 lexmodelbuildingservice.GetSlotTypeOutput
-	var v2 lexmodelbuildingservice.GetIntentOutput
-
-	slotTypeResourceName := "aws_lex_slot_type.test"
+	var v2 lexmodelbuildingservice.GetIntentOutput	slotTypeResourceName := "aws_lex_slot_type.test"
 	intentResourceName := "aws_lex_intent.test"
-	testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
-
-	version := "1"
-	updatedVersion := "2"
-
-	resource.ParallelTest(t, resource.TestCase{
+	testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)	version := "1"
+	updatedVersion := "2"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
@@ -380,84 +338,42 @@ func TestAccLexModelsSlotType_computeVersion(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckSlotTypeExistsWithVersion(ctx context.Context, rName, slotTypeVersion string, v *lexmodelbuildingservice.GetSlotTypeOutput) resource.TestCheckFunc {
+}func testAccCheckSlotTypeExistsWithVersion(ctx context.Context, rName, slotTypeVersion string, v *lexmodelbuildingservice.GetSlotTypeOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[rName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", rName)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Lex Slot Type ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)
-
-		output, err := tflexmodels.FindSlotTypeVersionByName(ctx, conn, rs.Primary.ID, slotTypeVersion)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)		output, err := tflexmodels.FindSlotTypeVersionByName(ctx, conn, rs.Primary.ID, slotTypeVersion)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccCheckSlotTypeExists(ctx context.Context, rName string, output *lexmodelbuildingservice.GetSlotTypeOutput) resource.TestCheckFunc {
+}func testAccCheckSlotTypeExists(ctx context.Context, rName string, output *lexmodelbuildingservice.GetSlotTypeOutput) resource.TestCheckFunc {
 	return testAccCheckSlotTypeExistsWithVersion(ctx, rName, tflexmodels.SlotTypeVersionLatest, output)
-}
-
-func testAccCheckSlotTypeNotExists(ctx context.Context, slotTypeName, slotTypeVersion string) resource.TestCheckFunc {
+}func testAccCheckSlotTypeNotExists(ctx context.Context, slotTypeName, slotTypeVersion string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)
-
-		_, err := tflexmodels.FindSlotTypeVersionByName(ctx, conn, slotTypeName, slotTypeVersion)
-
-		if tfresource.NotFound(err) {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)		_, err := tflexmodels.FindSlotTypeVersionByName(ctx, conn, slotTypeName, slotTypeVersion)		if tfresource.NotFound(err) {
 			return nil
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return err
-		}
-
-		return fmt.Errorf("Lex Slot Type %s/%s still exists", slotTypeName, slotTypeVersion)
+		}		return fmt.Errorf("Lex Slot Type %s/%s still exists", slotTypeName, slotTypeVersion)
 	}
-}
-
-func testAccCheckSlotTypeDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckSlotTypeDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_lex_slot_type" {
 				continue
-			}
-
-			output, err := conn.GetSlotTypeVersionsWithContext(ctx, &lexmodelbuildingservice.GetSlotTypeVersionsInput{
+			}			output, err := conn.GetSlotTypeVersionsWithContext(ctx, &lexmodelbuildingservice.GetSlotTypeVersionsInput{
 				Name: aws.String(rs.Primary.ID),
-			})
-
-			if err != nil {
+			})			if err != nil {
 				return err
-			}
-
-			if output == nil || len(output.SlotTypes) == 0 {
+			}			if output == nil || len(output.SlotTypes) == 0 {
 				return nil
-			}
-
-			return fmt.Errorf("Lex Slot Type %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Lex Slot Type %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccSlotTypeConfig_basic(rName string) string {
+}func testAccSlotTypeConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
   name = "%s"
@@ -470,9 +386,7 @@ resource "aws_lex_slot_type" "test" {
   }
 }
 `, rName)
-}
-
-func testAccSlotTypeConfig_withVersion(rName string) string {
+}func testAccSlotTypeConfig_withVersion(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
   create_version = true
@@ -486,9 +400,7 @@ resource "aws_lex_slot_type" "test" {
   }
 }
 `, rName)
-}
-
-func testAccSlotTypeUpdateConfig_description(rName string) string {
+}func testAccSlotTypeUpdateConfig_description(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
   description = "Types of flowers to pick up"
@@ -502,9 +414,7 @@ resource "aws_lex_slot_type" "test" {
   }
 }
 `, rName)
-}
-
-func testAccSlotTypeConfig_enumerationValues(rName string) string {
+}func testAccSlotTypeConfig_enumerationValues(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
   name = "%s"
@@ -514,9 +424,7 @@ resource "aws_lex_slot_type" "test" {
       "Martagon",
     ]
     value = "lilies"
-  }
-
-  enumeration_value {
+  }  enumeration_value {
     synonyms = [
       "Eduardoregelia",
       "Podonix",
@@ -525,9 +433,7 @@ resource "aws_lex_slot_type" "test" {
   }
 }
 `, rName)
-}
-
-func testAccSlotTypeConfig_valueSelectionStrategy(rName string) string {
+}func testAccSlotTypeConfig_valueSelectionStrategy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
   name      = "%s"
@@ -541,9 +447,7 @@ resource "aws_lex_slot_type" "test" {
   }
 }
 `, rName)
-}
-
-func testAccSlotTypeUpdateConfig_enumerationValuesWithVersion(rName string) string {
+}func testAccSlotTypeUpdateConfig_enumerationValuesWithVersion(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
   create_version = true
@@ -554,9 +458,7 @@ resource "aws_lex_slot_type" "test" {
       "Martagon",
     ]
     value = "lilies"
-  }
-
-  enumeration_value {
+  }  enumeration_value {
     synonyms = [
       "Eduardoregelia",
       "Podonix",

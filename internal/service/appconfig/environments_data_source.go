@@ -1,78 +1,50 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageappconfig
-
-import(
-	"context"
-
-	"github.com/YakDriver/regexache"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/appconfig"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
-	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-//@SDKDataSource("aws_appconfig_environments")
+//SPDX-License-Identifier:MPL-2.0packageappconfigimport(
+"context""github.com/YakDriver/regexache"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/appconfig"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/create"
+"github.com/hashicorp/terraform-provider-aws/names"
+)//@SDKDataSource("aws_appconfig_environments")
 funcDataSourceEnvironments()*schema.Resource{
-	return&schema.Resource{
-		ReadWithoutTimeout:dataSourceEnvironmentsRead,
-		Schema:map[string]*schema.Schema{
-			"application_id":{
-				Type:schema.TypeString,
-				Required:true,
-				ValidateFunc:validation.StringMatch(regexache.MustCompile(`[a-z\d]{4,7}`),""),
-			},
-			"environment_ids":{
-				Type:schema.TypeSet,
-				Computed:true,
-				Elem:&schema.Schema{Type:schema.TypeString},
-			},
-		},
-	}
+return&schema.Resource{
+ReadWithoutTimeout:dataSourceEnvironmentsRead,
+Schema:map[string]*schema.Schema{
+"application_id":{
+Type:schema.TypeString,
+Required:true,
+ValidateFunc:validation.StringMatch(regexache.MustCompile(`[a-z\d]{4,7}`),""),
+},
+"environment_ids":{
+Type:schema.TypeSet,
+Computed:true,
+Elem:&schema.Schema{Type:schema.TypeString},
+},
+},
 }
-
-const(
-	DSNameEnvironments="EnvironmentsDataSource"
-)
-
-funcdataSourceEnvironmentsRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
-	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
-	appID:=d.Get("application_id").(string)
-
-	out,err:=findEnvironmentsByApplication(ctx,conn,appID)
-	iferr!=nil{
-		returncreate.DiagError(names.AppConfig,create.ErrActionReading,DSNameEnvironments,appID,err)
-	}
-
-	d.SetId(appID)
-
-	varenvironmentIds[]*string
-	for_,v:=rangeout{
-		environmentIds=append(environmentIds,v.Id)
-	}
-	d.Set("environment_ids",aws.StringValueSlice(environmentIds))
-
-	returnnil
+}const(
+DSNameEnvironments="EnvironmentsDataSource"
+)funcdataSourceEnvironmentsRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
+appID:=d.Get("application_id").(string)out,err:=findEnvironmentsByApplication(ctx,conn,appID)
+iferr!=nil{
+returncreate.DiagError(names.AppConfig,create.ErrActionReading,DSNameEnvironments,appID,err)
+}d.SetId(appID)varenvironmentIds[]*string
+for_,v:=rangeout{
+environmentIds=append(environmentIds,v.Id)
 }
-
-funcfindEnvironmentsByApplication(ctxcontext.Context,conn*appconfig.AppConfig,appIdstring)([]*appconfig.Environment,error){
-	varoutputs[]*appconfig.Environment
-	err:=conn.ListEnvironmentsPagesWithContext(ctx,&appconfig.ListEnvironmentsInput{
-		ApplicationId:aws.String(appId),
-	},func(output*appconfig.ListEnvironmentsOutput,lastPagebool)bool{
-		outputs=append(outputs,output.Items...)
-
-		return!lastPage
-	})
-
-	iferr!=nil{
-		returnnil,err
-	}
-
-	returnoutputs,nil
+d.Set("environment_ids",aws.StringValueSlice(environmentIds))returnnil
+}funcfindEnvironmentsByApplication(ctxcontext.Context,conn*appconfig.AppConfig,appIdstring)([]*appconfig.Environment,error){
+varoutputs[]*appconfig.Environment
+err:=conn.ListEnvironmentsPagesWithContext(ctx,&appconfig.ListEnvironmentsInput{
+ApplicationId:aws.String(appId),
+},func(output*appconfig.ListEnvironmentsOutput,lastPagebool)bool{
+outputs=append(outputs,output.Items...)return!lastPage
+})iferr!=nil{
+returnnil,err
+}returnoutputs,nil
 }

@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicecatalog
-
-import (
-"context"
-
-"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package servicecatalogimport (
+"context""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/servicecatalog"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -14,18 +8,12 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-)
-
-// @SDKDataSource("aws_servicecatalog_launch_paths")
+)// @SDKDataSource("aws_servicecatalog_launch_paths")
 func DataSourceLaunchPaths() *schema.Resource {
 return &schema.Resource{
-ReadWithoutTimeout: dataSourceLaunchPathsRead,
-
-Timeouts: &schema.ResourceTimeout{
+ReadWithoutTimeout: dataSourceLaunchPathsRead,Timeouts: &schema.ResourceTimeout{
 Read: schema.DefaultTimeout(LaunchPathsReadyTimeout),
-},
-
-Schema: map[string]*schema.Schema{
+},Schema: map[string]*schema.Schema{
 "accept_language": {
 Type:schema.TypeString,
 Optional:     true,
@@ -71,104 +59,46 @@ Computed: true,
 },
 },
 }
-}
-
-func dataSourceLaunchPathsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceLaunchPathsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)
-ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-summaries, err := WaitLaunchPathsReady(ctx, conn, d.Get("accept_language").(string), d.Get("product_id").(string), d.Timeout(schema.TimeoutRead))
-
-if err != nil {
+ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfigsummaries, err := WaitLaunchPathsReady(ctx, conn, d.Get("accept_language").(string), d.Get("product_id").(string), d.Timeout(schema.TimeoutRead))if err != nil {
 return sdkdiag.AppendErrorf(diags, "describing Service Catalog Launch Paths: %s", err)
-}
-
-if err := d.Set("summaries", flattenLaunchPathSummaries(ctx, summaries, ignoreTagsConfig)); err != nil {
+}if err := d.Set("summaries", flattenLaunchPathSummaries(ctx, summaries, ignoreTagsConfig)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting summaries: %s", err)
-}
-
-d.SetId(d.Get("product_id").(string))
-
-return diags
-}
-
-func flattenLaunchPathSummary(ctx context.Context, apiObject *servicecatalog.LaunchPathSummary, ignoreTagsConfig *tftags.IgnoreConfig) map[string]interface{} {
+}d.SetId(d.Get("product_id").(string))return diags
+}func flattenLaunchPathSummary(ctx context.Context, apiObject *servicecatalog.LaunchPathSummary, ignoreTagsConfig *tftags.IgnoreConfig) map[string]interface{} {
 if apiObject == nil {
 return nil
-}
-
-tfMap := map[string]interface{}{}
-
-if len(apiObject.ConstraintSummaries) > 0 {
+}tfMap := map[string]interface{}{}if len(apiObject.ConstraintSummaries) > 0 {
 tfMap["constraint_summaries"] = flattenConstraintSummaries(apiObject.ConstraintSummaries)
-}
-
-if apiObject.Id != nil {
+}if apiObject.Id != nil {
 tfMap["path_id"] = aws.StringValue(apiObject.Id)
-}
-
-if apiObject.Name != nil {
+}if apiObject.Name != nil {
 tfMap["name"] = aws.StringValue(apiObject.Name)
-}
-
-tags := KeyValueTags(ctx, apiObject.Tags)
-
-tfMap["tags"] = tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()
-
-return tfMap
-}
-
-func flattenLaunchPathSummaries(ctx context.Context, apiObjects []*servicecatalog.LaunchPathSummary, ignoreTagsConfig *tftags.IgnoreConfig) []interface{} {
+}tags := KeyValueTags(ctx, apiObject.Tags)tfMap["tags"] = tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()return tfMap
+}func flattenLaunchPathSummaries(ctx context.Context, apiObjects []*servicecatalog.LaunchPathSummary, ignoreTagsConfig *tftags.IgnoreConfig) []interface{} {
 if len(apiObjects) == 0 {
 return nil
-}
-
-var tfList []interface{}
-
-for _, apiObject := range apiObjects {
+}var tfList []interface{}for _, apiObject := range apiObjects {
 if apiObject == nil {
 continue
-}
-
-tfList = append(tfList, flattenLaunchPathSummary(ctx, apiObject, ignoreTagsConfig))
-}
-
-return tfList
-}
-
-func flattenConstraintSummary(apiObject *servicecatalog.ConstraintSummary) map[string]interface{} {
+}tfList = append(tfList, flattenLaunchPathSummary(ctx, apiObject, ignoreTagsConfig))
+}return tfList
+}func flattenConstraintSummary(apiObject *servicecatalog.ConstraintSummary) map[string]interface{} {
 if apiObject == nil {
 return nil
-}
-
-tfMap := map[string]interface{}{}
-
-if apiObject.Description != nil {
+}tfMap := map[string]interface{}{}if apiObject.Description != nil {
 tfMap["description"] = aws.StringValue(apiObject.Description)
-}
-
-if apiObject.Type != nil {
+}if apiObject.Type != nil {
 tfMap["type"] = aws.StringValue(apiObject.Type)
-}
-
-return tfMap
-}
-
-func flattenConstraintSummaries(apiObjects []*servicecatalog.ConstraintSummary) []interface{} {
+}return tfMap
+}func flattenConstraintSummaries(apiObjects []*servicecatalog.ConstraintSummary) []interface{} {
 if len(apiObjects) == 0 {
 return nil
-}
-
-var tfList []interface{}
-
-for _, apiObject := range apiObjects {
+}var tfList []interface{}for _, apiObject := range apiObjects {
 if apiObject == nil {
 continue
-}
-
-tfList = append(tfList, flattenConstraintSummary(apiObject))
-}
-
-return tfList
+}tfList = append(tfList, flattenConstraintSummary(apiObject))
+}return tfList
 }

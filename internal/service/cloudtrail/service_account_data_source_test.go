@@ -1,23 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cloudtrail_test
-
-import (
-	"testing"
-
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+// SPDX-License-Identifier: MPL-2.0package cloudtrail_testimport (
+	"testing"	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfcloudtrail "github.com/hashicorp/terraform-provider-aws/internal/service/cloudtrail"
-)
-
-func TestAccCloudTrailServiceAccountDataSource_basic(t *testing.T) {
+)func TestAccCloudTrailServiceAccountDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	expectedAccountID := tfcloudtrail.ServiceAccountPerRegionMap[acctest.Region()]
-
-	dataSourceName := "data.aws_cloudtrail_service_account.main"
-
-	resource.ParallelTest(t, resource.TestCase{
+	expectedAccountID := tfcloudtrail.ServiceAccountPerRegionMap[acctest.Region()]	dataSourceName := "data.aws_cloudtrail_service_account.main"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -31,15 +19,9 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccCloudTrailServiceAccountDataSource_region(t *testing.T) {
+}func TestAccCloudTrailServiceAccountDataSource_region(t *testing.T) {
 	ctx := acctest.Context(t)
-	expectedAccountID := tfcloudtrail.ServiceAccountPerRegionMap[acctest.Region()]
-
-	dataSourceName := "data.aws_cloudtrail_service_account.regional"
-
-	resource.ParallelTest(t, resource.TestCase{
+	expectedAccountID := tfcloudtrail.ServiceAccountPerRegionMap[acctest.Region()]	dataSourceName := "data.aws_cloudtrail_service_account.regional"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -53,16 +35,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-const testAccServiceAccountDataSourceConfig_basic = `
+}const testAccServiceAccountDataSourceConfig_basic = `
 data "aws_cloudtrail_service_account" "main" {}
-`
-
-const testAccServiceAccountDataSourceConfig_region = `
-data "aws_region" "current" {}
-
-data "aws_cloudtrail_service_account" "regional" {
+`const testAccServiceAccountDataSourceConfig_region = `
+data "aws_region" "current" {}data "aws_cloudtrail_service_account" "regional" {
   region = data.aws_region.current.name
 }
 `

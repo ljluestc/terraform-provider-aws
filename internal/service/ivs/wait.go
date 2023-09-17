@@ -1,13 +1,7 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageivs
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageivsimport(
 	"context"
-	"time"
-
-	"github.com/aws/aws-sdk-go/service/ivs"
+	"time"	"github.com/aws/aws-sdk-go/service/ivs"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 )
 funcwaitPlaybackKeyPairCreated(ctxcontext.Context,conn*ivs.IVS,idstring,timeouttime.Duration)(*ivs.PlaybackKeyPair,error){
@@ -18,14 +12,10 @@ Refresh:statusPlaybackKeyPair(ctx,conn,id),
 Timeout:timeout,
 NotFoundChecks:20,
 ContinuousTargetOccurence:2,
-	}
-
-	outputRaw,err:=stateConf.WaitForStateContext(ctx)
+	}	outputRaw,err:=stateConf.WaitForStateContext(ctx)
 	ifout,ok:=outputRaw.(*ivs.PlaybackKeyPair);ok{
 returnout,err
-	}
-
-	returnnil,err
+	}	returnnil,err
 }
 funcwaitPlaybackKeyPairDeleted(ctxcontext.Context,conn*ivs.IVS,idstring,timeouttime.Duration)(*ivs.PlaybackKeyPair,error){
 	stateConf:=&retry.StateChangeConf{
@@ -33,14 +23,10 @@ Pending:[]string{statusNormal},
 Target:[]string{},
 Refresh:statusPlaybackKeyPair(ctx,conn,id),
 Timeout:timeout,
-	}
-
-	outputRaw,err:=stateConf.WaitForStateContext(ctx)
+	}	outputRaw,err:=stateConf.WaitForStateContext(ctx)
 	ifout,ok:=outputRaw.(*ivs.PlaybackKeyPair);ok{
 returnout,err
-	}
-
-	returnnil,err
+	}	returnnil,err
 }
 funcwaitRecordingConfigurationCreated(ctxcontext.Context,conn*ivs.IVS,idstring,timeouttime.Duration)(*ivs.RecordingConfiguration,error){
 	stateConf:=&retry.StateChangeConf{
@@ -50,14 +36,10 @@ Refresh:statusRecordingConfiguration(ctx,conn,id),
 Timeout:timeout,
 NotFoundChecks:20,
 ContinuousTargetOccurence:2,
-	}
-
-	outputRaw,err:=stateConf.WaitForStateContext(ctx)
+	}	outputRaw,err:=stateConf.WaitForStateContext(ctx)
 	ifout,ok:=outputRaw.(*ivs.RecordingConfiguration);ok{
 returnout,err
-	}
-
-	returnnil,err
+	}	returnnil,err
 }
 funcwaitRecordingConfigurationDeleted(ctxcontext.Context,conn*ivs.IVS,idstring,timeouttime.Duration)(*ivs.RecordingConfiguration,error){
 	stateConf:=&retry.StateChangeConf{
@@ -65,14 +47,10 @@ Pending:[]string{ivs.RecordingConfigurationStateActive},
 Target:[]string{},
 Refresh:statusRecordingConfiguration(ctx,conn,id),
 Timeout:timeout,
-	}
-
-	outputRaw,err:=stateConf.WaitForStateContext(ctx)
+	}	outputRaw,err:=stateConf.WaitForStateContext(ctx)
 	ifout,ok:=outputRaw.(*ivs.RecordingConfiguration);ok{
 returnout,err
-	}
-
-	returnnil,err
+	}	returnnil,err
 }
 funcwaitChannelCreated(ctxcontext.Context,conn*ivs.IVS,idstring,timeouttime.Duration)(*ivs.Channel,error){
 	stateConf:=&retry.StateChangeConf{
@@ -82,14 +60,10 @@ Refresh:statusChannel(ctx,conn,id,nil),
 Timeout:timeout,
 NotFoundChecks:20,
 ContinuousTargetOccurence:2,
-	}
-
-	outputRaw,err:=stateConf.WaitForStateContext(ctx)
+	}	outputRaw,err:=stateConf.WaitForStateContext(ctx)
 	ifout,ok:=outputRaw.(*ivs.Channel);ok{
 returnout,err
-	}
-
-	returnnil,err
+	}	returnnil,err
 }
 funcwaitChannelUpdated(ctxcontext.Context,conn*ivs.IVS,idstring,timeouttime.Duration,updateDetails*ivs.UpdateChannelInput)(*ivs.Channel,error){
 	stateConf:=&retry.StateChangeConf{
@@ -99,14 +73,10 @@ Refresh:statusChannel(ctx,conn,id,updateDetails),
 Timeout:timeout,
 NotFoundChecks:20,
 ContinuousTargetOccurence:2,
-	}
-
-	outputRaw,err:=stateConf.WaitForStateContext(ctx)
+	}	outputRaw,err:=stateConf.WaitForStateContext(ctx)
 	ifout,ok:=outputRaw.(*ivs.Channel);ok{
 returnout,err
-	}
-
-	returnnil,err
+	}	returnnil,err
 }
 funcwaitChannelDeleted(ctxcontext.Context,conn*ivs.IVS,idstring,timeouttime.Duration)(*ivs.Channel,error){
 	stateConf:=&retry.StateChangeConf{
@@ -114,12 +84,8 @@ Pending:[]string{statusNormal},
 Target:[]string{},
 Refresh:statusChannel(ctx,conn,id,nil),
 Timeout:timeout,
-	}
-
-	outputRaw,err:=stateConf.WaitForStateContext(ctx)
+	}	outputRaw,err:=stateConf.WaitForStateContext(ctx)
 	ifout,ok:=outputRaw.(*ivs.Channel);ok{
 returnout,err
-	}
-
-	returnnil,err
+	}	returnnil,err
 }

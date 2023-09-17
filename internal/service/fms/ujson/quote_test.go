@@ -1,23 +1,13 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ujson_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ujson_testimport (
 	"errors"
-	"testing"
-
-	. "github.com/hashicorp/terraform-provider-aws/internal/service/fms/ujson"
-)
-
-type quoteTest struct {
+	"testing"	. "github.com/hashicorp/terraform-provider-aws/internal/service/fms/ujson"
+)type quoteTest struct {
 	in      string
 	out     string
 	ascii   string
 	graphic string
-}
-
-var quotetests = []quoteTest{
+}var quotetests = []quoteTest{
 	{"\a\b\f\r\n\t\v", `"\a\b\f\r\n\t\v"`, `"\a\b\f\r\n\t\v"`, `"\a\b\f\r\n\t\v"`},
 	{"\\", `"\\"`, `"\\"`, `"\\"`},
 	{"abc\xffdef", `"abc\xffdef"`, `"abc\xffdef"`, `"abc\xffdef"`},
@@ -26,44 +16,28 @@ var quotetests = []quoteTest{
 	{"\x04", `"\x04"`, `"\x04"`, `"\x04"`},
 	// Some non-printable but graphic runes. Final column is double-quoted.
 	{"!\u00a0!\u2000!\u3000!", `"!\u00a0!\u2000!\u3000!"`, `"!\u00a0!\u2000!\u3000!"`, "\"!\u00a0!\u2000!\u3000!\""},
-}
-
-func TestQuote(t *testing.T) {
-	t.Parallel()
-
-	for _, tt := range quotetests {
+}func TestQuote(t *testing.T) {
+	t.Parallel()	for _, tt := range quotetests {
 		if out := AppendQuote([]byte("abc"), []byte(tt.in)); string(out) != "abc"+tt.out {
 			t.Errorf("AppendQuote(%q, %s) = %s, want %s", "abc", tt.in, out, "abc"+tt.out)
 		}
 	}
-}
-
-func TestQuoteToASCII(t *testing.T) {
-	t.Parallel()
-
-	for _, tt := range quotetests {
+}func TestQuoteToASCII(t *testing.T) {
+	t.Parallel()	for _, tt := range quotetests {
 		if out := AppendQuoteToASCII([]byte("abc"), []byte(tt.in)); string(out) != "abc"+tt.ascii {
 			t.Errorf("AppendQuoteToASCII(%q, %s) = %s, want %s", "abc", tt.in, out, "abc"+tt.ascii)
 		}
 	}
-}
-
-func TestQuoteToGraphic(t *testing.T) {
-	t.Parallel()
-
-	for _, tt := range quotetests {
+}func TestQuoteToGraphic(t *testing.T) {
+	t.Parallel()	for _, tt := range quotetests {
 		if out := AppendQuoteToGraphic([]byte("abc"), []byte(tt.in)); string(out) != "abc"+tt.graphic {
 			t.Errorf("AppendQuoteToGraphic(%q, %s) = %s, want %s", "abc", tt.in, out, "abc"+tt.graphic)
 		}
 	}
-}
-
-type unQuoteTest struct {
+}type unQuoteTest struct {
 	in  string
 	out string
-}
-
-var unquotetests = []unQuoteTest{
+}var unquotetests = []unQuoteTest{
 	{`""`, ""},
 	{`"a"`, "a"},
 	{`"abc"`, "abc"},
@@ -76,9 +50,7 @@ var unquotetests = []unQuoteTest{
 	{`"\U0001011111"`, "\U0001011111"},
 	{`"\a\b\f\n\r\t\v\\\""`, "\a\b\f\n\r\t\v\\\""},
 	{`"'"`, "'"},
-}
-
-var misquoted = []string{
+}var misquoted = []string{
 	``,
 	`"`,
 	`"a`,
@@ -104,39 +76,25 @@ var misquoted = []string{
 	"\"\n\"",
 	"\"\\n\n\"",
 	"'\n'",
-}
-
-func TestUnquote(t *testing.T) {
-	t.Parallel()
-
-	for _, tt := range unquotetests {
+}func TestUnquote(t *testing.T) {
+	t.Parallel()	for _, tt := range unquotetests {
 		if out, err := Unquote([]byte(tt.in)); err != nil || string(out) != tt.out {
 			t.Errorf("Unquote(%#q) = %q, %v want %q, nil", tt.in, out, err, tt.out)
 		}
-	}
-
-	// run the quote tests too, backward
+	}	// run the quote tests too, backward
 	for _, tt := range quotetests {
 		if in, err := Unquote([]byte(tt.out)); string(in) != tt.in {
 			t.Errorf("Unquote(%#q) = %q, %v, want %q, nil", tt.out, in, err, tt.in)
 		}
-	}
-
-	for _, s := range misquoted {
+	}	for _, s := range misquoted {
 		if out, err := Unquote([]byte(s)); out != nil || !errors.Is(err, ErrSyntax) {
 			t.Errorf("Unquote(%#q) = %q, %v want %q, %v", s, out, err, "", ErrSyntax)
 		}
 	}
-}
-
-// Issue 23685: invalid UTF-8 should not go through the fast path.
+}// Issue 23685: invalid UTF-8 should not go through the fast path.
 func TestUnquoteInvalidUTF8(t *testing.T) {
-	t.Parallel()
-
-	tests := []struct {
-		in string
-
-		// one of:
+	t.Parallel()	tests := []struct {
+		in string		// one of:
 		want    string
 		wantErr string
 	}{

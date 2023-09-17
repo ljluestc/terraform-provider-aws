@@ -55,10 +55,7 @@ Required: true,
 },
 },
 }
-}
-
-
-func dataSourceOrganizationalUnitChildAccountsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceOrganizationalUnitChildAccountsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -76,17 +73,13 @@ return sdkdiag.AppendErrorf(diags, "setting accounts: %s", err)
 }
 
 return diags
-}
-
-
-func findAccountsForParent(ctx context.Context, conn *organizations.Organizations, id string) ([]*organizations.Account, error) {
+}func findAccountsForParent(ctx context.Context, conn *organizations.Organizations, id string) ([]*organizations.Account, error) {
 input := &organizations.ListAccountsForParentInput{
 ParentId: aws.String(id),
 }
 var output []*organizations.Account
 
-err := conn.ListAccountsForParentPagesWithContext(ctx, input, 
-func(page *organizations.ListAccountsForParentOutput, lastPage bool) bool {
+err := conn.ListAccountsForParentPagesWithContext(ctx, input,func(page *organizations.ListAccountsForParentOutput, lastPage bool) bool {
 output = append(output, page.Accounts...)
 
 return !lastPage

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package macie2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package macie2_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/macie2"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -18,15 +12,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfmacie2 "github.com/hashicorp/terraform-provider-aws/internal/service/macie2"
-)
-
-func testAccCustomDataIdentifier_basic(t *testing.T) {
+)func testAccCustomDataIdentifier_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetCustomDataIdentifierOutput
 	resourceName := "aws_macie2_custom_data_identifier.test"
-	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"
-
-	resource.Test(t, resource.TestCase{
+	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
@@ -50,15 +40,11 @@ func testAccCustomDataIdentifier_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCustomDataIdentifier_Name_Generated(t *testing.T) {
+}func testAccCustomDataIdentifier_Name_Generated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetCustomDataIdentifierOutput
 	resourceName := "aws_macie2_custom_data_identifier.test"
-	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"
-
-	resource.Test(t, resource.TestCase{
+	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
@@ -79,15 +65,11 @@ func testAccCustomDataIdentifier_Name_Generated(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCustomDataIdentifier_disappears(t *testing.T) {
+}func testAccCustomDataIdentifier_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetCustomDataIdentifierOutput
 	resourceName := "aws_macie2_custom_data_identifier.test"
-	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"
-
-	resource.Test(t, resource.TestCase{
+	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
@@ -104,16 +86,12 @@ func testAccCustomDataIdentifier_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCustomDataIdentifier_NamePrefix(t *testing.T) {
+}func testAccCustomDataIdentifier_NamePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetCustomDataIdentifierOutput
 	resourceName := "aws_macie2_custom_data_identifier.test"
 	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"
-	namePrefix := "tf-acc-test-prefix-"
-
-	resource.Test(t, resource.TestCase{
+	namePrefix := "tf-acc-test-prefix-"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
@@ -135,18 +113,14 @@ func testAccCustomDataIdentifier_NamePrefix(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCustomDataIdentifier_WithClassificationJob(t *testing.T) {
+}func testAccCustomDataIdentifier_WithClassificationJob(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetCustomDataIdentifierOutput
 	resourceName := "aws_macie2_custom_data_identifier.test"
 	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	description := "this is a description"
-	descriptionUpdated := "this is a updated description"
-
-	resource.Test(t, resource.TestCase{
+	descriptionUpdated := "this is a updated description"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
@@ -179,16 +153,12 @@ func testAccCustomDataIdentifier_WithClassificationJob(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCustomDataIdentifier_WithTags(t *testing.T) {
+}func testAccCustomDataIdentifier_WithTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetCustomDataIdentifierOutput
 	resourceName := "aws_macie2_custom_data_identifier.test"
 	regex := "[0-9]{3}-[0-9]{2}-[0-9]{4}"
-	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckCustomDataIdentifierDestroy(ctx),
@@ -219,110 +189,58 @@ func testAccCustomDataIdentifier_WithTags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckCustomDataIdentifierExists(ctx context.Context, resourceName string, macie2Session *macie2.GetCustomDataIdentifierOutput) resource.TestCheckFunc {
+}func testAccCheckCustomDataIdentifierExists(ctx context.Context, resourceName string, macie2Session *macie2.GetCustomDataIdentifierOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("not found: %s", resourceName)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
-		input := &macie2.GetCustomDataIdentifierInput{Id: aws.String(rs.Primary.ID)}
-
-		resp, err := conn.GetCustomDataIdentifierWithContext(ctx, input)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
+		input := &macie2.GetCustomDataIdentifierInput{Id: aws.String(rs.Primary.ID)}		resp, err := conn.GetCustomDataIdentifierWithContext(ctx, input)		if err != nil {
 			return err
-		}
-
-		if resp == nil {
+		}		if resp == nil {
 			return fmt.Errorf("macie CustomDataIdentifier %q does not exist", rs.Primary.ID)
-		}
-
-		*macie2Session = *resp
-
-		return nil
+		}		*macie2Session = *resp		return nil
 	}
-}
-
-func testAccCheckCustomDataIdentifierDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckCustomDataIdentifierDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_macie2_custom_data_identifier" {
 				continue
-			}
-
-			input := &macie2.GetCustomDataIdentifierInput{Id: aws.String(rs.Primary.ID)}
-			resp, err := conn.GetCustomDataIdentifierWithContext(ctx, input)
-
-			if tfawserr.ErrCodeEquals(err, macie2.ErrCodeResourceNotFoundException) ||
+			}			input := &macie2.GetCustomDataIdentifierInput{Id: aws.String(rs.Primary.ID)}
+			resp, err := conn.GetCustomDataIdentifierWithContext(ctx, input)			if tfawserr.ErrCodeEquals(err, macie2.ErrCodeResourceNotFoundException) ||
 				tfawserr.ErrMessageContains(err, macie2.ErrCodeAccessDeniedException, "Macie is not enabled") {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			if resp != nil {
+			}			if resp != nil {
 				return fmt.Errorf("macie CustomDataIdentifier %q still exists", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCustomDataIdentifierConfig_nameGenerated(regex string) string {
+}func testAccCustomDataIdentifierConfig_nameGenerated(regex string) string {
 	return fmt.Sprintf(`
-resource "aws_macie2_account" "test" {}
-
-resource "aws_macie2_custom_data_identifier" "test" {
-  regex = %[1]q
-
-  depends_on = [aws_macie2_account.test]
+resource "aws_macie2_account" "test" {}resource "aws_macie2_custom_data_identifier" "test" {
+  regex = %[1]q  depends_on = [aws_macie2_account.test]
 }
 `, regex)
-}
-
-func testAccCustomDataIdentifierConfig_namePrefix(name, regex string) string {
+}func testAccCustomDataIdentifierConfig_namePrefix(name, regex string) string {
 	return fmt.Sprintf(`
-resource "aws_macie2_account" "test" {}
-
-resource "aws_macie2_custom_data_identifier" "test" {
+resource "aws_macie2_account" "test" {}resource "aws_macie2_custom_data_identifier" "test" {
   name_prefix = %[1]q
-  regex       = %[2]q
-
-  depends_on = [aws_macie2_account.test]
+  regex       = %[2]q  depends_on = [aws_macie2_account.test]
 }
 `, name, regex)
-}
-
-func testAccCustomDataIdentifierConfig_complete(bucketName, regex, description string) string {
+}func testAccCustomDataIdentifierConfig_complete(bucketName, regex, description string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_s3_bucket" "test" {
+data "aws_caller_identity" "current" {}resource "aws_macie2_account" "test" {}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_macie2_custom_data_identifier" "test" {
+}resource "aws_macie2_custom_data_identifier" "test" {
   regex     = %[2]q
   description   = %[3]q
   maximum_match_distance = 10
   keywords  = ["test"]
-  ignore_words  = ["not testing"]
-
-  depends_on = [aws_macie2_account.test]
-}
-
-resource "aws_macie2_classification_job" "test" {
+  ignore_words  = ["not testing"]  depends_on = [aws_macie2_account.test]
+}resource "aws_macie2_classification_job" "test" {
   custom_data_identifier_ids = [aws_macie2_custom_data_identifier.test.id]
   job_type      = "SCHEDULED"
   s3_job_definition {
@@ -339,19 +257,11 @@ resource "aws_macie2_classification_job" "test" {
   initial_run= true
 }
 `, bucketName, regex, description)
-}
-
-func testAccCustomDataIdentifierConfig_completeTags(bucketName, regex string) string {
+}func testAccCustomDataIdentifierConfig_completeTags(bucketName, regex string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_s3_bucket" "test" {
+data "aws_caller_identity" "current" {}resource "aws_macie2_account" "test" {}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_macie2_custom_data_identifier" "test" {
+}resource "aws_macie2_custom_data_identifier" "test" {
   regex     = %[2]q
   description   = "this a description"
   maximum_match_distance = 10
@@ -361,12 +271,8 @@ resource "aws_macie2_custom_data_identifier" "test" {
     Key  = "value"
     Key2 = "value2"
     Key3 = "value3"
-  }
-
-  depends_on = [aws_macie2_account.test]
-}
-
-resource "aws_macie2_classification_job" "test" {
+  }  depends_on = [aws_macie2_account.test]
+}resource "aws_macie2_classification_job" "test" {
   custom_data_identifier_ids = [aws_macie2_custom_data_identifier.test.id]
   job_type      = "SCHEDULED"
   s3_job_definition {

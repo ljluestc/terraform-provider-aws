@@ -18,18 +18,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfwafregional "github.com/hashicorp/terraform-provider-aws/internal/service/wafregional"
-)
-
-
-func TestAccWAFRegionalByteMatchSet_basic(t *testing.T) {
+)func TestAccWAFRegionalByteMatchSet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v waf.ByteMatchSet
 	byteMatchSet := fmt.Sprintf("byteMatchSet-%s", sdkacctest.RandString(5))
 	resourceName := "aws_wafregional_byte_match_set.byte_set"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckByteMatchSetDestroy(ctx),
@@ -68,10 +64,7 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccWAFRegionalByteMatchSet_changeNameForceNew(t *testing.T) {
+}func TestAccWAFRegionalByteMatchSet_changeNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after waf.ByteMatchSet
 	byteMatchSet := fmt.Sprintf("byteMatchSet-%s", sdkacctest.RandString(5))
@@ -79,8 +72,7 @@ func TestAccWAFRegionalByteMatchSet_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_wafregional_byte_match_set.byte_set"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckByteMatchSetDestroy(ctx),
@@ -146,18 +138,14 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccWAFRegionalByteMatchSet_changeByteMatchTuples(t *testing.T) {
+}func TestAccWAFRegionalByteMatchSet_changeByteMatchTuples(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after waf.ByteMatchSet
 	byteMatchSetName := fmt.Sprintf("byte-batch-set-%s", sdkacctest.RandString(5))
 	resourceName := "aws_wafregional_byte_match_set.byte_set"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckByteMatchSetDestroy(ctx),
@@ -221,18 +209,14 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccWAFRegionalByteMatchSet_noByteMatchTuples(t *testing.T) {
+}func TestAccWAFRegionalByteMatchSet_noByteMatchTuples(t *testing.T) {
 	ctx := acctest.Context(t)
 	var byteMatchSet waf.ByteMatchSet
 	byteMatchSetName := fmt.Sprintf("byte-batch-set-%s", sdkacctest.RandString(5))
 	resourceName := "aws_wafregional_byte_match_set.byte_match_set"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckByteMatchSetDestroy(ctx),
@@ -253,18 +237,14 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccWAFRegionalByteMatchSet_disappears(t *testing.T) {
+}func TestAccWAFRegionalByteMatchSet_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v waf.ByteMatchSet
 	byteMatchSet := fmt.Sprintf("byteMatchSet-%s", sdkacctest.RandString(5))
 	resourceName := "aws_wafregional_byte_match_set.byte_set"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckByteMatchSetDestroy(ctx),
@@ -280,19 +260,14 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func testAccCheckByteMatchSetDisappears(ctx context.Context, v *waf.ByteMatchSet) resource.TestCheck
+}func testAccCheckByteMatchSetDisappears(ctx context.Context, v *waf.ByteMatchSet) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 region := acctest.Provider.Meta().(*conns.AWSClient).Region
 
 wr := tfwafregional.NewRetryer(conn, region)
-_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 	req := &waf.UpdateByteMatchSetInput{
 ChangeToken:    token,
 ByteMatchSetId: v.ByteMatchSetId,
@@ -317,8 +292,7 @@ if err != nil {
 	return fmt.Errorf("Error updating ByteMatchSet: %s", err)
 }
 
-_, err = wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 	opts := &waf.DeleteByteMatchSetInput{
 ChangeToken:    token,
 ByteMatchSetId: v.ByteMatchSetId,
@@ -331,13 +305,9 @@ if err != nil {
 
 return nil
 	}
-}
-
-
-func testAccCheckByteMatchSetExists(ctx context.Context, n string, v *waf.ByteMatchSet) resource.TestCheck
+}func testAccCheckByteMatchSetExists(ctx context.Context, n string, v *waf.ByteMatchSet) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
@@ -363,13 +333,9 @@ if *resp.ByteMatchSet.ByteMatchSetId == rs.Primary.ID {
 
 return fmt.Errorf("WAF ByteMatchSet (%s) not found", rs.Primary.ID)
 	}
-}
-
-
-func testAccCheckByteMatchSetDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckByteMatchSetDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_wafregional_byte_match_set" {
 continue
@@ -395,10 +361,7 @@ continue
 
 return nil
 	}
-}
-
-
-func testAccByteMatchSetConfig_basic(name string) string {
+}func testAccByteMatchSetConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_byte_match_set" "byte_set" {
   name = "%s"
@@ -426,10 +389,7 @@ data = "referer"
   }
 }
 `, name)
-}
-
-
-func testAccByteMatchSetConfig_changeName(name string) string {
+}func testAccByteMatchSetConfig_changeName(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_byte_match_set" "byte_set" {
   name = "%s"
@@ -457,19 +417,13 @@ data = "referer"
   }
 }
 `, name)
-}
-
-
-func testAccByteMatchSetConfig_noDescriptors(name string) string {
+}func testAccByteMatchSetConfig_noDescriptors(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_byte_match_set" "byte_match_set" {
   name = "%s"
 }
 `, name)
-}
-
-
-func testAccByteMatchSetConfig_changeTuples(name string) string {
+}func testAccByteMatchSetConfig_changeTuples(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_byte_match_set" "byte_set" {
   name = "%s"

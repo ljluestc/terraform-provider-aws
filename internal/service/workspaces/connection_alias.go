@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package workspaces
-
-import (
+// SPDX-License-Identifier: MPL-2.0package workspacesimport (
 	"context"
 	"errors"
-	"time"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"time"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/workspaces"
 	awstypes "github.com/aws/aws-sdk-go-v2/service/workspaces/types"
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
@@ -27,27 +21,15 @@ import (
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-var ResourceConnectionAlias = newResourceConnectionAlias
-
-// @FrameworkResource(name="Connection Alias")
+)var ResourceConnectionAlias = newResourceConnectionAlias// @FrameworkResource(name="Connection Alias")
 // @Tags(identifierAttribute="id")
 func newResourceConnectionAlias(_ context.Context) (resource.ResourceWithConfigure, error) {
-r := &resourceConnectionAlias{}
-
-r.SetDefaultCreateTimeout(30 * time.Minute)
+r := &resourceConnectionAlias{}r.SetDefaultCreateTimeout(30 * time.Minute)
 r.SetDefaultUpdateTimeout(30 * time.Minute)
-r.SetDefaultDeleteTimeout(30 * time.Minute)
-
-return r, nil
-}
-
-const (
+r.SetDefaultDeleteTimeout(30 * time.Minute)return r, nil
+}const (
 ResNameConnectionAlias = "Connection Alias"
-)
-
-type resourceConnectionAlias struct {
+)type resourceConnectionAlias struct {
 framework.ResourceWithConfigure
 framework.WithTimeouts
 }
@@ -92,20 +74,14 @@ Delete: true,
 }
 }
 func (r *resourceConnectionAlias) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-conn := r.Meta().WorkSpacesClient(ctx)
-
-var plan resourceConnectionAliasData
+conn := r.Meta().WorkSpacesClient(ctx)var plan resourceConnectionAliasData
 resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 if resp.Diagnostics.HasError() {
 return
-}
-
-in := &workspaces.CreateConnectionAliasInput{
+}in := &workspaces.CreateConnectionAliasInput{
 ConnectionString: aws.String(plan.ConnectionString.ValueString()),
 Tags:getTagsIn(ctx),
-}
-
-out, err := conn.CreateConnectionAlias(ctx, in)
+}out, err := conn.CreateConnectionAlias(ctx, in)
 if err != nil {
 resp.Diagnostics.AddError(
 create.ProblemStandardMessage(names.WorkSpaces, create.ErrActionCreating, ResNameConnectionAlias, plan.ConnectionString.String(), err),
@@ -119,11 +95,7 @@ create.ProblemStandardMessage(names.WorkSpaces, create.ErrActionCreating, ResNam
 errors.New("empty output").Error(),
 )
 return
-}
-
-plan.ID = flex.StringToFramework(ctx, out.AliasId)
-
-createTimeout := r.CreateTimeout(ctx, plan.Timeouts)
+}plan.ID = flex.StringToFramework(ctx, out.AliasId)createTimeout := r.CreateTimeout(ctx, plan.Timeouts)
 alias, err := waitConnectionAliasCreated(ctx, conn, plan.ID.ValueString(), createTimeout)
 if err != nil {
 resp.Diagnostics.AddError(
@@ -131,21 +103,15 @@ create.ProblemStandardMessage(names.WorkSpaces, create.ErrActionWaitingForCreati
 err.Error(),
 )
 return
-}
-
-plan.update(ctx, alias)
+}plan.update(ctx, alias)
 resp.Diagnostics.Append(resp.State.Set(ctx, plan)...)
 }
 func (r *resourceConnectionAlias) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-conn := r.Meta().WorkSpacesClient(ctx)
-
-var state resourceConnectionAliasData
+conn := r.Meta().WorkSpacesClient(ctx)var state resourceConnectionAliasData
 resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 if resp.Diagnostics.HasError() {
 return
-}
-
-out, err := FindConnectionAliasByID(ctx, conn, state.ID.ValueString())
+}out, err := FindConnectionAliasByID(ctx, conn, state.ID.ValueString())
 if tfresource.NotFound(err) {
 resp.State.RemoveResource(ctx)
 return
@@ -156,11 +122,7 @@ create.ProblemStandardMessage(names.WorkSpaces, create.ErrActionSetting, ResName
 err.Error(),
 )
 return
-}
-
-state.update(ctx, out)
-
-resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
+}state.update(ctx, out)resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }
 func (r *resourceConnectionAlias) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 var plan, state resourceConnectionAliasData
@@ -168,24 +130,16 @@ resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 if resp.Diagnostics.HasError() {
 return
-}
-
-resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
+}resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
 }
 func (r *resourceConnectionAlias) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
-conn := r.Meta().WorkSpacesClient(ctx)
-
-var state resourceConnectionAliasData
+conn := r.Meta().WorkSpacesClient(ctx)var state resourceConnectionAliasData
 resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 if resp.Diagnostics.HasError() {
 return
-}
-
-in := &workspaces.DeleteConnectionAliasInput{
+}in := &workspaces.DeleteConnectionAliasInput{
 AliasId: aws.String(state.ID.ValueString()),
-}
-
-_, err := conn.DeleteConnectionAlias(ctx, in)
+}_, err := conn.DeleteConnectionAlias(ctx, in)
 if err != nil {
 if errs.IsA[*awstypes.ResourceNotFoundException](err) {
 return
@@ -195,9 +149,7 @@ create.ProblemStandardMessage(names.WorkSpaces, create.ErrActionDeleting, ResNam
 err.Error(),
 )
 return
-}
-
-deleteTimeout := r.DeleteTimeout(ctx, state.Timeouts)
+}deleteTimeout := r.DeleteTimeout(ctx, state.Timeouts)
 _, err = waitConnectionAliasDeleted(ctx, conn, state.ID.ValueString(), deleteTimeout)
 if err != nil {
 resp.Diagnostics.AddError(
@@ -226,14 +178,10 @@ Refresh:      statusConnectionAlias(ctx, conn, id),
 Timeout:      timeout,
 NotFoundChecks:   20,
 ContinuousTargetOccurence: 2,
-}
-
-outputRaw, err := stateConf.WaitForStateContext(ctx)
+}outputRaw, err := stateConf.WaitForStateContext(ctx)
 if out, ok := outputRaw.(*awstypes.ConnectionAlias); ok {
 return out, err
-}
-
-return nil, err
+}return nil, err
 }
 func waitConnectionAliasDeleted(ctx context.Context, conn *workspaces.Client, id string, timeout time.Duration) (*awstypes.ConnectionAlias, error) {
 stateConf := &retry.StateChangeConf{
@@ -241,55 +189,35 @@ Pending: enum.Slice(awstypes.ConnectionAliasStateDeleting),
 Target:  []string{},
 Refresh: statusConnectionAlias(ctx, conn, id),
 Timeout: timeout,
-}
-
-outputRaw, err := stateConf.WaitForStateContext(ctx)
+}outputRaw, err := stateConf.WaitForStateContext(ctx)
 if out, ok := outputRaw.(*awstypes.ConnectionAlias); ok {
 return out, err
-}
-
-return nil, err
+}return nil, err
 }
 func statusConnectionAlias(ctx context.Context, conn *workspaces.Client, id string) retry.StateRefreshFunc {
 return func() (interface{}, string, error) {
 out, err := FindConnectionAliasByID(ctx, conn, id)
 if tfresource.NotFound(err) {
 return nil, "", nil
-}
-
-if err != nil {
+}if err != nil {
 return nil, "", err
-}
-
-return out, string(out.State), nil
+}return out, string(out.State), nil
 }
 }
 func FindConnectionAliasByID(ctx context.Context, conn *workspaces.Client, id string) (*awstypes.ConnectionAlias, error) {
 in := &workspaces.DescribeConnectionAliasesInput{
 AliasIds: []string{id},
-}
-
-out, err := conn.DescribeConnectionAliases(ctx, in)
-
-if errs.IsA[*awstypes.ResourceNotFoundException](err) {
+}out, err := conn.DescribeConnectionAliases(ctx, in)if errs.IsA[*awstypes.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
 LastError:   err,
 LastRequest: in,
 }
-}
-
-if err != nil {
+}if err != nil {
 return nil, err
-}
-
-if out == nil || len(out.ConnectionAliases) == 0 {
+}if out == nil || len(out.ConnectionAliases) == 0 {
 return nil, tfresource.NewEmptyResultError(in)
-}
-
-return &out.ConnectionAliases[0], nil
-}
-
-type resourceConnectionAliasData struct {
+}return &out.ConnectionAliases[0], nil
+}type resourceConnectionAliasData struct {
 ID  types.String   `tfsdk:"id"`
 ConnectionString types.String   `tfsdk:"connection_string"`
 OwnerAccountId   types.String   `tfsdk:"owner_account_id"`

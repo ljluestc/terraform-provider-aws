@@ -12,10 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-
-func visualCustomActionsSchema(maxItems int) *schema.Schema {
+)func visualCustomActionsSchema(maxItems int) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualCustomAction.html
 		Type:     schema.TypeList,
 		MinItems: 1,
@@ -232,10 +229,7 @@ func: verify.ValidUTCTimestamp,
 			},
 		},
 	}
-}
-
-
-func expandVisualCustomActions(tfList []interface{}) []*quicksight.VisualCustomAction {
+}func expandVisualCustomActions(tfList []interface{}) []*quicksight.VisualCustomAction {
 	if len(tfList) == 0 {
 		return nil
 	}
@@ -256,10 +250,7 @@ func expandVisualCustomActions(tfList []interface{}) []*quicksight.VisualCustomA
 	}
 
 	return actions
-}
-
-
-func expandVisualCustomAction(tfMap map[string]interface{}) *quicksight.VisualCustomAction {
+}func expandVisualCustomAction(tfMap map[string]interface{}) *quicksight.VisualCustomAction {
 	if tfMap == nil {
 		return nil
 	}
@@ -283,10 +274,7 @@ func expandVisualCustomAction(tfMap map[string]interface{}) *quicksight.VisualCu
 	}
 
 	return action
-}
-
-
-func expandVisualCustomActionOperations(tfList []interface{}) []*quicksight.VisualCustomActionOperation {
+}func expandVisualCustomActionOperations(tfList []interface{}) []*quicksight.VisualCustomActionOperation {
 	if len(tfList) == 0 {
 		return nil
 	}
@@ -307,10 +295,7 @@ func expandVisualCustomActionOperations(tfList []interface{}) []*quicksight.Visu
 	}
 
 	return actions
-}
-
-
-func expandVisualCustomActionOperation(tfMap map[string]interface{}) *quicksight.VisualCustomActionOperation {
+}func expandVisualCustomActionOperation(tfMap map[string]interface{}) *quicksight.VisualCustomActionOperation {
 	if tfMap == nil {
 		return nil
 	}
@@ -331,10 +316,7 @@ func expandVisualCustomActionOperation(tfMap map[string]interface{}) *quicksight
 	}
 
 	return action
-}
-
-
-func expandCustomActionFilterOperation(tfList []interface{}) *quicksight.CustomActionFilterOperation {
+}func expandCustomActionFilterOperation(tfList []interface{}) *quicksight.CustomActionFilterOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -354,10 +336,7 @@ func expandCustomActionFilterOperation(tfList []interface{}) *quicksight.CustomA
 	}
 
 	return action
-}
-
-
-func expandFilterOperationSelectedFieldsConfiguration(tfList []interface{}) *quicksight.FilterOperationSelectedFieldsConfiguration {
+}func expandFilterOperationSelectedFieldsConfiguration(tfList []interface{}) *quicksight.FilterOperationSelectedFieldsConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -377,10 +356,7 @@ func expandFilterOperationSelectedFieldsConfiguration(tfList []interface{}) *qui
 	}
 
 	return config
-}
-
-
-func expandFilterOperationTargetVisualsConfiguration(tfList []interface{}) *quicksight.FilterOperationTargetVisualsConfiguration {
+}func expandFilterOperationTargetVisualsConfiguration(tfList []interface{}) *quicksight.FilterOperationTargetVisualsConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -397,10 +373,7 @@ func expandFilterOperationTargetVisualsConfiguration(tfList []interface{}) *quic
 	}
 
 	return config
-}
-
-
-func expandSameSheetTargetVisualConfiguration(tfList []interface{}) *quicksight.SameSheetTargetVisualConfiguration {
+}func expandSameSheetTargetVisualConfiguration(tfList []interface{}) *quicksight.SameSheetTargetVisualConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -420,10 +393,7 @@ func expandSameSheetTargetVisualConfiguration(tfList []interface{}) *quicksight.
 	}
 
 	return config
-}
-
-
-func expandCustomActionNavigationOperation(tfList []interface{}) *quicksight.CustomActionNavigationOperation {
+}func expandCustomActionNavigationOperation(tfList []interface{}) *quicksight.CustomActionNavigationOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -440,10 +410,7 @@ func expandCustomActionNavigationOperation(tfList []interface{}) *quicksight.Cus
 	}
 
 	return action
-}
-
-
-func expandLocalNavigationConfiguration(tfList []interface{}) *quicksight.LocalNavigationConfiguration {
+}func expandLocalNavigationConfiguration(tfList []interface{}) *quicksight.LocalNavigationConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -459,10 +426,7 @@ func expandLocalNavigationConfiguration(tfList []interface{}) *quicksight.LocalN
 		config.TargetSheetId = aws.String(v)
 	}
 	return config
-}
-
-
-func expandCustomActionSetParametersOperation(tfList []interface{}) *quicksight.CustomActionSetParametersOperation {
+}func expandCustomActionSetParametersOperation(tfList []interface{}) *quicksight.CustomActionSetParametersOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -479,10 +443,7 @@ func expandCustomActionSetParametersOperation(tfList []interface{}) *quicksight.
 	}
 
 	return action
-}
-
-
-func expandSetParameterValueConfigurations(tfList []interface{}) []*quicksight.SetParameterValueConfiguration {
+}func expandSetParameterValueConfigurations(tfList []interface{}) []*quicksight.SetParameterValueConfiguration {
 	if len(tfList) == 0 {
 		return nil
 	}
@@ -503,10 +464,7 @@ func expandSetParameterValueConfigurations(tfList []interface{}) []*quicksight.S
 	}
 
 	return configs
-}
-
-
-func expandSetParameterValueConfiguration(tfMap map[string]interface{}) *quicksight.SetParameterValueConfiguration {
+}func expandSetParameterValueConfiguration(tfMap map[string]interface{}) *quicksight.SetParameterValueConfiguration {
 	if tfMap == nil {
 		return nil
 	}
@@ -521,10 +479,7 @@ func expandSetParameterValueConfiguration(tfMap map[string]interface{}) *quicksi
 	}
 
 	return config
-}
-
-
-func expandDestinationParameterValueConfiguration(tfList []interface{}) *quicksight.DestinationParameterValueConfiguration {
+}func expandDestinationParameterValueConfiguration(tfList []interface{}) *quicksight.DestinationParameterValueConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -550,10 +505,7 @@ func expandDestinationParameterValueConfiguration(tfList []interface{}) *quicksi
 	}
 
 	return config
-}
-
-
-func expandCustomValuesConfiguration(tfList []interface{}) *quicksight.CustomValuesConfiguration {
+}func expandCustomValuesConfiguration(tfList []interface{}) *quicksight.CustomValuesConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -573,10 +525,7 @@ func expandCustomValuesConfiguration(tfList []interface{}) *quicksight.CustomVal
 	}
 
 	return config
-}
-
-
-func expandCustomParameterValues(tfList []interface{}) *quicksight.CustomParameterValues {
+}func expandCustomParameterValues(tfList []interface{}) *quicksight.CustomParameterValues {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -602,10 +551,7 @@ func expandCustomParameterValues(tfList []interface{}) *quicksight.CustomParamet
 	}
 
 	return config
-}
-
-
-func expandCustomActionURLOperation(tfList []interface{}) *quicksight.CustomActionURLOperation {
+}func expandCustomActionURLOperation(tfList []interface{}) *quicksight.CustomActionURLOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -625,10 +571,7 @@ func expandCustomActionURLOperation(tfList []interface{}) *quicksight.CustomActi
 	}
 
 	return action
-}
-
-
-func flattenVisualCustomAction(apiObject []*quicksight.VisualCustomAction) []interface{} {
+}func flattenVisualCustomAction(apiObject []*quicksight.VisualCustomAction) []interface{} {
 	if len(apiObject) == 0 {
 		return nil
 	}
@@ -653,10 +596,7 @@ func flattenVisualCustomAction(apiObject []*quicksight.VisualCustomAction) []int
 	}
 
 	return tfList
-}
-
-
-func flattenVisualCustomActionOperation(apiObject []*quicksight.VisualCustomActionOperation) []interface{} {
+}func flattenVisualCustomActionOperation(apiObject []*quicksight.VisualCustomActionOperation) []interface{} {
 	if len(apiObject) == 0 {
 		return nil
 	}
@@ -685,10 +625,7 @@ func flattenVisualCustomActionOperation(apiObject []*quicksight.VisualCustomActi
 	}
 
 	return tfList
-}
-
-
-func flattenCustomActionFilterOperation(apiObject *quicksight.CustomActionFilterOperation) []interface{} {
+}func flattenCustomActionFilterOperation(apiObject *quicksight.CustomActionFilterOperation) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -702,10 +639,7 @@ func flattenCustomActionFilterOperation(apiObject *quicksight.CustomActionFilter
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFilterOperationSelectedFieldsConfiguration(apiObject *quicksight.FilterOperationSelectedFieldsConfiguration) []interface{} {
+}func flattenFilterOperationSelectedFieldsConfiguration(apiObject *quicksight.FilterOperationSelectedFieldsConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -719,10 +653,7 @@ func flattenFilterOperationSelectedFieldsConfiguration(apiObject *quicksight.Fil
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFilterOperationTargetVisualsConfiguration(apiObject *quicksight.FilterOperationTargetVisualsConfiguration) []interface{} {
+}func flattenFilterOperationTargetVisualsConfiguration(apiObject *quicksight.FilterOperationTargetVisualsConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -733,10 +664,7 @@ func flattenFilterOperationTargetVisualsConfiguration(apiObject *quicksight.Filt
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenSameSheetTargetVisualConfiguration(apiObject *quicksight.SameSheetTargetVisualConfiguration) []interface{} {
+}func flattenSameSheetTargetVisualConfiguration(apiObject *quicksight.SameSheetTargetVisualConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -750,10 +678,7 @@ func flattenSameSheetTargetVisualConfiguration(apiObject *quicksight.SameSheetTa
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenCustomActionNavigationOperation(apiObject *quicksight.CustomActionNavigationOperation) []interface{} {
+}func flattenCustomActionNavigationOperation(apiObject *quicksight.CustomActionNavigationOperation) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -764,10 +689,7 @@ func flattenCustomActionNavigationOperation(apiObject *quicksight.CustomActionNa
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLocalNavigationConfiguration(apiObject *quicksight.LocalNavigationConfiguration) []interface{} {
+}func flattenLocalNavigationConfiguration(apiObject *quicksight.LocalNavigationConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -777,10 +699,7 @@ func flattenLocalNavigationConfiguration(apiObject *quicksight.LocalNavigationCo
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenCustomActionSetParametersOperation(apiObject *quicksight.CustomActionSetParametersOperation) []interface{} {
+}func flattenCustomActionSetParametersOperation(apiObject *quicksight.CustomActionSetParametersOperation) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -790,10 +709,7 @@ func flattenCustomActionSetParametersOperation(apiObject *quicksight.CustomActio
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenSetParameterValueConfiguration(apiObject []*quicksight.SetParameterValueConfiguration) []interface{} {
+}func flattenSetParameterValueConfiguration(apiObject []*quicksight.SetParameterValueConfiguration) []interface{} {
 	if len(apiObject) == 0 {
 		return nil
 	}
@@ -815,10 +731,7 @@ func flattenSetParameterValueConfiguration(apiObject []*quicksight.SetParameterV
 	}
 
 	return tfList
-}
-
-
-func flattenDestinationParameterValueConfiguration(apiObject *quicksight.DestinationParameterValueConfiguration) []interface{} {
+}func flattenDestinationParameterValueConfiguration(apiObject *quicksight.DestinationParameterValueConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -838,10 +751,7 @@ func flattenDestinationParameterValueConfiguration(apiObject *quicksight.Destina
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenCustomValuesConfiguration(apiObject *quicksight.CustomValuesConfiguration) []interface{} {
+}func flattenCustomValuesConfiguration(apiObject *quicksight.CustomValuesConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -855,10 +765,7 @@ func flattenCustomValuesConfiguration(apiObject *quicksight.CustomValuesConfigur
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenCustomParameterValues(apiObject *quicksight.CustomParameterValues) []interface{} {
+}func flattenCustomParameterValues(apiObject *quicksight.CustomParameterValues) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -878,10 +785,7 @@ func flattenCustomParameterValues(apiObject *quicksight.CustomParameterValues) [
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenCustomActionURLOperation(apiObject *quicksight.CustomActionURLOperation) []interface{} {
+}func flattenCustomActionURLOperation(apiObject *quicksight.CustomActionURLOperation) []interface{} {
 	if apiObject == nil {
 		return nil
 	}

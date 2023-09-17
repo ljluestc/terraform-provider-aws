@@ -1,24 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package workspaces_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package workspaces_testimport (
 	"fmt"
 	"os"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/service/workspaces"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 func testAccWorkspaceBundleDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_workspaces_bundle.test"
-
-	resource.Test(t, resource.TestCase{
+	dataSourceName := "data.aws_workspaces_bundle.test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -43,9 +35,7 @@ func testAccWorkspaceBundleDataSource_basic(t *testing.T) {
 }
 func testAccWorkspaceBundleDataSource_byOwnerName(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_workspaces_bundle.test"
-
-	resource.Test(t, resource.TestCase{
+	dataSourceName := "data.aws_workspaces_bundle.test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -85,9 +75,7 @@ func testAccWorkspaceBundleDataSource_bundleIDAndNameConflict(t *testing.T) {
 func testAccWorkspaceBundleDataSource_privateOwner(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_workspaces_bundle.test"
-	bundleName := os.Getenv("AWS_WORKSPACES_BUNDLE_NAME")
-
-	resource.Test(t, resource.TestCase{
+	bundleName := os.Getenv("AWS_WORKSPACES_BUNDLE_NAME")	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccBundlePreCheck(t)

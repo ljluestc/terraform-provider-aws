@@ -20,10 +20,7 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfquicksight "github.com/hashicorp/terraform-provider-aws/internal/service/quicksight"
-)
-
-
-func TestAccQuickSightUser_basic(t *testing.T) {
+)func TestAccQuickSightUser_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var user quicksight.User
 rName1 := "tfacctest" + sdkacctest.RandString(10)
@@ -32,8 +29,7 @@ rName2 := "tfacctest" + sdkacctest.RandString(10)
 resourceName2 := "aws_quicksight_user." + rName2
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckUserDestroy(ctx),
@@ -58,18 +54,14 @@ acctest.CheckResourceAttrRegionalARN(resourceName2, "arn", "quicksight", fmt.Spr
 },
 },
 })
-}
-
-
-func TestAccQuickSightUser_withInvalidFormattedEmailStillWorks(t *testing.T) {
+}func TestAccQuickSightUser_withInvalidFormattedEmailStillWorks(t *testing.T) {
 ctx := acctest.Context(t)
 var user quicksight.User
 rName := "tfacctest" + sdkacctest.RandString(10)
 resourceName := "aws_quicksight_user." + rName
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckUserDestroy(ctx),
@@ -92,10 +84,7 @@ resource.TestCheckResourceAttr(resourceName, "email", "nottarealemailbutworks2")
 },
 },
 })
-}
-
-
-func TestAccQuickSightUser_withNamespace(t *testing.T) {
+}func TestAccQuickSightUser_withNamespace(t *testing.T) {
 ctx := acctest.Context(t)
 key := "QUICKSIGHT_NAMESPACE"
 namespace := os.Getenv(key)
@@ -108,8 +97,7 @@ rName := "tfacctest" + sdkacctest.RandString(10)
 resourceName := "aws_quicksight_user." + rName
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckUserDestroy(ctx),
@@ -124,18 +112,14 @@ resource.TestCheckResourceAttr(resourceName, "namespace", namespace),
 },
 },
 })
-}
-
-
-func TestAccQuickSightUser_disappears(t *testing.T) {
+}func TestAccQuickSightUser_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var user quicksight.User
 rName := "tfacctest" + sdkacctest.RandString(10)
 resourceName := "aws_quicksight_user." + rName
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckUserDestroy(ctx),
@@ -151,13 +135,9 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-
-func testAccCheckUserExists(ctx context.Context, resourceName string, user *quicksight.User) resource.TestCheck
+}func testAccCheckUserExists(ctx context.Context, resourceName string, user *quicksight.User) resource.TestCheck
 func {
-return 
-func(s *terraform.State) error {
+returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 return fmt.Errorf("Not found: %s", resourceName)
@@ -190,13 +170,9 @@ return fmt.Errorf("QuickSight User (%s) not found", rs.Primary.ID)
 
 return nil
 }
-}
-
-
-func testAccCheckUserDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckUserDestroy(ctx context.Context) resource.TestCheck
 func {
-return 
-func(s *terraform.State) error {
+returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_quicksight_user" {
@@ -226,13 +202,9 @@ return fmt.Errorf("QuickSight User '%s' was not deleted properly", rs.Primary.ID
 
 return nil
 }
-}
-
-
-func testAccCheckUserDisappears(ctx context.Context, v *quicksight.User) resource.TestCheck
+}func testAccCheckUserDisappears(ctx context.Context, v *quicksight.User) resource.TestCheck
 func {
-return 
-func(s *terraform.State) error {
+returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 arn, err := arn.Parse(aws.StringValue(v.Arn))
@@ -254,10 +226,7 @@ return err
 
 return nil
 }
-}
-
-
-func testAccUserConfig_email(rName, email string) string {
+}func testAccUserConfig_email(rName, email string) string {
 return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 
@@ -269,10 +238,7 @@ resource "aws_quicksight_user" %[1]q {
   user_role= "READER"
 }
 `, rName, email)
-}
-
-
-func testAccUserConfig_namespace(rName, namespace string) string {
+}func testAccUserConfig_namespace(rName, namespace string) string {
 return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 
@@ -285,9 +251,6 @@ resource "aws_quicksight_user" %[1]q {
   user_role= "READER"
 }
 `, rName, acctest.DefaultEmailAddress, namespace)
-}
-
-
-func testAccUserConfig_basic(rName string) string {
+}func testAccUserConfig_basic(rName string) string {
 return testAccUserConfig_email(rName, acctest.DefaultEmailAddress)
 }

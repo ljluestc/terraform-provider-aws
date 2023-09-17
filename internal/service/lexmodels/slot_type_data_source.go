@@ -1,26 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lexmodels
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lexmodelsimport (
 "context"
-"time"
-
-"github.com/YakDriver/regexache"
+"time""github.com/YakDriver/regexache"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// @SDKDataSource("aws_lex_slot_type")
+)// @SDKDataSource("aws_lex_slot_type")
 func DataSourceSlotType() *schema.Resource {
 return &schema.Resource{
-ReadWithoutTimeout: dataSourceSlotTypeRead,
-
-Schema: map[string]*schema.Schema{
+ReadWithoutTimeout: dataSourceSlotTypeRead,Schema: map[string]*schema.Schema{
 "checksum": {
 Type:     schema.TypeString,
 Computed: true,
@@ -79,21 +69,13 @@ validation.StringMatch(regexache.MustCompile(`\$LATEST|[0-9]+`), ""),
 },
 },
 }
-}
-
-func dataSourceSlotTypeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceSlotTypeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).LexModelsConn(ctx)
-
-name := d.Get("name").(string)
+conn := meta.(*conns.AWSClient).LexModelsConn(ctx)name := d.Get("name").(string)
 version := d.Get("version").(string)
-output, err := FindSlotTypeVersionByName(ctx, conn, name, version)
-
-if err != nil {
+output, err := FindSlotTypeVersionByName(ctx, conn, name, version)if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading Lex Slot Type (%s/%s): %s", name, version, err)
-}
-
-d.SetId(name)
+}d.SetId(name)
 d.Set("checksum", output.Checksum)
 d.Set("created_date", output.CreatedDate.Format(time.RFC3339))
 d.Set("description", output.Description)
@@ -101,7 +83,5 @@ d.Set("enumeration_value", flattenEnumerationValues(output.EnumerationValues))
 d.Set("last_updated_date", output.LastUpdatedDate.Format(time.RFC3339))
 d.Set("name", output.Name)
 d.Set("value_selection_strategy", output.ValueSelectionStrategy)
-d.Set("version", output.Version)
-
-return diags
+d.Set("version", output.Version)return diags
 }

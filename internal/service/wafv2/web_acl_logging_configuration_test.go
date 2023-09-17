@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafv2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package wafv2_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/wafv2"
+	"testing"	"github.com/aws/aws-sdk-go/service/wafv2"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -22,9 +16,7 @@ func TestAccWAFV2WebACLLoggingConfiguration_basic(t *testing.T) {
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-	webACLResourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	webACLResourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -53,9 +45,7 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateSingleHeaderRedactedField(t *t
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-	webACLResourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	webACLResourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -104,17 +94,13 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateSingleHeaderRedactedField(t *t
 			},
 		},
 	})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/14248
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/14248
 func TestAccWAFV2WebACLLoggingConfiguration_updateMethodRedactedField(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-	webACLResourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	webACLResourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -148,17 +134,13 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateMethodRedactedField(t *testing
 			},
 		},
 	})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/14248
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/14248
 func TestAccWAFV2WebACLLoggingConfiguration_updateQueryStringRedactedField(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-	webACLResourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	webACLResourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -192,17 +174,13 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateQueryStringRedactedField(t *te
 			},
 		},
 	})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/14248
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/14248
 func TestAccWAFV2WebACLLoggingConfiguration_updateURIPathRedactedField(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-	webACLResourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	webACLResourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -236,17 +214,13 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateURIPathRedactedField(t *testin
 			},
 		},
 	})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/14248
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/14248
 func TestAccWAFV2WebACLLoggingConfiguration_updateMultipleRedactedFields(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-	webACLResourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	webACLResourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -311,9 +285,7 @@ func TestAccWAFV2WebACLLoggingConfiguration_changeResourceARNForceNew(t *testing
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameNew := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-	webACLResourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	webACLResourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -354,9 +326,7 @@ func TestAccWAFV2WebACLLoggingConfiguration_changeLogDestinationsForceNew(t *tes
 	rNameNew := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
 	webACLResourceName := "aws_wafv2_web_acl.test"
-	kinesisResourceName := "aws_kinesis_firehose_delivery_stream.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	kinesisResourceName := "aws_kinesis_firehose_delivery_stream.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -394,9 +364,7 @@ func TestAccWAFV2WebACLLoggingConfiguration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl_logging_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -418,9 +386,7 @@ func TestAccWAFV2WebACLLoggingConfiguration_emptyRedactedFields(t *testing.T) {
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-	webACLResourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	webACLResourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -448,9 +414,7 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateEmptyRedactedFields(t *testing
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-	webACLResourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	webACLResourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -490,9 +454,7 @@ func TestAccWAFV2WebACLLoggingConfiguration_Disappears_webACL(t *testing.T) {
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-	webACLResourceName := "aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	webACLResourceName := "aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -513,9 +475,7 @@ func TestAccWAFV2WebACLLoggingConfiguration_loggingFilter(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_web_acl_logging_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_web_acl_logging_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -613,24 +573,12 @@ func testAccCheckWebACLLoggingConfigurationDestroy(ctx context.Context) resource
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_wafv2_web_acl_logging_configuration" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)
-
-			_, err := tfwafv2.FindLoggingConfigurationByARN(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)			_, err := tfwafv2.FindLoggingConfigurationByARN(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("WAFv2 WebACL Logging Configuration  %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("WAFv2 WebACL Logging Configuration  %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
 func testAccCheckWebACLLoggingConfigurationExists(ctx context.Context, n string, v *wafv2.LoggingConfiguration) resource.TestCheckFunc {
@@ -638,35 +586,17 @@ func testAccCheckWebACLLoggingConfigurationExists(ctx context.Context, n string,
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No WAFv2 WebACL Logging Configuration ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)
-
-		output, err := tfwafv2.FindLoggingConfigurationByARN(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)		output, err := tfwafv2.FindLoggingConfigurationByARN(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
 }
 func testAccWebACLLoggingConfigurationConfig_base(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-resource "aws_iam_role" "firehose" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+data "aws_partition" "current" {}data "aws_caller_identity" "current" {}resource "aws_iam_role" "firehose" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -685,19 +615,11 @@ resource "aws_iam_role" "firehose" {
     }
   ]
 }
-EOF
-
-}
-
-resource "aws_s3_bucket" "test" {
+EOF}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = %[1]q
-  role = aws_iam_role.firehose.id
-
-  policy = <<EOF
+  role = aws_iam_role.firehose.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -729,20 +651,12 @@ resource "aws_iam_role_policy" "test" {
     }
   ]
 }
-EOF
-
-}
-
-resource "aws_wafv2_web_acl" "test" {
+EOF}resource "aws_wafv2_web_acl" "test" {
   name        = %[1]q
   description = "test"
-  scope       = "REGIONAL"
-
-  default_action {
+  scope       = "REGIONAL"  default_action {
     allow {}
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -755,56 +669,40 @@ func testAccWebACLLoggingConfigurationConfig_baseKinesis(rName string) string {
 resource "aws_kinesis_firehose_delivery_stream" "test" {
   depends_on  = [aws_iam_role_policy.test]
   name        = "aws-waf-logs-%[1]s"
-  destination = "extended_s3"
-
-  extended_s3_configuration {
+  destination = "extended_s3"  extended_s3_configuration {
     role_arn   = aws_iam_role.firehose.arn
     bucket_arn = aws_s3_bucket.test.arn
   }
 }
 `, rName)
-}
-
-const testAccWebACLLoggingConfigurationResourceConfig = `
+}const testAccWebACLLoggingConfigurationResourceConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
   resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
 }
-`
-
-const testAccWebACLLoggingConfigurationResource_emptyRedactedFieldsConfig = `
+`const testAccWebACLLoggingConfigurationResource_emptyRedactedFieldsConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
   resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
   redacted_fields {}
 }
-`
-
-const testAccWebACLLoggingConfigurationResource_updateTwoSingleHeaderRedactedFieldsConfig = `
+`const testAccWebACLLoggingConfigurationResource_updateTwoSingleHeaderRedactedFieldsConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
   resource_arn   = aws_wafv2_web_acl.test.arn
-  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
-
-  redacted_fields {
+  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]  redacted_fields {
     single_header {
       name = "referer"
     }
-  }
-
-  redacted_fields {
+  }  redacted_fields {
     single_header {
       name = "user-agent"
     }
   }
 }
-`
-
-const testAccWebACLLoggingConfigurationResource_updateSingleHeaderRedactedFieldConfig = `
+`const testAccWebACLLoggingConfigurationResource_updateSingleHeaderRedactedFieldConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
   resource_arn   = aws_wafv2_web_acl.test.arn
-  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
-
-  redacted_fields {
+  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]  redacted_fields {
     single_header {
       name = "user-agent"
     }
@@ -824,60 +722,38 @@ func testAccWebACLLoggingConfigurationResource_updateRedactedFieldConfig(field s
 	return fmt.Sprintf(`
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
   resource_arn   = aws_wafv2_web_acl.test.arn
-  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
-
-  redacted_fields {
+  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]  redacted_fields {
     %s
   }
 }
 `, redactedField)
-}
-
-const testAccWebACLLoggingConfigurationResource_updateTwoRedactedFieldsConfig = `
+}const testAccWebACLLoggingConfigurationResource_updateTwoRedactedFieldsConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
   resource_arn   = aws_wafv2_web_acl.test.arn
-  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
-
-  redacted_fields {
+  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]  redacted_fields {
     method {}
-  }
-
-  redacted_fields {
+  }  redacted_fields {
     uri_path {}
   }
 }
-`
-
-const testAccWebACLLoggingConfigurationResource_updateThreeRedactedFieldsConfig = `
+`const testAccWebACLLoggingConfigurationResource_updateThreeRedactedFieldsConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
   resource_arn   = aws_wafv2_web_acl.test.arn
-  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
-
-  redacted_fields {
+  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]  redacted_fields {
     uri_path {}
-  }
-
-  redacted_fields {
+  }  redacted_fields {
     query_string {}
-  }
-
-  redacted_fields {
+  }  redacted_fields {
     single_header {
       name = "user-agent"
     }
   }
 }
-`
-
-const testAccWebACLLoggingConfigurationResource_loggingFilterConfig = `
+`const testAccWebACLLoggingConfigurationResource_loggingFilterConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
   resource_arn   = aws_wafv2_web_acl.test.arn
-  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
-
-  logging_filter {
-    default_behavior = "KEEP"
-
-    filter {
+  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]  logging_filter {
+    default_behavior = "KEEP"    filter {
       behavior = "KEEP"
       condition {
         action_condition {
@@ -888,17 +764,11 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
     }
   }
 }
-`
-
-const testAccWebACLLoggingConfigurationResource_loggingFilterConfig_twoFilters = `
+`const testAccWebACLLoggingConfigurationResource_loggingFilterConfig_twoFilters = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
   resource_arn   = aws_wafv2_web_acl.test.arn
-  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
-
-  logging_filter {
-    default_behavior = "DROP"
-
-    filter {
+  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]  logging_filter {
+    default_behavior = "DROP"    filter {
       behavior = "KEEP"
       condition {
         action_condition {
@@ -906,9 +776,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
         }
       }
       requirement = "MEETS_ALL"
-    }
-
-    filter {
+    }    filter {
       behavior = "DROP"
       condition {
         action_condition {
@@ -924,17 +792,11 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
     }
   }
 }
-`
-
-const testAccWebACLLoggingConfigurationResource_loggingFilterConfig_oneFilter = `
+`const testAccWebACLLoggingConfigurationResource_loggingFilterConfig_oneFilter = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
   resource_arn   = aws_wafv2_web_acl.test.arn
-  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
-
-  logging_filter {
-    default_behavior = "KEEP"
-
-    filter {
+  log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]  logging_filter {
+    default_behavior = "KEEP"    filter {
       behavior = "KEEP"
       condition {
         action_condition {

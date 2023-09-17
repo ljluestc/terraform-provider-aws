@@ -1,45 +1,31 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsailimport (
 	"context"
 	"errors"
 	"fmt"
 	"strconv"
-	"time"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"time"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail/types"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/enum"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-const (
+)const (
 	// OperationTimeout is the Timeout Value for Operations
 	OperationTimeout = 30 * time.Minute
 	// OperationDelay is the Delay Value for Operations
 	OperationDelay = 5 * time.Second
 	// OperationMinTimeout is the MinTimeout Value for Operations
-	OperationMinTimeout = 3 * time.Second
-
-	// DatabaseStateModifying is a state value for a Relational Database undergoing a modification
+	OperationMinTimeout = 3 * time.Second	// DatabaseStateModifying is a state value for a Relational Database undergoing a modification
 	DatabaseStateModifying = "modifying"
 	// DatabaseStateAvailable is a state value for a Relational Database available for modification
-	DatabaseStateAvailable = "available"
-
-	// DatabaseTimeout is the Timeout Value for Relational Database Modifications
+	DatabaseStateAvailable = "available"	// DatabaseTimeout is the Timeout Value for Relational Database Modifications
 	DatabaseTimeout = 30 * time.Minute
 	// DatabaseDelay is the Delay Value for Relational Database Modifications
 	DatabaseDelay = 5 * time.Second
 	// DatabaseMinTimeout is the MinTimeout Value for Relational Database Modifications
 	DatabaseMinTimeout = 3 * time.Second
-)
-
-// waitOperation waits for an Operation to return Succeeded or Completed
+)// waitOperation waits for an Operation to return Succeeded or Completed
 func waitOperation(ctx context.Context, conn *lightsail.Client, oid *string) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    enum.Slice(types.OperationStatusStarted),
@@ -48,18 +34,10 @@ func waitOperation(ctx context.Context, conn *lightsail.Client, oid *string) err
 		Timeout:    OperationTimeout,
 		Delay:      OperationDelay,
 		MinTimeout: OperationMinTimeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if _, ok := outputRaw.(*lightsail.GetOperationOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if _, ok := outputRaw.(*lightsail.GetOperationOutput); ok {
 		return err
-	}
-
-	return err
-}
-
-// waitDatabaseModified waits for a Modified Database return available
+	}	return err
+}// waitDatabaseModified waits for a Modified Database return available
 func waitDatabaseModified(ctx context.Context, conn *lightsail.Client, db *string) (*lightsail.GetRelationalDatabaseOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{DatabaseStateModifying},
@@ -68,18 +46,10 @@ func waitDatabaseModified(ctx context.Context, conn *lightsail.Client, db *strin
 		Timeout:    DatabaseTimeout,
 		Delay:      DatabaseDelay,
 		MinTimeout: DatabaseMinTimeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*lightsail.GetRelationalDatabaseOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*lightsail.GetRelationalDatabaseOutput); ok {
 		return output, err
-	}
-
-	return nil, err
-}
-
-// waitDatabaseBackupRetentionModified waits for a Modified  BackupRetention on Database return available
+	}	return nil, err
+}// waitDatabaseBackupRetentionModified waits for a Modified  BackupRetention on Database return available
 func waitDatabaseBackupRetentionModified(ctx context.Context, conn *lightsail.Client, db *string, target bool) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{strconv.FormatBool(!target)},
@@ -88,15 +58,9 @@ func waitDatabaseBackupRetentionModified(ctx context.Context, conn *lightsail.Cl
 		Timeout:    DatabaseTimeout,
 		Delay:      DatabaseDelay,
 		MinTimeout: DatabaseMinTimeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if _, ok := outputRaw.(*lightsail.GetRelationalDatabaseOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if _, ok := outputRaw.(*lightsail.GetRelationalDatabaseOutput); ok {
 		return err
-	}
-
-	return err
+	}	return err
 }
 func waitDatabasePubliclyAccessibleModified(ctx context.Context, conn *lightsail.Client, db *string, target bool) error {
 	stateConf := &retry.StateChangeConf{
@@ -106,15 +70,9 @@ func waitDatabasePubliclyAccessibleModified(ctx context.Context, conn *lightsail
 		Timeout:    DatabaseTimeout,
 		Delay:      DatabaseDelay,
 		MinTimeout: DatabaseMinTimeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if _, ok := outputRaw.(*lightsail.GetRelationalDatabaseOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if _, ok := outputRaw.(*lightsail.GetRelationalDatabaseOutput); ok {
 		return err
-	}
-
-	return err
+	}	return err
 }
 func waitContainerServiceCreated(ctx context.Context, conn *lightsail.Client, serviceName string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
@@ -124,19 +82,11 @@ func waitContainerServiceCreated(ctx context.Context, conn *lightsail.Client, se
 		Timeout:    timeout,
 		Delay:      5 * time.Second,
 		MinTimeout: 3 * time.Second,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*types.ContainerService); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*types.ContainerService); ok {
 		if detail := output.StateDetail; detail != nil {
 			tfresource.SetLastError(err, fmt.Errorf("%s: %s", string(detail.Code), aws.ToString(detail.Message)))
-		}
-
-		return err
-	}
-
-	return err
+		}		return err
+	}	return err
 }
 func waitContainerServiceDisabled(ctx context.Context, conn *lightsail.Client, serviceName string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
@@ -146,19 +96,11 @@ func waitContainerServiceDisabled(ctx context.Context, conn *lightsail.Client, s
 		Timeout:    timeout,
 		Delay:      5 * time.Second,
 		MinTimeout: 3 * time.Second,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*types.ContainerService); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*types.ContainerService); ok {
 		if detail := output.StateDetail; detail != nil {
 			tfresource.SetLastError(err, fmt.Errorf("%s: %s", string(detail.Code), aws.ToString(detail.Message)))
-		}
-
-		return err
-	}
-
-	return err
+		}		return err
+	}	return err
 }
 func waitContainerServiceUpdated(ctx context.Context, conn *lightsail.Client, serviceName string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
@@ -168,19 +110,11 @@ func waitContainerServiceUpdated(ctx context.Context, conn *lightsail.Client, se
 		Timeout:    timeout,
 		Delay:      5 * time.Second,
 		MinTimeout: 3 * time.Second,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*types.ContainerService); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*types.ContainerService); ok {
 		if detail := output.StateDetail; detail != nil {
 			tfresource.SetLastError(err, fmt.Errorf("%s: %s", string(detail.Code), aws.ToString(detail.Message)))
-		}
-
-		return err
-	}
-
-	return err
+		}		return err
+	}	return err
 }
 func waitContainerServiceDeleted(ctx context.Context, conn *lightsail.Client, serviceName string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
@@ -190,19 +124,11 @@ func waitContainerServiceDeleted(ctx context.Context, conn *lightsail.Client, se
 		Timeout:    timeout,
 		Delay:      5 * time.Second,
 		MinTimeout: 3 * time.Second,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*types.ContainerService); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*types.ContainerService); ok {
 		if detail := output.StateDetail; detail != nil {
 			tfresource.SetLastError(err, fmt.Errorf("%s: %s", string(detail.Code), aws.ToString(detail.Message)))
-		}
-
-		return err
-	}
-
-	return err
+		}		return err
+	}	return err
 }
 func waitContainerServiceDeploymentVersionActive(ctx context.Context, conn *lightsail.Client, serviceName string, version int, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
@@ -212,19 +138,11 @@ func waitContainerServiceDeploymentVersionActive(ctx context.Context, conn *ligh
 		Timeout:    timeout,
 		Delay:      5 * time.Second,
 		MinTimeout: 3 * time.Second,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*types.ContainerServiceDeployment); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*types.ContainerServiceDeployment); ok {
 		if output.State == types.ContainerServiceDeploymentStateFailed {
 			tfresource.SetLastError(err, errors.New("The deployment failed. Use the GetContainerLog action to view the log events for the containers in the deployment to try to determine the reason for the failure."))
-		}
-
-		return err
-	}
-
-	return err
+		}		return err
+	}	return err
 }
 func waitInstanceState(ctx context.Context, conn *lightsail.Client, id *string) (*lightsail.GetInstanceStateOutput, error) {
 	stateConf := &retry.StateChangeConf{
@@ -234,13 +152,7 @@ func waitInstanceState(ctx context.Context, conn *lightsail.Client, id *string) 
 		Timeout:    OperationTimeout,
 		Delay:      OperationDelay,
 		MinTimeout: OperationMinTimeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if out, ok := outputRaw.(*lightsail.GetInstanceStateOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if out, ok := outputRaw.(*lightsail.GetInstanceStateOutput); ok {
 		return out, err
-	}
-
-	return nil, err
+	}	return nil, err
 }

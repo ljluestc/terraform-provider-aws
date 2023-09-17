@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ecs_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ecs_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/ecs"
+	"testing"	"github.com/aws/aws-sdk-go/service/ecs"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccECSClusterDataSource_ecsCluster(t *testing.T) {
+)func TestAccECSClusterDataSource_ecsCluster(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ecs_cluster.test"
 	resourceName := "aws_ecs_cluster.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -38,15 +28,11 @@ func TestAccECSClusterDataSource_ecsCluster(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccECSClusterDataSource_ecsClusterContainerInsights(t *testing.T) {
+}func TestAccECSClusterDataSource_ecsClusterContainerInsights(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ecs_cluster.test"
 	resourceName := "aws_ecs_cluster.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -64,15 +50,11 @@ func TestAccECSClusterDataSource_ecsClusterContainerInsights(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccECSClusterDataSource_tags(t *testing.T) {
+}func TestAccECSClusterDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ecs_cluster.test"
 	resourceName := "aws_ecs_cluster.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -92,48 +74,32 @@ func TestAccECSClusterDataSource_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccClusterDataSourceConfig_basic(rName string) string {
+}func testAccClusterDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
   name = %[1]q
-}
-
-data "aws_ecs_cluster" "test" {
+}data "aws_ecs_cluster" "test" {
   cluster_name = aws_ecs_cluster.test.name
 }
 `, rName)
-}
-
-func testAccClusterDataSourceConfig_containerInsights(rName string) string {
+}func testAccClusterDataSourceConfig_containerInsights(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
-  name = %[1]q
-
-  setting {
+  name = %[1]q  setting {
     name  = "containerInsights"
     value = "enabled"
   }
-}
-
-data "aws_ecs_cluster" "test" {
+}data "aws_ecs_cluster" "test" {
   cluster_name = aws_ecs_cluster.test.name
 }
 `, rName)
-}
-
-func testAccClusterDataSourceConfig_tags(rName, tagKey, tagValue string) string {
+}func testAccClusterDataSourceConfig_tags(rName, tagKey, tagValue string) string {
 	return fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
   }
-}
-
-data "aws_ecs_cluster" "test" {
+}data "aws_ecs_cluster" "test" {
   cluster_name = aws_ecs_cluster.test.name
 }
 `, rName, tagKey, tagValue)

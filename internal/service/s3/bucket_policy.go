@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package s3
-
-import (
+// SPDX-License-Identifier: MPL-2.0package s3import (
 	"context"
 	"errors"
 	"log"
-	"time"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"time"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -23,9 +17,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_s3_bucket_policy")func ResourceBucketPolicy() *schema.Resource {
+)// @SDKResource("aws_s3_bucket_policy")func ResourceBucketPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketPolicyPut,
 		ReadWithoutTimeout:   resourceBucketPolicyRead,
@@ -33,16 +25,12 @@ import (
 		DeleteWithoutTimeout: resourceBucketPolicyDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"bucket": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-			},
-
-			"policy": {
+			},			"policy": {
 				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringIsJSON,
@@ -56,23 +44,13 @@ import (
 		},
 	}
 }func diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	bucket := d.Get("bucket").(string)
-
-	policy, err := structure.NormalizeJsonString(d.Get("policy").(string))
+	conn := meta.(*conns.AWSClient).S3Conn(ctx)	bucket := d.Get("bucket").(string)	policy, err := structure.NormalizeJsonString(d.Get("policy").(string))
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "policy (%s) is an invalid JSON: %s", policy, err)
-	}
-
-	log.Printf("[DEBUG] S3 bucket: %s, put policy: %s", bucket, policy)
-
-	params := &s3.PutBucketPolicyInput{
+	}	log.Printf("[DEBUG] S3 bucket: %s, put policy: %s", bucket, policy)	params := &s3.PutBucketPolicyInput{
 		Bucket: aws.String(bucket),
 		Policy: aws.String(policy),
-	}
-
-	err = retry.RetryContext(ctx, 1*time.Minute, func() *retry.RetryError {
+	}	err = retry.RetryContext(ctx, 1*time.Minute, func() *retry.RetryError {
 		_, err := conn.PutBucketPolicyWithContext(ctx, params)
 		if tfawserr.ErrCodeEquals(err, "MalformedPolicy") {
 			return retry.RetryableError(err)
@@ -87,62 +65,34 @@ import (
 	}
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "putting S3 policy: %s", err)
-	}
-
-	d.SetId(bucket)
-
-	return diags
+	}	d.SetId(bucket)	return diags
 }func resourceBucketPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	funcn := meta.(*conns.AWSClient).S3Conn(ctx)
-
-	log.Printf("[DEBUG] S3 bucket policy, read for bucket: %s", d.Id())
+	funcn := meta.(*conns.AWSClient).S3Conn(ctx)	log.Printf("[DEBUG] S3 bucket policy, read for bucket: %s", d.Id())
 	pol, err := conn.GetBucketPolicyWithContext(ctx, &s3.GetBucketPolicyInput{
 		Bucket: aws.String(d.Id()),
-	})
-
-	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, ErrCodeNoSuchBucketPolicy, s3.ErrCodeNoSuchBucket) {
+	})	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, ErrCodeNoSuchBucketPolicy, s3.ErrCodeNoSuchBucket) {
 		log.Printf("[WARN] S3 Bucket Policy (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return create.DiagError(names.S3, create.ErrActionReading, "Bucket Policy", d.Id(), err)
-	}
-
-	if pol.Policy == nil {
+	}	if pol.Policy == nil {
 		return create.DiagError(names.S3, create.ErrActionReading, "Bucket Policy", d.Id(), errors.New("empty policy returned"))
-	}
-
-	policyToSet, err := verify.PolicyToSet(d.Get("policy").(string), aws.StringValue(pol.Policy))
+	}	policyToSet, err := verify.PolicyToSet(d.Get("policy").(string), aws.StringValue(pol.Policy))
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting policy: %s", err)
-	}
-
-	if err := d.Set("policy", policyToSet); err != nil {
+	}	if err := d.Set("policy", policyToSet); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting policy: %s", err)
-	}
-
-	d.Set("bucket", d.Id())
-
-	return diags
+	}	d.Set("bucket", d.Id())	return diags
 }func resourceBucketPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	func
-	bucket := d.Get("bucket").(string)
-
-	log.Printf("[DEBUG] S3 bucket: %s, delete policy", bucket)
+	bucket := d.Get("bucket").(string)	log.Printf("[DEBUG] S3 bucket: %s, delete policy", bucket)
 	_, err := conn.DeleteBucketPolicyWithContext(ctx, &s3.DeleteBucketPolicyInput{
 		Bucket: aws.String(bucket),
-	})
-
-	if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket) {
+	})	if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket) {
 		return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting S3 policy: %s", err)
-	}
-
-	return diags
+	}	return diags
 }

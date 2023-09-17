@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opensearch_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opensearch_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/opensearchservice"
+	"testing"	"github.com/aws/aws-sdk-go/service/opensearchservice"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -19,16 +13,10 @@ import (
 )
 func TestAccOpenSearchDomainSAMLOptions_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var domain opensearchservice.DomainStatus
-
-	rName := sdkacctest.RandomWithPrefix("acc-test")
+	var domain opensearchservice.DomainStatus	rName := sdkacctest.RandomWithPrefix("acc-test")
 	rUserName := sdkacctest.RandomWithPrefix("opensearch-master-user")
-	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())
-
-	resourceName := "aws_opensearch_domain_saml_options.test"
-	esDomainResourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())	resourceName := "aws_opensearch_domain_saml_options.test"
+	esDomainResourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -57,12 +45,8 @@ func TestAccOpenSearchDomainSAMLOptions_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("acc-test")
 	rUserName := sdkacctest.RandomWithPrefix("opensearch-master-user")
-	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())
-
-	resourceName := "aws_opensearch_domain_saml_options.test"
-	esDomainResourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())	resourceName := "aws_opensearch_domain_saml_options.test"
+	esDomainResourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -82,12 +66,8 @@ func TestAccOpenSearchDomainSAMLOptions_disappears_Domain(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("acc-test")
 	rUserName := sdkacctest.RandomWithPrefix("opensearch-master-user")
-	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())
-
-	resourceName := "aws_opensearch_domain_saml_options.test"
-	esDomainResourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())	resourceName := "aws_opensearch_domain_saml_options.test"
+	esDomainResourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -108,12 +88,8 @@ func TestAccOpenSearchDomainSAMLOptions_Update(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("acc-test")
 	rUserName := sdkacctest.RandomWithPrefix("opensearch-master-user")
-	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())
-
-	resourceName := "aws_opensearch_domain_saml_options.test"
-	esDomainResourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())	resourceName := "aws_opensearch_domain_saml_options.test"
+	esDomainResourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -142,12 +118,8 @@ func TestAccOpenSearchDomainSAMLOptions_Disabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("acc-test")
 	rUserName := sdkacctest.RandomWithPrefix("opensearch-master-user")
-	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())
-
-	resourceName := "aws_opensearch_domain_saml_options.test"
-	esDomainResourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())	resourceName := "aws_opensearch_domain_saml_options.test"
+	esDomainResourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -177,23 +149,13 @@ func testAccCheckESDomainSAMLOptionsDestroy(ctx context.Context) resource.TestCh
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_opensearch_domain_saml_options" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchConn(ctx)
-			_, err := tfopensearch.FindDomainByName(ctx, conn, rs.Primary.Attributes["domain_name"])
-
-			if tfresource.NotFound(err) {
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchConn(ctx)
+			_, err := tfopensearch.FindDomainByName(ctx, conn, rs.Primary.Attributes["domain_name"])			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("OpenSearch domain saml options %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("OpenSearch domain saml options %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
 func testAccCheckESDomainSAMLOptions(ctx context.Context, esResource string, samlOptionsResource string) resource.TestCheckFunc {
@@ -201,70 +163,44 @@ func testAccCheckESDomainSAMLOptions(ctx context.Context, esResource string, sam
 		rs, ok := s.RootModule().Resources[esResource]
 		if !ok {
 			return fmt.Errorf("Not found: %s", esResource)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No ID is set")
-		}
-
-		options, ok := s.RootModule().Resources[samlOptionsResource]
+		}		options, ok := s.RootModule().Resources[samlOptionsResource]
 		if !ok {
 			return fmt.Errorf("Not found: %s", samlOptionsResource)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchConn(ctx)
-		_, err := tfopensearch.FindDomainByName(ctx, conn, options.Primary.Attributes["domain_name"])
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchConn(ctx)
+		_, err := tfopensearch.FindDomainByName(ctx, conn, options.Primary.Attributes["domain_name"])		return err
 	}
 }
 func testAccDomainSAMLOptionsConfig_basic(userName, domainName, idpEntityId string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   name = %[1]q
-}
-
-resource "aws_opensearch_domain" "test" {
+}resource "aws_opensearch_domain" "test" {
   domain_name    = %[2]q
-  engine_version = "Elasticsearch_7.10"
-
-  cluster_config {
+  engine_version = "Elasticsearch_7.10"  cluster_config {
     instance_type = "r5.large.search"
-  }
-
-  # Advanced security option must be enabled to configure SAML.
+  }  # Advanced security option must be enabled to configure SAML.
   advanced_security_options {
     enabled= true
     internal_user_database_enabled = false
     master_user_options {
       master_user_arn = aws_iam_user.test.arn
     }
-  }
-
-  # You must enable node-to-node encryption to use advanced security options.
+  }  # You must enable node-to-node encryption to use advanced security options.
   encrypt_at_rest {
     enabled = true
-  }
-
-  domain_endpoint_options {
+  }  domain_endpoint_options {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
-  }
-
-  node_to_node_encryption {
+  }  node_to_node_encryption {
     enabled = true
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
-}
-
-resource "aws_opensearch_domain_saml_options" "test" {
-  domain_name = aws_opensearch_domain.test.domain_name
-
-  saml_options {
+}resource "aws_opensearch_domain_saml_options" "test" {
+  domain_name = aws_opensearch_domain.test.domain_name  saml_options {
     enabled = true
     idp {
       entity_id        = %[3]q
@@ -278,49 +214,31 @@ func testAccDomainSAMLOptionsConfig_update(userName, domainName, idpEntityId str
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   name = %[1]q
-}
-
-resource "aws_opensearch_domain" "test" {
+}resource "aws_opensearch_domain" "test" {
   domain_name    = %[2]q
-  engine_version = "Elasticsearch_7.10"
-
-  cluster_config {
+  engine_version = "Elasticsearch_7.10"  cluster_config {
     instance_type = "r5.large.search"
-  }
-
-  # Advanced security option must be enabled to configure SAML.
+  }  # Advanced security option must be enabled to configure SAML.
   advanced_security_options {
     enabled= true
     internal_user_database_enabled = false
     master_user_options {
       master_user_arn = aws_iam_user.test.arn
     }
-  }
-
-  # You must enable node-to-node encryption to use advanced security options.
+  }  # You must enable node-to-node encryption to use advanced security options.
   encrypt_at_rest {
     enabled = true
-  }
-
-  domain_endpoint_options {
+  }  domain_endpoint_options {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
-  }
-
-  node_to_node_encryption {
+  }  node_to_node_encryption {
     enabled = true
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
-}
-
-resource "aws_opensearch_domain_saml_options" "test" {
-  domain_name = aws_opensearch_domain.test.domain_name
-
-  saml_options {
+}resource "aws_opensearch_domain_saml_options" "test" {
+  domain_name = aws_opensearch_domain.test.domain_name  saml_options {
     enabled = true
     idp {
       entity_id        = %[3]q
@@ -335,49 +253,31 @@ func testAccDomainSAMLOptionsConfig_disabled(userName string, domainName string)
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   name = %[1]q
-}
-
-resource "aws_opensearch_domain" "test" {
+}resource "aws_opensearch_domain" "test" {
   domain_name    = %[2]q
-  engine_version = "Elasticsearch_7.10"
-
-  cluster_config {
+  engine_version = "Elasticsearch_7.10"  cluster_config {
     instance_type = "r5.large.search"
-  }
-
-  # Advanced security option must be enabled to configure SAML.
+  }  # Advanced security option must be enabled to configure SAML.
   advanced_security_options {
     enabled= true
     internal_user_database_enabled = false
     master_user_options {
       master_user_arn = aws_iam_user.test.arn
     }
-  }
-
-  # You must enable node-to-node encryption to use advanced security options.
+  }  # You must enable node-to-node encryption to use advanced security options.
   encrypt_at_rest {
     enabled = true
-  }
-
-  domain_endpoint_options {
+  }  domain_endpoint_options {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
-  }
-
-  node_to_node_encryption {
+  }  node_to_node_encryption {
     enabled = true
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
-}
-
-resource "aws_opensearch_domain_saml_options" "test" {
-  domain_name = aws_opensearch_domain.test.domain_name
-
-  saml_options {
+}resource "aws_opensearch_domain_saml_options" "test" {
+  domain_name = aws_opensearch_domain.test.domain_name  saml_options {
     enabled = false
   }
 }

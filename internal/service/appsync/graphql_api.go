@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appsync
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appsyncimport (
 	"context"
 	"errors"
 	"fmt"
 	"log"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/appsync"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -24,26 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-var validateAuthorizerResultTTLInSeconds = validation.IntBetween(0, 3600)
-
-const DefaultAuthorizerResultTTLInSeconds = 300
-
-// @SDKResource("aws_appsync_graphql_api", name="GraphQL API")
+)var validateAuthorizerResultTTLInSeconds = validation.IntBetween(0, 3600)const DefaultAuthorizerResultTTLInSeconds = 300// @SDKResource("aws_appsync_graphql_api", name="GraphQL API")
 // @Tags(identifierAttribute="arn")
 func ResourceGraphQLAPI() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGraphQLAPICreate,
 		ReadWithoutTimeout:   resourceGraphQLAPIRead,
 		UpdateWithoutTimeout: resourceGraphQLAPIUpdate,
-		DeleteWithoutTimeout: resourceGraphQLAPIDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceGraphQLAPIDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"additional_authentication_provider": {
 				Type:schema.TypeList,
 				Optional: true,
@@ -268,83 +252,47 @@ func ResourceGraphQLAPI() *schema.Resource {
 				Type:schema.TypeBool,
 				Optional: true,
 			},
-		},
-
-		CustomizeDiff: verify.SetTagsDiff,
+		},		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
 func resourceGraphQLAPICreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
-
-	name := d.Get("name").(string)
+	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)	name := d.Get("name").(string)
 	input := &appsync.CreateGraphqlApiInput{
 		AuthenticationType: aws.String(d.Get("authentication_type").(string)),
 		Name:  aws.String(name),
 		Tags:  getTagsIn(ctx),
-	}
-
-	if v, ok := d.GetOk("additional_authentication_provider"); ok {
+	}	if v, ok := d.GetOk("additional_authentication_provider"); ok {
 		input.AdditionalAuthenticationProviders = expandGraphQLAPIAdditionalAuthProviders(v.([]interface{}), meta.(*conns.AWSClient).Region)
-	}
-
-	if v, ok := d.GetOk("lambda_authorizer_config"); ok {
+	}	if v, ok := d.GetOk("lambda_authorizer_config"); ok {
 		input.LambdaAuthorizerConfig = expandGraphQLAPILambdaAuthorizerConfig(v.([]interface{}))
-	}
-
-	if v, ok := d.GetOk("log_config"); ok {
+	}	if v, ok := d.GetOk("log_config"); ok {
 		input.LogConfig = expandGraphQLAPILogConfig(v.([]interface{}))
-	}
-
-	if v, ok := d.GetOk("openid_connect_config"); ok {
+	}	if v, ok := d.GetOk("openid_connect_config"); ok {
 		input.OpenIDConnectConfig = expandGraphQLAPIOpenIDConnectConfig(v.([]interface{}))
-	}
-
-	if v, ok := d.GetOk("user_pool_config"); ok {
+	}	if v, ok := d.GetOk("user_pool_config"); ok {
 		input.UserPoolConfig = expandGraphQLAPIUserPoolConfig(v.([]interface{}), meta.(*conns.AWSClient).Region)
-	}
-
-	if v, ok := d.GetOk("xray_enabled"); ok {
+	}	if v, ok := d.GetOk("xray_enabled"); ok {
 		input.XrayEnabled = aws.Bool(v.(bool))
-	}
-
-	if v, ok := d.GetOk("visibility"); ok {
+	}	if v, ok := d.GetOk("visibility"); ok {
 		input.Visibility = aws.String(v.(string))
-	}
-
-	output, err := conn.CreateGraphqlApiWithContext(ctx, input)
-
-	if err != nil {
+	}	output, err := conn.CreateGraphqlApiWithContext(ctx, input)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating AppSync GraphQL API (%s): %s", name, err)
-	}
-
-	d.SetId(aws.StringValue(output.GraphqlApi.ApiId))
-
-	if v, ok := d.GetOk("schema"); ok {
+	}	d.SetId(aws.StringValue(output.GraphqlApi.ApiId))	if v, ok := d.GetOk("schema"); ok {
 		if err := putSchema(ctx, conn, d.Id(), v.(string), d.Timeout(schema.TimeoutCreate)); err != nil {
 			return sdkdiag.AppendFromErr(diags, err)
 		}
-	}
-
-	return append(diags, resourceGraphQLAPIRead(ctx, d, meta)...)
+	}	return append(diags, resourceGraphQLAPIRead(ctx, d, meta)...)
 }
 func resourceGraphQLAPIRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
-
-	api, err := FindGraphQLAPIByID(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)	api, err := FindGraphQLAPIByID(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] AppSync GraphQL API (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return diag.Errorf("reading AppSync GraphQL API (%s): %s", d.Id(), err)
-	}
-
-	if err := d.Set("additional_authentication_provider", flattenGraphQLAPIAdditionalAuthenticationProviders(api.AdditionalAuthenticationProviders)); err != nil {
+	}	if err := d.Set("additional_authentication_provider", flattenGraphQLAPIAdditionalAuthenticationProviders(api.AdditionalAuthenticationProviders)); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting additional_authentication_provider: %s", err)
 	}
 	d.Set("arn", api.Arn)
@@ -366,162 +314,94 @@ func resourceGraphQLAPIRead(ctx context.Context, d *schema.ResourceData, meta in
 	d.Set("visibility", api.Visibility)
 	if err := d.Set("xray_enabled", api.XrayEnabled); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting xray_enabled: %s", err)
-	}
-
-	setTagsOut(ctx, api.Tags)
-
-	return diags
+	}	setTagsOut(ctx, api.Tags)	return diags
 }
 func resourceGraphQLAPIUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)	if d.HasChangesExcept("tags", "tags_all") {
 		input := &appsync.UpdateGraphqlApiInput{
 			ApiId: aws.String(d.Id()),
 			AuthenticationType: aws.String(d.Get("authentication_type").(string)),
 			Name:  aws.String(d.Get("name").(string)),
-		}
-
-		if v, ok := d.GetOk("additional_authentication_provider"); ok {
+		}		if v, ok := d.GetOk("additional_authentication_provider"); ok {
 			input.AdditionalAuthenticationProviders = expandGraphQLAPIAdditionalAuthProviders(v.([]interface{}), meta.(*conns.AWSClient).Region)
-		}
-
-		if v, ok := d.GetOk("lambda_authorizer_config"); ok {
+		}		if v, ok := d.GetOk("lambda_authorizer_config"); ok {
 			input.LambdaAuthorizerConfig = expandGraphQLAPILambdaAuthorizerConfig(v.([]interface{}))
-		}
-
-		if v, ok := d.GetOk("log_config"); ok {
+		}		if v, ok := d.GetOk("log_config"); ok {
 			input.LogConfig = expandGraphQLAPILogConfig(v.([]interface{}))
-		}
-
-		if v, ok := d.GetOk("openid_connect_config"); ok {
+		}		if v, ok := d.GetOk("openid_connect_config"); ok {
 			input.OpenIDConnectConfig = expandGraphQLAPIOpenIDConnectConfig(v.([]interface{}))
-		}
-
-		if v, ok := d.GetOk("user_pool_config"); ok {
+		}		if v, ok := d.GetOk("user_pool_config"); ok {
 			input.UserPoolConfig = expandGraphQLAPIUserPoolConfig(v.([]interface{}), meta.(*conns.AWSClient).Region)
-		}
-
-		if v, ok := d.GetOk("xray_enabled"); ok {
+		}		if v, ok := d.GetOk("xray_enabled"); ok {
 			input.XrayEnabled = aws.Bool(v.(bool))
-		}
-
-		_, err := conn.UpdateGraphqlApiWithContext(ctx, input)
-
-		if err != nil {
+		}		_, err := conn.UpdateGraphqlApiWithContext(ctx, input)		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating AppSync GraphQL API (%s): %s", d.Id(), err)
-		}
-
-		if d.HasChange("schema") {
+		}		if d.HasChange("schema") {
 			if v, ok := d.GetOk("schema"); ok {
 				if err := putSchema(ctx, conn, d.Id(), v.(string), d.Timeout(schema.TimeoutCreate)); err != nil {
 					return sdkdiag.AppendFromErr(diags, err)
 				}
 			}
 		}
-	}
-
-	return append(diags, resourceGraphQLAPIRead(ctx, d, meta)...)
+	}	return append(diags, resourceGraphQLAPIRead(ctx, d, meta)...)
 }
 func resourceGraphQLAPIDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
-
-	log.Printf("[DEBUG] Deleting AppSync GraphQL API: %s", d.Id())
+	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)	log.Printf("[DEBUG] Deleting AppSync GraphQL API: %s", d.Id())
 	_, err := conn.DeleteGraphqlApiWithContext(ctx, &appsync.DeleteGraphqlApiInput{
 		ApiId: aws.String(d.Id()),
-	})
-
-	if tfawserr.ErrCodeEquals(err, appsync.ErrCodeNotFoundException) {
+	})	if tfawserr.ErrCodeEquals(err, appsync.ErrCodeNotFoundException) {
 		return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting AppSync GraphQL API (%s): %s", d.Id(), err)
-	}
-
-	return diags
+	}	return diags
 }
 func putSchema(ctx context.Context, conn *appsync.AppSync, apiID, definition string, timeout time.Duration) error {
 	input := &appsync.StartSchemaCreationInput{
 		ApiId: aws.String(apiID),
 		Definition: ([]byte)(definition),
-	}
-
-	_, err := conn.StartSchemaCreationWithContext(ctx, input)
-
-	if err != nil {
+	}	_, err := conn.StartSchemaCreationWithContext(ctx, input)	if err != nil {
 		return fmt.Errorf("creating AppSync GraphQL API (%s) schema: %w", apiID, err)
-	}
-
-	if err := waitSchemaCreated(ctx, conn, apiID, timeout); err != nil {
+	}	if err := waitSchemaCreated(ctx, conn, apiID, timeout); err != nil {
 		return fmt.Errorf("waiting for AppSync GraphQL API (%s) schema create: %w", apiID, err)
-	}
-
-	return nil
+	}	return nil
 }
 func FindGraphQLAPIByID(ctx context.Context, conn *appsync.AppSync, id string) (*appsync.GraphqlApi, error) {
 	input := &appsync.GetGraphqlApiInput{
 		ApiId: aws.String(id),
-	}
-
-	output, err := conn.GetGraphqlApiWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, appsync.ErrCodeNotFoundException) {
+	}	output, err := conn.GetGraphqlApiWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, appsync.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if output == nil || output.GraphqlApi == nil {
+	}	if output == nil || output.GraphqlApi == nil {
 		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output.GraphqlApi, nil
+	}	return output.GraphqlApi, nil
 }
 func findSchemaCreationStatusByID(ctx context.Context, conn *appsync.AppSync, id string) (*appsync.GetSchemaCreationStatusOutput, error) {
 	input := &appsync.GetSchemaCreationStatusInput{
 		ApiId: aws.String(id),
-	}
-
-	output, err := conn.GetSchemaCreationStatusWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, appsync.ErrCodeNotFoundException) {
+	}	output, err := conn.GetSchemaCreationStatusWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, appsync.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if output == nil {
+	}	if output == nil {
 		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output, nil
+	}	return output, nil
 }
 func statusSchemaCreation(ctx context.Context, conn *appsync.AppSync, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := findSchemaCreationStatusByID(ctx, conn, id)
-
-		if tfresource.NotFound(err) {
+		output, err := findSchemaCreationStatusByID(ctx, conn, id)		if tfresource.NotFound(err) {
 			return nil, "", nil
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return nil, "", err
-		}
-
-		return output, aws.StringValue(output.Status), nil
+		}		return output, aws.StringValue(output.Status), nil
 	}
 }
 func waitSchemaCreated(ctx context.Context, conn *appsync.AppSync, id string, timeout time.Duration) error {
@@ -530,223 +410,133 @@ func waitSchemaCreated(ctx context.Context, conn *appsync.AppSync, id string, ti
 		Target:  []string{appsync.SchemaStatusActive, appsync.SchemaStatusSuccess},
 		Refresh: statusSchemaCreation(ctx, conn, id),
 		Timeout: timeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*appsync.GetSchemaCreationStatusOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*appsync.GetSchemaCreationStatusOutput); ok {
 		tfresource.SetLastError(err, errors.New(aws.StringValue(output.Details)))
-	}
-
-	return err
+	}	return err
 }
 func expandGraphQLAPILogConfig(l []interface{}) *appsync.LogConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
-	}
-
-	m := l[0].(map[string]interface{})
-
-	logConfig := &appsync.LogConfig{
+	}	m := l[0].(map[string]interface{})	logConfig := &appsync.LogConfig{
 		CloudWatchLogsRoleArn: aws.String(m["cloudwatch_logs_role_arn"].(string)),
 		FieldLogLevel:aws.String(m["field_log_level"].(string)),
 		ExcludeVerboseContent: aws.Bool(m["exclude_verbose_content"].(bool)),
-	}
-
-	return logConfig
+	}	return logConfig
 }
 func expandGraphQLAPIOpenIDConnectConfig(l []interface{}) *appsync.OpenIDConnectConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
-	}
-
-	m := l[0].(map[string]interface{})
-
-	openIDConnectConfig := &appsync.OpenIDConnectConfig{
+	}	m := l[0].(map[string]interface{})	openIDConnectConfig := &appsync.OpenIDConnectConfig{
 		Issuer: aws.String(m["issuer"].(string)),
-	}
-
-	if v, ok := m["auth_ttl"].(int); ok && v != 0 {
+	}	if v, ok := m["auth_ttl"].(int); ok && v != 0 {
 		openIDConnectConfig.AuthTTL = aws.Int64(int64(v))
-	}
-
-	if v, ok := m["client_id"].(string); ok && v != "" {
+	}	if v, ok := m["client_id"].(string); ok && v != "" {
 		openIDConnectConfig.ClientId = aws.String(v)
-	}
-
-	if v, ok := m["iat_ttl"].(int); ok && v != 0 {
+	}	if v, ok := m["iat_ttl"].(int); ok && v != 0 {
 		openIDConnectConfig.IatTTL = aws.Int64(int64(v))
-	}
-
-	return openIDConnectConfig
+	}	return openIDConnectConfig
 }
 func expandGraphQLAPIUserPoolConfig(l []interface{}, currentRegion string) *appsync.UserPoolConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
-	}
-
-	m := l[0].(map[string]interface{})
-
-	userPoolConfig := &appsync.UserPoolConfig{
+	}	m := l[0].(map[string]interface{})	userPoolConfig := &appsync.UserPoolConfig{
 		AwsRegion:aws.String(currentRegion),
 		DefaultAction: aws.String(m["default_action"].(string)),
 		UserPoolId:aws.String(m["user_pool_id"].(string)),
-	}
-
-	if v, ok := m["app_id_client_regex"].(string); ok && v != "" {
+	}	if v, ok := m["app_id_client_regex"].(string); ok && v != "" {
 		userPoolConfig.AppIdClientRegex = aws.String(v)
-	}
-
-	if v, ok := m["aws_region"].(string); ok && v != "" {
+	}	if v, ok := m["aws_region"].(string); ok && v != "" {
 		userPoolConfig.AwsRegion = aws.String(v)
-	}
-
-	return userPoolConfig
+	}	return userPoolConfig
 }
 func expandGraphQLAPILambdaAuthorizerConfig(l []interface{}) *appsync.LambdaAuthorizerConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
-	}
-
-	m := l[0].(map[string]interface{})
-
-	lambdaAuthorizerConfig := &appsync.LambdaAuthorizerConfig{
+	}	m := l[0].(map[string]interface{})	lambdaAuthorizerConfig := &appsync.LambdaAuthorizerConfig{
 		AuthorizerResultTtlInSeconds: aws.Int64(int64(m["authorizer_result_ttl_in_seconds"].(int))),
 		AuthorizerUri:   aws.String(m["authorizer_uri"].(string)),
-	}
-
-	if v, ok := m["identity_validation_expression"].(string); ok && v != "" {
+	}	if v, ok := m["identity_validation_expression"].(string); ok && v != "" {
 		lambdaAuthorizerConfig.IdentityValidationExpression = aws.String(v)
-	}
-
-	return lambdaAuthorizerConfig
+	}	return lambdaAuthorizerConfig
 }
 func expandGraphQLAPIAdditionalAuthProviders(items []interface{}, currentRegion string) []*appsync.AdditionalAuthenticationProvider {
 	if len(items) < 1 {
 		return nil
-	}
-
-	additionalAuthProviders := make([]*appsync.AdditionalAuthenticationProvider, 0, len(items))
+	}	additionalAuthProviders := make([]*appsync.AdditionalAuthenticationProvider, 0, len(items))
 	for _, l := range items {
 		if l == nil {
 			continue
-		}
-
-		m := l.(map[string]interface{})
+		}		m := l.(map[string]interface{})
 		additionalAuthProvider := &appsync.AdditionalAuthenticationProvider{
 			AuthenticationType: aws.String(m["authentication_type"].(string)),
-		}
-
-		if v, ok := m["openid_connect_config"]; ok {
+		}		if v, ok := m["openid_connect_config"]; ok {
 			additionalAuthProvider.OpenIDConnectConfig = expandGraphQLAPIOpenIDConnectConfig(v.([]interface{}))
-		}
-
-		if v, ok := m["user_pool_config"]; ok {
+		}		if v, ok := m["user_pool_config"]; ok {
 			additionalAuthProvider.UserPoolConfig = expandGraphQLAPICognitoUserPoolConfig(v.([]interface{}), currentRegion)
-		}
-
-		if v, ok := m["lambda_authorizer_config"]; ok {
+		}		if v, ok := m["lambda_authorizer_config"]; ok {
 			additionalAuthProvider.LambdaAuthorizerConfig = expandGraphQLAPILambdaAuthorizerConfig(v.([]interface{}))
-		}
-
-		additionalAuthProviders = append(additionalAuthProviders, additionalAuthProvider)
-	}
-
-	return additionalAuthProviders
+		}		additionalAuthProviders = append(additionalAuthProviders, additionalAuthProvider)
+	}	return additionalAuthProviders
 }
 func expandGraphQLAPICognitoUserPoolConfig(l []interface{}, currentRegion string) *appsync.CognitoUserPoolConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
-	}
-
-	m := l[0].(map[string]interface{})
-
-	userPoolConfig := &appsync.CognitoUserPoolConfig{
+	}	m := l[0].(map[string]interface{})	userPoolConfig := &appsync.CognitoUserPoolConfig{
 		AwsRegion:  aws.String(currentRegion),
 		UserPoolId: aws.String(m["user_pool_id"].(string)),
-	}
-
-	if v, ok := m["app_id_client_regex"].(string); ok && v != "" {
+	}	if v, ok := m["app_id_client_regex"].(string); ok && v != "" {
 		userPoolConfig.AppIdClientRegex = aws.String(v)
-	}
-
-	if v, ok := m["aws_region"].(string); ok && v != "" {
+	}	if v, ok := m["aws_region"].(string); ok && v != "" {
 		userPoolConfig.AwsRegion = aws.String(v)
-	}
-
-	return userPoolConfig
+	}	return userPoolConfig
 }
 func flattenGraphQLAPILogConfig(logConfig *appsync.LogConfig) []interface{} {
 	if logConfig == nil {
 		return []interface{}{}
-	}
-
-	m := map[string]interface{}{
+	}	m := map[string]interface{}{
 		"cloudwatch_logs_role_arn": aws.StringValue(logConfig.CloudWatchLogsRoleArn),
 		"field_log_level":aws.StringValue(logConfig.FieldLogLevel),
 		"exclude_verbose_content":  aws.BoolValue(logConfig.ExcludeVerboseContent),
-	}
-
-	return []interface{}{m}
+	}	return []interface{}{m}
 }
 func flattenGraphQLAPIOpenIDConnectConfig(openIDConnectConfig *appsync.OpenIDConnectConfig) []interface{} {
 	if openIDConnectConfig == nil {
 		return []interface{}{}
-	}
-
-	m := map[string]interface{}{
+	}	m := map[string]interface{}{
 		"auth_ttl":  aws.Int64Value(openIDConnectConfig.AuthTTL),
 		"client_id": aws.StringValue(openIDConnectConfig.ClientId),
 		"iat_ttl":   aws.Int64Value(openIDConnectConfig.IatTTL),
 		"issuer":aws.StringValue(openIDConnectConfig.Issuer),
-	}
-
-	return []interface{}{m}
+	}	return []interface{}{m}
 }
 func flattenGraphQLAPIUserPoolConfig(userPoolConfig *appsync.UserPoolConfig) []interface{} {
 	if userPoolConfig == nil {
 		return []interface{}{}
-	}
-
-	m := map[string]interface{}{
+	}	m := map[string]interface{}{
 		"aws_region":aws.StringValue(userPoolConfig.AwsRegion),
 		"default_action": aws.StringValue(userPoolConfig.DefaultAction),
 		"user_pool_id":   aws.StringValue(userPoolConfig.UserPoolId),
-	}
-
-	if userPoolConfig.AppIdClientRegex != nil {
+	}	if userPoolConfig.AppIdClientRegex != nil {
 		m["app_id_client_regex"] = aws.StringValue(userPoolConfig.AppIdClientRegex)
-	}
-
-	return []interface{}{m}
+	}	return []interface{}{m}
 }
 func flattenGraphQLAPILambdaAuthorizerConfig(lambdaAuthorizerConfig *appsync.LambdaAuthorizerConfig) []interface{} {
 	if lambdaAuthorizerConfig == nil {
 		return []interface{}{}
-	}
-
-	m := map[string]interface{}{
+	}	m := map[string]interface{}{
 		"authorizer_uri": aws.StringValue(lambdaAuthorizerConfig.AuthorizerUri),
-	}
-
-	if lambdaAuthorizerConfig.AuthorizerResultTtlInSeconds != nil {
+	}	if lambdaAuthorizerConfig.AuthorizerResultTtlInSeconds != nil {
 		m["authorizer_result_ttl_in_seconds"] = aws.Int64Value(lambdaAuthorizerConfig.AuthorizerResultTtlInSeconds)
 	} else {
 		m["authorizer_result_ttl_in_seconds"] = DefaultAuthorizerResultTTLInSeconds
-	}
-
-	if lambdaAuthorizerConfig.IdentityValidationExpression != nil {
+	}	if lambdaAuthorizerConfig.IdentityValidationExpression != nil {
 		m["identity_validation_expression"] = aws.StringValue(lambdaAuthorizerConfig.IdentityValidationExpression)
-	}
-
-	return []interface{}{m}
+	}	return []interface{}{m}
 }
 func flattenGraphQLAPIAdditionalAuthenticationProviders(additionalAuthenticationProviders []*appsync.AdditionalAuthenticationProvider) []interface{} {
 	if len(additionalAuthenticationProviders) == 0 {
 		return []interface{}{}
-	}
-
-	result := make([]interface{}, len(additionalAuthenticationProviders))
+	}	result := make([]interface{}, len(additionalAuthenticationProviders))
 	for i, provider := range additionalAuthenticationProviders {
 		result[i] = map[string]interface{}{
 			"authentication_type": aws.StringValue(provider.AuthenticationType),
@@ -754,23 +544,15 @@ func flattenGraphQLAPIAdditionalAuthenticationProviders(additionalAuthentication
 			"openid_connect_config":flattenGraphQLAPIOpenIDConnectConfig(provider.OpenIDConnectConfig),
 			"user_pool_config":flattenGraphQLAPICognitoUserPoolConfig(provider.UserPoolConfig),
 		}
-	}
-
-	return result
+	}	return result
 }
 func flattenGraphQLAPICognitoUserPoolConfig(userPoolConfig *appsync.CognitoUserPoolConfig) []interface{} {
 	if userPoolConfig == nil {
 		return []interface{}{}
-	}
-
-	m := map[string]interface{}{
+	}	m := map[string]interface{}{
 		"aws_region":   aws.StringValue(userPoolConfig.AwsRegion),
 		"user_pool_id": aws.StringValue(userPoolConfig.UserPoolId),
-	}
-
-	if userPoolConfig.AppIdClientRegex != nil {
+	}	if userPoolConfig.AppIdClientRegex != nil {
 		m["app_id_client_regex"] = aws.StringValue(userPoolConfig.AppIdClientRegex)
-	}
-
-	return []interface{}{m}
+	}	return []interface{}{m}
 }

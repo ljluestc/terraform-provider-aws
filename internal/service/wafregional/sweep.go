@@ -19,10 +19,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	tfwaf "github.com/hashicorp/terraform-provider-aws/internal/service/waf"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
-)
-
-
-func init() {
+)func init() {
 	resource.AddTestSweepers("aws_wafregional_rate_based_rule", &resource.Sweeper{
 		Name: "aws_wafregional_rate_based_rule",
 		F:    sweepRateBasedRules,
@@ -53,10 +50,7 @@ func init() {
 		Name: "aws_wafregional_web_acl",
 		F:    sweepWebACLs,
 	})
-}
-
-
-func sweepRateBasedRules(region string) error {
+}func sweepRateBasedRules(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -85,8 +79,7 @@ func sweepRateBasedRules(region string) error {
 			id := aws.StringValue(rule.RuleId)
 			wr := NewRetryer(conn, region)
 
-			_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+			_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 				deleteInput.ChangeToken = token
 				log.Printf("[INFO] Deleting WAF Regional Rate-Based Rule: %s", id)
 				return conn.DeleteRateBasedRuleWithContext(ctx, deleteInput)
@@ -119,8 +112,7 @@ func(token *string) (interface{}, error) {
 					updateRateBasedRuleInput.Updates = append(updateRateBasedRuleInput.Updates, update)
 				}
 
-				_, updateWebACLErr := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+				_, updateWebACLErr := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 					updateRateBasedRuleInput.ChangeToken = token
 					log.Printf("[INFO] Removing Predicates from WAF Regional Rate-Based Rule: %s", id)
 					return conn.UpdateRateBasedRuleWithContext(ctx, updateRateBasedRuleInput)
@@ -130,8 +122,7 @@ func(token *string) (interface{}, error) {
 					return fmt.Errorf("error removing predicates from WAF Regional Rate-Based Rule (%s): %s", id, updateWebACLErr)
 				}
 
-				_, err = wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+				_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 					deleteInput.ChangeToken = token
 					log.Printf("[INFO] Deleting WAF Regional Rate-Based Rule: %s", id)
 					return conn.DeleteRateBasedRuleWithContext(ctx, deleteInput)
@@ -151,10 +142,7 @@ func(token *string) (interface{}, error) {
 	}
 
 	return nil
-}
-
-
-func sweepRegexMatchSet(region string) error {
+}func sweepRegexMatchSet(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -164,8 +152,7 @@ func sweepRegexMatchSet(region string) error {
 
 	var sweeperErrs *multierror.Error
 
-	err = listRegexMatchSetsPages(ctx, conn, &waf.ListRegexMatchSetsInput{}, 
-func(page *waf.ListRegexMatchSetsOutput, lastPage bool) bool {
+	err = listRegexMatchSetsPages(ctx, conn, &waf.ListRegexMatchSetsInput{},func(page *waf.ListRegexMatchSetsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -200,10 +187,7 @@ func(page *waf.ListRegexMatchSetsOutput, lastPage bool) bool {
 	}
 
 	return sweeperErrs.ErrorOrNil()
-}
-
-
-func sweepRuleGroups(region string) error {
+}func sweepRuleGroups(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -241,10 +225,7 @@ func sweepRuleGroups(region string) error {
 	}
 
 	return nil
-}
-
-
-func sweepRules(region string) error {
+}func sweepRules(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -273,8 +254,7 @@ func sweepRules(region string) error {
 			id := aws.StringValue(rule.RuleId)
 			wr := NewRetryer(conn, region)
 
-			_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+			_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 				deleteInput.ChangeToken = token
 				log.Printf("[INFO] Deleting WAF Regional Rule: %s", id)
 				return conn.DeleteRuleWithContext(ctx, deleteInput)
@@ -306,8 +286,7 @@ func(token *string) (interface{}, error) {
 					updateRuleInput.Updates = append(updateRuleInput.Updates, update)
 				}
 
-				_, updateWebACLErr := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+				_, updateWebACLErr := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 					updateRuleInput.ChangeToken = token
 					log.Printf("[INFO] Removing Predicates from WAF Regional Rule: %s", id)
 					return conn.UpdateRuleWithContext(ctx, updateRuleInput)
@@ -317,8 +296,7 @@ func(token *string) (interface{}, error) {
 					return fmt.Errorf("error removing predicates from WAF Regional Rule (%s): %s", id, updateWebACLErr)
 				}
 
-				_, err = wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+				_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 					deleteInput.ChangeToken = token
 					log.Printf("[INFO] Deleting WAF Regional Rule: %s", id)
 					return conn.DeleteRuleWithContext(ctx, deleteInput)
@@ -338,10 +316,7 @@ func(token *string) (interface{}, error) {
 	}
 
 	return nil
-}
-
-
-func sweepWebACLs(region string) error {
+}func sweepWebACLs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -370,8 +345,7 @@ func sweepWebACLs(region string) error {
 			id := aws.StringValue(webACL.WebACLId)
 			wr := NewRetryer(conn, region)
 
-			_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+			_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 				deleteInput.ChangeToken = token
 				log.Printf("[INFO] Deleting WAF Regional Web ACL: %s", id)
 				return conn.DeleteWebACLWithContext(ctx, deleteInput)
@@ -404,8 +378,7 @@ func(token *string) (interface{}, error) {
 					updateWebACLInput.Updates = append(updateWebACLInput.Updates, update)
 				}
 
-				_, updateWebACLErr := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+				_, updateWebACLErr := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 					updateWebACLInput.ChangeToken = token
 					log.Printf("[INFO] Removing Rules from WAF Regional Web ACL: %s", id)
 					return conn.UpdateWebACLWithContext(ctx, updateWebACLInput)
@@ -415,8 +388,7 @@ func(token *string) (interface{}, error) {
 					return fmt.Errorf("error removing rules from WAF Regional Web ACL (%s): %s", id, updateWebACLErr)
 				}
 
-				_, err = wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+				_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 					deleteInput.ChangeToken = token
 					log.Printf("[INFO] Deleting WAF Regional Web ACL: %s", id)
 					return conn.DeleteWebACLWithContext(ctx, deleteInput)
@@ -436,11 +408,7 @@ func(token *string) (interface{}, error) {
 	}
 
 	return nil
-}
-
-
-func listRegexMatchSetsPages(ctx context.Context, conn *wafregional.WAFRegional, input *waf.ListRegexMatchSetsInput, fn 
-func(*waf.ListRegexMatchSetsOutput, bool) bool) error {
+}func listRegexMatchSetsPages(ctx context.Context, conn *wafregional.WAFRegional, input *waf.ListRegexMatchSetsInput, fnfunc(*waf.ListRegexMatchSetsOutput, bool) bool) error {
 	for {
 		output, err := conn.ListRegexMatchSetsWithContext(ctx, input)
 		if err != nil {

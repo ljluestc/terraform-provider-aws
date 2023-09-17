@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package imagebuilder_testimport (
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/imagebuilder"
+"testing""github.com/aws/aws-sdk-go/service/imagebuilder"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccImageBuilderImageRecipeDataSource_arn(t *testing.T) {
+)func TestAccImageBuilderImageRecipeDataSource_arn(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 dataSourceName := "data.aws_imagebuilder_image_recipe.test"
-resourceName := "aws_imagebuilder_image_recipe.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_imagebuilder_image_recipe.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:acctest.PreCheck(ctx, t) },
 ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -49,15 +39,9 @@ resource.TestCheckResourceAttrPair(dataSourceName, "working_directory", resource
 },
 },
 })
-}
-
-func testAccImageRecipeDataSourceConfig_arn(rName string) string {
+}func testAccImageRecipeDataSourceConfig_arn(rName string) string {
 return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_imagebuilder_component" "test" {
+data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
     phases = [{
       name = "build"
@@ -80,25 +64,17 @@ resource "aws_imagebuilder_component" "test" {
   name     = %[1]q
   platform = "Linux"
   version  = "1.0.0"
-}
-
-resource "aws_imagebuilder_image_recipe" "test" {
+}resource "aws_imagebuilder_image_recipe" "test" {
   component {
-    component_arn = aws_imagebuilder_component.test.arn
-
-    parameter {
+    component_arn = aws_imagebuilder_component.test.arn    parameter {
       name  = "Parameter1"
       value = "Value1"
     }
-  }
-
-  name
+  }  name
   parent_image     = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version = "1.0.0"
   user_data_base64 = base64encode("helloworld")
-}
-
-data "aws_imagebuilder_image_recipe" "test" {
+}data "aws_imagebuilder_image_recipe" "test" {
   arn = aws_imagebuilder_image_recipe.test.arn
 }
 `, rName)

@@ -8,10 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/quicksight"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-)
-
-
-func histogramVisualSchema() *schema.Schema {
+)func histogramVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_HistogramVisual.html
 Type:     schema.TypeList,
 Optional: true,
@@ -116,10 +113,7 @@ Schema: map[string]*schema.Schema{
 	},
 },
 	}
-}
-
-
-func expandHistogramVisual(tfList []interface{}) *quicksight.HistogramVisual {
+}func expandHistogramVisual(tfList []interface{}) *quicksight.HistogramVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -148,10 +142,7 @@ visual.Title = expandVisualTitleLabelOptions(v)
 	}
 
 	return visual
-}
-
-
-func expandHistogramConfiguration(tfList []interface{}) *quicksight.HistogramConfiguration {
+}func expandHistogramConfiguration(tfList []interface{}) *quicksight.HistogramConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -189,10 +180,7 @@ config.YAxisDisplayOptions = expandAxisDisplayOptions(v)
 	}
 
 	return config
-}
-
-
-func expandHistogramFieldWells(tfList []interface{}) *quicksight.HistogramFieldWells {
+}func expandHistogramFieldWells(tfList []interface{}) *quicksight.HistogramFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -209,10 +197,7 @@ config.HistogramAggregatedFieldWells = expandHistogramAggregatedFieldWells(v)
 	}
 
 	return config
-}
-
-
-func expandHistogramAggregatedFieldWells(tfList []interface{}) *quicksight.HistogramAggregatedFieldWells {
+}func expandHistogramAggregatedFieldWells(tfList []interface{}) *quicksight.HistogramAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -229,10 +214,7 @@ config.Values = expandMeasureFields(v)
 	}
 
 	return config
-}
-
-
-func expandHistogramBinOptions(tfList []interface{}) *quicksight.HistogramBinOptions {
+}func expandHistogramBinOptions(tfList []interface{}) *quicksight.HistogramBinOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -258,10 +240,7 @@ options.BinWidth = expandBinWidthOptions(v)
 	}
 
 	return options
-}
-
-
-func expandBinCountOptions(tfList []interface{}) *quicksight.BinCountOptions {
+}func expandBinCountOptions(tfList []interface{}) *quicksight.BinCountOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -278,10 +257,7 @@ options.Value = aws.Int64(int64(v))
 	}
 
 	return options
-}
-
-
-func expandBinWidthOptions(tfList []interface{}) *quicksight.BinWidthOptions {
+}func expandBinWidthOptions(tfList []interface{}) *quicksight.BinWidthOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -301,10 +277,7 @@ options.Value = aws.Float64(v)
 	}
 
 	return options
-}
-
-
-func flattenHistogramVisual(apiObject *quicksight.HistogramVisual) []interface{} {
+}func flattenHistogramVisual(apiObject *quicksight.HistogramVisual) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -326,10 +299,7 @@ tfMap["title"] = flattenVisualTitleLabelOptions(apiObject.Title)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenHistogramConfiguration(apiObject *quicksight.HistogramConfiguration) []interface{} {
+}func flattenHistogramConfiguration(apiObject *quicksight.HistogramConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -361,10 +331,7 @@ tfMap["y_axis_display_options"] = flattenAxisDisplayOptions(apiObject.YAxisDispl
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenHistogramBinOptions(apiObject *quicksight.HistogramBinOptions) []interface{} {
+}func flattenHistogramBinOptions(apiObject *quicksight.HistogramBinOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -384,10 +351,7 @@ tfMap["start_value"] = aws.Float64Value(apiObject.StartValue)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenBinCountOptions(apiObject *quicksight.BinCountOptions) []interface{} {
+}func flattenBinCountOptions(apiObject *quicksight.BinCountOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -398,10 +362,7 @@ tfMap["value"] = aws.Int64Value(apiObject.Value)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenBinWidthOptions(apiObject *quicksight.BinWidthOptions) []interface{} {
+}func flattenBinWidthOptions(apiObject *quicksight.BinWidthOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -415,10 +376,7 @@ tfMap["value"] = aws.Float64Value(apiObject.Value)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenHistogramFieldWells(apiObject *quicksight.HistogramFieldWells) []interface{} {
+}func flattenHistogramFieldWells(apiObject *quicksight.HistogramFieldWells) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -429,10 +387,7 @@ tfMap["histogram_aggregated_field_wells"] = flattenHistogramAggregatedFieldWells
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenHistogramAggregatedFieldWells(apiObject *quicksight.HistogramAggregatedFieldWells) []interface{} {
+}func flattenHistogramAggregatedFieldWells(apiObject *quicksight.HistogramAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
 return nil
 	}

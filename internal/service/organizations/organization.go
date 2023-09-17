@@ -38,8 +38,7 @@ StateContext: resourceOrganizationImport,
 },
 
 CustomizeDiff: customdiff.Sequence(
-customdiff.ForceNewIfChange("feature_set", 
-func(_ context.Context, old, new, meta interface{}) bool {
+customdiff.ForceNewIfChange("feature_set",func(_ context.Context, old, new, meta interface{}) bool {
 // Only changes from ALL to CONSOLIDATED_BILLING for feature_set should force a new resource.
 return old.(string) == organizations.OrganizationFeatureSetAll && new.(string) == organizations.OrganizationFeatureSetConsolidatedBilling
 }),
@@ -175,10 +174,7 @@ Computed: true,
 },
 },
 }
-}
-
-
-func resourceOrganizationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceOrganizationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -234,10 +230,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for policy type (%s) in Organization
 }
 
 return append(diags, resourceOrganizationRead(ctx, d, meta)...)
-}
-
-
-func resourceOrganizationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceOrganizationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -260,8 +253,7 @@ return sdkdiag.AppendErrorf(diags, "reading Organization (%s) accounts: %s", d.I
 }
 
 managementAccountID := aws.StringValue(org.MasterAccountId)
-nonManagementAccounts := tfslices.Filter(accounts, 
-func(v *organizations.Account) bool {
+nonManagementAccounts := tfslices.Filter(accounts,func(v *organizations.Account) bool {
 return aws.StringValue(v.Id) != managementAccountID
 })
 
@@ -310,10 +302,7 @@ enabledPolicyTypes = append(enabledPolicyTypes, aws.StringValue(policyType.Type)
 d.Set("enabled_policy_types", enabledPolicyTypes)
 
 return diags
-}
-
-
-func resourceOrganizationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceOrganizationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -385,10 +374,7 @@ return sdkdiag.AppendErrorf(diags, "enabling all features in Organization (%s): 
 }
 
 return append(diags, resourceOrganizationRead(ctx, d, meta)...)
-}
-
-
-func resourceOrganizationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceOrganizationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -400,10 +386,7 @@ return sdkdiag.AppendErrorf(diags, "deleting Organization (%s): %s", d.Id(), err
 }
 
 return diags
-}
-
-
-func resourceOrganizationImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+}func resourceOrganizationImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
 org, err := FindOrganization(ctx, conn)
@@ -443,15 +426,11 @@ return nil, tfresource.NewEmptyResultError(input)
 }
 
 return output.Organization, nil
-}
-
-
-func findAccounts(ctx context.Context, conn *organizations.Organizations) ([]*organizations.Account, error) {
+}func findAccounts(ctx context.Context, conn *organizations.Organizations) ([]*organizations.Account, error) {
 input := &organizations.ListAccountsInput{}
 var output []*organizations.Account
 
-err := conn.ListAccountsPagesWithContext(ctx, input, 
-func(page *organizations.ListAccountsOutput, lastPage bool) bool {
+err := conn.ListAccountsPagesWithContext(ctx, input,func(page *organizations.ListAccountsOutput, lastPage bool) bool {
 if page == nil {
 return !lastPage
 }
@@ -477,19 +456,14 @@ if err != nil {
 return nil, err
 }
 
-return tfslices.ApplyToAll(output, 
-func(v *organizations.EnabledServicePrincipal) string {
+return tfslices.ApplyToAll(output,func(v *organizations.EnabledServicePrincipal) string {
 return aws.StringValue(v.ServicePrincipal)
 }), nil
-}
-
-
-func findEnabledServicePrincipals(ctx context.Context, conn *organizations.Organizations) ([]*organizations.EnabledServicePrincipal, error) {
+}func findEnabledServicePrincipals(ctx context.Context, conn *organizations.Organizations) ([]*organizations.EnabledServicePrincipal, error) {
 input := &organizations.ListAWSServiceAccessForOrganizationInput{}
 var output []*organizations.EnabledServicePrincipal
 
-err := conn.ListAWSServiceAccessForOrganizationPagesWithContext(ctx, input, 
-func(page *organizations.ListAWSServiceAccessForOrganizationOutput, lastPage bool) bool {
+err := conn.ListAWSServiceAccessForOrganizationPagesWithContext(ctx, input,func(page *organizations.ListAWSServiceAccessForOrganizationOutput, lastPage bool) bool {
 if page == nil {
 return !lastPage
 }
@@ -504,15 +478,11 @@ return nil, err
 }
 
 return output, nil
-}
-
-
-func findRoots(ctx context.Context, conn *organizations.Organizations) ([]*organizations.Root, error) {
+}func findRoots(ctx context.Context, conn *organizations.Organizations) ([]*organizations.Root, error) {
 input := &organizations.ListRootsInput{}
 var output []*organizations.Root
 
-err := conn.ListRootsPagesWithContext(ctx, input, 
-func(page *organizations.ListRootsOutput, lastPage bool) bool {
+err := conn.ListRootsPagesWithContext(ctx, input,func(page *organizations.ListRootsOutput, lastPage bool) bool {
 if page == nil {
 return !lastPage
 }
@@ -527,10 +497,7 @@ return nil, err
 }
 
 return output, nil
-}
-
-
-func findDefaultRoot(ctx context.Context, conn *organizations.Organizations) (*organizations.Root, error) {
+}func findDefaultRoot(ctx context.Context, conn *organizations.Organizations) (*organizations.Root, error) {
 output, err := findRoots(ctx, conn)
 
 if err != nil {
@@ -542,10 +509,7 @@ return nil, tfresource.NewEmptyResultError(nil)
 }
 
 return output[0], nil
-}
-
-
-func flattenAccounts(accounts []*organizations.Account) []map[string]interface{} {
+}func flattenAccounts(accounts []*organizations.Account) []map[string]interface{} {
 if len(accounts) == 0 {
 return nil
 }
@@ -560,10 +524,7 @@ result = append(result, map[string]interface{}{
 })
 }
 return result
-}
-
-
-func flattenRoots(roots []*organizations.Root) []map[string]interface{} {
+}func flattenRoots(roots []*organizations.Root) []map[string]interface{} {
 if len(roots) == 0 {
 return nil
 }
@@ -577,10 +538,7 @@ result = append(result, map[string]interface{}{
 })
 }
 return result
-}
-
-
-func flattenRootPolicyTypeSummaries(summaries []*organizations.PolicyTypeSummary) []map[string]interface{} {
+}func flattenRootPolicyTypeSummaries(summaries []*organizations.PolicyTypeSummary) []map[string]interface{} {
 if len(summaries) == 0 {
 return nil
 }
@@ -592,12 +550,8 @@ result = append(result, map[string]interface{}{
 })
 }
 return result
-}
-
-
-func statusDefaultRootPolicyType(ctx context.Context, conn *organizations.Organizations, policyType string) retry.StateRefreshFunc {
-return 
-func() (interface{}, string, error) {
+}func statusDefaultRootPolicyType(ctx context.Context, conn *organizations.Organizations, policyType string) retry.StateRefreshFunc {
+returnfunc() (interface{}, string, error) {
 defaultRoot, err := findDefaultRoot(ctx, conn)
 
 if err != nil {
@@ -614,10 +568,7 @@ return &organizations.PolicyTypeSummary{}, policyTypeStatusDisabled, nil
 }
 }
 
-const policyTypeStatusDisabled = "DISABLED"
-
-
-func waitDefaultRootPolicyTypeDisabled(ctx context.Context, conn *organizations.Organizations, policyType string) error {
+const policyTypeStatusDisabled = "DISABLED"func waitDefaultRootPolicyTypeDisabled(ctx context.Context, conn *organizations.Organizations, policyType string) error {
 stateConf := &retry.StateChangeConf{
 Pending: []string{organizations.PolicyTypeStatusEnabled, organizations.PolicyTypeStatusPendingDisable},
 Target:  []string{policyTypeStatusDisabled},
@@ -628,10 +579,7 @@ Timeout: 5 * time.Minute,
 _, err := stateConf.WaitForStateContext(ctx)
 
 return err
-}
-
-
-func waitDefaultRootPolicyTypeEnabled(ctx context.Context, conn *organizations.Organizations, policyType string) error {
+}func waitDefaultRootPolicyTypeEnabled(ctx context.Context, conn *organizations.Organizations, policyType string) error {
 stateConf := &retry.StateChangeConf{
 Pending: []string{policyTypeStatusDisabled, organizations.PolicyTypeStatusPendingEnable},
 Target:  []string{organizations.PolicyTypeStatusEnabled},

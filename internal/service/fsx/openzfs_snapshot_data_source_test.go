@@ -1,27 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package fsx_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package fsx_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/fsx"
+	"testing"	"github.com/aws/aws-sdk-go/service/fsx"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccFSxOpenzfsSnapshotDataSource_basic(t *testing.T) {
+)func TestAccFSxOpenzfsSnapshotDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_fsx_openzfs_snapshot.test"
 	resourceName := "aws_fsx_openzfs_snapshot.test"
 	mostRecentResourceName := "aws_fsx_openzfs_snapshot.latest"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -98,127 +88,89 @@ func TestAccFSxOpenzfsSnapshotDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccOpenzfsSnapshotDataSourceBaseConfig(rName string) string {
+}func testAccOpenzfsSnapshotDataSourceBaseConfig(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_subnet" "test1" {
+}resource "aws_subnet" "test1" {
   vpc_id   = aws_vpc.test.id
   cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
-}
-
-resource "aws_fsx_openzfs_file_system" "test" {
+}resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity= 64
   subnet_ids = [aws_subnet.test1.id]
   deployment_type = "SINGLE_AZ_1"
-  throughput_capacity = 64
-
-  tags = {
+  throughput_capacity = 64  tags = {
 Name = %[1]q
   }
 }
 `, rName))
-}
-
-func testAccOpenzfsSnapshotDataSourceConfig_basic(rName string) string {
+}func testAccOpenzfsSnapshotDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotDataSourceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_snapshot" "test" {
   name  = %[1]q
   volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
-}
-
-data "aws_fsx_openzfs_snapshot" "test" {
+}data "aws_fsx_openzfs_snapshot" "test" {
   snapshot_ids = [aws_fsx_openzfs_snapshot.test.id]
 }
 `, rName))
-}
-
-func testAccOpenzfsSnapshotDataSourceConfig_tags1(rName string, tagKey1, tagValue1 string) string {
+}func testAccOpenzfsSnapshotDataSourceConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotDataSourceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_snapshot" "test" {
   name  = %[1]q
-  volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
-
-  tags = {
+  volume_id = aws_fsx_openzfs_file_system.test.root_volume_id  tags = {
 %[2]q = %[3]q
   }
-}
-
-data "aws_fsx_openzfs_snapshot" "test" {
+}data "aws_fsx_openzfs_snapshot" "test" {
   snapshot_ids = [aws_fsx_openzfs_snapshot.test.id]
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccOpenzfsSnapshotDataSourceConfig_tags2(rName string, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccOpenzfsSnapshotDataSourceConfig_tags2(rName string, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotDataSourceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_snapshot" "test" {
   name  = %[1]q
-  volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
-
-  tags = {
+  volume_id = aws_fsx_openzfs_file_system.test.root_volume_id  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }
-}
-
-data "aws_fsx_openzfs_snapshot" "test" {
+}data "aws_fsx_openzfs_snapshot" "test" {
   snapshot_ids = [aws_fsx_openzfs_snapshot.test.id]
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
-func testAccOpenzfsSnapshotDataSourceConfig_filterFileSystemId(rName string) string {
+}func testAccOpenzfsSnapshotDataSourceConfig_filterFileSystemId(rName string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotDataSourceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_snapshot" "test" {
   name  = %[1]q
   volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
-}
-
-data "aws_fsx_openzfs_snapshot" "test" {
+}data "aws_fsx_openzfs_snapshot" "test" {
   filter {
 name   = "file-system-id"
 values = [aws_fsx_openzfs_file_system.test.id]
   }
 }
 `, rName))
-}
-
-func testAccOpenzfsSnapshotDataSourceConfig_filterVolumeId(rName string) string {
+}func testAccOpenzfsSnapshotDataSourceConfig_filterVolumeId(rName string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotDataSourceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_snapshot" "test" {
   name  = %[1]q
   volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
-}
-
-data "aws_fsx_openzfs_snapshot" "test" {
+}data "aws_fsx_openzfs_snapshot" "test" {
   filter {
 name   = "volume-id"
 values = [aws_fsx_openzfs_file_system.test.root_volume_id]
   }
 }
 `, rName))
-}
-
-func testAccOpenzfsSnapshotDataSourceConfig_mostRecent(rName, rName2 string) string {
+}func testAccOpenzfsSnapshotDataSourceConfig_mostRecent(rName, rName2 string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotDataSourceBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_snapshot" "test" {
   name  = %[1]q
   volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
-}
-
-resource "aws_fsx_openzfs_snapshot" "latest" {
+}resource "aws_fsx_openzfs_snapshot" "latest" {
   # Ensure that this snapshot is created after the other.
   name  = %[2]q
   volume_id = aws_fsx_openzfs_snapshot.test.volume_id
-}
-
-data "aws_fsx_openzfs_snapshot" "test" {
+}data "aws_fsx_openzfs_snapshot" "test" {
   most_recent = true
   filter {
 name   = "volume-id"

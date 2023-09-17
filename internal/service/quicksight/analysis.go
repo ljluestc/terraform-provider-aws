@@ -43,8 +43,7 @@ func ResourceAnalysis() *schema.Resource {
 		DeleteWithoutTimeout: resourceAnalysisDelete,
 
 		Importer: &schema.ResourceImporter{
-			StateContext: 
-func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+			StateContext:func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 				d.Set("recovery_window_in_days", recoveryWindowInDaysDefault)
 				return []*schema.ResourceData{d}, nil
 			},
@@ -57,8 +56,7 @@ func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.R
 		},
 
 		Schema
-func: 
-func() map[string]*schema.Schema {
+func:func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -150,10 +148,7 @@ func: validation.Any(
 
 const (
 	ResNameAnalysis = "Analysis"
-)
-
-
-func resourceAnalysisCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+)func resourceAnalysisCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
 	awsAccountId := meta.(*conns.AWSClient).AccountID
@@ -197,10 +192,7 @@ func resourceAnalysisCreate(ctx context.Context, d *schema.ResourceData, meta in
 	}
 
 	return resourceAnalysisRead(ctx, d, meta)
-}
-
-
-func resourceAnalysisRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceAnalysisRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
 	awsAccountId, analysisId, err := ParseAnalysisId(d.Id())
@@ -262,10 +254,7 @@ func resourceAnalysisRead(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	return nil
-}
-
-
-func resourceAnalysisUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceAnalysisUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
 	awsAccountId, analysisId, err := ParseAnalysisId(d.Id())
@@ -330,10 +319,7 @@ func resourceAnalysisUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	}
 
 	return resourceAnalysisRead(ctx, d, meta)
-}
-
-
-func resourceAnalysisDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceAnalysisDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
 	awsAccountId, analysisId, err := ParseAnalysisId(d.Id())
@@ -365,10 +351,7 @@ func resourceAnalysisDelete(ctx context.Context, d *schema.ResourceData, meta in
 	}
 
 	return nil
-}
-
-
-func FindAnalysisByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.Analysis, error) {
+}func FindAnalysisByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.Analysis, error) {
 	awsAccountId, analysisId, err := ParseAnalysisId(id)
 	if err != nil {
 		return nil, err
@@ -397,18 +380,12 @@ func FindAnalysisByID(ctx context.Context, conn *quicksight.QuickSight, id strin
 	}
 
 	return out.Analysis, nil
-}
-
-
-func ParseAnalysisId(id string) (string, string, error) {
+}func ParseAnalysisId(id string) (string, string, error) {
 	parts := strings.SplitN(id, ",", 2)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
 		return "", "", fmt.Errorf("unexpected format of ID (%s), expected AWS_ACCOUNT_ID,ANALYSIS_ID", id)
 	}
 	return parts[0], parts[1], nil
-}
-
-
-func createAnalysisId(awsAccountID, analysisId string) string {
+}func createAnalysisId(awsAccountID, analysisId string) string {
 	return fmt.Sprintf("%s,%s", awsAccountID, analysisId)
 }

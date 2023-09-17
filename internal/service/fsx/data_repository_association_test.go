@@ -1,15 +1,9 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packagefsx_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packagefsx_testimport(
 	"context"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/fsx"
@@ -20,17 +14,13 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tffsx"github.com/hashicorp/terraform-provider-aws/internal/service/fsx"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-funcTestAccFSxDataRepositoryAssociation_basic(t*testing.T){
+)funcTestAccFSxDataRepositoryAssociation_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociationfsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketPath:=fmt.Sprintf("s3://%s",rName)
-	fileSystemPath:="/test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	fileSystemPath:="/test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -61,16 +51,12 @@ funcTestAccFSxDataRepositoryAssociation_basic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxDataRepositoryAssociation_disappears(t*testing.T){
+}funcTestAccFSxDataRepositoryAssociation_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociationfsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	fileSystemPath:="/test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	fileSystemPath:="/test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -91,17 +77,13 @@ funcTestAccFSxDataRepositoryAssociation_disappears(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxDataRepositoryAssociation_disappears_ParentFileSystem(t*testing.T){
+}funcTestAccFSxDataRepositoryAssociation_disappears_ParentFileSystem(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociationfsx.DataRepositoryAssociation
 	parentResourceName:="aws_fsx_lustre_file_system.test"
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	fileSystemPath:="/test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	fileSystemPath:="/test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -122,17 +104,13 @@ funcTestAccFSxDataRepositoryAssociation_disappears_ParentFileSystem(t*testing.T)
 			},
 		},
 	})
-}
-
-funcTestAccFSxDataRepositoryAssociation_fileSystemPathUpdated(t*testing.T){
+}funcTestAccFSxDataRepositoryAssociation_fileSystemPathUpdated(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociation1,association2fsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	fileSystemPath1:="/test1"
-	fileSystemPath2:="/test2"
-
-	resource.ParallelTest(t,resource.TestCase{
+	fileSystemPath2:="/test2"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -166,9 +144,7 @@ funcTestAccFSxDataRepositoryAssociation_fileSystemPathUpdated(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxDataRepositoryAssociation_dataRepositoryPathUpdated(t*testing.T){
+}funcTestAccFSxDataRepositoryAssociation_dataRepositoryPathUpdated(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociation1,association2fsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
@@ -177,9 +153,7 @@ funcTestAccFSxDataRepositoryAssociation_dataRepositoryPathUpdated(t*testing.T){
 	bucketPath1:=fmt.Sprintf("s3://%s",bucketName1)
 	bucketName2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketPath2:=fmt.Sprintf("s3://%s",bucketName2)
-	fileSystemPath:="/test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	fileSystemPath:="/test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -213,17 +187,13 @@ funcTestAccFSxDataRepositoryAssociation_dataRepositoryPathUpdated(t*testing.T){
 			},
 		},
 	})
-}
-
-//lintignore:AT002
+}//lintignore:AT002
 funcTestAccFSxDataRepositoryAssociation_importedFileChunkSize(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociationfsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	fileSystemPath:="/test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	fileSystemPath:="/test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -249,17 +219,13 @@ funcTestAccFSxDataRepositoryAssociation_importedFileChunkSize(t*testing.T){
 			},
 		},
 	})
-}
-
-//lintignore:AT002
+}//lintignore:AT002
 funcTestAccFSxDataRepositoryAssociation_importedFileChunkSizeUpdated(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociation1,association2fsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	fileSystemPath:="/test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	fileSystemPath:="/test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -293,16 +259,12 @@ funcTestAccFSxDataRepositoryAssociation_importedFileChunkSizeUpdated(t*testing.T
 			},
 		},
 	})
-}
-
-funcTestAccFSxDataRepositoryAssociation_deleteDataInFilesystem(t*testing.T){
+}funcTestAccFSxDataRepositoryAssociation_deleteDataInFilesystem(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociationfsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	fileSystemPath:="/test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	fileSystemPath:="/test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -328,17 +290,13 @@ funcTestAccFSxDataRepositoryAssociation_deleteDataInFilesystem(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxDataRepositoryAssociation_s3AutoExportPolicy(t*testing.T){
+}funcTestAccFSxDataRepositoryAssociation_s3AutoExportPolicy(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociationfsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	fileSystemPath:="/test"
-	events:=[]string{"NEW","CHANGED","DELETED"}
-
-	resource.ParallelTest(t,resource.TestCase{
+	events:=[]string{"NEW","CHANGED","DELETED"}	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -366,18 +324,14 @@ funcTestAccFSxDataRepositoryAssociation_s3AutoExportPolicy(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxDataRepositoryAssociation_s3AutoExportPolicyUpdate(t*testing.T){
+}funcTestAccFSxDataRepositoryAssociation_s3AutoExportPolicyUpdate(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociation1,association2fsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	fileSystemPath:="/test"
 	events1:=[]string{"NEW","CHANGED","DELETED"}
-	events2:=[]string{"NEW"}
-
-	resource.ParallelTest(t,resource.TestCase{
+	events2:=[]string{"NEW"}	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -413,17 +367,13 @@ funcTestAccFSxDataRepositoryAssociation_s3AutoExportPolicyUpdate(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxDataRepositoryAssociation_s3AutoImportPolicy(t*testing.T){
+}funcTestAccFSxDataRepositoryAssociation_s3AutoImportPolicy(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociationfsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	fileSystemPath:="/test"
-	events:=[]string{"NEW","CHANGED","DELETED"}
-
-	resource.ParallelTest(t,resource.TestCase{
+	events:=[]string{"NEW","CHANGED","DELETED"}	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -451,18 +401,14 @@ funcTestAccFSxDataRepositoryAssociation_s3AutoImportPolicy(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxDataRepositoryAssociation_s3AutoImportPolicyUpdate(t*testing.T){
+}funcTestAccFSxDataRepositoryAssociation_s3AutoImportPolicyUpdate(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociation1,association2fsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	fileSystemPath:="/test"
 	events1:=[]string{"NEW","CHANGED","DELETED"}
-	events2:=[]string{"NEW"}
-
-	resource.ParallelTest(t,resource.TestCase{
+	events2:=[]string{"NEW"}	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -498,16 +444,12 @@ funcTestAccFSxDataRepositoryAssociation_s3AutoImportPolicyUpdate(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxDataRepositoryAssociation_s3FullPolicy(t*testing.T){
+}funcTestAccFSxDataRepositoryAssociation_s3FullPolicy(t*testing.T){
 	ctx:=acctest.Context(t)
 	varassociationfsx.DataRepositoryAssociation
 	resourceName:="aws_fsx_data_repository_association.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	fileSystemPath:="/test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	fileSystemPath:="/test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)
@@ -538,91 +480,51 @@ funcTestAccFSxDataRepositoryAssociation_s3FullPolicy(t*testing.T){
 			},
 		},
 	})
-}
-
-functestAccCheckDataRepositoryAssociationExists(ctxcontext.Context,nstring,v*fsx.DataRepositoryAssociation)resource.TestCheckFunc{
+}functestAccCheckDataRepositoryAssociationExists(ctxcontext.Context,nstring,v*fsx.DataRepositoryAssociation)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		rs,ok:=s.RootModule().Resources[n]
 		if!ok{
 			returnfmt.Errorf("Notfound:%s",n)
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-		output,err:=tffsx.FindDataRepositoryAssociationByID(ctx,conn,rs.Primary.ID)
-
-		iferr!=nil{
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		output,err:=tffsx.FindDataRepositoryAssociationByID(ctx,conn,rs.Primary.ID)		iferr!=nil{
 			returnerr
-		}
-
-		*v=*output
-
-		returnnil
+		}		*v=*output		returnnil
 	}
-}
-
-functestAccCheckDataRepositoryAssociationDestroy(ctxcontext.Context)resource.TestCheckFunc{
+}functestAccCheckDataRepositoryAssociationDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_fsx_data_repository_association"{
 				continue
-			}
-
-			_,err:=tffsx.FindDataRepositoryAssociationByID(ctx,conn,rs.Primary.ID)
-
-			iftfresource.NotFound(err){
+			}			_,err:=tffsx.FindDataRepositoryAssociationByID(ctx,conn,rs.Primary.ID)			iftfresource.NotFound(err){
 				continue
-			}
-
-			iferr!=nil{
+			}			iferr!=nil{
 				returnerr
-			}
-
-			returnfmt.Errorf("FSxforLustreDataRepositoryAssociation%sstillexists",rs.Primary.ID)
-		}
-
-		returnnil
+			}			returnfmt.Errorf("FSxforLustreDataRepositoryAssociation%sstillexists",rs.Primary.ID)
+		}		returnnil
 	}
-}
-
-functestAccCheckDataRepositoryAssociationNotRecreated(i,j*fsx.DataRepositoryAssociation)resource.TestCheckFunc{
+}functestAccCheckDataRepositoryAssociationNotRecreated(i,j*fsx.DataRepositoryAssociation)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		ifaws.StringValue(i.AssociationId)!=aws.StringValue(j.AssociationId){
 			returnfmt.Errorf("FSxDataRepositoryAssociation(%s)recreated",aws.StringValue(i.AssociationId))
-		}
-
-		returnnil
+		}		returnnil
 	}
-}
-
-functestAccCheckDataRepositoryAssociationRecreated(i,j*fsx.DataRepositoryAssociation)resource.TestCheckFunc{
+}functestAccCheckDataRepositoryAssociationRecreated(i,j*fsx.DataRepositoryAssociation)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		ifaws.StringValue(i.AssociationId)==aws.StringValue(j.AssociationId){
 			returnfmt.Errorf("FSxDataRepositoryAssociation(%s)notrecreated",aws.StringValue(i.AssociationId))
-		}
-
-		returnnil
+		}		returnnil
 	}
-}
-
-functestAccDataRepositoryAssociationConfig_s3Bucket(rName,bucketNamestring)string{
+}functestAccDataRepositoryAssociationConfig_s3Bucket(rName,bucketNamestring)string{
 	returnacctest.ConfigCompose(testAccLustreFileSystemConfig_base(rName),fmt.Sprintf(`
 resource"aws_fsx_lustre_file_system""test"{
 storage_capacity=1200
 subnet_ids=aws_subnet.test[*].id
 deployment_type="PERSISTENT_2"
 per_unit_storage_throughput=125
-}
-
-resource"aws_s3_bucket""test"{
+}resource"aws_s3_bucket""test"{
 bucket=%[1]q
 }
 `,bucketName))
-}
-
-functestAccDataRepositoryAssociationConfig_fileSystemPath(rName,bucketName,fileSystemPathstring)string{
+}functestAccDataRepositoryAssociationConfig_fileSystemPath(rName,bucketName,fileSystemPathstring)string{
 	returnacctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName,bucketName),fmt.Sprintf(`
 resource"aws_fsx_data_repository_association""test"{
 file_system_id=aws_fsx_lustre_file_system.test.id
@@ -630,12 +532,8 @@ data_repository_path="s3://%[1]s"
 file_system_path=%[2]q
 }
 `,bucketName,fileSystemPath))
-}
-
-functestAccDataRepositoryAssociationConfig_importedFileChunkSize(rName,bucketName,fileSystemPathstring,fileChunkSizeint64)string{
-	bucketPath:=fmt.Sprintf("s3://%s",bucketName)
-
-	returnacctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName,bucketName),fmt.Sprintf(`
+}functestAccDataRepositoryAssociationConfig_importedFileChunkSize(rName,bucketName,fileSystemPathstring,fileChunkSizeint64)string{
+	bucketPath:=fmt.Sprintf("s3://%s",bucketName)	returnacctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName,bucketName),fmt.Sprintf(`
 resource"aws_fsx_data_repository_association""test"{
 file_system_id=aws_fsx_lustre_file_system.test.id
 data_repository_path=%[1]q
@@ -643,9 +541,7 @@ file_system_path=%[2]q
 imported_file_chunk_size=%[3]d
 }
 `,bucketPath,fileSystemPath,fileChunkSize))
-}
-
-functestAccDataRepositoryAssociationConfig_deleteInFilesystem(rName,bucketName,fileSystemPath,deleteDataInFilesystemstring)string{
+}functestAccDataRepositoryAssociationConfig_deleteInFilesystem(rName,bucketName,fileSystemPath,deleteDataInFilesystemstring)string{
 	bucketPath:=fmt.Sprintf("s3://%s",bucketName)
 	returnacctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName,bucketName),fmt.Sprintf(`
 resource"aws_fsx_data_repository_association""test"{
@@ -655,58 +551,44 @@ file_system_path=%[2]q
 delete_data_in_filesystem=%[3]q
 }
 `,bucketPath,fileSystemPath,deleteDataInFilesystem))
-}
-
-functestAccDataRepositoryAssociationConfig_s3AutoExportPolicy(rName,bucketName,fileSystemPathstring,events[]string)string{
+}functestAccDataRepositoryAssociationConfig_s3AutoExportPolicy(rName,bucketName,fileSystemPathstring,events[]string)string{
 	bucketPath:=fmt.Sprintf("s3://%s",bucketName)
 	eventsString:=strings.Replace(fmt.Sprintf("%q",events),"",",",-1)
 	returnacctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName,bucketName),fmt.Sprintf(`
 resource"aws_fsx_data_repository_association""test"{
 file_system_id=aws_fsx_lustre_file_system.test.id
 data_repository_path=%[1]q
-file_system_path=%[2]q
-
-s3{
+file_system_path=%[2]qs3{
 auto_export_policy{
 events=%[3]s
 }
 }
 }
 `,bucketPath,fileSystemPath,eventsString))
-}
-
-functestAccDataRepositoryAssociationConfig_s3AutoImportPolicy(rName,bucketName,fileSystemPathstring,events[]string)string{
+}functestAccDataRepositoryAssociationConfig_s3AutoImportPolicy(rName,bucketName,fileSystemPathstring,events[]string)string{
 	bucketPath:=fmt.Sprintf("s3://%s",bucketName)
 	eventsString:=strings.Replace(fmt.Sprintf("%q",events),"",",",-1)
 	returnacctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName,bucketName),fmt.Sprintf(`
 resource"aws_fsx_data_repository_association""test"{
 file_system_id=aws_fsx_lustre_file_system.test.id
 data_repository_path=%[1]q
-file_system_path=%[2]q
-
-s3{
+file_system_path=%[2]qs3{
 auto_import_policy{
 events=%[3]s
 }
 }
 }
 `,bucketPath,fileSystemPath,eventsString))
-}
-
-functestAccDataRepositoryAssociationConfig_s3FullPolicy(rName,bucketName,fileSystemPathstring)string{
+}functestAccDataRepositoryAssociationConfig_s3FullPolicy(rName,bucketName,fileSystemPathstring)string{
 	bucketPath:=fmt.Sprintf("s3://%s",bucketName)
 	returnacctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName,bucketName),fmt.Sprintf(`
 resource"aws_fsx_data_repository_association""test"{
 file_system_id=aws_fsx_lustre_file_system.test.id
 data_repository_path=%[1]q
-file_system_path=%[2]q
-
-s3{
+file_system_path=%[2]qs3{
 auto_export_policy{
 events=["NEW","CHANGED","DELETED"]
-}
-
-auto_import_policy{
+}auto_import_policy{
 events=["NEW","CHANGED","DELETED"]
 }
 }

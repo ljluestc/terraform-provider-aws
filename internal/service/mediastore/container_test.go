@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package mediastore_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package mediastore_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/mediastore"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -16,13 +10,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccMediaStoreContainer_basic(t *testing.T) {
+)func TestAccMediaStoreContainer_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	resourceName := "aws_media_store_container.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_media_store_container.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediastore.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -41,14 +31,10 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccMediaStoreContainer_tags(t *testing.T) {
+}func TestAccMediaStoreContainer_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandString(5)
-	resourceName := "aws_media_store_container.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_media_store_container.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediastore.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -88,89 +74,51 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccCheckContainerDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckContainerDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_media_store_container" {
 continue
-	}
-
-	input := &mediastore.DescribeContainerInput{
+	}	input := &mediastore.DescribeContainerInput{
 ContainerName: aws.String(rs.Primary.ID),
-	}
-
-	resp, err := conn.DescribeContainerWithContext(ctx, input)
+	}	resp, err := conn.DescribeContainerWithContext(ctx, input)
 	if err != nil {
 if tfawserr.ErrCodeEquals(err, mediastore.ErrCodeContainerNotFoundException) {
 	return nil
 }
 return err
-	}
-
-	if *resp.Container.Status != mediastore.ContainerStatusDeleting {
+	}	if *resp.Container.Status != mediastore.ContainerStatusDeleting {
 return fmt.Errorf("MediaStore Container (%s) not deleted", rs.Primary.ID)
 	}
 }
 return nil
 	}
-}
-
-func testAccCheckContainerExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckContainerExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return fmt.Errorf("Not found: %s", name)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)
-
-input := &mediastore.DescribeContainerInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)input := &mediastore.DescribeContainerInput{
 	ContainerName: aws.String(rs.Primary.ID),
-}
-
-_, err := conn.DescribeContainerWithContext(ctx, input)
-
-return err
+}_, err := conn.DescribeContainerWithContext(ctx, input)return err
 	}
-}
-
-func testAccPreCheck(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)
-
-	input := &mediastore.ListContainersInput{}
-
-	_, err := conn.ListContainersWithContext(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+}func testAccPreCheck(ctx context.Context, t *testing.T) {
+	conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)	input := &mediastore.ListContainersInput{}	_, err := conn.ListContainersWithContext(ctx, input)	if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
 	}
-}
-
-func testAccContainerConfig_basic(rName string) string {
+}func testAccContainerConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_media_store_container" "test" {
   name = "tf_mediastore_%s"
 }
 `, rName)
-}
-
-func testAccContainerConfig_tags(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccContainerConfig_tags(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_media_store_container" "test" {
-  name = "tf_mediastore_%[1]s"
-
-  tags = {
-Name = "tf_mediastore_%[1]s"
-
-%[2]s = %[3]q
+  name = "tf_mediastore_%[1]s"  tags = {
+Name = "tf_mediastore_%[1]s"%[2]s = %[3]q
 %[4]s = %[5]q
   }
 }

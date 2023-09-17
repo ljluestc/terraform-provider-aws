@@ -8,10 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/quicksight"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-)
-
-
-func geospatialMapStyleOptionsSchema() *schema.Schema {
+)func geospatialMapStyleOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GeospatialMapStyleOptions.html
 		Type:     schema.TypeList,
 		Optional: true,
@@ -23,10 +20,7 @@ func geospatialMapStyleOptionsSchema() *schema.Schema {
 			},
 		},
 	}
-}
-
-
-func geospatialWindowOptionsSchema() *schema.Schema {
+}func geospatialWindowOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GeospatialWindowOptions.html
 		Type:     schema.TypeList,
 		Optional: true,
@@ -72,10 +66,7 @@ func: validation.IntBetween(-1800, 1800),
 			},
 		},
 	}
-}
-
-
-func expandGeospatialMapStyleOptions(tfList []interface{}) *quicksight.GeospatialMapStyleOptions {
+}func expandGeospatialMapStyleOptions(tfList []interface{}) *quicksight.GeospatialMapStyleOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -92,10 +83,7 @@ func expandGeospatialMapStyleOptions(tfList []interface{}) *quicksight.Geospatia
 	}
 
 	return options
-}
-
-
-func expandGeospatialWindowOptions(tfList []interface{}) *quicksight.GeospatialWindowOptions {
+}func expandGeospatialWindowOptions(tfList []interface{}) *quicksight.GeospatialWindowOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -115,10 +103,7 @@ func expandGeospatialWindowOptions(tfList []interface{}) *quicksight.GeospatialW
 	}
 
 	return options
-}
-
-
-func expandGeospatialCoordinateBounds(tfList []interface{}) *quicksight.GeospatialCoordinateBounds {
+}func expandGeospatialCoordinateBounds(tfList []interface{}) *quicksight.GeospatialCoordinateBounds {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -144,10 +129,7 @@ func expandGeospatialCoordinateBounds(tfList []interface{}) *quicksight.Geospati
 	}
 
 	return config
-}
-
-
-func flattenGeospatialMapStyleOptions(apiObject *quicksight.GeospatialMapStyleOptions) []interface{} {
+}func flattenGeospatialMapStyleOptions(apiObject *quicksight.GeospatialMapStyleOptions) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -158,10 +140,7 @@ func flattenGeospatialMapStyleOptions(apiObject *quicksight.GeospatialMapStyleOp
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenGeospatialWindowOptions(apiObject *quicksight.GeospatialWindowOptions) []interface{} {
+}func flattenGeospatialWindowOptions(apiObject *quicksight.GeospatialWindowOptions) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
@@ -175,10 +154,7 @@ func flattenGeospatialWindowOptions(apiObject *quicksight.GeospatialWindowOption
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenGeospatialCoordinateBounds(apiObject *quicksight.GeospatialCoordinateBounds) []interface{} {
+}func flattenGeospatialCoordinateBounds(apiObject *quicksight.GeospatialCoordinateBounds) []interface{} {
 	if apiObject == nil {
 		return nil
 	}

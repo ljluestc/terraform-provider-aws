@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iam_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iam_testimport (
 	"context"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/iam"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -18,16 +12,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )func := acctest.Context(t)
-	var group iam.GetGroupOutput
-
-	rString := sdkacctest.RandString(8)
+	var group iam.GetGroupOutput	rString := sdkacctest.RandString(8)
 	groupName := fmt.Sprintf("tf-acc-group-gm-basic-%s", rString)
 	userName := fmt.Sprintf("tf-acc-user-gm-basic-%s", rString)
 	userName2 := fmt.Sprintf("tf-acc-user-gm-basic-two-%s", rString)
 	userName3 := fmt.Sprintf("tf-acc-user-gm-basic-three-%s", rString)
-	membershipName := fmt.Sprintf("tf-acc-membership-gm-basic-%s", rString)
-
-	resource.ParallelTest(t, resource.TestCase{
+	membershipName := fmt.Sprintf("tf-acc-membership-gm-basic-%s", rString)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -39,17 +29,13 @@ import (
 					testAccCheckGroupMembershipExists(ctx, "aws_iam_group_membership.team", &group),
 					testAccCheckGroupMembershipAttributes(&group, groupName, []string{userName}),
 				),
-			},
-
-			{
+			},			{
 				Config: testAccGroupMembershipConfig_memberUpdate(groupName, userName, userName2, userName3, membershipName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckGroupMembershipExists(ctx, "aws_iam_group_membership.team", &group),
 					testAccCheckGroupMembershipAttributes(&group, groupName, []string{userName2, userName3}),
 				),
-			},
-
-			{
+			},			{
 				Config: testAccGroupMembershipConfig_memberUpdateDown(groupName, userName3, membershipName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckGroupMembershipExists(ctx, "aws_iam_group_membership.team", &group),
@@ -59,14 +45,10 @@ import (
 		},
 	})
 }func TestAccIAMGroupMembership_paginatedUserList(t *testing.T) {
-	func group iam.GetGroupOutput
-
-	rString := sdkacctest.RandString(8)
+	func group iam.GetGroupOutput	rString := sdkacctest.RandString(8)
 	groupName := fmt.Sprintf("tf-acc-group-gm-pul-%s", rString)
 	membershipName := fmt.Sprintf("tf-acc-membership-gm-pul-%s", rString)
-	userNamePrefix := fmt.Sprintf("tf-acc-user-gm-pul-%s-", rString)
-
-	resource.ParallelTest(t, resource.TestCase{
+	userNamePrefix := fmt.Sprintf("tf-acc-user-gm-pul-%s-", rString)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -88,51 +70,27 @@ import (
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iam_group_membership" {
 				continue
-			}
-
-			group := rs.Primary.Attributes["group"]
-
-			_, err := conn.GetGroupWithContext(ctx, &iam.GetGroupInput{
+			}			group := rs.Primary.Attributes["group"]			_, err := conn.GetGroupWithContext(ctx, &iam.GetGroupInput{
 				GroupName: aws.String(group),
-			})
-
-			if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
+			})			if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("still exists")
-		}
-
-		return nil
+			}			return fmt.Errorf("still exists")
+		}		return nil
 	}
 }func testAccCheckGroupMembershipExists(ctx context.Context, n string, g *iam.GetGroupOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 	funceturn fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No User name is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
-		gn := rs.Primary.Attributes["group"]
-
-		resp, err := conn.GetGroupWithContext(ctx, &iam.GetGroupInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
+		gn := rs.Primary.Attributes["group"]		resp, err := conn.GetGroupWithContext(ctx, &iam.GetGroupInput{
 			GroupName: aws.String(gn),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return fmt.Errorf("Error: Group (%s) not found", gn)
-		}
-
-		*g = *resp
-
-		return nil
+		}		*g = *resp		return nil
 	}
 }func testAccCheckGroupMembershipAttributes(group *iam.GetGroupOutput, groupName string, users []string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
@@ -146,9 +104,7 @@ import (
 					uc--
 				}
 			}
-		}
-
-		if uc > 0 {
+		}		if uc > 0 {
 			return fmt.Errorf("Bad group membership count, expected (%d), but only (%d) found", len(users), uc)
 		}
 		return nil
@@ -160,9 +116,7 @@ resource "aws_iam_group" "group" {
 }
 funcurce "aws_iam_user" "user" {
   name = "%s"
-}
-
-resource "aws_iam_group_membership" "team" {
+}resource "aws_iam_group_membership" "team" {
   name  = "%s"
   users = [aws_iam_user.user.name]
   group = aws_iam_group.group.name
@@ -172,56 +126,34 @@ resource "aws_iam_group_membership" "team" {
 	return fmt.Sprintf(`
 resource "aws_iam_group" "group" {
   name = "%s"
-}
-
-rfuncme = "%s"
-}
-
-resource "aws_iam_user" "user_two" {
+}rfuncme = "%s"
+}resource "aws_iam_user" "user_two" {
   name = "%s"
-}
-
-resource "aws_iam_user" "user_three" {
+}resource "aws_iam_user" "user_three" {
   name = "%s"
-}
-
-resource "aws_iam_group_membership" "team" {
-  name = "%s"
-
-  users = [
+}resource "aws_iam_group_membership" "team" {
+  name = "%s"  users = [
 aws_iam_user.user_two.name,
 aws_iam_user.user_three.name,
-  ]
-
-  group = aws_iam_group.group.name
+  ]  group = aws_iam_group.group.name
 }
 `, groupName, userName, userName2, userName3, membershipName)
 }func testAccGroupMembershipConfig_memberUpdateDown(groupName, userName3, membershipName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_group" "group" {
   name = "%s"
-}
-
-resource "aws_iam_user" "user_three" {
- func
-
-resource "aws_iam_group_membership" "team" {
-  name = "%s"
-
-  users = [
+}resource "aws_iam_user" "user_three" {
+ funcresource "aws_iam_group_membership" "team" {
+  name = "%s"  users = [
 aws_iam_user.user_three.name,
-  ]
-
-  group = aws_iam_group.group.name
+  ]  group = aws_iam_group.group.name
 }
 `, groupName, userName3, membershipName)
 }func testAccGroupMembershipConfig_memberPaginatedUserList(groupName, membershipName, userNamePrefix string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_group" "group" {
   name = "%s"
-}
-
-resource "aws_iam_group_membership" "team" {
+}resource "aws_iam_group_membership" "team" {
   name  = "%s"
  func
   # TODO: Switch back to simple list reference when test configurations are upgraded to 0.12 syntax
@@ -328,9 +260,7 @@ aws_iam_user.user[98].name,
 aws_iam_user.user[99].name,
 aws_iam_user.user[100].name,
   ]
-}
-
-resource "aws_iam_user" "user" {
+}resource "aws_iam_user" "user" {
   count = 101
   name  = format("%s%%d", count.index + 1)
 }

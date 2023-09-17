@@ -15,16 +15,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-
-func TestAccEMRSecurityConfiguration_basic(t *testing.T) {
+)func TestAccEMRSecurityConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_security_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckSecurityConfigurationDestroy(ctx),
@@ -44,13 +40,9 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func testAccCheckSecurityConfigurationDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckSecurityConfigurationDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_emr_security_configuration" {
@@ -79,13 +71,9 @@ return fmt.Errorf("Error: EMR Security Configuration still exists: %s", aws.Stri
 
 return nil
 	}
-}
-
-
-func testAccCheckSecurityConfigurationExists(ctx context.Context, n string) resource.TestCheck
+}func testAccCheckSecurityConfigurationExists(ctx context.Context, n string) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)

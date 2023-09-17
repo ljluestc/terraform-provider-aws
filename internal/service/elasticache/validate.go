@@ -1,16 +1,1 @@
-//Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0packageelasticacheimport(
-"fmt""github.com/YakDriver/regexache"
-)
-funcvalidReplicationGroupAuthToken(vinterface{},kstring)(ws[]string,errors[]error){
-value:=v.(string)
-if(len(value)<16)||(len(value)>128){
-errors=append(errors,fmt.Errorf(
-"%qmustcontainfrom16to128alphanumericcharactersorsymbols(excluding@,\",and/)",k))
-}
-if!regexache.MustCompile(`^[^@"\/]+$`).MatchString(value){
-errors=append(errors,fmt.Errorf(
-"onlyalphanumericcharactersorsymbols(excluding@,\",and/)allowedin%q",k))
-}
-return
-}
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageelasticacheimport("fmt""github.com/YakDriver/regexache")funcvalidReplicationGroupAuthToken(vinterface{},kstring)(ws[]string,errors[]error){value:=v.(string)if(len(value)<16)||(len(value)>128){errors=append(errors,fmt.Errorf("%qmustcontainfrom16to128alphanumericcharactersorsymbols(excluding@,\",and/)",k))}if!regexache.MustCompile(`^[^@"\/]+$`).MatchString(value){errors=append(errors,fmt.Errorf("onlyalphanumericcharactersorsymbols(excluding@,\",and/)allowedin%q",k))}return}

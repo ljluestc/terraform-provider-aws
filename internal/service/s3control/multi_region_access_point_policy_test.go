@@ -1,14 +1,8 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packages3control_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packages3control_testimport(
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/s3control"
 	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,16 +11,12 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3control"github.com/hashicorp/terraform-provider-aws/internal/service/s3control"
-)
-
-funcTestAccS3ControlMultiRegionAccessPointPolicy_basic(t*testing.T){
+)funcTestAccS3ControlMultiRegionAccessPointPolicy_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	varvs3control.MultiRegionAccessPointPolicyDocument
 	resourceName:="aws_s3control_multi_region_access_point_policy.test"
 	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	multiRegionAccessPointName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	multiRegionAccessPointName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
 		ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -54,17 +44,13 @@ funcTestAccS3ControlMultiRegionAccessPointPolicy_basic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccS3ControlMultiRegionAccessPointPolicy_disappears_MultiRegionAccessPoint(t*testing.T){
+}funcTestAccS3ControlMultiRegionAccessPointPolicy_disappears_MultiRegionAccessPoint(t*testing.T){
 	ctx:=acctest.Context(t)
 	varvs3control.MultiRegionAccessPointReport
 	parentResourceName:="aws_s3control_multi_region_access_point.test"
 	resourceName:="aws_s3control_multi_region_access_point_policy.test"
 	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
 		ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -82,16 +68,12 @@ funcTestAccS3ControlMultiRegionAccessPointPolicy_disappears_MultiRegionAccessPoi
 			},
 		},
 	})
-}
-
-funcTestAccS3ControlMultiRegionAccessPointPolicy_details_policy(t*testing.T){
+}funcTestAccS3ControlMultiRegionAccessPointPolicy_details_policy(t*testing.T){
 	ctx:=acctest.Context(t)
 	varv1,v2s3control.MultiRegionAccessPointPolicyDocument
 	resourceName:="aws_s3control_multi_region_access_point_policy.test"
 	multiRegionAccessPointName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
 		ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -119,17 +101,13 @@ funcTestAccS3ControlMultiRegionAccessPointPolicy_details_policy(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccS3ControlMultiRegionAccessPointPolicy_details_name(t*testing.T){
+}funcTestAccS3ControlMultiRegionAccessPointPolicy_details_name(t*testing.T){
 	ctx:=acctest.Context(t)
 	varv1,v2s3control.MultiRegionAccessPointPolicyDocument
 	resourceName:="aws_s3control_multi_region_access_point_policy.test"
 	multiRegionAccessPointName1:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	multiRegionAccessPointName2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
 		ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -158,61 +136,33 @@ funcTestAccS3ControlMultiRegionAccessPointPolicy_details_name(t*testing.T){
 			},
 		},
 	})
-}
-
-functestAccCheckMultiRegionAccessPointPolicyExists(ctxcontext.Context,nstring,v*s3control.MultiRegionAccessPointPolicyDocument)resource.TestCheckFunc{
+}functestAccCheckMultiRegionAccessPointPolicyExists(ctxcontext.Context,nstring,v*s3control.MultiRegionAccessPointPolicyDocument)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		rs,ok:=s.RootModule().Resources[n]
 		if!ok{
 			returnfmt.Errorf("Notfound:%s",n)
-		}
-
-		ifrs.Primary.ID==""{
+		}		ifrs.Primary.ID==""{
 			returnfmt.Errorf("NoS3Multi-RegionAccessPointPolicyIDisset")
-		}
-
-		accountID,name,err:=tfs3control.MultiRegionAccessPointParseResourceID(rs.Primary.ID)
-
-		iferr!=nil{
+		}		accountID,name,err:=tfs3control.MultiRegionAccessPointParseResourceID(rs.Primary.ID)		iferr!=nil{
 			returnerr
-		}
-
-		conn,err:=tfs3control.ConnForMRAP(ctx,acctest.Provider.Meta().(*conns.AWSClient))
-
-		iferr!=nil{
+		}		conn,err:=tfs3control.ConnForMRAP(ctx,acctest.Provider.Meta().(*conns.AWSClient))		iferr!=nil{
 			returnerr
-		}
-
-		output,err:=tfs3control.FindMultiRegionAccessPointPolicyDocumentByTwoPartKey(ctx,conn,accountID,name)
-
-		iferr!=nil{
+		}		output,err:=tfs3control.FindMultiRegionAccessPointPolicyDocumentByTwoPartKey(ctx,conn,accountID,name)		iferr!=nil{
 			returnerr
-		}
-
-		*v=*output
-
-		returnnil
+		}		*v=*output		returnnil
 	}
-}
-
-functestAccCheckMultiRegionAccessPointPolicyChanged(i,j*s3control.MultiRegionAccessPointPolicyDocument)resource.TestCheckFunc{
+}functestAccCheckMultiRegionAccessPointPolicyChanged(i,j*s3control.MultiRegionAccessPointPolicyDocument)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		ifaws.StringValue(i.Proposed.Policy)==aws.StringValue(j.Proposed.Policy){
 			returnfmt.Errorf("S3Multi-RegionAccessPointPolicydidnotchange")
-		}
-
-		returnnil
+		}		returnnil
 	}
-}
-
-functestAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointNamestring)string{
+}functestAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointNamestring)string{
 	returnacctest.ConfigCompose(
 		testAccMultiRegionAccessPointConfig_basic(bucketName,multiRegionAccessPointName),
 		fmt.Sprintf(`
 data"aws_caller_identity""current"{}
-data"aws_partition""current"{}
-
-resource"aws_s3control_multi_region_access_point_policy""test"{
+data"aws_partition""current"{}resource"aws_s3control_multi_region_access_point_policy""test"{
 details{
 name=%[1]q
 policy=jsonencode({
@@ -232,16 +182,12 @@ policy=jsonencode({
 }
 }
 `,multiRegionAccessPointName))
-}
-
-functestAccMultiRegionAccessPointPolicyConfig_updatedStatement(bucketName,multiRegionAccessPointNamestring)string{
+}functestAccMultiRegionAccessPointPolicyConfig_updatedStatement(bucketName,multiRegionAccessPointNamestring)string{
 	returnacctest.ConfigCompose(
 		testAccMultiRegionAccessPointConfig_basic(bucketName,multiRegionAccessPointName),
 		fmt.Sprintf(`
 data"aws_caller_identity""current"{}
-data"aws_partition""current"{}
-
-resource"aws_s3control_multi_region_access_point_policy""test"{
+data"aws_partition""current"{}resource"aws_s3control_multi_region_access_point_policy""test"{
 details{
 name=%[1]q
 policy=jsonencode({

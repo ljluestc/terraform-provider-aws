@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package vpclattice_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package vpclattice_testimport (
 "fmt"
-"testing"
-
-sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"testing"sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccVPCLatticeServiceDataSource_basic(t *testing.T) {
+)func TestAccVPCLatticeServiceDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_service.test"
-dataSourceName := "data.aws_vpclattice_service.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_vpclattice_service.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -43,15 +33,11 @@ resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags
 },
 },
 })
-}
-
-func TestAccVPCLatticeServiceDataSource_byName(t *testing.T) {
+}func TestAccVPCLatticeServiceDataSource_byName(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_service.test"
-dataSourceName := "data.aws_vpclattice_service.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_vpclattice_service.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -76,15 +62,11 @@ resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags
 },
 },
 })
-}
-
-func TestAccVPCLatticeServiceDataSource_shared(t *testing.T) {
+}func TestAccVPCLatticeServiceDataSource_shared(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_service.test"
-dataSourceName := "data.aws_vpclattice_service.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_vpclattice_service.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckAlternateAccount(t)
@@ -109,77 +91,45 @@ resource.TestCheckNoResourceAttr(dataSourceName, "tags.%"),
 },
 },
 })
-}
-
-func testAccServiceDataSourceConfig_basic(rName string) string {
+}func testAccServiceDataSourceConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     Name = %[1]q
   }
-}
-
-data "aws_vpclattice_service" "test" {
+}data "aws_vpclattice_service" "test" {
   service_identifier = aws_vpclattice_service.test.id
 }
 `, rName)
-}
-
-func testAccServiceDataSourceConfig_byName(rName string) string {
+}func testAccServiceDataSourceConfig_byName(rName string) string {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     Name = %[1]q
   }
-}
-
-data "aws_vpclattice_service" "test" {
+}data "aws_vpclattice_service" "test" {
   name = aws_vpclattice_service.test.name
 }
 `, rName)
-}
-
-func testAccServiceDataSourceConfig_shared(rName string) string {
+}func testAccServiceDataSourceConfig_shared(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
-data "aws_caller_identity" "source" {}
-
-data "aws_caller_identity" "target" {
+data "aws_caller_identity" "source" {}data "aws_caller_identity" "target" {
   provider = "awsalternate"
-}
-
-resource "aws_vpclattice_service" "test" {
-  name = %[1]q
-
-  tags = {
+}resource "aws_vpclattice_service" "test" {
+  name = %[1]q  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_ram_resource_share" "test" {
+}resource "aws_ram_resource_share" "test" {
   name       = %[1]q
   allow_external_principals = false
-}
-
-resource "aws_ram_resource_association" "test" {
+}resource "aws_ram_resource_association" "test" {
   resource_arn       = aws_vpclattice_service.test.arn
   resource_share_arn = aws_ram_resource_share.test.arn
-}
-
-resource "aws_ram_principal_association" "test" {
+}resource "aws_ram_principal_association" "test" {
   principal = data.aws_caller_identity.target.arn
   resource_share_arn = aws_ram_resource_share.test.arn
-}
-
-data "aws_vpclattice_service" "test" {
-  provider = "awsalternate"
-
-  service_identifier = aws_vpclattice_service.test.id
-
-  depends_on = [aws_ram_resource_association.test, aws_ram_principal_association.test]
+}data "aws_vpclattice_service" "test" {
+  provider = "awsalternate"  service_identifier = aws_vpclattice_service.test.id  depends_on = [aws_ram_resource_association.test, aws_ram_principal_association.test]
 }
 `, rName))
 }

@@ -1,18 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package amplify_test
-
-import (
-	"testing"
-
-	tfamplify "github.com/hashicorp/terraform-provider-aws/internal/service/amplify"
-)
-
-func TestBranchParseResourceID(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
+// SPDX-License-Identifier: MPL-2.0package amplify_testimport (
+	"testing"	tfamplify "github.com/hashicorp/terraform-provider-aws/internal/service/amplify"
+)func TestBranchParseResourceID(t *testing.T) {
+	t.Parallel()	testCases := []struct {
 		TestName  string
 		InputID   string
 		ExpectErrorbool
@@ -47,28 +37,16 @@ func TestBranchParseResourceID(t *testing.T) {
 			ExpectedAppID:  "appID",
 			ExpectedBranchName: "part1/part_2/part-3/part4",
 		},
-	}
-
-	for _, testCase := range testCases {
+	}	for _, testCase := range testCases {
 		testCase := testCase
 		t.Run(testCase.TestName, func(t *testing.T) {
-			t.Parallel()
-
-			gotAppID, gotBranchName, err := tfamplify.BranchParseResourceID(testCase.InputID)
-
-			if err == nil && testCase.ExpectError {
+			t.Parallel()			gotAppID, gotBranchName, err := tfamplify.BranchParseResourceID(testCase.InputID)			if err == nil && testCase.ExpectError {
 				t.Fatalf("expected error")
-			}
-
-			if err != nil && !testCase.ExpectError {
+			}			if err != nil && !testCase.ExpectError {
 				t.Fatalf("unexpected error")
-			}
-
-			if gotAppID != testCase.ExpectedAppID {
+			}			if gotAppID != testCase.ExpectedAppID {
 				t.Errorf("got AppID %s, expected %s", gotAppID, testCase.ExpectedAppID)
-			}
-
-			if gotBranchName != testCase.ExpectedBranchName {
+			}			if gotBranchName != testCase.ExpectedBranchName {
 				t.Errorf("got BranchName %s, expected %s", gotBranchName, testCase.ExpectedBranchName)
 			}
 		})

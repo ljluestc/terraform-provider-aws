@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package imagebuilderimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -14,9 +8,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKDataSource("aws_imagebuilder_container_recipe")
+)// @SDKDataSource("aws_imagebuilder_container_recipe")
 func DataSourceContainerRecipe() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceContainerRecipeRead,
@@ -193,47 +185,27 @@ func DataSourceContainerRecipe() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceContainerRecipeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceContainerRecipeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	input := &imagebuilder.GetContainerRecipeInput{}
-
-	if v, ok := d.GetOk("arn"); ok {
+	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig	input := &imagebuilder.GetContainerRecipeInput{}	if v, ok := d.GetOk("arn"); ok {
 		input.ContainerRecipeArn = aws.String(v.(string))
-	}
-
-	output, err := conn.GetContainerRecipeWithContext(ctx, input)
-
-	if err != nil {
+	}	output, err := conn.GetContainerRecipeWithContext(ctx, input)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading Image Builder Container Recipe (%s): %s", aws.StringValue(input.ContainerRecipeArn), err)
-	}
-
-	if output == nil || output.ContainerRecipe == nil {
+	}	if output == nil || output.ContainerRecipe == nil {
 		return sdkdiag.AppendErrorf(diags, "reading Image Builder Container Recipe (%s): empty response", aws.StringValue(input.ContainerRecipeArn))
-	}
-
-	containerRecipe := output.ContainerRecipe
-
-	d.SetId(aws.StringValue(containerRecipe.Arn))
+	}	containerRecipe := output.ContainerRecipe	d.SetId(aws.StringValue(containerRecipe.Arn))
 	d.Set("arn", containerRecipe.Arn)
 	d.Set("component", flattenComponentConfigurations(containerRecipe.Components))
 	d.Set("container_type", containerRecipe.ContainerType)
 	d.Set("date_created", containerRecipe.DateCreated)
 	d.Set("description", containerRecipe.Description)
 	d.Set("dockerfile_template_data", containerRecipe.DockerfileTemplateData)
-	d.Set("encrypted", containerRecipe.Encrypted)
-
-	if containerRecipe.InstanceConfiguration != nil {
+	d.Set("encrypted", containerRecipe.Encrypted)	if containerRecipe.InstanceConfiguration != nil {
 		d.Set("instance_configuration", []interface{}{flattenInstanceConfiguration(containerRecipe.InstanceConfiguration)})
 	} else {
 		d.Set("instance_configuration", nil)
-	}
-
-	d.Set("kms_key_id", containerRecipe.KmsKeyId)
+	}	d.Set("kms_key_id", containerRecipe.KmsKeyId)
 	d.Set("name", containerRecipe.Name)
 	d.Set("owner", containerRecipe.Owner)
 	d.Set("parent_image", containerRecipe.ParentImage)
@@ -241,7 +213,5 @@ func dataSourceContainerRecipeRead(ctx context.Context, d *schema.ResourceData, 
 	d.Set("tags", KeyValueTags(ctx, containerRecipe.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map())
 	d.Set("target_repository", []interface{}{flattenTargetContainerRepository(containerRecipe.TargetRepository)})
 	d.Set("version", containerRecipe.Version)
-	d.Set("working_directory", containerRecipe.WorkingDirectory)
-
-	return diags
+	d.Set("working_directory", containerRecipe.WorkingDirectory)	return diags
 }

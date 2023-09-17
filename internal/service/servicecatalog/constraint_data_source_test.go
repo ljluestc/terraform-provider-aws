@@ -1,24 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicecatalog_test
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/servicecatalog"
+// SPDX-License-Identifier: MPL-2.0package servicecatalog_testimport (
+	"testing"	"github.com/aws/aws-sdk-go/service/servicecatalog"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccServiceCatalogConstraintDataSource_basic(t *testing.T) {
+)func TestAccServiceCatalogConstraintDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_servicecatalog_constraint.test"
 	dataSourceName := "data.aws_servicecatalog_constraint.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -40,9 +30,7 @@ func TestAccServiceCatalogConstraintDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccConstraintDataSourceConfig_basic(rName, description string) string {
+}func testAccConstraintDataSourceConfig_basic(rName, description string) string {
 	return acctest.ConfigCompose(testAccConstraintConfig_basic(rName, description), `
 data "aws_servicecatalog_constraint" "test" {
   id = aws_servicecatalog_constraint.test.id

@@ -1,27 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package route53resolver_test
-
-import (
-"testing"
-
-"github.com/aws/aws-sdk-go/service/route53resolver"
+// SPDX-License-Identifier: MPL-2.0package route53resolver_testimport (
+"testing""github.com/aws/aws-sdk-go/service/route53resolver"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func TestAccRoute53ResolverEndpointDataSource_basic(t *testing.T) {
+)func TestAccRoute53ResolverEndpointDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_route53_resolver_endpoint.test"
-datasourceName := "data.aws_route53_resolver_endpoint.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+datasourceName := "data.aws_route53_resolver_endpoint.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -40,23 +28,15 @@ resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "host
 },
 },
 })
-}
-
-
-func TestAccRoute53ResolverEndpointDataSource_filter(t *testing.T) {
+}func TestAccRoute53ResolverEndpointDataSource_filter(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_route53_resolver_endpoint.test"
-datasourceName := "data.aws_route53_resolver_endpoint.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+datasourceName := "data.aws_route53_resolver_endpoint.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
-
-{
+Steps: []resource.TestStep{{
 Config: testAccEndpointDataSourceConfig_filter(rName),
 Check: resource.ComposeAggregateTestCheck
 func(
@@ -71,27 +51,19 @@ resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "host
 },
 },
 })
-}
-
-
-func testAccEndpointDataSourceConfig_basic(rName string) string {
+}func testAccEndpointDataSourceConfig_basic(rName string) string {
 return acctest.ConfigCompose(testAccEndpointConfig_basic(rName), `
 data "aws_route53_resolver_endpoint" "test" {
   resolver_endpoint_id = aws_route53_resolver_endpoint.test.id
 }
 `)
-}
-
-
-func testAccEndpointDataSourceConfig_filter(rName string) string {
+}func testAccEndpointDataSourceConfig_filter(rName string) string {
 return acctest.ConfigCompose(testAccEndpointConfig_outbound(rName, rName), `
 data "aws_route53_resolver_endpoint" "test" {
   filter {
     name   = "Name"
     values = [aws_route53_resolver_endpoint.test.name]
-  }
-
-  filter {
+  }  filter {
     name   = "SecurityGroupIds"
     values = aws_security_group.test[*].id
   }

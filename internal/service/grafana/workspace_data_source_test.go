@@ -1,24 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package grafana_test
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/managedgrafana"
+// SPDX-License-Identifier: MPL-2.0package grafana_testimport (
+	"testing"	"github.com/aws/aws-sdk-go/service/managedgrafana"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func testAccWorkspaceDataSource_basic(t *testing.T) {
+)func testAccWorkspaceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_workspace.test"
-	dataSourceName := "data.aws_grafana_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	dataSourceName := "data.aws_grafana_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, managedgrafana.EndpointsID),
 		CheckDestroy:nil,
@@ -50,9 +40,7 @@ func testAccWorkspaceDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccWorkspaceDataSourceConfig_basic(rName string) string {
+}func testAccWorkspaceDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccWorkspaceConfig_authenticationProvider(rName, "SAML"), `
 data "aws_grafana_workspace" "test" {
   workspace_id = aws_grafana_workspace.test.id

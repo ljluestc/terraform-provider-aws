@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail/types"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -18,16 +12,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
-)
-
-const (
+)const (
 	helloWorldImage = "amazon/amazon-lightsail:hello-world"
 	redisImage      = "redis:latest"
 )
 func TestContainerServiceDeploymentVersionParseResourceID(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
+	t.Parallel()	testCases := []struct {
 		TestName   string
 		Input
 		ExpectedServiceName string
@@ -69,28 +59,16 @@ func TestContainerServiceDeploymentVersionParseResourceID(t *testing.T) {
 			ExpectedVersion:     1,
 			Error:
 		},
-	}
-
-	for _, testCase := range testCases {
+	}	for _, testCase := range testCases {
 		testCase := testCase
 		t.Run(testCase.TestName, func(t *testing.T) {
-			t.Parallel()
-
-			gotServiceName, gotVersion, err := tflightsail.ContainerServiceDeploymentVersionParseResourceID(testCase.Input)
-
-			if err != nil && !testCase.Error {
+			t.Parallel()			gotServiceName, gotVersion, err := tflightsail.ContainerServiceDeploymentVersionParseResourceID(testCase.Input)			if err != nil && !testCase.Error {
 				t.Errorf("got error (%s), expected no error", err)
-			}
-
-			if err == nil && testCase.Error {
+			}			if err == nil && testCase.Error {
 				t.Errorf("got (ServiceName: %s, Version: %d) and no error, expected error", gotServiceName, gotVersion)
-			}
-
-			if gotServiceName != testCase.ExpectedServiceName {
+			}			if gotServiceName != testCase.ExpectedServiceName {
 				t.Errorf("got %s, expected %s", gotServiceName, testCase.ExpectedServiceName)
-			}
-
-			if gotVersion != testCase.ExpectedVersion {
+			}			if gotVersion != testCase.ExpectedVersion {
 				t.Errorf("got %d, expected %d", gotVersion, testCase.ExpectedVersion)
 			}
 		})
@@ -100,9 +78,7 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_basic(t *testin
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	containerName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service_deployment_version.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service_deployment_version.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -141,9 +117,7 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_multiple(t *tes
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	containerName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	containerName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service_deployment_version.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service_deployment_version.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -178,9 +152,7 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_environment(t *
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	containerName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service_deployment_version.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service_deployment_version.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -256,9 +228,7 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_ports(t *testin
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	containerName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service_deployment_version.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service_deployment_version.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -329,11 +299,7 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_publicEndpoint(
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	containerName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	containerName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resourceName := "aws_lightsail_container_service_deployment_version.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	containerName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resourceName := "aws_lightsail_container_service_deployment_version.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -441,9 +407,7 @@ func TestAccLightsailContainerServiceDeploymentVersion_Container_enableService(t
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	containerName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service_deployment_version.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service_deployment_version.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -479,22 +443,12 @@ func testAccCheckContainerServiceDeploymentVersionExists(ctx context.Context, re
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("no Lightsail Container Service Deployment Version ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		serviceName, version, err := tflightsail.ContainerServiceDeploymentVersionParseResourceID(rs.Primary.ID)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		serviceName, version, err := tflightsail.ContainerServiceDeploymentVersionParseResourceID(rs.Primary.ID)
 		if err != nil {
 			return err
-		}
-
-		_, err = tflightsail.FindContainerServiceDeploymentByVersion(ctx, conn, serviceName, version)
-
-		return err
+		}		_, err = tflightsail.FindContainerServiceDeploymentByVersion(ctx, conn, serviceName, version)		return err
 	}
 }
 func testAccContainerServiceDeploymentVersionBaseConfig(rName string) string {
@@ -514,9 +468,7 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
     image = %[2]q
-  }
-
-  service_name = aws_lightsail_container_service.test.name
+  }  service_name = aws_lightsail_container_service.test.name
 }
 `, containerName, image))
 }
@@ -528,14 +480,10 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
     image = %[2]q
-  }
-
-  container {
+  }  container {
     container_name = %[3]q
     image = %[4]q
-  }
-
-  service_name = aws_lightsail_container_service.test.name
+  }  service_name = aws_lightsail_container_service.test.name
 }
 `, containerName1, image1, containerName2, image2))
 }
@@ -550,9 +498,7 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
     environment = {
       %[2]q = %[3]q
     }
-  }
-
-  service_name = aws_lightsail_container_service.test.name
+  }  service_name = aws_lightsail_container_service.test.name
 }
 `, containerName, envKey, envValue))
 }
@@ -568,9 +514,7 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
       %[2]q = %[3]q
       %[4]q = %[5]q
     }
-  }
-
-  service_name = aws_lightsail_container_service.test.name
+  }  service_name = aws_lightsail_container_service.test.name
 }
 `, containerName, envKey1, envValue1, envKey2, envValue2))
 }
@@ -585,9 +529,7 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
     ports = {
       %[2]q = %[3]q
     }
-  }
-
-  service_name = aws_lightsail_container_service.test.name
+  }  service_name = aws_lightsail_container_service.test.name
 }
 `, containerName, portKey, portValue))
 }
@@ -603,9 +545,7 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
       %[2]q = %[3]q
       %[4]q = %[5]q
     }
-  }
-
-  service_name = aws_lightsail_container_service.test.name
+  }  service_name = aws_lightsail_container_service.test.name
 }
 `, containerName, portKey1, portValue1, portKey2, portValue2))
 }
@@ -620,15 +560,11 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
     ports = {
       80 = "HTTP"
     }
-  }
-
-  public_endpoint {
+  }  public_endpoint {
     container_name = %[1]q
     container_port = 80
     health_check {}
-  }
-
-  service_name = aws_lightsail_container_service.test.name
+  }  service_name = aws_lightsail_container_service.test.name
 }
 `, containerName))
 }
@@ -643,9 +579,7 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
     ports = {
       80 = "HTTP"
     }
-  }
-
-  public_endpoint {
+  }  public_endpoint {
     container_name = %[1]q
     container_port = 80
     health_check {
@@ -656,9 +590,7 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
       timeout_seconds     = 3
       unhealthy_threshold = 3
     }
-  }
-
-  service_name = aws_lightsail_container_service.test.name
+  }  service_name = aws_lightsail_container_service.test.name
 }
 `, containerName))
 }
@@ -680,9 +612,7 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
     health_check {
       healthy_threshold = 4
     }
-  }
-
-  service_name = aws_lightsail_container_service.test.name
+  }  service_name = aws_lightsail_container_service.test.name
 }
 `, containerName))
 }
@@ -693,15 +623,11 @@ resource "aws_lightsail_container_service" "test" {
   power       = "nano"
   scale       = 1
   is_disabled = %[2]t
-}
-
-resource "aws_lightsail_container_service_deployment_version" "test" {
+}resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[3]q
     image = "amazon/amazon-lightsail:hello-world"
-  }
-
-  service_name = aws_lightsail_container_service.test.name
+  }  service_name = aws_lightsail_container_service.test.name
 }
 `, rName, isDisabled, containerName)
 }

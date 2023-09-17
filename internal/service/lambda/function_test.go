@@ -1,394 +1,4 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lambda_test
-
-import (
-"archive/zip"
-"context"
-"fmt"
-"os"
-"path/filepath"
-"testing"
-"time"
-
-"github.com/YakDriver/regexache"
-"github.com/aws/aws-sdk-go-v2/aws"
-"github.com/aws/aws-sdk-go-v2/service/lambda"
-"github.com/aws/aws-sdk-go-v2/service/lambda/types"
-"github.com/aws/aws-sdk-go-v2/service/signer"
-signertypes "github.com/aws/aws-sdk-go-v2/service/signer/types"
-"github.com/aws/aws-sdk-go/aws/endpoints"
-sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-"github.com/hashicorp/terraform-plugin-testing/terraform"
-"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-"github.com/hashicorp/terraform-provider-aws/internal/conns"
-tflambda "github.com/hashicorp/terraform-provider-aws/internal/service/lambda"
-"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-"github.com/hashicorp/terraform-provider-aws/names"
-)
-func init() {
-acctest.RegisterServiceErrorCheckFunc(names.LambdaEndpointID, testAccErrorCheckSkip)
-}
-func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
-return acctest.ErrorCheckSkipMessagesContaining(t,
-"InvalidParameterValueException: Unsupported source arn",
-"InvalidParameterValueException: CompatibleArchitectures are not",
-)
-}
-func TestAccLambdaFunction_basic(t *testing.T) {
-ctx := acctest.Context(t)
-var conf lambda.GetFunctionOutput
-resourceName := "aws_lambda_function.test"
-
-rString := sdkacctest.RandString(8)
-funcName := fmt.Sprintf("tf_acc_lambda_func_basic_%s", rString)
-policyName := fmt.Sprintf("tf_acc_policy_lambda_func_basic_%s", rString)
-roleName := fmt.Sprintf("tf_acc_role_lambda_func_basic_%s", rString)
-sgName := fmt.Sprintf("tf_acc_sg_lambda_func_basic_%s", rString)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:func() { acctest.PreCheck(ctx, t) },
-ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy: testAccCheckFunctionDestroy(ctx),
-Steps: []resource.TestStep{
-{
-Config: testAccFunctionConfig_basic(funcName, policyName, roleName, sgName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-testAccCheckFunctionInvokeARN(resourceName, &conf),
-testAccCheckFunctionQualifiedInvokeARN(resourceName, &conf),
-testAccCheckFunctionName(&conf, funcName),
-resource.TestCheckResourceAttr(resourceName, "architectures.#", "1"),
-resource.TestCheckResourceAttr(resourceName, "architectures.0", string(types.ArchitectureX8664)),
-acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "lambda", fmt.Sprintf("function:%s", funcName)),
-resource.TestCheckResourceAttr(resourceName, "ephemeral_storage.#", "1"),
-resource.TestCheckResourceAttr(resourceName, "ephemeral_storage.0.size", "512"),
-resource.TestCheckResourceAttr(resourceName, "package_type", string(types.PackageTypeZip)),
-acctest.CheckResourceAttrRegionalARN(resourceName, "qualified_arn", "lambda", fmt.Sprintf("function:%s:%s", funcName, tflambda.FunctionVersionLatest)),
-resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "-1"),
-resource.TestCheckResourceAttr(resourceName, "skip_destroy", "false"),
-resource.TestCheckResourceAttr(resourceName, "version", tflambda.FunctionVersionLatest),
-),
-},
-{
-ResourceName:resourceName,
-ImportState: true,
-ImportStateVerify:  true,
-ImportStateVerifyIgnore: []string{"filename", "publish"},
-},
-},
-})
-}
-func TestAccLambdaFunction_disappears(t *testing.T) {
-ctx := acctest.Context(t)
-var function lambda.GetFunctionOutput
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:func() { acctest.PreCheck(ctx, t) },
-ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy: testAccCheckFunctionDestroy(ctx),
-Steps: []resource.TestStep{
-{
-Config: testAccFunctionConfig_basic(rName, rName, rName, rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &function),
-acctest.CheckResourceDisappears(ctx, acctest.Provider, tflambda.ResourceFunction(), resourceName),
-),
-ExpectNonEmptyPlan: true,
-},
-},
-})
-}
-func TestAccLambdaFunction_tags(t *testing.T) {
-ctx := acctest.Context(t)
-var conf lambda.GetFunctionOutput
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:func() { acctest.PreCheck(ctx, t) },
-ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy: testAccCheckFunctionDestroy(ctx),
-Steps: []resource.TestStep{
-{
-Config: testAccFunctionConfig_tags1(rName, "key1", "value1"),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState: true,
-ImportStateVerify:  true,
-ImportStateVerifyIgnore: []string{"filename", "publish"},
-},
-{
-Config: testAccFunctionConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-),
-},
-{
-Config: testAccFunctionConfig_tags1(rName, "key2", "value2"),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-),
-},
-},
-})
-}
-func TestAccLambdaFunction_unpublishedCodeUpdate(t *testing.T) {
-ctx := acctest.Context(t)
-if testing.Short() {
-t.Skip("skipping long-running test in short mode")
-}
-
-initialFilename := "test-fixtures/lambdatest.zip"
-updatedFilename, zipFile, err := createTempFile("lambda_localUpdate")
-if err != nil {
-t.Fatal(err)
-}
-defer os.Remove(updatedFilename)
-
-var conf1, conf2 lambda.GetFunctionOutput
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-var timeBeforeUpdate time.Time
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:func() { acctest.PreCheck(ctx, t) },
-ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy: testAccCheckFunctionDestroy(ctx),
-Steps: []resource.TestStep{
-{
-Config: testAccFunctionConfig_filename(initialFilename, rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf1),
-resource.TestCheckResourceAttr(resourceName, "version", tflambda.FunctionVersionLatest),
-acctest.CheckResourceAttrRegionalARN(resourceName, "qualified_arn", "lambda", fmt.Sprintf("function:%s:%s", rName, tflambda.FunctionVersionLatest)),
-),
-},
-{
-PreConfig: func() {
-if err := testAccCreateZipFromFiles(map[string]string{"test-fixtures/lambda_func_modified.js": "lambda.js"}, zipFile); err != nil {
-t.Fatalf("error creating zip from files: %s", err)
-}
-timeBeforeUpdate = time.Now()
-},
-Config: testAccFunctionConfig_filename(updatedFilename, rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf2),
-resource.TestCheckResourceAttr(resourceName, "version", tflambda.FunctionVersionLatest),
-acctest.CheckResourceAttrRegionalARN(resourceName, "qualified_arn", "lambda", fmt.Sprintf("function:%s:%s", rName, tflambda.FunctionVersionLatest)),
-func(s *terraform.State) error {
-return testAccCheckAttributeIsDateAfter(s, resourceName, "last_modified", timeBeforeUpdate)
-},
-),
-},
-{
-ResourceName:resourceName,
-ImportState: true,
-ImportStateVerify:  true,
-ImportStateVerifyIgnore: []string{"filename", "publish"},
-},
-},
-})
-}
-func TestAccLambdaFunction_codeSigning(t *testing.T) {
-ctx := acctest.Context(t)
-if curr := acctest.Region(); !tflambda.SignerServiceIsAvailable(curr) {
-t.Skipf("Lambda code signing config is not supported in %s region", curr)
-}
-
-var conf lambda.GetFunctionOutput
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-cscResourceName := "aws_lambda_code_signing_config.code_signing_config_1"
-cscUpdateResourceName := "aws_lambda_code_signing_config.code_signing_config_2"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
-acctest.PreCheck(ctx, t)
-testAccPreCheckSignerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
-},
-ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy: testAccCheckFunctionDestroy(ctx),
-Steps: []resource.TestStep{
-{
-Config: testAccFunctionConfig_cscCreate(rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttrPair(resourceName, "code_signing_config_arn", cscResourceName, "arn"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState: true,
-ImportStateVerify:  true,
-ImportStateVerifyIgnore: []string{"filename", "publish"},
-},
-{
-Config: testAccFunctionConfig_cscUpdate(rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttrPair(resourceName, "code_signing_config_arn", cscUpdateResourceName, "arn"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState: true,
-ImportStateVerify:  true,
-ImportStateVerifyIgnore: []string{"filename", "publish"},
-},
-{
-Config: testAccFunctionConfig_cscDelete(rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttr(resourceName, "code_signing_config_arn", ""),
-),
-},
-},
-})
-}
-func TestAccLambdaFunction_concurrency(t *testing.T) {
-ctx := acctest.Context(t)
-if testing.Short() {
-t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:func() { acctest.PreCheck(ctx, t) },
-ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy: testAccCheckFunctionDestroy(ctx),
-Steps: []resource.TestStep{
-{
-Config: testAccFunctionConfig_basicConcurrency(rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "111"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState: true,
-ImportStateVerify:  true,
-ImportStateVerifyIgnore: []string{"filename", "publish"},
-},
-{
-Config: testAccFunctionConfig_concurrencyUpdate(rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "222"),
-),
-},
-},
-})
-}
-func TestAccLambdaFunction_concurrencyCycle(t *testing.T) {
-ctx := acctest.Context(t)
-if testing.Short() {
-t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:func() { acctest.PreCheck(ctx, t) },
-ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy: testAccCheckFunctionDestroy(ctx),
-Steps: []resource.TestStep{
-{
-Config: testAccFunctionConfig_basic(rName, rName, rName, rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "-1"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState: true,
-ImportStateVerify:  true,
-ImportStateVerifyIgnore: []string{"filename", "publish"},
-},
-{
-Config: testAccFunctionConfig_concurrencyUpdate(rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "222"),
-),
-},
-{
-Config: testAccFunctionConfig_basic(rName, rName, rName, rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
-resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "-1"),
-),
-},
-},
-})
-}
-func TestAccLambdaFunction_expectFilenameAndS3Attributes(t *testing.T) {
-ctx := acctest.Context(t)
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:func() { acctest.PreCheck(ctx, t) },
-ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy: testAccCheckFunctionDestroy(ctx),
-Steps: []resource.TestStep{
-{
-Config: testAccFunctionConfig_noFilenameAndS3Attributes(rName),
-ExpectError: regexache.MustCompile("one of `filename,image_uri,s3_bucket` must be specified"),
-},
-},
-})
-}
-func TestAccLambdaFunction_envVariables(t *testing.T) {
-ctx := acctest.Context(t)
-if testing.Short() {
-t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:func() { acctest.PreCheck(ctx, t) },
-ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy: testAccCheckFunctionDestroy(ctx),
-Steps: []resource.TestStep{
-{
-Config: testAccFunctionConfig_basic(rName, rName, rName, rName),
-Check: resource.ComposeTestCheckFunc(
-testAccCheckFunctionExists(ctx, resourceName, &conf),
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package lambda_testimport ("archive/zip""context""fmt""os""path/filepath""testing""time""github.com/YakDriver/regexache""github.com/aws/aws-sdk-go-v2/aws""github.com/aws/aws-sdk-go-v2/service/lambda""github.com/aws/aws-sdk-go-v2/service/lambda/types""github.com/aws/aws-sdk-go-v2/service/signer"signertypes "github.com/aws/aws-sdk-go-v2/service/signer/types""github.com/aws/aws-sdk-go/aws/endpoints"sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest""github.com/hashicorp/terraform-plugin-testing/helper/resource""github.com/hashicorp/terraform-plugin-testing/terraform""github.com/hashicorp/terraform-provider-aws/internal/acctest""github.com/hashicorp/terraform-provider-aws/internal/conns"tflambda "github.com/hashicorp/terraform-provider-aws/internal/service/lambda""github.com/hashicorp/terraform-provider-aws/internal/tfresource""github.com/hashicorp/terraform-provider-aws/names")func init() {acctest.RegisterServiceErrorCheckFunc(names.LambdaEndpointID, testAccErrorCheckSkip)}func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {return acctest.ErrorCheckSkipMessagesContaining(t,"InvalidParameterValueException: Unsupported source arn","InvalidParameterValueException: CompatibleArchitectures are not",)}func TestAccLambdaFunction_basic(t *testing.T) {ctx := acctest.Context(t)var conf lambda.GetFunctionOutputresourceName := "aws_lambda_function.test"rString := sdkacctest.RandString(8)funcName := fmt.Sprintf("tf_acc_lambda_func_basic_%s", rString)policyName := fmt.Sprintf("tf_acc_policy_lambda_func_basic_%s", rString)roleName := fmt.Sprintf("tf_acc_role_lambda_func_basic_%s", rString)sgName := fmt.Sprintf("tf_acc_sg_lambda_func_basic_%s", rString)resource.ParallelTest(t, resource.TestCase{PreCheck:func() { acctest.PreCheck(ctx, t) },ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,CheckDestroy: testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{{Config: testAccFunctionConfig_basic(funcName, policyName, roleName, sgName),Check: resource.ComposeAggregateTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),testAccCheckFunctionInvokeARN(resourceName, &conf),testAccCheckFunctionQualifiedInvokeARN(resourceName, &conf),testAccCheckFunctionName(&conf, funcName),resource.TestCheckResourceAttr(resourceName, "architectures.#", "1"),resource.TestCheckResourceAttr(resourceName, "architectures.0", string(types.ArchitectureX8664)),acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "lambda", fmt.Sprintf("function:%s", funcName)),resource.TestCheckResourceAttr(resourceName, "ephemeral_storage.#", "1"),resource.TestCheckResourceAttr(resourceName, "ephemeral_storage.0.size", "512"),resource.TestCheckResourceAttr(resourceName, "package_type", string(types.PackageTypeZip)),acctest.CheckResourceAttrRegionalARN(resourceName, "qualified_arn", "lambda", fmt.Sprintf("function:%s:%s", funcName, tflambda.FunctionVersionLatest)),resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "-1"),resource.TestCheckResourceAttr(resourceName, "skip_destroy", "false"),resource.TestCheckResourceAttr(resourceName, "version", tflambda.FunctionVersionLatest),),},{ResourceName:resourceName,ImportState: true,ImportStateVerify:  true,ImportStateVerifyIgnore: []string{"filename", "publish"},},},})}func TestAccLambdaFunction_disappears(t *testing.T) {ctx := acctest.Context(t)var function lambda.GetFunctionOutputrName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{PreCheck:func() { acctest.PreCheck(ctx, t) },ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,CheckDestroy: testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{{Config: testAccFunctionConfig_basic(rName, rName, rName, rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &function),acctest.CheckResourceDisappears(ctx, acctest.Provider, tflambda.ResourceFunction(), resourceName),),ExpectNonEmptyPlan: true,},},})}func TestAccLambdaFunction_tags(t *testing.T) {ctx := acctest.Context(t)var conf lambda.GetFunctionOutputrName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{PreCheck:func() { acctest.PreCheck(ctx, t) },ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,CheckDestroy: testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{{Config: testAccFunctionConfig_tags1(rName, "key1", "value1"),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),),},{ResourceName:resourceName,ImportState: true,ImportStateVerify:  true,ImportStateVerifyIgnore: []string{"filename", "publish"},},{Config: testAccFunctionConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),),},{Config: testAccFunctionConfig_tags1(rName, "key2", "value2"),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),),},},})}func TestAccLambdaFunction_unpublishedCodeUpdate(t *testing.T) {ctx := acctest.Context(t)if testing.Short() {t.Skip("skipping long-running test in short mode")}initialFilename := "test-fixtures/lambdatest.zip"updatedFilename, zipFile, err := createTempFile("lambda_localUpdate")if err != nil {t.Fatal(err)}defer os.Remove(updatedFilename)var conf1, conf2 lambda.GetFunctionOutputrName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName := "aws_lambda_function.test"var timeBeforeUpdate time.Timeresource.ParallelTest(t, resource.TestCase{PreCheck:func() { acctest.PreCheck(ctx, t) },ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,CheckDestroy: testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{{Config: testAccFunctionConfig_filename(initialFilename, rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf1),resource.TestCheckResourceAttr(resourceName, "version", tflambda.FunctionVersionLatest),acctest.CheckResourceAttrRegionalARN(resourceName, "qualified_arn", "lambda", fmt.Sprintf("function:%s:%s", rName, tflambda.FunctionVersionLatest)),),},{PreConfig: func() {if err := testAccCreateZipFromFiles(map[string]string{"test-fixtures/lambda_func_modified.js": "lambda.js"}, zipFile); err != nil {t.Fatalf("error creating zip from files: %s", err)}timeBeforeUpdate = time.Now()},Config: testAccFunctionConfig_filename(updatedFilename, rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf2),resource.TestCheckResourceAttr(resourceName, "version", tflambda.FunctionVersionLatest),acctest.CheckResourceAttrRegionalARN(resourceName, "qualified_arn", "lambda", fmt.Sprintf("function:%s:%s", rName, tflambda.FunctionVersionLatest)),func(s *terraform.State) error {return testAccCheckAttributeIsDateAfter(s, resourceName, "last_modified", timeBeforeUpdate)},),},{ResourceName:resourceName,ImportState: true,ImportStateVerify:  true,ImportStateVerifyIgnore: []string{"filename", "publish"},},},})}func TestAccLambdaFunction_codeSigning(t *testing.T) {ctx := acctest.Context(t)if curr := acctest.Region(); !tflambda.SignerServiceIsAvailable(curr) {t.Skipf("Lambda code signing config is not supported in %s region", curr)}var conf lambda.GetFunctionOutputrName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName := "aws_lambda_function.test"cscResourceName := "aws_lambda_code_signing_config.code_signing_config_1"cscUpdateResourceName := "aws_lambda_code_signing_config.code_signing_config_2"resource.ParallelTest(t, resource.TestCase{PreCheck: func() {acctest.PreCheck(ctx, t)testAccPreCheckSignerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")},ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,CheckDestroy: testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{{Config: testAccFunctionConfig_cscCreate(rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttrPair(resourceName, "code_signing_config_arn", cscResourceName, "arn"),),},{ResourceName:resourceName,ImportState: true,ImportStateVerify:  true,ImportStateVerifyIgnore: []string{"filename", "publish"},},{Config: testAccFunctionConfig_cscUpdate(rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttrPair(resourceName, "code_signing_config_arn", cscUpdateResourceName, "arn"),),},{ResourceName:resourceName,ImportState: true,ImportStateVerify:  true,ImportStateVerifyIgnore: []string{"filename", "publish"},},{Config: testAccFunctionConfig_cscDelete(rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttr(resourceName, "code_signing_config_arn", ""),),},},})}func TestAccLambdaFunction_concurrency(t *testing.T) {ctx := acctest.Context(t)if testing.Short() {t.Skip("skipping long-running test in short mode")}var conf lambda.GetFunctionOutputrName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{PreCheck:func() { acctest.PreCheck(ctx, t) },ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,CheckDestroy: testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{{Config: testAccFunctionConfig_basicConcurrency(rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "111"),),},{ResourceName:resourceName,ImportState: true,ImportStateVerify:  true,ImportStateVerifyIgnore: []string{"filename", "publish"},},{Config: testAccFunctionConfig_concurrencyUpdate(rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "222"),),},},})}func TestAccLambdaFunction_concurrencyCycle(t *testing.T) {ctx := acctest.Context(t)if testing.Short() {t.Skip("skipping long-running test in short mode")}var conf lambda.GetFunctionOutputrName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{PreCheck:func() { acctest.PreCheck(ctx, t) },ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,CheckDestroy: testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{{Config: testAccFunctionConfig_basic(rName, rName, rName, rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "-1"),),},{ResourceName:resourceName,ImportState: true,ImportStateVerify:  true,ImportStateVerifyIgnore: []string{"filename", "publish"},},{Config: testAccFunctionConfig_concurrencyUpdate(rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "222"),),},{Config: testAccFunctionConfig_basic(rName, rName, rName, rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),resource.TestCheckResourceAttr(resourceName, "reserved_concurrent_executions", "-1"),),},},})}func TestAccLambdaFunction_expectFilenameAndS3Attributes(t *testing.T) {ctx := acctest.Context(t)rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{PreCheck:func() { acctest.PreCheck(ctx, t) },ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,CheckDestroy: testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{{Config: testAccFunctionConfig_noFilenameAndS3Attributes(rName),ExpectError: regexache.MustCompile("one of `filename,image_uri,s3_bucket` must be specified"),},},})}func TestAccLambdaFunction_envVariables(t *testing.T) {ctx := acctest.Context(t)if testing.Short() {t.Skip("skipping long-running test in short mode")}var conf lambda.GetFunctionOutputrName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{PreCheck:func() { acctest.PreCheck(ctx, t) },ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,CheckDestroy: testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{{Config: testAccFunctionConfig_basic(rName, rName, rName, rName),Check: resource.ComposeTestCheckFunc(testAccCheckFunctionExists(ctx, resourceName, &conf),
 resource.TestCheckResourceAttr(resourceName, "environment.#", "0"),
 ),
 },
@@ -427,13 +37,9 @@ func TestAccLambdaFunction_EnvironmentVariables_noValue(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -459,9 +65,7 @@ func TestAccLambdaFunction_EnvironmentVariables_emptyUpgrade(t *testing.T) {
 ctx := acctest.Context(t)
 var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.LambdaEndpointID),
 CheckDestroy: testAccCheckFunctionDestroy(ctx),
@@ -504,15 +108,11 @@ func TestAccLambdaFunction_encryptedEnvVariables(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lambda_function.test"
 kmsKey1ResourceName := "aws_kms_key.test1"
-kmsKey2ResourceName := "aws_kms_key.test2"
-
-resource.ParallelTest(t, resource.TestCase{
+kmsKey2ResourceName := "aws_kms_key.test2"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -554,9 +154,7 @@ resource.TestCheckResourceAttr(resourceName, "kms_key_arn", ""),
 func TestAccLambdaFunction_nameValidation(t *testing.T) {
 ctx := acctest.Context(t)
 badFuncName := "prefix.viewer_request_lambda"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -573,15 +171,9 @@ func TestAccLambdaFunction_versioned(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-version := "1"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"version := "1"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -608,24 +200,14 @@ func TestAccLambdaFunction_versionedUpdate(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-path, zipFile, err := createTempFile("lambda_localUpdate")
+}path, zipFile, err := createTempFile("lambda_localUpdate")
 if err != nil {
 t.Fatal(err)
 }
-defer os.Remove(path)
-
-var conf lambda.GetFunctionOutput
+defer os.Remove(path)var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-var timeBeforeUpdate time.Time
-
-version := "2"
-versionUpdated := "3"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"var timeBeforeUpdate time.Timeversion := "2"
+versionUpdated := "3"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -685,17 +267,11 @@ func TestAccLambdaFunction_enablePublish(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf1, conf2, conf3 lambda.GetFunctionOutput
+}var conf1, conf2, conf3 lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lambda_function.test"
-fileName := "test-fixtures/lambdatest.zip"
-
-unpublishedVersion := tflambda.FunctionVersionLatest
-publishedVersion := "1"
-
-resource.ParallelTest(t, resource.TestCase{
+fileName := "test-fixtures/lambdatest.zip"unpublishedVersion := tflambda.FunctionVersionLatest
+publishedVersion := "1"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -742,17 +318,11 @@ func TestAccLambdaFunction_disablePublish(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf1, conf2 lambda.GetFunctionOutput
+}var conf1, conf2 lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lambda_function.test"
-fileName := "test-fixtures/lambdatest.zip"
-
-publishedVersion := "1"
-unpublishedVersion := publishedVersion // Should remain the last published version
-
-resource.ParallelTest(t, resource.TestCase{
+fileName := "test-fixtures/lambdatest.zip"publishedVersion := "1"
+unpublishedVersion := publishedVersion // Should remain the last published versionresource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -790,13 +360,9 @@ func TestAccLambdaFunction_deadLetter(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -832,13 +398,9 @@ func TestAccLambdaFunction_deadLetterUpdated(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -873,11 +435,7 @@ func TestAccLambdaFunction_nilDeadLetter(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+}rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -895,13 +453,9 @@ func TestAccLambdaFunction_fileSystem(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -953,25 +507,17 @@ key := "AWS_LAMBDA_IMAGE_LATEST_ID"
 imageLatestID := os.Getenv(key)
 if imageLatestID == "" {
 t.Skipf("Environment variable %s is not set", key)
-}
-
-key = "AWS_LAMBDA_IMAGE_V1_ID"
+}key = "AWS_LAMBDA_IMAGE_V1_ID"
 imageV1ID := os.Getenv(key)
 if imageV1ID == "" {
 t.Skipf("Environment variable %s is not set", key)
-}
-
-key = "AWS_LAMBDA_IMAGE_V2_ID"
+}key = "AWS_LAMBDA_IMAGE_V2_ID"
 imageV2ID := os.Getenv(key)
 if imageV2ID == "" {
 t.Skipf("Environment variable %s is not set", key)
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1022,13 +568,9 @@ func TestAccLambdaFunction_architectures(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1072,13 +614,9 @@ func TestAccLambdaFunction_architecturesUpdate(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1122,13 +660,9 @@ func TestAccLambdaFunction_architecturesWithLayer(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1172,15 +706,11 @@ func TestAccLambdaFunction_ephemeralStorage(t *testing.T) {
 ctx := acctest.Context(t)
 var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckFunctionDestroy(ctx),
-
-Steps: []resource.TestStep{
+CheckDestroy:testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{
 {
 Config: testAccFunctionConfig_ephemeralStorage(rName),
 Check: resource.ComposeTestCheckFunc(
@@ -1210,13 +740,9 @@ func TestAccLambdaFunction_tracing(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1246,9 +772,7 @@ resource.TestCheckResourceAttr(resourceName, "tracing_config.0.mode", "PassThrou
 },
 },
 })
-}
-
-// This test is to verify the existing behavior in the Lambda API where the KMS Key ARN
+}// This test is to verify the existing behavior in the Lambda API where the KMS Key ARN
 // is not returned if environment variables are not in use. If the API begins saving this
 // value and the kms_key_arn check begins failing, the documentation should be updated.
 // Reference: https://github.com/hashicorp/terraform-provider-aws/issues/6366
@@ -1256,13 +780,9 @@ func TestAccLambdaFunction_KMSKeyARN_noEnvironmentVariables(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var function1 lambda.GetFunctionOutput
+}var function1 lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1289,13 +809,9 @@ func TestAccLambdaFunction_layers(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1322,13 +838,9 @@ func TestAccLambdaFunction_layersUpdate(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1363,13 +875,9 @@ func TestAccLambdaFunction_vpc(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1398,13 +906,9 @@ func TestAccLambdaFunction_vpcRemoval(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1437,13 +941,9 @@ func TestAccLambdaFunction_vpcUpdate(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1478,21 +978,15 @@ resource.TestCheckResourceAttrSet(resourceName, "vpc_config.0.vpc_id"),
 },
 },
 })
-}
-
-// See https://github.com/hashicorp/terraform/issues/5767
+}// See https://github.com/hashicorp/terraform/issues/5767
 // and https://github.com/hashicorp/terraform/issues/10272
 func TestAccLambdaFunction_VPC_withInvocation(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1513,21 +1007,15 @@ ImportStateVerifyIgnore: []string{"filename", "publish"},
 },
 },
 })
-}
-
-// See https://github.com/hashicorp/terraform-provider-aws/issues/17385
+}// See https://github.com/hashicorp/terraform-provider-aws/issues/17385
 // When the vpc config doesn't change the version shouldn't change
 func TestAccLambdaFunction_VPCPublishNo_changes(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1555,27 +1043,19 @@ resource.TestCheckResourceAttr(resourceName, "version", "1"),
 },
 },
 })
-}
-
-// See https://github.com/hashicorp/terraform-provider-aws/issues/17385
+}// See https://github.com/hashicorp/terraform-provider-aws/issues/17385
 // When the vpc config changes the version should change
 func TestAccLambdaFunction_VPCPublishHas_changes(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckFunctionDestroy(ctx),
-
-Steps: []resource.TestStep{
+CheckDestroy:testAccCheckFunctionDestroy(ctx),Steps: []resource.TestStep{
 {
 Config: testAccFunctionConfig_vpcPublish(rName),
 Check: resource.ComposeTestCheckFunc(
@@ -1598,21 +1078,15 @@ resource.TestCheckResourceAttr(resourceName, "version", "2"),
 },
 },
 })
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/10044
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/10044
 func TestAccLambdaFunction_VPC_properIAMDependencies(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var function lambda.GetFunctionOutput
+}var function lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lambda_function.test"
-vpcResourceName := "aws_vpc.test"
-
-resource.ParallelTest(t, resource.TestCase{
+vpcResourceName := "aws_vpc.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1635,14 +1109,10 @@ func TestAccLambdaFunction_VPC_replaceSGWithDefault(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var function lambda.GetFunctionOutput
+}var function lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lambda_function.test"
-vpcResourceName := "aws_vpc.test"
-
-resource.ParallelTest(t, resource.TestCase{
+vpcResourceName := "aws_vpc.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1666,15 +1136,11 @@ func TestAccLambdaFunction_VPC_replaceSGWithCustom(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var function lambda.GetFunctionOutput
+}var function lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lambda_function.test"
 vpcResourceName := "aws_vpc.test"
-replacementSGName := "aws_security_group.test_replacement"
-
-resource.ParallelTest(t, resource.TestCase{
+replacementSGName := "aws_security_group.test_replacement"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1700,9 +1166,7 @@ func TestAccLambdaFunction_emptyVPC(t *testing.T) {
 ctx := acctest.Context(t)
 var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1728,9 +1192,7 @@ func TestAccLambdaFunction_s3(t *testing.T) {
 ctx := acctest.Context(t)
 var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1756,21 +1218,13 @@ func TestAccLambdaFunction_localUpdate(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-path, zipFile, err := createTempFile("lambda_localUpdate")
+}path, zipFile, err := createTempFile("lambda_localUpdate")
 if err != nil {
 t.Fatal(err)
 }
-defer os.Remove(path)
-
-var conf lambda.GetFunctionOutput
+defer os.Remove(path)var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-var timeBeforeUpdate time.Time
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"var timeBeforeUpdate time.Timeresource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1817,25 +1271,17 @@ func TestAccLambdaFunction_LocalUpdate_nameOnly(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var conf lambda.GetFunctionOutput
+}var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-path, zipFile, err := createTempFile("lambda_localUpdate")
+resourceName := "aws_lambda_function.test"path, zipFile, err := createTempFile("lambda_localUpdate")
 if err != nil {
 t.Fatal(err)
 }
-defer os.Remove(path)
-
-updatedPath, updatedZipFile, err := createTempFile("lambda_localUpdate_name_change")
+defer os.Remove(path)updatedPath, updatedZipFile, err := createTempFile("lambda_localUpdate_name_change")
 if err != nil {
 t.Fatal(err)
 }
-defer os.Remove(updatedPath)
-
-resource.ParallelTest(t, resource.TestCase{
+defer os.Remove(updatedPath)resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1880,15 +1326,9 @@ path, zipFile, err := createTempFile("lambda_s3Update")
 if err != nil {
 t.Fatal(err)
 }
-defer os.Remove(path)
-
-var conf lambda.GetFunctionOutput
+defer os.Remove(path)var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-key := "lambda-func.zip"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"key := "lambda-func.zip"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1935,15 +1375,11 @@ path, zipFile, err := createTempFile("lambda_s3Update")
 if err != nil {
 t.Fatal(err)
 }
-defer os.Remove(path)
-
-var conf lambda.GetFunctionOutput
+defer os.Remove(path)var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lambda_function.test"
 key := "lambda-func.zip"
-key2 := "lambda-func-modified.zip"
-
-resource.ParallelTest(t, resource.TestCase{
+key2 := "lambda-func-modified.zip"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1988,9 +1424,7 @@ func TestAccLambdaFunction_snapStart(t *testing.T) {
 ctx := acctest.Context(t)
 var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2024,13 +1458,9 @@ func TestAccLambdaFunction_runtimes(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var v lambda.GetFunctionOutput
+}var v lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-steps := []resource.TestStep{
+resourceName := "aws_lambda_function.test"steps := []resource.TestStep{
 {
 // Test invalid runtime.
 Config: testAccFunctionConfig_runtime(rName, rName),
@@ -2069,9 +1499,7 @@ case types.RuntimeDotnetcore20:
 fallthrough
 case types.RuntimeDotnetcore10:
 continue
-}
-
-steps = append(steps, resource.TestStep{
+}steps = append(steps, resource.TestStep{
 Config: testAccFunctionConfig_runtime(rName, string(runtime)),
 Check: resource.ComposeTestCheckFunc(
 testAccCheckFunctionExists(ctx, resourceName, &v),
@@ -2084,9 +1512,7 @@ ResourceName:   resourceName,
 ImportState:true,
 ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"filename", "publish"},
-})
-
-resource.ParallelTest(t, resource.TestCase{
+})resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2096,9 +1522,7 @@ Steps:  steps,
 }
 func TestAccLambdaFunction_Zip_validation(t *testing.T) {
 ctx := acctest.Context(t)
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2119,9 +1543,7 @@ func TestAccLambdaFunction_skipDestroy(t *testing.T) {
 ctx := acctest.Context(t)
 var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:   func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2136,16 +1558,12 @@ resource.TestCheckResourceAttr(resourceName, "skip_destroy", "true"),
 },
 },
 })
-}
-
-// https://github.com/hashicorp/terraform-provider-aws/issues/29777.
+}// https://github.com/hashicorp/terraform-provider-aws/issues/29777.
 func TestAccLambdaFunction_skipDestroyInconsistentPlan(t *testing.T) {
 ctx := acctest.Context(t)
 var conf lambda.GetFunctionOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_lambda_function.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_lambda_function.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:   acctest.ErrorCheck(t, names.LambdaEndpointID),
 CheckDestroy: testAccCheckFunctionDestroy(ctx),
@@ -2176,44 +1594,24 @@ resource.TestCheckResourceAttr(resourceName, "skip_destroy", "false"),
 }
 func testAccCheckFunctionDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaClient(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaClient(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_lambda_function" {
 continue
-}
-
-_, err := tflambda.FindFunctionByName(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+}_, err := tflambda.FindFunctionByName(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
-}
-
-return fmt.Errorf("Lambda Function %s still exists", rs.Primary.ID)
-}
-
-return nil
+}return fmt.Errorf("Lambda Function %s still exists", rs.Primary.ID)
+}return nil
 }
 }
 func testAccCheckFunctionNoDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaClient(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaClient(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_lambda_function" {
 continue
-}
-
-_, err := tflambda.FindFunctionByName(ctx, conn, rs.Primary.ID)
-
-return err
-}
-
-return nil
+}_, err := tflambda.FindFunctionByName(ctx, conn, rs.Primary.ID)return err
+}return nil
 }
 }
 func testAccCheckFunctionExists(ctx context.Context, n string, v *lambda.GetFunctionOutput) resource.TestCheckFunc {
@@ -2221,23 +1619,11 @@ return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No Lambda Function ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaClient(ctx)
-
-output, err := tflambda.FindFunctionByName(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaClient(ctx)output, err := tflambda.FindFunctionByName(ctx, conn, rs.Primary.ID)if err != nil {
 return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 }
 }
 func testAccCheckFunctionQualifiedInvokeARN(name string, function *lambda.GetFunctionOutput) resource.TestCheckFunc {
@@ -2255,14 +1641,10 @@ return acctest.CheckResourceAttrRegionalARNAccountID(name, "invoke_arn", "apigat
 func testAccInvokeFunction(ctx context.Context, function *lambda.GetFunctionOutput) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 f := function.Configuration
-conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaClient(ctx)
-
-// If the function is VPC-enabled this will create ENI automatically
+conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaClient(ctx)// If the function is VPC-enabled this will create ENI automatically
 _, err := conn.Invoke(ctx, &lambda.InvokeInput{
 FunctionName: f.FunctionName,
-})
-
-return err
+})return err
 }
 }
 func testAccCheckFunctionName(function *lambda.GetFunctionOutput, expectedName string) resource.TestCheckFunc {
@@ -2270,13 +1652,9 @@ return func(s *terraform.State) error {
 c := function.Configuration
 if *c.FunctionName != expectedName {
 return fmt.Errorf("Expected function name %s, got %s", expectedName, *c.FunctionName)
+}return nil
 }
-
-return nil
-}
-}
-
-// Rename to correctly identify as using API values
+}// Rename to correctly identify as using API values
 func testAccCheckFunctionVersion(function *lambda.GetFunctionOutput, expectedVersion string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 c := function.Configuration
@@ -2291,33 +1669,23 @@ return func(s *terraform.State) error {
 c := function.Configuration
 if *c.CodeSha256 != expectedHash {
 return fmt.Errorf("Expected code hash %s, got %s", expectedHash, *c.CodeSha256)
-}
-
-return nil
+}return nil
 }
 }
 func testAccCheckAttributeIsDateAfter(s *terraform.State, name string, key string, before time.Time) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return fmt.Errorf("Resource %s not found", name)
-}
-
-v, ok := rs.Primary.Attributes[key]
+}v, ok := rs.Primary.Attributes[key]
 if !ok {
 return fmt.Errorf("%s: Attribute '%s' not found", name, key)
-}
-
-const ISO8601UTC = "2006-01-02T15:04:05Z0700"
+}const ISO8601UTC = "2006-01-02T15:04:05Z0700"
 timeValue, err := time.Parse(ISO8601UTC, v)
 if err != nil {
 return err
-}
-
-if !before.Before(timeValue) {
+}if !before.Before(timeValue) {
 return fmt.Errorf("Expected time attribute %s.%s with value %s was not before %s", name, key, v, before.Format(ISO8601UTC))
-}
-
-return nil
+}return nil
 }
 func testAccCreateZipFromFiles(files map[string]string, zipFile *os.File) error {
 if err := zipFile.Truncate(0); err != nil {
@@ -2325,41 +1693,27 @@ return err
 }
 if _, err := zipFile.Seek(0, 0); err != nil {
 return err
-}
-
-w := zip.NewWriter(zipFile)
-
-for source, destination := range files {
+}w := zip.NewWriter(zipFile)for source, destination := range files {
 f, err := w.Create(destination)
 if err != nil {
 return err
-}
-
-fileContent, err := os.ReadFile(source)
+}fileContent, err := os.ReadFile(source)
+if err != nil {
+return err
+}_, err = f.Write(fileContent)
 if err != nil {
 return err
 }
-
-_, err = f.Write(fileContent)
+}err := w.Close()
 if err != nil {
 return err
-}
-}
-
-err := w.Close()
-if err != nil {
-return err
-}
-
-return w.Flush()
+}return w.Flush()
 }
 func createTempFile(prefix string) (string, *os.File, error) {
 f, err := os.CreateTemp(os.TempDir(), prefix)
 if err != nil {
 return "", nil, err
-}
-
-pathToFile, err := filepath.Abs(f.Name())
+}pathToFile, err := filepath.Abs(f.Name())
 if err != nil {
 return "", nil, err
 }
@@ -2367,17 +1721,11 @@ return pathToFile, f, nil
 }
 func testAccFunctionConfigBase_properIAMDependencies(rName string) string {
 return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_iam_role_policy_attachment" "test" {
+data "aws_partition" "current" {}resource "aws_iam_role_policy_attachment" "test" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
   role  = aws_iam_role.test.id
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -2392,34 +1740,18 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
+}resource "aws_vpc" "test" {
+  cidr_block = "10.0.0.0/16"  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test]
-
-  vpc_id= aws_vpc.test.id
-  cidr_block = "10.0.0.0/24"
-
-  tags = {
+}resource "aws_subnet" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test]  vpc_id= aws_vpc.test.id
+  cidr_block = "10.0.0.0/24"  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test]
-
-  name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  egress {
+}resource "aws_security_group" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test]  name   = %[1]q
+  vpc_id = aws_vpc.test.id  egress {
 cidr_blocks = ["0.0.0.0/0"]
 from_port   = 0
 protocol= "-1"
@@ -2448,9 +1780,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "example.Hello::handleRequest"
-  runtime  = "java11"
-
-  snap_start {
+  runtime  = "java11"  snap_start {
 apply_on = "PublishedVersions"
   }
 }
@@ -2478,9 +1808,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  tags = {
+  runtime  = "nodejs16.x"  tags = {
 %[2]q = %[3]q
   }
 }
@@ -2495,9 +1823,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  tags = {
+  runtime  = "nodejs16.x"  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }
@@ -2523,66 +1849,40 @@ return fmt.Sprintf(`
 data "aws_iam_policy_document" "policy" {
   statement {
 sid= ""
-effect = "Allow"
-
-principals {
+effect = "Allow"principals {
  identifiers = ["lambda.amazonaws.com"]
  type   = "Service"
-}
-
-actions = ["sts:AssumeRole"]
+}actions = ["sts:AssumeRole"]
   }
-}
-
-resource "aws_iam_role" "iam_for_lambda" {
+}resource "aws_iam_role" "iam_for_lambda" {
   name= %[1]q
   assume_role_policy = data.aws_iam_policy_document.policy.json
-}
-
-resource "aws_signer_signing_profile" "test1" {
+}resource "aws_signer_signing_profile" "test1" {
   platform_id = "AWSLambda-SHA384-ECDSA"
-}
-
-resource "aws_signer_signing_profile" "test2" {
+}resource "aws_signer_signing_profile" "test2" {
   platform_id = "AWSLambda-SHA384-ECDSA"
-}
-
-resource "aws_signer_signing_profile" "test3" {
+}resource "aws_signer_signing_profile" "test3" {
   platform_id = "AWSLambda-SHA384-ECDSA"
-}
-
-resource "aws_signer_signing_profile" "test4" {
+}resource "aws_signer_signing_profile" "test4" {
   platform_id = "AWSLambda-SHA384-ECDSA"
-}
-
-resource "aws_lambda_code_signing_config" "code_signing_config_1" {
+}resource "aws_lambda_code_signing_config" "code_signing_config_1" {
   allowed_publishers {
 signing_profile_version_arns = [
  aws_signer_signing_profile.test1.version_arn,
  aws_signer_signing_profile.test2.version_arn
 ]
-  }
-
-  policies {
+  }  policies {
 untrusted_artifact_on_deployment = "Warn"
-  }
-
-  description = "Code Signing Config for test account"
-}
-
-resource "aws_lambda_code_signing_config" "code_signing_config_2" {
+  }  description = "Code Signing Config for test account"
+}resource "aws_lambda_code_signing_config" "code_signing_config_2" {
   allowed_publishers {
 signing_profile_version_arns = [
  aws_signer_signing_profile.test3.version_arn,
  aws_signer_signing_profile.test4.version_arn
 ]
-  }
-
-  policies {
+  }  policies {
 untrusted_artifact_on_deployment = "Warn"
-  }
-
-  description = "Code Signing Config for test account update"
+  }  description = "Code Signing Config for test account update"
 }
 `, rName)
 }
@@ -2676,9 +1976,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  environment {
+  runtime  = "nodejs16.x"  environment {
 variables = {
  foo = "bar"
 }
@@ -2695,9 +1993,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  environment {
+  runtime  = "nodejs16.x"  environment {
 variables = {}
   }
 }
@@ -2712,9 +2008,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  environment {
+  runtime  = "nodejs16.x"  environment {
 variables = {
  foo  = "baz"
  foo1 = "bar1"
@@ -2745,9 +2039,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   handler  = "exports.example"
   role = aws_iam_role.iam_for_lambda.arn
-  runtime  = "nodejs16.x"
-
-  environment {
+  runtime  = "nodejs16.x"  environment {
 variables = {
  key1 = ""
 }
@@ -2760,9 +2052,7 @@ return acctest.ConfigCompose(
 acctest.ConfigLambdaBase(rName, rName, rName),
 fmt.Sprintf(`
 resource "aws_kms_key" "test1" {
-  description = "%[1]s-1"
-
-  policy = <<POLICY
+  description = "%[1]s-1"  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
@@ -2779,12 +2069,8 @@ resource "aws_kms_key" "test1" {
   ]
 }
 POLICY
-}
-
-resource "aws_kms_key" "test2" {
-  description = "%[1]s-2"
-
-  policy = <<POLICY
+}resource "aws_kms_key" "test2" {
+  description = "%[1]s-2"  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
@@ -2801,17 +2087,13 @@ resource "aws_kms_key" "test2" {
   ]
 }
 POLICY
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
   kms_key_arn   = aws_kms_key.test1.arn
-  runtime  = "nodejs16.x"
-
-  environment {
+  runtime  = "nodejs16.x"  environment {
 variables = {
  foo = "bar"
 }
@@ -2823,12 +2105,8 @@ func testAccFunctionConfig_encryptedEnvVariablesKey2(rName string) string {
 return acctest.ConfigCompose(
 acctest.ConfigLambdaBase(rName, rName, rName),
 fmt.Sprintf(`
-# Delete aws_kms_key.test1.
-
-resource "aws_kms_key" "test2" {
-  description = "%[1]s-2"
-
-  policy = <<POLICY
+# Delete aws_kms_key.test1.resource "aws_kms_key" "test2" {
+  description = "%[1]s-2"  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
@@ -2845,17 +2123,13 @@ resource "aws_kms_key" "test2" {
   ]
 }
 POLICY
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
   kms_key_arn   = aws_kms_key.test2.arn
-  runtime  = "nodejs16.x"
-
-  environment {
+  runtime  = "nodejs16.x"  environment {
 variables = {
  foo = "bar"
 }
@@ -2900,17 +2174,11 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  dead_letter_config {
+  runtime  = "nodejs16.x"  dead_letter_config {
 target_arn = aws_sns_topic.test[0].arn
   }
-}
-
-resource "aws_sns_topic" "test" {
-  count = 2
-
-  name = "%[1]s-${count.index}"
+}resource "aws_sns_topic" "test" {
+  count = 2  name = "%[1]s-${count.index}"
 }
 `, rName))
 }
@@ -2923,17 +2191,11 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  dead_letter_config {
+  runtime  = "nodejs16.x"  dead_letter_config {
 target_arn = aws_sns_topic.test[1].arn
   }
-}
-
-resource "aws_sns_topic" "test" {
-  count = 2
-
-  name = "%[1]s-${count.index}"
+}resource "aws_sns_topic" "test" {
+  count = 2  name = "%[1]s-${count.index}"
 }
 `, rName))
 }
@@ -2946,9 +2208,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  dead_letter_config {
+  runtime  = "nodejs16.x"  dead_letter_config {
 target_arn = ""
   }
 }
@@ -2962,51 +2222,33 @@ resource "aws_efs_file_system" "test" {
   tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_efs_mount_target" "test1" {
+}resource "aws_efs_mount_target" "test1" {
   file_system_id  = aws_efs_file_system.test.id
   subnet_id  = aws_subnet.subnet_for_lambda.id
   security_groups = [aws_security_group.sg_for_lambda.id]
-}
-
-resource "aws_efs_access_point" "test1" {
-  file_system_id = aws_efs_file_system.test.id
-
-  root_directory {
-path = "/lambda1"
-
-creation_info {
+}resource "aws_efs_access_point" "test1" {
+  file_system_id = aws_efs_file_system.test.id  root_directory {
+path = "/lambda1"creation_info {
  owner_gid   = 1000
  owner_uid   = 1000
  permissions = "777"
 }
-  }
-
-  posix_user {
+  }  posix_user {
 gid = 1000
 uid = 1000
   }
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  vpc_config {
+  runtime  = "nodejs16.x"  vpc_config {
 subnet_ids= [aws_subnet.subnet_for_lambda.id]
 security_group_ids = [aws_security_group.sg_for_lambda.id]
-  }
-
-  file_system_config {
+  }  file_system_config {
 arn= aws_efs_access_point.test1.arn
 local_mount_path = "/mnt/efs"
-  }
-
-  depends_on = [aws_efs_mount_target.test1]
+  }  depends_on = [aws_efs_mount_target.test1]
 }
 `, rName))
 }
@@ -3018,51 +2260,33 @@ resource "aws_efs_file_system" "test" {
   tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_efs_mount_target" "test2" {
+}resource "aws_efs_mount_target" "test2" {
   file_system_id  = aws_efs_file_system.test.id
   subnet_id  = aws_subnet.subnet_for_lambda_az2.id
   security_groups = [aws_security_group.sg_for_lambda.id]
-}
-
-resource "aws_efs_access_point" "test2" {
-  file_system_id = aws_efs_file_system.test.id
-
-  root_directory {
-path = "/lambda2"
-
-creation_info {
+}resource "aws_efs_access_point" "test2" {
+  file_system_id = aws_efs_file_system.test.id  root_directory {
+path = "/lambda2"creation_info {
  owner_gid   = 1000
  owner_uid   = 1000
  permissions = "777"
 }
-  }
-
-  posix_user {
+  }  posix_user {
 gid = 1000
 uid = 1000
   }
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  vpc_config {
+  runtime  = "nodejs16.x"  vpc_config {
 subnet_ids= [aws_subnet.subnet_for_lambda_az2.id]
 security_group_ids = [aws_security_group.sg_for_lambda.id]
-  }
-
-  file_system_config {
+  }  file_system_config {
 arn= aws_efs_access_point.test2.arn
 local_mount_path = "/mnt/lambda"
-  }
-
-  depends_on = [aws_efs_mount_target.test2]
+  }  depends_on = [aws_efs_mount_target.test2]
 }
 `, rName))
 }
@@ -3148,9 +2372,7 @@ resource "aws_lambda_layer_version" "test" {
   layer_name= %[1]q
   compatible_runtimes = ["nodejs16.x"]
   compatible_architectures = ["arm64", "x86_64"]
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
@@ -3170,9 +2392,7 @@ resource "aws_lambda_layer_version" "test" {
   layer_name= %[1]q
   compatible_runtimes = ["nodejs16.x"]
   compatible_architectures = ["arm64", "x86_64"]
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
@@ -3192,9 +2412,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  ephemeral_storage {
+  runtime  = "nodejs16.x"  ephemeral_storage {
 size = 1024
   }
 }
@@ -3209,9 +2427,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  ephemeral_storage {
+  runtime  = "nodejs16.x"  ephemeral_storage {
 size = 2048
   }
 }
@@ -3226,9 +2442,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  tracing_config {
+  runtime  = "nodejs16.x"  tracing_config {
 mode = "Active"
   }
 }
@@ -3243,9 +2457,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  tracing_config {
+  runtime  = "nodejs16.x"  tracing_config {
 mode = "PassThrough"
   }
 }
@@ -3257,9 +2469,7 @@ acctest.ConfigLambdaBase(rName, rName, rName),
 fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description= %[1]q
-  deletion_window_in_days = 7
-
-  policy = <<POLICY
+  deletion_window_in_days = 7  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
@@ -3276,9 +2486,7 @@ resource "aws_kms_key" "test" {
   ]
 }
 POLICY
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler  = "exports.example"
@@ -3293,14 +2501,10 @@ return acctest.ConfigCompose(
 acctest.ConfigLambdaBase(rName, rName, rName),
 fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  count = 2
-
-  filename   = "test-fixtures/lambdatest.zip"
+  count = 2  filename   = "test-fixtures/lambdatest.zip"
   layer_name = "%[1]s-${count.index}"
   compatible_runtimes = ["nodejs16.x"]
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
@@ -3315,14 +2519,10 @@ return acctest.ConfigCompose(
 acctest.ConfigLambdaBase(rName, rName, rName),
 fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  count = 2
-
-  filename   = "test-fixtures/lambdatest.zip"
+  count = 2  filename   = "test-fixtures/lambdatest.zip"
   layer_name = "%[1]s-${count.index}"
   compatible_runtimes = ["nodejs16.x"]
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
@@ -3341,9 +2541,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  vpc_config {
+  runtime  = "nodejs16.x"  vpc_config {
 subnet_ids= [aws_subnet.subnet_for_lambda.id]
 security_group_ids = [aws_security_group.sg_for_lambda.id]
   }
@@ -3359,27 +2557,19 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  vpc_config {
+  runtime  = "nodejs16.x"  vpc_config {
 subnet_ids= [aws_subnet.subnet_for_lambda.id, aws_subnet.subnet_for_lambda_az2.id]
 security_group_ids = [aws_security_group.sg_for_lambda.id, aws_security_group.sg_for_lambda_2.id]
   }
-}
-
-resource "aws_security_group" "sg_for_lambda_2" {
+}resource "aws_security_group" "sg_for_lambda_2" {
   name   = "%[1]s-2"
   description = "Allow all inbound traffic for lambda test"
-  vpc_id = aws_vpc.vpc_for_lambda.id
-
-  ingress {
+  vpc_id = aws_vpc.vpc_for_lambda.id  ingress {
 from_port   = 80
 to_port= 80
 protocol= "tcp"
 cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
+  }  egress {
 from_port   = 0
 to_port= 0
 protocol= "-1"
@@ -3433,9 +2623,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.test.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  vpc_config {
+  runtime  = "nodejs16.x"  vpc_config {
 subnet_ids= [aws_subnet.test.id]
 security_group_ids = [aws_security_group.test.id]
   }
@@ -3447,17 +2635,11 @@ return acctest.ConfigCompose(
 testAccFunctionConfigBase_properIAMDependencies(rName),
 fmt.Sprintf(`
 resource "aws_lambda_function" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test]
-
-  filename = "test-fixtures/lambdatest.zip"
+  depends_on = [aws_iam_role_policy_attachment.test]  filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.test.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  replace_security_groups_on_destroy = true
-
-  vpc_config {
+  runtime  = "nodejs16.x"  replace_security_groups_on_destroy = true  vpc_config {
 subnet_ids= [aws_subnet.test.id]
 security_group_ids = [aws_security_group.test.id]
   }
@@ -3469,25 +2651,15 @@ return acctest.ConfigCompose(
 testAccFunctionConfigBase_properIAMDependencies(rName),
 fmt.Sprintf(`
 resource "aws_security_group" "test_replacement" {
-  depends_on = [aws_iam_role_policy_attachment.test]
-
-  name   = "%[1]s-replacement"
+  depends_on = [aws_iam_role_policy_attachment.test]  name   = "%[1]s-replacement"
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_lambda_function" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test]
-
-  filename = "test-fixtures/lambdatest.zip"
+}resource "aws_lambda_function" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test]  filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.test.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  replace_security_groups_on_destroy = true
-  replacement_security_group_ids= [aws_security_group.test_replacement.id]
-
-  vpc_config {
+  runtime  = "nodejs16.x"  replace_security_groups_on_destroy = true
+  replacement_security_group_ids= [aws_security_group.test_replacement.id]  vpc_config {
 subnet_ids= [aws_subnet.test.id]
 security_group_ids = [aws_security_group.test.id]
   }
@@ -3503,9 +2675,7 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
   handler  = "exports.example"
-  runtime  = "nodejs16.x"
-
-  vpc_config {
+  runtime  = "nodejs16.x"  vpc_config {
 subnet_ids= []
 security_group_ids = []
   }
@@ -3516,18 +2686,12 @@ func testAccFunctionConfig_s3Simple(rName string) string {
 return fmt.Sprintf(`
 resource "aws_s3_bucket" "lambda_bucket" {
   bucket = %[1]q
-}
-
-resource "aws_s3_object" "lambda_code" {
+}resource "aws_s3_object" "lambda_code" {
   bucket = aws_s3_bucket.lambda_bucket.id
   key= "lambdatest.zip"
   source = "test-fixtures/lambdatest.zip"
-}
-
-resource "aws_iam_role" "iam_for_lambda" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "iam_for_lambda" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -3542,9 +2706,7 @@ resource "aws_iam_role" "iam_for_lambda" {
   ]
 }
 EOF
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   s3_bucket= aws_s3_bucket.lambda_bucket.id
   s3_key   = aws_s3_object.lambda_code.id
   function_name = %[1]q
@@ -3557,9 +2719,7 @@ resource "aws_lambda_function" "test" {
 func testAccFunctionConfig_local(filePath, rName string) string {
 return fmt.Sprintf(`
 resource "aws_iam_role" "iam_for_lambda" {
-  name = %[2]q
-
-  assume_role_policy = <<EOF
+  name = %[2]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -3574,9 +2734,7 @@ resource "aws_iam_role" "iam_for_lambda" {
   ]
 }
 EOF
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename= %[1]q
   source_code_hash = filebase64sha256(%[1]q)
   function_name= %[2]q
@@ -3589,9 +2747,7 @@ resource "aws_lambda_function" "test" {
 func testAccFunctionConfig_localNameOnly(filePath, rName string) string {
 return fmt.Sprintf(`
 resource "aws_iam_role" "iam_for_lambda" {
-  name = %[2]q
-
-  assume_role_policy = <<EOF
+  name = %[2]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -3606,9 +2762,7 @@ resource "aws_iam_role" "iam_for_lambda" {
   ]
 }
 EOF
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = %[1]q
   function_name = %[2]q
   role = aws_iam_role.iam_for_lambda.arn
@@ -3622,29 +2776,19 @@ return fmt.Sprintf(`
 resource "aws_s3_bucket" "artifacts" {
   bucket   = %[3]q
   force_destroy = true
-}
-
-resource "aws_s3_bucket_versioning" "artifacts" {
+}resource "aws_s3_bucket_versioning" "artifacts" {
   bucket = aws_s3_bucket.artifacts.id
   versioning_configuration {
 status = "Enabled"
   }
-}
-
-resource "aws_s3_object" "o" {
+}resource "aws_s3_object" "o" {
   # Must have versioning enabled first
-  depends_on = [aws_s3_bucket_versioning.artifacts]
-
-  bucket = aws_s3_bucket.artifacts.bucket
+  depends_on = [aws_s3_bucket_versioning.artifacts]  bucket = aws_s3_bucket.artifacts.bucket
   key= %[1]q
   source = %[2]q
   etag   = filemd5(%[2]q)
-}
-
-resource "aws_iam_role" "iam_for_lambda" {
-  name = %[3]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "iam_for_lambda" {
+  name = %[3]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -3659,9 +2803,7 @@ resource "aws_iam_role" "iam_for_lambda" {
   ]
 }
 EOF
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   s3_bucket= aws_s3_object.o.bucket
   s3_key   = aws_s3_object.o.key
   s3_object_version = aws_s3_object.o.version_id
@@ -3677,19 +2819,13 @@ return fmt.Sprintf(`
 resource "aws_s3_bucket" "artifacts" {
   bucket   = %[1]q
   force_destroy = true
-}
-
-resource "aws_s3_object" "o" {
+}resource "aws_s3_object" "o" {
   bucket = aws_s3_bucket.artifacts.bucket
   key= %[2]q
   source = %[3]q
   etag   = filemd5(%[3]q)
-}
-
-resource "aws_iam_role" "iam_for_lambda" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "iam_for_lambda" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -3704,9 +2840,7 @@ resource "aws_iam_role" "iam_for_lambda" {
   ]
 }
 EOF
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   s3_bucket= aws_s3_object.o.bucket
   s3_key   = aws_s3_object.o.key
   function_name = %[1]q
@@ -3771,37 +2905,19 @@ response := types.ImageConfigResponse{}
 tflambda.FlattenImageConfig(&response)
 }
 func testAccPreCheckSignerSigningProfile(ctx context.Context, t *testing.T, platformID string) {
-conn := acctest.Provider.Meta().(*conns.AWSClient).SignerClient(ctx)
-
-input := &signer.ListSigningPlatformsInput{}
-
-pages := signer.NewListSigningPlatformsPaginator(conn, input)
-
-for pages.HasMorePages() {
-page, err := pages.NextPage(ctx)
-
-if acctest.PreCheckSkipError(err) {
+conn := acctest.Provider.Meta().(*conns.AWSClient).SignerClient(ctx)input := &signer.ListSigningPlatformsInput{}pages := signer.NewListSigningPlatformsPaginator(conn, input)for pages.HasMorePages() {
+page, err := pages.NextPage(ctx)if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
-}
-
-if err != nil {
+}if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
-}
-
-if page == nil {
+}if page == nil {
 t.Skip("skipping acceptance testing: empty response")
-}
-
-for _, platform := range page.Platforms {
+}for _, platform := range page.Platforms {
 if platform == (signertypes.SigningPlatform{}) {
 continue
-}
-
-if aws.ToString(platform.PlatformId) == platformID {
+}if aws.ToString(platform.PlatformId) == platformID {
 return
 }
 }
-}
-
-t.Skipf("skipping acceptance testing: Signing Platform (%s) not found", platformID)
+}t.Skipf("skipping acceptance testing: Signing Platform (%s) not found", platformID)
 }

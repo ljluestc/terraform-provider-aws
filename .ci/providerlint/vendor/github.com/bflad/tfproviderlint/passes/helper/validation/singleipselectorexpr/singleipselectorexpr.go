@@ -1,15 +1,1 @@
-packagesingleipselectorexpr
-
-import(
-"github.com/bflad/tfproviderlint/helper/analysisutils"
-"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
-)
-
-varAnalyzer=analysisutils.SelectorExprAnalyzer(
-"singleipselectorexpr",
-validation.Is
-
-validation.PackagePath,
-validation.
-SingleIP,
-)
+packagesingleipselectorexprimport("github.com/bflad/tfproviderlint/helper/analysisutils""github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation")varAnalyzer=analysisutils.SelectorExprAnalyzer("singleipselectorexpr",validation.Isvalidation.PackagePath,validation.SingleIP,)

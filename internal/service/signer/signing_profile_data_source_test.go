@@ -1,26 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package signer_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package signer_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/service/signer"
+	"testing"	"github.com/aws/aws-sdk-go-v2/service/signer"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccSignerSigningProfileDataSource_basic(t *testing.T) {
+)func TestAccSignerSigningProfileDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_signer_signing_profile.test"
 	resourceName := "aws_signer_signing_profile.test"
 	rString := sdkacctest.RandString(48)
-	profileName := fmt.Sprintf("tf_acc_sp_basic_%s", rString)
-
-	resource.ParallelTest(t, resource.TestCase{
+	profileName := fmt.Sprintf("tf_acc_sp_basic_%s", rString)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
@@ -43,16 +33,12 @@ func TestAccSignerSigningProfileDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccSigningProfileDataSourceConfig_basic(profileName string) string {
+}func testAccSigningProfileDataSourceConfig_basic(profileName string) string {
 	return fmt.Sprintf(`
 resource "aws_signer_signing_profile" "test" {
   platform_id = "AWSLambda-SHA384-ECDSA"
   name        = "%s"
-}
-
-data "aws_signer_signing_profile" "test" {
+}data "aws_signer_signing_profile" "test" {
   name = aws_signer_signing_profile.test.name
 }`, profileName)
 }

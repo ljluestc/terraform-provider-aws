@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafv2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package wafv2_testimport (
 	"context"
 	"fmt"
 	"regexp"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/wafv2"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/id"
@@ -25,9 +19,7 @@ func TestAccWAFV2RuleGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -62,9 +54,7 @@ func TestAccWAFV2RuleGroup_basic(t *testing.T) {
 func TestAccWAFV2RuleGroup_nameGenerated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -90,9 +80,7 @@ func TestAccWAFV2RuleGroup_nameGenerated(t *testing.T) {
 func TestAccWAFV2RuleGroup_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -119,9 +107,7 @@ func TestAccWAFV2RuleGroup_updateRule(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -188,9 +174,7 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_rule_group.test"
-	ruleName2 := fmt.Sprintf("%s-2", ruleGroupName)
-
-	resource.ParallelTest(t, resource.TestCase{
+	ruleName2 := fmt.Sprintf("%s-2", ruleGroupName)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -370,9 +354,7 @@ func TestAccWAFV2RuleGroup_byteMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -433,9 +415,7 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -762,9 +742,7 @@ func TestAccWAFV2RuleGroup_changeNameForceNew(t *testing.T) {
 	var before, after wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	ruleGroupNewName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -809,9 +787,7 @@ func TestAccWAFV2RuleGroup_changeCapacityForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -856,9 +832,7 @@ func TestAccWAFV2RuleGroup_changeMetricNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -903,9 +877,7 @@ func TestAccWAFV2RuleGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -926,9 +898,7 @@ func TestAccWAFV2RuleGroup_RuleLabels(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -971,9 +941,7 @@ func TestAccWAFV2RuleGroup_geoMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1025,9 +993,7 @@ func TestAccWAFV2RuleGroup_GeoMatchStatement_forwardedIP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1082,9 +1048,7 @@ func TestAccWAFV2RuleGroup_LabelMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1131,9 +1095,7 @@ func TestAccWAFV2RuleGroup_ipSetReferenceStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1168,9 +1130,7 @@ func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1268,9 +1228,7 @@ func TestAccWAFV2RuleGroup_logicalRuleStatements(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1341,9 +1299,7 @@ func TestAccWAFV2RuleGroup_minimal(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1372,9 +1328,7 @@ func TestAccWAFV2RuleGroup_regexMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1408,9 +1362,7 @@ func TestAccWAFV2RuleGroup_regexPatternSetReferenceStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1446,9 +1398,7 @@ func TestAccWAFV2RuleGroup_ruleAction(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1533,9 +1483,7 @@ func TestAccWAFV2RuleGroup_RuleAction_customRequestHandling(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1608,9 +1556,7 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1726,9 +1672,7 @@ func TestAccWAFV2RuleGroup_sizeConstraintStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1781,9 +1725,7 @@ func TestAccWAFV2RuleGroup_sqliMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1852,9 +1794,7 @@ func TestAccWAFV2RuleGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1898,9 +1838,7 @@ func TestAccWAFV2RuleGroup_xssMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1957,9 +1895,7 @@ func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2049,9 +1985,7 @@ func TestAccWAFV2RuleGroup_RateBased_maxNested(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2093,9 +2027,7 @@ func TestAccWAFV2RuleGroup_Operators_maxNested(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
 	ruleGroupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_wafv2_rule_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafv2_rule_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -2134,19 +2066,11 @@ func TestAccWAFV2RuleGroup_Operators_maxNested(t *testing.T) {
 	})
 }
 func testAccPreCheckScopeRegional(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)
-
-	input := &wafv2.ListRuleGroupsInput{
+	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)	input := &wafv2.ListRuleGroupsInput{
 		Scope: aws.String(wafv2.ScopeRegional),
-	}
-
-	_, err := conn.ListRuleGroupsWithContext(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+	}	_, err := conn.ListRuleGroupsWithContext(ctx, input)	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
@@ -2155,24 +2079,12 @@ func testAccCheckRuleGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_wafv2_rule_group" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)
-
-			_, err := tfwafv2.FindRuleGroupByThreePartKey(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"])
-
-			if tfresource.NotFound(err) {
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)			_, err := tfwafv2.FindRuleGroupByThreePartKey(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"])			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("WAFv2 RuleGroup %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("WAFv2 RuleGroup %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
 func testAccCheckRuleGroupExists(ctx context.Context, n string, v *wafv2.RuleGroup) resource.TestCheckFunc {
@@ -2180,19 +2092,9 @@ func testAccCheckRuleGroupExists(ctx context.Context, n string, v *wafv2.RuleGro
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)
-
-		output, err := tfwafv2.FindRuleGroupByThreePartKey(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"])
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)		output, err := tfwafv2.FindRuleGroupByThreePartKey(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"])		if err != nil {
 			return err
-		}
-
-		*v = *output.RuleGroup
-
-		return nil
+		}		*v = *output.RuleGroup		return nil
 	}
 }
 func testAccRuleGroupImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
@@ -2200,9 +2102,7 @@ func testAccRuleGroupImportStateIdFunc(resourceName string) resource.ImportState
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		return fmt.Sprintf("%s/%s/%s", rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"]), nil
+		}		return fmt.Sprintf("%s/%s/%s", rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"]), nil
 	}
 }
 func testAccRuleGroupConfig_basic(rName string) string {
@@ -2211,9 +2111,7 @@ resource "aws_wafv2_rule_group" "test" {
   capacity    = 2
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  visibility_config {
+  scope       = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2227,9 +2125,7 @@ resource "aws_wafv2_rule_group" "test" {
   capacity    = 2
   name_prefix = %[1]q
   description = "test"
-  scope       = "REGIONAL"
-
-  visibility_config {
+  scope       = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2242,9 +2138,7 @@ func testAccRuleGroupConfig_nameGenerated() string {
 resource "aws_wafv2_rule_group" "test" {
   capacity    = 2
   description = "test"
-  scope       = "REGIONAL"
-
-  visibility_config {
+  scope       = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2258,30 +2152,20 @@ resource "aws_wafv2_rule_group" "test" {
   capacity    = 50
   name        = %[1]q
   description = "Updated"
-  scope       = "REGIONAL"
-
-  rule {
+  scope       = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2295,66 +2179,42 @@ resource "aws_wafv2_rule_group" "test" {
   capacity    = 50
   name        = %[1]q
   description = "Updated"
-  scope       = "REGIONAL"
-
-  rule {
+  scope       = "REGIONAL"  rule {
     name     = %[2]q
-    priority = %[3]d
-
-    action {
+    priority = %[3]d    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = %[2]q
       sampled_requests_enabled   = false
     }
-  }
-
-  rule {
+  }  rule {
     name     = %[4]q
-    priority = %[5]d
-
-    action {
+    priority = %[5]d    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       size_constraint_statement {
         comparison_operator = "LT"
-        size   = 50
-
-        field_to_match {
+        size   = 50        field_to_match {
  query_string {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 5
  type     = "NONE"
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 2
  type     = "CMD_LINE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = %[4]q
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2368,9 +2228,7 @@ resource "aws_wafv2_rule_group" "test" {
   capacity    = 3
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  visibility_config {
+  scope       = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2384,9 +2242,7 @@ resource "aws_wafv2_rule_group" "test" {
   capacity    = 2
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  visibility_config {
+  scope       = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "updated-friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2399,9 +2255,7 @@ func testAccRuleGroupConfig_minimal(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  visibility_config {
+  scope    = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2414,30 +2268,20 @@ func testAccRuleGroupConfig_actionAllow(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2450,42 +2294,30 @@ func testAccRuleGroupConfig_actionAllowCustomRequestHandling(rName string) strin
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {
         custom_request_handling {
  insert_header {
    name  = "x-hdr1"
    value = "test-val1"
- }
-
- insert_header {
+ } insert_header {
    name  = "x-hdr2"
    value = "test-val2"
  }
         }
       }
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2498,30 +2330,20 @@ func testAccRuleGroupConfig_actionBlock(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2534,43 +2356,31 @@ func testAccRuleGroupConfig_actionBlockCustomResponse(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       block {
         custom_response {
  response_code = 429
  response_header {
    name  = "x-hdr1"
    value = "test-val1"
- }
-
- response_header {
+ } response_header {
    name  = "x-hdr2"
    value = "test-val2"
  }
         }
       }
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2629,30 +2439,20 @@ func testAccRuleGroupConfig_actionCount(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2665,42 +2465,30 @@ func testAccRuleGroupConfig_actionCountCustomRequestHandling(rName string) strin
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {
         custom_request_handling {
  insert_header {
    name  = "x-hdr1"
    value = "test-val1"
- }
-
- insert_header {
+ } insert_header {
    name  = "x-hdr2"
    value = "test-val2"
  }
         }
       }
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2713,45 +2501,29 @@ func testAccRuleGroupConfig_byteMatchStatement(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 300
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  all_query_arguments {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 5
  type     = "NONE"
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 2
  type     = "LOWERCASE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2764,40 +2536,26 @@ func testAccRuleGroupConfig_byteMatchStatementUpdate(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 30
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "EXACTLY"
-        search_string= "sentence"
-
-        field_to_match {
+        search_string= "sentence"        field_to_match {
  all_query_arguments {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 3
  type     = "CMD_LINE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2810,40 +2568,26 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchAllQueryArguments(rNam
 resource "aws_wafv2_rule_group" "test" {
   capacity = 30
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  all_query_arguments {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 5
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2856,40 +2600,26 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchBody(rName string) str
 resource "aws_wafv2_rule_group" "test" {
   capacity = 15
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  body {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2902,22 +2632,14 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchJSONBody(rName string)
 resource "aws_wafv2_rule_group" "test" {
   capacity = 20
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "Clifford"
-
-        field_to_match {
+        search_string= "Clifford"        field_to_match {
  json_body {
    match_scope  = "VALUE"
    invalid_fallback_behavior = "MATCH"
@@ -2926,23 +2648,17 @@ resource "aws_wafv2_rule_group" "test" {
  included_paths = ["/dogs/0/name", "/dogs/1/name"]
    }
  }
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -2955,45 +2671,31 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchHeadersInvalidConfigur
 resource "aws_wafv2_rule_group" "test" {
   capacity = 50
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  headers {
    match_scope = "ALL"
    match_pattern {
  all {}
    }
  }
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3006,22 +2708,14 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchHeadersMatchPatternAll
 resource "aws_wafv2_rule_group" "test" {
   capacity = 50
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  headers {
    match_scope = "ALL"
    match_pattern {
@@ -3029,23 +2723,17 @@ resource "aws_wafv2_rule_group" "test" {
    }
    oversize_handling = "MATCH"
  }
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3058,22 +2746,14 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchHeadersMatchPatternInc
 resource "aws_wafv2_rule_group" "test" {
   capacity = 50
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  headers {
    match_scope = "ALL"
    match_pattern {
@@ -3081,23 +2761,17 @@ resource "aws_wafv2_rule_group" "test" {
    }
    oversize_handling = "MATCH"
  }
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3110,22 +2784,14 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchHeadersMatchPatternExc
 resource "aws_wafv2_rule_group" "test" {
   capacity = 50
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  headers {
    match_scope = "ALL"
    match_pattern {
@@ -3133,23 +2799,17 @@ resource "aws_wafv2_rule_group" "test" {
    }
    oversize_handling = "MATCH"
  }
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3162,40 +2822,26 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchMethod(rName string) s
 resource "aws_wafv2_rule_group" "test" {
   capacity = 15
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  method {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3208,40 +2854,26 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchQueryString(rName stri
 resource "aws_wafv2_rule_group" "test" {
   capacity = 15
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  query_string {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3254,22 +2886,14 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchCookies(rName string) 
 resource "aws_wafv2_rule_group" "test" {
   capacity = 15
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  cookies {
    match_pattern {
  included_cookies = ["test", "cookie_test"]
@@ -3277,23 +2901,17 @@ resource "aws_wafv2_rule_group" "test" {
    match_scope       = "ALL"
    oversize_handling = "NO_MATCH"
  }
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3306,42 +2924,28 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchSingleHeader(rName str
 resource "aws_wafv2_rule_group" "test" {
   capacity = 15
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  single_header {
    name = "a-forty-character-long-header-name-40-40"
  }
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3354,42 +2958,28 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchSingleQueryArgument(rN
 resource "aws_wafv2_rule_group" "test" {
   capacity = 30
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  single_query_argument {
    name = "a-max-30-characters-long-name-"
  }
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3402,40 +2992,26 @@ func testAccRuleGroupConfig_byteMatchStatementFieldToMatchURIPath(rName string) 
 resource "aws_wafv2_rule_group" "test" {
   capacity = 15
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string= "word"
-
-        field_to_match {
+        search_string= "word"        field_to_match {
  uri_path {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 1
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3450,35 +3026,23 @@ resource "aws_wafv2_ip_set" "test" {
   scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses = ["1.1.1.1/32", "2.2.2.2/32"]
-}
-
-resource "aws_wafv2_rule_group" "test" {
+}resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       ip_set_reference_statement {
         arn = aws_wafv2_ip_set.test.arn
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3493,22 +3057,14 @@ resource "aws_wafv2_ip_set" "test" {
   scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses = ["1.1.1.1/32", "2.2.2.2/32"]
-}
-
-resource "aws_wafv2_rule_group" "test" {
+}resource "aws_wafv2_rule_group" "test" {
   capacity = 5
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       ip_set_reference_statement {
         arn = aws_wafv2_ip_set.test.arn
         ip_set_forwarded_ip_config {
@@ -3517,16 +3073,12 @@ resource "aws_wafv2_rule_group" "test" {
  position = %[4]q
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3539,30 +3091,20 @@ func testAccRuleGroupConfig_geoMatchStatement(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3575,17 +3117,11 @@ func testAccRuleGroupConfig_geoMatchStatementForwardedIP(rName, fallbackBehavior
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["US", "NL"]
         forwarded_ip_config {
@@ -3593,16 +3129,12 @@ resource "aws_wafv2_rule_group" "test" {
  header_name       = %[3]q
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3615,30 +3147,20 @@ func testAccRuleGroupConfig_geoMatchStatementUpdate(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       geo_match_statement {
         country_codes = ["ZM", "EE", "MM"]
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3751,40 +3273,28 @@ func testAccRuleGroupConfig_logicalStatementAnd(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       and_statement {
         statement {
  geo_match_statement {
    country_codes = ["US"]
  }
-        }
-
-        statement {
+        }        statement {
  geo_match_statement {
    country_codes = ["NL"]
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3797,17 +3307,11 @@ func testAccRuleGroupConfig_logicalStatementNotAnd(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 2
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       not_statement {
         statement {
  and_statement {
@@ -3815,9 +3319,7 @@ resource "aws_wafv2_rule_group" "test" {
  geo_match_statement {
    country_codes = ["US"]
  }
-   }
-
-   statement {
+   }   statement {
  geo_match_statement {
    country_codes = ["NL"]
  }
@@ -3825,16 +3327,12 @@ resource "aws_wafv2_rule_group" "test" {
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3847,17 +3345,11 @@ func testAccRuleGroupConfig_logicalStatementOrNotAnd(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 3
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       or_statement {
         statement {
  not_statement {
@@ -3867,17 +3359,13 @@ resource "aws_wafv2_rule_group" "test" {
  }
    }
  }
-        }
-
-        statement {
+        }        statement {
  and_statement {
    statement {
  geo_match_statement {
    country_codes = ["US"]
  }
-   }
-
-   statement {
+   }   statement {
  geo_match_statement {
    country_codes = ["NL"]
  }
@@ -3885,16 +3373,12 @@ resource "aws_wafv2_rule_group" "test" {
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3907,39 +3391,25 @@ func testAccRuleGroupConfig_regexMatchStatement(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 50
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       regex_match_statement {
-        regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
-
-        field_to_match {
+        regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"        field_to_match {
  body {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 2
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -3951,49 +3421,31 @@ func testAccRuleGroupConfig_regexPatternSetReferenceStatement(rName string) stri
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
   name  = "regex-pattern-set-%[1]s"
-  scope = "REGIONAL"
-
-  regular_expression {
+  scope = "REGIONAL"  regular_expression {
     regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
   }
-}
-
-resource "aws_wafv2_rule_group" "test" {
+}resource "aws_wafv2_rule_group" "test" {
   capacity = 50
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       regex_pattern_set_reference_statement {
-        arn = aws_wafv2_regex_pattern_set.test.arn
-
-        field_to_match {
+        arn = aws_wafv2_regex_pattern_set.test.arn        field_to_match {
  body {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 2
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4006,40 +3458,26 @@ func testAccRuleGroupConfig_sizeConstraintStatement(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 30
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       size_constraint_statement {
         comparison_operator = "GT"
-        size   = 100
-
-        field_to_match {
+        size   = 100        field_to_match {
  method {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 5
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4052,45 +3490,29 @@ func testAccRuleGroupConfig_sizeConstraintStatementUpdate(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 30
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       size_constraint_statement {
         comparison_operator = "LT"
-        size   = 50
-
-        field_to_match {
+        size   = 50        field_to_match {
  query_string {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 5
  type     = "NONE"
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 2
  type     = "CMD_LINE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4103,42 +3525,28 @@ func testAccRuleGroupConfig_sqliMatchStatement(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 300
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       sqli_match_statement {
         field_to_match {
  all_query_arguments {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 5
  type     = "URL_DECODE"
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 2
  type     = "LOWERCASE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4151,47 +3559,31 @@ func testAccRuleGroupConfig_sqliMatchStatementUpdate(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 300
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       sqli_match_statement {
         field_to_match {
  body {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 5
  type     = "URL_DECODE"
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 4
  type     = "HTML_ENTITY_DECODE"
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 3
  type     = "COMPRESS_WHITE_SPACE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4204,37 +3596,25 @@ func testAccRuleGroupConfig_xssMatchStatement(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 300
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       xss_match_statement {
         field_to_match {
  body {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 2
  type     = "NONE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4247,37 +3627,25 @@ func testAccRuleGroupConfig_xssMatchStatementUpdate(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 300
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       allow {}
-    }
-
-    statement {
+    }    statement {
       xss_match_statement {
         field_to_match {
  body {}
-        }
-
-        text_transformation {
+        }        text_transformation {
  priority = 2
  type     = "URL_DECODE"
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4290,30 +3658,20 @@ func testAccRuleGroupConfig_rateBasedStatement(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 3
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       rate_based_statement {
         limit = 50000
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4326,17 +3684,11 @@ func testAccRuleGroupConfig_rateBasedStatement_forwardedIPConfig(rName, fallback
 resource "aws_wafv2_rule_group" "test" {
   capacity = 3
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       rate_based_statement {
         aggregate_key_type = "FORWARDED_IP"
         forwarded_ip_config {
@@ -4345,16 +3697,12 @@ resource "aws_wafv2_rule_group" "test" {
         }
         limit = 50000
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4367,37 +3715,25 @@ func testAccRuleGroupConfig_rateBasedStatement_update(rName string) string {
 resource "aws_wafv2_rule_group" "test" {
   capacity = 3
   name     = %[1]q
-  scope    = "REGIONAL"
-
-  rule {
+  scope    = "REGIONAL"  rule {
     name     = "rule-1"
-    priority = 1
-
-    action {
+    priority = 1    action {
       count {}
-    }
-
-    statement {
+    }    statement {
       rate_based_statement {
         limit = 10000
-        aggregate_key_type = "IP"
-
-        scope_down_statement {
+        aggregate_key_type = "IP"        scope_down_statement {
  geo_match_statement {
    country_codes = ["US", "NL"]
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "friendly-rule-metric-name"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
@@ -4411,15 +3747,11 @@ resource "aws_wafv2_rule_group" "test" {
   capacity    = 2
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  visibility_config {
+  scope       = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
   }
 }
@@ -4431,15 +3763,11 @@ resource "aws_wafv2_rule_group" "test" {
   capacity    = 2
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  visibility_config {
+  scope       = "REGIONAL"  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-metric-name"
     sampled_requests_enabled   = false
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
@@ -4450,74 +3778,48 @@ func testAccRuleGroupConfig_multipleNestedRateBasedStatements(rName string) stri
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
   name  = %[1]q
-  scope = "REGIONAL"
-
-  regular_expression {
+  scope = "REGIONAL"  regular_expression {
     regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
   }
-}
-
-resource "aws_wafv2_ip_set" "test" {
+}resource "aws_wafv2_ip_set" "test" {
   name  = %[1]q
   scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses = ["1.2.3.4/32", "5.6.7.8/32"]
-}
-
-resource "aws_wafv2_rule_group" "test" {
+}resource "aws_wafv2_rule_group" "test" {
   capacity    = 300
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  rule {
+  scope       = "REGIONAL"  rule {
     name     = "rule"
-    priority = 0
-
-    action {
+    priority = 0    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       rate_based_statement {
         limit = 300
-        aggregate_key_type = "IP"
-
-        scope_down_statement {
+        aggregate_key_type = "IP"        scope_down_statement {
  not_statement {
    statement {
  or_statement {
    statement {
      regex_pattern_set_reference_statement {
-       arn = aws_wafv2_regex_pattern_set.test.arn
-
-       field_to_match {
+       arn = aws_wafv2_regex_pattern_set.test.arn       field_to_match {
 uri_path {}
-       }
-
-       text_transformation {
+       }       text_transformation {
 type     = "LOWERCASE"
 priority = 1
        }
      }
-   }
-
-   statement {
+   }   statement {
      regex_match_statement {
-       regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
-
-       field_to_match {
+       regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"       field_to_match {
 uri_path {}
-       }
-
-       text_transformation {
+       }       text_transformation {
 type     = "LOWERCASE"
 priority = 1
        }
      }
-   }
-
-   statement {
+   }   statement {
      ip_set_reference_statement {
        arn = aws_wafv2_ip_set.test.arn
      }
@@ -4527,16 +3829,12 @@ priority = 1
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "rule"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "waf"
     sampled_requests_enabled   = false
@@ -4548,35 +3846,23 @@ func testAccRuleGroupConfig_multipleNestedOperatorStatements(rName string) strin
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
   name  = %[1]q
-  scope = "REGIONAL"
-
-  regular_expression {
+  scope = "REGIONAL"  regular_expression {
     regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
   }
-}
-
-resource "aws_wafv2_ip_set" "test" {
+}resource "aws_wafv2_ip_set" "test" {
   name  = %[1]q
   scope = "REGIONAL"
   ip_address_version = "IPV4"
   addresses = ["1.2.3.4/32", "5.6.7.8/32"]
-}
-
-resource "aws_wafv2_rule_group" "test" {
+}resource "aws_wafv2_rule_group" "test" {
   capacity    = 300
   name        = %[1]q
   description = %[1]q
-  scope       = "REGIONAL"
-
-  rule {
+  scope       = "REGIONAL"  rule {
     name     = "rule"
-    priority = 0
-
-    action {
+    priority = 0    action {
       block {}
-    }
-
-    statement {
+    }    statement {
       and_statement {
         statement {
  not_statement {
@@ -4584,35 +3870,23 @@ resource "aws_wafv2_rule_group" "test" {
  or_statement {
    statement {
      regex_pattern_set_reference_statement {
-       arn = aws_wafv2_regex_pattern_set.test.arn
-
-       field_to_match {
+       arn = aws_wafv2_regex_pattern_set.test.arn       field_to_match {
 uri_path {}
-       }
-
-       text_transformation {
+       }       text_transformation {
 type     = "LOWERCASE"
 priority = 1
        }
      }
-   }
-
-   statement {
+   }   statement {
      regex_match_statement {
-       regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
-
-       field_to_match {
+       regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"       field_to_match {
 uri_path {}
-       }
-
-       text_transformation {
+       }       text_transformation {
 type     = "LOWERCASE"
 priority = 1
        }
      }
-   }
-
-   statement {
+   }   statement {
      ip_set_reference_statement {
        arn = aws_wafv2_ip_set.test.arn
      }
@@ -4620,24 +3894,18 @@ priority = 1
  }
    }
  }
-        }
-
-        statement {
+        }        statement {
  geo_match_statement {
    country_codes = ["NL"]
  }
         }
       }
-    }
-
-    visibility_config {
+    }    visibility_config {
       cloudwatch_metrics_enabled = false
       metric_name   = "rule"
       sampled_requests_enabled   = false
     }
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "waf"
     sampled_requests_enabled   = false

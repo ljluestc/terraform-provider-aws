@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package imagebuilder_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/imagebuilder"
+	"testing"	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccImageBuilderImagePipelinesDataSource_filter(t *testing.T) {
+)func TestAccImageBuilderImagePipelinesDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_imagebuilder_image_pipelines.test"
-	resourceName := "aws_imagebuilder_image_pipeline.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_image_pipeline.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -36,20 +26,12 @@ func TestAccImageBuilderImagePipelinesDataSource_filter(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccImagePipelinesDataSourceConfig_filter(rName string) string {
+}func testAccImagePipelinesDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_iam_instance_profile" "test" {
+data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_iam_instance_profile" "test" {
   name = aws_iam_role.role.name
   role = aws_iam_role.role.name
-}
-
-resource "aws_iam_role" "role" {
+}resource "aws_iam_role" "role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -62,9 +44,7 @@ resource "aws_iam_role" "role" {
     }]
   })
   name = %[1]q
-}
-
-resource "aws_imagebuilder_component" "test" {
+}resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
     phases = [{
       name = "build"
@@ -82,30 +62,20 @@ resource "aws_imagebuilder_component" "test" {
   name     = %[1]q
   platform = "Linux"
   version  = "1.0.0"
-}
-
-resource "aws_imagebuilder_infrastructure_configuration" "test" {
+}resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
-}
-
-resource "aws_imagebuilder_image_recipe" "test" {
+}resource "aws_imagebuilder_image_recipe" "test" {
   component {
     component_arn = aws_imagebuilder_component.test.arn
-  }
-
-  name= %[1]q
+  }  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
-}
-
-resource "aws_imagebuilder_image_pipeline" "test" {
+}resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
   name
-}
-
-data "aws_imagebuilder_image_pipelines" "test" {
+}data "aws_imagebuilder_image_pipelines" "test" {
   filter {
     name   = "name"
     values = [aws_imagebuilder_image_pipeline.test.name]

@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ds
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package dsimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/directoryservice"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -14,14 +8,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-// @SDKDataSource("aws_directory_service_directory")
+)// @SDKDataSource("aws_directory_service_directory")
 func DataSourceDirectory() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceDirectoryRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceDirectoryRead,		Schema: map[string]*schema.Schema{
 			"access_url": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -169,20 +159,12 @@ func DataSourceDirectory() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceDirectoryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceDirectoryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DSConn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	dir, err := FindDirectoryByID(ctx, conn, d.Get("directory_id").(string))
-
-	if err != nil {
+	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig	dir, err := FindDirectoryByID(ctx, conn, d.Get("directory_id").(string))	if err != nil {
 		return sdkdiag.AppendFromErr(diags, tfresource.SingularDataSourceFindError("Directory Service Directory", err))
-	}
-
-	d.SetId(aws.StringValue(dir.DirectoryId))
+	}	d.SetId(aws.StringValue(dir.DirectoryId))
 	d.Set("access_url", dir.AccessUrl)
 	d.Set("alias", dir.Alias)
 	if dir.ConnectSettings != nil {
@@ -226,55 +208,27 @@ func dataSourceDirectoryRead(ctx context.Context, d *schema.ResourceData, meta i
 		}
 	} else {
 		d.Set("vpc_settings", nil)
-	}
-
-	tags, err := listTags(ctx, conn, d.Id())
-
-	if err != nil {
+	}	tags, err := listTags(ctx, conn, d.Id())	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "listing tags for Directory Service Directory (%s): %s", d.Id(), err)
-	}
-
-	if err := d.Set("tags", tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
+	}	if err := d.Set("tags", tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting tags: %s", err)
-	}
-
-	return diags
-}
-
-func flattenRadiusSettings(apiObject *directoryservice.RadiusSettings) map[string]interface{} {
+	}	return diags
+}func flattenRadiusSettings(apiObject *directoryservice.RadiusSettings) map[string]interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
-	tfMap := map[string]interface{}{}
-
-	if v := apiObject.AuthenticationProtocol; v != nil {
+	}	tfMap := map[string]interface{}{}	if v := apiObject.AuthenticationProtocol; v != nil {
 		tfMap["authentication_protocol"] = aws.StringValue(v)
-	}
-
-	if v := apiObject.DisplayLabel; v != nil {
+	}	if v := apiObject.DisplayLabel; v != nil {
 		tfMap["display_label"] = aws.StringValue(v)
-	}
-
-	if v := apiObject.RadiusPort; v != nil {
+	}	if v := apiObject.RadiusPort; v != nil {
 		tfMap["radius_port"] = aws.Int64Value(v)
-	}
-
-	if v := apiObject.RadiusRetries; v != nil {
+	}	if v := apiObject.RadiusRetries; v != nil {
 		tfMap["radius_retries"] = aws.Int64Value(v)
-	}
-
-	if v := apiObject.RadiusServers; v != nil {
+	}	if v := apiObject.RadiusServers; v != nil {
 		tfMap["radius_servers"] = aws.StringValueSlice(v)
-	}
-
-	if v := apiObject.RadiusTimeout; v != nil {
+	}	if v := apiObject.RadiusTimeout; v != nil {
 		tfMap["radius_timeout"] = aws.Int64Value(v)
-	}
-
-	if v := apiObject.UseSameUsername; v != nil {
+	}	if v := apiObject.UseSameUsername; v != nil {
 		tfMap["use_same_username"] = aws.BoolValue(v)
-	}
-
-	return tfMap
+	}	return tfMap
 }

@@ -1,19 +1,11 @@
-//Codegeneratedbyinternal/generate/servicepackages/main.go;DONOTEDIT.
-
-packageivs
-
-import(
-	"context"
-
-	aws_sdkv1"github.com/aws/aws-sdk-go/aws"
+//Codegeneratedbyinternal/generate/servicepackages/main.go;DONOTEDIT.packageivsimport(
+	"context"	aws_sdkv1"github.com/aws/aws-sdk-go/aws"
 	session_sdkv1"github.com/aws/aws-sdk-go/aws/session"
 	ivs_sdkv1"github.com/aws/aws-sdk-go/service/ivs"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/types"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-typeservicePackagestruct{}
+)typeservicePackagestruct{}
 func(p*servicePackage)FrameworkDataSources(ctxcontext.Context)[]*types.ServicePackageFrameworkDataSource{
 	return[]*types.ServicePackageFrameworkDataSource{}
 }
@@ -58,13 +50,9 @@ func(p*servicePackage)SDKResources(ctxcontext.Context)[]*types.ServicePackageSDK
 }
 func(p*servicePackage)ServicePackageName()string{
 	returnnames.IVS
-}
-
-//NewConnreturnsanewAWSSDKforGov1clientforthisservicepackage'sAWSAPI.
+}//NewConnreturnsanewAWSSDKforGov1clientforthisservicepackage'sAWSAPI.
 func(p*servicePackage)NewConn(ctxcontext.Context,configmap[string]any)(*ivs_sdkv1.IVS,error){
-	sess:=config["session"].(*session_sdkv1.Session)
-
-	returnivs_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint:aws_sdkv1.String(config["endpoint"].(string))})),nil
+	sess:=config["session"].(*session_sdkv1.Session)	returnivs_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint:aws_sdkv1.String(config["endpoint"].(string))})),nil
 }
 funcServicePackage(ctxcontext.Context)conns.ServicePackage{
 	return&servicePackage{}

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appsync_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appsync_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/appsync"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -21,9 +15,7 @@ import (
 func testAccDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -57,9 +49,7 @@ func testAccDataSource_basic(t *testing.T) {
 func testAccDataSource_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -90,9 +80,7 @@ func testAccDataSource_description(t *testing.T) {
 func testAccDataSource_DynamoDB_region(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -125,9 +113,7 @@ func testAccDataSource_DynamoDB_region(t *testing.T) {
 func testAccDataSource_DynamoDB_useCallerCredentials(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -160,9 +146,7 @@ func testAccDataSource_DynamoDB_useCallerCredentials(t *testing.T) {
 func TestAccAppSyncDataSource_Elasticsearch_region(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	// Keep this test Parallel as it takes considerably longer to run than any non-Elasticsearch tests.
+	resourceName := "aws_appsync_datasource.test"	// Keep this test Parallel as it takes considerably longer to run than any non-Elasticsearch tests.
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
@@ -196,9 +180,7 @@ func TestAccAppSyncDataSource_Elasticsearch_region(t *testing.T) {
 func TestAccAppSyncDataSource_OpenSearchService_region(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	// Keep this test Parallel as it takes considerably longer to run than any non-OpenSearchService tests.
+	resourceName := "aws_appsync_datasource.test"	// Keep this test Parallel as it takes considerably longer to run than any non-OpenSearchService tests.
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
@@ -232,9 +214,7 @@ func TestAccAppSyncDataSource_OpenSearchService_region(t *testing.T) {
 func testAccDataSource_HTTP_endpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -269,9 +249,7 @@ func testAccDataSource_HTTP_endpoint(t *testing.T) {
 func testAccDataSource_type(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -299,9 +277,7 @@ func testAccDataSource_Type_dynamoDB(t *testing.T) {
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
 	dynamodbTableResourceName := "aws_dynamodb_table.test"
 	iamRoleResourceName := "aws_iam_role.test"
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -330,9 +306,7 @@ func TestAccAppSyncDataSource_Type_elasticSearch(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
 	iamRoleResourceName := "aws_iam_role.test"
-	resourceName := "aws_appsync_datasource.test"
-
-	// Keep this test Parallel as it takes considerably longer to run than any non-Elasticsearch tests.
+	resourceName := "aws_appsync_datasource.test"	// Keep this test Parallel as it takes considerably longer to run than any non-Elasticsearch tests.
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
@@ -362,9 +336,7 @@ func TestAccAppSyncDataSource_Type_openSearchService(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
 	iamRoleResourceName := "aws_iam_role.test"
-	resourceName := "aws_appsync_datasource.test"
-
-	// Keep this test Parallel as it takes considerably longer to run than any non-OpenSearchService tests.
+	resourceName := "aws_appsync_datasource.test"	// Keep this test Parallel as it takes considerably longer to run than any non-OpenSearchService tests.
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
@@ -393,9 +365,7 @@ func TestAccAppSyncDataSource_Type_openSearchService(t *testing.T) {
 func testAccDataSource_Type_http(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -421,9 +391,7 @@ func testAccDataSource_Type_http(t *testing.T) {
 func testAccDataSource_Type_httpAuth(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -454,9 +422,7 @@ func testAccDataSource_Type_httpAuth(t *testing.T) {
 func testAccDataSource_Type_relationalDatabase(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -482,9 +448,7 @@ func testAccDataSource_Type_relationalDatabase(t *testing.T) {
 func testAccDataSource_Type_relationalDatabaseWithOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -514,9 +478,7 @@ func testAccDataSource_Type_lambda(t *testing.T) {
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
 	iamRoleResourceName := "aws_iam_role.test"
 	lambdaFunctionResourceName := "aws_lambda_function.test"
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -545,9 +507,7 @@ func testAccDataSource_Type_eventBridge(t *testing.T) {
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
 	iamRoleResourceName := "aws_iam_role.test"
 	eventBusResourceName := "aws_cloudwatch_event_bus.test"
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -574,9 +534,7 @@ func testAccDataSource_Type_eventBridge(t *testing.T) {
 func testAccDataSource_Type_none(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
-	resourceName := "aws_appsync_datasource.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_datasource.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -603,28 +561,14 @@ func testAccCheckDataSourceDestroy(ctx context.Context) resource.TestCheckFunc {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_appsync_datasource" {
 				continue
-			}
-
-			apiID, name, err := tfappsync.DecodeID(rs.Primary.ID)
-
-			if err != nil {
+			}			apiID, name, err := tfappsync.DecodeID(rs.Primary.ID)			if err != nil {
 				return err
-			}
-
-			_, err = tfappsync.FindDataSourceByTwoPartKey(ctx, conn, apiID, name)
-
-			if tfresource.NotFound(err) {
+			}			_, err = tfappsync.FindDataSourceByTwoPartKey(ctx, conn, apiID, name)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Appsync Data Source %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Appsync Data Source %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
 func testAccCheckExistsDataSource(ctx context.Context, name string) resource.TestCheckFunc {
@@ -632,23 +576,11 @@ func testAccCheckExistsDataSource(ctx context.Context, name string) resource.Tes
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Appsync Data Source ID found: %s", name)
-		}
-
-		apiID, name, err := tfappsync.DecodeID(rs.Primary.ID)
-
-		if err != nil {
+		}		apiID, name, err := tfappsync.DecodeID(rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
-
-		_, err = tfappsync.FindDataSourceByTwoPartKey(ctx, conn, apiID, name)
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)		_, err = tfappsync.FindDataSourceByTwoPartKey(ctx, conn, apiID, name)		return err
 	}
 }
 func testAccDatasourceConfig_baseDynamoDB(rName string) string {
@@ -657,18 +589,12 @@ resource "aws_dynamodb_table" "test" {
   hash_key  = "UserId"
   name = %[1]q
   read_capacity  = 1
-  write_capacity = 1
-
-  attribute {
+  write_capacity = 1  attribute {
 name = "UserId"
 type = "S"
   }
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -682,12 +608,8 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+}resource "aws_iam_role_policy" "test" {
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -709,18 +631,12 @@ EOF
 func testAccDataSourceConfig_baseElasticsearch(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elasticsearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+  domain_name = %[1]q  ebs_options {
 ebs_enabled = true
 volume_size = 10
   }
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -734,12 +650,8 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+}resource "aws_iam_role_policy" "test" {
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -761,18 +673,12 @@ EOF
 func testAccDataSourceConfig_baseOpenSearchService(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  ebs_options {
+  domain_name = %[1]q  ebs_options {
 ebs_enabled = true
 volume_size = 10
   }
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -786,12 +692,8 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+}resource "aws_iam_role_policy" "test" {
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -813,9 +715,7 @@ EOF
 func testAccDatasourceConfig_baseLambda(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "lambda" {
-  name = "%[1]s-lambda"
-
-  assume_role_policy = <<EOF
+  name = "%[1]s-lambda"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -829,20 +729,14 @@ resource "aws_iam_role" "lambda" {
   ]
 }
 EOF
-}
-
-resource "aws_lambda_function" "test" {
+}resource "aws_lambda_function" "test" {
   filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler  = "exports.test"
   role= aws_iam_role.lambda.arn
   runtime  = "nodejs16.x"
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -856,12 +750,8 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+}resource "aws_iam_role_policy" "test" {
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -884,12 +774,8 @@ func testAccDatasourceConfig_baseEventBridge(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_bus" "test" {
   name = %[1]q
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -903,12 +789,8 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+}resource "aws_iam_role_policy" "test" {
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -932,15 +814,11 @@ func testAccDataSourceConfig_description(rName, description string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   description = %[2]q
   name   = %[1]q
-  type   = "HTTP"
-
-  http_config {
+  type   = "HTTP"  http_config {
 endpoint = "http://example.com"
   }
 }
@@ -951,15 +829,11 @@ func testAccDataSourceConfig_dynamoDBRegion(rName, region string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "AMAZON_DYNAMODB"
-
-  dynamodb_config {
+  type= "AMAZON_DYNAMODB"  dynamodb_config {
 region= %[2]q
 table_name = aws_dynamodb_table.test.name
   }
@@ -971,15 +845,11 @@ func testAccDataSourceConfig_dynamoDBUseCallerCredentials(rName string, useCalle
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "AWS_IAM"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "AMAZON_DYNAMODB"
-
-  dynamodb_config {
+  type= "AMAZON_DYNAMODB"  dynamodb_config {
 table_name= aws_dynamodb_table.test.name
 use_caller_credentials = %[2]t
   }
@@ -991,15 +861,11 @@ func testAccDataSourceConfig_elasticSearchRegion(rName, region string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "AMAZON_ELASTICSEARCH"
-
-  elasticsearch_config {
+  type= "AMAZON_ELASTICSEARCH"  elasticsearch_config {
 endpoint = "https://${aws_elasticsearch_domain.test.endpoint}"
 region   = %[2]q
   }
@@ -1011,15 +877,11 @@ func testAccDataSourceConfig_openSearchServiceRegion(rName, region string) strin
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "AMAZON_OPENSEARCH_SERVICE"
-
-  opensearchservice_config {
+  type= "AMAZON_OPENSEARCH_SERVICE"  opensearchservice_config {
 endpoint = "https://${aws_opensearch_domain.test.endpoint}"
 region   = %[2]q
   }
@@ -1031,14 +893,10 @@ func testAccDataSourceConfig_httpEndpoint(rName, endpoint string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name   = %[1]q
-  type   = "HTTP"
-
-  http_config {
+  type   = "HTTP"  http_config {
 endpoint = %[2]q
   }
 }
@@ -1049,15 +907,11 @@ func testAccDataSourceConfig_typeDynamoDB(rName string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "AMAZON_DYNAMODB"
-
-  dynamodb_config {
+  type= "AMAZON_DYNAMODB"  dynamodb_config {
 table_name = aws_dynamodb_table.test.name
   }
 }
@@ -1068,15 +922,11 @@ func testAccDataSourceConfig_typeElasticsearch(rName string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "AMAZON_ELASTICSEARCH"
-
-  elasticsearch_config {
+  type= "AMAZON_ELASTICSEARCH"  elasticsearch_config {
 endpoint = "https://${aws_elasticsearch_domain.test.endpoint}"
   }
 }
@@ -1087,15 +937,11 @@ func testAccDataSourceConfig_typeOpenSearchService(rName string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "AMAZON_OPENSEARCH_SERVICE"
-
-  opensearchservice_config {
+  type= "AMAZON_OPENSEARCH_SERVICE"  opensearchservice_config {
 endpoint = "https://${aws_opensearch_domain.test.endpoint}"
   }
 }
@@ -1106,14 +952,10 @@ func testAccDataSourceConfig_typeHTTP(rName string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name   = %[1]q
-  type   = "HTTP"
-
-  http_config {
+  type   = "HTTP"  http_config {
 endpoint = "http://example.com"
   }
 }
@@ -1124,9 +966,7 @@ func testAccDataSourceConfig_typeHTTPAuth(rName, region string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   name = %[1]q
   assume_role_policy = jsonencode({
 "Version" : "2012-10-17",
@@ -1140,9 +980,7 @@ resource "aws_iam_role" "test" {
  }
 ]
   })
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   role = aws_iam_role.test.id
   policy = jsonencode({
 "Version" : "2012-10-17",
@@ -1158,21 +996,13 @@ resource "aws_iam_role_policy" "test" {
  }
 ]
   })
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   type= "HTTP"
-  service_role_arn = aws_iam_role.test.arn
-
-  http_config {
-endpoint = "https://appsync.%[2]s.amazonaws.com/"
-
-authorization_config {
- authorization_type = "AWS_IAM"
-
- aws_iam_config {
+  service_role_arn = aws_iam_role.test.arn  http_config {
+endpoint = "https://appsync.%[2]s.amazonaws.com/"authorization_config {
+ authorization_type = "AWS_IAM" aws_iam_config {
    signing_region  = %[2]q
    signing_service_name = "appsync"
  }
@@ -1185,9 +1015,7 @@ func testAccDataSourceConfig_baseRelationalDatabase(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_secretsmanager_secret" "test" {
   name = %[1]q
-}
-
-resource "aws_secretsmanager_secret_version" "test" {
+}resource "aws_secretsmanager_secret_version" "test" {
   secret_id = aws_secretsmanager_secret.test.id
   secret_string = jsonencode(
 {
@@ -1195,24 +1023,18 @@ resource "aws_secretsmanager_secret_version" "test" {
  password = "mustbeeightcharaters"
 }
   )
-}
-
-resource "aws_rds_cluster" "test" {
+}resource "aws_rds_cluster" "test" {
   cluster_identifier = %[1]q
   engine_mode   = "serverless"
   database_name = "mydb"
   master_username= "foo"
   master_password= "mustbeeightcharaters"
   db_cluster_parameter_group_name = "default.aurora5.6"
-  skip_final_snapshot= true
-
-  scaling_configuration {
+  skip_final_snapshot= true  scaling_configuration {
 min_capacity = 1
 max_capacity = 2
   }
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   name = %[1]q
   assume_role_policy = jsonencode({
 "Version" : "2012-10-17",
@@ -1226,9 +1048,7 @@ resource "aws_iam_role" "test" {
  }
 ]
   })
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   role = aws_iam_role.test.id
   policy = jsonencode({
 "Version" : "2012-10-17",
@@ -1244,9 +1064,7 @@ aws_rds_cluster.test.arn
  }
 ]
   })
-}
-
-resource "aws_appsync_graphql_api" "test" {
+}resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
 }
@@ -1258,9 +1076,7 @@ resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "RELATIONAL_DATABASE"
-
-  relational_database_config {
+  type= "RELATIONAL_DATABASE"  relational_database_config {
 http_endpoint_config {
  db_cluster_identifier = aws_rds_cluster.test.id
  aws_secret_store_arn  = aws_secretsmanager_secret.test.arn
@@ -1275,9 +1091,7 @@ resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "RELATIONAL_DATABASE"
-
-  relational_database_config {
+  type= "RELATIONAL_DATABASE"  relational_database_config {
 http_endpoint_config {
  db_cluster_identifier = aws_rds_cluster.test.id
  database_name= aws_rds_cluster.test.database_name
@@ -1293,15 +1107,11 @@ func testAccDataSourceConfig_typeLambda(rName string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "AWS_LAMBDA"
-
-  lambda_config {
+  type= "AWS_LAMBDA"  lambda_config {
 function_arn = aws_lambda_function.test.arn
   }
 }
@@ -1312,15 +1122,11 @@ func testAccDataSourceConfig_typeEventBridge(rName string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "AMAZON_EVENTBRIDGE"
-
-  event_bridge_config {
+  type= "AMAZON_EVENTBRIDGE"  event_bridge_config {
 event_bus_arn = aws_cloudwatch_event_bus.test.arn
   }
 }
@@ -1331,9 +1137,7 @@ func testAccDataSourceConfig_typeNone(rName string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name   = %[1]q
   type   = "NONE"

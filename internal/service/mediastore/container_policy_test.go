@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package mediastore_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package mediastore_testimport (
 	"context"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/mediastore"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,16 +11,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccMediaStoreContainerPolicy_basic(t *testing.T) {
+)func TestAccMediaStoreContainerPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_media_store_container_policy.test"
-
-	rName = strings.ReplaceAll(rName, "-", "_")
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_media_store_container_policy.test"	rName = strings.ReplaceAll(rName, "-", "_")	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:   func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck: acctest.ErrorCheck(t, mediastore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -55,22 +43,14 @@ func TestAccMediaStoreContainerPolicy_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckContainerPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckContainerPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_media_store_container_policy" {
 				continue
-			}
-
-			input := &mediastore.GetContainerPolicyInput{
+			}			input := &mediastore.GetContainerPolicyInput{
 				ContainerName: aws.String(rs.Primary.ID),
-			}
-
-			_, err := conn.GetContainerPolicyWithContext(ctx, input)
+			}			_, err := conn.GetContainerPolicyWithContext(ctx, input)
 			if err != nil {
 				if tfawserr.ErrCodeEquals(err, mediastore.ErrCodeContainerNotFoundException) {
 					return nil
@@ -82,49 +62,25 @@ func testAccCheckContainerPolicyDestroy(ctx context.Context) resource.TestCheckF
 					return nil
 				}
 				return err
-			}
-
-			return fmt.Errorf("Expected MediaStore Container Policy to be destroyed, %s found", rs.Primary.ID)
+			}			return fmt.Errorf("Expected MediaStore Container Policy to be destroyed, %s found", rs.Primary.ID)
 		}
 		return nil
 	}
-}
-
-func testAccCheckContainerPolicyExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckContainerPolicyExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)
-
-		input := &mediastore.GetContainerPolicyInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)		input := &mediastore.GetContainerPolicyInput{
 			ContainerName: aws.String(rs.Primary.ID),
-		}
-
-		_, err := conn.GetContainerPolicyWithContext(ctx, input)
-
-		return err
+		}		_, err := conn.GetContainerPolicyWithContext(ctx, input)		return err
 	}
-}
-
-func testAccContainerPolicyConfig_basic(rName string) string {
+}func testAccContainerPolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_media_store_container" "test" {
+data "aws_region" "current" {}data "aws_caller_identity" "current" {}data "aws_partition" "current" {}resource "aws_media_store_container" "test" {
   name = %[1]q
-}
-
-resource "aws_media_store_container_policy" "test" {
-  container_name = aws_media_store_container.test.name
-
-  policy = jsonencode({
+}resource "aws_media_store_container_policy" "test" {
+  container_name = aws_media_store_container.test.name  policy = jsonencode({
 Version = "2012-10-17"
 Statement = [{
  Sid= "lucky"

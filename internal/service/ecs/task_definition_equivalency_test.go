@@ -1,18 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ecs_test
-
-import (
-	"testing"
-
-	tfecs "github.com/hashicorp/terraform-provider-aws/internal/service/ecs"
-)
-
-func TestContainerDefinitionsAreEquivalent_basic(t *testing.T) {
-	t.Parallel()
-
-	cfgRepresention := `
+// SPDX-License-Identifier: MPL-2.0package ecs_testimport (
+	"testing"	tfecs "github.com/hashicorp/terraform-provider-aws/internal/service/ecs"
+)func TestContainerDefinitionsAreEquivalent_basic(t *testing.T) {
+	t.Parallel()	cfgRepresention := `
 [
     {
       "name": "wordpress",
@@ -43,9 +33,7 @@ func TestContainerDefinitionsAreEquivalent_basic(t *testing.T) {
       "memory": 500,
       "essential": true
     }
-]`
-
-	apiRepresentation := `
+]`	apiRepresentation := `
 [
     {
         "name": "wordpress",
@@ -83,21 +71,15 @@ func TestContainerDefinitionsAreEquivalent_basic(t *testing.T) {
         "mountPoints": [],
         "volumesFrom": []
     }
-]`
-
-	equal, err := tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
+]`	equal, err := tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !equal {
 		t.Fatal("Expected definitions to be equal.")
 	}
-}
-
-func TestContainerDefinitionsAreEquivalent_portMappings(t *testing.T) {
-	t.Parallel()
-
-	cfgRepresention := `
+}func TestContainerDefinitionsAreEquivalent_portMappings(t *testing.T) {
+	t.Parallel()	cfgRepresention := `
 [
     {
       "name": "wordpress",
@@ -111,9 +93,7 @@ func TestContainerDefinitionsAreEquivalent_portMappings(t *testing.T) {
       "memory": 500,
       "cpu": 10
     }
-]`
-
-	apiRepresentation := `
+]`	apiRepresentation := `
 [
     {
         "name": "wordpress",
@@ -132,21 +112,15 @@ func TestContainerDefinitionsAreEquivalent_portMappings(t *testing.T) {
         "mountPoints": [],
         "volumesFrom": []
     }
-]`
-
-	equal, err := tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
+]`	equal, err := tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !equal {
 		t.Fatal("Expected definitions to be equal.")
 	}
-}
-
-func TestContainerDefinitionsAreEquivalent_portMappingsIgnoreHostPort(t *testing.T) {
-	t.Parallel()
-
-	cfgRepresention := `
+}func TestContainerDefinitionsAreEquivalent_portMappingsIgnoreHostPort(t *testing.T) {
+	t.Parallel()	cfgRepresention := `
 [
     {
       "name": "wordpress",
@@ -158,9 +132,7 @@ func TestContainerDefinitionsAreEquivalent_portMappingsIgnoreHostPort(t *testing
         }
       ]
     }
-]`
-
-	apiRepresentation := `
+]`	apiRepresentation := `
 [
     {
       "name": "wordpress",
@@ -171,34 +143,24 @@ func TestContainerDefinitionsAreEquivalent_portMappingsIgnoreHostPort(t *testing
         }
       ]
     }
-]`
-
-	var (
+]`	var (
 		equal bool
 		err   error
-	)
-
-	equal, err = tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
+	)	equal, err = tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if equal {
 		t.Fatal("Expected definitions to differ.")
-	}
-
-	equal, err = tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, true)
+	}	equal, err = tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, true)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !equal {
 		t.Fatal("Expected definitions to be equal.")
 	}
-}
-
-func TestContainerDefinitionsAreEquivalent_arrays(t *testing.T) {
-	t.Parallel()
-
-	cfgRepresention := `
+}func TestContainerDefinitionsAreEquivalent_arrays(t *testing.T) {
+	t.Parallel()	cfgRepresention := `
 [
     {
       "name": "wordpress",
@@ -283,9 +245,7 @@ func TestContainerDefinitionsAreEquivalent_arrays(t *testing.T) {
       "image": "busybox",
       "memory": 100
     }
-]`
-
-	apiRepresentation := `
+]`	apiRepresentation := `
 [
   {
     "cpu": 10,
@@ -439,21 +399,15 @@ func TestContainerDefinitionsAreEquivalent_arrays(t *testing.T) {
     "volumesFrom": []
   }
 ]
-`
-
-	equal, err := tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
+`	equal, err := tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !equal {
 		t.Fatal("Expected definitions to be equal.")
 	}
-}
-
-func TestContainerDefinitionsAreEquivalent_negative(t *testing.T) {
-	t.Parallel()
-
-	cfgRepresention := `
+}func TestContainerDefinitionsAreEquivalent_negative(t *testing.T) {
+	t.Parallel()	cfgRepresention := `
 [
     {
       "name": "wordpress",
@@ -465,9 +419,7 @@ func TestContainerDefinitionsAreEquivalent_negative(t *testing.T) {
         {"name": "EXAMPLE_NAME", "value": "foobar"}
       ]
     }
-]`
-
-	apiRepresentation := `
+]`	apiRepresentation := `
 [
     {
         "name": "wordpress",
@@ -479,21 +431,15 @@ func TestContainerDefinitionsAreEquivalent_negative(t *testing.T) {
         "mountPoints": [],
         "volumesFrom": []
     }
-]`
-
-	equal, err := tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
+]`	equal, err := tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if equal {
 		t.Fatal("Expected definitions to differ.")
 	}
-}
-
-func TestContainerDefinitionsAreEquivalent_missingEnvironmentName(t *testing.T) {
-	t.Parallel()
-
-	cfgRepresention := `
+}func TestContainerDefinitionsAreEquivalent_missingEnvironmentName(t *testing.T) {
+	t.Parallel()	cfgRepresention := `
 [
     {
       "name": "wordpress",
@@ -526,9 +472,7 @@ func TestContainerDefinitionsAreEquivalent_missingEnvironmentName(t *testing.T) 
       "memory": 500,
       "essential": true
     }
-]`
-
-	apiRepresentation := `
+]`	apiRepresentation := `
 [
     {
         "name": "wordpress",
@@ -568,9 +512,7 @@ func TestContainerDefinitionsAreEquivalent_missingEnvironmentName(t *testing.T) 
         "mountPoints": [],
         "volumesFrom": []
     }
-]`
-
-	equal, err := tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
+]`	equal, err := tfecs.ContainerDefinitionsAreEquivalent(cfgRepresention, apiRepresentation, false)
 	if err != nil {
 		t.Fatal(err)
 	}

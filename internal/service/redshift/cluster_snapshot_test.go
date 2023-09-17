@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshift_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package redshift_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/redshift"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,15 +11,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfredshift "github.com/hashicorp/terraform-provider-aws/internal/service/redshift"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccRedshiftClusterSnapshot_basic(t *testing.T) {
+)func TestAccRedshiftClusterSnapshot_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v redshift.Snapshot
 	resourceName := "aws_redshift_cluster_snapshot.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -61,15 +51,11 @@ func TestAccRedshiftClusterSnapshot_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftClusterSnapshot_tags(t *testing.T) {
+}func TestAccRedshiftClusterSnapshot_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v redshift.Snapshot
 	resourceName := "aws_redshift_cluster_snapshot.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -107,15 +93,11 @@ func TestAccRedshiftClusterSnapshot_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftClusterSnapshot_disappears(t *testing.T) {
+}func TestAccRedshiftClusterSnapshot_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v redshift.Snapshot
 	resourceName := "aws_redshift_cluster_snapshot.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -131,69 +113,37 @@ func TestAccRedshiftClusterSnapshot_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckClusterSnapshotExists(ctx context.Context, n string, v *redshift.Snapshot) resource.TestCheckFunc {
+}func testAccCheckClusterSnapshotExists(ctx context.Context, n string, v *redshift.Snapshot) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Redshift Cluster Snapshot is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-		out, err := tfredshift.FindClusterSnapshotByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)		out, err := tfredshift.FindClusterSnapshotByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *out
-
-		return nil
+		}		*v = *out		return nil
 	}
-}
-
-func testAccCheckClusterSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckClusterSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_redshift_cluster_snapshot" {
 				continue
-			}
-
-			_, err := tfredshift.FindClusterSnapshotByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfredshift.FindClusterSnapshotByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Redshift Cluster Snapshot %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Redshift Cluster Snapshot %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccClusterSnapshotConfig_basic(rName string) string {
+}func testAccClusterSnapshotConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_basic(rName), fmt.Sprintf(`
 resource "aws_redshift_cluster_snapshot" "test" {
   cluster_identifier  = aws_redshift_cluster.test.cluster_identifier
   snapshot_identifier = %[1]q
 }
 `, rName))
-}
-
-func testAccClusterSnapshotConfig_retention(rName string, retention int) string {
+}func testAccClusterSnapshotConfig_retention(rName string, retention int) string {
 	return acctest.ConfigCompose(testAccClusterConfig_basic(rName), fmt.Sprintf(`
 resource "aws_redshift_cluster_snapshot" "test" {
   cluster_identifier  = aws_redshift_cluster.test.cluster_identifier
@@ -201,22 +151,16 @@ resource "aws_redshift_cluster_snapshot" "test" {
   manual_snapshot_retention_period = %[2]d
 }
 `, rName, retention))
-}
-
-func testAccClusterSnapshotConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccClusterSnapshotConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_basic(rName), fmt.Sprintf(`
 resource "aws_redshift_cluster_snapshot" "test" {
   cluster_identifier  = aws_redshift_cluster.test.cluster_identifier
-  snapshot_identifier = %[1]q
-
-  tags = {
+  snapshot_identifier = %[1]q  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccClusterSnapshotConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccClusterSnapshotConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_basic(rName), fmt.Sprintf(`
 resource "aws_redshift_cluster_snapshot" "test" {
   cluster_identifier  = aws_redshift_cluster.test.cluster_identifier

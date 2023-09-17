@@ -1,21 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticbeanstalk
-
-import (
-"context"
-
-"github.com/aws/aws-sdk-go/aws/endpoints"
+// SPDX-License-Identifier: MPL-2.0package elasticbeanstalkimport (
+"context""github.com/aws/aws-sdk-go/aws/endpoints"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// See https://docs.aws.amazon.com/general/latest/gr/elasticbeanstalk.html
-
-var HostedZoneIDs = map[string]string{
+)// See https://docs.aws.amazon.com/general/latest/gr/elasticbeanstalk.htmlvar HostedZoneIDs = map[string]string{
 endpoints.AfSouth1RegionID:     "Z1EI3BVKMKK4AM",
 endpoints.ApSoutheast1RegionID: "Z16FZ9L249IFLT",
 endpoints.ApSoutheast2RegionID: "Z2PCDNR3VC2G1N",
@@ -41,14 +31,10 @@ endpoints.UsWest1RegionID:    "Z1LQECGX5PH1X",
 endpoints.UsWest2RegionID:    "Z38NKT9BP95V3O",
 endpoints.UsGovEast1RegionID: "Z35TSARG0EJ4VU",
 endpoints.UsGovWest1RegionID: "Z4KAURWC4UUUG",
-}
-
-// @SDKDataSource("aws_elastic_beanstalk_hosted_zone")
+}// @SDKDataSource("aws_elastic_beanstalk_hosted_zone")
 func DataSourceHostedZone() *schema.Resource {
 return &schema.Resource{
-ReadWithoutTimeout: dataSourceHostedZoneRead,
-
-Schema: map[string]*schema.Schema{
+ReadWithoutTimeout: dataSourceHostedZoneRead,Schema: map[string]*schema.Schema{
 "region": {
 Type:     schema.TypeString,
 Optional: true,
@@ -61,15 +47,9 @@ var diags diag.Diagnostics
 region := meta.(*conns.AWSClient).Region
 if v, ok := d.GetOk("region"); ok {
 region = v.(string)
-}
-
-zoneID, ok := HostedZoneIDs[region]
-
-if !ok {
+}zoneID, ok := HostedZoneIDs[region]if !ok {
 return sdkdiag.AppendErrorf(diags, "Unsupported region: %s", region)
-}
-
-d.SetId(zoneID)
+}d.SetId(zoneID)
 d.Set("region", region)
 return diags
 }

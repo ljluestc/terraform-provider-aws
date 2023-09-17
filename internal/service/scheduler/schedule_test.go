@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package scheduler_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package scheduler_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"regexp"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/service/scheduler"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/id"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -20,12 +14,8 @@ import (
 	tfscheduler "github.com/hashicorp/terraform-provider-aws/internal/service/scheduler"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestResourceScheduleIDFromARN(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
+)func TestResourceScheduleIDFromARN(t *testing.T) {
+	t.Parallel()	testCases := []struct {
 		ARN   string
 		ID    string
 		Fails bool
@@ -65,16 +55,10 @@ func TestResourceScheduleIDFromARN(t *testing.T) {
 			ID:    "",
 			Fails: true,
 		},
-	}
-
-	for _, tc := range testCases {
+	}	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.ARN, func(t *testing.T) {
-			t.Parallel()
-
-			id, err := tfscheduler.ResourceScheduleIDFromARN(tc.ARN)
-
-			if tc.Fails {
+			t.Parallel()			id, err := tfscheduler.ResourceScheduleIDFromARN(tc.ARN)			if tc.Fails {
 				if err == nil {
 					t.Errorf("expected an error")
 				}
@@ -82,19 +66,13 @@ func TestResourceScheduleIDFromARN(t *testing.T) {
 				if err != nil {
 					t.Errorf("expected no error, got: %s", err)
 				}
-			}
-
-			if id != tc.ID {
+			}			if id != tc.ID {
 				t.Errorf("expected id %s, got: %s", tc.ID, id)
 			}
 		})
 	}
-}
-
-func TestResourceScheduleParseID(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
+}func TestResourceScheduleParseID(t *testing.T) {
+	t.Parallel()	testCases := []struct {
 		ID  string
 		GroupName    string
 		ScheduleName string
@@ -148,16 +126,10 @@ func TestResourceScheduleParseID(t *testing.T) {
 			ScheduleName: "",
 			Fails:        true,
 		},
-	}
-
-	for _, tc := range testCases {
+	}	for _, tc := range testCases {
 		tc := tc
 		t.Run(tc.ID, func(t *testing.T) {
-			t.Parallel()
-
-			groupName, scheduleName, err := tfscheduler.ResourceScheduleParseID(tc.ID)
-
-			if tc.Fails {
+			t.Parallel()			groupName, scheduleName, err := tfscheduler.ResourceScheduleParseID(tc.ID)			if tc.Fails {
 				if err == nil {
 					t.Errorf("expected an error")
 				}
@@ -165,30 +137,20 @@ func TestResourceScheduleParseID(t *testing.T) {
 				if err != nil {
 					t.Errorf("expected no error, got: %s", err)
 				}
-			}
-
-			if groupName != tc.GroupName {
+			}			if groupName != tc.GroupName {
 				t.Errorf("expected group name %s, got: %s", tc.GroupName, groupName)
-			}
-
-			if scheduleName != tc.ScheduleName {
+			}			if scheduleName != tc.ScheduleName {
 				t.Errorf("expected schedule name %s, got: %s", tc.ScheduleName, scheduleName)
 			}
 		})
 	}
-}
-
-func TestAccSchedulerSchedule_basic(t *testing.T) {
+}func TestAccSchedulerSchedule_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -235,19 +197,13 @@ func TestAccSchedulerSchedule_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_disappears(t *testing.T) {
+}func TestAccSchedulerSchedule_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -267,19 +223,13 @@ func TestAccSchedulerSchedule_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_description(t *testing.T) {
+}func TestAccSchedulerSchedule_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -327,19 +277,13 @@ func TestAccSchedulerSchedule_description(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_endDate(t *testing.T) {
+}func TestAccSchedulerSchedule_endDate(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -387,19 +331,13 @@ func TestAccSchedulerSchedule_endDate(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_flexibleTimeWindow(t *testing.T) {
+}func TestAccSchedulerSchedule_flexibleTimeWindow(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -450,19 +388,13 @@ func TestAccSchedulerSchedule_flexibleTimeWindow(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_groupName(t *testing.T) {
+}func TestAccSchedulerSchedule_groupName(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -486,19 +418,13 @@ func TestAccSchedulerSchedule_groupName(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_kmsKeyARN(t *testing.T) {
+}func TestAccSchedulerSchedule_kmsKeyARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -546,18 +472,12 @@ func TestAccSchedulerSchedule_kmsKeyARN(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_nameGenerated(t *testing.T) {
+}func TestAccSchedulerSchedule_nameGenerated(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	}	var schedule scheduler.GetScheduleOutput
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -582,18 +502,12 @@ func TestAccSchedulerSchedule_nameGenerated(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_namePrefix(t *testing.T) {
+}func TestAccSchedulerSchedule_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	}	var schedule scheduler.GetScheduleOutput
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -618,19 +532,13 @@ func TestAccSchedulerSchedule_namePrefix(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_scheduleExpression(t *testing.T) {
+}func TestAccSchedulerSchedule_scheduleExpression(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -666,19 +574,13 @@ func TestAccSchedulerSchedule_scheduleExpression(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_scheduleExpressionTimezone(t *testing.T) {
+}func TestAccSchedulerSchedule_scheduleExpressionTimezone(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -726,19 +628,13 @@ func TestAccSchedulerSchedule_scheduleExpressionTimezone(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_startDate(t *testing.T) {
+}func TestAccSchedulerSchedule_startDate(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -786,19 +682,13 @@ func TestAccSchedulerSchedule_startDate(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_state(t *testing.T) {
+}func TestAccSchedulerSchedule_state(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -846,19 +736,13 @@ func TestAccSchedulerSchedule_state(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_targetARN(t *testing.T) {
+}func TestAccSchedulerSchedule_targetARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -894,19 +778,13 @@ func TestAccSchedulerSchedule_targetARN(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_targetDeadLetterConfig(t *testing.T) {
+}func TestAccSchedulerSchedule_targetDeadLetterConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -954,19 +832,13 @@ func TestAccSchedulerSchedule_targetDeadLetterConfig(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_targetECSParameters(t *testing.T) {
+}func TestAccSchedulerSchedule_targetECSParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -1129,20 +1001,14 @@ func TestAccSchedulerSchedule_targetECSParameters(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_targetEventBridgeParameters(t *testing.T) {
+}func TestAccSchedulerSchedule_targetEventBridgeParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	scheduleName := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
 	eventBusName := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -1192,20 +1058,14 @@ func TestAccSchedulerSchedule_targetEventBridgeParameters(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_targetInput(t *testing.T) {
+}func TestAccSchedulerSchedule_targetInput(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
 	resourceName := "aws_scheduler_schedule.test"
-	var queueUrl string
-
-	acctest.ParallelTest(t, resource.TestCase{
+	var queueUrl string	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -1257,20 +1117,14 @@ func TestAccSchedulerSchedule_targetInput(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_targetKinesisParameters(t *testing.T) {
+}func TestAccSchedulerSchedule_targetKinesisParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	scheduleName := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
 	streamName := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -1318,19 +1172,13 @@ func TestAccSchedulerSchedule_targetKinesisParameters(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_targetRetryPolicy(t *testing.T) {
+}func TestAccSchedulerSchedule_targetRetryPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -1381,19 +1229,13 @@ func TestAccSchedulerSchedule_targetRetryPolicy(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_targetRoleARN(t *testing.T) {
+}func TestAccSchedulerSchedule_targetRoleARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -1429,19 +1271,13 @@ func TestAccSchedulerSchedule_targetRoleARN(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_targetSageMakerPipelineParameters(t *testing.T) {
+}func TestAccSchedulerSchedule_targetSageMakerPipelineParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -1525,19 +1361,13 @@ func TestAccSchedulerSchedule_targetSageMakerPipelineParameters(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSchedulerSchedule_targetSQSParameters(t *testing.T) {
+}func TestAccSchedulerSchedule_targetSQSParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var schedule scheduler.GetScheduleOutput
+	}	var schedule scheduler.GetScheduleOutput
 	name := acctest.RandomWithPrefix(t, acctest.ResourcePrefix)
-	resourceName := "aws_scheduler_schedule.test"
-
-	acctest.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_scheduler_schedule.test"	acctest.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SchedulerEndpointID)
@@ -1585,76 +1415,36 @@ func TestAccSchedulerSchedule_targetSQSParameters(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckScheduleDestroy(ctx context.Context, t *testing.T) resource.TestCheckFunc {
+}func testAccCheckScheduleDestroy(ctx context.Context, t *testing.T) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.ProviderMeta(t).SchedulerClient(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.ProviderMeta(t).SchedulerClient(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_scheduler_schedule" {
 				continue
-			}
-
-			groupName, scheduleName, err := tfscheduler.ResourceScheduleParseID(rs.Primary.ID)
-
-			if err != nil {
+			}			groupName, scheduleName, err := tfscheduler.ResourceScheduleParseID(rs.Primary.ID)			if err != nil {
 				return err
-			}
-
-			_, err = tfscheduler.FindScheduleByTwoPartKey(ctx, conn, groupName, scheduleName)
-
-			if tfresource.NotFound(err) {
+			}			_, err = tfscheduler.FindScheduleByTwoPartKey(ctx, conn, groupName, scheduleName)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("%s %s %s still exists", names.Scheduler, tfscheduler.ResNameSchedule, rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("%s %s %s still exists", names.Scheduler, tfscheduler.ResNameSchedule, rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckScheduleExists(ctx context.Context, t *testing.T, name string, v *scheduler.GetScheduleOutput) resource.TestCheckFunc {
+}func testAccCheckScheduleExists(ctx context.Context, t *testing.T, name string, v *scheduler.GetScheduleOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.Scheduler, create.ErrActionCheckingExistence, tfscheduler.ResNameSchedule, name, errors.New("not found"))
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return create.Error(names.Scheduler, create.ErrActionCheckingExistence, tfscheduler.ResNameSchedule, name, errors.New("not set"))
-		}
-
-		groupName, scheduleName, err := tfscheduler.ResourceScheduleParseID(rs.Primary.ID)
-
-		if err != nil {
+		}		groupName, scheduleName, err := tfscheduler.ResourceScheduleParseID(rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		conn := acctest.ProviderMeta(t).SchedulerClient(ctx)
-
-		output, err := tfscheduler.FindScheduleByTwoPartKey(ctx, conn, groupName, scheduleName)
-
-		if err != nil {
+		}		conn := acctest.ProviderMeta(t).SchedulerClient(ctx)		output, err := tfscheduler.FindScheduleByTwoPartKey(ctx, conn, groupName, scheduleName)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-const testAccScheduleConfig_base = `
+}const testAccScheduleConfig_base = `
 data "aws_caller_identity" "main" {}
-data "aws_partition" "main" {}
-
-resource "aws_iam_role" "test" {
+data "aws_partition" "main" {}resource "aws_iam_role" "test" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = {
@@ -1671,389 +1461,223 @@ resource "aws_iam_role" "test" {
     }
   })
 }
-`
-
-func testAccScheduleConfig_basic(name string) string {
+`func testAccScheduleConfig_basic(name string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name),
 	)
-}
-
-func testAccScheduleConfig_description(name, description string) string {
+}func testAccScheduleConfig_description(name, description string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  description = %[2]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  description = %[2]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name, description),
 	)
-}
-
-func testAccScheduleConfig_endDate(name, endDate string) string {
+}func testAccScheduleConfig_endDate(name, endDate string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  end_date = %[2]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  end_date = %[2]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name, endDate),
 	)
-}
-
-func testAccScheduleConfig_flexibleTimeWindow(name string, window int) string {
+}func testAccScheduleConfig_flexibleTimeWindow(name string, window int) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     maximum_window_in_minutes = %[2]d
     modeLEXIBLE"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name, window),
 	)
-}
-
-func testAccScheduleConfig_groupName(name string) string {
+}func testAccScheduleConfig_groupName(name string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule_group" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule_group" "test" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  group_name = aws_scheduler_schedule_group.test.name
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  group_name = aws_scheduler_schedule_group.test.name  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name),
 	)
-}
-
-func testAccScheduleConfig_kmsKeyARN(name string, index int) string {
+}func testAccScheduleConfig_kmsKeyARN(name string, index int) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_kms_key" "test" {
+resource "aws_sqs_queue" "test" {}resource "aws_kms_key" "test" {
   count = 2
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  kms_key_arn = aws_kms_key.test[%[2]d].arn
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  kms_key_arn = aws_kms_key.test[%[2]d].arn  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name, index),
 	)
-}
-
-func testAccScheduleConfig_nameGenerated() string {
+}func testAccScheduleConfig_nameGenerated() string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
   flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `,
 	)
-}
-
-func testAccScheduleConfig_namePrefix(namePrefix string) string {
+}func testAccScheduleConfig_namePrefix(namePrefix string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name_prefix = %[1]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
+  name_prefix = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, namePrefix),
 	)
-}
-
-func testAccScheduleConfig_scheduleExpression(name, expression string) string {
+}func testAccScheduleConfig_scheduleExpression(name, expression string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = %[2]q
-
-  target {
+  }  schedule_expression = %[2]q  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name, expression),
 	)
-}
-
-func testAccScheduleConfig_scheduleExpressionTimezone(name, timezone string) string {
+}func testAccScheduleConfig_scheduleExpressionTimezone(name, timezone string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  schedule_expression_timezone = %[2]q
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  schedule_expression_timezone = %[2]q  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name, timezone),
 	)
-}
-
-func testAccScheduleConfig_startDate(name, startDate string) string {
+}func testAccScheduleConfig_startDate(name, startDate string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  start_date = %[2]q
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  start_date = %[2]q  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name, startDate),
 	)
-}
-
-func testAccScheduleConfig_state(name, state string) string {
+}func testAccScheduleConfig_state(name, state string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  state = %[2]q
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  state = %[2]q  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name, state),
 	)
-}
-
-func testAccScheduleConfig_targetARN(name string, i int) string {
+}func testAccScheduleConfig_targetARN(name string, i int) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   count = 2
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test[%[2]d].arn
     role_arn = aws_iam_role.test.arn
   }
 }
 `, name, i),
 	)
-}
-
-func testAccScheduleConfig_targetDeadLetterConfig(name string, index int) string {
+}func testAccScheduleConfig_targetDeadLetterConfig(name string, index int) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_sqs_queue" "dlq" {
+resource "aws_sqs_queue" "test" {}resource "aws_sqs_queue" "dlq" {
   count = 2
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
-    role_arn = aws_iam_role.test.arn
-
-    dead_letter_config {
+    role_arn = aws_iam_role.test.arn    dead_letter_config {
       arn = aws_sqs_queue.dlq[%[2]d].arn
     }
   }
 }
 `, name, index),
 	)
-}
-
-func testAccScheduleConfig_targetECSParameters1(name string) string {
+}func testAccScheduleConfig_targetECSParameters1(name string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
   name = %[1]q
-}
-
-resource "aws_ecs_task_definition" "test" {
+}resource "aws_ecs_task_definition" "test" {
   family
   cpu6
   memory
   requires_compatibilities = ["FARGATE"]
-  network_mode
-
-  container_definitions = <<EOF
+  network_mode  container_definitions = <<EOF
 [
   {
     "name": "first",
@@ -2064,46 +1688,30 @@ resource "aws_ecs_task_definition" "test" {
   }
 ]
 EOF
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_ecs_cluster.test.arn
-    role_arn = aws_iam_role.test.arn
-
-    ecs_parameters {
+    role_arn = aws_iam_role.test.arn    ecs_parameters {
       task_definition_arn = aws_ecs_task_definition.test.arn
     }
   }
 }
 `, name),
 	)
-}
-
-func testAccScheduleConfig_targetECSParameters2(name string) string {
+}func testAccScheduleConfig_targetECSParameters2(name string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
   name = %[1]q
-}
-
-resource "aws_ecs_task_definition" "test" {
+}resource "aws_ecs_task_definition" "test" {
   family
   cpu6
   memory
   requires_compatibilities = ["FARGATE"]
-  network_mode
-
-  container_definitions = <<EOF
+  network_mode  container_definitions = <<EOF
 [
   {
     "name": "first",
@@ -2114,99 +1722,53 @@ resource "aws_ecs_task_definition" "test" {
   }
 ]
 EOF
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_ecs_cluster.test.arn
-    role_arn = aws_iam_role.test.arn
-
-    ecs_parameters {
+    role_arn = aws_iam_role.test.arn    ecs_parameters {
       capacity_provider_strategy {
         base
         capacity_provider = "test1"
         weight   = 50
-      }
-
-      capacity_provider_strategy {
+      }      capacity_provider_strategy {
         base
         capacity_provider = "test2"
         weight   = 50
-      }
-
-      enable_ecs_managed_tags = true
-
-      enable_execute_command = false
-
-      group = "my-task-group"
-
-      launch_type = "FARGATE"
-
-      network_configuration {
+      }      enable_ecs_managed_tags = true      enable_execute_command = false      group = "my-task-group"      launch_type = "FARGATE"      network_configuration {
         assign_public_ip = true
         security_groups  = ["sg-111111111"]
         subnets = ["subnet-11111111"]
-      }
-
-      placement_constraints {
+      }      placement_constraints {
         type       = "memberOf"
         expression = "attribute:ecs.os-family in [LINUX]"
-      }
-
-      placement_strategy {
+      }      placement_strategy {
         type  = "binpack"
         field = "cpu"
-      }
-
-      platform_version = "LATEST"
-
-      propagate_tags = "TASK_DEFINITION"
-
-      reference_id = "test-ref-id"
-
-      tags = {
+      }      platform_version = "LATEST"      propagate_tags = "TASK_DEFINITION"      reference_id = "test-ref-id"      tags = {
         Key1 = "Value1"
         Key2 = "Value2"
-      }
-
-      task_count = 3
-
-      task_definition_arn = aws_ecs_task_definition.test.arn
+      }      task_count = 3      task_definition_arn = aws_ecs_task_definition.test.arn
     }
   }
 }
 `, name),
 	)
-}
-
-func testAccScheduleConfig_targetECSParameters3(name string) string {
+}func testAccScheduleConfig_targetECSParameters3(name string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
   name = %[1]q
-}
-
-locals {
+}locals {
   name = %[1]q
-}
-
-resource "aws_ecs_task_definition" "test" {
+}resource "aws_ecs_task_definition" "test" {
   familycal.name}-2"
   cpu6
   memory
   requires_compatibilities = ["FARGATE"]
-  network_mode
-
-  container_definitions = <<EOF
+  network_mode  container_definitions = <<EOF
 [
   {
     "name": "first",
@@ -2217,89 +1779,47 @@ resource "aws_ecs_task_definition" "test" {
   }
 ]
 EOF
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_ecs_cluster.test.arn
-    role_arn = aws_iam_role.test.arn
-
-    ecs_parameters {
+    role_arn = aws_iam_role.test.arn    ecs_parameters {
       capacity_provider_strategy {
         base
         capacity_provider = "test3"
         weight   = 100
-      }
-
-      enable_ecs_managed_tags = false
-
-      enable_execute_command = true
-
-      group = "my-task-group-2"
-
-      launch_type = "FARGATE"
-
-      network_configuration {
+      }      enable_ecs_managed_tags = false      enable_execute_command = true      group = "my-task-group-2"      launch_type = "FARGATE"      network_configuration {
         assign_public_ip = false
         security_groups  = ["sg-111111112", "sg-111111113"]
         subnets = ["subnet-11111112", "subnet-11111113"]
-      }
-
-      placement_constraints {
+      }      placement_constraints {
         type = "distinctInstance"
-      }
-
-      placement_strategy {
+      }      placement_strategy {
         type  = "spread"
         field = "cpu"
-      }
-
-      platform_version = "1.1.0"
-
-      reference_id = "test-ref-id-2"
-
-      tags = {
+      }      platform_version = "1.1.0"      reference_id = "test-ref-id-2"      tags = {
         Key1 = "Value1updated"
-      }
-
-      task_count = 1
-
-      task_definition_arn = aws_ecs_task_definition.test.arn
+      }      task_count = 1      task_definition_arn = aws_ecs_task_definition.test.arn
     }
   }
 }
 `, name),
 	)
-}
-
-func testAccScheduleConfig_targetECSParameters4(name string) string {
+}func testAccScheduleConfig_targetECSParameters4(name string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
   name = %[1]q
-}
-
-locals {
+}locals {
   name = %[1]q
-}
-
-resource "aws_ecs_task_definition" "test" {
+}resource "aws_ecs_task_definition" "test" {
   familycal.name}-2"
   cpu6
   memory
   requires_compatibilities = ["FARGATE"]
-  network_mode
-
-  container_definitions = <<EOF
+  network_mode  container_definitions = <<EOF
 [
   {
     "name": "first",
@@ -2310,22 +1830,12 @@ resource "aws_ecs_task_definition" "test" {
   }
 ]
 EOF
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_ecs_cluster.test.arn
-    role_arn = aws_iam_role.test.arn
-
-    ecs_parameters {
+    role_arn = aws_iam_role.test.arn    ecs_parameters {
       launch_type= "EC2"
       task_definition_arn = aws_ecs_task_definition.test.arn
     }
@@ -2333,30 +1843,18 @@ resource "aws_scheduler_schedule" "test" {
 }
 `, name),
 	)
-}
-
-func testAccScheduleConfig_targetEventBridgeParameters(scheduleName, eventBusName, detailType, source string) string {
+}func testAccScheduleConfig_targetEventBridgeParameters(scheduleName, eventBusName, detailType, source string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
 resource "aws_cloudwatch_event_bus" "test" {
   name = %[2]q
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_cloudwatch_event_bus.test.arn
-    role_arn = aws_iam_role.test.arn
-
-    eventbridge_parameters {
+    role_arn = aws_iam_role.test.arn    eventbridge_parameters {
       detail_type = %[3]q
       source      = %[4]q
     }
@@ -2364,28 +1862,16 @@ resource "aws_scheduler_schedule" "test" {
 }
 `, scheduleName, eventBusName, detailType, source),
 	)
-}
-
-func testAccScheduleConfig_targetInput(name, messageBody string) string {
+}func testAccScheduleConfig_targetInput(name, messageBody string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+resource "aws_sqs_queue" "test" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = "arn:${data.aws_partition.main.partition}:scheduler:::aws-sdk:sqs:sendMessage"
-    role_arn = aws_iam_role.test.arn
-
-    input = jsonencode({
+    role_arn = aws_iam_role.test.arn    input = jsonencode({
       MessageBody = %[2]q
       QueueUrl    = aws_sqs_queue.test.url
     })
@@ -2393,63 +1879,37 @@ resource "aws_scheduler_schedule" "test" {
 }
 `, name, messageBody),
 	)
-}
-
-func testAccScheduleConfig_targetKinesisParameters(scheduleName, streamName, partitionKey string) string {
+}func testAccScheduleConfig_targetKinesisParameters(scheduleName, streamName, partitionKey string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
   name        = %[2]q
   shard_count = 1
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_kinesis_stream.test.arn
-    role_arn = aws_iam_role.test.arn
-
-    kinesis_parameters {
+    role_arn = aws_iam_role.test.arn    kinesis_parameters {
       partition_key = %[3]q
     }
   }
 }
 `, scheduleName, streamName, partitionKey),
 	)
-}
-
-func testAccScheduleConfig_targetRetryPolicy(name string, maxEventAge, maxRetryAttempts int) string {
+}func testAccScheduleConfig_targetRetryPolicy(name string, maxEventAge, maxRetryAttempts int) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_sqs_queue" "dlq" {
+resource "aws_sqs_queue" "test" {}resource "aws_sqs_queue" "dlq" {
   count = 2
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
-    role_arn = aws_iam_role.test.arn
-
-    retry_policy {
+    role_arn = aws_iam_role.test.arn    retry_policy {
       maximum_event_age_in_seconds = %[2]d
       maximum_retry_attempts       = %[3]d
     }
@@ -2457,15 +1917,11 @@ resource "aws_scheduler_schedule" "test" {
 }
 `, name, maxEventAge, maxRetryAttempts),
 	)
-}
-
-func testAccScheduleConfig_targetRoleARN(name, resourceName string) string {
+}func testAccScheduleConfig_targetRoleARN(name, resourceName string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_iam_role" "test1" {
+resource "aws_sqs_queue" "test" {}resource "aws_iam_role" "test1" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = {
@@ -2476,46 +1932,26 @@ resource "aws_iam_role" "test1" {
       }
     }
   })
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.test.arn
     role_arn = aws_iam_role.%[2]s.arn
   }
 }
 `, name, resourceName),
 	)
-}
-
-func testAccScheduleConfig_targetSageMakerPipelineParameters1(name, name1, value1 string) string {
+}func testAccScheduleConfig_targetSageMakerPipelineParameters1(name, name1, value1 string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-data "aws_region" "main" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+data "aws_region" "main" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = "arn:${data.aws_partition.main.partition}:sagemaker:${data.aws_region.main.name}:${data.aws_caller_identity.main.account_id}:pipeline/test"
-    role_arn = aws_iam_role.test.arn
-
-    sagemaker_pipeline_parameters {
+    role_arn = aws_iam_role.test.arn    sagemaker_pipeline_parameters {
       pipeline_parameter {
         name  = %[2]q
         value = %[3]q
@@ -2525,34 +1961,20 @@ resource "aws_scheduler_schedule" "test" {
 }
 `, name, name1, value1),
 	)
-}
-
-func testAccScheduleConfig_targetSageMakerPipelineParameters2(name, name1, value1, name2, value2 string) string {
+}func testAccScheduleConfig_targetSageMakerPipelineParameters2(name, name1, value1, name2, value2 string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-data "aws_region" "main" {}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+data "aws_region" "main" {}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = "arn:${data.aws_partition.main.partition}:sagemaker:${data.aws_region.main.name}:${data.aws_caller_identity.main.account_id}:pipeline/test"
-    role_arn = aws_iam_role.test.arn
-
-    sagemaker_pipeline_parameters {
+    role_arn = aws_iam_role.test.arn    sagemaker_pipeline_parameters {
       pipeline_parameter {
         name  = %[2]q
         value = %[3]q
-      }
-
-      pipeline_parameter {
+      }      pipeline_parameter {
         name  = %[4]q
         value = %[5]q
       }
@@ -2561,32 +1983,18 @@ resource "aws_scheduler_schedule" "test" {
 }
 `, name, name1, value1, name2, value2),
 	)
-}
-
-func testAccScheduleConfig_targetSQSParameters(name, messageGroupId string) string {
+}func testAccScheduleConfig_targetSQSParameters(name, messageGroupId string) string {
 	return acctest.ConfigCompose(
 		testAccScheduleConfig_base,
 		fmt.Sprintf(`
-resource "aws_sqs_queue" "test" {}
-
-resource "aws_sqs_queue" "fifo" {
+resource "aws_sqs_queue" "test" {}resource "aws_sqs_queue" "fifo" {
   fifo_queue = true
-}
-
-resource "aws_scheduler_schedule" "test" {
-  name = %[1]q
-
-  flexible_time_window {
+}resource "aws_scheduler_schedule" "test" {
+  name = %[1]q  flexible_time_window {
     mode = "OFF"
-  }
-
-  schedule_expression = "rate(1 hour)"
-
-  target {
+  }  schedule_expression = "rate(1 hour)"  target {
     arn      = aws_sqs_queue.fifo.arn
-    role_arn = aws_iam_role.test.arn
-
-    sqs_parameters {
+    role_arn = aws_iam_role.test.arn    sqs_parameters {
       message_group_id = %[2]q
     }
   }

@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ds_testimport (
 	"context"
 	"fmt"
 	"os"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/directoryservice"
+	"testing"	"github.com/aws/aws-sdk-go/service/directoryservice"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -17,22 +11,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfds "github.com/hashicorp/terraform-provider-aws/internal/service/ds"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccDSRadiusSettings_basic(t *testing.T) {
+)func TestAccDSRadiusSettings_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DIRECTORY_SERVICE_RADIUS_SERVER"
 	radiusServer := os.Getenv(key)
 	if radiusServer == "" {
 		t.Skipf("Environment variable %s is not set", key)
-	}
-
-	var v directoryservice.RadiusSettings
+	}	var v directoryservice.RadiusSettings
 	resourceName := "aws_directory_service_region.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
@@ -65,22 +53,16 @@ func TestAccDSRadiusSettings_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDSRadiusSettings_disappears(t *testing.T) {
+}func TestAccDSRadiusSettings_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DIRECTORY_SERVICE_RADIUS_SERVER"
 	radiusServer := os.Getenv(key)
 	if radiusServer == "" {
 		t.Skipf("Environment variable %s is not set", key)
-	}
-
-	var v directoryservice.RadiusSettings
+	}	var v directoryservice.RadiusSettings
 	resourceName := "aws_directory_service_region.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
@@ -99,76 +81,40 @@ func TestAccDSRadiusSettings_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckRadiusSettingsDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckRadiusSettingsDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_directory_service_radius_settings" {
 				continue
-			}
-
-			_, err := tfds.FindRadiusSettings(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfds.FindRadiusSettings(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Directory Service Directory %s RADIUS settings still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Directory Service Directory %s RADIUS settings still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckRadiusSettingsExists(ctx context.Context, n string, v *directoryservice.RadiusSettings) resource.TestCheckFunc {
+}func testAccCheckRadiusSettingsExists(ctx context.Context, n string, v *directoryservice.RadiusSettings) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Directory Service RADIUS Settings ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)
-
-		output, err := tfds.FindRadiusSettings(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)		output, err := tfds.FindRadiusSettings(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccRadiusSettingsConfig_basic(rName, domain, radiusServer string) string {
+}func testAccRadiusSettingsConfig_basic(rName, domain, radiusServer string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_directory_service_directory" "test" {
   name     = %[1]q
   password = "SuperSecretPassw0rd"
-  type     = "MicrosoftAD"
-
-  vpc_settings {
+  type     = "MicrosoftAD"  vpc_settings {
     vpc_id     = aws_vpc.test.id
     subnet_ids = aws_subnet.test[*].id
   }
-}
-
-resource "aws_directory_service_radius_settings" "test" {
-  directory_id = aws_directory_service_directory.test.id
-
-  authentication_protocol = "PAP"
+}resource "aws_directory_service_radius_settings" "test" {
+  directory_id = aws_directory_service_directory.test.id  authentication_protocol = "PAP"
   display_label  = "test"
   radius_port    = 1812
   radius_retries = 3

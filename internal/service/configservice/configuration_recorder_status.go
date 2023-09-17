@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configservice
-
-import (
+// SPDX-License-Identifier: MPL-2.0package configserviceimport (
 	"context"
 	"errors"
-	"log"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"log"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/configservice"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -17,24 +11,18 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_config_configuration_recorder_status")
+)// @SDKResource("aws_config_configuration_recorder_status")
 func ResourceConfigurationRecorderStatus() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceConfigurationRecorderStatusPut,
 		ReadWithoutTimeout:   resourceConfigurationRecorderStatusRead,
 		UpdateWithoutTimeout: resourceConfigurationRecorderStatusPut,
-		DeleteWithoutTimeout: resourceConfigurationRecorderStatusDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceConfigurationRecorderStatusDelete,		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 				d.Set("name", d.Id())
 				return []*schema.ResourceData{d}, nil
 			},
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"name": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -45,16 +33,10 @@ func ResourceConfigurationRecorderStatus() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceConfigurationRecorderStatusPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceConfigurationRecorderStatusPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)
-
-	name := d.Get("name").(string)
-	d.SetId(name)
-
-	if d.HasChange("is_enabled") {
+	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)	name := d.Get("name").(string)
+	d.SetId(name)	if d.HasChange("is_enabled") {
 		isEnabled := d.Get("is_enabled").(bool)
 		if isEnabled {
 			log.Printf("[DEBUG] Starting AWSConfig Configuration recorder %q", name)
@@ -75,16 +57,10 @@ func resourceConfigurationRecorderStatusPut(ctx context.Context, d *schema.Resou
 				return sdkdiag.AppendErrorf(diags, "Failed to stop Configuration Recorder: %s", err)
 			}
 		}
-	}
-
-	return append(diags, resourceConfigurationRecorderStatusRead(ctx, d, meta)...)
-}
-
-func resourceConfigurationRecorderStatusRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	return append(diags, resourceConfigurationRecorderStatusRead(ctx, d, meta)...)
+}func resourceConfigurationRecorderStatusRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)
-
-	name := d.Id()
+	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)	name := d.Id()
 	statusInput := configservice.DescribeConfigurationRecorderStatusInput{
 		ConfigurationRecorderNames: []*string{aws.String(name)},
 	}
@@ -93,34 +69,20 @@ func resourceConfigurationRecorderStatusRead(ctx context.Context, d *schema.Reso
 		create.LogNotFoundRemoveState(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id())
 		d.SetId("")
 		return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return create.DiagError(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id(), err)
-	}
-
-	numberOfStatuses := len(statusOut.ConfigurationRecordersStatus)
+	}	numberOfStatuses := len(statusOut.ConfigurationRecordersStatus)
 	if !d.IsNewResource() && numberOfStatuses < 1 {
 		create.LogNotFoundRemoveState(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id())
 		d.SetId("")
 		return diags
-	}
-
-	if d.IsNewResource() && numberOfStatuses < 1 {
+	}	if d.IsNewResource() && numberOfStatuses < 1 {
 		return create.DiagError(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id(), errors.New("not found after creation"))
-	}
-
-	if numberOfStatuses > 1 {
+	}	if numberOfStatuses > 1 {
 		return sdkdiag.AppendErrorf(diags, "Expected exactly 1 Configuration Recorder (status), received %d: %#v",
 			numberOfStatuses, statusOut.ConfigurationRecordersStatus)
-	}
-
-	d.Set("is_enabled", statusOut.ConfigurationRecordersStatus[0].Recording)
-
-	return diags
-}
-
-func resourceConfigurationRecorderStatusDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	d.Set("is_enabled", statusOut.ConfigurationRecordersStatus[0].Recording)	return diags
+}func resourceConfigurationRecorderStatusDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)
 	input := configservice.StopConfigurationRecorderInput{
@@ -129,7 +91,5 @@ func resourceConfigurationRecorderStatusDelete(ctx context.Context, d *schema.Re
 	_, err := conn.StopConfigurationRecorderWithContext(ctx, &input)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "Stopping Configuration Recorder failed: %s", err)
-	}
-
-	return diags
+	}	return diags
 }

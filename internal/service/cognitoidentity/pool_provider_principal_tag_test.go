@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cognitoidentity_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cognitoidentity_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cognitoidentity"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -18,17 +12,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcognitoidentity "github.com/hashicorp/terraform-provider-aws/internal/service/cognitoidentity"
-)
-
-
-func TestAccCognitoIdentityPoolProviderPrincipalTags_basic(t *testing.T) {
+)func TestAccCognitoIdentityPoolProviderPrincipalTags_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_cognito_identity_pool_provider_principal_tag.test"
-	name := sdkacctest.RandString(10)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	name := sdkacctest.RandString(10)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
@@ -44,17 +32,11 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccCognitoIdentityPoolProviderPrincipalTags_updated(t *testing.T) {
+}func TestAccCognitoIdentityPoolProviderPrincipalTags_updated(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_cognito_identity_pool_provider_principal_tag.test"
-	name := sdkacctest.RandString(10)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	name := sdkacctest.RandString(10)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
@@ -85,17 +67,11 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccCognitoIdentityPoolProviderPrincipalTags_disappears(t *testing.T) {
+}func TestAccCognitoIdentityPoolProviderPrincipalTags_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_cognito_identity_pool_provider_principal_tag.test"
-	name := sdkacctest.RandString(10)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	name := sdkacctest.RandString(10)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
@@ -111,17 +87,11 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func TestAccCognitoIdentityPoolProviderPrincipalTags_oidc(t *testing.T) {
+}func TestAccCognitoIdentityPoolProviderPrincipalTags_oidc(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_cognito_identity_pool_provider_principal_tag.test"
-	name := sdkacctest.RandString(10)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	name := sdkacctest.RandString(10)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
@@ -137,79 +107,48 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccCheckPoolProviderPrincipalTagsExists(ctx context.Context, n string) resource.TestCheck
+}func testAccCheckPoolProviderPrincipalTagsExists(ctx context.Context, n string) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return errors.New("No Cognito Identity Princpal Tags is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIdentityConn(ctx)
-
-_, err := conn.GetPrincipalTagAttributeMapWithContext(ctx, &cognitoidentity.GetPrincipalTagAttributeMapInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIdentityConn(ctx)_, err := conn.GetPrincipalTagAttributeMapWithContext(ctx, &cognitoidentity.GetPrincipalTagAttributeMapInput{
 	IdentityPoolId:       aws.String(rs.Primary.Attributes["identity_pool_id"]),
 	IdentityProviderName: aws.String(rs.Primary.Attributes["identity_provider_name"]),
-})
-
-return err
+})return err
 	}
-}
-
-
-func testAccCheckPoolProviderPrincipalTagsDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckPoolProviderPrincipalTagsDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIdentityConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+	returnfunc(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIdentityConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_cognito_identity_pool_provider_principal_tag" {
 continue
-	}
-
-	_, err := conn.GetPrincipalTagAttributeMapWithContext(ctx, &cognitoidentity.GetPrincipalTagAttributeMapInput{
+	}	_, err := conn.GetPrincipalTagAttributeMapWithContext(ctx, &cognitoidentity.GetPrincipalTagAttributeMapInput{
 IdentityPoolId:       aws.String(rs.Primary.Attributes["identity_pool_id"]),
 IdentityProviderName: aws.String(rs.Primary.Attributes["identity_provider_name"]),
-	})
-
-	if err != nil {
+	})	if err != nil {
 if tfawserr.ErrCodeEquals(err, cognitoidentity.ErrCodeResourceNotFoundException) {
 	return nil
 }
 return err
 	}
-}
-
-return nil
+}return nil
 	}
-}
-
-
-func testAccPoolProviderPrincipalTagsConfig(name string) string {
+}func testAccPoolProviderPrincipalTagsConfig(name string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name      = %[1]q
   auto_verified_attributes = ["email"]
-}
-
-resource "aws_cognito_user_pool_client" "test" {
+}resource "aws_cognito_user_pool_client" "test" {
   name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
   supported_identity_providers = compact([
     "COGNITO",
   ])
-}
-
-resource "aws_cognito_identity_pool" "test" {
+}resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= %[1]q
   allow_unauthenticated_identities = false
   cognito_identity_providers {
@@ -222,10 +161,7 @@ resource "aws_cognito_identity_pool" "test" {
   }
 }
 `, name)
-}
-
-
-func testAccPoolProviderPrincipalTagsConfig_basic(name string) string {
+}func testAccPoolProviderPrincipalTagsConfig_basic(name string) string {
 	return acctest.ConfigCompose(testAccPoolProviderPrincipalTagsConfig(name), `
 resource "aws_cognito_identity_pool_provider_principal_tag" "test" {
   identity_pool_id       = aws_cognito_identity_pool.test.id
@@ -236,10 +172,7 @@ resource "aws_cognito_identity_pool_provider_principal_tag" "test" {
   }
 }
 `)
-}
-
-
-func testAccPoolProviderPrincipalTagsConfig_tagsUpdated(name string) string {
+}func testAccPoolProviderPrincipalTagsConfig_tagsUpdated(name string) string {
 	return acctest.ConfigCompose(testAccPoolProviderPrincipalTagsConfig(name), `
 resource "aws_cognito_identity_pool_provider_principal_tag" "test" {
   identity_pool_id       = aws_cognito_identity_pool.test.id
@@ -251,10 +184,7 @@ resource "aws_cognito_identity_pool_provider_principal_tag" "test" {
   }
 }
 `)
-}
-
-
-func testAccPoolProviderPrincipalTagsConfig_oidc(name string) string {
+}func testAccPoolProviderPrincipalTagsConfig_oidc(name string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_openid_connect_provider" "idp" {
   url = "https://accounts.example.com"
@@ -262,19 +192,13 @@ resource "aws_iam_openid_connect_provider" "idp" {
     "sts.amazonaws.com"
   ]
   thumbprint_list = ["990f4193972f2becf12ddeda5237f9c952f20d9e"]
-}
-
-resource "aws_cognito_identity_pool" "pool" {
+}resource "aws_cognito_identity_pool" "pool" {
   identity_pool_name= "%s"
   allow_unauthenticated_identities = false
-  allow_classic_flow= false
-
-  openid_connect_provider_arns = [
+  allow_classic_flow= false  openid_connect_provider_arns = [
     aws_iam_openid_connect_provider.idp.arn
   ]
-}
-
-resource "aws_cognito_identity_pool_provider_principal_tag" "test" {
+}resource "aws_cognito_identity_pool_provider_principal_tag" "test" {
   identity_pool_id       = aws_cognito_identity_pool.pool.id
   identity_provider_name = aws_iam_openid_connect_provider.idp.arn
   use_defaults  = false

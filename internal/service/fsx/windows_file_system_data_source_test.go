@@ -1,29 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package fsx_test
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/fsx"
+// SPDX-License-Identifier: MPL-2.0package fsx_testimport (
+	"testing"	"github.com/aws/aws-sdk-go/service/fsx"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccFSxWindowsFileSystemDataSource_basic(t *testing.T) {
+)func TestAccFSxWindowsFileSystemDataSource_basic(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	resourceName := "aws_fsx_windows_file_system.test"
 	datasourceName := "data.aws_fsx_windows_file_system.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -58,9 +46,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccWindowsFileSystemDataSourceConfig_basic(rName, domain string) string {
+}func testAccWindowsFileSystemDataSourceConfig_basic(rName, domain string) string {
 	return acctest.ConfigCompose(testAccWindowsFileSystemConfig_basic(rName, domain), `
 data "aws_fsx_windows_file_system" "test" {
   id = aws_fsx_windows_file_system.test.id

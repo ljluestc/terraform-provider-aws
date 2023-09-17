@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package guardduty_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package guardduty_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/acmpca"
 "github.com/aws/aws-sdk-go/service/guardduty"
@@ -23,12 +17,8 @@ func testAccFilter_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var v1, v2 guardduty.GetFilterOutput
 resourceName := "aws_guardduty_filter.test"
-detectorResourceName := "aws_guardduty_detector.test"
-
-startDate := "2020-01-01T00:00:00Z"
-endDate := "2020-02-01T00:00:00Z"
-
-resource.Test(t, resource.TestCase{
+detectorResourceName := "aws_guardduty_detector.test"startDate := "2020-01-01T00:00:00Z"
+endDate := "2020-02-01T00:00:00Z"resource.Test(t, resource.TestCase{
 PreCheck:est.PreCheck(ctx, t) },
 ErrorCheck:eck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -89,12 +79,8 @@ resource.TestCheckResourceAttr(resourceName, "finding_criteria.0.criterion.#", "
 func testAccFilter_update(t *testing.T) {
 ctx := acctest.Context(t)
 var v1, v2 guardduty.GetFilterOutput
-resourceName := "aws_guardduty_filter.test"
-
-startDate := "2020-01-01T00:00:00Z"
-endDate := "2020-02-01T00:00:00Z"
-
-resource.Test(t, resource.TestCase{
+resourceName := "aws_guardduty_filter.test"startDate := "2020-01-01T00:00:00Z"
+endDate := "2020-02-01T00:00:00Z"resource.Test(t, resource.TestCase{
 PreCheck:est.PreCheck(ctx, t) },
 ErrorCheck:eck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -133,12 +119,8 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "finding_criteria.0.crite
 func testAccFilter_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var v1, v2, v3 guardduty.GetFilterOutput
-resourceName := "aws_guardduty_filter.test"
-
-startDate := "2020-01-01T00:00:00Z"
-endDate := "2020-02-01T00:00:00Z"
-
-resource.Test(t, resource.TestCase{
+resourceName := "aws_guardduty_filter.test"startDate := "2020-01-01T00:00:00Z"
+endDate := "2020-02-01T00:00:00Z"resource.Test(t, resource.TestCase{
 PreCheck:est.PreCheck(ctx, t) },
 ErrorCheck:eck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -174,12 +156,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 func testAccFilter_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var v guardduty.GetFilterOutput
-resourceName := "aws_guardduty_filter.test"
-
-startDate := "2020-01-01T00:00:00Z"
-endDate := "2020-02-01T00:00:00Z"
-
-resource.Test(t, resource.TestCase{
+resourceName := "aws_guardduty_filter.test"startDate := "2020-01-01T00:00:00Z"
+endDate := "2020-02-01T00:00:00Z"resource.Test(t, resource.TestCase{
 PreCheck:est.PreCheck(ctx, t) },
 ErrorCheck:eck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -198,35 +176,23 @@ ExpectNonEmptyPlan: true,
 }
 func testAccCheckFilterDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_guardduty_filter" {
 continue
-}
-
-detectorID, filterName, err := tfguardduty.FilterParseID(rs.Primary.ID)
+}detectorID, filterName, err := tfguardduty.FilterParseID(rs.Primary.ID)
 if err != nil {
 return err
-}
-
-input := &guardduty.GetFilterInput{
+}input := &guardduty.GetFilterInput{
 DetectorId: aws.String(detectorID),
 FilterName: aws.String(filterName),
-}
-
-_, err = conn.GetFilterWithContext(ctx, input)
+}_, err = conn.GetFilterWithContext(ctx, input)
 if err != nil {
 if tfawserr.ErrMessageContains(err, guardduty.ErrCodeBadRequestException, "The request is rejected because the input detectorId is not owned by the current account.") {
 return nil
 }
 return err
-}
-
-return fmt.Errorf("Expected GuardDuty Filter to be destroyed, %s found", rs.Primary.Attributes["filter_name"])
-}
-
-return nil
+}return fmt.Errorf("Expected GuardDuty Filter to be destroyed, %s found", rs.Primary.Attributes["filter_name"])
+}return nil
 }
 }
 func testAccCheckFilterExists(ctx context.Context, name string, filter *guardduty.GetFilterOutput) resource.TestCheckFunc {
@@ -234,206 +200,140 @@ return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return fmt.Errorf("Not found: %s", name)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No GuardDuty filter is set")
-}
-
-detectorID, name, err := tfguardduty.FilterParseID(rs.Primary.ID)
+}detectorID, name, err := tfguardduty.FilterParseID(rs.Primary.ID)
 if err != nil {
 return err
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
 input := guardduty.GetFilterInput{
 DetectorId: aws.String(detectorID),
 FilterName: aws.String(name),
 }
-filter, err = conn.GetFilterWithContext(ctx, &input)
-
-return err
+filter, err = conn.GetFilterWithContext(ctx, &input)return err
 }
 }
 func testAccFilterConfig_full(startDate, endDate string) string {
 return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_guardduty_filter" "test" {
+data "aws_region" "current" {}resource "aws_guardduty_filter" "test" {
   detector_id = aws_guardduty_detector.test.id
   name"test-filter"
   actionRCHIVE"
-  rank1
-
-  finding_criteria {
+  rank1  finding_criteria {
  criterion {
 d  = "region"
 ls = [data.aws_region.current.name]
- }
-
- criterion {
+ } criterion {
 d = "se.additionalInfo.threatListName"
 equals = ["some-threat", "another-threat"]
- }
-
- criterion {
+ } criterion {
 d  = "updatedAt"
 ter_than_or_equal = %[1]q
-_than= 
- }
+_than= }
   }
-}
-
-resource "aws_guardduty_detector" "test" {
+}resource "aws_guardduty_detector" "test" {
   enable = true
 }
 `, startDate, endDate)
 }
 func testAccFilterConfig_noopfull(startDate, endDate string) string {
 return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_guardduty_filter" "test" {
+data "aws_region" "current" {}resource "aws_guardduty_filter" "test" {
   detector_id = aws_guardduty_detector.test.id
   name"test-filter"
   actionOOP"
   description = "This is a NOOP"
-  rank1
-
-  finding_criteria {
+  rank1  finding_criteria {
  criterion {
 d  = "region"
 ls = [data.aws_region.current.name]
- }
-
- criterion {
+ } criterion {
 d = "se.additionalInfo.threatListName"
 equals = ["some-threat", "another-threat"]
- }
-
- criterion {
+ } criterion {
 d  = "updatedAt"
 ter_than_or_equal = %[1]q
-_than= 
- }
+_than= }
   }
-}
-
-resource "aws_guardduty_detector" "test" {
+}resource "aws_guardduty_detector" "test" {
   enable = true
 }
 `, startDate, endDate)
 }
 func testAccFilterConfig_multipleTags() string {
 return `
-data "aws_region" "current" {}
-
-resource "aws_guardduty_filter" "test" {
+data "aws_region" "current" {}resource "aws_guardduty_filter" "test" {
   detector_id = aws_guardduty_detector.test.id
   name"test-filter"
   actionRCHIVE"
-  rank1
-
-  finding_criteria {
+  rank1  finding_criteria {
  criterion {
 d  = "region"
 ls = [data.aws_region.current.name]
  }
-  }
-
-  tags = {
+  }  tags = {
  Name = "test-filter"
  Key  = "Value"
   }
-}
-
-resource "aws_guardduty_detector" "test" {
+}resource "aws_guardduty_detector" "test" {
   enable = true
 }
 `
 }
 func testAccFilterConfig_update() string {
 return `
-data "aws_region" "current" {}
-
-resource "aws_guardduty_filter" "test" {
+data "aws_region" "current" {}resource "aws_guardduty_filter" "test" {
   detector_id = aws_guardduty_detector.test.id
   name"test-filter"
   actionRCHIVE"
-  rank1
-
-  finding_criteria {
+  rank1  finding_criteria {
  criterion {
 d  = "region"
 ls = [data.aws_region.current.name]
- }
-
- criterion {
+ } criterion {
 d = "se.additionalInfo.threatListName"
 equals = ["some-threat", "yet-another-threat"]
  }
   }
-}
-
-resource "aws_guardduty_detector" "test" {
+}resource "aws_guardduty_detector" "test" {
   enable = true
 }
 `
 }
 func testAccFilterConfig_updateTags() string {
 return `
-data "aws_region" "current" {}
-
-resource "aws_guardduty_filter" "test" {
+data "aws_region" "current" {}resource "aws_guardduty_filter" "test" {
   detector_id = aws_guardduty_detector.test.id
   name"test-filter"
   actionRCHIVE"
-  rank1
-
-  finding_criteria {
+  rank1  finding_criteria {
  criterion {
 d  = "region"
 ls = [data.aws_region.current.name]
  }
-  }
-
-  tags = {
+  }  tags = {
  Key = "Updated"
   }
-}
-
-resource "aws_guardduty_detector" "test" {
+}resource "aws_guardduty_detector" "test" {
   enable = true
 }
 `
 }
 func testAccCheckACMPCACertificateAuthorityDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ACMPCAConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ACMPCAConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_acmpca_certificate_authority" {
 continue
-}
-
-input := &acmpca.DescribeCertificateAuthorityInput{
+}input := &acmpca.DescribeCertificateAuthorityInput{
 CertificateAuthorityArn: aws.String(rs.Primary.ID),
-}
-
-output, err := conn.DescribeCertificateAuthorityWithContext(ctx, input)
-
-if err != nil {
+}output, err := conn.DescribeCertificateAuthorityWithContext(ctx, input)if err != nil {
 if tfawserr.ErrCodeEquals(err, acmpca.ErrCodeResourceNotFoundException) {
 return nil
 }
 return err
-}
-
-if output != nil && output.CertificateAuthority != nil && aws.StringValue(output.CertificateAuthority.Arn) == rs.Primary.ID && aws.StringValue(output.CertificateAuthority.Status) != acmpca.CertificateAuthorityStatusDeleted {
+}if output != nil && output.CertificateAuthority != nil && aws.StringValue(output.CertificateAuthority.Arn) == rs.Primary.ID && aws.StringValue(output.CertificateAuthority.Status) != acmpca.CertificateAuthorityStatusDeleted {
 return fmt.Errorf("ACM PCA Certificate Authority %q still exists in non-DELETED state: %s", rs.Primary.ID, aws.StringValue(output.CertificateAuthority.Status))
 }
-}
-
-return nil
+}return nil
 }
 }

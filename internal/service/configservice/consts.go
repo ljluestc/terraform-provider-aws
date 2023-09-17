@@ -1,17 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configservice
-
-import (
+// SPDX-License-Identifier: MPL-2.0package configserviceimport (
 	"time"
-)
-
-const (
+)const (
 	propagationTimeout = 2 * time.Minute
-)
-
-const (
+)const (
 	ResNameAggregateAuthorization      = "Aggregate Authorization"
 	ResNameConfigurationAggregator     = "Configuration Aggregator"
 	ResNameConfigurationRecorderStatus = "Configuration Recorder Status"

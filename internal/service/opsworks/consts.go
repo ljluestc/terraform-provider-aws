@@ -1,17 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opsworks
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opsworksimport (
 "time"
-)
-
-const (
+)const (
 defaultBerkshelfVersion = "3.2.0"
-)
-
-const (
+)const (
 instanceStatusBooting = "booting"
 instanceStatusOnline  = "online"
 instanceStatusPending = "pending"
@@ -23,8 +15,6 @@ instanceStatusStopped = "stopped"
 instanceStatusStopping= "stopping"
 instanceStatusTerminated   = "terminated"
 instanceStatusTerminating  = "terminating"
-)
-
-const (
+)const (
 propagationTimeout = 2 * time.Minute
 )

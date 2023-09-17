@@ -1,17 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package workspaces_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package workspaces_testimport (
 	"context"
 	"fmt"
 	"os"
 	"reflect"
 	"strings"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"testing"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/workspaces"
 	"github.com/aws/aws-sdk-go-v2/service/workspaces/types"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -23,9 +17,7 @@ func testAccImageDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var image types.WorkspaceImage
 	imageID := os.Getenv("AWS_WORKSPACES_IMAGE_ID")
-	dataSourceName := "data.aws_workspaces_image.test"
-
-	resource.Test(t, resource.TestCase{
+	dataSourceName := "data.aws_workspaces_image.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccImagePreCheck(t)
@@ -50,9 +42,7 @@ func testAccImagePreCheck(t *testing.T) {
 }
 func testAccImageDataSourceConfig_basic(imageID string) string {
 	return fmt.Sprintf(`
-# TODO: Create aws_workspaces_image resource when API will be provided
-
-data aws_workspaces_image test {
+# TODO: Create aws_workspaces_image resource when API will be provideddata aws_workspaces_image test {
   image_id = %q
 }
 `, imageID)
@@ -62,9 +52,7 @@ func testAccCheckImageExists(ctx context.Context, n string, image *types.Workspa
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)
 		resp, err := conn.DescribeWorkspaceImages(ctx, &workspaces.DescribeWorkspaceImagesInput{
 			ImageIds: []string{rs.Primary.ID},
 		})
@@ -76,11 +64,7 @@ func testAccCheckImageExists(ctx context.Context, n string, image *types.Workspa
 		}
 		if aws.ToString(resp.Images[0].ImageId) != rs.Primary.ID {
 			return fmt.Errorf("Workspace image ID mismatch - existing: %q, state: %q", *resp.Images[0].ImageId, rs.Primary.ID)
-		}
-
-		*image = resp.Images[0]
-
-		return nil
+		}		*image = resp.Images[0]		return nil
 	}
 }
 func testAccCheckImageAttributes(n string, image *types.WorkspaceImage) resource.TestCheckFunc {
@@ -88,32 +72,18 @@ func testAccCheckImageAttributes(n string, image *types.WorkspaceImage) resource
 		_, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if err := resource.TestCheckResourceAttr(n, "id", *image.ImageId)(s); err != nil {
+		}		if err := resource.TestCheckResourceAttr(n, "id", *image.ImageId)(s); err != nil {
 			return err
-		}
-
-		if err := resource.TestCheckResourceAttr(n, "name", *image.Name)(s); err != nil {
+		}		if err := resource.TestCheckResourceAttr(n, "name", *image.Name)(s); err != nil {
 			return err
-		}
-
-		if err := resource.TestCheckResourceAttr(n, "description", *image.Description)(s); err != nil {
+		}		if err := resource.TestCheckResourceAttr(n, "description", *image.Description)(s); err != nil {
 			return err
-		}
-
-		if err := resource.TestCheckResourceAttr(n, "operating_system_type", string(image.OperatingSystem.Type))(s); err != nil {
+		}		if err := resource.TestCheckResourceAttr(n, "operating_system_type", string(image.OperatingSystem.Type))(s); err != nil {
 			return err
-		}
-
-		if err := resource.TestCheckResourceAttr(n, "required_tenancy", string(image.RequiredTenancy))(s); err != nil {
+		}		if err := resource.TestCheckResourceAttr(n, "required_tenancy", string(image.RequiredTenancy))(s); err != nil {
 			return err
-		}
-
-		if err := resource.TestCheckResourceAttr(n, "state", string(image.State))(s); err != nil {
+		}		if err := resource.TestCheckResourceAttr(n, "state", string(image.State))(s); err != nil {
 			return err
-		}
-
-		return nil
+		}		return nil
 	}
 }

@@ -1,29 +1,19 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package s3control_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package s3control_testimport (
 	"context"
 	"fmt"
 	"testing"
-	"time"
-
-	"github.com/aws/aws-sdk-go/service/s3control"
+	"time"	"github.com/aws/aws-sdk-go/service/s3control"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3control "github.com/hashicorp/terraform-provider-aws/internal/service/s3control"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-// S3 account-level settings must run serialized
+)// S3 account-level settings must run serialized
 // for TeamCity environment
 func TestAccS3ControlAccountPublicAccessBlock_serial(t *testing.T) {
-	t.Parallel()
-
-	testCases := map[string]map[string]func(t *testing.T){
+	t.Parallel()	testCases := map[string]map[string]func(t *testing.T){
 "PublicAccessBlock": {
 	"basic":  testAccAccountPublicAccessBlock_basic,
 	"disappears":   testAccAccountPublicAccessBlock_disappears,
@@ -34,17 +24,11 @@ func TestAccS3ControlAccountPublicAccessBlock_serial(t *testing.T) {
 	"RestrictPublicBuckets": testAccAccountPublicAccessBlock_RestrictPublicBuckets,
 	"DataSourceBasic":       testAccAccountPublicAccessBlockDataSource_basic,
 },
-	}
-
-	acctest.RunSerialTests2Levels(t, testCases, 5*time.Second)
-}
-
-func testAccAccountPublicAccessBlock_basic(t *testing.T) {
+	}	acctest.RunSerialTests2Levels(t, testCases, 5*time.Second)
+}func testAccAccountPublicAccessBlock_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v s3control.PublicAccessBlockConfiguration
-	resourceName := "aws_s3_account_public_access_block.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_s3_account_public_access_block.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -68,14 +52,10 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func testAccAccountPublicAccessBlock_disappears(t *testing.T) {
+}func testAccAccountPublicAccessBlock_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v s3control.PublicAccessBlockConfiguration
-	resourceName := "aws_s3_account_public_access_block.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_s3_account_public_access_block.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -91,14 +71,10 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func testAccAccountPublicAccessBlock_AccountID(t *testing.T) {
+}func testAccAccountPublicAccessBlock_AccountID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v s3control.PublicAccessBlockConfiguration
-	resourceName := "aws_s3_account_public_access_block.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_s3_account_public_access_block.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -118,14 +94,10 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func testAccAccountPublicAccessBlock_BlockPublicACLs(t *testing.T) {
+}func testAccAccountPublicAccessBlock_BlockPublicACLs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v s3control.PublicAccessBlockConfiguration
-	resourceName := "aws_s3_account_public_access_block.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_s3_account_public_access_block.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -159,14 +131,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccAccountPublicAccessBlock_BlockPublicPolicy(t *testing.T) {
+}func testAccAccountPublicAccessBlock_BlockPublicPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v s3control.PublicAccessBlockConfiguration
-	resourceName := "aws_s3_account_public_access_block.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_s3_account_public_access_block.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -200,14 +168,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccAccountPublicAccessBlock_IgnorePublicACLs(t *testing.T) {
+}func testAccAccountPublicAccessBlock_IgnorePublicACLs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v s3control.PublicAccessBlockConfiguration
-	resourceName := "aws_s3_account_public_access_block.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_s3_account_public_access_block.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -241,14 +205,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccAccountPublicAccessBlock_RestrictPublicBuckets(t *testing.T) {
+}func testAccAccountPublicAccessBlock_RestrictPublicBuckets(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v s3control.PublicAccessBlockConfiguration
-	resourceName := "aws_s3_account_public_access_block.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_s3_account_public_access_block.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -282,98 +242,56 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccCheckAccountPublicAccessBlockExists(ctx context.Context, n string, v *s3control.PublicAccessBlockConfiguration) resource.TestCheckFunc {
+}func testAccCheckAccountPublicAccessBlockExists(ctx context.Context, n string, v *s3control.PublicAccessBlockConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No S3 Account Public Access Block ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)
-
-output, err := tfs3control.FindPublicAccessBlockByAccountID(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)output, err := tfs3control.FindPublicAccessBlockByAccountID(ctx, conn, rs.Primary.ID)if err != nil {
 	return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 	}
-}
-
-func testAccCheckAccountPublicAccessBlockDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckAccountPublicAccessBlockDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_s3_account_public_access_block" {
 continue
-	}
-
-	_, err := tfs3control.FindPublicAccessBlockByAccountID(ctx, conn, rs.Primary.ID)
-
-	if tfresource.NotFound(err) {
+	}	_, err := tfs3control.FindPublicAccessBlockByAccountID(ctx, conn, rs.Primary.ID)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
+	}	return fmt.Errorf("S3 Account Public Access Block %s still exists", rs.Primary.ID)
+}return nil
 	}
-
-	return fmt.Errorf("S3 Account Public Access Block %s still exists", rs.Primary.ID)
-}
-
-return nil
-	}
-}
-
-func testAccAccountPublicAccessBlockConfig_basic() string {
+}func testAccAccountPublicAccessBlockConfig_basic() string {
 	return `resource "aws_s3_account_public_access_block" "test" {}`
-}
-
-func testAccAccountPublicAccessBlockConfig_id() string {
+}func testAccAccountPublicAccessBlockConfig_id() string {
 	return `
-data "aws_caller_identity" "test" {}
-
-resource "aws_s3_account_public_access_block" "test" {
+data "aws_caller_identity" "test" {}resource "aws_s3_account_public_access_block" "test" {
   account_id = data.aws_caller_identity.test.account_id
 }
 `
-}
-
-func testAccAccountPublicAccessBlockConfig_acls(blockPublicAcls bool) string {
+}func testAccAccountPublicAccessBlockConfig_acls(blockPublicAcls bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_account_public_access_block" "test" {
   block_public_acls = %[1]t
 }
 `, blockPublicAcls)
-}
-
-func testAccAccountPublicAccessBlockConfig_policy(blockPublicPolicy bool) string {
+}func testAccAccountPublicAccessBlockConfig_policy(blockPublicPolicy bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_account_public_access_block" "test" {
   block_public_policy = %[1]t
 }
 `, blockPublicPolicy)
-}
-
-func testAccAccountPublicAccessBlockConfig_ignoreACLs(ignorePublicAcls bool) string {
+}func testAccAccountPublicAccessBlockConfig_ignoreACLs(ignorePublicAcls bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_account_public_access_block" "test" {
   ignore_public_acls = %[1]t
 }
 `, ignorePublicAcls)
-}
-
-func testAccAccountPublicAccessBlockConfig_restrictBuckets(restrictPublicBuckets bool) string {
+}func testAccAccountPublicAccessBlockConfig_restrictBuckets(restrictPublicBuckets bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_account_public_access_block" "test" {
   restrict_public_buckets = %[1]t

@@ -1,20 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package scheduler
-
-import (
+// SPDX-License-Identifier: MPL-2.0package schedulerimport (
 	"context"
-	"errors"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"errors"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/scheduler"
 	"github.com/aws/aws-sdk-go-v2/service/scheduler/types"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func findScheduleGroupByName(ctx context.Context, conn *scheduler.Client, name string) (*scheduler.GetScheduleGroupOutput, error) {
+)func findScheduleGroupByName(ctx context.Context, conn *scheduler.Client, name string) (*scheduler.GetScheduleGroupOutput, error) {
 	in := &scheduler.GetScheduleGroupInput{
 		Name: aws.String(name),
 	}
@@ -26,14 +18,8 @@ func findScheduleGroupByName(ctx context.Context, conn *scheduler.Client, name s
 				LastError:   err,
 				LastRequest: in,
 			}
-		}
-
-		return nil, err
-	}
-
-	if out == nil || out.Arn == nil {
+		}		return nil, err
+	}	if out == nil || out.Arn == nil {
 		return nil, tfresource.NewEmptyResultError(in)
-	}
-
-	return out, nil
+	}	return out, nil
 }

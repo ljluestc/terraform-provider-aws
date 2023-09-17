@@ -1,5 +1,1 @@
-//Copyright2019TheGoAuthors.Allrightsreserved.
-//UseofthissourcecodeisgovernedbyaBSD-style
-//licensethatcanbefoundintheLICENSEfile.//Packageeventprovidesasetofpackagesthatcoverthemain
-//conceptsoftelemetryinanimplementationagnosticway.
-packageevent
+//Copyright2019TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.//Packageeventprovidesasetofpackagesthatcoverthemain//conceptsoftelemetryinanimplementationagnosticway.packageevent

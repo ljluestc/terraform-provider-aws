@@ -1,7 +1,1 @@
-//Copyright2021TheGoAuthors.Allrightsreserved.
-//UseofthissourcecodeisgovernedbyaBSD-style
-//licensethatcanbefoundintheLICENSEfile.//go:buildgo1.18
-//+buildgo1.18packagetypeparams//Note:thisconstantisinaseparatefileasthisistheonlyacceptable
-//diffbetweenthe<1.18APIofthispackageandthe1.18API.//Enabledreportswhethertypeparametersareenabledinthecurrentbuild
-//environment.
-constEnabled=true
+//Copyright2021TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.//go:buildgo1.18//+buildgo1.18packagetypeparams//Note:thisconstantisinaseparatefileasthisistheonlyacceptable//diffbetweenthe<1.18APIofthispackageandthe1.18API.//Enabledreportswhethertypeparametersareenabledinthecurrentbuild//environment.constEnabled=true

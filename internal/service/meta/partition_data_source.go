@@ -1,36 +1,20 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package meta
-
-import (
-	"context"
-
-	"github.com/hashicorp/terraform-plugin-framework/datasource"
+// SPDX-License-Identifier: MPL-2.0package metaimport (
+	"context"	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-provider-aws/internal/framework"
-)
-
-// @FrameworkDataSource
+)// @FrameworkDataSource
 func newDataSourcePartition(context.Context) (datasource.DataSourceWithConfigure, error) {
 	d := &dataSourcePartition{}
-	d.SetMigratedFromPluginSDK(true)
-
-	return d, nil
-}
-
-type dataSourcePartition struct {
+	d.SetMigratedFromPluginSDK(true)	return d, nil
+}type dataSourcePartition struct {
 	framework.DataSourceWithConfigure
-}
-
-// Metadata should return the full name of the data source, such as
+}// Metadata should return the full name of the data source, such as
 // examplecloud_thing.
 func (d *dataSourcePartition) Metadata(_ context.Context, request datasource.MetadataRequest, response *datasource.MetadataResponse) { // nosemgrep:ci.meta-in-func-name
 	response.TypeName = "aws_partition"
-}
-
-// Schema returns the schema for this data source.
+}// Schema returns the schema for this data source.
 func (d *dataSourcePartition) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
@@ -49,28 +33,16 @@ func (d *dataSourcePartition) Schema(ctx context.Context, req datasource.SchemaR
 			},
 		},
 	}
-}
-
-// Read is called when the provider must read data source values in order to update state.
+}// Read is called when the provider must read data source values in order to update state.
 // Config values should be read from the ReadRequest and new state values set on the ReadResponse.
 func (d *dataSourcePartition) Read(ctx context.Context, request datasource.ReadRequest, response *datasource.ReadResponse) {
-	var data dataSourcePartitionData
-
-	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)
-
-	if response.Diagnostics.HasError() {
+	var data dataSourcePartitionData	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)	if response.Diagnostics.HasError() {
 		return
-	}
-
-	data.DNSSuffix = types.StringValue(d.Meta().DNSSuffix)
+	}	data.DNSSuffix = types.StringValue(d.Meta().DNSSuffix)
 	data.ID = types.StringValue(d.Meta().Partition)
 	data.Partition = types.StringValue(d.Meta().Partition)
-	data.ReverseDNSPrefix = types.StringValue(d.Meta().ReverseDNSPrefix)
-
-	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
-}
-
-type dataSourcePartitionData struct {
+	data.ReverseDNSPrefix = types.StringValue(d.Meta().ReverseDNSPrefix)	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
+}type dataSourcePartitionData struct {
 	DNSSuffixtypes.String `tfsdk:"dns_suffix"`
 	ID  types.String `tfsdk:"id"`
 	Partitiontypes.String `tfsdk:"partition"`

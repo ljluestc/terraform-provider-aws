@@ -1,15 +1,9 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packagefsx_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packagefsx_testimport(
 	"context"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/fsx"
 	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -19,15 +13,11 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tffsx"github.com/hashicorp/terraform-provider-aws/internal/service/fsx"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-funcTestAccFSxOntapStorageVirtualMachine_basic(t*testing.T){
+)funcTestAccFSxOntapStorageVirtualMachine_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	varstorageVirtualMachinefsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -59,15 +49,11 @@ funcTestAccFSxOntapStorageVirtualMachine_basic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxOntapStorageVirtualMachine_rootVolumeSecurityStyle(t*testing.T){
+}funcTestAccFSxOntapStorageVirtualMachine_rootVolumeSecurityStyle(t*testing.T){
 	ctx:=acctest.Context(t)
 	varstorageVirtualMachinefsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -97,17 +83,13 @@ funcTestAccFSxOntapStorageVirtualMachine_rootVolumeSecurityStyle(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxOntapStorageVirtualMachine_svmAdminPassword(t*testing.T){
+}funcTestAccFSxOntapStorageVirtualMachine_svmAdminPassword(t*testing.T){
 	ctx:=acctest.Context(t)
 	varstorageVirtualMachine1,storageVirtualMachine2fsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	pass1:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	pass2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	pass2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -136,15 +118,11 @@ funcTestAccFSxOntapStorageVirtualMachine_svmAdminPassword(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxOntapStorageVirtualMachine_disappears(t*testing.T){
+}funcTestAccFSxOntapStorageVirtualMachine_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	varstorageVirtualMachinefsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -160,16 +138,12 @@ funcTestAccFSxOntapStorageVirtualMachine_disappears(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxOntapStorageVirtualMachine_name(t*testing.T){
+}funcTestAccFSxOntapStorageVirtualMachine_name(t*testing.T){
 	ctx:=acctest.Context(t)
 	varstorageVirtualMachine1,storageVirtualMachine2fsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -197,15 +171,11 @@ funcTestAccFSxOntapStorageVirtualMachine_name(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxOntapStorageVirtualMachine_tags(t*testing.T){
+}funcTestAccFSxOntapStorageVirtualMachine_tags(t*testing.T){
 	ctx:=acctest.Context(t)
 	varstorageVirtualMachine1,storageVirtualMachine2,storageVirtualMachine3fsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -245,9 +215,7 @@ funcTestAccFSxOntapStorageVirtualMachine_tags(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxOntapStorageVirtualMachine_activeDirectory(t*testing.T){
+}funcTestAccFSxOntapStorageVirtualMachine_activeDirectory(t*testing.T){
 	ctx:=acctest.Context(t)
 	varstorageVirtualMachine1fsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
@@ -255,9 +223,7 @@ funcTestAccFSxOntapStorageVirtualMachine_activeDirectory(t*testing.T){
 	netBiosName:="tftest-"+sdkacctest.RandString(7)
 	domainNetbiosName:="tftestcorp"
 	domainName:="tftestcorp.local"
-	domainPassword1:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	domainPassword1:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -286,147 +252,91 @@ funcTestAccFSxOntapStorageVirtualMachine_activeDirectory(t*testing.T){
 			},
 		},
 	})
-}
-
-functestAccCheckOntapStorageVirtualMachineExists(ctxcontext.Context,resourceNamestring,svm*fsx.StorageVirtualMachine)resource.TestCheckFunc{
+}functestAccCheckOntapStorageVirtualMachineExists(ctxcontext.Context,resourceNamestring,svm*fsx.StorageVirtualMachine)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		rs,ok:=s.RootModule().Resources[resourceName]
 		if!ok{
 			returnfmt.Errorf("Notfound:%s",resourceName)
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-		storageVirtualMachine,err:=tffsx.FindStorageVirtualMachineByID(ctx,conn,rs.Primary.ID)
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		storageVirtualMachine,err:=tffsx.FindStorageVirtualMachineByID(ctx,conn,rs.Primary.ID)
 		iferr!=nil{
 			returnerr
-		}
-
-		ifstorageVirtualMachine==nil{
+		}		ifstorageVirtualMachine==nil{
 			returnfmt.Errorf("FSxONTAPStorageVirtualMachine(%s)notfound",rs.Primary.ID)
-		}
-
-		*svm=*storageVirtualMachine
-
-		returnnil
+		}		*svm=*storageVirtualMachine		returnnil
 	}
-}
-
-functestAccCheckOntapStorageVirtualMachineDestroy(ctxcontext.Context)resource.TestCheckFunc{
+}functestAccCheckOntapStorageVirtualMachineDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_storage_virtual_machine"{
 				continue
-			}
-
-			storageVirtualMachine,err:=tffsx.FindStorageVirtualMachineByID(ctx,conn,rs.Primary.ID)
+			}			storageVirtualMachine,err:=tffsx.FindStorageVirtualMachineByID(ctx,conn,rs.Primary.ID)
 			iftfresource.NotFound(err){
 				continue
-			}
-
-			ifstorageVirtualMachine!=nil{
+			}			ifstorageVirtualMachine!=nil{
 				returnfmt.Errorf("FSxONTAPStorageVirtualMachine(%s)stillexists",rs.Primary.ID)
 			}
 		}
 		returnnil
 	}
-}
-
-functestAccCheckOntapStorageVirtualMachineNotRecreated(i,j*fsx.StorageVirtualMachine)resource.TestCheckFunc{
+}functestAccCheckOntapStorageVirtualMachineNotRecreated(i,j*fsx.StorageVirtualMachine)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		ifaws.StringValue(i.StorageVirtualMachineId)!=aws.StringValue(j.StorageVirtualMachineId){
 			returnfmt.Errorf("FSxStorageVirtualMachine(%s)recreated",aws.StringValue(i.StorageVirtualMachineId))
-		}
-
-		returnnil
+		}		returnnil
 	}
-}
-
-functestAccCheckOntapStorageVirtualMachineRecreated(i,j*fsx.StorageVirtualMachine)resource.TestCheckFunc{
+}functestAccCheckOntapStorageVirtualMachineRecreated(i,j*fsx.StorageVirtualMachine)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		ifaws.StringValue(i.StorageVirtualMachineId)==aws.StringValue(j.StorageVirtualMachineId){
 			returnfmt.Errorf("FSxStorageVirtualMachine(%s)notrecreated",aws.StringValue(i.StorageVirtualMachineId))
-		}
-
-		returnnil
+		}		returnnil
 	}
-}
-
-functestAccOntapStorageVirtualMachineBaseConfig(rNamestring)string{
+}functestAccOntapStorageVirtualMachineBaseConfig(rNamestring)string{
 	returnacctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(),fmt.Sprintf(`
-data"aws_partition""current"{}
-
-resource"aws_vpc""test"{
-cidr_block="10.0.0.0/16"
-
-tags={
+data"aws_partition""current"{}resource"aws_vpc""test"{
+cidr_block="10.0.0.0/16"tags={
 Name=%[1]q
 }
-}
-
-resource"aws_subnet""test1"{
+}resource"aws_subnet""test1"{
 vpc_id=aws_vpc.test.id
 cidr_block="10.0.1.0/24"
-availability_zone=data.aws_availability_zones.available.names[0]
-
-tags={
+availability_zone=data.aws_availability_zones.available.names[0]tags={
 Name=%[1]q
 }
-}
-
-resource"aws_subnet""test2"{
+}resource"aws_subnet""test2"{
 vpc_id=aws_vpc.test.id
 cidr_block="10.0.2.0/24"
-availability_zone=data.aws_availability_zones.available.names[1]
-
-tags={
+availability_zone=data.aws_availability_zones.available.names[1]tags={
 Name=%[1]q
 }
-}
-
-resource"aws_fsx_ontap_file_system""test"{
+}resource"aws_fsx_ontap_file_system""test"{
 storage_capacity=1024
 subnet_ids=[aws_subnet.test1.id,aws_subnet.test2.id]
 deployment_type="MULTI_AZ_1"
 throughput_capacity=512
-preferred_subnet_id=aws_subnet.test1.id
-
-tags={
+preferred_subnet_id=aws_subnet.test1.idtags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccOntapStorageVirtualMachineADConfig(rNamestring,domainNamestring,domainPasswordstring)string{
-	returnacctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName),fmt.Sprintf(`
-
-resource"aws_directory_service_directory""test"{
+}functestAccOntapStorageVirtualMachineADConfig(rNamestring,domainNamestring,domainPasswordstring)string{
+	returnacctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName),fmt.Sprintf(`resource"aws_directory_service_directory""test"{
 edition="Standard"
 name=%[2]q
 password=%[3]q
-type="MicrosoftAD"
-
-vpc_settings{
+type="MicrosoftAD"vpc_settings{
 subnet_ids=[aws_subnet.test1.id,aws_subnet.test2.id]
 vpc_id=aws_vpc.test.id
 }
 }
 `,rName,domainName,domainPassword))
-}
-
-functestAccONTAPStorageVirtualMachineConfig_basic(rNamestring)string{
+}functestAccONTAPStorageVirtualMachineConfig_basic(rNamestring)string{
 	returnacctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName),fmt.Sprintf(`
 resource"aws_fsx_ontap_storage_virtual_machine""test"{
 file_system_id=aws_fsx_ontap_file_system.test.id
 name=%[1]q
 }
 `,rName))
-}
-
-functestAccONTAPStorageVirtualMachineConfig_rootVolumeSecurityStyle(rNamestring)string{
+}functestAccONTAPStorageVirtualMachineConfig_rootVolumeSecurityStyle(rNamestring)string{
 	returnacctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName),fmt.Sprintf(`
 resource"aws_fsx_ontap_storage_virtual_machine""test"{
 file_system_id=aws_fsx_ontap_file_system.test.id
@@ -434,9 +344,7 @@ name=%[1]q
 root_volume_security_style="NTFS"
 }
 `,rName))
-}
-
-functestAccONTAPStorageVirtualMachineConfig_svmAdminPassword(rNamestring,passstring)string{
+}functestAccONTAPStorageVirtualMachineConfig_svmAdminPassword(rNamestring,passstring)string{
 	returnacctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName),fmt.Sprintf(`
 resource"aws_fsx_ontap_storage_virtual_machine""test"{
 file_system_id=aws_fsx_ontap_file_system.test.id
@@ -444,43 +352,31 @@ name=%[1]q
 svm_admin_password=%[2]q
 }
 `,rName,pass))
-}
-
-functestAccONTAPStorageVirtualMachineConfig_tags1(rName,tagKey1,tagValue1string)string{
+}functestAccONTAPStorageVirtualMachineConfig_tags1(rName,tagKey1,tagValue1string)string{
 	returnacctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName),fmt.Sprintf(`
 resource"aws_fsx_ontap_storage_virtual_machine""test"{
 file_system_id=aws_fsx_ontap_file_system.test.id
-name=%[1]q
-
-tags={
+name=%[1]qtags={
 %[2]q=%[3]q
 }
 }
 `,rName,tagKey1,tagValue1))
-}
-
-functestAccONTAPStorageVirtualMachineConfig_tags2(rName,tagKey1,tagValue1,tagKey2,tagValue2string)string{
+}functestAccONTAPStorageVirtualMachineConfig_tags2(rName,tagKey1,tagValue1,tagKey2,tagValue2string)string{
 	returnacctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName),fmt.Sprintf(`
 resource"aws_fsx_ontap_storage_virtual_machine""test"{
 file_system_id=aws_fsx_ontap_file_system.test.id
-name=%[1]q
-
-tags={
+name=%[1]qtags={
 %[2]q=%[3]q
 %[4]q=%[5]q
 }
 }
 `,rName,tagKey1,tagValue1,tagKey2,tagValue2))
-}
-
-functestAccONTAPStorageVirtualMachineConfig_virutalSelfManagedActiveDirectory(rNamestring,netBiosNamestring,domainNetbiosNamestring,domainNamestring,domainPasswordstring)string{
+}functestAccONTAPStorageVirtualMachineConfig_virutalSelfManagedActiveDirectory(rNamestring,netBiosNamestring,domainNetbiosNamestring,domainNamestring,domainPasswordstring)string{
 	returnacctest.ConfigCompose(testAccOntapStorageVirtualMachineADConfig(rName,domainName,domainPassword),fmt.Sprintf(`
 resource"aws_fsx_ontap_storage_virtual_machine""test"{
 file_system_id=aws_fsx_ontap_file_system.test.id
 name=%[1]q
-depends_on=[aws_directory_service_directory.test]
-
-active_directory_configuration{
+depends_on=[aws_directory_service_directory.test]active_directory_configuration{
 netbios_name=%[2]q
 self_managed_active_directory_configuration{
 dns_ips=aws_directory_service_directory.test.dns_ip_addresses

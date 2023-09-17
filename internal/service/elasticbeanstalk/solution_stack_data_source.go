@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticbeanstalk
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elasticbeanstalkimport (
 	"context"
-	"log"
-
-	"github.com/YakDriver/regexache"
+	"log"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/elasticbeanstalk"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -15,14 +9,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// @SDKDataSource("aws_elastic_beanstalk_solution_stack")
+)// @SDKDataSource("aws_elastic_beanstalk_solution_stack")
 func DataSourceSolutionStack() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceSolutionStackRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceSolutionStackRead,		Schema: map[string]*schema.Schema{
 			"name_regex": {
 				Type:schema.TypeString,
 				Required:     true,
@@ -40,38 +30,22 @@ func DataSourceSolutionStack() *schema.Resource {
 			},
 		},
 	}
-}
-
-// dataSourceSolutionStackRead performs the API lookup.
+}// dataSourceSolutionStackRead performs the API lookup.
 func dataSourceSolutionStackRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
-
-	nameRegex := d.Get("name_regex")
-
-	var params *elasticbeanstalk.ListAvailableSolutionStacksInput
-
-	log.Printf("[DEBUG] Reading Elastic Beanstalk Solution Stack: %s", params)
+	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)	nameRegex := d.Get("name_regex")	var params *elasticbeanstalk.ListAvailableSolutionStacksInput	log.Printf("[DEBUG] Reading Elastic Beanstalk Solution Stack: %s", params)
 	resp, err := conn.ListAvailableSolutionStacksWithContext(ctx, params)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading Elastic Beanstalk Solution Stack: %s", err)
-	}
-
-	var filteredSolutionStacks []*string
-
-	r := regexache.MustCompile(nameRegex.(string))
+	}	var filteredSolutionStacks []*string	r := regexache.MustCompile(nameRegex.(string))
 	for _, solutionStack := range resp.SolutionStacks {
 		if r.MatchString(*solutionStack) {
 			filteredSolutionStacks = append(filteredSolutionStacks, solutionStack)
 		}
-	}
-
-	var solutionStack *string
+	}	var solutionStack *string
 	if len(filteredSolutionStacks) < 1 {
 		return sdkdiag.AppendErrorf(diags, "Your query returned no results. Please change your search criteria and try again.")
-	}
-
-	if len(filteredSolutionStacks) == 1 {
+	}	if len(filteredSolutionStacks) == 1 {
 		// Query returned single result.
 		solutionStack = filteredSolutionStacks[0]
 	} else {
@@ -83,15 +57,9 @@ func dataSourceSolutionStackRead(ctx context.Context, d *schema.ResourceData, me
 			return sdkdiag.AppendErrorf(diags, "Your query returned more than one result. Please try a more "+
 				"specific search criteria, or set `most_recent` attribute to true.")
 		}
-	}
-
-	d.SetId(aws.StringValue(solutionStack))
-	d.Set("name", solutionStack)
-
-	return diags
-}
-
-// Returns the most recent solution stack out of a slice of stacks.
+	}	d.SetId(aws.StringValue(solutionStack))
+	d.Set("name", solutionStack)	return diags
+}// Returns the most recent solution stack out of a slice of stacks.
 func mostRecentSolutionStack(solutionStacks []*string) *string {
 	return solutionStacks[0]
 }

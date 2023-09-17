@@ -1,6 +1,1 @@
-//Copyright2021TheGoAuthors.Allrightsreserved.
-//UseofthissourcecodeisgovernedbyaBSD-style
-//licensethatcanbefoundintheLICENSEfile.//go:buildunix||aix||darwin||dragonfly||freebsd||linux||netbsd||openbsd||solaris
-//+buildunixaixdarwindragonflyfreebsdlinuxnetbsdopenbsdsolarispackagetestenvimport"syscall"//Sigquitisthesignaltosendtokillahangingsubprocess.
-//SendSIGQUITtogetastacktrace.
-varSigquit=syscall.SIGQUIT
+//Copyright2021TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.//go:buildunix||aix||darwin||dragonfly||freebsd||linux||netbsd||openbsd||solaris//+buildunixaixdarwindragonflyfreebsdlinuxnetbsdopenbsdsolarispackagetestenvimport"syscall"//Sigquitisthesignaltosendtokillahangingsubprocess.//SendSIGQUITtogetastacktrace.varSigquit=syscall.SIGQUIT

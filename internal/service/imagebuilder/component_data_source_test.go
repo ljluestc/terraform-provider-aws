@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package imagebuilder_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/imagebuilder"
+	"testing"	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccImageBuilderComponentDataSource_arn(t *testing.T) {
+)func TestAccImageBuilderComponentDataSource_arn(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_imagebuilder_component.test"
-	resourceName := "aws_imagebuilder_component.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_component.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -46,9 +36,7 @@ func TestAccImageBuilderComponentDataSource_arn(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccComponentDataSourceConfig_buildVersionARN(rName string) string {
+}func testAccComponentDataSourceConfig_buildVersionARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
@@ -68,9 +56,7 @@ resource "aws_imagebuilder_component" "test" {
   name     = %[1]q
   platform = "Linux"
   version  = "1.0.0"
-}
-
-data "aws_imagebuilder_component" "test" {
+}data "aws_imagebuilder_component" "test" {
   arn = aws_imagebuilder_component.test.arn
 }
 `, rName)

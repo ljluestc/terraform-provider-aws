@@ -72,10 +72,7 @@ func: validation.StringInSlice(emr.ComputeLimitsUnitType_Values(), false),
 			},
 		},
 	}
-}
-
-
-func resourceManagedScalingPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceManagedScalingPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -112,10 +109,7 @@ func resourceManagedScalingPolicyCreate(ctx context.Context, d *schema.ResourceD
 
 	d.SetId(d.Get("cluster_id").(string))
 	return diags
-}
-
-
-func resourceManagedScalingPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceManagedScalingPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -153,10 +147,7 @@ func resourceManagedScalingPolicyRead(ctx context.Context, d *schema.ResourceDat
 	d.Set("compute_limits", flattenComputeLimits(resp.ManagedScalingPolicy.ComputeLimits))
 
 	return diags
-}
-
-
-func resourceManagedScalingPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceManagedScalingPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -179,10 +170,7 @@ func resourceManagedScalingPolicyDelete(ctx context.Context, d *schema.ResourceD
 	}
 
 	return diags
-}
-
-
-func flattenComputeLimits(apiObject *emr.ComputeLimits) []interface{} {
+}func flattenComputeLimits(apiObject *emr.ComputeLimits) []interface{} {
 	if apiObject == nil {
 		return nil
 	}

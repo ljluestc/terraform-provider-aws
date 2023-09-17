@@ -1,14 +1,1 @@
-packageresourcedatasetpartialcallexpr
-
-import(
-	"github.com/bflad/tfproviderlint/helper/analysisutils"
-	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
-)
-
-varAnalyzer=analysisutils.ReceiverMethodCallExprAnalyzer(
-	"resourcedatasetpartialcallexpr",
-	schema.IsReceiverMethod,
-	schema.PackagePath,
-	schema.TypeNameResourceData,
-	"SetPartial",
-)
+packageresourcedatasetpartialcallexprimport(	"github.com/bflad/tfproviderlint/helper/analysisutils"	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema")varAnalyzer=analysisutils.ReceiverMethodCallExprAnalyzer(	"resourcedatasetpartialcallexpr",	schema.IsReceiverMethod,	schema.PackagePath,	schema.TypeNameResourceData,	"SetPartial",)

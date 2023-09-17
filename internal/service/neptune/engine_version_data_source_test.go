@@ -1,27 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package neptune_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package neptune_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/neptune"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccNeptuneEngineVersionDataSource_basic(t *testing.T) {
+)func TestAccNeptuneEngineVersionDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 dataSourceName := "data.aws_neptune_engine_version.test"
-version := "1.0.2.1"
-
-resource.ParallelTest(t, resource.TestCase{
+version := "1.0.2.1"resource.ParallelTest(t, resource.TestCase{
 PreCheck:acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
 ErrorCheck:orCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -44,13 +34,9 @@ resource.TestCheckResourceAttrSet(dataSourceName, "version_description"),
 },
 },
 })
-}
-
-func TestAccNeptuneEngineVersionDataSource_preferred(t *testing.T) {
+}func TestAccNeptuneEngineVersionDataSource_preferred(t *testing.T) {
 ctx := acctest.Context(t)
-dataSourceName := "data.aws_neptune_engine_version.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_neptune_engine_version.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
 ErrorCheck:orCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -65,13 +51,9 @@ resource.TestCheckResourceAttr(dataSourceName, "version", "1.0.3.0"),
 },
 },
 })
-}
-
-func TestAccNeptuneEngineVersionDataSource_defaultOnly(t *testing.T) {
+}func TestAccNeptuneEngineVersionDataSource_defaultOnly(t *testing.T) {
 ctx := acctest.Context(t)
-dataSourceName := "data.aws_neptune_engine_version.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_neptune_engine_version.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:acctest.PreCheck(ctx, t); testAccEngineVersionPreCheck(ctx, t) },
 ErrorCheck:orCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -86,45 +68,29 @@ resource.TestCheckResourceAttrSet(dataSourceName, "version"),
 },
 },
 })
-}
-
-func testAccEngineVersionPreCheck(ctx context.Context, t *testing.T) {
-conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)
-
-input := &neptune.DescribeDBEngineVersionsInput{
+}func testAccEngineVersionPreCheck(ctx context.Context, t *testing.T) {
+conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)input := &neptune.DescribeDBEngineVersionsInput{
 Engine:      aws.String("neptune"),
 DefaultOnly: aws.Bool(true),
-}
-
-_, err := conn.DescribeDBEngineVersionsWithContext(ctx, input)
-
-if acctest.PreCheckSkipError(err) {
+}_, err := conn.DescribeDBEngineVersionsWithContext(ctx, input)if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
-}
-
-if err != nil {
+}if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
 }
-}
-
-func testAccEngineVersionDataSourceConfig_basic(version string) string {
+}func testAccEngineVersionDataSourceConfig_basic(version string) string {
 return fmt.Sprintf(`
 data "aws_neptune_engine_version" "test" {
   engine  = "neptune"
   version = %q
 }
 `, version)
-}
-
-func testAccEngineVersionDataSourceConfig_preferred() string {
+}func testAccEngineVersionDataSourceConfig_preferred() string {
 return `
 data "aws_neptune_engine_version" "test" {
   preferred_versions = ["85.9.12", "1.0.3.0", "1.0.2.2"]
 }
 `
-}
-
-func testAccEngineVersionDataSourceConfig_defaultOnly() string {
+}func testAccEngineVersionDataSourceConfig_defaultOnly() string {
 return `
 data "aws_neptune_engine_version" "test" {}
 `

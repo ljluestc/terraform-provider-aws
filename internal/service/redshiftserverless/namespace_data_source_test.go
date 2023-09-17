@@ -1,26 +1,14 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageredshiftserverless_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageredshiftserverless_testimport(
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/redshiftserverless"
+	"testing"	"github.com/aws/aws-sdk-go/service/redshiftserverless"
 	sdkacctest"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-funcTestAccRedshiftServerlessNamespaceDataSource_basic(t*testing.T){
+)funcTestAccRedshiftServerlessNamespaceDataSource_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	dataSourceName:="data.aws_redshiftserverless_namespace.test"
-	resourceName:="aws_redshiftserverless_namespace.test"
-
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_redshiftserverless_namespace.test"	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -41,16 +29,10 @@ funcTestAccRedshiftServerlessNamespaceDataSource_basic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccRedshiftServerlessNamespaceDataSource_iamRole(t*testing.T){
+}funcTestAccRedshiftServerlessNamespaceDataSource_iamRole(t*testing.T){
 	ctx:=acctest.Context(t)
 	dataSourceName:="data.aws_redshiftserverless_namespace.test"
-	resourceName:="aws_redshiftserverless_namespace.test"
-
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_redshiftserverless_namespace.test"	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -66,17 +48,11 @@ funcTestAccRedshiftServerlessNamespaceDataSource_iamRole(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccRedshiftServerlessNamespaceDataSource_user(t*testing.T){
+}funcTestAccRedshiftServerlessNamespaceDataSource_user(t*testing.T){
 	ctx:=acctest.Context(t)
 	dataSourceName:="data.aws_redshiftserverless_namespace.test"
-	resourceName:="aws_redshiftserverless_namespace.test"
-
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	username:="admin_user"
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_redshiftserverless_namespace.test"	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	username:="admin_user"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -90,17 +66,11 @@ funcTestAccRedshiftServerlessNamespaceDataSource_user(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccRedshiftServerlessNamespaceDataSource_logExports(t*testing.T){
+}funcTestAccRedshiftServerlessNamespaceDataSource_logExports(t*testing.T){
 	ctx:=acctest.Context(t)
 	dataSourceName:="data.aws_redshiftserverless_namespace.test"
-	resourceName:="aws_redshiftserverless_namespace.test"
-
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	logExport:="userlog"
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_redshiftserverless_namespace.test"	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	logExport:="userlog"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -115,26 +85,18 @@ funcTestAccRedshiftServerlessNamespaceDataSource_logExports(t*testing.T){
 			},
 		},
 	})
-}
-
-functestAccNamespaceDataSourceConfig_basic(rNamestring)string{
+}functestAccNamespaceDataSourceConfig_basic(rNamestring)string{
 	returnfmt.Sprintf(`
 resource"aws_redshiftserverless_namespace""test"{
 namespace_name=%[1]q
-}
-
-data"aws_redshiftserverless_namespace""test"{
+}data"aws_redshiftserverless_namespace""test"{
 namespace_name=aws_redshiftserverless_namespace.test.namespace_name
 }
 `,rName)
-}
-
-functestAccNamespaceDataSourceConfig_defaultIAMRole(rNamestring)string{
+}functestAccNamespaceDataSourceConfig_defaultIAMRole(rNamestring)string{
 	returnfmt.Sprintf(`
 resource"aws_iam_role""test"{
-name=%[1]q
-
-assume_role_policy=<<EOF
+name=%[1]qassume_role_policy=<<EOF
 {
 "Version":"2012-10-17",
 "Statement":[
@@ -152,42 +114,30 @@ assume_role_policy=<<EOF
   ]
 }
 EOF
-}
-
-resource "aws_redshiftserverless_namespace" "test" {
+}resource "aws_redshiftserverless_namespace" "test" {
   namespace_name  = %[1]q
   default_iam_role_arn = aws_iam_role.test.arn
   iam_roles  = [aws_iam_role.test.arn]
-}
-
-data "aws_redshiftserverless_namespace" "test" {
+}data "aws_redshiftserverless_namespace" "test" {
   namespace_name = aws_redshiftserverless_namespace.test.namespace_name
 }
 `, rName)
-}
-
-func testAccNamespaceDataSourceConfig_user(rName string, username string) string {
+}func testAccNamespaceDataSourceConfig_user(rName string, username string) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
   admin_username = %[2]q
   admin_user_password = "Test_Password_123"
-}
-
-data "aws_redshiftserverless_namespace" "test" {
+}data "aws_redshiftserverless_namespace" "test" {
   namespace_name = aws_redshiftserverless_namespace.test.namespace_name
 }
 `, rName, username)
-}
-
-func testAccNamespaceDataSourceConfig_logExports(rName string, logExport string) string {
+}func testAccNamespaceDataSourceConfig_logExports(rName string, logExport string) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
   log_exports= [%[2]q]
-}
-
-data "aws_redshiftserverless_namespace" "test" {
+}data "aws_redshiftserverless_namespace" "test" {
   namespace_name = aws_redshiftserverless_namespace.test.namespace_name
 }
 `, rName, logExport)

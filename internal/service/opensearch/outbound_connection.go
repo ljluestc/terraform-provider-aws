@@ -1,25 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opensearch
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opensearchimport (
 	"context"
 	"errors"
 	"fmt"
 	"log"
-	"time"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"time"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/opensearchservice"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-// @SDKResource("aws_opensearch_outbound_connection")
+)// @SDKResource("aws_opensearch_outbound_connection")
 func ResourceOutboundConnection() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceOutboundConnectionCreate,
@@ -27,14 +19,10 @@ func ResourceOutboundConnection() *schema.Resource {
 		DeleteWithoutTimeout: resourceOutboundConnectionDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Timeouts: &schema.ResourceTimeout{
+		},		Timeouts: &schema.ResourceTimeout{
 			Create: schema.DefaultTimeout(1 * time.Minute),
 			Delete: schema.DefaultTimeout(1 * time.Minute),
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"connection_alias": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -50,80 +38,44 @@ func ResourceOutboundConnection() *schema.Resource {
 	}
 }
 func resourceOutboundConnectionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
-
-	// Create the Outbound Connection
+	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)	// Create the Outbound Connection
 	createOpts := &opensearchservice.CreateOutboundConnectionInput{
 		ConnectionAlias:  aws.String(d.Get("connection_alias").(string)),
 		LocalDomainInfo:  expandOutboundConnectionDomainInfo(d.Get("local_domain_info").([]interface{})),
 		RemoteDomainInfo: expandOutboundConnectionDomainInfo(d.Get("remote_domain_info").([]interface{})),
-	}
-
-	log.Printf("[DEBUG] Outbound Connection Create options: %#v", createOpts)
-
-	resp, err := conn.CreateOutboundConnectionWithContext(ctx, createOpts)
+	}	log.Printf("[DEBUG] Outbound Connection Create options: %#v", createOpts)	resp, err := conn.CreateOutboundConnectionWithContext(ctx, createOpts)
 	if err != nil {
 		return diag.Errorf("creating Outbound Connection: %s", err)
-	}
-
-	// Get the ID and store it
+	}	// Get the ID and store it
 	d.SetId(aws.StringValue(resp.ConnectionId))
-	log.Printf("[INFO] Outbound Connection ID: %s", d.Id())
-
-	err = outboundConnectionWaitUntilAvailable(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate))
+	log.Printf("[INFO] Outbound Connection ID: %s", d.Id())	err = outboundConnectionWaitUntilAvailable(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate))
 	if err != nil {
 		return diag.Errorf("waiting for Outbound Connection to become available: %s", err)
-	}
-
-	return resourceOutboundConnectionRead(ctx, d, meta)
+	}	return resourceOutboundConnectionRead(ctx, d, meta)
 }
 func resourceOutboundConnectionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
-
-	ccscRaw, statusCode, err := outboundConnectionRefreshState(ctx, conn, d.Id())()
-
-	if err != nil {
+	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)	ccscRaw, statusCode, err := outboundConnectionRefreshState(ctx, conn, d.Id())()	if err != nil {
 		return diag.Errorf("reading Outbound Connection: %s", err)
-	}
-
-	ccsc := ccscRaw.(*opensearchservice.OutboundConnection)
-	log.Printf("[DEBUG] Outbound Connection response: %#v", ccsc)
-
-	if !d.IsNewResource() && statusCode == opensearchservice.OutboundConnectionStatusCodeDeleted {
+	}	ccsc := ccscRaw.(*opensearchservice.OutboundConnection)
+	log.Printf("[DEBUG] Outbound Connection response: %#v", ccsc)	if !d.IsNewResource() && statusCode == opensearchservice.OutboundConnectionStatusCodeDeleted {
 		log.Printf("[INFO] Outbound Connection (%s) deleted, removing from state", d.Id())
 		d.SetId("")
 		return nil
-	}
-
-	d.Set("connection_alias", ccsc.ConnectionAlias)
+	}	d.Set("connection_alias", ccsc.ConnectionAlias)
 	d.Set("remote_domain_info", flattenOutboundConnectionDomainInfo(ccsc.RemoteDomainInfo))
 	d.Set("local_domain_info", flattenOutboundConnectionDomainInfo(ccsc.LocalDomainInfo))
-	d.Set("connection_status", statusCode)
-
-	return nil
+	d.Set("connection_status", statusCode)	return nil
 }
 func resourceOutboundConnectionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
-
-	req := &opensearchservice.DeleteOutboundConnectionInput{
+	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)	req := &opensearchservice.DeleteOutboundConnectionInput{
 		ConnectionId: aws.String(d.Id()),
-	}
-
-	_, err := conn.DeleteOutboundConnectionWithContext(ctx, req)
-
-	if tfawserr.ErrCodeEquals(err, "ResourceNotFoundException") {
+	}	_, err := conn.DeleteOutboundConnectionWithContext(ctx, req)	if tfawserr.ErrCodeEquals(err, "ResourceNotFoundException") {
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return diag.Errorf("deleting Outbound Connection (%s): %s", d.Id(), err)
-	}
-
-	if err := waitForOutboundConnectionDeletion(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
+	}	if err := waitForOutboundConnectionDeletion(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
 		return diag.Errorf("waiting for VPC Peering Connection (%s) to be deleted: %s", d.Id(), err)
-	}
-
-	return nil
+	}	return nil
 }
 func outboundConnectionRefreshState(ctx context.Context, conn *opensearchservice.OpenSearchService, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
@@ -137,9 +89,7 @@ func outboundConnectionRefreshState(ctx context.Context, conn *opensearchservice
 		})
 		if err != nil {
 			return nil, "", err
-		}
-
-		if resp == nil || resp.Connections == nil ||
+		}		if resp == nil || resp.Connections == nil ||
 			len(resp.Connections) == 0 || resp.Connections[0] == nil {
 			// Sometimes AWS just has consistency issues and doesn't see
 			// our connection yet. Return an empty state.
@@ -151,15 +101,11 @@ func outboundConnectionRefreshState(ctx context.Context, conn *opensearchservice
 			// our connection yet. Return an empty state.
 			return nil, "", nil
 		}
-		statusCode := aws.StringValue(ccsc.ConnectionStatus.StatusCode)
-
-		// A Outbound Connection can exist in a failed state,
+		statusCode := aws.StringValue(ccsc.ConnectionStatus.StatusCode)		// A Outbound Connection can exist in a failed state,
 		// thus we short circuit before the time out would occur.
 		if statusCode == opensearchservice.OutboundConnectionStatusCodeValidationFailed {
 			return nil, statusCode, errors.New(aws.StringValue(ccsc.ConnectionStatus.Message))
-		}
-
-		return ccsc, statusCode, nil
+		}		return ccsc, statusCode, nil
 	}
 }
 func outboundConnectionWaitUntilAvailable(ctx context.Context, conn *opensearchservice.OpenSearchService, id string, timeout time.Duration) error {
@@ -197,11 +143,7 @@ func waitForOutboundConnectionDeletion(ctx context.Context, conn *opensearchserv
 		},
 		Refresh: outboundConnectionRefreshState(ctx, conn, id),
 		Timeout: timeout,
-	}
-
-	_, err := stateConf.WaitForStateContext(ctx)
-
-	return err
+	}	_, err := stateConf.WaitForStateContext(ctx)	return err
 }
 func outboundConnectionDomainInfoSchema() *schema.Schema {
 	return &schema.Schema{
@@ -233,11 +175,7 @@ func outboundConnectionDomainInfoSchema() *schema.Schema {
 func expandOutboundConnectionDomainInfo(vOptions []interface{}) *opensearchservice.DomainInformationContainer {
 	if len(vOptions) == 0 || vOptions[0] == nil {
 		return nil
-	}
-
-	mOptions := vOptions[0].(map[string]interface{})
-
-	return &opensearchservice.DomainInformationContainer{
+	}	mOptions := vOptions[0].(map[string]interface{})	return &opensearchservice.DomainInformationContainer{
 		AWSDomainInformation: &opensearchservice.AWSDomainInformation{
 			DomainName: aws.String(mOptions["domain_name"].(string)),
 			OwnerId:    aws.String(mOptions["owner_id"].(string)),

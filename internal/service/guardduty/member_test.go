@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package guardduty_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package guardduty_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/aws"
+"testing""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/guardduty"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -20,9 +14,7 @@ tfguardduty "github.com/hashicorp/terraform-provider-aws/internal/service/guardd
 func testAccMember_basic(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_guardduty_member.test"
-accountID := "111111111111"
-
-resource.Test(t, resource.TestCase{
+accountID := "111111111111"resource.Test(t, resource.TestCase{
 PreCheck:x, t) },
 ErrorCheck:y.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -49,9 +41,7 @@ ImportStateVerify: true,
 func testAccMember_invite_disassociate(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_guardduty_member.test"
-accountID, email := testAccMemberFromEnv(t)
-
-resource.Test(t, resource.TestCase{
+accountID, email := testAccMemberFromEnv(t)resource.Test(t, resource.TestCase{
 PreCheck:x, t) },
 ErrorCheck:y.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -88,9 +78,7 @@ ImportStateVerifyIgnore: []string{
 func testAccMember_invite_onUpdate(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_guardduty_member.test"
-accountID, email := testAccMemberFromEnv(t)
-
-resource.Test(t, resource.TestCase{
+accountID, email := testAccMemberFromEnv(t)resource.Test(t, resource.TestCase{
 PreCheck:x, t) },
 ErrorCheck:y.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -128,9 +116,7 @@ func testAccMember_invitationMessage(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_guardduty_member.test"
 accountID, email := testAccMemberFromEnv(t)
-invitationMessage := "inviting"
-
-resource.Test(t, resource.TestCase{
+invitationMessage := "inviting"resource.Test(t, resource.TestCase{
 PreCheck:x, t) },
 ErrorCheck:y.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -163,39 +149,25 @@ ImportStateVerifyIgnore: []string{
 }
 func testAccCheckMemberDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_guardduty_member" {
 continue
-}
-
-accountID, detectorID, err := tfguardduty.DecodeMemberID(rs.Primary.ID)
+}accountID, detectorID, err := tfguardduty.DecodeMemberID(rs.Primary.ID)
 if err != nil {
 return err
-}
-
-input := &guardduty.GetMembersInput{
+}input := &guardduty.GetMembersInput{
 AccountIds: []*string{aws.String(accountID)},
 DetectorId: aws.String(detectorID),
-}
-
-gmo, err := conn.GetMembersWithContext(ctx, input)
+}gmo, err := conn.GetMembersWithContext(ctx, input)
 if err != nil {
 if tfawserr.ErrMessageContains(err, guardduty.ErrCodeBadRequestException, "The request is rejected because the input detectorId is not owned by the current account.") {
 return nil
 }
 return err
-}
-
-if len(gmo.Members) < 1 {
+}if len(gmo.Members) < 1 {
 continue
-}
-
-return fmt.Errorf("Expected GuardDuty Detector to be destroyed, %s found", rs.Primary.ID)
-}
-
-return nil
+}return fmt.Errorf("Expected GuardDuty Detector to be destroyed, %s found", rs.Primary.ID)
+}return nil
 }
 }
 func testAccCheckMemberExists(ctx context.Context, name string) resource.TestCheckFunc {
@@ -203,36 +175,24 @@ return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return fmt.Errorf("Not found: %s", name)
-}
-
-accountID, detectorID, err := tfguardduty.DecodeMemberID(rs.Primary.ID)
+}accountID, detectorID, err := tfguardduty.DecodeMemberID(rs.Primary.ID)
 if err != nil {
 return err
-}
-
-input := &guardduty.GetMembersInput{
+}input := &guardduty.GetMembersInput{
 AccountIds: []*string{aws.String(accountID)},
 DetectorId: aws.String(detectorID),
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
 gmo, err := conn.GetMembersWithContext(ctx, input)
 if err != nil {
 return err
-}
-
-if len(gmo.Members) < 1 {
+}if len(gmo.Members) < 1 {
 return fmt.Errorf("Not found: %s", name)
-}
-
-return nil
+}return nil
 }
 }
 func testAccMemberConfig_basic(accountID, email string) string {
 return fmt.Sprintf(`
-%[1]s
-
-resource "aws_guardduty_member" "test" {
+%[1]sresource "aws_guardduty_member" "test" {
   account_id  = "%[2]s"
   detector_id = aws_guardduty_detector.test.id
   email"
@@ -241,9 +201,7 @@ resource "aws_guardduty_member" "test" {
 }
 func testAccMemberConfig_invite(accountID, email string, invite bool) string {
 return fmt.Sprintf(`
-%[1]s
-
-resource "aws_guardduty_member" "test" {
+%[1]sresource "aws_guardduty_member" "test" {
   account_id  = "%[2]s"
   detector_id = aws_guardduty_detector.test.id
   disable_email_notification = true
@@ -254,9 +212,7 @@ resource "aws_guardduty_member" "test" {
 }
 func testAccMemberConfig_invitationMessage(accountID, email, invitationMessage string) string {
 return fmt.Sprintf(`
-%[1]s
-
-resource "aws_guardduty_member" "test" {
+%[1]sresource "aws_guardduty_member" "test" {
   account_id  = "%[2]s"
   detector_id = aws_guardduty_detector.test.id
   disable_email_notification = true

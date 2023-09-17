@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package grafana_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package grafana_testimport (
 	"context"
 	"fmt"
 	"os"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/managedgrafana"
+	"testing"	"github.com/aws/aws-sdk-go/service/managedgrafana"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -17,22 +11,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfgrafana "github.com/hashicorp/terraform-provider-aws/internal/service/grafana"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func testAccRoleAssociation_usersAdmin(t *testing.T) {
+)func testAccRoleAssociation_usersAdmin(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "GRAFANA_SSO_USER_ID"
 	userID := os.Getenv(key)
 	if userID == "" {
 		t.Skipf("Environment variable %s is not set", key)
-	}
-
-	role := managedgrafana.RoleAdmin
+	}	role := managedgrafana.RoleAdmin
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_role_association.test"
-	workspaceResourceName := "aws_grafana_workspace.test"
-
-	resource.Test(t,
+	workspaceResourceName := "aws_grafana_workspace.test"	resource.Test(t,
 		resource.TestCase{
 			PreCheck: func() {
 				acctest.PreCheck(ctx, t)
@@ -55,22 +43,16 @@ func testAccRoleAssociation_usersAdmin(t *testing.T) {
 				},
 			},
 		})
-}
-
-func testAccRoleAssociation_usersEditor(t *testing.T) {
+}func testAccRoleAssociation_usersEditor(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "GRAFANA_SSO_USER_ID"
 	userID := os.Getenv(key)
 	if userID == "" {
 		t.Skipf("Environment variable %s is not set", key)
-	}
-
-	role := managedgrafana.RoleEditor
+	}	role := managedgrafana.RoleEditor
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_role_association.test"
-	workspaceResourceName := "aws_grafana_workspace.test"
-
-	resource.Test(t,
+	workspaceResourceName := "aws_grafana_workspace.test"	resource.Test(t,
 		resource.TestCase{
 			PreCheck: func() {
 				acctest.PreCheck(ctx, t)
@@ -93,22 +75,16 @@ func testAccRoleAssociation_usersEditor(t *testing.T) {
 				},
 			},
 		})
-}
-
-func testAccRoleAssociation_groupsAdmin(t *testing.T) {
+}func testAccRoleAssociation_groupsAdmin(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "GRAFANA_SSO_GROUP_ID"
 	groupID := os.Getenv(key)
 	if groupID == "" {
 		t.Skipf("Environment variable %s is not set", key)
-	}
-
-	role := managedgrafana.RoleAdmin
+	}	role := managedgrafana.RoleAdmin
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_role_association.test"
-	workspaceResourceName := "aws_grafana_workspace.test"
-
-	resource.Test(t,
+	workspaceResourceName := "aws_grafana_workspace.test"	resource.Test(t,
 		resource.TestCase{
 			PreCheck: func() {
 				acctest.PreCheck(ctx, t)
@@ -131,22 +107,16 @@ func testAccRoleAssociation_groupsAdmin(t *testing.T) {
 				},
 			},
 		})
-}
-
-func testAccRoleAssociation_groupsEditor(t *testing.T) {
+}func testAccRoleAssociation_groupsEditor(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "GRAFANA_SSO_GROUP_ID"
 	groupID := os.Getenv(key)
 	if groupID == "" {
 		t.Skipf("Environment variable %s is not set", key)
-	}
-
-	role := managedgrafana.RoleEditor
+	}	role := managedgrafana.RoleEditor
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_role_association.test"
-	workspaceResourceName := "aws_grafana_workspace.test"
-
-	resource.Test(t,
+	workspaceResourceName := "aws_grafana_workspace.test"	resource.Test(t,
 		resource.TestCase{
 			PreCheck: func() {
 				acctest.PreCheck(ctx, t)
@@ -169,9 +139,7 @@ func testAccRoleAssociation_groupsEditor(t *testing.T) {
 				},
 			},
 		})
-}
-
-func testAccRoleAssociation_usersAndGroupsAdmin(t *testing.T) {
+}func testAccRoleAssociation_usersAndGroupsAdmin(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "GRAFANA_SSO_USER_ID"
 	userID := os.Getenv(key)
@@ -182,14 +150,10 @@ func testAccRoleAssociation_usersAndGroupsAdmin(t *testing.T) {
 	groupID := os.Getenv(key)
 	if groupID == "" {
 		t.Skipf("Environment variable %s is not set", key)
-	}
-
-	role := managedgrafana.RoleAdmin
+	}	role := managedgrafana.RoleAdmin
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_role_association.test"
-	workspaceResourceName := "aws_grafana_workspace.test"
-
-	resource.Test(t,
+	workspaceResourceName := "aws_grafana_workspace.test"	resource.Test(t,
 		resource.TestCase{
 			PreCheck: func() {
 				acctest.PreCheck(ctx, t)
@@ -214,9 +178,7 @@ func testAccRoleAssociation_usersAndGroupsAdmin(t *testing.T) {
 				},
 			},
 		})
-}
-
-func testAccRoleAssociation_usersAndGroupsEditor(t *testing.T) {
+}func testAccRoleAssociation_usersAndGroupsEditor(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "GRAFANA_SSO_USER_ID"
 	userID := os.Getenv(key)
@@ -227,14 +189,10 @@ func testAccRoleAssociation_usersAndGroupsEditor(t *testing.T) {
 	groupID := os.Getenv(key)
 	if groupID == "" {
 		t.Skipf("Environment variable %s is not set", key)
-	}
-
-	role := managedgrafana.RoleEditor
+	}	role := managedgrafana.RoleEditor
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_role_association.test"
-	workspaceResourceName := "aws_grafana_workspace.test"
-
-	resource.Test(t,
+	workspaceResourceName := "aws_grafana_workspace.test"	resource.Test(t,
 		resource.TestCase{
 			PreCheck: func() {
 				acctest.PreCheck(ctx, t)
@@ -259,9 +217,7 @@ func testAccRoleAssociation_usersAndGroupsEditor(t *testing.T) {
 				},
 			},
 		})
-}
-
-func testAccRoleAssociationConfig_workspaceUsers(rName, role, userID string) string {
+}func testAccRoleAssociationConfig_workspaceUsers(rName, role, userID string) string {
 	return acctest.ConfigCompose(testAccWorkspaceConfig_authenticationProvider(rName, "AWS_SSO"), fmt.Sprintf(`
 resource "aws_grafana_role_association" "test" {
   role= %[1]q
@@ -269,9 +225,7 @@ resource "aws_grafana_role_association" "test" {
   workspace_id = aws_grafana_workspace.test.id
 }
 `, role, userID))
-}
-
-func testAccRoleAssociationConfig_workspaceGroups(rName, role, groupID string) string {
+}func testAccRoleAssociationConfig_workspaceGroups(rName, role, groupID string) string {
 	return acctest.ConfigCompose(testAccWorkspaceConfig_authenticationProvider(rName, "AWS_SSO"), fmt.Sprintf(`
 resource "aws_grafana_role_association" "test" {
   role= %[1]q
@@ -279,9 +233,7 @@ resource "aws_grafana_role_association" "test" {
   workspace_id = aws_grafana_workspace.test.id
 }
 `, role, groupID))
-}
-
-func testAccRoleAssociationConfig_workspaceUsersAndGroups(rName, role, userID, groupID string) string {
+}func testAccRoleAssociationConfig_workspaceUsersAndGroups(rName, role, userID, groupID string) string {
 	return acctest.ConfigCompose(testAccWorkspaceConfig_authenticationProvider(rName, "AWS_SSO"), fmt.Sprintf(`
 resource "aws_grafana_role_association" "test" {
   role= %[1]q
@@ -290,43 +242,23 @@ resource "aws_grafana_role_association" "test" {
   workspace_id = aws_grafana_workspace.test.id
 }
 `, role, userID, groupID))
-}
-
-func testAccCheckRoleAssociationExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckRoleAssociationExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GrafanaConn(ctx)
-
-		_, err := tfgrafana.FindRoleAssociationsByRoleAndWorkspaceID(ctx, conn, rs.Primary.Attributes["role"], rs.Primary.Attributes["workspace_id"])
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).GrafanaConn(ctx)		_, err := tfgrafana.FindRoleAssociationsByRoleAndWorkspaceID(ctx, conn, rs.Primary.Attributes["role"], rs.Primary.Attributes["workspace_id"])		return err
 	}
-}
-
-func testAccCheckRoleAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckRoleAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GrafanaConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).GrafanaConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_grafana_role_association" {
 				continue
-			}
-
-			_, err := tfgrafana.FindRoleAssociationsByRoleAndWorkspaceID(ctx, conn, rs.Primary.Attributes["role"], rs.Primary.Attributes["workspace_id"])
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfgrafana.FindRoleAssociationsByRoleAndWorkspaceID(ctx, conn, rs.Primary.Attributes["role"], rs.Primary.Attributes["workspace_id"])			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Grafana Workspace Role Association %s still exists", rs.Primary.ID)
+			}			return fmt.Errorf("Grafana Workspace Role Association %s still exists", rs.Primary.ID)
 		}
 		return nil
 	}

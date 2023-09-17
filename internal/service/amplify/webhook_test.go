@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package amplify_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package amplify_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/amplify"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,15 +11,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfamplify "github.com/hashicorp/terraform-provider-aws/internal/service/amplify"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func testAccWebhook_basic(t *testing.T) {
+)func testAccWebhook_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var webhook amplify.Webhook
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_amplify_webhook.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_amplify_webhook.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -48,15 +38,11 @@ func testAccWebhook_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccWebhook_disappears(t *testing.T) {
+}func testAccWebhook_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var webhook amplify.Webhook
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_amplify_webhook.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_amplify_webhook.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -72,15 +58,11 @@ func testAccWebhook_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccWebhook_update(t *testing.T) {
+}func testAccWebhook_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var webhook amplify.Webhook
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_amplify_webhook.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_amplify_webhook.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -109,118 +91,68 @@ func testAccWebhook_update(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckWebhookExists(ctx context.Context, resourceName string, v *amplify.Webhook) resource.TestCheckFunc {
+}func testAccCheckWebhookExists(ctx context.Context, resourceName string, v *amplify.Webhook) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Amplify Webhook ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
-
-		webhook, err := tfamplify.FindWebhookByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)		webhook, err := tfamplify.FindWebhookByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *webhook
-
-		return nil
+		}		*v = *webhook		return nil
 	}
-}
-
-func testAccCheckWebhookDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckWebhookDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_amplify_webhook" {
 				continue
-			}
-
-			_, err := tfamplify.FindWebhookByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfamplify.FindWebhookByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Amplify Webhook %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Amplify Webhook %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccWebhookConfig_basic(rName string) string {
+}func testAccWebhookConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_branch" "test" {
+}resource "aws_amplify_branch" "test" {
   app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
-}
-
-resource "aws_amplify_webhook" "test" {
+}resource "aws_amplify_webhook" "test" {
   app_id  = aws_amplify_app.test.id
   branch_name = aws_amplify_branch.test.branch_name
 }
 `, rName)
-}
-
-func testAccWebhookConfig_description(rName string) string {
+}func testAccWebhookConfig_description(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_branch" "test1" {
+}resource "aws_amplify_branch" "test1" {
   app_id  = aws_amplify_app.test.id
   branch_name = "%[1]s-1"
-}
-
-resource "aws_amplify_branch" "test2" {
+}resource "aws_amplify_branch" "test2" {
   app_id  = aws_amplify_app.test.id
   branch_name = "%[1]s-2"
-}
-
-resource "aws_amplify_webhook" "test" {
+}resource "aws_amplify_webhook" "test" {
   app_id  = aws_amplify_app.test.id
   branch_name = aws_amplify_branch.test1.branch_name
   description = "testdescription1"
 }
 `, rName)
-}
-
-func testAccWebhookConfig_descriptionUpdated(rName string) string {
+}func testAccWebhookConfig_descriptionUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_branch" "test1" {
+}resource "aws_amplify_branch" "test1" {
   app_id  = aws_amplify_app.test.id
   branch_name = "%[1]s-1"
-}
-
-resource "aws_amplify_branch" "test2" {
+}resource "aws_amplify_branch" "test2" {
   app_id  = aws_amplify_app.test.id
   branch_name = "%[1]s-2"
-}
-
-resource "aws_amplify_webhook" "test" {
+}resource "aws_amplify_webhook" "test" {
   app_id  = aws_amplify_app.test.id
   branch_name = aws_amplify_branch.test2.branch_name
   description = "testdescription2"

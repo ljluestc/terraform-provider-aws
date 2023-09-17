@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cloud9_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cloud9_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/cloud9"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,16 +11,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcloud9 "github.com/hashicorp/terraform-provider-aws/internal/service/cloud9"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccCloud9EnvironmentEC2_basic(t *testing.T) {
+)func TestAccCloud9EnvironmentEC2_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf cloud9.Environment
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloud9_environment_ec2.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var conf cloud9.Environment	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_cloud9_environment_ec2.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloud9.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -52,20 +40,14 @@ func TestAccCloud9EnvironmentEC2_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloud9EnvironmentEC2_allFields(t *testing.T) {
+}func TestAccCloud9EnvironmentEC2_allFields(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf cloud9.Environment
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var conf cloud9.Environment	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	name1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	name2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	description1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	description2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloud9_environment_ec2.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloud9_environment_ec2.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloud9.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -102,16 +84,10 @@ func TestAccCloud9EnvironmentEC2_allFields(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloud9EnvironmentEC2_tags(t *testing.T) {
+}func TestAccCloud9EnvironmentEC2_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf cloud9.Environment
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloud9_environment_ec2.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var conf cloud9.Environment	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_cloud9_environment_ec2.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloud9.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -150,16 +126,10 @@ func TestAccCloud9EnvironmentEC2_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloud9EnvironmentEC2_disappears(t *testing.T) {
+}func TestAccCloud9EnvironmentEC2_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf cloud9.Environment
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloud9_environment_ec2.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var conf cloud9.Environment	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_cloud9_environment_ec2.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloud9.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -176,95 +146,53 @@ func TestAccCloud9EnvironmentEC2_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckEnvironmentEC2Exists(ctx context.Context, n string, v *cloud9.Environment) resource.TestCheckFunc {
+}func testAccCheckEnvironmentEC2Exists(ctx context.Context, n string, v *cloud9.Environment) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Cloud9 Environment EC2 ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Cloud9Conn(ctx)
-
-		output, err := tfcloud9.FindEnvironmentByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).Cloud9Conn(ctx)		output, err := tfcloud9.FindEnvironmentByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccCheckEnvironmentEC2Destroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckEnvironmentEC2Destroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Cloud9Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).Cloud9Conn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_cloud9_environment_ec2" {
 				continue
-			}
-
-			_, err := tfcloud9.FindEnvironmentByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfcloud9.FindEnvironmentByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Cloud9 Environment EC2 %s still exists.", rs.Primary.ID)
+			}			return fmt.Errorf("Cloud9 Environment EC2 %s still exists.", rs.Primary.ID)
 		}
 		return nil
 	}
-}
-
-func testAccEnvironmentEC2BaseConfig(rName string) string {
+}func testAccEnvironmentEC2BaseConfig(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
+  cidr_block = "10.0.0.0/16"  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test" {
+}resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block   = "10.0.0.0/24"
-  vpc_id  = aws_vpc.test.id
-
-  tags = {
+  vpc_id  = aws_vpc.test.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+}resource "aws_internet_gateway" "test" {
+  vpc_id = aws_vpc.test.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_route" "test" {
+}resource "aws_route" "test" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id= aws_internet_gateway.test.id
   route_table_id= aws_vpc.test.main_route_table_id
 }
 `, rName))
-}
-
-func testAccEnvironmentEC2Config_basic(rName string) string {
+}func testAccEnvironmentEC2Config_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentEC2BaseConfig(rName), fmt.Sprintf(`
 resource "aws_cloud9_environment_ec2" "test" {
   instance_type = "t2.micro"
@@ -272,9 +200,7 @@ resource "aws_cloud9_environment_ec2" "test" {
   subnet_id= aws_subnet.test.id
 }
 `, rName))
-}
-
-func testAccEnvironmentEC2Config_allFields(rName, name, description string) string {
+}func testAccEnvironmentEC2Config_allFields(rName, name, description string) string {
 	return acctest.ConfigCompose(testAccEnvironmentEC2BaseConfig(rName), fmt.Sprintf(`
 resource "aws_cloud9_environment_ec2" "test" {
   automatic_stop_time_minutes = 60
@@ -285,36 +211,26 @@ resource "aws_cloud9_environment_ec2" "test" {
   subnet_id= aws_subnet.test.id
   connection_type= "CONNECT_SSH"
   image_id= "amazonlinux-2-x86_64"
-}
-
-resource "aws_iam_user" "test" {
+}resource "aws_iam_user" "test" {
   name = %[3]q
 }
 `, name, description, rName))
-}
-
-func testAccEnvironmentEC2Config_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccEnvironmentEC2Config_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccEnvironmentEC2BaseConfig(rName), fmt.Sprintf(`
 resource "aws_cloud9_environment_ec2" "test" {
   instance_type = "t2.micro"
   name= %[1]q
-  subnet_id= aws_subnet.test.id
-
-  tags = {
+  subnet_id= aws_subnet.test.id  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccEnvironmentEC2Config_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccEnvironmentEC2Config_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccEnvironmentEC2BaseConfig(rName), fmt.Sprintf(`
 resource "aws_cloud9_environment_ec2" "test" {
   instance_type = "t2.micro"
   name= %[1]q
-  subnet_id= aws_subnet.test.id
-
-  tags = {
+  subnet_id= aws_subnet.test.id  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

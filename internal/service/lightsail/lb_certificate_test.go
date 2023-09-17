@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -27,9 +21,7 @@ func testAccLoadBalancerCertificate_basic(t *testing.T) {
 	resourceName := "aws_lightsail_lb_certificate.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	lbName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())
-
-	resource.Test(t, resource.TestCase{
+	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -63,9 +55,7 @@ func testAccLoadBalancerCertificate_subjectAlternativeNames(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	lbName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())
-	subjectAlternativeName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())
-
-	resource.Test(t, resource.TestCase{
+	subjectAlternativeName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -95,9 +85,7 @@ func testAccLoadBalancerCertificate_domainValidationRecords(t *testing.T) {
 	// Lightsail will only return Domain Validation Options when using a non-test domain.
 	// We need to provide a non-test domain in order to test these values.
 	domainName := fmt.Sprintf("%s.com", acctest.ResourcePrefix)
-	subjectAlternativeName := fmt.Sprintf("%s.com", acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	subjectAlternativeName := fmt.Sprintf("%s.com", acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -129,9 +117,7 @@ func testAccLoadBalancerCertificate_disappears(t *testing.T) {
 	resourceName := "aws_lightsail_lb_certificate.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	lbName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())
-
-	resource.Test(t, resource.TestCase{
+	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -157,24 +143,12 @@ func testAccCheckLoadBalancerCertificateDestroy(ctx context.Context) resource.Te
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_lightsail_lb_certificate" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-			_, err := tflightsail.FindLoadBalancerCertificateById(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)			_, err := tflightsail.FindLoadBalancerCertificateById(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResLoadBalancerCertificate, rs.Primary.ID, errors.New("still exists"))
-		}
-
-		return nil
+			}			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResLoadBalancerCertificate, rs.Primary.ID, errors.New("still exists"))
+		}		return nil
 	}
 }
 func testAccCheckLoadBalancerCertificateExists(ctx context.Context, n string) resource.TestCheckFunc {
@@ -182,25 +156,13 @@ func testAccCheckLoadBalancerCertificateExists(ctx context.Context, n string) re
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return errors.New("No Certificate ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		respCertificate, err := tflightsail.FindLoadBalancerCertificateById(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		respCertificate, err := tflightsail.FindLoadBalancerCertificateById(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		if respCertificate == nil {
+		}		if respCertificate == nil {
 			return fmt.Errorf("Load Balancer Certificate %q does not exist", rs.Primary.ID)
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccLoadBalancerCertificateConfigBase(lbName string) string {

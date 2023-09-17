@@ -1,75 +1,47 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageappconfig
-
-import(
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/appconfig"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/create"
-	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-//@SDKDataSource("aws_appconfig_configuration_profiles")
+//SPDX-License-Identifier:MPL-2.0packageappconfigimport(
+"context""github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/appconfig"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/create"
+"github.com/hashicorp/terraform-provider-aws/names"
+)//@SDKDataSource("aws_appconfig_configuration_profiles")
 funcDataSourceConfigurationProfiles()*schema.Resource{
-	return&schema.Resource{
-		ReadWithoutTimeout:dataSourceConfigurationProfilesRead,
-		Schema:map[string]*schema.Schema{
-			"application_id":{
-				Type:schema.TypeString,
-				Required:true,
-			},
-			"configuration_profile_ids":{
-				Type:schema.TypeSet,
-				Computed:true,
-				Elem:&schema.Schema{Type:schema.TypeString},
-			},
-		},
-	}
+return&schema.Resource{
+ReadWithoutTimeout:dataSourceConfigurationProfilesRead,
+Schema:map[string]*schema.Schema{
+"application_id":{
+Type:schema.TypeString,
+Required:true,
+},
+"configuration_profile_ids":{
+Type:schema.TypeSet,
+Computed:true,
+Elem:&schema.Schema{Type:schema.TypeString},
+},
+},
 }
-
-const(
-	DSNameConfigurationProfiles="ConfigurationProfilesDataSource"
-)
-
-funcdataSourceConfigurationProfilesRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
-	conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
-	appId:=d.Get("application_id").(string)
-
-	out,err:=findConfigurationProfileSummariesByApplication(ctx,conn,appId)
-	iferr!=nil{
-		returncreate.DiagError(names.AppConfig,create.ErrActionReading,DSNameConfigurationProfiles,appId,err)
-	}
-
-	d.SetId(appId)
-
-	varconfigIds[]*string
-	for_,v:=rangeout{
-		configIds=append(configIds,v.Id)
-	}
-
-	d.Set("configuration_profile_ids",aws.StringValueSlice(configIds))
-
-	returnnil
-}
-
-funcfindConfigurationProfileSummariesByApplication(ctxcontext.Context,conn*appconfig.AppConfig,applicationIdstring)([]*appconfig.ConfigurationProfileSummary,error){
-	varoutputs[]*appconfig.ConfigurationProfileSummary
-	err:=conn.ListConfigurationProfilesPagesWithContext(ctx,&appconfig.ListConfigurationProfilesInput{
-		ApplicationId:aws.String(applicationId),
-	},func(output*appconfig.ListConfigurationProfilesOutput,lastPagebool)bool{
-		outputs=append(outputs,output.Items...)
-		return!lastPage
-	})
-
-	iferr!=nil{
-		returnnil,err
-	}
-
-	returnoutputs,nil
+}const(
+DSNameConfigurationProfiles="ConfigurationProfilesDataSource"
+)funcdataSourceConfigurationProfilesRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+conn:=meta.(*conns.AWSClient).AppConfigConn(ctx)
+appId:=d.Get("application_id").(string)out,err:=findConfigurationProfileSummariesByApplication(ctx,conn,appId)
+iferr!=nil{
+returncreate.DiagError(names.AppConfig,create.ErrActionReading,DSNameConfigurationProfiles,appId,err)
+}d.SetId(appId)varconfigIds[]*string
+for_,v:=rangeout{
+configIds=append(configIds,v.Id)
+}d.Set("configuration_profile_ids",aws.StringValueSlice(configIds))returnnil
+}funcfindConfigurationProfileSummariesByApplication(ctxcontext.Context,conn*appconfig.AppConfig,applicationIdstring)([]*appconfig.ConfigurationProfileSummary,error){
+varoutputs[]*appconfig.ConfigurationProfileSummary
+err:=conn.ListConfigurationProfilesPagesWithContext(ctx,&appconfig.ListConfigurationProfilesInput{
+ApplicationId:aws.String(applicationId),
+},func(output*appconfig.ListConfigurationProfilesOutput,lastPagebool)bool{
+outputs=append(outputs,output.Items...)
+return!lastPage
+})iferr!=nil{
+returnnil,err
+}returnoutputs,nil
 }

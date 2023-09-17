@@ -10,13 +10,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/emr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func statusCluster(ctx context.Context, conn *emr.EMR, id string) retry.StateRefresh
+)func statusCluster(ctx context.Context, conn *emr.EMR, id string) retry.StateRefresh
 func {
-	return 
-func() (interface{}, string, error) {
+	returnfunc() (interface{}, string, error) {
 		input := &emr.DescribeClusterInput{
 			ClusterId: aws.String(id),
 		}

@@ -1,18 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package macie2_test
-
-import (
-	"testing"
-
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccMacie2_serial(t *testing.T) {
-	t.Parallel()
-
-	testCases := map[string]map[string]func(t *testing.T){
+// SPDX-License-Identifier: MPL-2.0package macie2_testimport (
+	"testing"	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+)func TestAccMacie2_serial(t *testing.T) {
+	t.Parallel()	testCases := map[string]map[string]func(t *testing.T){
 		"Account": {
 			"basic":  testAccAccount_basic,
 			"finding_publishing_frequency": testAccAccount_FindingPublishingFrequency,
@@ -67,7 +57,5 @@ func TestAccMacie2_serial(t *testing.T) {
 		"InvitationAccepter": {
 			"basic": testAccInvitationAccepter_basic,
 		},
-	}
-
-	acctest.RunSerialTests2Levels(t, testCases, 0)
+	}	acctest.RunSerialTests2Levels(t, testCases, 0)
 }

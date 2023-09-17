@@ -20,10 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfwafregional "github.com/hashicorp/terraform-provider-aws/internal/service/wafregional"
-)
-
-
-func TestAccWAFRegionalRuleGroup_basic(t *testing.T) {
+)func TestAccWAFRegionalRuleGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rule waf.Rule
 	var group waf.RuleGroup
@@ -34,8 +31,7 @@ func TestAccWAFRegionalRuleGroup_basic(t *testing.T) {
 	resourceName := "aws_wafregional_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRuleGroupDestroy(ctx),
@@ -65,10 +61,7 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccWAFRegionalRuleGroup_tags(t *testing.T) {
+}func TestAccWAFRegionalRuleGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rule waf.Rule
 	var group waf.RuleGroup
@@ -78,8 +71,7 @@ func TestAccWAFRegionalRuleGroup_tags(t *testing.T) {
 	resourceName := "aws_wafregional_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRuleGroupDestroy(ctx),
@@ -122,10 +114,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccWAFRegionalRuleGroup_changeNameForceNew(t *testing.T) {
+}func TestAccWAFRegionalRuleGroup_changeNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after waf.RuleGroup
 
@@ -135,8 +124,7 @@ func TestAccWAFRegionalRuleGroup_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_wafregional_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRuleGroupDestroy(ctx),
@@ -168,10 +156,7 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccWAFRegionalRuleGroup_disappears(t *testing.T) {
+}func TestAccWAFRegionalRuleGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group waf.RuleGroup
 	ruleName := fmt.Sprintf("tfacc%s", sdkacctest.RandString(5))
@@ -179,8 +164,7 @@ func TestAccWAFRegionalRuleGroup_disappears(t *testing.T) {
 	resourceName := "aws_wafregional_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRuleGroupDestroy(ctx),
@@ -196,10 +180,7 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func TestAccWAFRegionalRuleGroup_changeActivatedRules(t *testing.T) {
+}func TestAccWAFRegionalRuleGroup_changeActivatedRules(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rule0, rule1, rule2, rule3 waf.Rule
 	var groupBefore, groupAfter waf.RuleGroup
@@ -212,8 +193,7 @@ func TestAccWAFRegionalRuleGroup_changeActivatedRules(t *testing.T) {
 	resourceName := "aws_wafregional_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRuleGroupDestroy(ctx),
@@ -274,18 +254,14 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccWAFRegionalRuleGroup_noActivatedRules(t *testing.T) {
+}func TestAccWAFRegionalRuleGroup_noActivatedRules(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group waf.RuleGroup
 	groupName := fmt.Sprintf("tfacc%s", sdkacctest.RandString(5))
 	resourceName := "aws_wafregional_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckRuleGroupDestroy(ctx),
@@ -301,13 +277,9 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccCheckRuleGroupDisappears(ctx context.Context, group *waf.RuleGroup) resource.TestCheck
+}func testAccCheckRuleGroupDisappears(ctx context.Context, group *waf.RuleGroup) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 region := acctest.Provider.Meta().(*conns.AWSClient).Region
 
@@ -319,8 +291,7 @@ if err != nil {
 }
 
 wr := tfwafregional.NewRetryer(conn, region)
-_, err = wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 	req := &waf.UpdateRuleGroupInput{
 ChangeToken: token,
 RuleGroupId: group.RuleGroupId,
@@ -340,8 +311,7 @@ if err != nil {
 	return fmt.Errorf("Error Updating WAF Regional Rule Group: %s", err)
 }
 
-_, err = wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 	opts := &waf.DeleteRuleGroupInput{
 ChangeToken: token,
 RuleGroupId: group.RuleGroupId,
@@ -353,13 +323,9 @@ if err != nil {
 }
 return nil
 	}
-}
-
-
-func testAccCheckRuleGroupDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckRuleGroupDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_wafregional_rule_group" {
 continue
@@ -385,13 +351,9 @@ return nil
 
 return nil
 	}
-}
-
-
-func testAccCheckRuleGroupExists(ctx context.Context, n string, group *waf.RuleGroup) resource.TestCheck
+}func testAccCheckRuleGroupExists(ctx context.Context, n string, group *waf.RuleGroup) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
@@ -417,10 +379,7 @@ if *resp.RuleGroup.RuleGroupId == rs.Primary.ID {
 
 return fmt.Errorf("WAF Regional Rule Group (%s) not found", rs.Primary.ID)
 	}
-}
-
-
-func testAccRuleGroupConfig_basic(ruleName, groupName string) string {
+}func testAccRuleGroupConfig_basic(ruleName, groupName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
   name  = "%[1]s"
@@ -441,10 +400,7 @@ type = "COUNT"
   }
 }
 `, ruleName, groupName)
-}
-
-
-func testAccRuleGroupConfig_tags1(ruleName, groupName, tagKey1, tagValue1 string) string {
+}func testAccRuleGroupConfig_tags1(ruleName, groupName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
   name  = %[1]q
@@ -469,10 +425,7 @@ type = "COUNT"
   }
 }
 `, ruleName, groupName, tagKey1, tagValue1)
-}
-
-
-func testAccRuleGroupConfig_tags2(ruleName, groupName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccRuleGroupConfig_tags2(ruleName, groupName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
   name  = %[1]q
@@ -498,10 +451,7 @@ type = "COUNT"
   }
 }
 `, ruleName, groupName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-
-func testAccRuleGroupConfig_changeActivateds(ruleName1, ruleName2, ruleName3, groupName string) string {
+}func testAccRuleGroupConfig_changeActivateds(ruleName1, ruleName2, ruleName3, groupName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
   name  = "%[1]s"
@@ -550,10 +500,7 @@ type = "BLOCK"
   }
 }
 `, ruleName1, ruleName2, ruleName3, groupName)
-}
-
-
-func testAccRuleGroupConfig_noActivateds(groupName string) string {
+}func testAccRuleGroupConfig_noActivateds(groupName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule_group" "test" {
   name  = "%[1]s"
@@ -567,8 +514,7 @@ resource "aws_wafregional_rule_group" "test" {
 
 func computeActivatedRuleWithRuleId(rule *waf.Rule, actionType string, priority int, idx *int) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 ruleResource := tfwafregional.ResourceRuleGroup().SchemaMap()["activated_rule"].Elem.(*schema.Resource)
 
 m := map[string]interface{}{

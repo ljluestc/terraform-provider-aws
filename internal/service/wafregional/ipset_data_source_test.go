@@ -12,18 +12,14 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func TestAccWAFRegionalIPSetDataSource_basic(t *testing.T) {
+)func TestAccWAFRegionalIPSetDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafregional_ipset.ipset"
 	datasourceName := "data.aws_wafregional_ipset.ipset"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -41,10 +37,7 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccIPSetDataSourceConfig_name(name string) string {
+}func testAccIPSetDataSourceConfig_name(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_ipset" "ipset" {
   name = %[1]q

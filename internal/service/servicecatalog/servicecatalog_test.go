@@ -1,18 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicecatalog_test
-
-import (
-"testing"
-
-"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccServiceCatalog_serial(t *testing.T) {
-t.Parallel()
-
-testCases := map[string]map[string]func(t *testing.T){
+// SPDX-License-Identifier: MPL-2.0package servicecatalog_testimport (
+"testing""github.com/hashicorp/terraform-provider-aws/internal/acctest"
+)func TestAccServiceCatalog_serial(t *testing.T) {
+t.Parallel()testCases := map[string]map[string]func(t *testing.T){
 "OrganizationsAccess": {
 "basic": testAccOrganizationsAccess_basic,
 },
@@ -22,7 +12,5 @@ testCases := map[string]map[string]func(t *testing.T){
 "organizationalUnit": testAccPortfolioShare_organizationalUnit,
 "disappears":testAccPortfolioShare_disappears,
 },
-}
-
-acctest.RunSerialTests2Levels(t, testCases, 0)
+}acctest.RunSerialTests2Levels(t, testCases, 0)
 }

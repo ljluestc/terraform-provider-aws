@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshift_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package redshift_testimport (
 "context"
 "fmt"
 "testing"
-"time"
-
-"github.com/YakDriver/regexache"
+"time""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/service/redshift"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -19,15 +13,11 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfredshift "github.com/hashicorp/terraform-provider-aws/internal/service/redshift"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccRedshiftScheduledAction_basicPauseCluster(t *testing.T) {
+)func TestAccRedshiftScheduledAction_basicPauseCluster(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.ScheduledAction
 resourceName := "aws_redshift_scheduled_action.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -74,17 +64,13 @@ resource.TestCheckResourceAttr(resourceName, "target_action.0.pause_cluster.0.cl
 },
 },
 })
-}
-
-func TestAccRedshiftScheduledAction_pauseClusterWithOptions(t *testing.T) {
+}func TestAccRedshiftScheduledAction_pauseClusterWithOptions(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.ScheduledAction
 resourceName := "aws_redshift_scheduled_action.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 startTime := time.Now().UTC().Add(1 * time.Hour).Format(time.RFC3339)
-endTime := time.Now().UTC().Add(2 * time.Hour).Format(time.RFC3339)
-
-resource.ParallelTest(t, resource.TestCase{
+endTime := time.Now().UTC().Add(2 * time.Hour).Format(time.RFC3339)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -114,15 +100,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccRedshiftScheduledAction_basicResumeCluster(t *testing.T) {
+}func TestAccRedshiftScheduledAction_basicResumeCluster(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.ScheduledAction
 resourceName := "aws_redshift_scheduled_action.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -169,15 +151,11 @@ resource.TestCheckResourceAttr(resourceName, "target_action.0.resume_cluster.0.c
 },
 },
 })
-}
-
-func TestAccRedshiftScheduledAction_basicResizeCluster(t *testing.T) {
+}func TestAccRedshiftScheduledAction_basicResizeCluster(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.ScheduledAction
 resourceName := "aws_redshift_scheduled_action.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -224,15 +202,11 @@ resource.TestCheckResourceAttr(resourceName, "target_action.0.resize_cluster.0.c
 },
 },
 })
-}
-
-func TestAccRedshiftScheduledAction_resizeClusterWithOptions(t *testing.T) {
+}func TestAccRedshiftScheduledAction_resizeClusterWithOptions(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.ScheduledAction
 resourceName := "aws_redshift_scheduled_action.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -266,15 +240,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccRedshiftScheduledAction_disappears(t *testing.T) {
+}func TestAccRedshiftScheduledAction_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.ScheduledAction
 resourceName := "aws_redshift_scheduled_action.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -290,65 +260,33 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func testAccCheckScheduledActionDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckScheduledActionDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_redshift_scheduled_action" {
 continue
-}
-
-_, err := tfredshift.FindScheduledActionByName(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+}_, err := tfredshift.FindScheduledActionByName(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("Redshift Scheduled Action %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("Redshift Scheduled Action %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccCheckScheduledActionExists(ctx context.Context, n string, v *redshift.ScheduledAction) resource.TestCheckFunc {
+}func testAccCheckScheduledActionExists(ctx context.Context, n string, v *redshift.ScheduledAction) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No Redshift Scheduled Action ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-output, err := tfredshift.FindScheduledActionByName(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)output, err := tfredshift.FindScheduledActionByName(ctx, conn, rs.Primary.ID)if err != nil {
 return err
+}*v = *outputreturn nil
 }
-
-*v = *output
-
-return nil
-}
-}
-
-func testAccScheduledActionBaseConfig(rName string) string {
+}func testAccScheduledActionBaseConfig(rName string) string {
 return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -366,12 +304,8 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_policy" "test" {
-  name = %[1]q
-
-  policy = <<EOF
+}resource "aws_iam_policy" "test" {
+  name = %[1]q  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -388,32 +322,24 @@ resource "aws_iam_policy" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "test" {
+}resource "aws_iam_role_policy_attachment" "test" {
   policy_arn = aws_iam_policy.test.arn
   role   = aws_iam_role.test.name
 }
 `, rName, rName)
-}
-
-func testAccScheduledActionConfig_pauseCluster(rName, schedule string) string {
+}func testAccScheduledActionConfig_pauseCluster(rName, schedule string) string {
 return acctest.ConfigCompose(testAccScheduledActionBaseConfig(rName), fmt.Sprintf(`
 resource "aws_redshift_scheduled_action" "test" {
   name = %[1]q
   schedule = %[2]q
-  iam_role = aws_iam_role.test.arn
-
-  target_action {
+  iam_role = aws_iam_role.test.arn  target_action {
 pause_cluster {
   cluster_identifier = "tf-test-identifier"
 }
   }
 }
 `, rName, schedule))
-}
-
-func testAccScheduledActionConfig_pauseClusterFullOptions(rName, schedule, description string, enable bool, startTime, endTime string) string {
+}func testAccScheduledActionConfig_pauseClusterFullOptions(rName, schedule, description string, enable bool, startTime, endTime string) string {
 return acctest.ConfigCompose(testAccScheduledActionBaseConfig(rName), fmt.Sprintf(`
 resource "aws_redshift_scheduled_action" "test" {
   name= %[1]q
@@ -422,57 +348,43 @@ resource "aws_redshift_scheduled_action" "test" {
   start_time  = %[4]q
   end_time= %[5]q
   schedule= %[6]q
-  iam_role= aws_iam_role.test.arn
-
-  target_action {
+  iam_role= aws_iam_role.test.arn  target_action {
 pause_cluster {
   cluster_identifier = "tf-test-identifier"
 }
   }
 }
 `, rName, description, enable, startTime, endTime, schedule))
-}
-
-func testAccScheduledActionConfig_resumeCluster(rName, schedule string) string {
+}func testAccScheduledActionConfig_resumeCluster(rName, schedule string) string {
 return acctest.ConfigCompose(testAccScheduledActionBaseConfig(rName), fmt.Sprintf(`
 resource "aws_redshift_scheduled_action" "test" {
   name = %[1]q
   schedule = %[2]q
-  iam_role = aws_iam_role.test.arn
-
-  target_action {
+  iam_role = aws_iam_role.test.arn  target_action {
 resume_cluster {
   cluster_identifier = "tf-test-identifier"
 }
   }
 }
 `, rName, schedule))
-}
-
-func testAccScheduledActionConfig_resizeClusterBasic(rName, schedule string) string {
+}func testAccScheduledActionConfig_resizeClusterBasic(rName, schedule string) string {
 return acctest.ConfigCompose(testAccScheduledActionBaseConfig(rName), fmt.Sprintf(`
 resource "aws_redshift_scheduled_action" "test" {
   name = %[1]q
   schedule = %[2]q
-  iam_role = aws_iam_role.test.arn
-
-  target_action {
+  iam_role = aws_iam_role.test.arn  target_action {
 resize_cluster {
   cluster_identifier = "tf-test-identifier"
 }
   }
 }
 `, rName, schedule))
-}
-
-func testAccScheduledActionConfig_resizeClusterFullOptions(rName, schedule string, classic bool, clusterType, nodeType string, numberOfNodes int) string {
+}func testAccScheduledActionConfig_resizeClusterFullOptions(rName, schedule string, classic bool, clusterType, nodeType string, numberOfNodes int) string {
 return acctest.ConfigCompose(testAccScheduledActionBaseConfig(rName), fmt.Sprintf(`
 resource "aws_redshift_scheduled_action" "test" {
   name = %[1]q
   schedule = %[2]q
-  iam_role = aws_iam_role.test.arn
-
-  target_action {
+  iam_role = aws_iam_role.test.arn  target_action {
 resize_cluster {
   cluster_identifier = "tf-test-identifier"
   classic   = %[3]t
@@ -483,35 +395,23 @@ resize_cluster {
   }
 }
 `, rName, schedule, classic, clusterType, nodeType, numberOfNodes))
-}
-
-func TestAccRedshiftScheduledAction_validScheduleName(t *testing.T) {
-t.Parallel()
-
-var f = validation.StringMatch(regexache.MustCompile(`^[0-9a-z-]{1,63}$`), "")
-
-validIds := []string{
+}func TestAccRedshiftScheduledAction_validScheduleName(t *testing.T) {
+t.Parallel()var f = validation.StringMatch(regexache.MustCompile(`^[0-9a-z-]{1,63}$`), "")validIds := []string{
 "tf-test-schedule-action-1",
 acctest.ResourcePrefix,
 sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-}
-
-for _, s := range validIds {
+}for _, s := range validIds {
 _, errors := f(s, "")
 if len(errors) > 0 {
 t.Fatalf("%q should be a valid replication instance id: %v", s, errors)
 }
-}
-
-invalidIds := []string{
+}invalidIds := []string{
 "tf_test_schedule-action_1",
 "tfTestScheduleACtion",
 "tf.test.schedule.action.1",
 "tf test schedule action 1",
 "tf-test-schedule-action-1!",
-}
-
-for _, s := range invalidIds {
+}for _, s := range invalidIds {
 _, errors := f(s, "")
 if len(errors) == 0 {
 t.Fatalf("%q should not be a valid replication instance id: %v", s, errors)

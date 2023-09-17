@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ecs_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ecs_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/ecs"
+	"testing"	"github.com/aws/aws-sdk-go/service/ecs"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,15 +10,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfecs "github.com/hashicorp/terraform-provider-aws/internal/service/ecs"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccECSCapacityProvider_basic(t *testing.T) {
+)func TestAccECSCapacityProvider_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var provider ecs.CapacityProvider
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecs_capacity_provider.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_ecs_capacity_provider.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -55,15 +45,11 @@ func TestAccECSCapacityProvider_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccECSCapacityProvider_disappears(t *testing.T) {
+}func TestAccECSCapacityProvider_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var provider ecs.CapacityProvider
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecs_capacity_provider.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_ecs_capacity_provider.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -79,15 +65,11 @@ func TestAccECSCapacityProvider_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccECSCapacityProvider_managedScaling(t *testing.T) {
+}func TestAccECSCapacityProvider_managedScaling(t *testing.T) {
 	ctx := acctest.Context(t)
 	var provider ecs.CapacityProvider
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecs_capacity_provider.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_ecs_capacity_provider.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -143,15 +125,11 @@ func TestAccECSCapacityProvider_managedScaling(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccECSCapacityProvider_managedScalingPartial(t *testing.T) {
+}func TestAccECSCapacityProvider_managedScalingPartial(t *testing.T) {
 	ctx := acctest.Context(t)
 	var provider ecs.CapacityProvider
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecs_capacity_provider.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_ecs_capacity_provider.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -179,15 +157,11 @@ func TestAccECSCapacityProvider_managedScalingPartial(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccECSCapacityProvider_tags(t *testing.T) {
+}func TestAccECSCapacityProvider_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var provider ecs.CapacityProvider
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecs_capacity_provider.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_ecs_capacity_provider.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -226,60 +200,30 @@ func TestAccECSCapacityProvider_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckCapacityProviderDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckCapacityProviderDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ECSConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).ECSConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_ecs_capacity_provider" {
 				continue
-			}
-
-			_, err := tfecs.FindCapacityProviderByARN(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfecs.FindCapacityProviderByARN(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("ECS Capacity Provider ID %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("ECS Capacity Provider ID %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckCapacityProviderExists(ctx context.Context, resourceName string, provider *ecs.CapacityProvider) resource.TestCheckFunc {
+}func testAccCheckCapacityProviderExists(ctx context.Context, resourceName string, provider *ecs.CapacityProvider) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No ECS Capacity Provider ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ECSConn(ctx)
-
-		output, err := tfecs.FindCapacityProviderByARN(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).ECSConn(ctx)		output, err := tfecs.FindCapacityProviderByARN(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*provider = *output
-
-		return nil
+		}		*provider = *output		return nil
 	}
-}
-
-func testAccCapacityProviderConfig_base(rName string) string {
+}func testAccCapacityProviderConfig_base(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
@@ -288,55 +232,37 @@ resource "aws_launch_template" "test" {
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
   name = %[1]q
-}
-
-resource "aws_autoscaling_group" "test" {
+}resource "aws_autoscaling_group" "test" {
   availability_zones = data.aws_availability_zones.available.names
   desired_capacity   = 0
   max_size  = 0
   min_size  = 0
-  name  = %[1]q
-
-  launch_template {
+  name  = %[1]q  launch_template {
     id = aws_launch_template.test.id
-  }
-
-  tag {
+  }  tag {
     key    = "Name"
     value  = %[1]q
     propagate_at_launch = true
-  }
-
-  lifecycle {
+  }  lifecycle {
     ignore_changes = [
       tag,
     ]
   }
 }
 `, rName))
-}
-
-func testAccCapacityProviderConfig_basic(rName string) string {
+}func testAccCapacityProviderConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccCapacityProviderConfig_base(rName), fmt.Sprintf(`
 resource "aws_ecs_capacity_provider" "test" {
-  name = %[1]q
-
-  auto_scaling_group_provider {
+  name = %[1]q  auto_scaling_group_provider {
     auto_scaling_group_arn = aws_autoscaling_group.test.arn
   }
 }
 `, rName))
-}
-
-func testAccCapacityProviderConfig_managedScaling(rName, status string, warmup, max, min, cap int) string {
+}func testAccCapacityProviderConfig_managedScaling(rName, status string, warmup, max, min, cap int) string {
 	return acctest.ConfigCompose(testAccCapacityProviderConfig_base(rName), fmt.Sprintf(`
 resource "aws_ecs_capacity_provider" "test" {
-  name = %[1]q
-
-  auto_scaling_group_provider {
-    auto_scaling_group_arn = aws_autoscaling_group.test.arn
-
-    managed_scaling {
+  name = %[1]q  auto_scaling_group_provider {
+    auto_scaling_group_arn = aws_autoscaling_group.test.arn    managed_scaling {
       instance_warmup_period    = %[2]d
       maximum_scaling_step_size = %[3]d
       minimum_scaling_step_size = %[4]d
@@ -346,52 +272,34 @@ resource "aws_ecs_capacity_provider" "test" {
   }
 }
 `, rName, warmup, max, min, status, cap))
-}
-
-func testAccCapacityProviderConfig_managedScalingPartial(rName string) string {
+}func testAccCapacityProviderConfig_managedScalingPartial(rName string) string {
 	return acctest.ConfigCompose(testAccCapacityProviderConfig_base(rName), fmt.Sprintf(`
 resource "aws_ecs_capacity_provider" "test" {
-  name = %[1]q
-
-  auto_scaling_group_provider {
-    auto_scaling_group_arn = aws_autoscaling_group.test.arn
-
-    managed_scaling {
+  name = %[1]q  auto_scaling_group_provider {
+    auto_scaling_group_arn = aws_autoscaling_group.test.arn    managed_scaling {
       minimum_scaling_step_size = 2
       status       = "ENABLED"
     }
   }
 }
 `, rName))
-}
-
-func testAccCapacityProviderConfig_tags1(rName, tag1Key, tag1Value string) string {
+}func testAccCapacityProviderConfig_tags1(rName, tag1Key, tag1Value string) string {
 	return acctest.ConfigCompose(testAccCapacityProviderConfig_base(rName), fmt.Sprintf(`
 resource "aws_ecs_capacity_provider" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
-  }
-
-  auto_scaling_group_provider {
+  }  auto_scaling_group_provider {
     auto_scaling_group_arn = aws_autoscaling_group.test.arn
   }
 }
 `, rName, tag1Key, tag1Value))
-}
-
-func testAccCapacityProviderConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
+}func testAccCapacityProviderConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return acctest.ConfigCompose(testAccCapacityProviderConfig_base(rName), fmt.Sprintf(`
 resource "aws_ecs_capacity_provider" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
-  }
-
-  auto_scaling_group_provider {
+  }  auto_scaling_group_provider {
     auto_scaling_group_arn = aws_autoscaling_group.test.arn
   }
 }

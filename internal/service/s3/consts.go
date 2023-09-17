@@ -1,8 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package s3
-
-const (
-	filterRulesSliceStartLen = 2
-)
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package s3const (	filterRulesSliceStartLen = 2)

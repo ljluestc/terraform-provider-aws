@@ -1,14 +1,8 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packagefsx
-
-import(
+//SPDX-License-Identifier:MPL-2.0packagefsximport(
 	"context"
 	"log"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/fsx"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -23,9 +17,7 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-//@SDKResource("aws_fsx_ontap_file_system",name="ONTAPFileSystem")
+)//@SDKResource("aws_fsx_ontap_file_system",name="ONTAPFileSystem")
 //@Tags(identifierAttribute="arn")
 funcResourceOntapFileSystem()*schema.Resource{
 	return&schema.Resource{
@@ -35,15 +27,11 @@ funcResourceOntapFileSystem()*schema.Resource{
 		DeleteWithoutTimeout:resourceOntapFileSystemDelete,
 		Importer:&schema.ResourceImporter{
 			StateContext:schema.ImportStatePassthroughContext,
-		},
-
-		Timeouts:&schema.ResourceTimeout{
+		},		Timeouts:&schema.ResourceTimeout{
 			Create:schema.DefaultTimeout(60*time.Minute),
 			Update:schema.DefaultTimeout(60*time.Minute),
 			Delete:schema.DefaultTimeout(60*time.Minute),
-		},
-
-		Schema:map[string]*schema.Schema{
+		},		Schema:map[string]*schema.Schema{
 			"arn":{
 				Type:schema.TypeString,
 				Computed:true,
@@ -227,17 +215,11 @@ funcResourceOntapFileSystem()*schema.Resource{
 					validation.StringMatch(regexache.MustCompile(`^[1-7]:([01]\d|2[0-3]):?([0-5]\d)$`),"mustbeintheformatd:HH:MM"),
 				),
 			},
-		},
-
-		CustomizeDiff:verify.SetTagsDiff,
+		},		CustomizeDiff:verify.SetTagsDiff,
 	}
-}
-
-funcresourceOntapFileSystemCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+}funcresourceOntapFileSystemCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).FSxConn(ctx)
-
-	input:=&fsx.CreateFileSystemInput{
+	conn:=meta.(*conns.AWSClient).FSxConn(ctx)	input:=&fsx.CreateFileSystemInput{
 		ClientRequestToken:aws.String(id.UniqueId()),
 		FileSystemType:aws.String(fsx.FileSystemTypeOntap),
 		StorageCapacity:aws.Int64(int64(d.Get("storage_capacity").(int))),
@@ -250,77 +232,39 @@ funcresourceOntapFileSystemCreate(ctxcontext.Context,d*schema.ResourceData,metai
 			PreferredSubnetId:aws.String(d.Get("preferred_subnet_id").(string)),
 		},
 		Tags:getTagsIn(ctx),
-	}
-
-	ifv,ok:=d.GetOk("kms_key_id");ok{
+	}	ifv,ok:=d.GetOk("kms_key_id");ok{
 		input.KmsKeyId=aws.String(v.(string))
-	}
-
-	ifv,ok:=d.GetOk("endpoint_ip_address_range");ok{
+	}	ifv,ok:=d.GetOk("endpoint_ip_address_range");ok{
 		input.OntapConfiguration.EndpointIpAddressRange=aws.String(v.(string))
-	}
-
-	ifv,ok:=d.GetOk("daily_automatic_backup_start_time");ok{
+	}	ifv,ok:=d.GetOk("daily_automatic_backup_start_time");ok{
 		input.OntapConfiguration.DailyAutomaticBackupStartTime=aws.String(v.(string))
-	}
-
-	ifv,ok:=d.GetOk("disk_iops_configuration");ok{
+	}	ifv,ok:=d.GetOk("disk_iops_configuration");ok{
 		input.OntapConfiguration.DiskIopsConfiguration=expandOntapFileDiskIopsConfiguration(v.([]interface{}))
-	}
-
-	ifv,ok:=d.GetOk("fsx_admin_password");ok{
+	}	ifv,ok:=d.GetOk("fsx_admin_password");ok{
 		input.OntapConfiguration.FsxAdminPassword=aws.String(v.(string))
-	}
-
-	ifv,ok:=d.GetOk("route_table_ids");ok{
+	}	ifv,ok:=d.GetOk("route_table_ids");ok{
 		input.OntapConfiguration.RouteTableIds=flex.ExpandStringSet(v.(*schema.Set))
-	}
-
-	ifv,ok:=d.GetOk("security_group_ids");ok{
+	}	ifv,ok:=d.GetOk("security_group_ids");ok{
 		input.SecurityGroupIds=flex.ExpandStringSet(v.(*schema.Set))
-	}
-
-	ifv,ok:=d.GetOk("weekly_maintenance_start_time");ok{
+	}	ifv,ok:=d.GetOk("weekly_maintenance_start_time");ok{
 		input.OntapConfiguration.WeeklyMaintenanceStartTime=aws.String(v.(string))
-	}
-
-	result,err:=conn.CreateFileSystemWithContext(ctx,input)
-
-	iferr!=nil{
+	}	result,err:=conn.CreateFileSystemWithContext(ctx,input)	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"creatingFSxONTAPFileSystem:%s",err)
-	}
-
-	d.SetId(aws.StringValue(result.FileSystem.FileSystemId))
-
-	if_,err:=waitFileSystemCreated(ctx,conn,d.Id(),d.Timeout(schema.TimeoutCreate));err!=nil{
+	}	d.SetId(aws.StringValue(result.FileSystem.FileSystemId))	if_,err:=waitFileSystemCreated(ctx,conn,d.Id(),d.Timeout(schema.TimeoutCreate));err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"waitingforFSxONTAPFileSystem(%s)create:%s",d.Id(),err)
-	}
-
-	returnappend(diags,resourceOntapFileSystemRead(ctx,d,meta)...)
-}
-
-funcresourceOntapFileSystemRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	}	returnappend(diags,resourceOntapFileSystemRead(ctx,d,meta)...)
+}funcresourceOntapFileSystemRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).FSxConn(ctx)
-
-	filesystem,err:=FindFileSystemByID(ctx,conn,d.Id())
-
-	if!d.IsNewResource()&&tfresource.NotFound(err){
+	conn:=meta.(*conns.AWSClient).FSxConn(ctx)	filesystem,err:=FindFileSystemByID(ctx,conn,d.Id())	if!d.IsNewResource()&&tfresource.NotFound(err){
 		log.Printf("[WARN]FSxONTAPFileSystem(%s)notfound,removingfromstate",d.Id())
 		d.SetId("")
 		returndiags
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"readingFSxONTAPFileSystem(%s):%s",d.Id(),err)
-	}
-
-	ontapConfig:=filesystem.OntapConfiguration
+	}	ontapConfig:=filesystem.OntapConfiguration
 	ifontapConfig==nil{
 		returnsdkdiag.AppendErrorf(diags,"describingFSxONTAPFileSystem(%s):emptyONTAPconfiguration",d.Id())
-	}
-
-	d.Set("arn",filesystem.ResourceARN)
+	}	d.Set("arn",filesystem.ResourceARN)
 	d.Set("dns_name",filesystem.DNSName)
 	d.Set("deployment_type",ontapConfig.DeploymentType)
 	d.Set("storage_type",filesystem.StorageType)
@@ -334,194 +278,106 @@ funcresourceOntapFileSystemRead(ctxcontext.Context,d*schema.ResourceData,metaint
 	d.Set("owner_id",filesystem.OwnerId)
 	d.Set("storage_capacity",filesystem.StorageCapacity)
 	d.Set("fsx_admin_password",d.Get("fsx_admin_password").(string))
-	d.Set("kms_key_id",filesystem.KmsKeyId)
-
-	iferr:=d.Set("network_interface_ids",aws.StringValueSlice(filesystem.NetworkInterfaceIds));err!=nil{
+	d.Set("kms_key_id",filesystem.KmsKeyId)	iferr:=d.Set("network_interface_ids",aws.StringValueSlice(filesystem.NetworkInterfaceIds));err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"settingnetwork_interface_ids:%s",err)
-	}
-
-	iferr:=d.Set("subnet_ids",aws.StringValueSlice(filesystem.SubnetIds));err!=nil{
+	}	iferr:=d.Set("subnet_ids",aws.StringValueSlice(filesystem.SubnetIds));err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"settingsubnet_ids:%s",err)
-	}
-
-	iferr:=d.Set("route_table_ids",aws.StringValueSlice(ontapConfig.RouteTableIds));err!=nil{
+	}	iferr:=d.Set("route_table_ids",aws.StringValueSlice(ontapConfig.RouteTableIds));err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"settingsubnet_ids:%s",err)
-	}
-
-	iferr:=d.Set("endpoints",flattenOntapFileSystemEndpoints(ontapConfig.Endpoints));err!=nil{
+	}	iferr:=d.Set("endpoints",flattenOntapFileSystemEndpoints(ontapConfig.Endpoints));err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"settingendpoints:%s",err)
-	}
-
-	iferr:=d.Set("disk_iops_configuration",flattenOntapFileDiskIopsConfiguration(ontapConfig.DiskIopsConfiguration));err!=nil{
+	}	iferr:=d.Set("disk_iops_configuration",flattenOntapFileDiskIopsConfiguration(ontapConfig.DiskIopsConfiguration));err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"settingdisk_iops_configuration:%s",err)
-	}
-
-	setTagsOut(ctx,filesystem.Tags)
-
-	returndiags
-}
-
-funcresourceOntapFileSystemUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	}	setTagsOut(ctx,filesystem.Tags)	returndiags
+}funcresourceOntapFileSystemUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).FSxConn(ctx)
-
-	ifd.HasChangesExcept("tags_all","tags"){
+	conn:=meta.(*conns.AWSClient).FSxConn(ctx)	ifd.HasChangesExcept("tags_all","tags"){
 		input:=&fsx.UpdateFileSystemInput{
 			ClientRequestToken:aws.String(id.UniqueId()),
 			FileSystemId:aws.String(d.Id()),
 			OntapConfiguration:&fsx.UpdateFileSystemOntapConfiguration{},
-		}
-
-		ifd.HasChange("storage_capacity"){
+		}		ifd.HasChange("storage_capacity"){
 			input.StorageCapacity=aws.Int64(int64(d.Get("storage_capacity").(int)))
-		}
-
-		ifd.HasChange("automatic_backup_retention_days"){
+		}		ifd.HasChange("automatic_backup_retention_days"){
 			input.OntapConfiguration.AutomaticBackupRetentionDays=aws.Int64(int64(d.Get("automatic_backup_retention_days").(int)))
-		}
-
-		ifd.HasChange("daily_automatic_backup_start_time"){
+		}		ifd.HasChange("daily_automatic_backup_start_time"){
 			input.OntapConfiguration.DailyAutomaticBackupStartTime=aws.String(d.Get("daily_automatic_backup_start_time").(string))
-		}
-
-		ifd.HasChange("fsx_admin_password"){
+		}		ifd.HasChange("fsx_admin_password"){
 			input.OntapConfiguration.FsxAdminPassword=aws.String(d.Get("fsx_admin_password").(string))
-		}
-
-		ifd.HasChange("weekly_maintenance_start_time"){
+		}		ifd.HasChange("weekly_maintenance_start_time"){
 			input.OntapConfiguration.WeeklyMaintenanceStartTime=aws.String(d.Get("weekly_maintenance_start_time").(string))
-		}
-
-		ifd.HasChange("throughput_capacity"){
+		}		ifd.HasChange("throughput_capacity"){
 			input.OntapConfiguration.ThroughputCapacity=aws.Int64(int64(d.Get("throughput_capacity").(int)))
-		}
-
-		ifd.HasChange("disk_iops_configuration"){
+		}		ifd.HasChange("disk_iops_configuration"){
 			input.OntapConfiguration.DiskIopsConfiguration=expandOntapFileDiskIopsConfiguration(d.Get("disk_iops_configuration").([]interface{}))
-		}
-
-		ifd.HasChange("route_table_ids"){
+		}		ifd.HasChange("route_table_ids"){
 			o,n:=d.GetChange("route_table_ids")
 			ns:=n.(*schema.Set)
 			os:=o.(*schema.Set)
 			added:=ns.Difference(os)
-			removed:=os.Difference(ns)
-
-			ifadded.Len()>0{
+			removed:=os.Difference(ns)			ifadded.Len()>0{
 				input.OntapConfiguration.AddRouteTableIds=flex.ExpandStringSet(added)
-			}
-
-			ifremoved.Len()>0{
+			}			ifremoved.Len()>0{
 				input.OntapConfiguration.RemoveRouteTableIds=flex.ExpandStringSet(removed)
 			}
-		}
-
-		startTime:=time.Now()
-		_,err:=conn.UpdateFileSystemWithContext(ctx,input)
-
-		iferr!=nil{
+		}		startTime:=time.Now()
+		_,err:=conn.UpdateFileSystemWithContext(ctx,input)		iferr!=nil{
 			returnsdkdiag.AppendErrorf(diags,"updatingFSxONTAPFileSystem(%s):%s",d.Id(),err)
-		}
-
-		if_,err:=waitFileSystemUpdated(ctx,conn,d.Id(),startTime,d.Timeout(schema.TimeoutUpdate));err!=nil{
+		}		if_,err:=waitFileSystemUpdated(ctx,conn,d.Id(),startTime,d.Timeout(schema.TimeoutUpdate));err!=nil{
 			returnsdkdiag.AppendErrorf(diags,"waitingforFSxONTAPFileSystem(%s)update:%s",d.Id(),err)
-		}
-
-		if_,err:=waitAdministrativeActionCompleted(ctx,conn,d.Id(),fsx.AdministrativeActionTypeFileSystemUpdate,d.Timeout(schema.TimeoutUpdate));err!=nil{
+		}		if_,err:=waitAdministrativeActionCompleted(ctx,conn,d.Id(),fsx.AdministrativeActionTypeFileSystemUpdate,d.Timeout(schema.TimeoutUpdate));err!=nil{
 			returnsdkdiag.AppendErrorf(diags,"waitingforFSxforNetAppONTAPFileSystem(%s)administrativeaction(%s)complete:%s",d.Id(),fsx.AdministrativeActionTypeFileSystemUpdate,err)
 		}
-	}
-
-	returnappend(diags,resourceOntapFileSystemRead(ctx,d,meta)...)
-}
-
-funcresourceOntapFileSystemDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	}	returnappend(diags,resourceOntapFileSystemRead(ctx,d,meta)...)
+}funcresourceOntapFileSystemDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).FSxConn(ctx)
-
-	log.Printf("[DEBUG]DeletingFSxONTAPFileSystem:%s",d.Id())
+	conn:=meta.(*conns.AWSClient).FSxConn(ctx)	log.Printf("[DEBUG]DeletingFSxONTAPFileSystem:%s",d.Id())
 	_,err:=conn.DeleteFileSystemWithContext(ctx,&fsx.DeleteFileSystemInput{
 		FileSystemId:aws.String(d.Id()),
-	})
-
-	iftfawserr.ErrCodeEquals(err,fsx.ErrCodeFileSystemNotFound){
+	})	iftfawserr.ErrCodeEquals(err,fsx.ErrCodeFileSystemNotFound){
 		returndiags
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"deletingFSxONTAPFileSystem(%s):%s",d.Id(),err)
-	}
-
-	if_,err:=waitFileSystemDeleted(ctx,conn,d.Id(),d.Timeout(schema.TimeoutDelete));err!=nil{
+	}	if_,err:=waitFileSystemDeleted(ctx,conn,d.Id(),d.Timeout(schema.TimeoutDelete));err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"waitingforFSxONTAPFileSystem(%s)delete:%s",d.Id(),err)
-	}
-
-	returndiags
-}
-
-funcexpandOntapFileDiskIopsConfiguration(cfg[]interface{})*fsx.DiskIopsConfiguration{
+	}	returndiags
+}funcexpandOntapFileDiskIopsConfiguration(cfg[]interface{})*fsx.DiskIopsConfiguration{
 	iflen(cfg)<1{
 		returnnil
-	}
-
-	conf:=cfg[0].(map[string]interface{})
-
-	out:=fsx.DiskIopsConfiguration{}
-
-	ifv,ok:=conf["mode"].(string);ok&&len(v)>0{
+	}	conf:=cfg[0].(map[string]interface{})	out:=fsx.DiskIopsConfiguration{}	ifv,ok:=conf["mode"].(string);ok&&len(v)>0{
 		out.Mode=aws.String(v)
 	}
 	ifv,ok:=conf["iops"].(int);ok{
 		out.Iops=aws.Int64(int64(v))
-	}
-
-	return&out
-}
-
-funcflattenOntapFileDiskIopsConfiguration(rs*fsx.DiskIopsConfiguration)[]interface{}{
+	}	return&out
+}funcflattenOntapFileDiskIopsConfiguration(rs*fsx.DiskIopsConfiguration)[]interface{}{
 	ifrs==nil{
 		return[]interface{}{}
-	}
-
-	m:=make(map[string]interface{})
+	}	m:=make(map[string]interface{})
 	ifrs.Mode!=nil{
 		m["mode"]=aws.StringValue(rs.Mode)
 	}
 	ifrs.Iops!=nil{
 		m["iops"]=aws.Int64Value(rs.Iops)
-	}
-
-	return[]interface{}{m}
-}
-
-funcflattenOntapFileSystemEndpoints(rs*fsx.FileSystemEndpoints)[]interface{}{
+	}	return[]interface{}{m}
+}funcflattenOntapFileSystemEndpoints(rs*fsx.FileSystemEndpoints)[]interface{}{
 	ifrs==nil{
 		return[]interface{}{}
-	}
-
-	m:=make(map[string]interface{})
+	}	m:=make(map[string]interface{})
 	ifrs.Intercluster!=nil{
 		m["intercluster"]=flattenOntapFileSystemEndpoint(rs.Intercluster)
 	}
 	ifrs.Management!=nil{
 		m["management"]=flattenOntapFileSystemEndpoint(rs.Management)
-	}
-
-	return[]interface{}{m}
-}
-
-funcflattenOntapFileSystemEndpoint(rs*fsx.FileSystemEndpoint)[]interface{}{
+	}	return[]interface{}{m}
+}funcflattenOntapFileSystemEndpoint(rs*fsx.FileSystemEndpoint)[]interface{}{
 	ifrs==nil{
 		return[]interface{}{}
-	}
-
-	m:=make(map[string]interface{})
+	}	m:=make(map[string]interface{})
 	ifrs.DNSName!=nil{
 		m["dns_name"]=aws.StringValue(rs.DNSName)
 	}
 	ifrs.IpAddresses!=nil{
 		m["ip_addresses"]=flex.FlattenStringSet(rs.IpAddresses)
-	}
-
-	return[]interface{}{m}
+	}	return[]interface{}{m}
 }

@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsailimport (
 	"context"
-	"fmt"
-
-	"github.com/YakDriver/regexache"
+	"fmt"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail/types"
@@ -19,21 +13,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_lightsail_lb_https_redirection_policy")
+)// @SDKResource("aws_lightsail_lb_https_redirection_policy")
 func ResourceLoadBalancerHTTPSRedirectionPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceLoadBalancerHTTPSRedirectionPolicyCreate,
 		ReadWithoutTimeout:   resourceLoadBalancerHTTPSRedirectionPolicyRead,
 		UpdateWithoutTimeout: resourceLoadBalancerHTTPSRedirectionPolicyUpdate,
-		DeleteWithoutTimeout: resourceLoadBalancerHTTPSRedirectionPolicyDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceLoadBalancerHTTPSRedirectionPolicyDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"enabled": {
 				Type:     schema.TypeBool,
 				Required: true,
@@ -58,43 +46,21 @@ func resourceLoadBalancerHTTPSRedirectionPolicyCreate(ctx context.Context, d *sc
 		LoadBalancerName: aws.String(lbName),
 		AttributeName:    types.LoadBalancerAttributeNameHttpsRedirectionEnabled,
 		AttributeValue:   aws.String(fmt.Sprint(d.Get("enabled").(bool))),
-	}
-
-	out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)
-
-	if err != nil {
+	}	out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)	if err != nil {
 		return create.DiagError(names.Lightsail, string(types.OperationTypeUpdateLoadBalancerAttribute), ResLoadBalancerHTTPSRedirectionPolicy, lbName, err)
-	}
-
-	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerHTTPSRedirectionPolicy, lbName)
-
-	if diag != nil {
+	}	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerHTTPSRedirectionPolicy, lbName)	if diag != nil {
 		return diag
-	}
-
-	d.SetId(lbName)
-
-	return resourceLoadBalancerHTTPSRedirectionPolicyRead(ctx, d, meta)
+	}	d.SetId(lbName)	return resourceLoadBalancerHTTPSRedirectionPolicyRead(ctx, d, meta)
 }
 func resourceLoadBalancerHTTPSRedirectionPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
-
-	out, err := FindLoadBalancerHTTPSRedirectionPolicyById(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	conn := meta.(*conns.AWSClient).LightsailClient(ctx)	out, err := FindLoadBalancerHTTPSRedirectionPolicyById(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		create.LogNotFoundRemoveState(names.Lightsail, create.ErrActionReading, ResLoadBalancerHTTPSRedirectionPolicy, d.Id())
 		d.SetId("")
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return create.DiagError(names.Lightsail, create.ErrActionReading, ResLoadBalancerHTTPSRedirectionPolicy, d.Id(), err)
-	}
-
-	d.Set("enabled", out)
-	d.Set("lb_name", d.Id())
-
-	return nil
+	}	d.Set("enabled", out)
+	d.Set("lb_name", d.Id())	return nil
 }
 func resourceLoadBalancerHTTPSRedirectionPolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -104,22 +70,12 @@ func resourceLoadBalancerHTTPSRedirectionPolicyUpdate(ctx context.Context, d *sc
 			LoadBalancerName: aws.String(lbName),
 			AttributeName:    types.LoadBalancerAttributeNameHttpsRedirectionEnabled,
 			AttributeValue:   aws.String(fmt.Sprint(d.Get("enabled").(bool))),
-		}
-
-		out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)
-
-		if err != nil {
+		}		out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)		if err != nil {
 			return create.DiagError(names.Lightsail, string(types.OperationTypeUpdateLoadBalancerAttribute), ResLoadBalancerHTTPSRedirectionPolicy, lbName, err)
-		}
-
-		diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerHTTPSRedirectionPolicy, lbName)
-
-		if diag != nil {
+		}		diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerHTTPSRedirectionPolicy, lbName)		if diag != nil {
 			return diag
 		}
-	}
-
-	return resourceLoadBalancerHTTPSRedirectionPolicyRead(ctx, d, meta)
+	}	return resourceLoadBalancerHTTPSRedirectionPolicyRead(ctx, d, meta)
 }
 func resourceLoadBalancerHTTPSRedirectionPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -128,40 +84,22 @@ func resourceLoadBalancerHTTPSRedirectionPolicyDelete(ctx context.Context, d *sc
 		LoadBalancerName: aws.String(lbName),
 		AttributeName:    types.LoadBalancerAttributeNameHttpsRedirectionEnabled,
 		AttributeValue:   aws.String("false"),
-	}
-
-	out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)
-
-	if err != nil {
+	}	out, err := conn.UpdateLoadBalancerAttribute(ctx, &in)	if err != nil {
 		return create.DiagError(names.Lightsail, string(types.OperationTypeUpdateLoadBalancerAttribute), ResLoadBalancerHTTPSRedirectionPolicy, lbName, err)
-	}
-
-	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerHTTPSRedirectionPolicy, lbName)
-
-	if diag != nil {
+	}	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeUpdateLoadBalancerAttribute, ResLoadBalancerHTTPSRedirectionPolicy, lbName)	if diag != nil {
 		return diag
-	}
-
-	return nil
+	}	return nil
 }
 func FindLoadBalancerHTTPSRedirectionPolicyById(ctx context.Context, conn *lightsail.Client, id string) (*bool, error) {
 	in := &lightsail.GetLoadBalancerInput{LoadBalancerName: aws.String(id)}
-	out, err := conn.GetLoadBalancer(ctx, in)
-
-	if IsANotFoundError(err) {
+	out, err := conn.GetLoadBalancer(ctx, in)	if IsANotFoundError(err) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: in,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if out == nil || out.LoadBalancer.HttpsRedirectionEnabled == nil {
+	}	if out == nil || out.LoadBalancer.HttpsRedirectionEnabled == nil {
 		return nil, tfresource.NewEmptyResultError(in)
-	}
-
-	return out.LoadBalancer.HttpsRedirectionEnabled, nil
+	}	return out.LoadBalancer.HttpsRedirectionEnabled, nil
 }

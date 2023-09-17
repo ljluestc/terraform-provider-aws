@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iot_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iot_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/iot"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,17 +11,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiot "github.com/hashicorp/terraform-provider-aws/internal/service/iot"
-)
-
-func TestAccIoTRoleAlias_basic(t *testing.T) {
+)func TestAccIoTRoleAlias_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	alias := sdkacctest.RandomWithPrefix("RoleAlias-")
-	alias2 := sdkacctest.RandomWithPrefix("RoleAlias2-")
-
-	resourceName := "aws_iot_role_alias.ra"
-	resourceName2 := "aws_iot_role_alias.ra2"
-
-	resource.ParallelTest(t, resource.TestCase{
+	alias2 := sdkacctest.RandomWithPrefix("RoleAlias2-")	resourceName := "aws_iot_role_alias.ra"
+	resourceName2 := "aws_iot_role_alias.ra2"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -81,62 +69,36 @@ func TestAccIoTRoleAlias_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckRoleAliasDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckRoleAliasDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iot_role_alias" {
 				continue
-			}
-
-			_, err := tfiot.GetRoleAliasDescription(ctx, conn, rs.Primary.ID)
-
-			if tfawserr.ErrCodeEquals(err, iot.ErrCodeResourceNotFoundException) {
+			}			_, err := tfiot.GetRoleAliasDescription(ctx, conn, rs.Primary.ID)			if tfawserr.ErrCodeEquals(err, iot.ErrCodeResourceNotFoundException) {
 				continue
-			}
-
-			return fmt.Errorf("IoT Role Alias (%s) still exists", rs.Primary.ID)
+			}			return fmt.Errorf("IoT Role Alias (%s) still exists", rs.Primary.ID)
 		}
 		return nil
 	}
-}
-
-func testAccCheckRoleAliasExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckRoleAliasExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)
-		role_arn := rs.Primary.Attributes["role_arn"]
-
-		roleAliasDescription, err := tfiot.GetRoleAliasDescription(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)
+		role_arn := rs.Primary.Attributes["role_arn"]		roleAliasDescription, err := tfiot.GetRoleAliasDescription(ctx, conn, rs.Primary.ID)		if err != nil {
 			return fmt.Errorf("Error: Failed to get role alias %s for role %s (%s): %s", rs.Primary.ID, role_arn, n, err)
-		}
-
-		if roleAliasDescription == nil {
+		}		if roleAliasDescription == nil {
 			return fmt.Errorf("Error: Role alias %s is not attached to role (%s)", rs.Primary.ID, role_arn)
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccRoleAliasConfig_basic(alias string) string {
+}func testAccRoleAliasConfig_basic(alias string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "role" {
-  name = "role"
-
-  assume_role_policy = <<EOF
+  name = "role"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
@@ -147,23 +109,15 @@ resource "aws_iam_role" "role" {
 "Action": "sts:AssumeRole"
   }
 }
-EOF
-
-}
-
-resource "aws_iot_role_alias" "ra" {
+EOF}resource "aws_iot_role_alias" "ra" {
   alias= "%s"
   role_arn = aws_iam_role.role.arn
 }
 `, alias)
-}
-
-func testAccRoleAliasConfig_update1(alias string, alias2 string) string {
+}func testAccRoleAliasConfig_update1(alias string, alias2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "role" {
-  name = "role"
-
-  assume_role_policy = <<EOF
+  name = "role"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
@@ -174,29 +128,19 @@ resource "aws_iam_role" "role" {
 "Action": "sts:AssumeRole"
   }
 }
-EOF
-
-}
-
-resource "aws_iot_role_alias" "ra" {
+EOF}resource "aws_iot_role_alias" "ra" {
   alias  = "%s"
   role_arn   = aws_iam_role.role.arn
   credential_duration = 43200
-}
-
-resource "aws_iot_role_alias" "ra2" {
+}resource "aws_iot_role_alias" "ra2" {
   alias= "%s"
   role_arn = aws_iam_role.role.arn
 }
 `, alias, alias2)
-}
-
-func testAccRoleAliasConfig_update2(alias2 string) string {
+}func testAccRoleAliasConfig_update2(alias2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "role" {
-  name = "role"
-
-  assume_role_policy = <<EOF
+  name = "role"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
@@ -207,23 +151,15 @@ resource "aws_iam_role" "role" {
 "Action": "sts:AssumeRole"
   }
 }
-EOF
-
-}
-
-resource "aws_iot_role_alias" "ra2" {
+EOF}resource "aws_iot_role_alias" "ra2" {
   alias= "%s"
   role_arn = aws_iam_role.role.arn
 }
 `, alias2)
-}
-
-func testAccRoleAliasConfig_update3(alias2 string) string {
+}func testAccRoleAliasConfig_update3(alias2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "role" {
-  name = "role"
-
-  assume_role_policy = <<EOF
+  name = "role"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
@@ -234,28 +170,18 @@ resource "aws_iam_role" "role" {
 "Action": "sts:AssumeRole"
   }
 }
-EOF
-
-}
-
-resource "aws_iot_role_alias" "ra2" {
+EOF}resource "aws_iot_role_alias" "ra2" {
   alias= "%s"
   role_arn = aws_iam_role.role.arn
-}
-
-resource "aws_iot_role_alias" "ra3" {
+}resource "aws_iot_role_alias" "ra3" {
   alias= "%s"
   role_arn = aws_iam_role.role.arn
 }
 `, alias2, alias2)
-}
-
-func testAccRoleAliasConfig_update4(alias2 string) string {
+}func testAccRoleAliasConfig_update4(alias2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "role" {
-  name = "role"
-
-  assume_role_policy = <<EOF
+  name = "role"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
@@ -266,14 +192,8 @@ resource "aws_iam_role" "role" {
 "Action": "sts:AssumeRole"
   }
 }
-EOF
-
-}
-
-resource "aws_iam_role" "role2" {
-  name = "role2"
-
-  assume_role_policy = <<EOF
+EOF}resource "aws_iam_role" "role2" {
+  name = "role2"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
@@ -284,23 +204,15 @@ resource "aws_iam_role" "role2" {
 "Action": "sts:AssumeRole"
   }
 }
-EOF
-
-}
-
-resource "aws_iot_role_alias" "ra2" {
+EOF}resource "aws_iot_role_alias" "ra2" {
   alias= "%s"
   role_arn = aws_iam_role.role2.arn
 }
 `, alias2)
-}
-
-func testAccRoleAliasConfig_update5(alias2 string) string {
+}func testAccRoleAliasConfig_update5(alias2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "role" {
-  name = "role"
-
-  assume_role_policy = <<EOF
+  name = "role"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
@@ -311,14 +223,8 @@ resource "aws_iam_role" "role" {
 "Action": "sts:AssumeRole"
   }
 }
-EOF
-
-}
-
-resource "aws_iam_role" "role2" {
-  name = "role2"
-
-  assume_role_policy = <<EOF
+EOF}resource "aws_iam_role" "role2" {
+  name = "role2"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
@@ -329,11 +235,7 @@ resource "aws_iam_role" "role2" {
 "Action": "sts:AssumeRole"
   }
 }
-EOF
-
-}
-
-resource "aws_iot_role_alias" "ra2" {
+EOF}resource "aws_iot_role_alias" "ra2" {
   alias= "%s"
   role_arn = "${aws_iam_role.role.arn}bogus"
 }

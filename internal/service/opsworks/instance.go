@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opsworks
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opsworksimport (
 "bytes"
 "context"
 "fmt"
 "log"
-"time"
-
-"github.com/aws/aws-sdk-go/aws"
+"time""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/opsworks"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -21,11 +15,7 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/create"
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 "github.com/hashicorp/terraform-provider-aws/internal/flex"
-)
-
-// @SDKResource("aws_opsworks_instance")
-
-func ResourceInstance() *schema.Resource {
+)// @SDKResource("aws_opsworks_instance")func ResourceInstance() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceInstanceCreate,
 ReadWithoutTimeout:   resourceInstanceRead,
@@ -33,234 +23,156 @@ UpdateWithoutTimeout: resourceInstanceUpdate,
 DeleteWithoutTimeout: resourceInstanceDelete,
 Importer: &schema.ResourceImporter{
 StateContext: resourceInstanceImport,
-},
-
-Timeouts: &schema.ResourceTimeout{
+},Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(10 * time.Minute),
 Delete: schema.DefaultTimeout(10 * time.Minute),
 Update: schema.DefaultTimeout(10 * time.Minute),
-},
-
-Schema: map[string]*schema.Schema{
+},Schema: map[string]*schema.Schema{
 "agent_version": {
 Type:schema.TypeString,
 Optional: true,
 Default:  "INHERIT",
-},
-
-"ami_id": {
+},"ami_id": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
-},
-
-"architecture": {
+},"architecture": {
 Type:schema.TypeString,
 Optional:true,
 Default: "x86_64",
 Validate
 func: validation.StringInSlice(opsworks.Architecture_Values(), false),
-},
-
-"auto_scaling_type": {
+},"auto_scaling_type": {
 Type:schema.TypeString,
 Optional:true,
 Validate
 func: validation.StringInSlice(opsworks.AutoScalingType_Values(), false),
-},
-
-"availability_zone": {
+},"availability_zone": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
-},
-
-"created_at": {
+},"created_at": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
-},
-
-"delete_ebs": {
+},"delete_ebs": {
 Type:schema.TypeBool,
 Optional: true,
 Default:  true,
-},
-
-"delete_eip": {
+},"delete_eip": {
 Type:schema.TypeBool,
 Optional: true,
 Default:  true,
-},
-
-"ebs_optimized": {
+},"ebs_optimized": {
 Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 ForceNew: true,
-},
-
-"ec2_instance_id": {
+},"ec2_instance_id": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"ecs_cluster_arn": {
+},"ecs_cluster_arn": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
-},
-
-"elastic_ip": {
+},"elastic_ip": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
-},
-
-"hostname": {
+},"hostname": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
-},
-
-"infrastructure_class": {
+},"infrastructure_class": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
-},
-
-"install_updates_on_boot": {
+},"install_updates_on_boot": {
 Type:schema.TypeBool,
 Optional: true,
 Default:  true,
-},
-
-"instance_profile_arn": {
+},"instance_profile_arn": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
-},
-
-"instance_type": {
+},"instance_type": {
 Type:schema.TypeString,
 Optional: true,
-},
-
-"last_service_error_id": {
+},"last_service_error_id": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"layer_ids": {
+},"layer_ids": {
 Type:schema.TypeList,
 Required: true,
 Elem:&schema.Schema{Type: schema.TypeString},
-},
-
-"os": {
+},"os": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
-},
-
-"platform": {
+},"platform": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"private_dns": {
+},"private_dns": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"private_ip": {
+},"private_ip": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"public_dns": {
+},"public_dns": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"public_ip": {
+},"public_ip": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"registered_by": {
+},"registered_by": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"reported_agent_version": {
+},"reported_agent_version": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"reported_os_family": {
+},"reported_os_family": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"reported_os_name": {
+},"reported_os_name": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"reported_os_version": {
+},"reported_os_version": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"root_device_type": {
+},"root_device_type": {
 Type:schema.TypeString,
 Optional:true,
 ForceNew:true,
 Computed:true,
 Validate
 func: validation.StringInSlice(opsworks.RootDeviceType_Values(), false),
-},
-
-"root_device_volume_id": {
+},"root_device_volume_id": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"security_group_ids": {
+},"security_group_ids": {
 Type:schema.TypeList,
 Optional: true,
 Computed: true,
 Elem:&schema.Schema{Type: schema.TypeString},
-},
-
-"ssh_host_dsa_key_fingerprint": {
+},"ssh_host_dsa_key_fingerprint": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"ssh_host_rsa_key_fingerprint": {
+},"ssh_host_rsa_key_fingerprint": {
 Type:schema.TypeString,
 Computed: true,
-},
-
-"ssh_key_name": {
+},"ssh_key_name": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
-},
-
-"stack_id": {
+},"stack_id": {
 Type:schema.TypeString,
 Required: true,
 ForceNew: true,
-},
-
-"state": {
+},"state": {
 Type:schema.TypeString,
 Optional: true,
 Validate
@@ -268,22 +180,16 @@ func: validation.StringInSlice([]string{
 "running",
 "stopped",
 }, false),
-},
-
-"status": {
+},"status": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
-},
-
-"subnet_id": {
+},"subnet_id": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
-},
-
-"tenancy": {
+},"tenancy": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
@@ -294,18 +200,14 @@ func: validation.StringInSlice([]string{
 "default",
 "host",
 }, false),
-},
-
-"virtualization_type": {
+},"virtualization_type": {
 Type:schema.TypeString,
 Optional:true,
 Computed:true,
 ForceNew:true,
 Validate
 func: validation.StringInSlice(opsworks.VirtualizationType_Values(), false),
-},
-
-"ebs_block_device": {
+},"ebs_block_device": {
 Type:schema.TypeSet,
 Optional: true,
 Computed: true,
@@ -317,36 +219,26 @@ Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 ForceNew: true,
-},
-
-"device_name": {
+},"device_name": {
 Type:schema.TypeString,
 Required: true,
 ForceNew: true,
-},
-
-"iops": {
+},"iops": {
 Type:schema.TypeInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
-},
-
-"snapshot_id": {
+},"snapshot_id": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
-},
-
-"volume_size": {
+},"volume_size": {
 Type:schema.TypeInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
-},
-
-"volume_type": {
+},"volume_type": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
@@ -354,8 +246,7 @@ ForceNew: true,
 },
 },
 },
-Set: 
-func(v interface{}) int {
+Set:func(v interface{}) int {
 var buf bytes.Buffer
 m := v.(map[string]interface{})
 buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
@@ -373,25 +264,20 @@ Schema: map[string]*schema.Schema{
 "device_name": {
 Type:schema.TypeString,
 Required: true,
-},
-
-"virtual_name": {
+},"virtual_name": {
 Type:schema.TypeString,
 Required: true,
 },
 },
 },
-Set: 
-func(v interface{}) int {
+Set:func(v interface{}) int {
 var buf bytes.Buffer
 m := v.(map[string]interface{})
 buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
 buf.WriteString(fmt.Sprintf("%s-", m["virtual_name"].(string)))
 return create.StringHashcode(buf.String())
 },
-},
-
-"root_block_device": {
+},"root_block_device": {
 // TODO: This is a set because we don't support singleton
 //  sub-resources today. We'll enforce that the set only ever has
 //  length zero or one below. When TF gains support for
@@ -410,23 +296,17 @@ Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 ForceNew: true,
-},
-
-"iops": {
+},"iops": {
 Type:schema.TypeInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
-},
-
-"volume_size": {
+},"volume_size": {
 Type:schema.TypeInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
-},
-
-"volume_type": {
+},"volume_type": {
 Type:schema.TypeString,
 Optional: true,
 Computed: true,
@@ -434,8 +314,7 @@ ForceNew: true,
 },
 },
 },
-Set: 
-func(v interface{}) int {
+Set:func(v interface{}) int {
 // there can be only one root device; no need to hash anything
 return 0
 },
@@ -443,66 +322,40 @@ return 0
 },
 }
 }
-
-
 func resourceInstanceValidate(d *schema.ResourceData) error {
 if d.HasChange("ami_id") {
 if v, ok := d.GetOk("os"); ok {
 if v.(string) != "Custom" {
 return fmt.Errorf("OS must be \"Custom\" when using using a custom ami_id")
 }
-}
-
-if _, ok := d.GetOk("root_block_device"); ok {
+}if _, ok := d.GetOk("root_block_device"); ok {
 return fmt.Errorf("Cannot specify root_block_device when using a custom ami_id.")
-}
-
-if _, ok := d.GetOk("ebs_block_device"); ok {
+}if _, ok := d.GetOk("ebs_block_device"); ok {
 return fmt.Errorf("Cannot specify ebs_block_device when using a custom ami_id.")
-}
-
-if _, ok := d.GetOk("ephemeral_block_device"); ok {
+}if _, ok := d.GetOk("ephemeral_block_device"); ok {
 return fmt.Errorf("Cannot specify ephemeral_block_device when using a custom ami_id.")
 }
 }
 return nil
 }
-
-
 func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
-
-req := &opsworks.DescribeInstancesInput{
+conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)req := &opsworks.DescribeInstancesInput{
 InstanceIds: []*string{
 aws.String(d.Id()),
 },
-}
-
-log.Printf("[DEBUG] Reading OpsWorks instance: %s", d.Id())
-
-resp, err := conn.DescribeInstancesWithContext(ctx, req)
-
-if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
+}log.Printf("[DEBUG] Reading OpsWorks instance: %s", d.Id())resp, err := conn.DescribeInstancesWithContext(ctx, req)if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
 log.Printf("[WARN] OpsWorks instance %s not found, removing from state", d.Id())
 d.SetId("")
 return diags
-}
-
-if err != nil {
+}if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading OpsWorks Instance (%s): %s", d.Id(), err)
-}
-
-// If nothing was found, then return no state
+}// If nothing was found, then return no state
 if len(resp.Instances) == 0 || resp.Instances[0] == nil || resp.Instances[0].InstanceId == nil {
 log.Printf("[WARN] OpsWorks instance %s not found, removing from state", d.Id())
 d.SetId("")
 return diags
-}
-
-instance := resp.Instances[0]
-
-d.SetId(aws.StringValue(instance.InstanceId))
+}instance := resp.Instances[0]d.SetId(aws.StringValue(instance.InstanceId))
 d.Set("agent_version", instance.AgentVersion)
 d.Set("ami_id", instance.AmiId)
 d.Set("architecture", instance.Architecture)
@@ -550,12 +403,8 @@ d.Set("stack_id", instance.StackId)
 d.Set("status", instance.Status)
 d.Set("subnet_id", instance.SubnetId)
 d.Set("tenancy", instance.Tenancy)
-d.Set("virtualization_type", instance.VirtualizationType)
-
-// Read BlockDeviceMapping
-ibds := readBlockDevices(instance)
-
-if err := d.Set("ebs_block_device", ibds["ebs"]); err != nil {
+d.Set("virtualization_type", instance.VirtualizationType)// Read BlockDeviceMapping
+ibds := readBlockDevices(instance)if err := d.Set("ebs_block_device", ibds["ebs"]); err != nil {
 return sdkdiag.AppendErrorf(diags, "reading OpsWorks Instance (%s): setting ebs_block_device: %s", d.Id(), err)
 }
 if err := d.Set("ephemeral_block_device", ibds["ephemeral"]); err != nil {
@@ -567,9 +416,7 @@ return sdkdiag.AppendErrorf(diags, "reading OpsWorks Instance (%s): setting root
 }
 } else {
 d.Set("root_block_device", []interface{}{})
-}
-
-// Read Security Groups
+}// Read Security Groups
 sgs := make([]string, 0, len(instance.SecurityGroupIds))
 for _, sg := range instance.SecurityGroupIds {
 sgs = append(sgs, *sg)
@@ -579,18 +426,12 @@ return sdkdiag.AppendErrorf(diags, "reading OpsWorks Instance (%s): setting secu
 }
 return diags
 }
-
-
 func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
-
-err := resourceInstanceValidate(d)
+conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)err := resourceInstanceValidate(d)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading OpsWorks Instance: %s", err)
-}
-
-req := &opsworks.CreateInstanceInput{
+}req := &opsworks.CreateInstanceInput{
 AgentVersion:aws.String(d.Get("agent_version").(string)),
 Architecture:aws.String(d.Get("architecture").(string)),
 EbsOptimized:aws.Bool(d.Get("ebs_optimized").(bool)),
@@ -598,83 +439,47 @@ InstallUpdatesOnBoot: aws.Bool(d.Get("install_updates_on_boot").(bool)),
 InstanceType:aws.String(d.Get("instance_type").(string)),
 LayerIds:flex.ExpandStringList(d.Get("layer_ids").([]interface{})),
 StackId:aws.String(d.Get("stack_id").(string)),
-}
-
-if v, ok := d.GetOk("ami_id"); ok {
+}if v, ok := d.GetOk("ami_id"); ok {
 req.AmiId = aws.String(v.(string))
 req.Os = aws.String("Custom")
-}
-
-if v, ok := d.GetOk("auto_scaling_type"); ok {
+}if v, ok := d.GetOk("auto_scaling_type"); ok {
 req.AutoScalingType = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("availability_zone"); ok {
+}if v, ok := d.GetOk("availability_zone"); ok {
 req.AvailabilityZone = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("hostname"); ok {
+}if v, ok := d.GetOk("hostname"); ok {
 req.Hostname = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("os"); ok {
+}if v, ok := d.GetOk("os"); ok {
 req.Os = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("root_device_type"); ok {
+}if v, ok := d.GetOk("root_device_type"); ok {
 req.RootDeviceType = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("ssh_key_name"); ok {
+}if v, ok := d.GetOk("ssh_key_name"); ok {
 req.SshKeyName = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("subnet_id"); ok {
+}if v, ok := d.GetOk("subnet_id"); ok {
 req.SubnetId = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("tenancy"); ok {
+}if v, ok := d.GetOk("tenancy"); ok {
 req.Tenancy = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("virtualization_type"); ok {
+}if v, ok := d.GetOk("virtualization_type"); ok {
 req.VirtualizationType = aws.String(v.(string))
-}
-
-var blockDevices []*opsworks.BlockDeviceMapping
-
-if v, ok := d.GetOk("ebs_block_device"); ok {
+}var blockDevices []*opsworks.BlockDeviceMappingif v, ok := d.GetOk("ebs_block_device"); ok {
 vL := v.(*schema.Set).List()
 for _, v := range vL {
 bd := v.(map[string]interface{})
 ebs := &opsworks.EbsBlockDevice{
 DeleteOnTermination: aws.Bool(bd["delete_on_termination"].(bool)),
-}
-
-if v, ok := bd["snapshot_id"].(string); ok && v != "" {
+}if v, ok := bd["snapshot_id"].(string); ok && v != "" {
 ebs.SnapshotId = aws.String(v)
-}
-
-if v, ok := bd["volume_size"].(int); ok && v != 0 {
+}if v, ok := bd["volume_size"].(int); ok && v != 0 {
 ebs.VolumeSize = aws.Int64(int64(v))
-}
-
-if v, ok := bd["volume_type"].(string); ok && v != "" {
+}if v, ok := bd["volume_type"].(string); ok && v != "" {
 ebs.VolumeType = aws.String(v)
-}
-
-if v, ok := bd["iops"].(int); ok && v > 0 {
+}if v, ok := bd["iops"].(int); ok && v > 0 {
 ebs.Iops = aws.Int64(int64(v))
-}
-
-blockDevices = append(blockDevices, &opsworks.BlockDeviceMapping{
+}blockDevices = append(blockDevices, &opsworks.BlockDeviceMapping{
 DeviceName: aws.String(bd["device_name"].(string)),
 Ebs:   ebs,
 })
 }
-}
-
-if v, ok := d.GetOk("ephemeral_block_device"); ok {
+}if v, ok := d.GetOk("ephemeral_block_device"); ok {
 vL := v.(*schema.Set).List()
 for _, v := range vL {
 bd := v.(map[string]interface{})
@@ -683,9 +488,7 @@ DeviceName:  aws.String(bd["device_name"].(string)),
 VirtualName: aws.String(bd["virtual_name"].(string)),
 })
 }
-}
-
-if v, ok := d.GetOk("root_block_device"); ok {
+}if v, ok := d.GetOk("root_block_device"); ok {
 vL := v.(*schema.Set).List()
 if len(vL) > 1 {
 return sdkdiag.AppendErrorf(diags, "Cannot specify more than one root_block_device.")
@@ -694,119 +497,65 @@ for _, v := range vL {
 bd := v.(map[string]interface{})
 ebs := &opsworks.EbsBlockDevice{
 DeleteOnTermination: aws.Bool(bd["delete_on_termination"].(bool)),
-}
-
-if v, ok := bd["volume_size"].(int); ok && v != 0 {
+}if v, ok := bd["volume_size"].(int); ok && v != 0 {
 ebs.VolumeSize = aws.Int64(int64(v))
-}
-
-if v, ok := bd["volume_type"].(string); ok && v != "" {
+}if v, ok := bd["volume_type"].(string); ok && v != "" {
 ebs.VolumeType = aws.String(v)
-}
-
-if v, ok := bd["iops"].(int); ok && v > 0 {
+}if v, ok := bd["iops"].(int); ok && v > 0 {
 ebs.Iops = aws.Int64(int64(v))
-}
-
-blockDevices = append(blockDevices, &opsworks.BlockDeviceMapping{
+}blockDevices = append(blockDevices, &opsworks.BlockDeviceMapping{
 DeviceName: aws.String("ROOT_DEVICE"),
 Ebs:   ebs,
 })
 }
-}
-
-if len(blockDevices) > 0 {
+}if len(blockDevices) > 0 {
 req.BlockDeviceMappings = blockDevices
-}
-
-log.Printf("[DEBUG] Creating OpsWorks instance")
-
-var resp *opsworks.CreateInstanceOutput
-
-resp, err = conn.CreateInstanceWithContext(ctx, req)
+}log.Printf("[DEBUG] Creating OpsWorks instance")var resp *opsworks.CreateInstanceOutputresp, err = conn.CreateInstanceWithContext(ctx, req)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating OpsWorks Instance: %s", err)
-}
-
-if resp.InstanceId == nil {
+}if resp.InstanceId == nil {
 return sdkdiag.AppendErrorf(diags, "creating OpsWorks Instance: no instance returned")
-}
-
-instanceId := aws.StringValue(resp.InstanceId)
-d.SetId(instanceId)
-
-if v, ok := d.GetOk("state"); ok && v.(string) == instanceStatusRunning {
+}instanceId := aws.StringValue(resp.InstanceId)
+d.SetId(instanceId)if v, ok := d.GetOk("state"); ok && v.(string) == instanceStatusRunning {
 err := startInstance(ctx, d, meta, true, d.Timeout(schema.TimeoutCreate))
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating OpsWorks Instance: %s", err)
 }
+}return append(diags, resourceInstanceRead(ctx, d, meta)...)
 }
-
-return append(diags, resourceInstanceRead(ctx, d, meta)...)
-}
-
-
 func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
-
-err := resourceInstanceValidate(d)
+conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)err := resourceInstanceValidate(d)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating OpsWorks Instance (%s): %s", d.Id(), err)
-}
-
-req := &opsworks.UpdateInstanceInput{
+}req := &opsworks.UpdateInstanceInput{
 InstanceId:  aws.String(d.Id()),
 AgentVersion:aws.String(d.Get("agent_version").(string)),
 Architecture:aws.String(d.Get("architecture").(string)),
 InstallUpdatesOnBoot: aws.Bool(d.Get("install_updates_on_boot").(bool)),
-}
-
-if v, ok := d.GetOk("ami_id"); ok {
+}if v, ok := d.GetOk("ami_id"); ok {
 req.AmiId = aws.String(v.(string))
 req.Os = aws.String("Custom")
-}
-
-if v, ok := d.GetOk("auto_scaling_type"); ok {
+}if v, ok := d.GetOk("auto_scaling_type"); ok {
 req.AutoScalingType = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("hostname"); ok {
+}if v, ok := d.GetOk("hostname"); ok {
 req.Hostname = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("instance_type"); ok {
+}if v, ok := d.GetOk("instance_type"); ok {
 req.InstanceType = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("layer_ids"); ok {
+}if v, ok := d.GetOk("layer_ids"); ok {
 req.LayerIds = flex.ExpandStringList(v.([]interface{}))
-}
-
-if v, ok := d.GetOk("os"); ok {
+}if v, ok := d.GetOk("os"); ok {
 req.Os = aws.String(v.(string))
-}
-
-if v, ok := d.GetOk("ssh_key_name"); ok {
+}if v, ok := d.GetOk("ssh_key_name"); ok {
 req.SshKeyName = aws.String(v.(string))
-}
-
-log.Printf("[DEBUG] Updating OpsWorks instance: %s", d.Id())
-
-_, err = conn.UpdateInstanceWithContext(ctx, req)
+}log.Printf("[DEBUG] Updating OpsWorks instance: %s", d.Id())_, err = conn.UpdateInstanceWithContext(ctx, req)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating OpsWorks Instance (%s): %s", d.Id(), err)
-}
-
-var status string
-
-if v, ok := d.GetOk("status"); ok {
+}var status stringif v, ok := d.GetOk("status"); ok {
 status = v.(string)
 } else {
 status = "stopped"
-}
-
-if v, ok := d.GetOk("state"); ok {
+}if v, ok := d.GetOk("state"); ok {
 state := v.(string)
 if state == instanceStatusRunning {
 if status == instanceStatusStopped || status == instanceStatusStopping || status == instanceStatusShuttingDown {
@@ -823,49 +572,27 @@ return sdkdiag.AppendErrorf(diags, "updating OpsWorks Instance (%s): %s", d.Id()
 }
 }
 }
+}return append(diags, resourceInstanceRead(ctx, d, meta)...)
 }
-
-return append(diags, resourceInstanceRead(ctx, d, meta)...)
-}
-
-
 func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
-
-if v, ok := d.GetOk("status"); ok && v.(string) != instanceStatusStopped {
+conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)if v, ok := d.GetOk("status"); ok && v.(string) != instanceStatusStopped {
 err := stopInstance(ctx, d, meta, d.Timeout(schema.TimeoutDelete))
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting OpsWorks instance (%s): %s", d.Id(), err)
 }
-}
-
-req := &opsworks.DeleteInstanceInput{
+}req := &opsworks.DeleteInstanceInput{
 InstanceId: aws.String(d.Id()),
 DeleteElasticIp: aws.Bool(d.Get("delete_eip").(bool)),
 DeleteVolumes:   aws.Bool(d.Get("delete_ebs").(bool)),
-}
-
-log.Printf("[DEBUG] Deleting OpsWorks instance: %s", d.Id())
-
-_, err := conn.DeleteInstanceWithContext(ctx, req)
-
-if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
+}log.Printf("[DEBUG] Deleting OpsWorks instance: %s", d.Id())_, err := conn.DeleteInstanceWithContext(ctx, req)if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
 return diags
-}
-
-if err != nil {
+}if err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting OpsWorks instance (%s): %s", d.Id(), err)
-}
-
-if err := waitInstanceDeleted(ctx, conn, d.Id()); err != nil {
+}if err := waitInstanceDeleted(ctx, conn, d.Id()); err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting OpsWorks instance (%s): waiting for completion: %s", d.Id(), err)
+}return diags
 }
-
-return diags
-}
-
-
 func resourceInstanceImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 // Neither delete_eip nor delete_ebs can be fetched
 // from any API call, so we need to default to the values
@@ -874,60 +601,26 @@ d.Set("delete_ebs", true)
 d.Set("delete_eip", true)
 return []*schema.ResourceData{d}, nil
 }
-
-
 func startInstance(ctx context.Context, d *schema.ResourceData, meta interface{}, wait bool, timeout time.Duration) error {
-conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
-
-req := &opsworks.StartInstanceInput{
+conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)req := &opsworks.StartInstanceInput{
 InstanceId: aws.String(d.Id()),
-}
-
-log.Printf("[DEBUG] Starting OpsWorks instance: %s", d.Id())
-
-_, err := conn.StartInstanceWithContext(ctx, req)
-
-if err != nil {
+}log.Printf("[DEBUG] Starting OpsWorks instance: %s", d.Id())_, err := conn.StartInstanceWithContext(ctx, req)if err != nil {
 return fmt.Errorf("starting instance: %w", err)
-}
-
-if wait {
-log.Printf("[DEBUG] Waiting for OpsWorks instance (%s) to start", d.Id())
-
-if err := waitInstanceStarted(ctx, conn, d.Id(), timeout); err != nil {
+}if wait {
+log.Printf("[DEBUG] Waiting for OpsWorks instance (%s) to start", d.Id())if err := waitInstanceStarted(ctx, conn, d.Id(), timeout); err != nil {
 return fmt.Errorf("starting instance: waiting for completion: %w", err)
 }
+}return nil
 }
-
-return nil
-}
-
-
 func stopInstance(ctx context.Context, d *schema.ResourceData, meta interface{}, timeout time.Duration) error {
-conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
-
-req := &opsworks.StopInstanceInput{
+conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)req := &opsworks.StopInstanceInput{
 InstanceId: aws.String(d.Id()),
-}
-
-log.Printf("[DEBUG] Stopping OpsWorks instance: %s", d.Id())
-
-_, err := conn.StopInstanceWithContext(ctx, req)
-
-if err != nil {
+}log.Printf("[DEBUG] Stopping OpsWorks instance: %s", d.Id())_, err := conn.StopInstanceWithContext(ctx, req)if err != nil {
 return fmt.Errorf("stopping instance: %w", err)
-}
-
-log.Printf("[DEBUG] Waiting for OpsWorks instance (%s) to become stopped", d.Id())
-
-if err := waitInstanceStopped(ctx, conn, d.Id(), timeout); err != nil {
+}log.Printf("[DEBUG] Waiting for OpsWorks instance (%s) to become stopped", d.Id())if err := waitInstanceStopped(ctx, conn, d.Id(), timeout); err != nil {
 return fmt.Errorf("stopping instance: waiting for completion: %w", err)
+}return nil
 }
-
-return nil
-}
-
-
 func waitInstanceDeleted(ctx context.Context, conn *opsworks.OpsWorks, instanceId string) error {
 stateConf := &retry.StateChangeConf{
 Pending:[]string{instanceStatusStopped, instanceStatusTerminating, instanceStatusTerminated},
@@ -936,13 +629,9 @@ Refresh:instanceStatus(ctx, conn, instanceId),
 Timeout:2 * time.Minute,
 Delay: 10 * time.Second,
 MinTimeout: 3 * time.Second,
-}
-
-_, err := stateConf.WaitForStateContext(ctx)
+}_, err := stateConf.WaitForStateContext(ctx)
 return err
 }
-
-
 func waitInstanceStarted(ctx context.Context, conn *opsworks.OpsWorks, instanceId string, timeout time.Duration) error {
 stateConf := &retry.StateChangeConf{
 Pending:[]string{instanceStatusRequested, instanceStatusPending, instanceStatusBooting, instanceStatusRunningSetup},
@@ -955,8 +644,6 @@ MinTimeout: 3 * time.Second,
 _, err := stateConf.WaitForStateContext(ctx)
 return err
 }
-
-
 func waitInstanceStopped(ctx context.Context, conn *opsworks.OpsWorks, instanceId string, timeout time.Duration) error {
 stateConf := &retry.StateChangeConf{
 Pending:[]string{instanceStatusStopping, instanceStatusTerminating, instanceStatusShuttingDown, instanceStatusTerminated},
@@ -969,47 +656,30 @@ MinTimeout: 3 * time.Second,
 _, err := stateConf.WaitForStateContext(ctx)
 return err
 }
-
-
 func instanceStatus(ctx context.Context, conn *opsworks.OpsWorks, instanceID string) retry.StateRefresh
 func {
-return 
-func() (interface{}, string, error) {
+returnfunc() (interface{}, string, error) {
 resp, err := conn.DescribeInstancesWithContext(ctx, &opsworks.DescribeInstancesInput{
 InstanceIds: []*string{aws.String(instanceID)},
-})
-
-if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
+})if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
 return nil, "", nil
-}
-
-if err != nil {
+}if err != nil {
 return nil, "", err
-}
-
-if resp == nil || len(resp.Instances) == 0 || resp.Instances[0] == nil {
+}if resp == nil || len(resp.Instances) == 0 || resp.Instances[0] == nil {
 // Sometimes AWS just has consistency issues and doesn't see
 // our instance yet. Return an empty state.
 return nil, "", nil
-}
-
-i := resp.Instances[0]
+}i := resp.Instances[0]
 return i, aws.StringValue(i.Status), nil
 }
 }
-
-
 func readBlockDevices(instance *opsworks.Instance) map[string]interface{} {
 blockDevices := make(map[string]interface{})
 blockDevices["ebs"] = make([]map[string]interface{}, 0)
 blockDevices["ephemeral"] = make([]map[string]interface{}, 0)
-blockDevices["root"] = nil
-
-if len(instance.BlockDeviceMappings) == 0 {
+blockDevices["root"] = nilif len(instance.BlockDeviceMappings) == 0 {
 return nil
-}
-
-for _, bdm := range instance.BlockDeviceMappings {
+}for _, bdm := range instance.BlockDeviceMappings {
 bd := make(map[string]interface{})
 if bdm.Ebs != nil && bdm.Ebs.DeleteOnTermination != nil {
 bd["delete_on_termination"] = aws.BoolValue(bdm.Ebs.DeleteOnTermination)

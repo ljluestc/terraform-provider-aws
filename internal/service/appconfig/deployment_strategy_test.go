@@ -1,271 +1,211 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageappconfig_test
-
-import(
-	"context"
-	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/appconfig"
-	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
-	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tfappconfig"github.com/hashicorp/terraform-provider-aws/internal/service/appconfig"
-)
-
-funcTestAccAppConfigDeploymentStrategy_basic(t*testing.T){
-	ctx:=acctest.Context(t)
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_appconfig_deployment_strategy.test"
-
-	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,appconfig.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckDeploymentStrategyDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccDeploymentStrategyConfig_name(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentStrategyExists(ctx,resourceName),
-					acctest.MatchResourceAttrRegionalARN(resourceName,"arn","appconfig",regexache.MustCompile(`deploymentstrategy/[0-9a-z]{4,7}`)),
-					resource.TestCheckResourceAttr(resourceName,"deployment_duration_in_minutes","3"),
-					resource.TestCheckResourceAttr(resourceName,"growth_factor","10"),
-					resource.TestCheckResourceAttr(resourceName,"name",rName),
-					resource.TestCheckResourceAttr(resourceName,"replicate_to",appconfig.ReplicateToNone),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-		},
-	})
+//SPDX-License-Identifier:MPL-2.0packageappconfig_testimport(
+"context"
+"fmt"
+"testing""github.com/YakDriver/regexache"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/appconfig"
+"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
+sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+tfappconfig"github.com/hashicorp/terraform-provider-aws/internal/service/appconfig"
+)funcTestAccAppConfigDeploymentStrategy_basic(t*testing.T){
+ctx:=acctest.Context(t)
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_appconfig_deployment_strategy.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,appconfig.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckDeploymentStrategyDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccDeploymentStrategyConfig_name(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckDeploymentStrategyExists(ctx,resourceName),
+acctest.MatchResourceAttrRegionalARN(resourceName,"arn","appconfig",regexache.MustCompile(`deploymentstrategy/[0-9a-z]{4,7}`)),
+resource.TestCheckResourceAttr(resourceName,"deployment_duration_in_minutes","3"),
+resource.TestCheckResourceAttr(resourceName,"growth_factor","10"),
+resource.TestCheckResourceAttr(resourceName,"name",rName),
+resource.TestCheckResourceAttr(resourceName,"replicate_to",appconfig.ReplicateToNone),
+resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+},
+})
+}funcTestAccAppConfigDeploymentStrategy_updateDescription(t*testing.T){
+ctx:=acctest.Context(t)
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+description:=sdkacctest.RandomWithPrefix("tf-acc-test-update")
+resourceName:="aws_appconfig_deployment_strategy.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,appconfig.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckDeploymentStrategyDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccDeploymentStrategyConfig_description(rName,rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckDeploymentStrategyExists(ctx,resourceName),
+resource.TestCheckResourceAttr(resourceName,"description",rName),
+),
+},
+{
+Config:testAccDeploymentStrategyConfig_description(rName,description),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckDeploymentStrategyExists(ctx,resourceName),
+resource.TestCheckResourceAttr(resourceName,"description",description),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+},
+})
+}funcTestAccAppConfigDeploymentStrategy_updateFinalBakeTime(t*testing.T){
+ctx:=acctest.Context(t)
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_appconfig_deployment_strategy.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,appconfig.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckDeploymentStrategyDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccDeploymentStrategyConfig_finalBakeTime(rName,60),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckDeploymentStrategyExists(ctx,resourceName),
+resource.TestCheckResourceAttr(resourceName,"final_bake_time_in_minutes","60"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+{
+Config:testAccDeploymentStrategyConfig_finalBakeTime(rName,30),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckDeploymentStrategyExists(ctx,resourceName),
+resource.TestCheckResourceAttr(resourceName,"final_bake_time_in_minutes","30"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+{
+//TestFinalBakeTimeInMinutesRemoval
+Config:testAccDeploymentStrategyConfig_name(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckDeploymentStrategyExists(ctx,resourceName),
+),
+},
+},
+})
+}funcTestAccAppConfigDeploymentStrategy_disappears(t*testing.T){
+ctx:=acctest.Context(t)
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_appconfig_deployment_strategy.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,appconfig.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckDeploymentStrategyDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccDeploymentStrategyConfig_name(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckDeploymentStrategyExists(ctx,resourceName),
+acctest.CheckResourceDisappears(ctx,acctest.Provider,tfappconfig.ResourceDeploymentStrategy(),resourceName),
+),
+ExpectNonEmptyPlan:true,
+},
+},
+})
+}funcTestAccAppConfigDeploymentStrategy_tags(t*testing.T){
+ctx:=acctest.Context(t)
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_appconfig_deployment_strategy.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,appconfig.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckDeploymentStrategyDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccDeploymentStrategyConfig_tags1(rName,"key1","value1"),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckDeploymentStrategyExists(ctx,resourceName),
+resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.key1","value1"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+{
+Config:testAccDeploymentStrategyConfig_tags2(rName,"key1","value1updated","key2","value2"),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckDeploymentStrategyExists(ctx,resourceName),
+resource.TestCheckResourceAttr(resourceName,"tags.%","2"),
+resource.TestCheckResourceAttr(resourceName,"tags.key1","value1updated"),
+resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
+),
+},
+{
+Config:testAccDeploymentStrategyConfig_tags1(rName,"key2","value2"),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckDeploymentStrategyExists(ctx,resourceName),
+resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
+),
+},
+},
+})
+}functestAccCheckDeploymentStrategyDestroy(ctxcontext.Context)resource.TestCheckFunc{
+returnfunc(s*terraform.State)error{
+conn:=acctest.Provider.Meta().(*conns.AWSClient).AppConfigConn(ctx)for_,rs:=ranges.RootModule().Resources{
+ifrs.Type!="aws_appconfig_deployment_strategy"{
+continue
+}input:=&appconfig.GetDeploymentStrategyInput{
+DeploymentStrategyId:aws.String(rs.Primary.ID),
+}output,err:=conn.GetDeploymentStrategyWithContext(ctx,input)iftfawserr.ErrCodeEquals(err,appconfig.ErrCodeResourceNotFoundException){
+continue
+}iferr!=nil{
+returnfmt.Errorf("errorgettingAppconfigDeploymentStrategy(%s):%w",rs.Primary.ID,err)
+}ifoutput!=nil{
+returnfmt.Errorf("AppConfigDeploymentStrategy(%s)stillexists",rs.Primary.ID)
 }
-
-funcTestAccAppConfigDeploymentStrategy_updateDescription(t*testing.T){
-	ctx:=acctest.Context(t)
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	description:=sdkacctest.RandomWithPrefix("tf-acc-test-update")
-	resourceName:="aws_appconfig_deployment_strategy.test"
-
-	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,appconfig.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckDeploymentStrategyDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccDeploymentStrategyConfig_description(rName,rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentStrategyExists(ctx,resourceName),
-					resource.TestCheckResourceAttr(resourceName,"description",rName),
-				),
-			},
-			{
-				Config:testAccDeploymentStrategyConfig_description(rName,description),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentStrategyExists(ctx,resourceName),
-					resource.TestCheckResourceAttr(resourceName,"description",description),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-		},
-	})
+}returnnil
 }
-
-funcTestAccAppConfigDeploymentStrategy_updateFinalBakeTime(t*testing.T){
-	ctx:=acctest.Context(t)
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_appconfig_deployment_strategy.test"
-
-	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,appconfig.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckDeploymentStrategyDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccDeploymentStrategyConfig_finalBakeTime(rName,60),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentStrategyExists(ctx,resourceName),
-					resource.TestCheckResourceAttr(resourceName,"final_bake_time_in_minutes","60"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccDeploymentStrategyConfig_finalBakeTime(rName,30),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentStrategyExists(ctx,resourceName),
-					resource.TestCheckResourceAttr(resourceName,"final_bake_time_in_minutes","30"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				//TestFinalBakeTimeInMinutesRemoval
-				Config:testAccDeploymentStrategyConfig_name(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentStrategyExists(ctx,resourceName),
-				),
-			},
-		},
-	})
+}functestAccCheckDeploymentStrategyExists(ctxcontext.Context,resourceNamestring)resource.TestCheckFunc{
+returnfunc(s*terraform.State)error{
+rs,ok:=s.RootModule().Resources[resourceName]
+if!ok{
+returnfmt.Errorf("Resourcenotfound:%s",resourceName)
+}ifrs.Primary.ID==""{
+returnfmt.Errorf("Resource(%s)IDnotset",resourceName)
+}conn:=acctest.Provider.Meta().(*conns.AWSClient).AppConfigConn(ctx)input:=&appconfig.GetDeploymentStrategyInput{
+DeploymentStrategyId:aws.String(rs.Primary.ID),
+}output,err:=conn.GetDeploymentStrategyWithContext(ctx,input)iferr!=nil{
+returnfmt.Errorf("errorgettingAppconfigDeploymentStrategy(%s):%w",rs.Primary.ID,err)
+}ifoutput==nil{
+returnfmt.Errorf("AppConfigDeploymentStrategy(%s)notfound",rs.Primary.ID)
+}returnnil
 }
-
-funcTestAccAppConfigDeploymentStrategy_disappears(t*testing.T){
-	ctx:=acctest.Context(t)
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_appconfig_deployment_strategy.test"
-
-	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,appconfig.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckDeploymentStrategyDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccDeploymentStrategyConfig_name(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentStrategyExists(ctx,resourceName),
-					acctest.CheckResourceDisappears(ctx,acctest.Provider,tfappconfig.ResourceDeploymentStrategy(),resourceName),
-				),
-				ExpectNonEmptyPlan:true,
-			},
-		},
-	})
-}
-
-funcTestAccAppConfigDeploymentStrategy_tags(t*testing.T){
-	ctx:=acctest.Context(t)
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_appconfig_deployment_strategy.test"
-
-	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,appconfig.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckDeploymentStrategyDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccDeploymentStrategyConfig_tags1(rName,"key1","value1"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentStrategyExists(ctx,resourceName),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key1","value1"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccDeploymentStrategyConfig_tags2(rName,"key1","value1updated","key2","value2"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentStrategyExists(ctx,resourceName),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","2"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key1","value1updated"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
-				),
-			},
-			{
-				Config:testAccDeploymentStrategyConfig_tags1(rName,"key2","value2"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckDeploymentStrategyExists(ctx,resourceName),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
-				),
-			},
-		},
-	})
-}
-
-functestAccCheckDeploymentStrategyDestroy(ctxcontext.Context)resource.TestCheckFunc{
-	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).AppConfigConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
-			ifrs.Type!="aws_appconfig_deployment_strategy"{
-				continue
-			}
-
-			input:=&appconfig.GetDeploymentStrategyInput{
-				DeploymentStrategyId:aws.String(rs.Primary.ID),
-			}
-
-			output,err:=conn.GetDeploymentStrategyWithContext(ctx,input)
-
-			iftfawserr.ErrCodeEquals(err,appconfig.ErrCodeResourceNotFoundException){
-				continue
-			}
-
-			iferr!=nil{
-				returnfmt.Errorf("errorgettingAppconfigDeploymentStrategy(%s):%w",rs.Primary.ID,err)
-			}
-
-			ifoutput!=nil{
-				returnfmt.Errorf("AppConfigDeploymentStrategy(%s)stillexists",rs.Primary.ID)
-			}
-		}
-
-		returnnil
-	}
-}
-
-functestAccCheckDeploymentStrategyExists(ctxcontext.Context,resourceNamestring)resource.TestCheckFunc{
-	returnfunc(s*terraform.State)error{
-		rs,ok:=s.RootModule().Resources[resourceName]
-		if!ok{
-			returnfmt.Errorf("Resourcenotfound:%s",resourceName)
-		}
-
-		ifrs.Primary.ID==""{
-			returnfmt.Errorf("Resource(%s)IDnotset",resourceName)
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).AppConfigConn(ctx)
-
-		input:=&appconfig.GetDeploymentStrategyInput{
-			DeploymentStrategyId:aws.String(rs.Primary.ID),
-		}
-
-		output,err:=conn.GetDeploymentStrategyWithContext(ctx,input)
-
-		iferr!=nil{
-			returnfmt.Errorf("errorgettingAppconfigDeploymentStrategy(%s):%w",rs.Primary.ID,err)
-		}
-
-		ifoutput==nil{
-			returnfmt.Errorf("AppConfigDeploymentStrategy(%s)notfound",rs.Primary.ID)
-		}
-
-		returnnil
-	}
-}
-
-functestAccDeploymentStrategyConfig_name(rNamestring)string{
-	returnfmt.Sprintf(`
+}functestAccDeploymentStrategyConfig_name(rNamestring)string{
+returnfmt.Sprintf(`
 resource"aws_appconfig_deployment_strategy""test"{
 name=%[1]q
 deployment_duration_in_minutes=3
@@ -273,10 +213,8 @@ growth_factor=10
 replicate_to="NONE"
 }
 `,rName)
-}
-
-functestAccDeploymentStrategyConfig_description(rName,descriptionstring)string{
-	returnfmt.Sprintf(`
+}functestAccDeploymentStrategyConfig_description(rName,descriptionstring)string{
+returnfmt.Sprintf(`
 resource"aws_appconfig_deployment_strategy""test"{
 name=%[1]q
 deployment_duration_in_minutes=3
@@ -285,10 +223,8 @@ growth_factor=10
 replicate_to="NONE"
 }
 `,rName,description)
-}
-
-functestAccDeploymentStrategyConfig_finalBakeTime(rNamestring,timeint)string{
-	returnfmt.Sprintf(`
+}functestAccDeploymentStrategyConfig_finalBakeTime(rNamestring,timeint)string{
+returnfmt.Sprintf(`
 resource"aws_appconfig_deployment_strategy""test"{
 name=%[1]q
 deployment_duration_in_minutes=3
@@ -297,32 +233,24 @@ growth_factor=10
 replicate_to="NONE"
 }
 `,rName,time)
-}
-
-functestAccDeploymentStrategyConfig_tags1(rName,tagKey1,tagValue1string)string{
-	returnfmt.Sprintf(`
+}functestAccDeploymentStrategyConfig_tags1(rName,tagKey1,tagValue1string)string{
+returnfmt.Sprintf(`
 resource"aws_appconfig_deployment_strategy""test"{
 name=%[1]q
 deployment_duration_in_minutes=3
 growth_factor=10
-replicate_to="NONE"
-
-tags={
+replicate_to="NONE"tags={
 %[2]q=%[3]q
 }
 }
 `,rName,tagKey1,tagValue1)
-}
-
-functestAccDeploymentStrategyConfig_tags2(rName,tagKey1,tagValue1,tagKey2,tagValue2string)string{
-	returnfmt.Sprintf(`
+}functestAccDeploymentStrategyConfig_tags2(rName,tagKey1,tagValue1,tagKey2,tagValue2string)string{
+returnfmt.Sprintf(`
 resource"aws_appconfig_deployment_strategy""test"{
 name=%[1]q
 deployment_duration_in_minutes=3
 growth_factor=10
-replicate_to="NONE"
-
-tags={
+replicate_to="NONE"tags={
 %[2]q=%[3]q
 %[4]q=%[5]q
 }

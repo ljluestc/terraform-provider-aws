@@ -1,27 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package sqs_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package sqs_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/sqs"
+	"testing"	"github.com/aws/aws-sdk-go/service/sqs"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfsqs "github.com/hashicorp/terraform-provider-aws/internal/service/sqs"
-)
-
-func TestAccSQSQueuePolicy_basic(t *testing.T) {
+)func TestAccSQSQueuePolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue_policy.test"
 	queueResourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, sqs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -48,16 +38,12 @@ func TestAccSQSQueuePolicy_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSQSQueuePolicy_disappears(t *testing.T) {
+}func TestAccSQSQueuePolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue_policy.test"
 	queueResourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, sqs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -73,15 +59,11 @@ func TestAccSQSQueuePolicy_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSQSQueuePolicy_Disappears_queue(t *testing.T) {
+}func TestAccSQSQueuePolicy_Disappears_queue(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	queueResourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, sqs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -97,16 +79,12 @@ func TestAccSQSQueuePolicy_Disappears_queue(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccSQSQueuePolicy_update(t *testing.T) {
+}func TestAccSQSQueuePolicy_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue_policy.test"
 	queueResourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, sqs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -132,18 +110,12 @@ func TestAccSQSQueuePolicy_update(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccQueuePolicyConfig_basic(rName string) string {
+}func testAccQueuePolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue_policy" "test" {
-  queue_url = aws_sqs_queue.test.id
-
-  policy = <<POLICY
+}resource "aws_sqs_queue_policy" "test" {
+  queue_url = aws_sqs_queue.test.id  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [{
@@ -161,18 +133,12 @@ resource "aws_sqs_queue_policy" "test" {
 POLICY
 }
 `, rName)
-}
-
-func testAccQueuePolicyConfig_updated(rName string) string {
+}func testAccQueuePolicyConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue_policy" "test" {
-  queue_url = aws_sqs_queue.test.id
-
-  policy = <<POLICY
+}resource "aws_sqs_queue_policy" "test" {
+  queue_url = aws_sqs_queue.test.id  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [{

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package synthetics_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package synthetics_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/synthetics"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,18 +11,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfsynthetics "github.com/hashicorp/terraform-provider-aws/internal/service/synthetics"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func TestAccSyntheticsCanary_basic(t *testing.T) {
+)func TestAccSyntheticsCanary_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf1, conf2 synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -96,18 +84,12 @@ function:cwsyn-%s.+`, rName))),
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_artifactEncryption(t *testing.T) {
+}func TestAccSyntheticsCanary_artifactEncryption(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -139,18 +121,12 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_runtimeVersion(t *testing.T) {
+}func TestAccSyntheticsCanary_runtimeVersion(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf1 synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -177,18 +153,12 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_startCanary(t *testing.T) {
+}func TestAccSyntheticsCanary_startCanary(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf1, conf2, conf3 synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -228,18 +198,12 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_StartCanary_codeChanges(t *testing.T) {
+}func TestAccSyntheticsCanary_StartCanary_codeChanges(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf1, conf2 synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -272,18 +236,12 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_s3(t *testing.T) {
+}func TestAccSyntheticsCanary_s3(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -320,18 +278,12 @@ function:cwsyn-%s.+`, rName))),
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_run(t *testing.T) {
+}func TestAccSyntheticsCanary_run(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -369,18 +321,12 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_runTracing(t *testing.T) {
+}func TestAccSyntheticsCanary_runTracing(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -414,18 +360,12 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_runEnvironmentVariables(t *testing.T) {
+}func TestAccSyntheticsCanary_runEnvironmentVariables(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -455,22 +395,14 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_vpc(t *testing.T) {
+}func TestAccSyntheticsCanary_vpc(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var conf synthetics.Canary
+	}	var conf synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -510,18 +442,12 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_tags(t *testing.T) {
+}func TestAccSyntheticsCanary_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -559,18 +485,12 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func TestAccSyntheticsCanary_disappears(t *testing.T) {
+}func TestAccSyntheticsCanary_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf synthetics.Canary
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
-	resourceName := "aws_synthetics_canary.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_synthetics_canary.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckCanaryDestroy(ctx),
@@ -586,110 +506,55 @@ func() { acctest.PreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-
-func testAccCheckCanaryDestroy(ctx context.Context) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+}func testAccCheckCanaryDestroy(ctx context.Context) resource.TestCheckFunc {
+	returnfunc(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_synthetics_canary" {
 				continue
-			}
-
-			_, err := tfsynthetics.FindCanaryByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfsynthetics.FindCanaryByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Synthetics Canary %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Synthetics Canary %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-
-func testAccCheckCanaryExists(ctx context.Context, n string, canary *synthetics.Canary) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
+}func testAccCheckCanaryExists(ctx context.Context, n string, canary *synthetics.Canary) resource.TestCheckFunc {
+	returnfunc(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Synthetics Canary ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)
-
-		output, err := tfsynthetics.FindCanaryByName(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)		output, err := tfsynthetics.FindCanaryByName(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*canary = *output
-
-		return nil
+		}		*canary = *output		return nil
 	}
-}
-
-
-func testAccCheckCanaryIsUpdated(first, second *synthetics.Canary) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
+}func testAccCheckCanaryIsUpdated(first, second *synthetics.Canary) resource.TestCheckFunc {
+	returnfunc(s *terraform.State) error {
 		if !second.Timeline.LastModified.After(*first.Timeline.LastModified) {
 			return fmt.Errorf("synthetics Canary not updated")
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-
-func testAccCheckCanaryIsStartedAfter(first, second *synthetics.Canary) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
+}func testAccCheckCanaryIsStartedAfter(first, second *synthetics.Canary) resource.TestCheckFunc {
+	returnfunc(s *terraform.State) error {
 		if !second.Timeline.LastStarted.After(*first.Timeline.LastStarted) {
 			return fmt.Errorf("synthetics Canary not updated")
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-
-func testAccCanaryConfig_base(rName string) string {
+}func testAccCanaryConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket        = %[1]q
-  force_destroy = true
-
-  tags = {
+  force_destroy = true  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_s3_bucket_versioning" "test" {
+}resource "aws_s3_bucket_versioning" "test" {
   bucket = aws_s3_bucket.test.id
   versioning_configuration {
     status = "Enabled"
   }
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -703,20 +568,12 @@ resource "aws_iam_role" "test" {
     }
   ]
 }
-EOF
-
-  tags = {
+EOF  tags = {
     Name = %[1]q
   }
-}
-
-data "aws_partition" "current" {}
-
-resource "aws_iam_role_policy" "test" {
+}data "aws_partition" "current" {}resource "aws_iam_role_policy" "test" {
   name = %[1]q
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -773,10 +630,7 @@ resource "aws_iam_role_policy" "test" {
 EOF
 }
 `, rName)
-}
-
-
-func testAccCanaryConfig_run1(rName string) string {
+}func testAccCanaryConfig_run1(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -785,23 +639,14 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  run_config {
+  }  run_config {
     timeout_in_seconds = 60
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_run2(rName string) string {
+}func testAccCanaryConfig_run2(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -810,24 +655,15 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  run_config {
+  }  run_config {
     timeout_in_seconds = 120
     memory_in_mb       = 960
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_runTracing(rName string, tracing bool) string {
+}func testAccCanaryConfig_runTracing(rName string, tracing bool) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -836,24 +672,15 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  run_config {
+  }  run_config {
     active_tracing     = %[2]t
     timeout_in_seconds = 60
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName, tracing))
-}
-
-
-func testAccCanaryConfig_runEnvVariables1(rName string) string {
+}func testAccCanaryConfig_runEnvVariables1(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -862,25 +689,16 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  run_config {
+  }  run_config {
     environment_variables = {
       test1 = "result1"
     }
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_runEnvVariables2(rName string) string {
+}func testAccCanaryConfig_runEnvVariables2(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -889,48 +707,32 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  run_config {
+  }  run_config {
     environment_variables = {
       test1 = "result1"
       test2 = "result2"
     }
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_basic(rName string) string {
+}func testAccCanaryConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   # Must have bucket versioning enabled first
-  depends_on = [aws_s3_bucket_versioning.test, aws_iam_role.test, aws_iam_role_policy.test]
-
-  name  = %[1]q
+  depends_on = [aws_s3_bucket_versioning.test, aws_iam_role.test, aws_iam_role_policy.test]  name  = %[1]q
   artifact_s3_location = "s3://${aws_s3_bucket.test.bucket}/"
   execution_role_arn   = aws_iam_role.test.arn
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
   }
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_artifactEncryption(rName string) string {
+}func testAccCanaryConfig_artifactEncryption(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -939,58 +741,38 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.3"
-  delete_lambda        = true
-
-  artifact_config {
+  delete_lambda        = true  artifact_config {
     s3_encryption {
       encryption_mode = "SSE_S3"
     }
-  }
-
-  schedule {
+  }  schedule {
     expression = "rate(0 minute)"
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_artifactEncryptionKMS(rName string) string {
+}func testAccCanaryConfig_artifactEncryptionKMS(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description    = %[1]q
   deletion_window_in_days = 7
-}
-
-resource "aws_synthetics_canary" "test" {
+}resource "aws_synthetics_canary" "test" {
   name  = %[1]q
   artifact_s3_location = "s3://${aws_s3_bucket.test.bucket}/"
   execution_role_arn   = aws_iam_role.test.arn
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.3"
-  delete_lambda        = true
-
-  artifact_config {
+  delete_lambda        = true  artifact_config {
     s3_encryption {
       encryption_mode = "SSE_KMS"
       kms_key_arn     = aws_kms_key.test.arn
     }
-  }
-
-  schedule {
+  }  schedule {
     expression = "rate(0 minute)"
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_runtimeVersion(rName, version string) string {
+}func testAccCanaryConfig_runtimeVersion(rName, version string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -999,19 +781,12 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = %[2]q
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName, version))
-}
-
-
-func testAccCanaryConfig_zipUpdated(rName string) string {
+}func testAccCanaryConfig_zipUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -1020,19 +795,12 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest_modified.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_start(rName string, state bool) string {
+}func testAccCanaryConfig_start(rName string, state bool) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -1042,19 +810,12 @@ resource "aws_synthetics_canary" "test" {
   zip_file    = "test-fixtures/lambdatest.zip"
   start_canary= %[2]t
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName, state))
-}
-
-
-func testAccCanaryConfig_startZipUpdated(rName string, state bool) string {
+}func testAccCanaryConfig_startZipUpdated(rName string, state bool) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -1064,19 +825,12 @@ resource "aws_synthetics_canary" "test" {
   zip_file    = "test-fixtures/lambdatest_modified.zip"
   start_canary= %[2]t
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName, state))
-}
-
-
-func testAccCanaryConfig_basicS3Code(rName string) string {
+}func testAccCanaryConfig_basicS3Code(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -1087,84 +841,48 @@ resource "aws_synthetics_canary" "test" {
   s3_key= aws_s3_object.test.key
   s3_version  = aws_s3_object.test.version_id
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
-}
-
-resource "aws_s3_object" "test" {
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+}resource "aws_s3_object" "test" {
   # Must have bucket versioning enabled first
-  depends_on = [aws_s3_bucket_versioning.test]
-
-  bucket = aws_s3_bucket.test.bucket
+  depends_on = [aws_s3_bucket_versioning.test]  bucket = aws_s3_bucket.test.bucket
   key    = %[1]q
   source = "test-fixtures/lambdatest.zip"
   etag   = filemd5("test-fixtures/lambdatest.zip")
-}
-
-`, rName))
-}
-
-
-func testAccCanaryVPCBaseConfig(rName string) string {
+}`, rName))
+}func testAccCanaryVPCBaseConfig(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
-
-  tags = {
+  cidr_block = "10.1.0.0/16"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test1" {
+}resource "aws_subnet" "test1" {
   vpc_id   = aws_vpc.test.id
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 2, 0)
-  availability_zone = data.aws_availability_zones.available.names[0]
-
-  tags = {
+  availability_zone = data.aws_availability_zones.available.names[0]  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test2" {
+}resource "aws_subnet" "test2" {
   vpc_id   = aws_vpc.test.id
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 2, 1)
-  availability_zone = data.aws_availability_zones.available.names[1]
-
-  tags = {
+  availability_zone = data.aws_availability_zones.available.names[1]  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test1" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+}resource "aws_security_group" "test1" {
+  vpc_id = aws_vpc.test.id  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test2" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+}resource "aws_security_group" "test2" {
+  vpc_id = aws_vpc.test.id  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_iam_role_policy_attachment" "test" {
+}resource "aws_iam_role_policy_attachment" "test" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
   role       = aws_iam_role.test.name
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_vpc1(rName string) string {
+}func testAccCanaryConfig_vpc1(rName string) string {
 	return acctest.ConfigCompose(
 		testAccCanaryConfig_base(rName),
 		testAccCanaryVPCBaseConfig(rName),
@@ -1176,24 +894,15 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  vpc_config {
+  }  vpc_config {
     subnet_ids= [aws_subnet.test1.id]
     security_group_ids = [aws_security_group.test1.id]
-  }
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  }  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_vpc2(rName string) string {
+}func testAccCanaryConfig_vpc2(rName string) string {
 	return acctest.ConfigCompose(
 		testAccCanaryConfig_base(rName),
 		testAccCanaryVPCBaseConfig(rName),
@@ -1205,24 +914,15 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  vpc_config {
+  }  vpc_config {
     subnet_ids= [aws_subnet.test1.id, aws_subnet.test2.id]
     security_group_ids = [aws_security_group.test1.id, aws_security_group.test2.id]
-  }
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  }  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_vpc3(rName string) string {
+}func testAccCanaryConfig_vpc3(rName string) string {
 	return acctest.ConfigCompose(
 		testAccCanaryConfig_base(rName),
 		testAccCanaryVPCBaseConfig(rName),
@@ -1234,24 +934,15 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  vpc_config {
+  }  vpc_config {
     subnet_ids= [aws_subnet.test2.id]
     security_group_ids = [aws_security_group.test2.id]
-  }
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  }  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
-}
-
-
-func testAccCanaryConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccCanaryConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -1260,21 +951,14 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-
-func testAccCanaryConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccCanaryConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_base(rName), fmt.Sprintf(`
 resource "aws_synthetics_canary" "test" {
   name  = %[1]q
@@ -1283,18 +967,12 @@ resource "aws_synthetics_canary" "test" {
   handler     = "exports.handler"
   zip_file    = "test-fixtures/lambdatest.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.9"
-  delete_lambda        = true
-
-  schedule {
+  delete_lambda        = true  schedule {
     expression = "rate(0 minute)"
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
-  }
-
-  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
+  }  depends_on = [aws_iam_role.test, aws_iam_role_policy.test]
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }

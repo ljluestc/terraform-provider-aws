@@ -10,10 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-
-func funnelChartVisualSchema() *schema.Schema {
+)func funnelChartVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FunnelChartVisual.html
 Type:     schema.TypeList,
 Optional: true,
@@ -96,10 +93,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func expandFunnelChartVisual(tfList []interface{}) *quicksight.FunnelChartVisual {
+}func expandFunnelChartVisual(tfList []interface{}) *quicksight.FunnelChartVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -131,10 +125,7 @@ visual.Title = expandVisualTitleLabelOptions(v)
 	}
 
 	return visual
-}
-
-
-func expandFunnelChartConfiguration(tfList []interface{}) *quicksight.FunnelChartConfiguration {
+}func expandFunnelChartConfiguration(tfList []interface{}) *quicksight.FunnelChartConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -169,10 +160,7 @@ config.VisualPalette = expandVisualPalette(v)
 	}
 
 	return config
-}
-
-
-func expandFunnelChartFieldWells(tfList []interface{}) *quicksight.FunnelChartFieldWells {
+}func expandFunnelChartFieldWells(tfList []interface{}) *quicksight.FunnelChartFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -189,10 +177,7 @@ config.FunnelChartAggregatedFieldWells = expandFunnelChartAggregatedFieldWells(v
 	}
 
 	return config
-}
-
-
-func expandFunnelChartAggregatedFieldWells(tfList []interface{}) *quicksight.FunnelChartAggregatedFieldWells {
+}func expandFunnelChartAggregatedFieldWells(tfList []interface{}) *quicksight.FunnelChartAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -212,10 +197,7 @@ config.Values = expandMeasureFields(v)
 	}
 
 	return config
-}
-
-
-func expandFunnelChartSortConfiguration(tfList []interface{}) *quicksight.FunnelChartSortConfiguration {
+}func expandFunnelChartSortConfiguration(tfList []interface{}) *quicksight.FunnelChartSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -235,10 +217,7 @@ config.CategorySort = expandFieldSortOptionsList(v)
 	}
 
 	return config
-}
-
-
-func expandFunnelChartDataLabelOptions(tfList []interface{}) *quicksight.FunnelChartDataLabelOptions {
+}func expandFunnelChartDataLabelOptions(tfList []interface{}) *quicksight.FunnelChartDataLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -273,10 +252,7 @@ options.LabelFontConfiguration = expandFontConfiguration(v)
 	}
 
 	return options
-}
-
-
-func flattenFunnelChartVisual(apiObject *quicksight.FunnelChartVisual) []interface{} {
+}func flattenFunnelChartVisual(apiObject *quicksight.FunnelChartVisual) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -301,10 +277,7 @@ tfMap["title"] = flattenVisualTitleLabelOptions(apiObject.Title)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFunnelChartConfiguration(apiObject *quicksight.FunnelChartConfiguration) []interface{} {
+}func flattenFunnelChartConfiguration(apiObject *quicksight.FunnelChartConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -333,10 +306,7 @@ tfMap["visual_palette"] = flattenVisualPalette(apiObject.VisualPalette)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFunnelChartDataLabelOptions(apiObject *quicksight.FunnelChartDataLabelOptions) []interface{} {
+}func flattenFunnelChartDataLabelOptions(apiObject *quicksight.FunnelChartDataLabelOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -365,10 +335,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFunnelChartFieldWells(apiObject *quicksight.FunnelChartFieldWells) []interface{} {
+}func flattenFunnelChartFieldWells(apiObject *quicksight.FunnelChartFieldWells) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -379,10 +346,7 @@ tfMap["funnel_chart_aggregated_field_wells"] = flattenFunnelChartAggregatedField
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFunnelChartAggregatedFieldWells(apiObject *quicksight.FunnelChartAggregatedFieldWells) []interface{} {
+}func flattenFunnelChartAggregatedFieldWells(apiObject *quicksight.FunnelChartAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -396,10 +360,7 @@ tfMap["values"] = flattenMeasureFields(apiObject.Values)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFunnelChartSortConfiguration(apiObject *quicksight.FunnelChartSortConfiguration) []interface{} {
+}func flattenFunnelChartSortConfiguration(apiObject *quicksight.FunnelChartSortConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}

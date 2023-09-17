@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package neptune_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package neptune_testimport (
 	"context"
 	"fmt"
 	"strconv"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/neptune"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,17 +12,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfneptune "github.com/hashicorp/terraform-provider-aws/internal/service/neptune"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccNeptuneClusterInstance_basic(t *testing.T) {
+)func TestAccNeptuneClusterInstance_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v neptune.DBInstance
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_neptune_cluster_instance.cluster_instances"
 	clusterResourceName := "aws_neptune_cluster.test"
-	parameterGroupResourceName := "aws_neptune_parameter_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	parameterGroupResourceName := "aws_neptune_parameter_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -76,15 +66,11 @@ func TestAccNeptuneClusterInstance_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccNeptuneClusterInstance_disappears(t *testing.T) {
+}func TestAccNeptuneClusterInstance_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v neptune.DBInstance
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_neptune_cluster_instance.cluster_instances"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_neptune_cluster_instance.cluster_instances"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -100,15 +86,11 @@ func TestAccNeptuneClusterInstance_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccNeptuneClusterInstance_nameGenerated(t *testing.T) {
+}func TestAccNeptuneClusterInstance_nameGenerated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v neptune.DBInstance
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_neptune_cluster_instance.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_neptune_cluster_instance.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -128,15 +110,11 @@ func TestAccNeptuneClusterInstance_nameGenerated(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccNeptuneClusterInstance_namePrefix(t *testing.T) {
+}func TestAccNeptuneClusterInstance_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v neptune.DBInstance
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_neptune_cluster_instance.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_neptune_cluster_instance.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -160,15 +138,11 @@ func TestAccNeptuneClusterInstance_namePrefix(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccNeptuneClusterInstance_tags(t *testing.T) {
+}func TestAccNeptuneClusterInstance_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v neptune.DBInstance
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_neptune_cluster_instance.cluster_instances"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_neptune_cluster_instance.cluster_instances"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -206,16 +180,12 @@ func TestAccNeptuneClusterInstance_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccNeptuneClusterInstance_withAZ(t *testing.T) {
+}func TestAccNeptuneClusterInstance_withAZ(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v neptune.DBInstance
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_neptune_cluster_instance.cluster_instances"
-	availabiltyZonesDataSourceName := "data.aws_availability_zones.available"
-
-	resource.ParallelTest(t, resource.TestCase{
+	availabiltyZonesDataSourceName := "data.aws_availability_zones.available"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -235,16 +205,12 @@ func TestAccNeptuneClusterInstance_withAZ(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccNeptuneClusterInstance_withSubnetGroup(t *testing.T) {
+}func TestAccNeptuneClusterInstance_withSubnetGroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v neptune.DBInstance
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_neptune_cluster_instance.test"
-	subnetGroupResourceName := "aws_neptune_subnet_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	subnetGroupResourceName := "aws_neptune_subnet_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -264,16 +230,12 @@ func TestAccNeptuneClusterInstance_withSubnetGroup(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccNeptuneClusterInstance_kmsKey(t *testing.T) {
+}func TestAccNeptuneClusterInstance_kmsKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v neptune.DBInstance
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_neptune_cluster_instance.cluster_instances"
-	kmsKeyResourceName := "aws_kms_key.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	kmsKeyResourceName := "aws_kms_key.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, neptune.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -288,82 +250,44 @@ func TestAccNeptuneClusterInstance_kmsKey(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckClusterInstanceExists(ctx context.Context, n string, v *neptune.DBInstance) resource.TestCheckFunc {
+}func testAccCheckClusterInstanceExists(ctx context.Context, n string, v *neptune.DBInstance) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Neptune Cluster Instance ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)
-
-		output, err := tfneptune.FindClusterInstanceByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)		output, err := tfneptune.FindClusterInstanceByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccCheckClusterInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckClusterInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_neptune_cluster_instance" {
 				continue
-			}
-
-			_, err := tfneptune.FindClusterInstanceByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfneptune.FindClusterInstanceByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Neptune Cluster Instance %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Neptune Cluster Instance %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccClusterInstanceConfig_baseSansCluster(rName string) string {
+}func testAccClusterInstanceConfig_baseSansCluster(rName string) string {
 	return fmt.Sprintf(`
 data "aws_neptune_orderable_db_instance" "test" {
   engine= "neptune"
   engine_version = aws_neptune_cluster.test.engine_version
-  license_model  = "amazon-license"
-
-  preferred_instance_classes = ["db.t3.medium", "db.r5.large", "db.r4.large"]
-}
-
-resource "aws_neptune_parameter_group" "test" {
+  license_model  = "amazon-license"  preferred_instance_classes = ["db.t3.medium", "db.r5.large", "db.r4.large"]
+}resource "aws_neptune_parameter_group" "test" {
   name   = %[1]q
-  family = "neptune1.2"
-
-  parameter {
+  family = "neptune1.2"  parameter {
     name  = "neptune_query_timeout"
     value = "25"
   }
 }
 `, rName)
-}
-
-func testAccClusterInstanceConfig_base(rName string) string {
+}func testAccClusterInstanceConfig_base(rName string) string {
 	return acctest.ConfigCompose(testAccClusterInstanceConfig_baseSansCluster(rName), acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
   cluster_identifier
@@ -373,9 +297,7 @@ resource "aws_neptune_cluster" "test" {
   skip_final_snapshot
 }
 `, rName))
-}
-
-func testAccClusterInstanceConfig_basic(rName string) string {
+}func testAccClusterInstanceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccClusterInstanceConfig_base(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_instance" "cluster_instances" {
   identifier
@@ -386,9 +308,7 @@ resource "aws_neptune_cluster_instance" "cluster_instances" {
   promotion_tier
 }
 `, rName))
-}
-
-func testAccClusterInstanceConfig_modified(rName string) string {
+}func testAccClusterInstanceConfig_modified(rName string) string {
 	return acctest.ConfigCompose(testAccClusterInstanceConfig_base(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_instance" "cluster_instances" {
   identifier
@@ -400,34 +320,24 @@ resource "aws_neptune_cluster_instance" "cluster_instances" {
   promotion_tier
 }
 `, rName))
-}
-
-func testAccClusterInstanceConfig_nameGenerated(rName string) string {
+}func testAccClusterInstanceConfig_nameGenerated(rName string) string {
 	return acctest.ConfigCompose(testAccClusterInstanceConfig_base(rName), `
 resource "aws_neptune_cluster_instance" "test" {
   cluster_identifier = aws_neptune_cluster.test.id
   instance_class     = data.aws_neptune_orderable_db_instance.test.instance_class
-  engine_version     = data.aws_neptune_orderable_db_instance.test.engine_version
-
-  neptune_parameter_group_name = aws_neptune_parameter_group.test.name
+  engine_version     = data.aws_neptune_orderable_db_instance.test.engine_version  neptune_parameter_group_name = aws_neptune_parameter_group.test.name
 }
 `)
-}
-
-func testAccClusterInstanceConfig_namePrefix(rName, prefix string) string {
+}func testAccClusterInstanceConfig_namePrefix(rName, prefix string) string {
 	return acctest.ConfigCompose(testAccClusterInstanceConfig_base(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_instance" "test" {
   identifier_prefix  = %[1]q
   cluster_identifier = aws_neptune_cluster.test.id
   instance_class     = data.aws_neptune_orderable_db_instance.test.instance_class
-  engine_version     = data.aws_neptune_orderable_db_instance.test.engine_version
-
-  neptune_parameter_group_name = aws_neptune_parameter_group.test.name
+  engine_version     = data.aws_neptune_orderable_db_instance.test.engine_version  neptune_parameter_group_name = aws_neptune_parameter_group.test.name
 }
 `, prefix))
-}
-
-func testAccClusterInstanceConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccClusterInstanceConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccClusterInstanceConfig_base(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_instance" "cluster_instances" {
   identifier
@@ -435,16 +345,12 @@ resource "aws_neptune_cluster_instance" "cluster_instances" {
   instance_classneptune_orderable_db_instance.test.instance_class
   engine_versionneptune_orderable_db_instance.test.engine_version
   neptune_parameter_group_name = aws_neptune_parameter_group.test.name
-  promotion_tier
-
-  tags = {
+  promotion_tier  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccClusterInstanceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccClusterInstanceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccClusterInstanceConfig_base(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_instance" "cluster_instances" {
   identifier
@@ -452,17 +358,13 @@ resource "aws_neptune_cluster_instance" "cluster_instances" {
   instance_classneptune_orderable_db_instance.test.instance_class
   engine_versionneptune_orderable_db_instance.test.engine_version
   neptune_parameter_group_name = aws_neptune_parameter_group.test.name
-  promotion_tier
-
-  tags = {
+  promotion_tier  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
-func testAccClusterInstanceConfig_az(rName string) string {
+}func testAccClusterInstanceConfig_az(rName string) string {
 	return acctest.ConfigCompose(testAccClusterInstanceConfig_base(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_instance" "cluster_instances" {
   identifier
@@ -474,39 +376,27 @@ resource "aws_neptune_cluster_instance" "cluster_instances" {
   availability_zone   = data.aws_availability_zones.available.names[0]
 }
 `, rName))
-}
-
-func testAccClusterInstanceConfig_subnetGroup(rName string) string {
+}func testAccClusterInstanceConfig_subnetGroup(rName string) string {
 	return acctest.ConfigCompose(testAccClusterInstanceConfig_baseSansCluster(rName), acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_neptune_cluster_instance" "test" {
   identifier= %[1]q
   cluster_identifier = aws_neptune_cluster.test.id
   instance_class     = data.aws_neptune_orderable_db_instance.test.instance_class
-  engine_version     = data.aws_neptune_orderable_db_instance.test.engine_version
-
-  neptune_parameter_group_name = aws_neptune_parameter_group.test.name
-}
-
-resource "aws_neptune_subnet_group" "test" {
+  engine_version     = data.aws_neptune_orderable_db_instance.test.engine_version  neptune_parameter_group_name = aws_neptune_parameter_group.test.name
+}resource "aws_neptune_subnet_group" "test" {
   name       = %[1]q
   subnet_ids = aws_subnet.test[*].id
-}
-
-resource "aws_neptune_cluster" "test" {
+}resource "aws_neptune_cluster" "test" {
   cluster_identifier
   neptune_subnet_group_name   = aws_neptune_subnet_group.test.name
   neptune_cluster_parameter_group_name = "default.neptune1.2"
   skip_final_snapshot
 }
 `, rName))
-}
-
-func testAccClusterInstanceConfig_kmsKey(rName string) string {
+}func testAccClusterInstanceConfig_kmsKey(rName string) string {
 	return acctest.ConfigCompose(testAccClusterInstanceConfig_baseSansCluster(rName), acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description = %[1]q
-
-  policy = <<POLICY
+  description = %[1]q  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
@@ -523,24 +413,18 @@ resource "aws_kms_key" "test" {
   ]
 }
 POLICY
-}
-
-resource "aws_neptune_cluster_instance" "cluster_instances" {
+}resource "aws_neptune_cluster_instance" "cluster_instances" {
   identifier
   cluster_identifier  = aws_neptune_cluster.test.id
   instance_classneptune_orderable_db_instance.test.instance_class
   engine_versionneptune_orderable_db_instance.test.engine_version
   neptune_parameter_group_name = aws_neptune_parameter_group.test.name
-}
-
-resource "aws_neptune_cluster" "test" {
+}resource "aws_neptune_cluster" "test" {
   cluster_identifier  = %[1]q
   availability_zones  = slice(data.aws_availability_zones.available.names, 0, min(3, length(data.aws_availability_zones.available.names)))
   skip_final_snapshot = true
   storage_encrypted   = true
-  kms_key_arn= aws_kms_key.test.arn
-
-  neptune_cluster_parameter_group_name = "default.neptune1.2"
+  kms_key_arn= aws_kms_key.test.arn  neptune_cluster_parameter_group_name = "default.neptune1.2"
 }
 `, rName))
 }

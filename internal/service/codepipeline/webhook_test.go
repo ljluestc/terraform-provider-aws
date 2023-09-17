@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package codepipeline_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package codepipeline_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/codepipeline"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -18,19 +12,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/envvar"
 	tfcodepipeline "github.com/hashicorp/terraform-provider-aws/internal/service/codepipeline"
-)
-
-const envVarGithubTokenUsageWebhook = "token with GitHub permissions to repository for CodePipeline webhook creation"
-
-func TestAccCodePipelineWebhook_basic(t *testing.T) {
+)const envVarGithubTokenUsageWebhook = "token with GitHub permissions to repository for CodePipeline webhook creation"func TestAccCodePipelineWebhook_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)
-
-	var v codepipeline.ListWebhookItem
+	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)	var v codepipeline.ListWebhookItem
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_codepipeline_webhook.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_codepipeline_webhook.test"	resource.Test(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckSupported(ctx, t)
@@ -91,17 +77,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccCodePipelineWebhook_ipAuth(t *testing.T) {
+}func TestAccCodePipelineWebhook_ipAuth(t *testing.T) {
 	ctx := acctest.Context(t)
-	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)
-
-	var v codepipeline.ListWebhookItem
+	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)	var v codepipeline.ListWebhookItem
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_codepipeline_webhook.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_codepipeline_webhook.test"	resource.Test(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckSupported(ctx, t)
@@ -127,17 +107,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccCodePipelineWebhook_unauthenticated(t *testing.T) {
+}func TestAccCodePipelineWebhook_unauthenticated(t *testing.T) {
 	ctx := acctest.Context(t)
-	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)
-
-	var v codepipeline.ListWebhookItem
+	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)	var v codepipeline.ListWebhookItem
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_codepipeline_webhook.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_codepipeline_webhook.test"	resource.Test(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckSupported(ctx, t)
@@ -161,17 +135,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccCodePipelineWebhook_tags(t *testing.T) {
+}func TestAccCodePipelineWebhook_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)
-
-	var v1, v2, v3 codepipeline.ListWebhookItem
+	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)	var v1, v2, v3 codepipeline.ListWebhookItem
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_codepipeline_webhook.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_codepipeline_webhook.test"	resource.Test(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckSupported(ctx, t)
@@ -226,17 +194,11 @@ return nil
 	},
 },
 	})
-}
-
-func TestAccCodePipelineWebhook_disappears(t *testing.T) {
+}func TestAccCodePipelineWebhook_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)
-
-	var v codepipeline.ListWebhookItem
+	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)	var v codepipeline.ListWebhookItem
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_codepipeline_webhook.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_codepipeline_webhook.test"	resource.Test(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckSupported(ctx, t)
@@ -256,17 +218,11 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccCodePipelineWebhook_UpdateAuthentication_secretToken(t *testing.T) {
+}func TestAccCodePipelineWebhook_UpdateAuthentication_secretToken(t *testing.T) {
 	ctx := acctest.Context(t)
-	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)
-
-	var v1, v2 codepipeline.ListWebhookItem
+	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, envVarGithubTokenUsageWebhook)	var v1, v2 codepipeline.ListWebhookItem
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_codepipeline_webhook.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_codepipeline_webhook.test"	resource.Test(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckSupported(ctx, t)
@@ -303,170 +259,112 @@ return nil
 	},
 },
 	})
-}
-
-func testAccCheckWebhookExists(ctx context.Context, n string, webhook *codepipeline.ListWebhookItem) resource.TestCheckFunc {
+}func testAccCheckWebhookExists(ctx context.Context, n string, webhook *codepipeline.ListWebhookItem) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No webhook ARN is set as ID")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)
-
-resp, err := tfcodepipeline.GetWebhook(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)resp, err := tfcodepipeline.GetWebhook(ctx, conn, rs.Primary.ID)if err != nil {
 	return err
-}
-
-*webhook = *resp
-
-return nil
+}*webhook = *respreturn nil
 	}
-}
-
-func testAccWebhookConfig_basic(rName, githubToken string) string {
+}func testAccWebhookConfig_basic(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
   name   = %[1]q
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
-  target_pipeline = aws_codepipeline.test.name
-
-  authentication_configuration {
+  target_pipeline = aws_codepipeline.test.name  authentication_configuration {
     secret_token = "super-secret"
-  }
-
-  filter {
+  }  filter {
     json_path    = "$.ref"
     match_equals = "refs/head/{Branch}"
   }
 }
 `, rName)
-}
-
-func testAccWebhookConfig_filters(rName, githubToken string) string {
+}func testAccWebhookConfig_filters(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
   name   = %[1]q
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
-  target_pipeline = aws_codepipeline.test.name
-
-  authentication_configuration {
+  target_pipeline = aws_codepipeline.test.name  authentication_configuration {
     secret_token = "super-secret"
-  }
-
-  filter {
+  }  filter {
     json_path    = "$.ref"
     match_equals = "refs/head/{Branch}"
-  }
-
-  filter {
+  }  filter {
     json_path    = "$.head_commit.modified"
     match_equals = "^.*mypath.*$"
   }
 }
 `, rName)
-}
-
-func testAccWebhookConfig_ipAuth(rName, githubToken string) string {
+}func testAccWebhookConfig_ipAuth(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
   name   = %[1]q
   authentication  = "IP"
   target_action   = "Source"
-  target_pipeline = aws_codepipeline.test.name
-
-  authentication_configuration {
+  target_pipeline = aws_codepipeline.test.name  authentication_configuration {
     allowed_ip_range = "0.0.0.0/0"
-  }
-
-  filter {
+  }  filter {
     json_path    = "$.ref"
     match_equals = "refs/head/{Branch}"
   }
 }
 `, rName)
-}
-
-func testAccWebhookConfig_unauthenticated(rName, githubToken string) string {
+}func testAccWebhookConfig_unauthenticated(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
   name   = %[1]q
   authentication  = "UNAUTHENTICATED"
   target_action   = "Source"
-  target_pipeline = aws_codepipeline.test.name
-
-  filter {
+  target_pipeline = aws_codepipeline.test.name  filter {
     json_path    = "$.ref"
     match_equals = "refs/head/{Branch}"
   }
 }
 `, rName)
-}
-
-func testAccWebhookConfig_tags(rName, tag1, tag2, githubToken string) string {
+}func testAccWebhookConfig_tags(rName, tag1, tag2, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
   name   = %[1]q
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
-  target_pipeline = aws_codepipeline.test.name
-
-  authentication_configuration {
+  target_pipeline = aws_codepipeline.test.name  authentication_configuration {
     secret_token = "super-secret"
-  }
-
-  filter {
+  }  filter {
     json_path    = "$.ref"
     match_equals = "refs/head/{Branch}"
-  }
-
-  tags = {
+  }  tags = {
     Name = %[1]q
     tag1 = %[2]q
     tag2 = %[3]q
   }
 }
 `, rName, tag1, tag2)
-}
-
-func testAccWebhookConfig_secretTokenUpdated(rName, githubToken string) string {
+}func testAccWebhookConfig_secretTokenUpdated(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
   name   = %[1]q
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
-  target_pipeline = aws_codepipeline.test.name
-
-  authentication_configuration {
+  target_pipeline = aws_codepipeline.test.name  authentication_configuration {
     secret_token = "even-more-secret"
-  }
-
-  filter {
+  }  filter {
     json_path    = "$.ref"
     match_equals = "refs/head/{Branch}"
   }
 }
 `, rName)
-}
-
-func testAccWebhookConfig_base(rName, githubToken string) string {
+}func testAccWebhookConfig_base(rName, githubToken string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -480,13 +378,9 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = %[1]q
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -513,54 +407,36 @@ resource "aws_iam_role_policy" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_codepipeline" "test" {
+}resource "aws_codepipeline" "test" {
   name     = %[1]q
-  role_arn = aws_iam_role.test.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.test.arn  artifact_store {
     location = aws_s3_bucket.test.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "1234"
       type = "KMS"
     }
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "ThirdParty"
       provider= "GitHub"
       version = "1"
-      output_artifacts = ["test"]
-
-      configuration = {
+      output_artifacts = ["test"]      configuration = {
         Owner      = "lifesum-terraform"
         Repo       = "test"
         Branch     = "master"
         OAuthToken = %[2]q
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       name   = "Build"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "test"
       }
     }

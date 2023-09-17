@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafv2
-
-// Exports for use in tests only.
+// SPDX-License-Identifier: MPL-2.0package wafv2// Exports for use in tests only.
 var (
 	ListRuleGroupsPages = listRuleGroupsPages
 	ListWebACLsPages    = listWebACLsPages

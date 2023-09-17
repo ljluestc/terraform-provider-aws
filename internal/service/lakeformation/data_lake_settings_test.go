@@ -1,14 +1,8 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packagelakeformation_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packagelakeformation_testimport(
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/lakeformation"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -16,14 +10,9 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflakeformation"github.com/hashicorp/terraform-provider-aws/internal/service/lakeformation"
-)
-
-
-functestAccDataLakeSettings_basic(t*testing.T){
+)functestAccDataLakeSettings_basic(t*testing.T){
 	ctx:=acctest.Context(t)
-	resourceName:="aws_lakeformation_data_lake_settings.test"
-
-	resource.Test(t,resource.TestCase{
+	resourceName:="aws_lakeformation_data_lake_settings.test"	resource.Test(t,resource.TestCase{
 		PreCheck:
 func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,lakeformation.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,lakeformation.EndpointsID),
@@ -55,14 +44,9 @@ func(
 			},
 		},
 	})
-}
-
-
-functestAccDataLakeSettings_disappears(t*testing.T){
+}functestAccDataLakeSettings_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
-	resourceName:="aws_lakeformation_data_lake_settings.test"
-
-	resource.Test(t,resource.TestCase{
+	resourceName:="aws_lakeformation_data_lake_settings.test"	resource.Test(t,resource.TestCase{
 		PreCheck:
 func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,lakeformation.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,lakeformation.EndpointsID),
@@ -80,14 +64,9 @@ func(
 			},
 		},
 	})
-}
-
-
-functestAccDataLakeSettings_withoutCatalogID(t*testing.T){
+}functestAccDataLakeSettings_withoutCatalogID(t*testing.T){
 	ctx:=acctest.Context(t)
-	resourceName:="aws_lakeformation_data_lake_settings.test"
-
-	resource.Test(t,resource.TestCase{
+	resourceName:="aws_lakeformation_data_lake_settings.test"	resource.Test(t,resource.TestCase{
 		PreCheck:
 func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,lakeformation.EndpointsID),
@@ -105,14 +84,9 @@ func(
 			},
 		},
 	})
-}
-
-
-functestAccDataLakeSettings_readOnlyAdmins(t*testing.T){
+}functestAccDataLakeSettings_readOnlyAdmins(t*testing.T){
 	ctx:=acctest.Context(t)
-	resourceName:="aws_lakeformation_data_lake_settings.test"
-
-	resource.Test(t,resource.TestCase{
+	resourceName:="aws_lakeformation_data_lake_settings.test"	resource.Test(t,resource.TestCase{
 		PreCheck:
 func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,lakeformation.EndpointsID),
@@ -130,127 +104,65 @@ func(
 			},
 		},
 	})
-}
-
-
-functestAccCheckDataLakeSettingsDestroy(ctxcontext.Context)resource.TestCheck
+}functestAccCheckDataLakeSettingsDestroy(ctxcontext.Context)resource.TestCheck
 func{
 	return
 func(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).LakeFormationConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).LakeFormationConn(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_lakeformation_data_lake_settings"{
 				continue
-			}
-
-			input:=&lakeformation.GetDataLakeSettingsInput{}
-
-			ifrs.Primary.Attributes["catalog_id"]!=""{
+			}			input:=&lakeformation.GetDataLakeSettingsInput{}			ifrs.Primary.Attributes["catalog_id"]!=""{
 				input.CatalogId=aws.String(rs.Primary.Attributes["catalog_id"])
-			}
-
-			output,err:=conn.GetDataLakeSettingsWithContext(ctx,input)
-
-			iftfawserr.ErrCodeEquals(err,lakeformation.ErrCodeEntityNotFoundException){
+			}			output,err:=conn.GetDataLakeSettingsWithContext(ctx,input)			iftfawserr.ErrCodeEquals(err,lakeformation.ErrCodeEntityNotFoundException){
 				continue
-			}
-
-			iferr!=nil{
+			}			iferr!=nil{
 				returnfmt.Errorf("errorgettingLakeFormationdatalakesettings(%s):%w",rs.Primary.ID,err)
-			}
-
-			ifoutput!=nil&&output.DataLakeSettings!=nil&&len(output.DataLakeSettings.DataLakeAdmins)>0{
+			}			ifoutput!=nil&&output.DataLakeSettings!=nil&&len(output.DataLakeSettings.DataLakeAdmins)>0{
 				returnfmt.Errorf("LakeFormationdatalakeadmin(s)(%s)stillexist",rs.Primary.ID)
-			}
-
-			ifoutput!=nil&&output.DataLakeSettings!=nil&&len(output.DataLakeSettings.ReadOnlyAdmins)>0{
+			}			ifoutput!=nil&&output.DataLakeSettings!=nil&&len(output.DataLakeSettings.ReadOnlyAdmins)>0{
 				returnfmt.Errorf("LakeFormationdatalakereadonlyadmin(s)(%s)stillexist",rs.Primary.ID)
 			}
-		}
-
-		returnnil
+		}		returnnil
 	}
-}
-
-
-functestAccCheckDataLakeSettingsExists(ctxcontext.Context,resourceNamestring)resource.TestCheck
+}functestAccCheckDataLakeSettingsExists(ctxcontext.Context,resourceNamestring)resource.TestCheck
 func{
 	return
 func(s*terraform.State)error{
 		rs,ok:=s.RootModule().Resources[resourceName]
 		if!ok{
 			returnfmt.Errorf("resourcenotfound:%s",resourceName)
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).LakeFormationConn(ctx)
-
-		input:=&lakeformation.GetDataLakeSettingsInput{}
-
-		ifrs.Primary.Attributes["catalog_id"]!=""{
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).LakeFormationConn(ctx)		input:=&lakeformation.GetDataLakeSettingsInput{}		ifrs.Primary.Attributes["catalog_id"]!=""{
 			input.CatalogId=aws.String(rs.Primary.Attributes["catalog_id"])
-		}
-
-		_,err:=conn.GetDataLakeSettingsWithContext(ctx,input)
-
-		iferr!=nil{
+		}		_,err:=conn.GetDataLakeSettingsWithContext(ctx,input)		iferr!=nil{
 			returnfmt.Errorf("errorgettingLakeFormationdatalakesettings(%s):%w",rs.Primary.ID,err)
-		}
-
-		returnnil
+		}		returnnil
 	}
-}
-
-consttestAccDataLakeSettingsConfig_basic=`
-data"aws_caller_identity""current"{}
-
-data"aws_iam_session_context""current"{
+}consttestAccDataLakeSettingsConfig_basic=`
+data"aws_caller_identity""current"{}data"aws_iam_session_context""current"{
 arn=data.aws_caller_identity.current.arn
-}
-
-resource"aws_lakeformation_data_lake_settings""test"{
-catalog_id=data.aws_caller_identity.current.account_id
-
-create_database_default_permissions{
+}resource"aws_lakeformation_data_lake_settings""test"{
+catalog_id=data.aws_caller_identity.current.account_idcreate_database_default_permissions{
 principal="IAM_ALLOWED_PRINCIPALS"
 permissions=["ALL"]
-}
-
-create_table_default_permissions{
+}create_table_default_permissions{
 principal="IAM_ALLOWED_PRINCIPALS"
 permissions=["ALL"]
-}
-
-admins=[data.aws_iam_session_context.current.issuer_arn]
+}admins=[data.aws_iam_session_context.current.issuer_arn]
 trusted_resource_owners=[data.aws_caller_identity.current.account_id]
 allow_external_data_filtering=true
 external_data_filtering_allow_list=[data.aws_caller_identity.current.account_id]
 authorized_session_tag_value_list=["engine1"]
 }
-`
-
-consttestAccDataLakeSettingsConfig_withoutCatalogID=`
-data"aws_caller_identity""current"{}
-
-data"aws_iam_session_context""current"{
+`consttestAccDataLakeSettingsConfig_withoutCatalogID=`
+data"aws_caller_identity""current"{}data"aws_iam_session_context""current"{
 arn=data.aws_caller_identity.current.arn
-}
-
-resource"aws_lakeformation_data_lake_settings""test"{
+}resource"aws_lakeformation_data_lake_settings""test"{
 admins=[data.aws_iam_session_context.current.issuer_arn]
 }
-`
-
-consttestAccDataLakeSettingsConfig_readOnlyAdmins=`
-data"aws_caller_identity""current"{}
-
-data"aws_iam_session_context""current"{
+`consttestAccDataLakeSettingsConfig_readOnlyAdmins=`
+data"aws_caller_identity""current"{}data"aws_iam_session_context""current"{
 arn=data.aws_caller_identity.current.arn
-}
-
-resource"aws_lakeformation_data_lake_settings""test"{
-catalog_id=data.aws_caller_identity.current.account_id
-
-read_only_admins=[data.aws_iam_session_context.current.issuer_arn]
+}resource"aws_lakeformation_data_lake_settings""test"{
+catalog_id=data.aws_caller_identity.current.account_idread_only_admins=[data.aws_iam_session_context.current.issuer_arn]
 }
 `

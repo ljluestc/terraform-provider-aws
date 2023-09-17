@@ -1,17 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"strings"
 	"testing"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -28,9 +22,7 @@ func TestAccLightsailCertificate_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_certificate.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -63,9 +55,7 @@ func TestAccLightsailCertificate_subjectAlternativeNames(t *testing.T) {
 	resourceName := "aws_lightsail_certificate.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())
-	subjectAlternativeName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())
-
-	resource.ParallelTest(t, resource.TestCase{
+	subjectAlternativeName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -94,9 +84,7 @@ func TestAccLightsailCertificate_DomainValidationOptions(t *testing.T) {
 	// Lightsail will only return Domain Validation Options when using a non-test domain.
 	// We need to provide a non-test domain in order to test these values.
 	domainName := fmt.Sprintf("%s.com", acctest.ResourcePrefix)
-	subjectAlternativeName := fmt.Sprintf("%s.com", acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	subjectAlternativeName := fmt.Sprintf("%s.com", acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -127,9 +115,7 @@ func TestAccLightsailCertificate_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_certificate.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -176,26 +162,16 @@ func TestAccLightsailCertificate_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_certificate.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())
-
-	testDestroy := func(*terraform.State) error {
+	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())	testDestroy := func(*terraform.State) error {
 		// reach out and DELETE the Certificate
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
 		_, err := conn.DeleteCertificate(ctx, &lightsail.DeleteCertificateInput{
 			CertificateName: aws.String(rName),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return fmt.Errorf("error deleting Lightsail Certificate in disappear test")
-		}
-
-		// sleep 7 seconds to give it time, so we don't have to poll
-		time.Sleep(7 * time.Second)
-
-		return nil
-	}
-
-	resource.ParallelTest(t, resource.TestCase{
+		}		// sleep 7 seconds to give it time, so we don't have to poll
+		time.Sleep(7 * time.Second)		return nil
+	}	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -221,24 +197,12 @@ func testAccCheckCertificateDestroy(ctx context.Context) resource.TestCheckFunc 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_lightsail_certificate" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-			_, err := tflightsail.FindCertificateById(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)			_, err := tflightsail.FindCertificateById(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResCertificate, rs.Primary.ID, errors.New("still exists"))
-		}
-
-		return nil
+			}			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResCertificate, rs.Primary.ID, errors.New("still exists"))
+		}		return nil
 	}
 }
 func testAccCheckCertificateExists(ctx context.Context, n string) resource.TestCheckFunc {
@@ -246,25 +210,13 @@ func testAccCheckCertificateExists(ctx context.Context, n string) resource.TestC
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return errors.New("No Certificate ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		respCertificate, err := tflightsail.FindCertificateById(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		respCertificate, err := tflightsail.FindCertificateById(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		if respCertificate == nil {
+		}		if respCertificate == nil {
 			return fmt.Errorf("Certificate %q does not exist", rs.Primary.ID)
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccCertificateConfig_basic(rName string, domainName string) string {

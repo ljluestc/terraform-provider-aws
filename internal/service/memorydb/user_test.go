@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package memorydb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package memorydb_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/memorydb"
+	"testing"	"github.com/aws/aws-sdk-go/service/memorydb"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,14 +10,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfmemorydb "github.com/hashicorp/terraform-provider-aws/internal/service/memorydb"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccMemoryDBUser_basic(t *testing.T) {
+)func TestAccMemoryDBUser_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := "tf-test-" + sdkacctest.RandString(8)
-	resourceName := "aws_memorydb_user.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_memorydb_user.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -53,14 +43,10 @@ func TestAccMemoryDBUser_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccMemoryDBUser_disappears(t *testing.T) {
+}func TestAccMemoryDBUser_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := "tf-test-" + sdkacctest.RandString(8)
-	resourceName := "aws_memorydb_user.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_memorydb_user.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -76,14 +62,10 @@ func TestAccMemoryDBUser_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccMemoryDBUser_update_accessString(t *testing.T) {
+}func TestAccMemoryDBUser_update_accessString(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := "tf-test-" + sdkacctest.RandString(8)
-	resourceName := "aws_memorydb_user.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_memorydb_user.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -111,14 +93,10 @@ func TestAccMemoryDBUser_update_accessString(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccMemoryDBUser_update_passwords(t *testing.T) {
+}func TestAccMemoryDBUser_update_passwords(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := "tf-test-" + sdkacctest.RandString(8)
-	resourceName := "aws_memorydb_user.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_memorydb_user.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -165,14 +143,10 @@ func TestAccMemoryDBUser_update_passwords(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccMemoryDBUser_tags(t *testing.T) {
+}func TestAccMemoryDBUser_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := "tf-test-" + sdkacctest.RandString(8)
-	resourceName := "aws_memorydb_user.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_memorydb_user.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -211,143 +185,89 @@ func TestAccMemoryDBUser_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckUserDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckUserDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_memorydb_user" {
 				continue
-			}
-
-			_, err := tfmemorydb.FindUserByName(ctx, conn, rs.Primary.Attributes["user_name"])
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfmemorydb.FindUserByName(ctx, conn, rs.Primary.Attributes["user_name"])			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("MemoryDB User %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("MemoryDB User %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckUserExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckUserExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No MemoryDB User ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)
-
-		_, err := tfmemorydb.FindUserByName(ctx, conn, rs.Primary.Attributes["user_name"])
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)		_, err := tfmemorydb.FindUserByName(ctx, conn, rs.Primary.Attributes["user_name"])		return err
 	}
-}
-
-func testAccUserConfig_basic(rName string) string {
+}func testAccUserConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name = %[1]q
-
-  authentication_mode {
+  user_name = %[1]q  authentication_mode {
 type  = "password"
 passwords = ["aaaaaaaaaaaaaaaa"]
-  }
-
-  tags = {
+  }  tags = {
 Test = "test"
   }
 }
 `, rName)
-}
-
-func testAccUserConfig_accessString(rName, accessString string) string {
+}func testAccUserConfig_accessString(rName, accessString string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = %[2]q
-  user_name = %[1]q
-
-  authentication_mode {
+  user_name = %[1]q  authentication_mode {
 type  = "password"
 passwords = ["aaaaaaaaaaaaaaaa"]
   }
 }
 `, rName, accessString)
-}
-
-func testAccUserConfig_passwords1(rName, password1 string) string {
+}func testAccUserConfig_passwords1(rName, password1 string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name = %[1]q
-
-  authentication_mode {
+  user_name = %[1]q  authentication_mode {
 type  = "password"
 passwords = [%[2]q]
   }
 }
 `, rName, password1)
-}
-
-func testAccUserConfig_passwords2(rName, password1, password2 string) string {
+}func testAccUserConfig_passwords2(rName, password1, password2 string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name = %[1]q
-
-  authentication_mode {
+  user_name = %[1]q  authentication_mode {
 type  = "password"
 passwords = [%[2]q, %[3]q]
   }
 }
 `, rName, password1, password2)
-}
-
-func testAccUserConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccUserConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name = %[1]q
-
-  authentication_mode {
+  user_name = %[1]q  authentication_mode {
 type  = "password"
 passwords = ["aaaaaaaaaaaaaaaa"]
-  }
-
-  tags = {
+  }  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccUserConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccUserConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name = %[1]q
-
-  authentication_mode {
+  user_name = %[1]q  authentication_mode {
 type  = "password"
 passwords = ["aaaaaaaaaaaaaaaa"]
-  }
-
-  tags = {
+  }  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

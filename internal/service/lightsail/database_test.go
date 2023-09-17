@@ -1,18 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"log"
 	"strings"
 	"testing"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -27,9 +21,7 @@ import (
 func TestAccLightsailDatabase_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_database.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -83,9 +75,7 @@ func TestAccLightsailDatabase_relationalDatabaseName(t *testing.T) {
 	rNameTooLong := fmt.Sprintf("%s-%s", rName, sdkacctest.RandString(255))
 	rNameContainsUnderscore := fmt.Sprintf("%s-%s", rName, "_test")
 	rNameStartingDash := fmt.Sprintf("%s-%s", "-", rName)
-	rNameEndingDash := fmt.Sprintf("%s-%s", rName, "-")
-
-	resource.ParallelTest(t, resource.TestCase{
+	rNameEndingDash := fmt.Sprintf("%s-%s", rName, "-")	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -145,9 +135,7 @@ func TestAccLightsailDatabase_masterDatabaseName(t *testing.T) {
 	dbNameTooLong := fmt.Sprintf("%s-%s", dbName, sdkacctest.RandString(64))
 	dbNameContainsSpaces := fmt.Sprint(dbName, "string with spaces")
 	dbNameContainsStartingDigit := fmt.Sprintf("01_%s", dbName)
-	dbNameContainsUnderscore := fmt.Sprintf("%s_123456", dbName)
-
-	resource.ParallelTest(t, resource.TestCase{
+	dbNameContainsUnderscore := fmt.Sprintf("%s_123456", dbName)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -211,9 +199,7 @@ func TestAccLightsailDatabase_masterUsername(t *testing.T) {
 	usernameStartingDigit := fmt.Sprintf("01%s", username)
 	usernameContainsDash := fmt.Sprintf("%s-test", username)
 	usernameContainsSpecial := fmt.Sprintf("%s@", username)
-	usernameContainsUndercore := fmt.Sprintf("%s_test", username)
-
-	resource.ParallelTest(t, resource.TestCase{
+	usernameContainsUndercore := fmt.Sprintf("%s_test", username)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -280,9 +266,7 @@ func TestAccLightsailDatabase_masterPassword(t *testing.T) {
 	passwordContainsSlash := fmt.Sprintf("%s/", password)
 	passwordContainsQuotes := fmt.Sprintf("%s\"", password)
 	passwordContainsAtSymbol := fmt.Sprintf("%s@", password)
-	passwordContainsSpaces := fmt.Sprintf("%s spaces here", password)
-
-	resource.ParallelTest(t, resource.TestCase{
+	passwordContainsSpaces := fmt.Sprintf("%s spaces here", password)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -324,9 +308,7 @@ func TestAccLightsailDatabase_preferredBackupWindow(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_lightsail_database.test"
 	backupWindowInvalidHour := "25:30-10:00"
-	backupWindowInvalidMinute := "10:00-10:70"
-
-	resource.ParallelTest(t, resource.TestCase{
+	backupWindowInvalidMinute := "10:00-10:70"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -378,9 +360,7 @@ func TestAccLightsailDatabase_preferredMaintenanceWindow(t *testing.T) {
 	resourceName := "aws_lightsail_database.test"
 	maintenanceWindowInvalidDay := "tuesday:04:30-tue:05:00"
 	maintenanceWindowInvalidHour := "tue:04:30-tue:30:00"
-	maintenanceWindowInvalidMinute := "tue:04:85-tue:05:00"
-
-	resource.ParallelTest(t, resource.TestCase{
+	maintenanceWindowInvalidMinute := "tue:04:85-tue:05:00"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -433,9 +413,7 @@ func TestAccLightsailDatabase_preferredMaintenanceWindow(t *testing.T) {
 func TestAccLightsailDatabase_publiclyAccessible(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_database.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_database.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -476,9 +454,7 @@ func TestAccLightsailDatabase_publiclyAccessible(t *testing.T) {
 func TestAccLightsailDatabase_backupRetentionEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_database.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_database.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -524,9 +500,7 @@ func TestAccLightsailDatabase_finalSnapshotName(t *testing.T) {
 	sNameTooShort := "s"
 	sNameTooLong := fmt.Sprintf("tf-test-lightsail-%s", sdkacctest.RandString(255))
 	sNameContainsSpaces := fmt.Sprint(sName, "string with spaces")
-	sNameContainsUnderscore := fmt.Sprintf("%s_123456", sName)
-
-	resource.ParallelTest(t, resource.TestCase{
+	sNameContainsUnderscore := fmt.Sprintf("%s_123456", sName)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -575,9 +549,7 @@ func TestAccLightsailDatabase_finalSnapshotName(t *testing.T) {
 func TestAccLightsailDatabase_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_database.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_database.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -629,9 +601,7 @@ func TestAccLightsailDatabase_tags(t *testing.T) {
 func TestAccLightsailDatabase_ha(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_database.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -667,28 +637,16 @@ func TestAccLightsailDatabase_ha(t *testing.T) {
 func TestAccLightsailDatabase_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_database.test"
-
-	testDestroy := func(*terraform.State) error {
+	resourceName := "aws_lightsail_database.test"	testDestroy := func(*terraform.State) error {
 		// reach out and DELETE the Database
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		_, err := conn.DeleteRelationalDatabase(ctx, &lightsail.DeleteRelationalDatabaseInput{
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		_, err := conn.DeleteRelationalDatabase(ctx, &lightsail.DeleteRelationalDatabaseInput{
 			RelationalDatabaseName: aws.String(rName),
 			SkipFinalSnapshot:      aws.Bool(true),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return fmt.Errorf("error deleting Lightsail Database in disappear test")
-		}
-
-		// sleep 7 seconds to give it time, so we don't have to poll
-		time.Sleep(7 * time.Second)
-
-		return nil
-	}
-
-	resource.ParallelTest(t, resource.TestCase{
+		}		// sleep 7 seconds to give it time, so we don't have to poll
+		time.Sleep(7 * time.Second)		return nil
+	}	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -713,103 +671,55 @@ func testAccCheckDatabaseExists(ctx context.Context, n string) resource.TestChec
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return errors.New("No Lightsail Database ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		params := lightsail.GetRelationalDatabaseInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		params := lightsail.GetRelationalDatabaseInput{
 			RelationalDatabaseName: aws.String(rs.Primary.ID),
-		}
-
-		resp, err := conn.GetRelationalDatabase(ctx, &params)
-
-		if err != nil {
+		}		resp, err := conn.GetRelationalDatabase(ctx, &params)		if err != nil {
 			return err
-		}
-
-		if resp == nil || resp.RelationalDatabase == nil {
+		}		if resp == nil || resp.RelationalDatabase == nil {
 			return fmt.Errorf("Database (%s) not found", rs.Primary.ID)
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccCheckDatabaseDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_lightsail_database" {
 				continue
-			}
-
-			params := lightsail.GetRelationalDatabaseInput{
+			}			params := lightsail.GetRelationalDatabaseInput{
 				RelationalDatabaseName: aws.String(rs.Primary.ID),
-			}
-
-			respDatabase, err := conn.GetRelationalDatabase(ctx, &params)
-
-			if tflightsail.IsANotFoundError(err) {
+			}			respDatabase, err := conn.GetRelationalDatabase(ctx, &params)			if tflightsail.IsANotFoundError(err) {
 				continue
-			}
-
-			if err == nil {
+			}			if err == nil {
 				if respDatabase.RelationalDatabase != nil {
 					return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResNameDatabase, rs.Primary.ID, errors.New("still exists"))
 				}
-			}
-
-			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResNameDatabase, rs.Primary.ID, errors.New("still exists"))
-		}
-
-		return nil
+			}			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResNameDatabase, rs.Primary.ID, errors.New("still exists"))
+		}		return nil
 	}
 }
 func testAccCheckDatabaseSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_lightsail_database" {
 				continue
-			}
-
-			// Try and delete the snapshot before we check for the cluster not found
-			snapshot_identifier := rs.Primary.Attributes["final_snapshot_name"]
-
-			log.Printf("[INFO] Deleting the Snapshot %s", snapshot_identifier)
+			}			// Try and delete the snapshot before we check for the cluster not found
+			snapshot_identifier := rs.Primary.Attributes["final_snapshot_name"]			log.Printf("[INFO] Deleting the Snapshot %s", snapshot_identifier)
 			_, err := conn.DeleteRelationalDatabaseSnapshot(ctx, &lightsail.DeleteRelationalDatabaseSnapshotInput{
 				RelationalDatabaseSnapshotName: aws.String(snapshot_identifier),
-			})
-
-			if err != nil {
+			})			if err != nil {
 				return err
-			}
-
-			params := lightsail.GetRelationalDatabaseInput{
+			}			params := lightsail.GetRelationalDatabaseInput{
 				RelationalDatabaseName: aws.String(rs.Primary.ID),
-			}
-
-			respDatabase, err := conn.GetRelationalDatabase(ctx, &params)
-
-			if tflightsail.IsANotFoundError(err) {
+			}			respDatabase, err := conn.GetRelationalDatabase(ctx, &params)			if tflightsail.IsANotFoundError(err) {
 				continue
-			}
-
-			if err == nil {
+			}			if err == nil {
 				if respDatabase.RelationalDatabase != nil {
 					return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResNameDatabase, rs.Primary.ID, errors.New("still exists"))
 				}
-			}
-
-			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResNameDatabase, rs.Primary.ID, errors.New("still exists"))
-		}
-
-		return nil
+			}			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResNameDatabase, rs.Primary.ID, errors.New("still exists"))
+		}		return nil
 	}
 }
 func testAccDatabaseConfig_base() string {

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package evidently_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package evidently_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/cloudwatchevidently"
+	"testing"	"github.com/aws/aws-sdk-go/service/cloudwatchevidently"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,17 +10,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcloudwatchevidently "github.com/hashicorp/terraform-provider-aws/internal/service/evidently"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccEvidentlySegment_basic(t *testing.T) {
+)func TestAccEvidentlySegment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var segment cloudwatchevidently.Segment
-
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+	var segment cloudwatchevidently.Segment	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	resourceName := "aws_evidently_segment.test"
-	pattern := "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"
-
-	resource.ParallelTest(t, resource.TestCase{
+	pattern := "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -56,17 +44,11 @@ func TestAccEvidentlySegment_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlySegment_description(t *testing.T) {
+}func TestAccEvidentlySegment_description(t *testing.T) {
 	ctx := acctest.Context(t)
-	var segment cloudwatchevidently.Segment
-
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+	var segment cloudwatchevidently.Segment	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	description := "example description"
-	resourceName := "aws_evidently_segment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_segment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -89,17 +71,11 @@ func TestAccEvidentlySegment_description(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlySegment_patternJSON(t *testing.T) {
+}func TestAccEvidentlySegment_patternJSON(t *testing.T) {
 	ctx := acctest.Context(t)
-	var segment cloudwatchevidently.Segment
-
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+	var segment cloudwatchevidently.Segment	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	resourceName := "aws_evidently_segment.test"
-	pattern := "  {\n\t  \"Price\": [\n\t\t  {\n\t\t\t  \"numeric\": [\">\",10,\"<=\",20]\n\t\t  }\n\t  ]\n  }\n"
-
-	resource.ParallelTest(t, resource.TestCase{
+	pattern := "  {\n\t  \"Price\": [\n\t\t  {\n\t\t\t  \"numeric\": [\">\",10,\"<=\",20]\n\t\t  }\n\t  ]\n  }\n"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -122,16 +98,10 @@ func TestAccEvidentlySegment_patternJSON(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlySegment_tags(t *testing.T) {
+}func TestAccEvidentlySegment_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var segment cloudwatchevidently.Segment
-
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_evidently_segment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var segment cloudwatchevidently.Segment	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+	resourceName := "aws_evidently_segment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -177,17 +147,11 @@ func TestAccEvidentlySegment_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlySegment_disappears(t *testing.T) {
+}func TestAccEvidentlySegment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var segment cloudwatchevidently.Segment
-
-	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
+	var segment cloudwatchevidently.Segment	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	pattern := "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"
-	resourceName := "aws_evidently_segment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_segment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -203,69 +167,37 @@ func TestAccEvidentlySegment_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckSegmentDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckSegmentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EvidentlyConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_evidently_segment" {
 				continue
-			}
-
-			_, err := tfcloudwatchevidently.FindSegmentByNameOrARN(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfcloudwatchevidently.FindSegmentByNameOrARN(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("CloudWatch Evidently Segment %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("CloudWatch Evidently Segment %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckSegmentExists(ctx context.Context, n string, v *cloudwatchevidently.Segment) resource.TestCheckFunc {
+}func testAccCheckSegmentExists(ctx context.Context, n string, v *cloudwatchevidently.Segment) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-
-		if !ok {
+		rs, ok := s.RootModule().Resources[n]		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No CloudWatch Evidently Segment ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EvidentlyConn(ctx)
-
-		output, err := tfcloudwatchevidently.FindSegmentByNameOrARN(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).EvidentlyConn(ctx)		output, err := tfcloudwatchevidently.FindSegmentByNameOrARN(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccSegmentConfig_basic(rName, pattern string) string {
+}func testAccSegmentConfig_basic(rName, pattern string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_segment" "test" {
   name= %[1]q
   pattern = %[2]q
 }
 `, rName, pattern)
-}
-
-func testAccSegmentConfig_description(rName, description string) string {
+}func testAccSegmentConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_segment" "test" {
   name= %[1]q
@@ -273,9 +205,7 @@ resource "aws_evidently_segment" "test" {
   description = %[2]q
 }
 `, rName, description)
-}
-
-func testAccSegmentConfig_patternJSON(rName string) string {
+}func testAccSegmentConfig_patternJSON(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_segment" "test" {
   name= %[1]q
@@ -290,28 +220,20 @@ resource "aws_evidently_segment" "test" {
   JSON
 }
 `, rName)
-}
-
-func testAccSegmentConfig_tags1(rName, tag, value string) string {
+}func testAccSegmentConfig_tags1(rName, tag, value string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_segment" "test" {
   name= %[1]q
-  pattern = "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"
-
-  tags = {
+  pattern = "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tag, value)
-}
-
-func testAccSegmentConfig_tags2(rName, tag1, value1, tag2, value2 string) string {
+}func testAccSegmentConfig_tags2(rName, tag1, value1, tag2, value2 string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_segment" "test" {
   name= %[1]q
-  pattern = "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"
-
-  tags = {
+  pattern = "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

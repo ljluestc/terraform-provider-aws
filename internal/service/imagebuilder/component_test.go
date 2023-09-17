@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package imagebuilder_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -18,14 +12,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfimagebuilder "github.com/hashicorp/terraform-provider-aws/internal/service/imagebuilder"
-)
-
-func TestAccImageBuilderComponent_basic(t *testing.T) {
+)func TestAccImageBuilderComponent_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_component.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_component.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -59,14 +49,10 @@ func TestAccImageBuilderComponent_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderComponent_disappears(t *testing.T) {
+}func TestAccImageBuilderComponent_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_component.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_component.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -82,14 +68,10 @@ func TestAccImageBuilderComponent_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderComponent_changeDescription(t *testing.T) {
+}func TestAccImageBuilderComponent_changeDescription(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_component.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_component.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -110,14 +92,10 @@ func TestAccImageBuilderComponent_changeDescription(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderComponent_description(t *testing.T) {
+}func TestAccImageBuilderComponent_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_component.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_component.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -138,15 +116,11 @@ func TestAccImageBuilderComponent_description(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderComponent_kmsKeyID(t *testing.T) {
+}func TestAccImageBuilderComponent_kmsKeyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	kmsKeyResourceName := "aws_kms_key.test"
-	resourceName := "aws_imagebuilder_component.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_component.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -167,14 +141,10 @@ func TestAccImageBuilderComponent_kmsKeyID(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderComponent_Platform_windows(t *testing.T) {
+}func TestAccImageBuilderComponent_Platform_windows(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_component.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_component.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -195,14 +165,10 @@ func TestAccImageBuilderComponent_Platform_windows(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderComponent_supportedOsVersions(t *testing.T) {
+}func TestAccImageBuilderComponent_supportedOsVersions(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_component.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_component.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -223,14 +189,10 @@ func TestAccImageBuilderComponent_supportedOsVersions(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderComponent_tags(t *testing.T) {
+}func TestAccImageBuilderComponent_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_component.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_component.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -269,14 +231,10 @@ func TestAccImageBuilderComponent_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderComponent_uri(t *testing.T) {
+}func TestAccImageBuilderComponent_uri(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_component.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_component.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -296,64 +254,34 @@ func TestAccImageBuilderComponent_uri(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckComponentDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckComponentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ImageBuilderConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).ImageBuilderConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_imagebuilder_component" {
 				continue
-			}
-
-			input := &imagebuilder.GetComponentInput{
+			}			input := &imagebuilder.GetComponentInput{
 				ComponentBuildVersionArn: aws.String(rs.Primary.ID),
-			}
-
-			output, err := conn.GetComponentWithContext(ctx, input)
-
-			if tfawserr.ErrCodeEquals(err, imagebuilder.ErrCodeResourceNotFoundException) {
+			}			output, err := conn.GetComponentWithContext(ctx, input)			if tfawserr.ErrCodeEquals(err, imagebuilder.ErrCodeResourceNotFoundException) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return fmt.Errorf("error getting Image Builder Component (%s): %w", rs.Primary.ID, err)
-			}
-
-			if output != nil {
+			}			if output != nil {
 				return fmt.Errorf("Image Builder Component (%s) still exists", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckComponentExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+}func testAccCheckComponentExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("resource not found: %s", resourceName)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ImageBuilderConn(ctx)
-
-		input := &imagebuilder.GetComponentInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).ImageBuilderConn(ctx)		input := &imagebuilder.GetComponentInput{
 			ComponentBuildVersionArn: aws.String(rs.Primary.ID),
-		}
-
-		_, err := conn.GetComponentWithContext(ctx, input)
-
-		if err != nil {
+		}		_, err := conn.GetComponentWithContext(ctx, input)		if err != nil {
 			return fmt.Errorf("error getting Image Builder Component (%s): %w", rs.Primary.ID, err)
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccComponentConfig_changeDescription(rName string, changeDescription string) string {
+}func testAccComponentConfig_changeDescription(rName string, changeDescription string) string {
 	return fmt.Sprintf(`
 resource "aws_imagebuilder_component" "test" {
   change_description = %[2]q
@@ -376,9 +304,7 @@ resource "aws_imagebuilder_component" "test" {
   version  = "1.0.0"
 }
 `, rName, changeDescription)
-}
-
-func testAccComponentConfig_description(rName string, description string) string {
+}func testAccComponentConfig_description(rName string, description string) string {
 	return fmt.Sprintf(`
 resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
@@ -401,15 +327,11 @@ resource "aws_imagebuilder_component" "test" {
   version     = "1.0.0"
 }
 `, rName, description)
-}
-
-func testAccComponentConfig_kmsKeyID(rName string) string {
+}func testAccComponentConfig_kmsKeyID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   deletion_window_in_days = 7
-}
-
-resource "aws_imagebuilder_component" "test" {
+}resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
     phases = [{
       name = "build"
@@ -430,9 +352,7 @@ resource "aws_imagebuilder_component" "test" {
   version    = "1.0.0"
 }
 `, rName)
-}
-
-func testAccComponentConfig_name(rName string) string {
+}func testAccComponentConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
@@ -454,9 +374,7 @@ resource "aws_imagebuilder_component" "test" {
   version  = "1.0.0"
 }
 `, rName)
-}
-
-func testAccComponentConfig_platformWindows(rName string) string {
+}func testAccComponentConfig_platformWindows(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
@@ -478,9 +396,7 @@ resource "aws_imagebuilder_component" "test" {
   version  = "1.0.0"
 }
 `, rName)
-}
-
-func testAccComponentConfig_supportedOsVersions(rName string) string {
+}func testAccComponentConfig_supportedOsVersions(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
@@ -503,9 +419,7 @@ resource "aws_imagebuilder_component" "test" {
   version= "1.0.0"
 }
 `, rName)
-}
-
-func testAccComponentConfig_tags1(rName string, tagKey1 string, tagValue1 string) string {
+}func testAccComponentConfig_tags1(rName string, tagKey1 string, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
@@ -524,16 +438,12 @@ resource "aws_imagebuilder_component" "test" {
   })
   name     = %[1]q
   platform = "Linux"
-  version  = "1.0.0"
-
-  tags = {
+  version  = "1.0.0"  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccComponentConfig_tags2(rName string, tagKey1 string, tagValue1 string, tagKey2 string, tagValue2 string) string {
+}func testAccComponentConfig_tags2(rName string, tagKey1 string, tagValue1 string, tagKey2 string, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
@@ -552,23 +462,17 @@ resource "aws_imagebuilder_component" "test" {
   })
   name     = %[1]q
   platform = "Linux"
-  version  = "1.0.0"
-
-  tags = {
+  version  = "1.0.0"  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccComponentConfig_uri(rName string) string {
+}func testAccComponentConfig_uri(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_object" "test" {
+}resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket.test.bucket
   content = yamlencode({
     phases = [{
@@ -585,9 +489,7 @@ resource "aws_s3_object" "test" {
     schemaVersion = 1.0
   })
   key = "test.yml"
-}
-
-resource "aws_imagebuilder_component" "test" {
+}resource "aws_imagebuilder_component" "test" {
   name     = %[1]q
   platform = "Linux"
   uri      = "s3://${aws_s3_bucket.test.bucket}/${aws_s3_object.test.key}"

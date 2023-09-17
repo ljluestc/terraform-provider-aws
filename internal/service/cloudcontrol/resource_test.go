@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cloudcontrol_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cloudcontrol_testimport (
 	"context"
 	"fmt"
 	"testing"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/cloudcontrolapi"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -19,24 +13,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcloudcontrol "github.com/hashicorp/terraform-provider-aws/internal/service/cloudcontrol"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func init() {
+)func init() {
 	acctest.RegisterServiceErrorCheckFunc(cloudcontrolapi.EndpointsID, testAccErrorCheckSkip)
-}
-
-func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
+}func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
 	return acctest.ErrorCheckSkipMessagesContaining(t,
 		"UnsupportedActionException",
 	)
-}
-
-func TestAccCloudControlResource_basic(t *testing.T) {
+}func TestAccCloudControlResource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -51,14 +37,10 @@ func TestAccCloudControlResource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_disappears(t *testing.T) {
+}func TestAccCloudControlResource_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -73,14 +55,10 @@ func TestAccCloudControlResource_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_booleanValueAdded(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_booleanValueAdded(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -100,14 +78,10 @@ func TestAccCloudControlResource_DesiredState_booleanValueAdded(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_booleanValueRemoved(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_booleanValueRemoved(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -127,14 +101,10 @@ func TestAccCloudControlResource_DesiredState_booleanValueRemoved(t *testing.T) 
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_booleanValueUpdate(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_booleanValueUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -154,15 +124,11 @@ func TestAccCloudControlResource_DesiredState_booleanValueUpdate(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_createOnly(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_createOnly(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -182,14 +148,10 @@ func TestAccCloudControlResource_DesiredState_createOnly(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_integerValueAdded(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_integerValueAdded(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -209,14 +171,10 @@ func TestAccCloudControlResource_DesiredState_integerValueAdded(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_integerValueRemoved(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_integerValueRemoved(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -236,14 +194,10 @@ func TestAccCloudControlResource_DesiredState_integerValueRemoved(t *testing.T) 
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_integerValueUpdate(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_integerValueUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -263,13 +217,9 @@ func TestAccCloudControlResource_DesiredState_integerValueUpdate(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_invalidPropertyName(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_invalidPropertyName(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -281,13 +231,9 @@ func TestAccCloudControlResource_DesiredState_invalidPropertyName(t *testing.T) 
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_invalidPropertyValue(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_invalidPropertyValue(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -299,14 +245,10 @@ func TestAccCloudControlResource_DesiredState_invalidPropertyValue(t *testing.T)
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_objectValueAdded(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_objectValueAdded(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -326,14 +268,10 @@ func TestAccCloudControlResource_DesiredState_objectValueAdded(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_objectValueRemoved(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_objectValueRemoved(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -353,14 +291,10 @@ func TestAccCloudControlResource_DesiredState_objectValueRemoved(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_objectValueUpdate(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_objectValueUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -386,14 +320,10 @@ func TestAccCloudControlResource_DesiredState_objectValueUpdate(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_stringValueAdded(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_stringValueAdded(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -413,14 +343,10 @@ func TestAccCloudControlResource_DesiredState_stringValueAdded(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_stringValueRemoved(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_stringValueRemoved(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -440,14 +366,10 @@ func TestAccCloudControlResource_DesiredState_stringValueRemoved(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_DesiredState_stringValueUpdate(t *testing.T) {
+}func TestAccCloudControlResource_DesiredState_stringValueUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -467,14 +389,10 @@ func TestAccCloudControlResource_DesiredState_stringValueUpdate(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudControlResource_resourceSchema(t *testing.T) {
+}func TestAccCloudControlResource_resourceSchema(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -488,15 +406,11 @@ func TestAccCloudControlResource_resourceSchema(t *testing.T) {
 			},
 		},
 	})
-}
-
-// https://github.com/hashicorp/terraform-provider-aws/issues/26351.
+}// https://github.com/hashicorp/terraform-provider-aws/issues/26351.
 func TestAccCloudControlResource_lambdaFunction(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudcontrolapi_resource.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudcontrolapi_resource.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -518,140 +432,90 @@ func TestAccCloudControlResource_lambdaFunction(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckResourceDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckResourceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CloudControlClient(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).CloudControlClient(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_cloudcontrolapi_resource" {
 				continue
-			}
-
-			_, err := tfcloudcontrol.FindResource(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["type_name"], "", "")
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfcloudcontrol.FindResource(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["type_name"], "", "")			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Cloud Control API Resource %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Cloud Control API Resource %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccResourceConfig_basic(rName string) string {
+}func testAccResourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::Logs::LogGroup"
-
-  desired_state = jsonencode({
+  type_name = "AWS::Logs::LogGroup"  desired_state = jsonencode({
 LogGroupName = %[1]q
   })
 }
 `, rName)
-}
-
-func testAccResourceConfig_desiredStateBooleanValue(rName string, booleanValue bool) string {
+}func testAccResourceConfig_desiredStateBooleanValue(rName string, booleanValue bool) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::ApiGateway::ApiKey"
-
-  desired_state = jsonencode({
+  type_name = "AWS::ApiGateway::ApiKey"  desired_state = jsonencode({
 Enabled = %[2]t
 Name= %[1]q
 Value   = %[1]q
   })
 }
 `, rName, booleanValue)
-}
-
-func testAccResourceConfig_desiredStateBooleanValueRemoved(rName string) string {
+}func testAccResourceConfig_desiredStateBooleanValueRemoved(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::ApiGateway::ApiKey"
-
-  desired_state = jsonencode({
+  type_name = "AWS::ApiGateway::ApiKey"  desired_state = jsonencode({
 Name  = %[1]q
 Value = %[1]q
   })
 }
 `, rName)
-}
-
-func testAccResourceConfig_desiredStateCreateOnly(rName string) string {
+}func testAccResourceConfig_desiredStateCreateOnly(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::Logs::LogGroup"
-
-  desired_state = jsonencode({
+  type_name = "AWS::Logs::LogGroup"  desired_state = jsonencode({
 LogGroupName = %[1]q
   })
 }
 `, rName)
-}
-
-func testAccResourceConfig_desiredStateIntegerValue(rName string, integerValue int) string {
+}func testAccResourceConfig_desiredStateIntegerValue(rName string, integerValue int) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::Logs::LogGroup"
-
-  desired_state = jsonencode({
+  type_name = "AWS::Logs::LogGroup"  desired_state = jsonencode({
 LogGroupName= %[1]q
 RetentionInDays = %[2]d
   })
 }
 `, rName, integerValue)
-}
-
-func testAccResourceConfig_desiredStateIntegerValueRemoved(rName string) string {
+}func testAccResourceConfig_desiredStateIntegerValueRemoved(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::Logs::LogGroup"
-
-  desired_state = jsonencode({
+  type_name = "AWS::Logs::LogGroup"  desired_state = jsonencode({
 LogGroupName = %[1]q
   })
 }
 `, rName)
-}
-
-func testAccResourceConfig_desiredStateInvalidPropertyName(rName string) string {
+}func testAccResourceConfig_desiredStateInvalidPropertyName(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::Logs::LogGroup"
-
-  desired_state = jsonencode({
+  type_name = "AWS::Logs::LogGroup"  desired_state = jsonencode({
 InvalidName = %[1]q
   })
 }
 `, rName)
-}
-
-func testAccResourceConfig_desiredStateInvalidPropertyValue(rName string) string {
+}func testAccResourceConfig_desiredStateInvalidPropertyValue(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::Logs::LogGroup"
-
-  desired_state = jsonencode({
+  type_name = "AWS::Logs::LogGroup"  desired_state = jsonencode({
 LogGroupName = "%[1]s!exclamation-not-valid"
   })
 }
 `, rName)
-}
-
-func testAccResourceConfig_desiredStateObjectValue1(rName string, key1 string, value1 string) string {
+}func testAccResourceConfig_desiredStateObjectValue1(rName string, key1 string, value1 string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::ECS::Cluster"
-
-  desired_state = jsonencode({
+  type_name = "AWS::ECS::Cluster"  desired_state = jsonencode({
 ClusterName = %[1]q
 Tags = [
   {
@@ -662,72 +526,48 @@ Value = %[3]q
   })
 }
 `, rName, key1, value1)
-}
-
-func testAccResourceConfig_desiredStateObjectValueRemoved(rName string) string {
+}func testAccResourceConfig_desiredStateObjectValueRemoved(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::ECS::Cluster"
-
-  desired_state = jsonencode({
+  type_name = "AWS::ECS::Cluster"  desired_state = jsonencode({
 ClusterName = %[1]q
   })
 }
 `, rName)
-}
-
-func testAccResourceConfig_desiredStateStringValue(rName string, stringValue string) string {
+}func testAccResourceConfig_desiredStateStringValue(rName string, stringValue string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::Athena::WorkGroup"
-
-  desired_state = jsonencode({
+  type_name = "AWS::Athena::WorkGroup"  desired_state = jsonencode({
 Description = %[2]q
 Name= %[1]q
   })
 }
 `, rName, stringValue)
-}
-
-func testAccResourceConfig_desiredStateStringValueRemoved(rName string) string {
+}func testAccResourceConfig_desiredStateStringValueRemoved(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudcontrolapi_resource" "test" {
-  type_name = "AWS::Athena::WorkGroup"
-
-  desired_state = jsonencode({
+  type_name = "AWS::Athena::WorkGroup"  desired_state = jsonencode({
 Name = %[1]q
   })
 }
 `, rName)
-}
-
-func testAccResourceConfig_schema(rName string) string {
+}func testAccResourceConfig_schema(rName string) string {
 	return fmt.Sprintf(`
 data "aws_cloudformation_type" "test" {
   type  = "RESOURCE"
   type_name = "AWS::Logs::LogGroup"
-}
-
-resource "aws_cloudcontrolapi_resource" "test" {
+}resource "aws_cloudcontrolapi_resource" "test" {
   schema= data.aws_cloudformation_type.test.schema
-  type_name = data.aws_cloudformation_type.test.type_name
-
-  desired_state = jsonencode({
+  type_name = data.aws_cloudformation_type.test.type_name  desired_state = jsonencode({
 LogGroupName = %[1]q
   })
 }
 `, rName)
-}
-
-func testAccResourceConfig_lambdaFunctionRole(rName string) string {
+}func testAccResourceConfig_lambdaFunctionRole(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "test" {
+data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name = %[1]q
-  managed_policy_arns = ["arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
-
-  assume_role_policy = jsonencode({
+  managed_policy_arns = ["arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]  assume_role_policy = jsonencode({
 Version = "2012-10-17"
 Statement = [
   {
@@ -743,9 +583,7 @@ Action = "sts:AssumeRole"
   })
 }
 `, rName)
-}
-
-func testAccResourceConfig_lambdaFunction(rName string) string {
+}func testAccResourceConfig_lambdaFunction(rName string) string {
 	return acctest.ConfigCompose(testAccResourceConfig_lambdaFunctionRole(rName), `
 resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::Lambda::Function"

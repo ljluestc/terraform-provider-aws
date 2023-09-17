@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshift_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package redshift_testimport (
 "context"
 "errors"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/redshift"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -19,15 +13,11 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfredshift "github.com/hashicorp/terraform-provider-aws/internal/service/redshift"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccRedshiftCluster_basic(t *testing.T) {
+)func TestAccRedshiftCluster_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -64,15 +54,11 @@ ImportStateVerifyIgnore: []string{
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_aqua(t *testing.T) {
+}func TestAccRedshiftCluster_aqua(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -112,15 +98,11 @@ resource.TestCheckResourceAttr(resourceName, "aqua_configuration_status", "auto"
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_disappears(t *testing.T) {
+}func TestAccRedshiftCluster_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -136,15 +118,11 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_withFinalSnapshot(t *testing.T) {
+}func TestAccRedshiftCluster_withFinalSnapshot(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -169,16 +147,12 @@ ImportStateVerifyIgnore: []string{
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_kmsKey(t *testing.T) {
+}func TestAccRedshiftCluster_kmsKey(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
 keyResourceName := "aws_kms_key.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -206,15 +180,11 @@ ImportStateVerifyIgnore: []string{
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_enhancedVPCRoutingEnabled(t *testing.T) {
+}func TestAccRedshiftCluster_enhancedVPCRoutingEnabled(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -247,16 +217,12 @@ resource.TestCheckResourceAttr(resourceName, "enhanced_vpc_routing", "false"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_loggingEnabled(t *testing.T) {
+}func TestAccRedshiftCluster_loggingEnabled(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
 bucketResourceName := "aws_s3_bucket.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -298,15 +264,11 @@ resource.TestCheckResourceAttr(resourceName, "logging.0.log_destination_type", "
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_snapshotCopy(t *testing.T) {
+}func TestAccRedshiftCluster_snapshotCopy(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckMultipleRegion(t, 2)
@@ -332,15 +294,11 @@ resource.TestCheckResourceAttr(resourceName, "snapshot_copy.#", "0"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_iamRoles(t *testing.T) {
+}func TestAccRedshiftCluster_iamRoles(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -362,15 +320,11 @@ resource.TestCheckResourceAttr(resourceName, "iam_roles.#", "1"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_publiclyAccessible(t *testing.T) {
+}func TestAccRedshiftCluster_publiclyAccessible(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -382,9 +336,7 @@ Check: resource.ComposeTestCheckFunc(
 testAccCheckClusterExists(ctx, resourceName, &v),
 resource.TestCheckResourceAttr(resourceName, "publicly_accessible", "false"),
 ),
-},
-
-{
+},{
 Config: testAccClusterConfig_publiclyAccessible(rName, true),
 Check: resource.ComposeTestCheckFunc(
 testAccCheckClusterExists(ctx, resourceName, &v),
@@ -393,15 +345,11 @@ resource.TestCheckResourceAttr(resourceName, "publicly_accessible", "true"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_updateNodeCount(t *testing.T) {
+}func TestAccRedshiftCluster_updateNodeCount(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -425,15 +373,11 @@ resource.TestCheckResourceAttr(resourceName, "node_type", "dc2.large"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_updateNodeType(t *testing.T) {
+}func TestAccRedshiftCluster_updateNodeType(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -455,15 +399,11 @@ resource.TestCheckResourceAttr(resourceName, "node_type", "dc2.8xlarge"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_tags(t *testing.T) {
+}func TestAccRedshiftCluster_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -507,15 +447,11 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_forceNewUsername(t *testing.T) {
+}func TestAccRedshiftCluster_forceNewUsername(t *testing.T) {
 ctx := acctest.Context(t)
 var v1, v2 redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -540,15 +476,11 @@ resource.TestCheckResourceAttr(resourceName, "master_username", "new_username"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_changeAvailabilityZone(t *testing.T) {
+}func TestAccRedshiftCluster_changeAvailabilityZone(t *testing.T) {
 ctx := acctest.Context(t)
 var v1, v2 redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -573,15 +505,11 @@ resource.TestCheckResourceAttrPair(resourceName, "availability_zone", "data.aws_
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_changeAvailabilityZoneAndSetAvailabilityZoneRelocation(t *testing.T) {
+}func TestAccRedshiftCluster_changeAvailabilityZoneAndSetAvailabilityZoneRelocation(t *testing.T) {
 ctx := acctest.Context(t)
 var v1, v2 redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -607,15 +535,11 @@ resource.TestCheckResourceAttrPair(resourceName, "availability_zone", "data.aws_
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_changeAvailabilityZone_availabilityZoneRelocationNotSet(t *testing.T) {
+}func TestAccRedshiftCluster_changeAvailabilityZone_availabilityZoneRelocationNotSet(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -636,15 +560,11 @@ ExpectError: regexache.MustCompile("cannot change `availability_zone` if `availa
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_changeEncryption1(t *testing.T) {
+}func TestAccRedshiftCluster_changeEncryption1(t *testing.T) {
 ctx := acctest.Context(t)
 var cluster1, cluster2 redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -667,15 +587,11 @@ resource.TestCheckResourceAttr(resourceName, "encrypted", "true"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_changeEncryption2(t *testing.T) {
+}func TestAccRedshiftCluster_changeEncryption2(t *testing.T) {
 ctx := acctest.Context(t)
 var cluster1, cluster2 redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -698,15 +614,11 @@ resource.TestCheckResourceAttr(resourceName, "encrypted", "false"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_availabilityZoneRelocation(t *testing.T) {
+}func TestAccRedshiftCluster_availabilityZoneRelocation(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -739,15 +651,11 @@ resource.TestCheckResourceAttr(resourceName, "availability_zone_relocation_enabl
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_availabilityZoneRelocation_publiclyAccessible(t *testing.T) {
+}func TestAccRedshiftCluster_availabilityZoneRelocation_publiclyAccessible(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -763,15 +671,11 @@ resource.TestCheckResourceAttr(resourceName, "publicly_accessible", "true"),
 },
 },
 })
-}
-
-func TestAccRedshiftCluster_restoreFromSnapshot(t *testing.T) {
+}func TestAccRedshiftCluster_restoreFromSnapshot(t *testing.T) {
 ctx := acctest.Context(t)
 var v redshift.Cluster
 resourceName := "aws_redshift_cluster.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -813,104 +717,54 @@ ImportStateVerifyIgnore: []string{
 },
 },
 })
-}
-
-func testAccCheckClusterDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckClusterDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_redshift_cluster" {
 continue
-}
-
-_, err := tfredshift.FindClusterByID(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+}_, err := tfredshift.FindClusterByID(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("Redshift Cluster %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("Redshift Cluster %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccCheckClusterTestSnapshotDestroy(ctx context.Context, rName string) resource.TestCheckFunc {
+}func testAccCheckClusterTestSnapshotDestroy(ctx context.Context, rName string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_redshift_cluster" {
 continue
-}
-
-// Try and delete the snapshot before we check for the cluster not found
-conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-_, err := conn.DeleteClusterSnapshotWithContext(ctx, &redshift.DeleteClusterSnapshotInput{
+}// Try and delete the snapshot before we check for the cluster not found
+conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)_, err := conn.DeleteClusterSnapshotWithContext(ctx, &redshift.DeleteClusterSnapshotInput{
 SnapshotIdentifier: aws.String(rName),
-})
-
-if err != nil {
+})if err != nil {
 return fmt.Errorf("deleting Redshift Cluster Snapshot (%s): %w", rName, err)
-}
-
-_, err = tfredshift.FindClusterByID(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+}_, err = tfredshift.FindClusterByID(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
 return nil
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("Redshift Cluster %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("Redshift Cluster %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccCheckClusterExists(ctx context.Context, n string, v *redshift.Cluster) resource.TestCheckFunc {
+}func testAccCheckClusterExists(ctx context.Context, n string, v *redshift.Cluster) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No Redshift Cluster ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-output, err := tfredshift.FindClusterByID(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)output, err := tfredshift.FindClusterByID(ctx, conn, rs.Primary.ID)if err != nil {
 return err
+}*v = *outputreturn nil
 }
-
-*v = *output
-
-return nil
-}
-}
-
-func testAccCheckClusterMasterUsername(c *redshift.Cluster, value string) resource.TestCheckFunc {
+}func testAccCheckClusterMasterUsername(c *redshift.Cluster, value string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 if got, want := aws.StringValue(c.MasterUsername), value; got != want {
 return fmt.Errorf("Expected cluster's MasterUsername: %q, given: %q", want, got)
 }
 return nil
 }
-}
-
-func testAccCheckClusterNotRecreated(i, j *redshift.Cluster) resource.TestCheckFunc {
+}func testAccCheckClusterNotRecreated(i, j *redshift.Cluster) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 // In lieu of some other uniquely identifying attribute from the API that always changes
 // when a cluster is destroyed and recreated with the same identifier, we use the SSH key
@@ -919,13 +773,9 @@ return func(s *terraform.State) error {
 // Clusters with the same identifier can/will have an overlapping Endpoint.Address.
 if aws.StringValue(i.ClusterPublicKey) != aws.StringValue(j.ClusterPublicKey) {
 return errors.New("Redshift Cluster was recreated")
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccCheckClusterRecreated(i, j *redshift.Cluster) resource.TestCheckFunc {
+}func testAccCheckClusterRecreated(i, j *redshift.Cluster) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 // In lieu of some other uniquely identifying attribute from the API that always changes
 // when a cluster is destroyed and recreated with the same identifier, we use the SSH key
@@ -934,13 +784,9 @@ return func(s *terraform.State) error {
 // Clusters with the same identifier can/will have an overlapping Endpoint.Address.
 if aws.StringValue(i.ClusterPublicKey) == aws.StringValue(j.ClusterPublicKey) {
 return errors.New("Redshift Cluster was not recreated")
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccClusterConfig_updateNodeCount(rName string) string {
+}func testAccClusterConfig_updateNodeCount(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -955,9 +801,7 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName))
-}
-
-func testAccClusterConfig_updateNodeType(rName, nodeType string) string {
+}func testAccClusterConfig_updateNodeType(rName, nodeType string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -972,9 +816,7 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName, nodeType))
-}
-
-func testAccClusterConfig_basic(rName string) string {
+}func testAccClusterConfig_basic(rName string) string {
 // "InvalidVPCNetworkStateFault: The requested AZ us-west-2a is not a valid AZ."
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
@@ -989,9 +831,7 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName))
-}
-
-func testAccClusterConfig_aqua(rName, status string) string {
+}func testAccClusterConfig_aqua(rName, status string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -1007,14 +847,10 @@ resource "aws_redshift_cluster" "test" {
   apply_immediately  = true
 }
 `, rName, status))
-}
-
-func testAccClusterConfig_encrypted(rName string) string {
+}func testAccClusterConfig_encrypted(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description = %[1]q
-
-  policy = <<POLICY
+  description = %[1]q  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
@@ -1030,11 +866,7 @@ resource "aws_kms_key" "test" {
 }
   ]
 }
-POLICY
-
-}
-
-resource "aws_redshift_cluster" "test" {
+POLICY}resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
   availability_zone  = data.aws_availability_zones.available.names[0]
   database_name = "mydb"
@@ -1048,16 +880,12 @@ resource "aws_redshift_cluster" "test" {
   kms_key_id= aws_kms_key.test.arn
 }
 `, rName))
-}
-
-func testAccClusterConfig_unencrypted(rName string) string {
+}func testAccClusterConfig_unencrypted(rName string) string {
 // This is used along with the terraform config created testAccClusterConfig_encrypted, to test removal of encryption.
 //Removing the kms key here causes the key to be deleted before the redshift cluster is unencrypted, resulting in an unstable cluster. This is to be kept for the time-being unti we find a better way to handle this.
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description = %[1]q
-
-  policy = <<POLICY
+  description = %[1]q  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
@@ -1073,11 +901,7 @@ resource "aws_kms_key" "test" {
 }
   ]
 }
-POLICY
-
-}
-
-resource "aws_redshift_cluster" "test" {
+POLICY}resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
   availability_zone  = data.aws_availability_zones.available.names[0]
   database_name = "mydb"
@@ -1089,9 +913,7 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName))
-}
-
-func testAccClusterConfig_finalSnapshot(rName string) string {
+}func testAccClusterConfig_finalSnapshot(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -1106,14 +928,10 @@ resource "aws_redshift_cluster" "test" {
   final_snapshot_identifier  = %[1]q
 }
 `, rName))
-}
-
-func testAccClusterConfig_kmsKey(rName string) string {
+}func testAccClusterConfig_kmsKey(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description = %[1]q
-
-  policy = <<POLICY
+  description = %[1]q  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
@@ -1130,9 +948,7 @@ resource "aws_kms_key" "test" {
   ]
 }
 POLICY
-}
-
-resource "aws_redshift_cluster" "test" {
+}resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
   availability_zone  = data.aws_availability_zones.available.names[0]
   database_name = "mydb"
@@ -1146,9 +962,7 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName))
-}
-
-func testAccClusterConfig_enhancedVPCRoutingEnabled(rName string) string {
+}func testAccClusterConfig_enhancedVPCRoutingEnabled(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -1163,9 +977,7 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName))
-}
-
-func testAccClusterConfig_enhancedVPCRoutingDisabled(rName string) string {
+}func testAccClusterConfig_enhancedVPCRoutingDisabled(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -1180,9 +992,7 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName))
-}
-
-func testAccClusterConfig_loggingDisabled(rName string) string {
+}func testAccClusterConfig_loggingDisabled(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -1192,27 +1002,17 @@ resource "aws_redshift_cluster" "test" {
   master_password= "Mustbe8characters"
   node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade  = false
-
-  logging {
+  allow_version_upgrade  = false  logging {
 enable = false
-  }
-
-  skip_final_snapshot = true
+  }  skip_final_snapshot = true
 }
 `, rName))
-}
-
-func testAccClusterConfig_loggingEnabled(rName string) string {
+}func testAccClusterConfig_loggingEnabled(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_s3_bucket" "test" {
+data "aws_partition" "current" {}resource "aws_s3_bucket" "test" {
   bucket= %[1]q
   force_destroy = true
-}
-
-resource "aws_s3_bucket_policy" "test" {
+}resource "aws_s3_bucket_policy" "test" {
   bucket = aws_s3_bucket.test.id
   policy = <<EOF
 {
@@ -1239,32 +1039,22 @@ resource "aws_s3_bucket_policy" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_redshift_cluster" "test" {
+}resource "aws_redshift_cluster" "test" {
   # Must have bucket policy attached first
-  depends_on = [aws_s3_bucket_policy.test]
-
-  cluster_identifier = %[1]q
+  depends_on = [aws_s3_bucket_policy.test]  cluster_identifier = %[1]q
   availability_zone  = data.aws_availability_zones.available.names[0]
   database_name = "mydb"
   master_username= "foo_test"
   master_password= "Mustbe8characters"
   node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade  = false
-
-  logging {
+  allow_version_upgrade  = false  logging {
 enable  = true
 bucket_name = aws_s3_bucket.test.bucket
-  }
-
-  skip_final_snapshot = true
+  }  skip_final_snapshot = true
 }
 `, rName))
-}
-
-func testAccClusterConfig_loggingCloudWatch(rName string) string {
+}func testAccClusterConfig_loggingCloudWatch(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -1274,20 +1064,14 @@ resource "aws_redshift_cluster" "test" {
   master_password= "Mustbe8characters"
   node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade  = false
-
-  logging {
+  allow_version_upgrade  = false  logging {
 enable  = true
 log_destination_type = "cloudwatch"
 log_exports = ["connectionlog"]
-  }
-
-  skip_final_snapshot = true
+  }  skip_final_snapshot = true
 }
 `, rName))
-}
-
-func testAccClusterConfig_snapshotCopyDisabled(rName string) string {
+}func testAccClusterConfig_snapshotCopyDisabled(rName string) string {
 return acctest.ConfigCompose(
 acctest.ConfigMultipleRegionProvider(2),
 acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"),
@@ -1304,18 +1088,14 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName))
-}
-
-func testAccClusterConfig_snapshotCopyEnabled(rName string) string {
+}func testAccClusterConfig_snapshotCopyEnabled(rName string) string {
 return acctest.ConfigCompose(
 acctest.ConfigMultipleRegionProvider(2),
 acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"),
 fmt.Sprintf(`
 data "aws_region" "alternate" {
   provider = "awsalternate"
-}
-
-resource "aws_redshift_cluster" "test" {
+}resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
   availability_zone  = data.aws_availability_zones.available.names[0]
   database_name = "mydb"
@@ -1323,19 +1103,13 @@ resource "aws_redshift_cluster" "test" {
   master_password= "Mustbe8characters"
   node_type = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade  = false
-
-  snapshot_copy {
+  allow_version_upgrade  = false  snapshot_copy {
 destination_region = data.aws_region.alternate.name
 retention_period   = 1
-  }
-
-  skip_final_snapshot = true
+  }  skip_final_snapshot = true
 }
 `, rName))
-}
-
-func testAccClusterConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccClusterConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -1346,16 +1120,12 @@ resource "aws_redshift_cluster" "test" {
   node_type = "dc2.large"
   automated_snapshot_retention_period = 7
   allow_version_upgrade  = false
-  skip_final_snapshot= true
-
-  tags = {
+  skip_final_snapshot= true  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccClusterConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccClusterConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -1366,70 +1136,44 @@ resource "aws_redshift_cluster" "test" {
   node_type = "dc2.large"
   automated_snapshot_retention_period = 7
   allow_version_upgrade  = false
-  skip_final_snapshot= true
-
-  tags = {
+  skip_final_snapshot= true  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
-func testAccClusterConfig_publiclyAccessible(rName string, publiclyAccessible bool) string {
+}func testAccClusterConfig_publiclyAccessible(rName string, publiclyAccessible bool) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
-
-  tags = {
+  cidr_block = "10.1.0.0/16"  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+}resource "aws_internet_gateway" "test" {
+  vpc_id = aws_vpc.test.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test1" {
+}resource "aws_subnet" "test1" {
   cidr_block= "10.1.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
-  vpc_id   = aws_vpc.test.id
-
-  tags = {
+  vpc_id   = aws_vpc.test.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test2" {
+}resource "aws_subnet" "test2" {
   cidr_block= "10.1.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
-  vpc_id   = aws_vpc.test.id
-
-  tags = {
+  vpc_id   = aws_vpc.test.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test3" {
+}resource "aws_subnet" "test3" {
   cidr_block= "10.1.3.0/24"
   availability_zone = data.aws_availability_zones.available.names[2]
-  vpc_id   = aws_vpc.test.id
-
-  tags = {
+  vpc_id   = aws_vpc.test.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_redshift_subnet_group" "test" {
+}resource "aws_redshift_subnet_group" "test" {
   name   = %[1]q
   subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
-}
-
-resource "aws_redshift_cluster" "test" {
+}resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
   availability_zone  = data.aws_availability_zones.available.names[0]
   database_name = "mydb"
@@ -1440,20 +1184,14 @@ resource "aws_redshift_cluster" "test" {
   allow_version_upgrade  = false
   cluster_subnet_group_name  = aws_redshift_subnet_group.test.name
   publicly_accessible= %[2]t
-  skip_final_snapshot= true
-
-  depends_on = [aws_internet_gateway.test]
+  skip_final_snapshot= true  depends_on = [aws_internet_gateway.test]
 }
 `, rName, publiclyAccessible))
-}
-
-func testAccClusterConfig_iamRoles(rName string) string {
+}func testAccClusterConfig_iamRoles(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_iam_role" "ec2" {
   name = "%[1]s-ec2"
-  path = "/"
-
-  assume_role_policy = <<EOF
+  path = "/"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1471,13 +1209,9 @@ resource "aws_iam_role" "ec2" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role" "lambda" {
+}resource "aws_iam_role" "lambda" {
   name = "%[1]s-lambda"
-  path = "/"
-
-  assume_role_policy = <<EOF
+  path = "/"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1495,9 +1229,7 @@ resource "aws_iam_role" "lambda" {
   ]
 }
 EOF
-}
-
-resource "aws_redshift_cluster" "test" {
+}resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
   availability_zone  = data.aws_availability_zones.available.names[0]
   database_name = "mydb"
@@ -1510,15 +1242,11 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName))
-}
-
-func testAccClusterConfig_updateIAMRoles(rName string) string {
+}func testAccClusterConfig_updateIAMRoles(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_iam_role" "ec2" {
   name = "%[1]s-ec2"
-  path = "/"
-
-  assume_role_policy = <<EOF
+  path = "/"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1536,13 +1264,9 @@ resource "aws_iam_role" "ec2" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role" "lambda" {
+}resource "aws_iam_role" "lambda" {
   name = "%[1]s-lambda"
-  path = "/"
-
-  assume_role_policy = <<EOF
+  path = "/"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1560,9 +1284,7 @@ resource "aws_iam_role" "lambda" {
   ]
 }
 EOF
-}
-
-resource "aws_redshift_cluster" "test" {
+}resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
   availability_zone  = data.aws_availability_zones.available.names[0]
   database_name = "mydb"
@@ -1575,9 +1297,7 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName))
-}
-
-func testAccClusterConfig_updatedUsername(rName string) string {
+}func testAccClusterConfig_updatedUsername(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -1591,9 +1311,7 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot= true
 }
 `, rName))
-}
-
-func testAccClusterConfig_updateAvailabilityZone(rName string, regionIndex int) string {
+}func testAccClusterConfig_updateAvailabilityZone(rName string, regionIndex int) string {
 return acctest.ConfigCompose(
 acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"),
 fmt.Sprintf(`
@@ -1605,16 +1323,12 @@ resource "aws_redshift_cluster" "test" {
   node_type = "ra3.xlplus"
   automated_snapshot_retention_period = 1
   allow_version_upgrade  = false
-  skip_final_snapshot= true
-
-  publicly_accessible = false
+  skip_final_snapshot= true  publicly_accessible = false
   availability_zone_relocation_enabled = true
   availability_zone   = data.aws_availability_zones.available.names[%[2]d]
 }
 `, rName, regionIndex))
-}
-
-func testAccClusterConfig_updateAvailabilityZoneAvailabilityZoneRelocationNotSet(rName string, regionIndex int) string {
+}func testAccClusterConfig_updateAvailabilityZoneAvailabilityZoneRelocationNotSet(rName string, regionIndex int) string {
 return acctest.ConfigCompose(
 acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"),
 fmt.Sprintf(`
@@ -1626,16 +1340,12 @@ resource "aws_redshift_cluster" "test" {
   node_type = "ra3.xlplus"
   automated_snapshot_retention_period = 1
   allow_version_upgrade  = false
-  skip_final_snapshot= true
-
-  publicly_accessible = false
+  skip_final_snapshot= true  publicly_accessible = false
   availability_zone_relocation_enabled = false
   availability_zone   = data.aws_availability_zones.available.names[%[2]d]
 }
 `, rName, regionIndex))
-}
-
-func testAccClusterConfig_availabilityZoneRelocation(rName string, enabled bool) string {
+}func testAccClusterConfig_availabilityZoneRelocation(rName string, enabled bool) string {
 return acctest.ConfigCompose(
 fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
@@ -1648,15 +1358,11 @@ resource "aws_redshift_cluster" "test" {
   cluster_type  = "multi-node"
   automated_snapshot_retention_period = 1
   allow_version_upgrade  = false
-  skip_final_snapshot= true
-
-  publicly_accessible = false
+  skip_final_snapshot= true  publicly_accessible = false
   availability_zone_relocation_enabled = %[2]t
 }
 `, rName, enabled))
-}
-
-func testAccClusterConfig_availabilityZoneRelocationPubliclyAccessible(rName string) string {
+}func testAccClusterConfig_availabilityZoneRelocationPubliclyAccessible(rName string) string {
 return acctest.ConfigCompose(
 fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
@@ -1667,15 +1373,11 @@ resource "aws_redshift_cluster" "test" {
   node_type = "ra3.xlplus"
   automated_snapshot_retention_period = 1
   allow_version_upgrade  = false
-  skip_final_snapshot= true
-
-  publicly_accessible = true
+  skip_final_snapshot= true  publicly_accessible = true
   availability_zone_relocation_enabled = true
 }
 `, rName))
-}
-
-func testAccClusterConfig_createSnapshot(rName string) string {
+}func testAccClusterConfig_createSnapshot(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier= %[1]q
@@ -1688,9 +1390,7 @@ resource "aws_redshift_cluster" "test" {
   final_snapshot_identifier = %[1]q
 }
 `, rName))
-}
-
-func testAccClusterConfig_restoreFromSnapshot(rName string) string {
+}func testAccClusterConfig_restoreFromSnapshot(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier  = %[1]q

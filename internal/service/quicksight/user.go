@@ -34,8 +34,7 @@ func ResourceUser() *schema.Resource {
 		DeleteWithoutTimeout: resourceUserDelete,
 
 		Schema
-func: 
-func() map[string]*schema.Schema {
+func:func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -111,10 +110,7 @@ func: validation.StringInSlice([]string{
 			}
 		},
 	}
-}
-
-
-func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -154,10 +150,7 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	d.SetId(fmt.Sprintf("%s/%s/%s", awsAccountID, namespace, aws.StringValue(resp.User.UserName)))
 
 	return append(diags, resourceUserRead(ctx, d, meta)...)
-}
-
-
-func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -190,10 +183,7 @@ func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interfac
 	d.Set("user_name", resp.User.UserName)
 
 	return diags
-}
-
-
-func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -216,10 +206,7 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	return append(diags, resourceUserRead(ctx, d, meta)...)
-}
-
-
-func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -242,10 +229,7 @@ func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	return diags
-}
-
-
-func UserParseID(id string) (string, string, string, error) {
+}func UserParseID(id string) (string, string, string, error) {
 	parts := strings.SplitN(id, "/", 3)
 	if len(parts) < 3 || parts[0] == "" || parts[1] == "" || parts[2] == "" {
 		return "", "", "", fmt.Errorf("unexpected format of ID (%s), expected AWS_ACCOUNT_ID/NAMESPACE/USER_NAME", id)

@@ -1,28 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package codecatalyst
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+// SPDX-License-Identifier: MPL-2.0package codecatalystimport (
+	"context"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// Function annotations are used for datasource registration to the Provider. DO NOT EDIT.
+)// Function annotations are used for datasource registration to the Provider. DO NOT EDIT.
 // @SDKDataSource("aws_codecatalyst_dev_environment", name="Dev Environment")
 func DataSourceDevEnvironment() *schema.Resource {
-	return &schema.Resource{
-
-		ReadWithoutTimeout: dataSourceDevEnvironmentRead,
-
-		Schema: map[string]*schema.Schema{
+	return &schema.Resource{		ReadWithoutTimeout: dataSourceDevEnvironmentRead,		Schema: map[string]*schema.Schema{
 			"alias": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -111,29 +99,15 @@ func DataSourceDevEnvironment() *schema.Resource {
 			"tags": tftags.TagsSchemaComputed(),
 		},
 	}
-}
-
-const (
+}const (
 	DSNameDevEnvironment = "Dev Environment Data Source"
-)
-
-func dataSourceDevEnvironmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
-
-	conn := meta.(*conns.AWSClient).CodeCatalystClient(ctx)
-
-	spaceName := aws.String(d.Get("space_name").(string))
+)func dataSourceDevEnvironmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	var diags diag.Diagnostics	conn := meta.(*conns.AWSClient).CodeCatalystClient(ctx)	spaceName := aws.String(d.Get("space_name").(string))
 	projectName := aws.String(d.Get("project_name").(string))
-	env_id := d.Get("env_id").(string)
-
-	out, err := findDevEnvironmentByID(ctx, conn, env_id, spaceName, projectName)
+	env_id := d.Get("env_id").(string)	out, err := findDevEnvironmentByID(ctx, conn, env_id, spaceName, projectName)
 	if err != nil {
 		return append(diags, create.DiagError(names.CodeCatalyst, create.ErrActionReading, DSNameDevEnvironment, d.Id(), err)...)
-	}
-
-	d.SetId(aws.ToString(out.Id))
-
-	d.Set("alias", out.Alias)
+	}	d.SetId(aws.ToString(out.Id))	d.Set("alias", out.Alias)
 	d.Set("creator_id", out.CreatorId)
 	d.Set("project_name", out.ProjectName)
 	d.Set("space_name", out.SpaceName)
@@ -142,15 +116,9 @@ func dataSourceDevEnvironmentRead(ctx context.Context, d *schema.ResourceData, m
 	d.Set("inactivity_timeout_minutes", out.InactivityTimeoutMinutes)
 	d.Set("persistent_storage", flattenPersistentStorage(out.PersistentStorage))
 	d.Set("status", out.Status)
-	d.Set("status_reason", out.StatusReason)
-
-	if err := d.Set("ides", flattenIdes(out.Ides)); err != nil {
+	d.Set("status_reason", out.StatusReason)	if err := d.Set("ides", flattenIdes(out.Ides)); err != nil {
 		return append(diags, create.DiagError(names.CodeCatalyst, create.ErrActionSetting, ResNameDevEnvironment, d.Id(), err)...)
-	}
-
-	if err := d.Set("repositories", flattenRepositories(out.Repositories)); err != nil {
+	}	if err := d.Set("repositories", flattenRepositories(out.Repositories)); err != nil {
 		return append(diags, create.DiagError(names.CodeCatalyst, create.ErrActionSetting, ResNameDevEnvironment, d.Id(), err)...)
-	}
-
-	return diags
+	}	return diags
 }

@@ -1,29 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-//go:build sweep
-// +build sweep
-
-package codestarnotifications
-
-import (
+// SPDX-License-Identifier: MPL-2.0//go:build sweep
+// +build sweeppackage codestarnotificationsimport (
 	"fmt"
-	"log"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"log"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/codestarnotifications"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
-)
-
-func init() {
+)func init() {
 	resource.AddTestSweepers("aws_codestarnotifications_notification_rule", &resource.Sweeper{
 		Name: "aws_codestarnotifications_notification_rule",
 		F:    sweepNotificationRules,
 	})
-}
-
-func sweepNotificationRules(region string) error {
+}func sweepNotificationRules(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -31,35 +19,19 @@ func sweepNotificationRules(region string) error {
 	}
 	conn := client.CodeStarNotificationsClient(ctx)
 	input := &codestarnotifications.ListNotificationRulesInput{}
-	sweepResources := make([]sweep.Sweepable, 0)
-
-	pages := codestarnotifications.NewListNotificationRulesPaginator(conn, input)
+	sweepResources := make([]sweep.Sweepable, 0)	pages := codestarnotifications.NewListNotificationRulesPaginator(conn, input)
 	for pages.HasMorePages() {
-		page, err := pages.NextPage(ctx)
-
-		if sweep.SkipSweepError(err) {
+		page, err := pages.NextPage(ctx)		if sweep.SkipSweepError(err) {
 			log.Printf("[WARN] Skipping CodeStar Notification Rule sweep for %s: %s", region, err)
 			return nil
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return fmt.Errorf("error listingCodeStar Notification Rules (%s): %w", region, err)
-		}
-
-		for _, v := range page.NotificationRules {
+		}		for _, v := range page.NotificationRules {
 			r := resourceNotificationRule()
 			d := r.Data(nil)
-			d.SetId(aws.ToString(v.Arn))
-
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			d.SetId(aws.ToString(v.Arn))			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
 		}
-	}
-
-	err = sweep.SweepOrchestrator(ctx, sweepResources)
-
-	if err != nil {
+	}	err = sweep.SweepOrchestrator(ctx, sweepResources)	if err != nil {
 		return fmt.Errorf("error sweeping CodeStar Notification Rules (%s): %w", region, err)
-	}
-
-	return nil
+	}	return nil
 }

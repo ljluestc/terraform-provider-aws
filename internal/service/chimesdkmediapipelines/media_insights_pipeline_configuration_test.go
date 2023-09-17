@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package chimesdkmediapipelines_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package chimesdkmediapipelines_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/chimesdkmediapipelines"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -21,17 +15,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	tfchimesdkmediapipelines "github.com/hashicorp/terraform-provider-aws/internal/service/chimesdkmediapipelines"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_basic(t *testing.T) {
+)func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var mipc chimesdkmediapipelines.MediaInsightsPipelineConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	roleName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	streamName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, chimesdkmediapipelines.EndpointsID)
@@ -66,17 +56,13 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_basic(t *te
 			},
 		},
 	})
-}
-
-func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_disappears(t *testing.T) {
+}func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var mipc chimesdkmediapipelines.MediaInsightsPipelineConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	roleName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	streamName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, chimesdkmediapipelines.EndpointsID)
@@ -96,9 +82,7 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_disappears(
 			},
 		},
 	})
-}
-
-func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_updateAllProcessorTypes(t *testing.T) {
+}func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_updateAllProcessorTypes(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2, v3, v4 chimesdkmediapipelines.MediaInsightsPipelineConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -106,9 +90,7 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_updateAllPr
 	roleName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	streamName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	streamName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, chimesdkmediapipelines.EndpointsID)
@@ -195,17 +177,13 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_updateAllPr
 			},
 		},
 	})
-}
-
-func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_tags(t *testing.T) {
+}func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var mipc chimesdkmediapipelines.MediaInsightsPipelineConfiguration
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	roleName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	streamName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, chimesdkmediapipelines.EndpointsID)
@@ -250,113 +228,69 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_tags(t *tes
 			},
 		},
 	})
-}
-
-func testAccCheckMediaInsightsPipelineConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckMediaInsightsPipelineConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKMediaPipelinesConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKMediaPipelinesConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" {
 				continue
-			}
-
-			_, err := tfchimesdkmediapipelines.FindMediaInsightsPipelineConfigurationByID(ctx, conn, rs.Primary.ID)
+			}			_, err := tfchimesdkmediapipelines.FindMediaInsightsPipelineConfigurationByID(ctx, conn, rs.Primary.ID)
 			if err != nil {
 				if tfawserr.ErrCodeEquals(err, chimesdkmediapipelines.ErrCodeNotFoundException) {
 					return nil
 				}
 				return err
-			}
-
-			return create.Error(names.ChimeSDKMediaPipelines, create.ErrActionCheckingDestroyed,
+			}			return create.Error(names.ChimeSDKMediaPipelines, create.ErrActionCheckingDestroyed,
 				tfchimesdkmediapipelines.ResNameMediaInsightsPipelineConfiguration, rs.Primary.ID, errors.New("not destroyed"))
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckMediaInsightsPipelineConfigurationExists(ctx context.Context, name string, mipc *chimesdkmediapipelines.MediaInsightsPipelineConfiguration) resource.TestCheckFunc {
+}func testAccCheckMediaInsightsPipelineConfigurationExists(ctx context.Context, name string, mipc *chimesdkmediapipelines.MediaInsightsPipelineConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.ChimeSDKMediaPipelines, create.ErrActionCheckingExistence,
 				tfchimesdkmediapipelines.ResNameMediaInsightsPipelineConfiguration, name, errors.New("not found"))
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return create.Error(names.ChimeSDKMediaPipelines, create.ErrActionCheckingExistence,
 				tfchimesdkmediapipelines.ResNameMediaInsightsPipelineConfiguration, name, errors.New("not set"))
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKMediaPipelinesConn(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKMediaPipelinesConn(ctx)
 		resp, err := tfchimesdkmediapipelines.FindMediaInsightsPipelineConfigurationByID(ctx, conn, rs.Primary.ID)
 		if err != nil {
 			return create.Error(names.ChimeSDKMediaPipelines, create.ErrActionCheckingExistence,
 				tfchimesdkmediapipelines.ResNameMediaInsightsPipelineConfiguration, rs.Primary.ID, err)
-		}
-
-		*mipc = *resp
-
-		return nil
+		}		*mipc = *resp		return nil
 	}
-}
-
-func testAccPreCheck(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKMediaPipelinesConn(ctx)
-
-	input := &chimesdkmediapipelines.ListMediaInsightsPipelineConfigurationsInput{}
-	_, err := conn.ListMediaInsightsPipelineConfigurationsWithContext(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+}func testAccPreCheck(ctx context.Context, t *testing.T) {
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKMediaPipelinesConn(ctx)	input := &chimesdkmediapipelines.ListMediaInsightsPipelineConfigurationsInput{}
+	_, err := conn.ListMediaInsightsPipelineConfigurationsWithContext(ctx, input)	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
-}
-
-func testAccCheckMediaInsightsPipelineConfigurationNotRecreated(before, after *chimesdkmediapipelines.MediaInsightsPipelineConfiguration) resource.TestCheckFunc {
+}func testAccCheckMediaInsightsPipelineConfigurationNotRecreated(before, after *chimesdkmediapipelines.MediaInsightsPipelineConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if beforeID, afterID := aws.StringValue(before.MediaInsightsPipelineConfigurationId), aws.StringValue(after.MediaInsightsPipelineConfigurationId); beforeID != afterID {
 			return create.Error(names.ChimeSDKMediaPipelines, create.ErrActionCheckingNotRecreated,
 				tfchimesdkmediapipelines.ResNameMediaInsightsPipelineConfiguration, beforeID, errors.New("recreated"))
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName string) string {
+}func testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "assume_role" {
   statement {
-    effect = "Allow"
-
-    principals {
+    effect = "Allow"    principals {
       type        = "Service"
       identifiers = ["mediapipelines.chime.amazonaws.com"]
-    }
-
-    actions = ["sts:AssumeRole"]
+    }    actions = ["sts:AssumeRole"]
   }
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   name  = %[1]q
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
-}
-
-resource "aws_kinesis_stream" "test" {
+}resource "aws_kinesis_stream" "test" {
   name        = %[2]q
   shard_count = 2
 }
 `, roleName, streamName)
-}
-
-func testAccMediaInsightsPipelineConfigurationConfig_basic(rName, roleName, streamName string) string {
+}func testAccMediaInsightsPipelineConfigurationConfig_basic(rName, roleName, streamName string) string {
 	return acctest.ConfigCompose(
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
@@ -368,9 +302,7 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
     amazon_transcribe_call_analytics_processor_configuration {
       language_code = "en-US"
     }
-  }
-
-  elements {
+  }  elements {
     type = "KinesisDataStreamSink"
     kinesis_data_stream_sink_configuration {
       insights_target = aws_kinesis_stream.test.arn
@@ -378,9 +310,7 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
   }
 }
 `, rName))
-}
-
-func testAccMediaInsightsPipelineConfigurationConfig_transcribeCallAnalyticsProcessor(rName, roleName, streamName string) string {
+}func testAccMediaInsightsPipelineConfigurationConfig_transcribeCallAnalyticsProcessor(rName, roleName, streamName string) string {
 	return acctest.ConfigCompose(
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
@@ -411,35 +341,25 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
       vocabulary_filter_name   = "MyVocabularyFilter"
       vocabulary_name = "MyVocabulary"
     }
-  }
-
-  elements {
+  }  elements {
     type = "KinesisDataStreamSink"
     kinesis_data_stream_sink_configuration {
       insights_target = aws_kinesis_stream.test.arn
     }
-  }
-
-  real_time_alert_configuration {
-    disabled = false
-
-    rules {
+  }  real_time_alert_configuration {
+    disabled = false    rules {
       type = "IssueDetection"
       issue_detection_configuration {
         rule_name = "MyIssueDetectionRule"
       }
-    }
-
-    rules {
+    }    rules {
       type = "KeywordMatch"
       keyword_match_configuration {
         keywords  = ["keyword1", "keyword2"]
         negate    = false
         rule_name = "MyKeywordMatchRule"
       }
-    }
-
-    rules {
+    }    rules {
       type = "Sentiment"
       sentiment_configuration {
         rule_name      = "MySentimentRule"
@@ -450,9 +370,7 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
   }
 }
 `, rName))
-}
-
-func testAccMediaInsightsPipelineConfigurationConfig_transcribeProcessor(rName, roleName, streamName string) string {
+}func testAccMediaInsightsPipelineConfigurationConfig_transcribeProcessor(rName, roleName, streamName string) string {
 	return acctest.ConfigCompose(
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
@@ -474,9 +392,7 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
       vocabulary_filter_name  = "MyVocabularyFilter"
       vocabulary_name= "MyVocabulary"
     }
-  }
-
-  elements {
+  }  elements {
     type = "KinesisDataStreamSink"
     kinesis_data_stream_sink_configuration {
       insights_target = aws_kinesis_stream.test.arn
@@ -484,15 +400,11 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
   }
 }
 `, rName))
-}
-
-func testAccMediaInsightsPipelineConfigurationConfig_s3RecordingSink(rName, roleName, streamName string) string {
+}func testAccMediaInsightsPipelineConfigurationConfig_s3RecordingSink(rName, roleName, streamName string) string {
 	return acctest.ConfigCompose(
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
+data "aws_partition" "current" {}resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
   name        = %[1]q
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
@@ -503,19 +415,11 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
   }
 }
 `, rName))
-}
-
-func testAccMediaInsightsPipelineConfigurationConfig_voiceAnalytics(rName, roleName, streamName string) string {
+}func testAccMediaInsightsPipelineConfigurationConfig_voiceAnalytics(rName, roleName, streamName string) string {
 	return acctest.ConfigCompose(
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
-data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
+data "aws_region" "current" {}data "aws_caller_identity" "current" {}data "aws_partition" "current" {}resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
   name        = %[1]q
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
@@ -524,30 +428,22 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
       speaker_search_status      = "Enabled"
       voice_tone_analysis_status = "Enabled"
     }
-  }
-
-  elements {
+  }  elements {
     type = "LambdaFunctionSink"
     lambda_function_sink_configuration {
       insights_target = "arn:${data.aws_partition.current.partition}:lambda:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:function:MyFunction"
     }
-  }
-
-  elements {
+  }  elements {
     type = "SnsTopicSink"
     sns_topic_sink_configuration {
       insights_target = "arn:${data.aws_partition.current.partition}:sns:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:topic/MyTopic"
     }
-  }
-
-  elements {
+  }  elements {
     type = "SqsQueueSink"
     sqs_queue_sink_configuration {
       insights_target = "arn:${data.aws_partition.current.partition}:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:queue/MyQueue"
     }
-  }
-
-  elements {
+  }  elements {
     type = "KinesisDataStreamSink"
     kinesis_data_stream_sink_configuration {
       insights_target = aws_kinesis_stream.test.arn
@@ -555,9 +451,7 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
   }
 }
 `, rName))
-}
-
-func testAccMediaInsightsPipelineConfigurationConfig_tags1(rName, roleName, streamName, tagKey1, tagValue1 string) string {
+}func testAccMediaInsightsPipelineConfigurationConfig_tags1(rName, roleName, streamName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
@@ -569,23 +463,17 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
     amazon_transcribe_call_analytics_processor_configuration {
       language_code = "en-US"
     }
-  }
-
-  elements {
+  }  elements {
     type = "KinesisDataStreamSink"
     kinesis_data_stream_sink_configuration {
       insights_target = aws_kinesis_stream.test.arn
     }
-  }
-
-  tags = {
+  }  tags = {
     %[2]s = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccMediaInsightsPipelineConfigurationConfig_tags2(rName, roleName, streamName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccMediaInsightsPipelineConfigurationConfig_tags2(rName, roleName, streamName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccMediaInsightsPipelineConfigurationConfigBase(roleName, streamName),
 		fmt.Sprintf(`
@@ -597,16 +485,12 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
     amazon_transcribe_call_analytics_processor_configuration {
       language_code = "en-US"
     }
-  }
-
-  elements {
+  }  elements {
     type = "KinesisDataStreamSink"
     kinesis_data_stream_sink_configuration {
       insights_target = aws_kinesis_stream.test.arn
     }
-  }
-
-  tags = {
+  }  tags = {
     %[2]s = %[3]q
     %[4]s = %[5]q
   }

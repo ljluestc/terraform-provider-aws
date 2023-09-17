@@ -1,18 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticbeanstalk_test
-
-import (
-	"testing"
-
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+// SPDX-License-Identifier: MPL-2.0package elasticbeanstalk_testimport (
+	"testing"	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	tfelasticbeanstalk "github.com/hashicorp/terraform-provider-aws/internal/service/elasticbeanstalk"
 )
 func TestEnvironmentMigrateState(t *testing.T) {
-	t.Parallel()
-
-	cases := map[string]struct {
+	t.Parallel()	cases := map[string]struct {
 		StateVersion int
 		Attributes   map[string]string
 		Expected     map[string]string
@@ -45,17 +37,13 @@ func TestEnvironmentMigrateState(t *testing.T) {
 				"tier": "Worker",
 			},
 		},
-	}
-
-	for tn, tc := range cases {
+	}	for tn, tc := range cases {
 		is := &terraform.InstanceState{
 			ID:"e-abcde12345",
 			Attributes: tc.Attributes,
 		}
 		_, err := tfelasticbeanstalk.EnvironmentMigrateState(
-			tc.StateVersion, is, tc.Meta)
-
-		if err != nil {
+			tc.StateVersion, is, tc.Meta)		if err != nil {
 			t.Fatalf("bad: %s, err: %#v", tn, err)
 		}
 	}

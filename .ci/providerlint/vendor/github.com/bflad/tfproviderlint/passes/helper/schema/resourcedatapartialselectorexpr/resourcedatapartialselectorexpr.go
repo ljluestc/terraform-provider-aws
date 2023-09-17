@@ -1,14 +1,1 @@
-packageresourcedatapartialselectorexpr
-
-import(
-	"github.com/bflad/tfproviderlint/helper/analysisutils"
-	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
-)
-
-varAnalyzer=analysisutils.ReceiverMethodSelectorExprAnalyzer(
-	"resourcedatapartialselectorexpr",
-	schema.IsReceiverMethod,
-	schema.PackagePath,
-	schema.TypeNameResourceData,
-	"Partial",
-)
+packageresourcedatapartialselectorexprimport(	"github.com/bflad/tfproviderlint/helper/analysisutils"	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema")varAnalyzer=analysisutils.ReceiverMethodSelectorExprAnalyzer(	"resourcedatapartialselectorexpr",	schema.IsReceiverMethod,	schema.PackagePath,	schema.TypeNameResourceData,	"Partial",)

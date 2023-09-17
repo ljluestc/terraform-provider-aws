@@ -10,10 +10,7 @@ import(
 	"github.com/aws/aws-sdk-go/service/organizations"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-functestAccDelegatedServicesDataSource_basic(t*testing.T){
+)functestAccDelegatedServicesDataSource_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	dataSourceName:="data.aws_organizations_delegated_services.test"
 	servicePrincipal:="config-multiaccountsetup.amazonaws.com"
@@ -36,10 +33,7 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-
-functestAccDelegatedServicesDataSource_multiple(t*testing.T){
+}functestAccDelegatedServicesDataSource_multiple(t*testing.T){
 	ctx:=acctest.Context(t)
 	dataSourceName:="data.aws_organizations_delegated_services.test"
 	servicePrincipal1:="config-multiaccountsetup.amazonaws.com"
@@ -63,10 +57,7 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-
-functestAccDelegatedServicesDataSourceConfig_basic(servicePrincipalstring)string{
+}functestAccDelegatedServicesDataSourceConfig_basic(servicePrincipalstring)string{
 	returnacctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(),fmt.Sprintf(`
 data"aws_caller_identity""delegated"{
 provider="awsalternate"
@@ -83,10 +74,7 @@ account_id=data.aws_caller_identity.delegated.account_id
 depends_on=[aws_organizations_delegated_administrator.delegated]
 }
 `,servicePrincipal))
-}
-
-
-functestAccDelegatedServicesDataSourceConfig_multiple(servicePrincipal1,servicePrincipal2string)string{
+}functestAccDelegatedServicesDataSourceConfig_multiple(servicePrincipal1,servicePrincipal2string)string{
 	returnacctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(),fmt.Sprintf(`
 data"aws_caller_identity""delegated"{
 provider="awsalternate"

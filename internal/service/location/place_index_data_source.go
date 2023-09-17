@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package location
-
-import (
+// SPDX-License-Identifier: MPL-2.0package locationimport (
 "context"
-"time"
-
-"github.com/aws/aws-sdk-go/aws"
+"time""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/locationservice"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -15,9 +9,7 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-)
-
-// @SDKDataSource("aws_location_place_index")
+)// @SDKDataSource("aws_location_place_index")
 func DataSourcePlaceIndex() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourcePlaceIndexRead,
@@ -62,43 +54,23 @@ Computed: true,
 },
 },
 }
-}
-
-func dataSourcePlaceIndexRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourcePlaceIndexRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).LocationConn(ctx)
-
-input := &locationservice.DescribePlaceIndexInput{}
-
-if v, ok := d.GetOk("index_name"); ok {
+conn := meta.(*conns.AWSClient).LocationConn(ctx)input := &locationservice.DescribePlaceIndexInput{}if v, ok := d.GetOk("index_name"); ok {
 input.IndexName = aws.String(v.(string))
-}
-
-output, err := conn.DescribePlaceIndexWithContext(ctx, input)
-
-if err != nil {
+}output, err := conn.DescribePlaceIndexWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "getting Location Service Place Index: %s", err)
-}
-
-if output == nil {
+}if output == nil {
 return sdkdiag.AppendErrorf(diags, "getting Location Service Place Index: empty response")
-}
-
-d.SetId(aws.StringValue(output.IndexName))
+}d.SetId(aws.StringValue(output.IndexName))
 d.Set("create_time", aws.TimeValue(output.CreateTime).Format(time.RFC3339))
-d.Set("data_source", output.DataSource)
-
-if output.DataSourceConfiguration != nil {
+d.Set("data_source", output.DataSource)if output.DataSourceConfiguration != nil {
 d.Set("data_source_configuration", []interface{}{flattenDataSourceConfiguration(output.DataSourceConfiguration)})
 } else {
 d.Set("data_source_configuration", nil)
-}
-
-d.Set("description", output.Description)
+}d.Set("description", output.Description)
 d.Set("index_arn", output.IndexArn)
 d.Set("index_name", output.IndexName)
 d.Set("tags", KeyValueTags(ctx, output.Tags).IgnoreAWS().IgnoreConfig(meta.(*conns.AWSClient).IgnoreTagsConfig).Map())
-d.Set("update_time", aws.TimeValue(output.UpdateTime).Format(time.RFC3339))
-
-return diags
+d.Set("update_time", aws.TimeValue(output.UpdateTime).Format(time.RFC3339))return diags
 }

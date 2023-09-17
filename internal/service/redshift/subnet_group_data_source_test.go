@@ -1,24 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshift_test
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/redshift"
+// SPDX-License-Identifier: MPL-2.0package redshift_testimport (
+	"testing"	"github.com/aws/aws-sdk-go/service/redshift"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccRedshiftSubnetGroupDataSource_basic(t *testing.T) {
+)func TestAccRedshiftSubnetGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_redshift_subnet_group.test"
 	resourceName := "aws_redshift_subnet_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -35,9 +25,7 @@ func TestAccRedshiftSubnetGroupDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccSubnetGroupDataSourceConfig_basic(rName string) string {
+}func testAccSubnetGroupDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccSubnetGroupConfig_basic(rName), `
 data "aws_redshift_subnet_group" "test" {
   name = aws_redshift_subnet_group.test.name

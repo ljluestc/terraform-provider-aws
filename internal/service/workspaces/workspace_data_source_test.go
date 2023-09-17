@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package workspaces_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package workspaces_testimport (
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/service/workspaces"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,9 +12,7 @@ func testAccWorkspaceDataSource_byWorkspaceID(t *testing.T) {
 	rName := sdkacctest.RandString(8)
 	domain := acctest.RandomDomainName()
 	dataSourceName := "data.aws_workspaces_workspace.test"
-	resourceName := "aws_workspaces_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_workspaces_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole") },
 		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -52,9 +44,7 @@ func testAccWorkspaceDataSource_byDirectoryID_userName(t *testing.T) {
 	rName := sdkacctest.RandString(8)
 	domain := acctest.RandomDomainName()
 	dataSourceName := "data.aws_workspaces_workspace.test"
-	resourceName := "aws_workspaces_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_workspaces_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole") },
 		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -82,9 +72,7 @@ func testAccWorkspaceDataSource_byDirectoryID_userName(t *testing.T) {
 	})
 }
 func testAccWorkspaceDataSource_workspaceIDAndDirectoryIDConflict(t *testing.T) {
-	ctx := acctest.Context(t)
-
-	resource.Test(t, resource.TestCase{
+	ctx := acctest.Context(t)	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckHasIAMRole(ctx, t, "workspaces_DefaultRole") },
 		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -102,23 +90,15 @@ func testAccWorkspaceDataSourceConfig_byID(rName, domain string) string {
 		`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "AWS_WorkSpaces" user is always present in a bare directory.
-  user_name = "AWS_WorkSpaces"
-
-  workspace_properties {
+  user_name = "AWS_WorkSpaces"  workspace_properties {
     root_volume_size_gib = 80
     user_volume_size_gib = 10
-  }
-
-  tags = {
+  }  tags = {
     TerraformProviderAwsTest = true
   }
-}
-
-data "aws_workspaces_workspace" "test" {
+}data "aws_workspaces_workspace" "test" {
   workspace_id = aws_workspaces_workspace.test.id
 }
 `)
@@ -129,23 +109,15 @@ func testAccWorkspaceDataSourceConfig_byDirectoryIDUserName(rName, domain string
 		`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  workspace_properties {
+  user_name = "Administrator"  workspace_properties {
     root_volume_size_gib = 80
     user_volume_size_gib = 10
-  }
-
-  tags = {
+  }  tags = {
     TerraformProviderAwsTest = true
   }
-}
-
-data "aws_workspaces_workspace" "test" {
+}data "aws_workspaces_workspace" "test" {
   directory_id = aws_workspaces_workspace.test.directory_id
   user_name    = aws_workspaces_workspace.test.user_name
 }

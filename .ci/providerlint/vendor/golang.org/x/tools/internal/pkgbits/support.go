@@ -1,11 +1,1 @@
-//Copyright2022TheGoAuthors.Allrightsreserved.
-//UseofthissourcecodeisgovernedbyaBSD-style
-//licensethatcanbefoundintheLICENSEfile.packagepkgbitsimport"fmt"
-ert(bbool){
-	if!b{
-		panic("assertionfailed")
-	}
-}
-orf(formatstring,args...interface{}){
-	panic(fmt.Errorf(format,args...))
-}
+//Copyright2022TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.packagepkgbitsimport"fmt"ert(bbool){if!b{panic("assertionfailed")}}orf(formatstring,args...interface{}){panic(fmt.Errorf(format,args...))}

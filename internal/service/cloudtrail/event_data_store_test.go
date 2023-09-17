@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cloudtrail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cloudtrail_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/cloudtrail"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,14 +11,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcloudtrail "github.com/hashicorp/terraform-provider-aws/internal/service/cloudtrail"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccCloudTrailEventDataStore_basic(t *testing.T) {
+)func TestAccCloudTrailEventDataStore_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudtrail_event_data_store.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudtrail_event_data_store.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -58,15 +48,11 @@ func TestAccCloudTrailEventDataStore_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudTrailEventDataStore_kmsKeyId(t *testing.T) {
+}func TestAccCloudTrailEventDataStore_kmsKeyId(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_cloudtrail_event_data_store.test"
-	kmsKeyResourceName := "aws_kms_key.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	kmsKeyResourceName := "aws_kms_key.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -90,14 +76,10 @@ func TestAccCloudTrailEventDataStore_kmsKeyId(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudTrailEventDataStore_disappears(t *testing.T) {
+}func TestAccCloudTrailEventDataStore_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudtrail_event_data_store.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudtrail_event_data_store.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -113,14 +95,10 @@ func TestAccCloudTrailEventDataStore_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudTrailEventDataStore_tags(t *testing.T) {
+}func TestAccCloudTrailEventDataStore_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudtrail_event_data_store.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudtrail_event_data_store.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -158,14 +136,10 @@ func TestAccCloudTrailEventDataStore_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudTrailEventDataStore_options(t *testing.T) {
+}func TestAccCloudTrailEventDataStore_options(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudtrail_event_data_store.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudtrail_event_data_store.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationManagementAccount(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -198,14 +172,10 @@ func TestAccCloudTrailEventDataStore_options(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCloudTrailEventDataStore_advancedEventSelector(t *testing.T) {
+}func TestAccCloudTrailEventDataStore_advancedEventSelector(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudtrail_event_data_store.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cloudtrail_event_data_store.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -293,64 +263,34 @@ func TestAccCloudTrailEventDataStore_advancedEventSelector(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckEventDataStoreExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckEventDataStoreExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No CloudTrail Event Data Store ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CloudTrailConn(ctx)
-
-		_, err := tfcloudtrail.FindEventDataStoreByARN(ctx, conn, rs.Primary.ID)
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).CloudTrailConn(ctx)		_, err := tfcloudtrail.FindEventDataStoreByARN(ctx, conn, rs.Primary.ID)		return err
 	}
-}
-
-func testAccCheckEventDataStoreDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckEventDataStoreDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CloudTrailConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).CloudTrailConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_cloudtrail_event_data_store" {
 				continue
-			}
-
-			_, err := tfcloudtrail.FindEventDataStoreByARN(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfcloudtrail.FindEventDataStoreByARN(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("CloudTrail Event Data Store %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("CloudTrail Event Data Store %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccEventDataStoreConfig_basic(rName string) string {
+}func testAccEventDataStoreConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudtrail_event_data_store" "test" {
-  name = %[1]q
-
-  termination_protection_enabled = false # For ease of deletion.
+  name = %[1]q  termination_protection_enabled = false # For ease of deletion.
 }
 `, rName)
-}
-
-func testAccEventDataStoreConfig_kmsKeyId(rName string) string {
+}func testAccEventDataStoreConfig_kmsKeyId(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   multi_region = true
@@ -367,151 +307,99 @@ AWS = "*"
 }]
 Version = "2012-10-17"
   })
-}
-
-resource "aws_cloudtrail_event_data_store" "test" {
+}resource "aws_cloudtrail_event_data_store" "test" {
   name   = %[1]q
   kms_key_id  = aws_kms_key.test.arn
   termination_protection_enabled = false # For ease of deletion.
 }
 `, rName)
-}
-
-func testAccEventDataStoreConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccEventDataStoreConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudtrail_event_data_store" "test" {
-  name = %[1]q
-
-  termination_protection_enabled = false
-
-  tags = {
+  name = %[1]q  termination_protection_enabled = false  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccEventDataStoreConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccEventDataStoreConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudtrail_event_data_store" "test" {
-  name = %[1]q
-
-  termination_protection_enabled = false
-
-  tags = {
+  name = %[1]q  termination_protection_enabled = false  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccEventDataStoreConfig_options(rName string) string {
+}func testAccEventDataStoreConfig_options(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudtrail_event_data_store" "test" {
   name  = %[1]q
   multi_region_enabled = false
   organization_enabled = true
-  retention_period = 365
-
-  termination_protection_enabled = true
+  retention_period = 365  termination_protection_enabled = true
 }
 `, rName)
-}
-
-func testAccEventDataStoreConfig_optionsUpdated(rName string) string {
+}func testAccEventDataStoreConfig_optionsUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudtrail_event_data_store" "test" {
   name  = %[1]q
   multi_region_enabled = true
   organization_enabled = false
-  retention_period = 90
-
-  termination_protection_enabled = false
+  retention_period = 90  termination_protection_enabled = false
 }
 `, rName)
-}
-
-func testAccEventDataStoreConfig_advancedSelector(rName string) string {
+}func testAccEventDataStoreConfig_advancedSelector(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudtrail_event_data_store" "test" {
-  name = %[1]q
-
-  termination_protection_enabled = false
-
-  advanced_event_selector {
+  name = %[1]q  termination_protection_enabled = false  advanced_event_selector {
 name = "s3Custom"
 field_selector {
   field  = "eventCategory"
   equals = ["Data"]
-}
-
-field_selector {
+}field_selector {
   field  = "eventName"
   equals = ["DeleteObject"]
-}
-
-field_selector {
+}field_selector {
   field  = "readOnly"
   equals = ["false"]
-}
-
-field_selector {
+}field_selector {
   field  = "resources.type"
   equals = ["AWS::S3::Object"]
 }
-  }
-
-  advanced_event_selector {
+  }  advanced_event_selector {
 name = "lambdaLogAllEvents"
 field_selector {
   field  = "eventCategory"
   equals = ["Data"]
-}
-
-field_selector {
+}field_selector {
   field  = "resources.type"
   equals = ["AWS::Lambda::Function"]
 }
-  }
-
-  advanced_event_selector {
+  }  advanced_event_selector {
 name = "dynamoDbReadOnlyEvents"
 field_selector {
   field  = "eventCategory"
   equals = ["Data"]
-}
-
-field_selector {
+}field_selector {
   field  = "readOnly"
   equals = ["true"]
-}
-
-field_selector {
+}field_selector {
   field  = "resources.type"
   equals = ["AWS::DynamoDB::Table"]
 }
-  }
-
-  advanced_event_selector {
+  }  advanced_event_selector {
 name = "s3OutpostsWriteOnlyEvents"
 field_selector {
   field  = "eventCategory"
   equals = ["Data"]
-}
-
-field_selector {
+}field_selector {
   field  = "readOnly"
   equals = ["false"]
-}
-
-field_selector {
+}field_selector {
   field  = "resources.type"
   equals = ["AWS::S3Outposts::Object"]
 }
-  }
-
-  advanced_event_selector {
+  }  advanced_event_selector {
 name = "managementEventsSelector"
 field_selector {
   field  = "eventCategory"

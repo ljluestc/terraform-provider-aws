@@ -21,10 +21,7 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 	tfemr "github.com/hashicorp/terraform-provider-aws/internal/service/emr"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func TestAccEMRCluster_basic(t *testing.T) {
+)func TestAccEMRCluster_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -80,10 +77,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_autoTerminationPolicy(t *testing.T) {
+}func TestAccEMRCluster_autoTerminationPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -143,10 +137,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_additionalInfo(t *testing.T) {
+}func TestAccEMRCluster_additionalInfo(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 	expectedJSON := `
@@ -189,10 +180,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_disappears(t *testing.T) {
+}func TestAccEMRCluster_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -217,10 +205,7 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_sJSON(t *testing.T) {
+}func TestAccEMRCluster_sJSON(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -254,10 +239,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_CoreInstanceGroup_autoScalingPolicy(t *testing.T) {
+}func TestAccEMRCluster_CoreInstanceGroup_autoScalingPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2, cluster3 emr.Cluster
 	autoscalingPolicy1 := `
@@ -377,10 +359,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_CoreInstanceGroup_bidPrice(t *testing.T) {
+}func TestAccEMRCluster_CoreInstanceGroup_bidPrice(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2 emr.Cluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -424,10 +403,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_CoreInstanceGroup_instanceCount(t *testing.T) {
+}func TestAccEMRCluster_CoreInstanceGroup_instanceCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2, cluster3 emr.Cluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -481,10 +457,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_CoreInstanceGroup_instanceType(t *testing.T) {
+}func TestAccEMRCluster_CoreInstanceGroup_instanceType(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2 emr.Cluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -528,10 +501,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_CoreInstanceGroup_name(t *testing.T) {
+}func TestAccEMRCluster_CoreInstanceGroup_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2 emr.Cluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -575,10 +545,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_EC2Attributes_defaultManagedSecurityGroups(t *testing.T) {
+}func TestAccEMRCluster_EC2Attributes_defaultManagedSecurityGroups(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 	var vpc ec2.Vpc
@@ -608,8 +575,7 @@ Destroy: true,
 ExpectError: regexache.MustCompile(`DependencyViolation`),
 	},
 	{
-PreConfig: 
-func() {
+PreConfig:func() {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 	err := testAccDeleteManagedSecurityGroups(ctx, conn, &vpc)
@@ -623,10 +589,7 @@ Destroy: true,
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_Kerberos_clusterDedicatedKdc(t *testing.T) {
+}func TestAccEMRCluster_Kerberos_clusterDedicatedKdc(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -663,10 +626,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_MasterInstanceGroup_bidPrice(t *testing.T) {
+}func TestAccEMRCluster_MasterInstanceGroup_bidPrice(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2 emr.Cluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -710,10 +670,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_MasterInstanceGroup_instanceCount(t *testing.T) {
+}func TestAccEMRCluster_MasterInstanceGroup_instanceCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2 emr.Cluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -757,10 +714,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_MasterInstanceGroup_instanceType(t *testing.T) {
+}func TestAccEMRCluster_MasterInstanceGroup_instanceType(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2 emr.Cluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -804,10 +758,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_MasterInstanceGroup_name(t *testing.T) {
+}func TestAccEMRCluster_MasterInstanceGroup_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2 emr.Cluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -851,10 +802,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_security(t *testing.T) {
+}func TestAccEMRCluster_security(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -887,10 +835,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_Step_basic(t *testing.T) {
+}func TestAccEMRCluster_Step_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -929,10 +874,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_Step_mode(t *testing.T) {
+}func TestAccEMRCluster_Step_mode(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2, cluster3 emr.Cluster
 
@@ -1001,10 +943,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_Step_multiple(t *testing.T) {
+}func TestAccEMRCluster_Step_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1047,10 +986,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_Step_multiple_listStates(t *testing.T) {
+}func TestAccEMRCluster_Step_multiple_listStates(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1094,10 +1030,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_Bootstrap_ordering(t *testing.T) {
+}func TestAccEMRCluster_Bootstrap_ordering(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1233,10 +1166,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_PlacementGroupConfigs(t *testing.T) {
+}func TestAccEMRCluster_PlacementGroupConfigs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1281,10 +1211,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_terminationProtected(t *testing.T) {
+}func TestAccEMRCluster_terminationProtected(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1344,10 +1271,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_keepJob(t *testing.T) {
+}func TestAccEMRCluster_keepJob(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1380,10 +1304,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_visibleToAllUsers(t *testing.T) {
+}func TestAccEMRCluster_visibleToAllUsers(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1434,10 +1355,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_s3Logging(t *testing.T) {
+}func TestAccEMRCluster_s3Logging(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1471,10 +1389,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_s3LogEncryption(t *testing.T) {
+}func TestAccEMRCluster_s3LogEncryption(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1509,10 +1424,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_tags(t *testing.T) {
+}func TestAccEMRCluster_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1559,10 +1471,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_RootVolume_size(t *testing.T) {
+}func TestAccEMRCluster_RootVolume_size(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1603,10 +1512,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_StepConcurrency_level(t *testing.T) {
+}func TestAccEMRCluster_StepConcurrency_level(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -1646,10 +1552,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_ebs(t *testing.T) {
+}func TestAccEMRCluster_ebs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -1682,10 +1585,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_CustomAMI_id(t *testing.T) {
+}func TestAccEMRCluster_CustomAMI_id(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1718,10 +1618,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_InstanceFleet_basic(t *testing.T) {
+}func TestAccEMRCluster_InstanceFleet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster1, cluster2 emr.Cluster
 
@@ -1790,10 +1687,7 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func TestAccEMRCluster_InstanceFleetMaster_only(t *testing.T) {
+}func TestAccEMRCluster_InstanceFleetMaster_only(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
 
@@ -1827,13 +1721,9 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-
-func testAccCheckClusterDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckClusterDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -1856,13 +1746,9 @@ return err
 
 return nil
 	}
-}
-
-
-func testAccCheckClusterExists(ctx context.Context, n string, v *emr.Cluster) resource.TestCheck
+}func testAccCheckClusterExists(ctx context.Context, n string, v *emr.Cluster) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
@@ -1884,36 +1770,25 @@ if err != nil {
 
 return nil
 	}
-}
-
-
-func testAccCheckClusterNotRecreated(i, j *emr.Cluster) resource.TestCheck
+}func testAccCheckClusterNotRecreated(i, j *emr.Cluster) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 if aws.StringValue(i.Id) != aws.StringValue(j.Id) {
 	return fmt.Errorf("EMR Cluster recreated: %s -> %s", aws.StringValue(i.Id), aws.StringValue(j.Id))
 }
 
 return nil
 	}
-}
-
-
-func testAccCheckClusterRecreated(i, j *emr.Cluster) resource.TestCheck
+}func testAccCheckClusterRecreated(i, j *emr.Cluster) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 if aws.StringValue(i.Id) == aws.StringValue(j.Id) {
 	return fmt.Errorf("EMR Cluster not recreated: %s", aws.StringValue(i.Id))
 }
 
 return nil
 	}
-}
-
-
-func testAccDeleteManagedSecurityGroups(ctx context.Context, conn *ec2.EC2, vpc *ec2.Vpc) error {
+}func testAccDeleteManagedSecurityGroups(ctx context.Context, conn *ec2.EC2, vpc *ec2.Vpc) error {
 	// Reference: https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-man-sec-groups.html
 	managedSecurityGroups := map[string]*ec2.SecurityGroup{
 "ElasticMapReduce-master": nil,
@@ -1957,10 +1832,7 @@ if err != nil {
 	}
 
 	return nil
-}
-
-
-func testAccRevokeManagedSecurityGroup(ctx context.Context, conn *ec2.EC2, securityGroup *ec2.SecurityGroup) error {
+}func testAccRevokeManagedSecurityGroup(ctx context.Context, conn *ec2.EC2, securityGroup *ec2.SecurityGroup) error {
 	input := &ec2.RevokeSecurityGroupIngressInput{
 GroupId: securityGroup.GroupId,
 IpPermissions: securityGroup.IpPermissions,
@@ -1969,10 +1841,7 @@ IpPermissions: securityGroup.IpPermissions,
 	_, err := conn.RevokeSecurityGroupIngressWithContext(ctx, input)
 
 	return err
-}
-
-
-func testAccDeleteManagedSecurityGroup(ctx context.Context, conn *ec2.EC2, securityGroup *ec2.SecurityGroup) error {
+}func testAccDeleteManagedSecurityGroup(ctx context.Context, conn *ec2.EC2, securityGroup *ec2.SecurityGroup) error {
 	input := &ec2.DeleteSecurityGroupInput{
 GroupId: securityGroup.GroupId,
 	}
@@ -1982,10 +1851,7 @@ GroupId: securityGroup.GroupId,
 	return err
 }
 
-// Sub-configs (used by other configs)
-
-
-func testAccClusterConfig_baseVPC(rName string, mapPublicIPOnLaunch bool) string {
+// Sub-configs (used by other configs)func testAccClusterConfig_baseVPC(rName string, mapPublicIPOnLaunch bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
 cidr_block= "10.0.0.0/16"
@@ -2063,10 +1929,7 @@ route_table_id = aws_route_table.test.id
 subnet_id= aws_subnet.test.id
 }
 `, rName, mapPublicIPOnLaunch))
-}
-
-
-func testAccClusterConfig_baseIAMInstanceProfile(rName string) string {
+}func testAccClusterConfig_baseIAMInstanceProfile(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_instance_profile" "emr_instance_profile" {
 name = "%[1]s_profile"
@@ -2136,10 +1999,7 @@ policy = <<EOT
 EOT
 }
 `, rName)
-}
-
-
-func testAccClusterConfig_baseIAMServiceRole(rName string) string {
+}func testAccClusterConfig_baseIAMServiceRole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "emr_service" {
 name = "%[1]s_default_role"
@@ -2167,10 +2027,7 @@ policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/servic
 }
 
 `, rName)
-}
-
-
-func testAccClusterConfig_baseIAMServiceRolev2(rName string) string {
+}func testAccClusterConfig_baseIAMServiceRolev2(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "emr_service" {
 name = "%[1]s_default_role"
@@ -2198,10 +2055,7 @@ policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/servic
 }
 
 `, rName)
-}
-
-
-func testAccClusterConfig_baseIAMAutoScalingRole(rName string) string {
+}func testAccClusterConfig_baseIAMAutoScalingRole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "emr_autoscaling_role" {
 name= "%[1]s_autoscaling_role"
@@ -2225,10 +2079,7 @@ role = aws_iam_role.emr_autoscaling_role.name
 policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonElasticMapReduceforAutoScalingRole"
 }
 `, rName)
-}
-
-
-func testAccClusterConfig_baseBootstrapActionBucket(rName string) string {
+}func testAccClusterConfig_baseBootstrapActionBucket(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "tester" {
 bucket = %[1]q
@@ -2271,10 +2122,7 @@ EOF
 acl = "public-read"
 }
 `, rName)
-}
-
-
-func testAccClusterConfig_Step(rName string, stepConfig string) string {
+}func testAccClusterConfig_Step(rName string, stepConfig string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -2313,10 +2161,7 @@ bucket= %[1]q
 force_destroy = true
 }
 `, rName, stepConfig))
-}
-
-
-func testAccClusterIAMServiceRoleCustomAMIIDConfig(rName string) string {
+}func testAccClusterIAMServiceRoleCustomAMIIDConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "emr_service" {
 name = "%[1]s_default_role"
@@ -2441,10 +2286,7 @@ args = ["spark-example", "SparkPi", "10"]
 }
 `
 
-// Configs
-
-
-func testAccClusterConfig_basic(rName string) string {
+// Configsfunc testAccClusterConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -2500,10 +2342,7 @@ autoscaling_role = aws_iam_role.emr_autoscaling_role.arn
 ebs_root_volume_size = 21
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_additionalInfo(rName string) string {
+}func testAccClusterConfig_additionalInfo(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -2568,10 +2407,7 @@ autoscaling_role = aws_iam_role.emr_autoscaling_role.arn
 ebs_root_volume_size = 21
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_configurationsJSON(rName string) string {
+}func testAccClusterConfig_configurationsJSON(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -2642,10 +2478,7 @@ service_role= aws_iam_role.emr_service.arn
 ebs_root_volume_size = 21
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_coreInstanceGroupAutoScalingPolicy(rName, autoscalingPolicy string) string {
+}func testAccClusterConfig_coreInstanceGroupAutoScalingPolicy(rName, autoscalingPolicy string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -2708,10 +2541,7 @@ aws_iam_role_policy_attachment.test,
 ]
 }
 `, rName, autoscalingPolicy))
-}
-
-
-func testAccClusterConfig_coreInstanceGroupAutoScalingPolicyRemoved(rName string) string {
+}func testAccClusterConfig_coreInstanceGroupAutoScalingPolicyRemoved(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -2771,10 +2601,7 @@ aws_iam_role_policy_attachment.test,
 ]
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_coreInstanceGroupBidPrice(rName, bidPrice string) string {
+}func testAccClusterConfig_coreInstanceGroupBidPrice(rName, bidPrice string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -2804,10 +2631,7 @@ instance_type = "m4.large"
 depends_on = [aws_route_table_association.test]
 }
 `, rName, bidPrice))
-}
-
-
-func testAccClusterConfig_coreInstanceGroupInstanceCount(rName string, instanceCount int) string {
+}func testAccClusterConfig_coreInstanceGroupInstanceCount(rName string, instanceCount int) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -2837,10 +2661,7 @@ instance_type= "m4.large"
 depends_on = [aws_route_table_association.test]
 }
 `, rName, instanceCount))
-}
-
-
-func testAccClusterConfig_coreInstanceGroupInstanceType(rName, instanceType string) string {
+}func testAccClusterConfig_coreInstanceGroupInstanceType(rName, instanceType string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -2869,10 +2690,7 @@ instance_type = %[2]q
 depends_on = [aws_route_table_association.test]
 }
 `, rName, instanceType))
-}
-
-
-func testAccClusterConfig_coreInstanceGroupName(rName, instanceGroupName string) string {
+}func testAccClusterConfig_coreInstanceGroupName(rName, instanceGroupName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -2902,10 +2720,7 @@ name = %[2]q
 depends_on = [aws_route_table_association.test]
 }
 `, rName, instanceGroupName))
-}
-
-
-func testAccClusterConfig_ec2AttributesDefaultManagedSecurityGroups(rName string) string {
+}func testAccClusterConfig_ec2AttributesDefaultManagedSecurityGroups(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -2928,10 +2743,7 @@ instance_type = "m4.large"
 depends_on = [aws_route_table_association.test]
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_kerberosDedicatedKdc(rName string, password string) string {
+}func testAccClusterConfig_kerberosDedicatedKdc(rName string, password string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -2983,10 +2795,7 @@ realm = "EC2.INTERNAL"
 depends_on = [aws_route_table_association.test]
 }
 `, rName, password))
-}
-
-
-func testAccClusterConfig_masterInstanceGroupBidPrice(rName, bidPrice string) string {
+}func testAccClusterConfig_masterInstanceGroupBidPrice(rName, bidPrice string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -3012,10 +2821,7 @@ instance_type = "m4.large"
 depends_on = [aws_route_table_association.test]
 }
 `, rName, bidPrice))
-}
-
-
-func testAccClusterConfig_masterInstanceGroupInstanceCount(rName string, instanceCount int) string {
+}func testAccClusterConfig_masterInstanceGroupInstanceCount(rName string, instanceCount int) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, true),
 fmt.Sprintf(`
@@ -3049,10 +2855,7 @@ instance_type = "m4.large"
 depends_on = [aws_route_table_association.test]
 }
 `, rName, instanceCount))
-}
-
-
-func testAccClusterConfig_masterInstanceGroupInstanceType(rName, instanceType string) string {
+}func testAccClusterConfig_masterInstanceGroupInstanceType(rName, instanceType string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -3077,10 +2880,7 @@ instance_type = %[2]q
 depends_on = [aws_route_table_association.test]
 }
 `, rName, instanceType))
-}
-
-
-func testAccClusterConfig_masterInstanceGroupName(rName, instanceGroupName string) string {
+}func testAccClusterConfig_masterInstanceGroupName(rName, instanceGroupName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -3106,10 +2906,7 @@ name = %[2]q
 depends_on = [aws_route_table_association.test]
 }
 `, rName, instanceGroupName))
-}
-
-
-func testAccClusterConfig_securityConfiguration(rName string) string {
+}func testAccClusterConfig_securityConfiguration(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -3207,41 +3004,23 @@ policy = <<POLICY
 POLICY
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_stepSingle(rName string) string {
+}func testAccClusterConfig_stepSingle(rName string) string {
 	return testAccClusterConfig_Step(rName, testAccClusterConfig_Step_DebugLoggingStep)
-}
-
-
-func testAccClusterConfig_stepNoBlocks(rName string) string {
+}func testAccClusterConfig_stepNoBlocks(rName string) string {
 	return testAccClusterConfig_Step(rName, "")
-}
-
-
-func testAccClusterConfig_stepZeroed(rName string) string {
+}func testAccClusterConfig_stepZeroed(rName string) string {
 	return testAccClusterConfig_Step(rName, "step = []")
-}
-
-
-func testAccClusterConfig_stepMultiple(rName string) string {
+}func testAccClusterConfig_stepMultiple(rName string) string {
 	stepConfig := acctest.ConfigCompose(testAccClusterConfig_Step_DebugLoggingStep, testAccClusterConfig_Step_SparkStep)
 	return testAccClusterConfig_Step(rName, stepConfig)
-}
-
-
-func testAccClusterConfig_stepMultipleListStates(rName string) string {
+}func testAccClusterConfig_stepMultipleListStates(rName string) string {
 	stepConfig := acctest.ConfigCompose(
 testAccClusterConfig_Step_DebugLoggingStep,
 testAccClusterConfig_Step_SparkStep,
 "\n", `list_steps_states = ["PENDING", "RUNNING", "COMPLETED"]`,
 	)
 	return testAccClusterConfig_Step(rName, stepConfig)
-}
-
-
-func testAccClusterConfig_bootstrap(rName string) string {
+}func testAccClusterConfig_bootstrap(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -3305,10 +3084,7 @@ args = [
 }
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_bootstrapAdd(rName string) string {
+}func testAccClusterConfig_bootstrapAdd(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -3378,10 +3154,7 @@ args = ["instance.isMaster=true", "echo also running on master node"]
 }
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_bootstrapReorder(rName string) string {
+}func testAccClusterConfig_bootstrapReorder(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -3451,10 +3224,7 @@ args = [
 }
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_terminationPolicy(rName string, term string) string {
+}func testAccClusterConfig_terminationPolicy(rName string, term string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -3507,10 +3277,7 @@ service_role = aws_iam_role.emr_service.arn
 autoscaling_role = aws_iam_role.emr_autoscaling_role.arn
 }
 `, rName, term))
-}
-
-
-func testAccClusterConfig_keepJob(rName string, keepJob bool) string {
+}func testAccClusterConfig_keepJob(rName string, keepJob bool) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -3573,10 +3340,7 @@ service_role = aws_iam_role.emr_service.arn
 autoscaling_role = aws_iam_role.emr_autoscaling_role.arn
 }
 `, rName, keepJob))
-}
-
-
-func testAccClusterConfig_visibleToAllUsersUpdated(rName string) string {
+}func testAccClusterConfig_visibleToAllUsersUpdated(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -3629,10 +3393,7 @@ service_role = aws_iam_role.emr_service.arn
 autoscaling_role = aws_iam_role.emr_autoscaling_role.arn
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_s3Logging(rName string) string {
+}func testAccClusterConfig_s3Logging(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterIAMServiceRoleCustomAMIIDConfig(rName),
@@ -3676,10 +3437,7 @@ service_role = aws_iam_role.emr_service.arn
 
 data "aws_caller_identity" "current" {}
 `, rName))
-}
-
-
-func testAccClusterConfig_s3Encryption(rName string) string {
+}func testAccClusterConfig_s3Encryption(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterIAMServiceRoleCustomAMIIDConfig(rName),
@@ -3746,10 +3504,7 @@ service_role = aws_iam_role.emr_service.arn
 
 data "aws_caller_identity" "current" {}
 `, rName))
-}
-
-
-func testAccClusterConfig_updatedTags(rName string) string {
+}func testAccClusterConfig_updatedTags(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -3801,10 +3556,7 @@ service_role = aws_iam_role.emr_service.arn
 autoscaling_role = aws_iam_role.emr_autoscaling_role.arn
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_updatedRootVolumeSize(rName string) string {
+}func testAccClusterConfig_updatedRootVolumeSize(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -3858,10 +3610,7 @@ autoscaling_role = aws_iam_role.emr_autoscaling_role.arn
 ebs_root_volume_size = 48
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_stepConcurrencyLevel(rName string, stepConcurrencyLevel int) string {
+}func testAccClusterConfig_stepConcurrencyLevel(rName string, stepConcurrencyLevel int) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -3888,10 +3637,7 @@ step_concurrency_level = %[2]d
 depends_on = [aws_route_table_association.test]
 }
 `, rName, stepConcurrencyLevel))
-}
-
-
-func testAccClusterConfig_ebs(rName string, volumesPerInstance int) string {
+}func testAccClusterConfig_ebs(rName string, volumesPerInstance int) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -3941,10 +3687,7 @@ volumes_per_instance = %[2]d
 depends_on = [aws_route_table_association.test]
 }
 `, rName, volumesPerInstance))
-}
-
-
-func testAccClusterConfig_customAMIID(rName string) string {
+}func testAccClusterConfig_customAMIID(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterIAMServiceRoleCustomAMIIDConfig(rName),
@@ -4024,10 +3767,7 @@ values = ["hvm"]
 }
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_instanceFleets(rName string) string {
+}func testAccClusterConfig_instanceFleets(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -4113,10 +3853,7 @@ args = ["instance.isMaster=true", "echo running on master node"]
 }
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_instanceFleetMultipleSubnets(rName string) string {
+}func testAccClusterConfig_instanceFleetMultipleSubnets(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -4214,10 +3951,7 @@ route_table_id = aws_route_table.test.id
 subnet_id= aws_subnet.test2.id
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_instanceFleetsMasterOnly(rName string) string {
+}func testAccClusterConfig_instanceFleetsMasterOnly(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -4260,10 +3994,7 @@ args = ["instance.isMaster=true", "echo running on master node"]
 }
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_autoTermination(rName string, timeout int) string {
+}func testAccClusterConfig_autoTermination(rName string, timeout int) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -4294,10 +4025,7 @@ instance_type = "m4.large"
 depends_on = [aws_route_table_association.test]
 }
 `, rName, timeout))
-}
-
-
-func testAccClusterConfig_noAutoTermination(rName string) string {
+}func testAccClusterConfig_noAutoTermination(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 fmt.Sprintf(`
@@ -4324,10 +4052,7 @@ instance_type = "m4.large"
 depends_on = [aws_route_table_association.test]
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_IAMServiceRoleWithPlacementGroup(rName string) string {
+}func testAccClusterConfig_IAMServiceRoleWithPlacementGroup(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseIAMServiceRolev2(rName),
 fmt.Sprintf(`
@@ -4366,10 +4091,7 @@ policy = <<EOT
 EOT
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_PlacementGroup(rName string) string {
+}func testAccClusterConfig_PlacementGroup(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, true),
 testAccClusterConfig_IAMServiceRoleWithPlacementGroup(rName),
@@ -4425,10 +4147,7 @@ autoscaling_role = aws_iam_role.emr_autoscaling_role.arn
 ebs_root_volume_size = 21
 }
 `, rName))
-}
-
-
-func testAccClusterConfig_PlacementGroupWithOptionalUnset(rName string) string {
+}func testAccClusterConfig_PlacementGroupWithOptionalUnset(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, true),
 testAccClusterConfig_IAMServiceRoleWithPlacementGroup(rName),

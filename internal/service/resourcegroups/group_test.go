@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package resourcegroups_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package resourcegroups_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/resourcegroups"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,18 +11,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfresourcegroups "github.com/hashicorp/terraform-provider-aws/internal/service/resourcegroups"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccResourceGroupsGroup_basic(t *testing.T) {
+)func TestAccResourceGroupsGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v resourcegroups.Group
 	resourceName := "aws_resourcegroups_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	desc1 := "Hello World"
-	desc2 := "Foo Bar"
-
-	query2 := `{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	desc1 := "Hello World"
+	desc2 := "Foo Bar"	query2 := `{
   "ResourceTypeFilters": [
 "AWS::EC2::Instance"
   ],
@@ -40,9 +28,7 @@ func TestAccResourceGroupsGroup_basic(t *testing.T) {
   ]
 }
   ]
-}`
-
-	resource.ParallelTest(t, resource.TestCase{
+}`	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -72,16 +58,12 @@ func TestAccResourceGroupsGroup_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccResourceGroupsGroup_tags(t *testing.T) {
+}func TestAccResourceGroupsGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v resourcegroups.Group
 	resourceName := "aws_resourcegroups_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	desc1 := "Hello World"
-
-	resource.ParallelTest(t, resource.TestCase{
+	desc1 := "Hello World"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -119,20 +101,14 @@ func TestAccResourceGroupsGroup_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccResourceGroupsGroup_Configuration(t *testing.T) {
+}func TestAccResourceGroupsGroup_Configuration(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v resourcegroups.Group
 	resourceName := "aws_resourcegroups_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	desc1 := "Hello World"
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	desc1 := "Hello World"
 	desc2 := "Foo Bar"
 	configType1 := "AWS::EC2::HostManagement"
-	configType2 := "AWS::ResourceGroups::Generic"
-
-	resource.ParallelTest(t, resource.TestCase{
+	configType2 := "AWS::ResourceGroups::Generic"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -187,18 +163,12 @@ func TestAccResourceGroupsGroup_Configuration(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccResourceGroupsGroup_configurationParametersOptional(t *testing.T) {
+}func TestAccResourceGroupsGroup_configurationParametersOptional(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v resourcegroups.Group
 	resourceName := "aws_resourcegroups_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	configType1 := "AWS::ResourceGroups::Generic"
-	configType2 := "AWS::EC2::CapacityReservationPool"
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	configType1 := "AWS::ResourceGroups::Generic"
+	configType2 := "AWS::EC2::CapacityReservationPool"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -224,17 +194,11 @@ func TestAccResourceGroupsGroup_configurationParametersOptional(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccResourceGroupsGroup_resourceQueryAndConfiguration(t *testing.T) {
+}func TestAccResourceGroupsGroup_resourceQueryAndConfiguration(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v resourcegroups.Group
 	resourceName := "aws_resourcegroups_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	configType := "AWS::NetworkFirewall::RuleGroup"
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	configType := "AWS::NetworkFirewall::RuleGroup"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -258,60 +222,30 @@ func TestAccResourceGroupsGroup_resourceQueryAndConfiguration(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckResourceGroupExists(ctx context.Context, n string, v *resourcegroups.Group) resource.TestCheckFunc {
+}func testAccCheckResourceGroupExists(ctx context.Context, n string, v *resourcegroups.Group) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Resource Groups Group ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ResourceGroupsConn(ctx)
-
-		output, err := tfresourcegroups.FindGroupByName(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).ResourceGroupsConn(ctx)		output, err := tfresourcegroups.FindGroupByName(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccCheckResourceGroupDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckResourceGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ResourceGroupsConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).ResourceGroupsConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_resourcegroups_group" {
 				continue
-			}
-
-			_, err := tfresourcegroups.FindGroupByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfresourcegroups.FindGroupByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Resource Groups Group %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Resource Groups Group %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-const testAccResourceGroupQueryConfig = `{
+}const testAccResourceGroupQueryConfig = `{
   "ResourceTypeFilters": [
 "AWS::EC2::Instance"
   ],
@@ -323,114 +257,74 @@ const testAccResourceGroupQueryConfig = `{
   ]
 }
   ]
-}`
-
-func testAccGroupConfig_basic(rName, desc, query string) string {
+}`func testAccGroupConfig_basic(rName, desc, query string) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
   name= %[1]q
-  description = %[2]q
-
-  resource_query {
+  description = %[2]q  resource_query {
 query = <<JSON
 %[3]s
-JSON
-
-  }
+JSON  }
 }
 `, rName, desc, query)
-}
-
-func testAccGroupConfig_tags1(rName, desc, query, tag1Key, tag1Value string) string {
+}func testAccGroupConfig_tags1(rName, desc, query, tag1Key, tag1Value string) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
   name= %[1]q
-  description = %[2]q
-
-  resource_query {
+  description = %[2]q  resource_query {
 query = <<JSON
 %[3]s
-JSON
-
-  }
-
-  tags = {
+JSON  }  tags = {
 %[4]q = %[5]q
   }
 }
 `, rName, desc, query, tag1Key, tag1Value)
-}
-
-func testAccGroupConfig_tags2(rName, desc, query, tag1Key, tag1Value, tag2Key, tag2Value string) string {
+}func testAccGroupConfig_tags2(rName, desc, query, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
   name= %[1]q
-  description = %[2]q
-
-  resource_query {
+  description = %[2]q  resource_query {
 query = <<JSON
 %[3]s
-JSON
-
-  }
-
-  tags = {
+JSON  }  tags = {
 %[4]q = %[5]q
 %[6]q = %[7]q
   }
 }
 `, rName, desc, query, tag1Key, tag1Value, tag2Key, tag2Value)
-}
-
-func testAccGroupConfig_configuration(rName, desc, cType1, cType2 string, autoAllocateHost bool) string {
+}func testAccGroupConfig_configuration(rName, desc, cType1, cType2 string, autoAllocateHost bool) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
   name= %[1]q
-  description = %[2]q
-
-  configuration {
-type = %[3]q
-
-parameters {
+  description = %[2]q  configuration {
+type = %[3]qparameters {
   name = "allowed-host-families"
   values = [
 "mac1",
   ]
-}
-
-parameters {
+}parameters {
   name = "any-host-based-license-configuration"
   values = [
 "true",
   ]
-}
-
-parameters {
+}parameters {
   name = "auto-allocate-host"
   values = [
 "%[4]t",
   ]
-}
-
-parameters {
+}parameters {
   name = "auto-release-host"
   values = [
 "true",
   ]
 }
-  }
-
-  configuration {
-type = %[5]q
-
-parameters {
+  }  configuration {
+type = %[5]qparameters {
   name = "allowed-resource-types"
   values = [
 "AWS::EC2::Host",
   ]
-}
-
-parameters {
+}parameters {
   name = "deletion-protection"
   values = [
 "UNLESS_EMPTY"
@@ -439,14 +333,10 @@ parameters {
   }
 }
 `, rName, desc, cType1, autoAllocateHost, cType2)
-}
-
-func testAccGroupConfig_configurationParametersOptional(rName, configType1, configType2 string) string {
+}func testAccGroupConfig_configurationParametersOptional(rName, configType1, configType2 string) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
-  name = %[1]q
-
-  configuration {
+  name = %[1]q  configuration {
 type = %[2]q
 parameters {
   name = "allowed-resource-types"
@@ -454,28 +344,18 @@ parameters {
 "AWS::EC2::CapacityReservation",
   ]
 }
-  }
-
-  configuration {
+  }  configuration {
 type = %[3]q
   }
 }
 `, rName, configType1, configType2)
-}
-
-func testAccGroupConfig_resourceQueryAndConfiguration(rName, query, configType string) string {
+}func testAccGroupConfig_resourceQueryAndConfiguration(rName, query, configType string) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
-  name = %[1]q
-
-  resource_query {
+  name = %[1]q  resource_query {
 query = <<JSON
 %[2]s
-JSON
-
-  }
-
-  configuration {
+JSON  }  configuration {
 type = %[3]q
   }
 }

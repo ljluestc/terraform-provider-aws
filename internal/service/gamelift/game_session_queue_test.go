@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package gamelift_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package gamelift_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/gamelift"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -18,15 +12,9 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfgamelift "github.com/hashicorp/terraform-provider-aws/internal/service/gamelift"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-const testAccGameSessionQueuePrefix = "tfAccQueue-"
-
-func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
+)const testAccGameSessionQueuePrefix = "tfAccQueue-"func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf gamelift.GameSessionQueue
-
-	resourceName := "aws_gamelift_game_session_queue.test"
+	var conf gamelift.GameSessionQueue	resourceName := "aws_gamelift_game_session_queue.test"
 	queueName := testAccGameSessionQueuePrefix + sdkacctest.RandString(8)
 	playerLatencyPolicies := []gamelift.PlayerLatencyPolicy{
 		{
@@ -38,9 +26,7 @@ func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
 			PolicyDurationSeconds:nil,
 		},
 	}
-	timeoutInSeconds := int64(124)
-
-	uQueueName := queueName + "-updated"
+	timeoutInSeconds := int64(124)	uQueueName := queueName + "-updated"
 	uPlayerLatencyPolicies := []gamelift.PlayerLatencyPolicy{
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(150),
@@ -51,9 +37,7 @@ func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
 			PolicyDurationSeconds:nil,
 		},
 	}
-	uTimeoutInSeconds := int64(600)
-
-	resource.Test(t, resource.TestCase{
+	uTimeoutInSeconds := int64(600)	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -113,16 +97,10 @@ func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameSessionQueue_tags(t *testing.T) {
+}func TestAccGameLiftGameSessionQueue_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf gamelift.GameSessionQueue
-
-	resourceName := "aws_gamelift_game_session_queue.test"
-	queueName := testAccGameSessionQueuePrefix + sdkacctest.RandString(8)
-
-	resource.Test(t, resource.TestCase{
+	var conf gamelift.GameSessionQueue	resourceName := "aws_gamelift_game_session_queue.test"
+	queueName := testAccGameSessionQueuePrefix + sdkacctest.RandString(8)	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -164,13 +142,9 @@ func TestAccGameLiftGameSessionQueue_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameSessionQueue_disappears(t *testing.T) {
+}func TestAccGameLiftGameSessionQueue_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf gamelift.GameSessionQueue
-
-	resourceName := "aws_gamelift_game_session_queue.test"
+	var conf gamelift.GameSessionQueue	resourceName := "aws_gamelift_game_session_queue.test"
 	queueName := testAccGameSessionQueuePrefix + sdkacctest.RandString(8)
 	playerLatencyPolicies := []gamelift.PlayerLatencyPolicy{
 		{
@@ -182,9 +156,7 @@ func TestAccGameLiftGameSessionQueue_disappears(t *testing.T) {
 			PolicyDurationSeconds:nil,
 		},
 	}
-	timeoutInSeconds := int64(124)
-
-	resource.Test(t, resource.TestCase{
+	timeoutInSeconds := int64(124)	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -205,9 +177,7 @@ func TestAccGameLiftGameSessionQueue_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckGameSessionQueueExists(ctx context.Context, n string, v *gamelift.GameSessionQueue) resource.TestCheckFunc {
+}func testAccCheckGameSessionQueueExists(ctx context.Context, n string, v *gamelift.GameSessionQueue) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
@@ -215,67 +185,33 @@ func testAccCheckGameSessionQueueExists(ctx context.Context, n string, v *gameli
 		}
 		if rs.Primary.ID == "" {
 			return fmt.Errorf("No GameLift Game Session Queue ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GameLiftConn(ctx)
-
-		output, err := tfgamelift.FindGameSessionQueueByName(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).GameLiftConn(ctx)		output, err := tfgamelift.FindGameSessionQueueByName(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccCheckGameSessionQueueDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckGameSessionQueueDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GameLiftConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).GameLiftConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_gamelift_game_session_queue" {
 				continue
-			}
-
-			_, err := tfgamelift.FindGameSessionQueueByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfgamelift.FindGameSessionQueueByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("GameLift Game Session Queue %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("GameLift Game Session Queue %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccGameSessionQueueConfig_basic(queueName string,
+}func testAccGameSessionQueueConfig_basic(queueName string,
 	playerLatencyPolicies []gamelift.PlayerLatencyPolicy, timeoutInSeconds int64, customEventData string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_game_session_queue" "test" {
   name= "%s"
-  destinations = []
-
-  player_latency_policy {
+  destinations = []  player_latency_policy {
 maximum_individual_player_latency_milliseconds = %d
 policy_duration_seconds  = %d
-  }
-
-  player_latency_policy {
+  }  player_latency_policy {
 maximum_individual_player_latency_milliseconds = %d
-  }
-
-  timeout_in_seconds = %d
-
-  custom_event_data = "%s"
+  }  timeout_in_seconds = %d  custom_event_data = "%s"
 }
 `,
 		queueName,
@@ -284,50 +220,30 @@ maximum_individual_player_latency_milliseconds = %d
 		*playerLatencyPolicies[1].MaximumIndividualPlayerLatencyMilliseconds,
 		timeoutInSeconds,
 		customEventData)
-}
-
-func testAccGameSessionQueueConfig_basicTags1(rName, tagKey1, tagValue1 string) string {
+}func testAccGameSessionQueueConfig_basicTags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_game_session_queue" "test" {
   name= %[1]q
-  destinations = []
-
-  player_latency_policy {
+  destinations = []  player_latency_policy {
 maximum_individual_player_latency_milliseconds = 100000
 policy_duration_seconds  = 10
-  }
-
-  player_latency_policy {
+  }  player_latency_policy {
 maximum_individual_player_latency_milliseconds = 100000
-  }
-
-  timeout_in_seconds = 10
-
-  tags = {
+  }  timeout_in_seconds = 10  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccGameSessionQueueConfig_basicTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccGameSessionQueueConfig_basicTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_game_session_queue" "test" {
   name= %[1]q
-  destinations = []
-
-  player_latency_policy {
+  destinations = []  player_latency_policy {
 maximum_individual_player_latency_milliseconds = 100000
 policy_duration_seconds  = 10
-  }
-
-  player_latency_policy {
+  }  player_latency_policy {
 maximum_individual_player_latency_milliseconds = 100000
-  }
-
-  timeout_in_seconds = 10
-
-  tags = {
+  }  timeout_in_seconds = 10  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

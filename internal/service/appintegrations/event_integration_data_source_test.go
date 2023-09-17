@@ -1,32 +1,20 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appintegrations_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appintegrations_testimport (
 	"fmt"
 	"os"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/appintegrationsservice"
+	"testing"	"github.com/aws/aws-sdk-go/service/appintegrationsservice"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccAppIntegrationsEventIntegrationDataSource_name(t *testing.T) {
+)func TestAccAppIntegrationsEventIntegrationDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	resourceName := "aws_appintegrations_event_integration.test"
-	datasourceName := "data.aws_appintegrations_event_integration.test"
-
-	key := "EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME"
+	datasourceName := "data.aws_appintegrations_event_integration.test"	key := "EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME"
 	sourceName := os.Getenv(key)
 	if sourceName == "" {
 sourceName = "aws.partner/examplepartner.com"
-	}
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, appintegrationsservice.EndpointsID)
@@ -49,27 +37,19 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccEventIntegrationDataSourceConfig_base(rName, sourceName string) string {
+}func testAccEventIntegrationDataSourceConfig_base(rName, sourceName string) string {
 	return fmt.Sprintf(`
 resource "aws_appintegrations_event_integration" "test" {
   name   = %[1]q
   description     = "example description"
-  eventbridge_bus = "default"
-
-  event_filter {
+  eventbridge_bus = "default"  event_filter {
     source = %[2]q
-  }
-
-  tags = {
+  }  tags = {
     "Key1" = "Value1"
   }
 }
 `, rName, sourceName)
-}
-
-func testAccEventIntegrationDataSourceConfig_Name(rName, sourceName string) string {
+}func testAccEventIntegrationDataSourceConfig_Name(rName, sourceName string) string {
 	return acctest.ConfigCompose(testAccEventIntegrationDataSourceConfig_base(rName, sourceName), `
 data "aws_appintegrations_event_integration" "test" {
   name = aws_appintegrations_event_integration.test.name

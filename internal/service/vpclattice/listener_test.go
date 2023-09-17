@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package vpclattice_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package vpclattice_testimport (
 "context"
 "errors"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go-v2/aws"
 "github.com/aws/aws-sdk-go-v2/service/vpclattice"
 "github.com/aws/aws-sdk-go-v2/service/vpclattice/types"
@@ -21,18 +15,12 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/create"
 tfvpclattice "github.com/hashicorp/terraform-provider-aws/internal/service/vpclattice"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccVPCLatticeListener_defaultActionUpdate(t *testing.T) {
-ctx := acctest.Context(t)
-
-var listener vpclattice.GetListenerOutput
+)func TestAccVPCLatticeListener_defaultActionUpdate(t *testing.T) {
+ctx := acctest.Context(t)var listener vpclattice.GetListenerOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_listener.test"
 serviceName := "aws_vpclattice_service.test"
-targetGroupResourceName := "aws_vpclattice_target_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+targetGroupResourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -74,17 +62,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeListener_fixedResponseHTTP(t *testing.T) {
-ctx := acctest.Context(t)
-
-var listener vpclattice.GetListenerOutput
+}func TestAccVPCLatticeListener_fixedResponseHTTP(t *testing.T) {
+ctx := acctest.Context(t)var listener vpclattice.GetListenerOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_listener.test"
-serviceName := "aws_vpclattice_service.test"
-
-resource.ParallelTest(t, resource.TestCase{
+serviceName := "aws_vpclattice_service.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -113,17 +95,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeListener_fixedResponseHTTPS(t *testing.T) {
-ctx := acctest.Context(t)
-
-var listener vpclattice.GetListenerOutput
+}func TestAccVPCLatticeListener_fixedResponseHTTPS(t *testing.T) {
+ctx := acctest.Context(t)var listener vpclattice.GetListenerOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_listener.test"
-serviceName := "aws_vpclattice_service.test"
-
-resource.ParallelTest(t, resource.TestCase{
+serviceName := "aws_vpclattice_service.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -152,18 +128,12 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeListener_forwardHTTPTargetGroup(t *testing.T) {
-ctx := acctest.Context(t)
-
-var listener vpclattice.GetListenerOutput
+}func TestAccVPCLatticeListener_forwardHTTPTargetGroup(t *testing.T) {
+ctx := acctest.Context(t)var listener vpclattice.GetListenerOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_listener.test"
 serviceName := "aws_vpclattice_service.test"
-targetGroupResourceName := "aws_vpclattice_target_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+targetGroupResourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -193,18 +163,12 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeListener_forwardHTTPTargetGroupCustomPort(t *testing.T) {
-ctx := acctest.Context(t)
-
-var listener vpclattice.GetListenerOutput
+}func TestAccVPCLatticeListener_forwardHTTPTargetGroupCustomPort(t *testing.T) {
+ctx := acctest.Context(t)var listener vpclattice.GetListenerOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_listener.test"
 serviceName := "aws_vpclattice_service.test"
-targetGroupResourceName := "aws_vpclattice_target_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+targetGroupResourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -234,18 +198,12 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeListener_forwardHTTPSTargetGroupARN(t *testing.T) {
-ctx := acctest.Context(t)
-
-var listener vpclattice.GetListenerOutput
+}func TestAccVPCLatticeListener_forwardHTTPSTargetGroupARN(t *testing.T) {
+ctx := acctest.Context(t)var listener vpclattice.GetListenerOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_listener.test"
 serviceName := "aws_vpclattice_service.test"
-targetGroupResourceName := "aws_vpclattice_target_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+targetGroupResourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -276,18 +234,12 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeListener_forwardHTTPSTargetGroupCustomPort(t *testing.T) {
-ctx := acctest.Context(t)
-
-var listener vpclattice.GetListenerOutput
+}func TestAccVPCLatticeListener_forwardHTTPSTargetGroupCustomPort(t *testing.T) {
+ctx := acctest.Context(t)var listener vpclattice.GetListenerOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_listener.test"
 serviceName := "aws_vpclattice_service.test"
-targetGroupResourceName := "aws_vpclattice_target_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+targetGroupResourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -318,20 +270,14 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeListener_forwardHTTPMultipleTargetGroups(t *testing.T) {
+}func TestAccVPCLatticeListener_forwardHTTPMultipleTargetGroups(t *testing.T) {
 ctx := acctest.Context(t)
-targetGroupName1 := fmt.Sprintf("testtargetgroup-%s", sdkacctest.RandString(10))
-
-var listener vpclattice.GetListenerOutput
+targetGroupName1 := fmt.Sprintf("testtargetgroup-%s", sdkacctest.RandString(10))var listener vpclattice.GetListenerOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_listener.test"
 serviceName := "aws_vpclattice_service.test"
 targetGroupResourceName := "aws_vpclattice_target_group.test"
-targetGroup1ResourceName := "aws_vpclattice_target_group.test1"
-
-resource.ParallelTest(t, resource.TestCase{
+targetGroup1ResourceName := "aws_vpclattice_target_group.test1"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -363,19 +309,13 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeListener_disappears(t *testing.T) {
+}func TestAccVPCLatticeListener_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var listener vpclattice.GetListenerOutput
+}var listener vpclattice.GetListenerOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_listener.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_listener.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -395,16 +335,10 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeListener_tags(t *testing.T) {
-ctx := acctest.Context(t)
-
-var listener vpclattice.GetListenerOutput
+}func TestAccVPCLatticeListener_tags(t *testing.T) {
+ctx := acctest.Context(t)var listener vpclattice.GetListenerOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_listener.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_listener.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -447,18 +381,12 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-func testAccCheckListenerDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckListenerDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_vpclattice_listener" {
 continue
-}
-
-_, err := conn.GetListener(ctx, &vpclattice.GetListenerInput{
+}_, err := conn.GetListener(ctx, &vpclattice.GetListenerInput{
 ListenerIdentifier: aws.String(rs.Primary.Attributes["listener_id"]),
 ServiceIdentifier:  aws.String(rs.Primary.Attributes["service_identifier"]),
 })
@@ -468,62 +396,38 @@ if errors.As(err, &nfe) {
 return nil
 }
 return err
+}return create.Error(names.VPCLattice, create.ErrActionCheckingDestroyed, tfvpclattice.ResNameListener, rs.Primary.ID, errors.New("not destroyed"))
+}return nil
 }
-
-return create.Error(names.VPCLattice, create.ErrActionCheckingDestroyed, tfvpclattice.ResNameListener, rs.Primary.ID, errors.New("not destroyed"))
-}
-
-return nil
-}
-}
-
-func testAccCheckListenerExists(ctx context.Context, name string, listener *vpclattice.GetListenerOutput) resource.TestCheckFunc {
+}func testAccCheckListenerExists(ctx context.Context, name string, listener *vpclattice.GetListenerOutput) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameListener, name, errors.New("not found"))
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameListener, name, errors.New("not set"))
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
 resp, err := conn.GetListener(ctx, &vpclattice.GetListenerInput{
 ListenerIdentifier: aws.String(rs.Primary.Attributes["listener_id"]),
 ServiceIdentifier:  aws.String(rs.Primary.Attributes["service_identifier"]),
-})
-
-if err != nil {
+})if err != nil {
 return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameListener, rs.Primary.ID, err)
+}*listener = *respreturn nil
 }
-
-*listener = *resp
-
-return nil
-}
-}
-
-func testAccListenerConfig_basic(rName string) string {
+}func testAccListenerConfig_basic(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf(`
 resource "aws_vpclattice_service" "test" {
   name = %[1]q
-}
-
-resource "aws_vpclattice_target_group" "test" {
+}resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
-  type = "INSTANCE"
-
-  config {
+  type = "INSTANCE"  config {
     port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
 }
 `, rName))
-}
-
-func testAccListenerConfig_fixedResponseHTTP(rName string) string {
+}func testAccListenerConfig_fixedResponseHTTP(rName string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
@@ -536,9 +440,7 @@ resource "aws_vpclattice_listener" "test" {
   }
 }
 `, rName))
-}
-
-func testAccListenerConfig_fixedResponseHTTPS(rName string) string {
+}func testAccListenerConfig_fixedResponseHTTPS(rName string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
@@ -551,22 +453,16 @@ resource "aws_vpclattice_listener" "test" {
   }
 }
 `, rName))
-}
-
-func testAccListenerConfig_forwardMultiTargetGroupHTTP(rName string, targetGroupName1 string) string {
+}func testAccListenerConfig_forwardMultiTargetGroupHTTP(rName string, targetGroupName1 string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test1" {
   name = %[2]q
-  type = "INSTANCE"
-
-  config {
+  type = "INSTANCE"  config {
     port  = 8080
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
-}
-
-resource "aws_vpclattice_listener" "test" {
+}resource "aws_vpclattice_listener" "test" {
   name= %[1]q
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
@@ -584,9 +480,7 @@ resource "aws_vpclattice_listener" "test" {
   }
 }
 `, rName, targetGroupName1))
-}
-
-func testAccListenerConfig_forwardTargetGroupHTTPServiceID(rName string) string {
+}func testAccListenerConfig_forwardTargetGroupHTTPServiceID(rName string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
@@ -602,9 +496,7 @@ resource "aws_vpclattice_listener" "test" {
   }
 }
 `, rName))
-}
-
-func testAccListenerConfig_forwardTargetGroupHTTPServiceIDCustomPort(rName string) string {
+}func testAccListenerConfig_forwardTargetGroupHTTPServiceIDCustomPort(rName string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
@@ -621,9 +513,7 @@ resource "aws_vpclattice_listener" "test" {
   }
 }
 `, rName))
-}
-
-func testAccListenerConfig_forwardTargetGroupHTTPServiceARN(rName string) string {
+}func testAccListenerConfig_forwardTargetGroupHTTPServiceARN(rName string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name        = %[1]q
@@ -638,9 +528,7 @@ resource "aws_vpclattice_listener" "test" {
     }
   }
 }`, rName))
-}
-
-func testAccListenerConfig_forwardTargetGroupHTTPSServiceID(rName string) string {
+}func testAccListenerConfig_forwardTargetGroupHTTPSServiceID(rName string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
@@ -655,9 +543,7 @@ resource "aws_vpclattice_listener" "test" {
     }
   }
 }`, rName))
-}
-
-func testAccListenerConfig_forwardTargetGroupHTTPSServiceIDCustomPort(rName string) string {
+}func testAccListenerConfig_forwardTargetGroupHTTPSServiceIDCustomPort(rName string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
@@ -673,9 +559,7 @@ resource "aws_vpclattice_listener" "test" {
     }
   }
 }`, rName))
-}
-
-func testAccListenerConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccListenerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
@@ -694,9 +578,7 @@ resource "aws_vpclattice_listener" "test" {
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccListenerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccListenerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q

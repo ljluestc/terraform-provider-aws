@@ -1,24 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package memorydb
-
-import (
+// SPDX-License-Identifier: MPL-2.0package memorydbimport (
 "github.com/YakDriver/regexache"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-)
-
-const (
+)const (
 aclNameMaxLength   = 40
 clusterNameMaxLength= 40
 parameterGroupNameMaxLength = 255
 snapshotNameMaxLength   = 255
 subnetGroupNameMaxLength= 255
 userNameMaxLength  = 40
-)
-
-// validateResourceName returns a validation function applicable to all MemoryDB
+)// validateResourceName returns a validation function applicable to all MemoryDB
 // resource names.
 //
 // MemoryDB, similar to ElastiCache, allows upper-case names when creating
@@ -32,9 +24,7 @@ validation.StringDoesNotMatch(
 regexache.MustCompile(`[-]$`),
 "The name may not end with a hyphen."),
 )
-}
-
-func validateResourceNamePrefix(maxLength int) schema.SchemaValidateFunc {
+}func validateResourceNamePrefix(maxLength int) schema.SchemaValidateFunc {
 return validation.All(
 validation.StringLenBetween(1, maxLength),
 validation.StringDoesNotMatch(

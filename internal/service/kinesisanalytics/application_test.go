@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kinesisanalytics_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kinesisanalytics_testimport (
 	"context"
 	"fmt"
 	"strconv"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/kinesisanalytics"
+	"testing"	"github.com/aws/aws-sdk-go/service/kinesisanalytics"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -22,9 +16,7 @@ func TestAccKinesisAnalyticsApplication_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalytics.ApplicationDetail
 	resourceName := "aws_kinesis_analytics_application.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -62,9 +54,7 @@ func TestAccKinesisAnalyticsApplication_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalytics.ApplicationDetail
 	resourceName := "aws_kinesis_analytics_application.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -85,9 +75,7 @@ func TestAccKinesisAnalyticsApplication_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalytics.ApplicationDetail
 	resourceName := "aws_kinesis_analytics_application.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -133,9 +121,7 @@ func TestAccKinesisAnalyticsApplication_Code_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalytics.ApplicationDetail
 	resourceName := "aws_kinesis_analytics_application.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -195,9 +181,7 @@ func TestAccKinesisAnalyticsApplication_CloudWatchLoggingOptions_add(t *testing.
 	resourceName := "aws_kinesis_analytics_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	cloudWatchLogStreamResourceName := "aws_cloudwatch_log_stream.test.0"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -259,9 +243,7 @@ func TestAccKinesisAnalyticsApplication_CloudWatchLoggingOptions_delete(t *testi
 	resourceName := "aws_kinesis_analytics_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	cloudWatchLogStreamResourceName := "aws_cloudwatch_log_stream.test.0"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -325,9 +307,7 @@ func TestAccKinesisAnalyticsApplication_CloudWatchLoggingOptions_update(t *testi
 	iamRole2ResourceName := "aws_iam_role.test.1"
 	cloudWatchLogStream1ResourceName := "aws_cloudwatch_log_stream.test.0"
 	cloudWatchLogStream2ResourceName := "aws_cloudwatch_log_stream.test.1"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -391,9 +371,7 @@ func TestAccKinesisAnalyticsApplication_Input_add(t *testing.T) {
 	resourceName := "aws_kinesis_analytics_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -479,9 +457,7 @@ func TestAccKinesisAnalyticsApplication_Input_update(t *testing.T) {
 	iamRole2ResourceName := "aws_iam_role.test.1"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
 	streamsResourceName := "aws_kinesis_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -593,9 +569,7 @@ func TestAccKinesisAnalyticsApplication_InputProcessing_add(t *testing.T) {
 	iamRoleResourceName := "aws_iam_role.test.0"
 	lambdaResourceName := "aws_lambda_function.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -707,9 +681,7 @@ func TestAccKinesisAnalyticsApplication_InputProcessing_delete(t *testing.T) {
 	iamRoleResourceName := "aws_iam_role.test.0"
 	lambdaResourceName := "aws_lambda_function.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -823,9 +795,7 @@ func TestAccKinesisAnalyticsApplication_InputProcessing_update(t *testing.T) {
 	lambda1ResourceName := "aws_lambda_function.test.0"
 	lambda2ResourceName := "aws_lambda_function.test.1"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -944,9 +914,7 @@ func TestAccKinesisAnalyticsApplication_Multiple_update(t *testing.T) {
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
 	streamsResourceName := "aws_kinesis_stream.test"
 	s3BucketResourceName := "aws_s3_bucket.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1114,9 +1082,7 @@ func TestAccKinesisAnalyticsApplication_Output_update(t *testing.T) {
 	lambdaResourceName := "aws_lambda_function.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
 	streamsResourceName := "aws_kinesis_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1226,9 +1192,7 @@ func TestAccKinesisAnalyticsApplication_ReferenceDataSource_add(t *testing.T) {
 	resourceName := "aws_kinesis_analytics_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1306,9 +1270,7 @@ func TestAccKinesisAnalyticsApplication_ReferenceDataSource_delete(t *testing.T)
 	resourceName := "aws_kinesis_analytics_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1387,9 +1349,7 @@ func TestAccKinesisAnalyticsApplication_ReferenceDataSource_update(t *testing.T)
 	iamRole1ResourceName := "aws_iam_role.test.0"
 	iamRole2ResourceName := "aws_iam_role.test.1"
 	s3BucketResourceName := "aws_s3_bucket.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1488,9 +1448,7 @@ func TestAccKinesisAnalyticsApplication_StartApplication_onCreate(t *testing.T) 
 	resourceName := "aws_kinesis_analytics_application.test"
 	iamRole1ResourceName := "aws_iam_role.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1555,9 +1513,7 @@ func TestAccKinesisAnalyticsApplication_StartApplication_onUpdate(t *testing.T) 
 	resourceName := "aws_kinesis_analytics_application.test"
 	iamRole1ResourceName := "aws_iam_role.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1715,9 +1671,7 @@ func TestAccKinesisAnalyticsApplication_StartApplication_update(t *testing.T) {
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
 	streamsResourceName := "aws_kinesis_stream.test"
 	s3BucketResourceName := "aws_s3_bucket.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesisanalytics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1881,24 +1835,14 @@ func TestAccKinesisAnalyticsApplication_StartApplication_update(t *testing.T) {
 }
 func testAccCheckApplicationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_kinesis_analytics_application" {
 				continue
-			}
-
-			_, err := tfkinesisanalytics.FindApplicationDetailByName(ctx, conn, rs.Primary.Attributes["name"])
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfkinesisanalytics.FindApplicationDetailByName(ctx, conn, rs.Primary.Attributes["name"])			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Kinesis Analytics Application %s still exists", rs.Primary.ID)
+			}			return fmt.Errorf("Kinesis Analytics Application %s still exists", rs.Primary.ID)
 		}
 		return nil
 	}
@@ -1908,46 +1852,24 @@ func testAccCheckApplicationExists(ctx context.Context, n string, v *kinesisanal
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Kinesis Analytics Application ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsConn(ctx)
-
-		application, err := tfkinesisanalytics.FindApplicationDetailByName(ctx, conn, rs.Primary.Attributes["name"])
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsConn(ctx)		application, err := tfkinesisanalytics.FindApplicationDetailByName(ctx, conn, rs.Primary.Attributes["name"])		if err != nil {
 			return err
-		}
-
-		*v = *application
-
-		return nil
+		}		*v = *application		return nil
 	}
 }
 func testAccPreCheck(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsConn(ctx)
-
-	input := &kinesisanalytics.ListApplicationsInput{}
-
-	_, err := conn.ListApplicationsWithContext(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+	conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsConn(ctx)	input := &kinesisanalytics.ListApplicationsInput{}	_, err := conn.ListApplicationsWithContext(ctx, input)	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 func testAccApplicationConfigBaseIAMRole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  count = 2
-
-  name  = "%[1]s.${count.index}"
+  count = 2  name  = "%[1]s.${count.index}"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -1970,9 +1892,7 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_policy" "test" {
+}resource "aws_iam_policy" "test" {
   name   = %[1]q
   policy = <<EOF
 {
@@ -2006,12 +1926,8 @@ resource "aws_iam_policy" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "test" {
-  count = 2
-
-  role  = aws_iam_role.test[count.index].name
+}resource "aws_iam_role_policy_attachment" "test" {
+  count = 2  role  = aws_iam_role.test[count.index].name
   policy_arn = aws_iam_policy.test.arn
 }
 `, rName)
@@ -2020,29 +1936,19 @@ func testAccApplicationConfigBaseInputOutput(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_lambda_function" "test" {
-  count = 2
-
-  filename = "test-fixtures/lambdatest.zip"
+}resource "aws_lambda_function" "test" {
+  count = 2  filename = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s_${count.index}"
   handler  = "exports.example"
   role= aws_iam_role.test[0].arn
   runtime  = "nodejs16.x"
-}
-
-resource "aws_kinesis_firehose_delivery_stream" "test" {
+}resource "aws_kinesis_firehose_delivery_stream" "test" {
   name   = %[1]q
-  destination = "extended_s3"
-
-  extended_s3_configuration {
+  destination = "extended_s3"  extended_s3_configuration {
 bucket_arn = aws_s3_bucket.test.arn
 role_arn   = aws_iam_role.test[0].arn
   }
-}
-
-resource "aws_kinesis_stream" "test" {
+}resource "aws_kinesis_stream" "test" {
   name   = %[1]q
   shard_count = 1
 }
@@ -2070,19 +1976,11 @@ func testAccApplicationConfig_cloudWatchLoggingOptions(rName string, streamIndex
 		fmt.Sprintf(`
 resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
-}
-
-resource "aws_cloudwatch_log_stream" "test" {
-  count = 2
-
-  name = "%[1]s.${count.index}"
+}resource "aws_cloudwatch_log_stream" "test" {
+  count = 2  name = "%[1]s.${count.index}"
   log_group_name = aws_cloudwatch_log_group.test.name
-}
-
-resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  cloudwatch_logging_options {
+}resource "aws_kinesis_analytics_application" "test" {
+  name = %[1]q  cloudwatch_logging_options {
 log_stream_arn = aws_cloudwatch_log_stream.test.%[2]d.arn
 role_arn  = aws_iam_role.test.%[2]d.arn
   }
@@ -2095,18 +1993,12 @@ func testAccApplicationConfig_input(rName string) string {
 		testAccApplicationConfigBaseInputOutput(rName),
 		fmt.Sprintf(`
 resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  inputs {
-name_prefix = "NAME_PREFIX_1"
-
-schema {
+  name = %[1]q  inputs {
+name_prefix = "NAME_PREFIX_1"schema {
  record_columns {
    name= "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
+ } record_format {
    mapping_parameters {
 csv {
   record_column_delimiter = ","
@@ -2114,9 +2006,7 @@ csv {
 }
    }
  }
-}
-
-kinesis_firehose {
+}kinesis_firehose {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
  role_arn= aws_iam_role.test[0].arn
 }
@@ -2130,40 +2020,26 @@ func testAccApplicationConfig_inputUpdated(rName string) string {
 		testAccApplicationConfigBaseInputOutput(rName),
 		fmt.Sprintf(`
 resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  inputs {
-name_prefix = "NAME_PREFIX_2"
-
-parallelism {
+  name = %[1]q  inputs {
+name_prefix = "NAME_PREFIX_2"parallelism {
  count = 42
-}
-
-schema {
+}schema {
  record_columns {
    name= "COLUMN_2"
    sql_type = "VARCHAR(8)"
    mapping  = "MAPPING-2"
- }
-
- record_columns {
+ } record_columns {
    name= "COLUMN_3"
    sql_type = "DOUBLE"
    mapping  = "MAPPING-3"
- }
-
- record_encoding = "UTF-8"
-
- record_format {
+ } record_encoding = "UTF-8" record_format {
    mapping_parameters {
 json {
   record_row_path = "$path.to.record"
 }
    }
  }
-}
-
-kinesis_stream {
+}kinesis_stream {
  resource_arn = aws_kinesis_stream.test.arn
  role_arn= aws_iam_role.test[1].arn
 }
@@ -2177,18 +2053,12 @@ func testAccApplicationConfig_inputProcessing(rName string, lambdaIndex int) str
 		testAccApplicationConfigBaseInputOutput(rName),
 		fmt.Sprintf(`
 resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  inputs {
-name_prefix = "NAME_PREFIX_1"
-
-schema {
+  name = %[1]q  inputs {
+name_prefix = "NAME_PREFIX_1"schema {
  record_columns {
    name= "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
+ } record_format {
    mapping_parameters {
 csv {
   record_column_delimiter = ","
@@ -2196,16 +2066,12 @@ csv {
 }
    }
  }
-}
-
-processing_configuration {
+}processing_configuration {
  lambda {
    resource_arn = aws_lambda_function.test.%[2]d.arn
    role_arn= aws_iam_role.test.%[2]d.arn
  }
-}
-
-kinesis_firehose {
+}kinesis_firehose {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
  role_arn= aws_iam_role.test[0].arn
 }
@@ -2221,39 +2087,25 @@ func testAccApplicationConfig_multiple(rName, startApplication, startingPosition
 		startingPosition = "null"
 	} else {
 		startingPosition = strconv.Quote(startingPosition)
-	}
-
-	return acctest.ConfigCompose(
+	}	return acctest.ConfigCompose(
 		testAccApplicationConfigBaseIAMRole(rName),
 		testAccApplicationConfigBaseInputOutput(rName),
 		fmt.Sprintf(`
 resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
-}
-
-resource "aws_cloudwatch_log_stream" "test" {
+}resource "aws_cloudwatch_log_stream" "test" {
   name = %[1]q
   log_group_name = aws_cloudwatch_log_group.test.name
-}
-
-resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  cloudwatch_logging_options {
+}resource "aws_kinesis_analytics_application" "test" {
+  name = %[1]q  cloudwatch_logging_options {
 log_stream_arn = aws_cloudwatch_log_stream.test.arn
 role_arn  = aws_iam_role.test[1].arn
-  }
-
-  inputs {
-name_prefix = "NAME_PREFIX_1"
-
-schema {
+  }  inputs {
+name_prefix = "NAME_PREFIX_1"schema {
  record_columns {
    name= "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
+ } record_format {
    mapping_parameters {
 csv {
   record_column_delimiter = ","
@@ -2261,43 +2113,27 @@ csv {
 }
    }
  }
-}
-
-processing_configuration {
+}processing_configuration {
  lambda {
    resource_arn = aws_lambda_function.test[0].arn
    role_arn= aws_iam_role.test[0].arn
  }
-}
-
-kinesis_firehose {
+}kinesis_firehose {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
  role_arn= aws_iam_role.test[0].arn
-}
-
-starting_position_configuration {
+}starting_position_configuration {
  starting_position = %[3]s
 }
-  }
-
-  outputs {
-name = "OUTPUT_1"
-
-schema {
+  }  outputs {
+name = "OUTPUT_1"schema {
  record_format_type = "CSV"
-}
-
-kinesis_firehose {
+}kinesis_firehose {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
  role_arn= aws_iam_role.test[1].arn
 }
-  }
-
-  tags = {
+  }  tags = {
 Key1 = "Value1"
-  }
-
-  start_application = %[2]s
+  }  start_application = %[2]s
 }
 `, rName, startApplication, startingPosition))
 }
@@ -2309,92 +2145,56 @@ func testAccApplicationConfig_multipleUpdated(rName, startApplication, startingP
 		startingPosition = "null"
 	} else {
 		startingPosition = strconv.Quote(startingPosition)
-	}
-
-	return acctest.ConfigCompose(
+	}	return acctest.ConfigCompose(
 		testAccApplicationConfigBaseIAMRole(rName),
 		testAccApplicationConfigBaseInputOutput(rName),
 		fmt.Sprintf(`
 resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  inputs {
-name_prefix = "NAME_PREFIX_2"
-
-parallelism {
+  name = %[1]q  inputs {
+name_prefix = "NAME_PREFIX_2"parallelism {
  count = 42
-}
-
-schema {
+}schema {
  record_columns {
    name= "COLUMN_2"
    sql_type = "VARCHAR(8)"
    mapping  = "MAPPING-2"
- }
-
- record_columns {
+ } record_columns {
    name= "COLUMN_3"
    sql_type = "DOUBLE"
    mapping  = "MAPPING-3"
- }
-
- record_encoding = "UTF-8"
-
- record_format {
+ } record_encoding = "UTF-8" record_format {
    mapping_parameters {
 json {
   record_row_path = "$path.to.record"
 }
    }
  }
-}
-
-kinesis_stream {
+}kinesis_stream {
  resource_arn = aws_kinesis_stream.test.arn
  role_arn= aws_iam_role.test[1].arn
-}
-
-starting_position_configuration {
+}starting_position_configuration {
  starting_position = %[3]s
 }
-  }
-
-  outputs {
-name = "OUTPUT_2"
-
-schema {
+  }  outputs {
+name = "OUTPUT_2"schema {
  record_format_type = "JSON"
-}
-
-kinesis_stream {
+}kinesis_stream {
  resource_arn = aws_kinesis_stream.test.arn
  role_arn= aws_iam_role.test[1].arn
 }
-  }
-
-  outputs {
-name = "OUTPUT_3"
-
-schema {
+  }  outputs {
+name = "OUTPUT_3"schema {
  record_format_type = "CSV"
-}
-
-lambda {
+}lambda {
  resource_arn = aws_lambda_function.test[0].arn
  role_arn= aws_iam_role.test[0].arn
 }
-  }
-
-  reference_data_sources {
-table_name = "TABLE-1"
-
-schema {
+  }  reference_data_sources {
+table_name = "TABLE-1"schema {
  record_columns {
    name= "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
+ } record_format {
    mapping_parameters {
 csv {
   record_column_delimiter = ","
@@ -2402,21 +2202,15 @@ csv {
 }
    }
  }
-}
-
-s3 {
+}s3 {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = "KEY-1"
  role_arn   = aws_iam_role.test[1].arn
 }
-  }
-
-  tags = {
+  }  tags = {
 Key2 = "Value2"
 Key3 = "Value3"
-  }
-
-  start_application = %[2]s
+  }  start_application = %[2]s
 }
 `, rName, startApplication, startingPosition))
 }
@@ -2426,16 +2220,10 @@ func testAccApplicationConfig_output(rName string) string {
 		testAccApplicationConfigBaseInputOutput(rName),
 		fmt.Sprintf(`
 resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  outputs {
-name = "OUTPUT_1"
-
-schema {
+  name = %[1]q  outputs {
+name = "OUTPUT_1"schema {
  record_format_type = "CSV"
-}
-
-kinesis_firehose {
+}kinesis_firehose {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
  role_arn= aws_iam_role.test[0].arn
 }
@@ -2449,29 +2237,17 @@ func testAccApplicationConfig_outputUpdated(rName string) string {
 		testAccApplicationConfigBaseInputOutput(rName),
 		fmt.Sprintf(`
 resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  outputs {
-name = "OUTPUT_2"
-
-schema {
+  name = %[1]q  outputs {
+name = "OUTPUT_2"schema {
  record_format_type = "JSON"
-}
-
-kinesis_stream {
+}kinesis_stream {
  resource_arn = aws_kinesis_stream.test.arn
  role_arn= aws_iam_role.test[1].arn
 }
-  }
-
-  outputs {
-name = "OUTPUT_3"
-
-schema {
+  }  outputs {
+name = "OUTPUT_3"schema {
  record_format_type = "CSV"
-}
-
-lambda {
+}lambda {
  resource_arn = aws_lambda_function.test[0].arn
  role_arn= aws_iam_role.test[0].arn
 }
@@ -2485,21 +2261,13 @@ func testAccApplicationConfig_referenceDataSource(rName string) string {
 		fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  reference_data_sources {
-table_name = "TABLE-1"
-
-schema {
+}resource "aws_kinesis_analytics_application" "test" {
+  name = %[1]q  reference_data_sources {
+table_name = "TABLE-1"schema {
  record_columns {
    name= "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
+ } record_format {
    mapping_parameters {
 csv {
   record_column_delimiter = ","
@@ -2507,9 +2275,7 @@ csv {
 }
    }
  }
-}
-
-s3 {
+}s3 {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = "KEY-1"
  role_arn   = aws_iam_role.test[0].arn
@@ -2524,39 +2290,25 @@ func testAccApplicationConfig_referenceDataSourceUpdated(rName string) string {
 		fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  reference_data_sources {
-table_name = "TABLE-2"
-
-schema {
+}resource "aws_kinesis_analytics_application" "test" {
+  name = %[1]q  reference_data_sources {
+table_name = "TABLE-2"schema {
  record_columns {
    name= "COLUMN_2"
    sql_type = "VARCHAR(8)"
    mapping  = "MAPPING-2"
- }
-
- record_columns {
+ } record_columns {
    name= "COLUMN_3"
    sql_type = "DOUBLE"
    mapping  = "MAPPING-3"
- }
-
- record_encoding = "UTF-8"
-
- record_format {
+ } record_encoding = "UTF-8" record_format {
    mapping_parameters {
 json {
   record_row_path = "$path.to.record"
 }
    }
  }
-}
-
-s3 {
+}s3 {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = "KEY-2"
  role_arn   = aws_iam_role.test[1].arn
@@ -2571,18 +2323,12 @@ func testAccApplicationConfig_start(rName string, start bool) string {
 		testAccApplicationConfigBaseInputOutput(rName),
 		fmt.Sprintf(`
 resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  inputs {
-name_prefix = "NAME_PREFIX_1"
-
-schema {
+  name = %[1]q  inputs {
+name_prefix = "NAME_PREFIX_1"schema {
  record_columns {
    name= "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
+ } record_format {
    mapping_parameters {
 csv {
   record_column_delimiter = ","
@@ -2590,28 +2336,20 @@ csv {
 }
    }
  }
-}
-
-kinesis_firehose {
+}kinesis_firehose {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
  role_arn= aws_iam_role.test[0].arn
-}
-
-starting_position_configuration {
+}starting_position_configuration {
  starting_position = (%[2]t ? "NOW" : null)
 }
-  }
-
-  start_application = %[2]t
+  }  start_application = %[2]t
 }
 `, rName, start))
 }
 func testAccApplicationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
 %[2]q = %[3]q
   }
 }
@@ -2620,9 +2358,7 @@ resource "aws_kinesis_analytics_application" "test" {
 func testAccApplicationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_analytics_application" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

@@ -1,20 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cognitoidp
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package cognitoidpimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// @SDKDataSource("aws_cognito_user_pool_clients")
+)// @SDKDataSource("aws_cognito_user_pool_clients")
 func DataSourceUserPoolClients() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceuserPoolClientsRead,
@@ -39,43 +31,25 @@ func DataSourceUserPoolClients() *schema.Resource {
 			},
 		},
 	}
-}
-
-func dataSourceuserPoolClientsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceuserPoolClientsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CognitoIDPConn(ctx)
-
-	userPoolID := d.Get("user_pool_id").(string)
+	conn := meta.(*conns.AWSClient).CognitoIDPConn(ctx)	userPoolID := d.Get("user_pool_id").(string)
 	input := &cognitoidentityprovider.ListUserPoolClientsInput{
 		UserPoolId: aws.String(userPoolID),
-	}
-
-	var clientIDs []string
+	}	var clientIDs []string
 	var clientNames []string
 	err := conn.ListUserPoolClientsPagesWithContext(ctx, input, func(page *cognitoidentityprovider.ListUserPoolClientsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
-		}
-
-		for _, v := range page.UserPoolClients {
+		}		for _, v := range page.UserPoolClients {
 			if v == nil {
 				continue
-			}
-
-			clientNames = append(clientNames, aws.StringValue(v.ClientName))
+			}			clientNames = append(clientNames, aws.StringValue(v.ClientName))
 			clientIDs = append(clientIDs, aws.StringValue(v.ClientId))
-		}
-
-		return !lastPage
-	})
-
-	if err != nil {
+		}		return !lastPage
+	})	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "getting user pool clients: %s", err)
-	}
-
-	d.SetId(userPoolID)
+	}	d.SetId(userPoolID)
 	d.Set("client_ids", clientIDs)
-	d.Set("client_names", clientNames)
-
-	return diags
+	d.Set("client_names", clientNames)	return diags
 }

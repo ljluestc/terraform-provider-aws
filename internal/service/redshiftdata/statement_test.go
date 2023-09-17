@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshiftdata_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package redshiftdata_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/service/redshiftdata"
+	"testing"	"github.com/aws/aws-sdk-go-v2/service/redshiftdata"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,15 +10,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfredshiftdata "github.com/hashicorp/terraform-provider-aws/internal/service/redshiftdata"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccRedshiftDataStatement_basic(t *testing.T) {
+)func TestAccRedshiftDataStatement_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v redshiftdata.DescribeStatementOutput
 	resourceName := "aws_redshiftdata_statement.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.RedshiftDataEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -48,15 +38,11 @@ func TestAccRedshiftDataStatement_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftDataStatement_workgroup(t *testing.T) {
+}func TestAccRedshiftDataStatement_workgroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v redshiftdata.DescribeStatementOutput
 	resourceName := "aws_redshiftdata_statement.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.RedshiftDataEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -80,30 +66,16 @@ func TestAccRedshiftDataStatement_workgroup(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckStatementExists(ctx context.Context, n string, v *redshiftdata.DescribeStatementOutput) resource.TestCheckFunc {
+}func testAccCheckStatementExists(ctx context.Context, n string, v *redshiftdata.DescribeStatementOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftDataClient(ctx)
-
-		output, err := tfredshiftdata.FindStatementByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftDataClient(ctx)		output, err := tfredshiftdata.FindStatementByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccStatementConfig_basic(rName string) string {
+}func testAccStatementConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"), fmt.Sprintf(`
 resource "aws_redshift_cluster" "test" {
   cluster_identifier= %[1]q
@@ -115,29 +87,21 @@ resource "aws_redshift_cluster" "test" {
   automated_snapshot_retention_period = 0
   allow_version_upgrade  = false
   skip_final_snapshot= true
-}
-
-resource "aws_redshiftdata_statement" "test" {
+}resource "aws_redshiftdata_statement" "test" {
   cluster_identifier = aws_redshift_cluster.test.cluster_identifier
   database = aws_redshift_cluster.test.database_name
   db_user  = aws_redshift_cluster.test.master_username
   sql   = "CREATE GROUP group_name;"
 }
 `, rName))
-}
-
-func testAccStatementConfig_workgroup(rName string) string {
+}func testAccStatementConfig_workgroup(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
-}
-
-resource "aws_redshiftserverless_workgroup" "test" {
+}resource "aws_redshiftserverless_workgroup" "test" {
   namespace_name = aws_redshiftserverless_namespace.test.namespace_name
   workgroup_name = %[1]q
-}
-
-resource "aws_redshiftdata_statement" "test" {
+}resource "aws_redshiftdata_statement" "test" {
   workgroup_name = aws_redshiftserverless_workgroup.test.workgroup_name
   database  = "dev"
   sql  = "CREATE GROUP group_name;"

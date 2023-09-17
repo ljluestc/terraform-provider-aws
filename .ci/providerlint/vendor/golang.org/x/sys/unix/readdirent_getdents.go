@@ -1,6 +1,1 @@
-// Copyright 2019 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.//go:build aix || dragonfly || freebsd || linux || netbsd || openbsd
-// +build aix dragonfly freebsd linux netbsd openbsdpackage unix// ReadDirent reads directory entries from fd and writes them into buf.dDirent(fd int, buf []byte) (n int, err error) {
-return Getdents(fd, buf)
-}
+// Copyright 2019 The Go Authors. All rights reserved.// Use of this source code is governed by a BSD-style// license that can be found in the LICENSE file.//go:build aix || dragonfly || freebsd || linux || netbsd || openbsd// +build aix dragonfly freebsd linux netbsd openbsdpackage unix// ReadDirent reads directory entries from fd and writes them into buf.dDirent(fd int, buf []byte) (n int, err error) {return Getdents(fd, buf)}

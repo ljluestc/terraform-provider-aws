@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appsync_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appsync_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/appsync"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -22,9 +16,7 @@ func testAccType_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var typ appsync.Type
 	resourceName := "aws_appsync_type.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -52,9 +44,7 @@ func testAccType_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var typ appsync.Type
 	resourceName := "aws_appsync_type.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -73,27 +63,19 @@ func testAccType_disappears(t *testing.T) {
 }
 func testAccCheckTypeDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_appsync_type" {
 				continue
-			}
-
-			apiID, format, name, err := tfappsync.DecodeTypeID(rs.Primary.ID)
+			}			apiID, format, name, err := tfappsync.DecodeTypeID(rs.Primary.ID)
 			if err != nil {
 				return err
-			}
-
-			_, err = tfappsync.FindTypeByThreePartKey(ctx, conn, apiID, format, name)
+			}			_, err = tfappsync.FindTypeByThreePartKey(ctx, conn, apiID, format, name)
 			if err == nil {
 				if tfresource.NotFound(err) {
 					return nil
 				}
 				return err
-			}
-
-			return nil
+			}			return nil
 		}
 		return nil
 	}
@@ -103,22 +85,14 @@ func testAccCheckTypeExists(ctx context.Context, resourceName string, typ *appsy
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Appsync Type Not found in state: %s", resourceName)
-		}
-
-		apiID, format, name, err := tfappsync.DecodeTypeID(rs.Primary.ID)
+		}		apiID, format, name, err := tfappsync.DecodeTypeID(rs.Primary.ID)
 		if err != nil {
 			return err
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
 		out, err := tfappsync.FindTypeByThreePartKey(ctx, conn, apiID, format, name)
 		if err != nil {
 			return err
-		}
-
-		*typ = *out
-
-		return nil
+		}		*typ = *out		return nil
 	}
 }
 func testAccTypeConfig_basic(rName string) string {
@@ -126,19 +100,12 @@ func testAccTypeConfig_basic(rName string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_type" "test" {
+}resource "aws_appsync_type" "test" {
   api_id= aws_appsync_graphql_api.test.id
   format= "SDL"
   definition = <<EOF
-type Mutation
-
-{
-putPost(id: ID!,title: String! ): Post
-
-}
-EOF  
-}
+type Mutation{
+putPost(id: ID!,title: String! ): Post}
+EOF }
 `, rName)
 }

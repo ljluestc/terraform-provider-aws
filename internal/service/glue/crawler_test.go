@@ -2,9 +2,7 @@
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -65,16 +63,12 @@
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_S3Target_connectionName(t *testing.T) {
+}func TestAccGlueCrawler_S3Target_connectionName(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_glue_crawler.test"
-	connectionName := "aws_glue_connection.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	connectionName := "aws_glue_connection.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -96,15 +90,11 @@ func TestAccGlueCrawler_S3Target_connectionName(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_S3Target_sampleSize(t *testing.T) {
+}func TestAccGlueCrawler_S3Target_sampleSize(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -133,15 +123,11 @@ func TestAccGlueCrawler_S3Target_sampleSize(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_S3Target_exclusions(t *testing.T) {
+}func TestAccGlueCrawler_S3Target_exclusions(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -175,15 +161,11 @@ func TestAccGlueCrawler_S3Target_exclusions(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_S3Target_eventqueue(t *testing.T) {
+}func TestAccGlueCrawler_S3Target_eventqueue(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -206,15 +188,11 @@ func TestAccGlueCrawler_S3Target_eventqueue(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_CatalogTarget_dlqeventqueue(t *testing.T) {
+}func TestAccGlueCrawler_CatalogTarget_dlqeventqueue(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -237,15 +215,11 @@ func TestAccGlueCrawler_CatalogTarget_dlqeventqueue(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_S3Target_dlqeventqueue(t *testing.T) {
+}func TestAccGlueCrawler_S3Target_dlqeventqueue(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -269,15 +243,11 @@ func TestAccGlueCrawler_S3Target_dlqeventqueue(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_S3Target_multiple(t *testing.T) {
+}func TestAccGlueCrawler_S3Target_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -324,15 +294,11 @@ func TestAccGlueCrawler_S3Target_multiple(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_catalogTarget(t *testing.T) {
+}func TestAccGlueCrawler_catalogTarget(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -398,15 +364,11 @@ func TestAccGlueCrawler_catalogTarget(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_CatalogTarget_multiple(t *testing.T) {
+}func TestAccGlueCrawler_CatalogTarget_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -455,15 +417,11 @@ func TestAccGlueCrawler_CatalogTarget_multiple(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_disappears(t *testing.T) {
+}func TestAccGlueCrawler_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -479,15 +437,11 @@ func TestAccGlueCrawler_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_classifiers(t *testing.T) {
+}func TestAccGlueCrawler_classifiers(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -525,17 +479,13 @@ func TestAccGlueCrawler_classifiers(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_Configuration(t *testing.T) {
+}func TestAccGlueCrawler_Configuration(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	configuration1 := `{"Version": 1.0, "CrawlerOutput": {"Tables": { "AddOrUpdateBehavior": "MergeNewColumns" }}}`
 	configuration2 := `{"Version": 1.0, "CrawlerOutput": {"Partitions": { "AddOrUpdateBehavior": "InheritFromTable" }}}`
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -569,15 +519,11 @@ func TestAccGlueCrawler_Configuration(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_description(t *testing.T) {
+}func TestAccGlueCrawler_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -604,16 +550,12 @@ func TestAccGlueCrawler_description(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_RoleARN_noPath(t *testing.T) {
+}func TestAccGlueCrawler_RoleARN_noPath(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	iamRoleResourceName := "aws_iam_role.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -633,15 +575,11 @@ func TestAccGlueCrawler_RoleARN_noPath(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_RoleARN_path(t *testing.T) {
+}func TestAccGlueCrawler_RoleARN_path(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -661,15 +599,11 @@ func TestAccGlueCrawler_RoleARN_path(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_RoleName_path(t *testing.T) {
+}func TestAccGlueCrawler_RoleName_path(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -689,15 +623,11 @@ func TestAccGlueCrawler_RoleName_path(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_schedule(t *testing.T) {
+}func TestAccGlueCrawler_schedule(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -731,15 +661,11 @@ func TestAccGlueCrawler_schedule(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_schemaChangePolicy(t *testing.T) {
+}func TestAccGlueCrawler_schemaChangePolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -770,15 +696,11 @@ func TestAccGlueCrawler_schemaChangePolicy(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_tablePrefix(t *testing.T) {
+}func TestAccGlueCrawler_tablePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -805,15 +727,11 @@ func TestAccGlueCrawler_tablePrefix(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_removeTablePrefix(t *testing.T) {
+}func TestAccGlueCrawler_removeTablePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -840,15 +758,11 @@ func TestAccGlueCrawler_removeTablePrefix(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_tags(t *testing.T) {
+}func TestAccGlueCrawler_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler1, crawler2, crawler3 glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -886,15 +800,11 @@ func TestAccGlueCrawler_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_security(t *testing.T) {
+}func TestAccGlueCrawler_security(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -921,15 +831,11 @@ func TestAccGlueCrawler_security(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_lineage(t *testing.T) {
+}func TestAccGlueCrawler_lineage(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -965,15 +871,11 @@ func TestAccGlueCrawler_lineage(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_lakeformation(t *testing.T) {
+}func TestAccGlueCrawler_lakeformation(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1001,15 +903,11 @@ func TestAccGlueCrawler_lakeformation(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGlueCrawler_reCrawlPolicy(t *testing.T) {
+}func TestAccGlueCrawler_reCrawlPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var crawler glue.Crawler
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_crawler.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_glue_crawler.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1045,110 +943,64 @@ func TestAccGlueCrawler_reCrawlPolicy(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckCrawlerExists(ctx context.Context, resourceName string, crawler *glue.Crawler) resource.TestCheckFunc {
+}func testAccCheckCrawlerExists(ctx context.Context, resourceName string, crawler *glue.Crawler) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("not found: %s", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("no ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)
-		output, err := tfglue.FindCrawlerByName(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)
+		output, err := tfglue.FindCrawlerByName(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*crawler = *output
-
-		return nil
+		}		*crawler = *output		return nil
 	}
-}
-
-func testAccCheckCrawlerDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckCrawlerDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_glue_crawler" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)
-			_, err := tfglue.FindCrawlerByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)
+			_, err := tfglue.FindCrawlerByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Glue Crawler %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Glue Crawler %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckCrawlerConfiguration(crawler *glue.Crawler, acctestJSON string) resource.TestCheckFunc {
+}func testAccCheckCrawlerConfiguration(crawler *glue.Crawler, acctestJSON string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		apiJSON := aws.StringValue(crawler.Configuration)
 		apiJSONBuffer := bytes.NewBufferString("")
 		if err := json.Compact(apiJSONBuffer, []byte(apiJSON)); err != nil {
 			return fmt.Errorf("unable to compact API configuration JSON: %s", err)
-		}
-
-		acctestJSONBuffer := bytes.NewBufferString("")
+		}		acctestJSONBuffer := bytes.NewBufferString("")
 		if err := json.Compact(acctestJSONBuffer, []byte(acctestJSON)); err != nil {
 			return fmt.Errorf("unable to compact acceptance test configuration JSON: %s", err)
-		}
-
-		if !verify.JSONBytesEqual(apiJSONBuffer.Bytes(), acctestJSONBuffer.Bytes()) {
+		}		if !verify.JSONBytesEqual(apiJSONBuffer.Bytes(), acctestJSONBuffer.Bytes()) {
 			return fmt.Errorf("expected configuration JSON to match %v, received JSON: %v", acctestJSON, apiJSON)
 		}
 		return nil
 	}
-}
-
-func testAccCrawlerConfig_base(rName string) string {
+}func testAccCrawlerConfig_base(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "test" {
+data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name= %[1]q
   assume_role_policy = data.aws_iam_policy_document.assume.json
-}
-
-data "aws_iam_policy_document" "assume" {
+}data "aws_iam_policy_document" "assume" {
   statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
+    actions = ["sts:AssumeRole"]    principals {
       type        = "Service"
       identifiers = ["glue.amazonaws.com"]
     }
   }
-}
-
-data "aws_iam_policy" "AWSGlueServiceRole" {
+}data "aws_iam_policy" "AWSGlueServiceRole" {
   arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSGlueServiceRole"
-}
-
-resource "aws_iam_role_policy_attachment" "test-AWSGlueServiceRole" {
+}resource "aws_iam_role_policy_attachment" "test-AWSGlueServiceRole" {
   policy_arn = data.aws_iam_policy.AWSGlueServiceRole.arn
   role       = aws_iam_role.test.name
-}
-
-resource "aws_iam_role_policy" "LakeFormationDataAccess" {
-  role = aws_iam_role.test.name
-
-  policy = <<EOF
+}resource "aws_iam_role_policy" "LakeFormationDataAccess" {
+  role = aws_iam_role.test.name  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1165,382 +1017,234 @@ resource "aws_iam_role_policy" "LakeFormationDataAccess" {
 EOF
 }
 `, rName)
-}
-
-func testAccCrawlerConfig_classifiersSingle(rName string) string {
+}func testAccCrawlerConfig_classifiersSingle(rName string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_classifier" "test1" {
-  name = %[2]q
-
-  grok_classifier {
+}resource "aws_glue_classifier" "test1" {
+  name = %[2]q  grok_classifier {
     classification = "example"
     grok_pattern   = "example"
   }
-}
-
-resource "aws_glue_classifier" "test2" {
-  name = %[3]q
-
-  grok_classifier {
+}resource "aws_glue_classifier" "test2" {
+  name = %[3]q  grok_classifier {
     classification = "example"
     grok_pattern   = "example"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  classifiers   = [aws_glue_classifier.test1.id]
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  classifiers   = [aws_glue_classifier.test1.id]
   name = %[4]q
   database_name = aws_glue_catalog_database.test.name
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName, rName+"1", rName+"2", rName))
-}
-
-func testAccCrawlerConfig_classifiersMultiple(rName string) string {
+}func testAccCrawlerConfig_classifiersMultiple(rName string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_classifier" "test1" {
-  name = %[2]q
-
-  grok_classifier {
+}resource "aws_glue_classifier" "test1" {
+  name = %[2]q  grok_classifier {
     classification = "example"
     grok_pattern   = "example"
   }
-}
-
-resource "aws_glue_classifier" "test2" {
-  name = %[3]q
-
-  grok_classifier {
+}resource "aws_glue_classifier" "test2" {
+  name = %[3]q  grok_classifier {
     classification = "example"
     grok_pattern   = "example"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  classifiers   = [aws_glue_classifier.test1.id, aws_glue_classifier.test2.id]
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  classifiers   = [aws_glue_classifier.test1.id, aws_glue_classifier.test2.id]
   name = %[4]q
   database_name = aws_glue_catalog_database.test.name
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName, rName+"1", rName+"2", rName))
-}
-
-func testAccCrawlerConfig_configuration(rName, configuration string) string {
+}func testAccCrawlerConfig_configuration(rName, configuration string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  configuration = %[2]s
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  configuration = %[2]s
   database_name = aws_glue_catalog_database.test.name
   name = %[3]q
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName, strconv.Quote(configuration), rName))
-}
-
-func testAccCrawlerConfig_description(rName, description string) string {
+}func testAccCrawlerConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   description   = %[2]q
   name = %[3]q
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName, description, rName))
-}
-
-func testAccCrawlerConfig_dynamoDBTarget(rName, path string) string {
+}func testAccCrawlerConfig_dynamoDBTarget(rName, path string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  dynamodb_target {
+  role = aws_iam_role.test.name  dynamodb_target {
     path = %[2]q
   }
 }
 `, rName, path))
-}
-
-func testAccCrawlerConfig_dynamoDBTargetScanAll(rName, path string, scanAll bool) string {
+}func testAccCrawlerConfig_dynamoDBTargetScanAll(rName, path string, scanAll bool) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  dynamodb_target {
+  role = aws_iam_role.test.name  dynamodb_target {
     path     = %[2]q
     scan_all = %[3]t
   }
 }
 `, rName, path, scanAll))
-}
-
-func testAccCrawlerConfig_dynamoDBTargetScanRate(rName, path string, scanRate float64) string {
+}func testAccCrawlerConfig_dynamoDBTargetScanRate(rName, path string, scanRate float64) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  dynamodb_target {
+  role = aws_iam_role.test.name  dynamodb_target {
     path      = %[2]q
     scan_rate = %[3]g
   }
 }
 `, rName, path, scanRate))
-}
-
-func testAccCrawlerConfig_jdbcTarget(rName, jdbcConnectionUrl, path string) string {
+}func testAccCrawlerConfig_jdbcTarget(rName, jdbcConnectionUrl, path string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
-  name = %[1]q
-
-  connection_properties = {
+}resource "aws_glue_connection" "test" {
+  name = %[1]q  connection_properties = {
     JDBC_CONNECTION_URL = %[1]q
     PASSWORD   = "testpassword"
     USERNAME   = "testusername"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  jdbc_target {
+  role = aws_iam_role.test.name  jdbc_target {
     connection_name = aws_glue_connection.test.name
     path   = %[3]q
   }
 }
 `, rName, jdbcConnectionUrl, path))
-}
-
-func testAccCrawlerConfig_jdbcTargetMetadata(rName, jdbcConnectionUrl, path string) string {
+}func testAccCrawlerConfig_jdbcTargetMetadata(rName, jdbcConnectionUrl, path string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
-  name = %[1]q
-
-  connection_properties = {
+}resource "aws_glue_connection" "test" {
+  name = %[1]q  connection_properties = {
     JDBC_CONNECTION_URL = %[1]q
     PASSWORD   = "testpassword"
     USERNAME   = "testusername"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  jdbc_target {
+  role = aws_iam_role.test.name  jdbc_target {
     connection_name   = aws_glue_connection.test.name
     path        = %[3]q
     enable_additional_metadata = ["COMMENTS"]
   }
 }
 `, rName, jdbcConnectionUrl, path))
-}
-
-func testAccCrawlerConfig_jdbcTargetExclusions1(rName, jdbcConnectionUrl, exclusion1 string) string {
+}func testAccCrawlerConfig_jdbcTargetExclusions1(rName, jdbcConnectionUrl, exclusion1 string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
-  name = %[1]q
-
-  connection_properties = {
+}resource "aws_glue_connection" "test" {
+  name = %[1]q  connection_properties = {
     JDBC_CONNECTION_URL = %[2]q
     PASSWORD   = "testpassword"
     USERNAME   = "testusername"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  jdbc_target {
+  role = aws_iam_role.test.name  jdbc_target {
     connection_name = aws_glue_connection.test.name
     exclusions      = [%[3]q]
     path   = "database-name/table1"
   }
 }
 `, rName, jdbcConnectionUrl, exclusion1))
-}
-
-func testAccCrawlerConfig_jdbcTargetExclusions2(rName, jdbcConnectionUrl, exclusion1, exclusion2 string) string {
+}func testAccCrawlerConfig_jdbcTargetExclusions2(rName, jdbcConnectionUrl, exclusion1, exclusion2 string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
-  name = %[1]q
-
-  connection_properties = {
+}resource "aws_glue_connection" "test" {
+  name = %[1]q  connection_properties = {
     JDBC_CONNECTION_URL = %[2]q
     PASSWORD   = "testpassword"
     USERNAME   = "testusername"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  jdbc_target {
+  role = aws_iam_role.test.name  jdbc_target {
     connection_name = aws_glue_connection.test.name
     exclusions      = [%[3]q, %[4]q]
     path   = "database-name/table1"
   }
 }
 `, rName, jdbcConnectionUrl, exclusion1, exclusion2))
-}
-
-func testAccCrawlerConfig_jdbcTargetMultiple(rName, jdbcConnectionUrl, path1, path2 string) string {
+}func testAccCrawlerConfig_jdbcTargetMultiple(rName, jdbcConnectionUrl, path1, path2 string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
-  name = %[1]q
-
-  connection_properties = {
+}resource "aws_glue_connection" "test" {
+  name = %[1]q  connection_properties = {
     JDBC_CONNECTION_URL = %[2]q
     PASSWORD   = "testpassword"
     USERNAME   = "testusername"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  jdbc_target {
+  role = aws_iam_role.test.name  jdbc_target {
     connection_name = aws_glue_connection.test.name
     path   = %[3]q
-  }
-
-  jdbc_target {
+  }  jdbc_target {
     connection_name = aws_glue_connection.test.name
     path   = %[4]q
   }
 }
 `, rName, jdbcConnectionUrl, path1, path2))
-}
-
-func testAccCrawlerConfig_roleARNNoPath(rName string) string {
+}func testAccCrawlerConfig_roleARNNoPath(rName string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.arn
-
-  s3_target {
+  role = aws_iam_role.test.arn  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName))
-}
-
-func testAccCrawlerConfig_roleARNPath(rName string) string {
+}func testAccCrawlerConfig_roleARNPath(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "test" {
+data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name = %[1]q
-  path = "/path/"
-
-  assume_role_policy = <<EOF
+  path = "/path/"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1555,40 +1259,24 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "test-AWSGlueServiceRole" {
+}resource "aws_iam_role_policy_attachment" "test-AWSGlueServiceRole" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSGlueServiceRole"
   role       = aws_iam_role.test.name
-}
-
-resource "aws_glue_catalog_database" "test" {
+}resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.arn
-
-  s3_target {
+  role = aws_iam_role.test.arn  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName)
-}
-
-func testAccCrawlerConfig_roleNamePath(rName string) string {
+}func testAccCrawlerConfig_roleNamePath(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "test" {
+data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name = %[1]q
-  path = "/path/"
-
-  assume_role_policy = <<EOF
+  path = "/path/"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1603,174 +1291,102 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "test-AWSGlueServiceRole" {
+}resource "aws_iam_role_policy_attachment" "test-AWSGlueServiceRole" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSGlueServiceRole"
   role       = aws_iam_role.test.name
-}
-
-resource "aws_glue_catalog_database" "test" {
+}resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = "${replace(aws_iam_role.test.path, "/^\\//", "")}${aws_iam_role.test.name}"
-
-  s3_target {
+  role = "${replace(aws_iam_role.test.path, "/^\\//", "")}${aws_iam_role.test.name}"  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName)
-}
-
-func testAccCrawlerConfig_s3Target(rName, path string) string {
+}func testAccCrawlerConfig_s3Target(rName, path string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     path = %[2]q
   }
 }
 `, rName, path))
-}
-
-func testAccCrawlerConfig_s3TargetExclusions1(rName, exclusion1 string) string {
+}func testAccCrawlerConfig_s3TargetExclusions1(rName, exclusion1 string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     exclusions = [%[2]q]
     path       = "s3://bucket1"
   }
 }
 `, rName, exclusion1))
-}
-
-func testAccCrawlerConfig_s3TargetConnectionName(rName string) string {
+}func testAccCrawlerConfig_s3TargetConnectionName(rName string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  ingress {
+  vpc_id = aws_vpc.test.id  ingress {
     from_port = 1
     protocol  = "tcp"
     self      = true
     to_port   = 65535
-  }
-
-  tags = {
+  }  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_glue_catalog_database" "test" {
+}resource "aws_glue_catalog_database" "test" {
   name = "%[1]s"
-}
-
-resource "aws_glue_connection" "test" {
+}resource "aws_glue_connection" "test" {
   connection_properties = {
     JDBC_ENFORCE_SSL = false
-  }
-
-  connection_type = "NETWORK"
-
-  name = "%[1]s"
-
-  physical_connection_requirements {
+  }  connection_type = "NETWORK"  name = "%[1]s"  physical_connection_requirements {
     availability_zone      = aws_subnet.test[0].availability_zone
     security_group_id_list = [aws_security_group.test.id]
     subnet_id     = aws_subnet.test[0].id
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = "%[1]s"
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     connection_name = aws_glue_connection.test.name
     path   = "s3://bucket1"
   }
 }
 `, rName))
-}
-
-func testAccCrawlerConfig_s3TargetExclusions2(rName, exclusion1, exclusion2 string) string {
+}func testAccCrawlerConfig_s3TargetExclusions2(rName, exclusion1, exclusion2 string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     exclusions = [%[2]q, %[3]q]
     path       = "s3://bucket1"
   }
 }
 `, rName, exclusion1, exclusion2))
-}
-
-func testAccCrawlerConfig_s3TargetEventQueue(rName string) string {
+}func testAccCrawlerConfig_s3TargetEventQueue(rName string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_s3_bucket" "test" {
+}resource "aws_s3_bucket" "test" {
   bucket        = %[1]q
   force_destroy = true
-}
-
-resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  visibility_timeout_seconds = 3600
-}
-
-resource "aws_iam_role_policy" "test_sqs" {
-  role = aws_iam_role.test.name
-
-  policy = data.aws_iam_policy_document.role_test_sqs.json
-}
-
-data "aws_iam_policy_document" "role_test_sqs" {
+}resource "aws_sqs_queue" "test" {
+  name = %[1]q  visibility_timeout_seconds = 3600
+}resource "aws_iam_role_policy" "test_sqs" {
+  role = aws_iam_role.test.name  policy = data.aws_iam_policy_document.role_test_sqs.json
+}data "aws_iam_policy_document" "role_test_sqs" {
   statement {
-    effect = "Allow"
-
-    actions = [
+    effect = "Allow"    actions = [
       "sqs:DeleteMessage",
       "sqs:GetQueueUrl",
       "sqs:ListDeadLetterSourceQueues",
@@ -1780,62 +1396,34 @@ data "aws_iam_policy_document" "role_test_sqs" {
       "sqs:ListQueueTags",
       "sqs:SetQueueAttributes",
       "sqs:PurgeQueue",
-    ]
-
-    resources = [
+    ]    resources = [
       aws_sqs_queue.test.arn,
     ]
   }
-}
-
-resource "aws_glue_crawler" "test" {
+}resource "aws_glue_crawler" "test" {
   depends_on = [
     aws_iam_role_policy_attachment.test-AWSGlueServiceRole,
     aws_iam_role_policy.test_sqs,
-  ]
-
-  database_name = aws_glue_catalog_database.test.name
+  ]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  s3_target {
-    path = "s3://${aws_s3_bucket.test.bucket}"
-
-    event_queue_arn = aws_sqs_queue.test.arn
-  }
-
-  recrawl_policy {
+  role = aws_iam_role.test.name  s3_target {
+    path = "s3://${aws_s3_bucket.test.bucket}"    event_queue_arn = aws_sqs_queue.test.arn
+  }  recrawl_policy {
     recrawl_behavior = "CRAWL_EVENT_MODE"
   }
 }
 `, rName))
-}
-
-func testAccCrawlerConfig_catalogTargetDlqEventQueue(rName string) string {
+}func testAccCrawlerConfig_catalogTargetDlqEventQueue(rName string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  visibility_timeout_seconds = 3600
-}
-
-resource "aws_sqs_queue" "test_dlq" {
-  name = "%[1]sdlq"
-
-  visibility_timeout_seconds = 3600
-}
-
-resource "aws_iam_role_policy" "test_sqs" {
-  role = aws_iam_role.test.name
-
-  policy = data.aws_iam_policy_document.role_test_sqs.json
-}
-
-data "aws_iam_policy_document" "role_test_sqs" {
+  name = %[1]q  visibility_timeout_seconds = 3600
+}resource "aws_sqs_queue" "test_dlq" {
+  name = "%[1]sdlq"  visibility_timeout_seconds = 3600
+}resource "aws_iam_role_policy" "test_sqs" {
+  role = aws_iam_role.test.name  policy = data.aws_iam_policy_document.role_test_sqs.json
+}data "aws_iam_policy_document" "role_test_sqs" {
   statement {
-    effect = "Allow"
-
-    actions = [
+    effect = "Allow"    actions = [
       "sqs:DeleteMessage",
       "sqs:GetQueueUrl",
       "sqs:ListDeadLetterSourceQueues",
@@ -1845,63 +1433,39 @@ data "aws_iam_policy_document" "role_test_sqs" {
       "sqs:ListQueueTags",
       "sqs:SetQueueAttributes",
       "sqs:PurgeQueue",
-    ]
-
-    resources = [
+    ]    resources = [
       aws_sqs_queue.test_dlq.arn,
       aws_sqs_queue.test.arn,
     ]
   }
-}
-
-resource "aws_glue_catalog_database" "test" {
+}resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_s3_bucket" "default" {
+}resource "aws_s3_bucket" "default" {
   bucket        = %[1]q
   force_destroy = true
-}
-
-resource "aws_glue_catalog_table" "test" {
+}resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  table_type    = "EXTERNAL_TABLE"
-
-  storage_descriptor {
+  table_type    = "EXTERNAL_TABLE"  storage_descriptor {
     location = "s3://${aws_s3_bucket.default.bucket}"
   }
-}
-
-resource "aws_lakeformation_permissions" "test" {
+}resource "aws_lakeformation_permissions" "test" {
   permissions = ["ALL"]
-  principal   = aws_iam_role.test.arn
-
-  table {
+  principal   = aws_iam_role.test.arn  table {
     database_name = aws_glue_catalog_database.test.name
     name = aws_glue_catalog_table.test.name
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole, aws_iam_role_policy.test_sqs]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole, aws_iam_role_policy.test_sqs]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  schema_change_policy {
+  role = aws_iam_role.test.name  schema_change_policy {
     delete_behavior = "LOG"
-  }
-
-  catalog_target {
+  }  catalog_target {
     database_name       = aws_glue_catalog_database.test.name
     tables     = [aws_glue_catalog_table.test.name]
     event_queue_arn     = aws_sqs_queue.test.arn
     dlq_event_queue_arn = aws_sqs_queue.test_dlq.arn
-  }
-
-  configuration = <<EOF
+  }  configuration = <<EOF
 {
   "Version": 1,
   "Grouping": {
@@ -1911,42 +1475,22 @@ resource "aws_glue_crawler" "test" {
 EOF
 }
 `, rName))
-}
-
-func testAccCrawlerConfig_s3TargetDlqEventQueue(rName string) string {
+}func testAccCrawlerConfig_s3TargetDlqEventQueue(rName string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_s3_bucket" "test" {
+}resource "aws_s3_bucket" "test" {
   bucket        = %[1]q
   force_destroy = true
-}
-
-resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  visibility_timeout_seconds = 3600
-}
-
-resource "aws_sqs_queue" "test_dlq" {
-  name = "%[1]sdlq"
-
-  visibility_timeout_seconds = 3600
-}
-
-resource "aws_iam_role_policy" "test_sqs" {
-  role = aws_iam_role.test.name
-
-  policy = data.aws_iam_policy_document.role_test_sqs.json
-}
-
-data "aws_iam_policy_document" "role_test_sqs" {
+}resource "aws_sqs_queue" "test" {
+  name = %[1]q  visibility_timeout_seconds = 3600
+}resource "aws_sqs_queue" "test_dlq" {
+  name = "%[1]sdlq"  visibility_timeout_seconds = 3600
+}resource "aws_iam_role_policy" "test_sqs" {
+  role = aws_iam_role.test.name  policy = data.aws_iam_policy_document.role_test_sqs.json
+}data "aws_iam_policy_document" "role_test_sqs" {
   statement {
-    effect = "Allow"
-
-    actions = [
+    effect = "Allow"    actions = [
       "sqs:DeleteMessage",
       "sqs:GetQueueUrl",
       "sqs:ListDeadLetterSourceQueues",
@@ -1956,115 +1500,67 @@ data "aws_iam_policy_document" "role_test_sqs" {
       "sqs:ListQueueTags",
       "sqs:SetQueueAttributes",
       "sqs:PurgeQueue",
-    ]
-
-    resources = [
+    ]    resources = [
       aws_sqs_queue.test_dlq.arn,
       aws_sqs_queue.test.arn,
     ]
   }
-}
-
-resource "aws_glue_crawler" "test" {
+}resource "aws_glue_crawler" "test" {
   depends_on = [
     aws_iam_role_policy_attachment.test-AWSGlueServiceRole,
     aws_iam_role_policy.test_sqs,
-  ]
-
-  database_name = aws_glue_catalog_database.test.name
+  ]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  s3_target {
-    path = "s3://${aws_s3_bucket.test.bucket}"
-
-    event_queue_arn     = aws_sqs_queue.test.arn
+  role = aws_iam_role.test.name  s3_target {
+    path = "s3://${aws_s3_bucket.test.bucket}"    event_queue_arn     = aws_sqs_queue.test.arn
     dlq_event_queue_arn = aws_sqs_queue.test_dlq.arn
-  }
-
-  recrawl_policy {
+  }  recrawl_policy {
     recrawl_behavior = "CRAWL_EVENT_MODE"
   }
 }
 `, rName))
-}
-
-func testAccCrawlerConfig_s3TargetMultiple(rName, path1, path2 string) string {
+}func testAccCrawlerConfig_s3TargetMultiple(rName, path1, path2 string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     path = %[2]q
-  }
-
-  s3_target {
+  }  s3_target {
     path = %[3]q
   }
 }
 `, rName, path1, path2))
-}
-
-func testAccCrawlerConfig_catalogTarget(rName string, tableCount int) string {
+}func testAccCrawlerConfig_catalogTarget(rName string, tableCount int) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_s3_bucket" "default" {
+}resource "aws_s3_bucket" "default" {
   bucket        = %[1]q
   force_destroy = true
-}
-
-resource "aws_glue_catalog_table" "test" {
-  count = %[2]d
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_catalog_table" "test" {
+  count = %[2]d  database_name = aws_glue_catalog_database.test.name
   name = "%[1]s_table_${count.index}"
-  table_type    = "EXTERNAL_TABLE"
-
-  storage_descriptor {
+  table_type    = "EXTERNAL_TABLE"  storage_descriptor {
     location = "s3://${aws_s3_bucket.default.bucket}"
   }
-}
-
-resource "aws_lakeformation_permissions" "test" {
-  count = %[2]d
-
-  permissions = ["ALL"]
-  principal   = aws_iam_role.test.arn
-
-  table {
+}resource "aws_lakeformation_permissions" "test" {
+  count = %[2]d  permissions = ["ALL"]
+  principal   = aws_iam_role.test.arn  table {
     database_name = aws_glue_catalog_database.test.name
     name = aws_glue_catalog_table.test[count.index].name
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  schema_change_policy {
+  role = aws_iam_role.test.name  schema_change_policy {
     delete_behavior = "LOG"
-  }
-
-  catalog_target {
+  }  catalog_target {
     database_name = aws_glue_catalog_database.test.name
     tables        = flatten([aws_glue_catalog_table.test[*].name])
-  }
-
-  configuration = <<EOF
+  }  configuration = <<EOF
 {
   "Version": 1,
   "Grouping": {
@@ -2074,65 +1570,39 @@ resource "aws_glue_crawler" "test" {
 EOF
 }
 `, rName, tableCount))
-}
-
-func testAccCrawlerConfig_catalogTargetMultiple(rName string) string {
+}func testAccCrawlerConfig_catalogTargetMultiple(rName string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   count = 2
   name  = "%[1]s_database_${count.index}"
-}
-
-resource "aws_glue_catalog_table" "test" {
+}resource "aws_glue_catalog_table" "test" {
   count= 2
   database_name = aws_glue_catalog_database.test[count.index].name
   name = "%[1]s_table_${count.index}"
-  table_type    = "EXTERNAL_TABLE"
-
-  storage_descriptor {
+  table_type    = "EXTERNAL_TABLE"  storage_descriptor {
     location = "s3://${aws_s3_bucket.default.bucket}"
   }
-}
-
-resource "aws_lakeformation_permissions" "test" {
-  count = 2
-
-  permissions = ["ALL"]
-  principal   = aws_iam_role.test.arn
-
-  table {
+}resource "aws_lakeformation_permissions" "test" {
+  count = 2  permissions = ["ALL"]
+  principal   = aws_iam_role.test.arn  table {
     database_name = aws_glue_catalog_database.test[count.index].name
     name = aws_glue_catalog_table.test[count.index].name
   }
-}
-
-resource "aws_s3_bucket" "default" {
+}resource "aws_s3_bucket" "default" {
   bucket        = %[1]q
   force_destroy = true
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test[0].name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test[0].name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  schema_change_policy {
+  role = aws_iam_role.test.name  schema_change_policy {
     delete_behavior = "LOG"
-  }
-
-  catalog_target {
+  }  catalog_target {
     database_name = aws_glue_catalog_database.test[0].name
     tables        = [aws_glue_catalog_table.test[0].name]
-  }
-
-  catalog_target {
+  }  catalog_target {
     database_name = aws_glue_catalog_database.test[1].name
     tables        = [aws_glue_catalog_table.test[1].name]
-  }
-
-  configuration = <<EOF
+  }  configuration = <<EOF
 {
   "Version": 1,
   "Grouping": {
@@ -2142,292 +1612,180 @@ resource "aws_glue_crawler" "test" {
 EOF
 }
 `, rName))
-}
-
-func testAccCrawlerConfig_schedule(rName, schedule string) string {
+}func testAccCrawlerConfig_schedule(rName, schedule string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
   role = aws_iam_role.test.name
-  schedule      = %[2]q
-
-  s3_target {
+  schedule      = %[2]q  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName, schedule))
-}
-
-func testAccCrawlerConfig_schemaChangePolicy(rName, deleteBehavior, updateBehavior string) string {
+}func testAccCrawlerConfig_schemaChangePolicy(rName, deleteBehavior, updateBehavior string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     path = "s3://bucket-name"
-  }
-
-  schema_change_policy {
+  }  schema_change_policy {
     delete_behavior = %[2]q
     update_behavior = %[3]q
   }
 }
 `, rName, deleteBehavior, updateBehavior))
-}
-
-func testAccCrawlerConfig_tablePrefix(rName, tablePrefix string) string {
+}func testAccCrawlerConfig_tablePrefix(rName, tablePrefix string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
   role = aws_iam_role.test.name
-  table_prefix  = %[2]q
-
-  s3_target {
+  table_prefix  = %[2]q  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName, tablePrefix))
-}
-
-func testAccCrawlerConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccCrawlerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
   role = aws_iam_role.test.name
-  table_prefix  = %[1]q
-
-  s3_target {
+  table_prefix  = %[1]q  s3_target {
     path = "s3://bucket-name"
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccCrawlerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccCrawlerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
   role = aws_iam_role.test.name
-  table_prefix  = %[1]q
-
-  s3_target {
+  table_prefix  = %[1]q  s3_target {
     path = "s3://bucket-name"
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
-func testAccCrawlerConfig_securityConfiguration(rName, securityConfiguration string) string {
+}func testAccCrawlerConfig_securityConfiguration(rName, securityConfiguration string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_security_configuration" "test" {
-  name = %[2]q
-
-  encryption_configuration {
+}resource "aws_glue_security_configuration" "test" {
+  name = %[2]q  encryption_configuration {
     cloudwatch_encryption {
       cloudwatch_encryption_mode = "DISABLED"
-    }
-
-    job_bookmarks_encryption {
+    }    job_bookmarks_encryption {
       job_bookmarks_encryption_mode = "DISABLED"
-    }
-
-    s3_encryption {
+    }    s3_encryption {
       s3_encryption_mode = "DISABLED"
     }
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name    = %[1]q
   role    = aws_iam_role.test.name
-  security_configuration = aws_glue_security_configuration.test.name
-
-  s3_target {
+  security_configuration = aws_glue_security_configuration.test.name  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName, securityConfiguration))
-}
-
-func testAccCrawlerConfig_mongoDBTarget(rName, connectionUrl, path string) string {
+}func testAccCrawlerConfig_mongoDBTarget(rName, connectionUrl, path string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
+}resource "aws_glue_connection" "test" {
   name   = %[1]q
-  connection_type = "MONGODB"
-
-  connection_properties = {
+  connection_type = "MONGODB"  connection_properties = {
     CONNECTION_URL = %[2]q
     PASSWORD       = "testpassword"
     USERNAME       = "testusername"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  mongodb_target {
+  role = aws_iam_role.test.name  mongodb_target {
     connection_name = aws_glue_connection.test.name
     path   = %[3]q
   }
 }
 `, rName, connectionUrl, path))
-}
-
-func testAccCrawlerConfig_mongoDBTargetScanAll(rName, connectionUrl string, scan bool) string {
+}func testAccCrawlerConfig_mongoDBTargetScanAll(rName, connectionUrl string, scan bool) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
+}resource "aws_glue_connection" "test" {
   name   = %[1]q
-  connection_type = "MONGODB"
-
-  connection_properties = {
+  connection_type = "MONGODB"  connection_properties = {
     CONNECTION_URL = %[2]q
     PASSWORD       = "testpassword"
     USERNAME       = "testusername"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  mongodb_target {
+  role = aws_iam_role.test.name  mongodb_target {
     connection_name = aws_glue_connection.test.name
     path   = "database-name/table-name"
     scan_all        = %[3]t
   }
 }
 `, rName, connectionUrl, scan))
-}
-
-func testAccCrawlerConfig_mongoDBMultiple(rName, connectionUrl, path1, path2 string) string {
+}func testAccCrawlerConfig_mongoDBMultiple(rName, connectionUrl, path1, path2 string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
+}resource "aws_glue_connection" "test" {
   name   = %[1]q
-  connection_type = "MONGODB"
-
-  connection_properties = {
+  connection_type = "MONGODB"  connection_properties = {
     CONNECTION_URL = %[2]q
     PASSWORD       = "testpassword"
     USERNAME       = "testusername"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  mongodb_target {
+  role = aws_iam_role.test.name  mongodb_target {
     connection_name = aws_glue_connection.test.name
     path   = %[3]q
-  }
-
-  mongodb_target {
+  }  mongodb_target {
     connection_name = aws_glue_connection.test.name
     path   = %[4]q
   }
 }
 `, rName, connectionUrl, path1, path2))
-}
-
-func testAccCrawlerConfig_deltaTarget(rName, connectionUrl, tableName, createNativeDeltaTable string) string {
+}func testAccCrawlerConfig_deltaTarget(rName, connectionUrl, tableName, createNativeDeltaTable string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
+}resource "aws_glue_connection" "test" {
   name   = %[1]q
-  connection_type = "MONGODB"
-
-  connection_properties = {
+  connection_type = "MONGODB"  connection_properties = {
     CONNECTION_URL = %[2]q
     PASSWORD       = "testpassword"
     USERNAME       = "testusername"
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  delta_target {
+  role = aws_iam_role.test.name  delta_target {
     connection_name  = aws_glue_connection.test.name
     delta_tables     = [%[3]q]
     write_manifest   = false
@@ -2435,207 +1793,123 @@ resource "aws_glue_crawler" "test" {
   }
 }
 `, rName, connectionUrl, tableName, createNativeDeltaTable))
-}
-
-func testAccCrawlerConfig_hudiTarget(rName, connectionUrl, tableName string, depth int) string {
+}func testAccCrawlerConfig_hudiTarget(rName, connectionUrl, tableName string, depth int) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  ingress {
+  vpc_id = aws_vpc.test.id  ingress {
     from_port = 1
     protocol  = "tcp"
     self      = true
     to_port   = 65535
-  }
-
-  tags = {
+  }  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_glue_catalog_database" "test" {
+}resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
+}resource "aws_glue_connection" "test" {
   connection_properties = {
     JDBC_ENFORCE_SSL = false
-  }
-
-  connection_type = "NETWORK"
-
-  name = %[1]q
-
-  physical_connection_requirements {
+  }  connection_type = "NETWORK"  name = %[1]q  physical_connection_requirements {
     availability_zone      = aws_subnet.test[0].availability_zone
     security_group_id_list = [aws_security_group.test.id]
     subnet_id     = aws_subnet.test[0].id
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  hudi_target {
+  role = aws_iam_role.test.name  hudi_target {
     connection_name= aws_glue_connection.test.name
     paths    = [%[3]q]
     maximum_traversal_depth = %[4]d
   }
 }
 `, rName, connectionUrl, tableName, depth))
-}
-
-func testAccCrawlerConfig_icebergTarget(rName, connectionUrl, tableName string, depth int) string {
+}func testAccCrawlerConfig_icebergTarget(rName, connectionUrl, tableName string, depth int) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  ingress {
+  vpc_id = aws_vpc.test.id  ingress {
     from_port = 1
     protocol  = "tcp"
     self      = true
     to_port   = 65535
-  }
-
-  tags = {
+  }  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_glue_catalog_database" "test" {
+}resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_connection" "test" {
+}resource "aws_glue_connection" "test" {
   connection_properties = {
     JDBC_ENFORCE_SSL = false
-  }
-
-  connection_type = "NETWORK"
-
-  name = %[1]q
-
-  physical_connection_requirements {
+  }  connection_type = "NETWORK"  name = %[1]q  physical_connection_requirements {
     availability_zone      = aws_subnet.test[0].availability_zone
     security_group_id_list = [aws_security_group.test.id]
     subnet_id     = aws_subnet.test[0].id
   }
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  iceberg_target {
+  role = aws_iam_role.test.name  iceberg_target {
     connection_name= aws_glue_connection.test.name
     paths    = [%[3]q]
     maximum_traversal_depth = %[4]d
   }
 }
 `, rName, connectionUrl, tableName, depth))
-}
-
-func testAccCrawlerConfig_lakeformation(rName string, use bool) string {
+}func testAccCrawlerConfig_lakeformation(rName string, use bool) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  lake_formation_configuration {
+  role = aws_iam_role.test.name  lake_formation_configuration {
     use_lake_formation_credentials = %[2]t
-  }
-
-  s3_target {
+  }  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName, use))
-}
-
-func testAccCrawlerConfig_lineage(rName, lineageConfig string) string {
+}func testAccCrawlerConfig_lineage(rName, lineageConfig string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  lineage_configuration {
+  role = aws_iam_role.test.name  lineage_configuration {
     crawler_lineage_settings = %[2]q
-  }
-
-  s3_target {
+  }  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName, lineageConfig))
-}
-
-func testAccCrawlerConfig_recrawlPolicy(rName, policy string) string {
+}func testAccCrawlerConfig_recrawlPolicy(rName, policy string) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  schema_change_policy {
+  role = aws_iam_role.test.name  schema_change_policy {
     delete_behavior = "LOG"
     update_behavior = "LOG"
-  }
-
-  recrawl_policy {
+  }  recrawl_policy {
     recrawl_behavior = %[2]q
-  }
-
-  s3_target {
+  }  s3_target {
     path = "s3://bucket-name"
   }
 }
 `, rName, policy))
-}
-
-func testAccCrawlerConfig_s3TargetSampleSize(rName string, size int) string {
+}func testAccCrawlerConfig_s3TargetSampleSize(rName string, size int) string {
 	return acctest.ConfigCompose(testAccCrawlerConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_crawler" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]
-
-  database_name = aws_glue_catalog_database.test.name
+}resource "aws_glue_crawler" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test-AWSGlueServiceRole]  database_name = aws_glue_catalog_database.test.name
   name = %[1]q
-  role = aws_iam_role.test.name
-
-  s3_target {
+  role = aws_iam_role.test.name  s3_target {
     sample_size = %[2]d
     path        = "s3://bucket1"
   }

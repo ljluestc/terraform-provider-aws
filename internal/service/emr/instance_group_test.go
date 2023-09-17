@@ -16,18 +16,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfemr "github.com/hashicorp/terraform-provider-aws/internal/service/emr"
-)
-
-
-func TestAccEMRInstanceGroup_basic(t *testing.T) {
+)func TestAccEMRInstanceGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v emr.InstanceGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -53,18 +49,14 @@ ImportStateVerifyIgnore: []string{"status"},
 	},
 },
 	})
-}
-
-
-func TestAccEMRInstanceGroup_disappears(t *testing.T) {
+}func TestAccEMRInstanceGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v emr.InstanceGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -94,8 +86,7 @@ func TestAccEMRInstanceGroup_Disappears_emrCluster(t *testing.T) {
 	emrClusterResourceName := "aws_emr_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -112,18 +103,14 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func TestAccEMRInstanceGroup_bidPrice(t *testing.T) {
+}func TestAccEMRInstanceGroup_bidPrice(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 emr.InstanceGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -174,18 +161,14 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRInstanceGroup_sJSON(t *testing.T) {
+}func TestAccEMRInstanceGroup_sJSON(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v emr.InstanceGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -226,18 +209,14 @@ ImportStateVerifyIgnore: []string{"status"},
 	},
 },
 	})
-}
-
-
-func TestAccEMRInstanceGroup_autoScalingPolicy(t *testing.T) {
+}func TestAccEMRInstanceGroup_autoScalingPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v emr.InstanceGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -290,8 +269,7 @@ func TestAccEMRInstanceGroup_instanceCount(t *testing.T) {
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -315,18 +293,14 @@ Check:  testAccCheckInstanceGroupExists(ctx, resourceName, &v),
 	},
 },
 	})
-}
-
-
-func TestAccEMRInstanceGroup_EBS_ebsOptimized(t *testing.T) {
+}func TestAccEMRInstanceGroup_EBS_ebsOptimized(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v emr.InstanceGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -360,13 +334,9 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccCheckInstanceGroupExists(ctx context.Context, name string, ig *emr.InstanceGroup) resource.TestCheck
+}func testAccCheckInstanceGroupExists(ctx context.Context, name string, ig *emr.InstanceGroup) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return fmt.Errorf("Not found: %s", name)
@@ -390,14 +360,10 @@ if group == nil {
 
 return nil
 	}
-}
-
-
-func testAccInstanceGroupResourceImportStateId
+}func testAccInstanceGroupResourceImportStateId
 func(resourceName string) resource.ImportStateId
 func {
-	return 
-func(s *terraform.State) (string, error) {
+	returnfunc(s *terraform.State) (string, error) {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return "", fmt.Errorf("Not found: %s", resourceName)
@@ -405,23 +371,16 @@ if !ok {
 
 return fmt.Sprintf("%s/%s", rs.Primary.Attributes["cluster_id"], rs.Primary.ID), nil
 	}
-}
-
-
-func testAccInstanceGroupRecreated(t *testing.T, before, after *emr.InstanceGroup) resource.TestCheck
+}func testAccInstanceGroupRecreated(t *testing.T, before, after *emr.InstanceGroup) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 if aws.StringValue(before.Id) == aws.StringValue(after.Id) {
 	t.Fatalf("Expected change of Instance Group Ids, but both were %v", aws.StringValue(before.Id))
 }
 
 return nil
 	}
-}
-
-
-func testAccInstanceGroupConfig_base(rName string) string {
+}func testAccInstanceGroupConfig_base(rName string) string {
 	return acctest.ConfigCompose(
 testAccClusterConfig_baseVPC(rName, false),
 testAccClusterConfig_baseIAMServiceRole(rName),
@@ -463,10 +422,7 @@ resource "aws_emr_cluster" "test" {
   ]
 }
 `, rName))
-}
-
-
-func testAccInstanceGroupConfig_basic(rName string) string {
+}func testAccInstanceGroupConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), `
 resource "aws_emr_instance_group" "test" {
   cluster_id     = aws_emr_cluster.test.id
@@ -474,10 +430,7 @@ resource "aws_emr_instance_group" "test" {
   instance_type  = "c4.large"
 }
 `)
-}
-
-
-func testAccInstanceGroupConfig_bidPrice(rName string) string {
+}func testAccInstanceGroupConfig_bidPrice(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), `
 resource "aws_emr_instance_group" "test" {
   cluster_id     = aws_emr_cluster.test.id
@@ -486,10 +439,7 @@ resource "aws_emr_instance_group" "test" {
   instance_type  = "c4.large"
 }
 `)
-}
-
-
-func testAccInstanceGroupConfig_configurationsJSON(rName, name string) string {
+}func testAccInstanceGroupConfig_configurationsJSON(rName, name string) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_instance_group" "test" {
   cluster_id = aws_emr_cluster.test.id
@@ -508,10 +458,7 @@ resource "aws_emr_instance_group" "test" {
 EOF
 }
 `, name))
-}
-
-
-func testAccInstanceGroupConfig_autoScalingPolicy(rName string, min, max int) string {
+}func testAccInstanceGroupConfig_autoScalingPolicy(rName string, min, max int) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_instance_group" "test" {
   cluster_id= aws_emr_cluster.test.id
@@ -551,10 +498,7 @@ resource "aws_emr_instance_group" "test" {
 EOT
 }
 `, min, max))
-}
-
-
-func testAccInstanceGroupConfig_ebs(rName string, o bool) string {
+}func testAccInstanceGroupConfig_ebs(rName string, o bool) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_instance_group" "test" {
   cluster_id     = aws_emr_cluster.test.id
@@ -568,10 +512,7 @@ resource "aws_emr_instance_group" "test" {
   }
 }
 `, o))
-}
-
-
-func testAccInstanceGroupConfig_zeroCount(rName string) string {
+}func testAccInstanceGroupConfig_zeroCount(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), `
 resource "aws_emr_instance_group" "test" {
   cluster_id     = aws_emr_cluster.test.id

@@ -1,14 +1,8 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageredshiftserverless_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageredshiftserverless_testimport(
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/redshiftserverless"
+	"testing"	"github.com/aws/aws-sdk-go/service/redshiftserverless"
 	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,14 +10,10 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfredshiftserverless"github.com/hashicorp/terraform-provider-aws/internal/service/redshiftserverless"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-funcTestAccRedshiftServerlessResourcePolicy_basic(t*testing.T){
+)funcTestAccRedshiftServerlessResourcePolicy_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	resourceName:="aws_redshiftserverless_resource_policy.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckAlternateAccount(t)
@@ -46,14 +36,10 @@ funcTestAccRedshiftServerlessResourcePolicy_basic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccRedshiftServerlessResourcePolicy_disappears(t*testing.T){
+}funcTestAccRedshiftServerlessResourcePolicy_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	resourceName:="aws_redshiftserverless_resource_policy.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckAlternateAccount(t)
@@ -72,74 +58,42 @@ funcTestAccRedshiftServerlessResourcePolicy_disappears(t*testing.T){
 			},
 		},
 	})
-}
-
-functestAccCheckResourcePolicyDestroy(ctxcontext.Context)resource.TestCheckFunc{
+}functestAccCheckResourcePolicyDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_redshiftserverless_resource_policy"{
 				continue
 			}
-			_,err:=tfredshiftserverless.FindResourcePolicyByARN(ctx,conn,rs.Primary.ID)
-
-			iftfresource.NotFound(err){
+			_,err:=tfredshiftserverless.FindResourcePolicyByARN(ctx,conn,rs.Primary.ID)			iftfresource.NotFound(err){
 				continue
-			}
-
-			iferr!=nil{
+			}			iferr!=nil{
 				returnerr
-			}
-
-			returnfmt.Errorf("RedshiftServerlessResourcePolicy%sstillexists",rs.Primary.ID)
-		}
-
-		returnnil
+			}			returnfmt.Errorf("RedshiftServerlessResourcePolicy%sstillexists",rs.Primary.ID)
+		}		returnnil
 	}
-}
-
-functestAccCheckResourcePolicyExists(ctxcontext.Context,namestring)resource.TestCheckFunc{
+}functestAccCheckResourcePolicyExists(ctxcontext.Context,namestring)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		rs,ok:=s.RootModule().Resources[name]
 		if!ok{
 			returnfmt.Errorf("notfound:%s",name)
-		}
-
-		ifrs.Primary.ID==""{
+		}		ifrs.Primary.ID==""{
 			returnfmt.Errorf("RedshiftServerlessResourcePolicyisnotset")
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-		_,err:=tfredshiftserverless.FindResourcePolicyByARN(ctx,conn,rs.Primary.ID)
-
-		returnerr
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)		_,err:=tfredshiftserverless.FindResourcePolicyByARN(ctx,conn,rs.Primary.ID)		returnerr
 	}
-}
-
-functestAccResourcePolicyConfig_basic(rNamestring)string{
+}functestAccResourcePolicyConfig_basic(rNamestring)string{
 	returnacctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(),
 		fmt.Sprintf(`
 data"aws_caller_identity""test"{
 provider="awsalternate"
-}
-
-resource"aws_redshiftserverless_namespace""test"{
+}resource"aws_redshiftserverless_namespace""test"{
 namespace_name=%[1]q
-}
-
-resource"aws_redshiftserverless_workgroup""test"{
+}resource"aws_redshiftserverless_workgroup""test"{
 namespace_name=aws_redshiftserverless_namespace.test.namespace_name
 workgroup_name=%[1]q
-}
-
-resource"aws_redshiftserverless_snapshot""test"{
+}resource"aws_redshiftserverless_snapshot""test"{
 namespace_name=aws_redshiftserverless_workgroup.test.namespace_name
 snapshot_name=%[1]q
-}
-
-resource"aws_redshiftserverless_resource_policy""test"{
+}resource"aws_redshiftserverless_resource_policy""test"{
 resource_arn=aws_redshiftserverless_snapshot.test.arn
 policy=jsonencode({
 Version="2012-10-17"

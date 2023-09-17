@@ -18,10 +18,7 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfwafregional"github.com/hashicorp/terraform-provider-aws/internal/service/wafregional"
-)
-
-
-funcTestAccWAFRegionalSQLInjectionMatchSet_basic(t*testing.T){
+)funcTestAccWAFRegionalSQLInjectionMatchSet_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	varvwaf.SqlInjectionMatchSet
 	resourceName:="aws_wafregional_sql_injection_match_set.sql_injection_match_set"
@@ -56,10 +53,7 @@ ImportStateVerify:true,
 	},
 },
 	})
-}
-
-
-funcTestAccWAFRegionalSQLInjectionMatchSet_changeNameForceNew(t*testing.T){
+}funcTestAccWAFRegionalSQLInjectionMatchSet_changeNameForceNew(t*testing.T){
 	ctx:=acctest.Context(t)
 	varbefore,afterwaf.SqlInjectionMatchSet
 	resourceName:="aws_wafregional_sql_injection_match_set.sql_injection_match_set"
@@ -102,10 +96,7 @@ ImportStateVerify:true,
 	},
 },
 	})
-}
-
-
-funcTestAccWAFRegionalSQLInjectionMatchSet_disappears(t*testing.T){
+}funcTestAccWAFRegionalSQLInjectionMatchSet_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	varvwaf.SqlInjectionMatchSet
 	resourceName:="aws_wafregional_sql_injection_match_set.sql_injection_match_set"
@@ -129,10 +120,7 @@ ExpectNonEmptyPlan:true,
 	},
 },
 	})
-}
-
-
-funcTestAccWAFRegionalSQLInjectionMatchSet_changeTuples(t*testing.T){
+}funcTestAccWAFRegionalSQLInjectionMatchSet_changeTuples(t*testing.T){
 	ctx:=acctest.Context(t)
 	varbefore,afterwaf.SqlInjectionMatchSet
 	resourceName:="aws_wafregional_sql_injection_match_set.sql_injection_match_set"
@@ -186,10 +174,7 @@ ImportStateVerify:true,
 	},
 },
 	})
-}
-
-
-funcTestAccWAFRegionalSQLInjectionMatchSet_noTuples(t*testing.T){
+}funcTestAccWAFRegionalSQLInjectionMatchSet_noTuples(t*testing.T){
 	ctx:=acctest.Context(t)
 	varipsetwaf.SqlInjectionMatchSet
 	resourceName:="aws_wafregional_sql_injection_match_set.sql_injection_match_set"
@@ -220,10 +205,7 @@ ImportStateVerify:true,
 	},
 },
 	})
-}
-
-
-functestAccCheckSQLInjectionMatchSetDisappears(ctxcontext.Context,v*waf.SqlInjectionMatchSet)resource.TestCheck
+}functestAccCheckSQLInjectionMatchSetDisappears(ctxcontext.Context,v*waf.SqlInjectionMatchSet)resource.TestCheck
 func{
 	return
 func(s*terraform.State)error{
@@ -267,10 +249,7 @@ iferr!=nil{
 }
 returnnil
 	}
-}
-
-
-functestAccCheckSQLInjectionMatchSetExists(ctxcontext.Context,nstring,v*waf.SqlInjectionMatchSet)resource.TestCheck
+}functestAccCheckSQLInjectionMatchSetExists(ctxcontext.Context,nstring,v*waf.SqlInjectionMatchSet)resource.TestCheck
 func{
 	return
 func(s*terraform.State)error{
@@ -298,10 +277,7 @@ if*resp.SqlInjectionMatchSet.SqlInjectionMatchSetId==rs.Primary.ID{
 
 returnfmt.Errorf("WAFSqlInjectionMatchSet(%s)notfound",rs.Primary.ID)
 	}
-}
-
-
-functestAccCheckSQLInjectionMatchSetDestroy(ctxcontext.Context)resource.TestCheck
+}functestAccCheckSQLInjectionMatchSetDestroy(ctxcontext.Context)resource.TestCheck
 func{
 	return
 func(s*terraform.State)error{
@@ -331,10 +307,7 @@ returnnil
 
 returnnil
 	}
-}
-
-
-functestAccSQLInjectionMatchSetConfig_basic(namestring)string{
+}functestAccSQLInjectionMatchSetConfig_basic(namestring)string{
 	returnfmt.Sprintf(`
 resource"aws_wafregional_sql_injection_match_set""sql_injection_match_set"{
 name="%s"
@@ -348,10 +321,7 @@ type="QUERY_STRING"
 }
 }
 `,name)
-}
-
-
-functestAccSQLInjectionMatchSetConfig_changeTuples(namestring)string{
+}functestAccSQLInjectionMatchSetConfig_changeTuples(namestring)string{
 	returnfmt.Sprintf(`
 resource"aws_wafregional_sql_injection_match_set""sql_injection_match_set"{
 name="%s"
@@ -366,10 +336,7 @@ data="User-Agent"
 }
 }
 `,name)
-}
-
-
-functestAccSQLInjectionMatchSetConfig_noTuples(namestring)string{
+}functestAccSQLInjectionMatchSetConfig_noTuples(namestring)string{
 	returnfmt.Sprintf(`
 resource"aws_wafregional_sql_injection_match_set""sql_injection_match_set"{
 name="%s"

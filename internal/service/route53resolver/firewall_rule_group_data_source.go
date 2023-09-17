@@ -1,24 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package route53resolver
-
-import (
-"context"
-
-"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package route53resolverimport (
+"context""github.com/aws/aws-sdk-go/aws"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-// @SDKDataSource("aws_route53_resolver_firewall_rule_group")
-
-func DataSourceFirewallRuleGroup() *schema.Resource {
+)// @SDKDataSource("aws_route53_resolver_firewall_rule_group")func DataSourceFirewallRuleGroup() *schema.Resource {
 return &schema.Resource{
-ReadWithoutTimeout: dataSourceFirewallRuleGroupRead,
-
-Schema: map[string]*schema.Schema{
+ReadWithoutTimeout: dataSourceFirewallRuleGroupRead,Schema: map[string]*schema.Schema{
 "arn": {
 Type:schema.TypeString,
 Computed: true,
@@ -65,19 +53,11 @@ Computed: true,
 },
 },
 }
-}
-
-func dataSourceFirewallRuleGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
-
-id := d.Get("firewall_rule_group_id").(string)
-ruleGroup, err := FindFirewallRuleGroupByID(ctx, conn, id)
-
-if err != nil {
+}func dataSourceFirewallRuleGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)id := d.Get("firewall_rule_group_id").(string)
+ruleGroup, err := FindFirewallRuleGroupByID(ctx, conn, id)if err != nil {
 return diag.Errorf("reading Route53 Resolver Firewall Rule Group (%s): %s", id, err)
-}
-
-d.SetId(aws.StringValue(ruleGroup.Id))
+}d.SetId(aws.StringValue(ruleGroup.Id))
 d.Set("arn", ruleGroup.Arn)
 d.Set("creation_time", ruleGroup.CreationTime)
 d.Set("creator_request_id", ruleGroup.CreatorRequestId)
@@ -88,7 +68,5 @@ d.Set("owner_id", ruleGroup.OwnerId)
 d.Set("rule_count", ruleGroup.RuleCount)
 d.Set("share_status", ruleGroup.ShareStatus)
 d.Set("status", ruleGroup.Status)
-d.Set("status_message", ruleGroup.StatusMessage)
-
-return nil
+d.Set("status_message", ruleGroup.StatusMessage)return nil
 }

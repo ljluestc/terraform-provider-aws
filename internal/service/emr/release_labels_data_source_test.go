@@ -9,16 +9,12 @@ import (
 	"github.com/aws/aws-sdk-go/service/emr"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func TestAccEMRReleaseLabels_basic(t *testing.T) {
+)func TestAccEMRReleaseLabels_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceResourceName := "data.aws_emr_release_labels.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    nil,
@@ -32,16 +28,12 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRReleaseLabels_prefix(t *testing.T) {
+}func TestAccEMRReleaseLabels_prefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceResourceName := "data.aws_emr_release_labels.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    nil,
@@ -55,16 +47,12 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRReleaseLabels_application(t *testing.T) {
+}func TestAccEMRReleaseLabels_application(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceResourceName := "data.aws_emr_release_labels.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    nil,
@@ -78,16 +66,12 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRReleaseLabels_full(t *testing.T) {
+}func TestAccEMRReleaseLabels_full(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceResourceName := "data.aws_emr_release_labels.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    nil,
@@ -101,16 +85,12 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccEMRReleaseLabels_empty(t *testing.T) {
+}func TestAccEMRReleaseLabels_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceResourceName := "data.aws_emr_release_labels.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    nil,
@@ -124,17 +104,11 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccReleaseLabelsDataSourceConfig_basic() string {
+}func testAccReleaseLabelsDataSourceConfig_basic() string {
 	return `
 data "aws_emr_release_labels" "test" {}
 `
-}
-
-
-func testAccReleaseLabelsDataSourceConfig_prefix() string {
+}func testAccReleaseLabelsDataSourceConfig_prefix() string {
 	return `
 data "aws_emr_release_labels" "test" {
   filters {
@@ -142,10 +116,7 @@ data "aws_emr_release_labels" "test" {
   }
 }
 `
-}
-
-
-func testAccReleaseLabelsDataSourceConfig_application() string {
+}func testAccReleaseLabelsDataSourceConfig_application() string {
 	return `
 data "aws_emr_release_labels" "test" {
   filters {
@@ -153,10 +124,7 @@ data "aws_emr_release_labels" "test" {
   }
 }
 `
-}
-
-
-func testAccReleaseLabelsDataSourceConfig_full() string {
+}func testAccReleaseLabelsDataSourceConfig_full() string {
 	return `
 data "aws_emr_release_labels" "test" {
   filters {
@@ -165,10 +133,7 @@ data "aws_emr_release_labels" "test" {
   }
 }
 `
-}
-
-
-func testAccReleaseLabelsDataSourceConfig_empty() string {
+}func testAccReleaseLabelsDataSourceConfig_empty() string {
 	return `
 data "aws_emr_release_labels" "test" {
   filters {

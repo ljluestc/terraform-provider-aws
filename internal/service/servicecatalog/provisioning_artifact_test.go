@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicecatalog_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package servicecatalog_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/aws"
+"testing""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/servicecatalog"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,18 +11,10 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfservicecatalog "github.com/hashicorp/terraform-provider-aws/internal/service/servicecatalog"
-)
-
-// add sweeper to delete known test servicecat provisioning artifacts
-
-func TestAccServiceCatalogProvisioningArtifact_basic(t *testing.T) {
+)// add sweeper to delete known test servicecat provisioning artifactsfunc TestAccServiceCatalogProvisioningArtifact_basic(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_provisioning_artifact.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -63,16 +49,10 @@ ImportStateVerifyIgnore: []string{
 },
 },
 })
-}
-
-func TestAccServiceCatalogProvisioningArtifact_disappears(t *testing.T) {
+}func TestAccServiceCatalogProvisioningArtifact_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_provisioning_artifact.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -88,16 +68,10 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccServiceCatalogProvisioningArtifact_update(t *testing.T) {
+}func TestAccServiceCatalogProvisioningArtifact_update(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_provisioning_artifact.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -136,16 +110,10 @@ ImportStateVerifyIgnore: []string{
 },
 },
 })
-}
-
-func TestAccServiceCatalogProvisioningArtifact_physicalID(t *testing.T) {
+}func TestAccServiceCatalogProvisioningArtifact_physicalID(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_provisioning_artifact.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -179,102 +147,54 @@ ImportStateVerifyIgnore: []string{
 },
 },
 })
-}
-
-func testAccCheckProvisioningArtifactDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckProvisioningArtifactDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_servicecatalog_provisioning_artifact" {
 continue
-}
-
-artifactID, productID, err := tfservicecatalog.ProvisioningArtifactParseID(rs.Primary.ID)
-
-if err != nil {
+}artifactID, productID, err := tfservicecatalog.ProvisioningArtifactParseID(rs.Primary.ID)if err != nil {
 return fmt.Errorf("error parsing Service Catalog Provisioning Artifact ID (%s): %w", rs.Primary.ID, err)
-}
-
-input := &servicecatalog.DescribeProvisioningArtifactInput{
+}input := &servicecatalog.DescribeProvisioningArtifactInput{
 ProductId:     aws.String(productID),
 ProvisioningArtifactId: aws.String(artifactID),
-}
-
-output, err := conn.DescribeProvisioningArtifactWithContext(ctx, input)
-
-if tfawserr.ErrCodeEquals(err, servicecatalog.ErrCodeResourceNotFoundException) {
+}output, err := conn.DescribeProvisioningArtifactWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, servicecatalog.ErrCodeResourceNotFoundException) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return fmt.Errorf("error getting Service Catalog Provisioning Artifact (%s): %w", rs.Primary.ID, err)
-}
-
-if output != nil {
+}if output != nil {
 return fmt.Errorf("Service Catalog Provisioning Artifact (%s) still exists", rs.Primary.ID)
 }
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccCheckProvisioningArtifactExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+}func testAccCheckProvisioningArtifactExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-rs, ok := s.RootModule().Resources[resourceName]
-
-if !ok {
+rs, ok := s.RootModule().Resources[resourceName]if !ok {
 return fmt.Errorf("resource not found: %s", resourceName)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)
-
-artifactID, productID, err := tfservicecatalog.ProvisioningArtifactParseID(rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)artifactID, productID, err := tfservicecatalog.ProvisioningArtifactParseID(rs.Primary.ID)if err != nil {
 return fmt.Errorf("error parsing Service Catalog Provisioning Artifact ID (%s): %w", rs.Primary.ID, err)
-}
-
-input := &servicecatalog.DescribeProvisioningArtifactInput{
+}input := &servicecatalog.DescribeProvisioningArtifactInput{
 ProductId:     aws.String(productID),
 ProvisioningArtifactId: aws.String(artifactID),
-}
-
-_, err = conn.DescribeProvisioningArtifactWithContext(ctx, input)
-
-if err != nil {
+}_, err = conn.DescribeProvisioningArtifactWithContext(ctx, input)if err != nil {
 return fmt.Errorf("error describing Service Catalog Provisioning Artifact (%s): %w", rs.Primary.ID, err)
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccProvisioningArtifactTemplateURLBaseConfig(rName, domain string) string {
+}func testAccProvisioningArtifactTemplateURLBaseConfig(rName, domain string) string {
 return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket        = %[1]q
   force_destroy = true
-}
-
-resource "aws_s3_object" "test" {
+}resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket.test.id
-  key    = "%[1]s.json"
-
-  content = jsonencode({
-    AWSTemplateFormatVersion = "2010-09-09"
-
-    Resources = {
+  key    = "%[1]s.json"  content = jsonencode({
+    AWSTemplateFormatVersion = "2010-09-09"    Resources = {
       MyVPC = {
         Type = "AWS::EC2::VPC"
         Properties = {
  CidrBlock = "10.1.0.0/16"
         }
       }
-    }
-
-    Outputs = {
+    }    Outputs = {
       VpcID = {
         Description = "VPC ID"
         Value = {
@@ -283,9 +203,7 @@ resource "aws_s3_object" "test" {
       }
     }
   })
-}
-
-resource "aws_servicecatalog_product" "test" {
+}resource "aws_servicecatalog_product" "test" {
   description= %[1]q
   distributor= "distributör"
   name = %[1]q
@@ -293,24 +211,18 @@ resource "aws_servicecatalog_product" "test" {
   type = "CLOUD_FORMATION_TEMPLATE"
   support_description = %[1]q
   support_email       = %[3]q
-  support_url= %[2]q
-
-  provisioning_artifact_parameters {
+  support_url= %[2]q  provisioning_artifact_parameters {
     description  = "artefaktbeskrivning"
     disable_template_validation = true
     name= %[1]q
     template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
     type= "CLOUD_FORMATION_TEMPLATE"
-  }
-
-  tags = {
+  }  tags = {
     Name = %[1]q
   }
 }
 `, rName, domain, acctest.DefaultEmailAddress)
-}
-
-func testAccProvisioningArtifactConfig_basic(rName, domain string) string {
+}func testAccProvisioningArtifactConfig_basic(rName, domain string) string {
 return acctest.ConfigCompose(testAccProvisioningArtifactTemplateURLBaseConfig(rName, domain), fmt.Sprintf(`
 resource "aws_servicecatalog_provisioning_artifact" "test" {
   accept_language    = "en"
@@ -324,9 +236,7 @@ resource "aws_servicecatalog_provisioning_artifact" "test" {
   type= "CLOUD_FORMATION_TEMPLATE"
 }
 `, rName))
-}
-
-func testAccProvisioningArtifactConfig_update(rName, domain string) string {
+}func testAccProvisioningArtifactConfig_update(rName, domain string) string {
 return acctest.ConfigCompose(testAccProvisioningArtifactTemplateURLBaseConfig(rName, domain), fmt.Sprintf(`
 resource "aws_servicecatalog_provisioning_artifact" "test" {
   accept_language    = "jp"
@@ -340,26 +250,18 @@ resource "aws_servicecatalog_provisioning_artifact" "test" {
   type= "CLOUD_FORMATION_TEMPLATE"
 }
 `, rName))
-}
-
-func testAccProvisioningArtifactPhysicalIDBaseConfig(rName, domain string) string {
+}func testAccProvisioningArtifactPhysicalIDBaseConfig(rName, domain string) string {
 return fmt.Sprintf(`
 resource "aws_cloudformation_stack" "test" {
-  name = %[1]q
-
-  template_body = jsonencode({
-    AWSTemplateFormatVersion = "2010-09-09"
-
-    Resources = {
+  name = %[1]q  template_body = jsonencode({
+    AWSTemplateFormatVersion = "2010-09-09"    Resources = {
       MyVPC = {
         Type = "AWS::EC2::VPC"
         Properties = {
  CidrBlock = "10.1.0.0/16"
         }
       }
-    }
-
-    Outputs = {
+    }    Outputs = {
       VpcID = {
         Description = "VPC ID"
         Value = {
@@ -368,9 +270,7 @@ resource "aws_cloudformation_stack" "test" {
       }
     }
   })
-}
-
-resource "aws_servicecatalog_product" "test" {
+}resource "aws_servicecatalog_product" "test" {
   description= %[1]q
   distributor= "distributör"
   name = %[1]q
@@ -378,9 +278,7 @@ resource "aws_servicecatalog_product" "test" {
   type = "CLOUD_FORMATION_TEMPLATE"
   support_description = "supportbeskrivning"
   support_email       = %[3]q
-  support_url= %[2]q
-
-  provisioning_artifact_parameters {
+  support_url= %[2]q  provisioning_artifact_parameters {
     description = "artefaktbeskrivning"
     name  = %[1]q
     template_physical_id = aws_cloudformation_stack.test.id
@@ -388,9 +286,7 @@ resource "aws_servicecatalog_product" "test" {
   }
 }
 `, rName, domain, acctest.DefaultEmailAddress)
-}
-
-func testAccProvisioningArtifactConfig_physicalID(rName, domain string) string {
+}func testAccProvisioningArtifactConfig_physicalID(rName, domain string) string {
 return acctest.ConfigCompose(testAccProvisioningArtifactPhysicalIDBaseConfig(rName, domain), fmt.Sprintf(`
 resource "aws_servicecatalog_provisioning_artifact" "test" {
   accept_language    = "en"

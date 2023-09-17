@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package imagebuilder_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/imagebuilder"
+	"testing"	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccImageBuilderInfrastructureConfigurationDataSource_arn(t *testing.T) {
+)func TestAccImageBuilderInfrastructureConfigurationDataSource_arn(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_imagebuilder_infrastructure_configuration.test"
-	resourceName := "aws_imagebuilder_infrastructure_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_infrastructure_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -48,18 +38,12 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccInfrastructureConfigurationDataSourceConfig_arn(rName string) string {
+}func testAccInfrastructureConfigurationDataSourceConfig_arn(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_iam_instance_profile" "test" {
+data "aws_partition" "current" {}resource "aws_iam_instance_profile" "test" {
   name = aws_iam_role.role.name
   role = aws_iam_role.role.name
-}
-
-resource "aws_iam_role" "role" {
+}resource "aws_iam_role" "role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -72,14 +56,10 @@ resource "aws_iam_role" "role" {
     }]
   })
   name = %[1]q
-}
-
-resource "aws_imagebuilder_infrastructure_configuration" "test" {
+}resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
-}
-
-data "aws_imagebuilder_infrastructure_configuration" "test" {
+}data "aws_imagebuilder_infrastructure_configuration" "test" {
   arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }
 `, rName)

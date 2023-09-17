@@ -9,10 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-
-func comboChartVisualSchema() *schema.Schema {
+)func comboChartVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ComboChartVisual.html
 Type:     schema.TypeList,
 Optional: true,
@@ -92,10 +89,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func expandComboChartVisual(tfList []interface{}) *quicksight.ComboChartVisual {
+}func expandComboChartVisual(tfList []interface{}) *quicksight.ComboChartVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -127,10 +121,7 @@ visual.Title = expandVisualTitleLabelOptions(v)
 	}
 
 	return visual
-}
-
-
-func expandComboChartConfiguration(tfList []interface{}) *quicksight.ComboChartConfiguration {
+}func expandComboChartConfiguration(tfList []interface{}) *quicksight.ComboChartConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -192,10 +183,7 @@ config.VisualPalette = expandVisualPalette(v)
 	}
 
 	return config
-}
-
-
-func expandComboChartFieldWells(tfList []interface{}) *quicksight.ComboChartFieldWells {
+}func expandComboChartFieldWells(tfList []interface{}) *quicksight.ComboChartFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -212,10 +200,7 @@ config.ComboChartAggregatedFieldWells = expandComboChartAggregatedFieldWells(v)
 	}
 
 	return config
-}
-
-
-func expandComboChartAggregatedFieldWells(tfList []interface{}) *quicksight.ComboChartAggregatedFieldWells {
+}func expandComboChartAggregatedFieldWells(tfList []interface{}) *quicksight.ComboChartAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -241,10 +226,7 @@ config.LineValues = expandMeasureFields(v)
 	}
 
 	return config
-}
-
-
-func expandComboChartSortConfiguration(tfList []interface{}) *quicksight.ComboChartSortConfiguration {
+}func expandComboChartSortConfiguration(tfList []interface{}) *quicksight.ComboChartSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -270,10 +252,7 @@ config.ColorSort = expandFieldSortOptionsList(v)
 	}
 
 	return config
-}
-
-
-func flattenComboChartVisual(apiObject *quicksight.ComboChartVisual) []interface{} {
+}func flattenComboChartVisual(apiObject *quicksight.ComboChartVisual) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -298,10 +277,7 @@ tfMap["title"] = flattenVisualTitleLabelOptions(apiObject.Title)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenComboChartConfiguration(apiObject *quicksight.ComboChartConfiguration) []interface{} {
+}func flattenComboChartConfiguration(apiObject *quicksight.ComboChartConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -357,10 +333,7 @@ tfMap["visual_palette"] = flattenVisualPalette(apiObject.VisualPalette)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenComboChartFieldWells(apiObject *quicksight.ComboChartFieldWells) []interface{} {
+}func flattenComboChartFieldWells(apiObject *quicksight.ComboChartFieldWells) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -371,10 +344,7 @@ tfMap["combo_chart_aggregated_field_wells"] = flattenComboChartAggregatedFieldWe
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenComboChartAggregatedFieldWells(apiObject *quicksight.ComboChartAggregatedFieldWells) []interface{} {
+}func flattenComboChartAggregatedFieldWells(apiObject *quicksight.ComboChartAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -394,10 +364,7 @@ tfMap["line_values"] = flattenMeasureFields(apiObject.LineValues)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenComboChartSortConfiguration(apiObject *quicksight.ComboChartSortConfiguration) []interface{} {
+}func flattenComboChartSortConfiguration(apiObject *quicksight.ComboChartSortConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}

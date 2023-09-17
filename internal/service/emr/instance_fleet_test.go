@@ -15,18 +15,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfemr "github.com/hashicorp/terraform-provider-aws/internal/service/emr"
-)
-
-
-func TestAccEMRInstanceFleet_basic(t *testing.T) {
+)func TestAccEMRInstanceFleet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var fleet emr.InstanceFleet
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -50,18 +46,14 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccEMRInstanceFleet_Zero_count(t *testing.T) {
+}func TestAccEMRInstanceFleet_Zero_count(t *testing.T) {
 	ctx := acctest.Context(t)
 	var fleet emr.InstanceFleet
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -94,18 +86,14 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccEMRInstanceFleet_ebsBasic(t *testing.T) {
+}func TestAccEMRInstanceFleet_ebsBasic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var fleet emr.InstanceFleet
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -129,18 +117,14 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccEMRInstanceFleet_full(t *testing.T) {
+}func TestAccEMRInstanceFleet_full(t *testing.T) {
 	ctx := acctest.Context(t)
 	var fleet emr.InstanceFleet
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    acctest.CheckDestroyNoop,
@@ -164,13 +148,9 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func testAccCheckInstanceFleetExists(ctx context.Context, n string, v *emr.InstanceFleet) resource.TestCheck
+}func testAccCheckInstanceFleetExists(ctx context.Context, n string, v *emr.InstanceFleet) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
@@ -192,14 +172,10 @@ if err != nil {
 
 return nil
 	}
-}
-
-
-func testAccInstanceFleetResourceImportStateId
+}func testAccInstanceFleetResourceImportStateId
 func(resourceName string) resource.ImportStateId
 func {
-	return 
-func(s *terraform.State) (string, error) {
+	returnfunc(s *terraform.State) (string, error) {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return "", fmt.Errorf("Not found: %s", resourceName)
@@ -207,10 +183,7 @@ if !ok {
 
 return fmt.Sprintf("%s/%s", rs.Primary.Attributes["cluster_id"], rs.Primary.ID), nil
 	}
-}
-
-
-func testAccInstanceFleetConfig_base(rName string) string {
+}func testAccInstanceFleetConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block  = "10.0.0.0/16"
@@ -425,10 +398,7 @@ resource "aws_emr_cluster" "test" {
   }
 }
 `, rName))
-}
-
-
-func testAccInstanceFleetConfig_basic(rName string) string {
+}func testAccInstanceFleetConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceFleetConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_instance_fleet" "task" {
   cluster_id = aws_emr_cluster.test.id
@@ -449,10 +419,7 @@ resource "aws_emr_instance_fleet" "task" {
   target_spot_capacity      = 0
 }
 `, rName))
-}
-
-
-func testAccInstanceFleetConfig_zeroCount(rName string) string {
+}func testAccInstanceFleetConfig_zeroCount(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceFleetConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_instance_fleet" "task" {
   cluster_id = aws_emr_cluster.test.id
@@ -473,10 +440,7 @@ resource "aws_emr_instance_fleet" "task" {
   target_spot_capacity      = 0
 }
 `, rName))
-}
-
-
-func testAccInstanceFleetConfig_ebsBasic(rName string) string {
+}func testAccInstanceFleetConfig_ebsBasic(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceFleetConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_instance_fleet" "task" {
   cluster_id = aws_emr_cluster.test.id
@@ -506,10 +470,7 @@ resource "aws_emr_instance_fleet" "task" {
   target_spot_capacity      = 1
 }
 `, rName))
-}
-
-
-func testAccInstanceFleetConfig_full(rName string) string {
+}func testAccInstanceFleetConfig_full(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceFleetConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_instance_fleet" "task" {
   cluster_id = aws_emr_cluster.test.id

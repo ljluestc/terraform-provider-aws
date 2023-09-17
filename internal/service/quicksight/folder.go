@@ -141,10 +141,7 @@ CustomizeDiff: verify.SetTagsDiff,
 
 const (
 ResNameFolder = "Folder"
-)
-
-
-func resourceFolderCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+)func resourceFolderCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
 awsAccountId := meta.(*conns.AWSClient).AccountID
@@ -185,10 +182,7 @@ return create.DiagError(names.QuickSight, create.ErrActionCreating, ResNameFolde
 }
 
 return resourceFolderRead(ctx, d, meta)
-}
-
-
-func resourceFolderRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceFolderRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
 awsAccountId, folderId, err := ParseFolderId(d.Id())
@@ -236,10 +230,7 @@ if err := d.Set("permissions", flattenPermissions(permsResp.Permissions)); err !
 return diag.Errorf("setting permissions: %s", err)
 }
 return nil
-}
-
-
-func resourceFolderUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceFolderUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
 awsAccountId, folderId, err := ParseFolderId(d.Id())
@@ -289,10 +280,7 @@ return diag.Errorf("updating QuickSight Folder (%s) permissions: %s", folderId, 
 }
 
 return resourceFolderRead(ctx, d, meta)
-}
-
-
-func resourceFolderDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceFolderDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
 log.Printf("[INFO] Deleting QuickSight Folder %s", d.Id())
@@ -316,10 +304,7 @@ return create.DiagError(names.QuickSight, create.ErrActionDeleting, ResNameFolde
 }
 
 return nil
-}
-
-
-func FindFolderByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.Folder, error) {
+}func FindFolderByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.Folder, error) {
 awsAccountId, folderId, err := ParseFolderId(id)
 if err != nil {
 return nil, err
@@ -348,18 +333,12 @@ return nil, tfresource.NewEmptyResultError(descOpts)
 }
 
 return out.Folder, nil
-}
-
-
-func ParseFolderId(id string) (string, string, error) {
+}func ParseFolderId(id string) (string, string, error) {
 parts := strings.SplitN(id, ",", 2)
 if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
 return "", "", fmt.Errorf("unexpected format of ID (%s), expected AWS_ACCOUNT_ID,FOLDER_ID", id)
 }
 return parts[0], parts[1], nil
-}
-
-
-func createFolderId(awsAccountID, folderId string) string {
+}func createFolderId(awsAccountID, folderId string) string {
 return fmt.Sprintf("%s,%s", awsAccountID, folderId)
 }

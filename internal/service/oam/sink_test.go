@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package oam_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package oam_testimport (
 "context"
 "errors"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go-v2/aws"
 "github.com/aws/aws-sdk-go-v2/service/oam"
 "github.com/aws/aws-sdk-go-v2/service/oam/types"
@@ -21,19 +15,13 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/create"
 tfoam "github.com/hashicorp/terraform-provider-aws/internal/service/oam"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccObservabilityAccessManagerSink_basic(t *testing.T) {
+)func TestAccObservabilityAccessManagerSink_basic(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var sink oam.GetSinkOutput
+}var sink oam.GetSinkOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_oam_sink.test"
-
-resource.Test(t, resource.TestCase{
+resourceName := "aws_oam_sink.test"resource.Test(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
@@ -60,19 +48,13 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccObservabilityAccessManagerSink_disappears(t *testing.T) {
+}func TestAccObservabilityAccessManagerSink_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var sink oam.GetSinkOutput
+}var sink oam.GetSinkOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_oam_sink.test"
-
-resource.Test(t, resource.TestCase{
+resourceName := "aws_oam_sink.test"resource.Test(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
@@ -92,19 +74,13 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccObservabilityAccessManagerSink_tags(t *testing.T) {
+}func TestAccObservabilityAccessManagerSink_tags(t *testing.T) {
 ctx := acctest.Context(t)
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-var sink oam.GetSinkOutput
+}var sink oam.GetSinkOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_oam_sink.test"
-
-resource.Test(t, resource.TestCase{
+resourceName := "aws_oam_sink.test"resource.Test(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
@@ -146,18 +122,12 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-func testAccCheckSinkDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckSinkDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_oam_sink" {
 continue
-}
-
-input := &oam.GetSinkInput{
+}input := &oam.GetSinkInput{
 Identifier: aws.String(rs.Primary.ID),
 }
 _, err := conn.GetSink(ctx, input)
@@ -167,83 +137,47 @@ if errors.As(err, &nfe) {
 return nil
 }
 return err
+}return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingDestroyed, tfoam.ResNameSink, rs.Primary.ID, errors.New("not destroyed"))
+}return nil
 }
-
-return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingDestroyed, tfoam.ResNameSink, rs.Primary.ID, errors.New("not destroyed"))
-}
-
-return nil
-}
-}
-
-func testAccCheckSinkExists(ctx context.Context, name string, sink *oam.GetSinkOutput) resource.TestCheckFunc {
+}func testAccCheckSinkExists(ctx context.Context, name string, sink *oam.GetSinkOutput) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingExistence, tfoam.ResNameSink, name, errors.New("not found"))
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingExistence, tfoam.ResNameSink, name, errors.New("not set"))
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)
-
-resp, err := conn.GetSink(ctx, &oam.GetSinkInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)resp, err := conn.GetSink(ctx, &oam.GetSinkInput{
 Identifier: aws.String(rs.Primary.ID),
-})
-
-if err != nil {
+})if err != nil {
 return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingExistence, tfoam.ResNameSink, rs.Primary.ID, err)
+}*sink = *respreturn nil
 }
-
-*sink = *resp
-
-return nil
-}
-}
-
-func testAccPreCheck(ctx context.Context, t *testing.T) {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)
-
-input := &oam.ListSinksInput{}
-_, err := conn.ListSinks(ctx, input)
-
-if acctest.PreCheckSkipError(err) {
+}func testAccPreCheck(ctx context.Context, t *testing.T) {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)input := &oam.ListSinksInput{}
+_, err := conn.ListSinks(ctx, input)if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
-}
-
-if err != nil {
+}if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
 }
-}
-
-func testAccSinkConfigBasic(rName string) string {
+}func testAccSinkConfigBasic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_oam_sink" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccSinkConfigTags1(rName, tag1Key, tag1Value string) string {
+}func testAccSinkConfigTags1(rName, tag1Key, tag1Value string) string {
 return fmt.Sprintf(`
 resource "aws_oam_sink" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tag1Key, tag1Value)
-}
-
-func testAccSinkConfigTags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
+}func testAccSinkConfigTags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 return fmt.Sprintf(`
 resource "aws_oam_sink" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }

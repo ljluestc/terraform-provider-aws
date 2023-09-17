@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package route53recoveryreadiness_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package route53recoveryreadiness_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/arn"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
@@ -31,9 +25,7 @@ Partition: endpoints.AwsPartitionID,
 Region:    endpoints.EuWest1RegionID,
 Resource:  "alarm:zzzzzzzzz",
 Service:   "cloudwatch",
-	}.String()
-
-	resource.ParallelTest(t, resource.TestCase{
+	}.String()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -66,9 +58,7 @@ Partition: endpoints.AwsPartitionID,
 Region:    endpoints.EuWest1RegionID,
 Resource:  "alarm:zzzzzzzzz",
 Service:   "cloudwatch",
-	}.String()
-
-	resource.ParallelTest(t, resource.TestCase{
+	}.String()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -95,9 +85,7 @@ Partition: endpoints.AwsPartitionID,
 Region:    endpoints.EuWest1RegionID,
 Resource:  "alarm:zzzzzzzzz",
 Service:   "cloudwatch",
-	}.String()
-
-	resource.ParallelTest(t, resource.TestCase{
+	}.String()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -147,9 +135,7 @@ Partition: endpoints.AwsPartitionID,
 Region:    endpoints.EuWest1RegionID,
 Resource:  "alarm:zzzzzzzzz",
 Service:   "cloudwatch",
-	}.String()
-
-	resource.ParallelTest(t, resource.TestCase{
+	}.String()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -173,24 +159,16 @@ ImportStateVerify: true,
 }
 func testAccCheckReadinessCheckDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_route53recoveryreadiness_readiness_check" {
 continue
-	}
-
-	input := &route53recoveryreadiness.GetReadinessCheckInput{
+	}	input := &route53recoveryreadiness.GetReadinessCheckInput{
 ReadinessCheckName: aws.String(rs.Primary.ID),
-	}
-
-	_, err := conn.GetReadinessCheckWithContext(ctx, input)
+	}	_, err := conn.GetReadinessCheckWithContext(ctx, input)
 	if err == nil {
 return fmt.Errorf("Route53RecoveryReadiness Readiness Check (%s) not deleted", rs.Primary.ID)
 	}
-}
-
-return nil
+}return nil
 	}
 }
 func testAccCheckReadinessCheckExists(ctx context.Context, name string) resource.TestCheckFunc {
@@ -198,26 +176,16 @@ func testAccCheckReadinessCheckExists(ctx context.Context, name string) resource
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return fmt.Errorf("Not found: %s", name)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
-
-input := &route53recoveryreadiness.GetReadinessCheckInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)input := &route53recoveryreadiness.GetReadinessCheckInput{
 	ReadinessCheckName: aws.String(rs.Primary.ID),
-}
-
-_, err := conn.GetReadinessCheckWithContext(ctx, input)
-
-return err
+}_, err := conn.GetReadinessCheckWithContext(ctx, input)return err
 	}
 }
 func testAccReadinessCheckConfig_ResourceSet(rSetName, cwArn string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_resource_set" "test" {
   resource_set_name = %[1]q
-  resource_set_type = "AWS::CloudWatch::Alarm"
-
-  resources {
+  resource_set_type = "AWS::CloudWatch::Alarm"  resources {
     resource_arn = %[2]q
   }
 }
@@ -235,9 +203,7 @@ func testAccReadinessCheckConfig_tags1(rName, cwArn, tagKey1, tagValue1 string) 
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet("resource-set-for-testing", cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
   readiness_check_name = %[1]q
-  resource_set_name    = aws_route53recoveryreadiness_resource_set.test.resource_set_name
-
-  tags = {
+  resource_set_name    = aws_route53recoveryreadiness_resource_set.test.resource_set_name  tags = {
     %[2]q = %[3]q
   }
 }
@@ -247,9 +213,7 @@ func testAccReadinessCheckConfig_tags2(rName, cwArn, tagKey1, tagValue1, tagKey2
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet("resource-set-for-testing", cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
   readiness_check_name = %[1]q
-  resource_set_name    = aws_route53recoveryreadiness_resource_set.test.resource_set_name
-
-  tags = {
+  resource_set_name    = aws_route53recoveryreadiness_resource_set.test.resource_set_name  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
@@ -260,9 +224,7 @@ func testAccReadinessCheckConfig_timeout(rName, rSetName, cwArn string) string {
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet(rSetName, cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
   readiness_check_name = %q
-  resource_set_name    = aws_route53recoveryreadiness_resource_set.test.resource_set_name
-
-  timeouts {
+  resource_set_name    = aws_route53recoveryreadiness_resource_set.test.resource_set_name  timeouts {
     delete = "10m"
   }
 }

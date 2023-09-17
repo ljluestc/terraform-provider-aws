@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package s3_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package s3_testimport (
 	"context"
 	"fmt"
 	"testing"
-	"time"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"time"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -21,9 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_cors_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3_bucket_cors_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:est.PreCheck(ctx, t) },
 		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -52,9 +44,7 @@ import (
 	})
 }func TestAccS3BucketCorsConfiguration_disappears(t *testing.T) {
 	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3_bucket_cors_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3_bucket_cors_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:est.PreCheck(ctx, t) },
 		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -72,16 +62,12 @@ import (
 	})
 }func TestAccS3BucketCorsConfiguration_update(t *testing.T) {
 	ctx := acctest.Context(t)
-	funcourceName := "aws_s3_bucket_cors_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	funcourceName := "aws_s3_bucket_cors_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:est.PreCheck(ctx, t) },
 		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:kBucketCorsConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-
-			{
+		Steps: []resource.TestStep{			{
 				Config: testAccBucketCORSConfigurationConfig_completeSingleRule(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckBucketCorsConfigurationExists(ctx, resourceName),
@@ -256,9 +242,7 @@ funcource.ParallelTest(t, resource.TestCase{
 	ctx := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketResourceName := "aws_s3_bucket.test"
-	resourceName := "aws_s3_bucket_cors_configuration.test"
-
-	funceCheck:est.PreCheck(ctx, t) },
+	resourceName := "aws_s3_bucket_cors_configuration.test"	funceCheck:est.PreCheck(ctx, t) },
 		ErrorCheck:eck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:kBucketDestroy(ctx),
@@ -293,91 +277,53 @@ funcource.ParallelTest(t, resource.TestCase{
 	})
 }func testAccCheckBucketCorsConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_s3_bucket_cors_configuration" {
 				continue
 	func
 			bucket, expectedBucketOwner, err := tfs3.ParseResourceID(rs.Primary.ID)
 			if err != nil {
 				return err
-			}
-
-			input := &s3.GetBucketCorsInput{
+			}			input := &s3.GetBucketCorsInput{
 				Bucket: aws.String(bucket),
-			}
-
-			if expectedBucketOwner != "" {
+			}			if expectedBucketOwner != "" {
 				input.ExpectedBucketOwner = aws.String(expectedBucketOwner)
-			}
-
-			output, err := conn.GetBucketCorsWithContext(ctx, input)
-
-			if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket, tfs3.ErrCodeNoSuchCORSConfiguration) {
+			}			output, err := conn.GetBucketCorsWithContext(ctx, input)			if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket, tfs3.ErrCodeNoSuchCORSConfiguration) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return fmt.Errorf("error getting S3 Bucket CORS configuration (%s): %w", rs.Primary.ID, err)
-			}
-
-			if output != nil {
+			}			if output != nil {
 				return fmt.Errorf("S3 Bucket CORS configuration (%s) still exists", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
 }func testAccCheckBucketCorsConfigurationExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
-	func
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)
-
-		bucket, expectedBucketOwner, err := tfs3.ParseResourceID(rs.Primary.ID)
+		}		if rs.Primary.ID == "" {
+	func		conn := acctest.Provider.Meta().(*conns.AWSClient).S3Conn(ctx)		bucket, expectedBucketOwner, err := tfs3.ParseResourceID(rs.Primary.ID)
 		if err != nil {
 			return err
-		}
-
-		input := &s3.GetBucketCorsInput{
+		}		input := &s3.GetBucketCorsInput{
 			Bucket: aws.String(bucket),
-		}
-
-		if expectedBucketOwner != "" {
+		}		if expectedBucketOwner != "" {
 			input.ExpectedBucketOwner = aws.String(expectedBucketOwner)
-		}
-
-		corsResponse, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 2*time.Minute, func() (interface{}, error) {
+		}		corsResponse, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 2*time.Minute, func() (interface{}, error) {
 			return conn.GetBucketCorsWithContext(ctx, input)
-		}, tfs3.ErrCodeNoSuchCORSConfiguration)
-
-		if err != nil {
+		}, tfs3.ErrCodeNoSuchCORSConfiguration)		if err != nil {
 			return fmt.Errorf("error getting S3 Bucket CORS configuration (%s): %w", rs.Primary.ID, err)
-		}
-
-		if output, ok := corsResponse.(*s3.GetBucketCorsOutput); !ok || output == nil || len(output.CORSRules) == 0 {
+		}		if output, ok := corsResponse.(*s3.GetBucketCorsOutput); !ok || output == nil || len(output.CORSRules) == 0 {
 			return fmt.Errorf("S3 Bucket CORS configuration (%s) not found", rs.Primary.ID)
-		}
-
-		return nil
+		}		return nil
 	}
 }func testAccBucketCORSConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_bucket_cors_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
-
- funcd_methods = ["PUT"]
+}resource "aws_s3_bucket_cors_configuration" "test" {
+  bucket = aws_s3_bucket.test.id funcd_methods = ["PUT"]
 lowed_origins = ["https://www.example.com"]
   }
 }
@@ -386,12 +332,8 @@ lowed_origins = ["https://www.example.com"]
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_bucket_cors_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
-
-  cors_rule {
+}resource "aws_s3_bucket_cors_configuration" "test" {
+  bucket = aws_s3_bucket.test.id  cors_rule {
 lfuncd_methods = ["PUT", "POST", "DELETE"]
 lowed_origins = ["https://www.example.com"]
 pose_headers  = ["ETag"]
@@ -404,17 +346,11 @@ x_age_seconds = 3000
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_bucket_cors_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
-
-  cors_rule {
+}resource "aws_s3_bucket_cors_configuration" "test" {
+  bucket = aws_s3_bucket.test.id  cors_rule {
 lowed_headers = ["*"]
 lfuncd_origins = ["https://www.example.com"]
-  }
-
-  cors_rule {
+  }  cors_rule {
 lowed_methods = ["GET"]
 lowed_origins = ["*"]
   }
@@ -424,12 +360,8 @@ lowed_origins = ["*"]
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_bucket_cors_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
-
-  cors_rule {
+}resource "aws_s3_bucket_cors_configuration" "test" {
+  bucket = aws_s3_bucket.test.id  cors_rule {
 lowed_headers = ["*"]
 lowed_methods = ["PUT", "POST"]
 lfunc_headers  = ["x-amz-server-side-encryption", "ETag"]
@@ -441,12 +373,8 @@ x_age_seconds = 3000
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_bucket_cors_configuration" "test" {
-  bucket = aws_s3_bucket.test.id
-
-  cors_rule {
+}resource "aws_s3_bucket_cors_configuration" "test" {
+  bucket = aws_s3_bucket.test.id  cors_rule {
 lowed_methods = ["PUT"]
 lowed_origins = ["https://www.example.com"]
   }

@@ -1,17 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticbeanstalk_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elasticbeanstalk_testimport (
 	"context"
 	"fmt"
 	"log"
 	"reflect"
 	"sort"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/elasticbeanstalk"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -31,9 +25,7 @@ func TestAccElasticBeanstalkEnvironment_basic(t *testing.T) {
 	beanstalkElbNameRegexp := regexache.MustCompile("awseb.+?EBLoa[^,]+")
 	beanstalkInstancesNameRegexp := regexache.MustCompile("i-([0-9A-Fa-f]{8}|[0-9A-Fa-f]{17})")
 	beanstalkLcNameRegexp := regexache.MustCompile("awseb.+?AutoScalingLaunch[^,]+")
-	beanstalkEndpointURL := regexache.MustCompile("awseb.+?EBLoa[^,].+?elb.amazonaws.com")
-
-	resource.ParallelTest(t, resource.TestCase{
+	beanstalkEndpointURL := regexache.MustCompile("awseb.+?EBLoa[^,].+?elb.amazonaws.com")	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -67,9 +59,7 @@ func TestAccElasticBeanstalkEnvironment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_environment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_environment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -91,9 +81,7 @@ func TestAccElasticBeanstalkEnvironment_tier(t *testing.T) {
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_elastic_beanstalk_environment.test"
-	beanstalkQueuesNameRegexp := regexache.MustCompile("https://sqs.+?awseb[^,]+")
-
-	resource.ParallelTest(t, resource.TestCase{
+	beanstalkQueuesNameRegexp := regexache.MustCompile("https://sqs.+?awseb[^,]+")	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -124,9 +112,7 @@ func TestAccElasticBeanstalkEnvironment_cnamePrefix(t *testing.T) {
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_elastic_beanstalk_environment.test"
-	beanstalkCnameRegexp := regexache.MustCompile("^" + rName + ".+?elasticbeanstalk.com$")
-
-	resource.ParallelTest(t, resource.TestCase{
+	beanstalkCnameRegexp := regexache.MustCompile("^" + rName + ".+?elasticbeanstalk.com$")	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -155,9 +141,7 @@ func TestAccElasticBeanstalkEnvironment_beanstalkEnv(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_environment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_environment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -201,9 +185,7 @@ func TestAccElasticBeanstalkEnvironment_resource(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_environment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_environment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -231,9 +213,7 @@ func TestAccElasticBeanstalkEnvironment_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_environment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_environment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -280,9 +260,7 @@ func TestAccElasticBeanstalkEnvironment_changeStack(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_environment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_environment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -313,9 +291,7 @@ func TestAccElasticBeanstalkEnvironment_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_environment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_environment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -356,9 +332,7 @@ func TestAccElasticBeanstalkEnvironment_label(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_environment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_environment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -395,13 +369,9 @@ func TestAccElasticBeanstalkEnvironment_settingWithJSONValue(t *testing.T) {
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_elastic_beanstalk_environment.test"
-	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
-
-	if err != nil {
+	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)	if err != nil {
 		t.Fatalf("generating random SSH key: %s", err)
-	}
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -429,9 +399,7 @@ func TestAccElasticBeanstalkEnvironment_platformARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_environment.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_environment.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -458,27 +426,15 @@ func TestAccElasticBeanstalkEnvironment_platformARN(t *testing.T) {
 }
 func testAccCheckEnvironmentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_elastic_beanstalk_environment" {
 				continue
-			}
-
-			_, err := tfelasticbeanstalk.FindEnvironmentByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfelasticbeanstalk.FindEnvironmentByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Elastic Beanstalk Environment %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Elastic Beanstalk Environment %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
 func testAccCheckEnvironmentExists(ctx context.Context, n string, v *elasticbeanstalk.EnvironmentDescription) resource.TestCheckFunc {
@@ -486,23 +442,11 @@ func testAccCheckEnvironmentExists(ctx context.Context, n string, v *elasticbean
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Elastic Beanstalk Environment ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
-
-		output, err := tfelasticbeanstalk.FindEnvironmentByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)		output, err := tfelasticbeanstalk.FindEnvironmentByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
 }
 func testAccVerifyConfig(ctx context.Context, env *elasticbeanstalk.EnvironmentDescription, expected []string) resource.TestCheckFunc {
@@ -510,25 +454,15 @@ func testAccVerifyConfig(ctx context.Context, env *elasticbeanstalk.EnvironmentD
 		if env == nil {
 			return fmt.Errorf("Nil environment in testAccVerifyConfig")
 		}
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
-
-		resp, err := conn.DescribeConfigurationSettingsWithContext(ctx, &elasticbeanstalk.DescribeConfigurationSettingsInput{
+		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)		resp, err := conn.DescribeConfigurationSettingsWithContext(ctx, &elasticbeanstalk.DescribeConfigurationSettingsInput{
 			ApplicationName: env.ApplicationName,
 			EnvironmentName: env.EnvironmentName,
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return fmt.Errorf("Error describing config settings in testAccVerifyConfig: %s", err)
-		}
-
-		// should only be 1 environment
+		}		// should only be 1 environment
 		if len(resp.ConfigurationSettings) != 1 {
 			return fmt.Errorf("Expected only 1 set of Configuration Settings in testAccVerifyConfig, got (%d)", len(resp.ConfigurationSettings))
-		}
-
-		cs := resp.ConfigurationSettings[0]
-
-		var foundEnvs []string
+		}		cs := resp.ConfigurationSettings[0]		var foundEnvs []string
 		testStrings := []string{"ENV_STATIC", "ENV_UPDATE"}
 		for _, os := range cs.OptionSettings {
 			for _, k := range testStrings {
@@ -536,40 +470,28 @@ func testAccVerifyConfig(ctx context.Context, env *elasticbeanstalk.EnvironmentD
 					foundEnvs = append(foundEnvs, k)
 				}
 			}
-		}
-
-		// if expected is zero, then we should not have found any of the predefined
+		}		// if expected is zero, then we should not have found any of the predefined
 		// env vars
 		if len(expected) == 0 {
 			if len(foundEnvs) > 0 {
 				return fmt.Errorf("Found configs we should not have: %#v", foundEnvs)
 			}
 			return nil
-		}
-
-		sort.Strings(testStrings)
+		}		sort.Strings(testStrings)
 		sort.Strings(expected)
 		if !reflect.DeepEqual(testStrings, expected) {
 			return fmt.Errorf("error matching strings, expected:\n\n%#v\n\ngot:\n\n%#v", testStrings, foundEnvs)
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccCheckEnvironmentConfigValue(ctx context.Context, n string, expectedValue string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
-
-		rs, ok := s.RootModule().Resources[n]
+		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("Elastic Beanstalk ENV is not set")
-		}
-
-		resp, err := conn.DescribeConfigurationOptionsWithContext(ctx, &elasticbeanstalk.DescribeConfigurationOptionsInput{
+		}		resp, err := conn.DescribeConfigurationOptionsWithContext(ctx, &elasticbeanstalk.DescribeConfigurationOptionsInput{
 			ApplicationName: aws.String(rs.Primary.Attributes["application"]),
 			EnvironmentName: aws.String(rs.Primary.Attributes["name"]),
 			Options: []*elasticbeanstalk.OptionSpecification{
@@ -581,21 +503,13 @@ func testAccCheckEnvironmentConfigValue(ctx context.Context, n string, expectedV
 		})
 		if err != nil {
 			return err
-		}
-
-		if len(resp.Options) != 1 {
+		}		if len(resp.Options) != 1 {
 			return fmt.Errorf("Found %d options, expected 1.", len(resp.Options))
-		}
-
-		log.Printf("[DEBUG] %d Elastic Beanstalk Option values returned.", len(resp.Options[0].ValueOptions))
-
-		for _, value := range resp.Options[0].ValueOptions {
+		}		log.Printf("[DEBUG] %d Elastic Beanstalk Option values returned.", len(resp.Options[0].ValueOptions))		for _, value := range resp.Options[0].ValueOptions {
 			if *value != expectedValue {
 				return fmt.Errorf("Option setting value: %s. Expected %s", *value, expectedValue)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccEnvironmentConfig_base(rName string) string {
@@ -603,41 +517,23 @@ func testAccEnvironmentConfig_base(rName string) string {
 data "aws_elastic_beanstalk_solution_stack" "test" {
   most_recent = true
   name_regex  = "64bit Amazon Linux .* running Python .*"
-}
-
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+}data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_internet_gateway" "test" {
+  vpc_id = aws_vpc.test.id  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_route" "test" {
+}resource "aws_route" "test" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_idt_gateway.test.id
   route_table_id= aws_vpc.test.main_route_table_id
-}
-
-resource "aws_security_group" "test" {
+}resource "aws_security_group" "test" {
   name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+  vpc_id = aws_vpc.test.id  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_elastic_beanstalk_application" "test" {
+}resource "aws_elastic_beanstalk_application" "test" {
   description = "tf-test-desc"
   name        = %[1]q
-}
-
-# Create custom service role per test to remove dependency on
+}# Create custom service role per test to remove dependency on
 # Service-Linked Role existing.
 resource "aws_iam_role" "service_role" {
   name = "%[1]s-service"
@@ -656,19 +552,13 @@ resource "aws_iam_role" "service_role" {
     }]
     Version = "2012-10-17"
   })
-}
-
-resource "aws_iam_role_policy_attachment" "service_role-AWSElasticBeanstalkEnhancedHealth" {
+}resource "aws_iam_role_policy_attachment" "service_role-AWSElasticBeanstalkEnhancedHealth" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
   role       = aws_iam_role.service_role.id
-}
-
-resource "aws_iam_role_policy_attachment" "service_role-AWSElasticBeanstalkService" {
+}resource "aws_iam_role_policy_attachment" "service_role-AWSElasticBeanstalkService" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSElasticBeanstalkService"
   role       = aws_iam_role.service_role.id
-}
-
-# Amazon Linux 2 environments require IAM Instance Profile.
+}# Amazon Linux 2 environments require IAM Instance Profile.
 resource "aws_iam_role" "instance_profile" {
   name = "%[1]s-instance"
   assume_role_policy = jsonencode({
@@ -681,19 +571,13 @@ resource "aws_iam_role" "instance_profile" {
     }]
     Version = "2012-10-17"
   })
-}
-
-resource "aws_iam_role_policy_attachment" "instance_profile-AWSElasticBeanstalkWebTier" {
+}resource "aws_iam_role_policy_attachment" "instance_profile-AWSElasticBeanstalkWebTier" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AWSElasticBeanstalkWebTier"
   role       = aws_iam_role.instance_profile.id
-}
-
-resource "aws_iam_role_policy_attachment" "instance_profile-AWSElasticBeanstalkWorkerTier" {
+}resource "aws_iam_role_policy_attachment" "instance_profile-AWSElasticBeanstalkWorkerTier" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
   role       = aws_iam_role.instance_profile.id
-}
-
-# Since the IAM Instance Profile is required anyways, also use it to
+}# Since the IAM Instance Profile is required anyways, also use it to
 # ensure IAM Role permissions for both roles are attached.
 resource "aws_iam_instance_profile" "test" {
   depends_on = [
@@ -701,9 +585,7 @@ resource "aws_iam_instance_profile" "test" {
     aws_iam_role_policy_attachment.instance_profile-AWSElasticBeanstalkWorkerTier,
     aws_iam_role_policy_attachment.service_role-AWSElasticBeanstalkEnhancedHealth,
     aws_iam_role_policy_attachment.service_role-AWSElasticBeanstalkService,
-  ]
-
-  name = %[1]q
+  ]  name = %[1]q
   role = aws_iam_role.instance_profile.name
 }
 `, rName))
@@ -713,39 +595,27 @@ func testAccEnvironmentConfig_basic(rName string) string {
 resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
-  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-
-  setting {
+  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
@@ -758,39 +628,27 @@ func testAccEnvironmentConfig_platformARN(rName string) string {
 resource "aws_elastic_beanstalk_environment" "test" {
   application  = aws_elastic_beanstalk_application.test.name
   name= %[1]q
-  platform_arn = "arn:${data.aws_partition.current.partition}:elasticbeanstalk:${data.aws_region.current.name}::platform/Python 3.6 running on 64bit Amazon Linux/2.9.6"
-
-  setting {
+  platform_arn = "arn:${data.aws_partition.current.partition}:elasticbeanstalk:${data.aws_region.current.name}::platform/Python 3.6 running on 64bit Amazon Linux/2.9.6"  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
@@ -803,77 +661,53 @@ func testAccEnvironmentConfig_settings(rName string) string {
 resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
-  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-
-  setting {
+  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "ENV_STATIC"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "ENV_UPDATE"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "ENV_REMOVE"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:scheduledaction"
     resource  = "ScheduledAction01"
     name      = "MinSize"
     value     = 2
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:scheduledaction"
     resource  = "ScheduledAction01"
     name      = "MaxSize"
     value     = 3
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:scheduledaction"
     resource  = "ScheduledAction01"
     name      = "StartTime"
@@ -888,39 +722,27 @@ resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-  tier = "Worker"
-
-  setting {
+  tier = "Worker"  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
@@ -934,39 +756,27 @@ resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   cname_prefix        = %[1]q
   name = %[1]q
-  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-
-  setting {
+  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
@@ -980,50 +790,34 @@ resource "aws_elastic_beanstalk_environment" "test" {
   application   = aws_elastic_beanstalk_application.test.name
   name = %[1]q
   template_name = aws_elastic_beanstalk_configuration_template.test.name
-}
-
-resource "aws_elastic_beanstalk_configuration_template" "test" {
+}resource "aws_elastic_beanstalk_configuration_template" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
-  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-
-  setting {
+  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "TEMPLATE"
     value     = %[2]d
@@ -1036,59 +830,41 @@ func testAccEnvironmentConfig_resourceOptionSetting(rName string) string {
 resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
-  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-
-  setting {
+  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:scheduledaction"
     resource  = "ScheduledAction01"
     name      = "MinSize"
     value     = "2"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:scheduledaction"
     resource  = "ScheduledAction01"
     name      = "MaxSize"
     value     = "6"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:scheduledaction"
     resource  = "ScheduledAction01"
     name      = "Recurrence"
@@ -1102,45 +878,31 @@ func testAccEnvironmentConfig_tags1(rName, tagKey1, tagValue1 string) string {
 resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
-  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-
-  setting {
+  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
   }
 }
@@ -1151,45 +913,31 @@ func testAccEnvironmentConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue
 resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
-  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-
-  setting {
+  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
@@ -1201,46 +949,32 @@ func testAccEnvironmentConfig_templateChangeStack(rName string) string {
 resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
-  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-
-  setting {
+  solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
   }
-}
-
-resource "aws_elastic_beanstalk_configuration_template" "test" {
+}resource "aws_elastic_beanstalk_configuration_template" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
@@ -1252,46 +986,32 @@ func testAccEnvironmentConfig_templateChangeTemp(rName string) string {
 resource "aws_elastic_beanstalk_environment" "test" {
   application   = aws_elastic_beanstalk_application.test.name
   name = %[1]q
-  template_name = aws_elastic_beanstalk_configuration_template.test.name
-
-  setting {
+  template_name = aws_elastic_beanstalk_configuration_template.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
   }
-}
-
-resource "aws_elastic_beanstalk_configuration_template" "test" {
+}resource "aws_elastic_beanstalk_configuration_template" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
@@ -1302,58 +1022,40 @@ func testAccEnvironmentConfig_applicationVersion(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_object" "test" {
+}resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket.test.id
   key    = "python-v1.zip"
   source = "test-fixtures/python-v1.zip"
-}
-
-resource "aws_elastic_beanstalk_application_version" "test" {
+}resource "aws_elastic_beanstalk_application_version" "test" {
   application = aws_elastic_beanstalk_application.test.name
   bucket      = aws_s3_bucket.test.id
   key= aws_s3_object.test.id
   name        = "%[1]s-1"
-}
-
-resource "aws_elastic_beanstalk_environment" "test" {
+}resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-  version_label       = aws_elastic_beanstalk_application_version.test.name
-
-  setting {
+  version_label       = aws_elastic_beanstalk_application_version.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
@@ -1365,58 +1067,40 @@ func testAccEnvironmentConfig_applicationVersionUpdate(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_object" "test" {
+}resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket.test.id
   key    = "python-v1.zip"
   source = "test-fixtures/python-v1.zip"
-}
-
-resource "aws_elastic_beanstalk_application_version" "test" {
+}resource "aws_elastic_beanstalk_application_version" "test" {
   application = aws_elastic_beanstalk_application.test.name
   bucket      = aws_s3_bucket.test.id
   key= aws_s3_object.test.id
   name        = "%[1]s-2"
-}
-
-resource "aws_elastic_beanstalk_environment" "test" {
+}resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-  version_label       = aws_elastic_beanstalk_application_version.test.name
-
-  setting {
+  version_label       = aws_elastic_beanstalk_application_version.test.name  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
@@ -1428,168 +1112,112 @@ func testAccEnvironmentConfig_settingJSONValue(rName, publicKey, email string) s
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name = %[1]q
-}
-
-resource "aws_key_pair" "test" {
+}resource "aws_key_pair" "test" {
   key_name   = %[1]q
   public_key = %[2]q
-}
-
-resource "aws_elastic_beanstalk_environment" "test" {
+}resource "aws_elastic_beanstalk_environment" "test" {
   application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
-  tier = "Worker"
-
-  setting {
+  tier = "Worker"  setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
     value     = aws_vpc.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
     value     = aws_subnet.test[0].id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
     value     = "true"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
     value     = aws_security_group.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:command"
     name      = "BatchSize"
     value     = "30"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:command"
     name      = "BatchSizeType"
     value     = "Percentage"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:command"
     name      = "DeploymentPolicy"
     value     = "Rolling"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:sns:topics"
     name      = "Notification Endpoint"
     value     = %[3]q
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:sqsd"
     name      = "ErrorVisibilityTimeout"
     value     = "2"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:sqsd"
     name      = "HttpPath"
     value     = "/event-message"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:sqsd"
     name      = "WorkerQueueURL"
     value     = aws_sqs_queue.test.id
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:sqsd"
     name      = "VisibilityTimeout"
     value     = "300"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:sqsd"
     name      = "HttpConnections"
     value     = "10"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:sqsd"
     name      = "InactivityTimeout"
     value     = "299"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:sqsd"
     name      = "MimeType"
     value     = "application/json"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "EnvironmentType"
     value     = "LoadBalanced"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:application"
     name      = "Application Healthcheck URL"
     value     = "/health"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:healthreporting:system"
     name      = "SystemType"
     value     = "enhanced"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:healthreporting:system"
     name      = "HealthCheckSuccessThreshold"
     value     = "Ok"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
     value     = aws_iam_instance_profile.test.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
     value     = aws_iam_role.service_role.name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "InstanceType"
     value     = "t2.micro"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
     value     = aws_key_pair.test.key_name
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "RollingUpdateEnabled"
     value     = "false"
-  }
-
-  setting {
+  }  setting {
     namespace = "aws:elasticbeanstalk:healthreporting:system"
-    name      = "ConfigDocument"
-
-    value = <<EOF
+    name      = "ConfigDocument"    value = <<EOF
 {
 	"Version": 1,
 	"CloudWatchMetrics": {

@@ -11,10 +11,7 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func TestAccQuickSightThemeDataSource_basic(t *testing.T) {
+)func TestAccQuickSightThemeDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -23,8 +20,7 @@ func TestAccQuickSightThemeDataSource_basic(t *testing.T) {
 	themeId := "MIDNIGHT"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -45,10 +41,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightThemeDataSource_fullConfig(t *testing.T) {
+}func TestAccQuickSightThemeDataSource_fullConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -57,8 +50,7 @@ func TestAccQuickSightThemeDataSource_fullConfig(t *testing.T) {
 	themeId := "MIDNIGHT"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -83,10 +75,7 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccThemeDataSourceConfig_basic(rId, rName, baseThemId string) string {
+}func testAccThemeDataSourceConfig_basic(rId, rName, baseThemId string) string {
 	return acctest.ConfigCompose(
 fmt.Sprintf(`
 resource "aws_quicksight_theme" "test" {
@@ -122,10 +111,7 @@ data "aws_quicksight_theme" "test" {
   theme_id = aws_quicksight_theme.test.theme_id
 }
 `, rId, rName, baseThemId))
-}
-
-
-func testAccThemeDataSourceConfig_fullConfig(rId, rName, baseThemId string) string {
+}func testAccThemeDataSourceConfig_fullConfig(rId, rName, baseThemId string) string {
 	return acctest.ConfigCompose(
 fmt.Sprintf(`
 resource "aws_quicksight_theme" "test" {

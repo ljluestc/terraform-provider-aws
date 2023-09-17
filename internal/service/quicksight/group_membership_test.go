@@ -17,18 +17,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfquicksight "github.com/hashicorp/terraform-provider-aws/internal/service/quicksight"
-)
-
-
-func TestAccQuickSightGroupMembership_basic(t *testing.T) {
+)func TestAccQuickSightGroupMembership_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	groupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	memberName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_quicksight_group_membership.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 CheckDestroy:    testAccCheckGroupMembershipDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -47,10 +43,7 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightGroupMembership_withNamespace(t *testing.T) {
+}func TestAccQuickSightGroupMembership_withNamespace(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_quicksight_group_membership.test"
@@ -59,8 +52,7 @@ func TestAccQuickSightGroupMembership_withNamespace(t *testing.T) {
 	namespaceResourceName := "aws_quicksight_namespace.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 CheckDestroy:    testAccCheckGroupMembershipDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -91,8 +83,7 @@ func TestAccQuickSightGroupMembership_disappears(t *testing.T) {
 	resourceName := "aws_quicksight_group_membership.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckGroupMembershipDestroy(ctx),
@@ -108,13 +99,9 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func testAccCheckGroupMembershipDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckGroupMembershipDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -146,13 +133,9 @@ return fmt.Errorf("QuickSight Group (%s) still exists", rs.Primary.ID)
 
 return nil
 	}
-}
-
-
-func testAccCheckGroupMembershipExists(ctx context.Context, resourceName string) resource.TestCheck
+}func testAccCheckGroupMembershipExists(ctx context.Context, resourceName string) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("Not found: %s", resourceName)
@@ -182,10 +165,7 @@ if !found {
 
 return nil
 	}
-}
-
-
-func testAccGroupMembershipConfig_basic(groupName string, memberName string) string {
+}func testAccGroupMembershipConfig_basic(groupName string, memberName string) string {
 	return acctest.ConfigCompose(
 testAccGroupConfig_basic(groupName),
 testAccUserConfig_basic(memberName),
@@ -195,10 +175,7 @@ resource "aws_quicksight_group_membership" "test" {
   member_name = aws_quicksight_user.%s.user_name
 }
 `, memberName))
-}
-
-
-func testAccGroupMembershipConfig_withNamespace(rName string) string {
+}func testAccGroupMembershipConfig_withNamespace(rName string) string {
 	return acctest.ConfigCompose(
 testAccNamespaceConfig_basic(rName),
 fmt.Sprintf(`

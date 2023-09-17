@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iot_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iot_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/iot"
+	"testing"	"github.com/aws/aws-sdk-go/service/iot"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,24 +10,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiot "github.com/hashicorp/terraform-provider-aws/internal/service/iot"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func init() {
+)func init() {
 	acctest.RegisterServiceErrorCheckFunc(iot.EndpointsID, testAccErrorCheckSkip)
-}
-
-func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
+}func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
 	return acctest.ErrorCheckSkipMessagesContaining(t,
 		"not been supported in region",
 	)
-}
-
-func TestAccIoTTopicRule_basic(t *testing.T) {
+}func TestAccIoTTopicRule_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -79,14 +65,10 @@ func TestAccIoTTopicRule_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_disappears(t *testing.T) {
+}func TestAccIoTTopicRule_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -102,14 +84,10 @@ func TestAccIoTTopicRule_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_tags(t *testing.T) {
+}func TestAccIoTTopicRule_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -147,14 +125,10 @@ func TestAccIoTTopicRule_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_cloudWatchAlarm(t *testing.T) {
+}func TestAccIoTTopicRule_cloudWatchAlarm(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -199,14 +173,10 @@ func TestAccIoTTopicRule_cloudWatchAlarm(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_cloudWatchLogs(t *testing.T) {
+}func TestAccIoTTopicRule_cloudWatchLogs(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -252,14 +222,10 @@ func TestAccIoTTopicRule_cloudWatchLogs(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_cloudWatchMetric(t *testing.T) {
+}func TestAccIoTTopicRule_cloudWatchMetric(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -304,14 +270,10 @@ func TestAccIoTTopicRule_cloudWatchMetric(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_dynamoDB(t *testing.T) {
+}func TestAccIoTTopicRule_dynamoDB(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -394,14 +356,10 @@ func TestAccIoTTopicRule_dynamoDB(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_dynamoDBv2(t *testing.T) {
+}func TestAccIoTTopicRule_dynamoDBv2(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -439,14 +397,10 @@ func TestAccIoTTopicRule_dynamoDBv2(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_elasticSearch(t *testing.T) {
+}func TestAccIoTTopicRule_elasticSearch(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -490,14 +444,10 @@ func TestAccIoTTopicRule_elasticSearch(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_firehose(t *testing.T) {
+}func TestAccIoTTopicRule_firehose(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -545,14 +495,10 @@ func TestAccIoTTopicRule_firehose(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_Firehose_separator(t *testing.T) {
+}func TestAccIoTTopicRule_Firehose_separator(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -625,14 +571,10 @@ func TestAccIoTTopicRule_Firehose_separator(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_Firehose_batch_mode(t *testing.T) {
+}func TestAccIoTTopicRule_Firehose_batch_mode(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -705,14 +647,10 @@ func TestAccIoTTopicRule_Firehose_batch_mode(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_http(t *testing.T) {
+}func TestAccIoTTopicRule_http(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -873,14 +811,10 @@ func TestAccIoTTopicRule_http(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_IoT_analytics(t *testing.T) {
+}func TestAccIoTTopicRule_IoT_analytics(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -917,14 +851,10 @@ func TestAccIoTTopicRule_IoT_analytics(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_IoT_analytics_batch_mode(t *testing.T) {
+}func TestAccIoTTopicRule_IoT_analytics_batch_mode(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -992,14 +922,10 @@ func TestAccIoTTopicRule_IoT_analytics_batch_mode(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_IoT_events(t *testing.T) {
+}func TestAccIoTTopicRule_IoT_events(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1037,14 +963,10 @@ func TestAccIoTTopicRule_IoT_events(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_IoT_events_batch_mode(t *testing.T) {
+}func TestAccIoTTopicRule_IoT_events_batch_mode(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1114,18 +1036,12 @@ func TestAccIoTTopicRule_IoT_events_batch_mode(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_kafka(t *testing.T) {
+}func TestAccIoTTopicRule_kafka(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	rName := testAccTopicRuleName()
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1179,14 +1095,10 @@ func TestAccIoTTopicRule_kafka(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_kinesis(t *testing.T) {
+}func TestAccIoTTopicRule_kinesis(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1228,14 +1140,10 @@ func TestAccIoTTopicRule_kinesis(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_lambda(t *testing.T) {
+}func TestAccIoTTopicRule_lambda(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1274,14 +1182,10 @@ func TestAccIoTTopicRule_lambda(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_republish(t *testing.T) {
+}func TestAccIoTTopicRule_republish(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1324,14 +1228,10 @@ func TestAccIoTTopicRule_republish(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_republishWithQos(t *testing.T) {
+}func TestAccIoTTopicRule_republishWithQos(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1374,14 +1274,10 @@ func TestAccIoTTopicRule_republishWithQos(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_s3(t *testing.T) {
+}func TestAccIoTTopicRule_s3(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1425,14 +1321,10 @@ func TestAccIoTTopicRule_s3(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_sns(t *testing.T) {
+}func TestAccIoTTopicRule_sns(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1471,14 +1363,10 @@ func TestAccIoTTopicRule_sns(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_sqs(t *testing.T) {
+}func TestAccIoTTopicRule_sqs(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1521,14 +1409,10 @@ func TestAccIoTTopicRule_sqs(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_Step_functions(t *testing.T) {
+}func TestAccIoTTopicRule_Step_functions(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1571,14 +1455,10 @@ func TestAccIoTTopicRule_Step_functions(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_Timestream(t *testing.T) {
+}func TestAccIoTTopicRule_Timestream(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1629,14 +1509,10 @@ func TestAccIoTTopicRule_Timestream(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTTopicRule_errorAction(t *testing.T) {
+}func TestAccIoTTopicRule_errorAction(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1698,15 +1574,11 @@ func TestAccIoTTopicRule_errorAction(t *testing.T) {
 			},
 		},
 	})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/16115
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/16115
 func TestAccIoTTopicRule_updateKinesisErrorAction(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := testAccTopicRuleName()
-	resourceName := "aws_iot_topic_rule.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iot_topic_rule.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1797,65 +1669,33 @@ func TestAccIoTTopicRule_updateKinesisErrorAction(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckTopicRuleDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckTopicRuleDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iot_topic_rule" {
 				continue
-			}
-
-			_, err := tfiot.FindTopicRuleByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfiot.FindTopicRuleByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("IoT Topic Rule %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("IoT Topic Rule %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckTopicRuleExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckTopicRuleExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No IoT Topic Rule ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)
-
-		_, err := tfiot.FindTopicRuleByName(ctx, conn, rs.Primary.ID)
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).IoTConn(ctx)		_, err := tfiot.FindTopicRuleByName(ctx, conn, rs.Primary.ID)		return err
 	}
-}
-
-func testAccTopicRuleName() string {
+}func testAccTopicRuleName() string {
 	return fmt.Sprintf("tf_acc_test_%[1]s", sdkacctest.RandString(20))
-}
-
-func testAccTopicRuleConfig_destinationRole(rName string) string {
+}func testAccTopicRuleConfig_destinationRole(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+data "aws_partition" "current" {}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
@@ -1867,14 +1707,10 @@ resource "aws_iam_role" "test" {
   }]
 }
 EOF
-}
-
-resource "aws_iam_policy" "test" {
+}resource "aws_iam_policy" "test" {
   name= %[1]q
   path= "/"
-  description = "IoT Topic Rule test policy"
-
-  policy = <<EOF
+  description = "IoT Topic Rule test policy"  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
@@ -1884,17 +1720,13 @@ resource "aws_iam_policy" "test" {
   }]
 }
 EOF
-}
-
-resource "aws_iam_policy_attachment" "test" {
+}resource "aws_iam_policy_attachment" "test" {
   name   = %[1]q
   roles  = [aws_iam_role.test.name]
   policy_arn = aws_iam_policy.test.arn
 }
 `, rName)
-}
-
-func testAccTopicRuleConfig_basic(rName string) string {
+}func testAccTopicRuleConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
   name= %[1]q
@@ -1903,40 +1735,30 @@ resource "aws_iot_topic_rule" "test" {
   sql_version = "2015-10-08"
 }
 `, rName)
-}
-
-func testAccTopicRuleConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccTopicRuleConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  tags = {
+  sql_version = "2015-10-08"  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccTopicRuleConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccTopicRuleConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  tags = {
+  sql_version = "2015-10-08"  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccTopicRuleConfig_cloudWatchAlarm(rName string) string {
+}func testAccTopicRuleConfig_cloudWatchAlarm(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -1945,9 +1767,7 @@ resource "aws_iot_topic_rule" "test" {
   description = "Example rule"
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  cloudwatch_alarm {
+  sql_version = "2015-10-08"  cloudwatch_alarm {
 alarm_name   = "myalarm"
 role_arn = aws_iam_role.test.arn
 state_reason = "test"
@@ -1955,9 +1775,7 @@ state_value  = "OK"
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_cloudWatchLogs(rName string) string {
+}func testAccTopicRuleConfig_cloudWatchLogs(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -1965,22 +1783,16 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = false
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  cloudwatch_logs {
+  sql_version = "2015-10-08"  cloudwatch_logs {
 log_group_name = "mylogs1"
 role_arn   = aws_iam_role.test.arn
-  }
-
-  cloudwatch_logs {
+  }  cloudwatch_logs {
 log_group_name = "mylogs2"
 role_arn   = aws_iam_role.test.arn
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_cloudWatchMetric(rName string) string {
+}func testAccTopicRuleConfig_cloudWatchMetric(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -1988,9 +1800,7 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  cloudwatch_metric {
+  sql_version = "2015-10-08"  cloudwatch_metric {
 metric_name  = "TestName"
 metric_namespace = "TestNS"
 metric_value = "10"
@@ -1999,9 +1809,7 @@ role_arn= aws_iam_role.test.arn
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_dynamoDB(rName string) string {
+}func testAccTopicRuleConfig_dynamoDB(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2010,9 +1818,7 @@ resource "aws_iot_topic_rule" "test" {
   description = "Description1"
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  dynamodb {
+  sql_version = "2015-10-08"  dynamodb {
 hash_key_field = "hkf"
 hash_key_value = "hkv"
 payload_field  = "pf"
@@ -2021,9 +1827,7 @@ table_name = "tn"
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_dynamoDBRangeKey(rName string) string {
+}func testAccTopicRuleConfig_dynamoDBRangeKey(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2032,9 +1836,7 @@ resource "aws_iot_topic_rule" "test" {
   description = "Description2"
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  dynamodb {
+  sql_version = "2015-10-08"  dynamodb {
 hash_key_field  = "hkf"
 hash_key_value  = "hkv"
 payload_field   = "pf"
@@ -2047,9 +1849,7 @@ operation   = "INSERT"
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_dynamoDBv2(rName string) string {
+}func testAccTopicRuleConfig_dynamoDBv2(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2057,32 +1857,22 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT field as column_name FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  dynamodbv2 {
+  sql_version = "2015-10-08"  dynamodbv2 {
 put_item {
   table_name = "test"
-}
-
-role_arn = aws_iam_role.test.arn
+}role_arn = aws_iam_role.test.arn
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_elasticSearch(rName string) string {
+}func testAccTopicRuleConfig_elasticSearch(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_iot_topic_rule" "test" {
+data "aws_region" "current" {}resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  elasticsearch {
+  sql_version = "2015-10-08"  elasticsearch {
 endpoint = "https://domain.${data.aws_region.current.name}.es.${data.aws_partition.current.dns_suffix}"
 id   = "myIdentifier"
 index= "myindex"
@@ -2091,9 +1881,7 @@ role_arn = aws_iam_role.test.arn
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_firehose(rName string) string {
+}func testAccTopicRuleConfig_firehose(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2101,27 +1889,19 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  firehose {
+  sql_version = "2015-10-08"  firehose {
 delivery_stream_name = "mystream1"
 role_arn= aws_iam_role.test.arn
-  }
-
-  firehose {
+  }  firehose {
 delivery_stream_name = "mystream2"
 role_arn= aws_iam_role.test.arn
-  }
-
-  firehose {
+  }  firehose {
 delivery_stream_name = "mystream3"
 role_arn= aws_iam_role.test.arn
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_firehoseSeparator(rName, separator string) string {
+}func testAccTopicRuleConfig_firehoseSeparator(rName, separator string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2130,18 +1910,14 @@ resource "aws_iot_topic_rule" "test" {
   description = "Example rule"
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  firehose {
+  sql_version = "2015-10-08"  firehose {
 delivery_stream_name = "mystream"
 role_arn= aws_iam_role.test.arn
 separator   = %[2]q
   }
 }
 `, rName, separator))
-}
-
-func testAccTopicRuleConfig_firehoseBatchMode(rName string, batchMode bool) string {
+}func testAccTopicRuleConfig_firehoseBatchMode(rName string, batchMode bool) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2150,95 +1926,69 @@ resource "aws_iot_topic_rule" "test" {
   description = "Example rule"
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  firehose {
+  sql_version = "2015-10-08"  firehose {
 delivery_stream_name = "mystream"
 role_arn= aws_iam_role.test.arn
 batch_mode  = %[2]t
   }
 }
 `, rName, batchMode))
-}
-
-func testAccTopicRuleConfig_http(rName string) string {
+}func testAccTopicRuleConfig_http(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  http {
+  sql_version = "2015-10-08"  http {
 url = "https://example.com/ingress"
   }
 }
 `, rName)
-}
-
-func testAccTopicRuleConfig_httpConfirmationURL(rName string) string {
+}func testAccTopicRuleConfig_httpConfirmationURL(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  http {
+  sql_version = "2015-10-08"  http {
 url = "https://example.com/ingress"
 confirmation_url = "https://example.com/"
   }
 }
 `, rName)
-}
-
-func testAccTopicRuleConfig_httpHeaders(rName string) string {
+}func testAccTopicRuleConfig_httpHeaders(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  http {
-url = "https://example.com/ingress"
-
-http_header {
+  sql_version = "2015-10-08"  http {
+url = "https://example.com/ingress"http_header {
   key   = "X-Header-1"
   value = "v1"
-}
-
-http_header {
+}http_header {
   key   = "X-Header-2"
   value = "v2"
 }
   }
 }
 `, rName)
-}
-
-func testAccTopicRuleConfig_httpErrorAction(rName string) string {
+}func testAccTopicRuleConfig_httpErrorAction(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  http {
+  sql_version = "2015-10-08"  http {
 url = "https://example.com/ingress"
-  }
-
-  error_action {
+  }  error_action {
 http {
   url = "https://example.com/error-ingress"
 }
   }
 }
 `, rName)
-}
-
-func testAccTopicRuleConfig_analytics(rName string) string {
+}func testAccTopicRuleConfig_analytics(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2246,17 +1996,13 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  iot_analytics {
+  sql_version = "2015-10-08"  iot_analytics {
 channel_name = "fakedata"
 role_arn = aws_iam_role.test.arn
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_analyticsBatchMode(rName string, batchMode bool) string {
+}func testAccTopicRuleConfig_analyticsBatchMode(rName string, batchMode bool) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2264,18 +2010,14 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  iot_analytics {
+  sql_version = "2015-10-08"  iot_analytics {
 channel_name = "fakedata"
 role_arn = aws_iam_role.test.arn
 batch_mode   = %[2]t
   }
 }
 `, rName, batchMode))
-}
-
-func testAccTopicRuleConfig_events(rName string) string {
+}func testAccTopicRuleConfig_events(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2283,18 +2025,14 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  iot_events {
+  sql_version = "2015-10-08"  iot_events {
 input_name = "fake_input_name"
 role_arn   = aws_iam_role.test.arn
 message_id = "fake_message_id"
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_eventsBatchMode(rName string, batchMode bool) string {
+}func testAccTopicRuleConfig_eventsBatchMode(rName string, batchMode bool) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2302,9 +2040,7 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  iot_events {
+  sql_version = "2015-10-08"  iot_events {
 input_name = "fake_input_name"
 role_arn   = aws_iam_role.test.arn
 message_id = "fake_message_id"
@@ -2312,25 +2048,17 @@ batch_mode = %[2]t
   }
 }
 `, rName, batchMode))
-}
-
-func testAccTopicRuleConfig_kafka(rName string) string {
+}func testAccTopicRuleConfig_kafka(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleDestinationConfig_basic(rName),
 		fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_iot_topic_rule" "test" {
+data "aws_region" "current" {}resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  kafka {
+  sql_version = "2015-10-08"  kafka {
 destination_arn = aws_iot_topic_rule_destination.test.arn
-topic  = "fake_topic"
-
-client_properties = {
+topic  = "fake_topic"client_properties = {
   "acks" = "1"
   "bootstrap.servers" = "b-1.localhost:9094"
   "compression.type"  = "none"
@@ -2343,9 +2071,7 @@ client_properties = {
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_kinesis(rName string) string {
+}func testAccTopicRuleConfig_kinesis(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2353,36 +2079,24 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  kinesis {
+  sql_version = "2015-10-08"  kinesis {
 stream_name = "mystream"
 role_arn= aws_iam_role.test.arn
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_lambda(rName string) string {
+}func testAccTopicRuleConfig_lambda(rName string) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_iot_topic_rule" "test" {
+data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  lambda {
+  sql_version = "2015-10-08"  lambda {
 function_arn = "arn:${data.aws_partition.current.partition}:lambda:${data.aws_region.current.name}:123456789012:function:ProcessKinesisRecords"
   }
 }
 `, rName)
-}
-
-func testAccTopicRuleConfig_republish(rName string) string {
+}func testAccTopicRuleConfig_republish(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2390,17 +2104,13 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  republish {
+  sql_version = "2015-10-08"  republish {
 role_arn = aws_iam_role.test.arn
 topic= "mytopic"
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_republishQoS(rName string) string {
+}func testAccTopicRuleConfig_republishQoS(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2408,18 +2118,14 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  republish {
+  sql_version = "2015-10-08"  republish {
 role_arn = aws_iam_role.test.arn
 topic= "mytopic"
 qos  = 1
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_s3(rName string) string {
+}func testAccTopicRuleConfig_s3(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2427,9 +2133,7 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  s3 {
+  sql_version = "2015-10-08"  s3 {
 bucket_name = "mybucket"
 canned_acl  = "private"
 key= "mykey"
@@ -2437,29 +2141,21 @@ role_arn= aws_iam_role.test.arn
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_sns(rName string) string {
+}func testAccTopicRuleConfig_sns(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_iot_topic_rule" "test" {
+data "aws_region" "current" {}resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  sns {
+  sql_version = "2015-10-08"  sns {
 role_arn   = aws_iam_role.test.arn
 target_arn = "arn:${data.aws_partition.current.partition}:sns:${data.aws_region.current.name}:123456789012:my_corporate_topic"
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_sqs(rName string) string {
+}func testAccTopicRuleConfig_sqs(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2467,18 +2163,14 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  sqs {
+  sql_version = "2015-10-08"  sqs {
 queue_url  = "fakedata"
 role_arn   = aws_iam_role.test.arn
 use_base64 = false
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_stepFunctions(rName string) string {
+}func testAccTopicRuleConfig_stepFunctions(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2486,18 +2178,14 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  step_functions {
+  sql_version = "2015-10-08"  step_functions {
 execution_name_prefix = "myprefix"
 state_machine_name= "mystatemachine"
 role_arn = aws_iam_role.test.arn
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_timestream(rName string) string {
+}func testAccTopicRuleConfig_timestream(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2505,28 +2193,20 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  timestream {
+  sql_version = "2015-10-08"  timestream {
 database_name = "TestDB"
 role_arn  = aws_iam_role.test.arn
-table_name= "test_table"
-
-dimension {
+table_name= "test_table"dimension {
   name  = "dim"
   value = "$${dim}"
-}
-
-timestamp {
+}timestamp {
   unit  = "MILLISECONDS"
   value = "$${time}"
 }
   }
 }
 `, rName))
-}
-
-func testAccTopicRuleConfig_errorAction(rName string) string {
+}func testAccTopicRuleConfig_errorAction(rName string) string {
 	return acctest.ConfigCompose(
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
@@ -2534,14 +2214,10 @@ resource "aws_iot_topic_rule" "test" {
   name= %[1]q
   enabled = true
   sql= "SELECT * FROM 'topic/test'"
-  sql_version = "2015-10-08"
-
-  kinesis {
+  sql_version = "2015-10-08"  kinesis {
 stream_name = "mystream1"
 role_arn= aws_iam_role.test.arn
-  }
-
-  error_action {
+  }  error_action {
 kinesis {
   stream_name = "mystream2"
   role_arn= aws_iam_role.test.arn

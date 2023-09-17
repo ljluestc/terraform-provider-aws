@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package macie2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package macie2_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/macie2"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,15 +11,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfmacie2 "github.com/hashicorp/terraform-provider-aws/internal/service/macie2"
-)
-
-func testAccClassificationJob_basic(t *testing.T) {
+)func testAccClassificationJob_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.DescribeClassificationJobOutput
 	resourceName := "aws_macie2_classification_job.test"
-	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
@@ -48,15 +38,11 @@ func testAccClassificationJob_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccClassificationJob_Name_Generated(t *testing.T) {
+}func testAccClassificationJob_Name_Generated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.DescribeClassificationJobOutput
 	resourceName := "aws_macie2_classification_job.test"
-	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
@@ -77,16 +63,12 @@ func testAccClassificationJob_Name_Generated(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccClassificationJob_NamePrefix(t *testing.T) {
+}func testAccClassificationJob_NamePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.DescribeClassificationJobOutput
 	resourceName := "aws_macie2_classification_job.test"
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	namePrefix := "tf-acc-test-prefix-"
-
-	resource.Test(t, resource.TestCase{
+	namePrefix := "tf-acc-test-prefix-"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
@@ -107,15 +89,11 @@ func testAccClassificationJob_NamePrefix(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccClassificationJob_disappears(t *testing.T) {
+}func testAccClassificationJob_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.DescribeClassificationJobOutput
 	resourceName := "aws_macie2_classification_job.test"
-	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
@@ -130,15 +108,11 @@ func testAccClassificationJob_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccClassificationJob_Status(t *testing.T) {
+}func testAccClassificationJob_Status(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output, macie2Output2 macie2.DescribeClassificationJobOutput
 	resourceName := "aws_macie2_classification_job.test"
-	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
@@ -172,17 +146,13 @@ func testAccClassificationJob_Status(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccClassificationJob_complete(t *testing.T) {
+}func testAccClassificationJob_complete(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.DescribeClassificationJobOutput
 	resourceName := "aws_macie2_classification_job.test"
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	description := "Description of a test"
-	descriptionUpdated := "Updated Description of a test"
-
-	resource.Test(t, resource.TestCase{
+	descriptionUpdated := "Updated Description of a test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
@@ -256,15 +226,11 @@ func testAccClassificationJob_complete(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccClassificationJob_WithTags(t *testing.T) {
+}func testAccClassificationJob_WithTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.DescribeClassificationJobOutput
 	resourceName := "aws_macie2_classification_job.test"
-	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
@@ -303,17 +269,13 @@ func testAccClassificationJob_WithTags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccClassificationJob_BucketCriteria(t *testing.T) {
+}func testAccClassificationJob_BucketCriteria(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.DescribeClassificationJobOutput
 	resourceName := "aws_macie2_classification_job.test"
 	currentAccount := "data.aws_caller_identity.current"
 	description := "Description of a test"
-	descriptionUpdated := "Updated Description of a test"
-
-	resource.Test(t, resource.TestCase{
+	descriptionUpdated := "Updated Description of a test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClassificationJobDestroy(ctx),
@@ -388,85 +350,45 @@ func testAccClassificationJob_BucketCriteria(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckClassificationJobExists(ctx context.Context, resourceName string, macie2Session *macie2.DescribeClassificationJobOutput) resource.TestCheckFunc {
+}func testAccCheckClassificationJobExists(ctx context.Context, resourceName string, macie2Session *macie2.DescribeClassificationJobOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("not found: %s", resourceName)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
-		input := &macie2.DescribeClassificationJobInput{JobId: aws.String(rs.Primary.ID)}
-
-		resp, err := conn.DescribeClassificationJobWithContext(ctx, input)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
+		input := &macie2.DescribeClassificationJobInput{JobId: aws.String(rs.Primary.ID)}		resp, err := conn.DescribeClassificationJobWithContext(ctx, input)		if err != nil {
 			return err
-		}
-
-		if resp == nil {
+		}		if resp == nil {
 			return fmt.Errorf("macie ClassificationJob %q does not exist", rs.Primary.ID)
-		}
-
-		*macie2Session = *resp
-
-		return nil
+		}		*macie2Session = *resp		return nil
 	}
-}
-
-func testAccCheckClassificationJobDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckClassificationJobDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_macie2_classification_job" {
 				continue
 			}
-			input := &macie2.DescribeClassificationJobInput{JobId: aws.String(rs.Primary.ID)}
-
-			resp, err := conn.DescribeClassificationJobWithContext(ctx, input)
-
-			if tfawserr.ErrMessageContains(err, macie2.ErrCodeAccessDeniedException, "Macie is not enabled") ||
+			input := &macie2.DescribeClassificationJobInput{JobId: aws.String(rs.Primary.ID)}			resp, err := conn.DescribeClassificationJobWithContext(ctx, input)			if tfawserr.ErrMessageContains(err, macie2.ErrCodeAccessDeniedException, "Macie is not enabled") ||
 				tfawserr.ErrMessageContains(err, macie2.ErrCodeValidationException, "cannot update cancelled job for job") {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			if resp != nil && aws.StringValue(resp.JobStatus) != macie2.JobStatusCancelled {
+			}			if resp != nil && aws.StringValue(resp.JobStatus) != macie2.JobStatusCancelled {
 				return fmt.Errorf("macie ClassificationJob %q still exists", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckClassificationJobNotRecreated(i, j *macie2.DescribeClassificationJobOutput) resource.TestCheckFunc {
+}func testAccCheckClassificationJobNotRecreated(i, j *macie2.DescribeClassificationJobOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if !aws.TimeValue(i.CreatedAt).Equal(aws.TimeValue(j.CreatedAt)) {
 			return fmt.Errorf("Macie Classification Job recreated")
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccClassificationJobConfig_nameGenerated(bucketName, jobType string) string {
+}func testAccClassificationJobConfig_nameGenerated(bucketName, jobType string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_s3_bucket" "test" {
+data "aws_caller_identity" "current" {}resource "aws_macie2_account" "test" {}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_macie2_classification_job" "test" {
+}resource "aws_macie2_classification_job" "test" {
   depends_on = [aws_macie2_account.test]
   job_type   = %[2]q
   s3_job_definition {
@@ -477,19 +399,11 @@ resource "aws_macie2_classification_job" "test" {
   }
 }
 `, bucketName, jobType)
-}
-
-func testAccClassificationJobConfig_namePrefix(nameBucket, namePrefix, jobType string) string {
+}func testAccClassificationJobConfig_namePrefix(nameBucket, namePrefix, jobType string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_s3_bucket" "test" {
+data "aws_caller_identity" "current" {}resource "aws_macie2_account" "test" {}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_macie2_classification_job" "test" {
+}resource "aws_macie2_classification_job" "test" {
   name_prefix = %[2]q
   job_type    = %[3]q
   s3_job_definition {
@@ -501,19 +415,11 @@ resource "aws_macie2_classification_job" "test" {
   depends_on = [aws_macie2_account.test]
 }
 `, nameBucket, namePrefix, jobType)
-}
-
-func testAccClassificationJobConfig_complete(nameBucket, jobStatus, description string) string {
+}func testAccClassificationJobConfig_complete(nameBucket, jobStatus, description string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_s3_bucket" "test" {
+data "aws_caller_identity" "current" {}resource "aws_macie2_account" "test" {}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_macie2_classification_job" "test" {
+}resource "aws_macie2_classification_job" "test" {
   job_type = "SCHEDULED"
   s3_job_definition {
     bucket_definitions {
@@ -577,24 +483,14 @@ resource "aws_macie2_classification_job" "test" {
   sampling_percentage = 100
   initial_run= true
   job_status = %[2]q
-  description= %[3]q
-
-  depends_on = [aws_macie2_account.test]
+  description= %[3]q  depends_on = [aws_macie2_account.test]
 }
 `, nameBucket, jobStatus, description)
-}
-
-func testAccClassificationJobConfig_status(nameBucket, jobStatus string) string {
+}func testAccClassificationJobConfig_status(nameBucket, jobStatus string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_s3_bucket" "test" {
+data "aws_caller_identity" "current" {}resource "aws_macie2_account" "test" {}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_macie2_classification_job" "test" {
+}resource "aws_macie2_classification_job" "test" {
   job_type = "SCHEDULED"
   s3_job_definition {
     bucket_definitions {
@@ -627,24 +523,14 @@ resource "aws_macie2_classification_job" "test" {
   }
   sampling_percentage = 100
   initial_run= true
-  job_status = %[2]q
-
-  depends_on = [aws_macie2_account.test]
+  job_status = %[2]q  depends_on = [aws_macie2_account.test]
 }
 `, nameBucket, jobStatus)
-}
-
-func testAccClassificationJobConfig_completeTags(nameBucket, jobStatus string) string {
+}func testAccClassificationJobConfig_completeTags(nameBucket, jobStatus string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_s3_bucket" "test" {
+data "aws_caller_identity" "current" {}resource "aws_macie2_account" "test" {}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_macie2_classification_job" "test" {
+}resource "aws_macie2_classification_job" "test" {
   job_type = "SCHEDULED"
   s3_job_definition {
     bucket_definitions {
@@ -681,20 +567,12 @@ resource "aws_macie2_classification_job" "test" {
   job_status = %[2]q
   tags = {
     Key = "value"
-  }
-
-  depends_on = [aws_macie2_account.test]
+  }  depends_on = [aws_macie2_account.test]
 }
 `, nameBucket, jobStatus)
-}
-
-func testAccClassificationJobConfig_bucketCriteria(jobStatus, description string) string {
+}func testAccClassificationJobConfig_bucketCriteria(jobStatus, description string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_macie2_classification_job" "test" {
+data "aws_caller_identity" "current" {}resource "aws_macie2_account" "test" {}resource "aws_macie2_classification_job" "test" {
   job_type = "SCHEDULED"
   s3_job_definition {
     bucket_criteria {
@@ -724,9 +602,7 @@ resource "aws_macie2_classification_job" "test" {
    }
  }
         }
-      }
-
-      includes {
+      }      includes {
         and {
  simple_criterion {
    comparator = "EQ"
@@ -758,9 +634,7 @@ resource "aws_macie2_classification_job" "test" {
   sampling_percentage = 100
   initial_run= true
   job_status = %[1]q
-  description= %[2]q
-
-  depends_on = [aws_macie2_account.test]
+  description= %[2]q  depends_on = [aws_macie2_account.test]
 }
 `, jobStatus, description)
 }

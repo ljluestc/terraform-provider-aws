@@ -1,21 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elb
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elbimport (
 	"reflect"
 	"strings"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/elb"
-)
-
-func TestExpandListeners(t *testing.T) {
-	t.Parallel()
-
-	expanded := []interface{}{
+)func TestExpandListeners(t *testing.T) {
+	t.Parallel()	expanded := []interface{}{
 		map[string]interface{}{
 			"instance_port":     8000,
 			"lb_port":  80,
@@ -33,30 +23,20 @@ func TestExpandListeners(t *testing.T) {
 	listeners, err := ExpandListeners(expanded)
 	if err != nil {
 		t.Fatalf("bad: %#v", err)
-	}
-
-	expected := &elb.Listener{
+	}	expected := &elb.Listener{
 		InstancePort:     aws.Int64(8000),
 		LoadBalancerPort: aws.Int64(80),
 		InstanceProtocol: aws.String("http"),
 		Protocol:aws.String("http"),
-	}
-
-	if !reflect.DeepEqual(listeners[0], expected) {
+	}	if !reflect.DeepEqual(listeners[0], expected) {
 		t.Fatalf(
 			"Got:\n\n%#v\n\nExpected:\n\n%#v\n",
 			listeners[0],
 			expected)
 	}
-}
-
-// this test should produce an error from expandlisteners on an invalid
-// combination
-
-func TestExpandListeners_invalid(t *testing.T) {
-	t.Parallel()
-
-	expanded := []interface{}{
+}// this test should produce an error from expandlisteners on an invalid
+// combinationfunc TestExpandListeners_invalid(t *testing.T) {
+	t.Parallel()	expanded := []interface{}{
 		map[string]interface{}{
 			"instance_port":      8000,
 			"lb_port":   80,
@@ -71,17 +51,11 @@ func TestExpandListeners_invalid(t *testing.T) {
 		if !strings.Contains(err.Error(), `"ssl_certificate_id" may be set only when "protocol"`) {
 			t.Fatalf("Got error in TestExpandListeners_invalid, but not what we expected: %s", err)
 		}
-	}
-
-	if err == nil {
+	}	if err == nil {
 		t.Fatalf("Expected TestExpandListeners_invalid to fail, but passed")
 	}
-}
-
-func TestFlattenHealthCheck(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
+}func TestFlattenHealthCheck(t *testing.T) {
+	t.Parallel()	cases := []struct {
 		Input  *elb.HealthCheck
 		Output []map[string]interface{}
 	}{
@@ -103,40 +77,24 @@ func TestFlattenHealthCheck(t *testing.T) {
 				},
 			},
 		},
-	}
-
-	for _, tc := range cases {
+	}	for _, tc := range cases {
 		output := FlattenHealthCheck(tc.Input)
 		if !reflect.DeepEqual(output, tc.Output) {
 			t.Fatalf("Got:\n\n%#v\n\nExpected:\n\n%#v", output, tc.Output)
 		}
 	}
-}
-
-func TestExpandInstanceString(t *testing.T) {
-	t.Parallel()
-
-	expected := []*elb.Instance{
+}func TestExpandInstanceString(t *testing.T) {
+	t.Parallel()	expected := []*elb.Instance{
 		{InstanceId: aws.String("test-one")},
 		{InstanceId: aws.String("test-two")},
-	}
-
-	ids := []interface{}{
+	}	ids := []interface{}{
 		"test-one",
 		"test-two",
-	}
-
-	expanded := ExpandInstanceString(ids)
-
-	if !reflect.DeepEqual(expanded, expected) {
+	}	expanded := ExpandInstanceString(ids)	if !reflect.DeepEqual(expanded, expected) {
 		t.Fatalf("Expand Instance String output did not match.\nGot:\n%#v\n\nexpected:\n%#v", expanded, expected)
 	}
-}
-
-func TestExpandPolicyAttributes(t *testing.T) {
-	t.Parallel()
-
-	expanded := []interface{}{
+}func TestExpandPolicyAttributes(t *testing.T) {
+	t.Parallel()	expanded := []interface{}{
 		map[string]interface{}{
 			"name":  "Protocol-TLSv1",
 			"value": "false",
@@ -150,65 +108,39 @@ func TestExpandPolicyAttributes(t *testing.T) {
 			"value": "true",
 		},
 	}
-	attributes := ExpandPolicyAttributes(expanded)
-
-	if len(attributes) != 3 {
+	attributes := ExpandPolicyAttributes(expanded)	if len(attributes) != 3 {
 		t.Fatalf("expected number of attributes to be 3, but got %d", len(attributes))
-	}
-
-	expected := &elb.PolicyAttribute{
+	}	expected := &elb.PolicyAttribute{
 		AttributeName:  aws.String("Protocol-TLSv1.2"),
 		AttributeValue: aws.String("true"),
-	}
-
-	if !reflect.DeepEqual(attributes[2], expected) {
+	}	if !reflect.DeepEqual(attributes[2], expected) {
 		t.Fatalf(
 			"Got:\n\n%#v\n\nExpected:\n\n%#v\n",
 			attributes[2],
 			expected)
 	}
-}
-
-func TestExpandPolicyAttributes_empty(t *testing.T) {
-	t.Parallel()
-
-	var expanded []interface{}
-
-	attributes := ExpandPolicyAttributes(expanded)
-
-	if len(attributes) != 0 {
+}func TestExpandPolicyAttributes_empty(t *testing.T) {
+	t.Parallel()	var expanded []interface{}	attributes := ExpandPolicyAttributes(expanded)	if len(attributes) != 0 {
 		t.Fatalf("expected number of attributes to be 0, but got %d", len(attributes))
 	}
-}
-
-func TestExpandPolicyAttributes_invalid(t *testing.T) {
-	t.Parallel()
-
-	expanded := []interface{}{
+}func TestExpandPolicyAttributes_invalid(t *testing.T) {
+	t.Parallel()	expanded := []interface{}{
 		map[string]interface{}{
 			"name":  "Protocol-TLSv1.2",
 			"value": "true",
 		},
 	}
-	attributes := ExpandPolicyAttributes(expanded)
-
-	expected := &elb.PolicyAttribute{
+	attributes := ExpandPolicyAttributes(expanded)	expected := &elb.PolicyAttribute{
 		AttributeName:  aws.String("Protocol-TLSv1.2"),
 		AttributeValue: aws.String("false"),
-	}
-
-	if reflect.DeepEqual(attributes[0], expected) {
+	}	if reflect.DeepEqual(attributes[0], expected) {
 		t.Fatalf(
 			"Got:\n\n%#v\n\nExpected:\n\n%#v\n",
 			attributes[0],
 			expected)
 	}
-}
-
-func TestFlattenPolicyAttributes(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
+}func TestFlattenPolicyAttributes(t *testing.T) {
+	t.Parallel()	cases := []struct {
 		Input  []*elb.PolicyAttributeDescription
 		Output []interface{}
 	}{
@@ -226,9 +158,7 @@ func TestFlattenPolicyAttributes(t *testing.T) {
 				},
 			},
 		},
-	}
-
-	for _, tc := range cases {
+	}	for _, tc := range cases {
 		output := FlattenPolicyAttributes(tc.Input)
 		if !reflect.DeepEqual(output, tc.Output) {
 			t.Fatalf("Got:\n\n%#v\n\nExpected:\n\n%#v", output, tc.Output)

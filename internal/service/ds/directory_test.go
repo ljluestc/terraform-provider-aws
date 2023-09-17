@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ds_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/directoryservice"
+	"testing"	"github.com/aws/aws-sdk-go/service/directoryservice"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,16 +10,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfds "github.com/hashicorp/terraform-provider-aws/internal/service/ds"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccDSDirectory_basic(t *testing.T) {
+)func TestAccDSDirectory_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ds directoryservice.DirectoryDescription
 	resourceName := "aws_directory_service_directory.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
@@ -68,16 +58,12 @@ func TestAccDSDirectory_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDSDirectory_disappears(t *testing.T) {
+}func TestAccDSDirectory_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ds directoryservice.DirectoryDescription
 	resourceName := "aws_directory_service_directory.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
@@ -97,16 +83,12 @@ func TestAccDSDirectory_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDSDirectory_tags(t *testing.T) {
+}func TestAccDSDirectory_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ds directoryservice.DirectoryDescription
 	resourceName := "aws_directory_service_directory.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
@@ -151,16 +133,12 @@ func TestAccDSDirectory_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDSDirectory_microsoft(t *testing.T) {
+}func TestAccDSDirectory_microsoft(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ds directoryservice.DirectoryDescription
 	resourceName := "aws_directory_service_directory.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -199,16 +177,12 @@ func TestAccDSDirectory_microsoft(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDSDirectory_microsoftStandard(t *testing.T) {
+}func TestAccDSDirectory_microsoftStandard(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ds directoryservice.DirectoryDescription
 	resourceName := "aws_directory_service_directory.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -247,16 +221,12 @@ func TestAccDSDirectory_microsoftStandard(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDSDirectory_connector(t *testing.T) {
+}func TestAccDSDirectory_connector(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ds directoryservice.DirectoryDescription
 	resourceName := "aws_directory_service_directory.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
@@ -301,17 +271,13 @@ func TestAccDSDirectory_connector(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDSDirectory_withAliasAndSSO(t *testing.T) {
+}func TestAccDSDirectory_withAliasAndSSO(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ds directoryservice.DirectoryDescription
 	alias := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_directory_service_directory.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
@@ -368,16 +334,12 @@ func TestAccDSDirectory_withAliasAndSSO(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccDSDirectory_desiredNumberOfDomainControllers(t *testing.T) {
+}func TestAccDSDirectory_desiredNumberOfDomainControllers(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ds directoryservice.DirectoryDescription
 	resourceName := "aws_directory_service_directory.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	domainName := acctest.RandomDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	domainName := acctest.RandomDomainName()	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -430,121 +392,75 @@ func TestAccDSDirectory_desiredNumberOfDomainControllers(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckDirectoryDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckDirectoryDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_directory_service_directory" {
 				continue
-			}
-
-			_, err := tfds.FindDirectoryByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfds.FindDirectoryByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Directory Service Directory %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Directory Service Directory %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckDirectoryExists(ctx context.Context, n string, v *directoryservice.DirectoryDescription) resource.TestCheckFunc {
+}func testAccCheckDirectoryExists(ctx context.Context, n string, v *directoryservice.DirectoryDescription) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Directory Service Directory ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)
-
-		output, err := tfds.FindDirectoryByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)		output, err := tfds.FindDirectoryByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccDirectoryConfig_basic(rName, domain string) string {
+}func testAccDirectoryConfig_basic(rName, domain string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 2),
 		fmt.Sprintf(`
 resource "aws_directory_service_directory" "test" {
   name     = %[1]q
   password = "SuperSecretPassw0rd"
-  size     = "Small"
-
-  vpc_settings {
+  size     = "Small"  vpc_settings {
     vpc_id     = aws_vpc.test.id
     subnet_ids = aws_subnet.test[*].id
   }
 }
 `, domain),
 	)
-}
-
-func testAccDirectoryConfig_tags1(rName, domain, tagKey1, tagValue1 string) string {
+}func testAccDirectoryConfig_tags1(rName, domain, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 2),
 		fmt.Sprintf(`
 resource "aws_directory_service_directory" "test" {
   name     = %[1]q
   password = "SuperSecretPassw0rd"
-  size     = "Small"
-
-  vpc_settings {
+  size     = "Small"  vpc_settings {
     vpc_id     = aws_vpc.test.id
     subnet_ids = aws_subnet.test[*].id
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
   }
 }
 `, domain, tagKey1, tagValue1))
-}
-
-func testAccDirectoryConfig_tags2(rName, domain, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccDirectoryConfig_tags2(rName, domain, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 2),
 		fmt.Sprintf(`
 resource "aws_directory_service_directory" "test" {
   name     = %[1]q
   password = "SuperSecretPassw0rd"
-  size     = "Small"
-
-  vpc_settings {
+  size     = "Small"  vpc_settings {
     vpc_id     = aws_vpc.test.id
     subnet_ids = aws_subnet.test[*].id
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, domain, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
-func testAccDirectoryConfig_connector(rName, domain string) string {
+}func testAccDirectoryConfig_connector(rName, domain string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 2),
 		fmt.Sprintf(`
@@ -552,31 +468,37 @@ resource "aws_directory_service_directory" "test" {
   name     = %[1]q
   password = "SuperSecretPassw0rd"
   size     = "Small"
-  type     = "ADConnector"
-
-  connect_settings {
+  type     = "ADConnector"  connect_settings {
     customer_dns_ips  = aws_directory_service_directory.base.dns_ip_addresses
     customer_username = "Administrator"
     vpc_id   = aws_vpc.test.id
     subnet_ids        = aws_subnet.test[*].id
   }
-}
-
-resource "aws_directory_service_directory" "base" {
+}resource "aws_directory_service_directory" "base" {
   name     = %[1]q
   password = "SuperSecretPassw0rd"
-  size     = "Small"
-
-  vpc_settings {
+  size     = "Small"  vpc_settings {
     vpc_id     = aws_vpc.test.id
     subnet_ids = aws_subnet.test[*].id
   }
 }
 `, domain),
 	)
+}func testAccDirectoryConfig_microsoft(rName, domain string) string {
+	return acctest.ConfigCompose(
+		acctest.ConfigVPCWithSubnets(rName, 2),
+		fmt.Sprintf(`
+resource "aws_directory_service_directory" "test" {
+  name     = %[1]q
+  password = "SuperSecretPassw0rd"
+  type     = "MicrosoftAD"  vpc_settings {
+    vpc_id     = aws_vpc.test.id
+    subnet_ids = aws_subnet.test[*].id
+  }
 }
-
-func testAccDirectoryConfig_microsoft(rName, domain string) string {
+`, domain),
+	)
+}func testAccDirectoryConfig_microsoftStandard(rName, domain string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 2),
 		fmt.Sprintf(`
@@ -584,36 +506,14 @@ resource "aws_directory_service_directory" "test" {
   name     = %[1]q
   password = "SuperSecretPassw0rd"
   type     = "MicrosoftAD"
-
-  vpc_settings {
+  edition  = "Standard"  vpc_settings {
     vpc_id     = aws_vpc.test.id
     subnet_ids = aws_subnet.test[*].id
   }
 }
 `, domain),
 	)
-}
-
-func testAccDirectoryConfig_microsoftStandard(rName, domain string) string {
-	return acctest.ConfigCompose(
-		acctest.ConfigVPCWithSubnets(rName, 2),
-		fmt.Sprintf(`
-resource "aws_directory_service_directory" "test" {
-  name     = %[1]q
-  password = "SuperSecretPassw0rd"
-  type     = "MicrosoftAD"
-  edition  = "Standard"
-
-  vpc_settings {
-    vpc_id     = aws_vpc.test.id
-    subnet_ids = aws_subnet.test[*].id
-  }
-}
-`, domain),
-	)
-}
-
-func testAccDirectoryConfig_alias(rName, domain, alias string) string {
+}func testAccDirectoryConfig_alias(rName, domain, alias string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 2),
 		fmt.Sprintf(`
@@ -621,18 +521,14 @@ resource "aws_directory_service_directory" "test" {
   name     = %[1]q
   password = "SuperSecretPassw0rd"
   size     = "Small"
-  alias    = %[2]q
-
-  vpc_settings {
+  alias    = %[2]q  vpc_settings {
     vpc_id     = aws_vpc.test.id
     subnet_ids = aws_subnet.test[*].id
   }
 }
 `, domain, alias),
 	)
-}
-
-func testAccDirectoryConfig_sso(rName, domain, alias string) string {
+}func testAccDirectoryConfig_sso(rName, domain, alias string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 2),
 		fmt.Sprintf(`
@@ -641,18 +537,14 @@ resource "aws_directory_service_directory" "test" {
   password   = "SuperSecretPassw0rd"
   size       = "Small"
   alias      = %[2]q
-  enable_sso = true
-
-  vpc_settings {
+  enable_sso = true  vpc_settings {
     vpc_id     = aws_vpc.test.id
     subnet_ids = aws_subnet.test[*].id
   }
 }
 `, domain, alias),
 	)
-}
-
-func testAccDirectoryConfig_ssoModified(rName, domain, alias string) string {
+}func testAccDirectoryConfig_ssoModified(rName, domain, alias string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 2),
 		fmt.Sprintf(`
@@ -661,32 +553,24 @@ resource "aws_directory_service_directory" "test" {
   password   = "SuperSecretPassw0rd"
   size       = "Small"
   alias      = %[2]q
-  enable_sso = false
-
-  vpc_settings {
+  enable_sso = false  vpc_settings {
     vpc_id     = aws_vpc.test.id
     subnet_ids = aws_subnet.test[*].id
   }
 }
 `, domain, alias),
 	)
-}
-
-func testAccDirectoryConfig_desiredNumberOfDomainControllers(rName, domain string, desiredNumber int) string {
+}func testAccDirectoryConfig_desiredNumberOfDomainControllers(rName, domain string, desiredNumber int) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 2),
 		fmt.Sprintf(`
 resource "aws_directory_service_directory" "test" {
   name     = %[1]q
   password = "SuperSecretPassw0rd"
-  type     = "MicrosoftAD"
-
-  vpc_settings {
+  type     = "MicrosoftAD"  vpc_settings {
     vpc_id     = aws_vpc.test.id
     subnet_ids = aws_subnet.test[*].id
-  }
-
-  desired_number_of_domain_controllers = %[2]d
+  }  desired_number_of_domain_controllers = %[2]d
 }
 `, domain, desiredNumber),
 	)

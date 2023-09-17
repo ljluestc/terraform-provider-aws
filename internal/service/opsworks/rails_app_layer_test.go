@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opsworks_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opsworks_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/aws/endpoints"
 "github.com/aws/aws-sdk-go/service/opsworks"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,17 +11,12 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 tfopsworks "github.com/hashicorp/terraform-provider-aws/internal/service/opsworks"
 )
-
-
 func TestAccOpsWorksRailsAppLayer_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var v opsworks.Layer
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_opsworks_rails_app_layer.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+resourceName := "aws_opsworks_rails_app_layer.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
@@ -76,17 +65,12 @@ ImportStateVerify: true,
 },
 })
 }
-
-
 func TestAccOpsWorksRailsAppLayer_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var v opsworks.Layer
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_opsworks_rails_app_layer.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+resourceName := "aws_opsworks_rails_app_layer.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
@@ -103,17 +87,12 @@ ExpectNonEmptyPlan: true,
 },
 })
 }
-
-
 func TestAccOpsWorksRailsAppLayer_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var v opsworks.Layer
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_opsworks_rails_app_layer.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+resourceName := "aws_opsworks_rails_app_layer.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
@@ -149,22 +128,16 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 })
 }
-
-
 func TestAccOpsWorksRailsAppLayer_tagsAlternateRegion(t *testing.T) {
 ctx := acctest.Context(t)
 var v opsworks.Layer
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_opsworks_rails_app_layer.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+resourceName := "aws_opsworks_rails_app_layer.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 // This test requires a very particular AWS Region configuration
-// in order to exercise the OpsWorks classic endpoint 
-functionality.
+// in order to exercise the OpsWorks classic endpointfunctionality.
 acctest.PreCheckMultipleRegion(t, 2)
 acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 acctest.PreCheckAlternateRegionIs(t, endpoints.UsWest1RegionID)
@@ -204,17 +177,12 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 })
 }
-
-
 func TestAccOpsWorksRailsAppLayer_update(t *testing.T) {
 ctx := acctest.Context(t)
 var v opsworks.Layer
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_opsworks_rails_app_layer.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+resourceName := "aws_opsworks_rails_app_layer.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
@@ -255,17 +223,12 @@ resource.TestCheckResourceAttr(resourceName, "rubygems_version", "2.7.9"),
 },
 })
 }
-
-
 func TestAccOpsWorksRailsAppLayer_elb(t *testing.T) {
 ctx := acctest.Context(t)
 var v opsworks.Layer
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_opsworks_rails_app_layer.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+resourceName := "aws_opsworks_rails_app_layer.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
@@ -294,103 +257,66 @@ resource.TestCheckResourceAttrPair(resourceName, "elastic_load_balancer", "aws_e
 },
 })
 }
-
-
 func testAccCheckRailsAppLayerDestroy(ctx context.Context) resource.TestCheck
 func {
-return 
-func(s *terraform.State) error {
+returnfunc(s *terraform.State) error {
 return testAccCheckLayerDestroy(ctx, "aws_opsworks_rails_app_layer", s)
 }
 }
-
-
 func testAccRailsAppLayerConfig_basic(rName string) string {
 return acctest.ConfigCompose(testAccLayerConfig_base(rName), `
 resource "aws_opsworks_rails_app_layer" "test" {
-  stack_id = aws_opsworks_stack.test.id
-
-  custom_security_group_ids = aws_security_group.test[*].id
+  stack_id = aws_opsworks_stack.test.id  custom_security_group_ids = aws_security_group.test[*].id
 }
 `)
 }
-
-
 func testAccRailsAppLayerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
-  name= %[1]q
-
-  custom_security_group_ids = aws_security_group.test[*].id
-
-  tags = {
+  name= %[1]q  custom_security_group_ids = aws_security_group.test[*].id  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
 }
-
-
 func testAccRailsAppLayerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
-  name= %[1]q
-
-  custom_security_group_ids = aws_security_group.test[*].id
-
-  tags = {
+  name= %[1]q  custom_security_group_ids = aws_security_group.test[*].id  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
-
 func testAccRailsAppLayerConfig_tags1AlternateRegion(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(testAccLayerConfig_baseAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
-  name= %[1]q
-
-  custom_security_group_ids = aws_security_group.test[*].id
-
-  tags = {
+  name= %[1]q  custom_security_group_ids = aws_security_group.test[*].id  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
 }
-
-
 func testAccRailsAppLayerConfig_tags2AlternateRegion(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(testAccLayerConfig_baseAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
-  name= %[1]q
-
-  custom_security_group_ids = aws_security_group.test[*].id
-
-  tags = {
+  name= %[1]q  custom_security_group_ids = aws_security_group.test[*].id  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
-
 func testAccRailsAppLayerConfig_allAttributes(rName, appServer, bundlerVersion string, manageBundler bool, passengerVersion, rubyVersion, rubyGemsVersion string) string {
 return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
   name= %[1]q
-  stack_id = aws_opsworks_stack.test.id
-
-  custom_security_group_ids = aws_security_group.test[*].id
-
-  app_server   = %[2]q
+  stack_id = aws_opsworks_stack.test.id  custom_security_group_ids = aws_security_group.test[*].id  app_server   = %[2]q
   bundler_version   = %[3]q
   manage_bundler= %[4]t
   passenger_version = %[5]q
@@ -399,40 +325,22 @@ resource "aws_opsworks_rails_app_layer" "test" {
 }
 `, rName, appServer, bundlerVersion, manageBundler, passengerVersion, rubyVersion, rubyGemsVersion))
 }
-
-
 func testAccRailsAppLayerConfig_elb(rName string, idx int) string {
 return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+  vpc_id = aws_vpc.test.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_elb" "test" {
-  count = 2
-
-  subnets = aws_subnet.test[*].id
-
-  listener {
+}resource "aws_elb" "test" {
+  count = 2  subnets = aws_subnet.test[*].id  listener {
 instance_port= 8000
 instance_protocol = "http"
 lb_port  = 80
 lb_protocol  = "http"
-  }
-
-  depends_on = [aws_internet_gateway.test]
-}
-
-resource "aws_opsworks_rails_app_layer" "test" {
+  }  depends_on = [aws_internet_gateway.test]
+}resource "aws_opsworks_rails_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
-  name= %[1]q
-
-  custom_security_group_ids = aws_security_group.test[*].id
-
-  elastic_load_balancer = aws_elb.test[%[2]d].name
+  name= %[1]q  custom_security_group_ids = aws_security_group.test[*].id  elastic_load_balancer = aws_elb.test[%[2]d].name
 }
 `, rName, idx))
 }

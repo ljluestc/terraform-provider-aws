@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package outposts
-
-import (
-"context"
-
-"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package outpostsimport (
+"context""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/outposts"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -16,14 +10,10 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 "github.com/hashicorp/terraform-provider-aws/internal/flex"
 "github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKDataSource("aws_outposts_assets")
+)// @SDKDataSource("aws_outposts_assets")
 func DataSourceOutpostAssets() *schema.Resource {
 return &schema.Resource{
-ReadWithoutTimeout: DataSourceOutpostAssetsRead,
-
-Schema: map[string]*schema.Schema{
+ReadWithoutTimeout: DataSourceOutpostAssetsRead,Schema: map[string]*schema.Schema{
 "arn": {
 Type:schema.TypeString,
 Required:     true,
@@ -58,26 +48,16 @@ validation.StringInSlice(outposts.AssetState_Values(), false),
 },
 },
 }
-}
-
-func DataSourceOutpostAssetsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func DataSourceOutpostAssetsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OutpostsConn(ctx)
-outpost_id := aws.String(d.Get("arn").(string))
-
-input := &outposts.ListAssetsInput{
+outpost_id := aws.String(d.Get("arn").(string))input := &outposts.ListAssetsInput{
 OutpostIdentifier: outpost_id,
-}
-
-if _, ok := d.GetOk("host_id_filter"); ok {
+}if _, ok := d.GetOk("host_id_filter"); ok {
 input.HostIdFilter = flex.ExpandStringSet(d.Get("host_id_filter").(*schema.Set))
-}
-
-if _, ok := d.GetOk("status_id_filter"); ok {
+}if _, ok := d.GetOk("status_id_filter"); ok {
 input.StatusFilter = flex.ExpandStringSet(d.Get("status_id_filter").(*schema.Set))
-}
-
-var asset_ids []string
+}var asset_ids []string
 err := conn.ListAssetsPagesWithContext(ctx, input, func(page *outposts.ListAssetsOutput, lastPage bool) bool {
 if page == nil {
 return !lastPage
@@ -89,17 +69,11 @@ continue
 asset_ids = append(asset_ids, aws.StringValue(asset.AssetId))
 }
 return !lastPage
-})
-
-if err != nil {
+})if err != nil {
 return sdkdiag.AppendErrorf(diags, "listing Outposts Assets: %s", err)
 }
 if len(asset_ids) == 0 {
 return sdkdiag.AppendErrorf(diags, "no Outposts Assets found matching criteria; try different search")
-}
-
-d.SetId(aws.StringValue(outpost_id))
-d.Set("asset_ids", asset_ids)
-
-return diags
+}d.SetId(aws.StringValue(outpost_id))
+d.Set("asset_ids", asset_ids)return diags
 }

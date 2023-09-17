@@ -1,17 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package workspaces_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package workspaces_testimport (
 	"context"
 	"fmt"
 	"reflect"
 	"regexp"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/workspaces"
 	"github.com/aws/aws-sdk-go-v2/service/workspaces/types"
@@ -26,13 +20,9 @@ func testAccWorkspace_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.Workspace
 	rName := sdkacctest.RandString(8)
-	domain := acctest.RandomDomainName()
-
-	resourceName := "aws_workspaces_workspace.test"
+	domain := acctest.RandomDomainName()	resourceName := "aws_workspaces_workspace.test"
 	directoryResourceName := "aws_workspaces_directory.test"
-	bundleDataSourceName := "data.aws_workspaces_bundle.test"
-
-	resource.Test(t, resource.TestCase{
+	bundleDataSourceName := "data.aws_workspaces_bundle.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckDirectory(ctx, t)
@@ -77,11 +67,7 @@ func testAccWorkspace_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2, v3 types.Workspace
 	rName := sdkacctest.RandString(8)
-	domain := acctest.RandomDomainName()
-
-	resourceName := "aws_workspaces_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	domain := acctest.RandomDomainName()	resourceName := "aws_workspaces_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckDirectory(ctx, t)
@@ -130,11 +116,7 @@ func testAccWorkspace_workspaceProperties(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2, v3 types.Workspace
 	rName := sdkacctest.RandString(8)
-	domain := acctest.RandomDomainName()
-
-	resourceName := "aws_workspaces_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	domain := acctest.RandomDomainName()	resourceName := "aws_workspaces_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckDirectory(ctx, t)
@@ -189,9 +171,7 @@ func testAccWorkspace_workspaceProperties(t *testing.T) {
 			},
 		},
 	})
-}
-
-// testAccWorkspace_workspaceProperties_runningModeAlwaysOn
+}// testAccWorkspace_workspaceProperties_runningModeAlwaysOn
 // validates workspace resource creation/import when workspace_properties.running_mode is set to ALWAYS_ON
 // Reference: https://github.com/hashicorp/terraform-provider-aws/issues/13558
 func testAccWorkspace_workspaceProperties_runningModeAlwaysOn(t *testing.T) {
@@ -199,9 +179,7 @@ func testAccWorkspace_workspaceProperties_runningModeAlwaysOn(t *testing.T) {
 	var v1 types.Workspace
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_workspaces_workspace.test"
-	domain := acctest.RandomDomainName()
-
-	resource.Test(t, resource.TestCase{
+	domain := acctest.RandomDomainName()	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckDirectory(ctx, t)
@@ -235,9 +213,7 @@ func testAccWorkspace_workspaceProperties_runningModeAlwaysOn(t *testing.T) {
 func testAccWorkspace_validateRootVolumeSize(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandString(8)
-	domain := acctest.RandomDomainName()
-
-	resource.Test(t, resource.TestCase{
+	domain := acctest.RandomDomainName()	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -253,9 +229,7 @@ func testAccWorkspace_validateRootVolumeSize(t *testing.T) {
 func testAccWorkspace_validateUserVolumeSize(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandString(8)
-	domain := acctest.RandomDomainName()
-
-	resource.Test(t, resource.TestCase{
+	domain := acctest.RandomDomainName()	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, strings.ToLower(workspaces.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -272,11 +246,7 @@ func testAccWorkspace_recreate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.Workspace
 	rName := sdkacctest.RandString(8)
-	domain := acctest.RandomDomainName()
-
-	resourceName := "aws_workspaces_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	domain := acctest.RandomDomainName()	resourceName := "aws_workspaces_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckDirectory(ctx, t)
@@ -307,11 +277,7 @@ func testAccWorkspace_timeout(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.Workspace
 	rName := sdkacctest.RandString(8)
-	domain := acctest.RandomDomainName()
-
-	resourceName := "aws_workspaces_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	domain := acctest.RandomDomainName()	resourceName := "aws_workspaces_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckDirectory(ctx, t)
@@ -334,31 +300,21 @@ func testAccWorkspace_timeout(t *testing.T) {
 }
 func testAccCheckWorkspaceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_workspaces_workspace" {
 				continue
-			}
-
-			resp, err := conn.DescribeWorkspaces(ctx, &workspaces.DescribeWorkspacesInput{
+			}			resp, err := conn.DescribeWorkspaces(ctx, &workspaces.DescribeWorkspacesInput{
 				WorkspaceIds: []string{rs.Primary.ID},
 			})
 			if err != nil {
 				return err
-			}
-
-			if len(resp.Workspaces) == 0 {
+			}			if len(resp.Workspaces) == 0 {
 				return nil
 			}
-			ws := resp.Workspaces[0]
-
-			if ws.State != types.WorkspaceStateTerminating && ws.State != types.WorkspaceStateTerminated {
+			ws := resp.Workspaces[0]			if ws.State != types.WorkspaceStateTerminating && ws.State != types.WorkspaceStateTerminated {
 				return fmt.Errorf("workspace %q was not terminated", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccCheckWorkspaceExists(ctx context.Context, n string, v *types.Workspace) resource.TestCheckFunc {
@@ -366,23 +322,15 @@ func testAccCheckWorkspaceExists(ctx context.Context, n string, v *types.Workspa
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)
-
-		output, err := conn.DescribeWorkspaces(ctx, &workspaces.DescribeWorkspacesInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)		output, err := conn.DescribeWorkspaces(ctx, &workspaces.DescribeWorkspacesInput{
 			WorkspaceIds: []string{rs.Primary.ID},
 		})
 		if err != nil {
 			return err
-		}
-
-		if *output.Workspaces[0].WorkspaceId == rs.Primary.ID {
+		}		if *output.Workspaces[0].WorkspaceId == rs.Primary.ID {
 			*v = output.Workspaces[0]
 			return nil
-		}
-
-		return fmt.Errorf("workspace %q not found", rs.Primary.ID)
+		}		return fmt.Errorf("workspace %q not found", rs.Primary.ID)
 	}
 }
 func testAccWorkspaceConfig_Prerequisites(rName, domain string) string {
@@ -391,12 +339,8 @@ func testAccWorkspaceConfig_Prerequisites(rName, domain string) string {
 		fmt.Sprintf(`
 data "aws_workspaces_bundle" "test" {
   bundle_id = "wsb-bh8rsxt14" # Value with Windows 10 (English)
-}
-
-resource "aws_workspaces_directory" "test" {
-  directory_id = aws_directory_service_directory.main.id
-
-  tags = {
+}resource "aws_workspaces_directory" "test" {
+  directory_id = aws_directory_service_directory.main.id  tags = {
     Name = "tf-testacc-workspaces-directory-%[1]s"
   }
 }
@@ -408,13 +352,9 @@ func testAccWorkspaceConfig_basic(rName, domain string) string {
 		fmt.Sprintf(`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator"" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  tags = {
+  user_name = "Administrator"  tags = {
     Name = "tf-testacc-workspaces-workspace-%[1]s"
   }
 }
@@ -426,13 +366,9 @@ func testAccWorkspaceConfig_tagsA(rName, domain string) string {
 		fmt.Sprintf(`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator"" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  tags = {
+  user_name = "Administrator"  tags = {
     Name  = "tf-testacc-workspaces-workspace-%[1]s"
     Alpha = 1
   }
@@ -445,13 +381,9 @@ func testAccWorkspaceConfig_tagsB(rName, domain string) string {
 		fmt.Sprintf(`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator"" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  tags = {
+  user_name = "Administrator"  tags = {
     Name = "tf-testacc-workspaces-workspace-%[1]s"
     Beta = 2
   }
@@ -464,13 +396,9 @@ func testAccWorkspaceConfig_tagsC(rName, domain string) string {
 		fmt.Sprintf(`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator"" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  tags = {
+  user_name = "Administrator"  tags = {
     Name = "tf-testacc-workspaces-workspace-%[1]s"
   }
 }
@@ -482,19 +410,13 @@ func testAccWorkspaceConfig_propertiesA(rName, domain string) string {
 		fmt.Sprintf(`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator"" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  workspace_properties {
+  user_name = "Administrator"  workspace_properties {
     # NOTE: Compute type and volume size update not allowed within 6 hours after creation.
     running_mode    = "AUTO_STOP"
     running_mode_auto_stop_timeout_in_minutes = 120
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-testacc-workspaces-workspace-%[1]s"
   }
 }
@@ -506,18 +428,12 @@ func testAccWorkspaceConfig_propertiesB(rName, domain string) string {
 		fmt.Sprintf(`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator"" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  workspace_properties {
+  user_name = "Administrator"  workspace_properties {
     # NOTE: Compute type and volume size update not allowed within 6 hours after creation.
     running_mode = "ALWAYS_ON"
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-testacc-workspaces-workspace-%[1]s"
   }
 }
@@ -529,16 +445,10 @@ func testAccWorkspaceConfig_propertiesC(rName, domain string) string {
 		fmt.Sprintf(`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator"" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  workspace_properties {
-  }
-
-  tags = {
+  user_name = "Administrator"  workspace_properties {
+  }  tags = {
     Name = "tf-testacc-workspaces-workspace-%[1]s"
   }
 }
@@ -550,18 +460,12 @@ func testAccWorkspaceConfig_validateRootVolumeSize(rName, domain string) string 
 		fmt.Sprintf(`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator"" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  workspace_properties {
+  user_name = "Administrator"  workspace_properties {
     root_volume_size_gib = 90
     user_volume_size_gib = 50
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-testacc-workspaces-workspace-%[1]s"
   }
 }
@@ -573,18 +477,12 @@ func testAccWorkspaceConfig_validateUserVolumeSize(rName, domain string) string 
 		fmt.Sprintf(`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator"" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  workspace_properties {
+  user_name = "Administrator"  workspace_properties {
     root_volume_size_gib = 80
     user_volume_size_gib = 60
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-testacc-workspaces-workspace-%[1]s"
   }
 }
@@ -596,28 +494,20 @@ func testAccWorkspaceConfig_timeout(rName, domain string) string {
 		fmt.Sprintf(`
 resource "aws_workspaces_workspace" "test" {
   bundle_id    = data.aws_workspaces_bundle.test.id
-  directory_id = aws_workspaces_directory.test.id
-
-  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
+  directory_id = aws_workspaces_directory.test.id  # NOTE: WorkSpaces API doesn't allow creating users in the directory.
   # However, "Administrator"" user is always present in a bare directory.
-  user_name = "Administrator"
-
-  timeouts {
+  user_name = "Administrator"  timeouts {
     create = "60m"
     update = "30m"
     delete = "30m"
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-testacc-workspaces-workspace-%[1]s"
   }
 }
 `, rName))
 }
 func TestExpandWorkspaceProperties(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
+	t.Parallel()	cases := []struct {
 		input    []interface{}
 		expected *types.WorkspaceProperties
 	}{
@@ -645,9 +535,7 @@ func TestExpandWorkspaceProperties(t *testing.T) {
 				UserVolumeSizeGib:      aws.Int32(10),
 			},
 		},
-	}
-
-	for _, c := range cases {
+	}	for _, c := range cases {
 		actual := tfworkspaces.ExpandWorkspaceProperties(c.input)
 		if !reflect.DeepEqual(actual, c.expected) {
 			t.Fatalf("expected\n\n%#+v\n\ngot\n\n%#+v", c.expected, actual)
@@ -655,9 +543,7 @@ func TestExpandWorkspaceProperties(t *testing.T) {
 	}
 }
 func TestFlattenWorkspaceProperties(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
+	t.Parallel()	cases := []struct {
 		input    *types.WorkspaceProperties
 		expected []map[string]interface{}
 	}{
@@ -685,9 +571,7 @@ func TestFlattenWorkspaceProperties(t *testing.T) {
 				},
 			},
 		},
-	}
-
-	for _, c := range cases {
+	}	for _, c := range cases {
 		actual := tfworkspaces.FlattenWorkspaceProperties(c.input)
 		if !reflect.DeepEqual(actual, c.expected) {
 			t.Fatalf("expected\n\n%#+v\n\ngot\n\n%#+v", c.expected, actual)

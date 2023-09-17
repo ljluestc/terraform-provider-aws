@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package vpclattice_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package vpclattice_testimport (
 "context"
 "errors"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go-v2/service/vpclattice"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -20,12 +14,8 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 tfvpclattice "github.com/hashicorp/terraform-provider-aws/internal/service/vpclattice"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestIDFromIDOrARN(t *testing.T) {
-t.Parallel()
-
-testCases := []struct {
+)func TestIDFromIDOrARN(t *testing.T) {
+t.Parallel()testCases := []struct {
 idOrARN string
 want    string
 }{
@@ -47,12 +37,8 @@ if got, want := tfvpclattice.IDFromIDOrARN(testCase.idOrARN), testCase.want; got
 t.Errorf("IDFromIDOrARN(%q) = %v, want %v", testCase.idOrARN, got, want)
 }
 }
-}
-
-func TestSuppressEquivalentIDOrARN(t *testing.T) {
-t.Parallel()
-
-testCases := []struct {
+}func TestSuppressEquivalentIDOrARN(t *testing.T) {
+t.Parallel()testCases := []struct {
 old  string
 new  string
 want bool
@@ -88,15 +74,11 @@ if got, want := tfvpclattice.SuppressEquivalentIDOrARN("test_property", testCase
 t.Errorf("SuppressEquivalentIDOrARN(%q, %q) = %v, want %v", testCase.old, testCase.new, got, want)
 }
 }
-}
-
-func TestAccVPCLatticeServiceNetwork_basic(t *testing.T) {
+}func TestAccVPCLatticeServiceNetwork_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var servicenetwork vpclattice.GetServiceNetworkOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_service_network.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_service_network.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -121,15 +103,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeServiceNetwork_disappears(t *testing.T) {
+}func TestAccVPCLatticeServiceNetwork_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var servicenetwork vpclattice.GetServiceNetworkOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_service_network.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_service_network.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -149,15 +127,11 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeServiceNetwork_full(t *testing.T) {
+}func TestAccVPCLatticeServiceNetwork_full(t *testing.T) {
 ctx := acctest.Context(t)
 var servicenetwork vpclattice.GetServiceNetworkOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_service_network.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_service_network.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -183,15 +157,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeServiceNetwork_tags(t *testing.T) {
+}func TestAccVPCLatticeServiceNetwork_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var serviceNetwork1, serviceNetwork2, serviceNetwork3 vpclattice.GetServiceNetworkOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_service_network.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_service_network.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -229,103 +199,61 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-func testAccCheckServiceNetworkDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckServiceNetworkDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_vpclattice_service_network" {
 continue
-}
-
-_, err := tfvpclattice.FindServiceNetworkByID(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+}_, err := tfvpclattice.FindServiceNetworkByID(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("VPC Lattice Service Network %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("VPC Lattice Service Network %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccCheckServiceNetworkExists(ctx context.Context, name string, servicenetwork *vpclattice.GetServiceNetworkOutput) resource.TestCheckFunc {
+}func testAccCheckServiceNetworkExists(ctx context.Context, name string, servicenetwork *vpclattice.GetServiceNetworkOutput) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameServiceNetwork, name, errors.New("not found"))
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameServiceNetwork, name, errors.New("not set"))
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
-resp, err := tfvpclattice.FindServiceNetworkByID(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
+resp, err := tfvpclattice.FindServiceNetworkByID(ctx, conn, rs.Primary.ID)if err != nil {
 return err
+}*servicenetwork = *respreturn nil
 }
-
-*servicenetwork = *resp
-
-return nil
-}
-}
-
-// func testAccCheckServiceNetworkNotRecreated(before, after *vpclattice.DescribeServiceNetworkResponse) resource.TestCheckFunc {
+}// func testAccCheckServiceNetworkNotRecreated(before, after *vpclattice.DescribeServiceNetworkResponse) resource.TestCheckFunc {
 // return func(s *terraform.State) error {
 // if before, after := aws.StringValue(before.ServiceNetworkId), aws.StringValue(after.ServiceNetworkId); before != after {
 // return create.Error(names.VPCLattice, create.ErrActionCheckingNotRecreated, tfvpclattice.ResNameServiceNetwork, aws.StringValue(before.ServiceNetworkId), errors.New("recreated"))
+// }// return nil
 // }
-
-// return nil
-// }
-// }
-
-func testAccServiceNetworkConfig_basic(rName string) string {
+// }func testAccServiceNetworkConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service_network" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccServiceNetworkConfig_full(rName string) string {
+}func testAccServiceNetworkConfig_full(rName string) string {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service_network" "test" {
   name      = %[1]q
   auth_type = "AWS_IAM"
 }
 `, rName)
-}
-
-func testAccServiceNetworkConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccServiceNetworkConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service_network" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccServiceNetworkConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccServiceNetworkConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service_network" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }

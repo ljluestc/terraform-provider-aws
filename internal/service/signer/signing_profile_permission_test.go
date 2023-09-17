@@ -1,33 +1,21 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package signer_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package signer_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"testing"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/signer"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccSignerSigningProfilePermission_basic(t *testing.T) {
+)func TestAccSignerSigningProfilePermission_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_signer_signing_profile_permission.test_sp_permission"
 	profileResourceName := "aws_signer_signing_profile.test_sp"
 	rString := sdkacctest.RandString(53)
-	profileName := fmt.Sprintf("tf_acc_spp_%s", rString)
-
-	var conf signer.GetSigningProfileOutput
-	var sppconf signer.ListProfilePermissionsOutput
-
-	resource.ParallelTest(t, resource.TestCase{
+	profileName := fmt.Sprintf("tf_acc_spp_%s", rString)	var conf signer.GetSigningProfileOutput
+	var sppconf signer.ListProfilePermissionsOutput	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
@@ -53,19 +41,13 @@ ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
 },
 	})
-}
-
-func TestAccSignerSigningProfilePermission_getSigningProfile(t *testing.T) {
+}func TestAccSignerSigningProfilePermission_getSigningProfile(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_signer_signing_profile_permission.test_sp_permission"
 	profileResourceName := "aws_signer_signing_profile.test_sp"
 	rString := sdkacctest.RandString(53)
-	profileName := fmt.Sprintf("tf_acc_spp_%s", rString)
-
-	var conf signer.GetSigningProfileOutput
-	var sppconf signer.ListProfilePermissionsOutput
-
-	resource.ParallelTest(t, resource.TestCase{
+	profileName := fmt.Sprintf("tf_acc_spp_%s", rString)	var conf signer.GetSigningProfileOutput
+	var sppconf signer.ListProfilePermissionsOutput	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
@@ -98,20 +80,14 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSignerSigningProfilePermission_StartSigningJob_getSP(t *testing.T) {
+}func TestAccSignerSigningProfilePermission_StartSigningJob_getSP(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName1 := "aws_signer_signing_profile_permission.sp1_perm"
 	resourceName2 := "aws_signer_signing_profile_permission.sp2_perm"
 	profileResourceName := "aws_signer_signing_profile.test_sp"
 	rString := sdkacctest.RandString(53)
-	profileName := fmt.Sprintf("tf_acc_spp_%s", rString)
-
-	var conf signer.GetSigningProfileOutput
-	var sppconf signer.ListProfilePermissionsOutput
-
-	resource.ParallelTest(t, resource.TestCase{
+	profileName := fmt.Sprintf("tf_acc_spp_%s", rString)	var conf signer.GetSigningProfileOutput
+	var sppconf signer.ListProfilePermissionsOutput	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
@@ -136,20 +112,14 @@ ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
 },
 	})
-}
-
-func TestAccSignerSigningProfilePermission_statementPrefix(t *testing.T) {
+}func TestAccSignerSigningProfilePermission_statementPrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_signer_signing_profile_permission.sp1_perm"
 	profileResourceName := "aws_signer_signing_profile.test_sp"
 	rString := sdkacctest.RandString(53)
 	profileName := fmt.Sprintf("tf_acc_spp_%s", rString)
-	statementNamePrefix := "tf_acc_spp_statement_"
-
-	//var conf signer.GetSigningProfileOutput
-	var sppconf signer.ListProfilePermissionsOutput
-
-	resource.ParallelTest(t, resource.TestCase{
+	statementNamePrefix := "tf_acc_spp_statement_"	//var conf signer.GetSigningProfileOutput
+	var sppconf signer.ListProfilePermissionsOutput	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
@@ -173,104 +143,66 @@ ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
 },
 	})
-}
-
-func testAccSigningProfilePermissionConfig_basic(profileName string) string {
+}func testAccSigningProfilePermissionConfig_basic(profileName string) string {
 	return fmt.Sprintf(testAccSigningProfilePermissionConfig_base(profileName) + `
-data "aws_caller_identity" "current" {}
-
-resource "aws_signer_signing_profile_permission" "test_sp_permission" {
+data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_permission" "test_sp_permission" {
   profile_name = aws_signer_signing_profile.test_sp.name
   action       = "signer:StartSigningJob"
   principal    = data.aws_caller_identity.current.account_id
 }`)
-}
-
-func testAccSigningProfilePermissionConfig_startJobGetSP(profileName string) string {
+}func testAccSigningProfilePermissionConfig_startJobGetSP(profileName string) string {
 	return fmt.Sprintf(testAccSigningProfilePermissionConfig_base(profileName) + `
-data "aws_caller_identity" "current" {}
-
-resource "aws_signer_signing_profile_permission" "sp1_perm" {
+data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_permission" "sp1_perm" {
   profile_name = aws_signer_signing_profile.test_sp.name
   action       = "signer:StartSigningJob"
   principal    = data.aws_caller_identity.current.account_id
   statement_id = "statementid1"
-}
-
-resource "aws_signer_signing_profile_permission" "sp2_perm" {
+}resource "aws_signer_signing_profile_permission" "sp2_perm" {
   profile_name = aws_signer_signing_profile.test_sp.name
   action       = "signer:GetSigningProfile"
   principal    = data.aws_caller_identity.current.account_id
   statement_id = "statementid2"
 }`)
-}
-
-func testAccSigningProfilePermissionConfig_statementPrefix(statementNamePrefix, profileName string) string {
+}func testAccSigningProfilePermissionConfig_statementPrefix(statementNamePrefix, profileName string) string {
 	return fmt.Sprintf(testAccSigningProfilePermissionConfig_base(profileName)+`
-data "aws_caller_identity" "current" {}
-
-resource "aws_signer_signing_profile_permission" "sp1_perm" {
+data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_permission" "sp1_perm" {
   profile_name        = aws_signer_signing_profile.test_sp.name
   action     = "signer:StartSigningJob"
   principal  = data.aws_caller_identity.current.account_id
   statement_id_prefix = %[1]q
 }`, statementNamePrefix)
-}
-
-func testAccSigningProfilePermissionConfig_getSP(profileName string) string {
+}func testAccSigningProfilePermissionConfig_getSP(profileName string) string {
 	return fmt.Sprintf(testAccSigningProfilePermissionConfig_base(profileName) + `
-data "aws_caller_identity" "current" {}
-
-resource "aws_signer_signing_profile_permission" "test_sp_permission" {
+data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_permission" "test_sp_permission" {
   profile_name = aws_signer_signing_profile.test_sp.name
   action       = "signer:GetSigningProfile"
   principal    = data.aws_caller_identity.current.account_id
 }`)
-}
-
-func testAccSigningProfilePermissionConfig_revokeSignature(profileName string) string {
+}func testAccSigningProfilePermissionConfig_revokeSignature(profileName string) string {
 	return fmt.Sprintf(testAccSigningProfilePermissionConfig_base(profileName) + `
-data "aws_caller_identity" "current" {}
-
-resource "aws_signer_signing_profile_permission" "test_sp_permission" {
+data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_permission" "test_sp_permission" {
   profile_name = aws_signer_signing_profile.test_sp.name
   action       = "signer:RevokeSignature"
   principal    = data.aws_caller_identity.current.account_id
 }`)
-}
-
-func testAccSigningProfilePermissionConfig_base(profileName string) string {
+}func testAccSigningProfilePermissionConfig_base(profileName string) string {
 	return fmt.Sprintf(`
 resource "aws_signer_signing_profile" "test_sp" {
   platform_id = "AWSLambda-SHA384-ECDSA"
   name        = "%s"
 }`, profileName)
-}
-
-func testAccCheckSigningProfilePermissionExists(ctx context.Context, res, profileName string, spp *signer.ListProfilePermissionsOutput) resource.TestCheckFunc {
+}func testAccCheckSigningProfilePermissionExists(ctx context.Context, res, profileName string, spp *signer.ListProfilePermissionsOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[res]
 if !ok {
 	return fmt.Errorf("Signing profile permission not found: %s", res)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("Signing Profile with that ARN does not exist")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).SignerClient(ctx)
-
-params := &signer.ListProfilePermissionsInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).SignerClient(ctx)params := &signer.ListProfilePermissionsInput{
 	ProfileName: aws.String(profileName),
-}
-
-getSp, err := conn.ListProfilePermissions(ctx, params)
+}getSp, err := conn.ListProfilePermissions(ctx, params)
 if err != nil {
 	return err
-}
-
-*spp = *getSp
-
-return nil
+}*spp = *getSpreturn nil
 	}
 }

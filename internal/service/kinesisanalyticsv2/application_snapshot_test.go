@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kinesisanalyticsv2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kinesisanalyticsv2_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/kinesisanalyticsv2"
+	"testing"	"github.com/aws/aws-sdk-go/service/kinesisanalyticsv2"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,19 +10,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfkinesisanalyticsv2 "github.com/hashicorp/terraform-provider-aws/internal/service/kinesisanalyticsv2"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
- TestAccKinesisAnalyticsV2ApplicationSnapshot_basic(t *testing.T) {
+) TestAccKinesisAnalyticsV2ApplicationSnapshot_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.SnapshotDetails
 	resourceName := "aws_kinesisanalyticsv2_application_snapshot.test"
 	applicationResourceName := "aws_kinesisanalyticsv2_application.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationSnapshotDestroy(ctx),
@@ -50,18 +38,12 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2ApplicationSnapshot_disappears(t *testing.T) {
+} TestAccKinesisAnalyticsV2ApplicationSnapshot_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.SnapshotDetails
 	resourceName := "aws_kinesisanalyticsv2_application_snapshot.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationSnapshotDestroy(ctx),
@@ -76,19 +58,13 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2ApplicationSnapshot_Disappears_application(t *testing.T) {
+} TestAccKinesisAnalyticsV2ApplicationSnapshot_Disappears_application(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.SnapshotDetails
 	resourceName := "aws_kinesisanalyticsv2_application_snapshot.test"
 	applicationResourceName := "aws_kinesisanalyticsv2_application.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationSnapshotDestroy(ctx),
@@ -103,63 +79,30 @@ import (
 			},
 		},
 	})
-}
-
-
- testAccCheckApplicationSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
-	return 
-(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+} testAccCheckApplicationSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
+	return(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_kinesisanalyticsv2_application_snapshot" {
 				continue
-			}
-
-			_, err := tfkinesisanalyticsv2.FindSnapshotDetailsByApplicationAndSnapshotNames(ctx, conn, rs.Primary.Attributes["application_name"], rs.Primary.Attributes["snapshot_name"])
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfkinesisanalyticsv2.FindSnapshotDetailsByApplicationAndSnapshotNames(ctx, conn, rs.Primary.Attributes["application_name"], rs.Primary.Attributes["snapshot_name"])			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Kinesis Analytics v2 Application Snapshot %s still exists", rs.Primary.ID)
+			}			return fmt.Errorf("Kinesis Analytics v2 Application Snapshot %s still exists", rs.Primary.ID)
 		}
 		return nil
 	}
-}
-
-
- testAccCheckApplicationSnapshotExists(ctx context.Context, n string, v *kinesisanalyticsv2.SnapshotDetails) resource.TestCheckFunc {
-	return 
-(s *terraform.State) error {
+} testAccCheckApplicationSnapshotExists(ctx context.Context, n string, v *kinesisanalyticsv2.SnapshotDetails) resource.TestCheckFunc {
+	return(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Kinesis Analytics v2 Application Snapshot ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
-
-		application, err := tfkinesisanalyticsv2.FindSnapshotDetailsByApplicationAndSnapshotNames(ctx, conn, rs.Primary.Attributes["application_name"], rs.Primary.Attributes["snapshot_name"])
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)		application, err := tfkinesisanalyticsv2.FindSnapshotDetailsByApplicationAndSnapshotNames(ctx, conn, rs.Primary.Attributes["application_name"], rs.Primary.Attributes["snapshot_name"])		if err != nil {
 			return err
-		}
-
-		*v = *application
-
-		return nil
+		}		*v = *application		return nil
 	}
-}
-
-
- testAccApplicationSnapshotConfig_basic(rName string) string {
+} testAccApplicationSnapshotConfig_basic(rName string) string {
 	return testAccApplicationConfig_startSnapshotableFlink(rName, "SKIP_RESTORE_FROM_SNAPSHOT", "", false)
 }

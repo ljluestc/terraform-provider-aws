@@ -13,10 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-
-func filtersSchema() *schema.Schema {
+)func filtersSchema() *schema.Schema {
 	return &schema.Schema{
 Type:     schema.TypeList,
 MinItems: 1,
@@ -34,10 +31,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func categoryFilterSchema() *schema.Schema {
+}func categoryFilterSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CategoryFilter.html
 Type:     schema.TypeList,
 Optional: true,
@@ -135,10 +129,7 @@ func: validation.StringLenBetween(1, 512),
 	},
 },
 	}
-}
-
-
-func numericEqualityFilterSchema() *schema.Schema {
+}func numericEqualityFilterSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericEqualityFilter.html
 Type:     schema.TypeList,
 Optional: true,
@@ -163,10 +154,7 @@ function.html
 	},
 },
 	}
-}
-
-
-func numericRangeFilterSchema() *schema.Schema {
+}func numericRangeFilterSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericRangeFilter.html
 Type:     schema.TypeList,
 Optional: true,
@@ -195,10 +183,7 @@ function.html
 	},
 },
 	}
-}
-
-
-func relativeDatesFilterSchema() *schema.Schema {
+}func relativeDatesFilterSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_RelativeDatesFilter.html
 Type:     schema.TypeList,
 Optional: true,
@@ -233,10 +218,7 @@ Schema: map[string]*schema.Schema{
 	},
 },
 	}
-}
-
-
-func timeEqualityFilterSchema() *schema.Schema {
+}func timeEqualityFilterSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TimeEqualityFilter.html
 Type:     schema.TypeList,
 Optional: true,
@@ -257,10 +239,7 @@ func: verify.ValidUTCTimestamp,
 	},
 },
 	}
-}
-
-
-func timeRangeFilterSchema() *schema.Schema {
+}func timeRangeFilterSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TimeRangeFilter.html
 Type:     schema.TypeList,
 Optional: true,
@@ -286,10 +265,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func topBottomFilterSchema() *schema.Schema {
+}func topBottomFilterSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TopBottomFilter.html
 Type:     schema.TypeList,
 Optional: true,
@@ -324,10 +300,7 @@ function.html
 	},
 },
 	}
-}
-
-
-func excludePeriodConfigurationSchema() *schema.Schema {
+}func excludePeriodConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ExcludePeriodConfiguration.html
 Type:     schema.TypeList,
 Optional: true,
@@ -344,10 +317,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func numericRangeFilterValueSchema() *schema.Schema {
+}func numericRangeFilterValueSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericRangeFilterValue.html
 Type:     schema.TypeList,
 Optional: true,
@@ -371,10 +341,7 @@ validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), ""),
 	},
 },
 	}
-}
-
-
-func timeRangeFilterValueSchema() *schema.Schema {
+}func timeRangeFilterValueSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TimeRangeFilterValue.html
 Type:     schema.TypeList,
 Optional: true,
@@ -396,10 +363,7 @@ validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), ""),
 	},
 },
 	}
-}
-
-
-func drillDownFilterSchema() *schema.Schema {
+}func drillDownFilterSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DrillDownFilter.html
 Type:     schema.TypeList,
 Optional: true,
@@ -461,10 +425,7 @@ Schema: map[string]*schema.Schema{
 	},
 },
 	}
-}
-
-
-func filterSelectableValuesSchema() *schema.Schema {
+}func filterSelectableValuesSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterSelectableValues.html
 Type:     schema.TypeList,
 Optional: true,
@@ -484,10 +445,7 @@ Type: schema.TypeString,
 	},
 },
 	}
-}
-
-
-func filterScopeConfigurationSchema() *schema.Schema {
+}func filterScopeConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterScopeConfiguration.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -527,10 +485,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func expandFilters(tfList []interface{}) []*quicksight.Filter {
+}func expandFilters(tfList []interface{}) []*quicksight.Filter {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -551,10 +506,7 @@ filters = append(filters, filter)
 	}
 
 	return filters
-}
-
-
-func expandFilter(tfMap map[string]interface{}) *quicksight.Filter {
+}func expandFilter(tfMap map[string]interface{}) *quicksight.Filter {
 	if tfMap == nil {
 return nil
 	}
@@ -584,10 +536,7 @@ filter.TopBottomFilter = expandTopBottomFilter(v)
 	}
 
 	return filter
-}
-
-
-func expandCategoryFilter(tfList []interface{}) *quicksight.CategoryFilter {
+}func expandCategoryFilter(tfList []interface{}) *quicksight.CategoryFilter {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -610,10 +559,7 @@ filter.Configuration = expandCategoryFilterConfiguration(v)
 	}
 
 	return filter
-}
-
-
-func expandCategoryFilterConfiguration(tfList []interface{}) *quicksight.CategoryFilterConfiguration {
+}func expandCategoryFilterConfiguration(tfList []interface{}) *quicksight.CategoryFilterConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -636,10 +582,7 @@ config.FilterListConfiguration = expandFilterListConfiguration(v)
 	}
 
 	return config
-}
-
-
-func expandCustomFilterConfiguration(tfList []interface{}) *quicksight.CustomFilterConfiguration {
+}func expandCustomFilterConfiguration(tfList []interface{}) *quicksight.CustomFilterConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -668,10 +611,7 @@ config.SelectAllOptions = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandCustomFilterListConfiguration(tfList []interface{}) *quicksight.CustomFilterListConfiguration {
+}func expandCustomFilterListConfiguration(tfList []interface{}) *quicksight.CustomFilterListConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -697,10 +637,7 @@ config.SelectAllOptions = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandFilterListConfiguration(tfList []interface{}) *quicksight.FilterListConfiguration {
+}func expandFilterListConfiguration(tfList []interface{}) *quicksight.FilterListConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -723,10 +660,7 @@ config.SelectAllOptions = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandNumericEqualityFilter(tfList []interface{}) *quicksight.NumericEqualityFilter {
+}func expandNumericEqualityFilter(tfList []interface{}) *quicksight.NumericEqualityFilter {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -767,10 +701,7 @@ function(v)
 	}
 
 	return filter
-}
-
-
-func expandFilterScopeConfiguration(tfList []interface{}) *quicksight.FilterScopeConfiguration {
+}func expandFilterScopeConfiguration(tfList []interface{}) *quicksight.FilterScopeConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -787,10 +718,7 @@ config.SelectedSheets = expandSelectedSheetsFilterScopeConfiguration(v)
 	}
 
 	return config
-}
-
-
-func expandSelectedSheetsFilterScopeConfiguration(tfList []interface{}) *quicksight.SelectedSheetsFilterScopeConfiguration {
+}func expandSelectedSheetsFilterScopeConfiguration(tfList []interface{}) *quicksight.SelectedSheetsFilterScopeConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -807,10 +735,7 @@ config.SheetVisualScopingConfigurations = expandSheetVisualScopingConfigurations
 	}
 
 	return config
-}
-
-
-func expandSheetVisualScopingConfigurations(tfList []interface{}) []*quicksight.SheetVisualScopingConfiguration {
+}func expandSheetVisualScopingConfigurations(tfList []interface{}) []*quicksight.SheetVisualScopingConfiguration {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -831,10 +756,7 @@ configs = append(configs, config)
 	}
 
 	return configs
-}
-
-
-func expandSheetVisualScopingConfiguration(tfMap map[string]interface{}) *quicksight.SheetVisualScopingConfiguration {
+}func expandSheetVisualScopingConfiguration(tfMap map[string]interface{}) *quicksight.SheetVisualScopingConfiguration {
 	if tfMap == nil {
 return nil
 	}
@@ -852,10 +774,7 @@ config.VisualIds = flex.ExpandStringSet(v)
 	}
 
 	return config
-}
-
-
-func expandNumericRangeFilter(tfList []interface{}) *quicksight.NumericRangeFilter {
+}func expandNumericRangeFilter(tfList []interface{}) *quicksight.NumericRangeFilter {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -899,10 +818,7 @@ filter.RangeMinimum = expandNumericRangeFilterValue(v)
 	}
 
 	return filter
-}
-
-
-func expandNumericRangeFilterValue(tfList []interface{}) *quicksight.NumericRangeFilterValue {
+}func expandNumericRangeFilterValue(tfList []interface{}) *quicksight.NumericRangeFilterValue {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -922,10 +838,7 @@ filter.StaticValue = aws.Float64(v)
 	}
 
 	return filter
-}
-
-
-func expandRelativeDatesFilter(tfList []interface{}) *quicksight.RelativeDatesFilter {
+}func expandRelativeDatesFilter(tfList []interface{}) *quicksight.RelativeDatesFilter {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -969,10 +882,7 @@ filter.ExcludePeriodConfiguration = expandExcludePeriodConfiguration(v)
 	}
 
 	return filter
-}
-
-
-func expandAnchorDateConfiguration(tfList []interface{}) *quicksight.AnchorDateConfiguration {
+}func expandAnchorDateConfiguration(tfList []interface{}) *quicksight.AnchorDateConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -992,10 +902,7 @@ config.ParameterName = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandExcludePeriodConfiguration(tfList []interface{}) *quicksight.ExcludePeriodConfiguration {
+}func expandExcludePeriodConfiguration(tfList []interface{}) *quicksight.ExcludePeriodConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1018,10 +925,7 @@ config.Status = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandTimeEqualityFilter(tfList []interface{}) *quicksight.TimeEqualityFilter {
+}func expandTimeEqualityFilter(tfList []interface{}) *quicksight.TimeEqualityFilter {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1052,10 +956,7 @@ filter.Value = aws.Time(t)
 	}
 
 	return filter
-}
-
-
-func expandTimeRangeFilter(tfList []interface{}) *quicksight.TimeRangeFilter {
+}func expandTimeRangeFilter(tfList []interface{}) *quicksight.TimeRangeFilter {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1096,10 +997,7 @@ filter.RangeMinimumValue = expandTimeRangeFilterValue(v)
 	}
 
 	return filter
-}
-
-
-func expandTimeRangeFilterValue(tfList []interface{}) *quicksight.TimeRangeFilterValue {
+}func expandTimeRangeFilterValue(tfList []interface{}) *quicksight.TimeRangeFilterValue {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1124,10 +1022,7 @@ filter.RollingDate = expandRollingDateConfiguration(v)
 	}
 
 	return filter
-}
-
-
-func expandTopBottomFilter(tfList []interface{}) *quicksight.TopBottomFilter {
+}func expandTopBottomFilter(tfList []interface{}) *quicksight.TopBottomFilter {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1159,10 +1054,7 @@ filter.AggregationSortConfigurations = expandAggregationSortConfigurations(v)
 	}
 
 	return filter
-}
-
-
-func expandAggregationSortConfigurations(tfList []interface{}) []*quicksight.AggregationSortConfiguration {
+}func expandAggregationSortConfigurations(tfList []interface{}) []*quicksight.AggregationSortConfiguration {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -1183,10 +1075,7 @@ configs = append(configs, config)
 	}
 
 	return configs
-}
-
-
-func expandAggregationSortConfiguration(tfMap map[string]interface{}) *quicksight.AggregationSortConfiguration {
+}func expandAggregationSortConfiguration(tfMap map[string]interface{}) *quicksight.AggregationSortConfiguration {
 	if tfMap == nil {
 return nil
 	}
@@ -1207,10 +1096,7 @@ config.Column = expandColumnIdentifier(v)
 	}
 
 	return config
-}
-
-
-func expandDrillDownFilters(tfList []interface{}) []*quicksight.DrillDownFilter {
+}func expandDrillDownFilters(tfList []interface{}) []*quicksight.DrillDownFilter {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -1231,10 +1117,7 @@ options = append(options, opts)
 	}
 
 	return options
-}
-
-
-func expandDrillDownFilter(tfMap map[string]interface{}) *quicksight.DrillDownFilter {
+}func expandDrillDownFilter(tfMap map[string]interface{}) *quicksight.DrillDownFilter {
 	if tfMap == nil {
 return nil
 	}
@@ -1252,10 +1135,7 @@ options.TimeRangeFilter = expandTimeRangeDrillDownFilter(v)
 	}
 
 	return options
-}
-
-
-func expandCategoryDrillDownFilter(tfList []interface{}) *quicksight.CategoryDrillDownFilter {
+}func expandCategoryDrillDownFilter(tfList []interface{}) *quicksight.CategoryDrillDownFilter {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1275,10 +1155,7 @@ filter.CategoryValues = flex.ExpandStringList(v)
 	}
 
 	return filter
-}
-
-
-func expandNumericEqualityDrillDownFilter(tfList []interface{}) *quicksight.NumericEqualityDrillDownFilter {
+}func expandNumericEqualityDrillDownFilter(tfList []interface{}) *quicksight.NumericEqualityDrillDownFilter {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1298,10 +1175,7 @@ filter.Value = aws.Float64(v)
 	}
 
 	return filter
-}
-
-
-func expandTimeRangeDrillDownFilter(tfList []interface{}) *quicksight.TimeRangeDrillDownFilter {
+}func expandTimeRangeDrillDownFilter(tfList []interface{}) *quicksight.TimeRangeDrillDownFilter {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1331,10 +1205,7 @@ filter.Column = expandColumnIdentifier(v)
 	}
 
 	return filter
-}
-
-
-func flattenFilters(apiObject []*quicksight.Filter) []interface{} {
+}func flattenFilters(apiObject []*quicksight.Filter) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1371,10 +1242,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenCategoryFilter(apiObject *quicksight.CategoryFilter) []interface{} {
+}func flattenCategoryFilter(apiObject *quicksight.CategoryFilter) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1391,10 +1259,7 @@ tfMap["filter_id"] = aws.StringValue(apiObject.FilterId)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenCategoryFilterConfiguration(apiObject *quicksight.CategoryFilterConfiguration) []interface{} {
+}func flattenCategoryFilterConfiguration(apiObject *quicksight.CategoryFilterConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1411,10 +1276,7 @@ tfMap["filter_list_configuration"] = flattenFilterListConfiguration(apiObject.Fi
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenCustomFilterConfiguration(apiObject *quicksight.CustomFilterConfiguration) []interface{} {
+}func flattenCustomFilterConfiguration(apiObject *quicksight.CustomFilterConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1437,10 +1299,7 @@ tfMap["select_all_options"] = aws.StringValue(apiObject.SelectAllOptions)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenCustomFilterListConfiguration(apiObject *quicksight.CustomFilterListConfiguration) []interface{} {
+}func flattenCustomFilterListConfiguration(apiObject *quicksight.CustomFilterListConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1460,10 +1319,7 @@ tfMap["select_all_options"] = aws.StringValue(apiObject.SelectAllOptions)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFilterListConfiguration(apiObject *quicksight.FilterListConfiguration) []interface{} {
+}func flattenFilterListConfiguration(apiObject *quicksight.FilterListConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1480,10 +1336,7 @@ tfMap["select_all_options"] = aws.StringValue(apiObject.SelectAllOptions)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenNumericEqualityFilter(apiObject *quicksight.NumericEqualityFilter) []interface{} {
+}func flattenNumericEqualityFilter(apiObject *quicksight.NumericEqualityFilter) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1519,10 +1372,7 @@ tfMap["value"] = aws.Float64Value(apiObject.Value)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenNumericRangeFilter(apiObject *quicksight.NumericRangeFilter) []interface{} {
+}func flattenNumericRangeFilter(apiObject *quicksight.NumericRangeFilter) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1561,10 +1411,7 @@ tfMap["select_all_options"] = aws.StringValue(apiObject.SelectAllOptions)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenNumericRangeFilterValue(apiObject *quicksight.NumericRangeFilterValue) []interface{} {
+}func flattenNumericRangeFilterValue(apiObject *quicksight.NumericRangeFilterValue) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1578,10 +1425,7 @@ tfMap["static_value"] = aws.Float64Value(apiObject.StaticValue)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenRelativeDatesFilter(apiObject *quicksight.RelativeDatesFilter) []interface{} {
+}func flattenRelativeDatesFilter(apiObject *quicksight.RelativeDatesFilter) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1619,10 +1463,7 @@ tfMap["time_granularity"] = aws.StringValue(apiObject.TimeGranularity)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAnchorDateConfiguration(apiObject *quicksight.AnchorDateConfiguration) []interface{} {
+}func flattenAnchorDateConfiguration(apiObject *quicksight.AnchorDateConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1636,10 +1477,7 @@ tfMap["parameter_name"] = aws.StringValue(apiObject.ParameterName)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenExcludePeriodConfiguration(apiObject *quicksight.ExcludePeriodConfiguration) []interface{} {
+}func flattenExcludePeriodConfiguration(apiObject *quicksight.ExcludePeriodConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1656,10 +1494,7 @@ tfMap["status"] = aws.StringValue(apiObject.Status)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenTimeEqualityFilter(apiObject *quicksight.TimeEqualityFilter) []interface{} {
+}func flattenTimeEqualityFilter(apiObject *quicksight.TimeEqualityFilter) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1682,10 +1517,7 @@ tfMap["value"] = apiObject.Value.Format(time.RFC3339)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenTimeRangeFilter(apiObject *quicksight.TimeRangeFilter) []interface{} {
+}func flattenTimeRangeFilter(apiObject *quicksight.TimeRangeFilter) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1720,10 +1552,7 @@ tfMap["time_granularity"] = aws.StringValue(apiObject.TimeGranularity)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenTimeRangeFilterValue(apiObject *quicksight.TimeRangeFilterValue) []interface{} {
+}func flattenTimeRangeFilterValue(apiObject *quicksight.TimeRangeFilterValue) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1740,10 +1569,7 @@ tfMap["static_value"] = apiObject.StaticValue.Format(time.RFC3339)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenTopBottomFilter(apiObject *quicksight.TopBottomFilter) []interface{} {
+}func flattenTopBottomFilter(apiObject *quicksight.TopBottomFilter) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1769,10 +1595,7 @@ tfMap["time_granularity"] = aws.StringValue(apiObject.TimeGranularity)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAggregationSortConfigurations(apiObject []*quicksight.AggregationSortConfiguration) []interface{} {
+}func flattenAggregationSortConfigurations(apiObject []*quicksight.AggregationSortConfiguration) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1801,10 +1624,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenFilterScopeConfiguration(apiObject *quicksight.FilterScopeConfiguration) []interface{} {
+}func flattenFilterScopeConfiguration(apiObject *quicksight.FilterScopeConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1815,10 +1635,7 @@ tfMap["selected_sheets"] = flattenSelectedSheetsFilterScopeConfiguration(apiObje
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenSelectedSheetsFilterScopeConfiguration(apiObject *quicksight.SelectedSheetsFilterScopeConfiguration) []interface{} {
+}func flattenSelectedSheetsFilterScopeConfiguration(apiObject *quicksight.SelectedSheetsFilterScopeConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1829,10 +1646,7 @@ tfMap["sheet_visual_scoping_configurations"] = flattenSheetVisualScopingConfigur
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenSheetVisualScopingConfigurations(apiObject []*quicksight.SheetVisualScopingConfiguration) []interface{} {
+}func flattenSheetVisualScopingConfigurations(apiObject []*quicksight.SheetVisualScopingConfiguration) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}

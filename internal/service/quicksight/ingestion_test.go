@@ -19,10 +19,7 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/create"
 tfquicksight "github.com/hashicorp/terraform-provider-aws/internal/service/quicksight"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-
-func TestAccQuickSightIngestion_basic(t *testing.T) {
+)func TestAccQuickSightIngestion_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var ingestion quicksight.Ingestion
 dataSetName := "aws_quicksight_data_set.test"
@@ -31,8 +28,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckIngestionDestroy(ctx),
@@ -73,8 +69,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckIngestionDestroy(ctx),
@@ -90,13 +85,9 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-
-func testAccCheckIngestionExists(ctx context.Context, resourceName string, ingestion *quicksight.Ingestion) resource.TestCheck
+}func testAccCheckIngestionExists(ctx context.Context, resourceName string, ingestion *quicksight.Ingestion) resource.TestCheck
 func {
-return 
-func(s *terraform.State) error {
+returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 return fmt.Errorf("Not found: %s", resourceName)
@@ -112,13 +103,9 @@ return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquick
 
 return nil
 }
-}
-
-
-func testAccCheckIngestionDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckIngestionDestroy(ctx context.Context) resource.TestCheck
 func {
-return 
-func(s *terraform.State) error {
+returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_quicksight_ingestion" {
@@ -140,10 +127,7 @@ return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquick
 
 return nil
 }
-}
-
-
-func isDestroyedStatus(status string) bool {
+}func isDestroyedStatus(status string) bool {
 targetStatuses := []string{
 quicksight.IngestionStatusCancelled,
 quicksight.IngestionStatusCompleted,
@@ -155,10 +139,7 @@ return true
 }
 }
 return false
-}
-
-
-func testAccIngestionConfigBase(rId, rName string) string {
+}func testAccIngestionConfigBase(rId, rName string) string {
 return acctest.ConfigCompose(
 testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
@@ -182,10 +163,7 @@ upload_settings {
   }
 }
 `, rId, rName))
-}
-
-
-func testAccIngestionConfig_basic(rId, rName, ingestionType string) string {
+}func testAccIngestionConfig_basic(rId, rName, ingestionType string) string {
 return acctest.ConfigCompose(
 testAccIngestionConfigBase(rId, rName),
 fmt.Sprintf(`

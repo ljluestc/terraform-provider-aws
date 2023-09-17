@@ -1,16 +1,1 @@
-packageiprangecallexpr
-
-import(
-"github.com/bflad/tfproviderlint/helper/analysisutils"
-"github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation"
-)
-
-varAnalyzer=analysisutils.
-CallExprAnalyzer(
-"iprangecallexpr",
-validation.Is
-
-validation.PackagePath,
-validation.
-IPRange,
-)
+packageiprangecallexprimport("github.com/bflad/tfproviderlint/helper/analysisutils""github.com/bflad/tfproviderlint/helper/terraformtype/helper/validation")varAnalyzer=analysisutils.CallExprAnalyzer("iprangecallexpr",validation.Isvalidation.PackagePath,validation.IPRange,)

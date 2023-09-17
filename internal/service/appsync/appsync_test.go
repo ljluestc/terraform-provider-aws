@@ -1,18 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appsync_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appsync_testimport (
 	"os"
-	"testing"
-
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+	"testing"	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 func TestAccAppSync_serial(t *testing.T) {
-	t.Parallel()
-
-	testCases := map[string]map[string]func(t *testing.T){
+	t.Parallel()	testCases := map[string]map[string]func(t *testing.T){
 		"APIKey": {
 			"basic":  testAccAPIKey_basic,
 			"description": testAccAPIKey_description,
@@ -105,9 +97,7 @@ func TestAccAppSync_serial(t *testing.T) {
 			"basic": testAccDomainNameAPIAssociation_basic,
 			"disappears": testAccDomainNameAPIAssociation_disappears,
 		},
-	}
-
-	acctest.RunSerialTests2Levels(t, testCases, 0)
+	}	acctest.RunSerialTests2Levels(t, testCases, 0)
 }
 func getCertDomain(t *testing.T) string {
 	value := os.Getenv("AWS_APPSYNC_DOMAIN_NAME_CERTIFICATE_DOMAIN")
@@ -116,7 +106,5 @@ func getCertDomain(t *testing.T) string {
 			"Environment variable AWS_APPSYNC_DOMAIN_NAME_CERTIFICATE_DOMAIN is not set. " +
 				"This environment variable must be set to any non-empty value " +
 				"to enable the test.")
-	}
-
-	return value
+	}	return value
 }

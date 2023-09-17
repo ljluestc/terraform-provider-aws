@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package fsx
-
-import (
+// SPDX-License-Identifier: MPL-2.0package fsximport (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/fsx"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-)
-
-func BuildSnapshotFiltersDataSource(set *schema.Set) []*fsx.SnapshotFilter {
+)func BuildSnapshotFiltersDataSource(set *schema.Set) []*fsx.SnapshotFilter {
 	var filters []*fsx.SnapshotFilter
 	for _, v := range set.List() {
 		m := v.(map[string]interface{})
@@ -23,9 +17,7 @@ func BuildSnapshotFiltersDataSource(set *schema.Set) []*fsx.SnapshotFilter {
 		})
 	}
 	return filters
-}
-
-func DataSourceSnapshotFiltersSchema() *schema.Schema {
+}func DataSourceSnapshotFiltersSchema() *schema.Schema {
 	return &schema.Schema{
 		Type: schema.TypeSet,
 		Optional: true,
@@ -34,9 +26,7 @@ func DataSourceSnapshotFiltersSchema() *schema.Schema {
 				"name": {
 					Type: schema.TypeString,
 					Required: true,
-				},
-
-				"values": {
+				},				"values": {
 					Type: schema.TypeList,
 					Required: true,
 					Elem: &schema.Schema{Type: schema.TypeString},

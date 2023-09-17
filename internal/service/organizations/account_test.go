@@ -17,10 +17,7 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tforganizations "github.com/hashicorp/terraform-provider-aws/internal/service/organizations"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func testAccAccountImportStep(n string) resource.TestStep {
+)func testAccAccountImportStep(n string) resource.TestStep {
 return resource.TestStep{
 ResourceName:      n,
 ImportState:       true,
@@ -31,10 +28,7 @@ ImportStateVerifyIgnore: []string{
 "govcloud_id",
 },
 }
-}
-
-
-func testAccAccount_basic(t *testing.T) {
+}func testAccAccount_basic(t *testing.T) {
 ctx := acctest.Context(t)
 key := "TEST_AWS_ORGANIZATION_ACCOUNT_EMAIL_DOMAIN"
 orgsEmailDomain := os.Getenv(key)
@@ -49,8 +43,7 @@ name := fmt.Sprintf("tf_acctest_%d", rInt)
 email := fmt.Sprintf("tf-acctest+%d@%s", rInt, orgsEmailDomain)
 
 resource.Test(t, resource.TestCase{
-PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsEnabled(ctx, t) },
+PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsEnabled(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckAccountDestroy(ctx),
@@ -72,10 +65,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 testAccAccountImportStep(resourceName),
 },
 })
-}
-
-
-func testAccAccount_CloseOnDeletion(t *testing.T) {
+}func testAccAccount_CloseOnDeletion(t *testing.T) {
 ctx := acctest.Context(t)
 key := "TEST_AWS_ORGANIZATION_ACCOUNT_EMAIL_DOMAIN"
 orgsEmailDomain := os.Getenv(key)
@@ -90,8 +80,7 @@ name := fmt.Sprintf("tf_acctest_%d", rInt)
 email := fmt.Sprintf("tf-acctest+%d@%s", rInt, orgsEmailDomain)
 
 resource.Test(t, resource.TestCase{
-PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsEnabled(ctx, t) },
+PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsEnabled(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckAccountDestroy(ctx),
@@ -114,10 +103,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 testAccAccountImportStep(resourceName),
 },
 })
-}
-
-
-func testAccAccount_ParentID(t *testing.T) {
+}func testAccAccount_ParentID(t *testing.T) {
 ctx := acctest.Context(t)
 key := "TEST_AWS_ORGANIZATION_ACCOUNT_EMAIL_DOMAIN"
 orgsEmailDomain := os.Getenv(key)
@@ -134,8 +120,7 @@ parentIdResourceName1 := "aws_organizations_organizational_unit.test1"
 parentIdResourceName2 := "aws_organizations_organizational_unit.test2"
 
 resource.Test(t, resource.TestCase{
-PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsEnabled(ctx, t) },
+PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsEnabled(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckAccountDestroy(ctx),
@@ -157,10 +142,7 @@ resource.TestCheckResourceAttrPair(resourceName, "parent_id", parentIdResourceNa
 },
 },
 })
-}
-
-
-func testAccAccount_Tags(t *testing.T) {
+}func testAccAccount_Tags(t *testing.T) {
 ctx := acctest.Context(t)
 key := "TEST_AWS_ORGANIZATION_ACCOUNT_EMAIL_DOMAIN"
 orgsEmailDomain := os.Getenv(key)
@@ -175,8 +157,7 @@ email := fmt.Sprintf("tf-acctest+%d@%s", rInt, orgsEmailDomain)
 resourceName := "aws_organizations_account.test"
 
 resource.Test(t, resource.TestCase{
-PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsEnabled(ctx, t) },
+PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsEnabled(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckAccountDestroy(ctx),
@@ -209,10 +190,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-
-func testAccAccount_govCloud(t *testing.T) {
+}func testAccAccount_govCloud(t *testing.T) {
 ctx := acctest.Context(t)
 key := "TEST_AWS_ORGANIZATION_ACCOUNT_EMAIL_DOMAIN"
 orgsEmailDomain := os.Getenv(key)
@@ -227,8 +205,7 @@ name := fmt.Sprintf("tf_acctest_%d", rInt)
 email := fmt.Sprintf("tf-acctest+%d@%s", rInt, orgsEmailDomain)
 
 resource.Test(t, resource.TestCase{
-PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsEnabled(ctx, t) },
+PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsEnabled(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckAccountDestroy(ctx),
@@ -243,12 +220,8 @@ resource.TestCheckResourceAttrSet(resourceName, "govcloud_id"),
 testAccAccountImportStep(resourceName),
 },
 })
-}
-
-
-func testAccCheckAccountDestroy(ctx context.Context) resource.TestCheckFunc {
-return 
-func(s *terraform.State) error {
+}func testAccCheckAccountDestroy(ctx context.Context) resource.TestCheckFunc {
+returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -271,12 +244,8 @@ return fmt.Errorf("AWS Organizations Account %s still exists", rs.Primary.ID)
 
 return nil
 }
-}
-
-
-func testAccCheckAccountExists(ctx context.Context, n string, v *organizations.Account) resource.TestCheckFunc {
-return 
-func(s *terraform.State) error {
+}func testAccCheckAccountExists(ctx context.Context, n string, v *organizations.Account) resource.TestCheckFunc {
+returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
@@ -298,20 +267,14 @@ return err
 
 return nil
 }
-}
-
-
-func testAccAccountConfig_basic(name, email string) string {
+}func testAccAccountConfig_basic(name, email string) string {
 return fmt.Sprintf(`
 resource "aws_organizations_account" "test" {
   name  = %[1]q
   email = %[2]q
 }
 `, name, email)
-}
-
-
-func testAccAccountConfig_closeOnDeletion(name, email string) string {
+}func testAccAccountConfig_closeOnDeletion(name, email string) string {
 return fmt.Sprintf(`
 resource "aws_organizations_account" "test" {
   name     = %[1]q
@@ -319,10 +282,7 @@ resource "aws_organizations_account" "test" {
   close_on_deletion = true
 }
 `, name, email)
-}
-
-
-func testAccAccountConfig_parentId1(name, email string) string {
+}func testAccAccountConfig_parentId1(name, email string) string {
 return fmt.Sprintf(`
 data "aws_organizations_organization" "test" {}
 
@@ -343,10 +303,7 @@ resource "aws_organizations_account" "test" {
   close_on_deletion = true
 }
 `, name, email)
-}
-
-
-func testAccAccountConfig_parentId2(name, email string) string {
+}func testAccAccountConfig_parentId2(name, email string) string {
 return fmt.Sprintf(`
 data "aws_organizations_organization" "test" {}
 
@@ -367,10 +324,7 @@ resource "aws_organizations_account" "test" {
   close_on_deletion = true
 }
 `, name, email)
-}
-
-
-func testAccAccountConfig_tags1(name, email, tagKey1, tagValue1 string) string {
+}func testAccAccountConfig_tags1(name, email, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 resource "aws_organizations_account" "test" {
   name     = %[1]q
@@ -382,10 +336,7 @@ resource "aws_organizations_account" "test" {
   }
 }
 `, name, email, tagKey1, tagValue1)
-}
-
-
-func testAccAccountConfig_tags2(name, email, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccAccountConfig_tags2(name, email, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return fmt.Sprintf(`
 resource "aws_organizations_account" "test" {
   name     = %[1]q
@@ -398,10 +349,7 @@ resource "aws_organizations_account" "test" {
   }
 }
 `, name, email, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-
-func testAccAccountConfig_govCloud(name, email string) string {
+}func testAccAccountConfig_govCloud(name, email string) string {
 return fmt.Sprintf(`
 resource "aws_organizations_account" "test" {
   name   = %[1]q

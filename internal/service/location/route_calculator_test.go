@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package location_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package location_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/locationservice"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,14 +11,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflocation "github.com/hashicorp/terraform-provider-aws/internal/service/location"
-)
-
-func TestAccLocationRouteCalculator_basic(t *testing.T) {
+)func TestAccLocationRouteCalculator_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_route_calculator.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_route_calculator.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -50,14 +40,10 @@ func TestAccLocationRouteCalculator_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLocationRouteCalculator_disappears(t *testing.T) {
+}func TestAccLocationRouteCalculator_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_route_calculator.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_route_calculator.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -73,14 +59,10 @@ func TestAccLocationRouteCalculator_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLocationRouteCalculator_description(t *testing.T) {
+}func TestAccLocationRouteCalculator_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_route_calculator.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_route_calculator.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -107,14 +89,10 @@ func TestAccLocationRouteCalculator_description(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLocationRouteCalculator_tags(t *testing.T) {
+}func TestAccLocationRouteCalculator_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_route_calculator.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_route_calculator.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -152,70 +130,44 @@ func TestAccLocationRouteCalculator_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckRouteCalculatorDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckRouteCalculatorDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_location_route_calculator" {
 				continue
-			}
-
-			input := &locationservice.DescribeRouteCalculatorInput{
+			}			input := &locationservice.DescribeRouteCalculatorInput{
 				CalculatorName: aws.String(rs.Primary.ID),
-			}
-
-			_, err := conn.DescribeRouteCalculatorWithContext(ctx, input)
+			}			_, err := conn.DescribeRouteCalculatorWithContext(ctx, input)
 			if err != nil {
 				if tfawserr.ErrCodeEquals(err, locationservice.ErrCodeResourceNotFoundException) {
 					return nil
 				}
 				return err
-			}
-
-			return fmt.Errorf("Expected Location Service Route Calculator to be destroyed, %s found", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Expected Location Service Route Calculator to be destroyed, %s found", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckRouteCalculatorExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckRouteCalculatorExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Location Service Route Calculator is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)
 		_, err := conn.DescribeRouteCalculatorWithContext(ctx, &locationservice.DescribeRouteCalculatorInput{
 			CalculatorName: aws.String(rs.Primary.ID),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return fmt.Errorf("Error describing Location Service Route Calculator: %s", err.Error())
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccRouteCalculatorConfig_basic(rName string) string {
+}func testAccRouteCalculatorConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_location_route_calculator" "test" {
   calculator_name = %[1]q
   data_source     = "Here"
 }
 `, rName)
-}
-
-func testAccRouteCalculatorConfig_description(rName, description string) string {
+}func testAccRouteCalculatorConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_location_route_calculator" "test" {
   calculator_name = %[1]q
@@ -223,28 +175,20 @@ resource "aws_location_route_calculator" "test" {
   description     = %[2]q
 }
 `, rName, description)
-}
-
-func testAccRouteCalculatorConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccRouteCalculatorConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_location_route_calculator" "test" {
   calculator_name = %[1]q
-  data_source     = "Here"
-
-  tags = {
+  data_source     = "Here"  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccRouteCalculatorConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccRouteCalculatorConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_location_route_calculator" "test" {
   calculator_name = %[1]q
-  data_source     = "Here"
-
-  tags = {
+  data_source     = "Here"  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }

@@ -15,10 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tforganizations "github.com/hashicorp/terraform-provider-aws/internal/service/organizations"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func testAccDelegatedAdministrator_basic(t *testing.T) {
+)func testAccDelegatedAdministrator_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var organization organizations.DelegatedAdministrator
 	resourceName := "aws_organizations_delegated_administrator.test"
@@ -26,8 +23,7 @@ func testAccDelegatedAdministrator_basic(t *testing.T) {
 	dataSourceIdentity := "data.aws_caller_identity.delegated"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
-func() {
+		PreCheck:func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
@@ -48,18 +44,14 @@ func() {
 			},
 		},
 	})
-}
-
-
-func testAccDelegatedAdministrator_disappears(t *testing.T) {
+}func testAccDelegatedAdministrator_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var organization organizations.DelegatedAdministrator
 	resourceName := "aws_organizations_delegated_administrator.test"
 	servicePrincipal := "config-multiaccountsetup.amazonaws.com"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
-func() {
+		PreCheck:func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
@@ -78,12 +70,8 @@ func() {
 			},
 		},
 	})
-}
-
-
-func testAccCheckDelegatedAdministratorDestroy(ctx context.Context) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
+}func testAccCheckDelegatedAdministratorDestroy(ctx context.Context) resource.TestCheckFunc {
+	returnfunc(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -112,12 +100,8 @@ func(s *terraform.State) error {
 
 		return nil
 	}
-}
-
-
-func testAccCheckDelegatedAdministratorExists(ctx context.Context, n string, v *organizations.DelegatedAdministrator) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
+}func testAccCheckDelegatedAdministratorExists(ctx context.Context, n string, v *organizations.DelegatedAdministrator) resource.TestCheckFunc {
+	returnfunc(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -141,10 +125,7 @@ func(s *terraform.State) error {
 
 		return nil
 	}
-}
-
-
-func testAccDelegatedAdministratorConfig_basic(servicePrincipal string) string {
+}func testAccDelegatedAdministratorConfig_basic(servicePrincipal string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 data "aws_caller_identity" "delegated" {
   provider = "awsalternate"

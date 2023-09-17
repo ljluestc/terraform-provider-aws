@@ -4,9 +4,9 @@
 package ssm
 
 import (
-	"time"
+"time"
 )
 
 const (
-	propagationTimeout = 2 * time.Minute
+propagationTimeout = 2 * time.Minute
 )

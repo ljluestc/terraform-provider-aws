@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package vpclattice_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package vpclattice_testimport (
 "context"
 "errors"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go-v2/aws"
 "github.com/aws/aws-sdk-go-v2/service/vpclattice"
 "github.com/aws/aws-sdk-go-v2/service/vpclattice/types"
@@ -21,15 +15,11 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/create"
 tfvpclattice "github.com/hashicorp/terraform-provider-aws/internal/service/vpclattice"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccVPCLatticeTargetGroup_basic(t *testing.T) {
+)func TestAccVPCLatticeTargetGroup_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var targetGroup vpclattice.GetTargetGroupOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_target_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -74,15 +64,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeTargetGroup_disappears(t *testing.T) {
+}func TestAccVPCLatticeTargetGroup_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var targetGroup vpclattice.GetTargetGroupOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_target_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -102,15 +88,11 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeTargetGroup_tags(t *testing.T) {
+}func TestAccVPCLatticeTargetGroup_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var targetGroup vpclattice.GetTargetGroupOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_target_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -148,15 +130,11 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-func TestAccVPCLatticeTargetGroup_lambda(t *testing.T) {
+}func TestAccVPCLatticeTargetGroup_lambda(t *testing.T) {
 ctx := acctest.Context(t)
 var targetGroup vpclattice.GetTargetGroupOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_target_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -185,9 +163,7 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeTargetGroup_ip(t *testing.T) {
+}func TestAccVPCLatticeTargetGroup_ip(t *testing.T) {
 ctx := acctest.Context(t)
 var targetGroup vpclattice.GetTargetGroupOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -265,15 +241,11 @@ resource.TestCheckResourceAttr(resourceName, "type", "IP"),
 },
 },
 })
-}
-
-func TestAccVPCLatticeTargetGroup_alb(t *testing.T) {
+}func TestAccVPCLatticeTargetGroup_alb(t *testing.T) {
 ctx := acctest.Context(t)
 var targetGroup vpclattice.GetTargetGroupOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_target_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -307,18 +279,12 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func testAccCheckTargetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckTargetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_vpclattice_target_group" {
 continue
-}
-
-_, err := conn.GetTargetGroup(ctx, &vpclattice.GetTargetGroupInput{
+}_, err := conn.GetTargetGroup(ctx, &vpclattice.GetTargetGroupInput{
 TargetGroupIdentifier: aws.String(rs.Primary.ID),
 })
 if err != nil {
@@ -327,116 +293,76 @@ if errors.As(err, &nfe) {
 return nil
 }
 return err
+}return create.Error(names.VPCLattice, create.ErrActionCheckingDestroyed, tfvpclattice.ResNameService, rs.Primary.ID, errors.New("not destroyed"))
+}return nil
 }
-
-return create.Error(names.VPCLattice, create.ErrActionCheckingDestroyed, tfvpclattice.ResNameService, rs.Primary.ID, errors.New("not destroyed"))
-}
-
-return nil
-}
-}
-
-func testAccCheckTargetGroupExists(ctx context.Context, name string, targetGroup *vpclattice.GetTargetGroupOutput) resource.TestCheckFunc {
+}func testAccCheckTargetGroupExists(ctx context.Context, name string, targetGroup *vpclattice.GetTargetGroupOutput) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameService, name, errors.New("not found"))
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameService, name, errors.New("not set"))
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
 resp, err := conn.GetTargetGroup(ctx, &vpclattice.GetTargetGroupInput{
 TargetGroupIdentifier: aws.String(rs.Primary.ID),
-})
-
-if err != nil {
+})if err != nil {
 return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameService, rs.Primary.ID, err)
+}*targetGroup = *respreturn nil
 }
-
-*targetGroup = *resp
-
-return nil
-}
-}
-
-func testAccTargetGroupConfig_basic(rName string) string {
+}func testAccTargetGroupConfig_basic(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
-  type = "INSTANCE"
-
-  config {
+  type = "INSTANCE"  config {
     port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
 }
 `, rName))
-}
-
-func testAccTargetGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccTargetGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
-  type = "LAMBDA"
-
-  tags = {
+  type = "LAMBDA"  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccTargetGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccTargetGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
-  type = "LAMBDA"
-
-  tags = {
+  type = "LAMBDA"  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccTargetGroupConfig_lambda(rName string) string {
+}func testAccTargetGroupConfig_lambda(rName string) string {
 return fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "LAMBDA"
 }
 `, rName)
-}
-
-func testAccTargetGroupConfig_ip(rName string) string {
+}func testAccTargetGroupConfig_ip(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
-  type = "IP"
-
-  config {
+  type = "IP"  config {
     port    = 443
     protocol= "HTTPS"
     vpc_identifier   = aws_vpc.test.id
     ip_address_type  = "IPV6"
-    protocol_version = "HTTP2"
-
-    health_check {
+    protocol_version = "HTTP2"    health_check {
       health_check_interval_seconds = 60
       health_check_timeout_seconds  = 10
       healthy_threshold_count       = 6
-      unhealthy_threshold_count     = 4
-
-      matcher {
+      unhealthy_threshold_count     = 4      matcher {
         value = "200-299"
-      }
-
-      path    = "/health"
+      }      path    = "/health"
       port    = 8443
       protocol= "HTTPS"
       protocol_version = "HTTP1"
@@ -444,32 +370,22 @@ resource "aws_vpclattice_target_group" "test" {
   }
 }
 `, rName))
-}
-
-func testAccTargetGroupConfig_ipUpdated(rName string) string {
+}func testAccTargetGroupConfig_ipUpdated(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
-  type = "IP"
-
-  config {
+  type = "IP"  config {
     port    = 443
     protocol= "HTTPS"
     vpc_identifier   = aws_vpc.test.id
     ip_address_type  = "IPV6"
-    protocol_version = "HTTP2"
-
-    health_check {
+    protocol_version = "HTTP2"    health_check {
       health_check_interval_seconds = 180
       health_check_timeout_seconds  = 90
       healthy_threshold_count       = 8
-      unhealthy_threshold_count     = 3
-
-      matcher {
+      unhealthy_threshold_count     = 3      matcher {
         value = "202"
-      }
-
-      path    = "/health"
+      }      path    = "/health"
       port    = 8443
       protocol= "HTTPS"
       protocol_version = "HTTP2"
@@ -477,15 +393,11 @@ resource "aws_vpclattice_target_group" "test" {
   }
 }
 `, rName))
-}
-
-func testAccTargetGroupConfig_alb(rName string) string {
+}func testAccTargetGroupConfig_alb(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
-  type = "ALB"
-
-  config {
+  type = "ALB"  config {
     port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id

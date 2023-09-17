@@ -13,10 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-
-func dateTimeParameterDeclarationSchema() *schema.Schema {
+)func dateTimeParameterDeclarationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DateTimeParameterDeclaration.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -77,10 +74,7 @@ func: verify.ValidUTCTimestamp,
 	},
 },
 	}
-}
-
-
-func decimalParameterDeclarationSchema() *schema.Schema {
+}func decimalParameterDeclarationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DecimalParameterDeclaration.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -136,10 +130,7 @@ Optional: true,
 	},
 },
 	}
-}
-
-
-func integerParameterDeclarationSchema() *schema.Schema {
+}func integerParameterDeclarationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_IntegerParameterDeclaration.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -195,10 +186,7 @@ Optional: true,
 	},
 },
 	}
-}
-
-
-func stringParameterDeclarationSchema() *schema.Schema {
+}func stringParameterDeclarationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_StringParameterDeclaration.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -254,10 +242,7 @@ Optional: true,
 	},
 },
 	}
-}
-
-
-func dynamicValueSchema() *schema.Schema {
+}func dynamicValueSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DynamicDefaultValue.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -271,10 +256,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func parameterControlsSchema() *schema.Schema {
+}func parameterControlsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ParameterControl.html
 Type:     schema.TypeList,
 Optional: true,
@@ -388,10 +370,7 @@ Schema: map[string]*schema.Schema{
 	},
 },
 	}
-}
-
-
-func parameterSelectableValuesSchema() *schema.Schema {
+}func parameterSelectableValuesSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ParameterSelectableValues.html
 Type:     schema.TypeList,
 Optional: true,
@@ -412,10 +391,7 @@ Type: schema.TypeString,
 	},
 },
 	}
-}
-
-
-func parameterNameSchema(required bool) *schema.Schema {
+}func parameterNameSchema(required bool) *schema.Schema {
 	return &schema.Schema{
 Type:     schema.TypeString,
 Required: required,
@@ -426,10 +402,7 @@ func: validation.All(
 	validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), ""),
 ),
 	}
-}
-
-
-func expandDateTimeParameterDeclaration(tfList []interface{}) *quicksight.DateTimeParameterDeclaration {
+}func expandDateTimeParameterDeclaration(tfList []interface{}) *quicksight.DateTimeParameterDeclaration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -455,10 +428,7 @@ param.ValueWhenUnset = expandDateTimeValueWhenUnsetConfiguration(v)
 	}
 
 	return param
-}
-
-
-func expandDateTimeDefaultValues(tfList []interface{}) *quicksight.DateTimeDefaultValues {
+}func expandDateTimeDefaultValues(tfList []interface{}) *quicksight.DateTimeDefaultValues {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -481,10 +451,7 @@ values.StaticValues = flex.ExpandStringTimeList(v, time.RFC3339)
 	}
 
 	return values
-}
-
-
-func expandDynamicDefaultValue(tfList []interface{}) *quicksight.DynamicDefaultValue {
+}func expandDynamicDefaultValue(tfList []interface{}) *quicksight.DynamicDefaultValue {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -507,10 +474,7 @@ value.UserNameColumn = expandColumnIdentifier(v)
 	}
 
 	return value
-}
-
-
-func expandDateTimeValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.DateTimeValueWhenUnsetConfiguration {
+}func expandDateTimeValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.DateTimeValueWhenUnsetConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -532,10 +496,7 @@ config.ValueWhenUnsetOption = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandDecimalParameterDeclaration(tfList []interface{}) *quicksight.DecimalParameterDeclaration {
+}func expandDecimalParameterDeclaration(tfList []interface{}) *quicksight.DecimalParameterDeclaration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -561,10 +522,7 @@ param.ValueWhenUnset = expandDecimalValueWhenUnsetConfiguration(v)
 	}
 
 	return param
-}
-
-
-func expandDecimalValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.DecimalValueWhenUnsetConfiguration {
+}func expandDecimalValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.DecimalValueWhenUnsetConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -584,10 +542,7 @@ config.ValueWhenUnsetOption = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandDecimalDefaultValues(tfList []interface{}) *quicksight.DecimalDefaultValues {
+}func expandDecimalDefaultValues(tfList []interface{}) *quicksight.DecimalDefaultValues {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -607,10 +562,7 @@ values.StaticValues = flex.ExpandFloat64List(v)
 	}
 
 	return values
-}
-
-
-func expandIntegerParameterDeclaration(tfList []interface{}) *quicksight.IntegerParameterDeclaration {
+}func expandIntegerParameterDeclaration(tfList []interface{}) *quicksight.IntegerParameterDeclaration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -636,10 +588,7 @@ param.ValueWhenUnset = expandIntegerValueWhenUnsetConfiguration(v)
 	}
 
 	return param
-}
-
-
-func expandIntegerValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.IntegerValueWhenUnsetConfiguration {
+}func expandIntegerValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.IntegerValueWhenUnsetConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -659,10 +608,7 @@ config.ValueWhenUnsetOption = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandIntegerDefaultValues(tfList []interface{}) *quicksight.IntegerDefaultValues {
+}func expandIntegerDefaultValues(tfList []interface{}) *quicksight.IntegerDefaultValues {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -682,10 +628,7 @@ values.StaticValues = flex.ExpandInt64List(v)
 	}
 
 	return values
-}
-
-
-func expandStringParameterDeclaration(tfList []interface{}) *quicksight.StringParameterDeclaration {
+}func expandStringParameterDeclaration(tfList []interface{}) *quicksight.StringParameterDeclaration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -711,10 +654,7 @@ param.ValueWhenUnset = expandStringValueWhenUnsetConfiguration(v)
 	}
 
 	return param
-}
-
-
-func expandStringValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.StringValueWhenUnsetConfiguration {
+}func expandStringValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.StringValueWhenUnsetConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -734,10 +674,7 @@ config.ValueWhenUnsetOption = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandStringDefaultValues(tfList []interface{}) *quicksight.StringDefaultValues {
+}func expandStringDefaultValues(tfList []interface{}) *quicksight.StringDefaultValues {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -757,10 +694,7 @@ values.StaticValues = flex.ExpandStringList(v)
 	}
 
 	return values
-}
-
-
-func expandParameterSelectableValues(tfList []interface{}) *quicksight.ParameterSelectableValues {
+}func expandParameterSelectableValues(tfList []interface{}) *quicksight.ParameterSelectableValues {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -780,10 +714,7 @@ values.Values = flex.ExpandStringList(v)
 	}
 
 	return values
-}
-
-
-func flattenDateTimeParameterDeclaration(apiObject *quicksight.DateTimeParameterDeclaration) []interface{} {
+}func flattenDateTimeParameterDeclaration(apiObject *quicksight.DateTimeParameterDeclaration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -803,10 +734,7 @@ tfMap["values_when_unset"] = flattenDateTimeValueWhenUnsetConfiguration(apiObjec
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDateTimeDefaultValues(apiObject *quicksight.DateTimeDefaultValues) []interface{} {
+}func flattenDateTimeDefaultValues(apiObject *quicksight.DateTimeDefaultValues) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -823,10 +751,7 @@ tfMap["static_values"] = flex.FlattenTimeStringList(apiObject.StaticValues, time
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDynamicDefaultValue(apiObject *quicksight.DynamicDefaultValue) []interface{} {
+}func flattenDynamicDefaultValue(apiObject *quicksight.DynamicDefaultValue) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -843,10 +768,7 @@ tfMap["user_name_column"] = flattenColumnIdentifier(apiObject.UserNameColumn)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDateTimeValueWhenUnsetConfiguration(apiObject *quicksight.DateTimeValueWhenUnsetConfiguration) []interface{} {
+}func flattenDateTimeValueWhenUnsetConfiguration(apiObject *quicksight.DateTimeValueWhenUnsetConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -860,10 +782,7 @@ tfMap["value_when_unset_option"] = aws.StringValue(apiObject.ValueWhenUnsetOptio
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDecimalParameterDeclaration(apiObject *quicksight.DecimalParameterDeclaration) []interface{} {
+}func flattenDecimalParameterDeclaration(apiObject *quicksight.DecimalParameterDeclaration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -883,10 +802,7 @@ tfMap["values_when_unset"] = flattenDecimalValueWhenUnsetConfiguration(apiObject
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDecimalDefaultValues(apiObject *quicksight.DecimalDefaultValues) []interface{} {
+}func flattenDecimalDefaultValues(apiObject *quicksight.DecimalDefaultValues) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -900,10 +816,7 @@ tfMap["static_values"] = flex.FlattenFloat64List(apiObject.StaticValues)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDecimalValueWhenUnsetConfiguration(apiObject *quicksight.DecimalValueWhenUnsetConfiguration) []interface{} {
+}func flattenDecimalValueWhenUnsetConfiguration(apiObject *quicksight.DecimalValueWhenUnsetConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -917,10 +830,7 @@ tfMap["value_when_unset_option"] = aws.StringValue(apiObject.ValueWhenUnsetOptio
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenIntegerParameterDeclaration(apiObject *quicksight.IntegerParameterDeclaration) []interface{} {
+}func flattenIntegerParameterDeclaration(apiObject *quicksight.IntegerParameterDeclaration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -940,10 +850,7 @@ tfMap["values_when_unset"] = flattenIntegerValueWhenUnsetConfiguration(apiObject
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenIntegerDefaultValues(apiObject *quicksight.IntegerDefaultValues) []interface{} {
+}func flattenIntegerDefaultValues(apiObject *quicksight.IntegerDefaultValues) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -957,10 +864,7 @@ tfMap["static_values"] = flex.FlattenInt64List(apiObject.StaticValues)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenIntegerValueWhenUnsetConfiguration(apiObject *quicksight.IntegerValueWhenUnsetConfiguration) []interface{} {
+}func flattenIntegerValueWhenUnsetConfiguration(apiObject *quicksight.IntegerValueWhenUnsetConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -974,10 +878,7 @@ tfMap["value_when_unset_option"] = aws.StringValue(apiObject.ValueWhenUnsetOptio
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenStringParameterDeclaration(apiObject *quicksight.StringParameterDeclaration) []interface{} {
+}func flattenStringParameterDeclaration(apiObject *quicksight.StringParameterDeclaration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -997,10 +898,7 @@ tfMap["values_when_unset"] = flattenStringValueWhenUnsetConfiguration(apiObject.
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenStringDefaultValues(apiObject *quicksight.StringDefaultValues) []interface{} {
+}func flattenStringDefaultValues(apiObject *quicksight.StringDefaultValues) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1014,10 +912,7 @@ tfMap["static_values"] = flex.FlattenStringList(apiObject.StaticValues)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenStringValueWhenUnsetConfiguration(apiObject *quicksight.StringValueWhenUnsetConfiguration) []interface{} {
+}func flattenStringValueWhenUnsetConfiguration(apiObject *quicksight.StringValueWhenUnsetConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1031,10 +926,7 @@ tfMap["value_when_unset_option"] = aws.StringValue(apiObject.ValueWhenUnsetOptio
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenParameterControls(apiObject []*quicksight.ParameterControl) []interface{} {
+}func flattenParameterControls(apiObject []*quicksight.ParameterControl) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1068,10 +960,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenParameterDateTimePickerControl(apiObject *quicksight.ParameterDateTimePickerControl) []interface{} {
+}func flattenParameterDateTimePickerControl(apiObject *quicksight.ParameterDateTimePickerControl) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1086,10 +975,7 @@ tfMap["display_options"] = flattenDateTimePickerControlDisplayOptions(apiObject.
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenParameterDropDownControl(apiObject *quicksight.ParameterDropDownControl) []interface{} {
+}func flattenParameterDropDownControl(apiObject *quicksight.ParameterDropDownControl) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1113,10 +999,7 @@ tfMap["type"] = aws.StringValue(apiObject.Type)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenParameterSelectableValues(apiObject *quicksight.ParameterSelectableValues) []interface{} {
+}func flattenParameterSelectableValues(apiObject *quicksight.ParameterSelectableValues) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1130,10 +1013,7 @@ tfMap["values"] = flex.FlattenStringList(apiObject.Values)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenParameterListControl(apiObject *quicksight.ParameterListControl) []interface{} {
+}func flattenParameterListControl(apiObject *quicksight.ParameterListControl) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1157,10 +1037,7 @@ tfMap["type"] = aws.StringValue(apiObject.Type)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenParameterSliderControl(apiObject *quicksight.ParameterSliderControl) []interface{} {
+}func flattenParameterSliderControl(apiObject *quicksight.ParameterSliderControl) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1178,10 +1055,7 @@ tfMap["display_options"] = flattenSliderControlDisplayOptions(apiObject.DisplayO
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenParameterTextAreaControl(apiObject *quicksight.ParameterTextAreaControl) []interface{} {
+}func flattenParameterTextAreaControl(apiObject *quicksight.ParameterTextAreaControl) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1199,10 +1073,7 @@ tfMap["display_options"] = flattenTextAreaControlDisplayOptions(apiObject.Displa
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenParameterTextFieldControl(apiObject *quicksight.ParameterTextFieldControl) []interface{} {
+}func flattenParameterTextFieldControl(apiObject *quicksight.ParameterTextFieldControl) []interface{} {
 	if apiObject == nil {
 return nil
 	}

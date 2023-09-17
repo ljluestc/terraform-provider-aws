@@ -943,10 +943,7 @@ on = "sts:AssumeRole"
 ct = "Allow"
    = ""
 cipal = {
- Service = "medialive.amazonaws.com"
-
-
-    ]
+ Service = "medialive.amazonaws.com"    ]
   })
 
   tags = {
@@ -1069,9 +1066,6 @@ ive_group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -1087,10 +1081,7 @@ ut_settings {
  rate_mode = "CBR"
      }
    }
- }
-
-
-    }
+ }    }
   }
 }
 `, rName))
@@ -1147,9 +1138,6 @@ selector_name = %[1]q
 _group_settings {
 group_settings {
  input_loss_action = "DROP_TS"
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -1173,10 +1161,7 @@ ut_settings {
  rate_mode = "CBR"
      }
    }
- }
-
-
-    }
+ }    }
   }
 }
 `, rName))
@@ -1236,9 +1221,6 @@ mooth_group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -1246,10 +1228,7 @@ o_description_names = [%[1]q]
 ut_settings {
  ms_smooth_output_settings {
    name_modifier = %[1]q
- }
-
-
-    }
+ }    }
   }
 }
 `, rName))
@@ -1299,10 +1278,7 @@ selector_name = %[1]q
  %[1]q
 settings {
 settings {
- rate_control_mode = "CBR"
-
-
-    }
+ rate_control_mode = "CBR"    }
 
     video_descriptions {
  "test-video-name"
@@ -1314,9 +1290,6 @@ ive_group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -1340,10 +1313,7 @@ ut_settings {
  segmentation_time= 1.92
      }
    }
- }
-
-
-    }
+ }    }
   }
 }
 `, rName))
@@ -1395,10 +1365,7 @@ settings {
 settings {
  rate_control_mode = "CBR"
  bitrate  = 192000
- sample_rate00
-
-
-    }
+ sample_rate00    }
 
     audio_descriptions {
 selector_name = "audio_2"
@@ -1406,10 +1373,7 @@ selector_name = "audio_2"
 
 settings {
 settings {
- bitrate = 384000
-
-
-    }
+ bitrate = 384000    }
 
     video_descriptions {
  "test-video-name"
@@ -1421,9 +1385,6 @@ ive_group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -1439,10 +1400,7 @@ ut_settings {
  rate_mode = "CBR"
      }
    }
- }
-
-
-    }
+ }    }
   }
 }
 `, rName))
@@ -1492,10 +1450,7 @@ selector_name = %[1]q
  %[1]q
 settings {
 settings {
- rate_control_mode = "CBR"
-
-
-    }
+ rate_control_mode = "CBR"    }
 
     video_descriptions {
   = "test-video-name"
@@ -1536,10 +1491,7 @@ _settings {
  slices   = 1
  spatial_aq     = "ENABLED"
  temporal_aq    = "ENABLED"
- timecode_insertion_TIMING_SEI"
-
-
-    }
+ timecode_insertion_TIMING_SEI"    }
 
     output_groups {
 _group_settings {
@@ -1547,9 +1499,6 @@ ive_group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -1565,10 +1514,7 @@ ut_settings {
  rate_mode = "CBR"
      }
    }
- }
-
-
-    }
+ }    }
   }
 }
 `, rName))
@@ -1618,10 +1564,7 @@ selector_name = %[1]q
  %[1]q
 settings {
 settings {
- rate_control_mode = "CBR"
-
-
-    }
+ rate_control_mode = "CBR"    }
 
     video_descriptions {
   = "test-video-name"
@@ -1682,10 +1625,7 @@ _settings {
    timecode_burnin_font_size = "SMALL_16"
    timecode_burnin_position  = "BOTTOM_CENTER"
    prefix     = "terraform-test"
- }
-
-
-    }
+ }    }
 
     output_groups {
 _group_settings {
@@ -1693,9 +1633,6 @@ ive_group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name    = %[1]q
 o_description_name  = "test-video-name"
@@ -1711,10 +1648,7 @@ ut_settings {
  rate_mode = "CBR"
      }
    }
- }
-
-
-    }
+ }    }
   }
 }
 `, rName))
@@ -1774,9 +1708,6 @@ group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -1792,10 +1723,7 @@ ut_settings {
  }
      }
    }
- }
-
-
-    }
+ }    }
   }
 }
 `, rName))
@@ -1824,10 +1752,7 @@ resource "aws_medialive_channel" "test" {
 
     input_settings {
 n_selector {
- = %[1]q
-
-
-selector {
+ = %[1]qselector {
  = "test-audio-selector"
 
     }
@@ -1853,10 +1778,7 @@ selector {
     audio_descriptions {
  "test-audio-name"
 selector_name = "test-audio-selector"
-    }
-
-
-    video_descriptions {
+    }    video_descriptions {
  "test-video-name"
     }
 
@@ -1866,10 +1788,7 @@ n_selector_name = aws_medialive_input.test.name
 
 ation_settings {
 sub_destination_settings {
- font_resolution = %[2]d
-
-
-    }
+ font_resolution = %[2]d    }
 
     output_groups {
 _group_settings {
@@ -1877,9 +1796,6 @@ ive_group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name= "test-output-name"
 o_description_name    = "test-video-name"
@@ -1896,10 +1812,7 @@ ut_settings {
  rate_mode = "CBR"
      }
    }
- }
-
-
-    }
+ }    }
   }
 }
 `, rName, fontResolution))
@@ -1960,9 +1873,6 @@ ive_group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -1978,10 +1888,7 @@ ut_settings {
  rate_mode = "CBR"
      }
    }
- }
-
-
-    }
+ }    }
   }
 }
 `, rName, start))
@@ -2041,9 +1948,6 @@ ive_group_settings {
  destination {
    destination_ref_id = "destination1"
  }
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -2059,10 +1963,7 @@ ut_settings {
  rate_mode = "CBR"
      }
    }
- }
-
-
-    }
+ }    }
   }
 }
 `, rName, rNameUpdated, codec, inputResolution))
@@ -2122,9 +2023,6 @@ ive_group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -2140,10 +2038,7 @@ ut_settings {
  rate_mode = "CBR"
      }
    }
- }
-
-
-    }
+ }    }
   }
 
   tags = {
@@ -2207,9 +2102,6 @@ ive_group_settings {
  destination {
    destination_ref_id = %[1]q
  }
-
-
-
 s {
 ut_name    = "test-output-name"
 o_description_name  = "test-video-name"
@@ -2225,10 +2117,7 @@ ut_settings {
  rate_mode = "CBR"
      }
    }
- }
-
-
-    }
+ }    }
   }
 
   tags = {

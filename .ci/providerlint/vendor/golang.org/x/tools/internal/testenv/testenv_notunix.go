@@ -1,6 +1,1 @@
-//Copyright2021TheGoAuthors.Allrightsreserved.
-//UseofthissourcecodeisgovernedbyaBSD-style
-//licensethatcanbefoundintheLICENSEfile.//go:buildwindows||plan9||(js&&wasm)
-//+buildwindowsplan9js,wasmpackagetestenvimport"os"//Sigquitisthesignaltosendtokillahangingsubprocess.
-//OnUnixwesendSIGQUIT,butonnon-Unixweonlyhaveos.Kill.
-varSigquit=os.Kill
+//Copyright2021TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.//go:buildwindows||plan9||(js&&wasm)//+buildwindowsplan9js,wasmpackagetestenvimport"os"//Sigquitisthesignaltosendtokillahangingsubprocess.//OnUnixwesendSIGQUIT,butonnon-Unixweonlyhaveos.Kill.varSigquit=os.Kill

@@ -1,28 +1,14 @@
-//Codegeneratedbyinternal/generate/servicepackages/main.go;DONOTEDIT.
-
-packagecodecatalyst
-
-import(
-	"context"
-
-	aws_sdkv2"github.com/aws/aws-sdk-go-v2/aws"
+//Codegeneratedbyinternal/generate/servicepackages/main.go;DONOTEDIT.packagecodecatalystimport(
+	"context"	aws_sdkv2"github.com/aws/aws-sdk-go-v2/aws"
 	codecatalyst_sdkv2"github.com/aws/aws-sdk-go-v2/service/codecatalyst"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/types"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-typeservicePackagestruct{}
-
-func(p*servicePackage)FrameworkDataSources(ctxcontext.Context)[]*types.ServicePackageFrameworkDataSource{
+)typeservicePackagestruct{}func(p*servicePackage)FrameworkDataSources(ctxcontext.Context)[]*types.ServicePackageFrameworkDataSource{
 	return[]*types.ServicePackageFrameworkDataSource{}
-}
-
-func(p*servicePackage)FrameworkResources(ctxcontext.Context)[]*types.ServicePackageFrameworkResource{
+}func(p*servicePackage)FrameworkResources(ctxcontext.Context)[]*types.ServicePackageFrameworkResource{
 	return[]*types.ServicePackageFrameworkResource{}
-}
-
-func(p*servicePackage)SDKDataSources(ctxcontext.Context)[]*types.ServicePackageSDKDataSource{
+}func(p*servicePackage)SDKDataSources(ctxcontext.Context)[]*types.ServicePackageSDKDataSource{
 	return[]*types.ServicePackageSDKDataSource{
 		{
 			Factory:DataSourceDevEnvironment,
@@ -30,9 +16,7 @@ func(p*servicePackage)SDKDataSources(ctxcontext.Context)[]*types.ServicePackageS
 			Name:"DevEnvironment",
 		},
 	}
-}
-
-func(p*servicePackage)SDKResources(ctxcontext.Context)[]*types.ServicePackageSDKResource{
+}func(p*servicePackage)SDKResources(ctxcontext.Context)[]*types.ServicePackageSDKResource{
 	return[]*types.ServicePackageSDKResource{
 		{
 			Factory:ResourceDevEnvironment,
@@ -50,23 +34,15 @@ func(p*servicePackage)SDKResources(ctxcontext.Context)[]*types.ServicePackageSDK
 			Name:"SourceRepository",
 		},
 	}
-}
-
-func(p*servicePackage)ServicePackageName()string{
+}func(p*servicePackage)ServicePackageName()string{
 	returnnames.CodeCatalyst
-}
-
-//NewClientreturnsanewAWSSDKforGov2clientforthisservicepackage'sAWSAPI.
+}//NewClientreturnsanewAWSSDKforGov2clientforthisservicepackage'sAWSAPI.
 func(p*servicePackage)NewClient(ctxcontext.Context,configmap[string]any)(*codecatalyst_sdkv2.Client,error){
-	cfg:=*(config["aws_sdkv2_config"].(*aws_sdkv2.Config))
-
-	returncodecatalyst_sdkv2.NewFromConfig(cfg,func(o*codecatalyst_sdkv2.Options){
+	cfg:=*(config["aws_sdkv2_config"].(*aws_sdkv2.Config))	returncodecatalyst_sdkv2.NewFromConfig(cfg,func(o*codecatalyst_sdkv2.Options){
 		ifendpoint:=config["endpoint"].(string);endpoint!=""{
 			o.BaseEndpoint=aws_sdkv2.String(endpoint)
 		}
 	}),nil
-}
-
-funcServicePackage(ctxcontext.Context)conns.ServicePackage{
+}funcServicePackage(ctxcontext.Context)conns.ServicePackage{
 	return&servicePackage{}
 }

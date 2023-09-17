@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package budgets_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package budgets_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/budgets"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -22,11 +16,7 @@ func TestAccBudgetsBudgetAction_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_budgets_budget_action.test"
-	var conf budgets.Action
-
-	const thresholdValue = "1000000000"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var conf budgets.Action	const thresholdValue = "1000000000"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
 		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -65,11 +55,7 @@ func TestAccBudgetsBudgetAction_triggeredAutomatic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_budgets_budget_action.test"
-	var conf budgets.Action
-
-	const thresholdValue = "100"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var conf budgets.Action	const thresholdValue = "100"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
 		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -108,11 +94,7 @@ func TestAccBudgetsBudgetAction_triggeredManual(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_budgets_budget_action.test"
-	var conf budgets.Action
-
-	const thresholdValue = "100"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var conf budgets.Action	const thresholdValue = "100"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
 		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -151,9 +133,7 @@ func TestAccBudgetsBudgetAction_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_budgets_budget_action.test"
-	var conf budgets.Action
-
-	resource.ParallelTest(t, resource.TestCase{
+	var conf budgets.Action	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
 		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -175,60 +155,28 @@ func testAccBudgetActionExists(ctx context.Context, resourceName string, config 
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Budget Action ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).BudgetsConn(ctx)
-
-		accountID, actionID, budgetName, err := tfbudgets.BudgetActionParseResourceID(rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).BudgetsConn(ctx)		accountID, actionID, budgetName, err := tfbudgets.BudgetActionParseResourceID(rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		output, err := tfbudgets.FindActionByThreePartKey(ctx, conn, accountID, actionID, budgetName)
-
-		if err != nil {
+		}		output, err := tfbudgets.FindActionByThreePartKey(ctx, conn, accountID, actionID, budgetName)		if err != nil {
 			return err
-		}
-
-		*config = *output
-
-		return nil
+		}		*config = *output		return nil
 	}
 }
 func testAccCheckBudgetActionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).BudgetsConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).BudgetsConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_budgets_budget_action" {
 				continue
-			}
-
-			accountID, actionID, budgetName, err := tfbudgets.BudgetActionParseResourceID(rs.Primary.ID)
-
-			if err != nil {
+			}			accountID, actionID, budgetName, err := tfbudgets.BudgetActionParseResourceID(rs.Primary.ID)			if err != nil {
 				return err
-			}
-
-			_, err = tfbudgets.FindActionByThreePartKey(ctx, conn, accountID, actionID, budgetName)
-
-			if tfresource.NotFound(err) {
+			}			_, err = tfbudgets.FindActionByThreePartKey(ctx, conn, accountID, actionID, budgetName)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Budget Action %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Budget Action %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
 func testAccBudgetActionConfig_basic(rName, approvalModel, thresholdValue string) string {
@@ -238,40 +186,28 @@ budget_name= aws_budgets_budget.test.name
 action_type= "APPLY_IAM_POLICY"
 approval_model= %[2]q
 notification_type= "ACTUAL"
-execution_role_arn = aws_iam_role.test.arn
-
-action_threshold {
+execution_role_arn = aws_iam_role.test.arnaction_threshold {
  action_threshold_type= "ABSOLUTE_VALUE"
  action_threshold_value = %[3]s
-}
-
-definition {
+}definition {
  iam_action_definition {
  policy_arn = aws_iam_policy.test.arn
  roles = [aws_iam_role.test.name]
  }
-}
-
-subscriber {
+}subscriber {
  address= %[4]q
  subscription_type = "EMAIL"
 }
-}
-
-resource "aws_budgets_budget" "test" {
+}resource "aws_budgets_budget" "test" {
 name= %[1]q
 budget_type= "USAGE"
 limit_amount = "1.0"
 limit_unit= "dollars"
 time_period_start = "2006-01-02_15:04"
 time_unit= "MONTHLY"
-}
-
-resource "aws_iam_policy" "test" {
+}resource "aws_iam_policy" "test" {
 name= %[1]q
-description = "My test policy"
-
-policy = <<EOF
+description = "My test policy"policy = <<EOF
 {
 "Version": "2012-10-17",
 "Statement": [
@@ -285,14 +221,8 @@ policy = <<EOF
 ]
 }
 EOF
-}
-
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "test" {
-name = %[1]q
-
-assume_role_policy = <<EOF
+}data "aws_partition" "current" {}resource "aws_iam_role" "test" {
+name = %[1]qassume_role_policy = <<EOF
 {
 "Version": "2012-10-17",
 "Statement": [

@@ -11,18 +11,14 @@ import (
 	sdkacctest "github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func testAccPolicyDataSource_UnattachedPolicy(t *testing.T) {
+)func testAccPolicyDataSource_UnattachedPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_organizations_policy.test"
 	dataSourceName := "data.aws_organizations_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
-func() {
+		PreCheck:func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationsAccount(ctx, t)
 		},
@@ -41,10 +37,7 @@ func() {
 			},
 		},
 	})
-}
-
-
-func testAccPolicyDataSourceConfig_unattachedPolicy(rName string) string {
+}func testAccPolicyDataSourceConfig_unattachedPolicy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {
   feature_set = "ALL"

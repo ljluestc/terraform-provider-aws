@@ -1,22 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package route53recoverycontrolconfig
-
-import (
+// SPDX-License-Identifier: MPL-2.0package route53recoverycontrolconfigimport (
 	"context"
-	"time"
-
-	r53rcc "github.com/aws/aws-sdk-go/service/route53recoverycontrolconfig"
+	"time"	r53rcc "github.com/aws/aws-sdk-go/service/route53recoverycontrolconfig"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
-)
-
-const (
+)const (
 	timeout= 60 * time.Second
 	minTimeout = 5 * time.Second
 )
-
-
 func waitClusterCreated(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, clusterArn string) (*r53rcc.DescribeClusterOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:[]string{r53rcc.StatusPending},
@@ -24,18 +14,10 @@ func waitClusterCreated(ctx context.Context, conn *r53rcc.Route53RecoveryControl
 		Refresh:statusCluster(ctx, conn, clusterArn),
 		Timeout:timeout,
 		MinTimeout: minTimeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*r53rcc.DescribeClusterOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*r53rcc.DescribeClusterOutput); ok {
 		return output, err
-	}
-
-	return nil, err
+	}	return nil, err
 }
-
-
 func waitClusterDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, clusterArn string) (*r53rcc.DescribeClusterOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:   []string{r53rcc.StatusPendingDeletion},
@@ -44,18 +26,10 @@ func waitClusterDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryControl
 		Timeout:   timeout,
 		Delay:minTimeout,
 		NotFoundChecks: 1,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*r53rcc.DescribeClusterOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*r53rcc.DescribeClusterOutput); ok {
 		return output, err
-	}
-
-	return nil, err
+	}	return nil, err
 }
-
-
 func waitRoutingControlCreated(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, routingControlArn string) (*r53rcc.DescribeRoutingControlOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:[]string{r53rcc.StatusPending},
@@ -63,18 +37,10 @@ func waitRoutingControlCreated(ctx context.Context, conn *r53rcc.Route53Recovery
 		Refresh:statusRoutingControl(ctx, conn, routingControlArn),
 		Timeout:timeout,
 		MinTimeout: minTimeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*r53rcc.DescribeRoutingControlOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*r53rcc.DescribeRoutingControlOutput); ok {
 		return output, err
-	}
-
-	return nil, err
+	}	return nil, err
 }
-
-
 func waitRoutingControlDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, routingControlArn string) (*r53rcc.DescribeRoutingControlOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:   []string{r53rcc.StatusPendingDeletion},
@@ -83,18 +49,10 @@ func waitRoutingControlDeleted(ctx context.Context, conn *r53rcc.Route53Recovery
 		Timeout:   timeout,
 		Delay:minTimeout,
 		NotFoundChecks: 1,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*r53rcc.DescribeRoutingControlOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*r53rcc.DescribeRoutingControlOutput); ok {
 		return output, err
-	}
-
-	return nil, err
+	}	return nil, err
 }
-
-
 func waitControlPanelCreated(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, controlPanelArn string) (*r53rcc.DescribeControlPanelOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:[]string{r53rcc.StatusPending},
@@ -102,18 +60,10 @@ func waitControlPanelCreated(ctx context.Context, conn *r53rcc.Route53RecoveryCo
 		Refresh:statusControlPanel(ctx, conn, controlPanelArn),
 		Timeout:timeout,
 		MinTimeout: minTimeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*r53rcc.DescribeControlPanelOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*r53rcc.DescribeControlPanelOutput); ok {
 		return output, err
-	}
-
-	return nil, err
+	}	return nil, err
 }
-
-
 func waitControlPanelDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, controlPanelArn string) (*r53rcc.DescribeControlPanelOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:   []string{r53rcc.StatusPendingDeletion},
@@ -122,18 +72,10 @@ func waitControlPanelDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryCo
 		Timeout:   timeout,
 		Delay:minTimeout,
 		NotFoundChecks: 1,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*r53rcc.DescribeControlPanelOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*r53rcc.DescribeControlPanelOutput); ok {
 		return output, err
-	}
-
-	return nil, err
+	}	return nil, err
 }
-
-
 func waitSafetyRuleCreated(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, safetyRuleArn string) (*r53rcc.DescribeSafetyRuleOutput, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending:[]string{r53rcc.StatusPending},
@@ -141,18 +83,10 @@ func waitSafetyRuleCreated(ctx context.Context, conn *r53rcc.Route53RecoveryCont
 		Refresh:statusSafetyRule(ctx, conn, safetyRuleArn),
 		Timeout:timeout,
 		MinTimeout: minTimeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*r53rcc.DescribeSafetyRuleOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*r53rcc.DescribeSafetyRuleOutput); ok {
 		return output, err
-	}
-
-	return nil, err
+	}	return nil, err
 }
-
-
 func waitSafetyRuleDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryControlConfig, safetyRuleArn string) (*r53rcc.DescribeSafetyRuleOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:   []string{r53rcc.StatusPendingDeletion},
@@ -161,13 +95,7 @@ func waitSafetyRuleDeleted(ctx context.Context, conn *r53rcc.Route53RecoveryCont
 		Timeout:   timeout,
 		Delay:minTimeout,
 		NotFoundChecks: 1,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*r53rcc.DescribeSafetyRuleOutput); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*r53rcc.DescribeSafetyRuleOutput); ok {
 		return output, err
-	}
-
-	return nil, err
+	}	return nil, err
 }

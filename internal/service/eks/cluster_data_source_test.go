@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package eks_test
-
-import (
-	"testing"
-
-	"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package eks_testimport (
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/eks"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccEKSClusterDataSource_basic(t *testing.T) {
+)func TestAccEKSClusterDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceResourceName := "data.aws_eks_cluster.test"
-	resourceName := "aws_eks_cluster.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_eks_cluster.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -60,15 +50,11 @@ func TestAccEKSClusterDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEKSClusterDataSource_outpost(t *testing.T) {
+}func TestAccEKSClusterDataSource_outpost(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceResourceName := "data.aws_eks_cluster.test"
-	resourceName := "aws_eks_cluster.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_eks_cluster.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -108,17 +94,13 @@ func TestAccEKSClusterDataSource_outpost(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccClusterDataSourceConfig_basic(rName string) string {
+}func testAccClusterDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_logging(rName, []string{"api", "audit"}), `
 data "aws_eks_cluster" "test" {
   name = aws_eks_cluster.test.name
 }
 `)
-}
-
-func testAccClusterDataSourceConfig_outpost(rName string) string {
+}func testAccClusterDataSourceConfig_outpost(rName string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_outpostPlacement(rName), `
 data "aws_eks_cluster" "test" {
   name = aws_eks_cluster.test.name

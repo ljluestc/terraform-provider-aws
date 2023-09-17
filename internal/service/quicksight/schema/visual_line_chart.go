@@ -12,10 +12,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-
-func lineChartVisualSchema() *schema.Schema {
+)func lineChartVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LineChartVisual.html
 Type:     schema.TypeList,
 Optional: true,
@@ -286,10 +283,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func lineChartLineStyleSettingsSchema() *schema.Schema {
+}func lineChartLineStyleSettingsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LineChartLineStyleSettings.html
 Type:     schema.TypeList,
 Optional: true,
@@ -307,10 +301,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func lineChartMarkerStyleSettingsSchema() *schema.Schema {
+}func lineChartMarkerStyleSettingsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LineChartMarkerStyleSettings.html
 Type:     schema.TypeList,
 Optional: true,
@@ -328,10 +319,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func expandLineChartVisual(tfList []interface{}) *quicksight.LineChartVisual {
+}func expandLineChartVisual(tfList []interface{}) *quicksight.LineChartVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -363,10 +351,7 @@ visual.Title = expandVisualTitleLabelOptions(v)
 	}
 
 	return visual
-}
-
-
-func expandLineChartConfiguration(tfList []interface{}) *quicksight.LineChartConfiguration {
+}func expandLineChartConfiguration(tfList []interface{}) *quicksight.LineChartConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -437,10 +422,7 @@ config.XAxisLabelOptions = expandChartAxisLabelOptions(v)
 	}
 
 	return config
-}
-
-
-func expandLineChartFieldWells(tfList []interface{}) *quicksight.LineChartFieldWells {
+}func expandLineChartFieldWells(tfList []interface{}) *quicksight.LineChartFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -457,10 +439,7 @@ config.LineChartAggregatedFieldWells = expandLineChartAggregatedFieldWells(v)
 	}
 
 	return config
-}
-
-
-func expandLineChartAggregatedFieldWells(tfList []interface{}) *quicksight.LineChartAggregatedFieldWells {
+}func expandLineChartAggregatedFieldWells(tfList []interface{}) *quicksight.LineChartAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -486,10 +465,7 @@ config.Values = expandMeasureFields(v)
 	}
 
 	return config
-}
-
-
-func expandLineChartSortConfiguration(tfList []interface{}) *quicksight.LineChartSortConfiguration {
+}func expandLineChartSortConfiguration(tfList []interface{}) *quicksight.LineChartSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -518,10 +494,7 @@ config.SmallMultiplesSort = expandFieldSortOptionsList(v)
 	}
 
 	return config
-}
-
-
-func expandLineChartDefaultSeriesSettings(tfList []interface{}) *quicksight.LineChartDefaultSeriesSettings {
+}func expandLineChartDefaultSeriesSettings(tfList []interface{}) *quicksight.LineChartDefaultSeriesSettings {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -544,10 +517,7 @@ options.MarkerStyleSettings = expandLineChartMarkerStyleSettings(v)
 	}
 
 	return options
-}
-
-
-func expandLineChartLineStyleSettings(tfList []interface{}) *quicksight.LineChartLineStyleSettings {
+}func expandLineChartLineStyleSettings(tfList []interface{}) *quicksight.LineChartLineStyleSettings {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -573,10 +543,7 @@ options.LineWidth = aws.String(v)
 	}
 
 	return options
-}
-
-
-func expandLineChartMarkerStyleSettings(tfList []interface{}) *quicksight.LineChartMarkerStyleSettings {
+}func expandLineChartMarkerStyleSettings(tfList []interface{}) *quicksight.LineChartMarkerStyleSettings {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -602,10 +569,7 @@ options.MarkerVisibility = aws.String(v)
 	}
 
 	return options
-}
-
-
-func expandForecastConfigurations(tfList []interface{}) []*quicksight.ForecastConfiguration {
+}func expandForecastConfigurations(tfList []interface{}) []*quicksight.ForecastConfiguration {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -626,10 +590,7 @@ configs = append(configs, config)
 	}
 
 	return configs
-}
-
-
-func expandForecastConfiguration(tfMap map[string]interface{}) *quicksight.ForecastConfiguration {
+}func expandForecastConfiguration(tfMap map[string]interface{}) *quicksight.ForecastConfiguration {
 	if tfMap == nil {
 return nil
 	}
@@ -644,10 +605,7 @@ config.Scenario = expandForecastScenario(v)
 	}
 
 	return config
-}
-
-
-func expandTimeBasedForecastProperties(tfList []interface{}) *quicksight.TimeBasedForecastProperties {
+}func expandTimeBasedForecastProperties(tfList []interface{}) *quicksight.TimeBasedForecastProperties {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -678,10 +636,7 @@ options.Seasonality = aws.Int64(int64(v))
 options.UpperBoundary = aws.Float64(v)
 	}
 	return options
-}
-
-
-func expandForecastScenario(tfList []interface{}) *quicksight.ForecastScenario {
+}func expandForecastScenario(tfList []interface{}) *quicksight.ForecastScenario {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -701,10 +656,7 @@ scenario.WhatIfRangeScenario = expandWhatIfRangeScenario(v)
 	}
 
 	return scenario
-}
-
-
-func expandWhatIfPointScenario(tfList []interface{}) *quicksight.WhatIfPointScenario {
+}func expandWhatIfPointScenario(tfList []interface{}) *quicksight.WhatIfPointScenario {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -727,10 +679,7 @@ scenario.Value = aws.Float64(v)
 	}
 
 	return scenario
-}
-
-
-func expandWhatIfRangeScenario(tfList []interface{}) *quicksight.WhatIfRangeScenario {
+}func expandWhatIfRangeScenario(tfList []interface{}) *quicksight.WhatIfRangeScenario {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -757,10 +706,7 @@ scenario.Value = aws.Float64(v)
 	}
 
 	return scenario
-}
-
-
-func expandLineSeriesAxisDisplayOptions(tfList []interface{}) *quicksight.LineSeriesAxisDisplayOptions {
+}func expandLineSeriesAxisDisplayOptions(tfList []interface{}) *quicksight.LineSeriesAxisDisplayOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -780,10 +726,7 @@ options.MissingDataConfigurations = expandMissingDataConfigurations(v)
 	}
 
 	return options
-}
-
-
-func expandMissingDataConfigurations(tfList []interface{}) []*quicksight.MissingDataConfiguration {
+}func expandMissingDataConfigurations(tfList []interface{}) []*quicksight.MissingDataConfiguration {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -804,10 +747,7 @@ options = append(options, opts)
 	}
 
 	return options
-}
-
-
-func expandMissingDataConfiguration(tfMap map[string]interface{}) *quicksight.MissingDataConfiguration {
+}func expandMissingDataConfiguration(tfMap map[string]interface{}) *quicksight.MissingDataConfiguration {
 	if tfMap == nil {
 return nil
 	}
@@ -819,10 +759,7 @@ options.TreatmentOption = aws.String(v)
 	}
 
 	return options
-}
-
-
-func expandSeriesItems(tfList []interface{}) []*quicksight.SeriesItem {
+}func expandSeriesItems(tfList []interface{}) []*quicksight.SeriesItem {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -843,10 +780,7 @@ options = append(options, opts)
 	}
 
 	return options
-}
-
-
-func expandSeriesItem(tfMap map[string]interface{}) *quicksight.SeriesItem {
+}func expandSeriesItem(tfMap map[string]interface{}) *quicksight.SeriesItem {
 	if tfMap == nil {
 return nil
 	}
@@ -861,10 +795,7 @@ options.FieldSeriesItem = expandFieldSeriesItem(v)
 	}
 
 	return options
-}
-
-
-func expandDataFieldSeriesItem(tfList []interface{}) *quicksight.DataFieldSeriesItem {
+}func expandDataFieldSeriesItem(tfList []interface{}) *quicksight.DataFieldSeriesItem {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -891,10 +822,7 @@ options.Settings = expandLineChartSeriesSettings(v)
 	}
 
 	return options
-}
-
-
-func expandFieldSeriesItem(tfList []interface{}) *quicksight.FieldSeriesItem {
+}func expandFieldSeriesItem(tfList []interface{}) *quicksight.FieldSeriesItem {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -917,10 +845,7 @@ options.Settings = expandLineChartSeriesSettings(v)
 	}
 
 	return options
-}
-
-
-func expandLineChartSeriesSettings(tfList []interface{}) *quicksight.LineChartSeriesSettings {
+}func expandLineChartSeriesSettings(tfList []interface{}) *quicksight.LineChartSeriesSettings {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -940,10 +865,7 @@ options.MarkerStyleSettings = expandLineChartMarkerStyleSettings(v)
 	}
 
 	return options
-}
-
-
-func flattenLineChartVisual(apiObject *quicksight.LineChartVisual) []interface{} {
+}func flattenLineChartVisual(apiObject *quicksight.LineChartVisual) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -968,10 +890,7 @@ tfMap["title"] = flattenVisualTitleLabelOptions(apiObject.Title)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLineChartConfiguration(apiObject *quicksight.LineChartConfiguration) []interface{} {
+}func flattenLineChartConfiguration(apiObject *quicksight.LineChartConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1036,10 +955,7 @@ tfMap["x_axis_label_options"] = flattenChartAxisLabelOptions(apiObject.XAxisLabe
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLineChartDefaultSeriesSettings(apiObject *quicksight.LineChartDefaultSeriesSettings) []interface{} {
+}func flattenLineChartDefaultSeriesSettings(apiObject *quicksight.LineChartDefaultSeriesSettings) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1056,10 +972,7 @@ tfMap["marker_style_settings"] = flattenLineChartMarkerStyleSettings(apiObject.M
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLineChartLineStyleSettings(apiObject *quicksight.LineChartLineStyleSettings) []interface{} {
+}func flattenLineChartLineStyleSettings(apiObject *quicksight.LineChartLineStyleSettings) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1079,10 +992,7 @@ tfMap["line_width"] = aws.StringValue(apiObject.LineWidth)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLineChartMarkerStyleSettings(apiObject *quicksight.LineChartMarkerStyleSettings) []interface{} {
+}func flattenLineChartMarkerStyleSettings(apiObject *quicksight.LineChartMarkerStyleSettings) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1102,10 +1012,7 @@ tfMap["marker_visibility"] = aws.StringValue(apiObject.MarkerVisibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLineChartFieldWells(apiObject *quicksight.LineChartFieldWells) []interface{} {
+}func flattenLineChartFieldWells(apiObject *quicksight.LineChartFieldWells) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1116,10 +1023,7 @@ tfMap["line_chart_aggregated_field_wells"] = flattenLineChartAggregatedFieldWell
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLineChartAggregatedFieldWells(apiObject *quicksight.LineChartAggregatedFieldWells) []interface{} {
+}func flattenLineChartAggregatedFieldWells(apiObject *quicksight.LineChartAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1139,10 +1043,7 @@ tfMap["values"] = flattenMeasureFields(apiObject.Values)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenForecastConfiguration(apiObject []*quicksight.ForecastConfiguration) []interface{} {
+}func flattenForecastConfiguration(apiObject []*quicksight.ForecastConfiguration) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1165,10 +1066,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenTimeBasedForecastProperties(apiObject *quicksight.TimeBasedForecastProperties) []interface{} {
+}func flattenTimeBasedForecastProperties(apiObject *quicksight.TimeBasedForecastProperties) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1194,10 +1092,7 @@ tfMap["upper_boundary"] = aws.Float64Value(apiObject.UpperBoundary)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenForecastScenario(apiObject *quicksight.ForecastScenario) []interface{} {
+}func flattenForecastScenario(apiObject *quicksight.ForecastScenario) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1211,10 +1106,7 @@ tfMap["what_if_range_scenario"] = flattenWhatIfRangeScenario(apiObject.WhatIfRan
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenWhatIfPointScenario(apiObject *quicksight.WhatIfPointScenario) []interface{} {
+}func flattenWhatIfPointScenario(apiObject *quicksight.WhatIfPointScenario) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1228,10 +1120,7 @@ tfMap["value"] = aws.Float64Value(apiObject.Value)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenWhatIfRangeScenario(apiObject *quicksight.WhatIfRangeScenario) []interface{} {
+}func flattenWhatIfRangeScenario(apiObject *quicksight.WhatIfRangeScenario) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1248,10 +1137,7 @@ tfMap["value"] = aws.Float64Value(apiObject.Value)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLineSeriesAxisDisplayOptions(apiObject *quicksight.LineSeriesAxisDisplayOptions) []interface{} {
+}func flattenLineSeriesAxisDisplayOptions(apiObject *quicksight.LineSeriesAxisDisplayOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1265,10 +1151,7 @@ tfMap["missing_data_configurations"] = flattenMissingDataConfiguration(apiObject
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenMissingDataConfiguration(apiObject []*quicksight.MissingDataConfiguration) []interface{} {
+}func flattenMissingDataConfiguration(apiObject []*quicksight.MissingDataConfiguration) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1288,10 +1171,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenSeriesItem(apiObject []*quicksight.SeriesItem) []interface{} {
+}func flattenSeriesItem(apiObject []*quicksight.SeriesItem) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1314,10 +1194,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenDataFieldSeriesItem(apiObject *quicksight.DataFieldSeriesItem) []interface{} {
+}func flattenDataFieldSeriesItem(apiObject *quicksight.DataFieldSeriesItem) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1337,10 +1214,7 @@ tfMap["settings"] = flattenLineChartSeriesSettings(apiObject.Settings)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLineChartSeriesSettings(apiObject *quicksight.LineChartSeriesSettings) []interface{} {
+}func flattenLineChartSeriesSettings(apiObject *quicksight.LineChartSeriesSettings) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1354,10 +1228,7 @@ tfMap["marker_style_settings"] = flattenLineChartMarkerStyleSettings(apiObject.M
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFieldSeriesItem(apiObject *quicksight.FieldSeriesItem) []interface{} {
+}func flattenFieldSeriesItem(apiObject *quicksight.FieldSeriesItem) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1374,10 +1245,7 @@ tfMap["settings"] = flattenLineChartSeriesSettings(apiObject.Settings)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLineChartSortConfiguration(apiObject *quicksight.LineChartSortConfiguration) []interface{} {
+}func flattenLineChartSortConfiguration(apiObject *quicksight.LineChartSortConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}

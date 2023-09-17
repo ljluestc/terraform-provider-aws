@@ -4,9 +4,9 @@
 package secretsmanager
 
 import (
-	"time"
+"time"
 )
 
 const (
-	PropagationTimeout = 2 * time.Minute
+PropagationTimeout = 2 * time.Minute
 )

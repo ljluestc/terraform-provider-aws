@@ -1,7 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-// Package ujson implements a fast and minimal JSON parser and transformer that
+// SPDX-License-Identifier: MPL-2.0// Package ujson implements a fast and minimal JSON parser and transformer that
 // works on unstructured json. Example use cases:
 //
 //  1. Walk through unstructured json:
@@ -64,11 +62,7 @@
 // provided as "value", followed by its children, and finally the close bracket
 // ("]", "}"). When encountering open brackets, you can make the callback
 // function return "false" to skip the array/object entirely.
-package ujson
-
-import "fmt"
-
-// Walk parses the given json and call "callback" for each key/value pair. See
+package ujsonimport "fmt"// Walk parses the given json and call "callback" for each key/value pair. See
 // examples for sample callback params.
 //
 // The function "callback":
@@ -78,14 +72,10 @@ import "fmt"
 //   - must not modify any slice it receives.
 func Walk(input []byte, callback func(level int, key, value []byte) bool) error {
 	var key []byte
-	i, si, ei, st, sst := 0, 0, 0, 0, 1024
-
-	// trim the last newline
+	i, si, ei, st, sst := 0, 0, 0, 0, 1024	// trim the last newline
 	if len(input) > 0 && input[len(input)-1] == '\n' {
 		input = input[:len(input)-1]
-	}
-
-value:
+	}value:
 	si = i
 	switch input[i] {
 	case 'n', 't': // null, true
@@ -161,9 +151,7 @@ value:
 			}
 			i++
 		}
-	}
-
-closing:
+	}closing:
 	if i >= len(input) {
 		return nil
 	}
@@ -193,22 +181,16 @@ closing:
 	default:
 		return parseError(i, input[i], `expect ']', '}' or ','`)
 	}
-}
-
-func parseError(i int, c byte, msg string) error {
+}func parseError(i int, c byte, msg string) error {
 	return fmt.Errorf("µjson: error at %v '%c' 0x%2x: %v", i, c, c, msg)
-}
-
-// ShouldAddComma decides if a comma should be appended while constructing
+}// ShouldAddComma decides if a comma should be appended while constructing
 // output json. See Reconstruct for an example of rebuilding the json.
 func ShouldAddComma(value []byte, lastChar byte) bool {
 	// for valid json, the value will never be empty, so we can safely test only
 	// the first byte
 	return value[0] != '}' && value[0] != ']' &&
 		lastChar != ',' && lastChar != '{' && lastChar != '['
-}
-
-// Reconstruct walks through the input json and rebuild it. It's put here as an
+}// Reconstruct walks through the input json and rebuild it. It's put here as an
 // example of using Walk.
 func Reconstruct(input []byte) ([]byte, error) {
 	b := make([]byte, 0, len(input))

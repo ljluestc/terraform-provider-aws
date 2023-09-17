@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opensearch_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opensearch_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/opensearchservice"
+	"testing"	"github.com/aws/aws-sdk-go/service/opensearchservice"
 	awspolicy "github.com/hashicorp/awspolicyequivalence"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -47,9 +41,7 @@ func TestAccOpenSearchDomainPolicy_basic(t *testing.T) {
         }
     ]
 }`
-	name := fmt.Sprintf("tf-test-%d", ri)
-
-	resource.ParallelTest(t, resource.TestCase{
+	name := fmt.Sprintf("tf-test-%d", ri)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -65,9 +57,7 @@ func TestAccOpenSearchDomainPolicy_basic(t *testing.T) {
 						if err != nil {
 							return err
 						}
-						expectedPolicy := fmt.Sprintf(expectedPolicyTpl, expectedArn)
-
-						return testAccCheckPolicyMatch("aws_opensearch_domain_policy.test", "access_policies", expectedPolicy)(s)
+						expectedPolicy := fmt.Sprintf(expectedPolicyTpl, expectedArn)						return testAccCheckPolicyMatch("aws_opensearch_domain_policy.test", "access_policies", expectedPolicy)(s)
 					},
 				),
 			},
@@ -79,27 +69,17 @@ func testAccCheckPolicyMatch(resource, attr, expectedPolicy string) resource.Tes
 		rs, ok := s.RootModule().Resources[resource]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resource)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No ID is set")
-		}
-
-		given, ok := rs.Primary.Attributes[attr]
+		}		given, ok := rs.Primary.Attributes[attr]
 		if !ok {
 			return fmt.Errorf("Attribute %q not found for %q", attr, resource)
-		}
-
-		areEquivalent, err := awspolicy.PoliciesAreEquivalent(given, expectedPolicy)
+		}		areEquivalent, err := awspolicy.PoliciesAreEquivalent(given, expectedPolicy)
 		if err != nil {
 			return fmt.Errorf("Comparing AWS Policies failed: %s", err)
-		}
-
-		if !areEquivalent {
+		}		if !areEquivalent {
 			return fmt.Errorf("AWS policies differ.\nGiven: %s\nExpected: %s", given, expectedPolicy)
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func buildDomainARN(name, partition, accId, region string) (string, error) {
@@ -115,22 +95,14 @@ func buildDomainARN(name, partition, accId, region string) (string, error) {
 func testAccDomainPolicyConfig_basic(randInt int, policy string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
-  domain_name = "tf-test-%d"
-
-  cluster_config {
+  domain_name = "tf-test-%d"  cluster_config {
     instance_type = "t2.small.search" # supported in both aws and aws-us-gov
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
   }
-}
-
-resource "aws_opensearch_domain_policy" "test" {
-  domain_name = aws_opensearch_domain.test.domain_name
-
-  access_policies = <<POLICIES
+}resource "aws_opensearch_domain_policy" "test" {
+  domain_name = aws_opensearch_domain.test.domain_name  access_policies = <<POLICIES
 %s
 POLICIES
 }

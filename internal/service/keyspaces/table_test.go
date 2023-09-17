@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package keyspaces_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package keyspaces_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"testing"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/keyspaces"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -19,16 +13,12 @@ import (
 	tfkeyspaces "github.com/hashicorp/terraform-provider-aws/internal/service/keyspaces"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccKeyspacesTable_basic(t *testing.T) {
+)func TestAccKeyspacesTable_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v keyspaces.GetTableOutput
 	rName1 := "tf_acc_test_" + sdkacctest.RandString(20)
 	rName2 := "tf_acc_test_" + sdkacctest.RandString(20)
-	resourceName := "aws_keyspaces_table.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_keyspaces_table.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -74,16 +64,12 @@ func TestAccKeyspacesTable_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccKeyspacesTable_disappears(t *testing.T) {
+}func TestAccKeyspacesTable_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v keyspaces.GetTableOutput
 	rName1 := "tf_acc_test_" + sdkacctest.RandString(20)
 	rName2 := "tf_acc_test_" + sdkacctest.RandString(20)
-	resourceName := "aws_keyspaces_table.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_keyspaces_table.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -99,16 +85,12 @@ func TestAccKeyspacesTable_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccKeyspacesTable_tags(t *testing.T) {
+}func TestAccKeyspacesTable_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v keyspaces.GetTableOutput
 	rName1 := "tf_acc_test_" + sdkacctest.RandString(20)
 	rName2 := "tf_acc_test_" + sdkacctest.RandString(20)
-	resourceName := "aws_keyspaces_table.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_keyspaces_table.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -146,16 +128,12 @@ func TestAccKeyspacesTable_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccKeyspacesTable_clientSideTimestamps(t *testing.T) {
+}func TestAccKeyspacesTable_clientSideTimestamps(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v keyspaces.GetTableOutput
 	rName1 := "tf_acc_test_" + sdkacctest.RandString(20)
 	rName2 := "tf_acc_test_" + sdkacctest.RandString(20)
-	resourceName := "aws_keyspaces_table.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_keyspaces_table.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -176,16 +154,12 @@ func TestAccKeyspacesTable_clientSideTimestamps(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccKeyspacesTable_multipleColumns(t *testing.T) {
+}func TestAccKeyspacesTable_multipleColumns(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v keyspaces.GetTableOutput
 	rName1 := "tf_acc_test_" + sdkacctest.RandString(20)
 	rName2 := "tf_acc_test_" + sdkacctest.RandString(20)
-	resourceName := "aws_keyspaces_table.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_keyspaces_table.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -270,17 +244,13 @@ func TestAccKeyspacesTable_multipleColumns(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccKeyspacesTable_update(t *testing.T) {
+}func TestAccKeyspacesTable_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 keyspaces.GetTableOutput
 	rName1 := "tf_acc_test_" + sdkacctest.RandString(20)
 	rName2 := "tf_acc_test_" + sdkacctest.RandString(20)
 	resourceName := "aws_keyspaces_table.test"
-	kmsKeyResourceName := "aws_kms_key.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	kmsKeyResourceName := "aws_kms_key.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -344,16 +314,12 @@ func TestAccKeyspacesTable_update(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccKeyspacesTable_addColumns(t *testing.T) {
+}func TestAccKeyspacesTable_addColumns(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 keyspaces.GetTableOutput
 	rName1 := "tf_acc_test_" + sdkacctest.RandString(20)
 	rName2 := "tf_acc_test_" + sdkacctest.RandString(20)
-	resourceName := "aws_keyspaces_table.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_keyspaces_table.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -411,16 +377,12 @@ func TestAccKeyspacesTable_addColumns(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccKeyspacesTable_delColumns(t *testing.T) {
+}func TestAccKeyspacesTable_delColumns(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 keyspaces.GetTableOutput
 	rName1 := "tf_acc_test_" + sdkacctest.RandString(20)
 	rName2 := "tf_acc_test_" + sdkacctest.RandString(20)
-	resourceName := "aws_keyspaces_table.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_keyspaces_table.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -478,422 +440,248 @@ func TestAccKeyspacesTable_delColumns(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckTableDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckTableDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KeyspacesClient(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).KeyspacesClient(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_keyspaces_table" {
 				continue
-			}
-
-			keyspaceName, tableName, err := tfkeyspaces.TableParseResourceID(rs.Primary.ID)
-
-			if err != nil {
+			}			keyspaceName, tableName, err := tfkeyspaces.TableParseResourceID(rs.Primary.ID)			if err != nil {
 				return err
-			}
-
-			_, err = tfkeyspaces.FindTableByTwoPartKey(ctx, conn, keyspaceName, tableName)
-
-			if tfresource.NotFound(err) {
+			}			_, err = tfkeyspaces.FindTableByTwoPartKey(ctx, conn, keyspaceName, tableName)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Keyspaces Table %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Keyspaces Table %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckTableExists(ctx context.Context, n string, v *keyspaces.GetTableOutput) resource.TestCheckFunc {
+}func testAccCheckTableExists(ctx context.Context, n string, v *keyspaces.GetTableOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Keyspaces Table ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KeyspacesClient(ctx)
-
-		keyspaceName, tableName, err := tfkeyspaces.TableParseResourceID(rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).KeyspacesClient(ctx)		keyspaceName, tableName, err := tfkeyspaces.TableParseResourceID(rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		output, err := tfkeyspaces.FindTableByTwoPartKey(ctx, conn, keyspaceName, tableName)
-
-		if err != nil {
+		}		output, err := tfkeyspaces.FindTableByTwoPartKey(ctx, conn, keyspaceName, tableName)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccCheckTableNotRecreated(i, j *keyspaces.GetTableOutput) resource.TestCheckFunc {
+}func testAccCheckTableNotRecreated(i, j *keyspaces.GetTableOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if !aws.ToTime(i.CreationTimestamp).Equal(aws.ToTime(j.CreationTimestamp)) {
 			return errors.New("Keyspaces Table was recreated")
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckTableRecreated(i, j *keyspaces.GetTableOutput) resource.TestCheckFunc {
+}func testAccCheckTableRecreated(i, j *keyspaces.GetTableOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if aws.ToTime(i.CreationTimestamp).Equal(aws.ToTime(j.CreationTimestamp)) {
 			return errors.New("Keyspaces Table was not recreated")
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccTableConfig_basic(rName1, rName2 string) string {
+}func testAccTableConfig_basic(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_keyspaces_keyspace" "test" {
   name = %[1]q
-}
-
-resource "aws_keyspaces_table" "test" {
+}resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name= %[2]q
-
-  schema_definition {
+  table_name= %[2]q  schema_definition {
 column {
   name = "message"
   type = "ascii"
-}
-
-partition_key {
+}partition_key {
   name = "message"
 }
   }
 }
 `, rName1, rName2)
-}
-
-func testAccTableConfig_tags1(rName1, rName2, tagKey1, tagValue1 string) string {
+}func testAccTableConfig_tags1(rName1, rName2, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_keyspaces_keyspace" "test" {
   name = %[1]q
-}
-
-resource "aws_keyspaces_table" "test" {
+}resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name= %[2]q
-
-  schema_definition {
+  table_name= %[2]q  schema_definition {
 column {
   name = "message"
   type = "ascii"
-}
-
-partition_key {
+}partition_key {
   name = "message"
 }
-  }
-
-  tags = {
+  }  tags = {
 %[3]q = %[4]q
   }
 }
 `, rName1, rName2, tagKey1, tagValue1)
-}
-
-func testAccTableConfig_tags2(rName1, rName2, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccTableConfig_tags2(rName1, rName2, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_keyspaces_keyspace" "test" {
   name = %[1]q
-}
-
-resource "aws_keyspaces_table" "test" {
+}resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name= %[2]q
-
-  schema_definition {
+  table_name= %[2]q  schema_definition {
 column {
   name = "message"
   type = "ascii"
-}
-
-partition_key {
+}partition_key {
   name = "message"
 }
-  }
-
-  tags = {
+  }  tags = {
 %[3]q = %[4]q
 %[5]q = %[6]q
   }
 }
 `, rName1, rName2, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccTableConfig_clientSideTimestamps(rName1, rName2 string) string {
+}func testAccTableConfig_clientSideTimestamps(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_keyspaces_keyspace" "test" {
   name = %[1]q
-}
-
-resource "aws_keyspaces_table" "test" {
+}resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name= %[2]q
-
-  schema_definition {
+  table_name= %[2]q  schema_definition {
 column {
   name = "message"
   type = "ascii"
-}
-
-partition_key {
+}partition_key {
   name = "message"
 }
-  }
-
-  client_side_timestamps {
+  }  client_side_timestamps {
 status = "ENABLED"
   }
 }
 `, rName1, rName2)
-}
-
-func testAccTableConfig_multipleColumns(rName1, rName2 string) string {
+}func testAccTableConfig_multipleColumns(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_keyspaces_keyspace" "test" {
   name = %[1]q
-}
-
-resource "aws_keyspaces_table" "test" {
+}resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name= %[2]q
-
-  schema_definition {
+  table_name= %[2]q  schema_definition {
 column {
   name = "id"
   type = "text"
-}
-
-column {
+}column {
   name = "n"
   type = "text"
-}
-
-column {
+}column {
   name = "region"
   type = "text"
-}
-
-column {
+}column {
   name = "division"
   type = "text"
-}
-
-column {
+}column {
   name = "project"
   type = "text"
-}
-
-column {
+}column {
   name = "role"
   type = "text"
-}
-
-column {
+}column {
   name = "pay_scale0"
   type = "int"
-}
-
-column {
+}column {
   name = "vacation_hrs"
   type = "float"
-}
-
-column {
+}column {
   name = "manager_id"
   type = "text"
-}
-
-column {
+}column {
   name = "nicknames"
   type = "list<text>"
-}
-
-column {
+}column {
   name = "tags"
   type = "map<text, text>"
-}
-
-partition_key {
+}partition_key {
   name = "id"
-}
-
-clustering_key {
+}clustering_key {
   name = "division"
   order_by = "ASC"
-}
-
-clustering_key {
+}clustering_key {
   name = "region"
   order_by = "DESC"
-}
-
-static_column {
+}static_column {
   name = "role"
-}
-
-static_column {
+}static_column {
   name = "pay_scale0"
 }
   }
 }
 `, rName1, rName2)
-}
-
-func testAccTableConfig_allAttributes(rName1, rName2 string) string {
+}func testAccTableConfig_allAttributes(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description = %[1]q
-}
-
-resource "aws_keyspaces_keyspace" "test" {
+}resource "aws_keyspaces_keyspace" "test" {
   name = %[1]q
-}
-
-resource "aws_keyspaces_table" "test" {
+}resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name= %[2]q
-
-  schema_definition {
+  table_name= %[2]q  schema_definition {
 column {
   name = "message"
   type = "ascii"
-}
-
-partition_key {
+}partition_key {
   name = "message"
 }
-  }
-
-  capacity_specification {
+  }  capacity_specification {
 read_capacity_units  = 200
 throughput_mode  = "PROVISIONED"
 write_capacity_units = 100
-  }
-
-  comment {
+  }  comment {
 message = "TESTING"
-  }
-
-  default_time_to_live = 500000
-
-  encryption_specification {
+  }  default_time_to_live = 500000  encryption_specification {
 kms_key_identifier = aws_kms_key.test.arn
 type  = "CUSTOMER_MANAGED_KMS_KEY"
-  }
-
-  point_in_time_recovery {
+  }  point_in_time_recovery {
 status = "ENABLED"
-  }
-
-  ttl {
+  }  ttl {
 status = "ENABLED"
   }
 }
 `, rName1, rName2)
-}
-
-func testAccTableConfig_allAttributesUpdated(rName1, rName2 string) string {
+}func testAccTableConfig_allAttributesUpdated(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description = %[1]q
-}
-
-resource "aws_keyspaces_keyspace" "test" {
+}resource "aws_keyspaces_keyspace" "test" {
   name = %[1]q
-}
-
-resource "aws_keyspaces_table" "test" {
+}resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name= %[2]q
-
-  schema_definition {
+  table_name= %[2]q  schema_definition {
 column {
   name = "message"
   type = "ascii"
-}
-
-partition_key {
+}partition_key {
   name = "message"
 }
-  }
-
-  capacity_specification {
+  }  capacity_specification {
 throughput_mode = "PAY_PER_REQUEST"
-  }
-
-  comment {
+  }  comment {
 message = "TESTING"
-  }
-
-  default_time_to_live = 1500000
-
-  encryption_specification {
+  }  default_time_to_live = 1500000  encryption_specification {
 type = "AWS_OWNED_KMS_KEY"
-  }
-
-  point_in_time_recovery {
+  }  point_in_time_recovery {
 status = "DISABLED"
-  }
-
-  ttl {
+  }  ttl {
 status = "ENABLED"
   }
 }
 `, rName1, rName2)
-}
-
-func testAccTableConfig_newColumns(rName1, rName2 string) string {
+}func testAccTableConfig_newColumns(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_keyspaces_keyspace" "test" {
   name = %[1]q
-}
-
-resource "aws_keyspaces_table" "test" {
+}resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name= %[2]q
-
-  schema_definition {
+  table_name= %[2]q  schema_definition {
 column {
   name = "message"
   type = "ascii"
-}
-
-column {
+}column {
   name = "ts"
   type = "timestamp"
-}
-
-column {
+}column {
   name = "amount"
   type = "decimal"
-}
-
-partition_key {
+}partition_key {
   name = "message"
 }
   }

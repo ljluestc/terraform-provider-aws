@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafv2
-
-import (
+// SPDX-License-Identifier: MPL-2.0package wafv2import (
 	"context"
 	"fmt"
 	"log"
 	"strings"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/wafv2"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -24,24 +18,18 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-const (
+)const (
 	webACLCreateTimeout = 5 * time.Minute
 	webACLUpdateTimeout = 5 * time.Minute
 	webACLDeleteTimeout = 5 * time.Minute
-)
-
-// @SDKResource("aws_wafv2_web_acl", name="Web ACL")
+)// @SDKResource("aws_wafv2_web_acl", name="Web ACL")
 // @Tags(identifierAttribute="arn")
 func ResourceWebACL() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceWebACLCreate,
 		ReadWithoutTimeout:   resourceWebACLRead,
 		UpdateWithoutTimeout: resourceWebACLUpdate,
-		DeleteWithoutTimeout: resourceWebACLDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceWebACLDelete,		Importer: &schema.ResourceImporter{
 			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 				idParts := strings.Split(d.Id(), "/")
 				if len(idParts) != 3 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" {
@@ -55,9 +43,7 @@ func ResourceWebACL() *schema.Resource {
 				d.Set("scope", scope)
 				return []*schema.ResourceData{d}, nil
 			},
-		},
-
-		SchemaFunc: func() map[string]*schema.Schema {
+		},		SchemaFunc: func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -166,15 +152,11 @@ func ResourceWebACL() *schema.Resource {
 				},
 				"visibility_config": visibilityConfigSchema(),
 			}
-		},
-
-		CustomizeDiff: verify.SetTagsDiff,
+		},		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
 func resourceWebACLCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
-
-	name := d.Get("name").(string)
+	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)	name := d.Get("name").(string)
 	input := &wafv2.CreateWebACLInput{
 		AssociationConfig: expandAssociationConfig(d.Get("association_config").([]interface{})),
 		CaptchaConfig:     expandCaptchaConfig(d.Get("captcha_config").([]interface{})),
@@ -184,50 +166,26 @@ func resourceWebACLCreate(ctx context.Context, d *schema.ResourceData, meta inte
 		Scope:aws.String(d.Get("scope").(string)),
 		Tags: getTagsIn(ctx),
 		VisibilityConfig:  expandVisibilityConfig(d.Get("visibility_config").([]interface{})),
-	}
-
-	if v, ok := d.GetOk("custom_response_body"); ok && v.(*schema.Set).Len() > 0 {
+	}	if v, ok := d.GetOk("custom_response_body"); ok && v.(*schema.Set).Len() > 0 {
 		input.CustomResponseBodies = expandCustomResponseBodies(v.(*schema.Set).List())
-	}
-
-	if v, ok := d.GetOk("description"); ok {
+	}	if v, ok := d.GetOk("description"); ok {
 		input.Description = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("token_domains"); ok && v.(*schema.Set).Len() > 0 {
+	}	if v, ok := d.GetOk("token_domains"); ok && v.(*schema.Set).Len() > 0 {
 		input.TokenDomains = flex.ExpandStringSet(v.(*schema.Set))
-	}
-
-	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, webACLCreateTimeout, func() (interface{}, error) {
+	}	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, webACLCreateTimeout, func() (interface{}, error) {
 		return conn.CreateWebACLWithContext(ctx, input)
-	}, wafv2.ErrCodeWAFUnavailableEntityException)
-
-	if err != nil {
+	}, wafv2.ErrCodeWAFUnavailableEntityException)	if err != nil {
 		return diag.Errorf("creating WAFv2 WebACL (%s): %s", name, err)
-	}
-
-	output := outputRaw.(*wafv2.CreateWebACLOutput)
-
-	d.SetId(aws.StringValue(output.Summary.Id))
-
-	return resourceWebACLRead(ctx, d, meta)
+	}	output := outputRaw.(*wafv2.CreateWebACLOutput)	d.SetId(aws.StringValue(output.Summary.Id))	return resourceWebACLRead(ctx, d, meta)
 }
 func resourceWebACLRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
-
-	output, err := FindWebACLByThreePartKey(ctx, conn, d.Id(), d.Get("name").(string), d.Get("scope").(string))
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)	output, err := FindWebACLByThreePartKey(ctx, conn, d.Id(), d.Get("name").(string), d.Get("scope").(string))	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] WAFv2 WebACL (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return diag.Errorf("reading WAFv2 WebACL (%s): %s", d.Id(), err)
-	}
-
-	webACL := output.WebACL
+	}	webACL := output.WebACL
 	arn := aws.StringValue(webACL.ARN)
 	d.Set("arn", arn)
 	d.Set("capacity", webACL.Capacity)
@@ -253,14 +211,10 @@ func resourceWebACLRead(ctx context.Context, d *schema.ResourceData, meta interf
 	d.Set("token_domains", aws.StringValueSlice(webACL.TokenDomains))
 	if err := d.Set("visibility_config", flattenVisibilityConfig(webACL.VisibilityConfig)); err != nil {
 		return diag.Errorf("setting visibility_config: %s", err)
-	}
-
-	return nil
+	}	return nil
 }
 func resourceWebACLUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)	if d.HasChangesExcept("tags", "tags_all") {
 		// Find the AWS managed ShieldMitigationRuleGroup group rule if existent and add it into the set of rules to update
 		// so that the provider will not remove the Shield rule when changes are applied to the WebACL.
 		rules := expandWebACLRules(d.Get("rule").(*schema.Set).List())
@@ -270,9 +224,7 @@ func resourceWebACLUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 				return diag.Errorf("reading WAFv2 WebACL (%s): %s", d.Id(), err)
 			}
 			rules = append(rules, findShieldRule(output.WebACL.Rules)...)
-		}
-
-		input := &wafv2.UpdateWebACLInput{
+		}		input := &wafv2.UpdateWebACLInput{
 			AssociationConfig: expandAssociationConfig(d.Get("association_config").([]interface{})),
 			CaptchaConfig:     expandCaptchaConfig(d.Get("captcha_config").([]interface{})),
 			DefaultAction:     expandDefaultAction(d.Get("default_action").([]interface{})),
@@ -282,101 +234,61 @@ func resourceWebACLUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 			Rules:rules,
 			Scope:aws.String(d.Get("scope").(string)),
 			VisibilityConfig:  expandVisibilityConfig(d.Get("visibility_config").([]interface{})),
-		}
-
-		if v, ok := d.GetOk("custom_response_body"); ok && v.(*schema.Set).Len() > 0 {
+		}		if v, ok := d.GetOk("custom_response_body"); ok && v.(*schema.Set).Len() > 0 {
 			input.CustomResponseBodies = expandCustomResponseBodies(v.(*schema.Set).List())
-		}
-
-		if v, ok := d.GetOk("description"); ok {
+		}		if v, ok := d.GetOk("description"); ok {
 			input.Description = aws.String(v.(string))
-		}
-
-		if v, ok := d.GetOk("token_domains"); ok {
+		}		if v, ok := d.GetOk("token_domains"); ok {
 			input.TokenDomains = flex.ExpandStringSet(v.(*schema.Set))
-		}
-
-		_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, webACLUpdateTimeout, func() (interface{}, error) {
+		}		_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, webACLUpdateTimeout, func() (interface{}, error) {
 			return conn.UpdateWebACLWithContext(ctx, input)
-		}, wafv2.ErrCodeWAFUnavailableEntityException)
-
-		if tfawserr.ErrCodeEquals(err, wafv2.ErrCodeWAFOptimisticLockException) {
+		}, wafv2.ErrCodeWAFUnavailableEntityException)		if tfawserr.ErrCodeEquals(err, wafv2.ErrCodeWAFOptimisticLockException) {
 			return diag.Errorf("updating WAFv2 WebACL (%s), resource has changed since last refresh please run a new plan before applying again: %s", d.Id(), err)
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return diag.Errorf("updating WAFv2 WebACL (%s): %s", d.Id(), err)
 		}
-	}
-
-	return resourceWebACLRead(ctx, d, meta)
+	}	return resourceWebACLRead(ctx, d, meta)
 }
 func resourceWebACLDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
-
-	input := &wafv2.DeleteWebACLInput{
+	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)	input := &wafv2.DeleteWebACLInput{
 		Id:        aws.String(d.Id()),
 		LockToken: aws.String(d.Get("lock_token").(string)),
 		Name:      aws.String(d.Get("name").(string)),
 		Scope:     aws.String(d.Get("scope").(string)),
-	}
-
-	log.Printf("[INFO] Deleting WAFv2 WebACL: %s", d.Id())
+	}	log.Printf("[INFO] Deleting WAFv2 WebACL: %s", d.Id())
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, webACLDeleteTimeout, func() (interface{}, error) {
 		return conn.DeleteWebACLWithContext(ctx, input)
-	}, wafv2.ErrCodeWAFAssociatedItemException, wafv2.ErrCodeWAFUnavailableEntityException)
-
-	if tfawserr.ErrCodeEquals(err, wafv2.ErrCodeWAFNonexistentItemException) {
+	}, wafv2.ErrCodeWAFAssociatedItemException, wafv2.ErrCodeWAFUnavailableEntityException)	if tfawserr.ErrCodeEquals(err, wafv2.ErrCodeWAFNonexistentItemException) {
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return diag.Errorf("deleting WAFv2 WebACL (%s): %s", d.Id(), err)
-	}
-
-	return nil
+	}	return nil
 }
 func FindWebACLByThreePartKey(ctx context.Context, conn *wafv2.WAFV2, id, name, scope string) (*wafv2.GetWebACLOutput, error) {
 	input := &wafv2.GetWebACLInput{
 		Id:    aws.String(id),
 		Name:  aws.String(name),
 		Scope: aws.String(scope),
-	}
-
-	output, err := conn.GetWebACLWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, wafv2.ErrCodeWAFNonexistentItemException) {
+	}	output, err := conn.GetWebACLWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, wafv2.ErrCodeWAFNonexistentItemException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if output == nil || output.WebACL == nil {
+	}	if output == nil || output.WebACL == nil {
 		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output, nil
-}
-
-// filterWebACLRules removes the AWS-added Shield Advanced auto mitigation rule here
+	}	return output, nil
+}// filterWebACLRules removes the AWS-added Shield Advanced auto mitigation rule here
 // so that the provider will not report diff and/or attempt to remove the rule as it is
 // owned and managed by AWS.
 // See https://github.com/hashicorp/terraform-provider-aws/issues/22869
 // See https://docs.aws.amazon.com/waf/latest/developerguide/ddos-automatic-app-layer-response-rg.html
 func filterWebACLRules(rules, configRules []*wafv2.Rule) []*wafv2.Rule {
 	var fr []*wafv2.Rule
-	sr := findShieldRule(rules)
-
-	if len(sr) == 0 {
+	sr := findShieldRule(rules)	if len(sr) == 0 {
 		return rules
-	}
-
-	for _, r := range rules {
+	}	for _, r := range rules {
 		if aws.StringValue(r.Name) == aws.StringValue(sr[0].Name) {
 			filter := true
 			for _, cr := range configRules {
@@ -384,9 +296,7 @@ func filterWebACLRules(rules, configRules []*wafv2.Rule) []*wafv2.Rule {
 					// exception to filtering -- it's in the config
 					filter = false
 				}
-			}
-
-			if filter {
+			}			if filter {
 				continue
 			}
 		}

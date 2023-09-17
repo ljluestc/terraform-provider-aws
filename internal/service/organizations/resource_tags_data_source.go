@@ -29,10 +29,7 @@ Required: true,
 "tags": tftags.TagsSchemaComputed(),
 },
 }
-}
-
-
-func dataSourceResourceTagsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceResourceTagsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 

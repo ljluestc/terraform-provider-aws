@@ -1,15 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package s3control
-
-import (
-	"fmt"
-
-	"github.com/YakDriver/regexache"
-)
-
-func validateS3MultiRegionAccessPointName(v interface{}, k string) (ws []string, errors []error) {
+// SPDX-License-Identifier: MPL-2.0package s3controlimport (
+	"fmt"	"github.com/YakDriver/regexache"
+)func validateS3MultiRegionAccessPointName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if len(value) < 3 || len(value) > 50 {
 		errors = append(errors, fmt.Errorf(

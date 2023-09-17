@@ -13,10 +13,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-
-func ParametersSchema() *schema.Schema {
+)func ParametersSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Parameters.html
 		Type:     schema.TypeList,
 		MaxItems: 1,
@@ -105,10 +102,7 @@ func: verify.ValidUTCTimestamp,
 			},
 		},
 	}
-}
-
-
-func ExpandParameters(tfList []interface{}) *quicksight.Parameters {
+}func ExpandParameters(tfList []interface{}) *quicksight.Parameters {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
 	}
@@ -134,10 +128,7 @@ func ExpandParameters(tfList []interface{}) *quicksight.Parameters {
 	}
 
 	return parameters
-}
-
-
-func expandDateTimeParameters(tfList []interface{}) []*quicksight.DateTimeParameter {
+}func expandDateTimeParameters(tfList []interface{}) []*quicksight.DateTimeParameter {
 	if len(tfList) == 0 {
 		return nil
 	}
@@ -158,10 +149,7 @@ func expandDateTimeParameters(tfList []interface{}) []*quicksight.DateTimeParame
 	}
 
 	return parameters
-}
-
-
-func expandDateTimeParameter(tfMap map[string]interface{}) *quicksight.DateTimeParameter {
+}func expandDateTimeParameter(tfMap map[string]interface{}) *quicksight.DateTimeParameter {
 	if tfMap == nil {
 		return nil
 	}
@@ -176,10 +164,7 @@ func expandDateTimeParameter(tfMap map[string]interface{}) *quicksight.DateTimeP
 	}
 
 	return parameter
-}
-
-
-func expandDecimalParameters(tfList []interface{}) []*quicksight.DecimalParameter {
+}func expandDecimalParameters(tfList []interface{}) []*quicksight.DecimalParameter {
 	if len(tfList) == 0 {
 		return nil
 	}
@@ -200,10 +185,7 @@ func expandDecimalParameters(tfList []interface{}) []*quicksight.DecimalParamete
 	}
 
 	return parameters
-}
-
-
-func expandDecimalParameter(tfMap map[string]interface{}) *quicksight.DecimalParameter {
+}func expandDecimalParameter(tfMap map[string]interface{}) *quicksight.DecimalParameter {
 	if tfMap == nil {
 		return nil
 	}
@@ -218,10 +200,7 @@ func expandDecimalParameter(tfMap map[string]interface{}) *quicksight.DecimalPar
 	}
 
 	return parameter
-}
-
-
-func expandIntegerParameters(tfList []interface{}) []*quicksight.IntegerParameter {
+}func expandIntegerParameters(tfList []interface{}) []*quicksight.IntegerParameter {
 	if len(tfList) == 0 {
 		return nil
 	}
@@ -242,10 +221,7 @@ func expandIntegerParameters(tfList []interface{}) []*quicksight.IntegerParamete
 	}
 
 	return parameters
-}
-
-
-func expandIntegerParameter(tfMap map[string]interface{}) *quicksight.IntegerParameter {
+}func expandIntegerParameter(tfMap map[string]interface{}) *quicksight.IntegerParameter {
 	if tfMap == nil {
 		return nil
 	}
@@ -260,10 +236,7 @@ func expandIntegerParameter(tfMap map[string]interface{}) *quicksight.IntegerPar
 	}
 
 	return parameter
-}
-
-
-func expandStringParameters(tfList []interface{}) []*quicksight.StringParameter {
+}func expandStringParameters(tfList []interface{}) []*quicksight.StringParameter {
 	if len(tfList) == 0 {
 		return nil
 	}
@@ -284,10 +257,7 @@ func expandStringParameters(tfList []interface{}) []*quicksight.StringParameter 
 	}
 
 	return parameters
-}
-
-
-func expandStringParameter(tfMap map[string]interface{}) *quicksight.StringParameter {
+}func expandStringParameter(tfMap map[string]interface{}) *quicksight.StringParameter {
 	if tfMap == nil {
 		return nil
 	}

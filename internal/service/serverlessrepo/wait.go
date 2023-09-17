@@ -1,19 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package serverlessrepo
-
-import (
+// SPDX-License-Identifier: MPL-2.0package serverlessrepoimport (
 	"time"
-)
-
-const (
+)const (
 	// Default maximum amount of time to wait for a Stack to be Created
-	cloudFormationStackCreatedDefaultTimeout = 30 * time.Minute
-
-	// Default maximum amount of time to wait for a Stack to be Updated
-	cloudFormationStackUpdatedDefaultTimeout = 30 * time.Minute
-
-	// Default maximum amount of time to wait for a Stack to be Deleted
+	cloudFormationStackCreatedDefaultTimeout = 30 * time.Minute	// Default maximum amount of time to wait for a Stack to be Updated
+	cloudFormationStackUpdatedDefaultTimeout = 30 * time.Minute	// Default maximum amount of time to wait for a Stack to be Deleted
 	cloudFormationStackDeletedDefaultTimeout = 30 * time.Minute
 )

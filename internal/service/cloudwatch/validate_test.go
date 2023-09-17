@@ -1,17 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cloudwatch
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cloudwatchimport (
 "strings"
 "testing"
-)
-
-func TestValidDashboardName(t *testing.T) {
-t.Parallel()
-
-validNames := []string{
+)func TestValidDashboardName(t *testing.T) {
+t.Parallel()validNames := []string{
 "HelloWorl_d",
 "hello-world",
 "hello-world-012345",
@@ -21,9 +13,7 @@ _, errors := validDashboardName(v, "name")
 if len(errors) != 0 {
 t.Fatalf("%q should be a valid CloudWatch dashboard name: %q", v, errors)
 }
-}
-
-invalidNames := []string{
+}invalidNames := []string{
 "special@character",
 "slash/in-the-middle",
 "dot.in-the-middle",
@@ -35,12 +25,8 @@ if len(errors) == 0 {
 t.Fatalf("%q should be an invalid CloudWatch dashboard name", v)
 }
 }
-}
-
-func TestValidEC2AutomateARN(t *testing.T) {
-t.Parallel()
-
-validNames := []string{
+}func TestValidEC2AutomateARN(t *testing.T) {
+t.Parallel()validNames := []string{
 "arn:aws:automate:us-east-1:ec2:reboot",    //lintignore:AWSAT003,AWSAT005
 "arn:aws:automate:us-east-1:ec2:recover",   //lintignore:AWSAT003,AWSAT005
 "arn:aws:automate:us-east-1:ec2:stop",      //lintignore:AWSAT003,AWSAT005
@@ -51,9 +37,7 @@ _, errors := validEC2AutomateARN(v, "test_property")
 if len(errors) != 0 {
 t.Fatalf("%q should be a valid ARN: %q", v, errors)
 }
-}
-
-invalidNames := []string{
+}invalidNames := []string{
 "",
 "arn:aws:elasticbeanstalk:us-east-1:123456789012:environment/My App/MyEnvironment", // lintignore:AWSAT003,AWSAT005 // Beanstalk
 "arn:aws:iam::123456789012:user/David",// lintignore:AWSAT005 // IAM User

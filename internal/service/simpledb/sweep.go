@@ -1,16 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-//go:build sweep
-// +build sweep
-
-package simpledb
-
-import (
+// SPDX-License-Identifier: MPL-2.0//go:build sweep
+// +build sweeppackage simpledbimport (
 "fmt"
-"log"
-
-"github.com/aws/aws-sdk-go/aws"
+"log""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/simpledb"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/sweep"
@@ -30,36 +22,20 @@ return fmt.Errorf("error getting client: %s", err)
 }
 conn := client.SimpleDBConn(ctx)
 input := &simpledb.ListDomainsInput{}
-sweepResources := make([]sweep.Sweepable, 0)
-
-err = conn.ListDomainsPagesWithContext(ctx, input, func(page *simpledb.ListDomainsOutput, lastPage bool) bool {
+sweepResources := make([]sweep.Sweepable, 0)err = conn.ListDomainsPagesWithContext(ctx, input, func(page *simpledb.ListDomainsOutput, lastPage bool) bool {
 if page == nil {
 return !lastPage
-}
-
-for _, v := range page.DomainNames {
+}for _, v := range page.DomainNames {
 sweepResources = append(sweepResources, framework.NewSweepResource(newResourceDomain, client,
 framework.NewAttribute("id", aws.StringValue(v)),
 ))
-}
-
-return !lastPage
-})
-
-if sweep.SkipSweepError(err) {
+}return !lastPage
+})if sweep.SkipSweepError(err) {
 log.Printf("[WARN] Skipping SimpleDB Domain sweep for %s: %s", region, err)
 return nil
-}
-
-if err != nil {
+}if err != nil {
 return fmt.Errorf("error listing SimpleDB Domains (%s): %w", region, err)
-}
-
-err = sweep.SweepOrchestrator(ctx, sweepResources)
-
-if err != nil {
+}err = sweep.SweepOrchestrator(ctx, sweepResources)if err != nil {
 return fmt.Errorf("error sweeping SimpleDB Domains (%s): %w", region, err)
-}
-
-return nil
+}return nil
 }

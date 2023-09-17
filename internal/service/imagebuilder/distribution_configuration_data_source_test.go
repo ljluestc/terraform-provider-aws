@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package imagebuilder_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/imagebuilder"
+	"testing"	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccImageBuilderDistributionConfigurationDataSource_arn(t *testing.T) {
+)func TestAccImageBuilderDistributionConfigurationDataSource_arn(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_imagebuilder_distribution_configuration.test"
-	resourceName := "aws_imagebuilder_distribution_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_distribution_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -59,61 +49,35 @@ func TestAccImageBuilderDistributionConfigurationDataSource_arn(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccDistributionConfigurationDataSourceConfig_arn(rName string) string {
+}func testAccDistributionConfigurationDataSourceConfig_arn(rName string) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-resource "aws_launch_template" "test" {
+data "aws_region" "current" {}data "aws_caller_identity" "current" {}resource "aws_launch_template" "test" {
   instance_type = "t2.micro"
   name = %[1]q
-}
-
-resource "aws_imagebuilder_distribution_configuration" "test" {
-  name = %[1]q
-
-  distribution {
+}resource "aws_imagebuilder_distribution_configuration" "test" {
+  name = %[1]q  distribution {
     ami_distribution_configuration {
       name = "{{ imagebuilder:buildDate }}"
-    }
-
-    container_distribution_configuration {
+    }    container_distribution_configuration {
       target_repository {
         repository_name = "repository-name"
         service= "ECR"
       }
-    }
-
-    launch_template_configuration {
+    }    launch_template_configuration {
       account_id= data.aws_caller_identity.current.account_id
       default   = false
       launch_template_id = aws_launch_template.test.id
-    }
-
-    fast_launch_configuration {
+    }    fast_launch_configuration {
       account_id = data.aws_caller_identity.current.account_id
-      enabled    = true
-
-      launch_template {
+      enabled    = true      launch_template {
         launch_template_id      = aws_launch_template.test.id
         launch_template_version = "1"
-      }
-
-      max_parallel_launches = 6
-
-      snapshot_configuration {
+      }      max_parallel_launches = 6      snapshot_configuration {
         target_resource_count = 1
       }
-    }
-
-    region = data.aws_region.current.name
+    }    region = data.aws_region.current.name
   }
-}
-
-data "aws_imagebuilder_distribution_configuration" "test" {
+}data "aws_imagebuilder_distribution_configuration" "test" {
   arn = aws_imagebuilder_distribution_configuration.test.arn
 }
 `, rName)

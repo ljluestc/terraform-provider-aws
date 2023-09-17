@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appsync_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appsync_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/appsync"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -21,13 +15,9 @@ import (
 func testAccDomainName_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domainName appsync.DomainNameConfig
-	appsyncCertDomain := getCertDomain(t)
-
-	rName := sdkacctest.RandString(8)
+	appsyncCertDomain := getCertDomain(t)	rName := sdkacctest.RandString(8)
 	acmCertificateResourceName := "data.aws_acm_certificate.test"
-	resourceName := "aws_appsync_domain_name.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_appsync_domain_name.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
@@ -52,12 +42,8 @@ func testAccDomainName_basic(t *testing.T) {
 func testAccDomainName_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domainName appsync.DomainNameConfig
-	appsyncCertDomain := getCertDomain(t)
-
-	rName := sdkacctest.RandString(8)
-	resourceName := "aws_appsync_domain_name.test"
-
-	resource.Test(t, resource.TestCase{
+	appsyncCertDomain := getCertDomain(t)	rName := sdkacctest.RandString(8)
+	resourceName := "aws_appsync_domain_name.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
@@ -88,12 +74,8 @@ func testAccDomainName_description(t *testing.T) {
 func testAccDomainName_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domainName appsync.DomainNameConfig
-	appsyncCertDomain := getCertDomain(t)
-
-	rName := sdkacctest.RandString(8)
-	resourceName := "aws_appsync_domain_name.test"
-
-	resource.Test(t, resource.TestCase{
+	appsyncCertDomain := getCertDomain(t)	rName := sdkacctest.RandString(8)
+	resourceName := "aws_appsync_domain_name.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
@@ -116,21 +98,15 @@ func testAccCheckDomainNameDestroy(ctx context.Context) resource.TestCheckFunc {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_appsync_domain_name" {
 				continue
-			}
-
-			domainName, err := tfappsync.FindDomainNameByID(ctx, conn, rs.Primary.ID)
+			}			domainName, err := tfappsync.FindDomainNameByID(ctx, conn, rs.Primary.ID)
 			if err == nil {
 				if tfawserr.ErrCodeEquals(err, appsync.ErrCodeNotFoundException) {
 					return nil
 				}
 				return err
-			}
-
-			if domainName != nil && aws.StringValue(domainName.DomainName) == rs.Primary.ID {
+			}			if domainName != nil && aws.StringValue(domainName.DomainName) == rs.Primary.ID {
 				return fmt.Errorf("Appsync Domain Name ID %q still exists", rs.Primary.ID)
-			}
-
-			return nil
+			}			return nil
 		}
 		return nil
 	}
@@ -141,20 +117,12 @@ func testAccCheckDomainNameExists(ctx context.Context, resourceName string, doma
 		if !ok {
 			return fmt.Errorf("Appsync Domain Name Not found in state: %s", resourceName)
 		}
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
-
-		domain, err := tfappsync.FindDomainNameByID(ctx, conn, rs.Primary.ID)
+		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)		domain, err := tfappsync.FindDomainNameByID(ctx, conn, rs.Primary.ID)
 		if err != nil {
 			return err
-		}
-
-		if domain == nil || domain.DomainName == nil {
+		}		if domain == nil || domain.DomainName == nil {
 			return fmt.Errorf("Appsync Domain Name %q not found", rs.Primary.ID)
-		}
-
-		*domainName = *domain
-
-		return nil
+		}		*domainName = *domain		return nil
 	}
 }
 func testAccDomainNameBaseConfig(domain string) string {

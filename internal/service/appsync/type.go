@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appsync
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appsyncimport (
 	"context"
 	"fmt"
 	"log"
-	"strings"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"strings"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/appsync"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -18,9 +12,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-// @SDKResource("aws_appsync_type")
+)// @SDKResource("aws_appsync_type")
 func ResourceType() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTypeCreate,
@@ -29,9 +21,7 @@ func ResourceType() *schema.Resource {
 		DeleteWithoutTimeout: resourceTypeDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"api_id": {
 				Type:schema.TypeString,
 				Required: true,
@@ -63,77 +53,49 @@ func ResourceType() *schema.Resource {
 }
 func resourceTypeCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
-
-	apiID := d.Get("api_id").(string)
-
-	params := &appsync.CreateTypeInput{
+	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)	apiID := d.Get("api_id").(string)	params := &appsync.CreateTypeInput{
 		ApiId: aws.String(apiID),
 		Definition: aws.String(d.Get("definition").(string)),
 		Format:aws.String(d.Get("format").(string)),
-	}
-
-	out, err := conn.CreateTypeWithContext(ctx, params)
+	}	out, err := conn.CreateTypeWithContext(ctx, params)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating Appsync Type: %s", err)
-	}
-
-	d.SetId(fmt.Sprintf("%s:%s:%s", apiID, aws.StringValue(out.Type.Format), aws.StringValue(out.Type.Name)))
-
-	return append(diags, resourceTypeRead(ctx, d, meta)...)
+	}	d.SetId(fmt.Sprintf("%s:%s:%s", apiID, aws.StringValue(out.Type.Format), aws.StringValue(out.Type.Name)))	return append(diags, resourceTypeRead(ctx, d, meta)...)
 }
 func resourceTypeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
-
-	apiID, format, name, err := DecodeTypeID(d.Id())
+	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)	apiID, format, name, err := DecodeTypeID(d.Id())
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading Appsync Type %q: %s", d.Id(), err)
-	}
-
-	resp, err := FindTypeByThreePartKey(ctx, conn, apiID, format, name)
+	}	resp, err := FindTypeByThreePartKey(ctx, conn, apiID, format, name)
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] AppSync Type (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading Appsync Type %q: %s", d.Id(), err)
-	}
-
-	d.Set("api_id", apiID)
+	}	d.Set("api_id", apiID)
 	d.Set("arn", resp.Arn)
 	d.Set("name", resp.Name)
 	d.Set("format", resp.Format)
 	d.Set("definition", resp.Definition)
-	d.Set("description", resp.Description)
-
-	return diags
+	d.Set("description", resp.Description)	return diags
 }
 func resourceTypeUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
-
-	params := &appsync.UpdateTypeInput{
+	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)	params := &appsync.UpdateTypeInput{
 		ApiId: aws.String(d.Get("api_id").(string)),
 		Format:aws.String(d.Get("format").(string)),
 		TypeName:   aws.String(d.Get("name").(string)),
 		Definition: aws.String(d.Get("definition").(string)),
-	}
-
-	_, err := conn.UpdateTypeWithContext(ctx, params)
+	}	_, err := conn.UpdateTypeWithContext(ctx, params)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "updating Appsync Type %q: %s", d.Id(), err)
-	}
-
-	return append(diags, resourceTypeRead(ctx, d, meta)...)
+	}	return append(diags, resourceTypeRead(ctx, d, meta)...)
 }
 func resourceTypeDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
-
-	input := &appsync.DeleteTypeInput{
+	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)	input := &appsync.DeleteTypeInput{
 		ApiId:aws.String(d.Get("api_id").(string)),
 		TypeName: aws.String(d.Get("name").(string)),
 	}
@@ -143,9 +105,7 @@ func resourceTypeDelete(ctx context.Context, d *schema.ResourceData, meta interf
 			return diags
 		}
 		return sdkdiag.AppendErrorf(diags, "deleting Appsync Type: %s", err)
-	}
-
-	return diags
+	}	return diags
 }
 func DecodeTypeID(id string) (string, string, string, error) {
 	parts := strings.Split(id, ":")

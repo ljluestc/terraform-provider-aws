@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicediscovery
-
-import (
+// SPDX-License-Identifier: MPL-2.0package servicediscoveryimport (
 "strings"
 "testing"
 )
 func TestValidNamespaceName(t *testing.T) {
-t.Parallel()
-
-validNames := []string{
+t.Parallel()validNames := []string{
 "ValidName",
 "V_-.dN01e",
 "0",
@@ -24,9 +18,7 @@ _, errors := validNamespaceName(v, "name")
 if len(errors) != 0 {
 t.Fatalf("%q should be a valid namespace name: %q", v, errors)
 }
-}
-
-invalidNames := []string{
+}invalidNames := []string{
 "Inval:dName",
 "Invalid Name",
 "*",

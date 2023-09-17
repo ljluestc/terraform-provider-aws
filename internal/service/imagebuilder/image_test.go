@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package imagebuilder_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -18,16 +12,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfimagebuilder "github.com/hashicorp/terraform-provider-aws/internal/service/imagebuilder"
-)
-
-func TestAccImageBuilderImage_basic(t *testing.T) {
+)func TestAccImageBuilderImage_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	imageRecipeResourceName := "aws_imagebuilder_image_recipe.test"
 	infrastructureConfigurationResourceName := "aws_imagebuilder_infrastructure_configuration.test"
-	resourceName := "aws_imagebuilder_image.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_image.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -62,14 +52,10 @@ func TestAccImageBuilderImage_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderImage_disappears(t *testing.T) {
+}func TestAccImageBuilderImage_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_image.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_image.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -85,15 +71,11 @@ func TestAccImageBuilderImage_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderImage_distributionARN(t *testing.T) {
+}func TestAccImageBuilderImage_distributionARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	distributionConfigurationResourceName := "aws_imagebuilder_distribution_configuration.test"
-	resourceName := "aws_imagebuilder_image.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_image.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -113,14 +95,10 @@ func TestAccImageBuilderImage_distributionARN(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderImage_enhancedImageMetadataEnabled(t *testing.T) {
+}func TestAccImageBuilderImage_enhancedImageMetadataEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_image.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_image.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -140,14 +118,10 @@ func TestAccImageBuilderImage_enhancedImageMetadataEnabled(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderImage_ImageTests_imageTestsEnabled(t *testing.T) {
+}func TestAccImageBuilderImage_ImageTests_imageTestsEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_image.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_image.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -168,14 +142,10 @@ func TestAccImageBuilderImage_ImageTests_imageTestsEnabled(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderImage_ImageTests_timeoutMinutes(t *testing.T) {
+}func TestAccImageBuilderImage_ImageTests_timeoutMinutes(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_image.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_image.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -196,14 +166,10 @@ func TestAccImageBuilderImage_ImageTests_timeoutMinutes(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderImage_tags(t *testing.T) {
+}func TestAccImageBuilderImage_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_imagebuilder_image.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_image.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -241,15 +207,11 @@ func TestAccImageBuilderImage_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderImage_containerRecipeARN(t *testing.T) {
+}func TestAccImageBuilderImage_containerRecipeARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_imagebuilder_image.test"
-	containerRecipeResourceName := "aws_imagebuilder_container_recipe.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	containerRecipeResourceName := "aws_imagebuilder_container_recipe.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -264,15 +226,11 @@ func TestAccImageBuilderImage_containerRecipeARN(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccImageBuilderImage_outputResources_containers(t *testing.T) {
+}func TestAccImageBuilderImage_outputResources_containers(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_imagebuilder_image.test"
-	regionDataSourceName := "data.aws_region.current"
-
-	resource.ParallelTest(t, resource.TestCase{
+	regionDataSourceName := "data.aws_region.current"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -290,84 +248,44 @@ func TestAccImageBuilderImage_outputResources_containers(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckImageDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckImageDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ImageBuilderConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).ImageBuilderConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_imagebuilder_image_pipeline" {
 				continue
-			}
-
-			input := &imagebuilder.GetImageInput{
+			}			input := &imagebuilder.GetImageInput{
 				ImageBuildVersionArn: aws.String(rs.Primary.ID),
-			}
-
-			output, err := conn.GetImageWithContext(ctx, input)
-
-			if tfawserr.ErrCodeEquals(err, imagebuilder.ErrCodeResourceNotFoundException) {
+			}			output, err := conn.GetImageWithContext(ctx, input)			if tfawserr.ErrCodeEquals(err, imagebuilder.ErrCodeResourceNotFoundException) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return fmt.Errorf("error getting Image Builder Image (%s): %w", rs.Primary.ID, err)
-			}
-
-			if output != nil {
+			}			if output != nil {
 				return fmt.Errorf("Image Builder Image (%s) still exists", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckImageExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+}func testAccCheckImageExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("resource not found: %s", resourceName)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ImageBuilderConn(ctx)
-
-		input := &imagebuilder.GetImageInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).ImageBuilderConn(ctx)		input := &imagebuilder.GetImageInput{
 			ImageBuildVersionArn: aws.String(rs.Primary.ID),
-		}
-
-		_, err := conn.GetImageWithContext(ctx, input)
-
-		if err != nil {
+		}		_, err := conn.GetImageWithContext(ctx, input)		if err != nil {
 			return fmt.Errorf("error getting Image Builder Image (%s): %w", rs.Primary.ID, err)
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccImageBaseConfig(rName string) string {
+}func testAccImageBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 data "aws_imagebuilder_component" "update-linux" {
   arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/update-linux/1.0.0"
-}
-
-data "aws_region" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_iam_instance_profile" "test" {
+}data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_iam_instance_profile" "test" {
   name = aws_iam_role.test.name
-  role = aws_iam_role.test.name
-
-  depends_on = [
+  role = aws_iam_role.test.name  depends_on = [
     aws_iam_role_policy_attachment.AmazonSSMManagedInstanceCore,
     aws_iam_role_policy_attachment.EC2InstanceProfileForImageBuilder,
   ]
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -380,105 +298,67 @@ resource "aws_iam_role" "test" {
     }]
   })
   name = %[1]q
-}
-
-resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
+}resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.test.name
-}
-
-resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilder" {
+}resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilder" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/EC2InstanceProfileForImageBuilder"
   role       = aws_iam_role.test.name
-}
-
-resource "aws_vpc" "test" {
+}resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
-
-  route {
+}resource "aws_default_route_table" "test" {
+  default_route_table_id = aws_vpc.test.default_route_table_id  route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.test.id
   }
-}
-
-resource "aws_default_security_group" "test" {
-  vpc_id = aws_vpc.test.id
-
-  egress {
+}resource "aws_default_security_group" "test" {
+  vpc_id = aws_vpc.test.id  egress {
     cidr_blocks = ["0.0.0.0/0"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
-  }
-
-  ingress {
+  }  ingress {
     from_port = 0
     protocol  = -1
     self      = true
     to_port   = 0
   }
-}
-
-resource "aws_internet_gateway" "test" {
+}resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_subnet" "test" {
+}resource "aws_subnet" "test" {
   cidr_block(aws_vpc.test.cidr_block, 8, 0)
   map_public_ip_on_launch = true
   vpc_id   = aws_vpc.test.id
-}
-
-resource "aws_imagebuilder_image_recipe" "test" {
+}resource "aws_imagebuilder_image_recipe" "test" {
   component {
     component_arn = data.aws_imagebuilder_component.update-linux.arn
-  }
-
-  name= %[1]q
+  }  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
-}
-
-resource "aws_imagebuilder_infrastructure_configuration" "test" {
+}resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
   security_group_ids    = [aws_default_security_group.test.id]
-  subnet_idtest.id
-
-  depends_on = [aws_default_route_table.test]
+  subnet_idtest.id  depends_on = [aws_default_route_table.test]
 }
 `, rName)
-}
-
-func testAccImageConfig_distributionConfigurationARN(rName string) string {
+}func testAccImageConfig_distributionConfigurationARN(rName string) string {
 	return acctest.ConfigCompose(
 		testAccImageBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_distribution_configuration" "test" {
-  name = %[1]q
-
-  distribution {
+  name = %[1]q  distribution {
     ami_distribution_configuration {
       name = "{{ imagebuilder:buildDate }}"
-    }
-
-    region = data.aws_region.current.name
+    }    region = data.aws_region.current.name
   }
-}
-
-resource "aws_imagebuilder_image" "test" {
+}resource "aws_imagebuilder_image" "test" {
   distribution_configuration_arn   = aws_imagebuilder_distribution_configuration.test.arn
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }
 `, rName))
-}
-
-func testAccImageConfig_enhancedMetadataEnabled(rName string, enhancedImageMetadataEnabled bool) string {
+}func testAccImageConfig_enhancedMetadataEnabled(rName string, enhancedImageMetadataEnabled bool) string {
 	return acctest.ConfigCompose(
 		testAccImageBaseConfig(rName),
 		fmt.Sprintf(`
@@ -488,39 +368,29 @@ resource "aws_imagebuilder_image" "test" {
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }
 `, rName, enhancedImageMetadataEnabled))
-}
-
-func testAccImageConfig_testsConfigurationTestsEnabled(rName string, imageTestsEnabled bool) string {
+}func testAccImageConfig_testsConfigurationTestsEnabled(rName string, imageTestsEnabled bool) string {
 	return acctest.ConfigCompose(
 		testAccImageBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_image" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
-  infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-
-  image_tests_configuration {
+  infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn  image_tests_configuration {
     image_tests_enabled = %[2]t
   }
 }
 `, rName, imageTestsEnabled))
-}
-
-func testAccImageConfig_testsConfigurationTimeoutMinutes(rName string, timeoutMinutes int) string {
+}func testAccImageConfig_testsConfigurationTimeoutMinutes(rName string, timeoutMinutes int) string {
 	return acctest.ConfigCompose(
 		testAccImageBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_image" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
-  infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-
-  image_tests_configuration {
+  infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn  image_tests_configuration {
     timeout_minutes = %[2]d
   }
 }
 `, rName, timeoutMinutes))
-}
-
-func testAccImageConfig_required(rName string) string {
+}func testAccImageConfig_required(rName string) string {
 	return acctest.ConfigCompose(
 		testAccImageBaseConfig(rName),
 		`
@@ -529,87 +399,57 @@ resource "aws_imagebuilder_image" "test" {
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }
 `)
-}
-
-func testAccImageConfig_tags1(rName string, tagKey1 string, tagValue1 string) string {
+}func testAccImageConfig_tags1(rName string, tagKey1 string, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		testAccImageBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_image" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
-  infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-
-  tags = {
+  infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn  tags = {
     %[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
-}
-
-func testAccImageConfig_tags2(rName string, tagKey1 string, tagValue1 string, tagKey2 string, tagValue2 string) string {
+}func testAccImageConfig_tags2(rName string, tagKey1 string, tagValue1 string, tagKey2 string, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccImageBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_image" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
-  infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-
-  tags = {
+  infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn  tags = {
     %[1]q = %[2]q
     %[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
-func testAccImageConfig_containerRecipe(rName string) string {
+}func testAccImageConfig_containerRecipe(rName string) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_vpc" "test" {
+data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_default_route_table" "test" {
-  default_route_table_id = aws_vpc.test.default_route_table_id
-
-  route {
+}resource "aws_default_route_table" "test" {
+  default_route_table_id = aws_vpc.test.default_route_table_id  route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.test.id
   }
-}
-
-resource "aws_default_security_group" "test" {
-  vpc_id = aws_vpc.test.id
-
-  egress {
+}resource "aws_default_security_group" "test" {
+  vpc_id = aws_vpc.test.id  egress {
     cidr_blocks = ["0.0.0.0/0"]
     from_port   = 0
     protocol    = "-1"
     to_port     = 0
-  }
-
-  ingress {
+  }  ingress {
     from_port = 0
     protocol  = -1
     self      = true
     to_port   = 0
   }
-}
-
-resource "aws_internet_gateway" "test" {
+}resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
-}
-
-resource "aws_subnet" "test" {
+}resource "aws_subnet" "test" {
   cidr_block(aws_vpc.test.cidr_block, 8, 0)
   map_public_ip_on_launch = true
   vpc_id   = aws_vpc.test.id
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -622,49 +462,31 @@ resource "aws_iam_role" "test" {
     }]
   })
   name = %[1]q
-}
-
-resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
+}resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.test.name
-}
-
-resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilderECRContainerBuilds" {
+}resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilderECRContainerBuilds" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/EC2InstanceProfileForImageBuilderECRContainerBuilds"
   role       = aws_iam_role.test.name
-}
-
-resource "aws_iam_instance_profile" "test" {
+}resource "aws_iam_instance_profile" "test" {
   name = aws_iam_role.test.name
-  role = aws_iam_role.test.name
-
-  depends_on = [
+  role = aws_iam_role.test.name  depends_on = [
     aws_iam_role_policy_attachment.AmazonSSMManagedInstanceCore,
     aws_iam_role_policy_attachment.EC2InstanceProfileForImageBuilderECRContainerBuilds
   ]
-}
-
-resource "aws_ecr_repository" "test" {
+}resource "aws_ecr_repository" "test" {
   name= %[1]q
   force_delete = true
-}
-
-data "aws_imagebuilder_component" "update-linux" {
+}data "aws_imagebuilder_component" "update-linux" {
   arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/update-linux/1.0.0"
-}
-
-resource "aws_imagebuilder_container_recipe" "test" {
+}resource "aws_imagebuilder_container_recipe" "test" {
   component {
     component_arn = data.aws_imagebuilder_component.update-linux.arn
-  }
-
-  dockerfile_template_data = <<EOF
+  }  dockerfile_template_data = <<EOF
 FROM {{{ imagebuilder:parentImage }}}
 {{{ imagebuilder:environments }}}
 {{{ imagebuilder:components }}}
-EOF
-
-  name  = %[1]q
+EOF  name  = %[1]q
   container_type = "DOCKER"
   parent_image   = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-x86-latest/x.x.x"
   version        = "1.0.0"
@@ -672,18 +494,12 @@ EOF
     repository_name = aws_ecr_repository.test.name
     service= "ECR"
   }
-}
-
-resource "aws_imagebuilder_infrastructure_configuration" "test" {
+}resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
   security_group_ids    = [aws_default_security_group.test.id]
-  subnet_idtest.id
-
-  depends_on = [aws_default_route_table.test]
-}
-
-resource "aws_imagebuilder_image" "test" {
+  subnet_idtest.id  depends_on = [aws_default_route_table.test]
+}resource "aws_imagebuilder_image" "test" {
   container_recipe_arnilder_container_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }

@@ -44,8 +44,7 @@ resource.TestCheckNoResourceAttr(dataSourceName, "body"),
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)dataSourceName := "data.aws_s3_object.test"
 resourceName := "aws_s3_object.test"
 accessPointResourceName := "aws_s3_access_point.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-() { acctest.PreCheck(ctx, t) },
+PreCheck:() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, s3.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -365,8 +364,7 @@ testAccCheckObjectExistsDataSource(ctx, dataSourceName, &dsObj),
 })
 }
  testAccCheckObjectExistsDataSource(ctx context.Context, n string, obj *s3.GetObjectOutput) resource.TestCheckFunc {
-return 
-(s *terraform.State) error {
+return(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Can't find S3 object data source: %s", n)
@@ -406,7 +404,6 @@ bucket = aws_s3_bucket.test.bucket
 name = %[1]q
 }resource "aws_s3_object" "test" {
 bucket= aws_s3_bucket.test.bucket
- 
 ntent = "Hello World"
 }data "aws_s3_object" "test" {
 bucket = aws_s3_access_point.test.arn
@@ -424,7 +421,6 @@ key= "tf-testing-obj-%[1]d-readable"
 content= "yes"
 content_type = "text/plain"
 }data "aws_s3_object" "obj" {
- 
 y= aws_s3_object.object.key
 }
 `, randInt)
@@ -440,7 +436,6 @@ deletion_window_in_days = 7
 bucket = aws_s3_bucket.object_bucket.bucket
 key= "tf-testing-obj-%[1]d-encrypted"
 content= "Keep Calm and Carry On"
- 
 s_key_id = aws_kms_key.example.arn
 }data "aws_s3_object" "obj" {
 bucket = aws_s3_bucket.object_bucket.bucket
@@ -460,7 +455,6 @@ bucket = aws_s3_bucket.object_bucket.bucket
 key= "tf-testing-obj-%[1]d-encrypted"
 content= "Keep Calm and Carry On"
 content_type = "text/plain"
- 
 cket_key_enabled = true
 }data "aws_s3_object" "obj" {
 bucket = aws_s3_bucket.object_bucket.bucket
@@ -479,8 +473,7 @@ status = "Enabled"
 }
 }resource "aws_s3_object" "object" {
 # Must have bucket versioning enabled first
-depends_on = [aws_s3_bucket_versioning.object_bucket] 
-y= "tf-testing-obj-%[1]d-all-params"content = <<CONTENT
+depends_on = [aws_s3_bucket_versioning.object_bucket]y= "tf-testing-obj-%[1]d-all-params"content = <<CONTENT
 {
 "msg": "Hi there!"
 }
@@ -510,7 +503,6 @@ status = "Enabled"
 }resource "aws_s3_object" "object" {
 # Must have bucket versioning enabled first
 bucket= aws_s3_bucket_versioning.object_bucket.bucket
- 
 ntent = "Hello World"
 object_lock_legal_hold_status = "OFF"
 }data "aws_s3_object" "obj" {
@@ -532,7 +524,6 @@ status = "Enabled"
 # Must have bucket versioning enabled first
 bucket= aws_s3_bucket_versioning.object_bucket.bucket
 key = "tf-testing-obj-%[1]d"
- 
 rce_destroy = true
 object_lock_legal_hold_status = "ON"
 object_lock_mode= "GOVERNANCE"

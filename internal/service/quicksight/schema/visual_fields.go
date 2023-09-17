@@ -16,10 +16,7 @@ const measureFieldsMaxItems40 = 40
 const measureFieldsMaxItems200 = 200
 const dimensionsFieldMaxItems10 = 10
 const dimensionsFieldMaxItems40 = 40
-const dimensionsFieldMaxItems200 = 200
-
-
-func dimensionFieldSchema(maxItems int) *schema.Schema {
+const dimensionsFieldMaxItems200 = 200func dimensionFieldSchema(maxItems int) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -73,10 +70,7 @@ Schema: map[string]*schema.Schema{
 	},
 },
 	}
-}
-
-
-func measureFieldSchema(maxItems int) *schema.Schema {
+}func measureFieldSchema(maxItems int) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -148,10 +142,7 @@ function.html
 	},
 },
 	}
-}
-
-
-func expandDimensionFields(tfList []interface{}) []*quicksight.DimensionField {
+}func expandDimensionFields(tfList []interface{}) []*quicksight.DimensionField {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -172,10 +163,7 @@ fields = append(fields, field)
 	}
 
 	return fields
-}
-
-
-func expandDimensionInternal(tfMap map[string]interface{}) *quicksight.DimensionField {
+}func expandDimensionInternal(tfMap map[string]interface{}) *quicksight.DimensionField {
 	if tfMap == nil {
 return nil
 	}
@@ -193,10 +181,7 @@ field.NumericalDimensionField = expandNumericalDimensionField(v)
 	}
 
 	return field
-}
-
-
-func expandDimensionField(tfList []interface{}) *quicksight.DimensionField {
+}func expandDimensionField(tfList []interface{}) *quicksight.DimensionField {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -211,10 +196,7 @@ return nil
 	}
 
 	return expandDimensionInternal(tfMap)
-}
-
-
-func expandCategoricalDimensionField(tfList []interface{}) *quicksight.CategoricalDimensionField {
+}func expandCategoricalDimensionField(tfList []interface{}) *quicksight.CategoricalDimensionField {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -240,10 +222,7 @@ field.FormatConfiguration = expandStringFormatConfiguration(v)
 	}
 
 	return field
-}
-
-
-func expandDateDimensionField(tfList []interface{}) *quicksight.DateDimensionField {
+}func expandDateDimensionField(tfList []interface{}) *quicksight.DateDimensionField {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -272,10 +251,7 @@ field.FormatConfiguration = expandDateTimeFormatConfiguration(v)
 	}
 
 	return field
-}
-
-
-func expandNumericalDimensionField(tfList []interface{}) *quicksight.NumericalDimensionField {
+}func expandNumericalDimensionField(tfList []interface{}) *quicksight.NumericalDimensionField {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -301,10 +277,7 @@ field.FormatConfiguration = expandNumberFormatConfiguration(v)
 	}
 
 	return field
-}
-
-
-func expandMeasureFields(tfList []interface{}) []*quicksight.MeasureField {
+}func expandMeasureFields(tfList []interface{}) []*quicksight.MeasureField {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -325,10 +298,7 @@ fields = append(fields, field)
 	}
 
 	return fields
-}
-
-
-func expandMeasureFieldInternal(tfMap map[string]interface{}) *quicksight.MeasureField {
+}func expandMeasureFieldInternal(tfMap map[string]interface{}) *quicksight.MeasureField {
 	if tfMap == nil {
 return nil
 	}
@@ -349,10 +319,7 @@ field.NumericalMeasureField = expandNumericalMeasureField(v)
 	}
 
 	return field
-}
-
-
-func expandMeasureField(tfList []interface{}) *quicksight.MeasureField {
+}func expandMeasureField(tfList []interface{}) *quicksight.MeasureField {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -363,10 +330,7 @@ return nil
 	}
 
 	return expandMeasureFieldInternal(tfMap)
-}
-
-
-func expandCalculatedMeasureField(tfList []interface{}) *quicksight.CalculatedMeasureField {
+}func expandCalculatedMeasureField(tfList []interface{}) *quicksight.CalculatedMeasureField {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -386,10 +350,7 @@ field.Expression = aws.String(v)
 	}
 
 	return field
-}
-
-
-func expandCategoricalMeasureField(tfList []interface{}) *quicksight.CategoricalMeasureField {
+}func expandCategoricalMeasureField(tfList []interface{}) *quicksight.CategoricalMeasureField {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -417,10 +378,7 @@ field.FormatConfiguration = expandStringFormatConfiguration(v)
 	}
 
 	return field
-}
-
-
-func expandDateMeasureField(tfList []interface{}) *quicksight.DateMeasureField {
+}func expandDateMeasureField(tfList []interface{}) *quicksight.DateMeasureField {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -448,10 +406,7 @@ field.FormatConfiguration = expandDateTimeFormatConfiguration(v)
 	}
 
 	return field
-}
-
-
-func expandNumericalMeasureField(tfList []interface{}) *quicksight.NumericalMeasureField {
+}func expandNumericalMeasureField(tfList []interface{}) *quicksight.NumericalMeasureField {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -480,10 +435,7 @@ field.FormatConfiguration = expandNumberFormatConfiguration(v)
 	}
 
 	return field
-}
-
-
-func flattenDimensionField(apiObject *quicksight.DimensionField) []interface{} {
+}func flattenDimensionField(apiObject *quicksight.DimensionField) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -500,10 +452,7 @@ tfMap["numerical_dimension_field"] = flattenNumericalDimensionField(apiObject.Nu
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDimensionFields(apiObject []*quicksight.DimensionField) []interface{} {
+}func flattenDimensionFields(apiObject []*quicksight.DimensionField) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -529,10 +478,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenCategoricalDimensionField(apiObject *quicksight.CategoricalDimensionField) []interface{} {
+}func flattenCategoricalDimensionField(apiObject *quicksight.CategoricalDimensionField) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -552,10 +498,7 @@ tfMap["hierarchy_id"] = aws.StringValue(apiObject.HierarchyId)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDateDimensionField(apiObject *quicksight.DateDimensionField) []interface{} {
+}func flattenDateDimensionField(apiObject *quicksight.DateDimensionField) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -578,10 +521,7 @@ tfMap["hierarchy_id"] = aws.StringValue(apiObject.HierarchyId)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenNumericalDimensionField(apiObject *quicksight.NumericalDimensionField) []interface{} {
+}func flattenNumericalDimensionField(apiObject *quicksight.NumericalDimensionField) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -601,10 +541,7 @@ tfMap["hierarchy_id"] = aws.StringValue(apiObject.HierarchyId)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenMeasureField(apiObject *quicksight.MeasureField) []interface{} {
+}func flattenMeasureField(apiObject *quicksight.MeasureField) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -624,10 +561,7 @@ tfMap["numerical_measure_field"] = flattenNumericalMeasureField(apiObject.Numeri
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenMeasureFields(apiObject []*quicksight.MeasureField) []interface{} {
+}func flattenMeasureFields(apiObject []*quicksight.MeasureField) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -656,10 +590,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenCalculatedMeasureField(apiObject *quicksight.CalculatedMeasureField) []interface{} {
+}func flattenCalculatedMeasureField(apiObject *quicksight.CalculatedMeasureField) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -673,10 +604,7 @@ tfMap["expression"] = aws.StringValue(apiObject.Expression)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenCategoricalMeasureField(apiObject *quicksight.CategoricalMeasureField) []interface{} {
+}func flattenCategoricalMeasureField(apiObject *quicksight.CategoricalMeasureField) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -699,10 +627,7 @@ tfMap["format_configuration"] = flattenStringFormatConfiguration(apiObject.Forma
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDateMeasureField(apiObject *quicksight.DateMeasureField) []interface{} {
+}func flattenDateMeasureField(apiObject *quicksight.DateMeasureField) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -725,10 +650,7 @@ tfMap["format_configuration"] = flattenDateTimeFormatConfiguration(apiObject.For
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenNumericalMeasureField(apiObject *quicksight.NumericalMeasureField) []interface{} {
+}func flattenNumericalMeasureField(apiObject *quicksight.NumericalMeasureField) []interface{} {
 	if apiObject == nil {
 return nil
 	}

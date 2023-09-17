@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package imagebuilderimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -14,14 +8,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKDataSource("aws_imagebuilder_image_pipeline")
+)// @SDKDataSource("aws_imagebuilder_image_pipeline")
 func DataSourceImagePipeline() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceImagePipelineRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceImagePipelineRead,		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:schema.TypeString,
 				Required:     true,
@@ -145,31 +135,15 @@ func DataSourceImagePipeline() *schema.Resource {
 			"tags": tftags.TagsSchemaComputed(),
 		},
 	}
-}
-
-func dataSourceImagePipelineRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceImagePipelineRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)
-
-	input := &imagebuilder.GetImagePipelineInput{}
-
-	if v, ok := d.GetOk("arn"); ok {
+	conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)	input := &imagebuilder.GetImagePipelineInput{}	if v, ok := d.GetOk("arn"); ok {
 		input.ImagePipelineArn = aws.String(v.(string))
-	}
-
-	output, err := conn.GetImagePipelineWithContext(ctx, input)
-
-	if err != nil {
+	}	output, err := conn.GetImagePipelineWithContext(ctx, input)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "getting Image Builder Image Pipeline: %s", err)
-	}
-
-	if output == nil || output.ImagePipeline == nil {
+	}	if output == nil || output.ImagePipeline == nil {
 		return sdkdiag.AppendErrorf(diags, "getting Image Builder Image Pipeline: empty response")
-	}
-
-	imagePipeline := output.ImagePipeline
-
-	d.SetId(aws.StringValue(imagePipeline.Arn))
+	}	imagePipeline := output.ImagePipeline	d.SetId(aws.StringValue(imagePipeline.Arn))
 	d.Set("arn", imagePipeline.Arn)
 	d.Set("container_recipe_arn", imagePipeline.ContainerRecipeArn)
 	d.Set("date_created", imagePipeline.DateCreated)
@@ -197,10 +171,6 @@ func dataSourceImagePipelineRead(ctx context.Context, d *schema.ResourceData, me
 		d.Set("schedule", []interface{}{flattenSchedule(imagePipeline.Schedule)})
 	} else {
 		d.Set("schedule", nil)
-	}
-
-	d.Set("status", imagePipeline.Status)
-	d.Set("tags", KeyValueTags(ctx, imagePipeline.Tags).IgnoreAWS().IgnoreConfig(meta.(*conns.AWSClient).IgnoreTagsConfig).Map())
-
-	return diags
+	}	d.Set("status", imagePipeline.Status)
+	d.Set("tags", KeyValueTags(ctx, imagePipeline.Tags).IgnoreAWS().IgnoreConfig(meta.(*conns.AWSClient).IgnoreTagsConfig).Map())	return diags
 }

@@ -1,23 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iam_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iam_testimport (
 	"fmt"
 	"strconv"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/iam"
+	"testing"	"github.com/aws/aws-sdk-go/service/iam"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )func := acctest.Context(t)
 	dataSourceName := "data.aws_iam_users.test"
 	rCount := strconv.Itoa(sdkacctest.RandIntRange(1, 4))
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -35,9 +27,7 @@ Check: resource.ComposeTestCheckFunc(
 	funcaSourceName := "data.aws_iam_users.test"
 	rCount := strconv.Itoa(sdkacctest.RandIntRange(1, 4))
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rPathPrefix := sdkacctest.RandomWithPrefix("tf-acc-path")
-
-	resource.ParallelTest(t, resource.TestCase{
+	rPathPrefix := sdkacctest.RandomWithPrefix("tf-acc-path")	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -93,9 +83,7 @@ resource "aws_iam_user" "test" {
   tags = {
 Seed = %[2]q
   }
-}
-
-data "aws_iam_users" "test" {
+}data "aws_iam_users" "test" {
   name_regex = "${aws_iam_user.test[0].tags["Seed"]}-.*-user"
 }
 `, rCount, rName)
@@ -104,21 +92,15 @@ data "aws_iam_users" "test" {
 resource "aws_iam_user" "test" {
   count = %[1]s
   name  = "%[2]s-${count.index}-user"
- func
-
-data "aws_iam_users" "test" {
+ funcdata "aws_iam_users" "test" {
   path_prefix = aws_iam_user.test[0].path
 }
 `, rCount, rName, rPathPrefix)
-}
-
-const testAccUsersDataSourceConfig_nonExistentNameRegex = `
+}const testAccUsersDataSourceConfig_nonExistentNameRegex = `
 data "aws_iam_users" "test" {
   name_regex = "dne-regex"
 }
-`
-
-const testAccUsersDataSourceConfig_nonExistentPathPrefix = `
+`const testAccUsersDataSourceConfig_nonExistentPathPrefix = `
 data "aws_iam_users" "test" {
   path_prefix = "/dne/path"
 }

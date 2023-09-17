@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail/types"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -22,17 +16,11 @@ import (
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// serializing tests so that we do not hit the lightsail rate limit for distributions
+)// serializing tests so that we do not hit the lightsail rate limit for distributions
 func TestAccLightsailDistribution_serial(t *testing.T) {
-	t.Parallel()
-
-	if testing.Short() {
+	t.Parallel()	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	testCases := map[string]map[string]func(t *testing.T){
+	}	testCases := map[string]map[string]func(t *testing.T){
 		"distribution": {
 			"basic":Distribution_basic,
 			"disappears":ibution_disappears,
@@ -43,17 +31,13 @@ func TestAccLightsailDistribution_serial(t *testing.T) {
 			"ip_address_type":testAccDistribution_ipAddressType,
 			"tags":cDistribution_tags,
 		},
-	}
-
-	acctest.RunSerialTests2Levels(t, testCases, 0)
+	}	acctest.RunSerialTests2Levels(t, testCases, 0)
 }
 func testAccDistribution_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_distribution.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_lightsail_distribution.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -119,9 +103,7 @@ func testAccDistribution_isEnabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	isEnabled := "true"
-	isDisabled := "false"
-
-	resource.Test(t, resource.TestCase{
+	isDisabled := "false"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -161,9 +143,7 @@ func testAccDistribution_cacheBehavior(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	path1 := "/path1"
 	behaviorCache := "cache"
-	path2 := "/path2"
-
-	resource.Test(t, resource.TestCase{
+	path2 := "/path2"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -219,9 +199,7 @@ func testAccDistribution_defaultCacheBehavior(t *testing.T) {
 	resourceName := "aws_lightsail_distribution.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	instanceName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	ipName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	ipName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -264,9 +242,7 @@ func testAccDistribution_ipAddressType(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_distribution.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.Test(t, resource.TestCase{
+	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -307,9 +283,7 @@ func testAccDistribution_cacheBehaviorSettings(t *testing.T) {
 	allow1 := "test"
 	allow2 := "special"
 	header1 := "Host"
-	header2 := "Origin"
-
-	resource.Test(t, resource.TestCase{
+	header2 := "Origin"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -380,9 +354,7 @@ func testAccDistribution_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_distribution.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_lightsail_distribution.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -430,9 +402,7 @@ func testAccDistribution_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_distribution.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_lightsail_distribution.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -456,27 +426,15 @@ func testAccDistribution_disappears(t *testing.T) {
 }
 func testAccCheckDistributionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_lightsail_distribution" {
 				continue
-			}
-
-			_, err := tflightsail.FindDistributionByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tflightsail.FindDistributionByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResNameDistribution, rs.Primary.ID, errors.New("not destroyed"))
-		}
-
-		return nil
+			}			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResNameDistribution, rs.Primary.ID, errors.New("not destroyed"))
+		}		return nil
 	}
 }
 func testAccCheckDistributionExists(ctx context.Context, name string) resource.TestCheckFunc {
@@ -484,24 +442,14 @@ func testAccCheckDistributionExists(ctx context.Context, name string) resource.T
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.Lightsail, create.ErrActionCheckingExistence, tflightsail.ResNameDistribution, name, errors.New("not found"))
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return create.Error(names.Lightsail, create.ErrActionCheckingExistence, tflightsail.ResNameDistribution, name, errors.New("not set"))
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-		resp, err := tflightsail.FindDistributionByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
+		resp, err := tflightsail.FindDistributionByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		if resp == nil {
+		}		if resp == nil {
 			return fmt.Errorf("Distribution %q does not exist", rs.Primary.ID)
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccDistributionConfig_base(bucketName string) string {
@@ -717,9 +665,7 @@ func testAccDistributionConfig_cacheBehavior2(rName, bucketName, path1, behavior
   cache_behavior {
     path     = %[2]q
     behavior = %[3]q
-  }
-
-  cache_behavior {
+  }  cache_behavior {
     path     = %[4]q
     behavior = %[5]q
   }
@@ -764,31 +710,21 @@ func testAccDistributionConfig_cacheBehaviorSettings(rName, bucketName, allow1, 
 func testAccDistributionConfig_defaultCacheBehaviorDontCache(rName, instanceName, ipName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
-  state = "available"
-
-  filter {
+  state = "available"  filter {
     name   = "opt-in-status"
     values = ["opt-in-not-required"]
   }
-}
-
-resource "aws_lightsail_static_ip_attachment" "test" {
+}resource "aws_lightsail_static_ip_attachment" "test" {
   static_ip_name = aws_lightsail_static_ip.test.name
   instance_name  = aws_lightsail_instance.test.name
-}
-
-resource "aws_lightsail_static_ip" "test" {
+}resource "aws_lightsail_static_ip" "test" {
   name = %[3]q
-}
-
-resource "aws_lightsail_instance" "test" {
+}resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id= "micro_1_0"
-}
-
-resource "aws_lightsail_distribution" "test" {
+}resource "aws_lightsail_distribution" "test" {
   name       = %[1]q
   depends_on = [aws_lightsail_static_ip_attachment.test]
   bundle_id  = "small_1_0"
@@ -800,39 +736,27 @@ resource "aws_lightsail_distribution" "test" {
   default_cache_behavior {
     behavior = "dont-cache"
   }
-  cache_behavior_settings {}
-
-}
+  cache_behavior_settings {}}
 `, rName, instanceName, ipName)
 }
 func testAccDistributionConfig_defaultCacheBehaviorCache(rName, instanceName, ipName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
-  state = "available"
-
-  filter {
+  state = "available"  filter {
     name   = "opt-in-status"
     values = ["opt-in-not-required"]
   }
-}
-
-resource "aws_lightsail_static_ip_attachment" "test" {
+}resource "aws_lightsail_static_ip_attachment" "test" {
   static_ip_name = aws_lightsail_static_ip.test.name
   instance_name  = aws_lightsail_instance.test.name
-}
-
-resource "aws_lightsail_static_ip" "test" {
+}resource "aws_lightsail_static_ip" "test" {
   name = %[3]q
-}
-
-resource "aws_lightsail_instance" "test" {
+}resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id= "micro_1_0"
-}
-
-resource "aws_lightsail_distribution" "test" {
+}resource "aws_lightsail_distribution" "test" {
   name       = %[1]q
   depends_on = [aws_lightsail_static_ip_attachment.test]
   bundle_id  = "small_1_0"
@@ -848,22 +772,14 @@ resource "aws_lightsail_distribution" "test" {
     allowed_http_methods = "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE"
     cached_http_methods  = "GET,HEAD"
     default_ttl = 86400
-    maximum_ttl = 31536000
-
-    forwarded_cookies {
+    maximum_ttl = 31536000    forwarded_cookies {
       option = "none"
-    }
-
-    forwarded_headers {
+    }    forwarded_headers {
       headers_allow_list = ["Host"]
       option"
-    }
-
-    forwarded_query_strings {
+    }    forwarded_query_strings {
       option = false
-    }
-
-  }
+    }  }
 }
 `, rName, instanceName, ipName)
 }

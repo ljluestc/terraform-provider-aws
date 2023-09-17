@@ -1,1 +1,1 @@
-// Copyright 2020 The Go Authors. All rights reserved.// Use of this source code is governed by a BSD-style// license that can be found in the LICENSE file.//go:build go1.13// +build go1.13package errorsimport "errors"// Is is errors.Is.err, target error) bool { return errors.Is(err, target) }
+//Copyright2020TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.//go:buildgo1.13//+buildgo1.13packageerrorsimport"errors"//Isiserrors.Is.err,targeterror)bool{returnerrors.Is(err,target)}

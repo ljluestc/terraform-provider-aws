@@ -1,16 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package storagegateway
-
-import (
+// SPDX-License-Identifier: MPL-2.0package storagegatewayimport (
 "testing"
-)
-
-func TestValid4ByteASN(t *testing.T) {
-t.Parallel()
-
-validAsns := []string{
+)func TestValid4ByteASN(t *testing.T) {
+t.Parallel()validAsns := []string{
 "0",
 "1",
 "65534",
@@ -23,9 +15,7 @@ _, errors := valid4ByteASN(v, "bgp_asn")
 if len(errors) != 0 {
 t.Fatalf("%q should be a valid ASN: %q", v, errors)
 }
-}
-
-invalidAsns := []string{
+}invalidAsns := []string{
 "-1",
 "ABCDEFG",
 "",

@@ -1,12 +1,1 @@
-packagefmtsprintfcallexpr
-
-import(
-	"github.com/bflad/tfproviderlint/helper/analysisutils"
-)
-
-varAnalyzer=analysisutils.Stdlib
-CallExprAnalyzer(
-	"fmtsprintfcallexpr",
-	"fmt",
-	"Sprintf",
-)
+packagefmtsprintfcallexprimport(	"github.com/bflad/tfproviderlint/helper/analysisutils")varAnalyzer=analysisutils.StdlibCallExprAnalyzer(	"fmtsprintfcallexpr",	"fmt",	"Sprintf",)

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package codepipeline_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package codepipeline_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/codepipeline"
+	"testing"	"github.com/aws/aws-sdk-go/service/codepipeline"
 	"github.com/aws/aws-sdk-go/service/codestarconnections"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,15 +11,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcodepipeline "github.com/hashicorp/terraform-provider-aws/internal/service/codepipeline"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccCodePipelineCustomActionType_basic(t *testing.T) {
+)func TestAccCodePipelineCustomActionType_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v codepipeline.ActionType
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_codepipeline_custom_action_type.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline_custom_action_type.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
@@ -61,15 +51,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccCodePipelineCustomActionType_disappears(t *testing.T) {
+}func TestAccCodePipelineCustomActionType_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v codepipeline.ActionType
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_codepipeline_custom_action_type.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline_custom_action_type.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
@@ -88,15 +74,11 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccCodePipelineCustomActionType_tags(t *testing.T) {
+}func TestAccCodePipelineCustomActionType_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v codepipeline.ActionType
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_codepipeline_custom_action_type.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline_custom_action_type.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
@@ -137,15 +119,11 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccCodePipelineCustomActionType_allAttributes(t *testing.T) {
+}func TestAccCodePipelineCustomActionType_allAttributes(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v codepipeline.ActionType
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_codepipeline_custom_action_type.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline_custom_action_type.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, codestarconnections.EndpointsID)
@@ -203,158 +181,88 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func testAccCheckCustomActionTypeExists(ctx context.Context, n string, v *codepipeline.ActionType) resource.TestCheckFunc {
+}func testAccCheckCustomActionTypeExists(ctx context.Context, n string, v *codepipeline.ActionType) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No CodePipeline Custom Action Type ID is set")
-}
-
-category, provider, version, err := tfcodepipeline.CustomActionTypeParseResourceID(rs.Primary.ID)
-
-if err != nil {
+}category, provider, version, err := tfcodepipeline.CustomActionTypeParseResourceID(rs.Primary.ID)if err != nil {
 	return err
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)
-
-output, err := tfcodepipeline.FindCustomActionTypeByThreePartKey(ctx, conn, category, provider, version)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)output, err := tfcodepipeline.FindCustomActionTypeByThreePartKey(ctx, conn, category, provider, version)if err != nil {
 	return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 	}
-}
-
-func testAccCheckCustomActionTypeDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckCustomActionTypeDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_codepipeline_custom_action_type" {
 continue
-	}
-
-	category, provider, version, err := tfcodepipeline.CustomActionTypeParseResourceID(rs.Primary.ID)
-
-	if err != nil {
+	}	category, provider, version, err := tfcodepipeline.CustomActionTypeParseResourceID(rs.Primary.ID)	if err != nil {
 return err
-	}
-
-	_, err = tfcodepipeline.FindCustomActionTypeByThreePartKey(ctx, conn, category, provider, version)
-
-	if tfresource.NotFound(err) {
+	}	_, err = tfcodepipeline.FindCustomActionTypeByThreePartKey(ctx, conn, category, provider, version)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
+	}	return fmt.Errorf("CodePipeline Custom Action Type %s still exists", rs.Primary.ID)
+}return nil
 	}
-
-	return fmt.Errorf("CodePipeline Custom Action Type %s still exists", rs.Primary.ID)
-}
-
-return nil
-	}
-}
-
-func testAccCustomActionTypeConfig_basic(rName string) string {
+}func testAccCustomActionTypeConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codepipeline_custom_action_type" "test" {
-  category = "Test"
-
-  input_artifact_details {
+  category = "Test"  input_artifact_details {
     maximum_count = 5
     minimum_count = 0
-  }
-
-  output_artifact_details {
+  }  output_artifact_details {
     maximum_count = 4
     minimum_count = 1
-  }
-
-  provider_name = %[1]q
+  }  provider_name = %[1]q
   version       = "1"
 }
 `, rName)
-}
-
-func testAccCustomActionTypeConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccCustomActionTypeConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_codepipeline_custom_action_type" "test" {
-  category = "Test"
-
-  input_artifact_details {
+  category = "Test"  input_artifact_details {
     maximum_count = 5
     minimum_count = 0
-  }
-
-  output_artifact_details {
+  }  output_artifact_details {
     maximum_count = 4
     minimum_count = 1
-  }
-
-  provider_name = %[1]q
-  version       = "1"
-
-  tags = {
+  }  provider_name = %[1]q
+  version       = "1"  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccCustomActionTypeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccCustomActionTypeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_codepipeline_custom_action_type" "test" {
-  category = "Test"
-
-  input_artifact_details {
+  category = "Test"  input_artifact_details {
     maximum_count = 5
     minimum_count = 0
-  }
-
-  output_artifact_details {
+  }  output_artifact_details {
     maximum_count = 4
     minimum_count = 1
-  }
-
-  provider_name = %[1]q
-  version       = "1"
-
-  tags = {
+  }  provider_name = %[1]q
+  version       = "1"  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccCustomActionTypeConfig_allAttributes(rName string) string {
+}func testAccCustomActionTypeConfig_allAttributes(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codepipeline_custom_action_type" "test" {
-  category = "Test"
-
-  configuration_property {
+  category = "Test"  configuration_property {
     key       = true
     name      = "pk"
     queryable = true
     required  = true
     secret    = false
     type      = "Number"
-  }
-
-  configuration_property {
+  }  configuration_property {
     description = "Date of birth"
     key= false
     name        = "dob"
@@ -362,22 +270,14 @@ resource "aws_codepipeline_custom_action_type" "test" {
     required    = false
     secret      = true
     type        = "String"
-  }
-
-  input_artifact_details {
+  }  input_artifact_details {
     maximum_count = 3
     minimum_count = 2
-  }
-
-  output_artifact_details {
+  }  output_artifact_details {
     maximum_count = 5
     minimum_count = 4
-  }
-
-  provider_name = %[1]q
-  version       = "1"
-
-  settings {
+  }  provider_name = %[1]q
+  version       = "1"  settings {
     entity_url_template   = "https://example.com/entity"
     revision_url_template = "https://example.com/configuration"
   }

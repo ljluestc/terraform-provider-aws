@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicediscovery_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package servicediscovery_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/servicediscovery"
+"testing""github.com/aws/aws-sdk-go/service/servicediscovery"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -21,9 +15,7 @@ func TestAccServiceDiscoveryInstance_private(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_service_discovery_instance.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-domainName := acctest.RandomDomainName()
-
-resource.ParallelTest(t, resource.TestCase{
+domainName := acctest.RandomDomainName()resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
@@ -66,9 +58,7 @@ func TestAccServiceDiscoveryInstance_public(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_service_discovery_instance.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-domainName := acctest.RandomDomainName()
-
-resource.ParallelTest(t, resource.TestCase{
+domainName := acctest.RandomDomainName()resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
@@ -111,9 +101,7 @@ func TestAccServiceDiscoveryInstance_http(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_service_discovery_instance.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-domainName := acctest.RandomDomainName()
-
-resource.ParallelTest(t, resource.TestCase{
+domainName := acctest.RandomDomainName()resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
@@ -155,17 +143,9 @@ return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No Service Discovery Instance ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceDiscoveryConn(ctx)
-
-_, err := tfservicediscovery.FindInstanceByServiceIDAndInstanceID(ctx, conn, rs.Primary.Attributes["service_id"], rs.Primary.Attributes["instance_id"])
-
-return err
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceDiscoveryConn(ctx)_, err := tfservicediscovery.FindInstanceByServiceIDAndInstanceID(ctx, conn, rs.Primary.Attributes["service_id"], rs.Primary.Attributes["instance_id"])return err
 }
 }
 func testAccInstanceImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
@@ -173,34 +153,20 @@ return func(s *terraform.State) (string, error) {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 return "", fmt.Errorf("Not found: %s", resourceName)
-}
-
-return fmt.Sprintf("%s/%s", rs.Primary.Attributes["service_id"], rs.Primary.Attributes["instance_id"]), nil
+}return fmt.Sprintf("%s/%s", rs.Primary.Attributes["service_id"], rs.Primary.Attributes["instance_id"]), nil
 }
 }
 func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceDiscoveryConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceDiscoveryConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_service_discovery_instance" {
 continue
-}
-
-_, err := tfservicediscovery.FindInstanceByServiceIDAndInstanceID(ctx, conn, rs.Primary.Attributes["service_id"], rs.Primary.Attributes["instance_id"])
-
-if tfresource.NotFound(err) {
+}_, err := tfservicediscovery.FindInstanceByServiceIDAndInstanceID(ctx, conn, rs.Primary.Attributes["service_id"], rs.Primary.Attributes["instance_id"])if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
-}
-
-return fmt.Errorf("Service Discovery Instance %s still exists", rs.Primary.ID)
-}
-
-return nil
+}return fmt.Errorf("Service Discovery Instance %s still exists", rs.Primary.ID)
+}return nil
 }
 }
 func testAccInstanceConfig_base(rName string) string {
@@ -208,9 +174,7 @@ return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block  = "10.0.0.0/16"
   enable_dns_support= true
-  enable_dns_hostnames = true
-
-  tags = {
+  enable_dns_hostnames = true  tags = {
  Name = %[1]q
   }
 }`, rName)
@@ -242,23 +206,13 @@ resource "aws_service_discovery_private_dns_namespace" "test" {
   name2]q
   description = %[1]q
   vpc= aws_vpc.test.id
-}
-
-resource "aws_service_discovery_service" "test" {
-  name = %[1]q
-
-  dns_config {
- namespace_id = aws_service_discovery_private_dns_namespace.test.id
-
- dns_records {
+}resource "aws_service_discovery_service" "test" {
+  name = %[1]q  dns_config {
+ namespace_id = aws_service_discovery_private_dns_namespace.test.id dns_records {
  10
  "A"
- }
-
- routing_policy = "MULTIVALUE"
-  }
-
-  health_check_custom_config {
+ } routing_policy = "MULTIVALUE"
+  }  health_check_custom_config {
  failure_threshold = 1
   }
 }`, rName, domainName)
@@ -267,23 +221,13 @@ func testAccInstanceConfig_publicNamespace(rName, domainName string) string {
 return fmt.Sprintf(`
 resource "aws_service_discovery_public_dns_namespace" "test" {
   name = %[2]q
-}
-
-resource "aws_service_discovery_service" "test" {
-  name = %[1]q
-
-  dns_config {
- namespace_id = aws_service_discovery_public_dns_namespace.test.id
-
- dns_records {
+}resource "aws_service_discovery_service" "test" {
+  name = %[1]q  dns_config {
+ namespace_id = aws_service_discovery_public_dns_namespace.test.id dns_records {
  10
  "A"
- }
-
- routing_policy = "MULTIVALUE"
-  }
-
-  health_check_custom_config {
+ } routing_policy = "MULTIVALUE"
+  }  health_check_custom_config {
  failure_threshold = 1
   }
 }`, rName, domainName)
@@ -292,18 +236,12 @@ func testAccInstanceConfig_httpNamespace(rName, domainName string) string {
 return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_instance" "test" {
   instance_type = "t2.micro"
-  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-
-  tags = {
+  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id  tags = {
  Name = %[1]q
   }
-}
-
-resource "aws_service_discovery_http_namespace" "test" {
+}resource "aws_service_discovery_http_namespace" "test" {
   name = %[2]q
-}
-
-resource "aws_service_discovery_service" "test" {
+}resource "aws_service_discovery_service" "test" {
   name= %[1]q
   namespace_id = aws_service_discovery_http_namespace.test.id
 }`, rName, domainName))
@@ -312,9 +250,7 @@ func testAccInstanceConfig_basic(instanceID string, attributes string) string {
 return fmt.Sprintf(`
 resource "aws_service_discovery_instance" "test" {
   service_id  = aws_service_discovery_service.test.id
-  instance_id = %[1]q
-
-  attributes = {
+  instance_id = %[1]q  attributes = {
  %[2]s
   }
 }`, instanceID, attributes)

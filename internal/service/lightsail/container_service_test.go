@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail/types"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -23,9 +17,7 @@ import (
 func TestAccLightsailContainerService_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -72,9 +64,7 @@ func TestAccLightsailContainerService_basic(t *testing.T) {
 func TestAccLightsailContainerService_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -99,9 +89,7 @@ func TestAccLightsailContainerService_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -131,9 +119,7 @@ func TestAccLightsailContainerService_name(t *testing.T) {
 func TestAccLightsailContainerService_isDisabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -163,9 +149,7 @@ func TestAccLightsailContainerService_isDisabled(t *testing.T) {
 func TestAccLightsailContainerService_power(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -194,9 +178,7 @@ func TestAccLightsailContainerService_power(t *testing.T) {
 }
 func TestAccLightsailContainerService_publicDomainNames(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -216,9 +198,7 @@ func TestAccLightsailContainerService_publicDomainNames(t *testing.T) {
 func TestAccLightsailContainerService_privateRegistryAccess(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -244,9 +224,7 @@ func TestAccLightsailContainerService_privateRegistryAccess(t *testing.T) {
 func TestAccLightsailContainerService_scale(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -276,9 +254,7 @@ func TestAccLightsailContainerService_scale(t *testing.T) {
 func TestAccLightsailContainerService_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_container_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_container_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -323,25 +299,15 @@ func TestAccLightsailContainerService_tags(t *testing.T) {
 }
 func testAccCheckContainerServiceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		for _, r := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		for _, r := range s.RootModule().Resources {
 			if r.Type != "aws_lightsail_container_service" {
 				continue
-			}
-
-			_, err := tflightsail.FindContainerServiceByName(ctx, conn, r.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tflightsail.FindContainerServiceByName(ctx, conn, r.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
 			}
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccCheckContainerServiceExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
@@ -349,17 +315,9 @@ func testAccCheckContainerServiceExists(ctx context.Context, resourceName string
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("not finding Lightsail Container Service (%s)", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("no Lightsail Container Service ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		_, err := tflightsail.FindContainerServiceByName(ctx, conn, rs.Primary.ID)
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		_, err := tflightsail.FindContainerServiceByName(ctx, conn, rs.Primary.ID)		return err
 	}
 }
 func testAccContainerServiceConfig_basic(rName string) string {
@@ -413,9 +371,7 @@ func testAccContainerServiceConfig_privateRegistryAccess(rName string) string {
 resource "aws_lightsail_container_service" "test" {
   name  = %q
   power = "micro"
-  scale = 1
-
-  private_registry_access {
+  scale = 1  private_registry_access {
     ecr_image_puller_role {
       is_active = true
     }

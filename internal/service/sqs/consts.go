@@ -1,39 +1,25 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package sqs
-
-const (
+// SPDX-License-Identifier: MPL-2.0package sqsconst (
 	FIFOQueueNameSuffix = ".fifo"
-)
-
-const (
+)const (
 	DefaultQueueDelaySeconds   = 0
 	DefaultQueueKMSDataKeyReusePeriodSeconds  = 300
 	DefaultQueueMaximumMessageSize   = 262_144 // 256 KiB.
 	DefaultQueueMessageRetentionPeriod        = 345_600 // 4 days.
 	DefaultQueueReceiveMessageWaitTimeSeconds = 0
 	DefaultQueueVisibilityTimeout    = 30
-)
-
-const (
+)const (
 	DeduplicationScopeMessageGroup = "messageGroup"
 	DeduplicationScopeQueue        = "queue"
-)
-
-func DeduplicationScope_Values() []string {
+)func DeduplicationScope_Values() []string {
 	return []string{
 DeduplicationScopeMessageGroup,
 DeduplicationScopeQueue,
 	}
-}
-
-const (
+}const (
 	FIFOThroughputLimitPerMessageGroupID = "perMessageGroupId"
 	FIFOThroughputLimitPerQueue = "perQueue"
-)
-
-func FIFOThroughputLimit_Values() []string {
+)func FIFOThroughputLimit_Values() []string {
 	return []string{
 FIFOThroughputLimitPerMessageGroupID,
 FIFOThroughputLimitPerQueue,

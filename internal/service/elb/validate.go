@@ -1,15 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elb
-
-import (
-	"fmt"
-
-	"github.com/YakDriver/regexache"
-)
-
-func ValidName(v interface{}, k string) (ws []string, errors []error) {
+// SPDX-License-Identifier: MPL-2.0package elbimport (
+	"fmt"	"github.com/YakDriver/regexache"
+)func ValidName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if len(value) == 0 {
 		return // short-circuit
@@ -32,9 +24,7 @@ func ValidName(v interface{}, k string) (ws []string, errors []error) {
 			"%q cannot end with a hyphen: %q", k, value))
 	}
 	return
-}
-
-func validNamePrefix(v interface{}, k string) (ws []string, errors []error) {
+}func validNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(

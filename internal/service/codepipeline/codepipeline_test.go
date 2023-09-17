@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package codepipeline_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package codepipeline_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/codepipeline"
 	"github.com/aws/aws-sdk-go/service/codestarconnections"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -19,16 +13,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/envvar"
 	tfcodepipeline "github.com/hashicorp/terraform-provider-aws/internal/service/codepipeline"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccCodePipeline_basic(t *testing.T) {
+)func TestAccCodePipeline_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p1, p2 codepipeline.PipelineDeclaration
 	name := sdkacctest.RandString(10)
 	resourceName := "aws_codepipeline.test"
-	codestarConnectionResourceName := "aws_codestarconnections_connection.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	codestarConnectionResourceName := "aws_codestarconnections_connection.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSupported(ctx, t)
@@ -44,11 +34,7 @@ func TestAccCodePipeline_basic(t *testing.T) {
 					testAccCheckPipelineExists(ctx, resourceName, &p1),
 					resource.TestCheckResourceAttrPair(resourceName, "role_arn", "aws_iam_role.codepipeline_role", "arn"),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "codepipeline", regexache.MustCompile(fmt.Sprintf("test-pipeline-%s", name))),
-					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "1"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.#", "2"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.0.name", "Source"),
+					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "1"),					resource.TestCheckResourceAttr(resourceName, "stage.#", "2"),					resource.TestCheckResourceAttr(resourceName, "stage.0.name", "Source"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.name", "Source"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.category", "Source"),
@@ -64,9 +50,7 @@ func TestAccCodePipeline_basic(t *testing.T) {
 					resource.TestCheckResourceAttrPair(resourceName, "stage.0.action.0.configuration.ConnectionArn", codestarConnectionResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.role_arn", ""),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.run_order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.region", ""),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
+					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.region", ""),					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.category", "Build"),
@@ -91,11 +75,7 @@ func TestAccCodePipeline_basic(t *testing.T) {
 			{
 				Config: testAccCodePipelineConfig_basicUpdated(name),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPipelineExists(ctx, resourceName, &p2),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.#", "2"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.0.name", "Source"),
+					testAccCheckPipelineExists(ctx, resourceName, &p2),					resource.TestCheckResourceAttr(resourceName, "stage.#", "2"),					resource.TestCheckResourceAttr(resourceName, "stage.0.name", "Source"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.name", "Source"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.input_artifacts.#", "0"),
@@ -104,9 +84,7 @@ func TestAccCodePipeline_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.configuration.%", "3"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.configuration.FullRepositoryId", "test-terraform/test-repo"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.configuration.BranchName", "stable"),
-					resource.TestCheckResourceAttrPair(resourceName, "stage.0.action.0.configuration.ConnectionArn", codestarConnectionResourceName, "arn"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
+					resource.TestCheckResourceAttrPair(resourceName, "stage.0.action.0.configuration.ConnectionArn", codestarConnectionResourceName, "arn"),					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.input_artifacts.#", "1"),
@@ -126,15 +104,11 @@ func TestAccCodePipeline_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCodePipeline_disappears(t *testing.T) {
+}func TestAccCodePipeline_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p codepipeline.PipelineDeclaration
 	name := sdkacctest.RandString(10)
-	resourceName := "aws_codepipeline.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSupported(ctx, t)
@@ -154,15 +128,11 @@ func TestAccCodePipeline_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCodePipeline_emptyStageArtifacts(t *testing.T) {
+}func TestAccCodePipeline_emptyStageArtifacts(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p codepipeline.PipelineDeclaration
 	name := sdkacctest.RandString(10)
-	resourceName := "aws_codepipeline.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSupported(ctx, t)
@@ -197,15 +167,11 @@ func TestAccCodePipeline_emptyStageArtifacts(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCodePipeline_deployWithServiceRole(t *testing.T) {
+}func TestAccCodePipeline_deployWithServiceRole(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p codepipeline.PipelineDeclaration
 	name := sdkacctest.RandString(10)
-	resourceName := "aws_codepipeline.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSupported(ctx, t)
@@ -231,15 +197,11 @@ func TestAccCodePipeline_deployWithServiceRole(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCodePipeline_tags(t *testing.T) {
+}func TestAccCodePipeline_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p1, p2, p3 codepipeline.PipelineDeclaration
 	name := sdkacctest.RandString(10)
-	resourceName := "aws_codepipeline.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSupported(ctx, t)
@@ -288,16 +250,10 @@ func TestAccCodePipeline_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCodePipeline_MultiRegion_basic(t *testing.T) {
+}func TestAccCodePipeline_MultiRegion_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p codepipeline.PipelineDeclaration
-	resourceName := "aws_codepipeline.test"
-
-	name := sdkacctest.RandString(10)
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline.test"	name := sdkacctest.RandString(10)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -312,9 +268,7 @@ func TestAccCodePipeline_MultiRegion_basic(t *testing.T) {
 				Config: testAccCodePipelineConfig_multiregion(name),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPipelineExists(ctx, resourceName, &p),
-					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "2"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
+					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "2"),					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.#", "2"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.region", acctest.Region()),
@@ -330,16 +284,10 @@ func TestAccCodePipeline_MultiRegion_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCodePipeline_MultiRegion_update(t *testing.T) {
+}func TestAccCodePipeline_MultiRegion_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p1, p2 codepipeline.PipelineDeclaration
-	resourceName := "aws_codepipeline.test"
-
-	name := sdkacctest.RandString(10)
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline.test"	name := sdkacctest.RandString(10)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -354,9 +302,7 @@ func TestAccCodePipeline_MultiRegion_update(t *testing.T) {
 				Config: testAccCodePipelineConfig_multiregion(name),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPipelineExists(ctx, resourceName, &p1),
-					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "2"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
+					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "2"),					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.#", "2"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.region", acctest.Region()),
@@ -368,9 +314,7 @@ func TestAccCodePipeline_MultiRegion_update(t *testing.T) {
 				Config: testAccCodePipelineConfig_multiregionUpdated(name),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPipelineExists(ctx, resourceName, &p2),
-					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "2"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
+					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "2"),					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.#", "2"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.name", "BuildUpdated"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.region", acctest.Region()),
@@ -386,16 +330,10 @@ func TestAccCodePipeline_MultiRegion_update(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCodePipeline_MultiRegion_convertSingleRegion(t *testing.T) {
+}func TestAccCodePipeline_MultiRegion_convertSingleRegion(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p1, p2 codepipeline.PipelineDeclaration
-	resourceName := "aws_codepipeline.test"
-
-	name := sdkacctest.RandString(10)
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline.test"	name := sdkacctest.RandString(10)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -410,9 +348,7 @@ func TestAccCodePipeline_MultiRegion_convertSingleRegion(t *testing.T) {
 				Config: testAccCodePipelineConfig_basic(name),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPipelineExists(ctx, resourceName, &p1),
-					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "1"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
+					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "1"),					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.region", ""),
@@ -422,9 +358,7 @@ func TestAccCodePipeline_MultiRegion_convertSingleRegion(t *testing.T) {
 				Config: testAccCodePipelineConfig_multiregion(name),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPipelineExists(ctx, resourceName, &p2),
-					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "2"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
+					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "2"),					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.#", "2"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.region", acctest.Region()),
@@ -436,9 +370,7 @@ func TestAccCodePipeline_MultiRegion_convertSingleRegion(t *testing.T) {
 				Config: testAccCodePipelineConfig_backToBasic(name),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPipelineExists(ctx, resourceName, &p1),
-					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "1"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
+					resource.TestCheckResourceAttr(resourceName, "artifact_store.#", "1"),					resource.TestCheckResourceAttr(resourceName, "stage.1.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.name", "Build"),
 					resource.TestCheckResourceAttr(resourceName, "stage.1.action.0.region", acctest.Region()),
@@ -452,15 +384,11 @@ func TestAccCodePipeline_MultiRegion_convertSingleRegion(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCodePipeline_withNamespace(t *testing.T) {
+}func TestAccCodePipeline_withNamespace(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p1 codepipeline.PipelineDeclaration
 	name := sdkacctest.RandString(10)
-	resourceName := "aws_codepipeline.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSupported(ctx, t)
@@ -485,17 +413,11 @@ func TestAccCodePipeline_withNamespace(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCodePipeline_withGitHubV1SourceAction(t *testing.T) {
+}func TestAccCodePipeline_withGitHubV1SourceAction(t *testing.T) {
 	ctx := acctest.Context(t)
-	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, "token with GitHub permissions to repository for CodePipeline source configuration")
-
-	var v codepipeline.PipelineDeclaration
+	githubToken := envvar.SkipIfEmpty(t, envvar.GithubToken, "token with GitHub permissions to repository for CodePipeline source configuration")	var v codepipeline.PipelineDeclaration
 	name := sdkacctest.RandString(10)
-	resourceName := "aws_codepipeline.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSupported(ctx, t)
@@ -507,11 +429,7 @@ func TestAccCodePipeline_withGitHubV1SourceAction(t *testing.T) {
 			{
 				Config: testAccCodePipelineConfig_gitHubv1SourceAction(name, githubToken),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPipelineExists(ctx, resourceName, &v),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.#", "2"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.name", "Source"),
+					testAccCheckPipelineExists(ctx, resourceName, &v),					resource.TestCheckResourceAttr(resourceName, "stage.#", "2"),					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.name", "Source"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.category", "Source"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.owner", "ThirdParty"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.provider", "GitHub"),
@@ -535,11 +453,7 @@ func TestAccCodePipeline_withGitHubV1SourceAction(t *testing.T) {
 			{
 				Config: testAccCodePipelineConfig_gitHubv1SourceActionUpdated(name, githubToken),
 				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPipelineExists(ctx, resourceName, &v),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.#", "2"),
-
-					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.name", "Source"),
+					testAccCheckPipelineExists(ctx, resourceName, &v),					resource.TestCheckResourceAttr(resourceName, "stage.#", "2"),					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.name", "Source"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.category", "Source"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.owner", "ThirdParty"),
 					resource.TestCheckResourceAttr(resourceName, "stage.0.action.0.provider", "GitHub"),
@@ -562,15 +476,11 @@ func TestAccCodePipeline_withGitHubV1SourceAction(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccCodePipeline_ecr(t *testing.T) {
+}func TestAccCodePipeline_ecr(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p codepipeline.PipelineDeclaration
 	name := sdkacctest.RandString(10)
-	resourceName := "aws_codepipeline.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_codepipeline.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSupported(ctx, t)
@@ -611,91 +521,49 @@ func TestAccCodePipeline_ecr(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckPipelineExists(ctx context.Context, n string, v *codepipeline.PipelineDeclaration) resource.TestCheckFunc {
+}func testAccCheckPipelineExists(ctx context.Context, n string, v *codepipeline.PipelineDeclaration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No CodePipeline ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)
-
-		output, err := tfcodepipeline.FindPipelineByName(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)		output, err := tfcodepipeline.FindPipelineByName(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output.Pipeline
-
-		return nil
+		}		*v = *output.Pipeline		return nil
 	}
-}
-
-func testAccCheckPipelineDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckPipelineDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_codepipeline" {
 				continue
-			}
-
-			_, err := tfcodepipeline.FindPipelineByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfcodepipeline.FindPipelineByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("CodePipeline %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("CodePipeline %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccPreCheckSupported(ctx context.Context, t *testing.T, regions ...string) {
+}func testAccPreCheckSupported(ctx context.Context, t *testing.T, regions ...string) {
 	regions = append(regions, acctest.Region())
 	for _, region := range regions {
 		conf := &conns.Config{
 			Region: region,
 		}
-		client, diags := conf.ConfigureProvider(ctx, acctest.Provider.Meta().(*conns.AWSClient))
-
-		if diags.HasError() {
+		client, diags := conf.ConfigureProvider(ctx, acctest.Provider.Meta().(*conns.AWSClient))		if diags.HasError() {
 			t.Fatalf("error getting AWS client for region %s", region)
 		}
-		conn := client.CodePipelineConn(ctx)
-
-		input := &codepipeline.ListPipelinesInput{}
-		_, err := conn.ListPipelinesWithContext(ctx, input)
-
-		if acctest.PreCheckSkipError(err) {
+		conn := client.CodePipelineConn(ctx)		input := &codepipeline.ListPipelinesInput{}
+		_, err := conn.ListPipelinesWithContext(ctx, input)		if acctest.PreCheckSkipError(err) {
 			t.Skipf("skipping acceptance testing: %s", err)
-		}
-
-		if err != nil {
+		}		if err != nil {
 			t.Fatalf("unexpected PreCheck error: %s", err)
 		}
 	}
-}
-
-func testAccServiceIAMRole(rName string) string {
+}func testAccServiceIAMRole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "codepipeline_role" {
-  name = "codepipeline-role-%[1]s"
-
-  assume_role_policy = <<EOF
+  name = "codepipeline-role-%[1]s"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -709,13 +577,9 @@ resource "aws_iam_role" "codepipeline_role" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "codepipeline_policy" {
+}resource "aws_iam_role_policy" "codepipeline_policy" {
   name = "codepipeline_policy"
-  role = aws_iam_role.codepipeline_role.id
-
-  policy = <<EOF
+  role = aws_iam_role.codepipeline_role.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -744,14 +608,10 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 EOF
 }
 `, rName)
-}
-
-func testAccServiceIAMRoleWithAssumeRole(rName string) string {
+}func testAccServiceIAMRoleWithAssumeRole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "codepipeline_role" {
-  name = "codepipeline-role-%[1]s"
-
-  assume_role_policy = <<EOF
+  name = "codepipeline-role-%[1]s"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -765,13 +625,9 @@ resource "aws_iam_role" "codepipeline_role" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "codepipeline_policy" {
+}resource "aws_iam_role_policy" "codepipeline_policy" {
   name = "codepipeline_policy"
-  role = aws_iam_role.codepipeline_role.id
-
-  policy = <<EOF
+  role = aws_iam_role.codepipeline_role.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -807,72 +663,50 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 EOF
 }
 `, rName)
-}
-
-func testAccCodePipelineConfig_basic(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_basic(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		testAccS3DefaultBucket(rName),
 		testAccServiceIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%[1]s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.test.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "1234"
       type = "KMS"
     }
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "AWS"
       provider= "CodeStarSourceConnection"
       version = "1"
-      output_artifacts = ["test"]
-
-      configuration = {
+      output_artifacts = ["test"]      configuration = {
         ConnectionArn    = aws_codestarconnections_connection.test.arn
         FullRepositoryId = "lifesum-terraform/test"
         BranchName       = "main"
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       name   = "Build"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "test"
       }
     }
   }
-}
-
-resource "aws_codestarconnections_connection" "test" {
+}resource "aws_codestarconnections_connection" "test" {
   name = %[1]q
   provider_type = "GitHub"
 }
 `, rName))
-}
-
-func testAccCodePipelineConfig_basicUpdated(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_basicUpdated(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		testAccS3DefaultBucket(rName),
 		testAccS3Bucket("updated", rName),
@@ -880,130 +714,88 @@ func testAccCodePipelineConfig_basicUpdated(rName string) string { // nosemgrep:
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.updated.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "4567"
       type = "KMS"
     }
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "AWS"
       provider= "CodeStarSourceConnection"
       version = "1"
-      output_artifacts = ["artifacts"]
-
-      configuration = {
+      output_artifacts = ["artifacts"]      configuration = {
         ConnectionArn    = aws_codestarconnections_connection.test.arn
         FullRepositoryId = "test-terraform/test-repo"
         BranchName       = "stable"
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       name   = "Build"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["artifacts"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "test"
       }
     }
   }
-}
-
-resource "aws_codestarconnections_connection" "test" {
+}resource "aws_codestarconnections_connection" "test" {
   name = %[1]q
   provider_type = "GitHub"
 }
 `, rName))
-}
-
-func testAccCodePipelineConfig_emptyStageArtifacts(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_emptyStageArtifacts(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		testAccS3DefaultBucket(rName),
 		testAccServiceIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%[1]s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.test.bucket
     type     = "S3"
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "AWS"
       provider= "CodeStarSourceConnection"
       version = "1"
-      output_artifacts = ["test"]
-
-      configuration = {
+      output_artifacts = ["test"]      configuration = {
         ConnectionArn    = aws_codestarconnections_connection.test.arn
         FullRepositoryId = "lifesum-terraform/test"
         BranchName       = "main"
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       name= "Build"
       category= "Build"
       owner   = "AWS"
       provider= "CodeBuild"
       input_artifacts  = ["test", ""]
       output_artifacts = [""]
-      version = "1"
-
-      configuration = {
+      version = "1"      configuration = {
         ProjectName = "test"
       }
     }
   }
-}
-
-resource "aws_codestarconnections_connection" "test" {
+}resource "aws_codestarconnections_connection" "test" {
   name = %[1]q
   provider_type = "GitHub"
 }
 `, rName))
-}
-
-func testAccDeployActionIAMRole(rName string) string {
+}func testAccDeployActionIAMRole(rName string) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "codepipeline_action_role" {
-  name = "codepipeline-action-role-%s"
-
-  assume_role_policy = <<EOF
+data "aws_partition" "current" {}resource "aws_iam_role" "codepipeline_action_role" {
+  name = "codepipeline-action-role-%s"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1017,13 +809,9 @@ resource "aws_iam_role" "codepipeline_action_role" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "codepipeline_action_policy" {
+}resource "aws_iam_role_policy" "codepipeline_action_policy" {
   name = "codepipeline_action_policy"
-  role = aws_iam_role.codepipeline_action_role.id
-
-  policy = <<EOF
+  role = aws_iam_role.codepipeline_action_role.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1044,9 +832,7 @@ resource "aws_iam_role_policy" "codepipeline_action_policy" {
 EOF
 }
 `, rName)
-}
-
-func testAccCodePipelineConfig_deployServiceRole(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_deployServiceRole(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		testAccS3DefaultBucket(rName),
 		testAccServiceIAMRoleWithAssumeRole(rName),
@@ -1054,68 +840,46 @@ func testAccCodePipelineConfig_deployServiceRole(rName string) string { // nosem
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.test.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "4567"
       type = "KMS"
     }
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "AWS"
       provider= "CodeStarSourceConnection"
       version = "1"
-      output_artifacts = ["artifacts"]
-
-      configuration = {
+      output_artifacts = ["artifacts"]      configuration = {
         ConnectionArn    = aws_codestarconnections_connection.test.arn
         FullRepositoryId = "lifesum-terraform/test"
         BranchName       = "main"
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       name= "Build"
       category= "Build"
       owner   = "AWS"
       provider= "CodeBuild"
       input_artifacts  = ["artifacts"]
       output_artifacts = ["artifacts2"]
-      version = "1"
-
-      configuration = {
+      version = "1"      configuration = {
         ProjectName = "test"
       }
     }
-  }
-
-  stage {
-    name = "Deploy"
-
-    action {
+  }  stage {
+    name = "Deploy"    action {
       name   = "CreateChangeSet"
       category        = "Deploy"
       owner  = "AWS"
       provider        = "CloudFormation"
       input_artifacts = ["artifacts2"]
       role_arn        = aws_iam_role.codepipeline_action_role.arn
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ActionMode    = "CHANGE_SET_REPLACE"
         ChangeSetName = "changeset"
         StackName     = "stack"
@@ -1123,85 +887,59 @@ resource "aws_codepipeline" "test" {
       }
     }
   }
-}
-
-resource "aws_codestarconnections_connection" "test" {
+}resource "aws_codestarconnections_connection" "test" {
   name = %[1]q
   provider_type = "GitHub"
 }
 `, rName))
-}
-
-func testAccCodePipelineConfig_tags(rName, tag1, tag2 string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_tags(rName, tag1, tag2 string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		testAccS3DefaultBucket(rName),
 		testAccServiceIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%[1]s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.test.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "1234"
       type = "KMS"
     }
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "AWS"
       provider= "CodeStarSourceConnection"
       version = "1"
-      output_artifacts = ["test"]
-
-      configuration = {
+      output_artifacts = ["test"]      configuration = {
         ConnectionArn    = aws_codestarconnections_connection.test.arn
         FullRepositoryId = "lifesum-terraform/test"
         BranchName       = "main"
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       name   = "Build"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "test"
       }
     }
-  }
-
-  tags = {
+  }  tags = {
     Name = "test-pipeline-%[1]s"
     tag1 = %[2]q
     tag2 = %[3]q
   }
-}
-
-resource "aws_codestarconnections_connection" "test" {
+}resource "aws_codestarconnections_connection" "test" {
   name = %[1]q
   provider_type = "GitHub"
 }
 `, rName, tag1, tag2))
-}
-
-func testAccCodePipelineConfig_multiregion(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_multiregion(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateRegionProvider(),
 		testAccS3DefaultBucket(rName),
@@ -1210,92 +948,60 @@ func testAccCodePipelineConfig_multiregion(rName string) string { // nosemgrep:c
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%[1]s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.test.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "1234"
       type = "KMS"
-    }
-
-    region = "%[2]s"
-  }
-
-  artifact_store {
+    }    region = "%[2]s"
+  }  artifact_store {
     location = aws_s3_bucket.alternate.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "5678"
       type = "KMS"
-    }
-
-    region = "%[3]s"
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+    }    region = "%[3]s"
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "AWS"
       provider= "CodeStarSourceConnection"
       version = "1"
-      output_artifacts = ["test"]
-
-      configuration = {
+      output_artifacts = ["test"]      configuration = {
         ConnectionArn    = aws_codestarconnections_connection.test.arn
         FullRepositoryId = "lifesum-terraform/test"
         BranchName       = "main"
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       region = "%[2]s"
       name   = "Build"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "Test"
       }
-    }
-
-    action {
+    }    action {
       region = "%[3]s"
       name   = "%[3]s-Build"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "%[3]s-Test"
       }
     }
   }
-}
-
-resource "aws_codestarconnections_connection" "test" {
+}resource "aws_codestarconnections_connection" "test" {
   name = %[1]q
   provider_type = "GitHub"
 }
 `, rName, acctest.Region(), acctest.AlternateRegion()))
-}
-
-func testAccCodePipelineConfig_multiregionUpdated(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_multiregionUpdated(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateRegionProvider(),
 		testAccS3DefaultBucket(rName),
@@ -1304,354 +1010,240 @@ func testAccCodePipelineConfig_multiregionUpdated(rName string) string { // nose
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%[1]s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.test.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "4321"
       type = "KMS"
-    }
-
-    region = "%[2]s"
-  }
-
-  artifact_store {
+    }    region = "%[2]s"
+  }  artifact_store {
     location = aws_s3_bucket.alternate.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "8765"
       type = "KMS"
-    }
-
-    region = "%[3]s"
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+    }    region = "%[3]s"
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "AWS"
       provider= "CodeStarSourceConnection"
       version = "1"
-      output_artifacts = ["test"]
-
-      configuration = {
+      output_artifacts = ["test"]      configuration = {
         ConnectionArn    = aws_codestarconnections_connection.test.arn
         FullRepositoryId = "lifesum-terraform/test"
         BranchName       = "main"
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       region = "%[2]s"
       name   = "BuildUpdated"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "Test"
       }
-    }
-
-    action {
+    }    action {
       region = "%[3]s"
       name   = "%[3]s-BuildUpdated"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "%[3]s-Test"
       }
     }
   }
-}
-
-resource "aws_codestarconnections_connection" "test" {
+}resource "aws_codestarconnections_connection" "test" {
   name = %[1]q
   provider_type = "GitHub"
 }
 `, rName, acctest.Region(), acctest.AlternateRegion()))
-}
-
-func testAccCodePipelineConfig_backToBasic(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_backToBasic(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateRegionProvider(),
 		testAccCodePipelineConfig_basic(rName),
 	)
-}
-
-func testAccS3DefaultBucket(rName string) string {
+}func testAccS3DefaultBucket(rName string) string {
 	return testAccS3Bucket("test", rName)
-}
-
-func testAccS3Bucket(bucket, rName string) string {
+}func testAccS3Bucket(bucket, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "%[1]s" {
   bucket = "tf-test-pipeline-%[1]s-%[2]s"
 }
 `, bucket, rName)
-}
-
-func testAccS3BucketWithProvider(bucket, rName, provider string) string {
+}func testAccS3BucketWithProvider(bucket, rName, provider string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "%[1]s" {
   bucket   = "tf-test-pipeline-%[1]s-%[2]s"
   provider = %[3]s
 }
 `, bucket, rName, provider)
-}
-
-func testAccCodePipelineConfig_namespace(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_namespace(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		testAccS3DefaultBucket(rName),
 		testAccServiceIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%[1]s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.foo.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "1234"
       type = "KMS"
     }
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "AWS"
       provider= "CodeStarSourceConnection"
       version = "1"
       output_artifacts = ["test"]
-      namespace        = "SourceVariables"
-
-      configuration = {
+      namespace        = "SourceVariables"      configuration = {
         ConnectionArn    = aws_codestarconnections_connection.test.arn
         FullRepositoryId = "lifesum-terraform/test"
         BranchName       = "main"
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       name   = "Build"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "test"
       }
     }
   }
-}
-
-resource "aws_codestarconnections_connection" "test" {
+}resource "aws_codestarconnections_connection" "test" {
   name = %[1]q
   provider_type = "GitHub"
-}
-
-resource "aws_s3_bucket" "foo" {
+}resource "aws_s3_bucket" "foo" {
   bucket = "tf-test-pipeline-%[1]s"
 }
 `, rName))
-}
-
-func testAccCodePipelineConfig_gitHubv1SourceAction(rName, githubToken string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_gitHubv1SourceAction(rName, githubToken string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		testAccS3DefaultBucket(rName),
 		testAccServiceIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%[1]s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.test.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "1234"
       type = "KMS"
     }
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "ThirdParty"
       provider= "GitHub"
       version = "1"
-      output_artifacts = ["test"]
-
-      configuration = {
+      output_artifacts = ["test"]      configuration = {
         Owner      = "lifesum-terraform"
         Repo       = "test"
         Branch     = "main"
         OAuthToken = %[2]q
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       name   = "Build"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "test"
       }
     }
   }
 }
 `, rName, githubToken))
-}
-
-func testAccCodePipelineConfig_gitHubv1SourceActionUpdated(rName, githubToken string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_gitHubv1SourceActionUpdated(rName, githubToken string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		testAccS3DefaultBucket(rName),
 		testAccServiceIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%[1]s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.test.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "1234"
       type = "KMS"
     }
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "ThirdParty"
       provider= "GitHub"
       version = "1"
-      output_artifacts = ["artifacts"]
-
-      configuration = {
+      output_artifacts = ["artifacts"]      configuration = {
         Owner      = "test-terraform"
         Repo       = "test-repo"
         Branch     = "stable"
         OAuthToken = %[2]q
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       name   = "Build"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["artifacts"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "test"
       }
     }
   }
 }
 `, rName, githubToken))
-}
-
-func testAccCodePipelineConfig_ecr(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
+}func testAccCodePipelineConfig_ecr(rName string) string { // nosemgrep:ci.codepipeline-in-func-name
 	return acctest.ConfigCompose(
 		testAccS3DefaultBucket(rName),
 		testAccServiceIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_codepipeline" "test" {
   name     = "test-pipeline-%[1]s"
-  role_arn = aws_iam_role.codepipeline_role.arn
-
-  artifact_store {
+  role_arn = aws_iam_role.codepipeline_role.arn  artifact_store {
     location = aws_s3_bucket.test.bucket
-    type     = "S3"
-
-    encryption_key {
+    type     = "S3"    encryption_key {
       id   = "1234"
       type = "KMS"
     }
-  }
-
-  stage {
-    name = "Source"
-
-    action {
+  }  stage {
+    name = "Source"    action {
       name= "Source"
       category= "Source"
       owner   = "AWS"
       provider= "ECR"
       version = "1"
-      output_artifacts = ["test"]
-
-      configuration = {
+      output_artifacts = ["test"]      configuration = {
         RepositoryName = "my-image-repo"
         ImageTag       = "latest"
       }
     }
-  }
-
-  stage {
-    name = "Build"
-
-    action {
+  }  stage {
+    name = "Build"    action {
       name   = "Build"
       category        = "Build"
       owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version= "1"
-
-      configuration = {
+      version= "1"      configuration = {
         ProjectName = "test"
       }
     }

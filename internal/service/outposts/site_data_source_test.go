@@ -1,22 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package outposts_test
-
-import (
-"testing"
-
-"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package outposts_testimport (
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/service/outposts"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccOutpostsSiteDataSource_id(t *testing.T) {
+)func TestAccOutpostsSiteDataSource_id(t *testing.T) {
 ctx := acctest.Context(t)
-dataSourceName := "data.aws_outposts_site.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_outposts_site.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSites(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -33,14 +23,10 @@ resource.TestMatchResourceAttr(dataSourceName, "name", regexache.MustCompile(`^.
 },
 },
 })
-}
-
-func TestAccOutpostsSiteDataSource_name(t *testing.T) {
+}func TestAccOutpostsSiteDataSource_name(t *testing.T) {
 ctx := acctest.Context(t)
 sourceDataSourceName := "data.aws_outposts_site.source"
-dataSourceName := "data.aws_outposts_site.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_outposts_site.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSites(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -57,27 +43,17 @@ resource.TestCheckResourceAttrPair(dataSourceName, "name", sourceDataSourceName,
 },
 },
 })
-}
-
-func testAccSiteDataSourceConfig_id() string {
+}func testAccSiteDataSourceConfig_id() string {
 return `
-data "aws_outposts_sites" "test" {}
-
-data "aws_outposts_site" "test" {
+data "aws_outposts_sites" "test" {}data "aws_outposts_site" "test" {
   id = tolist(data.aws_outposts_sites.test.ids)[0]
 }
 `
-}
-
-func testAccSiteDataSourceConfig_name() string {
+}func testAccSiteDataSourceConfig_name() string {
 return `
-data "aws_outposts_sites" "test" {}
-
-data "aws_outposts_site" "source" {
+data "aws_outposts_sites" "test" {}data "aws_outposts_site" "source" {
   id = tolist(data.aws_outposts_sites.test.ids)[0]
-}
-
-data "aws_outposts_site" "test" {
+}data "aws_outposts_site" "test" {
   name = data.aws_outposts_site.source.name
 }
 `

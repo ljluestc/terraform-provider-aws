@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package iamimport (	"github.com/aws/aws-sdk-go/aws")func:= make([]*string, 0, len(configured))	for _, v := range configured {		if val, ok := v.(string); ok {			vs = append(vs, aws.String(val))		}	}	return vs}
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package iamimport ("github.com/aws/aws-sdk-go/aws")func:= make([]*string, 0, len(configured))for _, v := range configured {if val, ok := v.(string); ok {vs = append(vs, aws.String(val))}}return vs}

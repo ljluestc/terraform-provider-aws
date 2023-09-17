@@ -1,14 +1,8 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageelasticbeanstalk_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageelasticbeanstalk_testimport(
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/elasticbeanstalk"
+	"testing"	"github.com/aws/aws-sdk-go/service/elasticbeanstalk"
 	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -21,9 +15,7 @@ funcTestAccElasticBeanstalkConfigurationTemplate_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	varconfigelasticbeanstalk.ConfigurationSettingsDescription
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_elastic_beanstalk_configuration_template.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_elastic_beanstalk_configuration_template.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx,t)},
 		ErrorCheck:orCheck(t,elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -42,9 +34,7 @@ funcTestAccElasticBeanstalkConfigurationTemplate_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	varconfigelasticbeanstalk.ConfigurationSettingsDescription
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_elastic_beanstalk_configuration_template.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_elastic_beanstalk_configuration_template.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx,t)},
 		ErrorCheck:orCheck(t,elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -65,9 +55,7 @@ funcTestAccElasticBeanstalkConfigurationTemplate_Disappears_application(t*testin
 	ctx:=acctest.Context(t)
 	varconfigelasticbeanstalk.ConfigurationSettingsDescription
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_elastic_beanstalk_configuration_template.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_elastic_beanstalk_configuration_template.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx,t)},
 		ErrorCheck:orCheck(t,elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -88,9 +76,7 @@ funcTestAccElasticBeanstalkConfigurationTemplate_vpc(t*testing.T){
 	ctx:=acctest.Context(t)
 	varconfigelasticbeanstalk.ConfigurationSettingsDescription
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_elastic_beanstalk_configuration_template.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_elastic_beanstalk_configuration_template.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx,t)},
 		ErrorCheck:orCheck(t,elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -109,9 +95,7 @@ funcTestAccElasticBeanstalkConfigurationTemplate_settings(t*testing.T){
 	ctx:=acctest.Context(t)
 	varconfigelasticbeanstalk.ConfigurationSettingsDescription
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_elastic_beanstalk_configuration_template.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_elastic_beanstalk_configuration_template.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx,t)},
 		ErrorCheck:orCheck(t,elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -132,27 +116,15 @@ funcTestAccElasticBeanstalkConfigurationTemplate_settings(t*testing.T){
 }
 functestAccCheckConfigurationTemplateDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_elastic_beanstalk_configuration_template"{
 				continue
-			}
-
-			_,err:=tfelasticbeanstalk.FindConfigurationSettingsByTwoPartKey(ctx,conn,rs.Primary.Attributes["application"],rs.Primary.ID)
-
-			iftfresource.NotFound(err){
+			}			_,err:=tfelasticbeanstalk.FindConfigurationSettingsByTwoPartKey(ctx,conn,rs.Primary.Attributes["application"],rs.Primary.ID)			iftfresource.NotFound(err){
 				continue
-			}
-
-			iferr!=nil{
+			}			iferr!=nil{
 				returnerr
-			}
-
-			returnfmt.Errorf("ElasticBeanstalkConfigurationTemplate%sstillexists",rs.Primary.ID)
-		}
-
-		returnnil
+			}			returnfmt.Errorf("ElasticBeanstalkConfigurationTemplate%sstillexists",rs.Primary.ID)
+		}		returnnil
 	}
 }
 functestAccCheckConfigurationTemplateExists(ctxcontext.Context,nstring,v*elasticbeanstalk.ConfigurationSettingsDescription)resource.TestCheckFunc{
@@ -160,23 +132,11 @@ functestAccCheckConfigurationTemplateExists(ctxcontext.Context,nstring,v*elastic
 		rs,ok:=s.RootModule().Resources[n]
 		if!ok{
 			returnfmt.Errorf("Notfound:%s",n)
-		}
-
-		ifrs.Primary.ID==""{
+		}		ifrs.Primary.ID==""{
 			returnfmt.Errorf("NoElasticBeanstalkConfigurationTemplateIDisset")
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
-
-		output,err:=tfelasticbeanstalk.FindConfigurationSettingsByTwoPartKey(ctx,conn,rs.Primary.Attributes["application"],rs.Primary.ID)
-
-		iferr!=nil{
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)		output,err:=tfelasticbeanstalk.FindConfigurationSettingsByTwoPartKey(ctx,conn,rs.Primary.Attributes["application"],rs.Primary.ID)		iferr!=nil{
 			returnerr
-		}
-
-		*v=*output
-
-		returnnil
+		}		*v=*output		returnnil
 	}
 }
 functestAccConfigurationTemplateConfig_basic(rNamestring)string{
@@ -184,9 +144,7 @@ functestAccConfigurationTemplateConfig_basic(rNamestring)string{
 resource"aws_elastic_beanstalk_application""test"{
 name=%[1]q
 description="testing"
-}
-
-resource"aws_elastic_beanstalk_configuration_template""test"{
+}resource"aws_elastic_beanstalk_configuration_template""test"{
 name=%[1]q
 application=aws_elastic_beanstalk_application.test.name
 solution_stack_name="64bitAmazonLinuxrunningPython"
@@ -198,21 +156,13 @@ functestAccConfigurationTemplateConfig_vpc(rNamestring)string{
 resource"aws_elastic_beanstalk_application""test"{
 name=%[1]q
 description="testing"
-}
-
-resource"aws_elastic_beanstalk_configuration_template""test"{
+}resource"aws_elastic_beanstalk_configuration_template""test"{
 name=%[1]q
-application=aws_elastic_beanstalk_application.test.name
-
-solution_stack_name="64bitAmazonLinuxrunningPython"
-
-setting{
+application=aws_elastic_beanstalk_application.test.namesolution_stack_name="64bitAmazonLinuxrunningPython"setting{
 namespace="aws:ec2:vpc"
 name="VPCId"
 value=aws_vpc.test.id
-}
-
-setting{
+}setting{
 namespace="aws:ec2:vpc"
 name="Subnets"
 value=aws_subnet.test[0].id
@@ -225,15 +175,9 @@ functestAccConfigurationTemplateConfig_setting(rNamestring)string{
 resource"aws_elastic_beanstalk_application""test"{
 name=%[1]q
 description="testing"
-}
-
-resource"aws_elastic_beanstalk_configuration_template""test"{
+}resource"aws_elastic_beanstalk_configuration_template""test"{
 name=%[1]q
-application=aws_elastic_beanstalk_application.test.name
-
-solution_stack_name="64bitAmazonLinuxrunningPython"
-
-setting{
+application=aws_elastic_beanstalk_application.test.namesolution_stack_name="64bitAmazonLinuxrunningPython"setting{
 namespace="aws:autoscaling:launchconfiguration"
 name="InstanceType"
 value="m1.small"

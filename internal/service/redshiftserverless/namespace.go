@@ -1,15 +1,9 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageredshiftserverless
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageredshiftserverlessimport(
 	"context"
 	"log"
 	"strings"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/arn"
 	"github.com/aws/aws-sdk-go/service/redshiftserverless"
@@ -24,22 +18,16 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-//@SDKResource("aws_redshiftserverless_namespace",name="Namespace")
+)//@SDKResource("aws_redshiftserverless_namespace",name="Namespace")
 //@Tags(identifierAttribute="arn")
 funcResourceNamespace()*schema.Resource{
 	return&schema.Resource{
 		CreateWithoutTimeout:resourceNamespaceCreate,
 		ReadWithoutTimeout:resourceNamespaceRead,
 		UpdateWithoutTimeout:resourceNamespaceUpdate,
-		DeleteWithoutTimeout:resourceNamespaceDelete,
-
-		Importer:&schema.ResourceImporter{
+		DeleteWithoutTimeout:resourceNamespaceDelete,		Importer:&schema.ResourceImporter{
 			StateContext:schema.ImportStatePassthroughContext,
-		},
-
-		Schema:map[string]*schema.Schema{
+		},		Schema:map[string]*schema.Schema{
 			"admin_user_password":{
 				Type:schema.TypeString,
 				Optional:true,
@@ -100,78 +88,40 @@ funcResourceNamespace()*schema.Resource{
 			},
 			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll:tftags.TagsSchemaComputed(),
-		},
-
-		CustomizeDiff:verify.SetTagsDiff,
+		},		CustomizeDiff:verify.SetTagsDiff,
 	}
-}
-
-funcresourceNamespaceCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+}funcresourceNamespaceCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-	name:=d.Get("namespace_name").(string)
+	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)	name:=d.Get("namespace_name").(string)
 	input:=&redshiftserverless.CreateNamespaceInput{
 		NamespaceName:aws.String(name),
 		Tags:getTagsIn(ctx),
-	}
-
-	ifv,ok:=d.GetOk("admin_user_password");ok{
+	}	ifv,ok:=d.GetOk("admin_user_password");ok{
 		input.AdminUserPassword=aws.String(v.(string))
-	}
-
-	ifv,ok:=d.GetOk("admin_username");ok{
+	}	ifv,ok:=d.GetOk("admin_username");ok{
 		input.AdminUsername=aws.String(v.(string))
-	}
-
-	ifv,ok:=d.GetOk("db_name");ok{
+	}	ifv,ok:=d.GetOk("db_name");ok{
 		input.DbName=aws.String(v.(string))
-	}
-
-	ifv,ok:=d.GetOk("default_iam_role_arn");ok{
+	}	ifv,ok:=d.GetOk("default_iam_role_arn");ok{
 		input.DefaultIamRoleArn=aws.String(v.(string))
-	}
-
-	ifv,ok:=d.GetOk("iam_roles");ok&&v.(*schema.Set).Len()>0{
+	}	ifv,ok:=d.GetOk("iam_roles");ok&&v.(*schema.Set).Len()>0{
 		input.IamRoles=flex.ExpandStringSet(v.(*schema.Set))
-	}
-
-	ifv,ok:=d.GetOk("kms_key_id");ok{
+	}	ifv,ok:=d.GetOk("kms_key_id");ok{
 		input.KmsKeyId=aws.String(v.(string))
-	}
-
-	ifv,ok:=d.GetOk("log_exports");ok&&v.(*schema.Set).Len()>0{
+	}	ifv,ok:=d.GetOk("log_exports");ok&&v.(*schema.Set).Len()>0{
 		input.LogExports=flex.ExpandStringSet(v.(*schema.Set))
-	}
-
-	output,err:=conn.CreateNamespaceWithContext(ctx,input)
-
-	iferr!=nil{
+	}	output,err:=conn.CreateNamespaceWithContext(ctx,input)	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"creatingRedshiftServerlessNamespace(%s):%s",name,err)
-	}
-
-	d.SetId(aws.StringValue(output.Namespace.NamespaceName))
-
-	returnappend(diags,resourceNamespaceRead(ctx,d,meta)...)
-}
-
-funcresourceNamespaceRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	}	d.SetId(aws.StringValue(output.Namespace.NamespaceName))	returnappend(diags,resourceNamespaceRead(ctx,d,meta)...)
+}funcresourceNamespaceRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-	output,err:=FindNamespaceByName(ctx,conn,d.Id())
-
-	if!d.IsNewResource()&&tfresource.NotFound(err){
+	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)	output,err:=FindNamespaceByName(ctx,conn,d.Id())	if!d.IsNewResource()&&tfresource.NotFound(err){
 		log.Printf("[WARN]RedshiftServerlessNamespace(%s)notfound,removingfromstate",d.Id())
 		d.SetId("")
 		returndiags
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"readingRedshiftServerlessNamespace(%s):%s",d.Id(),err)
-	}
-
-	arn:=aws.StringValue(output.NamespaceArn)
+	}	arn:=aws.StringValue(output.NamespaceArn)
 	d.Set("admin_username",output.AdminUsername)
 	d.Set("arn",arn)
 	d.Set("db_name",output.DbName)
@@ -180,60 +130,32 @@ funcresourceNamespaceRead(ctxcontext.Context,d*schema.ResourceData,metainterface
 	d.Set("kms_key_id",output.KmsKeyId)
 	d.Set("log_exports",aws.StringValueSlice(output.LogExports))
 	d.Set("namespace_id",output.NamespaceId)
-	d.Set("namespace_name",output.NamespaceName)
-
-	returndiags
-}
-
-funcresourceNamespaceUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	d.Set("namespace_name",output.NamespaceName)	returndiags
+}funcresourceNamespaceUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-	ifd.HasChangesExcept("tags","tags_all"){
+	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)	ifd.HasChangesExcept("tags","tags_all"){
 		input:=&redshiftserverless.UpdateNamespaceInput{
 			NamespaceName:aws.String(d.Id()),
-		}
-
-		ifd.HasChanges("admin_username","admin_user_password"){
+		}		ifd.HasChanges("admin_username","admin_user_password"){
 			input.AdminUsername=aws.String(d.Get("admin_username").(string))
 			input.AdminUserPassword=aws.String(d.Get("admin_user_password").(string))
-		}
-
-		ifd.HasChange("default_iam_role_arn"){
+		}		ifd.HasChange("default_iam_role_arn"){
 			input.DefaultIamRoleArn=aws.String(d.Get("default_iam_role_arn").(string))
-		}
-
-		ifd.HasChange("iam_roles"){
+		}		ifd.HasChange("iam_roles"){
 			input.IamRoles=flex.ExpandStringSet(d.Get("iam_roles").(*schema.Set))
-		}
-
-		ifd.HasChange("kms_key_id"){
+		}		ifd.HasChange("kms_key_id"){
 			input.KmsKeyId=aws.String(d.Get("kms_key_id").(string))
-		}
-
-		ifd.HasChange("log_exports"){
+		}		ifd.HasChange("log_exports"){
 			input.LogExports=flex.ExpandStringSet(d.Get("log_exports").(*schema.Set))
-		}
-
-		_,err:=conn.UpdateNamespaceWithContext(ctx,input)
-
-		iferr!=nil{
+		}		_,err:=conn.UpdateNamespaceWithContext(ctx,input)		iferr!=nil{
 			returnsdkdiag.AppendErrorf(diags,"updatingRedshiftServerlessNamespace(%s):%s",d.Id(),err)
-		}
-
-		if_,err:=waitNamespaceUpdated(ctx,conn,d.Id());err!=nil{
+		}		if_,err:=waitNamespaceUpdated(ctx,conn,d.Id());err!=nil{
 			returnsdkdiag.AppendErrorf(diags,"waitingforRedshiftServerlessNamespace(%s)update:%s",d.Id(),err)
 		}
-	}
-
-	returnappend(diags,resourceNamespaceRead(ctx,d,meta)...)
-}
-
-funcresourceNamespaceDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	}	returnappend(diags,resourceNamespaceRead(ctx,d,meta)...)
+}funcresourceNamespaceDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-	log.Printf("[DEBUG]DeletingRedshiftServerlessNamespace:%s",d.Id())
+	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)	log.Printf("[DEBUG]DeletingRedshiftServerlessNamespace:%s",d.Id())
 	_,err:=tfresource.RetryWhenAWSErrMessageContains(ctx,10*time.Minute,
 		func()(interface{},error){
 			returnconn.DeleteNamespaceWithContext(ctx,&redshiftserverless.DeleteNamespaceInput{
@@ -241,39 +163,21 @@ funcresourceNamespaceDelete(ctxcontext.Context,d*schema.ResourceData,metainterfa
 			})
 		},
 		//"ConflictException:Thereisanoperationrunningonthenamespace.Trydeletingthenamespaceagainlater."
-		redshiftserverless.ErrCodeConflictException,"operationrunning")
-
-	iftfawserr.ErrCodeEquals(err,redshiftserverless.ErrCodeResourceNotFoundException){
+		redshiftserverless.ErrCodeConflictException,"operationrunning")	iftfawserr.ErrCodeEquals(err,redshiftserverless.ErrCodeResourceNotFoundException){
 		returndiags
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"deletingRedshiftServerlessNamespace(%s):%s",d.Id(),err)
-	}
-
-	if_,err:=waitNamespaceDeleted(ctx,conn,d.Id());err!=nil{
+	}	if_,err:=waitNamespaceDeleted(ctx,conn,d.Id());err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"waitingforRedshiftServerlessNamespace(%s)delete:%s",d.Id(),err)
-	}
-
-	returndiags
-}
-
-var(
+	}	returndiags
+}var(
 	reIAMRole=regexache.MustCompile(`^\s*IamRole\((.*)\)\s*$`)
-)
-
-funcflattenNamespaceIAMRoles(iamRoles[]*string)[]string{
-	vartfList[]string
-
-	for_,iamRole:=rangeiamRoles{
-		iamRole:=aws.StringValue(iamRole)
-
-		ifarn.IsARN(iamRole){
+)funcflattenNamespaceIAMRoles(iamRoles[]*string)[]string{
+	vartfList[]string	for_,iamRole:=rangeiamRoles{
+		iamRole:=aws.StringValue(iamRole)		ifarn.IsARN(iamRole){
 			tfList=append(tfList,iamRole)
 			continue
-		}
-
-		//e.g."IamRole(applyStatus=in-sync,iamRoleArn=arn:aws:iam::123456789012:role/service-role/test)"
+		}		//e.g."IamRole(applyStatus=in-sync,iamRoleArn=arn:aws:iam::123456789012:role/service-role/test)"
 		ifm:=reIAMRole.FindStringSubmatch(iamRole);len(m)>0{
 			varkeystring
 			s:=m[1]
@@ -288,11 +192,7 @@ funcflattenNamespaceIAMRoles(iamRoles[]*string)[]string{
 					tfList=append(tfList,value)
 					break
 				}
-			}
-
-			continue
+			}			continue
 		}
-	}
-
-	returntfList
+	}	returntfList
 }

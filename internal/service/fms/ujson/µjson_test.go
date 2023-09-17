@@ -1,18 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ujson
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ujsonimport (
 	"fmt"
 	"strings"
 	"testing"
-)
-
-func TestWalk(t *testing.T) {
-	t.Parallel()
-
-	tests := []struct {
+)func TestWalk(t *testing.T) {
+	t.Parallel()	tests := []struct {
 		input    string
 		expected string
 	}{
@@ -313,14 +305,10 @@ func TestWalk(t *testing.T) {
 1  ]
 0  }`,
 		},
-	}
-
-	for _, tt := range tests {
+	}	for _, tt := range tests {
 		tt := tt
 		t.Run("Walk/"+tt.input, func(t *testing.T) {
-			t.Parallel()
-
-			var b strings.Builder
+			t.Parallel()			var b strings.Builder
 			err := Walk([]byte(tt.input),
 				func(st int, key, value []byte) bool {
 					fmt.Fprintf(&b, "\n%v %s %s", st, key, value)
@@ -332,14 +320,10 @@ func TestWalk(t *testing.T) {
 				t.Errorf("\nExpect: `%v`\nOutput: `%v`\n", tt.expected, b.String())
 			}
 		})
-	}
-
-	for _, tt := range tests {
+	}	for _, tt := range tests {
 		tt := tt
 		t.Run("Reconstruct/"+tt.input, func(t *testing.T) {
-			t.Parallel()
-
-			// Handle the special testcase ending with newline. This test
+			t.Parallel()			// Handle the special testcase ending with newline. This test
 			// reconstructs output json and compare with the input. Because
 			// reconstruct will not append the last newline, so we must trim it
 			// before comparing.
@@ -347,9 +331,7 @@ func TestWalk(t *testing.T) {
 			if expected[len(expected)-1] == '\n' {
 				expected = expected[:len(expected)-1]
 			}
-			expected = strings.Replace(expected, " ", "", -1)
-
-			data, err := Reconstruct([]byte(tt.input))
+			expected = strings.Replace(expected, " ", "", -1)			data, err := Reconstruct([]byte(tt.input))
 			if err != nil {
 				t.Error(err)
 			} else if s := string(data); s != expected {

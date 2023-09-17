@@ -32,8 +32,7 @@ UpdateWithoutTimeout: resourceInstanceFleetUpdate,
 DeleteWithoutTimeout: resourceInstanceFleetDelete,
 
 Importer: &schema.ResourceImporter{
-	StateContext: 
-func(_ context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+	StateContext:func(_ context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 idParts := strings.Split(d.Id(), "/")
 if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
 	return nil, fmt.Errorf("Unexpected format of ID (%q), expected cluster-id/fleet-id", d.Id())
@@ -225,10 +224,7 @@ Default:  0,
 	},
 },
 	}
-}
-
-
-func resourceInstanceFleetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceInstanceFleetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -253,10 +249,7 @@ return sdkdiag.AppendErrorf(diags, "creating EMR Instance Fleet: %s", err)
 	d.SetId(aws.StringValue(output.InstanceFleetId))
 
 	return append(diags, resourceInstanceFleetRead(ctx, d, meta)...)
-}
-
-
-func resourceInstanceFleetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceInstanceFleetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -285,10 +278,7 @@ return sdkdiag.AppendErrorf(diags, "setting launch_specifications: %s", err)
 	d.Set("target_spot_capacity", fleet.TargetSpotCapacity)
 
 	return diags
-}
-
-
-func resourceInstanceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceInstanceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -324,10 +314,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for EMR Instance Fleet (%s) update: 
 	}
 
 	return append(diags, resourceInstanceFleetRead(ctx, d, meta)...)
-}
-
-
-func resourceInstanceFleetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceInstanceFleetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -355,17 +342,13 @@ return sdkdiag.AppendErrorf(diags, "deleting EMR Instance Fleet (%s): %s", d.Id(
 	}
 
 	return diags
-}
-
-
-func FindInstanceFleetByTwoPartKey(ctx context.Context, conn *emr.EMR, clusterID, fleetID string) (*emr.InstanceFleet, error) {
+}func FindInstanceFleetByTwoPartKey(ctx context.Context, conn *emr.EMR, clusterID, fleetID string) (*emr.InstanceFleet, error) {
 	input := &emr.ListInstanceFleetsInput{
 ClusterId: aws.String(clusterID),
 	}
 	var fleets []*emr.InstanceFleet
 
-	err := conn.ListInstanceFleetsPagesWithContext(ctx, input, 
-func(page *emr.ListInstanceFleetsOutput, lastPage bool) bool {
+	err := conn.ListInstanceFleetsPagesWithContext(ctx, input,func(page *emr.ListInstanceFleetsOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
 }
@@ -390,13 +373,9 @@ if aws.StringValue(fleet.Id) == fleetID {
 	}
 
 	return nil, &retry.NotFoundError{}
-}
-
-
-func statusInstanceFleet(ctx context.Context, conn *emr.EMR, clusterID, fleetID string) retry.StateRefresh
+}func statusInstanceFleet(ctx context.Context, conn *emr.EMR, clusterID, fleetID string) retry.StateRefresh
 func {
-	return 
-func() (interface{}, string, error) {
+	returnfunc() (interface{}, string, error) {
 output, err := FindInstanceFleetByTwoPartKey(ctx, conn, clusterID, fleetID)
 
 if tfresource.NotFound(err) {

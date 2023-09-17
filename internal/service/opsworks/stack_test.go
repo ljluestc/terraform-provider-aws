@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opsworks_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opsworks_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/aws/arn"
 "github.com/aws/aws-sdk-go/aws/endpoints"
 "github.com/aws/aws-sdk-go/service/opsworks"
@@ -20,17 +14,12 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 tfopsworks "github.com/hashicorp/terraform-provider-aws/internal/service/opsworks"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
-
 func TestAccOpsWorksStack_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_opsworks_stack.test"
-var v opsworks.Stack
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+var v opsworks.Stackresource.ParallelTest(t, resource.TestCase{
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 testAccPreCheckStacks(ctx, t)
@@ -78,17 +67,12 @@ ImportStateVerify: true,
 },
 })
 }
-
-
 func TestAccOpsWorksStack_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_opsworks_stack.test"
-var v opsworks.Stack
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+var v opsworks.Stackresource.ParallelTest(t, resource.TestCase{
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 testAccPreCheckStacks(ctx, t)
@@ -109,17 +93,12 @@ ExpectNonEmptyPlan: true,
 },
 })
 }
-
-
 func TestAccOpsWorksStack_noVPC_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_opsworks_stack.test"
-var v opsworks.Stack
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+var v opsworks.Stackresource.ParallelTest(t, resource.TestCase{
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 testAccPreCheckStacks(ctx, t)
@@ -154,17 +133,12 @@ PlanOnly: true,
 },
 })
 }
-
-
 func TestAccOpsWorksStack_noVPC_defaultAZ(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_opsworks_stack.test"
-var v opsworks.Stack
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+var v opsworks.Stackresource.ParallelTest(t, resource.TestCase{
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 testAccPreCheckStacks(ctx, t)
@@ -191,17 +165,12 @@ ImportStateVerify: true,
 },
 })
 }
-
-
 func TestAccOpsWorksStack_tags(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_opsworks_stack.test"
-var v opsworks.Stack
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+var v opsworks.Stackresource.ParallelTest(t, resource.TestCase{
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 testAccPreCheckStacks(ctx, t)
@@ -246,23 +215,17 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 })
 }
-
-
 func TestAccOpsWorksStack_tagsAlternateRegion(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_opsworks_stack.test"
-var v opsworks.Stack
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+var v opsworks.Stackresource.ParallelTest(t, resource.TestCase{
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 testAccPreCheckStacks(ctx, t)
 // This test requires a very particular AWS Region configuration
-// in order to exercise the OpsWorks classic endpoint 
-functionality.
+// in order to exercise the OpsWorks classic endpointfunctionality.
 acctest.PreCheckMultipleRegion(t, 2)
 acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 acctest.PreCheckAlternateRegionIs(t, endpoints.UsWest1RegionID)
@@ -276,8 +239,7 @@ Config: testAccStackConfig_tags1AlternateRegion(rName, "key1", "value1"),
 Check: resource.ComposeTestCheck
 func(
 testAccCheckStackExists(ctx, resourceName, &v),
-resource.TestCheckResourceAttrWith(resourceName, "arn", 
-func(value string) error {
+resource.TestCheckResourceAttrWith(resourceName, "arn",func(value string) error {
 if !regexache.MustCompile(arn.ARN{
 Partition: acctest.Partition(),
 Service:   opsworks.ServiceName,
@@ -286,9 +248,7 @@ AccountID: acctest.AccountID(),
 Resource:  `stack/.+/`,
 }.String()).MatchString(value) {
 return fmt.Errorf("%s doesn't match ARN pattern", value)
-}
-
-return nil
+}return nil
 }),
 resource.TestCheckResourceAttr(resourceName, "region", acctest.AlternateRegion()),
 // "In this case, the actual API endpoint of the stack is in us-east-1."
@@ -324,17 +284,12 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 })
 }
-
-
 func TestAccOpsWorksStack_allAttributes(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_opsworks_stack.test"
-var v opsworks.Stack
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+var v opsworks.Stackresource.ParallelTest(t, resource.TestCase{
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 testAccPreCheckStacks(ctx, t)
@@ -465,17 +420,12 @@ resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id")
 },
 })
 }
-
-
 func TestAccOpsWorksStack_windows(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_opsworks_stack.test"
-var v opsworks.Stack
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+var v opsworks.Stackresource.ParallelTest(t, resource.TestCase{
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 testAccPreCheckStacks(ctx, t)
@@ -514,88 +464,44 @@ resource.TestCheckResourceAttr(resourceName, "default_os", "Microsoft Windows Se
 },
 })
 }
-
-
 func testAccPreCheckStacks(ctx context.Context, t *testing.T) {
-conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
-
-input := &opsworks.DescribeStacksInput{}
-
-_, err := conn.DescribeStacksWithContext(ctx, input)
-
-if acctest.PreCheckSkipError(err) {
+conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)input := &opsworks.DescribeStacksInput{}_, err := conn.DescribeStacksWithContext(ctx, input)if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
-}
-
-if err != nil {
+}if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
 }
 }
-
-
 func testAccCheckStackExists(ctx context.Context, n string, v *opsworks.Stack) resource.TestCheck
 func {
-return 
-func(s *terraform.State) error {
+returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No OpsWorks Stack ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
-
-output, err := tfopsworks.FindStackByID(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)output, err := tfopsworks.FindStackByID(ctx, conn, rs.Primary.ID)if err != nil {
 return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 }
 }
-
-
 func testAccCheckStackDestroy(ctx context.Context) resource.TestCheck
 func {
-return 
-func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+returnfunc(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_opsworks_stack" {
 continue
-}
-
-_, err := tfopsworks.FindStackByID(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+}_, err := tfopsworks.FindStackByID(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
-}
-
-return fmt.Errorf("OpsWorks Stack %s still exists", rs.Primary.ID)
-}
-
-return nil
+}return fmt.Errorf("OpsWorks Stack %s still exists", rs.Primary.ID)
+}return nil
 }
 }
-
-
 func testAccStackConfig_baseIAM(rName string) string {
 return fmt.Sprintf(`
 resource "aws_iam_role" "opsworks_service" {
-  name = "%[1]s-service"
-
-  assume_role_policy = <<EOT
+  name = "%[1]s-service"  assume_role_policy = <<EOT
 {
   "Version": "2008-10-17",
   "Statement": [{
@@ -607,13 +513,9 @@ resource "aws_iam_role" "opsworks_service" {
   }]
 }
 EOT
-}
-
-resource "aws_iam_role_policy" "opsworks_service" {
+}resource "aws_iam_role_policy" "opsworks_service" {
   name = "%[1]s-service"
-  role = aws_iam_role.opsworks_service.id
-
-  policy = <<EOT
+  role = aws_iam_role.opsworks_service.id  policy = <<EOT
 {
   "Statement": [{
 "Action": [
@@ -629,12 +531,8 @@ resource "aws_iam_role_policy" "opsworks_service" {
   }]
 }
 EOT
-}
-
-resource "aws_iam_role" "opsworks_instance" {
-  name = "%[1]s-instance"
-
-  assume_role_policy = <<EOT
+}resource "aws_iam_role" "opsworks_instance" {
+  name = "%[1]s-instance"  assume_role_policy = <<EOT
 {
   "Version": "2008-10-17",
   "Statement": [{
@@ -646,24 +544,18 @@ resource "aws_iam_role" "opsworks_instance" {
   }]
 }
 EOT
-}
-
-resource "aws_iam_instance_profile" "opsworks_instance" {
+}resource "aws_iam_instance_profile" "opsworks_instance" {
   name = "%[1]s-instance"
   role = aws_iam_role.opsworks_instance.name
 }
 `, rName)
 }
-
-
 func testAccStackConfig_baseVPC(rName string) string {
 return acctest.ConfigCompose(
 testAccStackConfig_baseIAM(rName),
 acctest.ConfigVPCWithSubnets(rName, 2),
 )
 }
-
-
 func testAccStackConfig_baseVPCAlternateRegion(rName string) string {
 return acctest.ConfigCompose(
 acctest.ConfigMultipleRegionProvider(2),
@@ -671,43 +563,23 @@ testAccStackConfig_baseIAM(rName),
 fmt.Sprintf(`
 # The VPC (and subnets) must be in the target (alternate) AWS Region.
 data "aws_availability_zones" "available" {
-  provider = "awsalternate"
-
-  state = "available"
-
-  filter {
+  provider = "awsalternate"  state = "available"  filter {
 name   = "opt-in-status"
 values = ["opt-in-not-required"]
   }
-}
-
-resource "aws_vpc" "test" {
-  provider = "awsalternate"
-
-  cidr_block = "10.1.0.0/16"
-
-  tags = {
+}resource "aws_vpc" "test" {
+  provider = "awsalternate"  cidr_block = "10.1.0.0/16"  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test" {
-  provider = "awsalternate"
-
-  count = 2
-
-  vpc_id   = aws_vpc.test.id
+}resource "aws_subnet" "test" {
+  provider = "awsalternate"  count = 2  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-
-  tags = {
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)  tags = {
 Name = %[1]q
   }
 }
 `, rName))
 }
-
-
 func testAccStackConfig_basic(rName string) string {
 return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
@@ -721,8 +593,6 @@ resource "aws_opsworks_stack" "test" {
 }
 `, rName, acctest.Region()))
 }
-
-
 func testAccStackConfig_noVPC(rName string) string {
 return acctest.ConfigCompose(
 testAccStackConfig_baseIAM(rName),
@@ -733,15 +603,11 @@ resource "aws_opsworks_stack" "test" {
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
-}
-
-data "aws_vpc" "default" {
+}data "aws_vpc" "default" {
   default = true
 }
 `, rName, acctest.Region()))
 }
-
-
 func testAccStackConfig_defaultVPC(rName string) string {
 return acctest.ConfigCompose(
 testAccStackConfig_baseIAM(rName),
@@ -753,15 +619,11 @@ resource "aws_opsworks_stack" "test" {
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
   vpc_id   = data.aws_vpc.default.id
-}
-
-data "aws_vpc" "default" {
+}data "aws_vpc" "default" {
   default = true
 }
 `, rName, acctest.Region()))
 }
-
-
 func testAccStackConfig_noVPCDefaultAZ(rName string) string {
 return acctest.ConfigCompose(
 testAccStackConfig_baseIAM(rName),
@@ -774,15 +636,11 @@ resource "aws_opsworks_stack" "test" {
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
   default_availability_zone= data.aws_availability_zones.available.names[1]
-}
-
-data "aws_vpc" "default" {
+}data "aws_vpc" "default" {
   default = true
 }
 `, rName, acctest.Region()))
 }
-
-
 func testAccStackConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
@@ -792,16 +650,12 @@ resource "aws_opsworks_stack" "test" {
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
   vpc_id   = aws_vpc.test.id
-  use_opsworks_security_groups = false
-
-  tags = {
+  use_opsworks_security_groups = false  tags = {
 %[3]q = %[4]q
   }
 }
 `, rName, acctest.Region(), tagKey1, tagValue1))
 }
-
-
 func testAccStackConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
@@ -811,17 +665,13 @@ resource "aws_opsworks_stack" "test" {
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
   vpc_id   = aws_vpc.test.id
-  use_opsworks_security_groups = false
-
-  tags = {
+  use_opsworks_security_groups = false  tags = {
 %[3]q = %[4]q
 %[5]q = %[6]q
   }
 }
 `, rName, acctest.Region(), tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
-
 func testAccStackConfig_tags1AlternateRegion(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
@@ -831,16 +681,12 @@ resource "aws_opsworks_stack" "test" {
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
   vpc_id   = aws_vpc.test.id
-  use_opsworks_security_groups = false
-
-  tags = {
+  use_opsworks_security_groups = false  tags = {
 %[3]q = %[4]q
   }
 }
 `, rName, acctest.AlternateRegion(), tagKey1, tagValue1))
 }
-
-
 func testAccStackConfig_tags2AlternateRegion(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
@@ -850,17 +696,13 @@ resource "aws_opsworks_stack" "test" {
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
   vpc_id   = aws_vpc.test.id
-  use_opsworks_security_groups = false
-
-  tags = {
+  use_opsworks_security_groups = false  tags = {
 %[3]q = %[4]q
 %[5]q = %[6]q
   }
 }
 `, rName, acctest.AlternateRegion(), tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
-
 func testAccStackConfig_allAttributes(rName, agentVersion, color, customCookbookRevision, customJSON, defaultSSHKeyName, hostnameTheme string) string {
 return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
@@ -870,9 +712,7 @@ resource "aws_opsworks_stack" "test" {
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
   vpc_id   = aws_vpc.test.id
-  use_opsworks_security_groups = false
-
-  agent_version  = %[3]q
+  use_opsworks_security_groups = false  agent_version  = %[3]q
   color = %[4]q
   configuration_manager_name= "Chef"
   configuration_manager_version = "12"
@@ -881,9 +721,7 @@ resource "aws_opsworks_stack" "test" {
   default_root_device_type = "ebs"
   default_ssh_key_name = %[7]q
   hostname_theme = %[8]q
-  manage_berkshelf= false
-
-  use_custom_cookbooks = true
+  manage_berkshelf= false  use_custom_cookbooks = true
   custom_cookbooks_source {
 type= "git"
 revision = %[5]q
@@ -894,8 +732,6 @@ username = "tfacctest"
 }
 `, rName, acctest.Region(), agentVersion, color, customCookbookRevision, customJSON, defaultSSHKeyName, hostnameTheme))
 }
-
-
 func testAccStackConfig_windows(rName, defaultOS string) string {
 return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
@@ -905,43 +741,25 @@ resource "aws_opsworks_stack" "test" {
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
   vpc_id   = aws_vpc.test.id
-  use_opsworks_security_groups = false
-
-  default_os= %[3]q
+  use_opsworks_security_groups = false  default_os= %[3]q
   configuration_manager_version = "12.2"
 }
 `, rName, acctest.Region(), defaultOS))
-}
-
-// Layers
-
-func testAccStackConfig_vpcCreate(rName string) string {
+}// Layersfunc testAccStackConfig_vpcCreate(rName string) string {
 return acctest.ConfigCompose(
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-resource "aws_vpc" "test" {
-  cidr_block = "10.3.5.0/24"
-
-  tags = {
+data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_vpc" "test" {
+  cidr_block = "10.3.5.0/24"  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test" {
+}resource "aws_subnet" "test" {
   vpc_id   = aws_vpc.test.id
   cidr_block   = aws_vpc.test.cidr_block
-  availability_zone = data.aws_availability_zones.available.names[0]
-
-  tags = {
+  availability_zone = data.aws_availability_zones.available.names[0]  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_opsworks_stack" "test" {
+}resource "aws_opsworks_stack" "test" {
   name = %[1]q
   region   = data.aws_region.current.name
   vpc_id   = aws_vpc.test.id
@@ -949,22 +767,14 @@ resource "aws_opsworks_stack" "test" {
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_os= "Amazon Linux 2016.09"
-  default_root_device_type= "ebs"
-
-  custom_json = <<EOF
+  default_root_device_type= "ebs"  custom_json = <<EOF
 {
   "key": "value"
 }
-EOF
-
-  configuration_manager_version = "11.10"
+EOF  configuration_manager_version = "11.10"
   use_opsworks_security_groups  = false
-}
-
-resource "aws_iam_role" "opsworks_service" {
-  name = %[1]q
-
-  assume_role_policy = <<EOT
+}resource "aws_iam_role" "opsworks_service" {
+  name = %[1]q  assume_role_policy = <<EOT
 {
   "Version": "2008-10-17",
   "Statement": [
@@ -979,13 +789,9 @@ resource "aws_iam_role" "opsworks_service" {
   ]
 }
 EOT
-}
-
-resource "aws_iam_role_policy" "opsworks_service" {
+}resource "aws_iam_role_policy" "opsworks_service" {
   name = %[1]q
-  role = aws_iam_role.opsworks_service.id
-
-  policy = <<EOT
+  role = aws_iam_role.opsworks_service.id  policy = <<EOT
 {
   "Statement": [
 {
@@ -1005,12 +811,8 @@ resource "aws_iam_role_policy" "opsworks_service" {
   ]
 }
 EOT
-}
-
-resource "aws_iam_role" "opsworks_instance" {
-  name = "%[1]s-instance"
-
-  assume_role_policy = <<EOT
+}resource "aws_iam_role" "opsworks_instance" {
+  name = "%[1]s-instance"  assume_role_policy = <<EOT
 {
   "Version": "2008-10-17",
   "Statement": [
@@ -1025,16 +827,12 @@ resource "aws_iam_role" "opsworks_instance" {
   ]
 }
 EOT
-}
-
-resource "aws_iam_instance_profile" "opsworks_instance" {
+}resource "aws_iam_instance_profile" "opsworks_instance" {
   name = %[1]q
   role = aws_iam_role.opsworks_instance.name
 }
 `, rName))
-}
-
-const (
+}const (
 testAccCustomJSON1 = `{"key1":"value1"}`
 testAccCustomJSON2 = `{"key2":"value2"}`
 )

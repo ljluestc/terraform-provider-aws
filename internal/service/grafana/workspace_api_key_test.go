@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package grafana_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package grafana_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/managedgrafana"
+	"testing"	"github.com/aws/aws-sdk-go/service/managedgrafana"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func testAccWorkspaceAPIKey_basic(t *testing.T) {
+)func testAccWorkspaceAPIKey_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_workspace_api_key.test"
-	workspaceResourceName := "aws_grafana_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	workspaceResourceName := "aws_grafana_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, managedgrafana.EndpointsID),
 		CheckDestroy:acctest.CheckDestroyNoop,
@@ -37,14 +27,10 @@ func testAccWorkspaceAPIKey_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccWorkspaceAPIKeyConfig_basic(rName string) string {
+}func testAccWorkspaceAPIKeyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = jsonencode({
+  name = %[1]q  assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -57,16 +43,12 @@ resource "aws_iam_role" "test" {
       },
     ]
   })
-}
-
-resource "aws_grafana_workspace" "test" {
+}resource "aws_grafana_workspace" "test" {
   account_access_type      = "CURRENT_ACCOUNT"
   authentication_providers = ["SAML"]
   permission_type = "SERVICE_MANAGED"
   role_arn    = aws_iam_role.test.arn
-}
-
-resource "aws_grafana_workspace_api_key" "test" {
+}resource "aws_grafana_workspace_api_key" "test" {
   key_name        = %[1]q
   key_role        = "EDITOR"
   seconds_to_live = 3600

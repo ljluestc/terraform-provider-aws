@@ -1,30 +1,20 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package macie2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package macie2_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/macie2"
+	"testing"	"github.com/aws/aws-sdk-go/service/macie2"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func testAccClassificationExportConfiguration_basic(t *testing.T) {
+)func testAccClassificationExportConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var macie2Output macie2.GetClassificationExportConfigurationOutput
 	resourceName := "aws_macie2_classification_export_configuration.test"
 	kmsKeyResourceName := "aws_kms_key.test"
 	macieAccountResourceName := "aws_macie2_account.test"
-	s3BucketResourceName := "aws_s3_bucket.test"
-
-	resource.Test(t, resource.TestCase{
+	s3BucketResourceName := "aws_s3_bucket.test"	resource.Test(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClassificationExportConfigurationDestroy(ctx),
@@ -59,72 +49,36 @@ func testAccClassificationExportConfiguration_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckClassificationExportConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckClassificationExportConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_macie2_classification_export_configuration" {
 				continue
-			}
-
-			input := macie2.GetClassificationExportConfigurationInput{}
-			resp, err := conn.GetClassificationExportConfigurationWithContext(ctx, &input)
-
-			if tfawserr.ErrCodeEquals(err, macie2.ErrCodeResourceNotFoundException, "Macie is not enabled") {
+			}			input := macie2.GetClassificationExportConfigurationInput{}
+			resp, err := conn.GetClassificationExportConfigurationWithContext(ctx, &input)			if tfawserr.ErrCodeEquals(err, macie2.ErrCodeResourceNotFoundException, "Macie is not enabled") {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			if (macie2.GetClassificationExportConfigurationOutput{}) != *resp || resp != nil { // nosemgrep:ci.semgrep.aws.prefer-pointer-conversion-conditional
+			}			if (macie2.GetClassificationExportConfigurationOutput{}) != *resp || resp != nil { // nosemgrep:ci.semgrep.aws.prefer-pointer-conversion-conditional
 				return fmt.Errorf("macie classification export configuration %q still configured", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckClassificationExportConfigurationExists(ctx context.Context, resourceName string, macie2CEConfig *macie2.GetClassificationExportConfigurationOutput) resource.TestCheckFunc {
+}func testAccCheckClassificationExportConfigurationExists(ctx context.Context, resourceName string, macie2CEConfig *macie2.GetClassificationExportConfigurationOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("not found: %s", resourceName)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
-		input := macie2.GetClassificationExportConfigurationInput{}
-
-		resp, err := conn.GetClassificationExportConfigurationWithContext(ctx, &input)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
+		input := macie2.GetClassificationExportConfigurationInput{}		resp, err := conn.GetClassificationExportConfigurationWithContext(ctx, &input)		if err != nil {
 			return err
-		}
-
-		if (macie2.GetClassificationExportConfigurationOutput{}) == *resp || resp == nil { // nosemgrep:ci.semgrep.aws.prefer-pointer-conversion-conditional
+		}		if (macie2.GetClassificationExportConfigurationOutput{}) == *resp || resp == nil { // nosemgrep:ci.semgrep.aws.prefer-pointer-conversion-conditional
 			return fmt.Errorf("macie classification export configuration %q does not exist", rs.Primary.ID)
-		}
-
-		*macie2CEConfig = *resp
-
-		return nil
+		}		*macie2CEConfig = *resp		return nil
 	}
-}
-
-func testAccClassificationExportConfigurationConfig_basic(prefix string) string {
+}func testAccClassificationExportConfigurationConfig_basic(prefix string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-resource "aws_kms_key" "test" {
+data "aws_caller_identity" "current" {}data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_kms_key" "test" {
   deletion_window_in_days = 7
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -153,13 +107,9 @@ resource "aws_kms_key" "test" {
       }
     ]
   })
-}
-
-resource "aws_s3_bucket" "test" {
+}resource "aws_s3_bucket" "test" {
   force_destroy = true
-}
-
-resource "aws_s3_bucket_policy" "test" {
+}resource "aws_s3_bucket_policy" "test" {
   bucket = aws_s3_bucket.test.id
   policy = jsonencode(
     {
@@ -209,11 +159,7 @@ resource "aws_s3_bucket_policy" "test" {
       ]
     }
   )
-}
-
-resource "aws_macie2_account" "test" {}
-
-resource "aws_macie2_classification_export_configuration" "test" {
+}resource "aws_macie2_account" "test" {}resource "aws_macie2_classification_export_configuration" "test" {
   depends_on = [
     aws_macie2_account.test,
     aws_kms_key.test,

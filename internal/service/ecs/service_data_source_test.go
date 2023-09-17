@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ecs_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ecs_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/ecs"
+	"testing"	"github.com/aws/aws-sdk-go/service/ecs"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccECSServiceDataSource_basic(t *testing.T) {
+)func TestAccECSServiceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ecs_service.test"
 	resourceName := "aws_ecs_service.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ecs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -38,18 +28,12 @@ func TestAccECSServiceDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccServiceDataSourceConfig_basic(rName string) string {
+}func testAccServiceDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
   name = %[1]q
-}
-
-resource "aws_ecs_task_definition" "test" {
-  family = %[1]q
-
-  container_definitions = <<DEFINITION
+}resource "aws_ecs_task_definition" "test" {
+  family = %[1]q  container_definitions = <<DEFINITION
 [
   {
     "cpu": 128,
@@ -61,9 +45,7 @@ resource "aws_ecs_task_definition" "test" {
   }
 ]
 DEFINITION
-}
-
-resource "aws_ecs_service" "test" {
+}resource "aws_ecs_service" "test" {
   name   = "mongodb"
   cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
@@ -71,9 +53,7 @@ resource "aws_ecs_service" "test" {
   tags = {
     Name = %[1]q
   }
-}
-
-data "aws_ecs_service" "test" {
+}data "aws_ecs_service" "test" {
   service_name = aws_ecs_service.test.name
   cluster_arn  = aws_ecs_cluster.test.arn
 }

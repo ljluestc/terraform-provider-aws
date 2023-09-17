@@ -1,11 +1,1 @@
-//Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0packageelasticacheconst(
-	engineMemcached="memcached"
-	engineRedis="redis"
-)//engine_ValuesreturnsallelementsoftheEngineenum
-funcengine_Values()[]string{
-	return[]string{
-		engineMemcached,
-		engineRedis,
-	}
-}
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageelasticacheconst(engineMemcached="memcached"engineRedis="redis")//engine_ValuesreturnsallelementsoftheEngineenumfuncengine_Values()[]string{return[]string{engineMemcached,engineRedis,}}

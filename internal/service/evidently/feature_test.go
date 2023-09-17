@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package evidently_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package evidently_testimport (
 	"context"
 	"fmt"
 	"strconv"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/cloudwatchevidently"
+	"testing"	"github.com/aws/aws-sdk-go/service/cloudwatchevidently"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -17,17 +11,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcloudwatchevidently "github.com/hashicorp/terraform-provider-aws/internal/service/evidently"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccEvidentlyFeature_basic(t *testing.T) {
+)func TestAccEvidentlyFeature_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -67,19 +55,13 @@ func TestAccEvidentlyFeature_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlyFeature_updateDefaultVariation(t *testing.T) {
+}func TestAccEvidentlyFeature_updateDefaultVariation(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	variationName1 := "Variation1"
 	variationName2 := "Variation2"
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -109,19 +91,13 @@ func TestAccEvidentlyFeature_updateDefaultVariation(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlyFeature_updateDescription(t *testing.T) {
+}func TestAccEvidentlyFeature_updateDescription(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	originalDescription := "original description"
 	updatedDescription := "updated description"
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -151,19 +127,13 @@ func TestAccEvidentlyFeature_updateDescription(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlyFeature_updateEntityOverrides(t *testing.T) {
+}func TestAccEvidentlyFeature_updateEntityOverrides(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	variationName1 := "Variation1"
 	variationName2 := "Variation2"
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -216,19 +186,13 @@ func TestAccEvidentlyFeature_updateEntityOverrides(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlyFeature_updateEvaluationStrategy(t *testing.T) {
+}func TestAccEvidentlyFeature_updateEvaluationStrategy(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	originalEvaluationStategy := cloudwatchevidently.FeatureEvaluationStrategyAllRules
 	updatedEvaluationStategy := cloudwatchevidently.FeatureEvaluationStrategyDefaultVariation
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -258,13 +222,9 @@ func TestAccEvidentlyFeature_updateEvaluationStrategy(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlyFeature_updateVariationsBoolValue(t *testing.T) {
+}func TestAccEvidentlyFeature_updateVariationsBoolValue(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	originalVariationName1 := "Variation1Original"
 	updatedVariationName1 := "Variation1Updated"
@@ -272,9 +232,7 @@ func TestAccEvidentlyFeature_updateVariationsBoolValue(t *testing.T) {
 	updatedVariationBoolVal1 := false
 	variationName2 := "Variation2"
 	variationBoolVal2 := true
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -323,13 +281,9 @@ func TestAccEvidentlyFeature_updateVariationsBoolValue(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlyFeature_updateVariationsDoubleValue(t *testing.T) {
+}func TestAccEvidentlyFeature_updateVariationsDoubleValue(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	originalVariationName1 := "Variation1Original"
 	updatedVariationName1 := "Variation1Updated"
@@ -337,9 +291,7 @@ func TestAccEvidentlyFeature_updateVariationsDoubleValue(t *testing.T) {
 	updatedVariationDoubleVal1 := 2.2
 	variationName2 := "Variation2"
 	variationDoubleVal2 := 3
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -388,13 +340,9 @@ func TestAccEvidentlyFeature_updateVariationsDoubleValue(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlyFeature_updateVariationsLongValue(t *testing.T) {
+}func TestAccEvidentlyFeature_updateVariationsLongValue(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	originalVariationName1 := "Variation1Original"
 	updatedVariationName1 := "Variation1Updated"
@@ -402,9 +350,7 @@ func TestAccEvidentlyFeature_updateVariationsLongValue(t *testing.T) {
 	updatedVariationLongVal1 := 2
 	variationName2 := "Variation2"
 	variationLongVal2 := 3
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -453,13 +399,9 @@ func TestAccEvidentlyFeature_updateVariationsLongValue(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
+}func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	originalVariationName1 := "Variation1Original"
 	updatedVariationName1 := "Variation1Updated"
@@ -468,9 +410,7 @@ func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
 	variationName2 := "Variation2"
 	variationStringVal2 := "Variation2StringVal"
 	updatedVariationStringVal2 := ""
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -538,17 +478,11 @@ func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlyFeature_tags(t *testing.T) {
+}func TestAccEvidentlyFeature_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudwatchevidently.EndpointsID)
@@ -589,17 +523,11 @@ func TestAccEvidentlyFeature_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccEvidentlyFeature_disappears(t *testing.T) {
+}func TestAccEvidentlyFeature_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var feature cloudwatchevidently.Feature
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	var feature cloudwatchevidently.Feature	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_evidently_feature.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_evidently_feature.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -615,88 +543,46 @@ func TestAccEvidentlyFeature_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckFeatureDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckFeatureDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EvidentlyConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_evidently_feature" {
 				continue
-			}
-
-			featureName, projectNameOrARN, err := tfcloudwatchevidently.FeatureParseID(rs.Primary.ID)
-
-			if err != nil {
+			}			featureName, projectNameOrARN, err := tfcloudwatchevidently.FeatureParseID(rs.Primary.ID)			if err != nil {
 				return err
-			}
-
-			_, err = tfcloudwatchevidently.FindFeatureWithProjectNameorARN(ctx, conn, featureName, projectNameOrARN)
-
-			if tfresource.NotFound(err) {
+			}			_, err = tfcloudwatchevidently.FindFeatureWithProjectNameorARN(ctx, conn, featureName, projectNameOrARN)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("CloudWatch Evidently Feature %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("CloudWatch Evidently Feature %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckFeatureExists(ctx context.Context, n string, v *cloudwatchevidently.Feature) resource.TestCheckFunc {
+}func testAccCheckFeatureExists(ctx context.Context, n string, v *cloudwatchevidently.Feature) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-
-		if !ok {
+		rs, ok := s.RootModule().Resources[n]		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No CloudWatch Evidently Feature ID is set")
-		}
-
-		featureName, projectNameOrARN, err := tfcloudwatchevidently.FeatureParseID(rs.Primary.ID)
-
-		if err != nil {
+		}		featureName, projectNameOrARN, err := tfcloudwatchevidently.FeatureParseID(rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EvidentlyConn(ctx)
-
-		output, err := tfcloudwatchevidently.FindFeatureWithProjectNameorARN(ctx, conn, featureName, projectNameOrARN)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).EvidentlyConn(ctx)		output, err := tfcloudwatchevidently.FindFeatureWithProjectNameorARN(ctx, conn, featureName, projectNameOrARN)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccFeatureConfigBase(rName string) string {
+}func testAccFeatureConfigBase(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_project" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccFeatureConfig_basic(rName, rName2 string) string {
+}func testAccFeatureConfig_basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name= %[1]q
-  project = aws_evidently_project.test.name
-
-  variations {
+  project = aws_evidently_project.test.name  variations {
 name = "Variation1"
 value {
   string_value = "test"
@@ -704,9 +590,7 @@ value {
   }
 }
 `, rName2))
-}
-
-func testAccFeatureConfig_defaultVariation(rName, rName2, variationName1, variationName2, selectDefaultVariation string) string {
+}func testAccFeatureConfig_defaultVariation(rName, rName2, variationName1, variationName2, selectDefaultVariation string) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
@@ -714,21 +598,15 @@ locals {
   select_default_variation = %[4]q
   variation_name1 = %[2]q
   variation_name2 = %[3]q
-}
-
-resource "aws_evidently_feature" "test" {
+}resource "aws_evidently_feature" "test" {
   name = %[1]q
   project  = aws_evidently_project.test.name
-  default_variation = local.select_default_variation == "first" ? local.variation_name1 : local.variation_name2
-
-  variations {
+  default_variation = local.select_default_variation == "first" ? local.variation_name1 : local.variation_name2  variations {
 name = %[2]q
 value {
   string_value = "testval1"
 }
-  }
-
-  variations {
+  }  variations {
 name = %[3]q
 value {
   string_value = "testval2"
@@ -736,18 +614,14 @@ value {
   }
 }
 `, rName2, variationName1, variationName2, selectDefaultVariation))
-}
-
-func testAccFeatureConfig_description(rName, rName2, description string) string {
+}func testAccFeatureConfig_description(rName, rName2, description string) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name= %[1]q
   description = %[2]q
-  project = aws_evidently_project.test.name
-
-  variations {
+  project = aws_evidently_project.test.name  variations {
 name = "Variation1"
 value {
   string_value = "test"
@@ -755,28 +629,20 @@ value {
   }
 }
 `, rName2, description))
-}
-
-func testAccFeatureConfig_entityOverrides1(rName, rName2, variationName1, variationName2 string) string {
+}func testAccFeatureConfig_entityOverrides1(rName, rName2, variationName1, variationName2 string) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name= %[1]q
-  project = aws_evidently_project.test.name
-
-  entity_overrides = {
+  project = aws_evidently_project.test.name  entity_overrides = {
 test1 = %[2]q
-  }
-
-  variations {
+  }  variations {
 name = %[2]q
 value {
   string_value = "testval1"
 }
-  }
-
-  variations {
+  }  variations {
 name = %[3]q
 value {
   string_value = "testval2"
@@ -784,29 +650,21 @@ value {
   }
 }
 `, rName2, variationName1, variationName2))
-}
-
-func testAccFeatureConfig_entityOverrides2(rName, rName2, variationName1, variationName2 string) string {
+}func testAccFeatureConfig_entityOverrides2(rName, rName2, variationName1, variationName2 string) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name= %[1]q
-  project = aws_evidently_project.test.name
-
-  entity_overrides = {
+  project = aws_evidently_project.test.name  entity_overrides = {
 test1 = %[3]q
 test2 = %[2]q
-  }
-
-  variations {
+  }  variations {
 name = %[2]q
 value {
   string_value = "testval1"
 }
-  }
-
-  variations {
+  }  variations {
 name = %[3]q
 value {
   string_value = "testval2"
@@ -814,18 +672,14 @@ value {
   }
 }
 `, rName2, variationName1, variationName2))
-}
-
-func testAccFeatureConfig_evaluationStrategy(rName, rName2, evaluationStrategy string) string {
+}func testAccFeatureConfig_evaluationStrategy(rName, rName2, evaluationStrategy string) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name   = %[1]q
   evaluation_strategy = %[2]q
-  project= aws_evidently_project.test.name
-
-  variations {
+  project= aws_evidently_project.test.name  variations {
 name = "Variation1"
 value {
   string_value = "test"
@@ -833,17 +687,13 @@ value {
   }
 }
 `, rName2, evaluationStrategy))
-}
-
-func testAccFeatureConfig_variationsBoolValue1(rName, rName2, variationName1 string, boolVal1 bool) string {
+}func testAccFeatureConfig_variationsBoolValue1(rName, rName2, variationName1 string, boolVal1 bool) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name= %[1]q
-  project = aws_evidently_project.test.name
-
-  variations {
+  project = aws_evidently_project.test.name  variations {
 name = %[2]q
 value {
   bool_value = %[3]t
@@ -851,25 +701,19 @@ value {
   }
 }
 `, rName2, variationName1, boolVal1))
-}
-
-func testAccFeatureConfig_variationsBoolValue2(rName, rName2, variationName1 string, boolVal1 bool, variationName2 string, boolVal2 bool) string {
+}func testAccFeatureConfig_variationsBoolValue2(rName, rName2, variationName1 string, boolVal1 bool, variationName2 string, boolVal2 bool) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name = %[1]q
   project  = aws_evidently_project.test.name
-  default_variation = %[4]q
-
-  variations {
+  default_variation = %[4]q  variations {
 name = %[2]q
 value {
   bool_value = %[3]t
 }
-  }
-
-  variations {
+  }  variations {
 name = %[4]q
 value {
   bool_value = %[5]t
@@ -877,17 +721,13 @@ value {
   }
 }
 `, rName2, variationName1, boolVal1, variationName2, boolVal2))
-}
-
-func testAccFeatureConfig_variationsDoubleValue1(rName, rName2, variationName1 string, doubleVal1 float64) string {
+}func testAccFeatureConfig_variationsDoubleValue1(rName, rName2, variationName1 string, doubleVal1 float64) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name= %[1]q
-  project = aws_evidently_project.test.name
-
-  variations {
+  project = aws_evidently_project.test.name  variations {
 name = %[2]q
 value {
   double_value = %[3]f
@@ -895,25 +735,19 @@ value {
   }
 }
 `, rName2, variationName1, doubleVal1))
-}
-
-func testAccFeatureConfig_variationsDoubleValue2(rName, rName2, variationName1 string, doubleVal1 float64, variationName2 string, doubleVal2 float64) string {
+}func testAccFeatureConfig_variationsDoubleValue2(rName, rName2, variationName1 string, doubleVal1 float64, variationName2 string, doubleVal2 float64) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name = %[1]q
   project  = aws_evidently_project.test.name
-  default_variation = %[4]q
-
-  variations {
+  default_variation = %[4]q  variations {
 name = %[2]q
 value {
   double_value = %[3]f
 }
-  }
-
-  variations {
+  }  variations {
 name = %[4]q
 value {
   double_value = %[5]f
@@ -921,17 +755,13 @@ value {
   }
 }
 `, rName2, variationName1, doubleVal1, variationName2, doubleVal2))
-}
-
-func testAccFeatureConfig_variationsLongValue1(rName, rName2, variationName1 string, longVal1 int) string {
+}func testAccFeatureConfig_variationsLongValue1(rName, rName2, variationName1 string, longVal1 int) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name= %[1]q
-  project = aws_evidently_project.test.name
-
-  variations {
+  project = aws_evidently_project.test.name  variations {
 name = %[2]q
 value {
   long_value = %[3]d
@@ -939,25 +769,19 @@ value {
   }
 }
 `, rName2, variationName1, longVal1))
-}
-
-func testAccFeatureConfig_variationsLongValue2(rName, rName2, variationName1 string, longVal1 int, variationName2 string, longVal2 int) string {
+}func testAccFeatureConfig_variationsLongValue2(rName, rName2, variationName1 string, longVal1 int, variationName2 string, longVal2 int) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name = %[1]q
   project  = aws_evidently_project.test.name
-  default_variation = %[4]q
-
-  variations {
+  default_variation = %[4]q  variations {
 name = %[2]q
 value {
   long_value = %[3]d
 }
-  }
-
-  variations {
+  }  variations {
 name = %[4]q
 value {
   long_value = %[5]d
@@ -965,17 +789,13 @@ value {
   }
 }
 `, rName2, variationName1, longVal1, variationName2, longVal2))
-}
-
-func testAccFeatureConfig_variationsStringValue1(rName, rName2, variationName1, stringVal1 string) string {
+}func testAccFeatureConfig_variationsStringValue1(rName, rName2, variationName1, stringVal1 string) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name= %[1]q
-  project = aws_evidently_project.test.name
-
-  variations {
+  project = aws_evidently_project.test.name  variations {
 name = %[2]q
 value {
   string_value = %[3]q
@@ -983,25 +803,19 @@ value {
   }
 }
 `, rName2, variationName1, stringVal1))
-}
-
-func testAccFeatureConfig_variationsStringValue2(rName, rName2, variationName1, stringVal1, variationName2, stringVal2 string) string {
+}func testAccFeatureConfig_variationsStringValue2(rName, rName2, variationName1, stringVal1, variationName2, stringVal2 string) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name = %[1]q
   project  = aws_evidently_project.test.name
-  default_variation = %[4]q
-
-  variations {
+  default_variation = %[4]q  variations {
 name = %[2]q
 value {
   string_value = %[3]q
 }
-  }
-
-  variations {
+  }  variations {
 name = %[4]q
 value {
   string_value = %[5]q
@@ -1009,46 +823,34 @@ value {
   }
 }
 `, rName2, variationName1, stringVal1, variationName2, stringVal2))
-}
-
-func testAccFeatureConfig_tags1(rName, rName2, tag, value string) string {
+}func testAccFeatureConfig_tags1(rName, rName2, tag, value string) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name= %[1]q
-  project = aws_evidently_project.test.name
-
-  variations {
+  project = aws_evidently_project.test.name  variations {
 name = "Variation1"
 value {
   string_value = "test"
 }
-  }
-
-  tags = {
+  }  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName2, tag, value))
-}
-
-func testAccFeatureConfig_tags2(rName, rName2, tag1, value1, tag2, value2 string) string {
+}func testAccFeatureConfig_tags2(rName, rName2, tag1, value1, tag2, value2 string) string {
 	return acctest.ConfigCompose(
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name= %[1]q
-  project = aws_evidently_project.test.name
-
-  variations {
+  project = aws_evidently_project.test.name  variations {
 name = "Variation1"
 value {
   string_value = "test"
 }
-  }
-
-  tags = {
+  }  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

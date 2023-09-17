@@ -1,34 +1,18 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package glue_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package glue_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/glue"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func testAccDataCatalogEncryptionSettings_basic(t *testing.T) {
-	t.Skipf("Skipping aws_glue_data_catalog_encryption_settings tests due to potential KMS key corruption")
-
-	ctx := acctest.Context(t)
-
-	var settings glue.DataCatalogEncryptionSettings
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+)func testAccDataCatalogEncryptionSettings_basic(t *testing.T) {
+	t.Skipf("Skipping aws_glue_data_catalog_encryption_settings tests due to potential KMS key corruption")	ctx := acctest.Context(t)	var settings glue.DataCatalogEncryptionSettings	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_glue_data_catalog_encryption_settings.test"
-	keyResourceName := "aws_kms_key.test"
-
-	resource.Test(t, resource.TestCase{
+	keyResourceName := "aws_kms_key.test"	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -80,36 +64,20 @@ func testAccDataCatalogEncryptionSettings_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckDataCatalogEncryptionSettingsExists(ctx context.Context, resourceName string, v *glue.DataCatalogEncryptionSettings) resource.TestCheckFunc {
+}func testAccCheckDataCatalogEncryptionSettingsExists(ctx context.Context, resourceName string, v *glue.DataCatalogEncryptionSettings) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Glue Data Catalog Encryption Settings ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)
-
-		output, err := conn.GetDataCatalogEncryptionSettingsWithContext(ctx, &glue.GetDataCatalogEncryptionSettingsInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)		output, err := conn.GetDataCatalogEncryptionSettingsWithContext(ctx, &glue.GetDataCatalogEncryptionSettingsInput{
 			CatalogId: aws.String(rs.Primary.ID),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return err
-		}
-
-		*v = *output.DataCatalogEncryptionSettings
-
-		return nil
+		}		*v = *output.DataCatalogEncryptionSettings		return nil
 	}
-}
-
-func testAccDataCatalogEncryptionSettingsConfig_encrypted(rName string) string {
+}func testAccDataCatalogEncryptionSettingsConfig_encrypted(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description = %[1]q
@@ -130,33 +98,25 @@ resource "aws_kms_key" "test" {
   ]
 }
 POLICY
-}
-
-resource "aws_glue_data_catalog_encryption_settings" "test" {
+}resource "aws_glue_data_catalog_encryption_settings" "test" {
   data_catalog_encryption_settings {
     connection_password_encryption {
       aws_kms_key_id        = aws_kms_key.test.arn
       return_connection_password_encrypted = true
-    }
-
-    encryption_at_rest {
+    }    encryption_at_rest {
       catalog_encryption_mode = "SSE-KMS"
       sse_aws_kms_key_id      = aws_kms_key.test.arn
     }
   }
 }
 `, rName)
-}
-
-func testAccDataCatalogEncryptionSettingsConfig_nonEncrypted() string {
+}func testAccDataCatalogEncryptionSettingsConfig_nonEncrypted() string {
 	return `
 resource "aws_glue_data_catalog_encryption_settings" "test" {
   data_catalog_encryption_settings {
     connection_password_encryption {
       return_connection_password_encrypted = false
-    }
-
-    encryption_at_rest {
+    }    encryption_at_rest {
       catalog_encryption_mode = "DISABLED"
     }
   }

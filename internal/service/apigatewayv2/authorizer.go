@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package apigatewayv2
-
-import (
+// SPDX-License-Identifier: MPL-2.0package apigatewayv2import (
 	"context"
 	"fmt"
 	"log"
-	"strings"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"strings"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/apigatewayv2"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -19,9 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKResource("aws_apigatewayv2_authorizer")
+)// @SDKResource("aws_apigatewayv2_authorizer")
 func ResourceAuthorizer() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAuthorizerCreate,
@@ -30,9 +22,7 @@ func ResourceAuthorizer() *schema.Resource {
 		DeleteWithoutTimeout: resourceAuthorizerDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: resourceAuthorizerImport,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"api_id": {
 				Type:schema.TypeString,
 				Required: true,
@@ -99,24 +89,12 @@ func ResourceAuthorizer() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceAuthorizerCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceAuthorizerCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
-
-	apiId := d.Get("api_id").(string)
-	authorizerType := d.Get("authorizer_type").(string)
-
-	apiOutput, err := FindAPIByID(ctx, conn, apiId)
-
-	if err != nil {
+	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)	apiId := d.Get("api_id").(string)
+	authorizerType := d.Get("authorizer_type").(string)	apiOutput, err := FindAPIByID(ctx, conn, apiId)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading API Gateway v2 API (%s): %s", apiId, err)
-	}
-
-	protocolType := aws.StringValue(apiOutput.ProtocolType)
-
-	req := &apigatewayv2.CreateAuthorizerInput{
+	}	protocolType := aws.StringValue(apiOutput.ProtocolType)	req := &apigatewayv2.CreateAuthorizerInput{
 		ApiId:aws.String(apiId),
 		AuthorizerType: aws.String(authorizerType),
 		IdentitySource: flex.ExpandStringSet(d.Get("identity_sources").(*schema.Set)),
@@ -144,24 +122,14 @@ func resourceAuthorizerCreate(ctx context.Context, d *schema.ResourceData, meta 
 	}
 	if v, ok := d.GetOk("jwt_configuration"); ok {
 		req.JwtConfiguration = expandJWTConfiguration(v.([]interface{}))
-	}
-
-	log.Printf("[DEBUG] Creating API Gateway v2 authorizer: %s", req)
+	}	log.Printf("[DEBUG] Creating API Gateway v2 authorizer: %s", req)
 	resp, err := conn.CreateAuthorizerWithContext(ctx, req)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating API Gateway v2 authorizer: %s", err)
-	}
-
-	d.SetId(aws.StringValue(resp.AuthorizerId))
-
-	return append(diags, resourceAuthorizerRead(ctx, d, meta)...)
-}
-
-func resourceAuthorizerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	d.SetId(aws.StringValue(resp.AuthorizerId))	return append(diags, resourceAuthorizerRead(ctx, d, meta)...)
+}func resourceAuthorizerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
-
-	resp, err := conn.GetAuthorizerWithContext(ctx, &apigatewayv2.GetAuthorizerInput{
+	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)	resp, err := conn.GetAuthorizerWithContext(ctx, &apigatewayv2.GetAuthorizerInput{
 		ApiId:   aws.String(d.Get("api_id").(string)),
 		AuthorizerId: aws.String(d.Id()),
 	})
@@ -172,9 +140,7 @@ func resourceAuthorizerRead(ctx context.Context, d *schema.ResourceData, meta in
 	}
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading API Gateway v2 authorizer: %s", err)
-	}
-
-	d.Set("authorizer_credentials_arn", resp.AuthorizerCredentialsArn)
+	}	d.Set("authorizer_credentials_arn", resp.AuthorizerCredentialsArn)
 	d.Set("authorizer_payload_format_version", resp.AuthorizerPayloadFormatVersion)
 	d.Set("authorizer_result_ttl_in_seconds", resp.AuthorizerResultTtlInSeconds)
 	d.Set("authorizer_type", resp.AuthorizerType)
@@ -186,16 +152,10 @@ func resourceAuthorizerRead(ctx context.Context, d *schema.ResourceData, meta in
 	if err := d.Set("jwt_configuration", flattenJWTConfiguration(resp.JwtConfiguration)); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting jwt_configuration: %s", err)
 	}
-	d.Set("name", resp.Name)
-
-	return diags
-}
-
-func resourceAuthorizerUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	d.Set("name", resp.Name)	return diags
+}func resourceAuthorizerUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
-
-	req := &apigatewayv2.UpdateAuthorizerInput{
+	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)	req := &apigatewayv2.UpdateAuthorizerInput{
 		ApiId:   aws.String(d.Get("api_id").(string)),
 		AuthorizerId: aws.String(d.Id()),
 	}
@@ -225,22 +185,14 @@ func resourceAuthorizerUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	}
 	if d.HasChange("jwt_configuration") {
 		req.JwtConfiguration = expandJWTConfiguration(d.Get("jwt_configuration").([]interface{}))
-	}
-
-	log.Printf("[DEBUG] Updating API Gateway v2 authorizer: %s", req)
+	}	log.Printf("[DEBUG] Updating API Gateway v2 authorizer: %s", req)
 	_, err := conn.UpdateAuthorizerWithContext(ctx, req)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "updating API Gateway v2 authorizer: %s", err)
-	}
-
-	return append(diags, resourceAuthorizerRead(ctx, d, meta)...)
-}
-
-func resourceAuthorizerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	return append(diags, resourceAuthorizerRead(ctx, d, meta)...)
+}func resourceAuthorizerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
-
-	log.Printf("[DEBUG] Deleting API Gateway v2 authorizer (%s)", d.Id())
+	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)	log.Printf("[DEBUG] Deleting API Gateway v2 authorizer (%s)", d.Id())
 	_, err := conn.DeleteAuthorizerWithContext(ctx, &apigatewayv2.DeleteAuthorizerInput{
 		ApiId:   aws.String(d.Get("api_id").(string)),
 		AuthorizerId: aws.String(d.Id()),
@@ -250,47 +202,27 @@ func resourceAuthorizerDelete(ctx context.Context, d *schema.ResourceData, meta 
 	}
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting API Gateway v2 authorizer: %s", err)
-	}
-
-	return diags
-}
-
-func resourceAuthorizerImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+	}	return diags
+}func resourceAuthorizerImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	parts := strings.Split(d.Id(), "/")
 	if len(parts) != 2 {
 		return []*schema.ResourceData{}, fmt.Errorf("wrong format of import ID (%s), use: 'api-id/authorizer-id'", d.Id())
-	}
-
-	d.SetId(parts[1])
-	d.Set("api_id", parts[0])
-
-	return []*schema.ResourceData{d}, nil
-}
-
-func expandJWTConfiguration(vConfiguration []interface{}) *apigatewayv2.JWTConfiguration {
-	configuration := &apigatewayv2.JWTConfiguration{}
-
-	if len(vConfiguration) == 0 || vConfiguration[0] == nil {
+	}	d.SetId(parts[1])
+	d.Set("api_id", parts[0])	return []*schema.ResourceData{d}, nil
+}func expandJWTConfiguration(vConfiguration []interface{}) *apigatewayv2.JWTConfiguration {
+	configuration := &apigatewayv2.JWTConfiguration{}	if len(vConfiguration) == 0 || vConfiguration[0] == nil {
 		return configuration
 	}
-	mConfiguration := vConfiguration[0].(map[string]interface{})
-
-	if vAudience, ok := mConfiguration["audience"].(*schema.Set); ok && vAudience.Len() > 0 {
+	mConfiguration := vConfiguration[0].(map[string]interface{})	if vAudience, ok := mConfiguration["audience"].(*schema.Set); ok && vAudience.Len() > 0 {
 		configuration.Audience = flex.ExpandStringSet(vAudience)
 	}
 	if vIssuer, ok := mConfiguration["issuer"].(string); ok && vIssuer != "" {
 		configuration.Issuer = aws.String(vIssuer)
-	}
-
-	return configuration
-}
-
-func flattenJWTConfiguration(configuration *apigatewayv2.JWTConfiguration) []interface{} {
+	}	return configuration
+}func flattenJWTConfiguration(configuration *apigatewayv2.JWTConfiguration) []interface{} {
 	if configuration == nil {
 		return []interface{}{}
-	}
-
-	return []interface{}{map[string]interface{}{
+	}	return []interface{}{map[string]interface{}{
 		"audience": flex.FlattenStringSet(configuration.Audience),
 		"issuer":   aws.StringValue(configuration.Issuer),
 	}}

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package gamelift_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package gamelift_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/gamelift"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -17,14 +11,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccGameLiftGameServerGroup_basic(t *testing.T) {
+)func TestAccGameLiftGameServerGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -55,14 +45,10 @@ func TestAccGameLiftGameServerGroup_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_AutoScalingPolicy(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_AutoScalingPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -88,14 +74,10 @@ func TestAccGameLiftGameServerGroup_AutoScalingPolicy(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_AutoScalingPolicy_EstimatedInstanceWarmup(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_AutoScalingPolicy_EstimatedInstanceWarmup(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -121,14 +103,10 @@ func TestAccGameLiftGameServerGroup_AutoScalingPolicy_EstimatedInstanceWarmup(t 
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_BalancingStrategy(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_BalancingStrategy(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -153,18 +131,12 @@ func TestAccGameLiftGameServerGroup_BalancingStrategy(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_GameServerGroupName(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_GameServerGroupName(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -196,14 +168,10 @@ func TestAccGameLiftGameServerGroup_GameServerGroupName(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_InstanceDefinition(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_InstanceDefinition(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -235,14 +203,10 @@ func TestAccGameLiftGameServerGroup_InstanceDefinition(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_InstanceDefinition_WeightedCapacity(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_InstanceDefinition_WeightedCapacity(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -278,14 +242,10 @@ func TestAccGameLiftGameServerGroup_InstanceDefinition_WeightedCapacity(t *testi
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_LaunchTemplate_Id(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_LaunchTemplate_Id(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -312,14 +272,10 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Id(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_LaunchTemplate_Name(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_LaunchTemplate_Name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -346,14 +302,10 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Name(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_LaunchTemplate_Version(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_LaunchTemplate_Version(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -380,14 +332,10 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Version(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_GameServerProtectionPolicy(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_GameServerProtectionPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -412,18 +360,12 @@ func TestAccGameLiftGameServerGroup_GameServerProtectionPolicy(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_MaxSize(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_MaxSize(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -455,18 +397,12 @@ func TestAccGameLiftGameServerGroup_MaxSize(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_MinSize(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_MinSize(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -498,14 +434,10 @@ func TestAccGameLiftGameServerGroup_MinSize(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_roleARN(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_roleARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -539,18 +471,12 @@ func TestAccGameLiftGameServerGroup_roleARN(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccGameLiftGameServerGroup_vpcSubnets(t *testing.T) {
+}func TestAccGameLiftGameServerGroup_vpcSubnets(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_gamelift_game_server_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_gamelift_game_server_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, gamelift.EndpointsID)
@@ -580,76 +506,40 @@ func TestAccGameLiftGameServerGroup_vpcSubnets(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckGameServerGroupDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckGameServerGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GameLiftConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).GameLiftConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_gamelift_game_server_group" {
 				continue
-			}
-
-			input := gamelift.DescribeGameServerGroupInput{
+			}			input := gamelift.DescribeGameServerGroupInput{
 				GameServerGroupName: aws.String(rs.Primary.ID),
-			}
-
-			output, err := conn.DescribeGameServerGroupWithContext(ctx, &input)
-
-			if tfawserr.ErrCodeEquals(err, gamelift.ErrCodeNotFoundException) {
+			}			output, err := conn.DescribeGameServerGroupWithContext(ctx, &input)			if tfawserr.ErrCodeEquals(err, gamelift.ErrCodeNotFoundException) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			if output != nil {
+			}			if output != nil {
 				return fmt.Errorf("GameLift Game Server Group (%s) still exists", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckGameServerGroupExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+}func testAccCheckGameServerGroupExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("resource %s not found", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("resource %s has not set its id", resourceName)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GameLiftConn(ctx)
-
-		input := gamelift.DescribeGameServerGroupInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).GameLiftConn(ctx)		input := gamelift.DescribeGameServerGroupInput{
 			GameServerGroupName: aws.String(rs.Primary.ID),
-		}
-
-		output, err := conn.DescribeGameServerGroupWithContext(ctx, &input)
-
-		if err != nil {
+		}		output, err := conn.DescribeGameServerGroupWithContext(ctx, &input)		if err != nil {
 			return fmt.Errorf("error reading GameLift Game Server Group (%s): %w", rs.Primary.ID, err)
-		}
-
-		if output == nil {
+		}		if output == nil {
 			return fmt.Errorf("GameLift Game Server Group (%s) not found", rs.Primary.ID)
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccGameServerGroupConfig_iam(rName string, name string) string {
+}func testAccGameServerGroupConfig_iam(rName string, name string) string {
 	return fmt.Sprintf(`
-data "aws_partition" %[2]q {}
-
-resource "aws_iam_role" %[2]q {
+data "aws_partition" %[2]q {}resource "aws_iam_role" %[2]q {
   assume_role_policy = <<-EOF
 {
   "Version": "2012-10-17",
@@ -668,40 +558,28 @@ resource "aws_iam_role" %[2]q {
 }
   EOF
   name = "%[1]s-%[2]s"
-}
-
-resource "aws_iam_role_policy_attachment" %[2]q {
+}resource "aws_iam_role_policy_attachment" %[2]q {
   policy_arn = "arn:${data.aws_partition.%[2]s.partition}:iam::aws:policy/GameLiftGameServerGroupPolicy"
   role   = aws_iam_role.%[2]s.name
 }
 `, rName, name)
-}
-
-func testAccGameServerGroupLaunchTemplateConfig(rName string) string {
+}func testAccGameServerGroupLaunchTemplateConfig(rName string) string {
 	return fmt.Sprintf(`
 data "aws_vpc" "test" {
   default = true
-}
-
-data "aws_subnets" "test" {
+}data "aws_subnets" "test" {
   filter {
 name   = "vpc-id"
 values = [data.aws_vpc.test.id]
   }
-}
-
-resource "aws_launch_template" "test" {
+}resource "aws_launch_template" "test" {
   image_id = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  name = %[1]q
-
-  network_interfaces {
+  name = %[1]q  network_interfaces {
 subnet_id = data.aws_subnets.test.ids[0]
   }
 }
 `, rName)
-}
-
-func testAccGameServerGroupInstanceTypeOfferingsConfig() string {
+}func testAccGameServerGroupInstanceTypeOfferingsConfig() string {
 	return `
 data "aws_ec2_instance_type_offerings" "available" {
   filter {
@@ -710,9 +588,7 @@ values = ["c5a.large", "c5a.2xlarge", "c5.large", "c5.2xlarge", "m4.large", "m4.
   }
 }
 `
-}
-
-func testAccGameServerGroupConfig_basic(rName string) string {
+}func testAccGameServerGroupConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -729,20 +605,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
-}
-
-func testAccGameServerGroupConfig_autoScalingPolicy(rName string) string {
+}func testAccGameServerGroupConfig_autoScalingPolicy(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -764,20 +632,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
-}
-
-func testAccGameServerGroupConfig_autoScalingPolicyEstimatedInstanceWarmup(rName string) string {
+}func testAccGameServerGroupConfig_autoScalingPolicyEstimatedInstanceWarmup(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -800,20 +660,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
-}
-
-func testAccGameServerGroupConfig_balancingStrategy(rName string, balancingStrategy string) string {
+}func testAccGameServerGroupConfig_balancingStrategy(rName string, balancingStrategy string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -831,20 +683,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, balancingStrategy))
-}
-
-func testAccGameServerGroupConfig_name(rName string, gameServerGroupName string) string {
+}func testAccGameServerGroupConfig_name(rName string, gameServerGroupName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -861,20 +705,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, gameServerGroupName))
-}
-
-func testAccGameServerGroupConfig_instanceDefinition(rName string, count int) string {
+}func testAccGameServerGroupConfig_instanceDefinition(rName string, count int) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -891,20 +727,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, count))
-}
-
-func testAccGameServerGroupConfig_instanceDefinitionWeightedCapacity(rName string, weightedCapacity string) string {
+}func testAccGameServerGroupConfig_instanceDefinitionWeightedCapacity(rName string, weightedCapacity string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -922,20 +750,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, weightedCapacity))
-}
-
-func testAccGameServerGroupConfig_launchTemplateID(rName string) string {
+}func testAccGameServerGroupConfig_launchTemplateID(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -952,20 +772,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
-}
-
-func testAccGameServerGroupConfig_launchTemplateName(rName string) string {
+}func testAccGameServerGroupConfig_launchTemplateName(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -982,20 +794,12 @@ content {
   }
   launch_template {
 name = aws_launch_template.test.name
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
-}
-
-func testAccGameServerGroupConfig_launchTemplateVersion(rName string) string {
+}func testAccGameServerGroupConfig_launchTemplateVersion(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -1013,20 +817,12 @@ content {
   launch_template {
 id  = aws_launch_template.test.id
 version = 1
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName))
-}
-
-func testAccGameServerGroupConfig_maxSize(rName string, maxSize string) string {
+}func testAccGameServerGroupConfig_maxSize(rName string, maxSize string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -1043,20 +839,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = %[2]s
+  }  max_size = %[2]s
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, maxSize))
-}
-
-func testAccGameServerGroupConfig_minSize(rName string, minSize string) string {
+}func testAccGameServerGroupConfig_minSize(rName string, minSize string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -1073,20 +861,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 2
+  }  max_size = 2
   min_size = %[2]s
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, minSize))
-}
-
-func testAccGameServerGroupConfig_protectionPolicy(rName string, gameServerProtectionPolicy string) string {
+}func testAccGameServerGroupConfig_protectionPolicy(rName string, gameServerProtectionPolicy string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -1104,20 +884,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.test.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  role_arn = aws_iam_role.test.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, gameServerProtectionPolicy))
-}
-
-func testAccGameServerGroupConfig_roleARN(rName string, roleArn string) string {
+}func testAccGameServerGroupConfig_roleARN(rName string, roleArn string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, roleArn),
@@ -1134,20 +906,12 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size = 1
+  }  max_size = 1
   min_size = 1
-  role_arn = aws_iam_role.%[2]s.arn
-
-  vpc_subnets = [data.aws_subnets.test.ids[0]]
-
-  depends_on = [aws_iam_role_policy_attachment.%[2]s]
+  role_arn = aws_iam_role.%[2]s.arn  vpc_subnets = [data.aws_subnets.test.ids[0]]  depends_on = [aws_iam_role_policy_attachment.%[2]s]
 }
 `, rName, roleArn))
-}
-
-func testAccGameServerGroupConfig_vpcSubnets(rName string, count int) string {
+}func testAccGameServerGroupConfig_vpcSubnets(rName string, count int) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccGameServerGroupConfig_iam(rName, "test"),
@@ -1164,14 +928,10 @@ content {
   }
   launch_template {
 id = aws_launch_template.test.id
-  }
-
-  max_size= 1
+  }  max_size= 1
   min_size= 1
   role_arn= aws_iam_role.test.arn
-  vpc_subnets = slice(data.aws_subnets.test.ids, 0, %[2]d)
-
-  depends_on = [aws_iam_role_policy_attachment.test]
+  vpc_subnets = slice(data.aws_subnets.test.ids, 0, %[2]d)  depends_on = [aws_iam_role_policy_attachment.test]
 }
 `, rName, count))
 }

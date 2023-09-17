@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package batch_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package batch_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/batch"
+"testing""github.com/aws/aws-sdk-go/service/batch"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -21,9 +15,7 @@ func TestAccBatchSchedulingPolicy_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var schedulingPolicy1 batch.SchedulingPolicyDetail
 resourceName := "aws_batch_scheduling_policy.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -68,9 +60,7 @@ func TestAccBatchSchedulingPolicy_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var schedulingPolicy1 batch.SchedulingPolicyDetail
 resourceName := "aws_batch_scheduling_policy.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -92,23 +82,11 @@ return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No Batch Scheduling Policy ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).BatchConn(ctx)
-
-output, err := tfbatch.FindSchedulingPolicyByARN(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).BatchConn(ctx)output, err := tfbatch.FindSchedulingPolicyByARN(ctx, conn, rs.Primary.ID)if err != nil {
 return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 }
 }
 func testAccCheckSchedulingPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
@@ -117,19 +95,11 @@ for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_batch_scheduling_policy" {
 continue
 }
-conn := acctest.Provider.Meta().(*conns.AWSClient).BatchConn(ctx)
-
-_, err := tfbatch.FindSchedulingPolicyByARN(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+conn := acctest.Provider.Meta().(*conns.AWSClient).BatchConn(ctx)_, err := tfbatch.FindSchedulingPolicyByARN(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
-}
-
-return fmt.Errorf("Batch Scheduling Policy %s still exists", rs.Primary.ID)
+}return fmt.Errorf("Batch Scheduling Policy %s still exists", rs.Primary.ID)
 }
 return nil
 }
@@ -137,19 +107,13 @@ return nil
 func testAccSchedulingPolicyConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_batch_scheduling_policy" "test" {
-  name = %[1]q
-
-  fair_share_policy {
+  name = %[1]q  fair_share_policy {
  compute_reservation = 1
- share_decay_seconds = 3600
-
- share_distribution {
+ share_decay_seconds = 3600 share_distribution {
  share_identifier = "A1*"
  weight_factor = 0.1
  }
-  }
-
-  tags = {
+  }  tags = {
  "Name" = "Test Batch Scheduling Policy"
   }
 }
@@ -158,24 +122,16 @@ resource "aws_batch_scheduling_policy" "test" {
 func testAccSchedulingPolicyConfig_basic2(rName string) string {
 return fmt.Sprintf(`
 resource "aws_batch_scheduling_policy" "test" {
-  name = %[1]q
-
-  fair_share_policy {
+  name = %[1]q  fair_share_policy {
  compute_reservation = 1
- share_decay_seconds = 3600
-
- share_distribution {
+ share_decay_seconds = 3600 share_distribution {
  share_identifier = "A1*"
  weight_factor = 0.1
- }
-
- share_distribution {
+ } share_distribution {
  share_identifier = "A2"
  weight_factor = 0.2
  }
-  }
-
-  tags = {
+  }  tags = {
  "Name" = "Test Batch Scheduling Policy"
   }
 }

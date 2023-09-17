@@ -1,29 +1,19 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package grafana_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package grafana_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/managedgrafana"
+	"testing"	"github.com/aws/aws-sdk-go/service/managedgrafana"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfgrafana "github.com/hashicorp/terraform-provider-aws/internal/service/grafana"
-)
-
-func testAccWorkspaceSAMLConfiguration_basic(t *testing.T) {
+)func testAccWorkspaceSAMLConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_workspace_saml_configuration.test"
-	workspaceResourceName := "aws_grafana_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	workspaceResourceName := "aws_grafana_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
 		ErrorCheck:      acctest.ErrorCheck(t, managedgrafana.EndpointsID),
 		CheckDestroy:    nil,
@@ -44,15 +34,11 @@ func testAccWorkspaceSAMLConfiguration_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccWorkspaceSAMLConfiguration_loginValidity(t *testing.T) {
+}func testAccWorkspaceSAMLConfiguration_loginValidity(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_workspace_saml_configuration.test"
-	workspaceResourceName := "aws_grafana_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	workspaceResourceName := "aws_grafana_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
 		ErrorCheck:      acctest.ErrorCheck(t, managedgrafana.EndpointsID),
 		CheckDestroy:    nil,
@@ -74,15 +60,11 @@ func testAccWorkspaceSAMLConfiguration_loginValidity(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccWorkspaceSAMLConfiguration_assertions(t *testing.T) {
+}func testAccWorkspaceSAMLConfiguration_assertions(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_grafana_workspace_saml_configuration.test"
-	workspaceResourceName := "aws_grafana_workspace.test"
-
-	resource.Test(t, resource.TestCase{
+	workspaceResourceName := "aws_grafana_workspace.test"	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
 		ErrorCheck:      acctest.ErrorCheck(t, managedgrafana.EndpointsID),
 		CheckDestroy:    nil,
@@ -110,9 +92,7 @@ func testAccWorkspaceSAMLConfiguration_assertions(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccWorkspaceSAMLConfigurationConfig_providerBasic(rName string) string {
+}func testAccWorkspaceSAMLConfigurationConfig_providerBasic(rName string) string {
 	return acctest.ConfigCompose(testAccWorkspaceConfig_authenticationProvider(rName, "SAML"), `
 resource "aws_grafana_workspace_saml_configuration" "test" {
   admin_role_values  = ["admin"]
@@ -121,9 +101,7 @@ resource "aws_grafana_workspace_saml_configuration" "test" {
   workspace_id       = aws_grafana_workspace.test.id
 }
 `)
-}
-
-func testAccWorkspaceSAMLConfigurationConfig_providerLoginValidity(rName string) string {
+}func testAccWorkspaceSAMLConfigurationConfig_providerLoginValidity(rName string) string {
 	return acctest.ConfigCompose(testAccWorkspaceConfig_authenticationProvider(rName, "SAML"), `
 resource "aws_grafana_workspace_saml_configuration" "test" {
   admin_role_values       = ["admin"]
@@ -133,9 +111,7 @@ resource "aws_grafana_workspace_saml_configuration" "test" {
   workspace_id   = aws_grafana_workspace.test.id
 }
 `)
-}
-
-func testAccWorkspaceSAMLConfigurationConfig_providerAssertions(rName string) string {
+}func testAccWorkspaceSAMLConfigurationConfig_providerAssertions(rName string) string {
 	return acctest.ConfigCompose(testAccWorkspaceConfig_authenticationProvider(rName, "SAML"), `
 resource "aws_grafana_workspace_saml_configuration" "test" {
   admin_role_values  = ["admin"]
@@ -150,23 +126,13 @@ resource "aws_grafana_workspace_saml_configuration" "test" {
   workspace_id       = aws_grafana_workspace.test.id
 }
 `)
-}
-
-func testAccCheckWorkspaceSAMLConfigurationExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckWorkspaceSAMLConfigurationExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Grafana Workspace ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GrafanaConn(ctx)
-
-		_, err := tfgrafana.FindSamlConfigurationByID(ctx, conn, rs.Primary.ID)
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).GrafanaConn(ctx)		_, err := tfgrafana.FindSamlConfigurationByID(ctx, conn, rs.Primary.ID)		return err
 	}
 }

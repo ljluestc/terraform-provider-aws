@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kinesisanalyticsv2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kinesisanalyticsv2_testimport (
 	"context"
 	"fmt"
 	"strconv"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/kinesisanalyticsv2"
+	"testing"	"github.com/aws/aws-sdk-go/service/kinesisanalyticsv2"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -17,19 +11,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfkinesisanalyticsv2 "github.com/hashicorp/terraform-provider-aws/internal/service/kinesisanalyticsv2"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
- TestAccKinesisAnalyticsV2Application_basicFlinkApplication(t *testing.T) {
+) TestAccKinesisAnalyticsV2Application_basicFlinkApplication(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -209,19 +197,13 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_basicSQLApplication(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_basicSQLApplication(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -253,18 +235,12 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_disappears(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -279,18 +255,12 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_tags(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -330,19 +300,13 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_ApplicationCode_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_ApplicationCode_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -416,20 +380,14 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_CloudWatchLoggingOptions_add(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_CloudWatchLoggingOptions_add(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	cloudWatchLogStreamResourceName := "aws_cloudwatch_log_stream.test.0"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -482,20 +440,14 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_CloudWatchLoggingOptions_delete(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_CloudWatchLoggingOptions_delete(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	cloudWatchLogStreamResourceName := "aws_cloudwatch_log_stream.test.0"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -548,21 +500,15 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_CloudWatchLoggingOptions_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_CloudWatchLoggingOptions_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	cloudWatchLogStream1ResourceName := "aws_cloudwatch_log_stream.test.0"
 	cloudWatchLogStream2ResourceName := "aws_cloudwatch_log_stream.test.1"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -616,21 +562,15 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_EnvironmentProperties_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_EnvironmentProperties_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3ObjectResourceName := "aws_s3_object.test.0"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -815,10 +755,7 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_FlinkApplication_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_FlinkApplication_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -826,11 +763,8 @@ import (
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3Object1ResourceName := "aws_s3_object.test.0"
 	s3Object2ResourceName := "aws_s3_object.test.1"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -938,10 +872,7 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_FlinkApplicationEnvironmentProperties_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_FlinkApplicationEnvironmentProperties_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -950,11 +881,8 @@ import (
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3Object1ResourceName := "aws_s3_object.test.0"
 	s3Object2ResourceName := "aws_s3_object.test.1"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -1094,10 +1022,7 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_FlinkApplication_restoreFromSnapshot(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_FlinkApplication_restoreFromSnapshot(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -1105,11 +1030,8 @@ import (
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3ObjectResourceName := "aws_s3_object.test"
 	snapshotResourceName := "aws_kinesisanalyticsv2_application_snapshot.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -1368,21 +1290,15 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_FlinkApplicationStartApplication_onCreate(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_FlinkApplicationStartApplication_onCreate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3ObjectResourceName := "aws_s3_object.test.0"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -1447,21 +1363,15 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_FlinkApplicationStartApplication_onUpdate(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_FlinkApplicationStartApplication_onUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3ObjectResourceName := "aws_s3_object.test.0"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -1622,10 +1532,7 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_FlinkApplication_updateRunning(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_FlinkApplication_updateRunning(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -1633,11 +1540,8 @@ import (
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3Object1ResourceName := "aws_s3_object.test.0"
 	s3Object2ResourceName := "aws_s3_object.test.1"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -1754,20 +1658,14 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_ServiceExecutionRole_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_ServiceExecutionRole_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRole1ResourceName := "aws_iam_role.test.0"
 	iamRole2ResourceName := "aws_iam_role.test.1"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -1819,20 +1717,14 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationInput_add(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationInput_add(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -1932,21 +1824,15 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationInput_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationInput_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
 	streamsResourceName := "aws_kinesis_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -2075,10 +1961,7 @@ import (
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationInputProcessing_add(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationInputProcessing_add(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -2086,11 +1969,8 @@ import (
 	lambdaResourceName := "aws_lambda_
 tion.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -2218,10 +2098,7 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationInputProcessing_delete(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationInputProcessing_delete(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -2229,11 +2106,8 @@ tion.test.0"
 	lambdaResourceName := "aws_lambda_
 tion.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -2361,10 +2235,7 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationInputProcessing_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationInputProcessing_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -2374,11 +2245,8 @@ tion.test.0"
 	lambda2ResourceName := "aws_lambda_
 tion.test.1"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -2508,10 +2376,7 @@ tion.test.1"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationMultiple_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationMultiple_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -2523,11 +2388,8 @@ tion.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
 	streamsResourceName := "aws_kinesis_stream.test"
 	s3BucketResourceName := "aws_s3_bucket.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -2706,10 +2568,7 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationOutput_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationOutput_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -2718,11 +2577,8 @@ tion.test.0"
 tion.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
 	streamsResourceName := "aws_kinesis_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -2860,20 +2716,14 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationReferenceDataSource_add(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationReferenceDataSource_add(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -2967,20 +2817,14 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationReferenceDataSource_delete(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationReferenceDataSource_delete(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -3074,20 +2918,14 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationReferenceDataSource_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationReferenceDataSource_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -3204,20 +3042,14 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationStartApplication_onCreate(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationStartApplication_onCreate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -3287,20 +3119,14 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationStartApplication_onUpdate(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationStartApplication_onUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
 	iamRoleResourceName := "aws_iam_role.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -3484,10 +3310,7 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplication_updateRunning(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplication_updateRunning(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -3499,11 +3322,8 @@ tion.test.0"
 	firehoseResourceName := "aws_kinesis_firehose_delivery_stream.test"
 	streamsResourceName := "aws_kinesis_stream.test"
 	s3BucketResourceName := "aws_s3_bucket.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -3683,10 +3503,7 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationVPC_add(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationVPC_add(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -3694,11 +3511,8 @@ tion.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3ObjectResourceName := "aws_s3_object.test.0"
 	vpcResourceName := "aws_vpc.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -3810,10 +3624,7 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationVPC_delete(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationVPC_delete(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -3821,11 +3632,8 @@ tion.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3ObjectResourceName := "aws_s3_object.test.0"
 	vpcResourceName := "aws_vpc.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -3937,10 +3745,7 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_SQLApplicationVPC_update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_SQLApplicationVPC_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -3948,11 +3753,8 @@ tion.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3ObjectResourceName := "aws_s3_object.test.0"
 	vpcResourceName := "aws_vpc.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -4068,10 +3870,7 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- TestAccKinesisAnalyticsV2Application_RunConfiguration_Update(t *testing.T) {
+} TestAccKinesisAnalyticsV2Application_RunConfiguration_Update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v kinesisanalyticsv2.ApplicationDetail
 	resourceName := "aws_kinesisanalyticsv2_application.test"
@@ -4079,11 +3878,8 @@ tion.test.0"
 	s3BucketResourceName := "aws_s3_bucket.test"
 	s3ObjectResourceName := "aws_s3_object.test"
 	snapshotResourceName := "aws_kinesisanalyticsv2_application_snapshot.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:       () { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, kinesisanalyticsv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
@@ -4223,86 +4019,40 @@ tion.test.0"
 			},
 		},
 	})
-}
-
-
- testAccCheckApplicationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return 
-(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+} testAccCheckApplicationDestroy(ctx context.Context) resource.TestCheckFunc {
+	return(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_kinesisanalyticsv2_application" {
 				continue
-			}
-
-			_, err := tfkinesisanalyticsv2.FindApplicationDetailByName(ctx, conn, rs.Primary.Attributes["name"])
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfkinesisanalyticsv2.FindApplicationDetailByName(ctx, conn, rs.Primary.Attributes["name"])			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Kinesis Analytics v2 Application %s still exists", rs.Primary.ID)
+			}			return fmt.Errorf("Kinesis Analytics v2 Application %s still exists", rs.Primary.ID)
 		}
 		return nil
 	}
-}
-
-
- testAccCheckApplicationExists(ctx context.Context, n string, v *kinesisanalyticsv2.ApplicationDetail) resource.TestCheckFunc {
-	return 
-(s *terraform.State) error {
+} testAccCheckApplicationExists(ctx context.Context, n string, v *kinesisanalyticsv2.ApplicationDetail) resource.TestCheckFunc {
+	return(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Kinesis Analytics v2 Application ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
-
-		application, err := tfkinesisanalyticsv2.FindApplicationDetailByName(ctx, conn, rs.Primary.Attributes["name"])
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)		application, err := tfkinesisanalyticsv2.FindApplicationDetailByName(ctx, conn, rs.Primary.Attributes["name"])		if err != nil {
 			return err
-		}
-
-		*v = *application
-
-		return nil
+		}		*v = *application		return nil
 	}
-}
-
-
- testAccPreCheck(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
-
-	input := &kinesisanalyticsv2.ListApplicationsInput{}
-
-	_, err := conn.ListApplicationsWithContext(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+} testAccPreCheck(ctx context.Context, t *testing.T) {
+	conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)	input := &kinesisanalyticsv2.ListApplicationsInput{}	_, err := conn.ListApplicationsWithContext(ctx, input)	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
-}
-
-
- testAccApplicationConfig_baseServiceExecutionIAMRole(rName string) string {
+} testAccApplicationConfig_baseServiceExecutionIAMRole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  count = 2
-
-  name      = "%[1]s.${count.index}"
+  count = 2  name      = "%[1]s.${count.index}"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -4325,9 +4075,7 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_policy" "test" {
+}resource "aws_iam_policy" "test" {
   name   = %[1]q
   policy = <<EOF
 {
@@ -4361,109 +4109,64 @@ resource "aws_iam_policy" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "test" {
-  count = 2
-
-  role       = aws_iam_role.test[count.index].name
+}resource "aws_iam_role_policy_attachment" "test" {
+  count = 2  role       = aws_iam_role.test[count.index].name
   policy_arn = aws_iam_policy.test.arn
 }
 `, rName)
-}
-
-
- testAccApplicationConfigBaseFlinkApplication(rName string) string {
+} testAccApplicationConfigBaseFlinkApplication(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_object" "test" {
-  count = 2
-
-  bucket = aws_s3_bucket.test.bucket
+}resource "aws_s3_object" "test" {
+  count = 2  bucket = aws_s3_bucket.test.bucket
   key    = "%[1]s.${count.index}"
   source = "test-fixtures/flink-app.jar"
 }
 `, rName)
-}
-
-
- testAccApplicationConfigBaseSQLApplication(rName string) string {
+} testAccApplicationConfigBaseSQLApplication(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_lambda_
+}resource "aws_lambda_
 tion" "test" {
-  count = 2
-
-  filename      = "test-fixtures/lambdatest.zip"
-  
-tion_name = "%[1]s_${count.index}"
+  count = 2  filename      = "test-fixtures/lambdatest.zip"
+ tion_name = "%[1]s_${count.index}"
   handler       = "exports.example"
   role = aws_iam_role.test[0].arn
   runtime       = "nodejs16.x"
-}
-
-resource "aws_kinesis_firehose_delivery_stream" "test" {
+}resource "aws_kinesis_firehose_delivery_stream" "test" {
   name        = %[1]q
-  destination = "extended_s3"
-
-  extended_s3_configuration {
+  destination = "extended_s3"  extended_s3_configuration {
     bucket_arn = aws_s3_bucket.test.arn
     role_arn   = aws_iam_role.test[0].arn
   }
-}
-
-resource "aws_kinesis_stream" "test" {
+}resource "aws_kinesis_stream" "test" {
   name        = %[1]q
   shard_count = 1
 }
 `, rName)
-}
-
-
- testAccApplicationConfigBaseVPC(rName string) string {
+} testAccApplicationConfigBaseVPC(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
 		fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
+  cidr_block = "10.0.0.0/16"  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test" {
-  count = 2
-
-  vpc_id   = aws_vpc.test.id
+}resource "aws_subnet" "test" {
+  count = 2  vpc_id   = aws_vpc.test.id
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 2, count.index)
-  availability_zone = data.aws_availability_zones.available.names[count.index]
-
-  tags = {
+  availability_zone = data.aws_availability_zones.available.names[count.index]  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test" {
-  count = 2
-
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+}resource "aws_security_group" "test" {
+  count = 2  vpc_id = aws_vpc.test.id  tags = {
     Name = %[1]q
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_basicFlink(rName, runtimeEnvironment string) string {
+} testAccApplicationConfig_basicFlink(rName, runtimeEnvironment string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		fmt.Sprintf(`
@@ -4473,10 +4176,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   service_execution_role = aws_iam_role.test[0].arn
 }
 `, rName, runtimeEnvironment))
-}
-
-
- testAccApplicationConfig_basicSQL(rName string) string {
+} testAccApplicationConfig_basicSQL(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		fmt.Sprintf(`
@@ -4486,10 +4186,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   service_execution_role = aws_iam_role.test[0].arn
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_basicSQLPlusDescription(rName string) string {
+} testAccApplicationConfig_basicSQLPlusDescription(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		fmt.Sprintf(`
@@ -4500,10 +4197,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   description   = "Testing"
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_basicSQLServiceExecutionRoleUpdated(rName string) string {
+} testAccApplicationConfig_basicSQLServiceExecutionRoleUpdated(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		fmt.Sprintf(`
@@ -4514,61 +4208,40 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   description   = "Testing"
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_applicationCodeConfiguration(rName, textContent string) string {
+} testAccApplicationConfig_applicationCodeConfiguration(rName, textContent string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = %[2]q
-      }
-
-      code_content_type = "PLAINTEXT"
+      }      code_content_type = "PLAINTEXT"
     }
   }
 }
 `, rName, textContent))
-}
-
-
- testAccApplicationConfig_cloudWatchLoggingOptions(rName string, streamIndex int) string {
+} testAccApplicationConfig_cloudWatchLoggingOptions(rName string, streamIndex int) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
-}
-
-resource "aws_cloudwatch_log_stream" "test" {
-  count = 2
-
-  name  = "%[1]s.${count.index}"
+}resource "aws_cloudwatch_log_stream" "test" {
+  count = 2  name  = "%[1]s.${count.index}"
   log_group_name = aws_cloudwatch_log_group.test.name
-}
-
-resource "aws_kinesisanalyticsv2_application" "test" {
+}resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  cloudwatch_logging_options {
+  service_execution_role = aws_iam_role.test[0].arn  cloudwatch_logging_options {
     log_stream_arn = aws_cloudwatch_log_stream.test.%[2]d.arn
   }
 }
 `, rName, streamIndex))
-}
-
-
- testAccApplicationConfig_environmentProperties(rName string) string {
+} testAccApplicationConfig_environmentProperties(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseFlinkApplication(rName),
@@ -4576,34 +4249,22 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_8"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = aws_s3_object.test[0].key
         }
-      }
-
-      code_content_type = "ZIPFILE"
-    }
-
-    environment_properties {
+      }      code_content_type = "ZIPFILE"
+    }    environment_properties {
       property_group {
-        property_group_id = "PROPERTY-GROUP-ID1"
-
-        property_map = {
+        property_group_id = "PROPERTY-GROUP-ID1"        property_map = {
  Key9 = "Value1"
  Key8 = "Value2"
         }
-      }
-
-      property_group {
-        property_group_id = "PROPERTY-GROUP-ID2"
-
-        property_map = {
+      }      property_group {
+        property_group_id = "PROPERTY-GROUP-ID2"        property_map = {
  KeyA = "ValueZ"
  KeyB = "ValueY"
  KeyC = "ValueX"
@@ -4613,10 +4274,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_environmentPropertiesUpdated(rName string) string {
+} testAccApplicationConfig_environmentPropertiesUpdated(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseFlinkApplication(rName),
@@ -4624,42 +4282,26 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_8"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = aws_s3_object.test[0].key
         }
-      }
-
-      code_content_type = "ZIPFILE"
-    }
-
-    environment_properties {
+      }      code_content_type = "ZIPFILE"
+    }    environment_properties {
       property_group {
-        property_group_id = "PROPERTY-GROUP-ID3"
-
-        property_map = {
+        property_group_id = "PROPERTY-GROUP-ID3"        property_map = {
  Key = "Value"
         }
-      }
-
-      property_group {
-        property_group_id = "PROPERTY-GROUP-ID2"
-
-        property_map = {
+      }      property_group {
+        property_group_id = "PROPERTY-GROUP-ID2"        property_map = {
  KeyA = "ValueZ"
  KeyC = "ValueW"
         }
-      }
-
-      property_group {
-        property_group_id = "PROPERTY-GROUP-ID4"
-
-        property_map = {
+      }      property_group {
+        property_group_id = "PROPERTY-GROUP-ID4"        property_map = {
  KeyAlpha = "ValueOmega"
         }
       }
@@ -4667,10 +4309,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_environmentPropertiesNotSpecified(rName string) string {
+} testAccApplicationConfig_environmentPropertiesNotSpecified(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseFlinkApplication(rName),
@@ -4678,40 +4317,29 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_8"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = aws_s3_object.test[0].key
         }
-      }
-
-      code_content_type = "ZIPFILE"
+      }      code_content_type = "ZIPFILE"
     }
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_flinkConfiguration(rName, startApplication string) string {
+} testAccApplicationConfig_flinkConfiguration(rName, startApplication string) string {
 	if startApplication == "" {
 		startApplication = "null"
-	}
-
-	return acctest.ConfigCompose(
+	}	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseFlinkApplication(rName),
 		fmt.Sprintf(`
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_8"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
@@ -4719,56 +4347,37 @@ resource "aws_kinesisanalyticsv2_application" "test" {
  file_key       = aws_s3_object.test[0].key
  object_version = aws_s3_object.test[0].version_id
         }
-      }
-
-      code_content_type = "ZIPFILE"
-    }
-
-    application_snapshot_configuration {
+      }      code_content_type = "ZIPFILE"
+    }    application_snapshot_configuration {
       snapshots_enabled = false
-    }
-
-    flink_application_configuration {
+    }    flink_application_configuration {
       checkpoint_configuration {
         configuration_type = "DEFAULT"
-      }
-
-      monitoring_configuration {
+      }      monitoring_configuration {
         configuration_type = "CUSTOM"
         log_level = "DEBUG"
         metrics_level      = "TASK"
-      }
-
-      parallelism_configuration {
+      }      parallelism_configuration {
         auto_scaling_enabled = true
         configuration_type   = "CUSTOM"
         parallelism = 10
         parallelism_per_kpu  = 4
       }
     }
-  }
-
-  start_application = %[2]s
+  }  start_application = %[2]s
 }
 `, rName, startApplication))
-}
-
-
- testAccApplicationConfig_flinkConfigurationUpdated(rName, startApplication string) string {
+} testAccApplicationConfig_flinkConfigurationUpdated(rName, startApplication string) string {
 	if startApplication == "" {
 		startApplication = "null"
-	}
-
-	return acctest.ConfigCompose(
+	}	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseFlinkApplication(rName),
 		fmt.Sprintf(`
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_8"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
@@ -4776,42 +4385,27 @@ resource "aws_kinesisanalyticsv2_application" "test" {
  file_key       = aws_s3_object.test[1].key
  object_version = aws_s3_object.test[1].version_id
         }
-      }
-
-      code_content_type = "ZIPFILE"
-    }
-
-    application_snapshot_configuration {
+      }      code_content_type = "ZIPFILE"
+    }    application_snapshot_configuration {
       snapshots_enabled = false
-    }
-
-    flink_application_configuration {
+    }    flink_application_configuration {
       checkpoint_configuration {
         checkpointing_enabled= true
         configuration_type   = "CUSTOM"
         checkpoint_interval  = 55000
         min_pause_between_checkpoints = 5500
-      }
-
-      monitoring_configuration {
+      }      monitoring_configuration {
         configuration_type = "CUSTOM"
         log_level = "ERROR"
         metrics_level      = "OPERATOR"
-      }
-
-      parallelism_configuration {
+      }      parallelism_configuration {
         configuration_type = "DEFAULT"
       }
     }
-  }
-
-  start_application = %[2]s
+  }  start_application = %[2]s
 }
 `, rName, startApplication))
-}
-
-
- testAccApplicationConfig_flinkConfigurationEnvironmentProperties(rName string) string {
+} testAccApplicationConfig_flinkConfigurationEnvironmentProperties(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseFlinkApplication(rName),
@@ -4819,9 +4413,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_8"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
@@ -4829,65 +4421,42 @@ resource "aws_kinesisanalyticsv2_application" "test" {
  file_key       = aws_s3_object.test[0].key
  object_version = aws_s3_object.test[0].version_id
         }
-      }
-
-      code_content_type = "ZIPFILE"
-    }
-
-    application_snapshot_configuration {
+      }      code_content_type = "ZIPFILE"
+    }    application_snapshot_configuration {
       snapshots_enabled = false
-    }
-
-    environment_properties {
+    }    environment_properties {
       property_group {
-        property_group_id = "PROPERTY-GROUP-ID1"
-
-        property_map = {
+        property_group_id = "PROPERTY-GROUP-ID1"        property_map = {
  Key9 = "Value1"
  Key8 = "Value2"
         }
-      }
-
-      property_group {
-        property_group_id = "PROPERTY-GROUP-ID2"
-
-        property_map = {
+      }      property_group {
+        property_group_id = "PROPERTY-GROUP-ID2"        property_map = {
  KeyA = "ValueZ"
  KeyB = "ValueY"
  KeyC = "ValueX"
         }
       }
-    }
-
-    flink_application_configuration {
+    }    flink_application_configuration {
       checkpoint_configuration {
         configuration_type = "DEFAULT"
-      }
-
-      monitoring_configuration {
+      }      monitoring_configuration {
         configuration_type = "CUSTOM"
         log_level = "DEBUG"
         metrics_level      = "TASK"
-      }
-
-      parallelism_configuration {
+      }      parallelism_configuration {
         auto_scaling_enabled = true
         configuration_type   = "CUSTOM"
         parallelism = 10
         parallelism_per_kpu  = 4
       }
     }
-  }
-
-  tags = {
+  }  tags = {
     Key1 = "Value1"
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_flinkConfigurationEnvironmentPropertiesUpdated(rName string) string {
+} testAccApplicationConfig_flinkConfigurationEnvironmentPropertiesUpdated(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseFlinkApplication(rName),
@@ -4895,9 +4464,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_8"
-  service_execution_role = aws_iam_role.test[1].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[1].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
@@ -4905,147 +4472,92 @@ resource "aws_kinesisanalyticsv2_application" "test" {
  file_key       = aws_s3_object.test[1].key
  object_version = aws_s3_object.test[1].version_id
         }
-      }
-
-      code_content_type = "ZIPFILE"
-    }
-
-    application_snapshot_configuration {
+      }      code_content_type = "ZIPFILE"
+    }    application_snapshot_configuration {
       snapshots_enabled = true
-    }
-
-    environment_properties {
+    }    environment_properties {
       property_group {
-        property_group_id = "PROPERTY-GROUP-ID3"
-
-        property_map = {
+        property_group_id = "PROPERTY-GROUP-ID3"        property_map = {
  Key = "Value"
         }
-      }
-
-      property_group {
-        property_group_id = "PROPERTY-GROUP-ID2"
-
-        property_map = {
+      }      property_group {
+        property_group_id = "PROPERTY-GROUP-ID2"        property_map = {
  KeyA = "ValueZ"
  KeyC = "ValueW"
         }
-      }
-
-      property_group {
-        property_group_id = "PROPERTY-GROUP-ID4"
-
-        property_map = {
+      }      property_group {
+        property_group_id = "PROPERTY-GROUP-ID4"        property_map = {
  KeyAlpha = "ValueOmega"
         }
       }
-    }
-
-    flink_application_configuration {
+    }    flink_application_configuration {
       checkpoint_configuration {
         checkpointing_enabled= true
         configuration_type   = "CUSTOM"
         checkpoint_interval  = 55000
         min_pause_between_checkpoints = 5500
-      }
-
-      monitoring_configuration {
+      }      monitoring_configuration {
         configuration_type = "CUSTOM"
         log_level = "ERROR"
         metrics_level      = "OPERATOR"
-      }
-
-      parallelism_configuration {
+      }      parallelism_configuration {
         configuration_type = "DEFAULT"
       }
     }
-  }
-
-  tags = {
+  }  tags = {
     Key2 = "Value2"
     Key3 = "Value3"
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_startSnapshotableFlink(rName, applicationRestoreType, snapshotName string, allowNonRestoredState bool) string {
+} testAccApplicationConfig_startSnapshotableFlink(rName, applicationRestoreType, snapshotName string, allowNonRestoredState bool) string {
 	if snapshotName == "" {
 		snapshotName = "null"
 	} else {
 		snapshotName = strconv.Quote(snapshotName)
-	}
-
-	return acctest.ConfigCompose(
+	}	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_s3_bucket" "test" {
+data "aws_region" "current" {}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_object" "test" {
+}resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket.test.bucket
   key    = "flink-app.jar"
   source = "test-fixtures/flink-app.jar"
-}
-
-resource "aws_kinesis_stream" "input" {
+}resource "aws_kinesis_stream" "input" {
   name        = "%[1]s-input"
   shard_count = 1
-}
-
-resource "aws_kinesis_stream" "output" {
+}resource "aws_kinesis_stream" "output" {
   name        = "%[1]s-output"
   shard_count = 1
-}
-
-resource "aws_kinesisanalyticsv2_application" "test" {
+}resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_11"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = aws_s3_object.test.key
         }
-      }
-
-      code_content_type = "ZIPFILE"
-    }
-
-    application_snapshot_configuration {
+      }      code_content_type = "ZIPFILE"
+    }    application_snapshot_configuration {
       snapshots_enabled = true
-    }
-
-    environment_properties {
+    }    environment_properties {
       property_group {
-        property_group_id = "ConsumerConfigProperties"
-
-        property_map = {
+        property_group_id = "ConsumerConfigProperties"        property_map = {
  "flink.inputstream.initpos" = "LATEST"
  "aws.region"       = data.aws_region.current.name
  "InputStreamName"  = aws_kinesis_stream.input.name
         }
-      }
-
-      property_group {
-        property_group_id = "ProducerConfigProperties"
-
-        property_map = {
+      }      property_group {
+        property_group_id = "ProducerConfigProperties"        property_map = {
  "aws.region"= data.aws_region.current.name
  "AggregationEnabled" = "false"
  "OutputStreamName"   = aws_kinesis_stream.output.name
         }
       }
-    }
-
-    run_configuration {
+    }    run_configuration {
       application_restore_configuration {
         application_restore_type = %[2]q
         snapshot_name   = %[3]s
@@ -5054,102 +4566,64 @@ resource "aws_kinesisanalyticsv2_application" "test" {
         allow_non_restored_state = %[4]t
       }
     }
-  }
-
-  start_application = true
-}
-
-resource "aws_kinesisanalyticsv2_application_snapshot" "test" {
+  }  start_application = true
+}resource "aws_kinesisanalyticsv2_application_snapshot" "test" {
   application_name = aws_kinesisanalyticsv2_application.test.name
   snapshot_name    = %[1]q
 }
 `, rName, applicationRestoreType, snapshotName, allowNonRestoredState))
-}
-
-
- testAccApplicationConfig_stopSnapshotableFlink(rName string, forceStop bool) string {
+} testAccApplicationConfig_stopSnapshotableFlink(rName string, forceStop bool) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		fmt.Sprintf(`
-data "aws_region" "current" {}
-
-resource "aws_s3_bucket" "test" {
+data "aws_region" "current" {}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_s3_object" "test" {
+}resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket.test.bucket
   key    = "flink-app.jar"
   source = "test-fixtures/flink-app.jar"
-}
-
-resource "aws_kinesis_stream" "input" {
+}resource "aws_kinesis_stream" "input" {
   name        = "%[1]s-input"
   shard_count = 1
-}
-
-resource "aws_kinesis_stream" "output" {
+}resource "aws_kinesis_stream" "output" {
   name        = "%[1]s-output"
   shard_count = 1
-}
-
-resource "aws_kinesisanalyticsv2_application" "test" {
+}resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_11"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = aws_s3_object.test.key
         }
-      }
-
-      code_content_type = "ZIPFILE"
-    }
-
-    application_snapshot_configuration {
+      }      code_content_type = "ZIPFILE"
+    }    application_snapshot_configuration {
       snapshots_enabled = true
-    }
-
-    environment_properties {
+    }    environment_properties {
       property_group {
-        property_group_id = "ConsumerConfigProperties"
-
-        property_map = {
+        property_group_id = "ConsumerConfigProperties"        property_map = {
  "flink.inputstream.initpos" = "LATEST"
  "aws.region"       = data.aws_region.current.name
  "InputStreamName"  = aws_kinesis_stream.input.name
         }
-      }
-
-      property_group {
-        property_group_id = "ProducerConfigProperties"
-
-        property_map = {
+      }      property_group {
+        property_group_id = "ProducerConfigProperties"        property_map = {
  "aws.region"= data.aws_region.current.name
  "AggregationEnabled" = "false"
  "OutputStreamName"   = aws_kinesis_stream.output.name
         }
       }
     }
-  }
-
-  start_application = false
+  }  start_application = false
   force_stop        = %[2]t
-}
-
-resource "aws_kinesisanalyticsv2_application_snapshot" "test" {
+}resource "aws_kinesisanalyticsv2_application_snapshot" "test" {
   application_name = aws_kinesisanalyticsv2_application.test.name
   snapshot_name    = %[1]q
 }
 `, rName, forceStop))
-}
-
-
- testAccApplicationConfig_sqlConfigurationNotSpecified(rName string) string {
+} testAccApplicationConfig_sqlConfigurationNotSpecified(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
@@ -5157,23 +4631,16 @@ resource "aws_kinesisanalyticsv2_application_snapshot" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 1;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
+      }      code_content_type = "PLAINTEXT"
     }
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_sqlConfigurationInput(rName string) string {
+} testAccApplicationConfig_sqlConfigurationInput(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
@@ -5181,40 +4648,26 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 1;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
-    }
-
-    sql_application_configuration {
+      }      code_content_type = "PLAINTEXT"
+    }    sql_application_configuration {
       input {
-        name_prefix = "NAME_PREFIX_1"
-
-        input_schema {
+        name_prefix = "NAME_PREFIX_1"        input_schema {
  record_column {
    name     = "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
-   record_format_type = "CSV"
-
-   mapping_parameters {
+ } record_format {
+   record_format_type = "CSV"   mapping_parameters {
      csv_mapping_parameters {
        record_column_delimiter = ","
        record_row_delimiter    = "|"
      }
    }
  }
-        }
-
-        kinesis_firehose_input {
+        }        kinesis_firehose_input {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
         }
       }
@@ -5222,10 +4675,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_sqlConfigurationInputUpdated(rName string) string {
+} testAccApplicationConfig_sqlConfigurationInputUpdated(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
@@ -5233,52 +4683,32 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 1;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
-    }
-
-    sql_application_configuration {
+      }      code_content_type = "PLAINTEXT"
+    }    sql_application_configuration {
       input {
-        name_prefix = "NAME_PREFIX_2"
-
-        input_parallelism {
+        name_prefix = "NAME_PREFIX_2"        input_parallelism {
  count = 42
-        }
-
-        input_schema {
+        }        input_schema {
  record_column {
    name     = "COLUMN_2"
    sql_type = "VARCHAR(8)"
    mapping  = "MAPPING-2"
- }
-
- record_column {
+ } record_column {
    name     = "COLUMN_3"
    sql_type = "DOUBLE"
    mapping  = "MAPPING-3"
- }
-
- record_encoding = "UTF-8"
-
- record_format {
-   record_format_type = "JSON"
-
-   mapping_parameters {
+ } record_encoding = "UTF-8" record_format {
+   record_format_type = "JSON"   mapping_parameters {
      json_mapping_parameters {
        record_row_path = "$path.to.record"
      }
    }
  }
-        }
-
-        kinesis_streams_input {
+        }        kinesis_streams_input {
  resource_arn = aws_kinesis_stream.test.arn
         }
       }
@@ -5286,10 +4716,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_sqlConfigurationInputProcessingConfiguration(rName string, lambdaIndex int) string {
+} testAccApplicationConfig_sqlConfigurationInputProcessingConfiguration(rName string, lambdaIndex int) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
@@ -5297,47 +4724,31 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 1;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
-    }
-
-    sql_application_configuration {
+      }      code_content_type = "PLAINTEXT"
+    }    sql_application_configuration {
       input {
-        name_prefix = "NAME_PREFIX_1"
-
-        input_schema {
+        name_prefix = "NAME_PREFIX_1"        input_schema {
  record_column {
    name     = "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
-   record_format_type = "CSV"
-
-   mapping_parameters {
+ } record_format {
+   record_format_type = "CSV"   mapping_parameters {
      csv_mapping_parameters {
        record_column_delimiter = ","
        record_row_delimiter    = "|"
      }
    }
  }
-        }
-
-        input_processing_configuration {
+        }        input_processing_configuration {
  input_lambda_processor {
    resource_arn = aws_lambda_
 tion.test.%[2]d.arn
  }
-        }
-
-        kinesis_firehose_input {
+        }        kinesis_firehose_input {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
         }
       }
@@ -5345,10 +4756,7 @@ tion.test.%[2]d.arn
   }
 }
 `, rName, lambdaIndex))
-}
-
-
- testAccApplicationConfig_sqlConfigurationMultiple(rName, startApplication, startingPosition string) string {
+} testAccApplicationConfig_sqlConfigurationMultiple(rName, startApplication, startingPosition string) string {
 	if startApplication == "" {
 		startApplication = "null"
 	}
@@ -5356,102 +4764,63 @@ tion.test.%[2]d.arn
 		startingPosition = "null"
 	} else {
 		startingPosition = strconv.Quote(startingPosition)
-	}
-
-	return acctest.ConfigCompose(
+	}	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
 		fmt.Sprintf(`
 resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
-}
-
-resource "aws_cloudwatch_log_stream" "test" {
+}resource "aws_cloudwatch_log_stream" "test" {
   name  = %[1]q
   log_group_name = aws_cloudwatch_log_group.test.name
-}
-
-resource "aws_kinesisanalyticsv2_application" "test" {
+}resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 1;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
-    }
-
-    sql_application_configuration {
+      }      code_content_type = "PLAINTEXT"
+    }    sql_application_configuration {
       input {
-        name_prefix = "NAME_PREFIX_1"
-
-        input_schema {
+        name_prefix = "NAME_PREFIX_1"        input_schema {
  record_column {
    name     = "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
-   record_format_type = "CSV"
-
-   mapping_parameters {
+ } record_format {
+   record_format_type = "CSV"   mapping_parameters {
      csv_mapping_parameters {
        record_column_delimiter = ","
        record_row_delimiter    = "|"
      }
    }
  }
-        }
-
-        input_processing_configuration {
+        }        input_processing_configuration {
  input_lambda_processor {
    resource_arn = aws_lambda_
 tion.test[0].arn
  }
-        }
-
-        kinesis_firehose_input {
+        }        kinesis_firehose_input {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
-        }
-
-        input_starting_position_configuration {
+        }        input_starting_position_configuration {
  input_starting_position = %[3]s
         }
-      }
-
-      output {
-        name = "OUTPUT_1"
-
-        destination_schema {
+      }      output {
+        name = "OUTPUT_1"        destination_schema {
  record_format_type = "CSV"
-        }
-
-        kinesis_firehose_output {
+        }        kinesis_firehose_output {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
         }
       }
     }
-  }
-
-  cloudwatch_logging_options {
+  }  cloudwatch_logging_options {
     log_stream_arn = aws_cloudwatch_log_stream.test.arn
-  }
-
-  tags = {
+  }  tags = {
     Key1 = "Value1"
-  }
-
-  start_application = %[2]s
+  }  start_application = %[2]s
 }
 `, rName, startApplication, startingPosition))
-}
-
-
- testAccApplicationConfig_sqlConfigurationMultipleUpdated(rName, startApplication, startingPosition string) string {
+} testAccApplicationConfig_sqlConfigurationMultipleUpdated(rName, startApplication, startingPosition string) string {
 	if startApplication == "" {
 		startApplication = "null"
 	}
@@ -5459,135 +4828,82 @@ tion.test[0].arn
 		startingPosition = "null"
 	} else {
 		startingPosition = strconv.Quote(startingPosition)
-	}
-
-	return acctest.ConfigCompose(
+	}	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
 		fmt.Sprintf(`
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[1].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[1].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 2;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
-    }
-
-    sql_application_configuration {
+      }      code_content_type = "PLAINTEXT"
+    }    sql_application_configuration {
       input {
-        name_prefix = "NAME_PREFIX_2"
-
-        input_parallelism {
+        name_prefix = "NAME_PREFIX_2"        input_parallelism {
  count = 42
-        }
-
-        input_schema {
+        }        input_schema {
  record_column {
    name     = "COLUMN_2"
    sql_type = "VARCHAR(8)"
    mapping  = "MAPPING-2"
- }
-
- record_column {
+ } record_column {
    name     = "COLUMN_3"
    sql_type = "DOUBLE"
    mapping  = "MAPPING-3"
- }
-
- record_encoding = "UTF-8"
-
- record_format {
-   record_format_type = "JSON"
-
-   mapping_parameters {
+ } record_encoding = "UTF-8" record_format {
+   record_format_type = "JSON"   mapping_parameters {
      json_mapping_parameters {
        record_row_path = "$path.to.record"
      }
    }
  }
-        }
-
-        kinesis_streams_input {
+        }        kinesis_streams_input {
  resource_arn = aws_kinesis_stream.test.arn
-        }
-
-        input_starting_position_configuration {
+        }        input_starting_position_configuration {
  input_starting_position = %[3]s
         }
-      }
-
-      output {
-        name = "OUTPUT_2"
-
-        destination_schema {
+      }      output {
+        name = "OUTPUT_2"        destination_schema {
  record_format_type = "JSON"
-        }
-
-        kinesis_streams_output {
+        }        kinesis_streams_output {
  resource_arn = aws_kinesis_stream.test.arn
         }
-      }
-
-      output {
-        name = "OUTPUT_3"
-
-        destination_schema {
+      }      output {
+        name = "OUTPUT_3"        destination_schema {
  record_format_type = "CSV"
-        }
-
-        lambda_output {
+        }        lambda_output {
  resource_arn = aws_lambda_
 tion.test[0].arn
         }
-      }
-
-      reference_data_source {
-        table_name = "TABLE-1"
-
-        reference_schema {
+      }      reference_data_source {
+        table_name = "TABLE-1"        reference_schema {
  record_column {
    name     = "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
-   record_format_type = "CSV"
-
-   mapping_parameters {
+ } record_format {
+   record_format_type = "CSV"   mapping_parameters {
      csv_mapping_parameters {
        record_column_delimiter = ","
        record_row_delimiter    = "|"
      }
    }
  }
-        }
-
-        s3_reference_data_source {
+        }        s3_reference_data_source {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = "KEY-1"
         }
       }
     }
-  }
-
-  tags = {
+  }  tags = {
     Key2 = "Value2"
     Key3 = "Value3"
-  }
-
-  start_application = %[2]s
+  }  start_application = %[2]s
 }
 `, rName, startApplication, startingPosition))
-}
-
-
- testAccApplicationConfig_sqlConfigurationOutput(rName string) string {
+} testAccApplicationConfig_sqlConfigurationOutput(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
@@ -5595,26 +4911,16 @@ tion.test[0].arn
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 1;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
-    }
-
-    sql_application_configuration {
+      }      code_content_type = "PLAINTEXT"
+    }    sql_application_configuration {
       output {
-        name = "OUTPUT_1"
-
-        destination_schema {
+        name = "OUTPUT_1"        destination_schema {
  record_format_type = "CSV"
-        }
-
-        kinesis_firehose_output {
+        }        kinesis_firehose_output {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
         }
       }
@@ -5622,10 +4928,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_sqlConfigurationOutputUpdated(rName string) string {
+} testAccApplicationConfig_sqlConfigurationOutputUpdated(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
@@ -5633,38 +4936,22 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 1;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
-    }
-
-    sql_application_configuration {
+      }      code_content_type = "PLAINTEXT"
+    }    sql_application_configuration {
       output {
-        name = "OUTPUT_2"
-
-        destination_schema {
+        name = "OUTPUT_2"        destination_schema {
  record_format_type = "JSON"
-        }
-
-        kinesis_streams_output {
+        }        kinesis_streams_output {
  resource_arn = aws_kinesis_stream.test.arn
         }
-      }
-
-      output {
-        name = "OUTPUT_3"
-
-        destination_schema {
+      }      output {
+        name = "OUTPUT_3"        destination_schema {
  record_format_type = "CSV"
-        }
-
-        lambda_output {
+        }        lambda_output {
  resource_arn = aws_lambda_
 tion.test[0].arn
         }
@@ -5673,10 +4960,7 @@ tion.test[0].arn
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_sqlConfigurationReferenceDataSource(rName string) string {
+} testAccApplicationConfig_sqlConfigurationReferenceDataSource(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
@@ -5684,40 +4968,26 @@ tion.test[0].arn
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 1;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
-    }
-
-    sql_application_configuration {
+      }      code_content_type = "PLAINTEXT"
+    }    sql_application_configuration {
       reference_data_source {
-        table_name = "TABLE-1"
-
-        reference_schema {
+        table_name = "TABLE-1"        reference_schema {
  record_column {
    name     = "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
-   record_format_type = "CSV"
-
-   mapping_parameters {
+ } record_format {
+   record_format_type = "CSV"   mapping_parameters {
      csv_mapping_parameters {
        record_column_delimiter = ","
        record_row_delimiter    = "|"
      }
    }
  }
-        }
-
-        s3_reference_data_source {
+        }        s3_reference_data_source {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = "KEY-1"
         }
@@ -5726,10 +4996,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_sqlConfigurationReferenceDataSourceUpdated(rName string) string {
+} testAccApplicationConfig_sqlConfigurationReferenceDataSourceUpdated(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
@@ -5737,48 +5004,30 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 1;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
-    }
-
-    sql_application_configuration {
+      }      code_content_type = "PLAINTEXT"
+    }    sql_application_configuration {
       reference_data_source {
-        table_name = "TABLE-2"
-
-        reference_schema {
+        table_name = "TABLE-2"        reference_schema {
  record_column {
    name     = "COLUMN_2"
    sql_type = "VARCHAR(8)"
    mapping  = "MAPPING-2"
- }
-
- record_column {
+ } record_column {
    name     = "COLUMN_3"
    sql_type = "DOUBLE"
    mapping  = "MAPPING-3"
- }
-
- record_encoding = "UTF-8"
-
- record_format {
-   record_format_type = "JSON"
-
-   mapping_parameters {
+ } record_encoding = "UTF-8" record_format {
+   record_format_type = "JSON"   mapping_parameters {
      json_mapping_parameters {
        record_row_path = "$path.to.record"
      }
    }
  }
-        }
-
-        s3_reference_data_source {
+        }        s3_reference_data_source {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = "KEY-2"
         }
@@ -5787,10 +5036,7 @@ resource "aws_kinesisanalyticsv2_application" "test" {
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_sqlConfigurationStart(rName string, start bool) string {
+} testAccApplicationConfig_sqlConfigurationStart(rName string, start bool) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseSQLApplication(rName),
@@ -5798,92 +5044,61 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         text_content = "SELECT 1;\n"
-      }
-
-      code_content_type = "PLAINTEXT"
-    }
-
-    sql_application_configuration {
+      }      code_content_type = "PLAINTEXT"
+    }    sql_application_configuration {
       input {
-        name_prefix = "NAME_PREFIX_1"
-
-        input_schema {
+        name_prefix = "NAME_PREFIX_1"        input_schema {
  record_column {
    name     = "COLUMN_1"
    sql_type = "INTEGER"
- }
-
- record_format {
-   record_format_type = "CSV"
-
-   mapping_parameters {
+ } record_format {
+   record_format_type = "CSV"   mapping_parameters {
      csv_mapping_parameters {
        record_column_delimiter = ","
        record_row_delimiter    = "|"
      }
    }
  }
-        }
-
-        kinesis_firehose_input {
+        }        kinesis_firehose_input {
  resource_arn = aws_kinesis_firehose_delivery_stream.test.arn
-        }
-
-        input_starting_position_configuration {
+        }        input_starting_position_configuration {
  input_starting_position = (%[2]t ? "NOW" : null)
         }
       }
     }
-  }
-
-  start_application = %[2]t
+  }  start_application = %[2]t
 }
 `, rName, start))
-}
-
-
- testAccApplicationConfig_tags1(rName, tagKey1, tagValue1 string) string {
+} testAccApplicationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  tags = {
+  service_execution_role = aws_iam_role.test[0].arn  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-
- testAccApplicationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+} testAccApplicationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		fmt.Sprintf(`
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "SQL-1_0"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  tags = {
+  service_execution_role = aws_iam_role.test[0].arn  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
-}
-
-
- testAccApplicationConfig_vpcConfiguration(rName string) string {
+} testAccApplicationConfig_vpcConfiguration(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseVPC(rName),
@@ -5892,31 +5107,22 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_8"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = aws_s3_object.test[0].key
         }
-      }
-
-      code_content_type = "ZIPFILE"
-    }
-
-    vpc_configuration {
+      }      code_content_type = "ZIPFILE"
+    }    vpc_configuration {
       security_group_ids = aws_security_group.test[*].id
       subnet_ids= aws_subnet.test[*].id
     }
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_vpcConfigurationUpdated(rName string) string {
+} testAccApplicationConfig_vpcConfigurationUpdated(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseVPC(rName),
@@ -5925,31 +5131,22 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_8"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = aws_s3_object.test[0].key
         }
-      }
-
-      code_content_type = "ZIPFILE"
-    }
-
-    vpc_configuration {
+      }      code_content_type = "ZIPFILE"
+    }    vpc_configuration {
       security_group_ids = [aws_security_group.test[0].id]
       subnet_ids= [aws_subnet.test[0].id]
     }
   }
 }
 `, rName))
-}
-
-
- testAccApplicationConfig_vpcConfigurationNotSpecified(rName string) string {
+} testAccApplicationConfig_vpcConfigurationNotSpecified(rName string) string {
 	return acctest.ConfigCompose(
 		testAccApplicationConfig_baseServiceExecutionIAMRole(rName),
 		testAccApplicationConfigBaseVPC(rName),
@@ -5958,18 +5155,14 @@ resource "aws_kinesisanalyticsv2_application" "test" {
 resource "aws_kinesisanalyticsv2_application" "test" {
   name = %[1]q
   runtime_environment    = "FLINK-1_8"
-  service_execution_role = aws_iam_role.test[0].arn
-
-  application_configuration {
+  service_execution_role = aws_iam_role.test[0].arn  application_configuration {
     application_code_configuration {
       code_content {
         s3_content_location {
  bucket_arn = aws_s3_bucket.test.arn
  file_key   = aws_s3_object.test[0].key
         }
-      }
-
-      code_content_type = "ZIPFILE"
+      }      code_content_type = "ZIPFILE"
     }
   }
 }

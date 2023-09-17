@@ -1,15 +1,9 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packagecognitoidp_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packagecognitoidp_testimport(
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
+	"testing"	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,17 +11,13 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcognitoidp"github.com/hashicorp/terraform-provider-aws/internal/service/cognitoidp"
-)
-
-funcTestAccCognitoIDPUserInGroup_basic(t*testing.T){
+)funcTestAccCognitoIDPUserInGroup_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName:="aws_cognito_user_in_group.test"
 	userPoolResourceName:="aws_cognito_user_pool.test"
 	userGroupResourceName:="aws_cognito_user_group.test"
-	userResourceName:="aws_cognito_user.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	userResourceName:="aws_cognito_user.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -44,14 +34,10 @@ funcTestAccCognitoIDPUserInGroup_basic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccCognitoIDPUserInGroup_disappears(t*testing.T){
+}funcTestAccCognitoIDPUserInGroup_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_cognito_user_in_group.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_cognito_user_in_group.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -67,9 +53,7 @@ funcTestAccCognitoIDPUserInGroup_disappears(t*testing.T){
 			},
 		},
 	})
-}
-
-functestAccUserInGroupConfig_basic(rNamestring)string{
+}functestAccUserInGroupConfig_basic(rNamestring)string{
 	returnfmt.Sprintf(`
 resource"aws_cognito_user_pool""test"{
 name=%[1]q
@@ -80,81 +64,45 @@ require_uppercase=false
 require_symbols=false
 require_numbers=false
 }
-}
-
-resource"aws_cognito_user""test"{
+}resource"aws_cognito_user""test"{
 user_pool_id=aws_cognito_user_pool.test.id
 username=%[1]q
-}
-
-resource"aws_cognito_user_group""test"{
+}resource"aws_cognito_user_group""test"{
 user_pool_id=aws_cognito_user_pool.test.id
 name=%[1]q
-}
-
-resource"aws_cognito_user_in_group""test"{
+}resource"aws_cognito_user_in_group""test"{
 user_pool_id=aws_cognito_user_pool.test.id
 group_name=aws_cognito_user_group.test.name
 username=aws_cognito_user.test.username
 }
 `,rName)
-}
-
-functestAccCheckUserInGroupExists(ctxcontext.Context,resourceNamestring)resource.TestCheckFunc{
+}functestAccCheckUserInGroupExists(ctxcontext.Context,resourceNamestring)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		rs,ok:=s.RootModule().Resources[resourceName]
 		if!ok{
 			returnfmt.Errorf("resourcenotfound:%s",resourceName)
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
-
-		groupName:=rs.Primary.Attributes["group_name"]
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)		groupName:=rs.Primary.Attributes["group_name"]
 		userPoolId:=rs.Primary.Attributes["user_pool_id"]
-		username:=rs.Primary.Attributes["username"]
-
-		found,err:=tfcognitoidp.FindCognitoUserInGroup(ctx,conn,groupName,userPoolId,username)
-
-		iferr!=nil{
+		username:=rs.Primary.Attributes["username"]		found,err:=tfcognitoidp.FindCognitoUserInGroup(ctx,conn,groupName,userPoolId,username)		iferr!=nil{
 			returnerr
-		}
-
-		if!found{
+		}		if!found{
 			returnerrors.New("useringroupnotfound")
-		}
-
-		returnnil
+		}		returnnil
 	}
-}
-
-functestAccCheckUserInGroupDestroy(ctxcontext.Context)resource.TestCheckFunc{
+}functestAccCheckUserInGroupDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_cognito_user_in_group"{
 				continue
-			}
-
-			groupName:=rs.Primary.Attributes["group_name"]
+			}			groupName:=rs.Primary.Attributes["group_name"]
 			userPoolId:=rs.Primary.Attributes["user_pool_id"]
-			username:=rs.Primary.Attributes["username"]
-
-			found,err:=tfcognitoidp.FindCognitoUserInGroup(ctx,conn,groupName,userPoolId,username)
-
-			iftfawserr.ErrCodeEquals(err,cognitoidentityprovider.ErrCodeResourceNotFoundException){
+			username:=rs.Primary.Attributes["username"]			found,err:=tfcognitoidp.FindCognitoUserInGroup(ctx,conn,groupName,userPoolId,username)			iftfawserr.ErrCodeEquals(err,cognitoidentityprovider.ErrCodeResourceNotFoundException){
 				continue
-			}
-
-			iferr!=nil{
+			}			iferr!=nil{
 				returnerr
-			}
-
-			iffound{
+			}			iffound{
 				returnfmt.Errorf("useringroupstillexists(%s)",rs.Primary.ID)
 			}
-		}
-
-		returnnil
+		}		returnnil
 	}
 }

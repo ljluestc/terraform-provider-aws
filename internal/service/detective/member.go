@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package detective
-
-import (
+// SPDX-License-Identifier: MPL-2.0package detectiveimport (
 "context"
 "fmt"
 "log"
 "strings"
-"time"
-
-"github.com/aws/aws-sdk-go/aws"
+"time""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/detective"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -19,9 +13,7 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 "github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKResource("aws_detective_member")
+)// @SDKResource("aws_detective_member")
 func ResourceMember() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceMemberCreate,
@@ -86,71 +78,37 @@ Computed: true,
 }
 }
 func resourceMemberCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
-
-accountId := d.Get("account_id").(string)
-graphArn := d.Get("graph_arn").(string)
-
-accountInput := &detective.Account{
+conn := meta.(*conns.AWSClient).DetectiveConn(ctx)accountId := d.Get("account_id").(string)
+graphArn := d.Get("graph_arn").(string)accountInput := &detective.Account{
 AccountId: aws.String(accountId),
 EmailAddress: aws.String(d.Get("email_address").(string)),
-}
-
-input := &detective.CreateMembersInput{
+}input := &detective.CreateMembersInput{
 Accounts: []*detective.Account{accountInput},
 GraphArn: aws.String(graphArn),
-}
-
-if v := d.Get("disable_email_notification").(bool); v {
+}if v := d.Get("disable_email_notification").(bool); v {
 input.DisableEmailNotification = aws.Bool(v)
-}
-
-if v, ok := d.GetOk("message"); ok {
+}if v, ok := d.GetOk("message"); ok {
 input.Message = aws.String(v.(string))
-}
-
-var err error
+}var err error
 err = retry.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), func() *retry.RetryError {
-_, err := conn.CreateMembersWithContext(ctx, input)
-
-if tfawserr.ErrCodeEquals(err, detective.ErrCodeInternalServerException) {
+_, err := conn.CreateMembersWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, detective.ErrCodeInternalServerException) {
 return retry.RetryableError(err)
-}
-
-if err != nil {
+}if err != nil {
 return retry.NonRetryableError(err)
-}
-
-return nil
-})
-
-if tfresource.TimedOut(err) {
+}return nil
+})if tfresource.TimedOut(err) {
 _, err = conn.CreateMembersWithContext(ctx, input)
-}
-
-if err != nil {
+}if err != nil {
 return diag.Errorf("creating Detective Member: %s", err)
-}
-
-if _, err = MemberStatusUpdated(ctx, conn, graphArn, accountId, detective.MemberStatusInvited); err != nil {
+}if _, err = MemberStatusUpdated(ctx, conn, graphArn, accountId, detective.MemberStatusInvited); err != nil {
 return diag.Errorf("waiting for Detective Member (%s) to be invited: %s", d.Id(), err)
-}
-
-d.SetId(EncodeMemberID(graphArn, accountId))
-
-return resourceMemberRead(ctx, d, meta)
+}d.SetId(EncodeMemberID(graphArn, accountId))return resourceMemberRead(ctx, d, meta)
 }
 func resourceMemberRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
-
-graphArn, accountId, err := DecodeMemberID(d.Id())
+conn := meta.(*conns.AWSClient).DetectiveConn(ctx)graphArn, accountId, err := DecodeMemberID(d.Id())
 if err != nil {
 return diag.Errorf("decoding ID Detective Member (%s): %s", d.Id(), err)
-}
-
-resp, err := FindMemberByGraphARNAndAccountID(ctx, conn, graphArn, accountId)
-
-if err != nil {
+}resp, err := FindMemberByGraphARNAndAccountID(ctx, conn, graphArn, accountId)if err != nil {
 if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, detective.ErrCodeResourceNotFoundException) ||
 tfresource.NotFound(err) {
 log.Printf("[WARN] Detective Member (%s) not found, removing from state", d.Id())
@@ -158,15 +116,11 @@ d.SetId("")
 return nil
 }
 return diag.Errorf("reading Detective Member (%s): %s", d.Id(), err)
-}
-
-if !d.IsNewResource() && resp == nil {
+}if !d.IsNewResource() && resp == nil {
 log.Printf("[WARN] Detective Member (%s) not found, removing from state", d.Id())
 d.SetId("")
 return nil
-}
-
-d.Set("account_id", resp.AccountId)
+}d.Set("account_id", resp.AccountId)
 d.Set("administrator_id", resp.AdministratorId)
 d.Set("disabled_reason", resp.DisabledReason)
 d.Set("email_address", resp.EmailAddress)
@@ -174,24 +128,16 @@ d.Set("graph_arn", resp.GraphArn)
 d.Set("invited_time", aws.TimeValue(resp.InvitedTime).Format(time.RFC3339))
 d.Set("status", resp.Status)
 d.Set("updated_time", aws.TimeValue(resp.UpdatedTime).Format(time.RFC3339))
-d.Set("volume_usage_in_bytes", resp.VolumeUsageInBytes)
-
-return nil
+d.Set("volume_usage_in_bytes", resp.VolumeUsageInBytes)return nil
 }
 func resourceMemberDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
-
-graphArn, accountId, err := DecodeMemberID(d.Id())
+conn := meta.(*conns.AWSClient).DetectiveConn(ctx)graphArn, accountId, err := DecodeMemberID(d.Id())
 if err != nil {
 return diag.Errorf("decoding ID Detective Member (%s): %s", d.Id(), err)
-}
-
-input := &detective.DeleteMembersInput{
+}input := &detective.DeleteMembersInput{
 AccountIds: []*string{aws.String(accountId)},
 GraphArn:aws.String(graphArn),
-}
-
-_, err = conn.DeleteMembersWithContext(ctx, input)
+}_, err = conn.DeleteMembersWithContext(ctx, input)
 if err != nil {
 if tfawserr.ErrCodeEquals(err, detective.ErrCodeResourceNotFoundException) {
 return nil

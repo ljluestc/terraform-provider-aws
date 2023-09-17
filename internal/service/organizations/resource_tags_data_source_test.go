@@ -11,18 +11,14 @@ import (
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func testAccResourceTagsDataSource_basic(t *testing.T) {
+)func testAccResourceTagsDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_organizations_policy.test"
 dataSourceName := "data.aws_organizations_resource_tags.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 resource.Test(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -34,10 +30,7 @@ resource.TestCheckResourceAttrPair(resourceName, "tags.#", dataSourceName, "tags
 },
 },
 })
-}
-
-
-func testAccResourceTagsDataSourceConfig_basic(rName string) string {
+}func testAccResourceTagsDataSourceConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {}
 

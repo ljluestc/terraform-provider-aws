@@ -1,843 +1,753 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package batch_test
-
-import (
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0packagebatch_testimport(
 "context"
 "fmt"
 "reflect"
 "strings"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/batch"
-sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-plugin-testing/terraform"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
-tfbatch "github.com/hashicorp/terraform-provider-aws/internal/service/batch"
+tfbatch"github.com/hashicorp/terraform-provider-aws/internal/service/batch"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-func TestAccBatchJobDefinition_basic(t *testing.T) {
-ctx := acctest.Context(t)
-var jd batch.JobDefinition
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_batch_job_definition.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcTestAccBatchJobDefinition_basic(t*testing.T){
+ctx:=acctest.Context(t)
+varjdbatch.JobDefinition
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_batch_job_definition.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,batch.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
-Steps: []resource.TestStep{
+Steps:[]resource.TestStep{
 {
-Config: testAccJobDefinitionConfig_name(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "batch", regexache.MustCompile(fmt.Sprintf(`job-definition/%s:\d+`, rName))),
-acctest.CheckResourceAttrEquivalentJSON(resourceName, "container_properties", `{
-"command": ["echo", "test"],
-"image": "busybox",
-"memory": 128,
-"vcpus": 1,
-"environment": [],
-"mountPoints": [],
-"resourceRequirements": [],
-"secrets": [],
-"ulimits": [],
-"volumes": []
+Config:testAccJobDefinitionConfig_name(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+acctest.MatchResourceAttrRegionalARN(resourceName,"arn","batch",regexache.MustCompile(fmt.Sprintf(`job-definition/%s:\d+`,rName))),
+acctest.CheckResourceAttrEquivalentJSON(resourceName,"container_properties",`{
+"command":["echo","test"],
+"image":"busybox",
+"memory":128,
+"vcpus":1,
+"environment":[],
+"mountPoints":[],
+"resourceRequirements":[],
+"secrets":[],
+"ulimits":[],
+"volumes":[]
 }`),
-resource.TestCheckResourceAttr(resourceName, "name", rName),
-resource.TestCheckResourceAttr(resourceName, "parameters.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "platform_capabilities.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "propagate_tags", "false"),
-resource.TestCheckResourceAttr(resourceName, "retry_strategy.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "revision", "1"),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "tags_all.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "timeout.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "type", "container"),
+resource.TestCheckResourceAttr(resourceName,"name",rName),
+resource.TestCheckResourceAttr(resourceName,"parameters.%","0"),
+resource.TestCheckResourceAttr(resourceName,"platform_capabilities.#","0"),
+resource.TestCheckResourceAttr(resourceName,"propagate_tags","false"),
+resource.TestCheckResourceAttr(resourceName,"retry_strategy.#","0"),
+resource.TestCheckResourceAttr(resourceName,"revision","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
+resource.TestCheckResourceAttr(resourceName,"tags_all.%","0"),
+resource.TestCheckResourceAttr(resourceName,"timeout.#","0"),
+resource.TestCheckResourceAttr(resourceName,"type","container"),
 ),
 },
 {
-ResourceName: resourceName,
-ImportState:  true,
-ImportStateVerify: true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 },
 },
 })
 }
-func TestAccBatchJobDefinition_disappears(t *testing.T) {
-ctx := acctest.Context(t)
-var jd batch.JobDefinition
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_batch_job_definition.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcTestAccBatchJobDefinition_disappears(t*testing.T){
+ctx:=acctest.Context(t)
+varjdbatch.JobDefinition
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_batch_job_definition.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,batch.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
-Steps: []resource.TestStep{
+Steps:[]resource.TestStep{
 {
-Config: testAccJobDefinitionConfig_name(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-acctest.CheckResourceDisappears(ctx, acctest.Provider, tfbatch.ResourceJobDefinition(), resourceName),
+Config:testAccJobDefinitionConfig_name(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+acctest.CheckResourceDisappears(ctx,acctest.Provider,tfbatch.ResourceJobDefinition(),resourceName),
 ),
-ExpectNonEmptyPlan: true,
+ExpectNonEmptyPlan:true,
 },
 },
 })
 }
-func TestAccBatchJobDefinition_PlatformCapabilities_ec2(t *testing.T) {
-ctx := acctest.Context(t)
-var jd batch.JobDefinition
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_batch_job_definition.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcTestAccBatchJobDefinition_PlatformCapabilities_ec2(t*testing.T){
+ctx:=acctest.Context(t)
+varjdbatch.JobDefinition
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_batch_job_definition.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,batch.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
-Steps: []resource.TestStep{
+Steps:[]resource.TestStep{
 {
-Config: testAccJobDefinitionConfig_capabilitiesEC2(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "batch", regexache.MustCompile(fmt.Sprintf(`job-definition/%s:\d+`, rName))),
-acctest.CheckResourceAttrEquivalentJSON(resourceName, "container_properties", `{
-"command": ["echo", "test"],
-"image": "busybox",
-"memory": 128,
-"vcpus": 1,
-"environment": [],
-"mountPoints": [],
-"resourceRequirements": [],
-"secrets": [],
-"ulimits": [],
-"volumes": []
+Config:testAccJobDefinitionConfig_capabilitiesEC2(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+acctest.MatchResourceAttrRegionalARN(resourceName,"arn","batch",regexache.MustCompile(fmt.Sprintf(`job-definition/%s:\d+`,rName))),
+acctest.CheckResourceAttrEquivalentJSON(resourceName,"container_properties",`{
+"command":["echo","test"],
+"image":"busybox",
+"memory":128,
+"vcpus":1,
+"environment":[],
+"mountPoints":[],
+"resourceRequirements":[],
+"secrets":[],
+"ulimits":[],
+"volumes":[]
 }`),
-resource.TestCheckResourceAttr(resourceName, "name", rName),
-resource.TestCheckResourceAttr(resourceName, "parameters.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "platform_capabilities.#", "1"),
-resource.TestCheckTypeSetElemAttr(resourceName, "platform_capabilities.*", "EC2"),
-resource.TestCheckResourceAttr(resourceName, "propagate_tags", "false"),
-resource.TestCheckResourceAttr(resourceName, "retry_strategy.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "revision", "1"),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "timeout.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "type", "container"),
+resource.TestCheckResourceAttr(resourceName,"name",rName),
+resource.TestCheckResourceAttr(resourceName,"parameters.%","0"),
+resource.TestCheckResourceAttr(resourceName,"platform_capabilities.#","1"),
+resource.TestCheckTypeSetElemAttr(resourceName,"platform_capabilities.*","EC2"),
+resource.TestCheckResourceAttr(resourceName,"propagate_tags","false"),
+resource.TestCheckResourceAttr(resourceName,"retry_strategy.#","0"),
+resource.TestCheckResourceAttr(resourceName,"revision","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
+resource.TestCheckResourceAttr(resourceName,"timeout.#","0"),
+resource.TestCheckResourceAttr(resourceName,"type","container"),
 ),
 },
 {
-ResourceName: resourceName,
-ImportState:  true,
-ImportStateVerify: true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 },
 },
 })
 }
-func TestAccBatchJobDefinition_PlatformCapabilitiesFargate_containerPropertiesDefaults(t *testing.T) {
-ctx := acctest.Context(t)
-var jd batch.JobDefinition
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_batch_job_definition.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcTestAccBatchJobDefinition_PlatformCapabilitiesFargate_containerPropertiesDefaults(t*testing.T){
+ctx:=acctest.Context(t)
+varjdbatch.JobDefinition
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_batch_job_definition.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,batch.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
-Steps: []resource.TestStep{
+Steps:[]resource.TestStep{
 {
-Config: testAccJobDefinitionConfig_capabilitiesFargateContainerPropertiesDefaults(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "batch", regexache.MustCompile(fmt.Sprintf(`job-definition/%s:\d+`, rName))),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "length(command)", "0"),
-acctest.CheckResourceAttrJMESPair(resourceName, "container_properties", "executionRoleArn", "aws_iam_role.ecs_task_execution_role", "arn"),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "fargatePlatformConfiguration.platformVersion", "LATEST"),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "length(resourceRequirements)", "2"),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "resourceRequirements[?type=='VCPU'].value | [0]", "0.25"),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "resourceRequirements[?type=='MEMORY'].value | [0]", "512"),
-resource.TestCheckResourceAttr(resourceName, "name", rName),
-resource.TestCheckResourceAttr(resourceName, "parameters.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "platform_capabilities.#", "1"),
-resource.TestCheckTypeSetElemAttr(resourceName, "platform_capabilities.*", "FARGATE"),
-resource.TestCheckResourceAttr(resourceName, "propagate_tags", "false"),
-resource.TestCheckResourceAttr(resourceName, "retry_strategy.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "revision", "1"),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "timeout.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "type", "container"),
+Config:testAccJobDefinitionConfig_capabilitiesFargateContainerPropertiesDefaults(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+acctest.MatchResourceAttrRegionalARN(resourceName,"arn","batch",regexache.MustCompile(fmt.Sprintf(`job-definition/%s:\d+`,rName))),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","length(command)","0"),
+acctest.CheckResourceAttrJMESPair(resourceName,"container_properties","executionRoleArn","aws_iam_role.ecs_task_execution_role","arn"),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","fargatePlatformConfiguration.platformVersion","LATEST"),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","length(resourceRequirements)","2"),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","resourceRequirements[?type=='VCPU'].value|[0]","0.25"),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","resourceRequirements[?type=='MEMORY'].value|[0]","512"),
+resource.TestCheckResourceAttr(resourceName,"name",rName),
+resource.TestCheckResourceAttr(resourceName,"parameters.%","0"),
+resource.TestCheckResourceAttr(resourceName,"platform_capabilities.#","1"),
+resource.TestCheckTypeSetElemAttr(resourceName,"platform_capabilities.*","FARGATE"),
+resource.TestCheckResourceAttr(resourceName,"propagate_tags","false"),
+resource.TestCheckResourceAttr(resourceName,"retry_strategy.#","0"),
+resource.TestCheckResourceAttr(resourceName,"revision","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
+resource.TestCheckResourceAttr(resourceName,"timeout.#","0"),
+resource.TestCheckResourceAttr(resourceName,"type","container"),
 ),
 },
 {
-ResourceName: resourceName,
-ImportState:  true,
-ImportStateVerify: true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 },
 },
 })
 }
-func TestAccBatchJobDefinition_PlatformCapabilities_fargate(t *testing.T) {
-ctx := acctest.Context(t)
-var jd batch.JobDefinition
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_batch_job_definition.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcTestAccBatchJobDefinition_PlatformCapabilities_fargate(t*testing.T){
+ctx:=acctest.Context(t)
+varjdbatch.JobDefinition
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_batch_job_definition.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,batch.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
-Steps: []resource.TestStep{
+Steps:[]resource.TestStep{
 {
-Config: testAccJobDefinitionConfig_capabilitiesFargate(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "batch", regexache.MustCompile(fmt.Sprintf(`job-definition/%s:\d+`, rName))),
-acctest.CheckResourceAttrJMESPair(resourceName, "container_properties", "executionRoleArn", "aws_iam_role.ecs_task_execution_role", "arn"),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "fargatePlatformConfiguration.platformVersion", "LATEST"),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "networkConfiguration.assignPublicIp", "DISABLED"),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "length(resourceRequirements)", "2"),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "resourceRequirements[?type=='VCPU'].value | [0]", "0.25"),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "resourceRequirements[?type=='MEMORY'].value | [0]", "512"),
-resource.TestCheckResourceAttr(resourceName, "name", rName),
-resource.TestCheckResourceAttr(resourceName, "parameters.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "platform_capabilities.#", "1"),
-resource.TestCheckTypeSetElemAttr(resourceName, "platform_capabilities.*", "FARGATE"),
-resource.TestCheckResourceAttr(resourceName, "propagate_tags", "false"),
-resource.TestCheckResourceAttr(resourceName, "retry_strategy.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "revision", "1"),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "timeout.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "type", "container"),
+Config:testAccJobDefinitionConfig_capabilitiesFargate(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+acctest.MatchResourceAttrRegionalARN(resourceName,"arn","batch",regexache.MustCompile(fmt.Sprintf(`job-definition/%s:\d+`,rName))),
+acctest.CheckResourceAttrJMESPair(resourceName,"container_properties","executionRoleArn","aws_iam_role.ecs_task_execution_role","arn"),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","fargatePlatformConfiguration.platformVersion","LATEST"),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","networkConfiguration.assignPublicIp","DISABLED"),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","length(resourceRequirements)","2"),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","resourceRequirements[?type=='VCPU'].value|[0]","0.25"),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","resourceRequirements[?type=='MEMORY'].value|[0]","512"),
+resource.TestCheckResourceAttr(resourceName,"name",rName),
+resource.TestCheckResourceAttr(resourceName,"parameters.%","0"),
+resource.TestCheckResourceAttr(resourceName,"platform_capabilities.#","1"),
+resource.TestCheckTypeSetElemAttr(resourceName,"platform_capabilities.*","FARGATE"),
+resource.TestCheckResourceAttr(resourceName,"propagate_tags","false"),
+resource.TestCheckResourceAttr(resourceName,"retry_strategy.#","0"),
+resource.TestCheckResourceAttr(resourceName,"revision","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
+resource.TestCheckResourceAttr(resourceName,"timeout.#","0"),
+resource.TestCheckResourceAttr(resourceName,"type","container"),
 ),
 },
 {
-ResourceName: resourceName,
-ImportState:  true,
-ImportStateVerify: true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 },
 },
 })
 }
-func TestAccBatchJobDefinition_ContainerProperties_advanced(t *testing.T) {
-ctx := acctest.Context(t)
-var jd batch.JobDefinition
-compare := batch.JobDefinition{
-Parameters: map[string]*string{
-"param1": aws.String("val1"),
-"param2": aws.String("val2"),
+funcTestAccBatchJobDefinition_ContainerProperties_advanced(t*testing.T){
+ctx:=acctest.Context(t)
+varjdbatch.JobDefinition
+compare:=batch.JobDefinition{
+Parameters:map[string]*string{
+"param1":aws.String("val1"),
+"param2":aws.String("val2"),
 },
-RetryStrategy: &batch.RetryStrategy{
-Attempts: aws.Int64(1),
-EvaluateOnExit: []*batch.EvaluateOnExit{
-{Action: aws.String(strings.ToLower(batch.RetryActionRetry)), OnStatusReason: aws.String("Host EC2*")},
-{Action: aws.String(strings.ToLower(batch.RetryActionExit)), OnReason: aws.String("*")},
+RetryStrategy:&batch.RetryStrategy{
+Attempts:aws.Int64(1),
+EvaluateOnExit:[]*batch.EvaluateOnExit{
+{Action:aws.String(strings.ToLower(batch.RetryActionRetry)),OnStatusReason:aws.String("HostEC2*")},
+{Action:aws.String(strings.ToLower(batch.RetryActionExit)),OnReason:aws.String("*")},
 },
 },
-Timeout: &batch.JobTimeout{
-AttemptDurationSeconds: aws.Int64(60),
+Timeout:&batch.JobTimeout{
+AttemptDurationSeconds:aws.Int64(60),
 },
-ContainerProperties: &batch.ContainerProperties{
-Command: []*string{aws.String("ls"), aws.String("-la")},
-Environment: []*batch.KeyValuePair{
-{Name: aws.String("VARNAME"), Value: aws.String("VARVAL")},
+ContainerProperties:&batch.ContainerProperties{
+Command:[]*string{aws.String("ls"),aws.String("-la")},
+Environment:[]*batch.KeyValuePair{
+{Name:aws.String("VARNAME"),Value:aws.String("VARVAL")},
 },
-Image:  aws.String("busybox"),
-Memory: aws.Int64(512),
-MountPoints: []*batch.MountPoint{
-{ContainerPath: aws.String("/tmp"), ReadOnly: aws.Bool(false), SourceVolume: aws.String("tmp")},
+Image:aws.String("busybox"),
+Memory:aws.Int64(512),
+MountPoints:[]*batch.MountPoint{
+{ContainerPath:aws.String("/tmp"),ReadOnly:aws.Bool(false),SourceVolume:aws.String("tmp")},
 },
-ResourceRequirements: []*batch.ResourceRequirement{},
-Secrets: []*batch.Secret{},
-Ulimits: []*batch.Ulimit{
-{HardLimit: aws.Int64(1024), Name: aws.String("nofile"), SoftLimit: aws.Int64(1024)},
+ResourceRequirements:[]*batch.ResourceRequirement{},
+Secrets:[]*batch.Secret{},
+Ulimits:[]*batch.Ulimit{
+{HardLimit:aws.Int64(1024),Name:aws.String("nofile"),SoftLimit:aws.Int64(1024)},
 },
-Vcpus: aws.Int64(1),
-Volumes: []*batch.Volume{
+Vcpus:aws.Int64(1),
+Volumes:[]*batch.Volume{
 {
-Host: &batch.Host{SourcePath: aws.String("/tmp")},
-Name: aws.String("tmp"),
+Host:&batch.Host{SourcePath:aws.String("/tmp")},
+Name:aws.String("tmp"),
 },
 },
 },
 }
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_batch_job_definition.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_batch_job_definition.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,batch.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
-Steps: []resource.TestStep{
+Steps:[]resource.TestStep{
 {
-Config: testAccJobDefinitionConfig_containerPropertiesAdvanced(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-testAccCheckJobDefinitionAttributes(&jd, &compare),
+Config:testAccJobDefinitionConfig_containerPropertiesAdvanced(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+testAccCheckJobDefinitionAttributes(&jd,&compare),
 ),
 },
 {
-ResourceName: resourceName,
-ImportState:  true,
-ImportStateVerify: true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 },
 },
 })
 }
-func TestAccBatchJobDefinition_updateForcesNewResource(t *testing.T) {
-ctx := acctest.Context(t)
-var before, after batch.JobDefinition
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_batch_job_definition.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcTestAccBatchJobDefinition_updateForcesNewResource(t*testing.T){
+ctx:=acctest.Context(t)
+varbefore,afterbatch.JobDefinition
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_batch_job_definition.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,batch.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
-Steps: []resource.TestStep{
+Steps:[]resource.TestStep{
 {
-Config: testAccJobDefinitionConfig_containerPropertiesAdvanced(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &before),
-testAccCheckJobDefinitionAttributes(&before, nil),
+Config:testAccJobDefinitionConfig_containerPropertiesAdvanced(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&before),
+testAccCheckJobDefinitionAttributes(&before,nil),
 ),
 },
 {
-Config: testAccJobDefinitionConfig_containerPropertiesAdvancedUpdate(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &after),
-testAccCheckJobDefinitionRecreated(t, &before, &after),
+Config:testAccJobDefinitionConfig_containerPropertiesAdvancedUpdate(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&after),
+testAccCheckJobDefinitionRecreated(t,&before,&after),
 ),
 },
 {
-ResourceName: resourceName,
-ImportState:  true,
-ImportStateVerify: true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 },
 },
 })
 }
-func TestAccBatchJobDefinition_tags(t *testing.T) {
-ctx := acctest.Context(t)
-var jd batch.JobDefinition
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_batch_job_definition.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcTestAccBatchJobDefinition_tags(t*testing.T){
+ctx:=acctest.Context(t)
+varjdbatch.JobDefinition
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_batch_job_definition.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,batch.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
-Steps: []resource.TestStep{
+Steps:[]resource.TestStep{
 {
-Config: testAccJobDefinitionConfig_tags1(rName, "key1", "value1"),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+Config:testAccJobDefinitionConfig_tags1(rName,"key1","value1"),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.key1","value1"),
 ),
 },
 {
-ResourceName: resourceName,
-ImportState:  true,
-ImportStateVerify: true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 },
 {
-Config: testAccJobDefinitionConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+Config:testAccJobDefinitionConfig_tags2(rName,"key1","value1updated","key2","value2"),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+resource.TestCheckResourceAttr(resourceName,"tags.%","2"),
+resource.TestCheckResourceAttr(resourceName,"tags.key1","value1updated"),
+resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
 ),
 },
 {
-Config: testAccJobDefinitionConfig_tags1(rName, "key2", "value2"),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+Config:testAccJobDefinitionConfig_tags1(rName,"key2","value2"),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
 ),
 },
 },
 })
 }
-func TestAccBatchJobDefinition_propagateTags(t *testing.T) {
-ctx := acctest.Context(t)
-var jd batch.JobDefinition
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_batch_job_definition.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+funcTestAccBatchJobDefinition_propagateTags(t*testing.T){
+ctx:=acctest.Context(t)
+varjdbatch.JobDefinition
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_batch_job_definition.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,batch.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
-Steps: []resource.TestStep{
+Steps:[]resource.TestStep{
 {
-Config: testAccJobDefinitionConfig_propagateTags(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "batch", regexache.MustCompile(fmt.Sprintf(`job-definition/%s:\d+`, rName))),
-acctest.CheckResourceAttrEquivalentJSON(resourceName, "container_properties", `{
-"command": ["echo", "test"],
-"image": "busybox",
-"memory": 128,
-"vcpus": 1,
-"environment": [],
-"mountPoints": [],
-"resourceRequirements": [],
-"secrets": [],
-"ulimits": [],
-"volumes": []
+Config:testAccJobDefinitionConfig_propagateTags(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+acctest.MatchResourceAttrRegionalARN(resourceName,"arn","batch",regexache.MustCompile(fmt.Sprintf(`job-definition/%s:\d+`,rName))),
+acctest.CheckResourceAttrEquivalentJSON(resourceName,"container_properties",`{
+"command":["echo","test"],
+"image":"busybox",
+"memory":128,
+"vcpus":1,
+"environment":[],
+"mountPoints":[],
+"resourceRequirements":[],
+"secrets":[],
+"ulimits":[],
+"volumes":[]
 }`),
-resource.TestCheckResourceAttr(resourceName, "name", rName),
-resource.TestCheckResourceAttr(resourceName, "parameters.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "platform_capabilities.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "propagate_tags", "true"),
-resource.TestCheckResourceAttr(resourceName, "retry_strategy.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "revision", "1"),
-resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-resource.TestCheckResourceAttr(resourceName, "timeout.#", "0"),
-resource.TestCheckResourceAttr(resourceName, "type", "container"),
+resource.TestCheckResourceAttr(resourceName,"name",rName),
+resource.TestCheckResourceAttr(resourceName,"parameters.%","0"),
+resource.TestCheckResourceAttr(resourceName,"platform_capabilities.#","0"),
+resource.TestCheckResourceAttr(resourceName,"propagate_tags","true"),
+resource.TestCheckResourceAttr(resourceName,"retry_strategy.#","0"),
+resource.TestCheckResourceAttr(resourceName,"revision","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
+resource.TestCheckResourceAttr(resourceName,"timeout.#","0"),
+resource.TestCheckResourceAttr(resourceName,"type","container"),
 ),
 },
 },
 })
 }
-func TestAccBatchJobDefinition_ContainerProperties_EmptyField(t *testing.T) {
-ctx := acctest.Context(t)
-var jd batch.JobDefinition
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_batch_job_definition.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
-acctest.PreCheck(ctx, t)
-testAccPreCheck(ctx, t)
+funcTestAccBatchJobDefinition_ContainerProperties_EmptyField(t*testing.T){
+ctx:=acctest.Context(t)
+varjdbatch.JobDefinition
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName:="aws_batch_job_definition.test"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){
+acctest.PreCheck(ctx,t)
+testAccPreCheck(ctx,t)
 },
-ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+ErrorCheck:acctest.ErrorCheck(t,batch.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckJobDefinitionDestroy(ctx),
-Steps: []resource.TestStep{
+Steps:[]resource.TestStep{
 {
-Config: testAccJobDefinitionConfig_containerProperties_emptyField(rName),
-Check: resource.ComposeAggregateTestCheckFunc(
-testAccCheckJobDefinitionExists(ctx, resourceName, &jd),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "length(environment)", "1"),
-acctest.CheckResourceAttrJMES(resourceName, "container_properties", "environment[?name=='VALUE'].value | [0]", "value"),
+Config:testAccJobDefinitionConfig_containerProperties_emptyField(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+testAccCheckJobDefinitionExists(ctx,resourceName,&jd),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","length(environment)","1"),
+acctest.CheckResourceAttrJMES(resourceName,"container_properties","environment[?name=='VALUE'].value|[0]","value"),
 ),
 },
 {
-ResourceName: resourceName,
-ImportState:  true,
-ImportStateVerify: true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 },
 },
 })
 }
-func testAccCheckJobDefinitionExists(ctx context.Context, n string, jd *batch.JobDefinition) resource.TestCheckFunc {
-return func(s *terraform.State) error {
-rs, ok := s.RootModule().Resources[n]
-if !ok {
-return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
-return fmt.Errorf("No Batch Job Queue ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).BatchConn(ctx)
-
-jobDefinition, err := tfbatch.FindJobDefinitionByARN(ctx, conn, rs.Primary.ID)
-
-if err != nil {
-return err
-}
-
-*jd = *jobDefinition
-
-return nil
+functestAccCheckJobDefinitionExists(ctxcontext.Context,nstring,jd*batch.JobDefinition)resource.TestCheckFunc{
+returnfunc(s*terraform.State)error{
+rs,ok:=s.RootModule().Resources[n]
+if!ok{
+returnfmt.Errorf("Notfound:%s",n)
+}ifrs.Primary.ID==""{
+returnfmt.Errorf("NoBatchJobQueueIDisset")
+}conn:=acctest.Provider.Meta().(*conns.AWSClient).BatchConn(ctx)jobDefinition,err:=tfbatch.FindJobDefinitionByARN(ctx,conn,rs.Primary.ID)iferr!=nil{
+returnerr
+}*jd=*jobDefinitionreturnnil
 }
 }
-func testAccCheckJobDefinitionAttributes(jd *batch.JobDefinition, compare *batch.JobDefinition) resource.TestCheckFunc {
-return func(s *terraform.State) error {
-for _, rs := range s.RootModule().Resources {
-if rs.Type != "aws_batch_job_definition" {
+functestAccCheckJobDefinitionAttributes(jd*batch.JobDefinition,compare*batch.JobDefinition)resource.TestCheckFunc{
+returnfunc(s*terraform.State)error{
+for_,rs:=ranges.RootModule().Resources{
+ifrs.Type!="aws_batch_job_definition"{
 continue
 }
-if aws.StringValue(jd.JobDefinitionArn) != rs.Primary.Attributes["arn"] {
-return fmt.Errorf("Bad Job Definition ARN\n\t expected: %s\n\tgot: %s\n", rs.Primary.Attributes["arn"], aws.StringValue(jd.JobDefinitionArn))
+ifaws.StringValue(jd.JobDefinitionArn)!=rs.Primary.Attributes["arn"]{
+returnfmt.Errorf("BadJobDefinitionARN\n\texpected:%s\n\tgot:%s\n",rs.Primary.Attributes["arn"],aws.StringValue(jd.JobDefinitionArn))
 }
-if compare != nil {
-if compare.Parameters != nil && !reflect.DeepEqual(compare.Parameters, jd.Parameters) {
-return fmt.Errorf("Bad Job Definition Params\n\t expected: %v\n\tgot: %v\n", compare.Parameters, jd.Parameters)
+ifcompare!=nil{
+ifcompare.Parameters!=nil&&!reflect.DeepEqual(compare.Parameters,jd.Parameters){
+returnfmt.Errorf("BadJobDefinitionParams\n\texpected:%v\n\tgot:%v\n",compare.Parameters,jd.Parameters)
 }
-if compare.RetryStrategy != nil && aws.Int64Value(compare.RetryStrategy.Attempts) != aws.Int64Value(jd.RetryStrategy.Attempts) {
-return fmt.Errorf("Bad Job Definition Retry Strategy\n\t expected: %d\n\tgot: %d\n", aws.Int64Value(compare.RetryStrategy.Attempts), aws.Int64Value(jd.RetryStrategy.Attempts))
+ifcompare.RetryStrategy!=nil&&aws.Int64Value(compare.RetryStrategy.Attempts)!=aws.Int64Value(jd.RetryStrategy.Attempts){
+returnfmt.Errorf("BadJobDefinitionRetryStrategy\n\texpected:%d\n\tgot:%d\n",aws.Int64Value(compare.RetryStrategy.Attempts),aws.Int64Value(jd.RetryStrategy.Attempts))
 }
-if compare.RetryStrategy != nil && !reflect.DeepEqual(compare.RetryStrategy.EvaluateOnExit, jd.RetryStrategy.EvaluateOnExit) {
-return fmt.Errorf("Bad Job Definition Retry Strategy\n\t expected: %v\n\tgot: %v\n", compare.RetryStrategy.EvaluateOnExit, jd.RetryStrategy.EvaluateOnExit)
+ifcompare.RetryStrategy!=nil&&!reflect.DeepEqual(compare.RetryStrategy.EvaluateOnExit,jd.RetryStrategy.EvaluateOnExit){
+returnfmt.Errorf("BadJobDefinitionRetryStrategy\n\texpected:%v\n\tgot:%v\n",compare.RetryStrategy.EvaluateOnExit,jd.RetryStrategy.EvaluateOnExit)
 }
-if compare.ContainerProperties != nil && compare.ContainerProperties.Command != nil && !reflect.DeepEqual(compare.ContainerProperties, jd.ContainerProperties) {
-return fmt.Errorf("Bad Job Definition Container Properties\n\t expected: %s\n\tgot: %s\n", compare.ContainerProperties, jd.ContainerProperties)
-}
-}
-}
-return nil
+ifcompare.ContainerProperties!=nil&&compare.ContainerProperties.Command!=nil&&!reflect.DeepEqual(compare.ContainerProperties,jd.ContainerProperties){
+returnfmt.Errorf("BadJobDefinitionContainerProperties\n\texpected:%s\n\tgot:%s\n",compare.ContainerProperties,jd.ContainerProperties)
 }
 }
-func testAccCheckJobDefinitionRecreated(t *testing.T, before, after *batch.JobDefinition) resource.TestCheckFunc {
-return func(s *terraform.State) error {
-if aws.Int64Value(before.Revision) == aws.Int64Value(after.Revision) {
-t.Fatalf("Expected change of JobDefinition Revisions, but both were %d", aws.Int64Value(before.Revision))
 }
-return nil
+returnnil
 }
 }
-func testAccCheckJobDefinitionDestroy(ctx context.Context) resource.TestCheckFunc {
-return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).BatchConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
-if rs.Type != "aws_batch_job_definition" {
+functestAccCheckJobDefinitionRecreated(t*testing.T,before,after*batch.JobDefinition)resource.TestCheckFunc{
+returnfunc(s*terraform.State)error{
+ifaws.Int64Value(before.Revision)==aws.Int64Value(after.Revision){
+t.Fatalf("ExpectedchangeofJobDefinitionRevisions,butbothwere%d",aws.Int64Value(before.Revision))
+}
+returnnil
+}
+}
+functestAccCheckJobDefinitionDestroy(ctxcontext.Context)resource.TestCheckFunc{
+returnfunc(s*terraform.State)error{
+conn:=acctest.Provider.Meta().(*conns.AWSClient).BatchConn(ctx)for_,rs:=ranges.RootModule().Resources{
+ifrs.Type!="aws_batch_job_definition"{
 continue
-}
-
-_, err := tfbatch.FindJobDefinitionByARN(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+}_,err:=tfbatch.FindJobDefinitionByARN(ctx,conn,rs.Primary.ID)iftfresource.NotFound(err){
 continue
+}iferr!=nil{
+returnerr
+}returnfmt.Errorf("BatchJobDefinition%sstillexists",rs.Primary.ID)
 }
-
-if err != nil {
-return err
-}
-
-return fmt.Errorf("Batch Job Definition %s still exists", rs.Primary.ID)
-}
-return nil
+returnnil
 }
 }
-func testAccJobDefinitionConfig_containerPropertiesAdvanced(rName string) string {
-return fmt.Sprintf(`
-resource "aws_batch_job_definition" "test" {
-  name = %[1]q
-  type = "container"
-  parameters = {
- param1 = "val1"
- param2 = "val2"
-  }
-  retry_strategy {
- attempts = 1
- evaluate_on_exit {
- action = "RETRY"
- on_status_reason = "Host EC2*"
- }
- evaluate_on_exit {
- action = "exit"
- on_reason = "*"
- }
-  }
-  timeout {
- attempt_duration_seconds = 60
-  }
-  container_properties = <<CONTAINER_PROPERTIES
+functestAccJobDefinitionConfig_containerPropertiesAdvanced(rNamestring)string{
+returnfmt.Sprintf(`
+resource"aws_batch_job_definition""test"{
+name=%[1]q
+type="container"
+parameters={
+param1="val1"
+param2="val2"
+}
+retry_strategy{
+attempts=1
+evaluate_on_exit{
+action="RETRY"
+on_status_reason="HostEC2*"
+}
+evaluate_on_exit{
+action="exit"
+on_reason="*"
+}
+}
+timeout{
+attempt_duration_seconds=60
+}
+container_properties=<<CONTAINER_PROPERTIES
 {
- "command": ["ls", "-la"],
- "image": "busybox",
- "memory": 512,
- "vcpus": 1,
- "volumes": [
- {
-"host": {
-"sourcePath": "/tmp"
+"command":["ls","-la"],
+"image":"busybox",
+"memory":512,
+"vcpus":1,
+"volumes":[
+{
+"host":{
+"sourcePath":"/tmp"
 },
-"name": "tmp"
- }
- ],
- "environment": [
-{"name": "VARNAME", "value": "VARVAL"}
- ],
- "mountPoints": [
+"name":"tmp"
+}
+],
+"environment":[
+{"name":"VARNAME","value":"VARVAL"}
+],
+"mountPoints":[
 {
-"sourceVolume": "tmp",
-"containerPath": "/tmp",
-"readOnly": false
+"sourceVolume":"tmp",
+"containerPath":"/tmp",
+"readOnly":false
 }
- ],
- "ulimits": [
- {
-"hardLimit": 1024,
-"name": "nofile",
-"softLimit": 1024
- }
- ]
-}
-CONTAINER_PROPERTIES
-
-}
-`, rName)
-}
-func testAccJobDefinitionConfig_containerPropertiesAdvancedUpdate(rName string) string {
-return fmt.Sprintf(`
-resource "aws_batch_job_definition" "test" {
-  name = %[1]q
-  type = "container"
-  container_properties = <<CONTAINER_PROPERTIES
+],
+"ulimits":[
 {
- "command": ["ls", "-la"],
- "image": "busybox",
- "memory": 1024,
- "vcpus": 1,
- "volumes": [
- {
-"host": {
-"sourcePath": "/tmp"
+"hardLimit":1024,
+"name":"nofile",
+"softLimit":1024
+}
+]
+}
+CONTAINER_PROPERTIES}
+`,rName)
+}
+functestAccJobDefinitionConfig_containerPropertiesAdvancedUpdate(rNamestring)string{
+returnfmt.Sprintf(`
+resource"aws_batch_job_definition""test"{
+name=%[1]q
+type="container"
+container_properties=<<CONTAINER_PROPERTIES
+{
+"command":["ls","-la"],
+"image":"busybox",
+"memory":1024,
+"vcpus":1,
+"volumes":[
+{
+"host":{
+"sourcePath":"/tmp"
 },
-"name": "tmp"
- }
- ],
- "environment": [
-{"name": "VARNAME", "value": "VARVAL"}
- ],
- "mountPoints": [
+"name":"tmp"
+}
+],
+"environment":[
+{"name":"VARNAME","value":"VARVAL"}
+],
+"mountPoints":[
 {
-"sourceVolume": "tmp",
-"containerPath": "/tmp",
-"readOnly": false
+"sourceVolume":"tmp",
+"containerPath":"/tmp",
+"readOnly":false
 }
- ],
- "ulimits": [
- {
-"hardLimit": 1024,
-"name": "nofile",
-"softLimit": 1024
- }
- ]
-}
-CONTAINER_PROPERTIES
-
-}
-`, rName)
-}
-func testAccJobDefinitionConfig_name(rName string) string {
-return fmt.Sprintf(`
-resource "aws_batch_job_definition" "test" {
-  container_properties = jsonencode({
- command = ["echo", "test"]
- image= "busybox"
- memory  = 128
- vcpus= 1
-  })
-  name = %[1]q
-  type = "container"
-}
-`, rName)
-}
-func testAccJobDefinitionConfig_capabilitiesEC2(rName string) string {
-return fmt.Sprintf(`
-resource "aws_batch_job_definition" "test" {
-  name = %[1]q
-  type = "container"
-
-  platform_capabilities = [
- "EC2",
-  ]
-
-  container_properties = jsonencode({
- command = ["echo", "test"]
- image= "busybox"
- memory  = 128
- vcpus= 1
-  })
-}
-`, rName)
-}
-func testAccJobDefinitionConfig_capabilitiesFargateContainerPropertiesDefaults(rName string) string {
-return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "ecs_task_execution_role" {
-  name  = %[1]q
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
-}
-
-data "aws_iam_policy_document" "assume_role_policy" {
-  statement {
- actions = ["sts:AssumeRole"]
-
- principals {
- type= "Service"
- identifiers = ["ecs-tasks.amazonaws.com"]
- }
-  }
-}
-
-resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
-  role  = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
-
-resource "aws_batch_job_definition" "test" {
-  name = %[1]q
-  type = "container"
-
-  platform_capabilities = [
- "FARGATE",
-  ]
-
-  container_properties = <<CONTAINER_PROPERTIES
+],
+"ulimits":[
 {
-  "image": "busybox",
-  "resourceRequirements": [
- {"type": "MEMORY", "value": "512"},
- {"type": "VCPU", "value": "0.25"}
-  ],
-  "executionRoleArn": "${aws_iam_role.ecs_task_execution_role.arn}"
+"hardLimit":1024,
+"name":"nofile",
+"softLimit":1024
+}
+]
+}
+CONTAINER_PROPERTIES}
+`,rName)
+}
+functestAccJobDefinitionConfig_name(rNamestring)string{
+returnfmt.Sprintf(`
+resource"aws_batch_job_definition""test"{
+container_properties=jsonencode({
+command=["echo","test"]
+image="busybox"
+memory=128
+vcpus=1
+})
+name=%[1]q
+type="container"
+}
+`,rName)
+}
+functestAccJobDefinitionConfig_capabilitiesEC2(rNamestring)string{
+returnfmt.Sprintf(`
+resource"aws_batch_job_definition""test"{
+name=%[1]q
+type="container"platform_capabilities=[
+"EC2",
+]container_properties=jsonencode({
+command=["echo","test"]
+image="busybox"
+memory=128
+vcpus=1
+})
+}
+`,rName)
+}
+functestAccJobDefinitionConfig_capabilitiesFargateContainerPropertiesDefaults(rNamestring)string{
+returnfmt.Sprintf(`
+data"aws_partition""current"{}resource"aws_iam_role""ecs_task_execution_role"{
+name=%[1]q
+assume_role_policy=data.aws_iam_policy_document.assume_role_policy.json
+}data"aws_iam_policy_document""assume_role_policy"{
+statement{
+actions=["sts:AssumeRole"]principals{
+type="Service"
+identifiers=["ecs-tasks.amazonaws.com"]
+}
+}
+}resource"aws_iam_role_policy_attachment""ecs_task_execution_role_policy"{
+role=aws_iam_role.ecs_task_execution_role.name
+policy_arn="arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}resource"aws_batch_job_definition""test"{
+name=%[1]q
+type="container"platform_capabilities=[
+"FARGATE",
+]container_properties=<<CONTAINER_PROPERTIES
+{
+"image":"busybox",
+"resourceRequirements":[
+{"type":"MEMORY","value":"512"},
+{"type":"VCPU","value":"0.25"}
+],
+"executionRoleArn":"${aws_iam_role.ecs_task_execution_role.arn}"
 }
 CONTAINER_PROPERTIES
 }
-`, rName)
+`,rName)
 }
-func testAccJobDefinitionConfig_capabilitiesFargate(rName string) string {
-return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "ecs_task_execution_role" {
-  name  = %[1]q
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+functestAccJobDefinitionConfig_capabilitiesFargate(rNamestring)string{
+returnfmt.Sprintf(`
+data"aws_partition""current"{}resource"aws_iam_role""ecs_task_execution_role"{
+name=%[1]q
+assume_role_policy=data.aws_iam_policy_document.assume_role_policy.json
+}data"aws_iam_policy_document""assume_role_policy"{
+statement{
+actions=["sts:AssumeRole"]principals{
+type="Service"
+identifiers=["ecs-tasks.amazonaws.com"]
 }
-
-data "aws_iam_policy_document" "assume_role_policy" {
-  statement {
- actions = ["sts:AssumeRole"]
-
- principals {
- type= "Service"
- identifiers = ["ecs-tasks.amazonaws.com"]
- }
-  }
 }
-
-resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
-  role  = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
-
-resource "aws_batch_job_definition" "test" {
-  name = %[1]q
-  type = "container"
-
-  platform_capabilities = [
- "FARGATE",
-  ]
-
-  container_properties = <<CONTAINER_PROPERTIES
+}resource"aws_iam_role_policy_attachment""ecs_task_execution_role_policy"{
+role=aws_iam_role.ecs_task_execution_role.name
+policy_arn="arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}resource"aws_batch_job_definition""test"{
+name=%[1]q
+type="container"platform_capabilities=[
+"FARGATE",
+]container_properties=<<CONTAINER_PROPERTIES
 {
-  "command": ["echo", "test"],
-  "image": "busybox",
-  "fargatePlatformConfiguration": {
- "platformVersion": "LATEST"
-  },
-  "networkConfiguration": {
- "assignPublicIp": "DISABLED"
-  },
-  "resourceRequirements": [
- {"type": "VCPU", "value": "0.25"},
- {"type": "MEMORY", "value": "512"}
-  ],
-  "executionRoleArn": "${aws_iam_role.ecs_task_execution_role.arn}"
+"command":["echo","test"],
+"image":"busybox",
+"fargatePlatformConfiguration":{
+"platformVersion":"LATEST"
+},
+"networkConfiguration":{
+"assignPublicIp":"DISABLED"
+},
+"resourceRequirements":[
+{"type":"VCPU","value":"0.25"},
+{"type":"MEMORY","value":"512"}
+],
+"executionRoleArn":"${aws_iam_role.ecs_task_execution_role.arn}"
 }
 CONTAINER_PROPERTIES
 }
-`, rName)
+`,rName)
 }
-func testAccJobDefinitionConfig_tags1(rName, tagKey1, tagValue1 string) string {
-return fmt.Sprintf(`
-resource "aws_batch_job_definition" "test" {
-  container_properties = jsonencode({
- command = ["echo", "test"]
- image= "busybox"
- memory  = 128
- vcpus= 1
-  })
-  name = %[1]q
-  type = "container"
-
-  tags = {
- %[2]q = %[3]q
-  }
+functestAccJobDefinitionConfig_tags1(rName,tagKey1,tagValue1string)string{
+returnfmt.Sprintf(`
+resource"aws_batch_job_definition""test"{
+container_properties=jsonencode({
+command=["echo","test"]
+image="busybox"
+memory=128
+vcpus=1
+})
+name=%[1]q
+type="container"tags={
+%[2]q=%[3]q
 }
-`, rName, tagKey1, tagValue1)
 }
-func testAccJobDefinitionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
-return fmt.Sprintf(`
-resource "aws_batch_job_definition" "test" {
-  container_properties = jsonencode({
- command = ["echo", "test"]
- image= "busybox"
- memory  = 128
- vcpus= 1
-  })
-  name = %[1]q
-  type = "container"
-
-  tags = {
- %[2]q = %[3]q
- %[4]q = %[5]q
-  }
+`,rName,tagKey1,tagValue1)
 }
-`, rName, tagKey1, tagValue1, tagKey2, tagValue2)
+functestAccJobDefinitionConfig_tags2(rName,tagKey1,tagValue1,tagKey2,tagValue2string)string{
+returnfmt.Sprintf(`
+resource"aws_batch_job_definition""test"{
+container_properties=jsonencode({
+command=["echo","test"]
+image="busybox"
+memory=128
+vcpus=1
+})
+name=%[1]q
+type="container"tags={
+%[2]q=%[3]q
+%[4]q=%[5]q
 }
-func testAccJobDefinitionConfig_propagateTags(rName string) string {
-return fmt.Sprintf(`
-resource "aws_batch_job_definition" "test" {
-  container_properties = jsonencode({
- command = ["echo", "test"]
- image= "busybox"
- memory  = 128
- vcpus= 1
-  })
-  name = %[1]q
-  type = "container"
-
-  propagate_tags = true
 }
-`, rName)
+`,rName,tagKey1,tagValue1,tagKey2,tagValue2)
 }
-func testAccJobDefinitionConfig_containerProperties_emptyField(rName string) string {
-return fmt.Sprintf(`
-resource "aws_batch_job_definition" "test" {
-  container_properties = jsonencode({
- command = ["echo", "test"]
- image= "busybox"
- memory  = 128
- vcpus= 1
- environment = [
- {
-name  = "EMPTY"
-value = ""
- },
- {
-name  = "VALUE"
-value = "value"
- }
- ]
-  })
-  name = %[1]q
-  type = "container"
+functestAccJobDefinitionConfig_propagateTags(rNamestring)string{
+returnfmt.Sprintf(`
+resource"aws_batch_job_definition""test"{
+container_properties=jsonencode({
+command=["echo","test"]
+image="busybox"
+memory=128
+vcpus=1
+})
+name=%[1]q
+type="container"propagate_tags=true
 }
-`, rName)
+`,rName)
+}
+functestAccJobDefinitionConfig_containerProperties_emptyField(rNamestring)string{
+returnfmt.Sprintf(`
+resource"aws_batch_job_definition""test"{
+container_properties=jsonencode({
+command=["echo","test"]
+image="busybox"
+memory=128
+vcpus=1
+environment=[
+{
+name="EMPTY"
+value=""
+},
+{
+name="VALUE"
+value="value"
+}
+]
+})
+name=%[1]q
+type="container"
+}
+`,rName)
 }

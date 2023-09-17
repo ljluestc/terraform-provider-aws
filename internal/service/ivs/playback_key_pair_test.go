@@ -1,15 +1,9 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageivs_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageivs_testimport(
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/ivs"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -21,9 +15,7 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	tfivs"github.com/hashicorp/terraform-provider-aws/internal/service/ivs"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-//ThereisanAWSmaximumservicequotaof3playbackkeypairs,sotests
+)//ThereisanAWSmaximumservicequotaof3playbackkeypairs,sotests
 //cannotberaninparallel.Thekey**MUST**useECDSAwhichisnotprovided
 //byacctest,socryptofunctionsareusedinthistestfile.Furthermore,
 //multipleplaybackkeypairscannotusethesamepublickey,sousingastatic
@@ -33,9 +25,7 @@ functestAccPlaybackKeyPair_basic(t*testing.T){
 	varplaybackKeyPairivs.PlaybackKeyPair
 	resourceName:="aws_ivs_playback_key_pair.test"
 	privateKey:=acctest.TLSECDSAPrivateKeyPEM(t,"P-384")
-	publicKeyPEM,fingerprint:=acctest.TLSECDSAPublicKeyPEM(t,privateKey)
-
-	resource.Test(t,resource.TestCase{
+	publicKeyPEM,fingerprint:=acctest.TLSECDSAPublicKeyPEM(t,privateKey)	resource.Test(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,ivs.EndpointsID)
@@ -73,9 +63,7 @@ functestAccPlaybackKeyPair_update(t*testing.T){
 	privateKey1:=acctest.TLSECDSAPrivateKeyPEM(t,"P-384")
 	publicKeyPEM1,fingerprint1:=acctest.TLSECDSAPublicKeyPEM(t,privateKey1)
 	privateKey2:=acctest.TLSECDSAPrivateKeyPEM(t,"P-384")
-	publicKeyPEM2,fingerprint2:=acctest.TLSECDSAPublicKeyPEM(t,privateKey2)
-
-	resource.Test(t,resource.TestCase{
+	publicKeyPEM2,fingerprint2:=acctest.TLSECDSAPublicKeyPEM(t,privateKey2)	resource.Test(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,ivs.EndpointsID)
@@ -111,9 +99,7 @@ functestAccPlaybackKeyPair_tags(t*testing.T){
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName:="aws_ivs_playback_key_pair.test"
 	privateKey:=acctest.TLSECDSAPrivateKeyPEM(t,"P-384")
-	publicKeyPEM,_:=acctest.TLSECDSAPublicKeyPEM(t,privateKey)
-
-	resource.Test(t,resource.TestCase{
+	publicKeyPEM,_:=acctest.TLSECDSAPublicKeyPEM(t,privateKey)	resource.Test(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,ivs.EndpointsID)
@@ -162,9 +148,7 @@ functestAccPlaybackKeyPair_disappears(t*testing.T){
 	varplaybackkeypairivs.PlaybackKeyPair
 	resourceName:="aws_ivs_playback_key_pair.test"
 	privateKey:=acctest.TLSECDSAPrivateKeyPEM(t,"P-384")
-	publicKey,_:=acctest.TLSECDSAPublicKeyPEM(t,privateKey)
-
-	resource.Test(t,resource.TestCase{
+	publicKey,_:=acctest.TLSECDSAPublicKeyPEM(t,privateKey)	resource.Test(t,resource.TestCase{
 		PreCheck:func(){
 			acctest.PreCheck(ctx,t)
 			acctest.PreCheckPartitionHasService(t,ivs.EndpointsID)
@@ -187,14 +171,10 @@ functestAccPlaybackKeyPair_disappears(t*testing.T){
 }
 functestAccCheckPlaybackKeyPairDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_ivs_playback_key_pair"{
 				continue
-			}
-
-			input:=&ivs.GetPlaybackKeyPairInput{
+			}			input:=&ivs.GetPlaybackKeyPairInput{
 				Arn:aws.String(rs.Primary.ID),
 			}
 			_,err:=conn.GetPlaybackKeyPairWithContext(ctx,input)
@@ -203,12 +183,8 @@ functestAccCheckPlaybackKeyPairDestroy(ctxcontext.Context)resource.TestCheckFunc
 					returnnil
 				}
 				returnerr
-			}
-
-			returncreate.Error(names.IVS,create.ErrActionCheckingDestroyed,tfivs.ResNamePlaybackKeyPair,rs.Primary.ID,errors.New("notdestroyed"))
-		}
-
-		returnnil
+			}			returncreate.Error(names.IVS,create.ErrActionCheckingDestroyed,tfivs.ResNamePlaybackKeyPair,rs.Primary.ID,errors.New("notdestroyed"))
+		}		returnnil
 	}
 }
 functestAccCheckPlaybackKeyPairExists(ctxcontext.Context,namestring,playbackkeypair*ivs.PlaybackKeyPair)resource.TestCheckFunc{
@@ -216,35 +192,19 @@ functestAccCheckPlaybackKeyPairExists(ctxcontext.Context,namestring,playbackkeyp
 		rs,ok:=s.RootModule().Resources[name]
 		if!ok{
 			returncreate.Error(names.IVS,create.ErrActionCheckingExistence,tfivs.ResNamePlaybackKeyPair,name,errors.New("notfound"))
-		}
-
-		ifrs.Primary.ID==""{
+		}		ifrs.Primary.ID==""{
 			returncreate.Error(names.IVS,create.ErrActionCheckingExistence,tfivs.ResNamePlaybackKeyPair,name,errors.New("notset"))
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)
-
-		resp,err:=tfivs.FindPlaybackKeyPairByID(ctx,conn,rs.Primary.ID)
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)		resp,err:=tfivs.FindPlaybackKeyPairByID(ctx,conn,rs.Primary.ID)
 		iferr!=nil{
 			returncreate.Error(names.IVS,create.ErrActionCheckingExistence,tfivs.ResNamePlaybackKeyPair,rs.Primary.ID,err)
-		}
-
-		*playbackkeypair=*resp
-
-		returnnil
+		}		*playbackkeypair=*resp		returnnil
 	}
 }
 functestAccPlaybackKeyPairPreCheck(ctxcontext.Context,t*testing.T){
-	conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)
-
-	input:=&ivs.ListPlaybackKeyPairsInput{}
-	_,err:=conn.ListPlaybackKeyPairsWithContext(ctx,input)
-
-	ifacctest.PreCheckSkipError(err){
+	conn:=acctest.Provider.Meta().(*conns.AWSClient).IVSConn(ctx)	input:=&ivs.ListPlaybackKeyPairsInput{}
+	_,err:=conn.ListPlaybackKeyPairsWithContext(ctx,input)	ifacctest.PreCheckSkipError(err){
 		t.Skipf("skippingacceptancetesting:%s",err)
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 		t.Fatalf("unexpectedPreCheckerror:%s",err)
 	}
 }
@@ -252,9 +212,7 @@ functestAccCheckPlaybackKeyPairRecreated(before,after*ivs.PlaybackKeyPair)resour
 	returnfunc(s*terraform.State)error{
 		ifbefore,after:=aws.StringValue(before.Arn),aws.StringValue(after.Arn);before==after{
 			returnfmt.Errorf("ExpectedPlaybackKeyPairIDstochange,%s",before)
-		}
-
-		returnnil
+		}		returnnil
 	}
 }
 functestAccPlaybackKeyPairConfig_basic(publicKeystring)string{

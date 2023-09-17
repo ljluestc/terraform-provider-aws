@@ -1,17 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package neptune
-
-import (
+// SPDX-License-Identifier: MPL-2.0package neptuneimport (
 "time"
-)
-
-const (
+)const (
 propagationTimeout = 2 * time.Minute
-)
-
-const (
+)const (
 GlobalClusterStatusAvailable = "available"
 GlobalClusterStatusCreating  = "creating"
 GlobalClusterStatusDeleted   = "deleted"

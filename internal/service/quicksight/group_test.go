@@ -19,10 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfquicksight "github.com/hashicorp/terraform-provider-aws/internal/service/quicksight"
-)
-
-
-func TestAccQuickSightGroup_basic(t *testing.T) {
+)func TestAccQuickSightGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group quicksight.Group
 	resourceName := "aws_quicksight_group.default"
@@ -30,8 +27,7 @@ func TestAccQuickSightGroup_basic(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckGroupDestroy(ctx),
@@ -61,18 +57,14 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightGroup_withDescription(t *testing.T) {
+}func TestAccQuickSightGroup_withDescription(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group quicksight.Group
 	resourceName := "aws_quicksight_group.default"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckGroupDestroy(ctx),
@@ -100,18 +92,14 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightGroup_disappears(t *testing.T) {
+}func TestAccQuickSightGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group quicksight.Group
 	resourceName := "aws_quicksight_group.default"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckGroupDestroy(ctx),
@@ -127,13 +115,9 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func testAccCheckGroupExists(ctx context.Context, resourceName string, group *quicksight.Group) resource.TestCheck
+}func testAccCheckGroupExists(ctx context.Context, resourceName string, group *quicksight.Group) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("Not found: %s", resourceName)
@@ -166,13 +150,9 @@ if output == nil || output.Group == nil {
 
 return nil
 	}
-}
-
-
-func testAccCheckGroupDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckGroupDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_quicksight_group" {
@@ -202,13 +182,9 @@ return err
 
 return nil
 	}
-}
-
-
-func testAccCheckGroupDisappears(ctx context.Context, v *quicksight.Group) resource.TestCheck
+}func testAccCheckGroupDisappears(ctx context.Context, v *quicksight.Group) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 arn, err := arn.Parse(aws.StringValue(v.Arn))
@@ -230,19 +206,13 @@ if _, err := conn.DeleteGroupWithContext(ctx, input); err != nil {
 
 return nil
 	}
-}
-
-
-func testAccGroupConfig_basic(rName string) string {
+}func testAccGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_quicksight_group" "default" {
   group_name = %[1]q
 }
 `, rName)
-}
-
-
-func testAccGroupConfig_description(rName, description string) string {
+}func testAccGroupConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 

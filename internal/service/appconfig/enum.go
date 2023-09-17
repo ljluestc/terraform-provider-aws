@@ -1,16 +1,10 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageappconfig
-
-const(
-	configurationProfileTypeFeatureFlags="AWS.AppConfig.FeatureFlags"
-	configurationProfileTypeFreeform="AWS.Freeform"
-)
-
-funcConfigurationProfileType_Values()[]string{
-	return[]string{
-		configurationProfileTypeFeatureFlags,
-		configurationProfileTypeFreeform,
-	}
+//SPDX-License-Identifier:MPL-2.0packageappconfigconst(
+configurationProfileTypeFeatureFlags="AWS.AppConfig.FeatureFlags"
+configurationProfileTypeFreeform="AWS.Freeform"
+)funcConfigurationProfileType_Values()[]string{
+return[]string{
+configurationProfileTypeFeatureFlags,
+configurationProfileTypeFreeform,
+}
 }

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configservice_test
-
-// func TestAccConfigServiceAggregateAuthorization_basic(t *testing.T) {
+// SPDX-License-Identifier: MPL-2.0package configservice_test// func TestAccConfigServiceAggregateAuthorization_basic(t *testing.T) {
 // 	rString := sdkacctest.RandStringFromCharSet(12, "0123456789")
 // 	resourceName := "aws_config_aggregate_authorization.example"
-// 	dataSourceName := "data.aws_region.current"
-
-// 	resource.ParallelTest(t, resource.TestCase{
+// 	dataSourceName := "data.aws_region.current"// 	resource.ParallelTest(t, resource.TestCase{
 // 		PreCheck:     func() { acctest.PreCheck(ctx, t) },
 // 		ErrorCheck:   acctest.ErrorCheck(t, configservice.EndpointsID),
 // 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -29,13 +23,9 @@ package configservice_test
 // 			},
 // 		},
 // 	})
-// }
-
-// func TestAccConfigServiceAggregateAuthorization_tags(t *testing.T) {
+// }// func TestAccConfigServiceAggregateAuthorization_tags(t *testing.T) {
 // 	rString := sdkacctest.RandStringFromCharSet(12, "0123456789")
-// 	resourceName := "aws_config_aggregate_authorization.example"
-
-// 	resource.ParallelTest(t, resource.TestCase{
+// 	resourceName := "aws_config_aggregate_authorization.example"// 	resource.ParallelTest(t, resource.TestCase{
 // 		PreCheck:     func() { acctest.PreCheck(ctx, t) },
 // 		ErrorCheck:   acctest.ErrorCheck(t, configservice.EndpointsID),
 // 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -72,60 +62,34 @@ package configservice_test
 // 			},
 // 		},
 // 	})
-// }
-
-// func testAccCheckAggregateAuthorizationDestroy(s *terraform.State) error {
-// 	conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)
-
-// 	for _, rs := range s.RootModule().Resources {
+// }// func testAccCheckAggregateAuthorizationDestroy(s *terraform.State) error {
+// 	conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)// 	for _, rs := range s.RootModule().Resources {
 // 		if rs.Type != "aws_config_aggregate_authorization" {
 // 			continue
-// 		}
-
-// 		accountId, region, err := tfconfig.AggregateAuthorizationParseID(rs.Primary.ID)
+// 		}// 		accountId, region, err := tfconfig.AggregateAuthorizationParseID(rs.Primary.ID)
 // 		if err != nil {
 // 			return err
-// 		}
-
-// 		aggregateAuthorizations, err := tfconfig.DescribeAggregateAuthorizations(conn)
-
-// 		if err != nil {
+// 		}// 		aggregateAuthorizations, err := tfconfig.DescribeAggregateAuthorizations(conn)// 		if err != nil {
 // 			return err
-// 		}
-
-// 		for _, auth := range aggregateAuthorizations {
+// 		}// 		for _, auth := range aggregateAuthorizations {
 // 			if accountId == aws.StringValue(auth.AuthorizedAccountId) && region == aws.StringValue(auth.AuthorizedAwsRegion) {
 // 				return fmt.Errorf("Config aggregate authorization still exists: %s", rs.Primary.ID)
 // 			}
 // 		}
-// 	}
-
-// 	return nil
-// }
-
-// func testAccAggregateAuthorizationConfig_basic(rString string) string {
+// 	}// 	return nil
+// }// func testAccAggregateAuthorizationConfig_basic(rString string) string {
 // 	return fmt.Sprintf(`
-// data "aws_region" "current" {}
-
-// resource "aws_config_aggregate_authorization" "example" {
+// data "aws_region" "current" {}// resource "aws_config_aggregate_authorization" "example" {
 //   account_id = %[1]q
 //   region     = data.aws_region.current.name
 // }
 // `, rString)
-// }
-
-// func testAccAggregateAuthorizationConfig_tags(rString, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+// }// func testAccAggregateAuthorizationConfig_tags(rString, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 // 	return fmt.Sprintf(`
-// data "aws_region" "current" {}
-
-// resource "aws_config_aggregate_authorization" "example" {
+// data "aws_region" "current" {}// resource "aws_config_aggregate_authorization" "example" {
 //   account_id = %[1]q
-//   region     = data.aws_region.current.name
-
-//   tags = {
-//     Name = %[1]q
-
-//     %[2]s = %[3]q
+//   region     = data.aws_region.current.name//   tags = {
+//     Name = %[1]q//     %[2]s = %[3]q
 //     %[4]s = %[5]q
 //   }
 // }

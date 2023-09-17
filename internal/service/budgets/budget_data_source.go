@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package budgets
-
-import (
+// SPDX-License-Identifier: MPL-2.0package budgetsimport (
 	"context"
 	"fmt"
-	"strconv"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"strconv"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/arn"
 	"github.com/aws/aws-sdk-go/service/budgets"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -16,14 +10,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKDataSource("aws_budgets_budget")
+)// @SDKDataSource("aws_budgets_budget")
 func DataSourceBudget() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceBudgetRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceBudgetRead,		Schema: map[string]*schema.Schema{
 			"account_id": {
 				Type:schema.TypeString,
 				Optional: true,
@@ -262,48 +252,28 @@ func DataSourceBudget() *schema.Resource {
 			},
 		},
 	}
-}
-
-const (
+}const (
 	DSNameBudget = "Budget Data Source"
 )
 func dataSourceBudgetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).BudgetsConn(ctx)
-
-	budgetName := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
-
-	accountID := d.Get("account_id").(string)
+	conn := meta.(*conns.AWSClient).BudgetsConn(ctx)	budgetName := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))	accountID := d.Get("account_id").(string)
 	if accountID == "" {
 		accountID = meta.(*conns.AWSClient).AccountID
 	}
-	d.Set("account_id", accountID)
-
-	budget, err := FindBudgetByTwoPartKey(ctx, conn, accountID, budgetName)
+	d.Set("account_id", accountID)	budget, err := FindBudgetByTwoPartKey(ctx, conn, accountID, budgetName)
 	if err != nil {
 		return create.DiagError(names.Budgets, create.ErrActionReading, DSNameBudget, d.Id(), err)
-	}
-
-	d.SetId(fmt.Sprintf("%s:%s", accountID, budgetName))
-
-	arn := arn.ARN{
+	}	d.SetId(fmt.Sprintf("%s:%s", accountID, budgetName))	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:"budgets",
 		AccountID: accountID,
 		Resource:fmt.Sprintf("budget/%s", budgetName),
 	}
-	d.Set("arn", arn.String())
-
-	d.Set("budget_type", budget.BudgetType)
-
-	if err := d.Set("budget_limit", flattenSpend(budget.BudgetLimit)); err != nil {
+	d.Set("arn", arn.String())	d.Set("budget_type", budget.BudgetType)	if err := d.Set("budget_limit", flattenSpend(budget.BudgetLimit)); err != nil {
 		return diag.Errorf("setting budget_spend: %s", err)
-	}
-
-	if err := d.Set("calculated_spend", flattenCalculatedSpend(budget.CalculatedSpend)); err != nil {
+	}	if err := d.Set("calculated_spend", flattenCalculatedSpend(budget.CalculatedSpend)); err != nil {
 		return diag.Errorf("setting calculated_spend: %s", err)
-	}
-
-	d.Set("budget_exceeded", false)
+	}	d.Set("budget_exceeded", false)
 	if budget.CalculatedSpend != nil && budget.CalculatedSpend.ActualSpend != nil {
 		if aws.StringValue(budget.BudgetLimit.Unit) == aws.StringValue(budget.CalculatedSpend.ActualSpend.Unit) {
 			bLimit, err := strconv.ParseFloat(aws.StringValue(budget.BudgetLimit.Amount), 64)
@@ -313,27 +283,19 @@ func dataSourceBudgetRead(ctx context.Context, d *schema.ResourceData, meta inte
 			bSpend, err := strconv.ParseFloat(aws.StringValue(budget.CalculatedSpend.ActualSpend.Amount), 64)
 			if err != nil {
 				return create.DiagError(names.Budgets, create.ErrActionReading, DSNameBudget, d.Id(), err)
-			}
-
-			if bLimit < bSpend {
+			}			if bLimit < bSpend {
 				d.Set("budget_exceeded", true)
 			} else {
 				d.Set("budget_exceeded", false)
 			}
 		}
-	}
-
-	d.Set("name", budget.BudgetName)
-	d.Set("name_prefix", create.NamePrefixFromName(aws.StringValue(budget.BudgetName)))
-
-	return nil
+	}	d.Set("name", budget.BudgetName)
+	d.Set("name_prefix", create.NamePrefixFromName(aws.StringValue(budget.BudgetName)))	return nil
 }
 func flattenCalculatedSpend(apiObject *budgets.CalculatedSpend) []interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
-	attrs := map[string]interface{}{
+	}	attrs := map[string]interface{}{
 		"actual_spend": flattenSpend(apiObject.ActualSpend),
 	}
 	return []interface{}{attrs}
@@ -341,12 +303,8 @@ func flattenCalculatedSpend(apiObject *budgets.CalculatedSpend) []interface{} {
 func flattenSpend(apiObject *budgets.Spend) []interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
-	attrs := map[string]interface{}{
+	}	attrs := map[string]interface{}{
 		"amount": aws.StringValue(apiObject.Amount),
 		"unit":aws.StringValue(apiObject.Unit),
-	}
-
-	return []interface{}{attrs}
+	}	return []interface{}{attrs}
 }

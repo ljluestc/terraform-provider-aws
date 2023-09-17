@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package memorydb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package memorydb_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/memorydb"
+"testing""github.com/aws/aws-sdk-go/service/memorydb"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,15 +10,11 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfmemorydb "github.com/hashicorp/terraform-provider-aws/internal/service/memorydb"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccMemoryDBACL_basic(t *testing.T) {
+)func TestAccMemoryDBACL_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
 user1 := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_acl.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_acl.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -50,14 +40,10 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccMemoryDBACL_disappears(t *testing.T) {
+}func TestAccMemoryDBACL_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_acl.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_acl.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -73,13 +59,9 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccMemoryDBACL_nameGenerated(t *testing.T) {
+}func TestAccMemoryDBACL_nameGenerated(t *testing.T) {
 ctx := acctest.Context(t)
-resourceName := "aws_memorydb_acl.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_acl.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -95,13 +77,9 @@ resource.TestCheckResourceAttr(resourceName, "name_prefix", "terraform-"),
 },
 },
 })
-}
-
-func TestAccMemoryDBACL_namePrefix(t *testing.T) {
+}func TestAccMemoryDBACL_namePrefix(t *testing.T) {
 ctx := acctest.Context(t)
-resourceName := "aws_memorydb_acl.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_acl.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -117,14 +95,10 @@ resource.TestCheckResourceAttr(resourceName, "name_prefix", "tftest-"),
 },
 },
 })
-}
-
-func TestAccMemoryDBACL_update_tags(t *testing.T) {
+}func TestAccMemoryDBACL_update_tags(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_acl.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_acl.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -190,17 +164,13 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccMemoryDBACL_update_userNames(t *testing.T) {
+}func TestAccMemoryDBACL_update_userNames(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
 user1 := "tf-test1-" + sdkacctest.RandString(8)
 user2 := "tf-test2-" + sdkacctest.RandString(8)
 user3 := "tf-test3-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_acl.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_acl.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -293,146 +263,92 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func testAccCheckACLDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckACLDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_memorydb_acl" {
 continue
-}
-
-_, err := tfmemorydb.FindACLByName(ctx, conn, rs.Primary.Attributes["name"])
-
-if tfresource.NotFound(err) {
+}_, err := tfmemorydb.FindACLByName(ctx, conn, rs.Primary.Attributes["name"])if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("MemoryDB ACL %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("MemoryDB ACL %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccCheckACLExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckACLExists(ctx context.Context, n string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No MemoryDB ACL ID is set")
+}conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)_, err := tfmemorydb.FindACLByName(ctx, conn, rs.Primary.Attributes["name"])return err
 }
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)
-
-_, err := tfmemorydb.FindACLByName(ctx, conn, rs.Primary.Attributes["name"])
-
-return err
-}
-}
-
-func testAccACLConfigUsers(names ...string) string {
+}func testAccACLConfigUsers(names ...string) string {
 var userNames string
 for i, name := range names {
 if i > 0 {
 userNames += ", "
 }
 userNames += fmt.Sprintf("%q", name)
-}
-
-return fmt.Sprintf(`
+}return fmt.Sprintf(`
 locals {
   user_names = [%[1]s]
-}
-
-resource "aws_memorydb_user" "test" {
+}resource "aws_memorydb_user" "test" {
   count= length(local.user_names)
   access_string = "on ~* &* +@all"
-  user_name = local.user_names[count.index]
-
-  authentication_mode {
+  user_name = local.user_names[count.index]  authentication_mode {
 type  = "password"
 passwords = ["aaaaaaaaaaaaaaaa"]
   }
 }
 `, userNames)
-}
-
-func testAccACLConfig_basic(rName string, userNames []string, usersInACL []string) string {
+}func testAccACLConfig_basic(rName string, userNames []string, usersInACL []string) string {
 var userNamesInACL string
 for i, userName := range usersInACL {
 if i > 0 {
 userNamesInACL += ", "
 }
 userNamesInACL += fmt.Sprintf("%q", userName)
-}
-
-return acctest.ConfigCompose(
+}return acctest.ConfigCompose(
 testAccACLConfigUsers(userNames...),
 fmt.Sprintf(`
 resource "aws_memorydb_acl" "test" {
-  depends_on = [aws_memorydb_user.test]
-
-  name   = %[1]q
-  user_names = [%[2]s]
-
-  tags = {
+  depends_on = [aws_memorydb_user.test]  name   = %[1]q
+  user_names = [%[2]s]  tags = {
 Test = "test"
   }
 }
 `, rName, userNamesInACL),
 )
-}
-
-func testAccACLConfig_noName() string {
+}func testAccACLConfig_noName() string {
 return `
 resource "aws_memorydb_acl" "test" {}
 `
-}
-
-func testAccACLConfig_namePrefix(namePrefix string) string {
+}func testAccACLConfig_namePrefix(namePrefix string) string {
 return fmt.Sprintf(`
 resource "aws_memorydb_acl" "test" {
   name_prefix = %[1]q
 }
 `, namePrefix)
-}
-
-func testAccACLConfig_tags0(rName string) string {
+}func testAccACLConfig_tags0(rName string) string {
 return fmt.Sprintf(`
 resource "aws_memorydb_acl" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccACLConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccACLConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 resource "aws_memorydb_acl" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccACLConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccACLConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return fmt.Sprintf(`
 resource "aws_memorydb_acl" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

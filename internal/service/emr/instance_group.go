@@ -39,8 +39,7 @@ func ResourceInstanceGroup() *schema.Resource {
 		UpdateWithoutTimeout: resourceInstanceGroupUpdate,
 		DeleteWithoutTimeout: resourceInstanceGroupDelete,
 		Importer: &schema.ResourceImporter{
-			StateContext: 
-func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+			StateContext:func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 				idParts := strings.Split(d.Id(), "/")
 				if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected cluster-id/ig-id", d.Id())
@@ -79,8 +78,7 @@ func:     validation.StringIsJSON,
 				DiffSuppress
 func: verify.SuppressEquivalentJSONDiffs,
 				State
-func: 
-func(v interface{}) string {
+func:func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -149,10 +147,7 @@ func: validEBSVolumeType(),
 			},
 		},
 	}
-}
-
-
-func resourceInstanceGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceInstanceGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -216,10 +211,7 @@ func resourceInstanceGroupCreate(ctx context.Context, d *schema.ResourceData, me
 	}
 
 	return append(diags, resourceInstanceGroupRead(ctx, d, meta)...)
-}
-
-
-func resourceInstanceGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceInstanceGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -287,10 +279,7 @@ func resourceInstanceGroupRead(ctx context.Context, d *schema.ResourceData, meta
 	}
 
 	return diags
-}
-
-
-func resourceInstanceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceInstanceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -351,10 +340,7 @@ func resourceInstanceGroupUpdate(ctx context.Context, d *schema.ResourceData, me
 	}
 
 	return append(diags, resourceInstanceGroupRead(ctx, d, meta)...)
-}
-
-
-func resourceInstanceGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceInstanceGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -372,13 +358,9 @@ func resourceInstanceGroupDelete(ctx context.Context, d *schema.ResourceData, me
 		return sdkdiag.AppendErrorf(diags, "draining EMR Instance Group (%s): %s", d.Id(), err)
 	}
 	return diags
-}
-
-
-func instanceGroupStateRefresh(ctx context.Context, conn *emr.EMR, clusterID, groupID string) retry.StateRefresh
+}func instanceGroupStateRefresh(ctx context.Context, conn *emr.EMR, clusterID, groupID string) retry.StateRefresh
 func {
-	return 
-func() (interface{}, string, error) {
+	returnfunc() (interface{}, string, error) {
 		ig, err := FetchInstanceGroup(ctx, conn, clusterID, groupID)
 		if err != nil {
 			return nil, "Not Found", err
@@ -391,15 +373,11 @@ func() (interface{}, string, error) {
 
 		return ig, *ig.Status.State, nil
 	}
-}
-
-
-func FetchInstanceGroup(ctx context.Context, conn *emr.EMR, clusterID, groupID string) (*emr.InstanceGroup, error) {
+}func FetchInstanceGroup(ctx context.Context, conn *emr.EMR, clusterID, groupID string) (*emr.InstanceGroup, error) {
 	input := &emr.ListInstanceGroupsInput{ClusterId: aws.String(clusterID)}
 
 	var groups []*emr.InstanceGroup
-	err := conn.ListInstanceGroupsPagesWithContext(ctx, input, 
-func(page *emr.ListInstanceGroupsOutput, lastPage bool) bool {
+	err := conn.ListInstanceGroupsPagesWithContext(ctx, input,func(page *emr.ListInstanceGroupsOutput, lastPage bool) bool {
 		groups = append(groups, page.InstanceGroups...)
 
 		return !lastPage
@@ -458,10 +436,7 @@ func readEBSConfig(d *schema.ResourceData) *emr.EbsConfiguration {
 	}
 	result.EbsBlockDeviceConfigs = ebsConfigs
 	return result
-}
-
-
-func waitForInstanceGroupStateRunning(ctx context.Context, conn *emr.EMR, clusterID string, instanceGroupID string, timeout time.Duration) error {
+}func waitForInstanceGroupStateRunning(ctx context.Context, conn *emr.EMR, clusterID string, instanceGroupID string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
 			emr.InstanceGroupStateBootstrapping,

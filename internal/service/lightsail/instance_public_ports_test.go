@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"testing"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -21,9 +15,7 @@ import (
 func TestAccLightsailInstancePublicPorts_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_instance_public_ports.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_instance_public_ports.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -51,9 +43,7 @@ func TestAccLightsailInstancePublicPorts_basic(t *testing.T) {
 func TestAccLightsailInstancePublicPorts_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_instance_public_ports.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_instance_public_ports.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -86,9 +76,7 @@ func TestAccLightsailInstancePublicPorts_multiple(t *testing.T) {
 func TestAccLightsailInstancePublicPorts_cidrs(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_instance_public_ports.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_instance_public_ports.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -119,9 +107,7 @@ func TestAccLightsailInstancePublicPorts_cidrs(t *testing.T) {
 func TestAccLightsailInstancePublicPorts_cidrListAliases(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_instance_public_ports.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_instance_public_ports.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -151,9 +137,7 @@ func TestAccLightsailInstancePublicPorts_cidrListAliases(t *testing.T) {
 func TestAccLightsailInstancePublicPorts_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_instance_public_ports.test"
-	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix("tf-acc-test")	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -178,9 +162,7 @@ func TestAccLightsailInstancePublicPorts_disappears_Instance(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	parentResourceName := "aws_lightsail_instance.test"
-	resourceName := "aws_lightsail_instance_public_ports.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_instance_public_ports.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -206,76 +188,44 @@ func testAccCheckInstancePublicPortsExists(ctx context.Context, resourceName str
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("resource not found: %s", resourceName)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		input := &lightsail.GetInstancePortStatesInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		input := &lightsail.GetInstancePortStatesInput{
 			InstanceName: aws.String(rs.Primary.Attributes["instance_name"]),
-		}
-
-		_, err := conn.GetInstancePortStates(ctx, input)
-
-		if err != nil {
+		}		_, err := conn.GetInstancePortStates(ctx, input)		if err != nil {
 			return fmt.Errorf("error getting Lightsail Instance Public Ports (%s): %w", rs.Primary.ID, err)
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccCheckInstancePublicPortsDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_lightsail_instance_public_ports" {
 				continue
-			}
-
-			input := &lightsail.GetInstancePortStatesInput{
+			}			input := &lightsail.GetInstancePortStatesInput{
 				InstanceName: aws.String(rs.Primary.Attributes["instance_name"]),
-			}
-
-			output, err := conn.GetInstancePortStates(ctx, input)
-
-			if tflightsail.IsANotFoundError(err) {
+			}			output, err := conn.GetInstancePortStates(ctx, input)			if tflightsail.IsANotFoundError(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return fmt.Errorf("error getting Lightsail Instance Public Ports (%s): %w", rs.Primary.ID, err)
-			}
-
-			if output != nil {
+			}			if output != nil {
 				return fmt.Errorf("Lightsail Instance Public Ports (%s) still exists", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccInstancePublicPortsConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
-  state = "available"
-
-  filter {
+  state = "available"  filter {
     name   = "opt-in-status"
     values = ["opt-in-not-required"]
   }
-}
-
-resource "aws_lightsail_instance" "test" {
+}resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id= "nano_1_0"
-}
-
-resource "aws_lightsail_instance_public_ports" "test" {
-  instance_name = aws_lightsail_instance.test.name
-
-  port_info {
+}resource "aws_lightsail_instance_public_ports" "test" {
+  instance_name = aws_lightsail_instance.test.name  port_info {
     protocol  = "tcp"
     from_port = 80
     to_port   = 80
@@ -286,31 +236,21 @@ resource "aws_lightsail_instance_public_ports" "test" {
 func testAccInstancePublicPortsConfig_multiple(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
-  state = "available"
-
-  filter {
+  state = "available"  filter {
     name   = "opt-in-status"
     values = ["opt-in-not-required"]
   }
-}
-
-resource "aws_lightsail_instance" "test" {
+}resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id= "nano_1_0"
-}
-
-resource "aws_lightsail_instance_public_ports" "test" {
-  instance_name = aws_lightsail_instance.test.name
-
-  port_info {
+}resource "aws_lightsail_instance_public_ports" "test" {
+  instance_name = aws_lightsail_instance.test.name  port_info {
     protocol  = "tcp"
     from_port = 80
     to_port   = 80
-  }
-
-  port_info {
+  }  port_info {
     protocol  = "tcp"
     from_port = 443
     to_port   = 443
@@ -321,25 +261,17 @@ resource "aws_lightsail_instance_public_ports" "test" {
 func testAccInstancePublicPortsConfig_cidrs(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
-  state = "available"
-
-  filter {
+  state = "available"  filter {
     name   = "opt-in-status"
     values = ["opt-in-not-required"]
   }
-}
-
-resource "aws_lightsail_instance" "test" {
+}resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id= "nano_1_0"
-}
-
-resource "aws_lightsail_instance_public_ports" "test" {
-  instance_name = aws_lightsail_instance.test.name
-
-  port_info {
+}resource "aws_lightsail_instance_public_ports" "test" {
+  instance_name = aws_lightsail_instance.test.name  port_info {
     protocol  = "tcp"
     from_port = 125
     to_port   = 125
@@ -351,25 +283,17 @@ resource "aws_lightsail_instance_public_ports" "test" {
 func testAccInstancePublicPortsConfig_cidrListAliases(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
-  state = "available"
-
-  filter {
+  state = "available"  filter {
     name   = "opt-in-status"
     values = ["opt-in-not-required"]
   }
-}
-
-resource "aws_lightsail_instance" "test" {
+}resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
   bundle_id= "nano_1_0"
-}
-
-resource "aws_lightsail_instance_public_ports" "test" {
-  instance_name = aws_lightsail_instance.test.name
-
-  port_info {
+}resource "aws_lightsail_instance_public_ports" "test" {
+  instance_name = aws_lightsail_instance.test.name  port_info {
     protocol = "tcp"
     from_port= 22
     to_port  = 22

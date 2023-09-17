@@ -1,6 +1,1 @@
-//Copyright2022TheGoAuthors.Allrightsreserved.
-//UseofthissourcecodeisgovernedbyaBSD-style
-//licensethatcanbefoundintheLICENSEfile.packagerobustioimport"syscall"//Therobustiopackageiscopiedfromcmd/go/internal/robustio,apackageused
-//bythegocommandtoretryknownflakyoperationsoncertainoperatingsystems.//go:generategoruncopyfiles.go//Sincethegoplsmodulecannotaccessinternal/syscall/windows,copya
-//necessaryconstant.
-constERROR_SHARING_VIOLATIONsyscall.Errno=32
+//Copyright2022TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.packagerobustioimport"syscall"//Therobustiopackageiscopiedfromcmd/go/internal/robustio,apackageused//bythegocommandtoretryknownflakyoperationsoncertainoperatingsystems.//go:generategoruncopyfiles.go//Sincethegoplsmodulecannotaccessinternal/syscall/windows,copya//necessaryconstant.constERROR_SHARING_VIOLATIONsyscall.Errno=32

@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package sqs_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package sqs_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"strconv"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	awspolicy "github.com/hashicorp/awspolicyequivalence"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -20,25 +14,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfsqs "github.com/hashicorp/terraform-provider-aws/internal/service/sqs"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func init() {
+)func init() {
 	acctest.RegisterServiceErrorCheckFunc(sqs.EndpointsID, testAccErrorCheckSkip)
-}
-
-func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
+}func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
 	return acctest.ErrorCheckSkipMessagesContaining(t,
 "Unknown Attribute RedriveAllowPolicy",
 	)
-}
-
-func TestAccSQSQueue_basic(t *testing.T) {
+}func TestAccSQSQueue_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -76,15 +62,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_disappears(t *testing.T) {
+}func TestAccSQSQueue_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -100,14 +82,10 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_Name_generated(t *testing.T) {
+}func TestAccSQSQueue_Name_generated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
-	resourceName := "aws_sqs_queue.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_sqs_queue.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
@@ -129,14 +107,10 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_NameGenerated_fifoQueue(t *testing.T) {
+}func TestAccSQSQueue_NameGenerated_fifoQueue(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
-	resourceName := "aws_sqs_queue.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_sqs_queue.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
@@ -158,14 +132,10 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_namePrefix(t *testing.T) {
+}func TestAccSQSQueue_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
-	resourceName := "aws_sqs_queue.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_sqs_queue.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -187,14 +157,10 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_NamePrefix_fifoQueue(t *testing.T) {
+}func TestAccSQSQueue_NamePrefix_fifoQueue(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
-	resourceName := "aws_sqs_queue.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_sqs_queue.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -216,15 +182,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_tags(t *testing.T) {
+}func TestAccSQSQueue_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -262,15 +224,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_update(t *testing.T) {
+}func TestAccSQSQueue_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -329,15 +287,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_Policy_basic(t *testing.T) {
+}func TestAccSQSQueue_Policy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	expectedPolicy := `
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	expectedPolicy := `
 {
   "Version": "2012-10-17",
   "Id": "sqspolicy",
@@ -352,9 +306,7 @@ func TestAccSQSQueue_Policy_basic(t *testing.T) {
     }
   }]
 }
-`
-
-	resource.ParallelTest(t, resource.TestCase{
+`	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -379,15 +331,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_Policy_ignoreEquivalent(t *testing.T) {
+}func TestAccSQSQueue_Policy_ignoreEquivalent(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	expectedPolicy := `
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	expectedPolicy := `
 {
   "Version": "2012-10-17",
   "Id": "sqspolicy",
@@ -406,9 +354,7 @@ func TestAccSQSQueue_Policy_ignoreEquivalent(t *testing.T) {
     }
   }]
 }
-`
-
-	resource.ParallelTest(t, resource.TestCase{
+`	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -432,15 +378,11 @@ PlanOnly: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_recentlyDeleted(t *testing.T) {
+}func TestAccSQSQueue_recentlyDeleted(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -462,15 +404,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_redrivePolicy(t *testing.T) {
+}func TestAccSQSQueue_redrivePolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -492,15 +430,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_redriveAllowPolicy(t *testing.T) {
+}func TestAccSQSQueue_redriveAllowPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -522,15 +456,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_fifoQueue(t *testing.T) {
+}func TestAccSQSQueue_fifoQueue(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := fmt.Sprintf("%s.fifo", sdkacctest.RandomWithPrefix(acctest.ResourcePrefix))
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := fmt.Sprintf("%s.fifo", sdkacctest.RandomWithPrefix(acctest.ResourcePrefix))	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -552,13 +482,9 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_FIFOQueue_expectNameError(t *testing.T) {
+}func TestAccSQSQueue_FIFOQueue_expectNameError(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -570,15 +496,11 @@ ExpectError: regexache.MustCompile(`invalid queue name:`),
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_FIFOQueue_contentBasedDeduplication(t *testing.T) {
+}func TestAccSQSQueue_FIFOQueue_contentBasedDeduplication(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := fmt.Sprintf("%s.fifo", sdkacctest.RandomWithPrefix(acctest.ResourcePrefix))
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := fmt.Sprintf("%s.fifo", sdkacctest.RandomWithPrefix(acctest.ResourcePrefix))	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -599,15 +521,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_FIFOQueue_highThroughputMode(t *testing.T) {
+}func TestAccSQSQueue_FIFOQueue_highThroughputMode(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := fmt.Sprintf("%s.fifo", sdkacctest.RandomWithPrefix(acctest.ResourcePrefix))
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := fmt.Sprintf("%s.fifo", sdkacctest.RandomWithPrefix(acctest.ResourcePrefix))	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -638,13 +556,9 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_StandardQueue_expectContentBasedDeduplicationError(t *testing.T) {
+}func TestAccSQSQueue_StandardQueue_expectContentBasedDeduplicationError(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -656,15 +570,11 @@ ExpectError: regexache.MustCompile(`content-based deduplication can only be set 
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_encryption(t *testing.T) {
+}func TestAccSQSQueue_encryption(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -704,15 +614,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_managedEncryption(t *testing.T) {
+}func TestAccSQSQueue_managedEncryption(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -746,15 +652,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSQSQueue_zeroVisibilityTimeoutSeconds(t *testing.T) {
+}func TestAccSQSQueue_zeroVisibilityTimeoutSeconds(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -774,16 +676,12 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-// https://github.com/hashicorp/terraform-provider-aws/issues/19786.
+}// https://github.com/hashicorp/terraform-provider-aws/issues/19786.
 func TestAccSQSQueue_defaultKMSDataKeyReusePeriodSeconds(t *testing.T) {
 	ctx := acctest.Context(t)
 	var queueAttributes map[string]string
 	resourceName := "aws_sqs_queue.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -803,67 +701,39 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func testAccCheckQueuePolicyAttribute(queueAttributes *map[string]string, rName, policyTemplate string) resource.TestCheckFunc {
+}func testAccCheckQueuePolicyAttribute(queueAttributes *map[string]string, rName, policyTemplate string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-expectedPolicy := fmt.Sprintf(policyTemplate, acctest.Partition(), acctest.Region(), acctest.AccountID(), rName)
-
-var actualPolicyText string
+expectedPolicy := fmt.Sprintf(policyTemplate, acctest.Partition(), acctest.Region(), acctest.AccountID(), rName)var actualPolicyText string
 for key, value := range *queueAttributes {
 	if key == sqs.QueueAttributeNamePolicy {
 actualPolicyText = value
 break
 	}
-}
-
-equivalent, err := awspolicy.PoliciesAreEquivalent(actualPolicyText, expectedPolicy)
+}equivalent, err := awspolicy.PoliciesAreEquivalent(actualPolicyText, expectedPolicy)
 if err != nil {
 	return fmt.Errorf("Error testing policy equivalence: %s", err)
 }
 if !equivalent {
 	return fmt.Errorf("Non-equivalent policy error:\n\nexpected: %s\n\n     got: %s\n", expectedPolicy, actualPolicyText)
-}
-
-return nil
+}return nil
 	}
-}
-
-func testAccCheckQueueExists(ctx context.Context, resourceName string, v *map[string]string) resource.TestCheckFunc {
+}func testAccCheckQueueExists(ctx context.Context, resourceName string, v *map[string]string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("Not found: %s", resourceName)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No SQS Queue URL is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).SQSConn(ctx)
-
-output, err := tfsqs.FindQueueAttributesByURL(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).SQSConn(ctx)output, err := tfsqs.FindQueueAttributesByURL(ctx, conn, rs.Primary.ID)if err != nil {
 	return err
-}
-
-*v = output
-
-return nil
+}*v = outputreturn nil
 	}
-}
-
-func testAccCheckQueueDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckQueueDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).SQSConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).SQSConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_sqs_queue" {
 continue
-	}
-
-	// SQS seems to be highly eventually consistent. Even if one connection reports that the queue is gone,
+	}	// SQS seems to be highly eventually consistent. Even if one connection reports that the queue is gone,
 	// another connection may still report it as present.
 	_, err := tfresource.RetryUntilNotFound(ctx, tfsqs.QueueDeletedTimeout, func() (any, error) {
 return tfsqs.FindQueueAttributesByURL(ctx, conn, rs.Primary.ID)
@@ -873,76 +743,52 @@ return fmt.Errorf("SQS Queue %s still exists", rs.Primary.ID)
 	}
 	if err != nil {
 return err
+	}	continue
+}return nil
 	}
-
-	continue
-}
-
-return nil
-	}
-}
-
-const testAccQueueConfig_nameGenerated = `
+}const testAccQueueConfig_nameGenerated = `
 resource "aws_sqs_queue" "test" {}
-`
-
-const testAccQueueConfig_nameGeneratedFIFO = `
+`const testAccQueueConfig_nameGeneratedFIFO = `
 resource "aws_sqs_queue" "test" {
   fifo_queue = true
 }
-`
-
-func testAccQueueConfig_name(rName string) string {
+`func testAccQueueConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name = %[1]q
 }
 `, rName)
-}
-
-func testAccQueueConfig_namePrefix(prefix string) string {
+}func testAccQueueConfig_namePrefix(prefix string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name_prefix = %[1]q
 }
 `, prefix)
-}
-
-func testAccQueueConfig_namePrefixFIFO(prefix string) string {
+}func testAccQueueConfig_namePrefixFIFO(prefix string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name_prefix = %[1]q
   fifo_queue  = true
 }
 `, prefix)
-}
-
-func testAccQueueConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccQueueConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccQueueConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccQueueConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccQueueConfig_updated(rName string) string {
+}func testAccQueueConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name        = %[1]q
@@ -953,33 +799,19 @@ resource "aws_sqs_queue" "test" {
   visibility_timeout_seconds = 60
 }
 `, rName)
-}
-
-func testAccQueueConfig_policy(rName string) string {
+}func testAccQueueConfig_policy(rName string) string {
 	return fmt.Sprintf(`
 locals {
   queue_name = %[1]q
-}
-
-resource "aws_sns_topic" "test" {
+}resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-resource "aws_sqs_queue" "test" {
+}data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_identity" "current" {}resource "aws_sqs_queue" "test" {
   name        = local.queue_name
   delay_seconds     = 90
   max_message_size  = 2048
   message_retention_seconds  = 86400
   receive_wait_time_seconds  = 10
-  visibility_timeout_seconds = 60
-
-  policy = <<EOF
+  visibility_timeout_seconds = 60  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Id": "sqspolicy",
@@ -999,37 +831,23 @@ resource "aws_sqs_queue" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_sns_topic_subscription" "test" {
+}resource "aws_sns_topic_subscription" "test" {
   topic_arn = aws_sns_topic.test.arn
   protocol  = "sqs"
   endpoint  = aws_sqs_queue.test.arn
 }
 `, rName)
-}
-
-func testAccQueueConfig_policyEquivalent(rName string) string {
+}func testAccQueueConfig_policyEquivalent(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-resource "aws_sqs_queue" "test" {
+}data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_identity" "current" {}resource "aws_sqs_queue" "test" {
   name        = %[1]q
   delay_seconds     = 90
   max_message_size  = 2048
   message_retention_seconds  = 86400
   receive_wait_time_seconds  = 10
-  visibility_timeout_seconds = 60
-
-  policy = jsonencode({
+  visibility_timeout_seconds = 60  policy = jsonencode({
     Version = "2012-10-17"
     Id      = "sqspolicy"
     Statement = [{
@@ -1049,37 +867,23 @@ resource "aws_sqs_queue" "test" {
       }
     }]
   })
-}
-
-resource "aws_sns_topic_subscription" "test" {
+}resource "aws_sns_topic_subscription" "test" {
   topic_arn = aws_sns_topic.test.arn
   protocol  = "sqs"
   endpoint  = aws_sqs_queue.test.arn
 }
 `, rName)
-}
-
-func testAccQueueConfig_policyNewEquivalent(rName string) string {
+}func testAccQueueConfig_policyNewEquivalent(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-resource "aws_sqs_queue" "test" {
+}data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_identity" "current" {}resource "aws_sqs_queue" "test" {
   name        = %[1]q
   delay_seconds     = 90
   max_message_size  = 2048
   message_retention_seconds  = 86400
   receive_wait_time_seconds  = 10
-  visibility_timeout_seconds = 60
-
-  policy = jsonencode({
+  visibility_timeout_seconds = 60  policy = jsonencode({
     Version = "2012-10-17"
     Id      = "sqspolicy"
     Statement = [{
@@ -1099,68 +903,50 @@ resource "aws_sqs_queue" "test" {
       }
     }]
   })
-}
-
-resource "aws_sns_topic_subscription" "test" {
+}resource "aws_sns_topic_subscription" "test" {
   topic_arn = aws_sns_topic.test.arn
   protocol  = "sqs"
   endpoint  = aws_sqs_queue.test.arn
 }
 `, rName)
-}
-
-func testAccQueueConfig_redrivePolicy(rName string) string {
+}func testAccQueueConfig_redrivePolicy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name        = "%[1]s-1"
   delay_seconds     = 0
-  visibility_timeout_seconds = 300
-
-  redrive_policy = <<EOF
+  visibility_timeout_seconds = 300  redrive_policy = <<EOF
 {
   "maxReceiveCount": 3,
   "deadLetterTargetArn": "${aws_sqs_queue.dlq.arn}"
 }
 EOF
-}
-
-resource "aws_sqs_queue" "dlq" {
+}resource "aws_sqs_queue" "dlq" {
   name = "%[1]s-2"
 }
 `, rName)
-}
-
-func testAccQueueConfig_redriveAllowPolicy(rName string) string {
+}func testAccQueueConfig_redriveAllowPolicy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name        = "%[1]s-1"
   delay_seconds     = 0
-  visibility_timeout_seconds = 300
-
-  redrive_allow_policy = <<EOF
+  visibility_timeout_seconds = 300  redrive_allow_policy = <<EOF
 {
   "redrivePermission": "byQueue",
   "sourceQueueArns": ["${aws_sqs_queue.dlq.arn}"]
 }
 EOF
-}
-
-resource "aws_sqs_queue" "dlq" {
+}resource "aws_sqs_queue" "dlq" {
   name = "%[1]s-2"
 }
 `, rName)
-}
-
-func testAccQueueConfig_fifo(rName string) string {
+}func testAccQueueConfig_fifo(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name       = %[1]q
   fifo_queue = true
 }
 `, rName)
-}
-
-func testAccQueueConfig_fifoContentBasedDeduplication(rName string) string {
+}func testAccQueueConfig_fifoContentBasedDeduplication(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name= %[1]q
@@ -1168,38 +954,26 @@ resource "aws_sqs_queue" "test" {
   content_based_deduplication = true
 }
 `, rName)
-}
-
-func testAccQueueConfig_fifoHighThroughputMode(rName, deduplicationScope, fifoThroughputLimit string) string {
+}func testAccQueueConfig_fifoHighThroughputMode(rName, deduplicationScope, fifoThroughputLimit string) string {
 	if deduplicationScope != "null" {
 deduplicationScope = strconv.Quote(deduplicationScope)
-	}
-
-	if fifoThroughputLimit != "null" {
+	}	if fifoThroughputLimit != "null" {
 fifoThroughputLimit = strconv.Quote(fifoThroughputLimit)
-	}
-
-	return fmt.Sprintf(`
+	}	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name       = %[1]q
-  fifo_queue = true
-
-  deduplication_scope   = %[2]s
+  fifo_queue = true  deduplication_scope   = %[2]s
   fifo_throughput_limit = %[3]s
 }
 `, rName, deduplicationScope, fifoThroughputLimit)
-}
-
-func testAccQueueConfig_standardExpectContentBasedDeduplicationError(rName string) string {
+}func testAccQueueConfig_standardExpectContentBasedDeduplicationError(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name= %[1]q
   content_based_deduplication = true
 }
 `, rName)
-}
-
-func testAccQueueConfig_encryption(rName, kmsDataKeyReusePeriodSeconds string) string {
+}func testAccQueueConfig_encryption(rName, kmsDataKeyReusePeriodSeconds string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name= %[1]q
@@ -1207,27 +981,21 @@ resource "aws_sqs_queue" "test" {
   kms_data_key_reuse_period_seconds = %[2]s
 }
 `, rName, kmsDataKeyReusePeriodSeconds)
-}
-
-func testAccQueueConfig_managedEncryption(rName, sqsManagedSseEnabled string) string {
+}func testAccQueueConfig_managedEncryption(rName, sqsManagedSseEnabled string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name     = %[1]q
   sqs_managed_sse_enabled = %[2]s
 }
 `, rName, sqsManagedSseEnabled)
-}
-
-func testAccQueueConfig_zeroVisibilityTimeoutSeconds(rName string) string {
+}func testAccQueueConfig_zeroVisibilityTimeoutSeconds(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name        = %[1]q
   visibility_timeout_seconds = 0
 }
 `, rName)
-}
-
-func testAccQueueConfig_defaultKMSDataKeyReusePeriodSeconds(rName string) string {
+}func testAccQueueConfig_defaultKMSDataKeyReusePeriodSeconds(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name= %[1]q

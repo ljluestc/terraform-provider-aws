@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cloudsearch
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cloudsearchimport (
 	"context"
 	"fmt"
 	"log"
 	"strconv"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudsearch"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -21,9 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-// @SDKResource("aws_cloudsearch_domain")
+)// @SDKResource("aws_cloudsearch_domain")
 func ResourceDomain() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDomainCreate,
@@ -32,15 +24,11 @@ func ResourceDomain() *schema.Resource {
 		DeleteWithoutTimeout: resourceDomainDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Timeouts: &schema.ResourceTimeout{
+		},		Timeouts: &schema.ResourceTimeout{
 			Create: schema.DefaultTimeout(30 * time.Minute),
 			Update: schema.DefaultTimeout(30 * time.Minute),
 			Delete: schema.DefaultTimeout(20 * time.Minute),
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:schema.TypeString,
 				Computed: true,
@@ -174,117 +162,61 @@ func ResourceDomain() *schema.Resource {
 			},
 		},
 	}
-}
-
-func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CloudSearchConn(ctx)
-
-	name := d.Get("name").(string)
+	conn := meta.(*conns.AWSClient).CloudSearchConn(ctx)	name := d.Get("name").(string)
 	input := cloudsearch.CreateDomainInput{
 		DomainName: aws.String(name),
-	}
-
-	log.Printf("[DEBUG] Creating CloudSearch Domain: %s", input)
-	_, err := conn.CreateDomainWithContext(ctx, &input)
-
-	if err != nil {
+	}	log.Printf("[DEBUG] Creating CloudSearch Domain: %s", input)
+	_, err := conn.CreateDomainWithContext(ctx, &input)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating CloudSearch Domain (%s): %s", name, err)
-	}
-
-	d.SetId(name)
-
-	if v, ok := d.GetOk("scaling_parameters"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
+	}	d.SetId(name)	if v, ok := d.GetOk("scaling_parameters"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input := &cloudsearch.UpdateScalingParametersInput{
 			DomainName:   aws.String(d.Id()),
 			ScalingParameters: expandScalingParameters(v.([]interface{})[0].(map[string]interface{})),
-		}
-
-		log.Printf("[DEBUG] Updating CloudSearch Domain scaling parameters: %s", input)
-		_, err := conn.UpdateScalingParametersWithContext(ctx, input)
-
-		if err != nil {
+		}		log.Printf("[DEBUG] Updating CloudSearch Domain scaling parameters: %s", input)
+		_, err := conn.UpdateScalingParametersWithContext(ctx, input)		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating CloudSearch Domain (%s) scaling parameters: %s", d.Id(), err)
 		}
-	}
-
-	if v, ok := d.GetOk("multi_az"); ok {
+	}	if v, ok := d.GetOk("multi_az"); ok {
 		input := &cloudsearch.UpdateAvailabilityOptionsInput{
 			DomainName: aws.String(d.Id()),
 			MultiAZ:    aws.Bool(v.(bool)),
-		}
-
-		log.Printf("[DEBUG] Updating CloudSearch Domain availability options: %s", input)
-		_, err := conn.UpdateAvailabilityOptionsWithContext(ctx, input)
-
-		if err != nil {
+		}		log.Printf("[DEBUG] Updating CloudSearch Domain availability options: %s", input)
+		_, err := conn.UpdateAvailabilityOptionsWithContext(ctx, input)		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating CloudSearch Domain (%s) availability options: %s", d.Id(), err)
 		}
-	}
-
-	if v, ok := d.GetOk("endpoint_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
+	}	if v, ok := d.GetOk("endpoint_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input := &cloudsearch.UpdateDomainEndpointOptionsInput{
 			DomainEndpointOptions: expandDomainEndpointOptions(v.([]interface{})[0].(map[string]interface{})),
 			DomainName:  aws.String(d.Id()),
-		}
-
-		log.Printf("[DEBUG] Updating CloudSearch Domain endpoint options: %s", input)
-		_, err := conn.UpdateDomainEndpointOptionsWithContext(ctx, input)
-
-		if err != nil {
+		}		log.Printf("[DEBUG] Updating CloudSearch Domain endpoint options: %s", input)
+		_, err := conn.UpdateDomainEndpointOptionsWithContext(ctx, input)		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating CloudSearch Domain (%s) endpoint options: %s", d.Id(), err)
 		}
-	}
-
-	if v, ok := d.GetOk("index_field"); ok && v.(*schema.Set).Len() > 0 {
-		err := defineIndexFields(ctx, conn, d.Id(), v.(*schema.Set).List())
-
-		if err != nil {
+	}	if v, ok := d.GetOk("index_field"); ok && v.(*schema.Set).Len() > 0 {
+		err := defineIndexFields(ctx, conn, d.Id(), v.(*schema.Set).List())		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "creating CloudSearch Domain (%s): %s", name, err)
-		}
-
-		log.Printf("[DEBUG] Indexing CloudSearch Domain documents: %s", d.Id())
+		}		log.Printf("[DEBUG] Indexing CloudSearch Domain documents: %s", d.Id())
 		_, err = conn.IndexDocumentsWithContext(ctx, &cloudsearch.IndexDocumentsInput{
 			DomainName: aws.String(d.Id()),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "indexing CloudSearch Domain (%s) documents: %s", d.Id(), err)
 		}
-	}
-
-	// TODO: Status.RequiresIndexDocuments = true?
-
-	_, err = waitDomainActive(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate))
-
-	if err != nil {
+	}	// TODO: Status.RequiresIndexDocuments = true?	_, err = waitDomainActive(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate))	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "waiting for CloudSearch Domain (%s) create: %s", d.Id(), err)
-	}
-
-	return append(diags, resourceDomainRead(ctx, d, meta)...)
-}
-
-func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	return append(diags, resourceDomainRead(ctx, d, meta)...)
+}func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CloudSearchConn(ctx)
-
-	domainStatus, err := FindDomainStatusByName(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	conn := meta.(*conns.AWSClient).CloudSearchConn(ctx)	domainStatus, err := FindDomainStatusByName(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] CloudSearch Domain (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading CloudSearch Domain (%s): %s", d.Id(), err)
-	}
-
-	d.Set("arn", domainStatus.ARN)
+	}	d.Set("arn", domainStatus.ARN)
 	d.Set("domain_id", domainStatus.DomainId)
-	d.Set("name", domainStatus.DomainName)
-
-	if domainStatus.DocService != nil {
+	d.Set("name", domainStatus.DomainName)	if domainStatus.DocService != nil {
 		d.Set("document_service_endpoint", domainStatus.DocService.Endpoint)
 	} else {
 		d.Set("document_service_endpoint", nil)
@@ -293,1179 +225,593 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interf
 		d.Set("search_service_endpoint", domainStatus.SearchService.Endpoint)
 	} else {
 		d.Set("search_service_endpoint", nil)
-	}
-
-	availabilityOptionStatus, err := findAvailabilityOptionsStatusByName(ctx, conn, d.Id())
-
-	if err != nil {
+	}	availabilityOptionStatus, err := findAvailabilityOptionsStatusByName(ctx, conn, d.Id())	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading CloudSearch Domain (%s) availability options: %s", d.Id(), err)
-	}
-
-	d.Set("multi_az", availabilityOptionStatus.Options)
-
-	endpointOptions, err := findDomainEndpointOptionsByName(ctx, conn, d.Id())
-
-	if err != nil {
+	}	d.Set("multi_az", availabilityOptionStatus.Options)	endpointOptions, err := findDomainEndpointOptionsByName(ctx, conn, d.Id())	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading CloudSearch Domain (%s) endpoint options: %s", d.Id(), err)
-	}
-
-	if err := d.Set("endpoint_options", []interface{}{flattenDomainEndpointOptions(endpointOptions)}); err != nil {
+	}	if err := d.Set("endpoint_options", []interface{}{flattenDomainEndpointOptions(endpointOptions)}); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting endpoint_options: %s", err)
-	}
-
-	scalingParameters, err := findScalingParametersByName(ctx, conn, d.Id())
-
-	if err != nil {
+	}	scalingParameters, err := findScalingParametersByName(ctx, conn, d.Id())	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading CloudSearch Domain (%s) scaling parameters: %s", d.Id(), err)
-	}
-
-	if err := d.Set("scaling_parameters", []interface{}{flattenScalingParameters(scalingParameters)}); err != nil {
+	}	if err := d.Set("scaling_parameters", []interface{}{flattenScalingParameters(scalingParameters)}); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting scaling_parameters: %s", err)
-	}
-
-	indexResults, err := conn.DescribeIndexFieldsWithContext(ctx, &cloudsearch.DescribeIndexFieldsInput{
+	}	indexResults, err := conn.DescribeIndexFieldsWithContext(ctx, &cloudsearch.DescribeIndexFieldsInput{
 		DomainName: aws.String(d.Get("name").(string)),
-	})
-
-	if err != nil {
+	})	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading CloudSearch Domain (%s) index fields: %s", d.Id(), err)
-	}
-
-	if tfList, err := flattenIndexFieldStatuses(indexResults.IndexFields); err != nil {
+	}	if tfList, err := flattenIndexFieldStatuses(indexResults.IndexFields); err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading CloudSearch Domain (%s): %s", d.Id(), err)
 	} else if err := d.Set("index_field", tfList); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting index_field: %s", err)
-	}
-
-	return diags
-}
-
-func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	return diags
+}func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CloudSearchConn(ctx)
-	requiresIndexDocuments := false
-
-	if d.HasChange("scaling_parameters") {
+	requiresIndexDocuments := false	if d.HasChange("scaling_parameters") {
 		input := &cloudsearch.UpdateScalingParametersInput{
 			DomainName: aws.String(d.Id()),
-		}
-
-		if v, ok := d.GetOk("scaling_parameters"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
+		}		if v, ok := d.GetOk("scaling_parameters"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 			input.ScalingParameters = expandScalingParameters(v.([]interface{})[0].(map[string]interface{}))
 		} else {
 			input.ScalingParameters = &cloudsearch.ScalingParameters{}
-		}
-
-		log.Printf("[DEBUG] Updating CloudSearch Domain scaling parameters: %s", input)
-		output, err := conn.UpdateScalingParametersWithContext(ctx, input)
-
-		if err != nil {
+		}		log.Printf("[DEBUG] Updating CloudSearch Domain scaling parameters: %s", input)
+		output, err := conn.UpdateScalingParametersWithContext(ctx, input)		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating CloudSearch Domain (%s) scaling parameters: %s", d.Id(), err)
-		}
-
-		if output != nil && output.ScalingParameters != nil && output.ScalingParameters.Status != nil && aws.StringValue(output.ScalingParameters.Status.State) == cloudsearch.OptionStateRequiresIndexDocuments {
+		}		if output != nil && output.ScalingParameters != nil && output.ScalingParameters.Status != nil && aws.StringValue(output.ScalingParameters.Status.State) == cloudsearch.OptionStateRequiresIndexDocuments {
 			requiresIndexDocuments = true
 		}
-	}
-
-	if d.HasChange("multi_az") {
+	}	if d.HasChange("multi_az") {
 		input := &cloudsearch.UpdateAvailabilityOptionsInput{
 			DomainName: aws.String(d.Id()),
 			MultiAZ:    aws.Bool(d.Get("multi_az").(bool)),
-		}
-
-		log.Printf("[DEBUG] Updating CloudSearch Domain availability options: %s", input)
-		output, err := conn.UpdateAvailabilityOptionsWithContext(ctx, input)
-
-		if err != nil {
+		}		log.Printf("[DEBUG] Updating CloudSearch Domain availability options: %s", input)
+		output, err := conn.UpdateAvailabilityOptionsWithContext(ctx, input)		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating CloudSearch Domain (%s) availability options: %s", d.Id(), err)
-		}
-
-		if output != nil && output.AvailabilityOptions != nil && output.AvailabilityOptions.Status != nil && aws.StringValue(output.AvailabilityOptions.Status.State) == cloudsearch.OptionStateRequiresIndexDocuments {
+		}		if output != nil && output.AvailabilityOptions != nil && output.AvailabilityOptions.Status != nil && aws.StringValue(output.AvailabilityOptions.Status.State) == cloudsearch.OptionStateRequiresIndexDocuments {
 			requiresIndexDocuments = true
 		}
-	}
-
-	if d.HasChange("endpoint_options") {
+	}	if d.HasChange("endpoint_options") {
 		input := &cloudsearch.UpdateDomainEndpointOptionsInput{
 			DomainName: aws.String(d.Id()),
-		}
-
-		if v, ok := d.GetOk("endpoint_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
+		}		if v, ok := d.GetOk("endpoint_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 			input.DomainEndpointOptions = expandDomainEndpointOptions(v.([]interface{})[0].(map[string]interface{}))
 		} else {
 			input.DomainEndpointOptions = &cloudsearch.DomainEndpointOptions{}
-		}
-
-		log.Printf("[DEBUG] Updating CloudSearch Domain endpoint options: %s", input)
-		output, err := conn.UpdateDomainEndpointOptionsWithContext(ctx, input)
-
-		if err != nil {
+		}		log.Printf("[DEBUG] Updating CloudSearch Domain endpoint options: %s", input)
+		output, err := conn.UpdateDomainEndpointOptionsWithContext(ctx, input)		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating CloudSearch Domain (%s) endpoint options: %s", d.Id(), err)
-		}
-
-		if output != nil && output.DomainEndpointOptions != nil && output.DomainEndpointOptions.Status != nil && aws.StringValue(output.DomainEndpointOptions.Status.State) == cloudsearch.OptionStateRequiresIndexDocuments {
+		}		if output != nil && output.DomainEndpointOptions != nil && output.DomainEndpointOptions.Status != nil && aws.StringValue(output.DomainEndpointOptions.Status.State) == cloudsearch.OptionStateRequiresIndexDocuments {
 			requiresIndexDocuments = true
 		}
-	}
-
-	if d.HasChange("index_field") {
+	}	if d.HasChange("index_field") {
 		o, n := d.GetChange("index_field")
 		old := o.(*schema.Set)
-		new := n.(*schema.Set)
-
-		for _, tfMapRaw := range old.Difference(new).List() {
-			tfMap, ok := tfMapRaw.(map[string]interface{})
-
-			if !ok {
+		new := n.(*schema.Set)		for _, tfMapRaw := range old.Difference(new).List() {
+			tfMap, ok := tfMapRaw.(map[string]interface{})			if !ok {
 				continue
-			}
-
-			fieldName, _ := tfMap["name"].(string)
-
-			if fieldName == "" {
+			}			fieldName, _ := tfMap["name"].(string)			if fieldName == "" {
 				continue
-			}
-
-			input := &cloudsearch.DeleteIndexFieldInput{
+			}			input := &cloudsearch.DeleteIndexFieldInput{
 				DomainName:aws.String(d.Id()),
 				IndexFieldName: aws.String(fieldName),
-			}
-
-			log.Printf("[DEBUG] Deleting CloudSearch Domain index field: %s", input)
-			_, err := conn.DeleteIndexFieldWithContext(ctx, input)
-
-			if err != nil {
+			}			log.Printf("[DEBUG] Deleting CloudSearch Domain index field: %s", input)
+			_, err := conn.DeleteIndexFieldWithContext(ctx, input)			if err != nil {
 				return sdkdiag.AppendErrorf(diags, "deleting CloudSearch Domain (%s) index field (%s): %s", d.Id(), fieldName, err)
-			}
-
-			requiresIndexDocuments = true
-		}
-
-		if v := new.Difference(old); v.Len() > 0 {
+			}			requiresIndexDocuments = true
+		}		if v := new.Difference(old); v.Len() > 0 {
 			if err := defineIndexFields(ctx, conn, d.Id(), v.List()); err != nil {
 				return sdkdiag.AppendErrorf(diags, "updating CloudSearch Domain (%s): %s", d.Id(), err)
-			}
-
-			requiresIndexDocuments = true
+			}			requiresIndexDocuments = true
 		}
-	}
-
-	if requiresIndexDocuments {
+	}	if requiresIndexDocuments {
 		log.Printf("[DEBUG] Indexing CloudSearch Domain documents: %s", d.Id())
 		_, err := conn.IndexDocumentsWithContext(ctx, &cloudsearch.IndexDocumentsInput{
 			DomainName: aws.String(d.Id()),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "indexing CloudSearch Domain (%s) documents: %s", d.Id(), err)
 		}
-	}
-
-	_, err := waitDomainActive(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate))
-
-	if err != nil {
+	}	_, err := waitDomainActive(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate))	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "waiting for CloudSearch Domain (%s) update: %s", d.Id(), err)
-	}
-
-	return append(diags, resourceDomainRead(ctx, d, meta)...)
-}
-
-func resourceDomainDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	return append(diags, resourceDomainRead(ctx, d, meta)...)
+}func resourceDomainDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).CloudSearchConn(ctx)
-
-	log.Printf("[DEBUG] Deleting CloudSearch Domain: %s", d.Id())
+	conn := meta.(*conns.AWSClient).CloudSearchConn(ctx)	log.Printf("[DEBUG] Deleting CloudSearch Domain: %s", d.Id())
 	_, err := conn.DeleteDomainWithContext(ctx, &cloudsearch.DeleteDomainInput{
 		DomainName: aws.String(d.Id()),
-	})
-
-	if err != nil {
+	})	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting CloudSearch Domain (%s): %s", d.Id(), err)
-	}
-
-	_, err = waitDomainDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete))
-
-	if err != nil {
+	}	_, err = waitDomainDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete))	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "waiting for CloudSearch Domain (%s) delete: %s", d.Id(), err)
-	}
-
-	return diags
-}
-
-func validateIndexName(v interface{}, k string) (ws []string, es []error) {
-	value := v.(string)
-
-	if !regexache.MustCompile(`^(\*?[a-z][0-9a-z_]{2,63}|[a-z][0-9a-z_]{2,63}\*?)$`).MatchString(value) {
+	}	return diags
+}func validateIndexName(v interface{}, k string) (ws []string, es []error) {
+	value := v.(string)	if !regexache.MustCompile(`^(\*?[a-z][0-9a-z_]{2,63}|[a-z][0-9a-z_]{2,63}\*?)$`).MatchString(value) {
 		es = append(es, fmt.Errorf(
 			"%q must begin with a letter and be at least 3 and no more than 64 characters long", k))
-	}
-
-	if value == "score" {
+	}	if value == "score" {
 		es = append(es, fmt.Errorf("'score' is a reserved field name and cannot be used"))
-	}
-
-	return
-}
-
-func defineIndexFields(ctx context.Context, conn *cloudsearch.CloudSearch, domainName string, tfList []interface{}) error {
+	}	return
+}func defineIndexFields(ctx context.Context, conn *cloudsearch.CloudSearch, domainName string, tfList []interface{}) error {
 	// Define index fields with source fields after those without.
 	for _, defineWhenSourceFieldsConfigured := range []bool{false, true} {
 		for _, tfMapRaw := range tfList {
-			tfMap, ok := tfMapRaw.(map[string]interface{})
-
-			if !ok {
+			tfMap, ok := tfMapRaw.(map[string]interface{})			if !ok {
 				continue
-			}
-
-			apiObject, sourceFieldsConfigured, err := expandIndexField(tfMap)
-
-			if err != nil {
+			}			apiObject, sourceFieldsConfigured, err := expandIndexField(tfMap)			if err != nil {
 				return err
-			}
-
-			if apiObject == nil {
+			}			if apiObject == nil {
 				continue
-			}
-
-			if sourceFieldsConfigured && !defineWhenSourceFieldsConfigured {
+			}			if sourceFieldsConfigured && !defineWhenSourceFieldsConfigured {
 				continue
-			}
-
-			if !sourceFieldsConfigured && defineWhenSourceFieldsConfigured {
+			}			if !sourceFieldsConfigured && defineWhenSourceFieldsConfigured {
 				continue
-			}
-
-			input := &cloudsearch.DefineIndexFieldInput{
+			}			input := &cloudsearch.DefineIndexFieldInput{
 				DomainName: aws.String(domainName),
 				IndexField: apiObject,
-			}
-
-			log.Printf("[DEBUG] Defining CloudSearch Domain index field: %s", input)
-			_, err = conn.DefineIndexFieldWithContext(ctx, input)
-
-			if err != nil {
+			}			log.Printf("[DEBUG] Defining CloudSearch Domain index field: %s", input)
+			_, err = conn.DefineIndexFieldWithContext(ctx, input)			if err != nil {
 				return fmt.Errorf("defining CloudSearch Domain (%s) index field (%s): %w", domainName, aws.StringValue(apiObject.IndexFieldName), err)
 			}
 		}
-	}
-
-	return nil
-}
-
-func FindDomainStatusByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.DomainStatus, error) {
+	}	return nil
+}func FindDomainStatusByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.DomainStatus, error) {
 	input := &cloudsearch.DescribeDomainsInput{
 		DomainNames: aws.StringSlice([]string{name}),
-	}
-
-	output, err := conn.DescribeDomainsWithContext(ctx, input)
-
-	if err != nil {
+	}	output, err := conn.DescribeDomainsWithContext(ctx, input)	if err != nil {
 		return nil, err
-	}
-
-	if output == nil || len(output.DomainStatusList) == 0 || output.DomainStatusList[0] == nil {
+	}	if output == nil || len(output.DomainStatusList) == 0 || output.DomainStatusList[0] == nil {
 		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	if count := len(output.DomainStatusList); count > 1 {
+	}	if count := len(output.DomainStatusList); count > 1 {
 		return nil, tfresource.NewTooManyResultsError(count, input)
-	}
-
-	return output.DomainStatusList[0], nil
-}
-
-func findAvailabilityOptionsStatusByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.AvailabilityOptionsStatus, error) {
+	}	return output.DomainStatusList[0], nil
+}func findAvailabilityOptionsStatusByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.AvailabilityOptionsStatus, error) {
 	input := &cloudsearch.DescribeAvailabilityOptionsInput{
 		DomainName: aws.String(name),
-	}
-
-	output, err := conn.DescribeAvailabilityOptionsWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, cloudsearch.ErrCodeResourceNotFoundException) {
+	}	output, err := conn.DescribeAvailabilityOptionsWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, cloudsearch.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if output == nil || output.AvailabilityOptions == nil {
+	}	if output == nil || output.AvailabilityOptions == nil {
 		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output.AvailabilityOptions, nil
-}
-
-func findDomainEndpointOptionsByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.DomainEndpointOptions, error) {
-	output, err := findDomainEndpointOptionsStatusByName(ctx, conn, name)
-
-	if err != nil {
+	}	return output.AvailabilityOptions, nil
+}func findDomainEndpointOptionsByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.DomainEndpointOptions, error) {
+	output, err := findDomainEndpointOptionsStatusByName(ctx, conn, name)	if err != nil {
 		return nil, err
-	}
-
-	if output.Options == nil {
+	}	if output.Options == nil {
 		return nil, tfresource.NewEmptyResultError(name)
-	}
-
-	return output.Options, nil
-}
-
-func findDomainEndpointOptionsStatusByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.DomainEndpointOptionsStatus, error) {
+	}	return output.Options, nil
+}func findDomainEndpointOptionsStatusByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.DomainEndpointOptionsStatus, error) {
 	input := &cloudsearch.DescribeDomainEndpointOptionsInput{
 		DomainName: aws.String(name),
-	}
-
-	output, err := conn.DescribeDomainEndpointOptionsWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, cloudsearch.ErrCodeResourceNotFoundException) {
+	}	output, err := conn.DescribeDomainEndpointOptionsWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, cloudsearch.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if output == nil || output.DomainEndpointOptions == nil {
+	}	if output == nil || output.DomainEndpointOptions == nil {
 		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output.DomainEndpointOptions, nil
-}
-
-func findScalingParametersByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.ScalingParameters, error) {
-	output, err := findScalingParametersStatusByName(ctx, conn, name)
-
-	if err != nil {
+	}	return output.DomainEndpointOptions, nil
+}func findScalingParametersByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.ScalingParameters, error) {
+	output, err := findScalingParametersStatusByName(ctx, conn, name)	if err != nil {
 		return nil, err
-	}
-
-	if output.Options == nil {
+	}	if output.Options == nil {
 		return nil, tfresource.NewEmptyResultError(name)
-	}
-
-	return output.Options, nil
-}
-
-func findScalingParametersStatusByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.ScalingParametersStatus, error) {
+	}	return output.Options, nil
+}func findScalingParametersStatusByName(ctx context.Context, conn *cloudsearch.CloudSearch, name string) (*cloudsearch.ScalingParametersStatus, error) {
 	input := &cloudsearch.DescribeScalingParametersInput{
 		DomainName: aws.String(name),
-	}
-
-	output, err := conn.DescribeScalingParametersWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, cloudsearch.ErrCodeResourceNotFoundException) {
+	}	output, err := conn.DescribeScalingParametersWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, cloudsearch.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if output == nil || output.ScalingParameters == nil {
+	}	if output == nil || output.ScalingParameters == nil {
 		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output.ScalingParameters, nil
-}
-
-func statusDomainDeleting(ctx context.Context, conn *cloudsearch.CloudSearch, name string) retry.StateRefreshFunc {
+	}	return output.ScalingParameters, nil
+}func statusDomainDeleting(ctx context.Context, conn *cloudsearch.CloudSearch, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindDomainStatusByName(ctx, conn, name)
-
-		if tfresource.NotFound(err) {
+		output, err := FindDomainStatusByName(ctx, conn, name)		if tfresource.NotFound(err) {
 			return nil, "", nil
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return nil, "", err
-		}
-
-		return output, strconv.FormatBool(aws.BoolValue(output.Deleted)), nil
+		}		return output, strconv.FormatBool(aws.BoolValue(output.Deleted)), nil
 	}
-}
-
-func statusDomainProcessing(ctx context.Context, conn *cloudsearch.CloudSearch, name string) retry.StateRefreshFunc {
+}func statusDomainProcessing(ctx context.Context, conn *cloudsearch.CloudSearch, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindDomainStatusByName(ctx, conn, name)
-
-		if tfresource.NotFound(err) {
+		output, err := FindDomainStatusByName(ctx, conn, name)		if tfresource.NotFound(err) {
 			return nil, "", nil
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return nil, "", err
-		}
-
-		return output, strconv.FormatBool(aws.BoolValue(output.Processing)), nil
+		}		return output, strconv.FormatBool(aws.BoolValue(output.Processing)), nil
 	}
-}
-
-func waitDomainActive(ctx context.Context, conn *cloudsearch.CloudSearch, name string, timeout time.Duration) (*cloudsearch.DomainStatus, error) { //nolint:unparam
+}func waitDomainActive(ctx context.Context, conn *cloudsearch.CloudSearch, name string, timeout time.Duration) (*cloudsearch.DomainStatus, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{"true"},
 		Target:  []string{"false"},
 		Refresh: statusDomainProcessing(ctx, conn, name),
 		Timeout: timeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*cloudsearch.DomainStatus); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*cloudsearch.DomainStatus); ok {
 		return output, err
-	}
-
-	return nil, err
-}
-
-func waitDomainDeleted(ctx context.Context, conn *cloudsearch.CloudSearch, name string, timeout time.Duration) (*cloudsearch.DomainStatus, error) {
+	}	return nil, err
+}func waitDomainDeleted(ctx context.Context, conn *cloudsearch.CloudSearch, name string, timeout time.Duration) (*cloudsearch.DomainStatus, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{"true"},
 		Target:  []string{},
 		Refresh: statusDomainDeleting(ctx, conn, name),
 		Timeout: timeout,
-	}
-
-	outputRaw, err := stateConf.WaitForStateContext(ctx)
-
-	if output, ok := outputRaw.(*cloudsearch.DomainStatus); ok {
+	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*cloudsearch.DomainStatus); ok {
 		return output, err
-	}
-
-	return nil, err
-}
-
-func expandDomainEndpointOptions(tfMap map[string]interface{}) *cloudsearch.DomainEndpointOptions {
+	}	return nil, err
+}func expandDomainEndpointOptions(tfMap map[string]interface{}) *cloudsearch.DomainEndpointOptions {
 	if tfMap == nil {
 		return nil
-	}
-
-	apiObject := &cloudsearch.DomainEndpointOptions{}
-
-	if v, ok := tfMap["enforce_https"].(bool); ok {
+	}	apiObject := &cloudsearch.DomainEndpointOptions{}	if v, ok := tfMap["enforce_https"].(bool); ok {
 		apiObject.EnforceHTTPS = aws.Bool(v)
-	}
-
-	if v, ok := tfMap["tls_security_policy"].(string); ok && v != "" {
+	}	if v, ok := tfMap["tls_security_policy"].(string); ok && v != "" {
 		apiObject.TLSSecurityPolicy = aws.String(v)
-	}
-
-	return apiObject
-}
-
-func flattenDomainEndpointOptions(apiObject *cloudsearch.DomainEndpointOptions) map[string]interface{} {
+	}	return apiObject
+}func flattenDomainEndpointOptions(apiObject *cloudsearch.DomainEndpointOptions) map[string]interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
-	tfMap := map[string]interface{}{}
-
-	if v := apiObject.EnforceHTTPS; v != nil {
+	}	tfMap := map[string]interface{}{}	if v := apiObject.EnforceHTTPS; v != nil {
 		tfMap["enforce_https"] = aws.BoolValue(v)
-	}
-
-	if v := apiObject.TLSSecurityPolicy; v != nil {
+	}	if v := apiObject.TLSSecurityPolicy; v != nil {
 		tfMap["tls_security_policy"] = aws.StringValue(v)
-	}
-
-	return tfMap
-}
-
-func expandIndexField(tfMap map[string]interface{}) (*cloudsearch.IndexField, bool, error) {
+	}	return tfMap
+}func expandIndexField(tfMap map[string]interface{}) (*cloudsearch.IndexField, bool, error) {
 	if tfMap == nil {
 		return nil, false, nil
-	}
-
-	apiObject := &cloudsearch.IndexField{}
-
-	if v, ok := tfMap["name"].(string); ok && v != "" {
+	}	apiObject := &cloudsearch.IndexField{}	if v, ok := tfMap["name"].(string); ok && v != "" {
 		apiObject.IndexFieldName = aws.String(v)
-	}
-
-	fieldType, ok := tfMap["type"].(string)
+	}	fieldType, ok := tfMap["type"].(string)
 	if ok && fieldType != "" {
 		apiObject.IndexFieldType = aws.String(fieldType)
-	}
-
-	analysisScheme, _ := tfMap["analysis_scheme"].(string)
+	}	analysisScheme, _ := tfMap["analysis_scheme"].(string)
 	facetEnabled, _ := tfMap["facet"].(bool)
 	highlightEnabled, _ := tfMap["highlight"].(bool)
 	returnEnabled, _ := tfMap["return"].(bool)
 	searchEnabled, _ := tfMap["search"].(bool)
 	sortEnabled, _ := tfMap["sort"].(bool)
-	var sourceFieldsConfigured bool
-
-	switch fieldType {
+	var sourceFieldsConfigured bool	switch fieldType {
 	case cloudsearch.IndexFieldTypeDate:
 		options := &cloudsearch.DateOptions{
 			FacetEnabled:  aws.Bool(facetEnabled),
 			ReturnEnabled: aws.Bool(returnEnabled),
 			SearchEnabled: aws.Bool(searchEnabled),
 			SortEnabled:   aws.Bool(sortEnabled),
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
 			options.DefaultValue = aws.String(v)
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceField = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.DateOptions = options
-
-	case cloudsearch.IndexFieldTypeDateArray:
+		}		apiObject.DateOptions = options	case cloudsearch.IndexFieldTypeDateArray:
 		options := &cloudsearch.DateArrayOptions{
 			FacetEnabled:  aws.Bool(facetEnabled),
 			ReturnEnabled: aws.Bool(returnEnabled),
 			SearchEnabled: aws.Bool(searchEnabled),
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
 			options.DefaultValue = aws.String(v)
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceFields = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.DateArrayOptions = options
-
-	case cloudsearch.IndexFieldTypeDouble:
+		}		apiObject.DateArrayOptions = options	case cloudsearch.IndexFieldTypeDouble:
 		options := &cloudsearch.DoubleOptions{
 			FacetEnabled:  aws.Bool(facetEnabled),
 			ReturnEnabled: aws.Bool(returnEnabled),
 			SearchEnabled: aws.Bool(searchEnabled),
 			SortEnabled:   aws.Bool(sortEnabled),
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
-			v, err := strconv.ParseFloat(v, 64)
-
-			if err != nil {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+			v, err := strconv.ParseFloat(v, 64)			if err != nil {
 				return nil, false, err
-			}
-
-			options.DefaultValue = aws.Float64(v)
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+			}			options.DefaultValue = aws.Float64(v)
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceField = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.DoubleOptions = options
-
-	case cloudsearch.IndexFieldTypeDoubleArray:
+		}		apiObject.DoubleOptions = options	case cloudsearch.IndexFieldTypeDoubleArray:
 		options := &cloudsearch.DoubleArrayOptions{
 			FacetEnabled:  aws.Bool(facetEnabled),
 			ReturnEnabled: aws.Bool(returnEnabled),
 			SearchEnabled: aws.Bool(searchEnabled),
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
-			v, err := strconv.ParseFloat(v, 64)
-
-			if err != nil {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+			v, err := strconv.ParseFloat(v, 64)			if err != nil {
 				return nil, false, err
-			}
-
-			options.DefaultValue = aws.Float64(v)
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+			}			options.DefaultValue = aws.Float64(v)
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceFields = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.DoubleArrayOptions = options
-
-	case cloudsearch.IndexFieldTypeInt:
+		}		apiObject.DoubleArrayOptions = options	case cloudsearch.IndexFieldTypeInt:
 		options := &cloudsearch.IntOptions{
 			FacetEnabled:  aws.Bool(facetEnabled),
 			ReturnEnabled: aws.Bool(returnEnabled),
 			SearchEnabled: aws.Bool(searchEnabled),
 			SortEnabled:   aws.Bool(sortEnabled),
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
-			v, err := strconv.Atoi(v)
-
-			if err != nil {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+			v, err := strconv.Atoi(v)			if err != nil {
 				return nil, false, err
-			}
-
-			options.DefaultValue = aws.Int64(int64(v))
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+			}			options.DefaultValue = aws.Int64(int64(v))
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceField = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.IntOptions = options
-
-	case cloudsearch.IndexFieldTypeIntArray:
+		}		apiObject.IntOptions = options	case cloudsearch.IndexFieldTypeIntArray:
 		options := &cloudsearch.IntArrayOptions{
 			FacetEnabled:  aws.Bool(facetEnabled),
 			ReturnEnabled: aws.Bool(returnEnabled),
 			SearchEnabled: aws.Bool(searchEnabled),
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
-			v, err := strconv.Atoi(v)
-
-			if err != nil {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+			v, err := strconv.Atoi(v)			if err != nil {
 				return nil, false, err
-			}
-
-			options.DefaultValue = aws.Int64(int64(v))
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+			}			options.DefaultValue = aws.Int64(int64(v))
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceFields = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.IntArrayOptions = options
-
-	case cloudsearch.IndexFieldTypeLatlon:
+		}		apiObject.IntArrayOptions = options	case cloudsearch.IndexFieldTypeLatlon:
 		options := &cloudsearch.LatLonOptions{
 			FacetEnabled:  aws.Bool(facetEnabled),
 			ReturnEnabled: aws.Bool(returnEnabled),
 			SearchEnabled: aws.Bool(searchEnabled),
 			SortEnabled:   aws.Bool(sortEnabled),
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
 			options.DefaultValue = aws.String(v)
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceField = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.LatLonOptions = options
-
-	case cloudsearch.IndexFieldTypeLiteral:
+		}		apiObject.LatLonOptions = options	case cloudsearch.IndexFieldTypeLiteral:
 		options := &cloudsearch.LiteralOptions{
 			FacetEnabled:  aws.Bool(facetEnabled),
 			ReturnEnabled: aws.Bool(returnEnabled),
 			SearchEnabled: aws.Bool(searchEnabled),
 			SortEnabled:   aws.Bool(sortEnabled),
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
 			options.DefaultValue = aws.String(v)
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceField = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.LiteralOptions = options
-
-	case cloudsearch.IndexFieldTypeLiteralArray:
+		}		apiObject.LiteralOptions = options	case cloudsearch.IndexFieldTypeLiteralArray:
 		options := &cloudsearch.LiteralArrayOptions{
 			FacetEnabled:  aws.Bool(facetEnabled),
 			ReturnEnabled: aws.Bool(returnEnabled),
 			SearchEnabled: aws.Bool(searchEnabled),
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
 			options.DefaultValue = aws.String(v)
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceFields = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.LiteralArrayOptions = options
-
-	case cloudsearch.IndexFieldTypeText:
+		}		apiObject.LiteralArrayOptions = options	case cloudsearch.IndexFieldTypeText:
 		options := &cloudsearch.TextOptions{
 			HighlightEnabled: aws.Bool(highlightEnabled),
 			ReturnEnabled:    aws.Bool(returnEnabled),
 			SortEnabled: aws.Bool(sortEnabled),
-		}
-
-		if analysisScheme != "" {
+		}		if analysisScheme != "" {
 			options.AnalysisScheme = aws.String(analysisScheme)
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
 			options.DefaultValue = aws.String(v)
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceField = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.TextOptions = options
-
-	case cloudsearch.IndexFieldTypeTextArray:
+		}		apiObject.TextOptions = options	case cloudsearch.IndexFieldTypeTextArray:
 		options := &cloudsearch.TextArrayOptions{
 			HighlightEnabled: aws.Bool(highlightEnabled),
 			ReturnEnabled:    aws.Bool(returnEnabled),
-		}
-
-		if analysisScheme != "" {
+		}		if analysisScheme != "" {
 			options.AnalysisScheme = aws.String(analysisScheme)
-		}
-
-		if v, ok := tfMap["default_value"].(string); ok && v != "" {
+		}		if v, ok := tfMap["default_value"].(string); ok && v != "" {
 			options.DefaultValue = aws.String(v)
-		}
-
-		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
+		}		if v, ok := tfMap["source_fields"].(string); ok && v != "" {
 			options.SourceFields = aws.String(v)
 			sourceFieldsConfigured = true
-		}
-
-		apiObject.TextArrayOptions = options
-
-	default:
+		}		apiObject.TextArrayOptions = options	default:
 		return nil, false, fmt.Errorf("unsupported index_field type: %s", fieldType)
-	}
-
-	return apiObject, sourceFieldsConfigured, nil
-}
-
-func flattenIndexFieldStatus(apiObject *cloudsearch.IndexFieldStatus) (map[string]interface{}, error) {
+	}	return apiObject, sourceFieldsConfigured, nil
+}func flattenIndexFieldStatus(apiObject *cloudsearch.IndexFieldStatus) (map[string]interface{}, error) {
 	if apiObject == nil || apiObject.Options == nil || apiObject.Status == nil {
 		return nil, nil
-	}
-
-	// Don't read in any fields that are pending deletion.
+	}	// Don't read in any fields that are pending deletion.
 	if aws.BoolValue(apiObject.Status.PendingDeletion) {
 		return nil, nil
-	}
-
-	field := apiObject.Options
-	tfMap := map[string]interface{}{}
-
-	if v := field.IndexFieldName; v != nil {
+	}	field := apiObject.Options
+	tfMap := map[string]interface{}{}	if v := field.IndexFieldName; v != nil {
 		tfMap["name"] = aws.StringValue(v)
-	}
-
-	fieldType := field.IndexFieldType
+	}	fieldType := field.IndexFieldType
 	if fieldType != nil {
 		tfMap["type"] = aws.StringValue(fieldType)
-	}
-
-	switch fieldType := aws.StringValue(fieldType); fieldType {
+	}	switch fieldType := aws.StringValue(fieldType); fieldType {
 	case cloudsearch.IndexFieldTypeDate:
-		options := field.DateOptions
-
-		if v := options.DefaultValue; v != nil {
+		options := field.DateOptions		if v := options.DefaultValue; v != nil {
 			tfMap["default_value"] = aws.StringValue(v)
-		}
-
-		if v := options.FacetEnabled; v != nil {
+		}		if v := options.FacetEnabled; v != nil {
 			tfMap["facet"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
+		}		if v := options.ReturnEnabled; v != nil {
 			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SearchEnabled; v != nil {
+		}		if v := options.SearchEnabled; v != nil {
 			tfMap["search"] = aws.BoolValue(v)
-		}
-
-		if v := options.SortEnabled; v != nil {
+		}		if v := options.SortEnabled; v != nil {
 			tfMap["sort"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceField; v != nil {
+		}		if v := options.SourceField; v != nil {
 			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
+		}		// Defaults not returned via the API.
 		tfMap["analysis_scheme"] = ""
-		tfMap["highlight"] = false
-
-	case cloudsearch.IndexFieldTypeDateArray:
-		options := field.DateArrayOptions
-
-		if v := options.DefaultValue; v != nil {
+		tfMap["highlight"] = false	case cloudsearch.IndexFieldTypeDateArray:
+		options := field.DateArrayOptions		if v := options.DefaultValue; v != nil {
 			tfMap["default_value"] = aws.StringValue(v)
-		}
-
-		if v := options.FacetEnabled; v != nil {
+		}		if v := options.FacetEnabled; v != nil {
 			tfMap["facet"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
+		}		if v := options.ReturnEnabled; v != nil {
 			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SearchEnabled; v != nil {
+		}		if v := options.SearchEnabled; v != nil {
 			tfMap["search"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceFields; v != nil {
+		}		if v := options.SourceFields; v != nil {
 			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
+		}		// Defaults not returned via the API.
 		tfMap["analysis_scheme"] = ""
 		tfMap["highlight"] = false
-		tfMap["sort"] = false
-
-	case cloudsearch.IndexFieldTypeDouble:
-		options := field.DoubleOptions
-
-		if v := options.DefaultValue; v != nil {
+		tfMap["sort"] = false	case cloudsearch.IndexFieldTypeDouble:
+		options := field.DoubleOptions		if v := options.DefaultValue; v != nil {
 			tfMap["default_value"] = strconv.FormatFloat(aws.Float64Value(v), 'f', -1, 64)
-		}
-
-		if v := options.FacetEnabled; v != nil {
+		}		if v := options.FacetEnabled; v != nil {
 			tfMap["facet"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
+		}		if v := options.ReturnEnabled; v != nil {
 			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SearchEnabled; v != nil {
+		}		if v := options.SearchEnabled; v != nil {
 			tfMap["search"] = aws.BoolValue(v)
-		}
-
-		if v := options.SortEnabled; v != nil {
+		}		if v := options.SortEnabled; v != nil {
 			tfMap["sort"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceField; v != nil {
+		}		if v := options.SourceField; v != nil {
 			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
+		}		// Defaults not returned via the API.
 		tfMap["analysis_scheme"] = ""
-		tfMap["highlight"] = false
-
-	case cloudsearch.IndexFieldTypeDoubleArray:
-		options := field.DoubleArrayOptions
-
-		if v := options.DefaultValue; v != nil {
+		tfMap["highlight"] = false	case cloudsearch.IndexFieldTypeDoubleArray:
+		options := field.DoubleArrayOptions		if v := options.DefaultValue; v != nil {
 			tfMap["default_value"] = strconv.FormatFloat(aws.Float64Value(v), 'f', -1, 64)
-		}
-
-		if v := options.FacetEnabled; v != nil {
+		}		if v := options.FacetEnabled; v != nil {
 			tfMap["facet"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
+		}		if v := options.ReturnEnabled; v != nil {
 			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SearchEnabled; v != nil {
+		}		if v := options.SearchEnabled; v != nil {
 			tfMap["search"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceFields; v != nil {
+		}		if v := options.SourceFields; v != nil {
 			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
+		}		// Defaults not returned via the API.
 		tfMap["analysis_scheme"] = ""
 		tfMap["highlight"] = false
-		tfMap["sort"] = false
-
-	case cloudsearch.IndexFieldTypeInt:
-		options := field.IntOptions
-
-		if v := options.DefaultValue; v != nil {
+		tfMap["sort"] = false	case cloudsearch.IndexFieldTypeInt:
+		options := field.IntOptions		if v := options.DefaultValue; v != nil {
 			tfMap["default_value"] = strconv.FormatInt(aws.Int64Value(v), 10)
-		}
-
-		if v := options.FacetEnabled; v != nil {
+		}		if v := options.FacetEnabled; v != nil {
 			tfMap["facet"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
+		}		if v := options.ReturnEnabled; v != nil {
 			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SearchEnabled; v != nil {
+		}		if v := options.SearchEnabled; v != nil {
 			tfMap["search"] = aws.BoolValue(v)
-		}
-
-		if v := options.SortEnabled; v != nil {
+		}		if v := options.SortEnabled; v != nil {
 			tfMap["sort"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceField; v != nil {
+		}		if v := options.SourceField; v != nil {
 			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
+		}		// Defaults not returned via the API.
 		tfMap["analysis_scheme"] = ""
-		tfMap["highlight"] = false
-
-	case cloudsearch.IndexFieldTypeIntArray:
-		options := field.IntArrayOptions
-
-		if v := options.DefaultValue; v != nil {
+		tfMap["highlight"] = false	case cloudsearch.IndexFieldTypeIntArray:
+		options := field.IntArrayOptions		if v := options.DefaultValue; v != nil {
 			tfMap["default_value"] = strconv.FormatInt(aws.Int64Value(v), 10)
-		}
-
-		if v := options.FacetEnabled; v != nil {
+		}		if v := options.FacetEnabled; v != nil {
 			tfMap["facet"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
+		}		if v := options.ReturnEnabled; v != nil {
 			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SearchEnabled; v != nil {
+		}		if v := options.SearchEnabled; v != nil {
 			tfMap["search"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceFields; v != nil {
+		}		if v := options.SourceFields; v != nil {
 			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
+		}		// Defaults not returned via the API.
 		tfMap["analysis_scheme"] = ""
 		tfMap["highlight"] = false
-		tfMap["sort"] = false
-
-	case cloudsearch.IndexFieldTypeLatlon:
-		options := field.LatLonOptions
-
-		if v := options.DefaultValue; v != nil {
+		tfMap["sort"] = false	case cloudsearch.IndexFieldTypeLatlon:
+		options := field.LatLonOptions		if v := options.DefaultValue; v != nil {
 			tfMap["default_value"] = aws.StringValue(v)
-		}
-
-		if v := options.FacetEnabled; v != nil {
+		}		if v := options.FacetEnabled; v != nil {
 			tfMap["facet"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
+		}		if v := options.ReturnEnabled; v != nil {
 			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SearchEnabled; v != nil {
+		}		if v := options.SearchEnabled; v != nil {
 			tfMap["search"] = aws.BoolValue(v)
-		}
-
-		if v := options.SortEnabled; v != nil {
+		}		if v := options.SortEnabled; v != nil {
 			tfMap["sort"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceField; v != nil {
+		}		if v := options.SourceField; v != nil {
 			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
+		}		// Defaults not returned via the API.
 		tfMap["analysis_scheme"] = ""
-		tfMap["highlight"] = false
-
-	case cloudsearch.IndexFieldTypeLiteral:
-		options := field.LiteralOptions
-
-		if v := options.DefaultValue; v != nil {
+		tfMap["highlight"] = false	case cloudsearch.IndexFieldTypeLiteral:
+		options := field.LiteralOptions		if v := options.DefaultValue; v != nil {
 			tfMap["default_value"] = aws.StringValue(v)
-		}
-
-		if v := options.FacetEnabled; v != nil {
+		}		if v := options.FacetEnabled; v != nil {
 			tfMap["facet"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
+		}		if v := options.ReturnEnabled; v != nil {
 			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SearchEnabled; v != nil {
+		}		if v := options.SearchEnabled; v != nil {
 			tfMap["search"] = aws.BoolValue(v)
-		}
-
-		if v := options.SortEnabled; v != nil {
+		}		if v := options.SortEnabled; v != nil {
 			tfMap["sort"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceField; v != nil {
+		}		if v := options.SourceField; v != nil {
 			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
+		}		// Defaults not returned via the API.
 		tfMap["analysis_scheme"] = ""
-		tfMap["highlight"] = false
-
-	case cloudsearch.IndexFieldTypeLiteralArray:
-		options := field.LiteralArrayOptions
-
-		if v := options.DefaultValue; v != nil {
+		tfMap["highlight"] = false	case cloudsearch.IndexFieldTypeLiteralArray:
+		options := field.LiteralArrayOptions		if v := options.DefaultValue; v != nil {
 			tfMap["default_value"] = aws.StringValue(v)
-		}
-
-		if v := options.FacetEnabled; v != nil {
+		}		if v := options.FacetEnabled; v != nil {
 			tfMap["facet"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
+		}		if v := options.ReturnEnabled; v != nil {
 			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SearchEnabled; v != nil {
+		}		if v := options.SearchEnabled; v != nil {
 			tfMap["search"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceFields; v != nil {
+		}		if v := options.SourceFields; v != nil {
 			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
+		}		// Defaults not returned via the API.
 		tfMap["analysis_scheme"] = ""
 		tfMap["highlight"] = false
-		tfMap["sort"] = false
-
-	case cloudsearch.IndexFieldTypeText:
-		options := field.TextOptions
-
-		if v := options.AnalysisScheme; v != nil {
+		tfMap["sort"] = false	case cloudsearch.IndexFieldTypeText:
+		options := field.TextOptions		if v := options.AnalysisScheme; v != nil {
 			tfMap["analysis_scheme"] = aws.StringValue(v)
-		}
-
-		if v := options.DefaultValue; v != nil {
+		}		if v := options.DefaultValue; v != nil {
 			tfMap["default_value"] = aws.StringValue(v)
-		}
-
-		if v := options.HighlightEnabled; v != nil {
+		}		if v := options.HighlightEnabled; v != nil {
 			tfMap["highlight"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
+		}		if v := options.ReturnEnabled; v != nil {
 			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SortEnabled; v != nil {
+		}		if v := options.SortEnabled; v != nil {
 			tfMap["sort"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceField; v != nil {
+		}		if v := options.SourceField; v != nil {
 			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
+		}		// Defaults not returned via the API.
+		tfMap["facet"] = false
+		tfMap["search"] = true	case cloudsearch.IndexFieldTypeTextArray:
+		options := field.TextArrayOptions		if v := options.AnalysisScheme; v != nil {
+			tfMap["analysis_scheme"] = aws.StringValue(v)
+		}		if v := options.DefaultValue; v != nil {
+			tfMap["default_value"] = aws.StringValue(v)
+		}		if v := options.HighlightEnabled; v != nil {
+			tfMap["highlight"] = aws.BoolValue(v)
+		}		if v := options.ReturnEnabled; v != nil {
+			tfMap["return"] = aws.BoolValue(v)
+		}		if v := options.SourceFields; v != nil {
+			tfMap["source_fields"] = aws.StringValue(v)
+		}		// Defaults not returned via the API.
 		tfMap["facet"] = false
 		tfMap["search"] = true
-
-	case cloudsearch.IndexFieldTypeTextArray:
-		options := field.TextArrayOptions
-
-		if v := options.AnalysisScheme; v != nil {
-			tfMap["analysis_scheme"] = aws.StringValue(v)
-		}
-
-		if v := options.DefaultValue; v != nil {
-			tfMap["default_value"] = aws.StringValue(v)
-		}
-
-		if v := options.HighlightEnabled; v != nil {
-			tfMap["highlight"] = aws.BoolValue(v)
-		}
-
-		if v := options.ReturnEnabled; v != nil {
-			tfMap["return"] = aws.BoolValue(v)
-		}
-
-		if v := options.SourceFields; v != nil {
-			tfMap["source_fields"] = aws.StringValue(v)
-		}
-
-		// Defaults not returned via the API.
-		tfMap["facet"] = false
-		tfMap["search"] = true
-		tfMap["sort"] = false
-
-	default:
+		tfMap["sort"] = false	default:
 		return nil, fmt.Errorf("unsupported index_field type: %s", fieldType)
-	}
-
-	return tfMap, nil
-}
-
-func flattenIndexFieldStatuses(apiObjects []*cloudsearch.IndexFieldStatus) ([]interface{}, error) {
+	}	return tfMap, nil
+}func flattenIndexFieldStatuses(apiObjects []*cloudsearch.IndexFieldStatus) ([]interface{}, error) {
 	if len(apiObjects) == 0 {
 		return nil, nil
-	}
-
-	var tfList []interface{}
-
-	for _, apiObject := range apiObjects {
+	}	var tfList []interface{}	for _, apiObject := range apiObjects {
 		if apiObject == nil {
 			continue
-		}
-
-		tfMap, err := flattenIndexFieldStatus(apiObject)
-
-		if err != nil {
+		}		tfMap, err := flattenIndexFieldStatus(apiObject)		if err != nil {
 			return nil, err
-		}
-
-		tfList = append(tfList, tfMap)
-	}
-
-	return tfList, nil
-}
-
-func expandScalingParameters(tfMap map[string]interface{}) *cloudsearch.ScalingParameters {
+		}		tfList = append(tfList, tfMap)
+	}	return tfList, nil
+}func expandScalingParameters(tfMap map[string]interface{}) *cloudsearch.ScalingParameters {
 	if tfMap == nil {
 		return nil
-	}
-
-	apiObject := &cloudsearch.ScalingParameters{}
-
-	if v, ok := tfMap["desired_instance_type"].(string); ok && v != "" {
+	}	apiObject := &cloudsearch.ScalingParameters{}	if v, ok := tfMap["desired_instance_type"].(string); ok && v != "" {
 		apiObject.DesiredInstanceType = aws.String(v)
-	}
-
-	if v, ok := tfMap["desired_partition_count"].(int); ok && v != 0 {
+	}	if v, ok := tfMap["desired_partition_count"].(int); ok && v != 0 {
 		apiObject.DesiredPartitionCount = aws.Int64(int64(v))
-	}
-
-	if v, ok := tfMap["desired_replication_count"].(int); ok && v != 0 {
+	}	if v, ok := tfMap["desired_replication_count"].(int); ok && v != 0 {
 		apiObject.DesiredReplicationCount = aws.Int64(int64(v))
-	}
-
-	return apiObject
-}
-
-func flattenScalingParameters(apiObject *cloudsearch.ScalingParameters) map[string]interface{} {
+	}	return apiObject
+}func flattenScalingParameters(apiObject *cloudsearch.ScalingParameters) map[string]interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
-	tfMap := map[string]interface{}{}
-
-	if v := apiObject.DesiredInstanceType; v != nil {
+	}	tfMap := map[string]interface{}{}	if v := apiObject.DesiredInstanceType; v != nil {
 		tfMap["desired_instance_type"] = aws.StringValue(v)
-	}
-
-	if v := apiObject.DesiredPartitionCount; v != nil {
+	}	if v := apiObject.DesiredPartitionCount; v != nil {
 		tfMap["desired_partition_count"] = aws.Int64Value(v)
-	}
-
-	if v := apiObject.DesiredReplicationCount; v != nil {
+	}	if v := apiObject.DesiredReplicationCount; v != nil {
 		tfMap["desired_replication_count"] = aws.Int64Value(v)
-	}
-
-	return tfMap
+	}	return tfMap
 }

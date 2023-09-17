@@ -1,15 +1,9 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageivs
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageivsimport(
 	"context"
 	"errors"
 	"log"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/ivs"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -22,26 +16,18 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-//@SDKResource("aws_ivs_recording_configuration",name="RecordingConfiguration")
+)//@SDKResource("aws_ivs_recording_configuration",name="RecordingConfiguration")
 //@Tags(identifierAttribute="id")
 funcResourceRecordingConfiguration()*schema.Resource{
 	return&schema.Resource{
 		CreateWithoutTimeout:resourceRecordingConfigurationCreate,
 		ReadWithoutTimeout:resourceRecordingConfigurationRead,
-		DeleteWithoutTimeout:resourceRecordingConfigurationDelete,
-
-		Importer:&schema.ResourceImporter{
+		DeleteWithoutTimeout:resourceRecordingConfigurationDelete,		Importer:&schema.ResourceImporter{
 			StateContext:schema.ImportStatePassthroughContext,
-		},
-
-		Timeouts:&schema.ResourceTimeout{
+		},		Timeouts:&schema.ResourceTimeout{
 			Create:schema.DefaultTimeout(10*time.Minute),
 			Delete:schema.DefaultTimeout(10*time.Minute),
-		},
-
-		Schema:map[string]*schema.Schema{
+		},		Schema:map[string]*schema.Schema{
 			"arn":{
 				Type:schema.TypeString,
 				Computed:true,
@@ -113,194 +99,106 @@ funcResourceRecordingConfiguration()*schema.Resource{
 					},
 				},
 			},
-		},
-
-		CustomizeDiff:verify.SetTagsDiff,
+		},		CustomizeDiff:verify.SetTagsDiff,
 	}
-}
-
-const(
+}const(
 	ResNameRecordingConfiguration="RecordingConfiguration"
 )
 funcresourceRecordingConfigurationCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
-	conn:=meta.(*conns.AWSClient).IVSConn(ctx)
-
-	in:=&ivs.CreateRecordingConfigurationInput{
+	conn:=meta.(*conns.AWSClient).IVSConn(ctx)	in:=&ivs.CreateRecordingConfigurationInput{
 		DestinationConfiguration:expandDestinationConfiguration(d.Get("destination_configuration").([]interface{})),
 		Tags:getTagsIn(ctx),
-	}
-
-	ifv,ok:=d.GetOk("name");ok{
+	}	ifv,ok:=d.GetOk("name");ok{
 		in.Name=aws.String(v.(string))
-	}
-
-	ifv,ok:=d.GetOk("recording_reconnect_window_seconds");ok{
+	}	ifv,ok:=d.GetOk("recording_reconnect_window_seconds");ok{
 		in.RecordingReconnectWindowSeconds=aws.Int64(int64(v.(int)))
-	}
-
-	ifv,ok:=d.GetOk("thumbnail_configuration");ok{
-		in.ThumbnailConfiguration=expandThumbnailConfiguration(v.([]interface{}))
-
-		ifaws.StringValue(in.ThumbnailConfiguration.RecordingMode)==ivs.RecordingModeDisabled&&in.ThumbnailConfiguration.TargetIntervalSeconds!=nil{
+	}	ifv,ok:=d.GetOk("thumbnail_configuration");ok{
+		in.ThumbnailConfiguration=expandThumbnailConfiguration(v.([]interface{}))		ifaws.StringValue(in.ThumbnailConfiguration.RecordingMode)==ivs.RecordingModeDisabled&&in.ThumbnailConfiguration.TargetIntervalSeconds!=nil{
 			returndiag.Errorf("thumbnailconfigurationtargetintervalcannotbesetifrecording_modeis\"DISABLED\"")
 		}
-	}
-
-	out,err:=conn.CreateRecordingConfigurationWithContext(ctx,in)
+	}	out,err:=conn.CreateRecordingConfigurationWithContext(ctx,in)
 	iferr!=nil{
 		returncreate.DiagError(names.IVS,create.ErrActionCreating,ResNameRecordingConfiguration,d.Get("name").(string),err)
-	}
-
-	ifout==nil||out.RecordingConfiguration==nil{
+	}	ifout==nil||out.RecordingConfiguration==nil{
 		returncreate.DiagError(names.IVS,create.ErrActionCreating,ResNameRecordingConfiguration,d.Get("name").(string),errors.New("emptyoutput"))
-	}
-
-	d.SetId(aws.StringValue(out.RecordingConfiguration.Arn))
-
-	if_,err:=waitRecordingConfigurationCreated(ctx,conn,d.Id(),d.Timeout(schema.TimeoutCreate));err!=nil{
+	}	d.SetId(aws.StringValue(out.RecordingConfiguration.Arn))	if_,err:=waitRecordingConfigurationCreated(ctx,conn,d.Id(),d.Timeout(schema.TimeoutCreate));err!=nil{
 		returncreate.DiagError(names.IVS,create.ErrActionWaitingForCreation,ResNameRecordingConfiguration,d.Id(),err)
-	}
-
-	returnresourceRecordingConfigurationRead(ctx,d,meta)
+	}	returnresourceRecordingConfigurationRead(ctx,d,meta)
 }
 funcresourceRecordingConfigurationRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
-	conn:=meta.(*conns.AWSClient).IVSConn(ctx)
-
-	out,err:=FindRecordingConfigurationByID(ctx,conn,d.Id())
-
-	if!d.IsNewResource()&&tfresource.NotFound(err){
+	conn:=meta.(*conns.AWSClient).IVSConn(ctx)	out,err:=FindRecordingConfigurationByID(ctx,conn,d.Id())	if!d.IsNewResource()&&tfresource.NotFound(err){
 		log.Printf("[WARN]IVSRecordingConfiguration(%s)notfound,removingfromstate",d.Id())
 		d.SetId("")
 		returnnil
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 		returncreate.DiagError(names.IVS,create.ErrActionReading,ResNameRecordingConfiguration,d.Id(),err)
-	}
-
-	d.Set("arn",out.Arn)
-
-	iferr:=d.Set("destination_configuration",flattenDestinationConfiguration(out.DestinationConfiguration));err!=nil{
+	}	d.Set("arn",out.Arn)	iferr:=d.Set("destination_configuration",flattenDestinationConfiguration(out.DestinationConfiguration));err!=nil{
 		returncreate.DiagError(names.IVS,create.ErrActionSetting,ResNameRecordingConfiguration,d.Id(),err)
-	}
-
-	d.Set("name",out.Name)
+	}	d.Set("name",out.Name)
 	d.Set("recording_reconnect_window_seconds",out.RecordingReconnectWindowSeconds)
-	d.Set("state",out.State)
-
-	iferr:=d.Set("thumbnail_configuration",flattenThumbnailConfiguration(out.ThumbnailConfiguration));err!=nil{
+	d.Set("state",out.State)	iferr:=d.Set("thumbnail_configuration",flattenThumbnailConfiguration(out.ThumbnailConfiguration));err!=nil{
 		returncreate.DiagError(names.IVS,create.ErrActionSetting,ResNameRecordingConfiguration,d.Id(),err)
-	}
-
-	returnnil
+	}	returnnil
 }
 funcresourceRecordingConfigurationDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
-	conn:=meta.(*conns.AWSClient).IVSConn(ctx)
-
-	log.Printf("[INFO]DeletingIVSRecordingConfiguration%s",d.Id())
-
-	_,err:=conn.DeleteRecordingConfigurationWithContext(ctx,&ivs.DeleteRecordingConfigurationInput{
+	conn:=meta.(*conns.AWSClient).IVSConn(ctx)	log.Printf("[INFO]DeletingIVSRecordingConfiguration%s",d.Id())	_,err:=conn.DeleteRecordingConfigurationWithContext(ctx,&ivs.DeleteRecordingConfigurationInput{
 		Arn:aws.String(d.Id()),
-	})
-
-	iftfawserr.ErrCodeEquals(err,ivs.ErrCodeResourceNotFoundException){
+	})	iftfawserr.ErrCodeEquals(err,ivs.ErrCodeResourceNotFoundException){
 		returnnil
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 		returncreate.DiagError(names.IVS,create.ErrActionDeleting,ResNameRecordingConfiguration,d.Id(),err)
-	}
-
-	if_,err:=waitRecordingConfigurationDeleted(ctx,conn,d.Id(),d.Timeout(schema.TimeoutDelete));err!=nil{
+	}	if_,err:=waitRecordingConfigurationDeleted(ctx,conn,d.Id(),d.Timeout(schema.TimeoutDelete));err!=nil{
 		returncreate.DiagError(names.IVS,create.ErrActionWaitingForDeletion,ResNameRecordingConfiguration,d.Id(),err)
-	}
-
-	returnnil
+	}	returnnil
 }
 funcflattenDestinationConfiguration(apiObject*ivs.DestinationConfiguration)[]interface{}{
 	ifapiObject==nil{
 		return[]interface{}{}
-	}
-
-	m:=map[string]interface{}{}
-
-	ifv:=apiObject.S3;v!=nil{
+	}	m:=map[string]interface{}{}	ifv:=apiObject.S3;v!=nil{
 		m["s3"]=flattenS3DestinationConfiguration(v)
-	}
-
-	return[]interface{}{m}
+	}	return[]interface{}{m}
 }
 funcflattenS3DestinationConfiguration(apiObject*ivs.S3DestinationConfiguration)[]interface{}{
 	ifapiObject==nil{
 		return[]interface{}{}
-	}
-
-	m:=map[string]interface{}{}
-
-	ifv:=apiObject.BucketName;v!=nil{
+	}	m:=map[string]interface{}{}	ifv:=apiObject.BucketName;v!=nil{
 		m["bucket_name"]=aws.StringValue(v)
-	}
-
-	return[]interface{}{m}
+	}	return[]interface{}{m}
 }
 funcflattenThumbnailConfiguration(apiObject*ivs.ThumbnailConfiguration)[]interface{}{
 	ifapiObject==nil{
 		return[]interface{}{}
-	}
-
-	m:=map[string]interface{}{}
-
-	ifv:=apiObject.RecordingMode;v!=nil{
+	}	m:=map[string]interface{}{}	ifv:=apiObject.RecordingMode;v!=nil{
 		m["recording_mode"]=aws.StringValue(v)
-	}
-
-	ifv:=apiObject.TargetIntervalSeconds;v!=nil{
+	}	ifv:=apiObject.TargetIntervalSeconds;v!=nil{
 		m["target_interval_seconds"]=aws.Int64Value(v)
-	}
-
-	return[]interface{}{m}
+	}	return[]interface{}{m}
 }
 funcexpandDestinationConfiguration(vSettings[]interface{})*ivs.DestinationConfiguration{
 	iflen(vSettings)==0||vSettings[0]==nil{
 		returnnil
 	}
 	tfMap:=vSettings[0].(map[string]interface{})
-	a:=&ivs.DestinationConfiguration{}
-
-	ifv,ok:=tfMap["s3"].([]interface{});ok&&len(v)>0{
+	a:=&ivs.DestinationConfiguration{}	ifv,ok:=tfMap["s3"].([]interface{});ok&&len(v)>0{
 		a.S3=expandS3DestinationConfiguration(v)
-	}
-
-	returna
+	}	returna
 }
 funcexpandS3DestinationConfiguration(vSettings[]interface{})*ivs.S3DestinationConfiguration{
 	iflen(vSettings)==0||vSettings[0]==nil{
 		returnnil
-	}
-
-	tfMap:=vSettings[0].(map[string]interface{})
-	a:=&ivs.S3DestinationConfiguration{}
-
-	ifv,ok:=tfMap["bucket_name"].(string);ok&&v!=""{
+	}	tfMap:=vSettings[0].(map[string]interface{})
+	a:=&ivs.S3DestinationConfiguration{}	ifv,ok:=tfMap["bucket_name"].(string);ok&&v!=""{
 		a.BucketName=aws.String(v)
-	}
-
-	returna
+	}	returna
 }
 funcexpandThumbnailConfiguration(vSettings[]interface{})*ivs.ThumbnailConfiguration{
 	iflen(vSettings)==0||vSettings[0]==nil{
 		returnnil
 	}
 	a:=&ivs.ThumbnailConfiguration{}
-	tfMap:=vSettings[0].(map[string]interface{})
-
-	ifv,ok:=tfMap["recording_mode"].(string);ok&&v!=""{
+	tfMap:=vSettings[0].(map[string]interface{})	ifv,ok:=tfMap["recording_mode"].(string);ok&&v!=""{
 		a.RecordingMode=aws.String(v)
-	}
-
-	ifv,ok:=tfMap["target_interval_seconds"].(int);ok{
+	}	ifv,ok:=tfMap["target_interval_seconds"].(int);ok{
 		a.TargetIntervalSeconds=aws.Int64(int64(v))
-	}
-
-	returna
+	}	returna
 }

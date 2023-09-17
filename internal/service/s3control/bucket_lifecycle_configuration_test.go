@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package s3control_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package s3control_testimport (
 	"context"
 	"fmt"
 	"testing"
-	"time"
-
-	"github.com/aws/aws-sdk-go/aws/arn"
+	"time"	"github.com/aws/aws-sdk-go/aws/arn"
 	"github.com/aws/aws-sdk-go/service/s3control"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,14 +12,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfs3control "github.com/hashicorp/terraform-provider-aws/internal/service/s3control"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccS3ControlBucketLifecycleConfiguration_basic(t *testing.T) {
+)func TestAccS3ControlBucketLifecycleConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -52,14 +42,10 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccS3ControlBucketLifecycleConfiguration_disappears(t *testing.T) {
+}func TestAccS3ControlBucketLifecycleConfiguration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -75,14 +61,10 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccS3ControlBucketLifecycleConfiguration_RuleAbortIncompleteMultipartUpload_daysAfterInitiation(t *testing.T) {
+}func TestAccS3ControlBucketLifecycleConfiguration_RuleAbortIncompleteMultipartUpload_daysAfterInitiation(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -117,16 +99,12 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccS3ControlBucketLifecycleConfiguration_RuleExpiration_date(t *testing.T) {
+}func TestAccS3ControlBucketLifecycleConfiguration_RuleExpiration_date(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"
 	date1 := time.Now().AddDate(0, 0, 1).Format("2006-01-02")
-	date2 := time.Now().AddDate(0, 0, 2).Format("2006-01-02")
-
-	resource.ParallelTest(t, resource.TestCase{
+	date2 := time.Now().AddDate(0, 0, 2).Format("2006-01-02")	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -161,14 +139,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccS3ControlBucketLifecycleConfiguration_RuleExpiration_days(t *testing.T) {
+}func TestAccS3ControlBucketLifecycleConfiguration_RuleExpiration_days(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -203,15 +177,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccS3ControlBucketLifecycleConfiguration_RuleExpiration_expiredObjectDeleteMarker(t *testing.T) {
+}func TestAccS3ControlBucketLifecycleConfiguration_RuleExpiration_expiredObjectDeleteMarker(t *testing.T) {
 	acctest.Skip(t, "S3 on Outposts does not error or save it in the API when receiving this parameter")
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -246,14 +216,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccS3ControlBucketLifecycleConfiguration_RuleFilter_prefix(t *testing.T) {
+}func TestAccS3ControlBucketLifecycleConfiguration_RuleFilter_prefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -288,14 +254,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccS3ControlBucketLifecycleConfiguration_RuleFilter_tags(t *testing.T) {
+}func TestAccS3ControlBucketLifecycleConfiguration_RuleFilter_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -348,14 +310,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccS3ControlBucketLifecycleConfiguration_Rule_id(t *testing.T) {
+}func TestAccS3ControlBucketLifecycleConfiguration_Rule_id(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -388,14 +346,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccS3ControlBucketLifecycleConfiguration_Rule_status(t *testing.T) {
+}func TestAccS3ControlBucketLifecycleConfiguration_Rule_status(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_s3control_bucket_lifecycle_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -428,326 +382,178 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccCheckBucketLifecycleConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckBucketLifecycleConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_s3control_bucket_lifecycle_configuration" {
 continue
-	}
-
-	parsedArn, err := arn.Parse(rs.Primary.ID)
-
-	if err != nil {
+	}	parsedArn, err := arn.Parse(rs.Primary.ID)	if err != nil {
 return err
-	}
-
-	_, err = tfs3control.FindBucketLifecycleConfigurationByTwoPartKey(ctx, conn, parsedArn.AccountID, rs.Primary.ID)
-
-	if tfresource.NotFound(err) {
+	}	_, err = tfs3control.FindBucketLifecycleConfigurationByTwoPartKey(ctx, conn, parsedArn.AccountID, rs.Primary.ID)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
+	}	return fmt.Errorf("S3 Control Bucket Lifecycle Configuration %s still exists", rs.Primary.ID)
+}return nil
 	}
-
-	return fmt.Errorf("S3 Control Bucket Lifecycle Configuration %s still exists", rs.Primary.ID)
-}
-
-return nil
-	}
-}
-
-func testAccCheckBucketLifecycleConfigurationExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckBucketLifecycleConfigurationExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No S3 Control Bucket Lifecycle Configuration ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)
-
-parsedArn, err := arn.Parse(rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)parsedArn, err := arn.Parse(rs.Primary.ID)if err != nil {
 	return err
-}
-
-_, err = tfs3control.FindBucketLifecycleConfigurationByTwoPartKey(ctx, conn, parsedArn.AccountID, rs.Primary.ID)
-
-return err
+}_, err = tfs3control.FindBucketLifecycleConfigurationByTwoPartKey(ctx, conn, parsedArn.AccountID, rs.Primary.ID)return err
 	}
-}
-
-func testAccBucketLifecycleConfigurationConfig_ruleAbortIncompleteMultipartUploadDaysAfterInitiation(rName string, daysAfterInitiation int) string {
+}func testAccBucketLifecycleConfigurationConfig_ruleAbortIncompleteMultipartUploadDaysAfterInitiation(rName string, daysAfterInitiation int) string {
 	return fmt.Sprintf(`
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "test" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-resource "aws_s3control_bucket" "test" {
+}resource "aws_s3control_bucket" "test" {
   bucket     = %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
-}
-
-resource "aws_s3control_bucket_lifecycle_configuration" "test" {
-  bucket = aws_s3control_bucket.test.arn
-
-  rule {
+}resource "aws_s3control_bucket_lifecycle_configuration" "test" {
+  bucket = aws_s3control_bucket.test.arn  rule {
     abort_incomplete_multipart_upload {
       days_after_initiation = %[2]d
-    }
-
-    expiration {
+    }    expiration {
       days = 365
-    }
-
-    id = "test"
+    }    id = "test"
   }
 }
 `, rName, daysAfterInitiation)
-}
-
-func testAccBucketLifecycleConfigurationConfig_ruleExpirationDate(rName string, date string) string {
+}func testAccBucketLifecycleConfigurationConfig_ruleExpirationDate(rName string, date string) string {
 	return fmt.Sprintf(`
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "test" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-resource "aws_s3control_bucket" "test" {
+}resource "aws_s3control_bucket" "test" {
   bucket     = %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
-}
-
-resource "aws_s3control_bucket_lifecycle_configuration" "test" {
-  bucket = aws_s3control_bucket.test.arn
-
-  rule {
+}resource "aws_s3control_bucket_lifecycle_configuration" "test" {
+  bucket = aws_s3control_bucket.test.arn  rule {
     expiration {
       date = %[2]q
-    }
-
-    id = "test"
+    }    id = "test"
   }
 }
 `, rName, date)
-}
-
-func testAccBucketLifecycleConfigurationConfig_ruleExpirationDays(rName string, days int) string {
+}func testAccBucketLifecycleConfigurationConfig_ruleExpirationDays(rName string, days int) string {
 	return fmt.Sprintf(`
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "test" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-resource "aws_s3control_bucket" "test" {
+}resource "aws_s3control_bucket" "test" {
   bucket     = %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
-}
-
-resource "aws_s3control_bucket_lifecycle_configuration" "test" {
-  bucket = aws_s3control_bucket.test.arn
-
-  rule {
+}resource "aws_s3control_bucket_lifecycle_configuration" "test" {
+  bucket = aws_s3control_bucket.test.arn  rule {
     expiration {
       days = %[2]d
-    }
-
-    id = "test"
+    }    id = "test"
   }
 }
 `, rName, days)
-}
-
-func testAccBucketLifecycleConfigurationConfig_ruleExpirationExpiredObjectDeleteMarker(rName string, expiredObjectDeleteMarker bool) string {
+}func testAccBucketLifecycleConfigurationConfig_ruleExpirationExpiredObjectDeleteMarker(rName string, expiredObjectDeleteMarker bool) string {
 	return fmt.Sprintf(`
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "test" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-resource "aws_s3control_bucket" "test" {
+}resource "aws_s3control_bucket" "test" {
   bucket     = %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
-}
-
-resource "aws_s3control_bucket_lifecycle_configuration" "test" {
-  bucket = aws_s3control_bucket.test.arn
-
-  rule {
+}resource "aws_s3control_bucket_lifecycle_configuration" "test" {
+  bucket = aws_s3control_bucket.test.arn  rule {
     expiration {
       days = %[2]t ? null : 365
       expired_object_delete_marker = %[2]t
-    }
-
-    id = "test"
+    }    id = "test"
   }
 }
 `, rName, expiredObjectDeleteMarker)
-}
-
-func testAccBucketLifecycleConfigurationConfig_ruleFilterPrefix(rName, prefix string) string {
+}func testAccBucketLifecycleConfigurationConfig_ruleFilterPrefix(rName, prefix string) string {
 	return fmt.Sprintf(`
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "test" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-resource "aws_s3control_bucket" "test" {
+}resource "aws_s3control_bucket" "test" {
   bucket     = %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
-}
-
-resource "aws_s3control_bucket_lifecycle_configuration" "test" {
-  bucket = aws_s3control_bucket.test.arn
-
-  rule {
+}resource "aws_s3control_bucket_lifecycle_configuration" "test" {
+  bucket = aws_s3control_bucket.test.arn  rule {
     expiration {
       days = 365
-    }
-
-    filter {
+    }    filter {
       prefix = %[2]q
-    }
-
-    id = "test"
+    }    id = "test"
   }
 }
 `, rName, prefix)
-}
-
-func testAccBucketLifecycleConfigurationConfig_ruleFilterTags1(rName, tagKey1, tagValue1 string) string {
+}func testAccBucketLifecycleConfigurationConfig_ruleFilterTags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "test" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-resource "aws_s3control_bucket" "test" {
+}resource "aws_s3control_bucket" "test" {
   bucket     = %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
-}
-
-resource "aws_s3control_bucket_lifecycle_configuration" "test" {
-  bucket = aws_s3control_bucket.test.arn
-
-  rule {
+}resource "aws_s3control_bucket_lifecycle_configuration" "test" {
+  bucket = aws_s3control_bucket.test.arn  rule {
     expiration {
       days = 365
-    }
-
-    filter {
+    }    filter {
       tags = {
         %[2]q = %[3]q
       }
-    }
-
-    id = "test"
+    }    id = "test"
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-// See TestAccS3ControlBucketLifecycleConfiguration_RuleFilter_tags note about XML handling bug.
+}// See TestAccS3ControlBucketLifecycleConfiguration_RuleFilter_tags note about XML handling bug.
 // func testAccBucketLifecycleConfigurationConfig_ruleFilterTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 // 	return fmt.Sprintf(`
-// data "aws_outposts_outposts" "test" {}
-
-// data "aws_outposts_outpost" "test" {
+// data "aws_outposts_outposts" "test" {}// data "aws_outposts_outpost" "test" {
 //   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-// }
-
-// resource "aws_s3control_bucket" "test" {
+// }// resource "aws_s3control_bucket" "test" {
 //   bucket     = %[1]q
 //   outpost_id = data.aws_outposts_outpost.test.id
-// }
-
-// resource "aws_s3control_bucket_lifecycle_configuration" "test" {
-//   bucket = aws_s3control_bucket.test.arn
-
-//   rule {
+// }// resource "aws_s3control_bucket_lifecycle_configuration" "test" {
+//   bucket = aws_s3control_bucket.test.arn//   rule {
 //     expiration {
 //       days = 365
-//     }
-
-//     filter {
+//     }//     filter {
 //       tags = {
 //%[2]q = %[3]q
 //%[4]q = %[5]q
 //       }
-//     }
-
-//     id = "test"
+//     }//     id = "test"
 //   }
 // }
 // `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-// }
-
-func testAccBucketLifecycleConfigurationConfig_ruleID(rName, id string) string {
+// }func testAccBucketLifecycleConfigurationConfig_ruleID(rName, id string) string {
 	return fmt.Sprintf(`
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "test" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-resource "aws_s3control_bucket" "test" {
+}resource "aws_s3control_bucket" "test" {
   bucket     = %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
-}
-
-resource "aws_s3control_bucket_lifecycle_configuration" "test" {
-  bucket = aws_s3control_bucket.test.arn
-
-  rule {
+}resource "aws_s3control_bucket_lifecycle_configuration" "test" {
+  bucket = aws_s3control_bucket.test.arn  rule {
     expiration {
       days = 365
-    }
-
-    id = %[2]q
+    }    id = %[2]q
   }
 }
 `, rName, id)
-}
-
-func testAccBucketLifecycleConfigurationConfig_ruleStatus(rName, status string) string {
+}func testAccBucketLifecycleConfigurationConfig_ruleStatus(rName, status string) string {
 	return fmt.Sprintf(`
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "test" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-resource "aws_s3control_bucket" "test" {
+}resource "aws_s3control_bucket" "test" {
   bucket     = %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
-}
-
-resource "aws_s3control_bucket_lifecycle_configuration" "test" {
-  bucket = aws_s3control_bucket.test.arn
-
-  rule {
+}resource "aws_s3control_bucket_lifecycle_configuration" "test" {
+  bucket = aws_s3control_bucket.test.arn  rule {
     expiration {
       days = 365
-    }
-
-    id     = "test"
+    }    id     = "test"
     status = %[2]q
   }
 }

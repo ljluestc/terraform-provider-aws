@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package simpledb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package simpledb_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/simpledb"
+	"testing"	"github.com/aws/aws-sdk-go/service/simpledb"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -20,9 +14,7 @@ import (
 func TestAccSimpleDBDomain_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_simpledb_domain.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, simpledb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -46,9 +38,7 @@ func TestAccSimpleDBDomain_basic(t *testing.T) {
 func TestAccSimpleDBDomain_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_simpledb_domain.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, simpledb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -68,9 +58,7 @@ func TestAccSimpleDBDomain_disappears(t *testing.T) {
 func TestAccSimpleDBDomain_MigrateFromPluginSDK(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_simpledb_domain.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
 		ErrorCheck:   acctest.ErrorCheck(t, simpledb.EndpointsID),
 		CheckDestroy: testAccCheckDomainDestroy(ctx),
@@ -98,27 +86,15 @@ func TestAccSimpleDBDomain_MigrateFromPluginSDK(t *testing.T) {
 }
 func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SimpleDBConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).SimpleDBConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_simpledb_domain" {
 				continue
-			}
-
-			_, err := tfsimpledb.FindDomainByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfsimpledb.FindDomainByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("SimpleDB Domain %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("SimpleDB Domain %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
 func testAccCheckDomainExists(ctx context.Context, n string) resource.TestCheckFunc {
@@ -126,17 +102,9 @@ func testAccCheckDomainExists(ctx context.Context, n string) resource.TestCheckF
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No SimpleDB Domain ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SimpleDBConn(ctx)
-
-		_, err := tfsimpledb.FindDomainByName(ctx, conn, rs.Primary.ID)
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).SimpleDBConn(ctx)		_, err := tfsimpledb.FindDomainByName(ctx, conn, rs.Primary.ID)		return err
 	}
 }
 func testAccDomainConfig_basic(rName string) string {

@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package meta_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package meta_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws/endpoints"
+	"testing"	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -15,13 +9,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfmeta "github.com/hashicorp/terraform-provider-aws/internal/service/meta"
-)
-
-func TestAccMetaService_basic(t *testing.T) {
+)func TestAccMetaService_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -40,13 +30,9 @@ func TestAccMetaService_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccMetaService_byReverseDNSName(t *testing.T) {
+}func TestAccMetaService_byReverseDNSName(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -63,13 +49,9 @@ func TestAccMetaService_byReverseDNSName(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccMetaService_byDNSName(t *testing.T) {
+}func TestAccMetaService_byDNSName(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -86,13 +68,9 @@ func TestAccMetaService_byDNSName(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccMetaService_byParts(t *testing.T) {
+}func TestAccMetaService_byParts(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -107,13 +85,9 @@ func TestAccMetaService_byParts(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccMetaService_unsupported(t *testing.T) {
+}func TestAccMetaService_unsupported(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_service.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -132,47 +106,35 @@ func TestAccMetaService_unsupported(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccServiceDataSourceConfig_basic() string {
+}func testAccServiceDataSourceConfig_basic() string {
 	return fmt.Sprintf(`
 data "aws_service" "test" {
   service_id = %[1]q
 }
 `, ec2.EndpointsID)
-}
-
-func testAccServiceDataSourceConfig_byReverseDNSName() string {
+}func testAccServiceDataSourceConfig_byReverseDNSName() string {
 	// lintignore:AWSAT003
 	return `
 data "aws_service" "test" {
   reverse_dns_name = "cn.com.amazonaws.cn-north-1.s3"
 }
 `
-}
-
-func testAccServiceDataSourceConfig_byDNSName() string {
+}func testAccServiceDataSourceConfig_byDNSName() string {
 	// lintignore:AWSAT003
 	return `
 data "aws_service" "test" {
   dns_name = "rds.us-east-1.amazonaws.com"
 }
 `
-}
-
-func testAccServiceDataSourceConfig_byPart() string {
+}func testAccServiceDataSourceConfig_byPart() string {
 	return `
-data "aws_region" "current" {}
-
-data "aws_service" "test" {
+data "aws_region" "current" {}data "aws_service" "test" {
   reverse_dns_prefix = "com.amazonaws"
   region= data.aws_region.current.name
   service_id= "s3"
 }
 `
-}
-
-func testAccServiceDataSourceConfig_unsupported() string {
+}func testAccServiceDataSourceConfig_unsupported() string {
 	// lintignore:AWSAT003
 	return `
 data "aws_service" "test" {

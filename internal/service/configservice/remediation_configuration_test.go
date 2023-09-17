@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configservice_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package configservice_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"strconv"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/configservice"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -20,9 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	tfconfigservice "github.com/hashicorp/terraform-provider-aws/internal/service/configservice"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func testAccRemediationConfiguration_basic(t *testing.T) {
+)func testAccRemediationConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rc configservice.RemediationConfiguration
 	resourceName := "aws_config_remediation_configuration.test"
@@ -34,9 +26,7 @@ func testAccRemediationConfiguration_basic(t *testing.T) {
 	rErrorPct := sdkacctest.RandIntRange(1, 100)
 	prefix := "Original"
 	sseAlgorithm := "AES256"
-	expectedName := fmt.Sprintf("%s-tf-acc-test-%d", prefix, rInt)
-
-	resource.Test(t, resource.TestCase{
+	expectedName := fmt.Sprintf("%s-tf-acc-test-%d", prefix, rInt)	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -67,18 +57,14 @@ func testAccRemediationConfiguration_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccRemediationConfiguration_basicBackwardCompatible(t *testing.T) {
+}func testAccRemediationConfiguration_basicBackwardCompatible(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rc configservice.RemediationConfiguration
 	resourceName := "aws_config_remediation_configuration.test"
 	rInt := sdkacctest.RandInt()
 	prefix := "Original"
 	sseAlgorithm := "AES256"
-	expectedName := fmt.Sprintf("%s-tf-acc-test-%d", prefix, rInt)
-
-	resource.Test(t, resource.TestCase{
+	expectedName := fmt.Sprintf("%s-tf-acc-test-%d", prefix, rInt)	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -101,9 +87,7 @@ func testAccRemediationConfiguration_basicBackwardCompatible(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccRemediationConfiguration_disappears(t *testing.T) {
+}func testAccRemediationConfiguration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rc configservice.RemediationConfiguration
 	resourceName := "aws_config_remediation_configuration.test"
@@ -114,9 +98,7 @@ func testAccRemediationConfiguration_disappears(t *testing.T) {
 	rExecPct := sdkacctest.RandIntRange(1, 100)
 	rErrorPct := sdkacctest.RandIntRange(1, 100)
 	prefix := "original"
-	sseAlgorithm := "AES256"
-
-	resource.Test(t, resource.TestCase{
+	sseAlgorithm := "AES256"	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -132,9 +114,7 @@ func testAccRemediationConfiguration_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccRemediationConfiguration_recreates(t *testing.T) {
+}func testAccRemediationConfiguration_recreates(t *testing.T) {
 	ctx := acctest.Context(t)
 	var original configservice.RemediationConfiguration
 	var updated configservice.RemediationConfiguration
@@ -144,13 +124,9 @@ func testAccRemediationConfiguration_recreates(t *testing.T) {
 	rAttempts := sdkacctest.RandIntRange(1, 25)
 	rSeconds := sdkacctest.RandIntRange(1, 2678000)
 	rExecPct := sdkacctest.RandIntRange(1, 100)
-	rErrorPct := sdkacctest.RandIntRange(1, 100)
-
-	originalName := "Original"
+	rErrorPct := sdkacctest.RandIntRange(1, 100)	originalName := "Original"
 	updatedName := "Updated"
-	sseAlgorithm := "AES256"
-
-	resource.Test(t, resource.TestCase{
+	sseAlgorithm := "AES256"	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -173,9 +149,7 @@ func testAccRemediationConfiguration_recreates(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccRemediationConfiguration_updates(t *testing.T) {
+}func testAccRemediationConfiguration_updates(t *testing.T) {
 	ctx := acctest.Context(t)
 	var original configservice.RemediationConfiguration
 	var updated configservice.RemediationConfiguration
@@ -190,13 +164,9 @@ func testAccRemediationConfiguration_updates(t *testing.T) {
 	uAttempts := sdkacctest.RandIntRange(1, 25)
 	uSeconds := sdkacctest.RandIntRange(1, 2678000)
 	uExecPct := sdkacctest.RandIntRange(1, 100)
-	uErrorPct := sdkacctest.RandIntRange(1, 100)
-
-	name := "Original"
+	uErrorPct := sdkacctest.RandIntRange(1, 100)	name := "Original"
 	originalSseAlgorithm := "AES256"
-	updatedSseAlgorithm := "aws:kms"
-
-	resource.Test(t, resource.TestCase{
+	updatedSseAlgorithm := "aws:kms"	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -235,9 +205,7 @@ func testAccRemediationConfiguration_updates(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccRemediationConfiguration_values(t *testing.T) {
+}func testAccRemediationConfiguration_values(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rc configservice.RemediationConfiguration
 	resourceName := "aws_config_remediation_configuration.test"
@@ -247,9 +215,7 @@ func testAccRemediationConfiguration_values(t *testing.T) {
 	rSeconds := sdkacctest.RandIntRange(1, 2678000)
 	rExecPct := sdkacctest.RandIntRange(1, 100)
 	rErrorPct := sdkacctest.RandIntRange(1, 100)
-	sseAlgorithm := "AES256"
-
-	resource.Test(t, resource.TestCase{
+	sseAlgorithm := "AES256"	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -279,9 +245,7 @@ func testAccRemediationConfiguration_values(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccRemediationConfiguration_migrateParameters(t *testing.T) {
+}func testAccRemediationConfiguration_migrateParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rc configservice.RemediationConfiguration
 	resourceName := "aws_config_remediation_configuration.test"
@@ -293,9 +257,7 @@ func testAccRemediationConfiguration_migrateParameters(t *testing.T) {
 	rErrorPct := sdkacctest.RandIntRange(1, 100)
 	prefix := "Original"
 	sseAlgorithm := "AES256"
-	expectedName := fmt.Sprintf("%s-tf-acc-test-%d", prefix, rInt)
-
-	resource.Test(t, resource.TestCase{
+	expectedName := fmt.Sprintf("%s-tf-acc-test-%d", prefix, rInt)	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:   acctest.ErrorCheck(t, configservice.EndpointsID),
 		CheckDestroy: testAccCheckRemediationConfigurationDestroy(ctx),
@@ -320,20 +282,14 @@ func testAccRemediationConfiguration_migrateParameters(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckRemediationConfigurationExists(ctx context.Context, n string, obj *configservice.RemediationConfiguration) resource.TestCheckFunc {
+}func testAccCheckRemediationConfigurationExists(ctx context.Context, n string, obj *configservice.RemediationConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return create.Error(names.ConfigService, create.ErrActionCheckingExistence, tfconfigservice.ResNameRemediationConfiguration, n, errors.New("not found in state"))
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return create.Error(names.ConfigService, create.ErrActionCheckingExistence, tfconfigservice.ResNameRemediationConfiguration, n, errors.New("ID not set"))
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)
 		out, err := conn.DescribeRemediationConfigurationsWithContext(ctx, &configservice.DescribeRemediationConfigurationsInput{
 			ConfigRuleNames: []*string{aws.String(rs.Primary.Attributes["config_rule_name"])},
 		})
@@ -342,69 +298,45 @@ func testAccCheckRemediationConfigurationExists(ctx context.Context, n string, o
 		}
 		if len(out.RemediationConfigurations) < 1 {
 			return create.Error(names.ConfigService, create.ErrActionCheckingExistence, tfconfigservice.ResNameRemediationConfiguration, n, errors.New("not found"))
-		}
-
-		rc := out.RemediationConfigurations[0]
-		*obj = *rc
-
-		return nil
+		}		rc := out.RemediationConfigurations[0]
+		*obj = *rc		return nil
 	}
-}
-
-func testAccCheckRemediationConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckRemediationConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_config_remediation_configuration" {
 				continue
-			}
-
-			resp, err := conn.DescribeRemediationConfigurationsWithContext(ctx, &configservice.DescribeRemediationConfigurationsInput{
+			}			resp, err := conn.DescribeRemediationConfigurationsWithContext(ctx, &configservice.DescribeRemediationConfigurationsInput{
 				ConfigRuleNames: []*string{aws.String(rs.Primary.Attributes["config_rule_name"])},
-			})
-
-			if err == nil {
+			})			if err == nil {
 				if len(resp.RemediationConfigurations) != 0 &&
 					aws.StringValue(resp.RemediationConfigurations[0].ConfigRuleName) == rs.Primary.Attributes["name"] {
 					return create.Error(names.ConfigService, create.ErrActionCheckingDestroyed, tfconfigservice.ResNameRemediationConfiguration, rs.Primary.Attributes["name"], errors.New("still exists"))
 				}
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckRemediationConfigurationNotRecreated(before, after *configservice.RemediationConfiguration) resource.TestCheckFunc {
+}func testAccCheckRemediationConfigurationNotRecreated(before, after *configservice.RemediationConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if aws.StringValue(before.Arn) != aws.StringValue(after.Arn) {
 			return create.Error(names.ConfigService, create.ErrActionCheckingNotRecreated, tfconfigservice.ResNameRemediationConfiguration, aws.StringValue(before.Arn), fmt.Errorf("ARNs changed, new: %s", aws.StringValue(after.Arn)))
 		}
 		return nil
 	}
-}
-
-func testAccCheckRemediationConfigurationRecreated(before, after *configservice.RemediationConfiguration) resource.TestCheckFunc {
+}func testAccCheckRemediationConfigurationRecreated(before, after *configservice.RemediationConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if aws.StringValue(before.Arn) == aws.StringValue(after.Arn) {
 			return create.Error(names.ConfigService, create.ErrActionCheckingRecreated, tfconfigservice.ResNameRemediationConfiguration, aws.StringValue(before.Arn), fmt.Errorf("wasn't recreated, new: %s", aws.StringValue(after.Arn)))
 		}
 		return nil
 	}
-}
-
-func testAccRemediationConfigurationConfig_olderSchema(namePrefix, sseAlgorithm string, randInt int) string {
+}func testAccRemediationConfigurationConfig_olderSchema(namePrefix, sseAlgorithm string, randInt int) string {
 	return fmt.Sprintf(`
 resource "aws_config_remediation_configuration" "test" {
-  config_rule_name = aws_config_config_rule.test.name
-
-  resource_type  = "AWS::S3::Bucket"
+  config_rule_name = aws_config_config_rule.test.name  resource_type  = "AWS::S3::Bucket"
   target_id      = "AWS-EnableS3BucketEncryption"
   target_type    = "SSM_DOCUMENT"
-  target_version = "1"
-
-  parameter {
+  target_version = "1"  parameter {
     name= "AutomationAssumeRole"
     static_value = aws_iam_role.test.arn
   }
@@ -416,32 +348,18 @@ resource "aws_config_remediation_configuration" "test" {
     name= "SSEAlgorithm"
     static_value = "%[2]s"
   }
-}
-
-resource "aws_sns_topic" "test" {
+}resource "aws_sns_topic" "test" {
   name = "sns_topic_name"
-}
-
-resource "aws_config_config_rule" "test" {
-  name = "%[1]s-tf-acc-test-%[3]d"
-
-  source {
+}resource "aws_config_config_rule" "test" {
+  name = "%[1]s-tf-acc-test-%[3]d"  source {
     owner    = "AWS"
     source_identifier = "S3_BUCKET_VERSIONING_ENABLED"
-  }
-
-  depends_on = [aws_config_configuration_recorder.test]
-}
-
-resource "aws_config_configuration_recorder" "test" {
+  }  depends_on = [aws_config_configuration_recorder.test]
+}resource "aws_config_configuration_recorder" "test" {
   name     = "%[1]s-tf-acc-test-%[3]d"
   role_arn = aws_iam_role.test.arn
-}
-
-resource "aws_iam_role" "test" {
-  name = "%[1]s-tf-acc-test-awsconfig-%[3]d"
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = "%[1]s-tf-acc-test-awsconfig-%[3]d"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -456,40 +374,28 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = "%[1]s-tf-acc-test-awsconfig-%[3]d"
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
         "Action": "config:Put*",
         "Effect": "Allow",
-        "Resource": "*"
-
-    }
+        "Resource": "*"    }
   ]
 }
 EOF
 }
 `, namePrefix, sseAlgorithm, randInt)
-}
-
-func testAccRemediationConfigurationConfig_basic(namePrefix, sseAlgorithm string, randInt int, randAttempts int, randSeconds int, randExecPct int, randErrorPct int, automatic string) string {
+}func testAccRemediationConfigurationConfig_basic(namePrefix, sseAlgorithm string, randInt int, randAttempts int, randSeconds int, randExecPct int, randErrorPct int, automatic string) string {
 	return fmt.Sprintf(`
 resource "aws_config_remediation_configuration" "test" {
-  config_rule_name = aws_config_config_rule.test.name
-
-  resource_type  = "AWS::S3::Bucket"
+  config_rule_name = aws_config_config_rule.test.name  resource_type  = "AWS::S3::Bucket"
   target_id      = "AWS-EnableS3BucketEncryption"
   target_type    = "SSM_DOCUMENT"
-  target_version = "1"
-
-  parameter {
+  target_version = "1"  parameter {
     name= "AutomationAssumeRole"
     static_value = aws_iam_role.test.arn
   }
@@ -510,32 +416,18 @@ resource "aws_config_remediation_configuration" "test" {
       error_percentage   = %[7]d
     }
   }
-}
-
-resource "aws_sns_topic" "test" {
+}resource "aws_sns_topic" "test" {
   name = "sns_topic_name"
-}
-
-resource "aws_config_config_rule" "test" {
-  name = "%[1]s-tf-acc-test-%[3]d"
-
-  source {
+}resource "aws_config_config_rule" "test" {
+  name = "%[1]s-tf-acc-test-%[3]d"  source {
     owner    = "AWS"
     source_identifier = "S3_BUCKET_VERSIONING_ENABLED"
-  }
-
-  depends_on = [aws_config_configuration_recorder.test]
-}
-
-resource "aws_config_configuration_recorder" "test" {
+  }  depends_on = [aws_config_configuration_recorder.test]
+}resource "aws_config_configuration_recorder" "test" {
   name     = "%[1]s-tf-acc-test-%[3]d"
   role_arn = aws_iam_role.test.arn
-}
-
-resource "aws_iam_role" "test" {
-  name = "%[1]s-tf-acc-test-awsconfig-%[3]d"
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = "%[1]s-tf-acc-test-awsconfig-%[3]d"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -550,90 +442,56 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = "%[1]s-tf-acc-test-awsconfig-%[3]d"
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
         "Action": "config:Put*",
         "Effect": "Allow",
-        "Resource": "*"
-
-    }
+        "Resource": "*"    }
   ]
 }
 EOF
 }
 `, namePrefix, sseAlgorithm, randInt, randAttempts, randSeconds, randExecPct, randErrorPct, automatic)
-}
-
-func testAccRemediationConfigurationConfig_values(rName, sseAlgorithm string, randAttempts int, randSeconds int, randExecPct int, randErrorPct int, automatic string) string {
+}func testAccRemediationConfigurationConfig_values(rName, sseAlgorithm string, randAttempts int, randSeconds int, randExecPct int, randErrorPct int, automatic string) string {
 	return fmt.Sprintf(`
 resource "aws_config_remediation_configuration" "test" {
-  config_rule_name = aws_config_config_rule.test.name
-
-  resource_type  = "AWS::S3::Bucket"
+  config_rule_name = aws_config_config_rule.test.name  resource_type  = "AWS::S3::Bucket"
   target_id      = "AWS-EnableS3BucketEncryption"
   target_type    = "SSM_DOCUMENT"
-  target_version = "1"
-
-  parameter {
+  target_version = "1"  parameter {
     name = "AutomationAssumeRole"
     static_values = [aws_iam_role.test.arn, aws_iam_role.test2.arn]
-  }
-
-  parameter {
+  }  parameter {
     name  = "BucketName"
     resource_value = "RESOURCE_ID"
-  }
-
-  parameter {
+  }  parameter {
     name= "SSEAlgorithm"
     static_value = "%[2]s"
-  }
-
-  automatic= %[7]s
+  }  automatic= %[7]s
   maximum_automatic_attempts = %[3]d
-  retry_attempt_seconds      = %[4]d
-
-  execution_controls {
+  retry_attempt_seconds      = %[4]d  execution_controls {
     ssm_controls {
       concurrent_execution_rate_percentage = %[5]d
       error_percentage   = %[6]d
     }
   }
-}
-
-resource "aws_sns_topic" "test" {
+}resource "aws_sns_topic" "test" {
   name = "sns_topic_name"
-}
-
-resource "aws_config_config_rule" "test" {
-  name = %[1]q
-
-  source {
+}resource "aws_config_config_rule" "test" {
+  name = %[1]q  source {
     owner    = "AWS"
     source_identifier = "S3_BUCKET_VERSIONING_ENABLED"
-  }
-
-  depends_on = [aws_config_configuration_recorder.test]
-}
-
-resource "aws_config_configuration_recorder" "test" {
+  }  depends_on = [aws_config_configuration_recorder.test]
+}resource "aws_config_configuration_recorder" "test" {
   name     = %[1]q
   role_arn = aws_iam_role.test.arn
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -648,12 +506,8 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role" "test2" {
-  name = "%[1]s-2"
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test2" {
+  name = "%[1]s-2"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -668,22 +522,16 @@ resource "aws_iam_role" "test2" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = %[1]q
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
         "Action": "config:Put*",
         "Effect": "Allow",
-        "Resource": "*"
-
-    }
+        "Resource": "*"    }
   ]
 }
 EOF

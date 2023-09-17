@@ -1,18 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package detective_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package detective_testimport (
 	"os"
-	"testing"
-
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+	"testing"	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 func TestAccDetective_serial(t *testing.T) {
-	t.Parallel()
-
-	testCases := map[string]map[string]func(t *testing.T){
+	t.Parallel()	testCases := map[string]map[string]func(t *testing.T){
 		"Graph": {
 			"basic": testAccGraph_basic,
 			"disappears": testAccGraph_disappears,
@@ -26,9 +18,7 @@ func TestAccDetective_serial(t *testing.T) {
 			"disappear": testAccMember_disappears,
 			"message":testAccMember_message,
 		},
-	}
-
-	acctest.RunSerialTests2Levels(t, testCases, 0)
+	}	acctest.RunSerialTests2Levels(t, testCases, 0)
 }
 func testAccMemberFromEnv(t *testing.T) string {
 	email := os.Getenv("AWS_DETECTIVE_MEMBER_EMAIL")

@@ -1,9 +1,5 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packages3control
-
-//ErrorcodeconstantsmissingfromAWSGoSDK:
+//SPDX-License-Identifier:MPL-2.0packages3control//ErrorcodeconstantsmissingfromAWSGoSDK:
 //https://docs.aws.amazon.com/sdk-for-go/api/service/s3control/#pkg-constants
 const(
 errCodeInvalidBucketState="InvalidBucketState"

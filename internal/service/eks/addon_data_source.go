@@ -1,21 +1,13 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package eks
-
-import (
+// SPDX-License-Identifier: MPL-2.0package eksimport (
 "context"
-"time"
-
-"github.com/aws/aws-sdk-go/aws"
+"time""github.com/aws/aws-sdk-go/aws"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-)
-
-// @SDKDataSource("aws_eks_addon")
+)// @SDKDataSource("aws_eks_addon")
 func DataSourceAddon() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceAddonRead,
@@ -57,33 +49,19 @@ Computed: true,
 "tags": tftags.TagsSchemaComputed(),
 },
 }
-}
-
-func dataSourceAddonRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceAddonRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).EKSConn(ctx)
-ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-addonName := d.Get("addon_name").(string)
+ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfigaddonName := d.Get("addon_name").(string)
 clusterName := d.Get("cluster_name").(string)
-id := AddonCreateResourceID(clusterName, addonName)
-
-addon, err := FindAddonByClusterNameAndAddonName(ctx, conn, clusterName, addonName)
-
-if err != nil {
+id := AddonCreateResourceID(clusterName, addonName)addon, err := FindAddonByClusterNameAndAddonName(ctx, conn, clusterName, addonName)if err != nil {
 return diag.Errorf("reading EKS Add-On (%s): %s", id, err)
-}
-
-d.SetId(id)
+}d.SetId(id)
 d.Set("addon_version", addon.AddonVersion)
 d.Set("arn", addon.AddonArn)
 d.Set("configuration_values", addon.ConfigurationValues)
 d.Set("created_at", aws.TimeValue(addon.CreatedAt).Format(time.RFC3339))
 d.Set("modified_at", aws.TimeValue(addon.ModifiedAt).Format(time.RFC3339))
-d.Set("service_account_role_arn", addon.ServiceAccountRoleArn)
-
-if err := d.Set("tags", KeyValueTags(ctx, addon.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
+d.Set("service_account_role_arn", addon.ServiceAccountRoleArn)if err := d.Set("tags", KeyValueTags(ctx, addon.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
 return diag.Errorf("setting tags: %s", err)
-}
-
-return nil
+}return nil
 }

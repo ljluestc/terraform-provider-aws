@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticbeanstalk_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elasticbeanstalk_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/elasticbeanstalk"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,9 +10,7 @@ import (
 )
 func TestAccElasticBeanstalkHostedZoneDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_elastic_beanstalk_hosted_zone.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_elastic_beanstalk_hosted_zone.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -34,9 +26,7 @@ func TestAccElasticBeanstalkHostedZoneDataSource_basic(t *testing.T) {
 }
 func TestAccElasticBeanstalkHostedZoneDataSource_region(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_elastic_beanstalk_hosted_zone.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_elastic_beanstalk_hosted_zone.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -62,17 +52,11 @@ func TestAccElasticBeanstalkHostedZoneDataSource_region(t *testing.T) {
 }
 func testAccCheckHostedZone(resourceName string, region string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		expectedValue, ok := tfelasticbeanstalk.HostedZoneIDs[region]
-
-		if !ok {
+		expectedValue, ok := tfelasticbeanstalk.HostedZoneIDs[region]		if !ok {
 			return fmt.Errorf("Unsupported region: %s", region)
-		}
-
-		return resource.TestCheckResourceAttr(resourceName, "id", expectedValue)(s)
+		}		return resource.TestCheckResourceAttr(resourceName, "id", expectedValue)(s)
 	}
-}
-
-const testAccHostedZoneDataSourceConfig_currentRegion = `
+}const testAccHostedZoneDataSourceConfig_currentRegion = `
 data "aws_elastic_beanstalk_hosted_zone" "test" {}
 `
 func testAccHostedZoneDataSourceConfig_byRegion(r string) string {

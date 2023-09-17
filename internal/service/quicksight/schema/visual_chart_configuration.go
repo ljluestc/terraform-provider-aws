@@ -9,10 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/quicksight"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-)
-
-
-func axisDisplayOptionsSchema() *schema.Schema {
+)func axisDisplayOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AxisDisplayOptions.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -187,10 +184,7 @@ Optional: true,
 	},
 },
 	}
-}
-
-
-func chartAxisLabelOptionsSchema() *schema.Schema {
+}func chartAxisLabelOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -230,10 +224,7 @@ Optional: true,
 	},
 },
 	}
-}
-
-
-func itemsLimitConfigurationSchema() *schema.Schema {
+}func itemsLimitConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
 Type:     schema.TypeList,
 Optional: true,
@@ -249,10 +240,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func contributionAnalysisDefaultsSchema() *schema.Schema {
+}func contributionAnalysisDefaultsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ContributionAnalysisDefault.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -276,10 +264,7 @@ Schema: map[string]*schema.Schema{ // https://docs.aws.amazon.com/quicksight/lat
 	},
 },
 	}
-}
-
-
-func referenceLineSchema(maxItems int) *schema.Schema {
+}func referenceLineSchema(maxItems int) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ReferenceLine.html
 Type:     schema.TypeList,
 Optional: true,
@@ -383,10 +368,7 @@ Schema: map[string]*schema.Schema{
 	},
 },
 	}
-}
-
-
-func smallMultiplesOptionsSchema() *schema.Schema {
+}func smallMultiplesOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SmallMultiplesOptions.html
 Type:     schema.TypeList,
 Optional: true,
@@ -446,10 +428,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func expandAxisDisplayOptions(tfList []interface{}) *quicksight.AxisDisplayOptions {
+}func expandAxisDisplayOptions(tfList []interface{}) *quicksight.AxisDisplayOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -481,10 +460,7 @@ options.TickLabelOptions = expandAxisTickLabelOptions(v)
 	}
 
 	return options
-}
-
-
-func expandAxisDataOptions(tfList []interface{}) *quicksight.AxisDataOptions {
+}func expandAxisDataOptions(tfList []interface{}) *quicksight.AxisDataOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -504,10 +480,7 @@ options.NumericAxisOptions = expandNumericAxisOptions(v)
 	}
 
 	return options
-}
-
-
-func expandDateAxisOptions(tfList []interface{}) *quicksight.DateAxisOptions {
+}func expandDateAxisOptions(tfList []interface{}) *quicksight.DateAxisOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -524,10 +497,7 @@ options.MissingDateVisibility = aws.String(v)
 	}
 
 	return options
-}
-
-
-func expandNumericAxisOptions(tfList []interface{}) *quicksight.NumericAxisOptions {
+}func expandNumericAxisOptions(tfList []interface{}) *quicksight.NumericAxisOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -547,10 +517,7 @@ options.Scale = expandAxisScale(v)
 	}
 
 	return options
-}
-
-
-func expandAxisDisplayRange(tfList []interface{}) *quicksight.AxisDisplayRange {
+}func expandAxisDisplayRange(tfList []interface{}) *quicksight.AxisDisplayRange {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -570,10 +537,7 @@ options.MinMax = expandAxisDisplayMinMaxRange(v)
 	}
 
 	return options
-}
-
-
-func expandAxisDisplayDataDrivenRange(tfList []interface{}) *quicksight.AxisDisplayDataDrivenRange {
+}func expandAxisDisplayDataDrivenRange(tfList []interface{}) *quicksight.AxisDisplayDataDrivenRange {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -586,10 +550,7 @@ return nil
 	options := &quicksight.AxisDisplayDataDrivenRange{}
 
 	return options
-}
-
-
-func expandAxisDisplayMinMaxRange(tfList []interface{}) *quicksight.AxisDisplayMinMaxRange {
+}func expandAxisDisplayMinMaxRange(tfList []interface{}) *quicksight.AxisDisplayMinMaxRange {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -609,10 +570,7 @@ options.Minimum = aws.Float64(v)
 	}
 
 	return options
-}
-
-
-func expandAxisScale(tfList []interface{}) *quicksight.AxisScale {
+}func expandAxisScale(tfList []interface{}) *quicksight.AxisScale {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -632,10 +590,7 @@ options.Logarithmic = expandAxisLogarithmicScale(v)
 	}
 
 	return options
-}
-
-
-func expandAxisLinearScale(tfList []interface{}) *quicksight.AxisLinearScale {
+}func expandAxisLinearScale(tfList []interface{}) *quicksight.AxisLinearScale {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -655,10 +610,7 @@ options.StepSize = aws.Float64(v)
 	}
 
 	return options
-}
-
-
-func expandAxisLogarithmicScale(tfList []interface{}) *quicksight.AxisLogarithmicScale {
+}func expandAxisLogarithmicScale(tfList []interface{}) *quicksight.AxisLogarithmicScale {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -675,10 +627,7 @@ options.Base = aws.Float64(v)
 	}
 
 	return options
-}
-
-
-func expandScrollBarOptions(tfList []interface{}) *quicksight.ScrollBarOptions {
+}func expandScrollBarOptions(tfList []interface{}) *quicksight.ScrollBarOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -698,10 +647,7 @@ options.VisibleRange = expandVisibleRangeOptions(v)
 	}
 
 	return options
-}
-
-
-func expandVisibleRangeOptions(tfList []interface{}) *quicksight.VisibleRangeOptions {
+}func expandVisibleRangeOptions(tfList []interface{}) *quicksight.VisibleRangeOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -718,10 +664,7 @@ options.PercentRange = expandPercentVisibleRange(v)
 	}
 
 	return options
-}
-
-
-func expandPercentVisibleRange(tfList []interface{}) *quicksight.PercentVisibleRange {
+}func expandPercentVisibleRange(tfList []interface{}) *quicksight.PercentVisibleRange {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -741,10 +684,7 @@ options.To = aws.Float64(v)
 	}
 
 	return options
-}
-
-
-func expandAxisTickLabelOptions(tfList []interface{}) *quicksight.AxisTickLabelOptions {
+}func expandAxisTickLabelOptions(tfList []interface{}) *quicksight.AxisTickLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -764,10 +704,7 @@ options.LabelOptions = expandLabelOptions(v)
 	}
 
 	return options
-}
-
-
-func expandChartAxisLabelOptions(tfList []interface{}) *quicksight.ChartAxisLabelOptions {
+}func expandChartAxisLabelOptions(tfList []interface{}) *quicksight.ChartAxisLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -790,10 +727,7 @@ options.AxisLabelOptions = expandAxisLabelOptionsList(v)
 	}
 
 	return options
-}
-
-
-func expandAxisLabelOptionsList(tfList []interface{}) []*quicksight.AxisLabelOptions {
+}func expandAxisLabelOptionsList(tfList []interface{}) []*quicksight.AxisLabelOptions {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -814,10 +748,7 @@ options = append(options, opts)
 	}
 
 	return options
-}
-
-
-func expandAxisLabelOptions(tfMap map[string]interface{}) *quicksight.AxisLabelOptions {
+}func expandAxisLabelOptions(tfMap map[string]interface{}) *quicksight.AxisLabelOptions {
 	if tfMap == nil {
 return nil
 	}
@@ -835,10 +766,7 @@ options.FontConfiguration = expandFontConfiguration(v)
 	}
 
 	return options
-}
-
-
-func expandAxisLabelReferenceOptions(tfList []interface{}) *quicksight.AxisLabelReferenceOptions {
+}func expandAxisLabelReferenceOptions(tfList []interface{}) *quicksight.AxisLabelReferenceOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -858,10 +786,7 @@ options.Column = expandColumnIdentifier(v)
 	}
 
 	return options
-}
-
-
-func expandContributionAnalysisDefaults(tfList []interface{}) []*quicksight.ContributionAnalysisDefault {
+}func expandContributionAnalysisDefaults(tfList []interface{}) []*quicksight.ContributionAnalysisDefault {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -882,10 +807,7 @@ options = append(options, opts)
 	}
 
 	return options
-}
-
-
-func expandContributionAnalysisDefault(tfMap map[string]interface{}) *quicksight.ContributionAnalysisDefault {
+}func expandContributionAnalysisDefault(tfMap map[string]interface{}) *quicksight.ContributionAnalysisDefault {
 	if tfMap == nil {
 return nil
 	}
@@ -900,10 +822,7 @@ options.ContributorDimensions = expandColumnIdentifiers(v)
 	}
 
 	return options
-}
-
-
-func expandReferenceLines(tfList []interface{}) []*quicksight.ReferenceLine {
+}func expandReferenceLines(tfList []interface{}) []*quicksight.ReferenceLine {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -924,10 +843,7 @@ lines = append(lines, line)
 	}
 
 	return lines
-}
-
-
-func expandReferenceLine(tfMap map[string]interface{}) *quicksight.ReferenceLine {
+}func expandReferenceLine(tfMap map[string]interface{}) *quicksight.ReferenceLine {
 	if tfMap == nil {
 return nil
 	}
@@ -948,10 +864,7 @@ line.StyleConfiguration = expandReferenceLineStyleConfiguration(v)
 	}
 
 	return line
-}
-
-
-func expandReferenceLineDataConfiguration(tfList []interface{}) *quicksight.ReferenceLineDataConfiguration {
+}func expandReferenceLineDataConfiguration(tfList []interface{}) *quicksight.ReferenceLineDataConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -974,10 +887,7 @@ config.StaticConfiguration = expandReferenceLineStaticDataConfiguration(v)
 	}
 
 	return config
-}
-
-
-func expandReferenceLineDynamicDataConfiguration(tfList []interface{}) *quicksight.ReferenceLineDynamicDataConfiguration {
+}func expandReferenceLineDynamicDataConfiguration(tfList []interface{}) *quicksight.ReferenceLineDynamicDataConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1004,10 +914,7 @@ function(v)
 	}
 
 	return config
-}
-
-
-func expandReferenceLineStaticDataConfiguration(tfList []interface{}) *quicksight.ReferenceLineStaticDataConfiguration {
+}func expandReferenceLineStaticDataConfiguration(tfList []interface{}) *quicksight.ReferenceLineStaticDataConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1024,10 +931,7 @@ config.Value = aws.Float64(v)
 	}
 
 	return config
-}
-
-
-func expandReferenceLineLabelConfiguration(tfList []interface{}) *quicksight.ReferenceLineLabelConfiguration {
+}func expandReferenceLineLabelConfiguration(tfList []interface{}) *quicksight.ReferenceLineLabelConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1059,10 +963,7 @@ config.ValueLabelConfiguration = expandReferenceLineValueLabelConfiguration(v)
 	}
 
 	return config
-}
-
-
-func expandReferenceLineCustomLabelConfiguration(tfList []interface{}) *quicksight.ReferenceLineCustomLabelConfiguration {
+}func expandReferenceLineCustomLabelConfiguration(tfList []interface{}) *quicksight.ReferenceLineCustomLabelConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1079,10 +980,7 @@ config.CustomLabel = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandReferenceLineValueLabelConfiguration(tfList []interface{}) *quicksight.ReferenceLineValueLabelConfiguration {
+}func expandReferenceLineValueLabelConfiguration(tfList []interface{}) *quicksight.ReferenceLineValueLabelConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1102,10 +1000,7 @@ config.FormatConfiguration = expandNumericFormatConfiguration(v)
 	}
 
 	return config
-}
-
-
-func expandReferenceLineStyleConfiguration(tfList []interface{}) *quicksight.ReferenceLineStyleConfiguration {
+}func expandReferenceLineStyleConfiguration(tfList []interface{}) *quicksight.ReferenceLineStyleConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1125,10 +1020,7 @@ config.Pattern = aws.String(v)
 	}
 
 	return config
-}
-
-
-func expandSmallMultiplesOptions(tfList []interface{}) *quicksight.SmallMultiplesOptions {
+}func expandSmallMultiplesOptions(tfList []interface{}) *quicksight.SmallMultiplesOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1151,10 +1043,7 @@ options.PanelConfiguration = expandPanelConfiguration(v)
 	}
 
 	return options
-}
-
-
-func expandPanelConfiguration(tfList []interface{}) *quicksight.PanelConfiguration {
+}func expandPanelConfiguration(tfList []interface{}) *quicksight.PanelConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1195,10 +1084,7 @@ config.Title = expandPanelTitleOptions(v)
 	}
 
 	return config
-}
-
-
-func expandPanelTitleOptions(tfList []interface{}) *quicksight.PanelTitleOptions {
+}func expandPanelTitleOptions(tfList []interface{}) *quicksight.PanelTitleOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1221,10 +1107,7 @@ options.FontConfiguration = expandFontConfiguration(v)
 	}
 
 	return options
-}
-
-
-func expandItemsLimitConfiguration(tfList []interface{}) *quicksight.ItemsLimitConfiguration {
+}func expandItemsLimitConfiguration(tfList []interface{}) *quicksight.ItemsLimitConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1244,10 +1127,7 @@ config.OtherCategories = aws.String(v)
 	}
 
 	return config
-}
-
-
-func flattenAxisDisplayOptions(apiObject *quicksight.AxisDisplayOptions) []interface{} {
+}func flattenAxisDisplayOptions(apiObject *quicksight.AxisDisplayOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1273,10 +1153,7 @@ tfMap["tick_label_options"] = flattenAxisTickLabelOptions(apiObject.TickLabelOpt
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAxisDataOptions(apiObject *quicksight.AxisDataOptions) []interface{} {
+}func flattenAxisDataOptions(apiObject *quicksight.AxisDataOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1290,10 +1167,7 @@ tfMap["numeric_axis_options"] = flattenNumericAxisOptions(apiObject.NumericAxisO
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDateAxisOptions(apiObject *quicksight.DateAxisOptions) []interface{} {
+}func flattenDateAxisOptions(apiObject *quicksight.DateAxisOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1304,10 +1178,7 @@ tfMap["missing_date_visibility"] = aws.StringValue(apiObject.MissingDateVisibili
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenNumericAxisOptions(apiObject *quicksight.NumericAxisOptions) []interface{} {
+}func flattenNumericAxisOptions(apiObject *quicksight.NumericAxisOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1321,10 +1192,7 @@ tfMap["scale"] = flattenAxisScale(apiObject.Scale)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAxisDisplayRange(apiObject *quicksight.AxisDisplayRange) []interface{} {
+}func flattenAxisDisplayRange(apiObject *quicksight.AxisDisplayRange) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1338,10 +1206,7 @@ tfMap["min_max"] = flattenAxisDisplayMinMaxRange(apiObject.MinMax)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAxisDisplayDataDrivenRange(apiObject *quicksight.AxisDisplayDataDrivenRange) []interface{} {
+}func flattenAxisDisplayDataDrivenRange(apiObject *quicksight.AxisDisplayDataDrivenRange) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1350,10 +1215,7 @@ return nil
 	tfMap := map[string]interface{}{}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAxisDisplayMinMaxRange(apiObject *quicksight.AxisDisplayMinMaxRange) []interface{} {
+}func flattenAxisDisplayMinMaxRange(apiObject *quicksight.AxisDisplayMinMaxRange) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1367,10 +1229,7 @@ tfMap["minimum"] = aws.Float64Value(apiObject.Minimum)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAxisScale(apiObject *quicksight.AxisScale) []interface{} {
+}func flattenAxisScale(apiObject *quicksight.AxisScale) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1384,10 +1243,7 @@ tfMap["logarithmic"] = flattenAxisLogarithmicScale(apiObject.Logarithmic)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAxisLinearScale(apiObject *quicksight.AxisLinearScale) []interface{} {
+}func flattenAxisLinearScale(apiObject *quicksight.AxisLinearScale) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1401,10 +1257,7 @@ tfMap["step_size"] = aws.Float64Value(apiObject.StepSize)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAxisLogarithmicScale(apiObject *quicksight.AxisLogarithmicScale) []interface{} {
+}func flattenAxisLogarithmicScale(apiObject *quicksight.AxisLogarithmicScale) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1415,10 +1268,7 @@ tfMap["base"] = aws.Float64Value(apiObject.Base)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenScrollBarOptions(apiObject *quicksight.ScrollBarOptions) []interface{} {
+}func flattenScrollBarOptions(apiObject *quicksight.ScrollBarOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1432,10 +1282,7 @@ tfMap["visible_range"] = flattenVisibleRangeOptions(apiObject.VisibleRange)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenVisibleRangeOptions(apiObject *quicksight.VisibleRangeOptions) []interface{} {
+}func flattenVisibleRangeOptions(apiObject *quicksight.VisibleRangeOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1446,10 +1293,7 @@ tfMap["percent_range"] = flattenPercentVisibleRange(apiObject.PercentRange)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenPercentVisibleRange(apiObject *quicksight.PercentVisibleRange) []interface{} {
+}func flattenPercentVisibleRange(apiObject *quicksight.PercentVisibleRange) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1463,10 +1307,7 @@ tfMap["to"] = aws.Float64Value(apiObject.To)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAxisTickLabelOptions(apiObject *quicksight.AxisTickLabelOptions) []interface{} {
+}func flattenAxisTickLabelOptions(apiObject *quicksight.AxisTickLabelOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1480,10 +1321,7 @@ tfMap["rotation_angle"] = aws.Float64Value(apiObject.RotationAngle)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenChartAxisLabelOptions(apiObject *quicksight.ChartAxisLabelOptions) []interface{} {
+}func flattenChartAxisLabelOptions(apiObject *quicksight.ChartAxisLabelOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1500,10 +1338,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenAxisLabelOptions(apiObject []*quicksight.AxisLabelOptions) []interface{} {
+}func flattenAxisLabelOptions(apiObject []*quicksight.AxisLabelOptions) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1529,10 +1364,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenAxisLabelReferenceOptions(apiObject *quicksight.AxisLabelReferenceOptions) []interface{} {
+}func flattenAxisLabelReferenceOptions(apiObject *quicksight.AxisLabelReferenceOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1546,10 +1378,7 @@ tfMap["column"] = flattenColumnIdentifier(apiObject.Column)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenContributionAnalysisDefault(apiObject []*quicksight.ContributionAnalysisDefault) []interface{} {
+}func flattenContributionAnalysisDefault(apiObject []*quicksight.ContributionAnalysisDefault) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1571,10 +1400,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenColumnIdentifiers(apiObject []*quicksight.ColumnIdentifier) []interface{} {
+}func flattenColumnIdentifiers(apiObject []*quicksight.ColumnIdentifier) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1594,10 +1420,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenReferenceLine(apiObject []*quicksight.ReferenceLine) []interface{} {
+}func flattenReferenceLine(apiObject []*quicksight.ReferenceLine) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1626,10 +1449,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenReferenceLineDataConfiguration(apiObject *quicksight.ReferenceLineDataConfiguration) []interface{} {
+}func flattenReferenceLineDataConfiguration(apiObject *quicksight.ReferenceLineDataConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1646,10 +1466,7 @@ tfMap["static_configuration"] = flattenReferenceLineStaticDataConfiguration(apiO
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenReferenceLineDynamicDataConfiguration(apiObject *quicksight.ReferenceLineDynamicDataConfiguration) []interface{} {
+}func flattenReferenceLineDynamicDataConfiguration(apiObject *quicksight.ReferenceLineDynamicDataConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1671,10 +1488,7 @@ function)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenReferenceLineStaticDataConfiguration(apiObject *quicksight.ReferenceLineStaticDataConfiguration) []interface{} {
+}func flattenReferenceLineStaticDataConfiguration(apiObject *quicksight.ReferenceLineStaticDataConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1684,10 +1498,7 @@ return nil
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenReferenceLineLabelConfiguration(apiObject *quicksight.ReferenceLineLabelConfiguration) []interface{} {
+}func flattenReferenceLineLabelConfiguration(apiObject *quicksight.ReferenceLineLabelConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1725,10 +1536,7 @@ return nil
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenReferenceLineValueLabelConfiguration(apiObject *quicksight.ReferenceLineValueLabelConfiguration) []interface{} {
+}func flattenReferenceLineValueLabelConfiguration(apiObject *quicksight.ReferenceLineValueLabelConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1742,10 +1550,7 @@ tfMap["relative_position"] = aws.StringValue(apiObject.RelativePosition)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenReferenceLineStyleConfiguration(apiObject *quicksight.ReferenceLineStyleConfiguration) []interface{} {
+}func flattenReferenceLineStyleConfiguration(apiObject *quicksight.ReferenceLineStyleConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1759,10 +1564,7 @@ tfMap["pattern"] = aws.StringValue(apiObject.Pattern)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenSmallMultiplesOptions(apiObject *quicksight.SmallMultiplesOptions) []interface{} {
+}func flattenSmallMultiplesOptions(apiObject *quicksight.SmallMultiplesOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1779,10 +1581,7 @@ tfMap["panel_configuration"] = flattenPanelConfiguration(apiObject.PanelConfigur
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenPanelConfiguration(apiObject *quicksight.PanelConfiguration) []interface{} {
+}func flattenPanelConfiguration(apiObject *quicksight.PanelConfiguration) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1814,10 +1613,7 @@ tfMap["title"] = flattenPanelTitleOptions(apiObject.Title)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenPanelTitleOptions(apiObject *quicksight.PanelTitleOptions) []interface{} {
+}func flattenPanelTitleOptions(apiObject *quicksight.PanelTitleOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}

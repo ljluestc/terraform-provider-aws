@@ -1,19 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cognitoidp
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package cognitoidpimport (
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
-)
-
-func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
+)func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
+	t.Parallel()	cases := []struct {
 Name     string
 Input    *cognitoidentityprovider.SchemaAttributeType
 Expected bool
@@ -148,9 +138,7 @@ Required: aws.Bool(false),
 	},
 	Expected: true,
 },
-	}
-
-	for _, tc := range cases {
+	}	for _, tc := range cases {
 tc := tc
 t.Run(tc.Name, func(t *testing.T) {
 	t.Parallel()
@@ -160,12 +148,8 @@ t.Fatalf("Expected %t match with standard attribute on input: \n\n%#v\n\n", tc.E
 	}
 })
 	}
-}
-
-func TestSkipFlatteningStringAttributeContraints(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
+}func TestSkipFlatteningStringAttributeContraints(t *testing.T) {
+	t.Parallel()	cases := []struct {
 name       string
 configured []*cognitoidentityprovider.SchemaAttributeType
 input      *cognitoidentityprovider.SchemaAttributeType
@@ -251,9 +235,7 @@ StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsT
 	},
 	want: false,
 },
-	}
-
-	for _, tc := range cases {
+	}	for _, tc := range cases {
 tc := tc
 t.Run(tc.name, func(t *testing.T) {
 	t.Parallel()

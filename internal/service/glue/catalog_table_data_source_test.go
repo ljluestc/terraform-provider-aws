@@ -1,27 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package glue_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package glue_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/glue"
+	"testing"	"github.com/aws/aws-sdk-go/service/glue"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccGlueCatalogTableDataSource_basic(t *testing.T) {
+)func TestAccGlueCatalogTableDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_glue_catalog_table.test"
-	datasourceName := "data.aws_glue_catalog_table.test"
-
-	dbName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	tName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	datasourceName := "data.aws_glue_catalog_table.test"	dbName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	tName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -48,61 +36,35 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccCatalogTableDataSourceConfig_basic(dbName, tName string) string {
+}func testAccCatalogTableDataSourceConfig_basic(dbName, tName string) string {
 	return fmt.Sprintf(`
 resource "aws_glue_catalog_database" "test" {
   name = %[1]q
-}
-
-resource "aws_glue_catalog_table" "test" {
+}resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
-  name = %[2]q
-
-  description = "aws_glue_catalog_table datasource acc test"
-
-  table_type = "EXTERNAL_TABLE"
-
-  parameters = {
+  name = %[2]q  description = "aws_glue_catalog_table datasource acc test"  table_type = "EXTERNAL_TABLE"  parameters = {
     EXTERNAL     = "TRUE"
     "parquet.compression" = "SNAPPY"
-  }
-
-  storage_descriptor {
+  }  storage_descriptor {
     location      = "s3://my-bucket/event-streams/my-stream"
     input_format  = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat"
-    output_format = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat"
-
-    ser_de_info {
+    output_format = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat"    ser_de_info {
       name   = "my-stream"
-      serialization_library = "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe"
-
-      parameters = {
+      serialization_library = "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe"      parameters = {
         "serialization.format" = 1
       }
-    }
-
-    columns {
+    }    columns {
       name = "my_string"
       type = "string"
-    }
-
-    columns {
+    }    columns {
       name = "my_double"
       type = "double"
     }
-  }
-
-  partition_keys {
+  }  partition_keys {
     name = "my_partition_key"
-    type = "string"
-
-    comment = "my_partition_key"
+    type = "string"    comment = "my_partition_key"
   }
-}
-
-data "aws_glue_catalog_table" "test" {
+}data "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_table.test.database_name
   name = aws_glue_catalog_table.test.name
 }

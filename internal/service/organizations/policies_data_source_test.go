@@ -12,10 +12,7 @@ import(
 	sdkacctest"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-funcTestAccOrganizationsPoliciesDataSource_basic(t*testing.T){
+)funcTestAccOrganizationsPoliciesDataSource_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	serviceControlPolicyContent:=`{"Version":"2012-10-17","Statement":{"Effect":"Deny","Action":"*","Resource":"*"}}`
@@ -38,10 +35,7 @@ Check:resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-
-functestAccPoliciesDataSourceConfig_ServiceControlPolicy(rName,policyType,policyContentstring)string{
+}functestAccPoliciesDataSourceConfig_ServiceControlPolicy(rName,policyType,policyContentstring)string{
 	returnfmt.Sprintf(`
 resource"aws_organizations_policy""test"{
 name=%[1]q

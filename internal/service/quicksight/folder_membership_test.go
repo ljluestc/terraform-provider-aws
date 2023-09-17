@@ -18,10 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	tfquicksight "github.com/hashicorp/terraform-provider-aws/internal/service/quicksight"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-
-func TestAccQuickSightFolderMembership_basic(t *testing.T) {
+)func TestAccQuickSightFolderMembership_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var folderMember quicksight.MemberIdArnPair
 	resourceName := "aws_quicksight_folder_membership.test"
@@ -31,8 +28,7 @@ func TestAccQuickSightFolderMembership_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckFolderMembershipDestroy(ctx),
@@ -54,10 +50,7 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightFolderMembership_disappears(t *testing.T) {
+}func TestAccQuickSightFolderMembership_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var folderMember quicksight.MemberIdArnPair
 	resourceName := "aws_quicksight_folder_membership.test"
@@ -65,8 +58,7 @@ func TestAccQuickSightFolderMembership_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckFolderMembershipDestroy(ctx),
@@ -82,13 +74,9 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func testAccCheckFolderMembershipExists(ctx context.Context, resourceName string, folderMember *quicksight.MemberIdArnPair) resource.TestCheck
+}func testAccCheckFolderMembershipExists(ctx context.Context, resourceName string, folderMember *quicksight.MemberIdArnPair) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("Not found: %s", resourceName)
@@ -104,13 +92,9 @@ if err != nil {
 
 return nil
 	}
-}
-
-
-func testAccCheckFolderMembershipDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckFolderMembershipDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_quicksight_folder_membership" {
@@ -132,10 +116,7 @@ return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquick
 
 return nil
 	}
-}
-
-
-func testAccFolderMembershipConfig_basic(rId, rName string) string {
+}func testAccFolderMembershipConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
 testAccDataSetConfigBasic(rId, rName),
 testAccFolderConfig_basic(rId, rName),

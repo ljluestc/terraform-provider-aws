@@ -36,10 +36,7 @@ func DataSourcePoliciesForTarget() *schema.Resource {
 			},
 		},
 	}
-}
-
-
-func dataSourcePoliciesForTargetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourcePoliciesForTargetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -63,18 +60,14 @@ func dataSourcePoliciesForTargetRead(ctx context.Context, d *schema.ResourceData
 	d.Set("ids", policyIDs)
 
 	return diags
-}
-
-
-func findPoliciesForTarget(ctx context.Context, conn *organizations.Organizations, targetID string, filter string) ([]*organizations.PolicySummary, error) {
+}func findPoliciesForTarget(ctx context.Context, conn *organizations.Organizations, targetID string, filter string) ([]*organizations.PolicySummary, error) {
 	input := &organizations.ListPoliciesForTargetInput{
 		Filter:   aws.String(filter),
 		TargetId: aws.String(targetID),
 	}
 	var output []*organizations.PolicySummary
 
-	err := conn.ListPoliciesForTargetPagesWithContext(ctx, input, 
-func(page *organizations.ListPoliciesForTargetOutput, lastPage bool) bool {
+	err := conn.ListPoliciesForTargetPagesWithContext(ctx, input,func(page *organizations.ListPoliciesForTargetOutput, lastPage bool) bool {
 		output = append(output, page.Policies...)
 
 		return !lastPage

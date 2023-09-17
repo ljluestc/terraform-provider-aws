@@ -1,18 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configservice_test
-
-import (
-"testing"
-
-"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccConfigService_serial(t *testing.T) {
-t.Parallel()
-
-testCases := map[string]map[string]func(t *testing.T){
+// SPDX-License-Identifier: MPL-2.0package configservice_testimport (
+"testing""github.com/hashicorp/terraform-provider-aws/internal/acctest"
+)func TestAccConfigService_serial(t *testing.T) {
+t.Parallel()testCases := map[string]map[string]func(t *testing.T){
 "Config": {
 "basic":   testAccConfigRule_basic,
 "ownerAws":testAccConfigRule_ownerAws,
@@ -104,7 +94,5 @@ testCases := map[string]map[string]func(t *testing.T){
 "updates":  testAccRemediationConfiguration_updates,
 "values":   testAccRemediationConfiguration_values,
 },
-}
-
-acctest.RunSerialTests2Levels(t, testCases, 0)
+}acctest.RunSerialTests2Levels(t, testCases, 0)
 }

@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package vpclattice_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package vpclattice_testimport (
 "context"
 "errors"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go-v2/aws"
 "github.com/aws/aws-sdk-go-v2/service/vpclattice"
 "github.com/aws/aws-sdk-go-v2/service/vpclattice/types"
@@ -21,16 +15,10 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/create"
 tfvpclattice "github.com/hashicorp/terraform-provider-aws/internal/service/vpclattice"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccVPCLatticeAuthPolicy_basic(t *testing.T) {
-ctx := acctest.Context(t)
-
-var authpolicy vpclattice.GetAuthPolicyOutput
+)func TestAccVPCLatticeAuthPolicy_basic(t *testing.T) {
+ctx := acctest.Context(t)var authpolicy vpclattice.GetAuthPolicyOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_auth_policy.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_auth_policy.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -55,16 +43,10 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccVPCLatticeAuthPolicy_disappears(t *testing.T) {
-ctx := acctest.Context(t)
-
-var authpolicy vpclattice.GetAuthPolicyOutput
+}func TestAccVPCLatticeAuthPolicy_disappears(t *testing.T) {
+ctx := acctest.Context(t)var authpolicy vpclattice.GetAuthPolicyOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_vpclattice_auth_policy.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_vpclattice_auth_policy.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
@@ -84,18 +66,12 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func testAccCheckAuthPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckAuthPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_vpclattice_auth_policy" {
 continue
-}
-
-policy, err := conn.GetAuthPolicy(ctx, &vpclattice.GetAuthPolicyInput{
+}policy, err := conn.GetAuthPolicy(ctx, &vpclattice.GetAuthPolicyInput{
 ResourceIdentifier: aws.String(rs.Primary.ID),
 })
 if err != nil {
@@ -104,60 +80,34 @@ if errors.As(err, &nfe) {
 return nil
 }
 return err
-}
-
-if policy != nil {
+}if policy != nil {
 return create.Error(names.VPCLattice, create.ErrActionCheckingDestroyed, tfvpclattice.ResNameAuthPolicy, rs.Primary.ID, errors.New("Auth Policy not destroyed"))
 }
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccCheckAuthPolicyExists(ctx context.Context, name string, authpolicy *vpclattice.GetAuthPolicyOutput) resource.TestCheckFunc {
+}func testAccCheckAuthPolicyExists(ctx context.Context, name string, authpolicy *vpclattice.GetAuthPolicyOutput) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameAuthPolicy, name, errors.New("not found"))
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameAuthPolicy, name, errors.New("not set"))
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
 resp, err := conn.GetAuthPolicy(ctx, &vpclattice.GetAuthPolicyInput{
 ResourceIdentifier: aws.String(rs.Primary.ID),
-})
-
-if err != nil {
+})if err != nil {
 //return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameAuthPolicy, rs.Primary.ID, err)
 return fmt.Errorf("AuthPolicy (for resource: %s) not found", rs.Primary.ID)
+}*authpolicy = *respreturn nil
 }
-
-*authpolicy = *resp
-
-return nil
-}
-}
-
-func testAccAuthPolicyConfig_basic(rName string) string {
+}func testAccAuthPolicyConfig_basic(rName string) string {
 return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-resource "aws_vpclattice_service" "test" {
+data "aws_partition" "current" {}data "aws_caller_identity" "current" {}resource "aws_vpclattice_service" "test" {
   name= %[1]q
   auth_type = "AWS_IAM"
   custom_domain_name = "example.com"
-}
-
-resource "aws_vpclattice_auth_policy" "test" {
-  resource_identifier = aws_vpclattice_service.test.arn
-
-  policy = jsonencode({
+}resource "aws_vpclattice_auth_policy" "test" {
+  resource_identifier = aws_vpclattice_service.test.arn  policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
       Action    = "*"

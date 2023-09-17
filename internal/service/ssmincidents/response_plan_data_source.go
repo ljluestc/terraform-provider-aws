@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ssmincidents
-
-import (
-	"context"
-
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+// SPDX-License-Identifier: MPL-2.0package ssmincidentsimport (
+	"context"	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKDataSource("aws_ssmincidents_response_plan")
+)// @SDKDataSource("aws_ssmincidents_response_plan")
 func DataSourceResponsePlan() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceResponsePlanRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceResponsePlanRead,		Schema: map[string]*schema.Schema{
 			"action": {
 				Type:     schema.TypeList,
 				Computed: true,
@@ -166,38 +156,18 @@ func DataSourceResponsePlan() *schema.Resource {
 			"tags": tftags.TagsSchemaComputed(),
 		},
 	}
-}
-
-const (
+}const (
 	DSNameResponsePlan = "Response Plan Data Source"
-)
-
-func dataSourceResponsePlanRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	client := meta.(*conns.AWSClient).SSMIncidentsClient(ctx)
-
-	d.SetId(d.Get("arn").(string))
-
-	responsePlan, err := FindResponsePlanByID(ctx, client, d.Id())
-
+)func dataSourceResponsePlanRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	client := meta.(*conns.AWSClient).SSMIncidentsClient(ctx)	d.SetId(d.Get("arn").(string))	responsePlan, err := FindResponsePlanByID(ctx, client, d.Id())	if err != nil {
+		return create.DiagError(names.SSMIncidents, create.ErrActionReading, DSNameResponsePlan, d.Id(), err)
+	}	if d, err := setResponsePlanResourceData(d, responsePlan); err != nil {
+		return create.DiagError(names.SSMIncidents, create.ErrActionReading, DSNameResponsePlan, d.Id(), err)
+	}	tags, err := listTags(ctx, client, d.Id())
 	if err != nil {
 		return create.DiagError(names.SSMIncidents, create.ErrActionReading, DSNameResponsePlan, d.Id(), err)
-	}
-
-	if d, err := setResponsePlanResourceData(d, responsePlan); err != nil {
-		return create.DiagError(names.SSMIncidents, create.ErrActionReading, DSNameResponsePlan, d.Id(), err)
-	}
-
-	tags, err := listTags(ctx, client, d.Id())
-	if err != nil {
-		return create.DiagError(names.SSMIncidents, create.ErrActionReading, DSNameResponsePlan, d.Id(), err)
-	}
-
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	//lintignore:AWSR002
+	}	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig	//lintignore:AWSR002
 	if err := d.Set("tags", tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
 		return create.DiagError(names.SSMIncidents, create.ErrActionSetting, DSNameResponsePlan, d.Id(), err)
-	}
-
-	return nil
+	}	return nil
 }

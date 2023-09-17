@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package memorydb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package memorydb_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/memorydb"
+"testing""github.com/aws/aws-sdk-go/service/memorydb"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,14 +10,10 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfmemorydb "github.com/hashicorp/terraform-provider-aws/internal/service/memorydb"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccMemoryDBSnapshot_basic(t *testing.T) {
+)func TestAccMemoryDBSnapshot_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_snapshot.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_snapshot.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -61,14 +51,10 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccMemoryDBSnapshot_disappears(t *testing.T) {
+}func TestAccMemoryDBSnapshot_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_snapshot.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_snapshot.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -84,14 +70,10 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccMemoryDBSnapshot_nameGenerated(t *testing.T) {
+}func TestAccMemoryDBSnapshot_nameGenerated(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_snapshot.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_snapshot.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -107,14 +89,10 @@ resource.TestCheckResourceAttr(resourceName, "name_prefix", "terraform-"),
 },
 },
 })
-}
-
-func TestAccMemoryDBSnapshot_namePrefix(t *testing.T) {
+}func TestAccMemoryDBSnapshot_namePrefix(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_snapshot.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_snapshot.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -130,14 +108,10 @@ resource.TestCheckResourceAttr(resourceName, "name_prefix", "tftest-"),
 },
 },
 })
-}
-
-func TestAccMemoryDBSnapshot_create_withKMS(t *testing.T) {
+}func TestAccMemoryDBSnapshot_create_withKMS(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_snapshot.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_snapshot.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -157,14 +131,10 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccMemoryDBSnapshot_update_tags(t *testing.T) {
+}func TestAccMemoryDBSnapshot_update_tags(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
-resourceName := "aws_memorydb_snapshot.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_memorydb_snapshot.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -230,68 +200,38 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func testAccCheckSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_memorydb_snapshot" {
 continue
-}
-
-_, err := tfmemorydb.FindSnapshotByName(ctx, conn, rs.Primary.Attributes["name"])
-
-if tfresource.NotFound(err) {
+}_, err := tfmemorydb.FindSnapshotByName(ctx, conn, rs.Primary.Attributes["name"])if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("MemoryDB Snapshot %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("MemoryDB Snapshot %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccCheckSnapshotExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckSnapshotExists(ctx context.Context, n string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No MemoryDB Snapshot ID is set")
+}conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)_, err := tfmemorydb.FindSnapshotByName(ctx, conn, rs.Primary.Attributes["name"])return err
 }
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).MemoryDBConn(ctx)
-
-_, err := tfmemorydb.FindSnapshotByName(ctx, conn, rs.Primary.Attributes["name"])
-
-return err
-}
-}
-
-func testAccSnapshotConfigBase(rName string) string {
+}func testAccSnapshotConfigBase(rName string) string {
 return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_memorydb_subnet_group" "test" {
   subnet_ids = aws_subnet.test[*].id
-}
-
-resource "aws_security_group" "test" {
+}resource "aws_security_group" "test" {
   name= %[1]q
   description = %[1]q
   vpc_id  = aws_vpc.test.id
-}
-
-resource "aws_memorydb_cluster" "test" {
+}resource "aws_memorydb_cluster" "test" {
   acl_name  = "open-access"
   name  = %[1]q
   node_type = "db.t4g.small"
@@ -303,40 +243,30 @@ resource "aws_memorydb_cluster" "test" {
 }
 `, rName),
 )
-}
-
-func testAccSnapshotConfig_basic(rName string) string {
+}func testAccSnapshotConfig_basic(rName string) string {
 return acctest.ConfigCompose(
 testAccSnapshotConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
-  name= %[1]q
-
-  tags = {
+  name= %[1]q  tags = {
 Test = "test"
   }
 }
 `, rName),
 )
-}
-
-func testAccSnapshotConfig_kms(rName string) string {
+}func testAccSnapshotConfig_kms(rName string) string {
 return acctest.ConfigCompose(
 testAccSnapshotConfigBase(rName),
 fmt.Sprintf(`
-resource "aws_kms_key" "test" {}
-
-resource "aws_memorydb_snapshot" "test" {
+resource "aws_kms_key" "test" {}resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
   kms_key_arn  = aws_kms_key.test.arn
   name= %[1]q
 }
 `, rName),
 )
-}
-
-func testAccSnapshotConfig_noName(rName string) string {
+}func testAccSnapshotConfig_noName(rName string) string {
 return acctest.ConfigCompose(
 testAccSnapshotConfigBase(rName),
 `
@@ -345,25 +275,19 @@ resource "aws_memorydb_snapshot" "test" {
 }
 `,
 )
-}
-
-func testAccSnapshotConfig_namePrefix(rName, prefix string) string {
+}func testAccSnapshotConfig_namePrefix(rName, prefix string) string {
 return acctest.ConfigCompose(
 testAccSnapshotConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
-  name_prefix  = %[1]q
-
-  tags = {
+  name_prefix  = %[1]q  tags = {
 Test = "test"
   }
 }
 `, prefix),
 )
-}
-
-func testAccSnapshotConfig_tags0(rName string) string {
+}func testAccSnapshotConfig_tags0(rName string) string {
 return acctest.ConfigCompose(
 testAccSnapshotConfigBase(rName),
 fmt.Sprintf(`
@@ -373,33 +297,25 @@ resource "aws_memorydb_snapshot" "test" {
 }
 `, rName),
 )
-}
-
-func testAccSnapshotConfig_tags1(rName, tag1Key, tag1Value string) string {
+}func testAccSnapshotConfig_tags1(rName, tag1Key, tag1Value string) string {
 return acctest.ConfigCompose(
 testAccSnapshotConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
-  name= %[1]q
-
-  tags = {
+  name= %[1]q  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tag1Key, tag1Value),
 )
-}
-
-func testAccSnapshotConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
+}func testAccSnapshotConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 return acctest.ConfigCompose(
 testAccSnapshotConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
-  name= %[1]q
-
-  tags = {
+  name= %[1]q  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

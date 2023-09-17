@@ -1,53 +1,33 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-//go:build sweep
-// +build sweep
-
-package cloudtrail
-
-import (
+// SPDX-License-Identifier: MPL-2.0//go:build sweep
+// +build sweeppackage cloudtrailimport (
 	"fmt"
-	"log"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"log"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudtrail"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
-)
-
-func init() {
+)func init() {
 	resource.AddTestSweepers("aws_cloudtrail", &resource.Sweeper{
 		Name: "aws_cloudtrail",
 		F:sweeps,
 	})
-}
-
-func sweeps(region string) error {
+}func sweeps(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("error getting client: %w", err)
 	}
 	conn := client.CloudTrailConn(ctx)
-	var sweeperErrs *multierror.Error
-
-	err = conn.ListTrailsPagesWithContext(ctx, &cloudtrail.ListTrailsInput{}, func(page *cloudtrail.ListTrailsOutput, lastPage bool) bool {
+	var sweeperErrs *multierror.Error	err = conn.ListTrailsPagesWithContext(ctx, &cloudtrail.ListTrailsInput{}, func(page *cloudtrail.ListTrailsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
-		}
-
-		for _, trail := range page.Trails {
-			name := aws.StringValue(trail.Name)
-
-			if name == "AWSMacieTrail-DO-NOT-EDIT" {
+		}		for _, trail := range page.Trails {
+			name := aws.StringValue(trail.Name)			if name == "AWSMacieTrail-DO-NOT-EDIT" {
 				log.Printf("[INFO] Skipping AWSMacieTrail-DO-NOT-EDIT for Macie Classic, which is not automatically recreated by the service")
 				continue
-			}
-
-			output, err := conn.DescribeTrailsWithContext(ctx, &cloudtrail.DescribeTrailsInput{
+			}			output, err := conn.DescribeTrailsWithContext(ctx, &cloudtrail.DescribeTrailsInput{
 				TrailNameList: aws.StringSlice([]string{name}),
 			})
 			if err != nil {
@@ -55,19 +35,13 @@ func sweeps(region string) error {
 				log.Printf("[ERROR] %s", sweeperErr)
 				sweeperErrs = multierror.Append(sweeperErrs, sweeperErr)
 				continue
-			}
-
-			if len(output.TrailList) == 0 {
+			}			if len(output.TrailList) == 0 {
 				log.Printf("[INFO] CloudTrail (%s) not found, skipping", name)
 				continue
-			}
-
-			if aws.BoolValue(output.TrailList[0].IsOrganizationTrail) {
+			}			if aws.BoolValue(output.TrailList[0].IsOrganizationTrail) {
 				log.Printf("[INFO] CloudTrail (%s) is an organization trail, skipping", name)
 				continue
-			}
-
-			log.Printf("[INFO] Deleting CloudTrail: %s", name)
+			}			log.Printf("[INFO] Deleting CloudTrail: %s", name)
 			_, err = conn.DeleteTrailWithContext(ctx, &cloudtrail.DeleteTrailInput{
 				Name: aws.String(name),
 			})
@@ -80,9 +54,7 @@ func sweeps(region string) error {
 				sweeperErrs = multierror.Append(sweeperErrs, sweeperErr)
 				continue
 			}
-		}
-
-		return !lastPage
+		}		return !lastPage
 	})
 	if sweep.SkipSweepError(err) {
 		log.Printf("[WARN] Skipping CloudTrail sweep for %s: %s", region, err)
@@ -90,7 +62,5 @@ func sweeps(region string) error {
 	}
 	if err != nil {
 		sweeperErrs = multierror.Append(sweeperErrs, fmt.Errorf("error retrieving CloudTrails: %w", err))
-	}
-
-	return sweeperErrs.ErrorOrNil()
+	}	return sweeperErrs.ErrorOrNil()
 }

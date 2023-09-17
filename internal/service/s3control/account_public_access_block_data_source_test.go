@@ -1,22 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package s3control_test
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/s3control"
+// SPDX-License-Identifier: MPL-2.0package s3control_testimport (
+	"testing"	"github.com/aws/aws-sdk-go/service/s3control"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func testAccAccountPublicAccessBlockDataSource_basic(t *testing.T) {
+)func testAccAccountPublicAccessBlockDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_s3_account_public_access_block.test"
-	dataSourceName := "data.aws_s3_account_public_access_block.test"
-
-	resource.Test(t, resource.TestCase{
+	dataSourceName := "data.aws_s3_account_public_access_block.test"	resource.Test(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -32,9 +22,7 @@ func testAccAccountPublicAccessBlockDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccAccountPublicAccessBlockDataSourceConfig_base() string {
+}func testAccAccountPublicAccessBlockDataSourceConfig_base() string {
 	return `
 resource "aws_s3_account_public_access_block" "test" {
   block_public_acls       = false
@@ -43,9 +31,7 @@ resource "aws_s3_account_public_access_block" "test" {
   restrict_public_buckets = false
 }
 `
-}
-
-func testAccAccountPublicAccessBlockDataSourceConfig_basic() string {
+}func testAccAccountPublicAccessBlockDataSourceConfig_basic() string {
 	return acctest.ConfigCompose(testAccAccountPublicAccessBlockDataSourceConfig_base(), `
 data "aws_s3_account_public_access_block" "test" {
   depends_on = [aws_s3_account_public_access_block.test]

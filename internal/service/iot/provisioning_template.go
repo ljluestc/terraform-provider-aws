@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iot
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iotimport (
 	"context"
-	"log"
-
-	"github.com/YakDriver/regexache"
+	"log"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/iot"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -20,32 +14,22 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-const (
+)const (
 	provisioningHookPayloadVersion2020_04_01 = "2020-04-01"
-)
-
-func provisioningHookPayloadVersion_Values() []string {
+)func provisioningHookPayloadVersion_Values() []string {
 	return []string{
 		provisioningHookPayloadVersion2020_04_01,
 	}
-}
-
-// @SDKResource("aws_iot_provisioning_template", name="Provisioning Template")
+}// @SDKResource("aws_iot_provisioning_template", name="Provisioning Template")
 // @Tags(identifierAttribute="arn")
 func ResourceProvisioningTemplate() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceProvisioningTemplateCreate,
 		ReadWithoutTimeout:   resourceProvisioningTemplateRead,
 		UpdateWithoutTimeout: resourceProvisioningTemplateUpdate,
-		DeleteWithoutTimeout: resourceProvisioningTemplateDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceProvisioningTemplateDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type: schema.TypeString,
 				Computed: true,
@@ -108,69 +92,37 @@ func ResourceProvisioningTemplate() *schema.Resource {
 					validation.StringLenBetween(0, 10240),
 				),
 			},
-		},
-
-		CustomizeDiff: verify.SetTagsDiff,
+		},		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceProvisioningTemplateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IoTConn(ctx)
-
-	name := d.Get("name").(string)
+}func resourceProvisioningTemplateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).IoTConn(ctx)	name := d.Get("name").(string)
 	input := &iot.CreateProvisioningTemplateInput{
 		Enabled:  aws.Bool(d.Get("enabled").(bool)),
 		Tags:getTagsIn(ctx),
 		TemplateName: aws.String(name),
-	}
-
-	if v, ok := d.GetOk("description"); ok {
+	}	if v, ok := d.GetOk("description"); ok {
 		input.Description = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("pre_provisioning_hook"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
+	}	if v, ok := d.GetOk("pre_provisioning_hook"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input.PreProvisioningHook = expandProvisioningHook(v.([]interface{})[0].(map[string]interface{}))
-	}
-
-	if v, ok := d.GetOk("provisioning_role_arn"); ok {
+	}	if v, ok := d.GetOk("provisioning_role_arn"); ok {
 		input.ProvisioningRoleArn = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("template_body"); ok {
+	}	if v, ok := d.GetOk("template_body"); ok {
 		input.TemplateBody = aws.String(v.(string))
-	}
-
-	outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, propagationTimeout,
+	}	outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, propagationTimeout,
 		func() (interface{}, error) {
 			return conn.CreateProvisioningTemplateWithContext(ctx, input)
 		},
-		iot.ErrCodeInvalidRequestException, "The provisioning role cannot be assumed by AWS IoT")
-
-	if err != nil {
+		iot.ErrCodeInvalidRequestException, "The provisioning role cannot be assumed by AWS IoT")	if err != nil {
 		return diag.Errorf("creating IoT Provisioning Template (%s): %s", name, err)
-	}
-
-	d.SetId(aws.StringValue(outputRaw.(*iot.CreateProvisioningTemplateOutput).TemplateName))
-
-	return resourceProvisioningTemplateRead(ctx, d, meta)
-}
-
-func resourceProvisioningTemplateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IoTConn(ctx)
-
-	output, err := FindProvisioningTemplateByName(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	}	d.SetId(aws.StringValue(outputRaw.(*iot.CreateProvisioningTemplateOutput).TemplateName))	return resourceProvisioningTemplateRead(ctx, d, meta)
+}func resourceProvisioningTemplateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).IoTConn(ctx)	output, err := FindProvisioningTemplateByName(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] IoT Provisioning Template %s not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return diag.Errorf("reading IoT Provisioning Template (%s): %s", d.Id(), err)
-	}
-
-	d.Set("arn", output.TemplateArn)
+	}	d.Set("arn", output.TemplateArn)
 	d.Set("default_version_id", output.DefaultVersionId)
 	d.Set("description", output.Description)
 	d.Set("enabled", output.Enabled)
@@ -183,128 +135,68 @@ func resourceProvisioningTemplateRead(ctx context.Context, d *schema.ResourceDat
 		d.Set("pre_provisioning_hook", nil)
 	}
 	d.Set("provisioning_role_arn", output.ProvisioningRoleArn)
-	d.Set("template_body", output.TemplateBody)
-
-	return nil
-}
-
-func resourceProvisioningTemplateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IoTConn(ctx)
-
-	if d.HasChange("template_body") {
+	d.Set("template_body", output.TemplateBody)	return nil
+}func resourceProvisioningTemplateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).IoTConn(ctx)	if d.HasChange("template_body") {
 		input := &iot.CreateProvisioningTemplateVersionInput{
 			SetAsDefault: aws.Bool(true),
 			TemplateBody: aws.String(d.Get("template_body").(string)),
 			TemplateName: aws.String(d.Id()),
-		}
-
-		log.Printf("[DEBUG] Creating IoT Provisioning Template version: %s", input)
-		_, err := conn.CreateProvisioningTemplateVersionWithContext(ctx, input)
-
-		if err != nil {
+		}		log.Printf("[DEBUG] Creating IoT Provisioning Template version: %s", input)
+		_, err := conn.CreateProvisioningTemplateVersionWithContext(ctx, input)		if err != nil {
 			return diag.Errorf("creating IoT Provisioning Template (%s) version: %s", d.Id(), err)
 		}
-	}
-
-	if d.HasChanges("description", "enabled", "provisioning_role_arn") {
+	}	if d.HasChanges("description", "enabled", "provisioning_role_arn") {
 		input := &iot.UpdateProvisioningTemplateInput{
 			Description:aws.String(d.Get("description").(string)),
 			Enabled:aws.Bool(d.Get("enabled").(bool)),
 			ProvisioningRoleArn: aws.String(d.Get("provisioning_role_arn").(string)),
 			TemplateName:aws.String(d.Id()),
-		}
-
-		log.Printf("[DEBUG] Updating IoT Provisioning Template: %s", input)
+		}		log.Printf("[DEBUG] Updating IoT Provisioning Template: %s", input)
 		_, err := tfresource.RetryWhenAWSErrMessageContains(ctx, propagationTimeout,
 			func() (interface{}, error) {
 				return conn.UpdateProvisioningTemplateWithContext(ctx, input)
 			},
-			iot.ErrCodeInvalidRequestException, "The provisioning role cannot be assumed by AWS IoT")
-
-		if err != nil {
+			iot.ErrCodeInvalidRequestException, "The provisioning role cannot be assumed by AWS IoT")		if err != nil {
 			return diag.Errorf("updating IoT Provisioning Template (%s): %s", d.Id(), err)
 		}
-	}
-
-	return resourceProvisioningTemplateRead(ctx, d, meta)
-}
-
-func resourceProvisioningTemplateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).IoTConn(ctx)
-
-	log.Printf("[INFO] Deleting IoT Provisioning Template: %s", d.Id())
+	}	return resourceProvisioningTemplateRead(ctx, d, meta)
+}func resourceProvisioningTemplateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).IoTConn(ctx)	log.Printf("[INFO] Deleting IoT Provisioning Template: %s", d.Id())
 	_, err := conn.DeleteProvisioningTemplateWithContext(ctx, &iot.DeleteProvisioningTemplateInput{
 		TemplateName: aws.String(d.Id()),
-	})
-
-	if tfawserr.ErrCodeEquals(err, iot.ErrCodeResourceNotFoundException) {
+	})	if tfawserr.ErrCodeEquals(err, iot.ErrCodeResourceNotFoundException) {
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return diag.Errorf("deleting IoT Provisioning Template (%s): %s", d.Id(), err)
-	}
-
-	return nil
-}
-
-func flattenProvisioningHook(apiObject *iot.ProvisioningHook) map[string]interface{} {
+	}	return nil
+}func flattenProvisioningHook(apiObject *iot.ProvisioningHook) map[string]interface{} {
 	if apiObject == nil {
 		return nil
-	}
-
-	tfMap := map[string]interface{}{}
-
-	if v := apiObject.PayloadVersion; v != nil {
+	}	tfMap := map[string]interface{}{}	if v := apiObject.PayloadVersion; v != nil {
 		tfMap["payload_version"] = aws.StringValue(v)
-	}
-
-	if v := apiObject.TargetArn; v != nil {
+	}	if v := apiObject.TargetArn; v != nil {
 		tfMap["target_arn"] = aws.StringValue(v)
-	}
-
-	return tfMap
-}
-
-func expandProvisioningHook(tfMap map[string]interface{}) *iot.ProvisioningHook {
+	}	return tfMap
+}func expandProvisioningHook(tfMap map[string]interface{}) *iot.ProvisioningHook {
 	if tfMap == nil {
 		return nil
-	}
-
-	apiObject := &iot.ProvisioningHook{}
-
-	if v, ok := tfMap["payload_version"].(string); ok && v != "" {
+	}	apiObject := &iot.ProvisioningHook{}	if v, ok := tfMap["payload_version"].(string); ok && v != "" {
 		apiObject.PayloadVersion = aws.String(v)
-	}
-
-	if v, ok := tfMap["target_arn"].(string); ok && v != "" {
+	}	if v, ok := tfMap["target_arn"].(string); ok && v != "" {
 		apiObject.TargetArn = aws.String(v)
-	}
-
-	return apiObject
-}
-
-func FindProvisioningTemplateByName(ctx context.Context, conn *iot.IoT, name string) (*iot.DescribeProvisioningTemplateOutput, error) {
+	}	return apiObject
+}func FindProvisioningTemplateByName(ctx context.Context, conn *iot.IoT, name string) (*iot.DescribeProvisioningTemplateOutput, error) {
 	input := &iot.DescribeProvisioningTemplateInput{
 		TemplateName: aws.String(name),
-	}
-
-	output, err := conn.DescribeProvisioningTemplateWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, iot.ErrCodeResourceNotFoundException) {
+	}	output, err := conn.DescribeProvisioningTemplateWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, iot.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if output == nil {
+	}	if output == nil {
 		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output, nil
+	}	return output, nil
 }

@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package memorydb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package memorydb_testimport (
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/memorydb"
+"testing""github.com/aws/aws-sdk-go/service/memorydb"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccMemoryDBSnapshotDataSource_basic(t *testing.T) {
+)func TestAccMemoryDBSnapshotDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
 resourceName := "aws_memorydb_snapshot.test"
-dataSourceName := "data.aws_memorydb_snapshot.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_memorydb_snapshot.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -51,25 +41,17 @@ resource.TestCheckResourceAttr(dataSourceName, "tags.Test", "test"),
 },
 },
 })
-}
-
-func testAccSnapshotDataSourceConfig_basic(rName string) string {
+}func testAccSnapshotDataSourceConfig_basic(rName string) string {
 return acctest.ConfigCompose(
 testAccSnapshotConfigBase(rName),
 fmt.Sprintf(`
-resource "aws_kms_key" "test" {}
-
-resource "aws_memorydb_snapshot" "test" {
+resource "aws_kms_key" "test" {}resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
   kms_key_arn  = aws_kms_key.test.arn
-  name= %[1]q
-
-  tags = {
+  name= %[1]q  tags = {
 Test = "test"
   }
-}
-
-data "aws_memorydb_snapshot" "test" {
+}data "aws_memorydb_snapshot" "test" {
   name = aws_memorydb_snapshot.test.name
 }
 `, rName),

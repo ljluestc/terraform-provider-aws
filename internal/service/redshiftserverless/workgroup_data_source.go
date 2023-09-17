@@ -1,23 +1,13 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageredshiftserverless
-
-import(
-	"context"
-
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+//SPDX-License-Identifier:MPL-2.0packageredshiftserverlessimport(
+	"context"	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-//@SDKDataSource("aws_redshiftserverless_workgroup")
+)//@SDKDataSource("aws_redshiftserverless_workgroup")
 funcDataSourceWorkgroup()*schema.Resource{
 	return&schema.Resource{
-		ReadWithoutTimeout:dataSourceWorkgroupRead,
-
-		Schema:map[string]*schema.Schema{
+		ReadWithoutTimeout:dataSourceWorkgroupRead,		Schema:map[string]*schema.Schema{
 			"arn":{
 				Type:schema.TypeString,
 				Computed:true,
@@ -114,21 +104,11 @@ funcDataSourceWorkgroup()*schema.Resource{
 			},
 		},
 	}
-}
-
-funcdataSourceWorkgroupRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+}funcdataSourceWorkgroupRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-	workgroupName:=d.Get("workgroup_name").(string)
-
-	resource,err:=FindWorkgroupByName(ctx,conn,workgroupName)
-
-	iferr!=nil{
+	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)	workgroupName:=d.Get("workgroup_name").(string)	resource,err:=FindWorkgroupByName(ctx,conn,workgroupName)	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"readingRedshiftServerlessWorkgroup(%s):%s",workgroupName,err)
-	}
-
-	d.SetId(workgroupName)
+	}	d.SetId(workgroupName)
 	d.Set("arn",resource.WorkgroupArn)
 	iferr:=d.Set("endpoint",[]interface{}{flattenEndpoint(resource.Endpoint)});err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"settingendpoint:%s",err)
@@ -138,7 +118,5 @@ funcdataSourceWorkgroupRead(ctxcontext.Context,d*schema.ResourceData,metainterfa
 	d.Set("publicly_accessible",resource.PubliclyAccessible)
 	d.Set("security_group_ids",resource.SecurityGroupIds)
 	d.Set("subnet_ids",resource.SubnetIds)
-	d.Set("workgroup_id",resource.WorkgroupId)
-
-	returndiags
+	d.Set("workgroup_id",resource.WorkgroupId)	returndiags
 }

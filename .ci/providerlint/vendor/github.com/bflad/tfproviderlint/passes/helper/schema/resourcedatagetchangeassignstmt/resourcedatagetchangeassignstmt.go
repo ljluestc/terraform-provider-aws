@@ -1,14 +1,1 @@
-packageresourcedatagetchangeassignstmt
-
-import(
-	"github.com/bflad/tfproviderlint/helper/analysisutils"
-	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
-)
-
-varAnalyzer=analysisutils.ReceiverMethodAssignStmtAnalyzer(
-	"resourcedatagetchangeassignstmt",
-	schema.IsReceiverMethod,
-	schema.PackagePath,
-	schema.TypeNameResourceData,
-	"GetChange",
-)
+packageresourcedatagetchangeassignstmtimport(	"github.com/bflad/tfproviderlint/helper/analysisutils"	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema")varAnalyzer=analysisutils.ReceiverMethodAssignStmtAnalyzer(	"resourcedatagetchangeassignstmt",	schema.IsReceiverMethod,	schema.PackagePath,	schema.TypeNameResourceData,	"GetChange",)

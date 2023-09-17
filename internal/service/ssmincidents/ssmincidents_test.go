@@ -1,19 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ssmincidents_test
-
-import (
-	"testing"
-
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-// only one replication set resource can be active at once, so we must have serialised tests
+// SPDX-License-Identifier: MPL-2.0package ssmincidents_testimport (
+	"testing"	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+)// only one replication set resource can be active at once, so we must have serialised tests
 func TestAccSSMIncidents_serial(t *testing.T) {
-	t.Parallel()
-
-	testCases := map[string]map[string]func(t *testing.T){
+	t.Parallel()	testCases := map[string]map[string]func(t *testing.T){
 		"Replication Set Resource Tests": {
 			"basic":   testReplicationSet_basic,
 			"updateDefaultKey": testReplicationSet_updateRegionsWithoutCMK,
@@ -40,7 +30,5 @@ func TestAccSSMIncidents_serial(t *testing.T) {
 		"Response Plan Data Source Tests": {
 			"basic": testResponsePlanDataSource_basic,
 		},
-	}
-
-	acctest.RunSerialTests2Levels(t, testCases, 0)
+	}	acctest.RunSerialTests2Levels(t, testCases, 0)
 }

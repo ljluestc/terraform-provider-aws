@@ -1,18 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package route53resolver
-
-import (
-"testing"
-
-sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-)
-
-func TestValidResolverName(t *testing.T) {
-t.Parallel()
-
-cases := []struct {
+// SPDX-License-Identifier: MPL-2.0package route53resolverimport (
+"testing"sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+)func TestValidResolverName(t *testing.T) {
+t.Parallel()cases := []struct {
 Value    string
 ErrCount int
 }{

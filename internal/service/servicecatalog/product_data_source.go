@@ -1,31 +1,19 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicecatalog
-
-import (
+// SPDX-License-Identifier: MPL-2.0package servicecatalogimport (
 "context"
-"time"
-
-"github.com/aws/aws-sdk-go/aws"
+"time""github.com/aws/aws-sdk-go/aws"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-)
-
-// @SDKDataSource("aws_servicecatalog_product")
+)// @SDKDataSource("aws_servicecatalog_product")
 func DataSourceProduct() *schema.Resource {
 return &schema.Resource{
-ReadWithoutTimeout: dataSourceProductRead,
-
-Timeouts: &schema.ResourceTimeout{
+ReadWithoutTimeout: dataSourceProductRead,Timeouts: &schema.ResourceTimeout{
 Read: schema.DefaultTimeout(ProductReadTimeout),
-},
-
-Schema: map[string]*schema.Schema{
+},Schema: map[string]*schema.Schema{
 "arn": {
 Type:     schema.TypeString,
 Computed: true,
@@ -87,25 +75,13 @@ Computed: true,
 },
 },
 }
-}
-
-func dataSourceProductRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceProductRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)
-
-output, err := WaitProductReady(ctx, conn, d.Get("accept_language").(string), d.Get("id").(string), d.Timeout(schema.TimeoutRead))
-
-if err != nil {
+conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)output, err := WaitProductReady(ctx, conn, d.Get("accept_language").(string), d.Get("id").(string), d.Timeout(schema.TimeoutRead))if err != nil {
 return sdkdiag.AppendErrorf(diags, "describing Service Catalog Product: %s", err)
-}
-
-if output == nil || output.ProductViewDetail == nil || output.ProductViewDetail.ProductViewSummary == nil {
+}if output == nil || output.ProductViewDetail == nil || output.ProductViewDetail.ProductViewSummary == nil {
 return sdkdiag.AppendErrorf(diags, "getting Service Catalog Product: empty response")
-}
-
-pvs := output.ProductViewDetail.ProductViewSummary
-
-d.Set("arn", output.ProductViewDetail.ProductARN)
+}pvs := output.ProductViewDetail.ProductViewSummaryd.Set("arn", output.ProductViewDetail.ProductARN)
 if output.ProductViewDetail.CreatedTime != nil {
 d.Set("created_time", output.ProductViewDetail.CreatedTime.Format(time.RFC3339))
 }
@@ -118,15 +94,7 @@ d.Set("status", output.ProductViewDetail.Status)
 d.Set("support_description", pvs.SupportDescription)
 d.Set("support_email", pvs.SupportEmail)
 d.Set("support_url", pvs.SupportUrl)
-d.Set("type", pvs.Type)
-
-d.SetId(aws.StringValue(pvs.ProductId))
-
-ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-if err := d.Set("tags", KeyValueTags(ctx, output.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
+d.Set("type", pvs.Type)d.SetId(aws.StringValue(pvs.ProductId))ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfigif err := d.Set("tags", KeyValueTags(ctx, output.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting tags: %s", err)
-}
-
-return diags
+}return diags
 }

@@ -1,26 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshiftserverless_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package redshiftserverless_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/redshiftserverless"
+	"testing"	"github.com/aws/aws-sdk-go/service/redshiftserverless"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccRedshiftServerlessWorkgroupDataSource_basic(t *testing.T) {
+)func TestAccRedshiftServerlessWorkgroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_redshiftserverless_workgroup.test"
-	resourceName := "aws_redshiftserverless_workgroup.test"
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_redshiftserverless_workgroup.test"	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -53,20 +41,14 @@ func TestAccRedshiftServerlessWorkgroupDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccWorkgroupDataSourceConfig_basic(rName string) string {
+}func testAccWorkgroupDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
-}
-
-resource "aws_redshiftserverless_workgroup" "test" {
+}resource "aws_redshiftserverless_workgroup" "test" {
   namespace_name = aws_redshiftserverless_namespace.test.namespace_name
   workgroup_name = %[1]q
-}
-
-data "aws_redshiftserverless_workgroup" "test" {
+}data "aws_redshiftserverless_workgroup" "test" {
   workgroup_name = aws_redshiftserverless_workgroup.test.workgroup_name
 }
 `, rName)

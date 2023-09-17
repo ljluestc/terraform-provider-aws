@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iam
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iamimport (
 	"context"
 	"fmt"
-	"strings"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"strings"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/iam"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -16,13 +10,9 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKDataSource("aws_iam_openid_connect_provider")func DataSourceOpenIDConnectProvider() *schema.Resource {
+)// @SDKDataSource("aws_iam_openid_connect_provider")func DataSourceOpenIDConnectProvider() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceOpenIDConnectProviderRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceOpenIDConnectProviderRead,		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:schema.TypeString,
 				Optional:true,
@@ -52,69 +42,39 @@ import (
 		},
 	}
 }funcn := meta.(*conns.AWSClient).IAMConn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	input := &iam.GetOpenIDConnectProviderInput{}
-
-	if v, ok := d.GetOk("arn"); ok {
+	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig	input := &iam.GetOpenIDConnectProviderInput{}	if v, ok := d.GetOk("arn"); ok {
 		input.OpenIDConnectProviderArn = aws.String(v.(string))
 	} else if v, ok := d.GetOk("url"); ok {
-		url := v.(string)
-
-		oidcpEntry, err := dataSourceGetOpenIDConnectProviderByURL(ctx, conn, url)
+		url := v.(string)		oidcpEntry, err := dataSourceGetOpenIDConnectProviderByURL(ctx, conn, url)
 		if err != nil {
 			return diag.Errorf("finding IAM OIDC Provider by url (%s): %s", url, err)
-		}
-
-		if oidcpEntry == nil {
+		}		if oidcpEntry == nil {
 			return diag.Errorf("finding IAM OIDC Provider by url (%s): not found", url)
 		}
 		input.OpenIDConnectProviderArn = oidcpEntry.Arn
-	}
-
-	resp, err := conn.GetOpenIDConnectProviderWithContext(ctx, input)
-
-	if err != nil {
+	}	resp, err := conn.GetOpenIDConnectProviderWithContext(ctx, input)	if err != nil {
 		return diag.Errorf("reading IAM OIDC Provider: %s", err)
-	}
-
-	d.SetId(aws.StringValue(input.OpenIDConnectProviderArn))
+	}	d.SetId(aws.StringValue(input.OpenIDConnectProviderArn))
 	d.Set("arn", input.OpenIDConnectProviderArn)
 	d.Set("url", resp.Url)
 	d.Set("client_id_list", flex.FlattenStringList(resp.ClientIDList))
-	d.Set("thumbprint_list", flex.FlattenStringList(resp.ThumbprintList))
-
-	if err := d.Set("tags", KeyValueTags(ctx, resp.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
+	d.Set("thumbprint_list", flex.FlattenStringList(resp.ThumbprintList))	if err := d.Set("tags", KeyValueTags(ctx, resp.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
 		return diag.Errorf("setting tags: %s", err)
-	}
-
-	return nil
+	}	return nil
 }func dataSourceGetOpenIDConnectProviderByURL(ctx context.Context, conn *iam.IAM, url string) (*iam.OpenIDConnectProviderListEntry, error) {
 	func
-	input := &iam.ListOpenIDConnectProvidersInput{}
-
-	output, err := conn.ListOpenIDConnectProvidersWithContext(ctx, input)
-
-	if err != nil {
+	input := &iam.ListOpenIDConnectProvidersInput{}	output, err := conn.ListOpenIDConnectProvidersWithContext(ctx, input)	if err != nil {
 		return nil, err
-	}
-
-	for _, oidcp := range output.OpenIDConnectProviderList {
+	}	for _, oidcp := range output.OpenIDConnectProviderList {
 		if oidcp == nil {
 			continue
-		}
-
-		arnUrl, err := urlFromOpenIDConnectProviderARN(aws.StringValue(oidcp.Arn))
+		}		arnUrl, err := urlFromOpenIDConnectProviderARN(aws.StringValue(oidcp.Arn))
 		if err != nil {
 			return nil, err
-		}
-
-		if arnUrl == strings.TrimPrefix(url, "https://") {
+		}		if arnUrl == strings.TrimPrefix(url, "https://") {
 			return oidcp, nil
 		}
-	}
-
-	return result, nil
+	}	return result, nil
 }func urlFromOpenIDConnectProviderARN(arn string) (string, error) {
 	parts := strings.SplitN(arn, "/", 2)
 	functurn "", fmt.Errorf("reading OpenID Connect Provider expected the arn to be like: arn:PARTITION:iam::ACCOUNT:oidc-provider/URL but got: %s", arn)

@@ -1,12 +1,1 @@
-//Copyright2012GoogleInc.Allrightsreserved.
-//UseofthissourcecodeisgovernedbytheApache2.0
-//licensethatcanbefoundintheLICENSEfile.packageappengineimport(
-"fmt"
-"regexp""golang.org/x/net/context""google.golang.org/appengine/internal"
-)//Namespacereturnsareplacementcontextthatoperateswithinthegivennamespace.Namespace(ccontext.Context,namespacestring)(context.Context,error){
-if!validNamespace.MatchString(namespace){
-returnnil,fmt.Errorf("appengine:namespace%qdoesnotmatch/%s/",namespace,validNamespace)
-}
-returninternal.NamespacedContext(c,namespace),nil
-}//validNamespacematchesvalidnamespacenames.
-varvalidNamespace=regexp.MustCompile(`^[0-9A-Za-z._-]{0,100}$`)
+//Copyright2012GoogleInc.Allrightsreserved.//UseofthissourcecodeisgovernedbytheApache2.0//licensethatcanbefoundintheLICENSEfile.packageappengineimport("fmt""regexp""golang.org/x/net/context""google.golang.org/appengine/internal")//Namespacereturnsareplacementcontextthatoperateswithinthegivennamespace.Namespace(ccontext.Context,namespacestring)(context.Context,error){if!validNamespace.MatchString(namespace){returnnil,fmt.Errorf("appengine:namespace%qdoesnotmatch/%s/",namespace,validNamespace)}returninternal.NamespacedContext(c,namespace),nil}//validNamespacematchesvalidnamespacenames.varvalidNamespace=regexp.MustCompile(`^[0-9A-Za-z._-]{0,100}$`)

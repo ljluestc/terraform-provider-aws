@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/service/lightsail"
+	"testing"	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -23,9 +17,7 @@ func testAccLoadBalancerStickinessPolicy_basic(t *testing.T) {
 	resourceName := "aws_lightsail_lb_stickiness_policy.test"
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
 	cookieDuration := "150"
-	enabled := "true"
-
-	resource.Test(t, resource.TestCase{
+	enabled := "true"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -53,9 +45,7 @@ func testAccLoadBalancerStickinessPolicy_cookieDuration(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
 	cookieDuration1 := "200"
 	cookieDuration2 := "500"
-	enabled := "true"
-
-	resource.Test(t, resource.TestCase{
+	enabled := "true"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -93,9 +83,7 @@ func testAccLoadBalancerStickinessPolicy_enabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
 	cookieDuration := "200"
 	enabledTrue := "true"
-	enabledFalse := "false"
-
-	resource.Test(t, resource.TestCase{
+	enabledFalse := "false"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -132,9 +120,7 @@ func testAccLoadBalancerStickinessPolicy_disappears(t *testing.T) {
 	resourceName := "aws_lightsail_lb_stickiness_policy.test"
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
 	cookieDuration := "200"
-	enabled := "true"
-
-	resource.Test(t, resource.TestCase{
+	enabled := "true"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -160,25 +146,13 @@ func testAccCheckLoadBalancerStickinessPolicyExists(ctx context.Context, n strin
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return errors.New("No LightsailLoadBalancerStickinessPolicy ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		out, err := tflightsail.FindLoadBalancerStickinessPolicyById(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		out, err := tflightsail.FindLoadBalancerStickinessPolicyById(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		if out == nil {
+		}		if out == nil {
 			return fmt.Errorf("Load Balancer Stickiness Policy %q does not exist", rs.Primary.ID)
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccLoadBalancerStickinessPolicyConfig_basic(rName string, enabled string, cookieDuration string) string {

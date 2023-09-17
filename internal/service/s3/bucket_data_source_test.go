@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package s3_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package s3_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/s3"
+	"testing"	"github.com/aws/aws-sdk-go/service/s3"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
@@ -15,9 +9,7 @@ import (
 )func := acctest.Context(t)
 	bucketName := sdkacctest.RandomWithPrefix("tf-test-bucket")
 	region := acctest.Region()
-	hostedZoneID, _ := tfs3.HostedZoneIDForRegion(region)
-
-	resource.ParallelTest(t, resource.TestCase{
+	hostedZoneID, _ := tfs3.HostedZoneIDForRegion(region)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -37,9 +29,7 @@ import (
 		},
 	})
 }func TestAccS3BucketDataSource_website(t *testing.T) {
-	funcketName := sdkacctest.RandomWithPrefix("tf-test-bucket")
-
-	resource.ParallelTest(t, resource.TestCase{
+	funcketName := sdkacctest.RandomWithPrefix("tf-test-bucket")	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -58,18 +48,14 @@ import (
 }func testAccBucketDataSourceConfig_basic(bucketName string) string {
 	return fmt.Sprintf(`
 rfunccket = %[1]q
-}
-
-data "aws_s3_bucket" "bucket" {
+}data "aws_s3_bucket" "bucket" {
   bucket = aws_s3_bucket.bucket.id
 }
 `, bucketName)
 }func testAccBucketDataSourceConfig_website(bucketName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "bucket" {
- func
-
-resource "aws_s3_bucket_website_configuration" "test" {
+ funcresource "aws_s3_bucket_website_configuration" "test" {
   bucket = aws_s3_bucket.bucket.id
   index_document {
     suffix = "index.html"
@@ -77,9 +63,7 @@ resource "aws_s3_bucket_website_configuration" "test" {
   error_document {
     key = "error.html"
   }
-}
-
-data "aws_s3_bucket" "bucket" {
+}data "aws_s3_bucket" "bucket" {
   # Must have bucket website configured first
   bucket = aws_s3_bucket_website_configuration.test.id
 }

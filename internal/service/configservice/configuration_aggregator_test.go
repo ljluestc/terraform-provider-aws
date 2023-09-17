@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configservice_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package configservice_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/configservice"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,16 +11,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfconfig "github.com/hashicorp/terraform-provider-aws/internal/service/configservice"
-)
-
-func TestAccConfigServiceConfigurationAggregator_account(t *testing.T) {
+)func TestAccConfigServiceConfigurationAggregator_account(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ca configservice.ConfigurationAggregator
 	//Name is upper case on purpose to test https://github.com/hashicorp/terraform-provider-aws/issues/8432
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_config_configuration_aggregator.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_config_configuration_aggregator.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -54,15 +44,11 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccConfigServiceConfigurationAggregator_organization(t *testing.T) {
+}func TestAccConfigServiceConfigurationAggregator_organization(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ca configservice.ConfigurationAggregator
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_config_configuration_aggregator.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_config_configuration_aggregator.test"	resource.Test(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -86,14 +72,10 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccConfigServiceConfigurationAggregator_switch(t *testing.T) {
+}func TestAccConfigServiceConfigurationAggregator_switch(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_config_configuration_aggregator.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_config_configuration_aggregator.test"	resource.Test(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -115,15 +97,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccConfigServiceConfigurationAggregator_tags(t *testing.T) {
+}func TestAccConfigServiceConfigurationAggregator_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ca configservice.ConfigurationAggregator
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_config_configuration_aggregator.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_config_configuration_aggregator.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -164,15 +142,11 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccConfigServiceConfigurationAggregator_disappears(t *testing.T) {
+}func TestAccConfigServiceConfigurationAggregator_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ca configservice.ConfigurationAggregator
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_config_configuration_aggregator.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_config_configuration_aggregator.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -188,9 +162,7 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func testAccCheckConfigurationAggregatorName(n, desired string, obj *configservice.ConfigurationAggregator) resource.TestCheckFunc {
+}func testAccCheckConfigurationAggregatorName(n, desired string, obj *configservice.ConfigurationAggregator) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
@@ -201,20 +173,14 @@ if rs.Primary.Attributes["name"] != aws.StringValue(obj.ConfigurationAggregatorN
 }
 return nil
 	}
-}
-
-func testAccCheckConfigurationAggregatorExists(ctx context.Context, n string, obj *configservice.ConfigurationAggregator) resource.TestCheckFunc {
+}func testAccCheckConfigurationAggregatorExists(ctx context.Context, n string, obj *configservice.ConfigurationAggregator) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not Found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No config configuration aggregator ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)
 out, err := conn.DescribeConfigurationAggregatorsWithContext(ctx, &configservice.DescribeConfigurationAggregatorsInput{
 	ConfigurationAggregatorNames: []*string{aws.String(rs.Primary.Attributes["name"])},
 })
@@ -223,80 +189,44 @@ if err != nil {
 }
 if len(out.ConfigurationAggregators) < 1 {
 	return fmt.Errorf("No config configuration aggregator found when describing %q", rs.Primary.Attributes["name"])
-}
-
-ca := out.ConfigurationAggregators[0]
-*obj = *ca
-
-return nil
+}ca := out.ConfigurationAggregators[0]
+*obj = *careturn nil
 	}
-}
-
-func testAccCheckConfigurationAggregatorDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckConfigurationAggregatorDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_config_configuration_aggregator" {
 continue
-	}
-
-	resp, err := conn.DescribeConfigurationAggregatorsWithContext(ctx, &configservice.DescribeConfigurationAggregatorsInput{
+	}	resp, err := conn.DescribeConfigurationAggregatorsWithContext(ctx, &configservice.DescribeConfigurationAggregatorsInput{
 ConfigurationAggregatorNames: []*string{aws.String(rs.Primary.Attributes["name"])},
-	})
-
-	if err == nil {
+	})	if err == nil {
 if len(resp.ConfigurationAggregators) != 0 &&
 	aws.StringValue(resp.ConfigurationAggregators[0].ConfigurationAggregatorName) == rs.Primary.Attributes["name"] {
 	return fmt.Errorf("config configuration aggregator still exists: %s", rs.Primary.Attributes["name"])
 }
 	}
-}
-
-return nil
+}return nil
 	}
-}
-
-func testAccConfigurationAggregatorConfig_account(rName string) string {
+}func testAccConfigurationAggregatorConfig_account(rName string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-data "aws_region" "current" {}
-
-resource "aws_config_configuration_aggregator" "test" {
-  name = %[1]q
-
-  account_aggregation_source {
+data "aws_caller_identity" "current" {}data "aws_region" "current" {}resource "aws_config_configuration_aggregator" "test" {
+  name = %[1]q  account_aggregation_source {
     account_ids = [data.aws_caller_identity.current.account_id]
     regions     = [data.aws_region.current.name]
   }
 }
 `, rName)
-}
-
-func testAccConfigurationAggregatorConfig_organization(rName string) string {
+}func testAccConfigurationAggregatorConfig_organization(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {
   aws_service_access_principals = ["config.${data.aws_partition.current.dns_suffix}"]
-}
-
-resource "aws_config_configuration_aggregator" "test" {
-  depends_on = [aws_iam_role_policy_attachment.test, aws_organizations_organization.test]
-
-  name = %[1]q
-
-  organization_aggregation_source {
+}resource "aws_config_configuration_aggregator" "test" {
+  depends_on = [aws_iam_role_policy_attachment.test, aws_organizations_organization.test]  name = %[1]q  organization_aggregation_source {
     all_regions = true
     role_arn    = aws_iam_role.test.arn
   }
-}
-
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}data "aws_partition" "current" {}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -311,51 +241,29 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "test" {
+}resource "aws_iam_role_policy_attachment" "test" {
   role       = aws_iam_role.test.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSConfigRoleForOrganizations"
 }
 `, rName)
-}
-
-func testAccConfigurationAggregatorConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccConfigurationAggregatorConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-data "aws_region" "current" {}
-
-resource "aws_config_configuration_aggregator" "test" {
-  name = %[1]q
-
-  account_aggregation_source {
+data "aws_caller_identity" "current" {}data "aws_region" "current" {}resource "aws_config_configuration_aggregator" "test" {
+  name = %[1]q  account_aggregation_source {
     account_ids = [data.aws_caller_identity.current.account_id]
     regions     = [data.aws_region.current.name]
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccConfigurationAggregatorConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccConfigurationAggregatorConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-data "aws_region" "current" {}
-
-resource "aws_config_configuration_aggregator" "test" {
-  name = %[1]q
-
-  account_aggregation_source {
+data "aws_caller_identity" "current" {}data "aws_region" "current" {}resource "aws_config_configuration_aggregator" "test" {
+  name = %[1]q  account_aggregation_source {
     account_ids = [data.aws_caller_identity.current.account_id]
     regions     = [data.aws_region.current.name]
-  }
-
-  tags = {
+  }  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }

@@ -1,18 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package neptune
-
-import (
-"testing"
-
-sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-)
-
-func TestValidEventSubscriptionName(t *testing.T) {
-t.Parallel()
-
-cases := []struct {
+// SPDX-License-Identifier: MPL-2.0package neptuneimport (
+"testing"sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+)func TestValidEventSubscriptionName(t *testing.T) {
+t.Parallel()cases := []struct {
 Value    string
 ErrCount int
 }{
@@ -39,12 +29,8 @@ if len(errors) != tc.ErrCount {
 t.Fatalf("Expected the Neptune Event Subscription Name to trigger a validation error for %q", tc.Value)
 }
 }
-}
-
-func TestValidEventSubscriptionNamePrefix(t *testing.T) {
-t.Parallel()
-
-cases := []struct {
+}func TestValidEventSubscriptionNamePrefix(t *testing.T) {
+t.Parallel()cases := []struct {
 Value    string
 ErrCount int
 }{
@@ -71,12 +57,8 @@ if len(errors) != tc.ErrCount {
 t.Fatalf("Expected the Neptune Event Subscription Name Prefix to trigger a validation error for %q", tc.Value)
 }
 }
-}
-
-func TestValidParamGroupName(t *testing.T) {
-t.Parallel()
-
-cases := []struct {
+}func TestValidParamGroupName(t *testing.T) {
+t.Parallel()cases := []struct {
 Value    string
 ErrCount int
 }{
@@ -108,21 +90,13 @@ ErrCount: 1,
 Value:    sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
-}
-
-for _, tc := range cases {
-_, errors := validParamGroupName(tc.Value, "aws_neptune_cluster_parameter_group_name")
-
-if len(errors) != tc.ErrCount {
+}for _, tc := range cases {
+_, errors := validParamGroupName(tc.Value, "aws_neptune_cluster_parameter_group_name")if len(errors) != tc.ErrCount {
 t.Fatalf("Expected the Neptune Parameter Group Name to trigger a validation error for %q", tc.Value)
 }
 }
-}
-
-func TestValidParamGroupNamePrefix(t *testing.T) {
-t.Parallel()
-
-cases := []struct {
+}func TestValidParamGroupNamePrefix(t *testing.T) {
+t.Parallel()cases := []struct {
 Value    string
 ErrCount int
 }{
@@ -150,21 +124,13 @@ ErrCount: 1,
 Value:    sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
-}
-
-for _, tc := range cases {
-_, errors := validParamGroupNamePrefix(tc.Value, "aws_neptune_cluster_parameter_group_name")
-
-if len(errors) != tc.ErrCount {
+}for _, tc := range cases {
+_, errors := validParamGroupNamePrefix(tc.Value, "aws_neptune_cluster_parameter_group_name")if len(errors) != tc.ErrCount {
 t.Fatalf("Expected the Neptune Parameter Group Name to trigger a validation error for %q", tc.Value)
 }
 }
-}
-
-func TestValidSubnetGroupName(t *testing.T) {
-t.Parallel()
-
-cases := []struct {
+}func TestValidSubnetGroupName(t *testing.T) {
+t.Parallel()cases := []struct {
 Value    string
 ErrCount int
 }{
@@ -184,21 +150,13 @@ ErrCount: 1,
 Value:    sdkacctest.RandStringFromCharSet(300, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
-}
-
-for _, tc := range cases {
-_, errors := validSubnetGroupName(tc.Value, "aws_neptune_subnet_group")
-
-if len(errors) != tc.ErrCount {
+}for _, tc := range cases {
+_, errors := validSubnetGroupName(tc.Value, "aws_neptune_subnet_group")if len(errors) != tc.ErrCount {
 t.Fatalf("Expected the Neptune Subnet Group name to trigger a validation error")
 }
 }
-}
-
-func TestValidSubnetGroupNamePrefix(t *testing.T) {
-t.Parallel()
-
-cases := []struct {
+}func TestValidSubnetGroupNamePrefix(t *testing.T) {
+t.Parallel()cases := []struct {
 Value    string
 ErrCount int
 }{
@@ -214,12 +172,8 @@ ErrCount: 1,
 Value:    sdkacctest.RandStringFromCharSet(230, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
-}
-
-for _, tc := range cases {
-_, errors := validSubnetGroupNamePrefix(tc.Value, "aws_neptune_subnet_group")
-
-if len(errors) != tc.ErrCount {
+}for _, tc := range cases {
+_, errors := validSubnetGroupNamePrefix(tc.Value, "aws_neptune_subnet_group")if len(errors) != tc.ErrCount {
 t.Fatalf("Expected the Neptune Subnet Group name prefix to trigger a validation error")
 }
 }

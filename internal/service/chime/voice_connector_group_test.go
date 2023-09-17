@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package chime_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package chime_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/chime"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -16,16 +10,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfchime "github.com/hashicorp/terraform-provider-aws/internal/service/chime"
-)
-
-func TestAccChimeVoiceConnectorGroup_basic(t *testing.T) {
+)func TestAccChimeVoiceConnectorGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var voiceConnectorGroup *chime.VoiceConnectorGroup
-
-	vcgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_chime_voice_connector_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var voiceConnectorGroup *chime.VoiceConnectorGroup	vcgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_chime_voice_connector_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -50,16 +38,10 @@ func TestAccChimeVoiceConnectorGroup_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccChimeVoiceConnectorGroup_disappears(t *testing.T) {
+}func TestAccChimeVoiceConnectorGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var voiceConnectorGroup *chime.VoiceConnectorGroup
-
-	vcgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_chime_voice_connector_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var voiceConnectorGroup *chime.VoiceConnectorGroup	vcgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_chime_voice_connector_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -78,16 +60,10 @@ func TestAccChimeVoiceConnectorGroup_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccChimeVoiceConnectorGroup_update(t *testing.T) {
+}func TestAccChimeVoiceConnectorGroup_update(t *testing.T) {
 	ctx := acctest.Context(t)
-	var voiceConnectorGroup *chime.VoiceConnectorGroup
-
-	vcgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_chime_voice_connector_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var voiceConnectorGroup *chime.VoiceConnectorGroup	vcgName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_chime_voice_connector_group.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -118,71 +94,47 @@ func TestAccChimeVoiceConnectorGroup_update(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccVoiceConnectorGroupConfig_basic(name string) string {
+}func testAccVoiceConnectorGroupConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_chime_voice_connector" "chime" {
   name= "vc-%[1]s"
   require_encryption = true
-}
-
-resource "aws_chime_voice_connector_group" "test" {
-  name = "vcg-%[1]s"
-
-  connector {
+}resource "aws_chime_voice_connector_group" "test" {
+  name = "vcg-%[1]s"  connector {
     voice_connector_id = aws_chime_voice_connector.chime.id
     priority  = 1
   }
 }
 `, name)
-}
-
-func testAccVoiceConnectorGroupConfig_updated(name string) string {
+}func testAccVoiceConnectorGroupConfig_updated(name string) string {
 	return fmt.Sprintf(`
 resource "aws_chime_voice_connector" "chime" {
   name= "vc-%[1]s"
   require_encryption = false
-}
-
-resource "aws_chime_voice_connector_group" "test" {
-  name = "vcg-updated-%[1]s"
-
-  connector {
+}resource "aws_chime_voice_connector_group" "test" {
+  name = "vcg-updated-%[1]s"  connector {
     voice_connector_id = aws_chime_voice_connector.chime.id
     priority  = 10
   }
 }
 `, name)
-}
-
-func testAccCheckVoiceConnectorGroupExists(ctx context.Context, name string, vc *chime.VoiceConnectorGroup) resource.TestCheckFunc {
+}func testAccCheckVoiceConnectorGroupExists(ctx context.Context, name string, vc *chime.VoiceConnectorGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("not found: %s", name)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("no Chime voice connector group ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeConn(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeConn(ctx)
 		input := &chime.GetVoiceConnectorGroupInput{
 			VoiceConnectorGroupId: aws.String(rs.Primary.ID),
-		}
-
-		resp, err := conn.GetVoiceConnectorGroupWithContext(ctx, input)
+		}		resp, err := conn.GetVoiceConnectorGroupWithContext(ctx, input)
 		if err != nil || resp.VoiceConnectorGroup == nil {
 			return err
-		}
-
-		vc = resp.VoiceConnectorGroup
+		}		vc = resp.VoiceConnectorGroup
 		return nil
 	}
-}
-
-func testAccCheckVoiceConnectorGroupDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckVoiceConnectorGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_chime_voice_connector" {

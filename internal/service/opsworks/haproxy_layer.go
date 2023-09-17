@@ -1,22 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opsworks
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opsworksimport (
 "github.com/aws/aws-sdk-go/service/opsworks"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-)
-
-// @SDKResource("aws_opsworks_haproxy_layer", name="HAProxy Layer")
-// @Tags(identifierAttribute="arn")
-
-func ResourceHAProxyLayer() *schema.Resource {
+)// @SDKResource("aws_opsworks_haproxy_layer", name="HAProxy Layer")
+// @Tags(identifierAttribute="arn")func ResourceHAProxyLayer() *schema.Resource {
 layerType := &opsworksLayerType{
 TypeName:opsworks.LayerTypeLb,
-DefaultLayerName: "HAProxy",
-
-Attributes: map[string]*opsworksLayerTypeAttribute{
+DefaultLayerName: "HAProxy",Attributes: map[string]*opsworksLayerTypeAttribute{
 "healthcheck_method": {
 AttrName: opsworks.LayerAttributesKeysHaproxyHealthCheckMethod,
 Type:schema.TypeString,
@@ -49,7 +39,5 @@ Type:schema.TypeString,
 Default:  "opsworks",
 },
 },
-}
-
-return layerType.resourceSchema()
+}return layerType.resourceSchema()
 }

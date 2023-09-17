@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicediscovery_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package servicediscovery_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/servicediscovery"
+	"testing"	"github.com/aws/aws-sdk-go/service/servicediscovery"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
@@ -16,9 +10,7 @@ func TestAccServiceDiscoveryServiceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_service_discovery_service.test"
-	resourceName := "aws_service_discovery_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_service_discovery_service.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
@@ -47,9 +39,7 @@ func TestAccServiceDiscoveryServiceDataSource_private(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_service_discovery_service.test"
-	resourceName := "aws_service_discovery_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_service_discovery_service.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
@@ -78,9 +68,7 @@ func TestAccServiceDiscoveryServiceDataSource_public(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_service_discovery_service.test"
-	resourceName := "aws_service_discovery_service.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_service_discovery_service.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
@@ -109,18 +97,12 @@ func testAccServiceDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_http_namespace" "test" {
   name = %[1]q
-}
-
-resource "aws_service_discovery_service" "test" {
+}resource "aws_service_discovery_service" "test" {
   name= %[1]q
-  namespace_id = aws_service_discovery_http_namespace.test.id
-
-  tags = {
+  namespace_id = aws_service_discovery_http_namespace.test.id  tags = {
  Name = %[1]q
   }
-}
-
-data "aws_service_discovery_service" "test" {
+}data "aws_service_discovery_service" "test" {
   name= aws_service_discovery_service.test.name
   namespace_id = aws_service_discovery_http_namespace.test.id
 }
@@ -129,36 +111,22 @@ data "aws_service_discovery_service" "test" {
 func testAccServiceDataSourceConfig_private(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
+  cidr_block = "10.0.0.0/16"  tags = {
  Name = %[1]q
   }
-}
-
-resource "aws_service_discovery_private_dns_namespace" "test" {
+}resource "aws_service_discovery_private_dns_namespace" "test" {
   name = "%[1]s.test"
   vpc  = aws_vpc.test.id
-}
-
-resource "aws_service_discovery_service" "test" {
-  name = %[1]q
-
-  dns_config {
- namespace_id = aws_service_discovery_private_dns_namespace.test.id
-
- dns_records {
+}resource "aws_service_discovery_service" "test" {
+  name = %[1]q  dns_config {
+ namespace_id = aws_service_discovery_private_dns_namespace.test.id dns_records {
  5
  "A"
  }
-  }
-
-  health_check_custom_config {
+  }  health_check_custom_config {
  failure_threshold = 5
   }
-}
-
-data "aws_service_discovery_service" "test" {
+}data "aws_service_discovery_service" "test" {
   name= aws_service_discovery_service.test.name
   namespace_id = aws_service_discovery_private_dns_namespace.test.id
 }
@@ -168,32 +136,18 @@ func testAccServiceDataSourceConfig_public(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_public_dns_namespace" "test" {
   name = "%[1]s.test"
-}
-
-resource "aws_service_discovery_service" "test" {
-  name = %[1]q
-
-  description = "test"
-
-  dns_config {
- namespace_id = aws_service_discovery_public_dns_namespace.test.id
-
- dns_records {
+}resource "aws_service_discovery_service" "test" {
+  name = %[1]q  description = "test"  dns_config {
+ namespace_id = aws_service_discovery_public_dns_namespace.test.id dns_records {
  5
  "A"
- }
-
- routing_policy = "WEIGHTED"
-  }
-
-  health_check_config {
+ } routing_policy = "WEIGHTED"
+  }  health_check_config {
  failure_threshold = 5
  resource_path= "/path"
  type= "HTTP"
   }
-}
-
-data "aws_service_discovery_service" "test" {
+}data "aws_service_discovery_service" "test" {
   name= aws_service_discovery_service.test.name
   namespace_id = aws_service_discovery_public_dns_namespace.test.id
 }

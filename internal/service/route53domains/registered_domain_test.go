@@ -1,26 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package route53domains_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package route53domains_testimport (
 	"context"
 	"fmt"
 	"os"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/service/route53domains"
+	"testing"	"github.com/aws/aws-sdk-go-v2/service/route53domains"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccRoute53Domains_serial(t *testing.T) {
-	t.Parallel()
-
-	testCases := map[string]map[string]func(t *testing.T){
+)func TestAccRoute53Domains_serial(t *testing.T) {
+	t.Parallel()	testCases := map[string]map[string]func(t *testing.T){
 "RegisteredDomain": {
 	"tags":  testAccRegisteredDomain_tags,
 	"autoRenew":      testAccRegisteredDomain_autoRenew,
@@ -29,40 +19,20 @@ func TestAccRoute53Domains_serial(t *testing.T) {
 	"nameservers":    testAccRegisteredDomain_nameservers,
 	"transferLock":   testAccRegisteredDomain_transferLock,
 },
-	}
-
-	acctest.RunSerialTests2Levels(t, testCases, 0)
-}
-
-func testAccPreCheck(ctx context.Context, t *testing.T) {
-	acctest.PreCheckPartitionHasService(t, names.Route53DomainsEndpointID)
-
-	conn := acctest.Provider.Meta().(*conns.AWSClient).Route53DomainsClient(ctx)
-
-	input := &route53domains.ListDomainsInput{}
-
-	_, err := conn.ListDomains(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+	}	acctest.RunSerialTests2Levels(t, testCases, 0)
+}func testAccPreCheck(ctx context.Context, t *testing.T) {
+	acctest.PreCheckPartitionHasService(t, names.Route53DomainsEndpointID)	conn := acctest.Provider.Meta().(*conns.AWSClient).Route53DomainsClient(ctx)	input := &route53domains.ListDomainsInput{}	_, err := conn.ListDomains(ctx, input)	if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
 	}
-}
-
-func testAccRegisteredDomain_tags(t *testing.T) {
+}func testAccRegisteredDomain_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
 t.Skipf("Environment variable %s is not set", key)
-	}
-
-	resourceName := "aws_route53domains_registered_domain.test"
-
-	resource.Test(t, resource.TestCase{
+	}	resourceName := "aws_route53domains_registered_domain.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -92,19 +62,13 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccRegisteredDomain_autoRenew(t *testing.T) {
+}func testAccRegisteredDomain_autoRenew(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
 t.Skipf("Environment variable %s is not set", key)
-	}
-
-	resourceName := "aws_route53domains_registered_domain.test"
-
-	resource.Test(t, resource.TestCase{
+	}	resourceName := "aws_route53domains_registered_domain.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -124,19 +88,13 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccRegisteredDomain_contacts(t *testing.T) {
+}func testAccRegisteredDomain_contacts(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
 t.Skipf("Environment variable %s is not set", key)
-	}
-
-	resourceName := "aws_route53domains_registered_domain.test"
-
-	resource.Test(t, resource.TestCase{
+	}	resourceName := "aws_route53domains_registered_domain.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -228,19 +186,13 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccRegisteredDomain_contactPrivacy(t *testing.T) {
+}func testAccRegisteredDomain_contactPrivacy(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
 t.Skipf("Environment variable %s is not set", key)
-	}
-
-	resourceName := "aws_route53domains_registered_domain.test"
-
-	resource.Test(t, resource.TestCase{
+	}	resourceName := "aws_route53domains_registered_domain.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -264,19 +216,13 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccRegisteredDomain_nameservers(t *testing.T) {
+}func testAccRegisteredDomain_nameservers(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
 t.Skipf("Environment variable %s is not set", key)
-	}
-
-	resourceName := "aws_route53domains_registered_domain.test"
-
-	resource.Test(t, resource.TestCase{
+	}	resourceName := "aws_route53domains_registered_domain.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -309,19 +255,13 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccRegisteredDomain_transferLock(t *testing.T) {
+}func testAccRegisteredDomain_transferLock(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
 t.Skipf("Environment variable %s is not set", key)
-	}
-
-	resourceName := "aws_route53domains_registered_domain.test"
-
-	resource.Test(t, resource.TestCase{
+	}	resourceName := "aws_route53domains_registered_domain.test"	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -341,52 +281,36 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccCheckRegisteredDomainDestroy(s *terraform.State) error {
+}func testAccCheckRegisteredDomainDestroy(s *terraform.State) error {
 	return nil
-}
-
-func testAccRegisteredDomainConfig_tags1(domainName, tagKey1, tagValue1 string) string {
+}func testAccRegisteredDomainConfig_tags1(domainName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_route53domains_registered_domain" "test" {
-  domain_name = %[1]q
-
-  tags = {
+  domain_name = %[1]q  tags = {
     %[2]q = %[3]q
   }
 }
 `, domainName, tagKey1, tagValue1)
-}
-
-func testAccRegisteredDomainConfig_tags2(domainName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccRegisteredDomainConfig_tags2(domainName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_route53domains_registered_domain" "test" {
-  domain_name = %[1]q
-
-  tags = {
+  domain_name = %[1]q  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, domainName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccRegisteredDomainConfig_autoRenew(domainName string, autoRenew bool) string {
+}func testAccRegisteredDomainConfig_autoRenew(domainName string, autoRenew bool) string {
 	return fmt.Sprintf(`
 resource "aws_route53domains_registered_domain" "test" {
   domain_name = %[1]q
   auto_renew  = %[2]t
 }
 `, domainName, autoRenew)
-}
-
-func testAccRegisteredDomainConfig_contacts(domainName string) string {
+}func testAccRegisteredDomainConfig_contacts(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53domains_registered_domain" "test" {
-  domain_name = %[1]q
-
-  admin_contact {
+  domain_name = %[1]q  admin_contact {
     address_line_1    = "99 High Street"
     address_line_2    = "Flat 1a"
     city = "Little Nowhere"
@@ -399,9 +323,7 @@ resource "aws_route53domains_registered_domain" "test" {
     organization_name = "Support"
     phone_number      = "+44.123456789"
     zip_code = "ST1 1AB"
-  }
-
-  registrant_contact {
+  }  registrant_contact {
     address_line_1    = "100 Main Street"
     city = "New York City"
     contact_type      = "COMPANY"
@@ -413,9 +335,7 @@ resource "aws_route53domains_registered_domain" "test" {
     phone_number      = "+1.2025551234"
     state= "NY"
     zip_code = "10001"
-  }
-
-  tech_contact {
+  }  tech_contact {
     address_line_1 = "The Castle"
     city  = "Prague"
     contact_type   = "PERSON"
@@ -428,14 +348,10 @@ resource "aws_route53domains_registered_domain" "test" {
   }
 }
 `, domainName)
-}
-
-func testAccRegisteredDomainConfig_contactsUpdated(domainName string) string {
+}func testAccRegisteredDomainConfig_contactsUpdated(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53domains_registered_domain" "test" {
-  domain_name = %[1]q
-
-  admin_contact {
+  domain_name = %[1]q  admin_contact {
     address_line_1    = "101 2nd St #700"
     city = "San Francisco"
     contact_type      = "COMPANY"
@@ -448,9 +364,7 @@ resource "aws_route53domains_registered_domain" "test" {
     phone_number      = "+1.4155551234"
     state= "CA"
     zip_code = "94105"
-  }
-
-  registrant_contact {
+  }  registrant_contact {
     address_line_1    = "101 2nd St #700"
     city = "San Francisco"
     contact_type      = "COMPANY"
@@ -463,9 +377,7 @@ resource "aws_route53domains_registered_domain" "test" {
     phone_number      = "+1.4155551234"
     state= "CA"
     zip_code = "94105"
-  }
-
-  tech_contact {
+  }  tech_contact {
     address_line_1    = "101 2nd St #700"
     city = "San Francisco"
     contact_type      = "COMPANY"
@@ -481,64 +393,40 @@ resource "aws_route53domains_registered_domain" "test" {
   }
 }
 `, domainName)
-}
-
-func testAccRegisteredDomainConfig_contactPrivacy(domainName string, adminPrivacy, registrantPrivacy, techPrivacy bool) string {
+}func testAccRegisteredDomainConfig_contactPrivacy(domainName string, adminPrivacy, registrantPrivacy, techPrivacy bool) string {
 	return fmt.Sprintf(`
 resource "aws_route53domains_registered_domain" "test" {
-  domain_name = %[1]q
-
-  admin_privacy      = %[2]t
+  domain_name = %[1]q  admin_privacy      = %[2]t
   registrant_privacy = %[3]t
   tech_privacy       = %[4]t
 }
 `, domainName, adminPrivacy, registrantPrivacy, techPrivacy)
-}
-
-func testAccRegisteredDomainConfig_nameservers(domainName string) string {
+}func testAccRegisteredDomainConfig_nameservers(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53domains_registered_domain" "test" {
-  domain_name = %[1]q
-
-  name_server {
-    name = "ns1.%[1]s"
-
-    # Glue records are only applicable when the name server is a sub-domain.
+  domain_name = %[1]q  name_server {
+    name = "ns1.%[1]s"    # Glue records are only applicable when the name server is a sub-domain.
     glue_ips = ["1.1.1.1"]
-  }
-
-  name_server {
+  }  name_server {
     name = "ns2.worldnic.com"
   }
 }
 `, domainName)
-}
-
-func testAccRegisteredDomainConfig_nameserversUpdated(domainName string) string {
+}func testAccRegisteredDomainConfig_nameserversUpdated(domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53domains_registered_domain" "test" {
-  domain_name = %[1]q
-
-  name_server {
+  domain_name = %[1]q  name_server {
     name = "ns-195.awsdns-24.com"
-  }
-
-  name_server {
+  }  name_server {
     name = "ns-1632.awsdns-12.co.uk"
-  }
-
-  name_server {
+  }  name_server {
     name = "ns-874.awsdns-45.net"
-  }
-
-  name_server {
+  }  name_server {
     name = "ns-1118.awsdns-11.org"
   }
 }
 `, domainName)
-}
-
-func testAccRegisteredDomainConfig_transferLock(domainName string, transferLock bool) string {
+}func testAccRegisteredDomainConfig_transferLock(domainName string, transferLock bool) string {
 	return fmt.Sprintf(`
 resource "aws_route53domains_registered_domain" "test" {
   domain_name   = %[1]q

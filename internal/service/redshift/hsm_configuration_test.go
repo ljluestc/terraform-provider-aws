@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshift_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package redshift_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/redshift"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,14 +11,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfredshift "github.com/hashicorp/terraform-provider-aws/internal/service/redshift"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccRedshiftHSMConfiguration_basic(t *testing.T) {
+)func TestAccRedshiftHSMConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_redshift_hsm_configuration.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -47,14 +37,10 @@ func TestAccRedshiftHSMConfiguration_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftHSMConfiguration_tags(t *testing.T) {
+}func TestAccRedshiftHSMConfiguration_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_redshift_hsm_configuration.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -92,14 +78,10 @@ func TestAccRedshiftHSMConfiguration_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftHSMConfiguration_disappears(t *testing.T) {
+}func TestAccRedshiftHSMConfiguration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_redshift_hsm_configuration.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -115,54 +97,28 @@ func TestAccRedshiftHSMConfiguration_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckHSMConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckHSMConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_redshift_hsm_configuration" {
 				continue
-			}
-
-			_, err := tfredshift.FindHSMConfigurationByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfredshift.FindHSMConfigurationByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Redshift Hsm Configuration %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Redshift Hsm Configuration %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckHSMConfigurationExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckHSMConfigurationExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("not found: %s", name)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("Redshift Hsm Configuration is not set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-		_, err := tfredshift.FindHSMConfigurationByID(ctx, conn, rs.Primary.ID)
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)		_, err := tfredshift.FindHSMConfigurationByID(ctx, conn, rs.Primary.ID)		return err
 	}
-}
-
-func testAccHSMConfigurationConfig_basic(rName string) string {
+}func testAccHSMConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_redshift_hsm_configuration" "test" {
   description  = %[1]q
@@ -173,9 +129,7 @@ resource "aws_redshift_hsm_configuration" "test" {
   hsm_server_public_certificate = %[1]q
 }
 `, rName)
-}
-
-func testAccHSMConfigurationConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccHSMConfigurationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_redshift_hsm_configuration" "test" {
   description  = %[1]q
@@ -183,16 +137,12 @@ resource "aws_redshift_hsm_configuration" "test" {
   hsm_ip_address   = "10.0.0.1"
   hsm_partition_name   = "aws"
   hsm_partition_password= %[1]q
-  hsm_server_public_certificate = %[1]q
-
-  tags = {
+  hsm_server_public_certificate = %[1]q  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccHSMConfigurationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccHSMConfigurationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_redshift_hsm_configuration" "test" {
   description  = %[1]q
@@ -200,9 +150,7 @@ resource "aws_redshift_hsm_configuration" "test" {
   hsm_ip_address   = "10.0.0.1"
   hsm_partition_name   = "aws"
   hsm_partition_password= %[1]q
-  hsm_server_public_certificate = %[1]q
-
-  tags = {
+  hsm_server_public_certificate = %[1]q  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

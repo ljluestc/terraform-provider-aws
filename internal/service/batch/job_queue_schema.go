@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package batch
-
-import (
-"context"
-
-"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package batchimport (
+"context""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/service/batch"
 "github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 "github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
@@ -80,16 +74,10 @@ State  types.String`tfsdk:"state"`
 Tagstypes.Map `tfsdk:"tags"`
 TagsAlltypes.Map `tfsdk:"tags_all"`
 Timeouts  timeouts.Value `tfsdk:"timeouts"`
-}
-
-var jobQueueDataV0 resourceJobQueueDataV0
-
-resp.Diagnostics.Append(req.State.Get(ctx, &jobQueueDataV0)...)
+}var jobQueueDataV0 resourceJobQueueDataV0resp.Diagnostics.Append(req.State.Get(ctx, &jobQueueDataV0)...)
 if resp.Diagnostics.HasError() {
 return
-}
-
-jobQueueDataV2 := resourceJobQueueData{
+}jobQueueDataV2 := resourceJobQueueData{
 ComputeEnvironments: jobQueueDataV0.ComputeEnvironments,
 ID:jobQueueDataV0.ID,
 Name:jobQueueDataV0.Name,
@@ -98,12 +86,8 @@ State:  jobQueueDataV0.State,
 Tags:jobQueueDataV0.Tags,
 TagsAll:jobQueueDataV0.TagsAll,
 Timeouts:  jobQueueDataV0.Timeouts,
-}
-
-if jobQueueDataV0.SchedulingPolicyARN.ValueString() == "" {
+}if jobQueueDataV0.SchedulingPolicyARN.ValueString() == "" {
 jobQueueDataV2.SchedulingPolicyARN = fwtypes.ARNNull()
-}
-
-diags := resp.State.Set(ctx, jobQueueDataV2)
+}diags := resp.State.Set(ctx, jobQueueDataV2)
 resp.Diagnostics.Append(diags...)
 }

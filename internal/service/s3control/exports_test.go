@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package s3control
-
-// Exports for use in tests only.
+// SPDX-License-Identifier: MPL-2.0package s3control// Exports for use in tests only.
 var (
 	ResourceAccessPoint    = resourceAccessPoint
 	ResourceAccessPointPolicy    = resourceAccessPointPolicy

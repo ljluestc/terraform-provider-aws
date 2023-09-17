@@ -1,40 +1,22 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cognitoidp_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cognitoidp_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfopensearch "github.com/hashicorp/terraform-provider-aws/internal/service/opensearch"
-)
-
-const (
-	openSearchDomainMaxLen = 28
-
-	openSearchDomainPrefix    = "tf-acc-"
-	openSearchDomainPrefixLen = len(openSearchDomainPrefix)
-
-	openSearchDomainRemainderLen = openSearchDomainMaxLen - openSearchDomainPrefixLen
-)
-
-func randomOpenSearchDomainName() string {
+)const (
+	openSearchDomainMaxLen = 28	openSearchDomainPrefix    = "tf-acc-"
+	openSearchDomainPrefixLen = len(openSearchDomainPrefix)	openSearchDomainRemainderLen = openSearchDomainMaxLen - openSearchDomainPrefixLen
+)func randomOpenSearchDomainName() string {
 	return fmt.Sprintf(openSearchDomainPrefix+"%s", sdkacctest.RandString(openSearchDomainRemainderLen))
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_basic(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -87,15 +69,11 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_namePattern(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_namePattern(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -119,16 +97,10 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_enableRevocation(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_enableRevocation(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
-	rName := randomOpenSearchDomainName()
-
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := randomOpenSearchDomainName()	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -168,15 +140,11 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_accessTokenValidity(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_accessTokenValidity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -216,13 +184,9 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_accessTokenValidity_error(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_accessTokenValidity_error(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := randomOpenSearchDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := randomOpenSearchDomainName()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -242,15 +206,11 @@ ExpectError: regexache.MustCompile(`Attribute access_token_validity must have a 
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_idTokenValidity(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_idTokenValidity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -290,13 +250,9 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_idTokenValidity_error(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_idTokenValidity_error(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := randomOpenSearchDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := randomOpenSearchDomainName()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -316,15 +272,11 @@ ExpectError: regexache.MustCompile(`Attribute id_token_validity must have a dura
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_refreshTokenValidity(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_refreshTokenValidity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -364,13 +316,9 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_refreshTokenValidity_error(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_refreshTokenValidity_error(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := randomOpenSearchDomainName()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := randomOpenSearchDomainName()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -386,15 +334,11 @@ ExpectError: regexache.MustCompile(`Attribute refresh_token_validity must have a
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_tokenValidityUnits(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_tokenValidityUnits(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -456,15 +400,11 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_tokenValidityUnits_explicitDefaults(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_tokenValidityUnits_explicitDefaults(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -482,15 +422,11 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_tokenValidityUnits_AccessToken(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_tokenValidityUnits_AccessToken(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -536,15 +472,11 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_tokenValidityUnitsWTokenValidity(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_tokenValidityUnitsWTokenValidity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -592,15 +524,11 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_allFields(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_allFields(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -650,15 +578,11 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_allFieldsUpdatingOneField(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_allFieldsUpdatingOneField(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -711,16 +635,12 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_analyticsApplicationID(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_analyticsApplicationID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
 	resourceName := "aws_cognito_managed_user_pool_client.test"
-	pinpointResourceName := "aws_pinpoint_app.analytics"
-
-	resource.ParallelTest(t, resource.TestCase{
+	pinpointResourceName := "aws_pinpoint_app.analytics"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckIdentityProvider(ctx, t)
@@ -788,18 +708,12 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_analyticsWithARN(t *testing.T) {
-	t.Skip("this test hangs on deletion")
-
-	ctx := acctest.Context(t)
+}func TestAccCognitoIDPManagedUserPoolClient_analyticsWithARN(t *testing.T) {
+	t.Skip("this test hangs on deletion")	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
 	resourceName := "aws_cognito_managed_user_pool_client.test"
-	pinpointResourceName := "aws_pinpoint_app.analytics"
-
-	resource.ParallelTest(t, resource.TestCase{
+	pinpointResourceName := "aws_pinpoint_app.analytics"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheckIdentityProvider(ctx, t)
@@ -851,15 +765,11 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_authSessionValidity(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_authSessionValidity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -899,15 +809,11 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_Disappears_OpenSearchDomain(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_Disappears_OpenSearchDomain(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -923,15 +829,11 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_emptySets(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_emptySets(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -966,15 +868,11 @@ PlanOnly: true,
 	},
 },
 	})
-}
-
-func TestAccCognitoIDPManagedUserPoolClient_nulls(t *testing.T) {
+}func TestAccCognitoIDPManagedUserPoolClient_nulls(t *testing.T) {
 	ctx := acctest.Context(t)
 	var client cognitoidentityprovider.UserPoolClientType
 	rName := randomOpenSearchDomainName()
-	resourceName := "aws_cognito_managed_user_pool_client.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_cognito_managed_user_pool_client.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -1021,373 +919,241 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccManagedUserPoolClientBaseConfig(rName string) string {
+}func testAccManagedUserPoolClientBaseConfig(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_cognito_user_pool" "test" {
+data "aws_partition" "current" {}resource "aws_cognito_user_pool" "test" {
   name = %[1]q
-}
-
-resource "aws_cognito_user_pool_domain" "test" {
+}resource "aws_cognito_user_pool_domain" "test" {
   domain       = %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
-}
-
-resource "aws_cognito_identity_pool" "test" {
+}resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= %[1]q
-  allow_unauthenticated_identities = false
-
-  lifecycle {
+  allow_unauthenticated_identities = false  lifecycle {
     ignore_changes = [cognito_identity_providers]
   }
-}
-
-resource "aws_opensearch_domain" "test" {
-  domain_name = %[1]q
-
-  cognito_options {
+}resource "aws_opensearch_domain" "test" {
+  domain_name = %[1]q  cognito_options {
     enabled = true
     user_pool_id     = aws_cognito_user_pool.test.id
     identity_pool_id = aws_cognito_identity_pool.test.id
     role_arn= aws_iam_role.test.arn
-  }
-
-  ebs_options {
+  }  ebs_options {
     ebs_enabled = true
     volume_size = 10
-  }
-
-  depends_on = [
+  }  depends_on = [
     aws_cognito_user_pool_domain.test,
     aws_iam_role_policy_attachment.test,
-  ]
-
-  timeouts {
+  ]  timeouts {
     delete = "20m"
   }
-}
-
-resource "aws_iam_role" "test" {
+}resource "aws_iam_role" "test" {
   name= %[1]q
   path= "/service-role/"
   assume_role_policy = data.aws_iam_policy_document.test.json
-}
-
-data "aws_iam_policy_document" "test" {
+}data "aws_iam_policy_document" "test" {
   statement {
     sid     = ""
     actions = ["sts:AssumeRole"]
-    effect  = "Allow"
-
-    principals {
+    effect  = "Allow"    principals {
       type = "Service"
       identifiers = [
         "es.${data.aws_partition.current.dns_suffix}",
       ]
     }
   }
-}
-
-resource "aws_iam_role_policy_attachment" "test" {
+}resource "aws_iam_role_policy_attachment" "test" {
   role       = aws_iam_role.test.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonESCognitoAccess"
 }
 `, rName)
-}
-
-func testAccManagedUserPoolClientConfig_basic(rName string) string {
+}func testAccManagedUserPoolClientConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
   ]
 }
 `, rName))
-}
-
-func testAccManagedUserPoolClientConfig_namePattern(rName string) string {
+}func testAccManagedUserPoolClientConfig_namePattern(rName string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_pattern = %[1]q
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
   ]
 }
 `, rName))
-}
-
-func testAccManagedUserPoolClientConfig_revocation(rName string, revoke bool) string {
+}func testAccManagedUserPoolClientConfig_revocation(rName string, revoke bool) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  enable_token_revocation = %[2]t
+  ]  enable_token_revocation = %[2]t
 }
 `, rName, revoke))
-}
-
-func testAccManagedUserPoolClientConfig_accessTokenValidity(rName string, validity int) string {
+}func testAccManagedUserPoolClientConfig_accessTokenValidity(rName string, validity int) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  access_token_validity = %[2]d
+  ]  access_token_validity = %[2]d
 }
 `, rName, validity))
-}
-
-func testAccManagedUserPoolClientConfig_accessTokenValidityUnit(rName string, validity int, unit string) string {
+}func testAccManagedUserPoolClientConfig_accessTokenValidityUnit(rName string, validity int, unit string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  access_token_validity = %[2]d
-
-  token_validity_units {
+  ]  access_token_validity = %[2]d  token_validity_units {
     access_token = %[3]q
   }
 }
 `, rName, validity, unit))
-}
-
-func testAccManagedUserPoolClientConfig_idTokenValidity(rName string, validity int) string {
+}func testAccManagedUserPoolClientConfig_idTokenValidity(rName string, validity int) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  id_token_validity = %[2]d
+  ]  id_token_validity = %[2]d
 }
 `, rName, validity))
-}
-
-func testAccManagedUserPoolClientConfig_idTokenValidityUnit(rName string, validity int, unit string) string {
+}func testAccManagedUserPoolClientConfig_idTokenValidityUnit(rName string, validity int, unit string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  id_token_validity = %[2]d
-
-  token_validity_units {
+  ]  id_token_validity = %[2]d  token_validity_units {
     id_token = %[3]q
   }
 }
 `, rName, validity, unit))
-}
-
-func testAccManagedUserPoolClientConfig_refreshTokenValidity(rName string, refreshTokenValidity int) string {
+}func testAccManagedUserPoolClientConfig_refreshTokenValidity(rName string, refreshTokenValidity int) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  refresh_token_validity = %[2]d
+  ]  refresh_token_validity = %[2]d
 }
 `, rName, refreshTokenValidity))
-}
-
-func testAccManagedUserPoolClientConfig_refreshTokenValidityUnit(rName string, refreshTokenValidity int, unit string) string {
+}func testAccManagedUserPoolClientConfig_refreshTokenValidityUnit(rName string, refreshTokenValidity int, unit string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  refresh_token_validity = %[2]d
-
-  token_validity_units {
+  ]  refresh_token_validity = %[2]d  token_validity_units {
     refresh_token = %[3]q
   }
 }
 `, rName, refreshTokenValidity, unit))
-}
-
-func testAccManagedUserPoolClientConfig_tokenValidityUnits(rName, units string) string {
+}func testAccManagedUserPoolClientConfig_tokenValidityUnits(rName, units string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  token_validity_units {
+  ]  token_validity_units {
     access_token  = %[2]q
     id_token      = %[2]q
     refresh_token = %[2]q
   }
 }
 `, rName, units))
-}
-
-func testAccManagedUserPoolClientConfig_tokenValidityUnits_Unit(rName, unit, value string) string {
+}func testAccManagedUserPoolClientConfig_tokenValidityUnits_Unit(rName, unit, value string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  token_validity_units {
+  ]  token_validity_units {
     %[2]s = %[3]q
   }
 }
 `, rName, unit, value))
-}
-
-func testAccManagedUserPoolClientConfig_tokenValidityUnits_explicitDefaults(rName, value string) string {
+}func testAccManagedUserPoolClientConfig_tokenValidityUnits_explicitDefaults(rName, value string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  token_validity_units {
+  ]  token_validity_units {
     access_token  = "hours"
     id_token      = "hours"
     refresh_token = "days"
   }
 }
 `, rName, value))
-}
-
-func testAccManagedUserPoolClientConfig_tokenValidityUnitsTokenValidity(rName, units string) string {
+}func testAccManagedUserPoolClientConfig_tokenValidityUnitsTokenValidity(rName, units string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  id_token_validity = 1
-
-  token_validity_units {
+  ]  id_token_validity = 1  token_validity_units {
     access_token  = %[2]q
     id_token      = %[2]q
     refresh_token = %[2]q
   }
 }
 `, rName, units))
-}
-
-func testAccManagedUserPoolClientConfig_allFields(rName string, refreshTokenValidity int) string {
+}func testAccManagedUserPoolClientConfig_allFields(rName string, refreshTokenValidity int) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  explicit_auth_flows = ["ADMIN_NO_SRP_AUTH", "CUSTOM_AUTH_FLOW_ONLY", "USER_PASSWORD_AUTH"]
-
-  read_attributes  = ["email"]
-  write_attributes = ["email"]
-
-  refresh_token_validity        = %[2]d
-  prevent_user_existence_errors = "LEGACY"
-
-  allowed_oauth_flows   = ["code", "implicit"]
+  ]  explicit_auth_flows = ["ADMIN_NO_SRP_AUTH", "CUSTOM_AUTH_FLOW_ONLY", "USER_PASSWORD_AUTH"]  read_attributes  = ["email"]
+  write_attributes = ["email"]  refresh_token_validity        = %[2]d
+  prevent_user_existence_errors = "LEGACY"  allowed_oauth_flows   = ["code", "implicit"]
   allowed_oauth_flows_user_pool_client = "true"
-  allowed_oauth_scopes  = ["phone", "email", "openid", "profile", "aws.cognito.signin.user.admin"]
-
-  callback_urls        = ["https://www.example.com/redirect", "https://www.example.com/callback"]
+  allowed_oauth_scopes  = ["phone", "email", "openid", "profile", "aws.cognito.signin.user.admin"]  callback_urls        = ["https://www.example.com/redirect", "https://www.example.com/callback"]
   default_redirect_uri = "https://www.example.com/redirect"
   logout_urls = ["https://www.example.com/login"]
 }
 `, rName, refreshTokenValidity))
-}
-
-func testAccManagedUserPoolClientAnalyticsBaseConfig(rName string) string {
+}func testAccManagedUserPoolClientAnalyticsBaseConfig(rName string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_pinpoint_app" "analytics" {
+data "aws_caller_identity" "current" {}resource "aws_pinpoint_app" "analytics" {
   name = %[1]q
-}
-
-resource "aws_iam_role" "analytics" {
-  name = "%[1]s-analytics"
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "analytics" {
+  name = "%[1]s-analytics"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1402,13 +1168,9 @@ resource "aws_iam_role" "analytics" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "analytics" {
+}resource "aws_iam_role_policy" "analytics" {
   name = %[1]q
-  role = aws_iam_role.analytics.id
-
-  policy = <<-EOF
+  role = aws_iam_role.analytics.id  policy = <<-EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -1425,42 +1187,30 @@ resource "aws_iam_role_policy" "analytics" {
 EOF
 }
 `, rName))
-}
-
-func testAccManagedUserPoolClientConfig_analyticsApplicationID(rName string) string {
+}func testAccManagedUserPoolClientConfig_analyticsApplicationID(rName string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientAnalyticsBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  analytics_configuration {
+  ]  analytics_configuration {
     application_id = aws_pinpoint_app.analytics.application_id
     external_id    = %[1]q
     role_arn       = aws_iam_role.analytics.arn
   }
 }
 `, rName))
-}
-
-func testAccManagedUserPoolClientConfig_analyticsShareData(rName string) string {
+}func testAccManagedUserPoolClientConfig_analyticsShareData(rName string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientAnalyticsBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  analytics_configuration {
+  ]  analytics_configuration {
     application_id   = aws_pinpoint_app.analytics.application_id
     external_id      = %[1]q
     role_arn= aws_iam_role.analytics.arn
@@ -1468,77 +1218,53 @@ resource "aws_cognito_managed_user_pool_client" "test" {
   }
 }
 `, rName))
-}
-
-func testAccManagedUserPoolClientConfig_analyticsARN(rName string) string {
+}func testAccManagedUserPoolClientConfig_analyticsARN(rName string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientAnalyticsBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  analytics_configuration {
+  ]  analytics_configuration {
     application_arn = aws_pinpoint_app.analytics.arn
   }
 }
 `, rName))
-}
-
-func testAccManagedUserPoolClientConfig_analyticsARNShareData(rName string, share bool) string {
+}func testAccManagedUserPoolClientConfig_analyticsARNShareData(rName string, share bool) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientAnalyticsBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  analytics_configuration {
+  ]  analytics_configuration {
     application_arn  = aws_pinpoint_app.test.arn
     user_data_shared = %[2]t
   }
 }
 `, rName, share))
-}
-
-func testAccManagedUserPoolClientConfig_authSessionValidity(rName string, validity int) string {
+}func testAccManagedUserPoolClientConfig_authSessionValidity(rName string, validity int) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  auth_session_validity = %[2]d
+  ]  auth_session_validity = %[2]d
 }
 `, rName, validity))
-}
-
-func testAccManagedUserPoolClientConfig_emptySets(rName string) string {
+}func testAccManagedUserPoolClientConfig_emptySets(rName string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
-  ]
-
-  # allowed_oauth_flows and allowed_oauth_scopes cannot be empty:
+  ]  # allowed_oauth_flows and allowed_oauth_scopes cannot be empty:
   # > InvalidParameterException: AllowedOAuthFlows and AllowedOAuthScopes are
   # > required if user pool client is allowed to use OAuth flows.
   # callback_urls cannot be empty:
@@ -1551,17 +1277,13 @@ resource "aws_cognito_managed_user_pool_client" "test" {
   write_attributes    = []
 }
 `, rName))
-}
-
-func testAccManagedUserPoolClientConfig_nulls(rName string) string {
+}func testAccManagedUserPoolClientConfig_nulls(rName string) string {
 	return acctest.ConfigCompose(
 testAccManagedUserPoolClientBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_cognito_managed_user_pool_client" "test" {
   name_prefix  = "AmazonOpenSearchService-%[1]s"
-  user_pool_id = aws_cognito_user_pool.test.id
-
-  depends_on = [
+  user_pool_id = aws_cognito_user_pool.test.id  depends_on = [
     aws_opensearch_domain.test,
   ]
 }

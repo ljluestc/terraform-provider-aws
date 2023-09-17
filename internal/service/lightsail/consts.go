@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail
-
-const (
+// SPDX-License-Identifier: MPL-2.0package lightsailconst (
 	ResBucket
 	ResBucketAccessKeyket Access Key"
 	ResBucketResourceAccessesource Access"

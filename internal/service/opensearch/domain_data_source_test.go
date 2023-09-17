@@ -1,28 +1,18 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opensearch_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opensearch_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/opensearchservice"
+	"testing"	"github.com/aws/aws-sdk-go/service/opensearchservice"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 func TestAccOpenSearchDomainDataSource_Data_basic(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	rName := testAccRandomDomainName()
 	autoTuneStartAtTime := testAccGetValidStartAtTime(t, "24h")
 	datasourceName := "data.aws_opensearch_domain.test"
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -60,15 +50,11 @@ Check: resource.ComposeAggregateTestCheckFunc(
 func TestAccOpenSearchDomainDataSource_Data_advanced(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
-	ctx := acctest.Context(t)
+	}	ctx := acctest.Context(t)
 	rName := testAccRandomDomainName()
 	autoTuneStartAtTime := testAccGetValidStartAtTime(t, "24h")
 	datasourceName := "data.aws_opensearch_domain.test"
-	resourceName := "aws_opensearch_domain.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_opensearch_domain.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -105,21 +91,11 @@ Check: resource.ComposeAggregateTestCheckFunc(
 }
 func testAccDomainDataSourceConfig_basic(rName, autoTuneStartAtTime string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-locals {
+data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_identity" "current" {}locals {
   domain_substr = %[1]q
-}
-
-resource "aws_opensearch_domain" "test" {
+}resource "aws_opensearch_domain" "test" {
   domain_name    = local.domain_substr
-  engine_version = "Elasticsearch_7.10"
-
-  access_policies = <<POLICY
+  engine_version = "Elasticsearch_7.10"  access_policies = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -138,73 +114,41 @@ resource "aws_opensearch_domain" "test" {
     }
   ]
 }
-POLICY
-
-  auto_tune_options {
-    desired_state = "ENABLED"
-
-    maintenance_schedule {
+POLICY  auto_tune_options {
+    desired_state = "ENABLED"    maintenance_schedule {
       start_at = %[2]q
       duration {
         value = "2"
         unit  = "HOURS"
       }
       cron_expression_for_recurrence = "cron(0 0 ? * 1 *)"
-    }
-
-    rollback_on_disable = "NO_ROLLBACK"
-
-  }
-
-  cluster_config {
+    }    rollback_on_disable = "NO_ROLLBACK"  }  cluster_config {
     instance_count  = 2
-    dedicated_master_enabled = false
-
-    zone_awareness_config {
+    dedicated_master_enabled = false    zone_awareness_config {
       availability_zone_count = 2
-    }
-
-    zone_awareness_enabled = true
-  }
-
-  ebs_options {
+    }    zone_awareness_enabled = true
+  }  ebs_options {
     ebs_enabled = true
     iops        = 3000
     throughput  = 125
     volume_type = "gp3"
     volume_size = 20
-  }
-
-  snapshot_options {
+  }  snapshot_options {
     automated_snapshot_start_hour = 23
-  }
-
-  software_update_options {
+  }  software_update_options {
     auto_software_update_enabled = true
   }
-}
-
-data "aws_opensearch_domain" "test" {
+}data "aws_opensearch_domain" "test" {
   domain_name = aws_opensearch_domain.test.domain_name
 }
 `, rName, autoTuneStartAtTime)
 }
 func testAccDomainDataSourceConfig_advanced(rName, autoTuneStartAtTime string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-resource "aws_cloudwatch_log_group" "test" {
+data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_identity" "current" {}resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
-}
-
-resource "aws_cloudwatch_log_resource_policy" "test" {
-  policy_name = %[1]q
-
-  policy_document = <<CONFIG
+}resource "aws_cloudwatch_log_resource_policy" "test" {
+  policy_name = %[1]q  policy_document = <<CONFIG
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -223,36 +167,22 @@ resource "aws_cloudwatch_log_resource_policy" "test" {
   ]
 }
 CONFIG
-}
-
-resource "aws_security_group" "test" {
+}resource "aws_security_group" "test" {
   name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+  vpc_id = aws_vpc.test.id  tags = {
     Name = %[1]q
   }
-}
-
-resource "aws_security_group_rule" "test" {
+}resource "aws_security_group_rule" "test" {
   type        = "ingress"
   from_port   = 443
   to_port     = 443
   protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-
-  security_group_id = aws_security_group.test.id
-}
-
-locals {
+  cidr_blocks = ["0.0.0.0/0"]  security_group_id = aws_security_group.test.id
+}locals {
   domain_substr = %[1]q
-}
-
-resource "aws_opensearch_domain" "test" {
+}resource "aws_opensearch_domain" "test" {
   domain_name    = local.domain_substr
-  engine_version = "Elasticsearch_6.7"
-
-  access_policies = <<POLICY
+  engine_version = "Elasticsearch_6.7"  access_policies = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -264,65 +194,39 @@ resource "aws_opensearch_domain" "test" {
     }
   ]
 }
-POLICY
-
-  auto_tune_options {
-    desired_state = "ENABLED"
-
-    maintenance_schedule {
+POLICY  auto_tune_options {
+    desired_state = "ENABLED"    maintenance_schedule {
       start_at = %[2]q
       duration {
         value = "2"
         unit  = "HOURS"
       }
       cron_expression_for_recurrence = "cron(0 0 ? * 1 *)"
-    }
-
-    rollback_on_disable = "NO_ROLLBACK"
-  }
-
-  cluster_config {
+    }    rollback_on_disable = "NO_ROLLBACK"
+  }  cluster_config {
     instance_count  = 2
-    dedicated_master_enabled = false
-
-    zone_awareness_config {
+    dedicated_master_enabled = false    zone_awareness_config {
       availability_zone_count = 2
-    }
-
-    zone_awareness_enabled = true
-  }
-
-  ebs_options {
+    }    zone_awareness_enabled = true
+  }  ebs_options {
     ebs_enabled = true
     volume_type = "gp2"
     volume_size = 20
-  }
-
-  snapshot_options {
+  }  snapshot_options {
     automated_snapshot_start_hour = 23
-  }
-
-  log_publishing_options {
+  }  log_publishing_options {
     cloudwatch_log_group_arn = aws_cloudwatch_log_group.test.arn
     log_type  = "INDEX_SLOW_LOGS"
-  }
-
-  vpc_options {
+  }  vpc_options {
     security_group_ids = [aws_security_group.test.id]
     subnet_ids= aws_subnet.test[*].id
-  }
-
-  advanced_security_options {
+  }  advanced_security_options {
     enabled= false
     internal_user_database_enabled = false
-  }
-
-  tags = {
+  }  tags = {
     Domain = %[1]q
   }
-}
-
-data "aws_opensearch_domain" "test" {
+}data "aws_opensearch_domain" "test" {
   domain_name = aws_opensearch_domain.test.domain_name
 }
 `, rName, autoTuneStartAtTime))

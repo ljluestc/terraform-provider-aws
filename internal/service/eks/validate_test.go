@@ -1,18 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package eks
-
-import (
-"testing"
-
-sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-)
-
-func TestValidClusterName(t *testing.T) {
-t.Parallel()
-
-cases := []struct {
+// SPDX-License-Identifier: MPL-2.0package eksimport (
+"testing"sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+)func TestValidClusterName(t *testing.T) {
+t.Parallel()cases := []struct {
 Valuestring
 ErrCount int
 }{
@@ -52,12 +42,8 @@ ErrCount: 2,
 Value:sdkacctest.RandStringFromCharSet(101, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
-}
-
-for _, tc := range cases {
-_, errors := validClusterName(tc.Value, "cluster_name")
-
-if len(errors) != tc.ErrCount {
+}for _, tc := range cases {
+_, errors := validClusterName(tc.Value, "cluster_name")if len(errors) != tc.ErrCount {
 t.Fatalf("Expected the EKS Cluster Name to trigger a validation error: %s, expected %d, got %d errors", tc.Value, tc.ErrCount, len(errors))
 }
 }

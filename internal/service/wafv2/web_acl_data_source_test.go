@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafv2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package wafv2_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/wafv2"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,9 +11,7 @@ func TestAccWAFV2WebACLDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_web_acl.test"
-	datasourceName := "data.aws_wafv2_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	datasourceName := "data.aws_wafv2_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -46,20 +38,14 @@ func testAccWebACLDataSourceConfig_name(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_web_acl" "test" {
   name  = "%s"
-  scope = "REGIONAL"
-
-  default_action {
+  scope = "REGIONAL"  default_action {
     block {}
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-rule-metric-name"
     sampled_requests_enabled   = false
   }
-}
-
-data "aws_wafv2_web_acl" "test" {
+}data "aws_wafv2_web_acl" "test" {
   name  = aws_wafv2_web_acl.test.name
   scope = "REGIONAL"
 }
@@ -69,20 +55,14 @@ func testAccWebACLDataSourceConfig_nonExistent(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_web_acl" "test" {
   name  = "%s"
-  scope = "REGIONAL"
-
-  default_action {
+  scope = "REGIONAL"  default_action {
     block {}
-  }
-
-  visibility_config {
+  }  visibility_config {
     cloudwatch_metrics_enabled = false
     metric_name   = "friendly-rule-metric-name"
     sampled_requests_enabled   = false
   }
-}
-
-data "aws_wafv2_web_acl" "test" {
+}data "aws_wafv2_web_acl" "test" {
   name  = "tf-acc-test-does-not-exist"
   scope = "REGIONAL"
 }

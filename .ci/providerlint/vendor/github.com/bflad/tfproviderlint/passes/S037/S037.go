@@ -1,8 +1,1 @@
-packageS037
-
-import(
-	"github.com/bflad/tfproviderlint/helper/analysisutils"
-	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema"
-)
-
-varAnalyzer=analysisutils.SchemaAttributeReferencesAnalyzer("S037",schema.SchemaFieldExactlyOneOf)
+packageS037import(	"github.com/bflad/tfproviderlint/helper/analysisutils"	"github.com/bflad/tfproviderlint/helper/terraformtype/helper/schema")varAnalyzer=analysisutils.SchemaAttributeReferencesAnalyzer("S037",schema.SchemaFieldExactlyOneOf)

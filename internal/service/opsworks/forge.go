@@ -1,19 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opsworks
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opsworksimport (
 "fmt"
-"strconv"
-
-"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-)
-
-// This 
-function sorts List A to look like a list found in the tf file.
-
-func sortListBasedonTFFile(in []string, d *schema.ResourceData) ([]string, error) {
+"strconv""github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+)// Thisfunction sorts List A to look like a list found in the tf file.func sortListBasedonTFFile(in []string, d *schema.ResourceData) ([]string, error) {
 listName := "layer_ids"
 if attributeCount, ok := d.Get(listName + ".#").(int); ok {
 for i := 0; i < attributeCount; i++ {

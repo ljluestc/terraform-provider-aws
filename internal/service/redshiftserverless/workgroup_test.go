@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshiftserverless_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package redshiftserverless_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/redshiftserverless"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,14 +11,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfredshiftserverless "github.com/hashicorp/terraform-provider-aws/internal/service/redshiftserverless"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccRedshiftServerlessWorkgroup_basic(t *testing.T) {
+)func TestAccRedshiftServerlessWorkgroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_redshiftserverless_workgroup.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -48,14 +38,10 @@ func TestAccRedshiftServerlessWorkgroup_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftServerlessWorkgroup_baseCapacityAndPubliclyAccessible(t *testing.T) {
+}func TestAccRedshiftServerlessWorkgroup_baseCapacityAndPubliclyAccessible(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_redshiftserverless_workgroup.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -84,14 +70,10 @@ func TestAccRedshiftServerlessWorkgroup_baseCapacityAndPubliclyAccessible(t *tes
 			},
 		},
 	})
-}
-
-func TestAccRedshiftServerlessWorkgroup_configParameters(t *testing.T) {
+}func TestAccRedshiftServerlessWorkgroup_configParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_redshiftserverless_workgroup.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -174,14 +156,10 @@ func TestAccRedshiftServerlessWorkgroup_configParameters(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftServerlessWorkgroup_tags(t *testing.T) {
+}func TestAccRedshiftServerlessWorkgroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_redshiftserverless_workgroup.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -218,14 +196,10 @@ func TestAccRedshiftServerlessWorkgroup_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftServerlessWorkgroup_disappears(t *testing.T) {
+}func TestAccRedshiftServerlessWorkgroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_redshiftserverless_workgroup.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -241,91 +215,55 @@ func TestAccRedshiftServerlessWorkgroup_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckWorkgroupDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckWorkgroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_redshiftserverless_workgroup" {
 				continue
 			}
-			_, err := tfredshiftserverless.FindWorkgroupByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			_, err := tfredshiftserverless.FindWorkgroupByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Redshift Serverless Workgroup %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Redshift Serverless Workgroup %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckWorkgroupExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckWorkgroupExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("not found: %s", name)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("Redshift Serverless Workgroup ID is not set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-		_, err := tfredshiftserverless.FindWorkgroupByName(ctx, conn, rs.Primary.ID)
-
-		return err
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)		_, err := tfredshiftserverless.FindWorkgroupByName(ctx, conn, rs.Primary.ID)		return err
 	}
-}
-
-func testAccWorkgroupConfig_basic(rName string) string {
+}func testAccWorkgroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
-}
-
-resource "aws_redshiftserverless_workgroup" "test" {
+}resource "aws_redshiftserverless_workgroup" "test" {
   namespace_name = aws_redshiftserverless_namespace.test.namespace_name
   workgroup_name = %[1]q
 }
 `, rName)
-}
-
-func testAccWorkgroupConfig_baseCapacityAndPubliclyAccessible(rName string, baseCapacity int, publiclyAccessible bool) string {
+}func testAccWorkgroupConfig_baseCapacityAndPubliclyAccessible(rName string, baseCapacity int, publiclyAccessible bool) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
-}
-
-resource "aws_redshiftserverless_workgroup" "test" {
+}resource "aws_redshiftserverless_workgroup" "test" {
   namespace_name = aws_redshiftserverless_namespace.test.namespace_name
   workgroup_name = %[1]q
   base_capacity  = %[2]d
   publicly_accessible = %[3]t
 }
 `, rName, baseCapacity, publiclyAccessible)
-}
-
-func testAccWorkgroupConfig_configParameters(rName, maxQueryExecutionTime string) string {
+}func testAccWorkgroupConfig_configParameters(rName, maxQueryExecutionTime string) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
-}
-
-resource "aws_redshiftserverless_workgroup" "test" {
+}resource "aws_redshiftserverless_workgroup" "test" {
   namespace_name = aws_redshiftserverless_namespace.test.namespace_name
-  workgroup_name = %[1]q
-
-  config_parameter {
+  workgroup_name = %[1]q  config_parameter {
 parameter_key   = "datestyle"
 parameter_value = "ISO, MDY"
   }
@@ -355,36 +293,24 @@ parameter_value = "false"
   }
 }
 `, rName, maxQueryExecutionTime)
-}
-
-func testAccWorkgroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccWorkgroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
-}
-
-resource "aws_redshiftserverless_workgroup" "test" {
+}resource "aws_redshiftserverless_workgroup" "test" {
   namespace_name = aws_redshiftserverless_namespace.test.namespace_name
-  workgroup_name = %[1]q
-
-  tags = {
+  workgroup_name = %[1]q  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccWorkgroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccWorkgroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
-}
-
-resource "aws_redshiftserverless_workgroup" "test" {
+}resource "aws_redshiftserverless_workgroup" "test" {
   namespace_name = aws_redshiftserverless_namespace.test.namespace_name
-  workgroup_name = %[1]q
-
-  tags = {
+  workgroup_name = %[1]q  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

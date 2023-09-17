@@ -1,26 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package eks
-
-import (
+// SPDX-License-Identifier: MPL-2.0package eksimport (
 	"time"
-)
-
-const (
+)const (
 	IdentityProviderConfigTypeOIDC = "oidc"
-)
-
-const (
+)const (
 	ResourcesSecrets = "secrets"
-)
-
-func Resources_Values() []string {
+)func Resources_Values() []string {
 	return []string{
 		ResourcesSecrets,
 	}
-}
-
-const (
+}const (
 	propagationTimeout = 2 * time.Minute
 )

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package location_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package location_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/locationservice"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,14 +11,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflocation "github.com/hashicorp/terraform-provider-aws/internal/service/location"
-)
-
-func TestAccLocationPlaceIndex_basic(t *testing.T) {
+)func TestAccLocationPlaceIndex_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_place_index.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_place_index.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -52,14 +42,10 @@ func TestAccLocationPlaceIndex_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLocationPlaceIndex_disappears(t *testing.T) {
+}func TestAccLocationPlaceIndex_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_place_index.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_place_index.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -75,14 +61,10 @@ func TestAccLocationPlaceIndex_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLocationPlaceIndex_dataSourceConfigurationIntendedUse(t *testing.T) {
+}func TestAccLocationPlaceIndex_dataSourceConfigurationIntendedUse(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_place_index.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_place_index.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -111,14 +93,10 @@ func TestAccLocationPlaceIndex_dataSourceConfigurationIntendedUse(t *testing.T) 
 			},
 		},
 	})
-}
-
-func TestAccLocationPlaceIndex_description(t *testing.T) {
+}func TestAccLocationPlaceIndex_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_place_index.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_place_index.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -145,14 +123,10 @@ func TestAccLocationPlaceIndex_description(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccLocationPlaceIndex_tags(t *testing.T) {
+}func TestAccLocationPlaceIndex_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_location_place_index.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_location_place_index.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -190,88 +164,48 @@ func TestAccLocationPlaceIndex_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckPlaceIndexDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckPlaceIndexDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_location_place_index" {
 				continue
-			}
-
-			input := &locationservice.DescribePlaceIndexInput{
+			}			input := &locationservice.DescribePlaceIndexInput{
 				IndexName: aws.String(rs.Primary.ID),
-			}
-
-			output, err := conn.DescribePlaceIndexWithContext(ctx, input)
-
-			if tfawserr.ErrCodeEquals(err, locationservice.ErrCodeResourceNotFoundException) {
+			}			output, err := conn.DescribePlaceIndexWithContext(ctx, input)			if tfawserr.ErrCodeEquals(err, locationservice.ErrCodeResourceNotFoundException) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return fmt.Errorf("error getting Location Service Place Index (%s): %w", rs.Primary.ID, err)
-			}
-
-			if output != nil {
+			}			if output != nil {
 				return fmt.Errorf("Location Service Place Index (%s) still exists", rs.Primary.ID)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckPlaceIndexExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
+}func testAccCheckPlaceIndexExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-
-		if !ok {
+		rs, ok := s.RootModule().Resources[resourceName]		if !ok {
 			return fmt.Errorf("resource not found: %s", resourceName)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)
-
-		input := &locationservice.DescribePlaceIndexInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)		input := &locationservice.DescribePlaceIndexInput{
 			IndexName: aws.String(rs.Primary.ID),
-		}
-
-		_, err := conn.DescribePlaceIndexWithContext(ctx, input)
-
-		if err != nil {
+		}		_, err := conn.DescribePlaceIndexWithContext(ctx, input)		if err != nil {
 			return fmt.Errorf("error getting Location Service Place Index (%s): %w", rs.Primary.ID, err)
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccPlaceIndexConfig_basic(rName string) string {
+}func testAccPlaceIndexConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_location_place_index" "test" {
   data_source = "Here"
   index_name  = %[1]q
 }
 `, rName)
-}
-
-func testAccPlaceIndexConfig_configurationIntendedUse(rName, intendedUse string) string {
+}func testAccPlaceIndexConfig_configurationIntendedUse(rName, intendedUse string) string {
 	return fmt.Sprintf(`
 resource "aws_location_place_index" "test" {
-  data_source = "Here"
-
-  data_source_configuration {
+  data_source = "Here"  data_source_configuration {
     intended_use = %[2]q
-  }
-
-  index_name = %[1]q
+  }  index_name = %[1]q
 }
 `, rName, intendedUse)
-}
-
-func testAccPlaceIndexConfig_description(rName, description string) string {
+}func testAccPlaceIndexConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_location_place_index" "test" {
   data_source = "Here"
@@ -279,28 +213,20 @@ resource "aws_location_place_index" "test" {
   index_name  = %[1]q
 }
 `, rName, description)
-}
-
-func testAccPlaceIndexConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccPlaceIndexConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_location_place_index" "test" {
   data_source = "Here"
-  index_name  = %[1]q
-
-  tags = {
+  index_name  = %[1]q  tags = {
     %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccPlaceIndexConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccPlaceIndexConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_location_place_index" "test" {
   data_source = "Here"
-  index_name  = %[1]q
-
-  tags = {
+  index_name  = %[1]q  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }

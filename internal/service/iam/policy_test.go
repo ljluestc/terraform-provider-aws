@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iam_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iam_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/iam"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -21,9 +15,7 @@ import (
 	var out iam.Policy
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_iam_policy.test"
-	expectedPolicyText := `{"Statement":[{"Action":["ec2:Describe*"],"Effect":"Allow","Resource":"*"}],"Version":"2012-10-17"}`
-
-	resource.ParallelTest(t, resource.TestCase{
+	expectedPolicyText := `{"Statement":[{"Action":["ec2:Describe*"],"Effect":"Allow","Resource":"*"}],"Version":"2012-10-17"}`	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -52,9 +44,7 @@ import (
 }func TestAccIAMPolicy_description(t *testing.T) {
 	func out iam.Policy
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iam_policy.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iam_policy.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -77,9 +67,7 @@ import (
 }func TestAccIAMPolicy_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iam_policy.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iam_policy.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -120,9 +108,7 @@ import (
 }func TestAccIAMPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var out iam.Policy
-	funcourceName := "aws_iam_policy.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	funcourceName := "aws_iam_policy.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -226,15 +212,11 @@ funcource.ParallelTest(t, resource.TestCase{
 			},
 		},
 	})
-}
-
-// https://github.com/hashicorp/terraform-provider-aws/issues/28833func TestAccIAMPolicy_diffs(t *testing.T) {
+}// https://github.com/hashicorp/terraform-provider-aws/issues/28833func TestAccIAMPolicy_diffs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var out iam.Policy
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iam_policy.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iam_policy.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -319,53 +301,29 @@ funcource.ParallelTest(t, resource.TestCase{
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-	funceturn fmt.Errorf("No IAM Policy ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
-
-		output, err := tfiam.FindPolicyByARN(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}	funceturn fmt.Errorf("No IAM Policy ID is set")
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)		output, err := tfiam.FindPolicyByARN(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
 }func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iam_policy" {
 				continue
 			}
-func, err := tfiam.FindPolicyByARN(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+func, err := tfiam.FindPolicyByARN(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("IAM Policy %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("IAM Policy %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }func testAccPolicyConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   description = %q
-  name= %q
-
-  policy = <<EOF
+  name= %q  policy = <<EOF
 {
   "Version": "2012-10-17",
  func{
@@ -383,9 +341,7 @@ EOF
 }func testAccPolicyConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
-  name = %q
-
-  policy = <<EOF
+  name = %q  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -403,9 +359,7 @@ EOF
 }func testAccPolicyConfig_namePrefix(namePrefix string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
-  name_prefix = %q
-
-  policy = <<EOF
+  name_prefix = %q  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -424,9 +378,7 @@ EOF
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   name = %q
-  path = %q
-
-  policy = <<EOF
+  path = %q  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -451,9 +403,7 @@ resource "aws_iam_policy" "test" {
 }func testAccPolicyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
-  name = %q
-
-  policy = <<EOF
+  name = %q  policy = <<EOF
 {funcersion": "2012-10-17",
   "Statement": [
 {
@@ -464,9 +414,7 @@ resource "aws_iam_policy" "test" {
  func}
   ]
 }
-EOF
-
-  tags = {
+EOF  tags = {
 %[2]q = %[3]q
   }
 }
@@ -474,9 +422,7 @@ EOF
 }func testAccPolicyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
-  name = %q
-
-  policy = <<EOF
+  name = %q  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -488,9 +434,7 @@ resource "aws_iam_policy" "test" {
   "Resource": "*"
  func
 }
-EOF
-
-  tags = {
+EOF  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }
@@ -499,9 +443,7 @@ EOF
 }func testAccPolicyConfig_diffs(rName string, tags string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
-  name = %[1]q
-
-  policy = jsonencode({
+  name = %[1]q  policy = jsonencode({
 Id  = %[1]q
 Version = "2012-10-17"
 Statement = [{
@@ -558,9 +500,7 @@ Statement = [{
   ]
   Resource = "*"
 }]
-  })
-
-  %[2]s
+  })  %[2]s
 }
 `, rName, tags)
 }

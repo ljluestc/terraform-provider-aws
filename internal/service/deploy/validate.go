@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package deploy
-
-import (
+// SPDX-License-Identifier: MPL-2.0package deployimport (
 	"fmt"
 ) // validTagFilters confirms the "value" component of a tag filter is one of
 // AWS's three allowed types.

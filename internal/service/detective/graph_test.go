@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package detective_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package detective_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/aws"
+"testing""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/detective"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -20,9 +14,7 @@ tfdetective "github.com/hashicorp/terraform-provider-aws/internal/service/detect
 func testAccGraph_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var graphOutput detective.Graph
-resourceName := "aws_detective_graph.test"
-
-resource.Test(t, resource.TestCase{
+resourceName := "aws_detective_graph.test"resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckGraphDestroy(ctx),
@@ -46,9 +38,7 @@ ImportStateVerify: true,
 func testAccGraph_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var graph1, graph2 detective.Graph
-resourceName := "aws_detective_graph.test"
-
-resource.Test(t, resource.TestCase{
+resourceName := "aws_detective_graph.test"resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckGraphDestroy(ctx),
@@ -102,9 +92,7 @@ ImportStateVerify: true,
 func testAccGraph_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var graphOutput detective.Graph
-resourceName := "aws_detective_graph.test"
-
-resource.Test(t, resource.TestCase{
+resourceName := "aws_detective_graph.test"resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy: testAccCheckGraphDestroy(ctx),
@@ -123,29 +111,17 @@ ExpectNonEmptyPlan: true,
 }
 func testAccCheckGraphDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).DetectiveConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).DetectiveConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_detective_graph" {
 continue
-}
-
-resp, err := tfdetective.FindGraphByARN(ctx, conn, rs.Primary.ID)
-
-if tfawserr.ErrCodeEquals(err, detective.ErrCodeResourceNotFoundException) || resp == nil {
+}resp, err := tfdetective.FindGraphByARN(ctx, conn, rs.Primary.ID)if tfawserr.ErrCodeEquals(err, detective.ErrCodeResourceNotFoundException) || resp == nil {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
-}
-
-if resp != nil {
+}if resp != nil {
 return fmt.Errorf("detective graph %q still exists", rs.Primary.ID)
 }
-}
-
-return nil
+}return nil
 }
 }
 func testAccCheckGraphExists(ctx context.Context, resourceName string, graph *detective.Graph) resource.TestCheckFunc {
@@ -153,31 +129,19 @@ return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 return fmt.Errorf("not found: %s", resourceName)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).DetectiveConn(ctx)
-resp, err := tfdetective.FindGraphByARN(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).DetectiveConn(ctx)
+resp, err := tfdetective.FindGraphByARN(ctx, conn, rs.Primary.ID)if err != nil {
 return err
-}
-
-if resp == nil {
+}if resp == nil {
 return fmt.Errorf("detective graph %q does not exist", rs.Primary.ID)
-}
-
-*graph = *resp
-
-return nil
+}*graph = *respreturn nil
 }
 }
 func testAccCheckGraphNotRecreated(before, after *detective.Graph) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 if before, after := aws.StringValue(before.Arn), aws.StringValue(after.Arn); before != after {
 return fmt.Errorf("detective graph (%s/%s) recreated", before, after)
-}
-
-return nil
+}return nil
 }
 }
 func testAccGraphConfig_basic() string {

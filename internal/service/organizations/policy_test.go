@@ -20,10 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tforganizations "github.com/hashicorp/terraform-provider-aws/internal/service/organizations"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func testAccPolicy_basic(t *testing.T) {
+)func testAccPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.Policy
 	content1 := `{"Version": "2012-10-17", "Statement": { "Effect": "Allow", "Action": "*", "Resource": "*"}}`
@@ -32,8 +29,7 @@ func testAccPolicy_basic(t *testing.T) {
 	resourceName := "aws_organizations_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -79,8 +75,7 @@ func testAccPolicy_concurrent(t *testing.T) {
 	resourceName5 := "aws_organizations_policy.test5"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -97,18 +92,14 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) 
 			},
 		},
 	})
-}
-
-
-func testAccPolicy_description(t *testing.T) {
+}func testAccPolicy_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.Policy
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_organizations_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -135,18 +126,14 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) 
 			},
 		},
 	})
-}
-
-
-func testAccPolicy_tags(t *testing.T) {
+}func testAccPolicy_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.Policy
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_organizations_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -184,10 +171,7 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) 
 			},
 		},
 	})
-}
-
-
-func testAccPolicy_skipDestroy(t *testing.T) {
+}func testAccPolicy_skipDestroy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.Policy
 	content := `{"Version": "2012-10-17", "Statement": { "Effect": "Allow", "Action": "*", "Resource": "*"}}`
@@ -195,8 +179,7 @@ func testAccPolicy_skipDestroy(t *testing.T) {
 	resourceName := "aws_organizations_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyNoDestroy(ctx),
@@ -215,18 +198,14 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) 
 			},
 		},
 	})
-}
-
-
-func testAccPolicy_disappears(t *testing.T) {
+}func testAccPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var p organizations.Policy
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_organizations_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -241,10 +220,7 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) 
 			},
 		},
 	})
-}
-
-
-func testAccPolicy_type_AI_OPT_OUT(t *testing.T) {
+}func testAccPolicy_type_AI_OPT_OUT(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.Policy
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -253,8 +229,7 @@ func testAccPolicy_type_AI_OPT_OUT(t *testing.T) {
 	AiOptOutPolicyContent := `{ "services": { "rekognition": { "opt_out_policy": { "@@assign": "optOut" } }, "lex": { "opt_out_policy": { "@@assign": "optIn" } } } }`
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -274,10 +249,7 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) 
 			},
 		},
 	})
-}
-
-
-func testAccPolicy_type_Backup(t *testing.T) {
+}func testAccPolicy_type_Backup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.Policy
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -354,8 +326,7 @@ func testAccPolicy_type_Backup(t *testing.T) {
 }`, acctest.AlternateRegion(), acctest.Region(), acctest.Partition())
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -375,10 +346,7 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) 
 			},
 		},
 	})
-}
-
-
-func testAccPolicy_type_SCP(t *testing.T) {
+}func testAccPolicy_type_SCP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.Policy
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -386,8 +354,7 @@ func testAccPolicy_type_SCP(t *testing.T) {
 	serviceControlPolicyContent := `{"Version": "2012-10-17", "Statement": { "Effect": "Allow", "Action": "*", "Resource": "*"}}`
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -414,10 +381,7 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) 
 			},
 		},
 	})
-}
-
-
-func testAccPolicy_type_Tag(t *testing.T) {
+}func testAccPolicy_type_Tag(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.Policy
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -425,8 +389,7 @@ func testAccPolicy_type_Tag(t *testing.T) {
 	tagPolicyContent := `{ "tags": { "Product": { "tag_key": { "@@assign": "Product" }, "enforced_for": { "@@assign": [ "ec2:instance" ] } } } }`
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -446,18 +409,14 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) 
 			},
 		},
 	})
-}
-
-
-func testAccPolicy_importManagedPolicy(t *testing.T) {
+}func testAccPolicy_importManagedPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_organizations_policy.test"
 
 	resourceID := "p-FullAWSAccess"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:        
-func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -474,12 +433,8 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) 
 			},
 		},
 	})
-}
-
-
-func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
+}func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
+	returnfunc(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -504,13 +459,11 @@ func(s *terraform.State) error {
 	}
 }
 
-// testAccCheckPolicyNoDestroy is a variant of the CheckDestroy 
-function to be used when
+// testAccCheckPolicyNoDestroy is a variant of the CheckDestroyfunction to be used when
 // skip_destroy is true and the policy should still exist after destroy completes
 
 func testAccCheckPolicyNoDestroy(ctx context.Context) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -533,12 +486,8 @@ func(s *terraform.State) error {
 
 		return nil
 	}
-}
-
-
-func testAccCheckPolicyExists(ctx context.Context, n string, v *organizations.Policy) resource.TestCheckFunc {
-	return 
-func(s *terraform.State) error {
+}func testAccCheckPolicyExists(ctx context.Context, n string, v *organizations.Policy) resource.TestCheckFunc {
+	returnfunc(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -556,10 +505,7 @@ func(s *terraform.State) error {
 
 		return nil
 	}
-}
-
-
-func testAccPolicyConfig_description(rName, description string) string {
+}func testAccPolicyConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {}
 
@@ -581,10 +527,7 @@ EOF
   depends_on = [aws_organizations_organization.test]
 }
 `, description, rName)
-}
-
-
-func testAccPolicyConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccPolicyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {}
 
@@ -609,10 +552,7 @@ EOF
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-
-func testAccPolicyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccPolicyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {}
 
@@ -638,10 +578,7 @@ EOF
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-
-func testAccPolicyConfig_required(rName, content string) string {
+}func testAccPolicyConfig_required(rName, content string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {}
 
@@ -652,10 +589,7 @@ resource "aws_organizations_policy" "test" {
   depends_on = [aws_organizations_organization.test]
 }
 `, strconv.Quote(content), rName)
-}
-
-
-func testAccPolicyConfig_concurrent(rName string) string {
+}func testAccPolicyConfig_concurrent(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {}
 
@@ -744,10 +678,7 @@ EOF
   depends_on = [aws_organizations_organization.test]
 }
 `, rName)
-}
-
-
-func testAccPolicyConfig_type(rName, content, policyType string) string {
+}func testAccPolicyConfig_type(rName, content, policyType string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {}
 
@@ -759,10 +690,7 @@ resource "aws_organizations_policy" "test" {
   depends_on = [aws_organizations_organization.test]
 }
 `, strconv.Quote(content), rName, policyType)
-}
-
-
-func testAccPolicyConfig_skipDestroy(rName, content string) string {
+}func testAccPolicyConfig_skipDestroy(rName, content string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {}
 

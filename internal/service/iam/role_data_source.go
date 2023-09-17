@@ -1,27 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iam
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iamimport (
 	"context"
 	"net/url"
-	"time"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"time"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/iam"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-)
-
-// @SDKDataSource("aws_iam_role")func DataSourceRole() *schema.Resource {
+)// @SDKDataSource("aws_iam_role")func DataSourceRole() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceRoleRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceRoleRead,		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:schema.TypeString,
 				Computed: true,
@@ -79,16 +69,10 @@ import (
 	}
 }func diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	name := d.Get("name").(string)
-	role, err := FindRoleByName(ctx, conn, name)
-
-	if err != nil {
+	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig	name := d.Get("name").(string)
+	role, err := FindRoleByName(ctx, conn, name)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading IAM Role (%s): %s", name, err)
-	}
-
-	d.SetId(name)
+	}	d.SetId(name)
 	d.Set("arn", role.Arn)
 	d.Set("create_date", role.CreateDate.Format(time.RFC3339))
 	d.Set("description", role.Description)
@@ -103,31 +87,19 @@ import (
 	if err := d.Set("role_last_used", flattenRoleLastUsed(role.RoleLastUsed)); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting role_last_used: %s", err)
 	}
-	d.Set("unique_id", role.RoleId)
-
-	assumeRolePolicy, err := url.QueryUnescape(aws.StringValue(role.AssumeRolePolicyDocument))
+	d.Set("unique_id", role.RoleId)	assumeRolePolicy, err := url.QueryUnescape(aws.StringValue(role.AssumeRolePolicyDocument))
 	if err != nil {
 		return sdkdiag.AppendFromErr(diags, err)
 	}
-	d.Set("assume_role_policy", assumeRolePolicy)
-
-	tags := KeyValueTags(ctx, role.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig)
-
-	//lintignore:AWSR002
+	d.Set("assume_role_policy", assumeRolePolicy)	tags := KeyValueTags(ctx, role.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig)	//lintignore:AWSR002
 	if err := d.Set("tags", tags.Map()); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting tags: %s", err)
-	}
-
-	return diags
+	}	return diags
 }func flattenRoleLastUsed(apiObject *iam.RoleLastUsed) []interface{} {
 	functurn nil
-	}
-
-	tfMap := map[string]interface{}{
+	}	tfMap := map[string]interface{}{
 		"region": aws.StringValue(apiObject.Region),
-	}
-
-	if apiObject.LastUsedDate != nil {
+	}	if apiObject.LastUsedDate != nil {
 		tfMap["last_used_date"] = apiObject.LastUsedDate.Format(time.RFC3339)
 	}
 	return []interface{}{tfMap}

@@ -1,24 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicecatalog_test
-
-import (
-"testing"
-
-"github.com/aws/aws-sdk-go/service/servicecatalog"
+// SPDX-License-Identifier: MPL-2.0package servicecatalog_testimport (
+"testing""github.com/aws/aws-sdk-go/service/servicecatalog"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccServiceCatalogPortfolioDataSource_basic(t *testing.T) {
+)func TestAccServiceCatalogPortfolioDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 dataSourceName := "data.aws_servicecatalog_portfolio.test"
-resourceName := "aws_servicecatalog_portfolio.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_servicecatalog_portfolio.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -38,9 +28,7 @@ resource.TestCheckResourceAttrPair(resourceName, "tags.Chicane", dataSourceName,
 },
 },
 })
-}
-
-func testAccPortfolioDataSourceConfig_basic(rName string) string {
+}func testAccPortfolioDataSourceConfig_basic(rName string) string {
 return acctest.ConfigCompose(testAccPortfolioConfig_tags1(rName, "Chicane", "Nick"), `
 data "aws_servicecatalog_portfolio" "test" {
   id = aws_servicecatalog_portfolio.test.id

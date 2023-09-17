@@ -17,16 +17,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	tfemr "github.com/hashicorp/terraform-provider-aws/internal/service/emr"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-
-func TestAccEMRBlockPublicAccessConfiguration_basic(t *testing.T) {
+)func TestAccEMRBlockPublicAccessConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_block_public_access_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 	testAccPreCheck(ctx, t)
@@ -67,16 +63,12 @@ ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 	},
 },
 	})
-}
-
-
-func TestAccEMRBlockPublicAccessConfiguration_disappears(t *testing.T) {
+}func TestAccEMRBlockPublicAccessConfiguration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_block_public_access_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 	testAccPreCheck(ctx, t)
@@ -102,16 +94,12 @@ ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 	},
 },
 	})
-}
-
-
-func TestAccEMRBlockPublicAccessConfiguration_default(t *testing.T) {
+}func TestAccEMRBlockPublicAccessConfiguration_default(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_block_public_access_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 	testAccPreCheck(ctx, t)
@@ -139,16 +127,12 @@ ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 	},
 },
 	})
-}
-
-
-func TestAccEMRBlockPublicAccessConfiguration_enabledMultiRange(t *testing.T) {
+}func TestAccEMRBlockPublicAccessConfiguration_enabledMultiRange(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_block_public_access_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 	testAccPreCheck(ctx, t)
@@ -178,13 +162,9 @@ ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 	},
 },
 	})
-}
-
-
-func testAccCheckBlockPublicAccessConfigurationDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckBlockPublicAccessConfigurationDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -215,13 +195,9 @@ return fmt.Errorf("Port 22 is not open as a permitted public security group rule
 
 return nil
 	}
-}
-
-
-func testAccCheckBlockPublicAccessConfigurationAttributes_enabledOnly(ctx context.Context, name string) resource.TestCheck
+}func testAccCheckBlockPublicAccessConfigurationAttributes_enabledOnly(ctx context.Context, name string) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return create.Error(names.EMR, create.ErrActionCheckingExistence, tfemr.ResNameBlockPublicAccessConfiguration, name, errors.New("not found"))
@@ -247,13 +223,9 @@ if length := len(permittedPublicSecurityGroupRuleRanges); length != 0 {
 
 return nil
 	}
-}
-
-
-func testAccCheckBlockPublicAccessConfigurationAttributes_default(ctx context.Context, name string) resource.TestCheck
+}func testAccCheckBlockPublicAccessConfigurationAttributes_default(ctx context.Context, name string) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 
 rs, ok := s.RootModule().Resources[name]
@@ -283,13 +255,9 @@ if p := permittedPublicSecurityGroupRuleRanges; !((*p[0].MinRange == 22 && *p[0]
 
 return nil
 	}
-}
-
-
-func testAccCheckBlockPublicAccessConfigurationAttributes_enabledMultiRange(ctx context.Context, name string) resource.TestCheck
+}func testAccCheckBlockPublicAccessConfigurationAttributes_enabledMultiRange(ctx context.Context, name string) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return create.Error(names.EMR, create.ErrActionCheckingExistence, tfemr.ResNameBlockPublicAccessConfiguration, name, errors.New("not found"))
@@ -321,13 +289,9 @@ if p := permittedPublicSecurityGroupRuleRanges; !((*p[0].MinRange == 100 && *p[0
 
 return nil
 	}
-}
-
-
-func testAccCheckBlockPublicAccessConfigurationAttributes_disabled(ctx context.Context, name string) resource.TestCheck
+}func testAccCheckBlockPublicAccessConfigurationAttributes_disabled(ctx context.Context, name string) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return create.Error(names.EMR, create.ErrActionCheckingExistence, tfemr.ResNameBlockPublicAccessConfiguration, name, errors.New("not found"))
@@ -352,10 +316,7 @@ if length := len(permittedPublicSecurityGroupRuleRanges); length != 0 {
 }
 return nil
 	}
-}
-
-
-func testAccPreCheck(ctx context.Context, t *testing.T) {
+}func testAccPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 
 	input := &emr.GetBlockPublicAccessConfigurationInput{}
@@ -368,10 +329,7 @@ t.Skipf("skipping acceptance testing: %s", err)
 	if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
 	}
-}
-
-
-func testAccBlockPublicAccessConfigurationConfig_basic(enabled bool) string {
+}func testAccBlockPublicAccessConfigurationConfig_basic(enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_emr_block_public_access_configuration" "test" {
   block_public_security_group_rules = %[1]t

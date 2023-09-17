@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elb_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/elb"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,18 +11,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfelb "github.com/hashicorp/terraform-provider-aws/internal/service/elb"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func TestAccELBPolicy_basic(t *testing.T) {
+)func TestAccELBPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
 	resourceName := "aws_load_balancer_policy.test-policy"
-	rInt := sdkacctest.RandInt()
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+	rInt := sdkacctest.RandInt()	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -42,18 +30,12 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccELBPolicy_disappears(t *testing.T) {
+}func TestAccELBPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
 	resourceName := "aws_load_balancer_policy.test-policy"
-	rInt := sdkacctest.RandInt()
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+	rInt := sdkacctest.RandInt()	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -69,19 +51,13 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func TestAccELBPolicy_LBCookieStickinessPolicyType_computedAttributesOnly(t *testing.T) {
+}func TestAccELBPolicy_LBCookieStickinessPolicyType_computedAttributesOnly(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
 	resourceName := "aws_load_balancer_policy.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	policyTypeName := "LBCookieStickinessPolicyType"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+	policyTypeName := "LBCookieStickinessPolicyType"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -97,18 +73,12 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccELBPolicy_SSLNegotiationPolicyType_computedAttributesOnly(t *testing.T) {
+}func TestAccELBPolicy_SSLNegotiationPolicyType_computedAttributesOnly(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
 	resourceName := "aws_load_balancer_policy.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -124,18 +94,12 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccELBPolicy_SSLNegotiationPolicyType_customPolicy(t *testing.T) {
+}func TestAccELBPolicy_SSLNegotiationPolicyType_customPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
 	resourceName := "aws_load_balancer_policy.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -178,20 +142,14 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccELBPolicy_SSLSecurityPolicy_predefined(t *testing.T) {
+}func TestAccELBPolicy_SSLSecurityPolicy_predefined(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
 	resourceName := "aws_load_balancer_policy.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	predefinedSecurityPolicy := "ELBSecurityPolicy-TLS-1-2-2017-01"
-	predefinedSecurityPolicyUpdated := "ELBSecurityPolicy-2016-08"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+	predefinedSecurityPolicyUpdated := "ELBSecurityPolicy-2016-08"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -224,18 +182,12 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccELBPolicy_updateWhileAssigned(t *testing.T) {
+}func TestAccELBPolicy_updateWhileAssigned(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
 	resourceName := "aws_load_balancer_policy.test-policy"
-	rInt := sdkacctest.RandInt()
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+	rInt := sdkacctest.RandInt()	resource.ParallelTest(t, resource.TestCase{
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckPolicyDestroy(ctx),
@@ -256,283 +208,169 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccCheckPolicyExists(ctx context.Context, n string, v *elb.PolicyDescription) resource.TestCheck
+}func testAccCheckPolicyExists(ctx context.Context, n string, v *elb.PolicyDescription) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No ELB Classic Load Balancer Policy is set")
-}
-
-lbName, policyName, err := tfelb.PolicyParseResourceID(rs.Primary.ID)
-
-if err != nil {
+}lbName, policyName, err := tfelb.PolicyParseResourceID(rs.Primary.ID)if err != nil {
 	return err
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
-
-output, err := tfelb.FindLoadBalancerPolicyByTwoPartKey(ctx, conn, lbName, policyName)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)output, err := tfelb.FindLoadBalancerPolicyByTwoPartKey(ctx, conn, lbName, policyName)if err != nil {
 	return err
-}
-
-*output = *v
-
-return nil
+}*output = *vreturn nil
 	}
-}
-
-
-func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+	returnfunc(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_load_balancer_policy" {
 continue
-	}
-
-	lbName, policyName, err := tfelb.PolicyParseResourceID(rs.Primary.ID)
-
-	if err != nil {
+	}	lbName, policyName, err := tfelb.PolicyParseResourceID(rs.Primary.ID)	if err != nil {
 return err
-	}
-
-	_, err = tfelb.FindLoadBalancerPolicyByTwoPartKey(ctx, conn, lbName, policyName)
-
-	if tfresource.NotFound(err) {
+	}	_, err = tfelb.FindLoadBalancerPolicyByTwoPartKey(ctx, conn, lbName, policyName)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
+	}	return fmt.Errorf("ELB Classic Load Balancer Policy %s still exists", rs.Primary.ID)
+}return nil
 	}
-
-	return fmt.Errorf("ELB Classic Load Balancer Policy %s still exists", rs.Primary.ID)
-}
-
-return nil
-	}
-}
-
-
-func testAccPolicyConfig_basic(rInt int) string {
+}func testAccPolicyConfig_basic(rInt int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test-lb" {
   name= "test-lb-%[1]d"
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-
-  listener {
+  availability_zones = [data.aws_availability_zones.available.names[0]]  listener {
     instance_port     = 80
     instance_protocol = "http"
     lb_port  = 80
     lb_protocol       = "http"
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-acc-test"
   }
-}
-
-resource "aws_load_balancer_policy" "test-policy" {
+}resource "aws_load_balancer_policy" "test-policy" {
   load_balancer_name = aws_elb.test-lb.name
   policy_name        = "test-policy-%[1]d"
-  policy_type_name   = "AppCookieStickinessPolicyType"
-
-  policy_attribute {
+  policy_type_name   = "AppCookieStickinessPolicyType"  policy_attribute {
     name  = "CookieName"
     value = "magic_cookie"
   }
 }
 `, rInt))
-}
-
-
-func testAccPolicyConfig_typeNameOnly(rName, policyType string) string {
+}func testAccPolicyConfig_typeNameOnly(rName, policyType string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 resource "aws_elb" "test" {
   name= %[1]q
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-
-  listener {
+  availability_zones = [data.aws_availability_zones.available.names[0]]  listener {
     instance_port     = 80
     instance_protocol = "http"
     lb_port  = 80
     lb_protocol       = "http"
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-acc-test"
   }
-}
-
-resource "aws_load_balancer_policy" "test" {
+}resource "aws_load_balancer_policy" "test" {
   load_balancer_name = aws_elb.test.name
   policy_name        = %[1]q
   policy_type_name   = %[2]q
 }
 `, rName, policyType))
-}
-
-
-func testAccPolicyConfig_customSSLSecurity(rName, protocol, cipher string) string {
+}func testAccPolicyConfig_customSSLSecurity(rName, protocol, cipher string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test" {
   name= %[1]q
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-
-  listener {
+  availability_zones = [data.aws_availability_zones.available.names[0]]  listener {
     instance_port     = 80
     instance_protocol = "http"
     lb_port  = 80
     lb_protocol       = "http"
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-acc-test"
   }
-}
-
-resource "aws_load_balancer_policy" "test" {
+}resource "aws_load_balancer_policy" "test" {
   load_balancer_name = aws_elb.test.name
   policy_name        = %[1]q
-  policy_type_name   = "SSLNegotiationPolicyType"
-
-  policy_attribute {
+  policy_type_name   = "SSLNegotiationPolicyType"  policy_attribute {
     name  = %[2]q
     value = "true"
-  }
-
-  policy_attribute {
+  }  policy_attribute {
     name  = %[3]q
     value = "true"
   }
 }
 `, rName, protocol, cipher))
-}
-
-
-func testAccPolicyConfig_predefinedSSLSecurity(rName, securityPolicy string) string {
+}func testAccPolicyConfig_predefinedSSLSecurity(rName, securityPolicy string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test" {
   name= %[1]q
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-
-  listener {
+  availability_zones = [data.aws_availability_zones.available.names[0]]  listener {
     instance_port     = 80
     instance_protocol = "http"
     lb_port  = 80
     lb_protocol       = "http"
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-acc-test"
   }
-}
-
-resource "aws_load_balancer_policy" "test" {
+}resource "aws_load_balancer_policy" "test" {
   load_balancer_name = aws_elb.test.name
   policy_name        = %[1]q
-  policy_type_name   = "SSLNegotiationPolicyType"
-
-  policy_attribute {
+  policy_type_name   = "SSLNegotiationPolicyType"  policy_attribute {
     name  = "Reference-Security-Policy"
     value = %[2]q
   }
 }
 `, rName, securityPolicy))
-}
-
-
-func testAccPolicyConfig_updateWhileAssigned0(rInt int) string {
+}func testAccPolicyConfig_updateWhileAssigned0(rInt int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test-lb" {
   name= "test-lb-%[1]d"
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-
-  listener {
+  availability_zones = [data.aws_availability_zones.available.names[0]]  listener {
     instance_port     = 80
     instance_protocol = "http"
     lb_port  = 80
     lb_protocol       = "http"
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-acc-test"
   }
-}
-
-resource "aws_load_balancer_policy" "test-policy" {
+}resource "aws_load_balancer_policy" "test-policy" {
   load_balancer_name = aws_elb.test-lb.name
   policy_name        = "test-policy-%[1]d"
-  policy_type_name   = "AppCookieStickinessPolicyType"
-
-  policy_attribute {
+  policy_type_name   = "AppCookieStickinessPolicyType"  policy_attribute {
     name  = "CookieName"
     value = "magic_cookie"
   }
-}
-
-resource "aws_load_balancer_listener_policy" "test-lb-test-policy-80" {
+}resource "aws_load_balancer_listener_policy" "test-lb-test-policy-80" {
   load_balancer_name = aws_elb.test-lb.name
-  load_balancer_port = 80
-
-  policy_names = [
+  load_balancer_port = 80  policy_names = [
     aws_load_balancer_policy.test-policy.policy_name,
   ]
 }
 `, rInt))
-}
-
-
-func testAccPolicyConfig_updateWhileAssigned1(rInt int) string {
+}func testAccPolicyConfig_updateWhileAssigned1(rInt int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test-lb" {
   name= "test-lb-%[1]d"
-  availability_zones = [data.aws_availability_zones.available.names[0]]
-
-  listener {
+  availability_zones = [data.aws_availability_zones.available.names[0]]  listener {
     instance_port     = 80
     instance_protocol = "http"
     lb_port  = 80
     lb_protocol       = "http"
-  }
-
-  tags = {
+  }  tags = {
     Name = "tf-acc-test"
   }
-}
-
-resource "aws_load_balancer_policy" "test-policy" {
+}resource "aws_load_balancer_policy" "test-policy" {
   load_balancer_name = aws_elb.test-lb.name
   policy_name        = "test-policy-%[1]d"
-  policy_type_name   = "AppCookieStickinessPolicyType"
-
-  policy_attribute {
+  policy_type_name   = "AppCookieStickinessPolicyType"  policy_attribute {
     name  = "CookieName"
     value = "unicorn_cookie"
   }
-}
-
-resource "aws_load_balancer_listener_policy" "test-lb-test-policy-80" {
+}resource "aws_load_balancer_listener_policy" "test-lb-test-policy-80" {
   load_balancer_name = aws_elb.test-lb.name
-  load_balancer_port = 80
-
-  policy_names = [
+  load_balancer_port = 80  policy_names = [
     aws_load_balancer_policy.test-policy.policy_name,
   ]
 }

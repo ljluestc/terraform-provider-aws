@@ -21,10 +21,7 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/create"
 tfquicksight "github.com/hashicorp/terraform-provider-aws/internal/service/quicksight"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-
-func TestAccQuickSightFolder_basic(t *testing.T) {
+)func TestAccQuickSightFolder_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var folder quicksight.Folder
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -32,8 +29,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_quicksight_folder.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 },
@@ -59,10 +55,7 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-
-func TestAccQuickSightFolder_disappears(t *testing.T) {
+}func TestAccQuickSightFolder_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var folder quicksight.Folder
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -70,8 +63,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_quicksight_folder.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 },
@@ -90,10 +82,7 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-
-func TestAccQuickSightFolder_permissions(t *testing.T) {
+}func TestAccQuickSightFolder_permissions(t *testing.T) {
 ctx := acctest.Context(t)
 var folder quicksight.Folder
 resourceName := "aws_quicksight_folder.test"
@@ -101,8 +90,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
-func() { acctest.PreCheck(ctx, t) },
+PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:    testAccCheckFolderDestroy(ctx),
@@ -158,10 +146,7 @@ resource.TestCheckResourceAttr(resourceName, "permission.#", "0"),
 },
 },
 })
-}
-
-
-func TestAccQuickSightFolder_tags(t *testing.T) {
+}func TestAccQuickSightFolder_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var folder quicksight.Folder
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -169,8 +154,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_quicksight_folder.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 },
@@ -213,10 +197,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-
-func TestAccQuickSightFolder_parentFolder(t *testing.T) {
+}func TestAccQuickSightFolder_parentFolder(t *testing.T) {
 ctx := acctest.Context(t)
 var folder quicksight.Folder
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -228,8 +209,7 @@ parentName2 := rName + "-parent2"
 resourceName := "aws_quicksight_folder.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 },
@@ -260,10 +240,7 @@ acctest.CheckResourceAttrRegionalARN(resourceName, "parent_folder_arn", "quicksi
 },
 },
 })
-}
-
-
-func TestAccQuickSightFolder_parentFolderNested(t *testing.T) {
+}func TestAccQuickSightFolder_parentFolderNested(t *testing.T) {
 ctx := acctest.Context(t)
 var folder quicksight.Folder
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -275,8 +252,7 @@ parentName2 := rName + "-parent2"
 resourceName := "aws_quicksight_folder.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 },
@@ -307,13 +283,9 @@ acctest.CheckResourceAttrRegionalARN(resourceName, "parent_folder_arn", "quicksi
 },
 },
 })
-}
-
-
-func testAccCheckFolderDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckFolderDestroy(ctx context.Context) resource.TestCheck
 func {
-return 
-func(s *terraform.State) error {
+returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -336,13 +308,9 @@ return fmt.Errorf("QuickSight Folder (%s) still exists", rs.Primary.ID)
 
 return nil
 }
-}
-
-
-func testAccCheckFolderExists(ctx context.Context, name string, folder *quicksight.Folder) resource.TestCheck
+}func testAccCheckFolderExists(ctx context.Context, name string, folder *quicksight.Folder) resource.TestCheck
 func {
-return 
-func(s *terraform.State) error {
+returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameFolder, name, errors.New("not found"))
@@ -362,20 +330,14 @@ return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquick
 
 return nil
 }
-}
-
-
-func testAccFolderConfig_basic(rId, rName string) string {
+}func testAccFolderConfig_basic(rId, rName string) string {
 return fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
   name= %[2]q
 }
 `, rId, rName)
-}
-
-
-func testAccFolderConfigUserBase(rName string) string {
+}func testAccFolderConfigUserBase(rName string) string {
 return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 
@@ -391,10 +353,7 @@ resource "aws_quicksight_user" "test" {
   }
 }
 `, rName, acctest.DefaultEmailAddress)
-}
-
-
-func testAccFolderConfig_permissions(rId, rName string) string {
+}func testAccFolderConfig_permissions(rId, rName string) string {
 return acctest.ConfigCompose(
 testAccFolderConfigUserBase(rName),
 fmt.Sprintf(`
@@ -409,10 +368,7 @@ resource "aws_quicksight_folder" "test" {
   }
 }
 `, rId, rName))
-}
-
-
-func testAccFolderConfig_permissionsUpdate(rId, rName string) string {
+}func testAccFolderConfig_permissionsUpdate(rId, rName string) string {
 return acctest.ConfigCompose(
 testAccFolderConfigUserBase(rName),
 fmt.Sprintf(`
@@ -434,10 +390,7 @@ resource "aws_quicksight_folder" "test" {
   }
 }
 `, rId, rName))
-}
-
-
-func testAccFolderConfig_tags1(rId, rName, key1, value1 string) string {
+}func testAccFolderConfig_tags1(rId, rName, key1, value1 string) string {
 return fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
@@ -448,10 +401,7 @@ resource "aws_quicksight_folder" "test" {
   }
 }
 `, rId, rName, key1, value1)
-}
-
-
-func testAccFolderConfig_tags2(rId, rName, key1, value1, key2, value2 string) string {
+}func testAccFolderConfig_tags2(rId, rName, key1, value1, key2, value2 string) string {
 return fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
@@ -463,10 +413,7 @@ resource "aws_quicksight_folder" "test" {
   }
 }
 `, rId, rName, key1, value1, key2, value2)
-}
-
-
-func testAccFolderConfig_parentFolder(rId, rName, parentId, parentName string) string {
+}func testAccFolderConfig_parentFolder(rId, rName, parentId, parentName string) string {
 return fmt.Sprintf(`
 resource "aws_quicksight_folder" "parent" {
   folder_id = %[3]q
@@ -479,10 +426,7 @@ resource "aws_quicksight_folder" "test" {
   parent_folder_arn = aws_quicksight_folder.parent.arn
 }
 `, rId, rName, parentId, parentName)
-}
-
-
-func testAccFolderConfig_parentFolder2(rId, rName, parentId1, parentName1, parentId2, parentName2 string) string {
+}func testAccFolderConfig_parentFolder2(rId, rName, parentId1, parentName1, parentId2, parentName2 string) string {
 return fmt.Sprintf(`
 resource "aws_quicksight_folder" "parent" {
   folder_id = %[3]q

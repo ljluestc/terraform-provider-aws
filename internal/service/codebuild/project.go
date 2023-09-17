@@ -67,8 +67,7 @@ func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
 Type:     schema.TypeString,
 Optional: true,
 DiffSuppress
-func: 
-func(k, old, new string, d *schema.ResourceData) bool {
+func:func(k, old, new string, d *schema.ResourceData) bool {
 if old == d.Get("name") && new == "" {
 return true
 }
@@ -88,8 +87,7 @@ Optional: true,
 Type:     schema.TypeString,
 Optional: true,
 DiffSuppress
-func: 
-func(k, old, new string, d *schema.ResourceData) bool {
+func:func(k, old, new string, d *schema.ResourceData) bool {
 if d.Get("artifacts.0.type") == codebuild.ArtifactsTypeS3 {
 return old == codebuild.ArtifactNamespaceNone && new == ""
 }
@@ -102,8 +100,7 @@ func: validation.StringInSlice(codebuild.ArtifactNamespace_Values(), false),
 Type:     schema.TypeString,
 Optional: true,
 DiffSuppress
-func: 
-func(k, old, new string, d *schema.ResourceData) bool {
+func:func(k, old, new string, d *schema.ResourceData) bool {
 switch d.Get("artifacts.0.type") {
 case codebuild.ArtifactsTypeCodepipeline:
 return new == ""
@@ -742,10 +739,7 @@ return fmt.Errorf(`cache location is required when cache type is %q`, cacheType.
 verify.SetTagsDiff,
 ),
 }
-}
-
-
-func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -827,8 +821,7 @@ input.SecondarySourceVersions = expandProjectSecondarySourceVersions(v.(*schema.
 
 var resp *codebuild.CreateProjectOutput
 // Handle IAM eventual consistency
-err := retry.RetryContext(ctx, 5*time.Minute, 
-func() *retry.RetryError {
+err := retry.RetryContext(ctx, 5*time.Minute,func() *retry.RetryError {
 var err error
 
 resp, err = conn.CreateProjectWithContext(ctx, input)
@@ -870,10 +863,7 @@ return sdkdiag.AppendErrorf(diags, "updating CodeBuild project (%s) visibility: 
 }
 }
 return append(diags, resourceProjectRead(ctx, d, meta)...)
-}
-
-
-func expandProjectSecondarySourceVersions(ssv *schema.Set) []*codebuild.ProjectSourceVersion {
+}func expandProjectSecondarySourceVersions(ssv *schema.Set) []*codebuild.ProjectSourceVersion {
 sourceVersions := make([]*codebuild.ProjectSourceVersion, 0)
 
 rawSourceVersions := ssv.List()
@@ -887,20 +877,14 @@ sourceVersions = append(sourceVersions, &sourceVersion)
 }
 
 return sourceVersions
-}
-
-
-func expandProjectSourceVersion(data map[string]interface{}) codebuild.ProjectSourceVersion {
+}func expandProjectSourceVersion(data map[string]interface{}) codebuild.ProjectSourceVersion {
 sourceVersion := codebuild.ProjectSourceVersion{
 SourceIdentifier: aws.String(data["source_identifier"].(string)),
 SourceVersion:    aws.String(data["source_version"].(string)),
 }
 
 return sourceVersion
-}
-
-
-func expandProjectFileSystemLocations(d *schema.ResourceData) []*codebuild.ProjectFileSystemLocation {
+}func expandProjectFileSystemLocations(d *schema.ResourceData) []*codebuild.ProjectFileSystemLocation {
 fileSystemLocations := make([]*codebuild.ProjectFileSystemLocation, 0)
 
 configsList := d.Get("file_system_locations").(*schema.Set).List()
@@ -915,10 +899,7 @@ fileSystemLocations = append(fileSystemLocations, &art)
 }
 
 return fileSystemLocations
-}
-
-
-func expandProjectFileSystemLocation(data map[string]interface{}) codebuild.ProjectFileSystemLocation {
+}func expandProjectFileSystemLocation(data map[string]interface{}) codebuild.ProjectFileSystemLocation {
 projectFileSystemLocation := codebuild.ProjectFileSystemLocation{
 Type: aws.String(data["type"].(string)),
 }
@@ -940,10 +921,7 @@ projectFileSystemLocation.MountPoint = aws.String(data["mount_point"].(string))
 }
 
 return projectFileSystemLocation
-}
-
-
-func expandProjectSecondaryArtifacts(d *schema.ResourceData) []*codebuild.ProjectArtifacts {
+}func expandProjectSecondaryArtifacts(d *schema.ResourceData) []*codebuild.ProjectArtifacts {
 artifacts := make([]*codebuild.ProjectArtifacts, 0)
 
 configsList := d.Get("secondary_artifacts").(*schema.Set).List()
@@ -958,18 +936,12 @@ artifacts = append(artifacts, &art)
 }
 
 return artifacts
-}
-
-
-func expandProjectArtifacts(d *schema.ResourceData) codebuild.ProjectArtifacts {
+}func expandProjectArtifacts(d *schema.ResourceData) codebuild.ProjectArtifacts {
 configs := d.Get("artifacts").([]interface{})
 data := configs[0].(map[string]interface{})
 
 return expandProjectArtifactData(data)
-}
-
-
-func expandProjectArtifactData(data map[string]interface{}) codebuild.ProjectArtifacts {
+}func expandProjectArtifactData(data map[string]interface{}) codebuild.ProjectArtifacts {
 artifactType := data["type"].(string)
 
 projectArtifacts := codebuild.ProjectArtifacts{
@@ -1015,10 +987,7 @@ projectArtifacts.BucketOwnerAccess = aws.String(v)
 }
 
 return projectArtifacts
-}
-
-
-func expandProjectCache(s []interface{}) *codebuild.ProjectCache {
+}func expandProjectCache(s []interface{}) *codebuild.ProjectCache {
 var projectCache *codebuild.ProjectCache
 
 data := s[0].(map[string]interface{})
@@ -1039,10 +1008,7 @@ projectCache.Modes = flex.ExpandStringList(modesStrings)
 }
 
 return projectCache
-}
-
-
-func expandProjectEnvironment(d *schema.ResourceData) *codebuild.ProjectEnvironment {
+}func expandProjectEnvironment(d *schema.ResourceData) *codebuild.ProjectEnvironment {
 configs := d.Get("environment").([]interface{})
 
 envConfig := configs[0].(map[string]interface{})
@@ -1117,10 +1083,7 @@ projectEnv.EnvironmentVariables = projectEnvironmentVariables
 }
 
 return projectEnv
-}
-
-
-func expandProjectLogsConfig(d *schema.ResourceData) *codebuild.LogsConfig {
+}func expandProjectLogsConfig(d *schema.ResourceData) *codebuild.LogsConfig {
 logsConfig := &codebuild.LogsConfig{}
 
 if v, ok := d.GetOk("logs_config"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -1149,10 +1112,7 @@ Status: aws.String(codebuild.LogsConfigStatusTypeDisabled),
 }
 
 return logsConfig
-}
-
-
-func expandBuildBatchConfig(d *schema.ResourceData) *codebuild.ProjectBuildBatchConfig {
+}func expandBuildBatchConfig(d *schema.ResourceData) *codebuild.ProjectBuildBatchConfig {
 configs, ok := d.Get("build_batch_config").([]interface{})
 if !ok || len(configs) == 0 || configs[0] == nil {
 return nil
@@ -1174,10 +1134,7 @@ projectBuildBatchConfig.TimeoutInMins = aws.Int64(int64(v.(int)))
 }
 
 return projectBuildBatchConfig
-}
-
-
-func expandBatchRestrictions(data map[string]interface{}) *codebuild.BatchRestrictions {
+}func expandBatchRestrictions(data map[string]interface{}) *codebuild.BatchRestrictions {
 if v, ok := data["restrictions"]; !ok || len(v.([]interface{})) == 0 || v.([]interface{})[0] == nil {
 return nil
 }
@@ -1194,10 +1151,7 @@ restrictions.MaximumBuildsAllowed = aws.Int64(int64(v.(int)))
 }
 
 return restrictions
-}
-
-
-func expandCloudWatchLogsConfig(configList []interface{}) *codebuild.CloudWatchLogsConfig {
+}func expandCloudWatchLogsConfig(configList []interface{}) *codebuild.CloudWatchLogsConfig {
 if len(configList) == 0 || configList[0] == nil {
 return nil
 }
@@ -1225,10 +1179,7 @@ cloudWatchLogsConfig.StreamName = aws.String(streamName)
 }
 
 return cloudWatchLogsConfig
-}
-
-
-func expandS3LogsConfig(configList []interface{}) *codebuild.S3LogsConfig {
+}func expandS3LogsConfig(configList []interface{}) *codebuild.S3LogsConfig {
 if len(configList) == 0 || configList[0] == nil {
 return nil
 }
@@ -1252,10 +1203,7 @@ s3LogsConfig.BucketOwnerAccess = aws.String(v)
 s3LogsConfig.EncryptionDisabled = aws.Bool(data["encryption_disabled"].(bool))
 
 return s3LogsConfig
-}
-
-
-func expandVPCConfig(rawVpcConfig []interface{}) *codebuild.VpcConfig {
+}func expandVPCConfig(rawVpcConfig []interface{}) *codebuild.VpcConfig {
 vpcConfig := codebuild.VpcConfig{}
 if len(rawVpcConfig) == 0 || rawVpcConfig[0] == nil {
 return &vpcConfig
@@ -1267,10 +1215,7 @@ vpcConfig.Subnets = flex.ExpandStringSet(data["subnets"].(*schema.Set))
 vpcConfig.SecurityGroupIds = flex.ExpandStringSet(data["security_group_ids"].(*schema.Set))
 
 return &vpcConfig
-}
-
-
-func expandProjectSecondarySources(d *schema.ResourceData) []*codebuild.ProjectSource {
+}func expandProjectSecondarySources(d *schema.ResourceData) []*codebuild.ProjectSource {
 configs := d.Get("secondary_sources").(*schema.Set).List()
 
 if len(configs) == 0 {
@@ -1285,18 +1230,12 @@ sources = append(sources, &source)
 }
 
 return sources
-}
-
-
-func expandProjectSource(d *schema.ResourceData) codebuild.ProjectSource {
+}func expandProjectSource(d *schema.ResourceData) codebuild.ProjectSource {
 configs := d.Get("source").([]interface{})
 
 data := configs[0].(map[string]interface{})
 return expandProjectSourceData(data)
-}
-
-
-func expandProjectSourceData(data map[string]interface{}) codebuild.ProjectSource {
+}func expandProjectSourceData(data map[string]interface{}) codebuild.ProjectSource {
 sourceType := data["type"].(string)
 
 projectSource := codebuild.ProjectSource{
@@ -1354,10 +1293,7 @@ projectSource.BuildStatusConfig = buildStatusConfig
 }
 
 return projectSource
-}
-
-
-func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -1440,10 +1376,7 @@ d.Set("badge_url", "")
 setTagsOut(ctx, project.Tags)
 
 return diags
-}
-
-
-func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -1582,8 +1515,7 @@ input.BadgeEnabled = aws.Bool(d.Get("badge_enabled").(bool))
 input.Tags = getTagsIn(ctx)
 
 // Handle IAM eventual consistency
-err := retry.RetryContext(ctx, propagationTimeout, 
-func() *retry.RetryError {
+err := retry.RetryContext(ctx, propagationTimeout,func() *retry.RetryError {
 _, err := conn.UpdateProjectWithContext(ctx, input)
 if err != nil {
 // InvalidInputException: CodeBuild is not authorized to perform
@@ -1607,10 +1539,7 @@ return sdkdiag.AppendErrorf(diags, "updating CodeBuild project (%s): %s", d.Id()
 }
 
 return append(diags, resourceProjectRead(ctx, d, meta)...)
-}
-
-
-func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -1621,10 +1550,7 @@ if err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting CodeBuild project (%s): %s", d.Id(), err)
 }
 return diags
-}
-
-
-func flattenProjectFileSystemLocations(apiObjects []*codebuild.ProjectFileSystemLocation) []interface{} {
+}func flattenProjectFileSystemLocations(apiObjects []*codebuild.ProjectFileSystemLocation) []interface{} {
 if len(apiObjects) == 0 {
 return nil
 }
@@ -1640,10 +1566,7 @@ tfList = append(tfList, flattenProjectFileSystemLocation(apiObject))
 }
 
 return tfList
-}
-
-
-func flattenProjectFileSystemLocation(apiObject *codebuild.ProjectFileSystemLocation) map[string]interface{} {
+}func flattenProjectFileSystemLocation(apiObject *codebuild.ProjectFileSystemLocation) map[string]interface{} {
 if apiObject == nil {
 return nil
 }
@@ -1671,10 +1594,7 @@ tfMap["type"] = aws.StringValue(v)
 }
 
 return tfMap
-}
-
-
-func flattenLogsConfig(logsConfig *codebuild.LogsConfig) []interface{} {
+}func flattenLogsConfig(logsConfig *codebuild.LogsConfig) []interface{} {
 if logsConfig == nil {
 return []interface{}{}
 }
@@ -1690,10 +1610,7 @@ values["s3_logs"] = flattenS3Logs(v)
 }
 
 return []interface{}{values}
-}
-
-
-func flattenCloudWatchLogs(cloudWatchLogsConfig *codebuild.CloudWatchLogsConfig) []interface{} {
+}func flattenCloudWatchLogs(cloudWatchLogsConfig *codebuild.CloudWatchLogsConfig) []interface{} {
 values := map[string]interface{}{}
 
 if cloudWatchLogsConfig == nil {
@@ -1705,10 +1622,7 @@ values["stream_name"] = aws.StringValue(cloudWatchLogsConfig.StreamName)
 }
 
 return []interface{}{values}
-}
-
-
-func flattenS3Logs(s3LogsConfig *codebuild.S3LogsConfig) []interface{} {
+}func flattenS3Logs(s3LogsConfig *codebuild.S3LogsConfig) []interface{} {
 values := map[string]interface{}{}
 
 if s3LogsConfig == nil {
@@ -1721,10 +1635,7 @@ values["bucket_owner_access"] = aws.StringValue(s3LogsConfig.BucketOwnerAccess)
 }
 
 return []interface{}{values}
-}
-
-
-func flattenProjectSecondaryArtifacts(artifactsList []*codebuild.ProjectArtifacts) *schema.Set {
+}func flattenProjectSecondaryArtifacts(artifactsList []*codebuild.ProjectArtifacts) *schema.Set {
 artifactSet := schema.Set{
 F: resourceProjectArtifactsHash,
 }
@@ -1733,15 +1644,9 @@ for _, artifacts := range artifactsList {
 artifactSet.Add(flattenProjectArtifactsData(*artifacts))
 }
 return &artifactSet
-}
-
-
-func flattenProjectArtifacts(artifacts *codebuild.ProjectArtifacts) []interface{} {
+}func flattenProjectArtifacts(artifacts *codebuild.ProjectArtifacts) []interface{} {
 return []interface{}{flattenProjectArtifactsData(*artifacts)}
-}
-
-
-func flattenProjectArtifactsData(artifacts codebuild.ProjectArtifacts) map[string]interface{} {
+}func flattenProjectArtifactsData(artifacts codebuild.ProjectArtifacts) map[string]interface{} {
 values := map[string]interface{}{}
 
 values["type"] = aws.StringValue(artifacts.Type)
@@ -1782,10 +1687,7 @@ if artifacts.BucketOwnerAccess != nil {
 values["bucket_owner_access"] = aws.StringValue(artifacts.BucketOwnerAccess)
 }
 return values
-}
-
-
-func flattenProjectCache(cache *codebuild.ProjectCache) []interface{} {
+}func flattenProjectCache(cache *codebuild.ProjectCache) []interface{} {
 if cache == nil {
 return []interface{}{}
 }
@@ -1797,10 +1699,7 @@ values := map[string]interface{}{
 }
 
 return []interface{}{values}
-}
-
-
-func flattenProjectEnvironment(environment *codebuild.ProjectEnvironment) []interface{} {
+}func flattenProjectEnvironment(environment *codebuild.ProjectEnvironment) []interface{} {
 envConfig := map[string]interface{}{}
 
 envConfig["type"] = aws.StringValue(environment.Type)
@@ -1817,10 +1716,7 @@ envConfig["environment_variable"] = environmentVariablesToMap(environment.Enviro
 }
 
 return []interface{}{envConfig}
-}
-
-
-func flattenRegistryCredential(registryCredential *codebuild.RegistryCredential) []interface{} {
+}func flattenRegistryCredential(registryCredential *codebuild.RegistryCredential) []interface{} {
 if registryCredential == nil {
 return []interface{}{}
 }
@@ -1831,10 +1727,7 @@ values := map[string]interface{}{
 }
 
 return []interface{}{values}
-}
-
-
-func flattenProjectSecondarySources(sourceList []*codebuild.ProjectSource) []interface{} {
+}func flattenProjectSecondarySources(sourceList []*codebuild.ProjectSource) []interface{} {
 l := make([]interface{}, 0)
 
 for _, source := range sourceList {
@@ -1842,19 +1735,13 @@ l = append(l, flattenProjectSourceData(source))
 }
 
 return l
-}
-
-
-func flattenProjectSource(source *codebuild.ProjectSource) []interface{} {
+}func flattenProjectSource(source *codebuild.ProjectSource) []interface{} {
 l := make([]interface{}, 1)
 
 l[0] = flattenProjectSourceData(source)
 
 return l
-}
-
-
-func flattenProjectSourceData(source *codebuild.ProjectSource) interface{} {
+}func flattenProjectSourceData(source *codebuild.ProjectSource) interface{} {
 m := map[string]interface{}{
 "buildspec":  aws.StringValue(source.Buildspec),
 "location":   aws.StringValue(source.Location),
@@ -1873,20 +1760,14 @@ m["source_identifier"] = aws.StringValue(source.SourceIdentifier)
 }
 
 return m
-}
-
-
-func flattenProjectSecondarySourceVersions(sourceVersions []*codebuild.ProjectSourceVersion) []interface{} {
+}func flattenProjectSecondarySourceVersions(sourceVersions []*codebuild.ProjectSourceVersion) []interface{} {
 l := make([]interface{}, 0)
 
 for _, sourceVersion := range sourceVersions {
 l = append(l, flattenProjectSourceVersionsData(sourceVersion))
 }
 return l
-}
-
-
-func flattenProjectSourceVersionsData(sourceVersion *codebuild.ProjectSourceVersion) map[string]interface{} {
+}func flattenProjectSourceVersionsData(sourceVersion *codebuild.ProjectSourceVersion) map[string]interface{} {
 values := map[string]interface{}{}
 
 if sourceVersion.SourceIdentifier != nil {
@@ -1898,10 +1779,7 @@ values["source_version"] = aws.StringValue(sourceVersion.SourceVersion)
 }
 
 return values
-}
-
-
-func flattenProjectGitSubmodulesConfig(config *codebuild.GitSubmodulesConfig) []interface{} {
+}func flattenProjectGitSubmodulesConfig(config *codebuild.GitSubmodulesConfig) []interface{} {
 if config == nil {
 return []interface{}{}
 }
@@ -1911,10 +1789,7 @@ values := map[string]interface{}{
 }
 
 return []interface{}{values}
-}
-
-
-func flattenProjectBuildStatusConfig(config *codebuild.BuildStatusConfig) []interface{} {
+}func flattenProjectBuildStatusConfig(config *codebuild.BuildStatusConfig) []interface{} {
 if config == nil {
 return []interface{}{}
 }
@@ -1925,10 +1800,7 @@ values := map[string]interface{}{
 }
 
 return []interface{}{values}
-}
-
-
-func flattenVPCConfig(vpcConfig *codebuild.VpcConfig) []interface{} {
+}func flattenVPCConfig(vpcConfig *codebuild.VpcConfig) []interface{} {
 if vpcConfig != nil {
 values := map[string]interface{}{}
 
@@ -1939,10 +1811,7 @@ values["security_group_ids"] = flex.FlattenStringSet(vpcConfig.SecurityGroupIds)
 return []interface{}{values}
 }
 return nil
-}
-
-
-func flattenBuildBatchConfig(buildBatchConfig *codebuild.ProjectBuildBatchConfig) []interface{} {
+}func flattenBuildBatchConfig(buildBatchConfig *codebuild.ProjectBuildBatchConfig) []interface{} {
 if buildBatchConfig == nil {
 return nil
 }
@@ -1964,10 +1833,7 @@ values["timeout_in_mins"] = aws.Int64Value(buildBatchConfig.TimeoutInMins)
 }
 
 return []interface{}{values}
-}
-
-
-func flattenBuildBatchRestrictionsConfig(restrictions *codebuild.BatchRestrictions) []interface{} {
+}func flattenBuildBatchRestrictionsConfig(restrictions *codebuild.BatchRestrictions) []interface{} {
 if restrictions == nil {
 return []interface{}{}
 }
@@ -1978,10 +1844,7 @@ values := map[string]interface{}{
 }
 
 return []interface{}{values}
-}
-
-
-func resourceProjectArtifactsHash(v interface{}) int {
+}func resourceProjectArtifactsHash(v interface{}) int {
 var buf bytes.Buffer
 m := v.(map[string]interface{})
 
@@ -2022,10 +1885,7 @@ buf.WriteString(fmt.Sprintf("%s-", v.(string)))
 }
 
 return create.StringHashcode(buf.String())
-}
-
-
-func environmentVariablesToMap(environmentVariables []*codebuild.EnvironmentVariable) []interface{} {
+}func environmentVariablesToMap(environmentVariables []*codebuild.EnvironmentVariable) []interface{} {
 envVariables := []interface{}{}
 if len(environmentVariables) > 0 {
 for _, env := range environmentVariables {
@@ -2040,10 +1900,7 @@ envVariables = append(envVariables, item)
 }
 
 return envVariables
-}
-
-
-func ValidProjectName(v interface{}, k string) (ws []string, errors []error) {
+}func ValidProjectName(v interface{}, k string) (ws []string, errors []error) {
 value := v.(string)
 if !regexache.MustCompile(`^[0-9A-Za-z]`).MatchString(value) {
 errors = append(errors, fmt.Errorf(
@@ -2061,10 +1918,7 @@ errors = append(errors, fmt.Errorf(
 }
 
 return
-}
-
-
-func validProjectS3LogsLocation(v interface{}, k string) (ws []string, errors []error) {
+}func validProjectS3LogsLocation(v interface{}, k string) (ws []string, errors []error) {
 value := v.(string)
 
 if _, errs := verify.ValidARN(v, k); len(errs) == 0 {

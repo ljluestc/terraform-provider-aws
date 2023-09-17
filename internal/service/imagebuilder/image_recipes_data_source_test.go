@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package imagebuilder_testimport (
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/imagebuilder"
+"testing""github.com/aws/aws-sdk-go/service/imagebuilder"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccImageBuilderImageRecipesDataSource_owner(t *testing.T) {
+)func TestAccImageBuilderImageRecipesDataSource_owner(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 dataSourceNameOwnerAmazon := "data.aws_imagebuilder_image_recipes.amazon"
-dataSourceNameOwnerSelf := "data.aws_imagebuilder_image_recipes.self"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceNameOwnerSelf := "data.aws_imagebuilder_image_recipes.self"resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -36,15 +26,11 @@ acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceNameOwnerSelf, "names
 },
 },
 })
-}
-
-func TestAccImageBuilderImageRecipesDataSource_filter(t *testing.T) {
+}func TestAccImageBuilderImageRecipesDataSource_filter(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 dataSourceName := "data.aws_imagebuilder_image_recipes.test"
-resourceName := "aws_imagebuilder_image_recipe.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_imagebuilder_image_recipe.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -59,15 +45,9 @@ resource.TestCheckResourceAttrPair(dataSourceName, "names.0", resourceName, "nam
 },
 },
 })
-}
-
-func testAccImageRecipeDataSourceConfig_base(rName string) string {
+}func testAccImageRecipeDataSourceConfig_base(rName string) string {
 return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_imagebuilder_component" "test" {
+data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
     phases = [{
       name = "build"
@@ -87,51 +67,33 @@ resource "aws_imagebuilder_component" "test" {
   version  = "1.0.0"
 }
 `, rName)
-}
-
-func testAccImageRecipesDataSourceConfig_owner(rName string) string {
+}func testAccImageRecipesDataSourceConfig_owner(rName string) string {
 return acctest.ConfigCompose(testAccImageRecipeDataSourceConfig_base(rName), fmt.Sprintf(`
 resource "aws_imagebuilder_image_recipe" "test" {
   component {
     component_arn = aws_imagebuilder_component.test.arn
-  }
-
-  name= %[1]q
+  }  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
-}
-
-data "aws_imagebuilder_image_recipes" "amazon" {
-  owner = "Amazon"
-
-  depends_on = [
+}data "aws_imagebuilder_image_recipes" "amazon" {
+  owner = "Amazon"  depends_on = [
     aws_imagebuilder_image_recipe.test
   ]
-}
-
-data "aws_imagebuilder_image_recipes" "self" {
-  owner = "Self"
-
-  depends_on = [
+}data "aws_imagebuilder_image_recipes" "self" {
+  owner = "Self"  depends_on = [
     aws_imagebuilder_image_recipe.test
   ]
 }
 `, rName))
-}
-
-func testAccImageRecipesDataSourceConfig_filter(rName string) string {
+}func testAccImageRecipesDataSourceConfig_filter(rName string) string {
 return acctest.ConfigCompose(testAccImageRecipeDataSourceConfig_base(rName), fmt.Sprintf(`
 resource "aws_imagebuilder_image_recipe" "test" {
   component {
     component_arn = aws_imagebuilder_component.test.arn
-  }
-
-  name= %[1]q
+  }  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
-}
-
-data "aws_imagebuilder_image_recipes" "test" {
+}data "aws_imagebuilder_image_recipes" "test" {
   filter {
     name   = "name"
     values = [aws_imagebuilder_image_recipe.test.name]

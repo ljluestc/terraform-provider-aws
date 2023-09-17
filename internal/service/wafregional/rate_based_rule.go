@@ -94,17 +94,13 @@ func: validation.IntAtLeast(100),
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-
-func resourceRateBasedRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRateBasedRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 	region := meta.(*conns.AWSClient).Region
 
 	wr := NewRetryer(conn, region)
-	out, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+	out, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 		input := &waf.CreateRateBasedRuleInput{
 			ChangeToken: token,
 			MetricName:  aws.String(d.Get("metric_name").(string)),
@@ -132,10 +128,7 @@ func(token *string) (interface{}, error) {
 	}
 
 	return append(diags, resourceRateBasedRuleRead(ctx, d, meta)...)
-}
-
-
-func resourceRateBasedRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRateBasedRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 
@@ -178,10 +171,7 @@ func resourceRateBasedRuleRead(ctx context.Context, d *schema.ResourceData, meta
 	d.Set("rate_limit", resp.Rule.RateLimit)
 
 	return diags
-}
-
-
-func resourceRateBasedRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRateBasedRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 	region := meta.(*conns.AWSClient).Region
@@ -198,10 +188,7 @@ func resourceRateBasedRuleUpdate(ctx context.Context, d *schema.ResourceData, me
 	}
 
 	return append(diags, resourceRateBasedRuleRead(ctx, d, meta)...)
-}
-
-
-func resourceRateBasedRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceRateBasedRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 	region := meta.(*conns.AWSClient).Region
@@ -221,8 +208,7 @@ func resourceRateBasedRuleDelete(ctx context.Context, d *schema.ResourceData, me
 	}
 
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+	_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 		req := &waf.DeleteRateBasedRuleInput{
 			ChangeToken: token,
 			RuleId:aws.String(d.Id()),
@@ -238,13 +224,9 @@ func(token *string) (interface{}, error) {
 	}
 
 	return diags
-}
-
-
-func updateRateBasedRuleResourceWR(ctx context.Context, id string, oldP, newP []interface{}, rateLimit interface{}, conn *wafregional.WAFRegional, region string) error {
+}func updateRateBasedRuleResourceWR(ctx context.Context, id string, oldP, newP []interface{}, rateLimit interface{}, conn *wafregional.WAFRegional, region string) error {
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+	_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 		req := &waf.UpdateRateBasedRuleInput{
 			ChangeToken: token,
 			RuleId:aws.String(id),

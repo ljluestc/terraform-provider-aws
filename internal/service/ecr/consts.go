@@ -1,12 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ecr
-
-import (
-	"time"
-)
-
-const (
-	propagationTimeout = 2 * time.Minute
-)
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package ecrimport (	"time")const (	propagationTimeout = 2 * time.Minute)

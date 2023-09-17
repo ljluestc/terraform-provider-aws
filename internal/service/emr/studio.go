@@ -120,10 +120,7 @@ ForceNew: true,
 	},
 },
 	}
-}
-
-
-func resourceStudioCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceStudioCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -156,8 +153,7 @@ input.UserRole = aws.String(v.(string))
 	}
 
 	var result *emr.CreateStudioOutput
-	err := retry.RetryContext(ctx, propagationTimeout, 
-func() *retry.RetryError {
+	err := retry.RetryContext(ctx, propagationTimeout,func() *retry.RetryError {
 var err error
 result, err = conn.CreateStudioWithContext(ctx, input)
 if tfawserr.ErrMessageContains(err, emr.ErrCodeInvalidRequestException, "entity does not have permissions to assume role") {
@@ -181,10 +177,7 @@ return sdkdiag.AppendErrorf(diags, "creating EMR Studio: %s", err)
 	d.SetId(aws.StringValue(result.StudioId))
 
 	return append(diags, resourceStudioRead(ctx, d, meta)...)
-}
-
-
-func resourceStudioUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceStudioUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -217,10 +210,7 @@ if err != nil {
 	}
 
 	return append(diags, resourceStudioRead(ctx, d, meta)...)
-}
-
-
-func resourceStudioRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceStudioRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -253,10 +243,7 @@ return sdkdiag.AppendErrorf(diags, "reading EMR Studio (%s): %s", d.Id(), err)
 	setTagsOut(ctx, studio.Tags)
 
 	return diags
-}
-
-
-func resourceStudioDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceStudioDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 

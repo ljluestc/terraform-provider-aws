@@ -183,17 +183,13 @@ func: validation.StringInSlice([]string{
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-
-func resourceWebACLCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceWebACLCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 	region := meta.(*conns.AWSClient).Region
 
 	wr := NewRetryer(conn, region)
-	out, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+	out, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 		input := &waf.CreateWebACLInput{
 			ChangeToken:   token,
 			DefaultAction: tfwaf.ExpandAction(d.Get("default_action").([]interface{})),
@@ -238,8 +234,7 @@ func(token *string) (interface{}, error) {
 	rules := d.Get("rule").(*schema.Set).List()
 	if len(rules) > 0 {
 		wr := NewRetryer(conn, region)
-		_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+		_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 			req := &waf.UpdateWebACLInput{
 				ChangeToken:   token,
 				DefaultAction: tfwaf.ExpandAction(d.Get("default_action").([]interface{})),
@@ -254,10 +249,7 @@ func(token *string) (interface{}, error) {
 	}
 
 	return append(diags, resourceWebACLRead(ctx, d, meta)...)
-}
-
-
-func resourceWebACLRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceWebACLRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 
@@ -325,10 +317,7 @@ func resourceWebACLRead(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	return diags
-}
-
-
-func resourceWebACLUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceWebACLUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 	region := meta.(*conns.AWSClient).Region
@@ -338,8 +327,7 @@ func resourceWebACLUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 		oldR, newR := o.(*schema.Set).List(), n.(*schema.Set).List()
 
 		wr := NewRetryer(conn, region)
-		_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+		_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 			req := &waf.UpdateWebACLInput{
 				ChangeToken:   token,
 				DefaultAction: tfwaf.ExpandAction(d.Get("default_action").([]interface{})),
@@ -378,10 +366,7 @@ func(token *string) (interface{}, error) {
 	}
 
 	return append(diags, resourceWebACLRead(ctx, d, meta)...)
-}
-
-
-func resourceWebACLDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceWebACLDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 	region := meta.(*conns.AWSClient).Region
@@ -390,8 +375,7 @@ func resourceWebACLDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	rules := d.Get("rule").(*schema.Set).List()
 	if len(rules) > 0 {
 		wr := NewRetryer(conn, region)
-		_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+		_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 			req := &waf.UpdateWebACLInput{
 				ChangeToken:   token,
 				DefaultAction: tfwaf.ExpandAction(d.Get("default_action").([]interface{})),
@@ -406,8 +390,7 @@ func(token *string) (interface{}, error) {
 	}
 
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, 
-func(token *string) (interface{}, error) {
+	_, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 		req := &waf.DeleteWebACLInput{
 			ChangeToken: token,
 			WebACLId:    aws.String(d.Id()),
@@ -420,10 +403,7 @@ func(token *string) (interface{}, error) {
 		return sdkdiag.AppendErrorf(diags, "Deleting WAF Regional ACL: %s", err)
 	}
 	return diags
-}
-
-
-func expandLoggingConfiguration(l []interface{}, resourceARN string) *waf.LoggingConfiguration {
+}func expandLoggingConfiguration(l []interface{}, resourceARN string) *waf.LoggingConfiguration {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -439,10 +419,7 @@ func expandLoggingConfiguration(l []interface{}, resourceARN string) *waf.Loggin
 	}
 
 	return loggingConfiguration
-}
-
-
-func expandRedactedFields(l []interface{}) []*waf.FieldToMatch {
+}func expandRedactedFields(l []interface{}) []*waf.FieldToMatch {
 	if len(l) == 0 || l[0] == nil {
 		return nil
 	}
@@ -464,10 +441,7 @@ func expandRedactedFields(l []interface{}) []*waf.FieldToMatch {
 	}
 
 	return redactedFields
-}
-
-
-func flattenLoggingConfiguration(loggingConfiguration *waf.LoggingConfiguration) []interface{} {
+}func flattenLoggingConfiguration(loggingConfiguration *waf.LoggingConfiguration) []interface{} {
 	if loggingConfiguration == nil {
 		return []interface{}{}
 	}
@@ -482,10 +456,7 @@ func flattenLoggingConfiguration(loggingConfiguration *waf.LoggingConfiguration)
 	}
 
 	return []interface{}{m}
-}
-
-
-func flattenRedactedFields(fieldToMatches []*waf.FieldToMatch) []interface{} {
+}func flattenRedactedFields(fieldToMatches []*waf.FieldToMatch) []interface{} {
 	if len(fieldToMatches) == 0 {
 		return []interface{}{}
 	}
@@ -513,10 +484,7 @@ func flattenRedactedFields(fieldToMatches []*waf.FieldToMatch) []interface{} {
 	}
 
 	return []interface{}{m}
-}
-
-
-func diffWebACLRules(oldR, newR []interface{}) []*waf.WebACLUpdate {
+}func diffWebACLRules(oldR, newR []interface{}) []*waf.WebACLUpdate {
 	updates := make([]*waf.WebACLUpdate, 0)
 
 	for _, or := range oldR {

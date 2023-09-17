@@ -1,33 +1,21 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iam_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iam_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/iam"
+	"testing"	"github.com/aws/aws-sdk-go/service/iam"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)funcarallel()
-
-	testCases := map[string]func(t *testing.T){
+)funcarallel()	testCases := map[string]func(t *testing.T){
 		"basic": testAccAccountPasswordPolicy_basic,
 		"disappears": testAccAccountPasswordPolicy_disappears,
-	}
-
-	acctest.RunSerialTests1Level(t, testCases, 0)
+	}	acctest.RunSerialTests1Level(t, testCases, 0)
 }func testAccAccountPasswordPolicy_basic(t *testing.T) {
 	func policy iam.PasswordPolicy
-	resourceName := "aws_iam_account_password_policy.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_iam_account_password_policy.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -56,9 +44,7 @@ import (
 	})
 }func testAccAccountPasswordPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	funcourceName := "aws_iam_account_password_policy.test"
-
-	resource.Test(t, resource.TestCase{
+	funcourceName := "aws_iam_account_password_policy.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -80,56 +66,30 @@ import (
 funcr _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_iam_account_password_policy" {
 				continue
-			}
-
-			_, err := tfiam.FindAccountPasswordPolicy(ctx, conn)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfiam.FindAccountPasswordPolicy(ctx, conn)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("IAM Account Password Policy %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("IAM Account Password Policy %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }func testAccCheckAccountPasswordPolicyExists(ctx context.Context, n string, v *iam.PasswordPolicy) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
-	func
-
-		if rs.Primary.ID == "" {
+	func		if rs.Primary.ID == "" {
 			return fmt.Errorf("No IAM Account Password Policy ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
-
-		output, err := tfiam.FindAccountPasswordPolicy(ctx, conn)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)		output, err := tfiam.FindAccountPasswordPolicy(ctx, conn)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-const testAccAccountPasswordPolicyConfig_basic = `
+}const testAccAccountPasswordPolicyConfig_basic = `
 resource "aws_iam_account_password_policy" "test" {
   allow_users_to_change_password = true
   minimum_password_length   = 8
   require_numbers = true
 }
-`
-
-const testAccAccountPasswordPolicyConfig_modified = `
+`const testAccAccountPasswordPolicyConfig_modified = `
 resource "aws_iam_account_password_policy" "test" {
   allow_users_to_change_password = true
   minimum_password_length   = 7

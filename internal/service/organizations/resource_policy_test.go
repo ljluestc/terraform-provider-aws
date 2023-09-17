@@ -16,17 +16,13 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tforganizations "github.com/hashicorp/terraform-provider-aws/internal/service/organizations"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func testAccResourcePolicy_basic(t *testing.T) {
+)func testAccResourcePolicy_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var policy organizations.ResourcePolicy
 resourceName := "aws_organizations_resource_policy.test"
 
 resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckAlternateAccount(t)
 acctest.PreCheckOrganizationManagementAccount(ctx, t)
@@ -51,17 +47,13 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-
-func testAccResourcePolicy_disappears(t *testing.T) {
+}func testAccResourcePolicy_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var policy organizations.ResourcePolicy
 resourceName := "aws_organizations_resource_policy.test"
 
 resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckAlternateAccount(t)
 acctest.PreCheckOrganizationManagementAccount(ctx, t)
@@ -80,17 +72,13 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-
-func testAccResourcePolicy_tags(t *testing.T) {
+}func testAccResourcePolicy_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var policy organizations.ResourcePolicy
 resourceName := "aws_organizations_resource_policy.test"
 
 resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckAlternateAccount(t)
 acctest.PreCheckOrganizationManagementAccount(ctx, t)
@@ -131,12 +119,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-
-func testAccCheckResourcePolicyDestroy(ctx context.Context) resource.TestCheckFunc {
-return 
-func(s *terraform.State) error {
+}func testAccCheckResourcePolicyDestroy(ctx context.Context) resource.TestCheckFunc {
+returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -159,12 +143,8 @@ return fmt.Errorf("Organizations Resource Policy %s still exists", rs.Primary.ID
 
 return nil
 }
-}
-
-
-func testAccCheckResourcePolicyExists(ctx context.Context, n string, v *organizations.ResourcePolicy) resource.TestCheckFunc {
-return 
-func(s *terraform.State) error {
+}func testAccCheckResourcePolicyExists(ctx context.Context, n string, v *organizations.ResourcePolicy) resource.TestCheckFunc {
+returnfunc(s *terraform.State) error {
 _, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
@@ -182,10 +162,7 @@ return err
 
 return nil
 }
-}
-
-
-func testAccResourcePolicyConfig_basic() string {
+}func testAccResourcePolicyConfig_basic() string {
 return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), `
 data "aws_caller_identity" "delegated" {
   provider = "awsalternate"
@@ -226,10 +203,7 @@ resource "aws_organizations_resource_policy" "test" {
 EOF
 }
 `)
-}
-
-
-func testAccResourcePolicyConfig_tags1(tagKey1, tagValue1 string) string {
+}func testAccResourcePolicyConfig_tags1(tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 data "aws_caller_identity" "delegated" {
   provider = "awsalternate"
@@ -274,10 +248,7 @@ EOF
   }
 }
 `, tagKey1, tagValue1))
-}
-
-
-func testAccResourcePolicyConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccResourcePolicyConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 data "aws_caller_identity" "delegated" {
   provider = "awsalternate"

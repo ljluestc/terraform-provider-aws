@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshift
-
-import (
+// SPDX-License-Identifier: MPL-2.0package redshiftimport (
 "context"
-"fmt"
-
-"github.com/aws/aws-sdk-go/aws"
+"fmt""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/aws/arn"
 "github.com/aws/aws-sdk-go/service/redshift"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -16,14 +10,10 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 "github.com/hashicorp/terraform-provider-aws/internal/flex"
 tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-)
-
-// @SDKDataSource("aws_redshift_cluster")
+)// @SDKDataSource("aws_redshift_cluster")
 func DataSourceCluster() *schema.Resource {
 return &schema.Resource{
-ReadWithoutTimeout: dataSourceClusterRead,
-
-Schema: map[string]*schema.Schema{
+ReadWithoutTimeout: dataSourceClusterRead,Schema: map[string]*schema.Schema{
 "allow_version_upgrade": {
 Type: schema.TypeBool,
 Computed: true,
@@ -198,21 +188,13 @@ Elem: &schema.Schema{Type: schema.TypeString},
 },
 },
 }
-}
-
-func dataSourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).RedshiftConn(ctx)
-ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-clusterID := d.Get("cluster_identifier").(string)
-rsc, err := FindClusterByID(ctx, conn, clusterID)
-
-if err != nil {
+ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfigclusterID := d.Get("cluster_identifier").(string)
+rsc, err := FindClusterByID(ctx, conn, clusterID)if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading Redshift Cluster (%s): %s", clusterID, err)
-}
-
-d.SetId(clusterID)
+}d.SetId(clusterID)
 d.Set("allow_version_upgrade", rsc.AllowVersionUpgrade)
 arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
@@ -258,15 +240,11 @@ if rsc.Endpoint != nil {
 d.Set("endpoint", rsc.Endpoint.Address)
 d.Set("port", rsc.Endpoint.Port)
 }
-d.Set("enhanced_vpc_routing", rsc.EnhancedVpcRouting)
-
-var iamRoles []string
+d.Set("enhanced_vpc_routing", rsc.EnhancedVpcRouting)var iamRoles []string
 for _, i := range rsc.IamRoles {
 iamRoles = append(iamRoles, aws.StringValue(i.IamRoleArn))
 }
-d.Set("iam_roles", iamRoles)
-
-d.Set("kms_key_id", rsc.KmsKeyId)
+d.Set("iam_roles", iamRoles)d.Set("kms_key_id", rsc.KmsKeyId)
 d.Set("master_username", rsc.MasterUsername)
 d.Set("node_type", rsc.NodeType)
 d.Set("number_of_nodes", rsc.NumberOfNodes)
@@ -274,35 +252,21 @@ d.Set("preferred_maintenance_window", rsc.PreferredMaintenanceWindow)
 d.Set("publicly_accessible", rsc.PubliclyAccessible)
 d.Set("default_iam_role_arn", rsc.DefaultIamRoleArn)
 d.Set("maintenance_track_name", rsc.MaintenanceTrackName)
-d.Set("manual_snapshot_retention_period", rsc.ManualSnapshotRetentionPeriod)
-
-if err := d.Set("tags", KeyValueTags(ctx, rsc.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
+d.Set("manual_snapshot_retention_period", rsc.ManualSnapshotRetentionPeriod)if err := d.Set("tags", KeyValueTags(ctx, rsc.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting tags: %s", err)
-}
-
-d.Set("vpc_id", rsc.VpcId)
-
-var vpcg []string
+}d.Set("vpc_id", rsc.VpcId)var vpcg []string
 for _, g := range rsc.VpcSecurityGroups {
 vpcg = append(vpcg, aws.StringValue(g.VpcSecurityGroupId))
 }
-d.Set("vpc_security_group_ids", vpcg)
-
-loggingStatus, err := conn.DescribeLoggingStatusWithContext(ctx, &redshift.DescribeLoggingStatusInput{
+d.Set("vpc_security_group_ids", vpcg)loggingStatus, err := conn.DescribeLoggingStatusWithContext(ctx, &redshift.DescribeLoggingStatusInput{
 ClusterIdentifier: aws.String(clusterID),
-})
-
-if err != nil {
+})if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading Redshift Cluster (%s) logging status: %s", d.Id(), err)
-}
-
-if loggingStatus != nil && aws.BoolValue(loggingStatus.LoggingEnabled) {
+}if loggingStatus != nil && aws.BoolValue(loggingStatus.LoggingEnabled) {
 d.Set("enable_logging", loggingStatus.LoggingEnabled)
 d.Set("bucket_name", loggingStatus.BucketName)
 d.Set("s3_key_prefix", loggingStatus.S3KeyPrefix)
 d.Set("log_exports", flex.FlattenStringSet(loggingStatus.LogExports))
 d.Set("log_destination_type", loggingStatus.LogDestinationType)
-}
-
-return diags
+}return diags
 }

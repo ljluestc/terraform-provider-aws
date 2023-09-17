@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package fsx_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package fsx_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/fsx"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -18,15 +12,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tffsx "github.com/hashicorp/terraform-provider-aws/internal/service/fsx"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccFSxOntapVolume_basic(t *testing.T) {
+)func TestAccFSxOntapVolume_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var volume fsx.Volume
 	resourceName := "aws_fsx_ontap_volume.test"
-	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -59,15 +49,11 @@ func TestAccFSxOntapVolume_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxOntapVolume_disappears(t *testing.T) {
+}func TestAccFSxOntapVolume_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var volume fsx.Volume
 	resourceName := "aws_fsx_ontap_volume.test"
-	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -83,16 +69,12 @@ func TestAccFSxOntapVolume_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxOntapVolume_name(t *testing.T) {
+}func TestAccFSxOntapVolume_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	var volume1, volume2 fsx.Volume
 	resourceName := "aws_fsx_ontap_volume.test"
 	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
-	rName2 := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName2 := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -121,17 +103,13 @@ func TestAccFSxOntapVolume_name(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxOntapVolume_junctionPath(t *testing.T) {
+}func TestAccFSxOntapVolume_junctionPath(t *testing.T) {
 	ctx := acctest.Context(t)
 	var volume1, volume2 fsx.Volume
 	resourceName := "aws_fsx_ontap_volume.test"
 	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
 	jPath1 := "/path1"
-	jPath2 := "/path2"
-
-	resource.ParallelTest(t, resource.TestCase{
+	jPath2 := "/path2"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -162,15 +140,11 @@ func TestAccFSxOntapVolume_junctionPath(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxOntapVolume_ontapVolumeType(t *testing.T) {
+}func TestAccFSxOntapVolume_ontapVolumeType(t *testing.T) {
 	ctx := acctest.Context(t)
 	var volume fsx.Volume
 	resourceName := "aws_fsx_ontap_volume.test"
-	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -192,15 +166,11 @@ func TestAccFSxOntapVolume_ontapVolumeType(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxOntapVolume_securityStyle(t *testing.T) {
+}func TestAccFSxOntapVolume_securityStyle(t *testing.T) {
 	ctx := acctest.Context(t)
 	var volume1, volume2, volume3 fsx.Volume
 	resourceName := "aws_fsx_ontap_volume.test"
-	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -240,17 +210,13 @@ func TestAccFSxOntapVolume_securityStyle(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxOntapVolume_size(t *testing.T) {
+}func TestAccFSxOntapVolume_size(t *testing.T) {
 	ctx := acctest.Context(t)
 	var volume1, volume2 fsx.Volume
 	resourceName := "aws_fsx_ontap_volume.test"
 	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
 	size1 := 1024
-	size2 := 2048
-
-	resource.ParallelTest(t, resource.TestCase{
+	size2 := 2048	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -281,15 +247,11 @@ func TestAccFSxOntapVolume_size(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxOntapVolume_storageEfficiency(t *testing.T) {
+}func TestAccFSxOntapVolume_storageEfficiency(t *testing.T) {
 	ctx := acctest.Context(t)
 	var volume1, volume2 fsx.Volume
 	resourceName := "aws_fsx_ontap_volume.test"
-	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -320,15 +282,11 @@ func TestAccFSxOntapVolume_storageEfficiency(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxOntapVolume_tags(t *testing.T) {
+}func TestAccFSxOntapVolume_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var volume1, volume2, volume3 fsx.Volume
 	resourceName := "aws_fsx_ontap_volume.test"
-	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -369,15 +327,11 @@ func TestAccFSxOntapVolume_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccFSxOntapVolume_tieringPolicy(t *testing.T) {
+}func TestAccFSxOntapVolume_tieringPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var volume1, volume2, volume3, volume4 fsx.Volume
 	resourceName := "aws_fsx_ontap_volume.test"
-	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := fmt.Sprintf("tf_acc_test_%d", sdkacctest.RandInt())	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -428,94 +382,56 @@ func TestAccFSxOntapVolume_tieringPolicy(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckOntapVolumeExists(ctx context.Context, n string, v *fsx.Volume) resource.TestCheckFunc {
+}func testAccCheckOntapVolumeExists(ctx context.Context, n string, v *fsx.Volume) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-		output, err := tffsx.FindVolumeByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		output, err := tffsx.FindVolumeByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccCheckOntapVolumeDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckOntapVolumeDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_fsx_ontap_volume" {
 				continue
-			}
-
-			volume, err := tffsx.FindVolumeByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			volume, err := tffsx.FindVolumeByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if volume != nil {
+			}			if volume != nil {
 				return fmt.Errorf("FSx ONTAP Volume (%s) still exists", rs.Primary.ID)
 			}
 		}
 		return nil
 	}
-}
-
-func testAccCheckOntapVolumeNotRecreated(i, j *fsx.Volume) resource.TestCheckFunc {
+}func testAccCheckOntapVolumeNotRecreated(i, j *fsx.Volume) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if aws.StringValue(i.VolumeId) != aws.StringValue(j.VolumeId) {
 			return fmt.Errorf("FSx ONTAP Volume (%s) recreated", aws.StringValue(i.VolumeId))
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccCheckOntapVolumeRecreated(i, j *fsx.Volume) resource.TestCheckFunc {
+}func testAccCheckOntapVolumeRecreated(i, j *fsx.Volume) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if aws.StringValue(i.VolumeId) == aws.StringValue(j.VolumeId) {
 			return fmt.Errorf("FSx ONTAP Volume (%s) not recreated", aws.StringValue(i.VolumeId))
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-func testAccOntapVolumeConfig_base(rName string) string {
+}func testAccOntapVolumeConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
   storage_capacity= 1024
   subnet_ids = aws_subnet.test[*].id
   deployment_type = "MULTI_AZ_1"
   throughput_capacity = 512
-  preferred_subnet_id = aws_subnet.test[0].id
-
-  tags = {
+  preferred_subnet_id = aws_subnet.test[0].id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_fsx_ontap_storage_virtual_machine" "test" {
+}resource "aws_fsx_ontap_storage_virtual_machine" "test" {
   file_system_id = aws_fsx_ontap_file_system.test.id
   name  = %[1]q
 }
 `, rName))
-}
-
-func testAccONTAPVolumeConfig_basic(rName string) string {
+}func testAccONTAPVolumeConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccOntapVolumeConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_volume" "test" {
   name= %[1]q
@@ -525,9 +441,7 @@ resource "aws_fsx_ontap_volume" "test" {
   storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
 }
 `, rName))
-}
-
-func testAccONTAPVolumeConfig_junctionPath(rName string, junctionPath string) string {
+}func testAccONTAPVolumeConfig_junctionPath(rName string, junctionPath string) string {
 	return acctest.ConfigCompose(testAccOntapVolumeConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_volume" "test" {
   name= %[1]q
@@ -537,9 +451,7 @@ resource "aws_fsx_ontap_volume" "test" {
   storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
 }
 `, rName, junctionPath))
-}
-
-func testAccONTAPVolumeConfig_ontapVolumeTypeDP(rName string) string {
+}func testAccONTAPVolumeConfig_ontapVolumeTypeDP(rName string) string {
 	return acctest.ConfigCompose(testAccOntapVolumeConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_volume" "test" {
   name= %[1]q
@@ -549,9 +461,7 @@ resource "aws_fsx_ontap_volume" "test" {
   storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
 }
 `, rName))
-}
-
-func testAccONTAPVolumeConfig_securityStyle(rName string, securityStyle string) string {
+}func testAccONTAPVolumeConfig_securityStyle(rName string, securityStyle string) string {
 	return acctest.ConfigCompose(testAccOntapVolumeConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_volume" "test" {
   name= %[1]q
@@ -562,9 +472,7 @@ resource "aws_fsx_ontap_volume" "test" {
   storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
 }
 `, rName, securityStyle))
-}
-
-func testAccONTAPVolumeConfig_size(rName string, size int) string {
+}func testAccONTAPVolumeConfig_size(rName string, size int) string {
 	return acctest.ConfigCompose(testAccOntapVolumeConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_volume" "test" {
   name= %[1]q
@@ -574,9 +482,7 @@ resource "aws_fsx_ontap_volume" "test" {
   storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
 }
 `, rName, size))
-}
-
-func testAccONTAPVolumeConfig_storageEfficiency(rName string, storageEfficiencyEnabled bool) string {
+}func testAccONTAPVolumeConfig_storageEfficiency(rName string, storageEfficiencyEnabled bool) string {
 	return acctest.ConfigCompose(testAccOntapVolumeConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_volume" "test" {
   name= %[1]q
@@ -586,67 +492,51 @@ resource "aws_fsx_ontap_volume" "test" {
   storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
 }
 `, rName, storageEfficiencyEnabled))
-}
-
-func testAccONTAPVolumeConfig_tieringPolicy(rName string, policy string, coolingPeriod int) string {
+}func testAccONTAPVolumeConfig_tieringPolicy(rName string, policy string, coolingPeriod int) string {
 	return acctest.ConfigCompose(testAccOntapVolumeConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_volume" "test" {
   name= %[1]q
   junction_path = "/%[1]s"
   size_in_megabytes = 1024
   storage_efficiency_enabled = true
-  storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
-
-  tiering_policy {
+  storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id  tiering_policy {
 name  = %[2]q
 cooling_period = %[3]d
   }
 }
 `, rName, policy, coolingPeriod))
-}
-
-func testAccONTAPVolumeConfig_tieringPolicyNoCooling(rName string, policy string) string {
+}func testAccONTAPVolumeConfig_tieringPolicyNoCooling(rName string, policy string) string {
 	return acctest.ConfigCompose(testAccOntapVolumeConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_volume" "test" {
   name= %[1]q
   junction_path = "/%[1]s"
   size_in_megabytes = 1024
   storage_efficiency_enabled = true
-  storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
-
-  tiering_policy {
+  storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id  tiering_policy {
 name = %[2]q
   }
 }
 `, rName, policy))
-}
-
-func testAccONTAPVolumeConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccONTAPVolumeConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccOntapVolumeConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_volume" "test" {
   name= %[1]q
   junction_path = "/%[1]s"
   size_in_megabytes = 1024
   storage_efficiency_enabled = true
-  storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
-
-  tags = {
+  storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
-}
-
-func testAccONTAPVolumeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccONTAPVolumeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccOntapVolumeConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_volume" "test" {
   name= %[1]q
   junction_path = "/%[1]s"
   size_in_megabytes = 1024
   storage_efficiency_enabled = true
-  storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
-
-  tags = {
+  storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }

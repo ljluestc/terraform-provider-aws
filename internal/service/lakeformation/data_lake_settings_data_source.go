@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lakeformation
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lakeformationimport (
 "context"
 "fmt"
-"log"
-
-"github.com/aws/aws-sdk-go/aws"
+"log""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/lakeformation"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -17,14 +11,10 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/create"
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 "github.com/hashicorp/terraform-provider-aws/internal/flex"
-)
-
-// @SDKDataSource("aws_lakeformation_data_lake_settings")
+)// @SDKDataSource("aws_lakeformation_data_lake_settings")
 func DataSourceDataLakeSettings() *schema.Resource {
 return &schema.Resource{
-ReadWithoutTimeout: dataSourceDataLakeSettingsRead,
-
-Schema: map[string]*schema.Schema{
+ReadWithoutTimeout: dataSourceDataLakeSettingsRead,Schema: map[string]*schema.Schema{
 "admins": {
 Type:     schema.TypeSet,
 Computed: true,
@@ -94,45 +84,25 @@ Elem:     &schema.Schema{Type: schema.TypeString},
 },
 },
 }
-}
-
-func dataSourceDataLakeSettingsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceDataLakeSettingsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).LakeFormationConn(ctx)
-
-input := &lakeformation.GetDataLakeSettingsInput{}
-
-if v, ok := d.GetOk("catalog_id"); ok {
+conn := meta.(*conns.AWSClient).LakeFormationConn(ctx)input := &lakeformation.GetDataLakeSettingsInput{}if v, ok := d.GetOk("catalog_id"); ok {
 input.CatalogId = aws.String(v.(string))
 }
-d.SetId(fmt.Sprintf("%d", create.StringHashcode(input.String())))
-
-output, err := conn.GetDataLakeSettingsWithContext(ctx, input)
-
-if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, lakeformation.ErrCodeEntityNotFoundException) {
+d.SetId(fmt.Sprintf("%d", create.StringHashcode(input.String())))output, err := conn.GetDataLakeSettingsWithContext(ctx, input)if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, lakeformation.ErrCodeEntityNotFoundException) {
 log.Printf("[WARN] Lake Formation data lake settings (%s) not found, removing from state", d.Id())
 d.SetId("")
 return diags
-}
-
-if err != nil {
+}if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading Lake Formation data lake settings (%s): %s", d.Id(), err)
-}
-
-if output == nil || output.DataLakeSettings == nil {
+}if output == nil || output.DataLakeSettings == nil {
 return sdkdiag.AppendErrorf(diags, "reading Lake Formation data lake settings (%s): empty response", d.Id())
-}
-
-settings := output.DataLakeSettings
-
-d.Set("admins", flattenDataLakeSettingsAdmins(settings.DataLakeAdmins))
+}settings := output.DataLakeSettingsd.Set("admins", flattenDataLakeSettingsAdmins(settings.DataLakeAdmins))
 d.Set("read_only_admins", flattenDataLakeSettingsAdmins(settings.ReadOnlyAdmins))
 d.Set("allow_external_data_filtering", settings.AllowExternalDataFiltering)
 d.Set("authorized_session_tag_value_list", flex.FlattenStringList(settings.AuthorizedSessionTagValueList))
 d.Set("create_database_default_permissions", flattenDataLakeSettingsCreateDefaultPermissions(settings.CreateDatabaseDefaultPermissions))
 d.Set("create_table_default_permissions", flattenDataLakeSettingsCreateDefaultPermissions(settings.CreateTableDefaultPermissions))
 d.Set("external_data_filtering_allow_list", flattenDataLakeSettingsDataFilteringAllowList(settings.ExternalDataFilteringAllowList))
-d.Set("trusted_resource_owners", flex.FlattenStringList(settings.TrustedResourceOwners))
-
-return diags
+d.Set("trusted_resource_owners", flex.FlattenStringList(settings.TrustedResourceOwners))return diags
 }

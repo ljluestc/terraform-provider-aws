@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticbeanstalk
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elasticbeanstalkimport (
 	"github.com/aws/aws-sdk-go/service/elasticbeanstalk"
 )
 func flattenASG(list []*elasticbeanstalk.AutoScalingGroup) []string {

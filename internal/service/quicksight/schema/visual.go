@@ -16,10 +16,7 @@ import (
 
 const customActionsMaxItems = 10
 const referenceLinesMaxItems = 20
-const dataPathValueMaxItems = 20
-
-
-func visualsSchema() *schema.Schema {
+const dataPathValueMaxItems = 20func visualsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SheetControlLayout.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -53,10 +50,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func legendOptionsSchema() *schema.Schema {
+}func legendOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LegendOptions.html
 Type:     schema.TypeList,
 Optional: true,
@@ -78,10 +72,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func tooltipOptionsSchema() *schema.Schema {
+}func tooltipOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
 Type:     schema.TypeList,
 Optional: true,
@@ -151,10 +142,7 @@ Optional: true,
 	},
 },
 	}
-}
-
-
-func visualPaletteSchema() *schema.Schema {
+}func visualPaletteSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
 Type:     schema.TypeList,
 Optional: true,
@@ -179,10 +167,7 @@ Schema: map[string]*schema.Schema{
 	},
 },
 	}
-}
-
-
-func dataPathValueSchema(maxItems int) *schema.Schema {
+}func dataPathValueSchema(maxItems int) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataPathValue.html
 Type:     schema.TypeList,
 Required: true,
@@ -195,10 +180,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func columnHierarchiesSchema() *schema.Schema {
+}func columnHierarchiesSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnHierarchy.html
 Type:     schema.TypeList,
 Optional: true,
@@ -269,10 +251,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func visualSubtitleLabelOptionsSchema() *schema.Schema {
+}func visualSubtitleLabelOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualSubtitleLabelOptions.html
 Type:     schema.TypeList,
 Optional: true,
@@ -286,10 +265,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func longFormatTextSchema() *schema.Schema {
+}func longFormatTextSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LongFormatText.html
 Type:     schema.TypeList,
 Optional: true,
@@ -312,10 +288,7 @@ func: validation.StringLenBetween(1, 2048),
 	},
 },
 	}
-}
-
-
-func shortFormatTextSchema() *schema.Schema {
+}func shortFormatTextSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ShortFormatText.html
 Type:     schema.TypeList,
 Optional: true,
@@ -338,10 +311,7 @@ func: validation.StringLenBetween(1, 1024),
 	},
 },
 	}
-}
-
-
-func visualTitleLabelOptionsSchema() *schema.Schema {
+}func visualTitleLabelOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualTitleLabelOptions.html
 Type:     schema.TypeList,
 Optional: true,
@@ -355,10 +325,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func comparisonConfigurationSchema() *schema.Schema {
+}func comparisonConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ComparisonConfiguration.html
 Type:     schema.TypeList,
 Optional: true,
@@ -382,10 +349,7 @@ Schema: map[string]*schema.Schema{
 	},
 },
 	}
-}
-
-
-func colorScaleSchema() *schema.Schema {
+}func colorScaleSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColorScale.html
 Type:     schema.TypeList,
 Optional: true,
@@ -427,10 +391,7 @@ Optional: true,
 	},
 },
 	}
-}
-
-
-func dataLabelOptionsSchema() *schema.Schema {
+}func dataLabelOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataLabelOptions.html
 Type:     schema.TypeList,
 MinItems: 1,
@@ -517,10 +478,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func expandVisual(tfMap map[string]interface{}) *quicksight.Visual {
+}func expandVisual(tfMap map[string]interface{}) *quicksight.Visual {
 	if tfMap == nil {
 return nil
 	}
@@ -598,10 +556,7 @@ visual.WordCloudVisual = expandWordCloudVisual(v)
 	}
 
 	return visual
-}
-
-
-func expandDataLabelOptions(tfList []interface{}) *quicksight.DataLabelOptions {
+}func expandDataLabelOptions(tfList []interface{}) *quicksight.DataLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -643,10 +598,7 @@ options.LabelFontConfiguration = expandFontConfiguration(v)
 	}
 
 	return options
-}
-
-
-func expandDataLabelTypes(tfList []interface{}) []*quicksight.DataLabelType {
+}func expandDataLabelTypes(tfList []interface{}) []*quicksight.DataLabelType {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -667,10 +619,7 @@ options = append(options, opts)
 	}
 
 	return options
-}
-
-
-func expandDataLabelType(tfMap map[string]interface{}) *quicksight.DataLabelType {
+}func expandDataLabelType(tfMap map[string]interface{}) *quicksight.DataLabelType {
 	if tfMap == nil {
 return nil
 	}
@@ -694,10 +643,7 @@ options.RangeEndsLabelType = expandRangeEndsLabelType(v)
 	}
 
 	return options
-}
-
-
-func expandDataPathLabelType(tfList []interface{}) *quicksight.DataPathLabelType {
+}func expandDataPathLabelType(tfList []interface{}) *quicksight.DataPathLabelType {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -720,10 +666,7 @@ options.Visibility = aws.String(v)
 	}
 
 	return options
-}
-
-
-func expandFieldLabelType(tfList []interface{}) *quicksight.FieldLabelType {
+}func expandFieldLabelType(tfList []interface{}) *quicksight.FieldLabelType {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -743,10 +686,7 @@ options.Visibility = aws.String(v)
 	}
 
 	return options
-}
-
-
-func expandMaximumLabelType(tfList []interface{}) *quicksight.MaximumLabelType {
+}func expandMaximumLabelType(tfList []interface{}) *quicksight.MaximumLabelType {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -763,10 +703,7 @@ options.Visibility = aws.String(v)
 	}
 
 	return options
-}
-
-
-func expandMinimumLabelType(tfList []interface{}) *quicksight.MinimumLabelType {
+}func expandMinimumLabelType(tfList []interface{}) *quicksight.MinimumLabelType {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -783,10 +720,7 @@ options.Visibility = aws.String(v)
 	}
 
 	return options
-}
-
-
-func expandRangeEndsLabelType(tfList []interface{}) *quicksight.RangeEndsLabelType {
+}func expandRangeEndsLabelType(tfList []interface{}) *quicksight.RangeEndsLabelType {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -803,10 +737,7 @@ options.Visibility = aws.String(v)
 	}
 
 	return options
-}
-
-
-func expandLegendOptions(tfList []interface{}) *quicksight.LegendOptions {
+}func expandLegendOptions(tfList []interface{}) *quicksight.LegendOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -835,10 +766,7 @@ options.Title = expandLabelOptions(v)
 	}
 
 	return options
-}
-
-
-func expandTooltipOptions(tfList []interface{}) *quicksight.TooltipOptions {
+}func expandTooltipOptions(tfList []interface{}) *quicksight.TooltipOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -861,10 +789,7 @@ options.FieldBasedTooltip = expandFieldBasedTooltip(v)
 	}
 
 	return options
-}
-
-
-func expandFieldBasedTooltip(tfList []interface{}) *quicksight.FieldBasedTooltip {
+}func expandFieldBasedTooltip(tfList []interface{}) *quicksight.FieldBasedTooltip {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -887,10 +812,7 @@ options.TooltipFields = expandTooltipItems(v)
 	}
 
 	return options
-}
-
-
-func expandTooltipItems(tfList []interface{}) []*quicksight.TooltipItem {
+}func expandTooltipItems(tfList []interface{}) []*quicksight.TooltipItem {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -911,10 +833,7 @@ items = append(items, item)
 	}
 
 	return items
-}
-
-
-func expandTooltipItem(tfMap map[string]interface{}) *quicksight.TooltipItem {
+}func expandTooltipItem(tfMap map[string]interface{}) *quicksight.TooltipItem {
 	if tfMap == nil {
 return nil
 	}
@@ -929,10 +848,7 @@ item.FieldTooltipItem = expandFieldTooltipItem(v)
 	}
 
 	return item
-}
-
-
-func expandColumnTooltipItem(tfList []interface{}) *quicksight.ColumnTooltipItem {
+}func expandColumnTooltipItem(tfList []interface{}) *quicksight.ColumnTooltipItem {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -959,10 +875,7 @@ function(v)
 	}
 
 	return item
-}
-
-
-func expandFieldTooltipItem(tfList []interface{}) *quicksight.FieldTooltipItem {
+}func expandFieldTooltipItem(tfList []interface{}) *quicksight.FieldTooltipItem {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -985,10 +898,7 @@ item.Visibility = aws.String(v)
 	}
 
 	return item
-}
-
-
-func expandVisualPalette(tfList []interface{}) *quicksight.VisualPalette {
+}func expandVisualPalette(tfList []interface{}) *quicksight.VisualPalette {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1008,10 +918,7 @@ config.ColorMap = expandDataPathColors(v)
 	}
 
 	return config
-}
-
-
-func expandDataPathColors(tfList []interface{}) []*quicksight.DataPathColor {
+}func expandDataPathColors(tfList []interface{}) []*quicksight.DataPathColor {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -1032,10 +939,7 @@ colors = append(colors, color)
 	}
 
 	return colors
-}
-
-
-func expandDataPathColor(tfMap map[string]interface{}) *quicksight.DataPathColor {
+}func expandDataPathColor(tfMap map[string]interface{}) *quicksight.DataPathColor {
 	if tfMap == nil {
 return nil
 	}
@@ -1053,10 +957,7 @@ color.Element = expandDataPathValue(v)
 	}
 
 	return color
-}
-
-
-func expandDataPathValues(tfList []interface{}) []*quicksight.DataPathValue {
+}func expandDataPathValues(tfList []interface{}) []*quicksight.DataPathValue {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -1077,10 +978,7 @@ values = append(values, value)
 	}
 
 	return values
-}
-
-
-func expandDataPathValueInternal(tfMap map[string]interface{}) *quicksight.DataPathValue {
+}func expandDataPathValueInternal(tfMap map[string]interface{}) *quicksight.DataPathValue {
 	if tfMap == nil {
 return nil
 	}
@@ -1095,10 +993,7 @@ value.FieldValue = aws.String(v)
 	}
 
 	return value
-}
-
-
-func expandDataPathValue(tfList []interface{}) *quicksight.DataPathValue {
+}func expandDataPathValue(tfList []interface{}) *quicksight.DataPathValue {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1109,10 +1004,7 @@ return nil
 	}
 
 	return expandDataPathValueInternal(tfMap)
-}
-
-
-func expandColumnHierarchies(tfList []interface{}) []*quicksight.ColumnHierarchy {
+}func expandColumnHierarchies(tfList []interface{}) []*quicksight.ColumnHierarchy {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -1133,10 +1025,7 @@ options = append(options, opts)
 	}
 
 	return options
-}
-
-
-func expandColumnHierarchy(tfMap map[string]interface{}) *quicksight.ColumnHierarchy {
+}func expandColumnHierarchy(tfMap map[string]interface{}) *quicksight.ColumnHierarchy {
 	if tfMap == nil {
 return nil
 	}
@@ -1154,10 +1043,7 @@ options.PredefinedHierarchy = expandPredefinedHierarchy(v)
 	}
 
 	return options
-}
-
-
-func expandDateTimeHierarchy(tfList []interface{}) *quicksight.DateTimeHierarchy {
+}func expandDateTimeHierarchy(tfList []interface{}) *quicksight.DateTimeHierarchy {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1177,10 +1063,7 @@ config.DrillDownFilters = expandDrillDownFilters(v)
 	}
 
 	return config
-}
-
-
-func expandExplicitHierarchy(tfList []interface{}) *quicksight.ExplicitHierarchy {
+}func expandExplicitHierarchy(tfList []interface{}) *quicksight.ExplicitHierarchy {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1228,10 +1111,7 @@ config.DrillDownFilters = expandDrillDownFilters(v)
 	}
 
 	return config
-}
-
-
-func expandVisualSubtitleLabelOptions(tfList []interface{}) *quicksight.VisualSubtitleLabelOptions {
+}func expandVisualSubtitleLabelOptions(tfList []interface{}) *quicksight.VisualSubtitleLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1251,10 +1131,7 @@ options.FormatText = expandLongFormatText(v)
 	}
 
 	return options
-}
-
-
-func expandLongFormatText(tfList []interface{}) *quicksight.LongFormatText {
+}func expandLongFormatText(tfList []interface{}) *quicksight.LongFormatText {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1274,10 +1151,7 @@ format.RichText = aws.String(v)
 	}
 
 	return format
-}
-
-
-func expandVisualTitleLabelOptions(tfList []interface{}) *quicksight.VisualTitleLabelOptions {
+}func expandVisualTitleLabelOptions(tfList []interface{}) *quicksight.VisualTitleLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1297,10 +1171,7 @@ options.FormatText = expandShortFormatText(v)
 	}
 
 	return options
-}
-
-
-func expandShortFormatText(tfList []interface{}) *quicksight.ShortFormatText {
+}func expandShortFormatText(tfList []interface{}) *quicksight.ShortFormatText {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1320,10 +1191,7 @@ format.RichText = aws.String(v)
 	}
 
 	return format
-}
-
-
-func expandComparisonConfiguration(tfList []interface{}) *quicksight.ComparisonConfiguration {
+}func expandComparisonConfiguration(tfList []interface{}) *quicksight.ComparisonConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1343,10 +1211,7 @@ config.ComparisonFormat = expandComparisonFormatConfiguration(v)
 	}
 
 	return config
-}
-
-
-func expandColorScale(tfList []interface{}) *quicksight.ColorScale {
+}func expandColorScale(tfList []interface{}) *quicksight.ColorScale {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1369,10 +1234,7 @@ config.NullValueColor = expandDataColor(v)
 	}
 
 	return config
-}
-
-
-func expandDataColor(tfList []interface{}) *quicksight.DataColor {
+}func expandDataColor(tfList []interface{}) *quicksight.DataColor {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -1383,10 +1245,7 @@ return nil
 	}
 
 	return expandDataColorInternal(tfMap)
-}
-
-
-func expandDataColorInternal(tfMap map[string]interface{}) *quicksight.DataColor {
+}func expandDataColorInternal(tfMap map[string]interface{}) *quicksight.DataColor {
 	color := &quicksight.DataColor{}
 
 	if v, ok := tfMap["color"].(string); ok && v != "" {
@@ -1397,10 +1256,7 @@ color.DataValue = aws.Float64(v)
 	}
 
 	return color
-}
-
-
-func expandDataColors(tfList []interface{}) []*quicksight.DataColor {
+}func expandDataColors(tfList []interface{}) []*quicksight.DataColor {
 	if len(tfList) == 0 {
 return nil
 	}
@@ -1421,10 +1277,7 @@ colors = append(colors, color)
 	}
 
 	return colors
-}
-
-
-func flattenVisuals(apiObject []*quicksight.Visual) []interface{} {
+}func flattenVisuals(apiObject []*quicksight.Visual) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1509,10 +1362,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenDataLabelOptions(apiObject *quicksight.DataLabelOptions) []interface{} {
+}func flattenDataLabelOptions(apiObject *quicksight.DataLabelOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1547,10 +1397,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDataLabelType(apiObject []*quicksight.DataLabelType) []interface{} {
+}func flattenDataLabelType(apiObject []*quicksight.DataLabelType) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1582,10 +1429,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenDataPathLabelType(apiObject *quicksight.DataPathLabelType) []interface{} {
+}func flattenDataPathLabelType(apiObject *quicksight.DataPathLabelType) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1602,10 +1446,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFieldLabelType(apiObject *quicksight.FieldLabelType) []interface{} {
+}func flattenFieldLabelType(apiObject *quicksight.FieldLabelType) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1619,10 +1460,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenMaximumLabelType(apiObject *quicksight.MaximumLabelType) []interface{} {
+}func flattenMaximumLabelType(apiObject *quicksight.MaximumLabelType) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1633,10 +1471,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenMinimumLabelType(apiObject *quicksight.MinimumLabelType) []interface{} {
+}func flattenMinimumLabelType(apiObject *quicksight.MinimumLabelType) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1647,10 +1482,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenRangeEndsLabelType(apiObject *quicksight.RangeEndsLabelType) []interface{} {
+}func flattenRangeEndsLabelType(apiObject *quicksight.RangeEndsLabelType) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1661,10 +1493,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLegendOptions(apiObject *quicksight.LegendOptions) []interface{} {
+}func flattenLegendOptions(apiObject *quicksight.LegendOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1687,10 +1516,7 @@ tfMap["width"] = aws.StringValue(apiObject.Width)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenTooltipOptions(apiObject *quicksight.TooltipOptions) []interface{} {
+}func flattenTooltipOptions(apiObject *quicksight.TooltipOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1707,10 +1533,7 @@ tfMap["tooltip_visibility"] = aws.StringValue(apiObject.TooltipVisibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFieldBasedTooltip(apiObject *quicksight.FieldBasedTooltip) []interface{} {
+}func flattenFieldBasedTooltip(apiObject *quicksight.FieldBasedTooltip) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1727,10 +1550,7 @@ tfMap["tooltip_title_type"] = aws.StringValue(apiObject.TooltipTitleType)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenTooltipItem(apiObject []*quicksight.TooltipItem) []interface{} {
+}func flattenTooltipItem(apiObject []*quicksight.TooltipItem) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1753,10 +1573,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenColumnTooltipItem(apiObject *quicksight.ColumnTooltipItem) []interface{} {
+}func flattenColumnTooltipItem(apiObject *quicksight.ColumnTooltipItem) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1777,10 +1594,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenFieldTooltipItem(apiObject *quicksight.FieldTooltipItem) []interface{} {
+}func flattenFieldTooltipItem(apiObject *quicksight.FieldTooltipItem) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1797,10 +1611,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenVisualPalette(apiObject *quicksight.VisualPalette) []interface{} {
+}func flattenVisualPalette(apiObject *quicksight.VisualPalette) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1814,10 +1625,7 @@ tfMap["color_map"] = flattenDataPathColor(apiObject.ColorMap)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDataPathColor(apiObject []*quicksight.DataPathColor) []interface{} {
+}func flattenDataPathColor(apiObject []*quicksight.DataPathColor) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1843,10 +1651,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenDataPathValue(apiObject *quicksight.DataPathValue) []interface{} {
+}func flattenDataPathValue(apiObject *quicksight.DataPathValue) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1860,10 +1665,7 @@ tfMap["field_value"] = aws.StringValue(apiObject.FieldValue)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDataPathValues(apiObject []*quicksight.DataPathValue) []interface{} {
+}func flattenDataPathValues(apiObject []*quicksight.DataPathValue) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1886,10 +1688,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenColumnHierarchy(apiObject []*quicksight.ColumnHierarchy) []interface{} {
+}func flattenColumnHierarchy(apiObject []*quicksight.ColumnHierarchy) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1915,10 +1714,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenDateTimeHierarchy(apiObject *quicksight.DateTimeHierarchy) []interface{} {
+}func flattenDateTimeHierarchy(apiObject *quicksight.DateTimeHierarchy) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1932,10 +1728,7 @@ tfMap["drill_down_filters"] = flattenDrillDownFilter(apiObject.DrillDownFilters)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDrillDownFilter(apiObject []*quicksight.DrillDownFilter) []interface{} {
+}func flattenDrillDownFilter(apiObject []*quicksight.DrillDownFilter) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}
@@ -1961,10 +1754,7 @@ tfList = append(tfList, tfMap)
 	}
 
 	return tfList
-}
-
-
-func flattenCategoryDrillDownFilter(apiObject *quicksight.CategoryDrillDownFilter) []interface{} {
+}func flattenCategoryDrillDownFilter(apiObject *quicksight.CategoryDrillDownFilter) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1978,10 +1768,7 @@ tfMap["column"] = flattenColumnIdentifier(apiObject.Column)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenNumericEqualityDrillDownFilter(apiObject *quicksight.NumericEqualityDrillDownFilter) []interface{} {
+}func flattenNumericEqualityDrillDownFilter(apiObject *quicksight.NumericEqualityDrillDownFilter) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -1995,10 +1782,7 @@ tfMap["value"] = aws.Float64Value(apiObject.Value)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenTimeRangeDrillDownFilter(apiObject *quicksight.TimeRangeDrillDownFilter) []interface{} {
+}func flattenTimeRangeDrillDownFilter(apiObject *quicksight.TimeRangeDrillDownFilter) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -2018,10 +1802,7 @@ tfMap["time_granularity"] = aws.StringValue(apiObject.TimeGranularity)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenExplicitHierarchy(apiObject *quicksight.ExplicitHierarchy) []interface{} {
+}func flattenExplicitHierarchy(apiObject *quicksight.ExplicitHierarchy) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -2038,10 +1819,7 @@ tfMap["drill_down_filters"] = flattenDrillDownFilter(apiObject.DrillDownFilters)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenPredefinedHierarchy(apiObject *quicksight.PredefinedHierarchy) []interface{} {
+}func flattenPredefinedHierarchy(apiObject *quicksight.PredefinedHierarchy) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -2058,10 +1836,7 @@ tfMap["drill_down_filters"] = flattenDrillDownFilter(apiObject.DrillDownFilters)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenVisualSubtitleLabelOptions(apiObject *quicksight.VisualSubtitleLabelOptions) []interface{} {
+}func flattenVisualSubtitleLabelOptions(apiObject *quicksight.VisualSubtitleLabelOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -2075,10 +1850,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenLongFormatText(apiObject *quicksight.LongFormatText) []interface{} {
+}func flattenLongFormatText(apiObject *quicksight.LongFormatText) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -2092,10 +1864,7 @@ tfMap["rich_text"] = aws.StringValue(apiObject.RichText)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenVisualTitleLabelOptions(apiObject *quicksight.VisualTitleLabelOptions) []interface{} {
+}func flattenVisualTitleLabelOptions(apiObject *quicksight.VisualTitleLabelOptions) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -2109,10 +1878,7 @@ tfMap["visibility"] = aws.StringValue(apiObject.Visibility)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenShortFormatText(apiObject *quicksight.ShortFormatText) []interface{} {
+}func flattenShortFormatText(apiObject *quicksight.ShortFormatText) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -2126,10 +1892,7 @@ tfMap["rich_text"] = aws.StringValue(apiObject.RichText)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenColorScale(apiObject *quicksight.ColorScale) []interface{} {
+}func flattenColorScale(apiObject *quicksight.ColorScale) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -2146,10 +1909,7 @@ tfMap["null_value_color"] = flattenDataColor(apiObject.NullValueColor)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDataColor(apiObject *quicksight.DataColor) []interface{} {
+}func flattenDataColor(apiObject *quicksight.DataColor) []interface{} {
 	if apiObject == nil {
 return nil
 	}
@@ -2163,10 +1923,7 @@ tfMap["data_value"] = aws.Float64Value(apiObject.DataValue)
 	}
 
 	return []interface{}{tfMap}
-}
-
-
-func flattenDataColors(apiObject []*quicksight.DataColor) []interface{} {
+}func flattenDataColors(apiObject []*quicksight.DataColor) []interface{} {
 	if len(apiObject) == 0 {
 return nil
 	}

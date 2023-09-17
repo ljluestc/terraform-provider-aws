@@ -1,4 +1,1 @@
-//Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0//go:generategorun../../generate/tags/main.go-ListTags-ListTagsInIDElem=ResourceName-ListTagsOutTagsElem=TagList-ServiceTagsSlice-TagOp=AddTagsToResource-TagInIDElem=ResourceName-UntagOp=RemoveTagsFromResource-UpdateTags-CreateTags
-//go:generategorun../../generate/servicepackage/main.go
-//ONLYgeneratedirectivesandpackagedeclaration!Donotaddanythingelsetothisfile.packageelasticache
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0//go:generategorun../../generate/tags/main.go-ListTags-ListTagsInIDElem=ResourceName-ListTagsOutTagsElem=TagList-ServiceTagsSlice-TagOp=AddTagsToResource-TagInIDElem=ResourceName-UntagOp=RemoveTagsFromResource-UpdateTags-CreateTags//go:generategorun../../generate/servicepackage/main.go//ONLYgeneratedirectivesandpackagedeclaration!Donotaddanythingelsetothisfile.packageelasticache

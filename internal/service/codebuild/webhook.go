@@ -99,10 +99,7 @@ Computed: true,
 },
 },
 }
-}
-
-
-func resourceWebhookCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceWebhookCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -130,10 +127,7 @@ d.Set("secret", resp.Webhook.Secret)
 d.SetId(d.Get("project_name").(string))
 
 return append(diags, resourceWebhookRead(ctx, d, meta)...)
-}
-
-
-func expandWebhookFilterGroups(d *schema.ResourceData) [][]*codebuild.WebhookFilter {
+}func expandWebhookFilterGroups(d *schema.ResourceData) [][]*codebuild.WebhookFilter {
 configs := d.Get("filter_group").(*schema.Set).List()
 
 webhookFilters := make([][]*codebuild.WebhookFilter, 0)
@@ -148,10 +142,7 @@ webhookFilters = append(webhookFilters, filters)
 }
 
 return webhookFilters
-}
-
-
-func expandWebhookFilterData(data map[string]interface{}) []*codebuild.WebhookFilter {
+}func expandWebhookFilterData(data map[string]interface{}) []*codebuild.WebhookFilter {
 filters := make([]*codebuild.WebhookFilter, 0)
 
 filterConfigs := data["filter"].([]interface{})
@@ -168,10 +159,7 @@ filters[i].Pattern = aws.String(v.(string))
 }
 
 return filters
-}
-
-
-func resourceWebhookRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceWebhookRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -222,10 +210,7 @@ d.Set("url", project.Webhook.Url)
 // The secret is never returned after creation, so don't set it here
 
 return diags
-}
-
-
-func resourceWebhookUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceWebhookUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -258,10 +243,7 @@ return sdkdiag.AppendErrorf(diags, "updating CodeBuild Webhook (%s): %s", d.Id()
 }
 
 return append(diags, resourceWebhookRead(ctx, d, meta)...)
-}
-
-
-func resourceWebhookDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceWebhookDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -277,10 +259,7 @@ return sdkdiag.AppendErrorf(diags, "deleting CodeBuild Webhook (%s): %s", d.Id()
 }
 
 return diags
-}
-
-
-func flattenWebhookFilterGroups(filterList [][]*codebuild.WebhookFilter) *schema.Set {
+}func flattenWebhookFilterGroups(filterList [][]*codebuild.WebhookFilter) *schema.Set {
 filterSet := schema.Set{
 F: resourceWebhookFilterHash,
 }
@@ -289,10 +268,7 @@ for _, filters := range filterList {
 filterSet.Add(flattenWebhookFilterData(filters))
 }
 return &filterSet
-}
-
-
-func resourceWebhookFilterHash(v interface{}) int {
+}func resourceWebhookFilterHash(v interface{}) int {
 var buf bytes.Buffer
 m := v.(map[string]interface{})
 
@@ -306,10 +282,7 @@ buf.WriteString(fmt.Sprintf("%q", r["exclude_matched_pattern"]))
 }
 
 return create.StringHashcode(buf.String())
-}
-
-
-func flattenWebhookFilterData(filters []*codebuild.WebhookFilter) map[string]interface{} {
+}func flattenWebhookFilterData(filters []*codebuild.WebhookFilter) map[string]interface{} {
 values := map[string]interface{}{}
 ff := make([]interface{}, 0)
 

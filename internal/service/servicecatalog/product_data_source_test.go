@@ -1,27 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicecatalog_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package servicecatalog_testimport (
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/servicecatalog"
+"testing""github.com/aws/aws-sdk-go/service/servicecatalog"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccServiceCatalogProductDataSource_basic(t *testing.T) {
+)func TestAccServiceCatalogProductDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_product.test"
-dataSourceName := "data.aws_servicecatalog_product.test"
-
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_servicecatalog_product.test"rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -48,17 +36,11 @@ resource.TestCheckResourceAttrPair(resourceName, "tags.Name", dataSourceName, "t
 },
 },
 })
-}
-
-func TestAccServiceCatalogProductDataSource_physicalID(t *testing.T) {
+}func TestAccServiceCatalogProductDataSource_physicalID(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_product.test"
-dataSourceName := "data.aws_servicecatalog_product.test"
-
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_servicecatalog_product.test"rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -85,17 +67,13 @@ resource.TestCheckResourceAttrPair(resourceName, "tags.Name", dataSourceName, "t
 },
 },
 })
-}
-
-func testAccProductDataSourceConfig_basic(rName, description, supportDescription, domain, email string) string {
+}func testAccProductDataSourceConfig_basic(rName, description, supportDescription, domain, email string) string {
 return acctest.ConfigCompose(testAccProductConfig_basic(rName, description, supportDescription, domain, email), `
 data "aws_servicecatalog_product" "test" {
   id = aws_servicecatalog_product.test.id
 }
 `)
-}
-
-func testAccProductDataSourceConfig_physicalID(rName, domain, email string) string {
+}func testAccProductDataSourceConfig_physicalID(rName, domain, email string) string {
 return acctest.ConfigCompose(testAccProductConfig_physicalID(rName, domain, email), `
 data "aws_servicecatalog_product" "test" {
   id = aws_servicecatalog_product.test.id

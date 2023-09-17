@@ -1,19 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafv2
-
-import (
-"math"
-
-"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package wafv2import (
+"math""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/service/wafv2"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 "github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-var listOfEmptyObjectSchema *schema.Schema = &schema.Schema{
+)var listOfEmptyObjectSchema *schema.Schema = &schema.Schema{
 Type:     schema.TypeList,
 Optional: true,
 MaxItems: 1,
@@ -97,9 +89,7 @@ Schema: map[string]*schema.Schema{
 },
 },
 }
-}
-
-return &schema.Schema{
+}return &schema.Schema{
 Type:     schema.TypeList,
 Optional: true,
 MaxItems: 1,

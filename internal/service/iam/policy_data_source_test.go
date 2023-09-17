@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iam_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iam_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/iam"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -15,9 +9,7 @@ import (
 )func := acctest.Context(t)
 	datasourceName := "data.aws_iam_policy.test"
 	resourceName := "aws_iam_policy.test"
-	policyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	policyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -39,9 +31,7 @@ import (
 }func TestAccIAMPolicyDataSource_arnTags(t *testing.T) {
 	funcasourceName := "data.aws_iam_policy.test"
 	resourceName := "aws_iam_policy.test"
-	policyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	policyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -64,9 +54,7 @@ import (
 }func TestAccIAMPolicyDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	funcourceName := "aws_iam_policy.test"
-	policyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	policyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -88,9 +76,7 @@ import (
 }func TestAccIAMPolicyDataSource_nameTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_iam_policy.test"
-	funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -115,9 +101,7 @@ import (
 	datasourceName := "data.aws_iam_policy.test"
 	resourceName := "aws_iam_policy.test"
 funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	policyPath := "/test-path/"
-
-	resource.ParallelTest(t, resource.TestCase{
+	policyPath := "/test-path/"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -139,11 +123,7 @@ funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 }func TestAccIAMPolicyDataSource_nameAndPathPrefixTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_iam_policy.test"
-	resourceName := "aws_iam_policy.test"
-
-	funcicyPath := "/test-path/"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_iam_policy.test"	funcicyPath := "/test-path/"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -166,9 +146,7 @@ funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 }func TestAccIAMPolicyDataSource_nonExistent(t *testing.T) {
 	ctx := acctest.Context(t)
 	policyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	policyPath := "/test-path/"
-
-	resource.ParallelTest(t, resource.TestCase{
+	policyPath := "/test-path/"	resource.ParallelTest(t, resource.TestCase{
 	funcrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -183,9 +161,7 @@ funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resource "aws_iam_policy" "test" {
   name   = %q
   path   = %q
-  description = "My test policy"
-
- func
+  description = "My test policy" func
   "Version": "2012-10-17",
   "Statement": [
 {
@@ -204,9 +180,7 @@ EOF
 resource "aws_iam_policy" "test" {
   name= %[1]q
   path= %[2]q
-  description = "My test policy"
-
-  policy = <<EOF
+  description = "My test policy"  policy = <<EOF
 {funcersion": "2012-10-17",
   "Statement": [
 {
@@ -218,9 +192,7 @@ resource "aws_iam_policy" "test" {
 }
   ]
 }
-EOF
-
-  tags = {
+EOF  tags = {
 "key" = "value"
   }
 }`, policyName, policyPath)

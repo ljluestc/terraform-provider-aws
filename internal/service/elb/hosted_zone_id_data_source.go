@@ -1,21 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elb
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws/endpoints"
+// SPDX-License-Identifier: MPL-2.0package elbimport (
+	"context"	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// See https://docs.aws.amazon.com/general/latest/gr/elb.html#elb_region
-
-var HostedZoneIdPerRegionMap = map[string]string{
+)// See https://docs.aws.amazon.com/general/latest/gr/elb.html#elb_regionvar HostedZoneIdPerRegionMap = map[string]string{
 	endpoints.AfSouth1RegionID:     "Z268VQBMOI5EKX",
 	endpoints.ApEast1RegionID:      "Z3DQVH9N71FHZ0",
 	endpoints.ApNortheast1RegionID: "Z14GRHDCWA56QT",
@@ -48,34 +38,22 @@ var HostedZoneIdPerRegionMap = map[string]string{
 	endpoints.UsGovWest1RegionID:   "Z33AYJ8TM3BH4J",
 	endpoints.UsWest1RegionID:      "Z368ELLRRE2KJ0",
 	endpoints.UsWest2RegionID:      "Z1H1FL5HABSF5",
-}
-
-// @SDKDataSource("aws_elb_hosted_zone_id")
-
-func DataSourceHostedZoneID() *schema.Resource {
+}// @SDKDataSource("aws_elb_hosted_zone_id")func DataSourceHostedZoneID() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceHostedZoneIDRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceHostedZoneIDRead,		Schema: map[string]*schema.Schema{
 			"region": {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
 		},
 	}
-}
-
-func dataSourceHostedZoneIDRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceHostedZoneIDRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	region := meta.(*conns.AWSClient).Region
 	if v, ok := d.GetOk("region"); ok {
 		region = v.(string)
-	}
-
-	if zoneId, ok := HostedZoneIdPerRegionMap[region]; ok {
+	}	if zoneId, ok := HostedZoneIdPerRegionMap[region]; ok {
 		d.SetId(zoneId)
 		return diags
-	}
-
-	return sdkdiag.AppendErrorf(diags, "Unknown region (%q)", region)
+	}	return sdkdiag.AppendErrorf(diags, "Unknown region (%q)", region)
 }

@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lexmodels
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lexmodelsimport (
 	"context"
 	"fmt"
 	"log"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/arn"
 	"github.com/aws/aws-sdk-go/service/lexmodelbuildingservice"
@@ -23,33 +17,23 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-const (
+)const (
 	intentCreateTimeout = 1 * time.Minute
 	intentUpdateTimeout = 1 * time.Minute
 	intentDeleteTimeout = 5 * time.Minute
-)
-
-// @SDKResource("aws_lex_intent")
+)// @SDKResource("aws_lex_intent")
 func ResourceIntent() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceIntentCreate,
 		ReadWithoutTimeout:   resourceIntentRead,
 		UpdateWithoutTimeout: resourceIntentUpdate,
-		DeleteWithoutTimeout: resourceIntentDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceIntentDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Timeouts: &schema.ResourceTimeout{
+		},		Timeouts: &schema.ResourceTimeout{
 			Create: schema.DefaultTimeout(intentCreateTimeout),
 			Update: schema.DefaultTimeout(intentUpdateTimeout),
 			Delete: schema.DefaultTimeout(intentDeleteTimeout),
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -257,17 +241,13 @@ func ResourceIntent() *schema.Resource {
 		},
 		CustomizeDiff: updateComputedAttributesOnIntentCreateVersion,
 	}
-}
-
-func updateComputedAttributesOnIntentCreateVersion(_ context.Context, d *schema.ResourceDiff, meta interface{}) error {
+}func updateComputedAttributesOnIntentCreateVersion(_ context.Context, d *schema.ResourceDiff, meta interface{}) error {
 	createVersion := d.Get("create_version").(bool)
 	if createVersion && hasIntentConfigChanges(d) {
 		d.SetNewComputed("version")
 	}
 	return nil
-}
-
-func hasIntentConfigChanges(d verify.ResourceDiffer) bool {
+}func hasIntentConfigChanges(d verify.ResourceDiffer) bool {
 	for _, key := range []string{
 		"description",
 		"conclusion_statement",
@@ -285,87 +265,47 @@ func hasIntentConfigChanges(d verify.ResourceDiffer) bool {
 		}
 	}
 	return false
-}
-
-func resourceIntentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceIntentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LexModelsConn(ctx)
-	name := d.Get("name").(string)
-
-	input := &lexmodelbuildingservice.PutIntentInput{
+	name := d.Get("name").(string)	input := &lexmodelbuildingservice.PutIntentInput{
 		CreateVersion: aws.Bool(d.Get("create_version").(bool)),
 		Description:   aws.String(d.Get("description").(string)),
 		Name: aws.String(name),
-	}
-
-	if v, ok := d.GetOk("conclusion_statement"); ok {
+	}	if v, ok := d.GetOk("conclusion_statement"); ok {
 		input.ConclusionStatement = expandStatement(v)
-	}
-
-	if v, ok := d.GetOk("confirmation_prompt"); ok {
+	}	if v, ok := d.GetOk("confirmation_prompt"); ok {
 		input.ConfirmationPrompt = expandPrompt(v)
-	}
-
-	if v, ok := d.GetOk("dialog_code_hook"); ok {
+	}	if v, ok := d.GetOk("dialog_code_hook"); ok {
 		input.DialogCodeHook = expandCodeHook(v)
-	}
-
-	if v, ok := d.GetOk("follow_up_prompt"); ok {
+	}	if v, ok := d.GetOk("follow_up_prompt"); ok {
 		input.FollowUpPrompt = expandFollowUpPrompt(v)
-	}
-
-	if v, ok := d.GetOk("fulfillment_activity"); ok {
+	}	if v, ok := d.GetOk("fulfillment_activity"); ok {
 		input.FulfillmentActivity = expandFulfilmentActivity(v)
-	}
-
-	if v, ok := d.GetOk("parent_intent_signature"); ok {
+	}	if v, ok := d.GetOk("parent_intent_signature"); ok {
 		input.ParentIntentSignature = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("rejection_statement"); ok {
+	}	if v, ok := d.GetOk("rejection_statement"); ok {
 		input.RejectionStatement = expandStatement(v)
-	}
-
-	if v, ok := d.GetOk("sample_utterances"); ok {
+	}	if v, ok := d.GetOk("sample_utterances"); ok {
 		input.SampleUtterances = flex.ExpandStringSet(v.(*schema.Set))
-	}
-
-	if v, ok := d.GetOk("slot"); ok {
+	}	if v, ok := d.GetOk("slot"); ok {
 		input.Slots = expandSlots(v.(*schema.Set).List())
-	}
-
-	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), func() *retry.RetryError {
-		output, err := conn.PutIntentWithContext(ctx, input)
-
-		if tfawserr.ErrCodeEquals(err, lexmodelbuildingservice.ErrCodeConflictException) {
+	}	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), func() *retry.RetryError {
+		output, err := conn.PutIntentWithContext(ctx, input)		if tfawserr.ErrCodeEquals(err, lexmodelbuildingservice.ErrCodeConflictException) {
 			input.Checksum = output.Checksum
 			return retry.RetryableError(fmt.Errorf("%q intent still creating, another operation is pending: %s", d.Id(), err))
 		}
 		if err != nil {
 			return retry.NonRetryableError(err)
-		}
-
-		return nil
-	})
-
-	if tfresource.TimedOut(err) { // nosemgrep:ci.helper-schema-TimeoutError-check-doesnt-return-output
+		}		return nil
+	})	if tfresource.TimedOut(err) { // nosemgrep:ci.helper-schema-TimeoutError-check-doesnt-return-output
 		_, err = conn.PutIntentWithContext(ctx, input)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating intent %s: %s", name, err)
-	}
-
-	d.SetId(name)
-
-	return append(diags, resourceIntentRead(ctx, d, meta)...)
-}
-
-func resourceIntentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	d.SetId(name)	return append(diags, resourceIntentRead(ctx, d, meta)...)
+}func resourceIntentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).LexModelsConn(ctx)
-
-	resp, err := conn.GetIntentWithContext(ctx, &lexmodelbuildingservice.GetIntentInput{
+	conn := meta.(*conns.AWSClient).LexModelsConn(ctx)	resp, err := conn.GetIntentWithContext(ctx, &lexmodelbuildingservice.GetIntentInput{
 		Name:    aws.String(d.Id()),
 		Version: aws.String(IntentVersionLatest),
 	})
@@ -376,174 +316,90 @@ func resourceIntentRead(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "getting intent %s: %s", d.Id(), err)
-	}
-
-	arn := arn.ARN{
+	}	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Region:    meta.(*conns.AWSClient).Region,
 		Service:   "lex",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("intent:%s", d.Id()),
 	}
-	d.Set("arn", arn.String())
-
-	d.Set("checksum", resp.Checksum)
+	d.Set("arn", arn.String())	d.Set("checksum", resp.Checksum)
 	d.Set("created_date", resp.CreatedDate.Format(time.RFC3339))
 	d.Set("description", resp.Description)
 	d.Set("last_updated_date", resp.LastUpdatedDate.Format(time.RFC3339))
-	d.Set("name", resp.Name)
-
-	version, err := FindLatestIntentVersionByName(ctx, conn, d.Id())
-
-	if err != nil {
+	d.Set("name", resp.Name)	version, err := FindLatestIntentVersionByName(ctx, conn, d.Id())	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading Lex Intent (%s) latest version: %s", d.Id(), err)
-	}
-
-	d.Set("version", version)
-
-	if resp.ConclusionStatement != nil {
+	}	d.Set("version", version)	if resp.ConclusionStatement != nil {
 		d.Set("conclusion_statement", flattenStatement(resp.ConclusionStatement))
-	}
-
-	if resp.ConfirmationPrompt != nil {
+	}	if resp.ConfirmationPrompt != nil {
 		d.Set("confirmation_prompt", flattenPrompt(resp.ConfirmationPrompt))
-	}
-
-	if resp.DialogCodeHook != nil {
+	}	if resp.DialogCodeHook != nil {
 		d.Set("dialog_code_hook", flattenCodeHook(resp.DialogCodeHook))
-	}
-
-	if resp.FollowUpPrompt != nil {
+	}	if resp.FollowUpPrompt != nil {
 		d.Set("follow_up_prompt", flattenFollowUpPrompt(resp.FollowUpPrompt))
-	}
-
-	if resp.FulfillmentActivity != nil {
+	}	if resp.FulfillmentActivity != nil {
 		d.Set("fulfillment_activity", flattenFulfilmentActivity(resp.FulfillmentActivity))
-	}
-
-	d.Set("parent_intent_signature", resp.ParentIntentSignature)
-
-	if resp.RejectionStatement != nil {
+	}	d.Set("parent_intent_signature", resp.ParentIntentSignature)	if resp.RejectionStatement != nil {
 		d.Set("rejection_statement", flattenStatement(resp.RejectionStatement))
-	}
-
-	d.Set("sample_utterances", resp.SampleUtterances)
-
-	if resp.Slots != nil {
+	}	d.Set("sample_utterances", resp.SampleUtterances)	if resp.Slots != nil {
 		d.Set("slot", flattenSlots(resp.Slots))
-	}
-
-	return diags
-}
-
-func resourceIntentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	return diags
+}func resourceIntentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).LexModelsConn(ctx)
-
-	input := &lexmodelbuildingservice.PutIntentInput{
+	conn := meta.(*conns.AWSClient).LexModelsConn(ctx)	input := &lexmodelbuildingservice.PutIntentInput{
 		Checksum:      aws.String(d.Get("checksum").(string)),
 		CreateVersion: aws.Bool(d.Get("create_version").(bool)),
 		Description:   aws.String(d.Get("description").(string)),
 		Name: aws.String(d.Id()),
-	}
-
-	if v, ok := d.GetOk("conclusion_statement"); ok {
+	}	if v, ok := d.GetOk("conclusion_statement"); ok {
 		input.ConclusionStatement = expandStatement(v)
-	}
-
-	if v, ok := d.GetOk("confirmation_prompt"); ok {
+	}	if v, ok := d.GetOk("confirmation_prompt"); ok {
 		input.ConfirmationPrompt = expandPrompt(v)
-	}
-
-	if v, ok := d.GetOk("dialog_code_hook"); ok {
+	}	if v, ok := d.GetOk("dialog_code_hook"); ok {
 		input.DialogCodeHook = expandCodeHook(v)
-	}
-
-	if v, ok := d.GetOk("follow_up_prompt"); ok {
+	}	if v, ok := d.GetOk("follow_up_prompt"); ok {
 		input.FollowUpPrompt = expandFollowUpPrompt(v)
-	}
-
-	if v, ok := d.GetOk("fulfillment_activity"); ok {
+	}	if v, ok := d.GetOk("fulfillment_activity"); ok {
 		input.FulfillmentActivity = expandFulfilmentActivity(v)
-	}
-
-	if v, ok := d.GetOk("parent_intent_signature"); ok {
+	}	if v, ok := d.GetOk("parent_intent_signature"); ok {
 		input.ParentIntentSignature = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("rejection_statement"); ok {
+	}	if v, ok := d.GetOk("rejection_statement"); ok {
 		input.RejectionStatement = expandStatement(v)
-	}
-
-	if v, ok := d.GetOk("sample_utterances"); ok {
+	}	if v, ok := d.GetOk("sample_utterances"); ok {
 		input.SampleUtterances = flex.ExpandStringSet(v.(*schema.Set))
-	}
-
-	if v, ok := d.GetOk("slot"); ok {
+	}	if v, ok := d.GetOk("slot"); ok {
 		input.Slots = expandSlots(v.(*schema.Set).List())
-	}
-
-	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutUpdate), func() *retry.RetryError {
-		_, err := conn.PutIntentWithContext(ctx, input)
-
-		if tfawserr.ErrCodeEquals(err, lexmodelbuildingservice.ErrCodeConflictException) {
+	}	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutUpdate), func() *retry.RetryError {
+		_, err := conn.PutIntentWithContext(ctx, input)		if tfawserr.ErrCodeEquals(err, lexmodelbuildingservice.ErrCodeConflictException) {
 			return retry.RetryableError(fmt.Errorf("%q: intent still updating", d.Id()))
 		}
 		if err != nil {
 			return retry.NonRetryableError(err)
-		}
-
-		return nil
-	})
-
-	if tfresource.TimedOut(err) {
+		}		return nil
+	})	if tfresource.TimedOut(err) {
 		_, err = conn.PutIntentWithContext(ctx, input)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "updating intent %s: %s", d.Id(), err)
-	}
-
-	return append(diags, resourceIntentRead(ctx, d, meta)...)
-}
-
-func resourceIntentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	return append(diags, resourceIntentRead(ctx, d, meta)...)
+}func resourceIntentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).LexModelsConn(ctx)
-
-	input := &lexmodelbuildingservice.DeleteIntentInput{
+	conn := meta.(*conns.AWSClient).LexModelsConn(ctx)	input := &lexmodelbuildingservice.DeleteIntentInput{
 		Name: aws.String(d.Id()),
-	}
-
-	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutDelete), func() *retry.RetryError {
-		_, err := conn.DeleteIntentWithContext(ctx, input)
-
-		if tfawserr.ErrCodeEquals(err, lexmodelbuildingservice.ErrCodeConflictException) {
+	}	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutDelete), func() *retry.RetryError {
+		_, err := conn.DeleteIntentWithContext(ctx, input)		if tfawserr.ErrCodeEquals(err, lexmodelbuildingservice.ErrCodeConflictException) {
 			return retry.RetryableError(fmt.Errorf("%q: there is a pending operation, intent still deleting", d.Id()))
 		}
 		if err != nil {
 			return retry.NonRetryableError(err)
-		}
-
-		return nil
-	})
-
-	if tfresource.TimedOut(err) {
+		}		return nil
+	})	if tfresource.TimedOut(err) {
 		_, err = conn.DeleteIntentWithContext(ctx, input)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting Lex Model Intent (%s): %s", d.Id(), err)
-	}
-
-	if _, err := waitIntentDeleted(ctx, conn, d.Id()); err != nil {
+	}	if _, err := waitIntentDeleted(ctx, conn, d.Id()); err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting Lex Model Intent (%s): waiting for completion: %s", d.Id(), err)
-	}
-
-	return diags
-}
-
-var codeHookResource = &schema.Resource{
+	}	return diags
+}var codeHookResource = &schema.Resource{
 	Schema: map[string]*schema.Schema{
 		"message_version": {
 			Type:schema.TypeString,
@@ -556,9 +412,7 @@ var codeHookResource = &schema.Resource{
 			ValidateFunc: verify.ValidARN,
 		},
 	},
-}
-
-var messageResource = &schema.Resource{
+}var messageResource = &schema.Resource{
 	Schema: map[string]*schema.Schema{
 		"content": {
 			Type:schema.TypeString,
@@ -576,9 +430,7 @@ var messageResource = &schema.Resource{
 			ValidateFunc: validation.IntBetween(1, 5),
 		},
 	},
-}
-
-var promptResource = &schema.Resource{
+}var promptResource = &schema.Resource{
 	Schema: map[string]*schema.Schema{
 		"max_attempts": {
 			Type:schema.TypeInt,
@@ -598,9 +450,7 @@ var promptResource = &schema.Resource{
 			ValidateFunc: validation.StringLenBetween(1, 50000),
 		},
 	},
-}
-
-var statementResource = &schema.Resource{
+}var statementResource = &schema.Resource{
 	Schema: map[string]*schema.Schema{
 		"message": {
 			Type:     schema.TypeSet,
@@ -615,246 +465,138 @@ var statementResource = &schema.Resource{
 			ValidateFunc: validation.StringLenBetween(1, 50000),
 		},
 	},
-}
-
-func flattenCodeHook(hook *lexmodelbuildingservice.CodeHook) (flattened []map[string]interface{}) {
+}func flattenCodeHook(hook *lexmodelbuildingservice.CodeHook) (flattened []map[string]interface{}) {
 	return []map[string]interface{}{
 		{
 			"message_version": aws.StringValue(hook.MessageVersion),
 			"uri":    aws.StringValue(hook.Uri),
 		},
 	}
-}
-
-func expandCodeHook(rawObject interface{}) (hook *lexmodelbuildingservice.CodeHook) {
-	m := rawObject.([]interface{})[0].(map[string]interface{})
-
-	return &lexmodelbuildingservice.CodeHook{
+}func expandCodeHook(rawObject interface{}) (hook *lexmodelbuildingservice.CodeHook) {
+	m := rawObject.([]interface{})[0].(map[string]interface{})	return &lexmodelbuildingservice.CodeHook{
 		MessageVersion: aws.String(m["message_version"].(string)),
 		Uri:   aws.String(m["uri"].(string)),
 	}
-}
-
-func flattenFollowUpPrompt(followUp *lexmodelbuildingservice.FollowUpPrompt) (flattened []map[string]interface{}) {
+}func flattenFollowUpPrompt(followUp *lexmodelbuildingservice.FollowUpPrompt) (flattened []map[string]interface{}) {
 	return []map[string]interface{}{
 		{
 			"prompt":     flattenPrompt(followUp.Prompt),
 			"rejection_statement": flattenStatement(followUp.RejectionStatement),
 		},
 	}
-}
-
-func expandFollowUpPrompt(rawObject interface{}) (followUp *lexmodelbuildingservice.FollowUpPrompt) {
-	m := rawObject.([]interface{})[0].(map[string]interface{})
-
-	return &lexmodelbuildingservice.FollowUpPrompt{
+}func expandFollowUpPrompt(rawObject interface{}) (followUp *lexmodelbuildingservice.FollowUpPrompt) {
+	m := rawObject.([]interface{})[0].(map[string]interface{})	return &lexmodelbuildingservice.FollowUpPrompt{
 		Prompt:    expandPrompt(m["prompt"]),
 		RejectionStatement: expandStatement(m["rejection_statement"]),
 	}
-}
-
-func flattenFulfilmentActivity(activity *lexmodelbuildingservice.FulfillmentActivity) (flattened []map[string]interface{}) {
+}func flattenFulfilmentActivity(activity *lexmodelbuildingservice.FulfillmentActivity) (flattened []map[string]interface{}) {
 	flattened = []map[string]interface{}{
 		{
 			"type": aws.StringValue(activity.Type),
 		},
-	}
-
-	if activity.CodeHook != nil {
+	}	if activity.CodeHook != nil {
 		flattened[0]["code_hook"] = flattenCodeHook(activity.CodeHook)
-	}
-
-	return
-}
-
-func expandFulfilmentActivity(rawObject interface{}) (activity *lexmodelbuildingservice.FulfillmentActivity) {
-	m := rawObject.([]interface{})[0].(map[string]interface{})
-
-	activity = &lexmodelbuildingservice.FulfillmentActivity{}
-	activity.Type = aws.String(m["type"].(string))
-
-	if v, ok := m["code_hook"]; ok && len(v.([]interface{})) != 0 {
+	}	return
+}func expandFulfilmentActivity(rawObject interface{}) (activity *lexmodelbuildingservice.FulfillmentActivity) {
+	m := rawObject.([]interface{})[0].(map[string]interface{})	activity = &lexmodelbuildingservice.FulfillmentActivity{}
+	activity.Type = aws.String(m["type"].(string))	if v, ok := m["code_hook"]; ok && len(v.([]interface{})) != 0 {
 		activity.CodeHook = expandCodeHook(v)
-	}
-
-	return
-}
-
-func flattenMessages(messages []*lexmodelbuildingservice.Message) (flattenedMessages []map[string]interface{}) {
+	}	return
+}func flattenMessages(messages []*lexmodelbuildingservice.Message) (flattenedMessages []map[string]interface{}) {
 	for _, message := range messages {
 		flattenedMessages = append(flattenedMessages, map[string]interface{}{
 			"content":      aws.StringValue(message.Content),
 			"content_type": aws.StringValue(message.ContentType),
 			"group_number": aws.Int64Value(message.GroupNumber),
 		})
-	}
-
-	return
-}
-
-// Expects a slice of maps representing the Lex objects.
+	}	return
+}// Expects a slice of maps representing the Lex objects.
 // The value passed into this function should have been run through the expandLexSet function.
 // Example: []map[content: test content_type: PlainText group_number: 1]
 func expandMessages(rawValues []interface{}) []*lexmodelbuildingservice.Message {
-	messages := make([]*lexmodelbuildingservice.Message, 0, len(rawValues))
-
-	for _, rawValue := range rawValues {
+	messages := make([]*lexmodelbuildingservice.Message, 0, len(rawValues))	for _, rawValue := range rawValues {
 		value, ok := rawValue.(map[string]interface{})
 		if !ok {
 			continue
-		}
-
-		message := &lexmodelbuildingservice.Message{
+		}		message := &lexmodelbuildingservice.Message{
 			Content:     aws.String(value["content"].(string)),
 			ContentType: aws.String(value["content_type"].(string)),
-		}
-
-		if v, ok := value["group_number"]; ok && v != 0 {
+		}		if v, ok := value["group_number"]; ok && v != 0 {
 			message.GroupNumber = aws.Int64(int64(v.(int)))
-		}
-
-		messages = append(messages, message)
-	}
-
-	return messages
-}
-
-func flattenPrompt(prompt *lexmodelbuildingservice.Prompt) (flattened []map[string]interface{}) {
+		}		messages = append(messages, message)
+	}	return messages
+}func flattenPrompt(prompt *lexmodelbuildingservice.Prompt) (flattened []map[string]interface{}) {
 	flattened = []map[string]interface{}{
 		{
 			"max_attempts": aws.Int64Value(prompt.MaxAttempts),
 			"message":      flattenMessages(prompt.Messages),
 		},
-	}
-
-	if prompt.ResponseCard != nil {
+	}	if prompt.ResponseCard != nil {
 		flattened[0]["response_card"] = aws.StringValue(prompt.ResponseCard)
-	}
-
-	return
-}
-
-func expandPrompt(rawObject interface{}) (prompt *lexmodelbuildingservice.Prompt) {
-	m := rawObject.([]interface{})[0].(map[string]interface{})
-
-	prompt = &lexmodelbuildingservice.Prompt{}
+	}	return
+}func expandPrompt(rawObject interface{}) (prompt *lexmodelbuildingservice.Prompt) {
+	m := rawObject.([]interface{})[0].(map[string]interface{})	prompt = &lexmodelbuildingservice.Prompt{}
 	prompt.MaxAttempts = aws.Int64(int64(m["max_attempts"].(int)))
-	prompt.Messages = expandMessages(m["message"].(*schema.Set).List())
-
-	if v, ok := m["response_card"]; ok && v != "" {
+	prompt.Messages = expandMessages(m["message"].(*schema.Set).List())	if v, ok := m["response_card"]; ok && v != "" {
 		prompt.ResponseCard = aws.String(v.(string))
-	}
-
-	return
-}
-
-func flattenSlots(slots []*lexmodelbuildingservice.Slot) (flattenedSlots []map[string]interface{}) {
+	}	return
+}func flattenSlots(slots []*lexmodelbuildingservice.Slot) (flattenedSlots []map[string]interface{}) {
 	for _, slot := range slots {
 		flattenedSlot := map[string]interface{}{
 			"name":   aws.StringValue(slot.Name),
 			"priority":        aws.Int64Value(slot.Priority),
 			"slot_constraint": aws.StringValue(slot.SlotConstraint),
 			"slot_type":       aws.StringValue(slot.SlotType),
-		}
-
-		if slot.Description != nil {
+		}		if slot.Description != nil {
 			flattenedSlot["description"] = aws.StringValue(slot.Description)
-		}
-
-		if slot.ResponseCard != nil {
+		}		if slot.ResponseCard != nil {
 			flattenedSlot["response_card"] = aws.StringValue(slot.ResponseCard)
-		}
-
-		if slot.SampleUtterances != nil {
+		}		if slot.SampleUtterances != nil {
 			flattenedSlot["sample_utterances"] = flex.FlattenStringList(slot.SampleUtterances)
-		}
-
-		if slot.SlotTypeVersion != nil {
+		}		if slot.SlotTypeVersion != nil {
 			flattenedSlot["slot_type_version"] = aws.StringValue(slot.SlotTypeVersion)
-		}
-
-		if slot.ValueElicitationPrompt != nil {
+		}		if slot.ValueElicitationPrompt != nil {
 			flattenedSlot["value_elicitation_prompt"] = flattenPrompt(slot.ValueElicitationPrompt)
-		}
-
-		flattenedSlots = append(flattenedSlots, flattenedSlot)
-	}
-
-	return flattenedSlots
-}
-
-// Expects a slice of maps representing the Lex objects.
+		}		flattenedSlots = append(flattenedSlots, flattenedSlot)
+	}	return flattenedSlots
+}// Expects a slice of maps representing the Lex objects.
 // The value passed into this function should have been run through the expandLexSet function.
 // Example: []map[name: test priority: 0 ...]
 func expandSlots(rawValues []interface{}) []*lexmodelbuildingservice.Slot {
-	slots := make([]*lexmodelbuildingservice.Slot, 0, len(rawValues))
-
-	for _, rawValue := range rawValues {
+	slots := make([]*lexmodelbuildingservice.Slot, 0, len(rawValues))	for _, rawValue := range rawValues {
 		value, ok := rawValue.(map[string]interface{})
 		if !ok {
 			continue
-		}
-
-		slot := &lexmodelbuildingservice.Slot{
+		}		slot := &lexmodelbuildingservice.Slot{
 			Name:  aws.String(value["name"].(string)),
 			Priority:       aws.Int64(int64(value["priority"].(int))),
 			SlotConstraint: aws.String(value["slot_constraint"].(string)),
 			SlotType:       aws.String(value["slot_type"].(string)),
-		}
-
-		if v, ok := value["description"]; ok && v != "" {
+		}		if v, ok := value["description"]; ok && v != "" {
 			slot.Description = aws.String(v.(string))
-		}
-
-		if v, ok := value["response_card"]; ok && v != "" {
+		}		if v, ok := value["response_card"]; ok && v != "" {
 			slot.ResponseCard = aws.String(v.(string))
-		}
-
-		if v, ok := value["response_card"]; ok && v != "" {
+		}		if v, ok := value["response_card"]; ok && v != "" {
 			slot.ResponseCard = aws.String(v.(string))
-		}
-
-		if v, ok := value["sample_utterances"]; ok && len(v.([]interface{})) != 0 {
+		}		if v, ok := value["sample_utterances"]; ok && len(v.([]interface{})) != 0 {
 			slot.SampleUtterances = flex.ExpandStringList(v.([]interface{}))
-		}
-
-		if v, ok := value["slot_type_version"]; ok && v != "" {
+		}		if v, ok := value["slot_type_version"]; ok && v != "" {
 			slot.SlotTypeVersion = aws.String(v.(string))
-		}
-
-		if v, ok := value["value_elicitation_prompt"]; ok && len(v.([]interface{})) != 0 {
+		}		if v, ok := value["value_elicitation_prompt"]; ok && len(v.([]interface{})) != 0 {
 			slot.ValueElicitationPrompt = expandPrompt(v)
-		}
-
-		slots = append(slots, slot)
-	}
-
-	return slots
-}
-
-func flattenStatement(statement *lexmodelbuildingservice.Statement) (flattened []map[string]interface{}) {
+		}		slots = append(slots, slot)
+	}	return slots
+}func flattenStatement(statement *lexmodelbuildingservice.Statement) (flattened []map[string]interface{}) {
 	flattened = []map[string]interface{}{
 		{
 			"message": flattenMessages(statement.Messages),
 		},
-	}
-
-	if statement.ResponseCard != nil {
+	}	if statement.ResponseCard != nil {
 		flattened[0]["response_card"] = aws.StringValue(statement.ResponseCard)
-	}
-
-	return
-}
-
-func expandStatement(rawObject interface{}) (statement *lexmodelbuildingservice.Statement) {
-	m := rawObject.([]interface{})[0].(map[string]interface{})
-
-	statement = &lexmodelbuildingservice.Statement{}
-	statement.Messages = expandMessages(m["message"].(*schema.Set).List())
-
-	if v, ok := m["response_card"]; ok && v != "" {
+	}	return
+}func expandStatement(rawObject interface{}) (statement *lexmodelbuildingservice.Statement) {
+	m := rawObject.([]interface{})[0].(map[string]interface{})	statement = &lexmodelbuildingservice.Statement{}
+	statement.Messages = expandMessages(m["message"].(*schema.Set).List())	if v, ok := m["response_card"]; ok && v != "" {
 		statement.ResponseCard = aws.String(v.(string))
-	}
-
-	return
+	}	return
 }

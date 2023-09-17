@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticbeanstalk_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elasticbeanstalk_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/elasticbeanstalk"
+	"testing"	"github.com/aws/aws-sdk-go/service/elasticbeanstalk"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -21,9 +15,7 @@ func TestAccElasticBeanstalkApplication_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.ApplicationDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_application.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_application.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -52,9 +44,7 @@ func TestAccElasticBeanstalkApplication_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.ApplicationDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_application.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_application.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -75,9 +65,7 @@ func TestAccElasticBeanstalkApplication_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.ApplicationDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_application.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_application.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -120,9 +108,7 @@ func TestAccElasticBeanstalkApplication_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.ApplicationDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_application.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_application.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -162,9 +148,7 @@ func TestAccElasticBeanstalkApplication_appVersionLifecycle(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.ApplicationDescription
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_elastic_beanstalk_application.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_elastic_beanstalk_application.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:acctest.PreCheck(ctx, t) },
 		ErrorCheck:orCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -220,27 +204,15 @@ func TestAccElasticBeanstalkApplication_appVersionLifecycle(t *testing.T) {
 }
 func testAccCheckApplicationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_elastic_beanstalk_application" {
 				continue
-			}
-
-			_, err := tfelasticbeanstalk.FindApplicationByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfelasticbeanstalk.FindApplicationByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Elastic Beanstalk Application %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Elastic Beanstalk Application %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
 func testAccCheckApplicationExists(ctx context.Context, n string, v *elasticbeanstalk.ApplicationDescription) resource.TestCheckFunc {
@@ -248,23 +220,11 @@ func testAccCheckApplicationExists(ctx context.Context, n string, v *elasticbean
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Elastic Beanstalk Application ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
-
-		output, err := tfelasticbeanstalk.FindApplicationByName(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)		output, err := tfelasticbeanstalk.FindApplicationByName(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
 }
 func testAccApplicationConfig_basic(rName string) string {
@@ -277,9 +237,7 @@ resource "aws_elastic_beanstalk_application" "test" {
 func testAccApplicationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
   }
 }
@@ -288,9 +246,7 @@ resource "aws_elastic_beanstalk_application" "test" {
 func testAccApplicationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
@@ -308,9 +264,7 @@ resource "aws_elastic_beanstalk_application" "test" {
 func testAccApplicationConfig_baseServiceRole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -330,13 +284,9 @@ resource "aws_iam_role" "test" {
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = %[1]q
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
@@ -353,9 +303,7 @@ EOF
 func testAccApplicationConfig_maxAge(rName string) string {
 	return acctest.ConfigCompose(testAccApplicationConfig_baseServiceRole(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
-  name = %[1]q
-
-  appversion_lifecycle {
+  name = %[1]q  appversion_lifecycle {
     service_role = aws_iam_role.test.arn
     max_age_in_days       = 90
     delete_source_from_s3 = true
@@ -366,9 +314,7 @@ resource "aws_elastic_beanstalk_application" "test" {
 func testAccApplicationConfig_maxCount(rName string) string {
 	return acctest.ConfigCompose(testAccApplicationConfig_baseServiceRole(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
-  name = %[1]q
-
-  appversion_lifecycle {
+  name = %[1]q  appversion_lifecycle {
     service_role = aws_iam_role.test.arn
     max_count
     delete_source_from_s3 = false

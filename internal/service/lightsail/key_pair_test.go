@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"testing"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -21,11 +15,7 @@ import (
 )
 func TestAccLightsailKeyPair_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resourceName := "aws_lightsail_key_pair.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resourceName := "aws_lightsail_key_pair.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -50,16 +40,10 @@ func TestAccLightsailKeyPair_basic(t *testing.T) {
 }
 func TestAccLightsailKeyPair_publicKey(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resourceName := "aws_lightsail_key_pair.test"
-
-	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resourceName := "aws_lightsail_key_pair.test"	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
 	if err != nil {
 		t.Fatalf("error generating random SSH key: %s", err)
-	}
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -86,11 +70,7 @@ func TestAccLightsailKeyPair_publicKey(t *testing.T) {
 }
 func TestAccLightsailKeyPair_encrypted(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resourceName := "aws_lightsail_key_pair.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resourceName := "aws_lightsail_key_pair.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -141,11 +121,7 @@ func TestAccLightsailKeyPair_namePrefix(t *testing.T) {
 }
 func TestAccLightsailKeyPair_tags(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resourceName := "aws_lightsail_key_pair.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resourceName := "aws_lightsail_key_pair.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -185,11 +161,7 @@ func TestAccLightsailKeyPair_tags(t *testing.T) {
 }
 func TestAccLightsailKeyPair_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resourceName := "aws_lightsail_key_pair.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resourceName := "aws_lightsail_key_pair.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -215,23 +187,13 @@ func testAccCheckKeyPairExists(ctx context.Context, n string) resource.TestCheck
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return errors.New("No LightsailKeyPair set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		respKeyPair, err := conn.GetKeyPair(ctx, &lightsail.GetKeyPairInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		respKeyPair, err := conn.GetKeyPair(ctx, &lightsail.GetKeyPairInput{
 			KeyPairName: aws.String(rs.Primary.Attributes["name"]),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return err
-		}
-
-		if respKeyPair == nil || respKeyPair.KeyPair == nil {
+		}		if respKeyPair == nil || respKeyPair.KeyPair == nil {
 			return fmt.Errorf("KeyPair (%s) not found", rs.Primary.Attributes["name"])
 		}
 		return nil
@@ -242,28 +204,16 @@ func testAccCheckKeyPairDestroy(ctx context.Context) resource.TestCheckFunc {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_lightsail_key_pair" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-			respKeyPair, err := conn.GetKeyPair(ctx, &lightsail.GetKeyPairInput{
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)			respKeyPair, err := conn.GetKeyPair(ctx, &lightsail.GetKeyPairInput{
 				KeyPairName: aws.String(rs.Primary.Attributes["name"]),
-			})
-
-			if tflightsail.IsANotFoundError(err) {
+			})			if tflightsail.IsANotFoundError(err) {
 				continue
-			}
-
-			if err == nil {
+			}			if err == nil {
 				if respKeyPair.KeyPair != nil {
 					return fmt.Errorf("LightsailKeyPair %q still exists", rs.Primary.ID)
 				}
-			}
-
-			return err
-		}
-
-		return nil
+			}			return err
+		}		return nil
 	}
 }
 func testAccKeyPairConfig_basic(lightsailName string) string {
@@ -276,18 +226,14 @@ resource "aws_lightsail_key_pair" "test" {
 func testAccKeyPairConfig_imported(lightsailName, publicKey string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_key_pair" "test" {
-  name = %[1]q
-
-  public_key = "%[2]s"
+  name = %[1]q  public_key = "%[2]s"
 }
 `, lightsailName, publicKey)
 }
 func testAccKeyPairConfig_encrypted(lightsailName, key string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_key_pair" "test" {
-  name = %[1]q
-
-  pgp_key = <<EOF
+  name = %[1]q  pgp_key = <<EOF
 %[2]s
 EOF
 }
@@ -295,9 +241,7 @@ EOF
 }
 func testAccKeyPairConfig_prefixed() string {
 	return `
-resource "aws_lightsail_key_pair" "lightsail_key_pair_test_omit" {}
-
-resource "aws_lightsail_key_pair" "lightsail_key_pair_test_prefixed" {
+resource "aws_lightsail_key_pair" "lightsail_key_pair_test_omit" {}resource "aws_lightsail_key_pair" "lightsail_key_pair_test_prefixed" {
   name_prefix = "cts"
 }
 `
@@ -305,9 +249,7 @@ resource "aws_lightsail_key_pair" "lightsail_key_pair_test_prefixed" {
 func testAccKeyPairConfig_tags1(lightsailName, key1, value1 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_key_pair" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
   }
 }
@@ -316,17 +258,13 @@ resource "aws_lightsail_key_pair" "test" {
 func testAccKeyPairConfig_tags2(lightsailName, key1, value1, key2, value2 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_key_pair" "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     %[2]q = %[3]q
     %[4]q = %[5]q
   }
 }
 `, lightsailName, key1, value1, key2, value2)
-}
-
-const testKeyPairPubKey1 = `mQENBFXbjPUBCADjNjCUQwfxKL+RR2GA6pv/1K+zJZ8UWIF9S0lk7cVIEfJiprzzwiMwBS5cD0da
+}const testKeyPairPubKey1 = `mQENBFXbjPUBCADjNjCUQwfxKL+RR2GA6pv/1K+zJZ8UWIF9S0lk7cVIEfJiprzzwiMwBS5cD0da
 rGin1FHvIWOZxujA7oW0O2TUuatqI3aAYDTfRYurh6iKLC+VS+F7H+/mhfFvKmgr0Y5kDCF1j0T/
 063QZ84IRGucR/X43IY7kAtmxGXH0dYOCzOe5UBX1fTn3mXGe2ImCDWBH7gOViynXmb6XNvXkP0f
 sF5St9jhO7mbZU9EFkv9O3t3EaURfHopsCVDOlCkFCw5ArY+DUORHRzoMX0PnkyQb5OzibkChzpg

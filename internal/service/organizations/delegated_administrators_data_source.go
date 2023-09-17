@@ -69,10 +69,7 @@ ValidateFunc: validation.StringLenBetween(1, 128),
 },
 },
 }
-}
-
-
-func dataSourceDelegatedAdministratorsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceDelegatedAdministratorsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
 input := &organizations.ListDelegatedAdministratorsInput{}
@@ -93,10 +90,7 @@ return diag.Errorf("setting delegated_administrators: %s", err)
 }
 
 return nil
-}
-
-
-func flattenDelegatedAdministrators(apiObjects []*organizations.DelegatedAdministrator) []map[string]interface{} {
+}func flattenDelegatedAdministrators(apiObjects []*organizations.DelegatedAdministrator) []map[string]interface{} {
 if len(apiObjects) == 0 {
 return nil
 }

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package redshift_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package redshift_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/redshift"
+	"testing"	"github.com/aws/aws-sdk-go/service/redshift"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,15 +10,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfredshift "github.com/hashicorp/terraform-provider-aws/internal/service/redshift"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccRedshiftEndpointAuthorization_basic(t *testing.T) {
+)func TestAccRedshiftEndpointAuthorization_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v redshift.EndpointAuthorization
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(18))
-	resourceName := "aws_redshift_endpoint_authorization.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_redshift_endpoint_authorization.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
@@ -52,15 +42,11 @@ func TestAccRedshiftEndpointAuthorization_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftEndpointAuthorization_vpcs(t *testing.T) {
+}func TestAccRedshiftEndpointAuthorization_vpcs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v redshift.EndpointAuthorization
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(18))
-	resourceName := "aws_redshift_endpoint_authorization.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_redshift_endpoint_authorization.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
@@ -101,15 +87,11 @@ func TestAccRedshiftEndpointAuthorization_vpcs(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftEndpointAuthorization_disappears(t *testing.T) {
+}func TestAccRedshiftEndpointAuthorization_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v redshift.EndpointAuthorization
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(18))
-	resourceName := "aws_redshift_endpoint_authorization.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_redshift_endpoint_authorization.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
@@ -128,15 +110,11 @@ func TestAccRedshiftEndpointAuthorization_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccRedshiftEndpointAuthorization_disappears_cluster(t *testing.T) {
+}func TestAccRedshiftEndpointAuthorization_disappears_cluster(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v redshift.EndpointAuthorization
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(18))
-	resourceName := "aws_redshift_endpoint_authorization.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_redshift_endpoint_authorization.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
@@ -155,69 +133,37 @@ func TestAccRedshiftEndpointAuthorization_disappears_cluster(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckEndpointAuthorizationDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckEndpointAuthorizationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_redshift_endpoint_authorization" {
 				continue
-			}
-
-			_, err := tfredshift.FindEndpointAuthorizationById(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfredshift.FindEndpointAuthorizationById(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Redshift Endpoint Authorization %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Redshift Endpoint Authorization %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccCheckEndpointAuthorizationExists(ctx context.Context, n string, v *redshift.EndpointAuthorization) resource.TestCheckFunc {
+}func testAccCheckEndpointAuthorizationExists(ctx context.Context, n string, v *redshift.EndpointAuthorization) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Redshift Endpoint Authorization ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)
-
-		output, err := tfredshift.FindEndpointAuthorizationById(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).RedshiftConn(ctx)		output, err := tfredshift.FindEndpointAuthorizationById(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
-}
-
-func testAccEndpointAuthorizationConfigBase(rName string) string {
+}func testAccEndpointAuthorizationConfigBase(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2),
 		acctest.ConfigAlternateAccountProvider(),
 		fmt.Sprintf(`
 resource "aws_redshift_subnet_group" "test" {
   name   = %[1]q
   subnet_ids = aws_subnet.test[*].id
-}
-
-resource "aws_redshift_cluster" "test" {
+}resource "aws_redshift_cluster" "test" {
   cluster_identifier  = %[1]q
   availability_zone   = data.aws_availability_zones.available.names[0]
   database_name  = "mydb"
@@ -229,66 +175,40 @@ resource "aws_redshift_cluster" "test" {
   skip_final_snapshot = true
   availability_zone_relocation_enabled = true
   publicly_accessible = false
-}
-
-data "aws_caller_identity" "test" {
+}data "aws_caller_identity" "test" {
   provider = "awsalternate"
 }
 `, rName))
-}
-
-func testAccEndpointAuthorizationConfig_basic(rName string) string {
+}func testAccEndpointAuthorizationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointAuthorizationConfigBase(rName), `
 resource "aws_redshift_endpoint_authorization" "test" {
   account   = data.aws_caller_identity.test.account_id
   cluster_identifier = aws_redshift_cluster.test.cluster_identifier
 }
 `)
-}
-
-func testAccEndpointAuthorizationConfig_vpcs(rName string) string {
+}func testAccEndpointAuthorizationConfig_vpcs(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointAuthorizationConfigBase(rName), fmt.Sprintf(`
 resource "aws_vpc" "test2" {
-  provider = "awsalternate"
-
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
+  provider = "awsalternate"  cidr_block = "10.0.0.0/16"  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_redshift_endpoint_authorization" "test" {
+}resource "aws_redshift_endpoint_authorization" "test" {
   account   = data.aws_caller_identity.test.account_id
   cluster_identifier = aws_redshift_cluster.test.cluster_identifier
   vpc_ids   = [aws_vpc.test2.id]
 }
 `, rName))
-}
-
-func testAccEndpointAuthorizationConfig_vpcsUpdated(rName string) string {
+}func testAccEndpointAuthorizationConfig_vpcsUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointAuthorizationConfigBase(rName), fmt.Sprintf(`
 resource "aws_vpc" "test2" {
-  provider = "awsalternate"
-
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
+  provider = "awsalternate"  cidr_block = "10.0.0.0/16"  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_vpc" "test3" {
-  provider = "awsalternate"
-
-  cidr_block = "11.0.0.0/16"
-
-  tags = {
+}resource "aws_vpc" "test3" {
+  provider = "awsalternate"  cidr_block = "11.0.0.0/16"  tags = {
 Name = "%[1]s-2"
   }
-}
-
-resource "aws_redshift_endpoint_authorization" "test" {
+}resource "aws_redshift_endpoint_authorization" "test" {
   account   = data.aws_caller_identity.test.account_id
   cluster_identifier = aws_redshift_cluster.test.cluster_identifier
   vpc_ids   = [aws_vpc.test2.id, aws_vpc.test3.id]

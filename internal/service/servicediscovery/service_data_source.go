@@ -1,24 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicediscovery
-
-import (
-"context"
-
-"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package servicediscoveryimport (
+"context""github.com/aws/aws-sdk-go/aws"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-)
-
-// @SDKDataSource("aws_service_discovery_service")
+)// @SDKDataSource("aws_service_discovery_service")
 func DataSourceService() *schema.Resource {
 return &schema.Resource{
-ReadWithoutTimeout: dataSourceServiceRead,
-
-Schema: map[string]*schema.Schema{
+ReadWithoutTimeout: dataSourceServiceRead,Schema: map[string]*schema.Schema{
 "arn": {
 Type:schema.TypeString,
 Computed: true,
@@ -112,24 +102,12 @@ Deprecated: `this attribute has been deprecated`,
 }
 func dataSourceServiceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
-ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-name := d.Get("name").(string)
-serviceSummary, err := findServiceByNameAndNamespaceID(ctx, conn, name, d.Get("namespace_id").(string))
-
-if err != nil {
+ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfigname := d.Get("name").(string)
+serviceSummary, err := findServiceByNameAndNamespaceID(ctx, conn, name, d.Get("namespace_id").(string))if err != nil {
 return diag.Errorf("reading Service Discovery Service (%s): %s", name, err)
-}
-
-serviceID := aws.StringValue(serviceSummary.Id)
-
-service, err := FindServiceByID(ctx, conn, serviceID)
-
-if err != nil {
+}serviceID := aws.StringValue(serviceSummary.Id)service, err := FindServiceByID(ctx, conn, serviceID)if err != nil {
 return diag.Errorf("reading Service Discovery Service (%s): %s", serviceID, err)
-}
-
-d.SetId(serviceID)
+}d.SetId(serviceID)
 arn := aws.StringValue(service.Arn)
 d.Set("arn", arn)
 d.Set("description", service.Description)
@@ -155,17 +133,9 @@ return diag.Errorf("setting health_check_custom_config: %s", err)
 d.Set("health_check_custom_config", nil)
 }
 d.Set("name", service.Name)
-d.Set("namespace_id", service.NamespaceId)
-
-tags, err := listTags(ctx, conn, arn)
-
-if err != nil {
+d.Set("namespace_id", service.NamespaceId)tags, err := listTags(ctx, conn, arn)if err != nil {
 return diag.Errorf("listing tags for Service Discovery Service (%s): %s", arn, err)
-}
-
-if err := d.Set("tags", tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
+}if err := d.Set("tags", tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
 return diag.Errorf("setting tags: %s", err)
-}
-
-return nil
+}return nil
 }

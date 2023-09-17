@@ -1,20 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package amplify_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package amplify_testimport (
 	"testing"
-	"time"
-
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-// Serialize to limit API rate-limit exceeded errors.
+	"time"	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+)// Serialize to limit API rate-limit exceeded errors.
 func TestAccAmplify_serial(t *testing.T) {
-	t.Parallel()
-
-	testCases := map[string]map[string]func(t *testing.T){
+	t.Parallel()	testCases := map[string]map[string]func(t *testing.T){
 		"App": {
 			"basic":   testAccApp_basic,
 			"disappears":  testAccApp_disappears,
@@ -52,7 +42,5 @@ func TestAccAmplify_serial(t *testing.T) {
 			"disappears": testAccWebhook_disappears,
 			"update": testAccWebhook_update,
 		},
-	}
-
-	acctest.RunSerialTests2Levels(t, testCases, 5*time.Second)
+	}	acctest.RunSerialTests2Levels(t, testCases, 5*time.Second)
 }

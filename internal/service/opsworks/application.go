@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package opsworks
-
-import (
+// SPDX-License-Identifier: MPL-2.0package opsworksimport (
 "context"
 "fmt"
 "log"
-"strings"
-
-"github.com/aws/aws-sdk-go/aws"
+"strings""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/opsworks"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -19,22 +13,14 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 "github.com/hashicorp/terraform-provider-aws/internal/flex"
 "github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKResource("aws_opsworks_application")
-
-func ResourceApplication() *schema.Resource {
-return &schema.Resource{
-
-CreateWithoutTimeout: resourceApplicationCreate,
+)// @SDKResource("aws_opsworks_application")func ResourceApplication() *schema.Resource {
+return &schema.Resource{CreateWithoutTimeout: resourceApplicationCreate,
 ReadWithoutTimeout:   resourceApplicationRead,
 UpdateWithoutTimeout: resourceApplicationUpdate,
 DeleteWithoutTimeout: resourceApplicationDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
-},
-
-Schema: map[string]*schema.Schema{
+},Schema: map[string]*schema.Schema{
 "name": {
 Type:schema.TypeString,
 Required: true,
@@ -86,30 +72,20 @@ Type:schema.TypeString,
 Required:true,
 Validate
 func: validation.StringInSlice(append(opsworks.SourceType_Values(), "other"), false),
-},
-
-"url": {
+},"url": {
 Type:schema.TypeString,
 Optional: true,
-},
-
-"username": {
+},"username": {
 Type:schema.TypeString,
 Optional: true,
-},
-
-"password": {
+},"password": {
 Type: schema.TypeString,
 Optional:  true,
 Sensitive: true,
-},
-
-"revision": {
+},"revision": {
 Type:schema.TypeString,
 Optional: true,
-},
-
-"ssh_key": {
+},"ssh_key": {
 Type: schema.TypeString,
 Optional:  true,
 Sensitive: true,
@@ -183,8 +159,7 @@ Schema: map[string]*schema.Schema{
 Type:schema.TypeString,
 Required: true,
 State
-func: 
-func(v interface{}) string {
+func:func(v interface{}) string {
 switch v := v.(type) {
 case string:
 return strings.TrimSpace(v)
@@ -198,8 +173,7 @@ Type: schema.TypeString,
 Required:  true,
 Sensitive: true,
 State
-func: 
-func(v interface{}) string {
+func:func(v interface{}) string {
 switch v := v.(type) {
 case string:
 return strings.TrimSpace(v)
@@ -212,8 +186,7 @@ return ""
 Type:schema.TypeString,
 Optional: true,
 State
-func: 
-func(v interface{}) string {
+func:func(v interface{}) string {
 switch v := v.(type) {
 case string:
 return strings.TrimSpace(v)
@@ -228,20 +201,14 @@ return ""
 },
 }
 }
-
-
 func resourceApplicationValidate(d *schema.ResourceData) error {
 appSourceCount := d.Get("app_source.#").(int)
 if appSourceCount > 1 {
 return fmt.Errorf("Only one app_source is permitted.")
-}
-
-sslCount := d.Get("ssl_configuration.#").(int)
+}sslCount := d.Get("ssl_configuration.#").(int)
 if sslCount > 1 {
 return fmt.Errorf("Only one ssl_configuration is permitted.")
-}
-
-if d.Get("type") == opsworks.AppTypeNodejs || d.Get("type") == opsworks.AppTypeJava {
+}if d.Get("type") == opsworks.AppTypeNodejs || d.Get("type") == opsworks.AppTypeJava {
 // allowed attributes: none
 if d.Get("document_root").(string) != "" || d.Get("rails_env").(string) != "" || d.Get("auto_bundle_on_deploy").(string) != "" || d.Get("aws_flow_ruby_settings").(string) != "" {
 return fmt.Errorf("No additional attributes are allowed for app type '%s'.", d.Get("type").(string))
@@ -267,40 +234,22 @@ return fmt.Errorf("Only 'document_root' is allowed for app type '%s'.", d.Get("t
 if d.Get("document_root").(string) != "" || d.Get("rails_env").(string) != "" || d.Get("auto_bundle_on_deploy").(string) != "" {
 return fmt.Errorf("Only 'aws_flow_ruby_settings' is allowed for app type '%s'.", d.Get("type").(string))
 }
+}return nil
 }
-
-return nil
-}
-
-
 func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
-
-req := &opsworks.DescribeAppsInput{
+conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)req := &opsworks.DescribeAppsInput{
 AppIds: []*string{
 aws.String(d.Id()),
 },
-}
-
-log.Printf("[DEBUG] Reading OpsWorks Application: %s", d.Id())
-
-resp, err := conn.DescribeAppsWithContext(ctx, req)
-
-if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
+}log.Printf("[DEBUG] Reading OpsWorks Application: %s", d.Id())resp, err := conn.DescribeAppsWithContext(ctx, req)if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
 log.Printf("[DEBUG] OpsWorks Application (%s) not found", d.Id())
 d.SetId("")
 return diags
-}
-
-if err != nil {
+}if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading OpsWorks Application (%s): %s", d.Id(), err)
-}
-
-app := resp.Apps[0]
-log.Printf("[DEBUG] Opsworks Application: %#v", app)
-
-d.Set("name", app.Name)
+}app := resp.Apps[0]
+log.Printf("[DEBUG] Opsworks Application: %#v", app)d.Set("name", app.Name)
 d.Set("stack_id", app.StackId)
 d.Set("type", app.Type)
 d.Set("description", app.Description)
@@ -316,22 +265,14 @@ return sdkdiag.AppendErrorf(diags, "reading OpsWorks Application (%s): setting a
 }
 resourceSetApplicationsDataSource(d, app.DataSources)
 resourceSetApplicationEnvironmentVariable(d, app.Environment)
-resourceSetApplicationAttributes(d, app.Attributes)
-
-return diags
+resourceSetApplicationAttributes(d, app.Attributes)return diags
 }
-
-
 func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
-
-err := resourceApplicationValidate(d)
+conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)err := resourceApplicationValidate(d)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating OpsWorks Application: %s", err)
-}
-
-req := &opsworks.CreateAppInput{
+}req := &opsworks.CreateAppInput{
 Name:aws.String(d.Get("name").(string)),
 Shortname:   aws.String(d.Get("short_name").(string)),
 StackId: aws.String(d.Get("stack_id").(string)),
@@ -344,29 +285,17 @@ AppSource:   resourceApplicationSource(d),
 DataSources: resourceApplicationsDataSource(d),
 Environment: resourceApplicationEnvironmentVariable(d),
 Attributes:  resourceApplicationAttributes(d),
-}
-
-resp, err := conn.CreateAppWithContext(ctx, req)
+}resp, err := conn.CreateAppWithContext(ctx, req)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating OpsWorks Application: %s", err)
+}d.SetId(aws.StringValue(resp.AppId))return append(diags, resourceApplicationRead(ctx, d, meta)...)
 }
-
-d.SetId(aws.StringValue(resp.AppId))
-
-return append(diags, resourceApplicationRead(ctx, d, meta)...)
-}
-
-
 func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
-
-err := resourceApplicationValidate(d)
+conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)err := resourceApplicationValidate(d)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating OpsWorks Application (%s): %s", d.Id(), err)
-}
-
-req := &opsworks.UpdateAppInput{
+}req := &opsworks.UpdateAppInput{
 AppId:   aws.String(d.Id()),
 Name:aws.String(d.Get("name").(string)),
 Type:aws.String(d.Get("type").(string)),
@@ -378,40 +307,22 @@ AppSource:   resourceApplicationSource(d),
 DataSources: resourceApplicationsDataSource(d),
 Environment: resourceApplicationEnvironmentVariable(d),
 Attributes:  resourceApplicationAttributes(d),
-}
-
-log.Printf("[DEBUG] Updating OpsWorks Application: %s", d.Id())
-
-_, err = conn.UpdateAppWithContext(ctx, req)
+}log.Printf("[DEBUG] Updating OpsWorks Application: %s", d.Id())_, err = conn.UpdateAppWithContext(ctx, req)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating OpsWorks Application (%s): %s", d.Id(), err)
+}return append(diags, resourceApplicationRead(ctx, d, meta)...)
 }
-
-return append(diags, resourceApplicationRead(ctx, d, meta)...)
-}
-
-
 func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
-
-log.Printf("[DEBUG] Deleting OpsWorks Application: %s", d.Id())
+conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)log.Printf("[DEBUG] Deleting OpsWorks Application: %s", d.Id())
 _, err := conn.DeleteAppWithContext(ctx, &opsworks.DeleteAppInput{
 AppId: aws.String(d.Id()),
-})
-
-if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
+})if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
 return diags
-}
-
-if err != nil {
+}if err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting OpsWorks Application (%s): %s", d.Id(), err)
+}return diags
 }
-
-return diags
-}
-
-
 func resourceFindEnvironmentVariable(key string, vs []*opsworks.EnvironmentVariable) *opsworks.EnvironmentVariable {
 for _, v := range vs {
 if aws.StringValue(v.Key) == key {
@@ -420,20 +331,14 @@ return v
 }
 return nil
 }
-
-
 func resourceSetApplicationEnvironmentVariable(d *schema.ResourceData, vs []*opsworks.EnvironmentVariable) {
 if len(vs) == 0 {
 d.Set("environment", nil)
 return
-}
-
-// sensitive variables are returned obfuscated from the API, this creates a
+}// sensitive variables are returned obfuscated from the API, this creates a
 // permadiff between the obfuscated API response and the config value. We
 // start with the existing state so it can passthrough when the key is secure
-values := d.Get("environment").(*schema.Set).List()
-
-for i := 0; i < len(values); i++ {
+values := d.Get("environment").(*schema.Set).List()for i := 0; i < len(values); i++ {
 value := values[i].(map[string]interface{})
 if v := resourceFindEnvironmentVariable(value["key"].(string), vs); v != nil {
 if !aws.BoolValue(v.Secure) {
@@ -446,20 +351,12 @@ values[i] = value
 // delete if not found in API response
 values = append(values[:i], values[i+1:]...)
 }
+}d.Set("environment", values)
 }
-
-d.Set("environment", values)
-}
-
-
 func resourceApplicationEnvironmentVariable(d *schema.ResourceData) []*opsworks.EnvironmentVariable {
 environmentVariables := d.Get("environment").(*schema.Set).List()
-result := make([]*opsworks.EnvironmentVariable, len(environmentVariables))
-
-for i := 0; i < len(environmentVariables); i++ {
-env := environmentVariables[i].(map[string]interface{})
-
-result[i] = &opsworks.EnvironmentVariable{
+result := make([]*opsworks.EnvironmentVariable, len(environmentVariables))for i := 0; i < len(environmentVariables); i++ {
+env := environmentVariables[i].(map[string]interface{})result[i] = &opsworks.EnvironmentVariable{
 Key:aws.String(env["key"].(string)),
 Value:  aws.String(env["value"].(string)),
 Secure: aws.Bool(env["secure"].(bool)),
@@ -467,15 +364,11 @@ Secure: aws.Bool(env["secure"].(bool)),
 }
 return result
 }
-
-
 func resourceApplicationSource(d *schema.ResourceData) *opsworks.Source {
 count := d.Get("app_source.#").(int)
 if count == 0 {
 return nil
-}
-
-return &opsworks.Source{
+}return &opsworks.Source{
 Type:aws.String(d.Get("app_source.0.type").(string)),
 Url: aws.String(d.Get("app_source.0.url").(string)),
 Username: aws.String(d.Get("app_source.0.username").(string)),
@@ -484,8 +377,6 @@ Revision: aws.String(d.Get("app_source.0.revision").(string)),
 SshKey:   aws.String(d.Get("app_source.0.ssh_key").(string)),
 }
 }
-
-
 func resourceSetApplicationSource(d *schema.ResourceData, v *opsworks.Source) error {
 nv := make([]interface{}, 0, 1)
 if v != nil {
@@ -501,29 +392,17 @@ m["username"] = aws.StringValue(v.Username)
 }
 if v.Revision != nil {
 m["revision"] = aws.StringValue(v.Revision)
-}
-
-// v.Password and v.SshKey will, on read, contain the placeholder string
+}// v.Password and v.SshKey will, on read, contain the placeholder string
 // "*****FILTERED*****", so we ignore it on read and let persist
 // the value already in the state.
 m["password"] = d.Get("app_source.0.password").(string)
-m["ssh_key"] = d.Get("app_source.0.ssh_key").(string)
-
-nv = append(nv, m)
+m["ssh_key"] = d.Get("app_source.0.ssh_key").(string)nv = append(nv, m)
+}return d.Set("app_source", nv)
 }
-
-return d.Set("app_source", nv)
-}
-
-
 func resourceApplicationsDataSource(d *schema.ResourceData) []*opsworks.DataSource {
 arn := d.Get("data_source_arn").(string)
 databaseName := d.Get("data_source_database_name").(string)
-databaseType := d.Get("data_source_type").(string)
-
-result := make([]*opsworks.DataSource, 1)
-
-if len(arn) > 0 || len(databaseName) > 0 || len(databaseType) > 0 {
+databaseType := d.Get("data_source_type").(string)result := make([]*opsworks.DataSource, 1)if len(arn) > 0 || len(databaseName) > 0 || len(databaseType) > 0 {
 result[0] = &opsworks.DataSource{
 Arn: aws.String(arn),
 DatabaseName: aws.String(databaseName),
@@ -532,37 +411,25 @@ Type:aws.String(databaseType),
 }
 return result
 }
-
-
 func resourceSetApplicationsDataSource(d *schema.ResourceData, v []*opsworks.DataSource) {
 d.Set("data_source_arn", nil)
 d.Set("data_source_database_name", nil)
-d.Set("data_source_type", nil)
-
-if len(v) == 0 {
+d.Set("data_source_type", nil)if len(v) == 0 {
 return
-}
-
-d.Set("data_source_arn", v[0].Arn)
+}d.Set("data_source_arn", v[0].Arn)
 d.Set("data_source_database_name", v[0].DatabaseName)
 d.Set("data_source_type", v[0].Type)
 }
-
-
 func resourceApplicationSSL(d *schema.ResourceData) *opsworks.SslConfiguration {
 count := d.Get("ssl_configuration.#").(int)
 if count == 0 {
 return nil
-}
-
-return &opsworks.SslConfiguration{
+}return &opsworks.SslConfiguration{
 PrivateKey:  aws.String(d.Get("ssl_configuration.0.private_key").(string)),
 Certificate: aws.String(d.Get("ssl_configuration.0.certificate").(string)),
 Chain:  aws.String(d.Get("ssl_configuration.0.chain").(string)),
 }
 }
-
-
 func resourceSetApplicationSSL(d *schema.ResourceData, v *opsworks.SslConfiguration) error {
 nv := make([]interface{}, 0, 1)
 set := false
@@ -583,16 +450,10 @@ set = true
 if set {
 nv = append(nv, m)
 }
+}return d.Set("ssl_configuration", nv)
 }
-
-return d.Set("ssl_configuration", nv)
-}
-
-
 func resourceApplicationAttributes(d *schema.ResourceData) map[string]*string {
-attributes := make(map[string]*string)
-
-if val := d.Get("document_root").(string); len(val) > 0 {
+attributes := make(map[string]*string)if val := d.Get("document_root").(string); len(val) > 0 {
 attributes[opsworks.AppAttributesKeysDocumentRoot] = aws.String(val)
 }
 if val := d.Get("aws_flow_ruby_settings").(string); len(val) > 0 {
@@ -608,19 +469,13 @@ val = "true"
 val = "false"
 }
 attributes[opsworks.AppAttributesKeysAutoBundleOnDeploy] = aws.String(val)
+}return attributes
 }
-
-return attributes
-}
-
-
 func resourceSetApplicationAttributes(d *schema.ResourceData, v map[string]*string) {
 d.Set("document_root", nil)
 d.Set("rails_env", nil)
 d.Set("aws_flow_ruby_settings", nil)
-d.Set("auto_bundle_on_deploy", nil)
-
-if d.Get("type") == opsworks.AppTypeNodejs || d.Get("type") == opsworks.AppTypeJava {
+d.Set("auto_bundle_on_deploy", nil)if d.Get("type") == opsworks.AppTypeNodejs || d.Get("type") == opsworks.AppTypeJava {
 return
 } else if d.Get("type") == opsworks.AppTypeRails {
 if val, ok := v[opsworks.AppAttributesKeysDocumentRoot]; ok {

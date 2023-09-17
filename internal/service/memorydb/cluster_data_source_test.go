@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package memorydb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package memorydb_testimport (
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/memorydb"
+"testing""github.com/aws/aws-sdk-go/service/memorydb"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccMemoryDBClusterDataSource_basic(t *testing.T) {
+)func TestAccMemoryDBClusterDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 rName := "tf-test-" + sdkacctest.RandString(8)
 resourceName := "aws_memorydb_cluster.test"
-dataSourceName := "data.aws_memorydb_cluster.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_memorydb_cluster.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -67,9 +57,7 @@ resource.TestCheckResourceAttrPair(dataSourceName, "tls_enabled", resourceName, 
 },
 },
 })
-}
-
-func testAccClusterDataSourceConfig_basic(rName string) string {
+}func testAccClusterDataSourceConfig_basic(rName string) string {
 return acctest.ConfigCompose(
 testAccClusterConfig_baseNetwork(rName),
 testAccClusterConfigBaseUserAndACL(rName),
@@ -78,11 +66,7 @@ resource "aws_security_group" "test" {
   name= %[1]q
   description = %[1]q
   vpc_id  = aws_vpc.test.id
-}
-
-resource "aws_kms_key" "test" {}
-
-resource "aws_memorydb_cluster" "test" {
+}resource "aws_kms_key" "test" {}resource "aws_memorydb_cluster" "test" {
   acl_name= aws_memorydb_acl.test.id
   auto_minor_version_upgrade = false
   kms_key_arn = aws_kms_key.test.arn
@@ -92,14 +76,10 @@ resource "aws_memorydb_cluster" "test" {
   security_group_ids= [aws_security_group.test.id]
   snapshot_retention_limit   = 7
   subnet_group_name = aws_memorydb_subnet_group.test.id
-  tls_enabled = true
-
-  tags = {
+  tls_enabled = true  tags = {
 Test = "test"
   }
-}
-
-data "aws_memorydb_cluster" "test" {
+}data "aws_memorydb_cluster" "test" {
   name = aws_memorydb_cluster.test.name
 }
 `, rName),

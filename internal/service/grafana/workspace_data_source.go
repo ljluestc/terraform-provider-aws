@@ -1,28 +1,18 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packagegrafana
-
-import(
+//SPDX-License-Identifier:MPL-2.0packagegrafanaimport(
 	"context"
 	"fmt"
-	"time"
-
-	"github.com/aws/aws-sdk-go/aws/arn"
+	"time"	"github.com/aws/aws-sdk-go/aws/arn"
 	"github.com/aws/aws-sdk-go/service/managedgrafana"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
-)
-
-//@SDKDataSource("aws_grafana_workspace")
+)//@SDKDataSource("aws_grafana_workspace")
 funcDataSourceWorkspace()*schema.Resource{
 	return&schema.Resource{
-		ReadWithoutTimeout:dataSourceWorkspaceRead,
-
-		Schema:map[string]*schema.Schema{
+		ReadWithoutTimeout:dataSourceWorkspaceRead,		Schema:map[string]*schema.Schema{
 			"account_access_type":{
 				Type:schema.TypeString,
 				Computed:true,
@@ -106,21 +96,13 @@ funcDataSourceWorkspace()*schema.Resource{
 			},
 		},
 	}
-}
-
-funcdataSourceWorkspaceRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+}funcdataSourceWorkspaceRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
 	conn:=meta.(*conns.AWSClient).GrafanaConn(ctx)
-	ignoreTagsConfig:=meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	workspaceID:=d.Get("workspace_id").(string)
-	workspace,err:=FindWorkspaceByID(ctx,conn,workspaceID)
-
-	iferr!=nil{
+	ignoreTagsConfig:=meta.(*conns.AWSClient).IgnoreTagsConfig	workspaceID:=d.Get("workspace_id").(string)
+	workspace,err:=FindWorkspaceByID(ctx,conn,workspaceID)	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"readingGrafanaWorkspace(%s):%s",workspaceID,err)
-	}
-
-	d.SetId(workspaceID)
+	}	d.SetId(workspaceID)
 	d.Set("account_access_type",workspace.AccountAccessType)
 	//https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonmanagedgrafana.html#amazonmanagedgrafana-resources-for-iam-policies.
 	workspaceARN:=arn.ARN{
@@ -146,11 +128,7 @@ funcdataSourceWorkspaceRead(ctxcontext.Context,d*schema.ResourceData,metainterfa
 	d.Set("role_arn",workspace.WorkspaceRoleArn)
 	d.Set("saml_configuration_status",workspace.Authentication.SamlConfigurationStatus)
 	d.Set("stack_set_name",workspace.StackSetName)
-	d.Set("status",workspace.Status)
-
-	iferr:=d.Set("tags",KeyValueTags(ctx,workspace.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map());err!=nil{
+	d.Set("status",workspace.Status)	iferr:=d.Set("tags",KeyValueTags(ctx,workspace.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map());err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"settingtags:%s",err)
-	}
-
-	returndiags
+	}	returndiags
 }

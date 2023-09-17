@@ -49,8 +49,7 @@ Required:     true,
 ValidateFunc: validation.StringIsJSON,
 DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
-StateFunc: 
-func(v interface{}) string {
+StateFunc:func(v interface{}) string {
 json, _ := structure.NormalizeJsonString(v)
 return json
 },
@@ -61,10 +60,7 @@ names.AttrTagsAll: tftags.TagsSchemaComputed(),
 
 CustomizeDiff: verify.SetTagsDiff,
 }
-}
-
-
-func resourceResourcePolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceResourcePolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -78,8 +74,7 @@ Content: aws.String(policy),
 Tags:    getTagsIn(ctx),
 }
 
-outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 4*time.Minute, 
-func() (interface{}, error) {
+outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 4*time.Minute,func() (interface{}, error) {
 return conn.PutResourcePolicyWithContext(ctx, input)
 }, organizations.ErrCodeFinalizingOrganizationException)
 
@@ -90,10 +85,7 @@ return sdkdiag.AppendErrorf(diags, "creating Organizations Resource Policy: %s",
 d.SetId(aws.StringValue(outputRaw.(*organizations.PutResourcePolicyOutput).ResourcePolicy.ResourcePolicySummary.Id))
 
 return append(diags, resourceResourcePolicyRead(ctx, d, meta)...)
-}
-
-
-func resourceResourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceResourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -117,10 +109,7 @@ d.Set("content", policyToSet)
 }
 
 return diags
-}
-
-
-func resourceResourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceResourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -142,10 +131,7 @@ return sdkdiag.AppendErrorf(diags, "updating Organizations Resource Policy (%s):
 }
 
 return append(diags, resourceResourcePolicyRead(ctx, d, meta)...)
-}
-
-
-func resourceResourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceResourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -161,10 +147,7 @@ return sdkdiag.AppendErrorf(diags, "deleting Organizations Resource Policy (%s):
 }
 
 return diags
-}
-
-
-func findResourcePolicy(ctx context.Context, conn *organizations.Organizations) (*organizations.ResourcePolicy, error) {
+}func findResourcePolicy(ctx context.Context, conn *organizations.Organizations) (*organizations.ResourcePolicy, error) {
 input := &organizations.DescribeResourcePolicyInput{}
 
 output, err := conn.DescribeResourcePolicyWithContext(ctx, input)

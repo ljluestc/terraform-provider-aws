@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package neptune_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package neptune_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/neptune"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -17,15 +11,11 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/terraform"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func TestAccNeptuneParameterGroup_basic(t *testing.T) {
+)func TestAccNeptuneParameterGroup_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var v neptune.DBParameterGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_neptune_parameter_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_neptune_parameter_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -51,15 +41,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccNeptuneParameterGroup_description(t *testing.T) {
+}func TestAccNeptuneParameterGroup_description(t *testing.T) {
 ctx := acctest.Context(t)
 var v neptune.DBParameterGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_neptune_parameter_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_neptune_parameter_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -80,15 +66,11 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccNeptuneParameterGroup_parameter(t *testing.T) {
+}func TestAccNeptuneParameterGroup_parameter(t *testing.T) {
 ctx := acctest.Context(t)
 var v neptune.DBParameterGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_neptune_parameter_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_neptune_parameter_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -128,16 +110,10 @@ resource.TestCheckResourceAttr(resourceName, "parameter.#", "0"),
 },
 },
 })
-}
-
-func TestAccNeptuneParameterGroup_tags(t *testing.T) {
+}func TestAccNeptuneParameterGroup_tags(t *testing.T) {
 ctx := acctest.Context(t)
-var v neptune.DBParameterGroup
-
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_neptune_parameter_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+var v neptune.DBParameterGrouprName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_neptune_parameter_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:    func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -175,102 +151,60 @@ resource.TestCheckResourceAttr(resourceName, "tags.key3", "value3"),
 },
 },
 })
-}
-
-func testAccCheckParameterGroupDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckParameterGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_neptune_parameter_group" {
 continue
-}
-
-// Try to find the Group
+}// Try to find the Group
 resp, err := conn.DescribeDBParameterGroupsWithContext(ctx, &neptune.DescribeDBParameterGroupsInput{
 DBParameterGroupName: aws.String(rs.Primary.ID),
-})
-
-if err != nil {
+})if err != nil {
 if tfawserr.ErrCodeEquals(err, neptune.ErrCodeDBParameterGroupNotFoundFault) {
 return nil
 }
 return err
-}
-
-if len(resp.DBParameterGroups) != 0 && aws.StringValue(resp.DBParameterGroups[0].DBParameterGroupName) == rs.Primary.ID {
+}if len(resp.DBParameterGroups) != 0 && aws.StringValue(resp.DBParameterGroups[0].DBParameterGroupName) == rs.Primary.ID {
 return fmt.Errorf("DB Parameter Group still exists")
 }
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccCheckParameterGroupAttributes(v *neptune.DBParameterGroup, rName string) resource.TestCheckFunc {
+}func testAccCheckParameterGroupAttributes(v *neptune.DBParameterGroup, rName string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 if *v.DBParameterGroupName != rName {
 return fmt.Errorf("bad name: %#v", v.DBParameterGroupName)
-}
-
-if *v.DBParameterGroupFamily != "neptune1" {
+}if *v.DBParameterGroupFamily != "neptune1" {
 return fmt.Errorf("bad family: %#v", v.DBParameterGroupFamily)
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccCheckParameterGroupExists(ctx context.Context, n string, v *neptune.DBParameterGroup) resource.TestCheckFunc {
+}func testAccCheckParameterGroupExists(ctx context.Context, n string, v *neptune.DBParameterGroup) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No Neptune Parameter Group ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)
-
-opts := neptune.DescribeDBParameterGroupsInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)opts := neptune.DescribeDBParameterGroupsInput{
 DBParameterGroupName: aws.String(rs.Primary.ID),
-}
-
-resp, err := conn.DescribeDBParameterGroupsWithContext(ctx, &opts)
-
-if err != nil {
+}resp, err := conn.DescribeDBParameterGroupsWithContext(ctx, &opts)if err != nil {
 return err
-}
-
-if len(resp.DBParameterGroups) != 1 ||
+}if len(resp.DBParameterGroups) != 1 ||
 *resp.DBParameterGroups[0].DBParameterGroupName != rs.Primary.ID {
 return fmt.Errorf("Neptune Parameter Group not found")
+}*v = *resp.DBParameterGroups[0]return nil
 }
-
-*v = *resp.DBParameterGroups[0]
-
-return nil
-}
-}
-
-func testAccParameterGroupConfig_basic(rName, pName, pValue, pApplyMethod string) string {
+}func testAccParameterGroupConfig_basic(rName, pName, pValue, pApplyMethod string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_parameter_group" "test" {
   family = "neptune1"
-  name   = %q
-
-  parameter {
+  name   = %q  parameter {
     apply_method = %q
     name= %q
     value        = %q
   }
 }
 `, rName, pApplyMethod, pName, pValue)
-}
-
-func testAccParameterGroupConfig_description(rName, description string) string {
+}func testAccParameterGroupConfig_description(rName, description string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_parameter_group" "test" {
   description = %q
@@ -278,37 +212,27 @@ resource "aws_neptune_parameter_group" "test" {
   name        = %q
 }
 `, description, rName)
-}
-
-func testAccParameterGroupConfig_required(rName string) string {
+}func testAccParameterGroupConfig_required(rName string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_parameter_group" "test" {
   family = "neptune1"
   name   = %q
 }
 `, rName)
-}
-
-func testAccParameterGroupConfig_tagsSingle(name, tKey, tValue string) string {
+}func testAccParameterGroupConfig_tagsSingle(name, tKey, tValue string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_parameter_group" "test" {
   family = "neptune1"
-  name   = %q
-
-  tags = {
+  name   = %q  tags = {
     %s = %q
   }
 }
 `, name, tKey, tValue)
-}
-
-func testAccParameterGroupConfig_tagsMultiple(name, tKey1, tValue1, tKey2, tValue2 string) string {
+}func testAccParameterGroupConfig_tagsMultiple(name, tKey1, tValue1, tKey2, tValue2 string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_parameter_group" "test" {
   family = "neptune1"
-  name   = %q
-
-  tags = {
+  name   = %q  tags = {
     %s = %q
     %s = %q
   }

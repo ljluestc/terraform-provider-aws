@@ -1,8 +1,4 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package codestarnotifications
-
-const (
+// SPDX-License-Identifier: MPL-2.0package codestarnotificationsconst (
 	ResNotificationRule = "Notification Rule"
 )

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package evidently
-
-import (
+// SPDX-License-Identifier: MPL-2.0package evidentlyimport (
 	"context"
 	"log"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudwatchevidently"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -20,28 +14,20 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_evidently_project", name="Project")
+)// @SDKResource("aws_evidently_project", name="Project")
 // @Tags(identifierAttribute="arn")
 func ResourceProject() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceProjectCreate,
 		ReadWithoutTimeout:   resourceProjectRead,
 		UpdateWithoutTimeout: resourceProjectUpdate,
-		DeleteWithoutTimeout: resourceProjectDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceProjectDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Timeouts: &schema.ResourceTimeout{
+		},		Timeouts: &schema.ResourceTimeout{
 			Create: schema.DefaultTimeout(2 * time.Minute),
 			Update: schema.DefaultTimeout(2 * time.Minute),
 			Delete: schema.DefaultTimeout(2 * time.Minute),
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"active_experiment_count": {
 				Type: schema.TypeInt,
 				Computed: true,
@@ -151,64 +137,32 @@ func ResourceProject() *schema.Resource {
 			},
 			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
-
-		CustomizeDiff: verify.SetTagsDiff,
+		},		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EvidentlyConn(ctx)
-
-	name := d.Get("name").(string)
+}func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).EvidentlyConn(ctx)	name := d.Get("name").(string)
 	input := &cloudwatchevidently.CreateProjectInput{
 		Name: aws.String(name),
 		Tags: getTagsIn(ctx),
-	}
-
-	if v, ok := d.GetOk("description"); ok {
+	}	if v, ok := d.GetOk("description"); ok {
 		input.Description = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("data_delivery"); ok && len(v.([]interface{})) > 0 {
+	}	if v, ok := d.GetOk("data_delivery"); ok && len(v.([]interface{})) > 0 {
 		input.DataDelivery = expandDataDelivery(v.([]interface{}))
-	}
-
-	output, err := conn.CreateProjectWithContext(ctx, input)
-
-	if err != nil {
+	}	output, err := conn.CreateProjectWithContext(ctx, input)	if err != nil {
 		return diag.Errorf("creating CloudWatch Evidently Project (%s): %s", name, err)
-	}
-
-	d.SetId(aws.StringValue(output.Project.Name))
-
-	if _, err := waitProjectCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
+	}	d.SetId(aws.StringValue(output.Project.Name))	if _, err := waitProjectCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
 		return diag.Errorf("waiting for CloudWatch Evidently Project (%s) creation: %s", d.Id(), err)
-	}
-
-	return resourceProjectRead(ctx, d, meta)
-}
-
-func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EvidentlyConn(ctx)
-
-	project, err := FindProjectByNameOrARN(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	}	return resourceProjectRead(ctx, d, meta)
+}func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).EvidentlyConn(ctx)	project, err := FindProjectByNameOrARN(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] CloudWatch Evidently Project (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return diag.Errorf("reading CloudWatch Evidently Project (%s): %s", d.Id(), err)
-	}
-
-	if err := d.Set("data_delivery", flattenDataDelivery(project.DataDelivery)); err != nil {
+	}	if err := d.Set("data_delivery", flattenDataDelivery(project.DataDelivery)); err != nil {
 		return diag.Errorf("setting data_delivery: %s", err)
-	}
-
-	d.Set("active_experiment_count", project.ActiveExperimentCount)
+	}	d.Set("active_experiment_count", project.ActiveExperimentCount)
 	d.Set("active_launch_count", project.ActiveLaunchCount)
 	d.Set("arn", project.Arn)
 	d.Set("created_time", aws.TimeValue(project.CreatedTime).Format(time.RFC3339))
@@ -218,205 +172,97 @@ func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta inter
 	d.Set("last_updated_time", aws.TimeValue(project.LastUpdatedTime).Format(time.RFC3339))
 	d.Set("launch_count", project.LaunchCount)
 	d.Set("name", project.Name)
-	d.Set("status", project.Status)
-
-	setTagsOut(ctx, project.Tags)
-
-	return nil
-}
-
-func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EvidentlyConn(ctx)
-
-	// Project has 2 update APIs
+	d.Set("status", project.Status)	setTagsOut(ctx, project.Tags)	return nil
+}func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).EvidentlyConn(ctx)	// Project has 2 update APIs
 	// UpdateProjectWithContext: Updates the description of an existing project.
-	// UpdateProjectDataDeliveryWithContext: Updates the data storage options for this project.
-
-	if d.HasChanges("description") {
+	// UpdateProjectDataDeliveryWithContext: Updates the data storage options for this project.	if d.HasChanges("description") {
 		_, err := conn.UpdateProjectWithContext(ctx, &cloudwatchevidently.UpdateProjectInput{
 			Description: aws.String(d.Get("description").(string)),
 			Project: aws.String(d.Id()),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return diag.Errorf("updating CloudWatch Evidently Project (%s): %s", d.Id(), err)
-		}
-
-		if _, err := waitProjectUpdated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate)); err != nil {
+		}		if _, err := waitProjectUpdated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate)); err != nil {
 			return diag.Errorf("waiting for CloudWatch Evidently Project (%s) update: %s", d.Id(), err)
 		}
-	}
-
-	if d.HasChange("data_delivery") {
+	}	if d.HasChange("data_delivery") {
 		input := &cloudwatchevidently.UpdateProjectDataDeliveryInput{
 			Project: aws.String(d.Id()),
-		}
-
-		dataDelivery := d.Get("data_delivery").([]interface{})
-
-		tfMap, ok := dataDelivery[0].(map[string]interface{})
-
-		if !ok {
+		}		dataDelivery := d.Get("data_delivery").([]interface{})		tfMap, ok := dataDelivery[0].(map[string]interface{})		if !ok {
 			return diag.Errorf("updating Project (%s)", d.Id())
-		}
-
-		// You can't specify both cloudWatchLogs and s3Destination in the same operation.
+		}		// You can't specify both cloudWatchLogs and s3Destination in the same operation.
 		if v, ok := tfMap["cloudwatch_logs"]; ok && len(v.([]interface{})) > 0 {
 			input.CloudWatchLogs = expandCloudWatchLogs(v.([]interface{}))
-		}
-
-		if v, ok := tfMap["s3_destination"]; ok && len(v.([]interface{})) > 0 {
+		}		if v, ok := tfMap["s3_destination"]; ok && len(v.([]interface{})) > 0 {
 			input.S3Destination = expandS3Destination(v.([]interface{}))
-		}
-
-		_, err := conn.UpdateProjectDataDeliveryWithContext(ctx, input)
-
-		if err != nil {
+		}		_, err := conn.UpdateProjectDataDeliveryWithContext(ctx, input)		if err != nil {
 			return diag.Errorf("updating CloudWatch Evidently Project (%s) data delivery: %s", d.Id(), err)
-		}
-
-		if _, err := waitProjectUpdated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate)); err != nil {
+		}		if _, err := waitProjectUpdated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate)); err != nil {
 			return diag.Errorf("waiting for CloudWatch Evidently Project (%s) update: %s", d.Id(), err)
 		}
-	}
-
-	return resourceProjectRead(ctx, d, meta)
-}
-
-func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).EvidentlyConn(ctx)
-
-	log.Printf("[DEBUG] Deleting CloudWatch Evidently Project: %s", d.Id())
+	}	return resourceProjectRead(ctx, d, meta)
+}func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	conn := meta.(*conns.AWSClient).EvidentlyConn(ctx)	log.Printf("[DEBUG] Deleting CloudWatch Evidently Project: %s", d.Id())
 	_, err := conn.DeleteProjectWithContext(ctx, &cloudwatchevidently.DeleteProjectInput{
 		Project: aws.String(d.Id()),
-	})
-
-	if tfawserr.ErrCodeEquals(err, cloudwatchevidently.ErrCodeResourceNotFoundException) {
+	})	if tfawserr.ErrCodeEquals(err, cloudwatchevidently.ErrCodeResourceNotFoundException) {
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return diag.Errorf("deleting CloudWatch Evidently Project (%s): %s", d.Id(), err)
-	}
-
-	if _, err := waitProjectDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
+	}	if _, err := waitProjectDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
 		return diag.Errorf("waiting for CloudWatch Evidently Project (%s) deletion: %s", d.Id(), err)
-	}
-
-	return nil
-}
-
-func expandDataDelivery(dataDelivery []interface{}) *cloudwatchevidently.ProjectDataDeliveryConfig {
+	}	return nil
+}func expandDataDelivery(dataDelivery []interface{}) *cloudwatchevidently.ProjectDataDeliveryConfig {
 	if len(dataDelivery) == 0 || dataDelivery[0] == nil {
 		return nil
-	}
-
-	tfMap, ok := dataDelivery[0].(map[string]interface{})
+	}	tfMap, ok := dataDelivery[0].(map[string]interface{})
 	if !ok {
 		return nil
-	}
-
-	result := &cloudwatchevidently.ProjectDataDeliveryConfig{}
-
-	if v, ok := tfMap["cloudwatch_logs"]; ok && len(v.([]interface{})) > 0 {
+	}	result := &cloudwatchevidently.ProjectDataDeliveryConfig{}	if v, ok := tfMap["cloudwatch_logs"]; ok && len(v.([]interface{})) > 0 {
 		result.CloudWatchLogs = expandCloudWatchLogs(v.([]interface{}))
-	}
-
-	if v, ok := tfMap["s3_destination"]; ok && len(v.([]interface{})) > 0 {
+	}	if v, ok := tfMap["s3_destination"]; ok && len(v.([]interface{})) > 0 {
 		result.S3Destination = expandS3Destination(v.([]interface{}))
-	}
-
-	return result
-}
-
-func expandCloudWatchLogs(cloudWatchLogs []interface{}) *cloudwatchevidently.CloudWatchLogsDestinationConfig {
+	}	return result
+}func expandCloudWatchLogs(cloudWatchLogs []interface{}) *cloudwatchevidently.CloudWatchLogsDestinationConfig {
 	if len(cloudWatchLogs) == 0 || cloudWatchLogs[0] == nil {
 		return nil
-	}
-
-	tfMap, ok := cloudWatchLogs[0].(map[string]interface{})
+	}	tfMap, ok := cloudWatchLogs[0].(map[string]interface{})
 	if !ok {
 		return nil
-	}
-
-	result := &cloudwatchevidently.CloudWatchLogsDestinationConfig{}
-
-	if v, ok := tfMap["log_group"].(string); ok && v != "" {
+	}	result := &cloudwatchevidently.CloudWatchLogsDestinationConfig{}	if v, ok := tfMap["log_group"].(string); ok && v != "" {
 		result.LogGroup = aws.String(v)
-	}
-
-	return result
-}
-
-func expandS3Destination(s3Destination []interface{}) *cloudwatchevidently.S3DestinationConfig {
+	}	return result
+}func expandS3Destination(s3Destination []interface{}) *cloudwatchevidently.S3DestinationConfig {
 	if len(s3Destination) == 0 || s3Destination[0] == nil {
 		return nil
-	}
-
-	tfMap, ok := s3Destination[0].(map[string]interface{})
+	}	tfMap, ok := s3Destination[0].(map[string]interface{})
 	if !ok {
 		return nil
-	}
-
-	result := &cloudwatchevidently.S3DestinationConfig{}
-
-	if v, ok := tfMap["bucket"].(string); ok && v != "" {
+	}	result := &cloudwatchevidently.S3DestinationConfig{}	if v, ok := tfMap["bucket"].(string); ok && v != "" {
 		result.Bucket = aws.String(v)
-	}
-
-	if v, ok := tfMap["prefix"].(string); ok && v != "" {
+	}	if v, ok := tfMap["prefix"].(string); ok && v != "" {
 		result.Prefix = aws.String(v)
-	}
-
-	return result
-}
-
-func flattenDataDelivery(dataDelivery *cloudwatchevidently.ProjectDataDelivery) []interface{} {
+	}	return result
+}func flattenDataDelivery(dataDelivery *cloudwatchevidently.ProjectDataDelivery) []interface{} {
 	if dataDelivery == nil {
 		return []interface{}{}
-	}
-
-	values := map[string]interface{}{}
-
-	if dataDelivery.CloudWatchLogs != nil {
+	}	values := map[string]interface{}{}	if dataDelivery.CloudWatchLogs != nil {
 		values["cloudwatch_logs"] = flattenCloudWatchLogs(dataDelivery.CloudWatchLogs)
-	}
-
-	if dataDelivery.S3Destination != nil {
+	}	if dataDelivery.S3Destination != nil {
 		values["s3_destination"] = flattenS3Destination(dataDelivery.S3Destination)
-	}
-
-	return []interface{}{values}
-}
-
-func flattenCloudWatchLogs(cloudWatchLogs *cloudwatchevidently.CloudWatchLogsDestination) []interface{} {
+	}	return []interface{}{values}
+}func flattenCloudWatchLogs(cloudWatchLogs *cloudwatchevidently.CloudWatchLogsDestination) []interface{} {
 	if cloudWatchLogs == nil || cloudWatchLogs.LogGroup == nil {
 		return []interface{}{}
-	}
-
-	values := map[string]interface{}{}
-
-	if cloudWatchLogs.LogGroup != nil {
+	}	values := map[string]interface{}{}	if cloudWatchLogs.LogGroup != nil {
 		values["log_group"] = aws.StringValue(cloudWatchLogs.LogGroup)
-	}
-
-	return []interface{}{values}
-}
-
-func flattenS3Destination(s3Destination *cloudwatchevidently.S3Destination) []interface{} {
+	}	return []interface{}{values}
+}func flattenS3Destination(s3Destination *cloudwatchevidently.S3Destination) []interface{} {
 	if s3Destination == nil || s3Destination.Bucket == nil {
 		return []interface{}{}
-	}
-
-	values := map[string]interface{}{}
-
-	if s3Destination.Bucket != nil {
+	}	values := map[string]interface{}{}	if s3Destination.Bucket != nil {
 		values["bucket"] = aws.StringValue(s3Destination.Bucket)
-	}
-
-	if s3Destination.Prefix != nil {
+	}	if s3Destination.Prefix != nil {
 		values["prefix"] = aws.StringValue(s3Destination.Prefix)
-	}
-
-	return []interface{}{values}
+	}	return []interface{}{values}
 }

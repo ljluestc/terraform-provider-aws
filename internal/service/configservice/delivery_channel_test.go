@@ -1,30 +1,20 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configservice_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package configservice_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/aws"
+"testing""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/configservice"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-plugin-testing/terraform"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-func testAccDeliveryChannel_basic(t *testing.T) {
+)func testAccDeliveryChannel_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var dc configservice.DeliveryChannel
 rInt := sdkacctest.RandInt()
 expectedName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)
-expectedBucketName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)
-
-resource.Test(t, resource.TestCase{
+expectedBucketName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)resource.Test(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -41,17 +31,13 @@ resource.TestCheckResourceAttr("aws_config_delivery_channel.foo", "s3_bucket_nam
 },
 },
 })
-}
-
-func testAccDeliveryChannel_allParams(t *testing.T) {
+}func testAccDeliveryChannel_allParams(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_config_delivery_channel.foo"
 var dc configservice.DeliveryChannel
 rInt := sdkacctest.RandInt()
 expectedName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)
-expectedBucketName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)
-
-resource.Test(t, resource.TestCase{
+expectedBucketName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)resource.Test(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -72,14 +58,10 @@ resource.TestCheckResourceAttr(resourceName, "snapshot_delivery_properties.0.del
 },
 },
 })
-}
-
-func testAccDeliveryChannel_importBasic(t *testing.T) {
+}func testAccDeliveryChannel_importBasic(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_config_delivery_channel.foo"
-rInt := sdkacctest.RandInt()
-
-resource.Test(t, resource.TestCase{
+rInt := sdkacctest.RandInt()resource.Test(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -87,18 +69,14 @@ CheckDestroy:    testAccCheckDeliveryChannelDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDeliveryChannelConfig_basic(rInt),
-},
-
-{
+},{
 ResourceName:      resourceName,
 ImportState:       true,
 ImportStateVerify: true,
 },
 },
 })
-}
-
-func testAccCheckDeliveryChannelName(n, desired string, obj *configservice.DeliveryChannel) resource.TestCheckFunc {
+}func testAccCheckDeliveryChannelName(n, desired string, obj *configservice.DeliveryChannel) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 _, ok := s.RootModule().Resources[n]
 if !ok {
@@ -109,20 +87,14 @@ return fmt.Errorf("Expected name: %q, given: %q", desired, *obj.Name)
 }
 return nil
 }
-}
-
-func testAccCheckDeliveryChannelExists(ctx context.Context, n string, obj *configservice.DeliveryChannel) resource.TestCheckFunc {
+}func testAccCheckDeliveryChannelExists(ctx context.Context, n string, obj *configservice.DeliveryChannel) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not Found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No delivery channel ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)
 out, err := conn.DescribeDeliveryChannelsWithContext(ctx, &configservice.DescribeDeliveryChannelsInput{
 DeliveryChannelNames: []*string{aws.String(rs.Primary.Attributes["name"])},
 })
@@ -131,51 +103,31 @@ return fmt.Errorf("Failed to describe delivery channel: %s", err)
 }
 if len(out.DeliveryChannels) < 1 {
 return fmt.Errorf("No delivery channel found when describing %q", rs.Primary.Attributes["name"])
+}dc := out.DeliveryChannels[0]
+*obj = *dcreturn nil
 }
-
-dc := out.DeliveryChannels[0]
-*obj = *dc
-
-return nil
-}
-}
-
-func testAccCheckDeliveryChannelDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckDeliveryChannelDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConfigServiceConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_config_delivery_channel" {
 continue
-}
-
-resp, err := conn.DescribeDeliveryChannelsWithContext(ctx, &configservice.DescribeDeliveryChannelsInput{
+}resp, err := conn.DescribeDeliveryChannelsWithContext(ctx, &configservice.DescribeDeliveryChannelsInput{
 DeliveryChannelNames: []*string{aws.String(rs.Primary.Attributes["name"])},
-})
-
-if err == nil {
+})if err == nil {
 if len(resp.DeliveryChannels) != 0 &&
 *resp.DeliveryChannels[0].Name == rs.Primary.Attributes["name"] {
 return fmt.Errorf("Delivery Channel still exists: %s", rs.Primary.Attributes["name"])
 }
 }
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccDeliveryChannelConfig_basic(randInt int) string {
+}func testAccDeliveryChannelConfig_basic(randInt int) string {
 return fmt.Sprintf(`
 resource "aws_config_configuration_recorder" "foo" {
   name     = "tf-acc-test-%d"
   role_arn = aws_iam_role.r.arn
-}
-
-resource "aws_iam_role" "r" {
-  name = "tf-acc-test-awsconfig-%d"
-
-  assume_role_policy = <<POLICY
+}resource "aws_iam_role" "r" {
+  name = "tf-acc-test-awsconfig-%d"  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -190,13 +142,9 @@ resource "aws_iam_role" "r" {
   ]
 }
 POLICY
-}
-
-resource "aws_iam_role_policy" "p" {
+}resource "aws_iam_role_policy" "p" {
   name = "tf-acc-test-awsconfig-%d"
-  role = aws_iam_role.r.id
-
-  policy = <<EOF
+  role = aws_iam_role.r.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -213,32 +161,22 @@ resource "aws_iam_role_policy" "p" {
   ]
 }
 EOF
-}
-
-resource "aws_s3_bucket" "b" {
+}resource "aws_s3_bucket" "b" {
   bucket        = "tf-acc-test-awsconfig-%d"
   force_destroy = true
-}
-
-resource "aws_config_delivery_channel" "foo" {
+}resource "aws_config_delivery_channel" "foo" {
   name  = "tf-acc-test-awsconfig-%d"
   s3_bucket_name = aws_s3_bucket.b.bucket
   depends_on     = [aws_config_configuration_recorder.foo]
 }
 `, randInt, randInt, randInt, randInt, randInt)
-}
-
-func testAccDeliveryChannelConfig_allParams(randInt int) string {
+}func testAccDeliveryChannelConfig_allParams(randInt int) string {
 return fmt.Sprintf(`
 resource "aws_config_configuration_recorder" "foo" {
   name     = "tf-acc-test-%d"
   role_arn = aws_iam_role.r.arn
-}
-
-resource "aws_iam_role" "r" {
-  name = "tf-acc-test-awsconfig-%d"
-
-  assume_role_policy = <<POLICY
+}resource "aws_iam_role" "r" {
+  name = "tf-acc-test-awsconfig-%d"  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -253,13 +191,9 @@ resource "aws_iam_role" "r" {
   ]
 }
 POLICY
-}
-
-resource "aws_iam_role_policy" "p" {
+}resource "aws_iam_role_policy" "p" {
   name = "tf-acc-test-awsconfig-%d"
-  role = aws_iam_role.r.id
-
-  policy = <<EOF
+  role = aws_iam_role.r.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -284,22 +218,14 @@ resource "aws_iam_role_policy" "p" {
   ]
 }
 EOF
-}
-
-resource "aws_s3_bucket" "b" {
+}resource "aws_s3_bucket" "b" {
   bucket        = "tf-acc-test-awsconfig-%d"
   force_destroy = true
-}
-
-resource "aws_sns_topic" "t" {
+}resource "aws_sns_topic" "t" {
   name = "tf-acc-test-%d"
-}
-
-resource "aws_kms_key" "k" {
+}resource "aws_kms_key" "k" {
   description    = "tf-acc-test-awsconfig-%d"
-  deletion_window_in_days = 7
-
-  policy = <<POLICY
+  deletion_window_in_days = 7  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "tf-acc-test-awsconfig-%d",
@@ -316,20 +242,14 @@ resource "aws_kms_key" "k" {
   ]
 }
 POLICY
-}
-
-resource "aws_config_delivery_channel" "foo" {
+}resource "aws_config_delivery_channel" "foo" {
   name  = "tf-acc-test-awsconfig-%d"
   s3_bucket_name = aws_s3_bucket.b.bucket
   s3_key_prefix  = "one/two/three"
   s3_kms_key_arn = aws_kms_key.k.arn
-  sns_topic_arn  = aws_sns_topic.t.arn
-
-  snapshot_delivery_properties {
+  sns_topic_arn  = aws_sns_topic.t.arn  snapshot_delivery_properties {
     delivery_frequency = "Six_Hours"
-  }
-
-  depends_on = [aws_config_configuration_recorder.foo]
+  }  depends_on = [aws_config_configuration_recorder.foo]
 }
 `, randInt, randInt, randInt, randInt, randInt, randInt, randInt, randInt)
 }

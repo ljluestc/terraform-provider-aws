@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package sqs
-
-import (
+// SPDX-License-Identifier: MPL-2.0package sqsimport (
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/structure"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-)
-
-// @SDKResource("aws_sqs_queue_redrive_policy")
+)// @SDKResource("aws_sqs_queue_redrive_policy")
 func ResourceQueueRedrivePolicy() *schema.Resource {
 	h := &queueAttributeHandler{
 		AttributeName: sqs.QueueAttributeNameRedrivePolicy,
@@ -21,9 +15,7 @@ func ResourceQueueRedrivePolicy() *schema.Resource {
 			}
 			return new, nil
 		},
-	}
-
-	return &schema.Resource{
+	}	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"queue_url": {
 				Type:     schema.TypeString,
@@ -39,13 +31,9 @@ func ResourceQueueRedrivePolicy() *schema.Resource {
 					return json
 				},
 			},
-		},
-
-		Importer: &schema.ResourceImporter{
+		},		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		CreateWithoutTimeout: h.Upsert,
+		},		CreateWithoutTimeout: h.Upsert,
 		ReadWithoutTimeout:   h.Read,
 		UpdateWithoutTimeout: h.Upsert,
 		DeleteWithoutTimeout: h.Delete,

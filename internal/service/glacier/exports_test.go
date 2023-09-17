@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package glacier
-
-// Exports for use in tests only.
+// SPDX-License-Identifier: MPL-2.0package glacier// Exports for use in tests only.
 var (
 	ResourceVault     = resourceVault
-	ResourceVaultLock = resourceVaultLock
-
-	FindVaultByName     = findVaultByName
+	ResourceVaultLock = resourceVaultLock	FindVaultByName     = findVaultByName
 	FindVaultLockByName = findVaultLockByName
 )

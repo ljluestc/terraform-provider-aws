@@ -7,10 +7,7 @@ import (
 "testing"
 
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func TestAccInspector2_serial(t *testing.T) {
+)func TestAccInspector2_serial(t *testing.T) {
 t.Parallel()
 
 testCases := map[string]map[string]

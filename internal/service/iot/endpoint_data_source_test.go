@@ -1,23 +1,13 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iot_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iot_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/iot"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccIoTEndpointDataSource_basic(t *testing.T) {
+)func TestAccIoTEndpointDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_iot_endpoint.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_iot_endpoint.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -30,13 +20,9 @@ func TestAccIoTEndpointDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTEndpointDataSource_EndpointType_iotCredentialProvider(t *testing.T) {
+}func TestAccIoTEndpointDataSource_EndpointType_iotCredentialProvider(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_iot_endpoint.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_iot_endpoint.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -49,13 +35,9 @@ func TestAccIoTEndpointDataSource_EndpointType_iotCredentialProvider(t *testing.
 			},
 		},
 	})
-}
-
-func TestAccIoTEndpointDataSource_EndpointType_iotData(t *testing.T) {
+}func TestAccIoTEndpointDataSource_EndpointType_iotData(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_iot_endpoint.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_iot_endpoint.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -68,13 +50,9 @@ func TestAccIoTEndpointDataSource_EndpointType_iotData(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTEndpointDataSource_EndpointType_iotDataATS(t *testing.T) {
+}func TestAccIoTEndpointDataSource_EndpointType_iotDataATS(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_iot_endpoint.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_iot_endpoint.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -87,13 +65,9 @@ func TestAccIoTEndpointDataSource_EndpointType_iotDataATS(t *testing.T) {
 			},
 		},
 	})
-}
-
-func TestAccIoTEndpointDataSource_EndpointType_iotJobs(t *testing.T) {
+}func TestAccIoTEndpointDataSource_EndpointType_iotJobs(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_iot_endpoint.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_iot_endpoint.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -106,13 +80,9 @@ func TestAccIoTEndpointDataSource_EndpointType_iotJobs(t *testing.T) {
 			},
 		},
 	})
-}
-
-const testAccEndpointDataSourceConfig_basic = `
+}const testAccEndpointDataSourceConfig_basic = `
 data "aws_iot_endpoint" "test" {}
-`
-
-func testAccEndpointDataSourceConfig_type(endpointType string) string {
+`func testAccEndpointDataSourceConfig_type(endpointType string) string {
 	return fmt.Sprintf(`
 data "aws_iot_endpoint" "test" {
   endpoint_type = %q

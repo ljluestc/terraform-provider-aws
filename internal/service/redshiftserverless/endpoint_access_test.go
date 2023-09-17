@@ -1,14 +1,8 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageredshiftserverless_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageredshiftserverless_testimport(
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/redshiftserverless"
 	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,14 +11,10 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfredshiftserverless"github.com/hashicorp/terraform-provider-aws/internal/service/redshiftserverless"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-funcTestAccRedshiftServerlessEndpointAccess_basic(t*testing.T){
+)funcTestAccRedshiftServerlessEndpointAccess_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	resourceName:="aws_redshiftserverless_endpoint_access.test"
-	rName:=sdkacctest.RandStringFromCharSet(30,sdkacctest.CharSetAlpha)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandStringFromCharSet(30,sdkacctest.CharSetAlpha)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -60,14 +50,10 @@ funcTestAccRedshiftServerlessEndpointAccess_basic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccRedshiftServerlessEndpointAccess_disappears_workgroup(t*testing.T){
+}funcTestAccRedshiftServerlessEndpointAccess_disappears_workgroup(t*testing.T){
 	ctx:=acctest.Context(t)
 	resourceName:="aws_redshiftserverless_endpoint_access.test"
-	rName:=sdkacctest.RandStringFromCharSet(30,sdkacctest.CharSetAlpha)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandStringFromCharSet(30,sdkacctest.CharSetAlpha)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -83,14 +69,10 @@ funcTestAccRedshiftServerlessEndpointAccess_disappears_workgroup(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccRedshiftServerlessEndpointAccess_disappears(t*testing.T){
+}funcTestAccRedshiftServerlessEndpointAccess_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	resourceName:="aws_redshiftserverless_endpoint_access.test"
-	rName:=sdkacctest.RandStringFromCharSet(30,sdkacctest.CharSetAlpha)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandStringFromCharSet(30,sdkacctest.CharSetAlpha)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t)},
 		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -106,112 +88,68 @@ funcTestAccRedshiftServerlessEndpointAccess_disappears(t*testing.T){
 			},
 		},
 	})
-}
-
-functestAccCheckEndpointAccessDestroy(ctxcontext.Context)resource.TestCheckFunc{
+}functestAccCheckEndpointAccessDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_redshiftserverless_endpoint_access"{
 				continue
 			}
-			_,err:=tfredshiftserverless.FindEndpointAccessByName(ctx,conn,rs.Primary.ID)
-
-			iftfresource.NotFound(err){
+			_,err:=tfredshiftserverless.FindEndpointAccessByName(ctx,conn,rs.Primary.ID)			iftfresource.NotFound(err){
 				continue
-			}
-
-			iferr!=nil{
+			}			iferr!=nil{
 				returnerr
-			}
-
-			returnfmt.Errorf("RedshiftServerlessEndpointAccess%sstillexists",rs.Primary.ID)
-		}
-
-		returnnil
+			}			returnfmt.Errorf("RedshiftServerlessEndpointAccess%sstillexists",rs.Primary.ID)
+		}		returnnil
 	}
-}
-
-functestAccCheckEndpointAccessExists(ctxcontext.Context,namestring)resource.TestCheckFunc{
+}functestAccCheckEndpointAccessExists(ctxcontext.Context,namestring)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		rs,ok:=s.RootModule().Resources[name]
 		if!ok{
 			returnfmt.Errorf("notfound:%s",name)
-		}
-
-		ifrs.Primary.ID==""{
+		}		ifrs.Primary.ID==""{
 			returnfmt.Errorf("RedshiftServerlessEndpointAccessIDisnotset")
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-		_,err:=tfredshiftserverless.FindEndpointAccessByName(ctx,conn,rs.Primary.ID)
-
-		returnerr
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)		_,err:=tfredshiftserverless.FindEndpointAccessByName(ctx,conn,rs.Primary.ID)		returnerr
 	}
-}
-
-functestAccEndpointAccessConfig_basic(rNamestring)string{
+}functestAccEndpointAccessConfig_basic(rNamestring)string{
 	returnacctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
 		fmt.Sprintf(`
 resource"aws_vpc""test"{
 cidr_block="10.0.0.0/16"
-}
-
-resource"aws_subnet""test"{
+}resource"aws_subnet""test"{
 availability_zone=data.aws_availability_zones.available.names[0]
 cidr_block=cidrsubnet(aws_vpc.test.cidr_block,8,0)
 vpc_id=aws_vpc.test.id
-}
-
-resource"aws_redshiftserverless_namespace""test"{
+}resource"aws_redshiftserverless_namespace""test"{
 namespace_name=%[1]q
-}
-
-resource"aws_redshiftserverless_workgroup""test"{
+}resource"aws_redshiftserverless_workgroup""test"{
 namespace_name=aws_redshiftserverless_namespace.test.namespace_name
 workgroup_name=%[1]q
-}
-
-resource"aws_redshiftserverless_endpoint_access""test"{
+}resource"aws_redshiftserverless_endpoint_access""test"{
 workgroup_name=aws_redshiftserverless_workgroup.test.workgroup_name
 endpoint_name=%[1]q
 subnet_ids=[aws_subnet.test.id]
 }
 `,rName))
-}
-
-functestAccEndpointAccessConfig_updated(rNamestring)string{
+}functestAccEndpointAccessConfig_updated(rNamestring)string{
 	returnacctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
 		fmt.Sprintf(`
 resource"aws_vpc""test"{
 cidr_block="10.0.0.0/16"
-}
-
-resource"aws_security_group""test"{
+}resource"aws_security_group""test"{
 name=%[1]q
 vpc_id=aws_vpc.test.id
-}
-
-resource"aws_subnet""test"{
+}resource"aws_subnet""test"{
 availability_zone=data.aws_availability_zones.available.names[0]
 cidr_block=cidrsubnet(aws_vpc.test.cidr_block,8,0)
 vpc_id=aws_vpc.test.id
-}
-
-resource"aws_redshiftserverless_namespace""test"{
+}resource"aws_redshiftserverless_namespace""test"{
 namespace_name=%[1]q
-}
-
-resource"aws_redshiftserverless_workgroup""test"{
+}resource"aws_redshiftserverless_workgroup""test"{
 namespace_name=aws_redshiftserverless_namespace.test.namespace_name
 workgroup_name=%[1]q
-}
-
-resource"aws_redshiftserverless_endpoint_access""test"{
+}resource"aws_redshiftserverless_endpoint_access""test"{
 workgroup_name=aws_redshiftserverless_workgroup.test.workgroup_name
 endpoint_name=%[1]q
 subnet_ids=[aws_subnet.test.id]

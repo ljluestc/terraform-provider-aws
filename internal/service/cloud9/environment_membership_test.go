@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cloud9_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cloud9_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/cloud9"
+	"testing"	"github.com/aws/aws-sdk-go/service/cloud9"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,16 +10,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcloud9 "github.com/hashicorp/terraform-provider-aws/internal/service/cloud9"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccCloud9EnvironmentMembership_basic(t *testing.T) {
+)func TestAccCloud9EnvironmentMembership_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf cloud9.EnvironmentMember
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloud9_environment_membership.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var conf cloud9.EnvironmentMember	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_cloud9_environment_membership.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloud9.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -56,16 +44,10 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccCloud9EnvironmentMembership_disappears(t *testing.T) {
+}func TestAccCloud9EnvironmentMembership_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf cloud9.EnvironmentMember
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloud9_environment_membership.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var conf cloud9.EnvironmentMember	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_cloud9_environment_membership.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloud9.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -82,16 +64,10 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccCloud9EnvironmentMembership_disappears_env(t *testing.T) {
+}func TestAccCloud9EnvironmentMembership_disappears_env(t *testing.T) {
 	ctx := acctest.Context(t)
-	var conf cloud9.EnvironmentMember
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloud9_environment_membership.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	var conf cloud9.EnvironmentMember	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_cloud9_environment_membership.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, cloud9.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -108,127 +84,75 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func testAccCheckEnvironmentMemberExists(ctx context.Context, n string, res *cloud9.EnvironmentMember) resource.TestCheckFunc {
+}func testAccCheckEnvironmentMemberExists(ctx context.Context, n string, res *cloud9.EnvironmentMember) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No Cloud9 Environment Member ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).Cloud9Conn(ctx)
-
-envId, userArn, err := tfcloud9.DecodeEnviornmentMemberId(rs.Primary.ID)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).Cloud9Conn(ctx)envId, userArn, err := tfcloud9.DecodeEnviornmentMemberId(rs.Primary.ID)
 if err != nil {
 	return err
-}
-
-out, err := tfcloud9.FindEnvironmentMembershipByID(ctx, conn, envId, userArn)
+}out, err := tfcloud9.FindEnvironmentMembershipByID(ctx, conn, envId, userArn)
 if err != nil {
 	return err
-}
-
-*res = *out
-
-return nil
+}*res = *outreturn nil
 	}
-}
-
-func testAccCheckEnvironmentMemberDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckEnvironmentMemberDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).Cloud9Conn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).Cloud9Conn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_cloud9_environment_membership" {
 continue
-	}
-
-	envId, userArn, err := tfcloud9.DecodeEnviornmentMemberId(rs.Primary.ID)
+	}	envId, userArn, err := tfcloud9.DecodeEnviornmentMemberId(rs.Primary.ID)
 	if err != nil {
 return err
-	}
-
-	_, err = tfcloud9.FindEnvironmentMembershipByID(ctx, conn, envId, userArn)
-
-	if tfresource.NotFound(err) {
+	}	_, err = tfcloud9.FindEnvironmentMembershipByID(ctx, conn, envId, userArn)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
-	}
-
-	return fmt.Errorf("Cloud9 Environment Membership %q still exists.", rs.Primary.ID)
+	}	return fmt.Errorf("Cloud9 Environment Membership %q still exists.", rs.Primary.ID)
 }
 return nil
 	}
-}
-
-func testAccEnvironmentMemberBaseConfig(rName string) string {
+}func testAccEnvironmentMemberBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
   # t2.micro instance type is not available in these Availability Zones
   exclude_zone_ids = ["usw2-az4"]
-  state  = "available"
-
-  filter {
+  state  = "available"  filter {
 name   = "opt-in-status"
 values = ["opt-in-not-required"]
   }
-}
-
-resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
+}resource "aws_vpc" "test" {
+  cidr_block = "10.0.0.0/16"  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test" {
+}resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block   = "10.0.0.0/24"
-  vpc_id  = aws_vpc.test.id
-
-  tags = {
+  vpc_id  = aws_vpc.test.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
+}resource "aws_internet_gateway" "test" {
+  vpc_id = aws_vpc.test.id  tags = {
 Name = %[1]q
   }
-}
-
-resource "aws_route" "test" {
+}resource "aws_route" "test" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id= aws_internet_gateway.test.id
   route_table_id= aws_vpc.test.main_route_table_id
-}
-
-resource "aws_cloud9_environment_ec2" "test" {
+}resource "aws_cloud9_environment_ec2" "test" {
   instance_type = "t2.micro"
   name= %[1]q
   subnet_id= aws_subnet.test.id
 }
 `, rName)
-}
-
-func testAccEnvironmentMembershipConfig_basic(rName, permissions string) string {
+}func testAccEnvironmentMembershipConfig_basic(rName, permissions string) string {
 	return testAccEnvironmentMemberBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   name = %[1]q
-}
-
-resource "aws_cloud9_environment_membership" "test" {
+}resource "aws_cloud9_environment_membership" "test" {
   environment_id = aws_cloud9_environment_ec2.test.id
   permissions= %[2]q
   user_arn  = aws_iam_user.test.arn

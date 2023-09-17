@@ -16,18 +16,14 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tforganizations "github.com/hashicorp/terraform-provider-aws/internal/service/organizations"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func testAccOrganizationalUnit_basic(t *testing.T) {
+)func testAccOrganizationalUnit_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var unit organizations.OrganizationalUnit
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_organizations_organizational_unit.test"
 
 resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckOrganizationManagementAccount(ctx, t)
 },
@@ -52,18 +48,14 @@ ImportStateVerify: true,
 },
 },
 })
-}
-
-
-func testAccOrganizationalUnit_disappears(t *testing.T) {
+}func testAccOrganizationalUnit_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var unit organizations.OrganizationalUnit
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_organizations_organizational_unit.test"
 
 resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckOrganizationManagementAccount(ctx, t)
 },
@@ -81,10 +73,7 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-
-func testAccOrganizationalUnit_update(t *testing.T) {
+}func testAccOrganizationalUnit_update(t *testing.T) {
 ctx := acctest.Context(t)
 var unit organizations.OrganizationalUnit
 rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -92,8 +81,7 @@ rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_organizations_organizational_unit.test"
 
 resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckOrganizationManagementAccount(ctx, t)
 },
@@ -122,18 +110,14 @@ resource.TestCheckResourceAttr(resourceName, "name", rName2),
 },
 },
 })
-}
-
-
-func testAccOrganizationalUnit_tags(t *testing.T) {
+}func testAccOrganizationalUnit_tags(t *testing.T) {
 ctx := acctest.Context(t)
 var unit organizations.OrganizationalUnit
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_organizations_organizational_unit.test"
 
 resource.Test(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckOrganizationManagementAccount(ctx, t)
 },
@@ -173,12 +157,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-
-func testAccCheckOrganizationalUnitDestroy(ctx context.Context) resource.TestCheckFunc {
-return 
-func(s *terraform.State) error {
+}func testAccCheckOrganizationalUnitDestroy(ctx context.Context) resource.TestCheckFunc {
+returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -201,12 +181,8 @@ return fmt.Errorf("Organizations Organizational Unit %s still exists", rs.Primar
 
 return nil
 }
-}
-
-
-func testAccCheckOrganizationalUnitExists(ctx context.Context, n string, v *organizations.OrganizationalUnit) resource.TestCheckFunc {
-return 
-func(s *terraform.State) error {
+}func testAccCheckOrganizationalUnitExists(ctx context.Context, n string, v *organizations.OrganizationalUnit) resource.TestCheckFunc {
+returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
@@ -224,10 +200,7 @@ return err
 
 return nil
 }
-}
-
-
-func testAccOrganizationalUnitConfig_basic(rName string) string {
+}func testAccOrganizationalUnitConfig_basic(rName string) string {
 return fmt.Sprintf(`
 data "aws_organizations_organization" "current" {}
 
@@ -236,10 +209,7 @@ resource "aws_organizations_organizational_unit" "test" {
   parent_id = data.aws_organizations_organization.current.roots[0].id
 }
 `, rName)
-}
-
-
-func testAccOrganizationalUnitConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccOrganizationalUnitConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 data "aws_organizations_organization" "current" {}
 
@@ -252,10 +222,7 @@ resource "aws_organizations_organizational_unit" "test" {
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-
-func testAccOrganizationalUnitConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccOrganizationalUnitConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return fmt.Sprintf(`
 data "aws_organizations_organization" "current" {}
 

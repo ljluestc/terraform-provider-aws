@@ -1,30 +1,20 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package oam_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package oam_testimport (
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go-v2/service/oam"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccObservabilityAccessManagerSinkDataSource_basic(t *testing.T) {
+)func TestAccObservabilityAccessManagerSinkDataSource_basic(t *testing.T) {
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
 }
 ctx := acctest.Context(t)
 var sink oam.GetSinkOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-dataSourceName := "data.aws_oam_sink.test"
-
-resource.Test(t, resource.TestCase{
+dataSourceName := "data.aws_oam_sink.test"resource.Test(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
@@ -49,19 +39,13 @@ acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "oam", regexache.Mus
 },
 },
 })
-}
-
-func testAccSinkDataSourceConfig_basic(rName string) string {
+}func testAccSinkDataSourceConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource aws_oam_sink "test" {
-  name = %[1]q
-
-  tags = {
+  name = %[1]q  tags = {
     key1 = "value1"
   }
-}
-
-data aws_oam_sink "test" {
+}data aws_oam_sink "test" {
   sink_identifier = aws_oam_sink.test.arn
 }
 `, rName)

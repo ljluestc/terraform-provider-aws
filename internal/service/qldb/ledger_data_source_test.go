@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package qldb_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package qldb_testimport (
 	"fmt"
-	"testing"
-
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+	"testing"	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccQLDBLedgerDataSource_basic(t *testing.T) {
+)func TestAccQLDBLedgerDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_qldb_ledger.test"
-	datasourceName := "data.aws_qldb_ledger.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	datasourceName := "data.aws_qldb_ledger.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -37,21 +27,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccLedgerDataSourceConfig_basic(rName string) string {
+}func testAccLedgerDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
   name = %[1]q
   permissions_mode= "STANDARD"
-  deletion_protection = false
-
-  tags = {
+  deletion_protection = false  tags = {
 Name = %[1]q
   }
-}
-
-data "aws_qldb_ledger" "test" {
+}data "aws_qldb_ledger" "test" {
   name = aws_qldb_ledger.test.id
 }
 `, rName)

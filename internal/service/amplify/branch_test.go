@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package amplify_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package amplify_testimport (
 	"context"
 	"encoding/base64"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/amplify"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,15 +12,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfamplify "github.com/hashicorp/terraform-provider-aws/internal/service/amplify"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func testAccBranch_basic(t *testing.T) {
+)func testAccBranch_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var branch amplify.Branch
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_amplify_branch.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_amplify_branch.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -66,15 +56,11 @@ func testAccBranch_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccBranch_disappears(t *testing.T) {
+}func testAccBranch_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var branch amplify.Branch
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_amplify_branch.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_amplify_branch.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -90,15 +76,11 @@ func testAccBranch_disappears(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccBranch_tags(t *testing.T) {
+}func testAccBranch_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var branch amplify.Branch
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_amplify_branch.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_amplify_branch.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -136,18 +118,12 @@ func testAccBranch_tags(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccBranch_BasicAuthCredentials(t *testing.T) {
+}func testAccBranch_BasicAuthCredentials(t *testing.T) {
 	ctx := acctest.Context(t)
 	var branch amplify.Branch
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_amplify_branch.test"
-
-	credentials1 := base64.StdEncoding.EncodeToString([]byte("username1:password1"))
-	credentials2 := base64.StdEncoding.EncodeToString([]byte("username2:password2"))
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_amplify_branch.test"	credentials1 := base64.StdEncoding.EncodeToString([]byte("username1:password1"))
+	credentials2 := base64.StdEncoding.EncodeToString([]byte("username2:password2"))	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -185,15 +161,11 @@ func testAccBranch_BasicAuthCredentials(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccBranch_EnvironmentVariables(t *testing.T) {
+}func testAccBranch_EnvironmentVariables(t *testing.T) {
 	ctx := acctest.Context(t)
 	var branch amplify.Branch
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_amplify_branch.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_amplify_branch.test"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -230,18 +202,14 @@ func testAccBranch_EnvironmentVariables(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccBranch_OptionalArguments(t *testing.T) {
+}func testAccBranch_OptionalArguments(t *testing.T) {
 	ctx := acctest.Context(t)
 	var branch amplify.Branch
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	environmentName := sdkacctest.RandStringFromCharSet(9, sdkacctest.CharSetAlpha)
 	resourceName := "aws_amplify_branch.test"
 	backendEnvironment1ResourceName := "aws_amplify_backend_environment.test1"
-	backendEnvironment2ResourceName := "aws_amplify_backend_environment.test2"
-
-	resource.Test(t, resource.TestCase{
+	backendEnvironment2ResourceName := "aws_amplify_backend_environment.test2"	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -288,191 +256,111 @@ func testAccBranch_OptionalArguments(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccCheckBranchExists(ctx context.Context, resourceName string, v *amplify.Branch) resource.TestCheckFunc {
+}func testAccCheckBranchExists(ctx context.Context, resourceName string, v *amplify.Branch) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No Amplify Branch ID is set")
-		}
-
-		appID, branchName, err := tfamplify.BranchParseResourceID(rs.Primary.ID)
-
-		if err != nil {
+		}		appID, branchName, err := tfamplify.BranchParseResourceID(rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
-
-		branch, err := tfamplify.FindBranchByAppIDAndBranchName(ctx, conn, appID, branchName)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)		branch, err := tfamplify.FindBranchByAppIDAndBranchName(ctx, conn, appID, branchName)		if err != nil {
 			return err
-		}
-
-		*v = *branch
-
-		return nil
+		}		*v = *branch		return nil
 	}
-}
-
-func testAccCheckBranchDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckBranchDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_amplify_branch" {
 				continue
-			}
-
-			appID, branchName, err := tfamplify.BranchParseResourceID(rs.Primary.ID)
-
-			if err != nil {
+			}			appID, branchName, err := tfamplify.BranchParseResourceID(rs.Primary.ID)			if err != nil {
 				return err
-			}
-
-			_, err = tfamplify.FindBranchByAppIDAndBranchName(ctx, conn, appID, branchName)
-
-			if tfresource.NotFound(err) {
+			}			_, err = tfamplify.FindBranchByAppIDAndBranchName(ctx, conn, appID, branchName)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("Amplify Branch %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("Amplify Branch %s still exists", rs.Primary.ID)
+		}		return nil
 	}
-}
-
-func testAccBranchConfig_name(rName string) string {
+}func testAccBranchConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_branch" "test" {
+}resource "aws_amplify_branch" "test" {
   app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 }
 `, rName)
-}
-
-func testAccBranchConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccBranchConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_branch" "test" {
+}resource "aws_amplify_branch" "test" {
   app_id  = aws_amplify_app.test.id
-  branch_name = %[1]q
-
-  tags = {
+  branch_name = %[1]q  tags = {
 %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccBranchConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccBranchConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_branch" "test" {
+}resource "aws_amplify_branch" "test" {
   app_id  = aws_amplify_app.test.id
-  branch_name = %[1]q
-
-  tags = {
+  branch_name = %[1]q  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccBranchConfig_basicAuthCredentials(rName, basicAuthCredentials string) string {
+}func testAccBranchConfig_basicAuthCredentials(rName, basicAuthCredentials string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_branch" "test" {
+}resource "aws_amplify_branch" "test" {
   app_id  = aws_amplify_app.test.id
-  branch_name = %[1]q
-
-  basic_auth_credentials = %[2]q
+  branch_name = %[1]q  basic_auth_credentials = %[2]q
   enable_basic_auth  = true
 }
 `, rName, basicAuthCredentials)
-}
-
-func testAccBranchConfig_environmentVariables(rName string) string {
+}func testAccBranchConfig_environmentVariables(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_branch" "test" {
+}resource "aws_amplify_branch" "test" {
   app_id  = aws_amplify_app.test.id
-  branch_name = %[1]q
-
-  environment_variables = {
+  branch_name = %[1]q  environment_variables = {
 ENVVAR1 = "1"
   }
 }
 `, rName)
-}
-
-func testAccBranchConfig_environmentVariablesUpdated(rName string) string {
+}func testAccBranchConfig_environmentVariablesUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_branch" "test" {
+}resource "aws_amplify_branch" "test" {
   app_id  = aws_amplify_app.test.id
-  branch_name = %[1]q
-
-  environment_variables = {
+  branch_name = %[1]q  environment_variables = {
 ENVVAR1 = "2",
 ENVVAR2 = "2"
   }
 }
 `, rName)
-}
-
-func testAccBranchConfig_optionalArguments(rName, environmentName string) string {
+}func testAccBranchConfig_optionalArguments(rName, environmentName string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_backend_environment" "test1" {
+}resource "aws_amplify_backend_environment" "test1" {
   app_id  = aws_amplify_app.test.id
   environment_name = "%[2]sa"
-}
-
-resource "aws_amplify_backend_environment" "test2" {
+}resource "aws_amplify_backend_environment" "test2" {
   app_id  = aws_amplify_app.test.id
   environment_name = "%[2]sb"
-}
-
-resource "aws_amplify_branch" "test" {
+}resource "aws_amplify_branch" "test" {
   app_id  = aws_amplify_app.test.id
-  branch_name = %[1]q
-
-  backend_environment_arn   = aws_amplify_backend_environment.test1.arn
+  branch_name = %[1]q  backend_environment_arn   = aws_amplify_backend_environment.test1.arn
   description= "testdescription1"
   display_name   = "testdisplayname1"
   enable_auto_build= false
@@ -485,29 +373,19 @@ resource "aws_amplify_branch" "test" {
   ttl   = "10"
 }
 `, rName, environmentName)
-}
-
-func testAccBranchConfig_optionalArgumentsUpdated(rName, environmentName string) string {
+}func testAccBranchConfig_optionalArgumentsUpdated(rName, environmentName string) string {
 	return fmt.Sprintf(`
 resource "aws_amplify_app" "test" {
   name = %[1]q
-}
-
-resource "aws_amplify_backend_environment" "test1" {
+}resource "aws_amplify_backend_environment" "test1" {
   app_id  = aws_amplify_app.test.id
   environment_name = "%[2]sa"
-}
-
-resource "aws_amplify_backend_environment" "test2" {
+}resource "aws_amplify_backend_environment" "test2" {
   app_id  = aws_amplify_app.test.id
   environment_name = "%[2]sb"
-}
-
-resource "aws_amplify_branch" "test" {
+}resource "aws_amplify_branch" "test" {
   app_id  = aws_amplify_app.test.id
-  branch_name = %[1]q
-
-  backend_environment_arn   = aws_amplify_backend_environment.test2.arn
+  branch_name = %[1]q  backend_environment_arn   = aws_amplify_backend_environment.test2.arn
   description= "testdescription2"
   display_name   = "testdisplayname2"
   enable_auto_build= true

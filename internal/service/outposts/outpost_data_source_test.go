@@ -1,22 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package outposts_test
-
-import (
-"testing"
-
-"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package outposts_testimport (
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/service/outposts"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccOutpostsOutpostDataSource_id(t *testing.T) {
+)func TestAccOutpostsOutpostDataSource_id(t *testing.T) {
 ctx := acctest.Context(t)
-dataSourceName := "data.aws_outposts_outpost.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_outposts_outpost.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -41,14 +31,10 @@ resource.TestCheckResourceAttrSet(dataSourceName, "tags.%"),
 },
 },
 })
-}
-
-func TestAccOutpostsOutpostDataSource_name(t *testing.T) {
+}func TestAccOutpostsOutpostDataSource_name(t *testing.T) {
 ctx := acctest.Context(t)
 sourceDataSourceName := "data.aws_outposts_outpost.source"
-dataSourceName := "data.aws_outposts_outpost.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_outposts_outpost.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -68,14 +54,10 @@ resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", sourceDataSourceN
 },
 },
 })
-}
-
-func TestAccOutpostsOutpostDataSource_arn(t *testing.T) {
+}func TestAccOutpostsOutpostDataSource_arn(t *testing.T) {
 ctx := acctest.Context(t)
 sourceDataSourceName := "data.aws_outposts_outpost.source"
-dataSourceName := "data.aws_outposts_outpost.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_outposts_outpost.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -95,14 +77,10 @@ resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", sourceDataSourceN
 },
 },
 })
-}
-
-func TestAccOutpostsOutpostDataSource_ownerID(t *testing.T) {
+}func TestAccOutpostsOutpostDataSource_ownerID(t *testing.T) {
 ctx := acctest.Context(t)
 sourceDataSourceName := "data.aws_outposts_outpost.source"
-dataSourceName := "data.aws_outposts_outpost.test"
-
-resource.ParallelTest(t, resource.TestCase{
+dataSourceName := "data.aws_outposts_outpost.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -122,55 +100,33 @@ resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", sourceDataSourceN
 },
 },
 })
-}
-
-func testAccOutpostDataSourceConfig_id() string {
+}func testAccOutpostDataSourceConfig_id() string {
 return `
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "test" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }
 `
-}
-
-func testAccOutpostDataSourceConfig_name() string {
+}func testAccOutpostDataSourceConfig_name() string {
 return `
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "source" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "source" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-data "aws_outposts_outpost" "test" {
+}data "aws_outposts_outpost" "test" {
   name = data.aws_outposts_outpost.source.name
 }
 `
-}
-
-func testAccOutpostDataSourceConfig_arn() string {
+}func testAccOutpostDataSourceConfig_arn() string {
 return `
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "source" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "source" {
   arn = tolist(data.aws_outposts_outposts.test.arns)[0]
-}
-
-data "aws_outposts_outpost" "test" {
+}data "aws_outposts_outpost" "test" {
   arn = data.aws_outposts_outpost.source.arn
 }
 `
-}
-
-func testAccOutpostDataSourceConfig_ownerID() string {
+}func testAccOutpostDataSourceConfig_ownerID() string {
 return `
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "source" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "source" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-data "aws_outposts_outpost" "test" {
+}data "aws_outposts_outpost" "test" {
   owner_id = data.aws_outposts_outpost.source.owner_id
 }
 `

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package appsync_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package appsync_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/appsync"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -25,9 +19,7 @@ func testAccFunction_basic(t *testing.T) {
 	rName2 := fmt.Sprintf("tfexample%s", sdkacctest.RandString(8))
 	rName3 := fmt.Sprintf("tfexample%s", sdkacctest.RandString(8))
 	resourceName := "aws_appsync_function.test"
-	var config appsync.FunctionConfiguration
-
-	resource.Test(t, resource.TestCase{
+	var config appsync.FunctionConfiguration	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -67,9 +59,7 @@ func testAccFunction_code(t *testing.T) {
 	rName1 := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
 	rName2 := fmt.Sprintf("tfexample%s", sdkacctest.RandString(8))
 	resourceName := "aws_appsync_function.test"
-	var config appsync.FunctionConfiguration
-
-	resource.Test(t, resource.TestCase{
+	var config appsync.FunctionConfiguration	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -109,9 +99,7 @@ func testAccFunction_syncConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
 	resourceName := "aws_appsync_function.test"
-	var config appsync.FunctionConfiguration
-
-	resource.Test(t, resource.TestCase{
+	var config appsync.FunctionConfiguration	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -139,9 +127,7 @@ func testAccFunction_description(t *testing.T) {
 	rName1 := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
 	rName2 := fmt.Sprintf("tfexample%s", sdkacctest.RandString(8))
 	resourceName := "aws_appsync_function.test"
-	var config appsync.FunctionConfiguration
-
-	resource.Test(t, resource.TestCase{
+	var config appsync.FunctionConfiguration	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -174,9 +160,7 @@ func testAccFunction_responseMappingTemplate(t *testing.T) {
 	rName1 := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
 	rName2 := fmt.Sprintf("tfexample%s", sdkacctest.RandString(8))
 	resourceName := "aws_appsync_function.test"
-	var config appsync.FunctionConfiguration
-
-	resource.Test(t, resource.TestCase{
+	var config appsync.FunctionConfiguration	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -201,9 +185,7 @@ func testAccFunction_disappears(t *testing.T) {
 	rName1 := fmt.Sprintf("tfacctest%d", sdkacctest.RandInt())
 	rName2 := fmt.Sprintf("tfexample%s", sdkacctest.RandString(8))
 	resourceName := "aws_appsync_function.test"
-	var config appsync.FunctionConfiguration
-
-	resource.Test(t, resource.TestCase{
+	var config appsync.FunctionConfiguration	resource.Test(t, resource.TestCase{
 		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -226,19 +208,13 @@ func testAccCheckFunctionDestroy(ctx context.Context) resource.TestCheckFunc {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_appsync_function" {
 				continue
-			}
-
-			apiID, functionID, err := tfappsync.DecodeFunctionID(rs.Primary.ID)
+			}			apiID, functionID, err := tfappsync.DecodeFunctionID(rs.Primary.ID)
 			if err != nil {
 				return err
-			}
-
-			input := &appsync.GetFunctionInput{
+			}			input := &appsync.GetFunctionInput{
 				ApiId: aws.String(apiID),
 				FunctionId: aws.String(functionID),
-			}
-
-			_, err = conn.GetFunctionWithContext(ctx, input)
+			}			_, err = conn.GetFunctionWithContext(ctx, input)
 			if err != nil {
 				if tfawserr.ErrCodeEquals(err, appsync.ErrCodeNotFoundException) {
 					return nil
@@ -254,29 +230,15 @@ func testAccCheckFunctionExists(ctx context.Context, name string, config *appsyn
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
-
-		apiID, functionID, err := tfappsync.DecodeFunctionID(rs.Primary.ID)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)		apiID, functionID, err := tfappsync.DecodeFunctionID(rs.Primary.ID)
 		if err != nil {
 			return err
-		}
-
-		input := &appsync.GetFunctionInput{
+		}		input := &appsync.GetFunctionInput{
 			ApiId: aws.String(apiID),
 			FunctionId: aws.String(functionID),
-		}
-
-		output, err := conn.GetFunctionWithContext(ctx, input)
-
-		if err != nil {
+		}		output, err := conn.GetFunctionWithContext(ctx, input)		if err != nil {
 			return err
-		}
-
-		*config = *output.FunctionConfiguration
-
-		return nil
+		}		*config = *output.FunctionConfiguration		return nil
 	}
 }
 func testAccFunctionConfig_basic(r1, r2, region string) string {
@@ -294,9 +256,7 @@ resource "aws_appsync_function" "test" {
 		"headers": $utils.http.copyheaders($ctx.request.headers)
 	}
 }
-EOF
-
-  response_mapping_template = <<EOF
+EOF  response_mapping_template = <<EOF
 #if($ctx.result.statusCode == 200)
 	$ctx.result.body
 #else
@@ -312,9 +272,7 @@ resource "aws_appsync_function" "test" {
   api_id = aws_appsync_graphql_api.test.id
   data_source = aws_appsync_datasource.test.name
   name   = %[1]q
-  code   = file("%[2]s")
-
-  runtime {
+  code   = file("%[2]s")  runtime {
 name  = "APPSYNC_JS"
 runtime_version = "1.0.0"
   }
@@ -326,28 +284,20 @@ func testAccFunctionConfig_sync(rName, region string) string {
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
   name   = %[1]q
-}
-
-resource "aws_appsync_datasource" "test" {
+}resource "aws_appsync_datasource" "test" {
   api_id = aws_appsync_graphql_api.test.id
   name= %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type= "AMAZON_DYNAMODB"
-
-  dynamodb_config {
+  type= "AMAZON_DYNAMODB"  dynamodb_config {
 region= %[2]q
 table_name = aws_dynamodb_table.test.name
-versioned  = true
-
-delta_sync_config {
+versioned  = truedelta_sync_config {
  base_table_ttl   = 60
  delta_sync_table_name = aws_dynamodb_table.test.name
  delta_sync_table_ttl  = 60
 }
   }
-}
-
-resource "aws_appsync_function" "test" {
+}resource "aws_appsync_function" "test" {
   api_id = aws_appsync_graphql_api.test.id
   data_source = aws_appsync_datasource.test.name
   name   = %[1]q
@@ -360,17 +310,13 @@ resource "aws_appsync_function" "test" {
 		"headers": $utils.http.copyheaders($ctx.request.headers)
 	}
 }
-EOF
-
-  response_mapping_template = <<EOF
+EOF  response_mapping_template = <<EOF
 #if($ctx.result.statusCode == 200)
 	$ctx.result.body
 #else
 	$utils.appendError($ctx.result.body, $ctx.result.statusCode)
 #end
-EOF
-
-  sync_config {
+EOF  sync_config {
 conflict_detection = "VERSION"
 conflict_handler   = "OPTIMISTIC_CONCURRENCY"
   }
@@ -393,9 +339,7 @@ resource "aws_appsync_function" "test" {
 		"headers": $utils.http.copyheaders($ctx.request.headers)
 	}
 }
-EOF
-
-  response_mapping_template = <<EOF
+EOF  response_mapping_template = <<EOF
 #if($ctx.result.statusCode == 200)
 	$ctx.result.body
 #else
@@ -420,9 +364,7 @@ resource "aws_appsync_function" "test" {
 		"headers": $utils.http.copyheaders($ctx.request.headers)
 	}
 }
-EOF
-
-  response_mapping_template = <<EOF
+EOF  response_mapping_template = <<EOF
 #if($ctx.result.statusCode == 200)
 	$ctx.result.body
 #else

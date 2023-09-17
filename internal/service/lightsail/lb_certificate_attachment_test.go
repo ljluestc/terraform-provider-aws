@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,9 +12,7 @@ func testAccLoadBalancerCertificateAttachment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	lbName := sdkacctest.RandomWithPrefix("tf-acc-test")
 	cName := sdkacctest.RandomWithPrefix("tf-acc-test")
-	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())
-
-	resource.Test(t, resource.TestCase{
+	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))

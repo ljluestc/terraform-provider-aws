@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -22,21 +16,15 @@ import (
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-const (
+)const (
 	availabilityZoneKey = "TF_AWS_LIGHTSAIL_AVAILABILITY_ZONE"
-)
-
-const (
+)const (
 	envVarAvailabilityZoneKeyError = "The availability zone that is outside the providers current region."
 )
 func TestAccLightsailInstance_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_instance.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_instance.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -70,9 +58,7 @@ func TestAccLightsailInstance_name(t *testing.T) {
 	rNameWithSpaces := fmt.Sprint(rName, "string with spaces")
 	rNameWithStartingDigit := fmt.Sprintf("01-%s", rName)
 	rNameWithStartingHyphen := fmt.Sprintf("-%s", rName)
-	rNameWithUnderscore := fmt.Sprintf("%s_123456", rName)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rNameWithUnderscore := fmt.Sprintf("%s_123456", rName)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -126,9 +112,7 @@ func TestAccLightsailInstance_name(t *testing.T) {
 func TestAccLightsailInstance_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_instance.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_instance.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -166,9 +150,7 @@ func TestAccLightsailInstance_tags(t *testing.T) {
 func TestAccLightsailInstance_IPAddressType(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_instance.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_instance.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -207,9 +189,7 @@ func TestAccLightsailInstance_addOn(t *testing.T) {
 	statusEnabled := "Enabled"
 	statusDisabled := "Disabled"
 	snapshotTime1 := "06:00"
-	snapshotTime2 := "10:00"
-
-	resource.ParallelTest(t, resource.TestCase{
+	snapshotTime2 := "10:00"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -295,9 +275,7 @@ func TestAccLightsailInstance_availabilityZone(t *testing.T) {
 func TestAccLightsailInstance_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_instance.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_lightsail_instance.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -323,25 +301,13 @@ func testAccCheckInstanceExists(ctx context.Context, n string) resource.TestChec
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return errors.New("No LightsailInstance ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		out, err := tflightsail.FindInstanceById(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		out, err := tflightsail.FindInstanceById(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		if out == nil {
+		}		if out == nil {
 			return fmt.Errorf("Instance (%s) not found", rs.Primary.Attributes["name"])
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
@@ -349,38 +315,18 @@ func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_lightsail_instance" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-			_, err := tflightsail.FindInstanceById(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)			_, err := tflightsail.FindInstanceById(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResInstance, rs.Primary.ID, errors.New("still exists"))
-		}
-
-		return nil
+			}			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResInstance, rs.Primary.ID, errors.New("still exists"))
+		}		return nil
 	}
 }
 func testAccPreCheck(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-	input := &lightsail.GetInstancesInput{}
-
-	_, err := conn.GetInstances(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+	conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)	input := &lightsail.GetInstancesInput{}	_, err := conn.GetInstances(ctx, input)	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
@@ -425,9 +371,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id= "nano_1_0"
-
-  tags = {
+  bundle_id= "nano_1_0"  tags = {
     Name = "tf-test"
   }
 }
@@ -441,9 +385,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id= "nano_1_0"
-
-  tags = {
+  bundle_id= "nano_1_0"  tags = {
     Name      = "tf-test",
     ExtraName = "tf-test"
   }

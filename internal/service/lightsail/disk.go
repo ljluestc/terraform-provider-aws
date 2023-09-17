@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsailimport (
 	"context"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail/types"
@@ -21,22 +15,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_lightsail_disk", name="Disk")
+)// @SDKResource("aws_lightsail_disk", name="Disk")
 // @Tags(identifierAttribute="id")
 func ResourceDisk() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDiskCreate,
 		ReadWithoutTimeout:   resourceDiskRead,
 		UpdateWithoutTimeout: resourceDiskUpdate,
-		DeleteWithoutTimeout: resourceDiskDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceDiskDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -76,106 +64,58 @@ func ResourceDisk() *schema.Resource {
 	}
 }
 func resourceDiskCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
-
-	id := d.Get("name").(string)
+	conn := meta.(*conns.AWSClient).LightsailClient(ctx)	id := d.Get("name").(string)
 	in := lightsail.CreateDiskInput{
 		AvailabilityZone: aws.String(d.Get("availability_zone").(string)),
 		SizeInGb:aws.Int32(int32(d.Get("size_in_gb").(int))),
 		DiskName:aws.String(id),
 		Tags:),
-	}
-
-	out, err := conn.CreateDisk(ctx, &in)
-
-	if err != nil {
+	}	out, err := conn.CreateDisk(ctx, &in)	if err != nil {
 		return create.DiagError(names.Lightsail, string(types.OperationTypeCreateDisk), ResDisk, id, err)
-	}
-
-	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeCreateDisk, ResDisk, id)
-
-	if diag != nil {
+	}	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeCreateDisk, ResDisk, id)	if diag != nil {
 		return diag
-	}
-
-	d.SetId(id)
-
-	return resourceDiskRead(ctx, d, meta)
+	}	d.SetId(id)	return resourceDiskRead(ctx, d, meta)
 }
 func resourceDiskRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
-
-	out, err := FindDiskById(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	conn := meta.(*conns.AWSClient).LightsailClient(ctx)	out, err := FindDiskById(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		create.LogNotFoundRemoveState(names.Lightsail, create.ErrActionReading, ResDisk, d.Id())
 		d.SetId("")
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return create.DiagError(names.Lightsail, create.ErrActionReading, ResDisk, d.Id(), err)
-	}
-
-	d.Set("arn", out.Arn)
+	}	d.Set("arn", out.Arn)
 	d.Set("availability_zone", out.Location.AvailabilityZone)
 	d.Set("created_at", out.CreatedAt.Format(time.RFC3339))
 	d.Set("name", out.Name)
 	d.Set("size_in_gb", out.SizeInGb)
-	d.Set("support_code", out.SupportCode)
-
-	setTagsOut(ctx, out.Tags)
-
-	return nil
+	d.Set("support_code", out.SupportCode)	setTagsOut(ctx, out.Tags)	return nil
 }
 func resourceDiskUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceDiskRead(ctx, d, meta)
 }
 func resourceDiskDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
-
-	out, err := conn.DeleteDisk(ctx, &lightsail.DeleteDiskInput{
+	conn := meta.(*conns.AWSClient).LightsailClient(ctx)	out, err := conn.DeleteDisk(ctx, &lightsail.DeleteDiskInput{
 		DiskName: aws.String(d.Id()),
-	})
-
-	if IsANotFoundError(err) {
+	})	if IsANotFoundError(err) {
 		return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return create.DiagError(names.Lightsail, string(types.OperationTypeDeleteDisk), ResDisk, d.Get("name").(string), err)
-	}
-
-	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeDeleteDisk, ResDisk, d.Id())
-
-	if diag != nil {
+	}	diag := expandOperations(ctx, conn, out.Operations, types.OperationTypeDeleteDisk, ResDisk, d.Id())	if diag != nil {
 		return diag
-	}
-
-	return nil
+	}	return nil
 }
 func FindDiskById(ctx context.Context, conn *lightsail.Client, id string) (*types.Disk, error) {
 	in := &lightsail.GetDiskInput{
 		DiskName: aws.String(id),
-	}
-
-	out, err := conn.GetDisk(ctx, in)
-
-	if IsANotFoundError(err) {
+	}	out, err := conn.GetDisk(ctx, in)	if IsANotFoundError(err) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: in,
 		}
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return nil, err
-	}
-
-	if out == nil || out.Disk == nil {
+	}	if out == nil || out.Disk == nil {
 		return nil, tfresource.NewEmptyResultError(in)
-	}
-
-	return out.Disk, nil
+	}	return out.Disk, nil
 }

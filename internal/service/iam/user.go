@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package iam
-
-import (
+// SPDX-License-Identifier: MPL-2.0package iamimport (
 	"context"
 	"fmt"
-	"log"
-
-	"github.com/YakDriver/regexache"
+	"log"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/iam"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -24,21 +18,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_iam_user", name="User")
+)// @SDKResource("aws_iam_user", name="User")
 // @Tagsfunc ResourceUser() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserCreate,
 		ReadWithoutTimeout:   resourceUserRead,
 		UpdateWithoutTimeout: resourceUserUpdate,
-		DeleteWithoutTimeout: resourceUserDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceUserDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:schema.TypeString,
 				Computed: true,
@@ -81,85 +69,47 @@ import (
 				Type:schema.TypeString,
 				Computed: true,
 			},
-		},
-
-		CustomizeDiff: verify.SetTagsDiff,
+		},		CustomizeDiff: verify.SetTagsDiff,
 	}
 }func diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	name := d.Get("name").(string)
+	conn := meta.(*conns.AWSClient).IAMConn(ctx)	name := d.Get("name").(string)
 	path := d.Get("path").(string)
 	input := &iam.CreateUserInput{
 		Path:aws.String(path),
 		Tags:getTagsIn(ctx),
 		UserName: aws.String(name),
-	}
-
-	if v, ok := d.GetOk("permissions_boundary"); ok {
+	}	if v, ok := d.GetOk("permissions_boundary"); ok {
 		input.PermissionsBoundary = aws.String(v.(string))
-	}
-
-	output, err := conn.CreateUserWithContext(ctx, input)
-
-	// Some partitions (e.g. ISO) may not support tag-on-create.
+	}	output, err := conn.CreateUserWithContext(ctx, input)	// Some partitions (e.g. ISO) may not support tag-on-create.
 	if input.Tags != nil && errs.IsUnsupportedOperationInPartitionError(conn.PartitionID, err) {
-		input.Tags = nil
-
-		output, err = conn.CreateUserWithContext(ctx, input)
-	}
-
-	if err != nil {
+		input.Tags = nil		output, err = conn.CreateUserWithContext(ctx, input)
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating IAM User (%s): %s", name, err)
-	}
-
-	d.SetId(aws.StringValue(output.User.UserName))
-
-	// For partitions not supporting tag-on-create, attempt tag after create.
+	}	d.SetId(aws.StringValue(output.User.UserName))	// For partitions not supporting tag-on-create, attempt tag after create.
 	if tags := getTagsIn(ctx); input.Tags == nil && len(tags) > 0 {
-		err := userCreateTags(ctx, conn, d.Id(), tags)
-
-		// If default tags only, continue. Otherwise, error.
+		err := userCreateTags(ctx, conn, d.Id(), tags)		// If default tags only, continue. Otherwise, error.
 		if v, ok := d.GetOk(names.AttrTags); (!ok || len(v.(map[string]interface{})) == 0) && errs.IsUnsupportedOperationInPartitionError(conn.PartitionID, err) {
 			return append(diags, resourceUserRead(ctx, d, meta)...)
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "setting IAM User (%s) tags: %s", d.Id(), err)
 		}
-	}
-
-	return append(diags, resourceUserRead(ctx, d, meta)...)
+	}	return append(diags, resourceUserRead(ctx, d, meta)...)
 }func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
-
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, propagationTimeout, func() (interface{}, error) {
+	funcn := meta.(*conns.AWSClient).IAMConn(ctx)	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, propagationTimeout, func() (interface{}, error) {
 		return FindUserByName(ctx, conn, d.Id())
-	}, d.IsNewResource())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	}, d.IsNewResource())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] IAM User (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading IAM User (%s): %s", d.Id(), err)
-	}
-
-	user := outputRaw.(*iam.User)
-
-	d.Set("arn", user.Arn)
+	}	user := outputRaw.(*iam.User)	d.Set("arn", user.Arn)
 	d.Set("name", user.UserName)
 	d.Set("path", user.Path)
 	if user.PermissionsBoundary != nil {
 		d.Set("permissions_boundary", user.PermissionsBoundary.PermissionsBoundaryArn)
 	}
-	d.Set("unique_id", user.UserId)
-
-	setTagsOut(ctx, user.Tags)
-
-	return diags
+	d.Set("unique_id", user.UserId)	setTagsOut(ctx, user.Tags)	return diags
 }func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	func
@@ -169,117 +119,69 @@ import (
 			UserName:aws.String(o.(string)),
 			NewUserName: aws.String(n.(string)),
 			NewPath:aws.String(d.Get("path").(string)),
-		}
-
-		_, err := conn.UpdateUserWithContext(ctx, input)
-
-		if err != nil {
+		}		_, err := conn.UpdateUserWithContext(ctx, input)		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating IAM User (%s): %s", d.Id(), err)
-		}
-
-		d.SetId(n.(string))
-	}
-
-	if d.HasChange("permissions_boundary") {
+		}		d.SetId(n.(string))
+	}	if d.HasChange("permissions_boundary") {
 		if v, ok := d.GetOk("permissions_boundary"); ok {
 			input := &iam.PutUserPermissionsBoundaryInput{
 				PermissionsBoundary: aws.String(v.(string)),
 				UserName:  aws.String(d.Id()),
-			}
-
-			_, err := conn.PutUserPermissionsBoundaryWithContext(ctx, input)
-
-			if err != nil {
+			}			_, err := conn.PutUserPermissionsBoundaryWithContext(ctx, input)			if err != nil {
 				return sdkdiag.AppendErrorf(diags, "setting IAM User (%s) permissions boundary: %s", d.Id(), err)
 			}
 		} else {
 			input := &iam.DeleteUserPermissionsBoundaryInput{
 				UserName: aws.String(d.Id()),
 			}
-			_, err := conn.DeleteUserPermissionsBoundaryWithContext(ctx, input)
-
-			if err != nil {
+			_, err := conn.DeleteUserPermissionsBoundaryWithContext(ctx, input)			if err != nil {
 				return sdkdiag.AppendErrorf(diags, "deleting IAM User (%s) permissions boundary: %s", d.Id(), err)
 			}
 		}
-	}
-
-	if d.HasChange("tags_all") {
-		o, n := d.GetChange("tags_all")
-
-		err := userUpdateTags(ctx, conn, d.Id(), o, n)
-
-		// Some partitions (e.g. ISO) may not support tagging.
+	}	if d.HasChange("tags_all") {
+		o, n := d.GetChange("tags_all")		err := userUpdateTags(ctx, conn, d.Id(), o, n)		// Some partitions (e.g. ISO) may not support tagging.
 		if errs.IsUnsupportedOperationInPartitionError(conn.PartitionID, err) {
 			return append(diags, resourceUserRead(ctx, d, meta)...)
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating tags for IAM User (%s): %s", d.Id(), err)
 		}
-	}
-
-	return append(diags, resourceUserRead(ctx, d, meta)...)
+	}	return append(diags, resourceUserRead(ctx, d, meta)...)
 }func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 funcIAM Users must be removed from all groups before they can be deleted
 	if err := DeleteUserGroupMemberships(ctx, conn, d.Id()); err != nil {
 		return sdkdiag.AppendErrorf(diags, "removing IAM User (%s) group memberships: %s", d.Id(), err)
-	}
-
-	// All access keys, MFA devices and login profile for the user must be removed
+	}	// All access keys, MFA devices and login profile for the user must be removed
 	if d.Get("force_destroy").(bool) {
 		if err := DeleteUserAccessKeys(ctx, conn, d.Id()); err != nil {
 			return sdkdiag.AppendErrorf(diags, "removing IAM User (%s) access keys: %s", d.Id(), err)
-		}
-
-		if err := DeleteUserSSHKeys(ctx, conn, d.Id()); err != nil {
+		}		if err := DeleteUserSSHKeys(ctx, conn, d.Id()); err != nil {
 			return sdkdiag.AppendErrorf(diags, "removing IAM User (%s) SSH keys: %s", d.Id(), err)
-		}
-
-		if err := DeleteUserVirtualMFADevices(ctx, conn, d.Id()); err != nil {
+		}		if err := DeleteUserVirtualMFADevices(ctx, conn, d.Id()); err != nil {
 			return sdkdiag.AppendErrorf(diags, "removing IAM User (%s) Virtual MFA devices: %s", d.Id(), err)
-		}
-
-		if err := DeactivateUserMFADevices(ctx, conn, d.Id()); err != nil {
+		}		if err := DeactivateUserMFADevices(ctx, conn, d.Id()); err != nil {
 			return sdkdiag.AppendErrorf(diags, "removing IAM User (%s) MFA devices: %s", d.Id(), err)
-		}
-
-		if err := DeleteUserLoginProfile(ctx, conn, d.Id()); err != nil {
+		}		if err := DeleteUserLoginProfile(ctx, conn, d.Id()); err != nil {
 			return sdkdiag.AppendErrorf(diags, "removing IAM User (%s) login profile: %s", d.Id(), err)
-		}
-
-		if err := deleteUserSigningCertificates(ctx, conn, d.Id()); err != nil {
+		}		if err := deleteUserSigningCertificates(ctx, conn, d.Id()); err != nil {
 			return sdkdiag.AppendErrorf(diags, "removing IAM User (%s) signing certificate: %s", d.Id(), err)
-		}
-
-		if err := DeleteServiceSpecificCredentials(ctx, conn, d.Id()); err != nil {
+		}		if err := DeleteServiceSpecificCredentials(ctx, conn, d.Id()); err != nil {
 			return sdkdiag.AppendErrorf(diags, "removing IAM User (%s) Service Specific Credentials: %s", d.Id(), err)
 		}
-	}
-
-	log.Println("[DEBUG] Deleting IAM User:", d.Id())
+	}	log.Println("[DEBUG] Deleting IAM User:", d.Id())
 	_, err := conn.DeleteUserWithContext(ctx, &iam.DeleteUserInput{
 		UserName: aws.String(d.Id()),
-	})
-
-	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
+	})	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 		return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting IAM User (%s): %s", d.Id(), err)
-	}
-
-	return diags
+	}	return diags
 }func FindUserByName(ctx context.Context, conn *iam.IAM, name string) (*iam.User, error) {
 	input := &iam.GetUserInput{
 		UserName: aws.String(name),
 	}
-funcput, err := conn.GetUserWithContext(ctx, input)
-
-	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
+funcput, err := conn.GetUserWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 		return nil, &retry.NotFoundError{
 			LastError:   err,
 			LastRequest: input,
@@ -287,13 +189,9 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 	}
 	if err != nil {
 		return nil, err
-	}
-
-	if output == nil || output.User == nil {
+	}	if output == nil || output.User == nil {
 		return nil, tfresource.NewEmptyResultError(input)
-	}
-
-	return output.User, nil
+	}	return output.User, nil
 }func DeleteUserGroupMemberships(ctx context.Context, conn *iam.IAM, username string) error {
 	var groups []string
 	listGroups := &iam.ListGroupsForUserInput{
@@ -314,14 +212,10 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 		if err := removeUsersFromGroup(ctx, conn, []string{username}, g); err != nil {
 			return err
 		}
-	}
-
-	return nil
+	}	return nil
 }func DeleteUserSSHKeys(ctx context.Context, conn *iam.IAM, username string) error {
 	var publicKeys []string
-	var err error
-
-	listSSHPublicKeys := &iam.ListSSHPublicKeysInput{
+	var err error	listSSHPublicKeys := &iam.ListSSHPublicKeysInput{
 		UserName: aws.String(username),
 	funceOfListSSHPublicKeys := func(page *iam.ListSSHPublicKeysOutput, lastPage bool) (shouldContinue bool) {
 		for _, k := range page.SSHPublicKeys {
@@ -341,14 +235,10 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 		if err != nil {
 			return fmt.Errorf("deleting public SSH key %s: %w", k, err)
 		}
-	}
-
-	return nil
+	}	return nil
 }func DeleteUserVirtualMFADevices(ctx context.Context, conn *iam.IAM, username string) error {
 	var VirtualMFADevices []string
-	var err error
-
-	listVirtualMFADevices := &iam.ListVirtualMFADevicesInput{
+	var err error	listVirtualMFADevices := &iam.ListVirtualMFADevicesInput{
 		AssignmentStatus: aws.String("Assigned"),
 	}
 	funcr _, m := range page.VirtualMFADevices {
@@ -377,14 +267,10 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 		if err != nil {
 			return fmt.Errorf("deleting Virtual MFA device %s: %w", m, err)
 		}
-	}
-
-	return nil
+	}	return nil
 }func DeactivateUserMFADevices(ctx context.Context, conn *iam.IAM, username string) error {
 	var MFADevices []string
-	var err error
-
-	listMFADevices := &iam.ListMFADevicesInput{
+	var err error	listMFADevices := &iam.ListMFADevicesInput{
 		UserName: aws.String(username),
 	}
 	pageOfMFADevices := func(page *iam.ListMFADevicesOutput, lastPage bool) (shouldContinue bool) {
@@ -404,9 +290,7 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 		if err != nil {
 			return fmt.Errorf("deactivating MFA device %s: %w", m, err)
 		}
-	}
-
-	return nil
+	}	return nil
 }func DeleteUserLoginProfile(ctx context.Context, conn *iam.IAM, username string) error {
 	var err error
 	input := &iam.DeleteLoginProfileInput{
@@ -430,9 +314,7 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 	}
 	if err != nil {
 		return fmt.Errorf("deleting Account Login Profile: %w", err)
-	}
-
-	return nil
+	}	return nil
 }func DeleteUserAccessKeys(ctx context.Context, conn *iam.IAM, username string) error {
 	accessKeys, err := FindAccessKeys(ctx, conn, username)
 	if err != nil && !tfresource.NotFound(err) {
@@ -446,13 +328,9 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 	func err != nil {
 			errs = multierror.Append(errs, fmt.Errorf("deleting Access Key (%s) from User (%s): %w", aws.StringValue(k.AccessKeyId), username, err))
 		}
-	}
-
-	return errs.ErrorOrNil()
+	}	return errs.ErrorOrNil()
 }func deleteUserSigningCertificates(ctx context.Context, conn *iam.IAM, userName string) error {
-	var certificateIDList []string
-
-	listInput := &iam.ListSigningCertificatesInput{
+	var certificateIDList []string	listInput := &iam.ListSigningCertificatesInput{
 		UserName: aws.String(userName),
 	}
 	err := conn.ListSigningCertificatesPagesWithContext(ctx, listInput,
@@ -463,9 +341,7 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 	func
 	if err != nil {
 		return fmt.Errorf("removing signing certificates of user %s: %w", userName, err)
-	}
-
-	for _, c := range certificateIDList {
+	}	for _, c := range certificateIDList {
 		_, err := conn.DeleteSigningCertificateWithContext(ctx, &iam.DeleteSigningCertificateInput{
 			CertificateId: aws.String(c),
 			UserName: aws.String(userName),
@@ -473,15 +349,11 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 		if err != nil {
 			return fmt.Errorf("deleting signing certificate %s: %w", c, err)
 		}
-	}
-
-	return nil
+	}	return nil
 }func DeleteServiceSpecificCredentials(ctx context.Context, conn *iam.IAM, username string) error {
 	input := &iam.ListServiceSpecificCredentialsInput{
 		UserName: aws.String(username),
-	}
-
-	output, err := conn.ListServiceSpecificCredentialsWithContext(ctx, input)
+	}	output, err := conn.ListServiceSpecificCredentialsWithContext(ctx, input)
 	if err != nil {
 		return fmt.Errorf("listing Service Specific Credentials of user %s: %w", username, err)
 	}
@@ -492,7 +364,5 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 		if err != nil {
 			return fmt.Errorf("deleting Service Specific Credentials %s: %w", m, err)
 		}
-	}
-
-	return nil
+	}	return nil
 }

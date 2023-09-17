@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package gamelift
-
-import (
+// SPDX-License-Identifier: MPL-2.0package gameliftimport (
 	"context"
-	"log"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"log"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/gamelift"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -18,22 +12,16 @@ import (
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_gamelift_alias", name="Alias")
+)// @SDKResource("aws_gamelift_alias", name="Alias")
 // @Tags(identifierAttribute="arn")
 func ResourceAlias() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAliasCreate,
 		ReadWithoutTimeout:   resourceAliasRead,
 		UpdateWithoutTimeout: resourceAliasUpdate,
-		DeleteWithoutTimeout: resourceAliasDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceAliasDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"name": {
 				Type:schema.TypeString,
 				Required: true,
@@ -75,17 +63,11 @@ func ResourceAlias() *schema.Resource {
 			},
 			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
-
-		CustomizeDiff: verify.SetTagsDiff,
+		},		CustomizeDiff: verify.SetTagsDiff,
 	}
-}
-
-func resourceAliasCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceAliasCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).GameLiftConn(ctx)
-
-	rs := expandRoutingStrategy(d.Get("routing_strategy").([]interface{}))
+	conn := meta.(*conns.AWSClient).GameLiftConn(ctx)	rs := expandRoutingStrategy(d.Get("routing_strategy").([]interface{}))
 	input := gamelift.CreateAliasInput{
 		Name:   aws.String(d.Get("name").(string)),
 		RoutingStrategy: rs,
@@ -97,18 +79,10 @@ func resourceAliasCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	out, err := conn.CreateAliasWithContext(ctx, &input)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating GameLift Alias (%s): %s", d.Get("name").(string), err)
-	}
-
-	d.SetId(aws.StringValue(out.Alias.AliasId))
-
-	return append(diags, resourceAliasRead(ctx, d, meta)...)
-}
-
-func resourceAliasRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	d.SetId(aws.StringValue(out.Alias.AliasId))	return append(diags, resourceAliasRead(ctx, d, meta)...)
+}func resourceAliasRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).GameLiftConn(ctx)
-
-	out, err := conn.DescribeAliasWithContext(ctx, &gamelift.DescribeAliasInput{
+	conn := meta.(*conns.AWSClient).GameLiftConn(ctx)	out, err := conn.DescribeAliasWithContext(ctx, &gamelift.DescribeAliasInput{
 		AliasId: aws.String(d.Id()),
 	})
 	if err != nil {
@@ -119,22 +93,14 @@ func resourceAliasRead(ctx context.Context, d *schema.ResourceData, meta interfa
 		}
 		return sdkdiag.AppendErrorf(diags, "reading GameLift Alias (%s): %s", d.Id(), err)
 	}
-	a := out.Alias
-
-	arn := aws.StringValue(a.AliasArn)
+	a := out.Alias	arn := aws.StringValue(a.AliasArn)
 	d.Set("arn", arn)
 	d.Set("description", a.Description)
 	d.Set("name", a.Name)
-	d.Set("routing_strategy", flattenRoutingStrategy(a.RoutingStrategy))
-
-	return diags
-}
-
-func resourceAliasUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	d.Set("routing_strategy", flattenRoutingStrategy(a.RoutingStrategy))	return diags
+}func resourceAliasUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).GameLiftConn(ctx)
-
-	log.Printf("[INFO] Updating GameLift Alias: %s", d.Id())
+	conn := meta.(*conns.AWSClient).GameLiftConn(ctx)	log.Printf("[INFO] Updating GameLift Alias: %s", d.Id())
 	_, err := conn.UpdateAliasWithContext(ctx, &gamelift.UpdateAliasInput{
 		AliasId:aws.String(d.Id()),
 		Name:   aws.String(d.Get("name").(string)),
@@ -143,58 +109,36 @@ func resourceAliasUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "updating GameLift Alias (%s): %s", d.Id(), err)
-	}
-
-	return append(diags, resourceAliasRead(ctx, d, meta)...)
-}
-
-func resourceAliasDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	return append(diags, resourceAliasRead(ctx, d, meta)...)
+}func resourceAliasDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).GameLiftConn(ctx)
-
-	log.Printf("[INFO] Deleting GameLift Alias: %s", d.Id())
+	conn := meta.(*conns.AWSClient).GameLiftConn(ctx)	log.Printf("[INFO] Deleting GameLift Alias: %s", d.Id())
 	if _, err := conn.DeleteAliasWithContext(ctx, &gamelift.DeleteAliasInput{
 		AliasId: aws.String(d.Id()),
 	}); err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting GameLift Alias (%s): %s", d.Id(), err)
 	}
 	return diags
-}
-
-func expandRoutingStrategy(cfg []interface{}) *gamelift.RoutingStrategy {
+}func expandRoutingStrategy(cfg []interface{}) *gamelift.RoutingStrategy {
 	if len(cfg) < 1 {
 		return nil
-	}
-
-	strategy := cfg[0].(map[string]interface{})
-
-	out := gamelift.RoutingStrategy{
+	}	strategy := cfg[0].(map[string]interface{})	out := gamelift.RoutingStrategy{
 		Type: aws.String(strategy["type"].(string)),
-	}
-
-	if v, ok := strategy["fleet_id"].(string); ok && len(v) > 0 {
+	}	if v, ok := strategy["fleet_id"].(string); ok && len(v) > 0 {
 		out.FleetId = aws.String(v)
 	}
 	if v, ok := strategy["message"].(string); ok && len(v) > 0 {
 		out.Message = aws.String(v)
-	}
-
-	return &out
-}
-
-func flattenRoutingStrategy(rs *gamelift.RoutingStrategy) []interface{} {
+	}	return &out
+}func flattenRoutingStrategy(rs *gamelift.RoutingStrategy) []interface{} {
 	if rs == nil {
 		return []interface{}{}
-	}
-
-	m := make(map[string]interface{})
+	}	m := make(map[string]interface{})
 	if rs.FleetId != nil {
 		m["fleet_id"] = aws.StringValue(rs.FleetId)
 	}
 	if rs.Message != nil {
 		m["message"] = aws.StringValue(rs.Message)
 	}
-	m["type"] = aws.StringValue(rs.Type)
-
-	return []interface{}{m}
+	m["type"] = aws.StringValue(rs.Type)	return []interface{}{m}
 }

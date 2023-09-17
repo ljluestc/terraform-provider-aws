@@ -20,10 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/create"
 	tfquicksight "github.com/hashicorp/terraform-provider-aws/internal/service/quicksight"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-
-func TestAccQuickSightTemplate_basic(t *testing.T) {
+)func TestAccQuickSightTemplate_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 
 	var template quicksight.Template
@@ -32,8 +29,7 @@ func TestAccQuickSightTemplate_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -57,10 +53,7 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightTemplate_disappears(t *testing.T) {
+}func TestAccQuickSightTemplate_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 
 	var template quicksight.Template
@@ -69,8 +62,7 @@ func TestAccQuickSightTemplate_disappears(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -88,10 +80,7 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightTemplate_barChart(t *testing.T) {
+}func TestAccQuickSightTemplate_barChart(t *testing.T) {
 	ctx := acctest.Context(t)
 
 	var template quicksight.Template
@@ -100,8 +89,7 @@ func TestAccQuickSightTemplate_barChart(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -125,10 +113,7 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightTemplate_table(t *testing.T) {
+}func TestAccQuickSightTemplate_table(t *testing.T) {
 	ctx := acctest.Context(t)
 
 	var v1, v2 quicksight.Template
@@ -137,8 +122,7 @@ func TestAccQuickSightTemplate_table(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -177,10 +161,7 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightTemplate_sourceEntity(t *testing.T) {
+}func TestAccQuickSightTemplate_sourceEntity(t *testing.T) {
 	ctx := acctest.Context(t)
 
 	var template quicksight.Template
@@ -191,8 +172,7 @@ func TestAccQuickSightTemplate_sourceEntity(t *testing.T) {
 	sourceId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -218,10 +198,7 @@ ImportStateVerifyIgnore: []string{"source_entity"},
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightTemplate_tags(t *testing.T) {
+}func TestAccQuickSightTemplate_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 
 	var template quicksight.Template
@@ -230,8 +207,7 @@ func TestAccQuickSightTemplate_tags(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -282,10 +258,7 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccQuickSightTemplate_update(t *testing.T) {
+}func TestAccQuickSightTemplate_update(t *testing.T) {
 	ctx := acctest.Context(t)
 
 	var template quicksight.Template
@@ -297,8 +270,7 @@ func TestAccQuickSightTemplate_update(t *testing.T) {
 	sourceId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: 
-func() {
+PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -338,13 +310,9 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccCheckTemplateDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckTemplateDestroy(ctx context.Context) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -367,13 +335,9 @@ return fmt.Errorf("QuickSight Template (%s) still exists", rs.Primary.ID)
 
 return nil
 	}
-}
-
-
-func testAccCheckTemplateExists(ctx context.Context, name string, template *quicksight.Template) resource.TestCheck
+}func testAccCheckTemplateExists(ctx context.Context, name string, template *quicksight.Template) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameTemplate, name, errors.New("not found"))
@@ -394,23 +358,16 @@ if err != nil {
 
 return nil
 	}
-}
-
-
-func testAccCheckTemplateNotRecreated(before, after *quicksight.Template) resource.TestCheck
+}func testAccCheckTemplateNotRecreated(before, after *quicksight.Template) resource.TestCheck
 func {
-	return 
-func(s *terraform.State) error {
+	returnfunc(s *terraform.State) error {
 if creationTimeBefore, creationTimeAfter := aws.TimeValue(before.CreatedTime), aws.TimeValue(after.CreatedTime); creationTimeBefore != creationTimeAfter {
 	return create.Error(names.QuickSight, create.ErrActionCheckingNotRecreated, tfquicksight.ResNameTemplate, aws.StringValue(before.TemplateId), errors.New("recreated"))
 }
 
 return nil
 	}
-}
-
-
-func testAccTemplateConfigBase(rId string, rName string) string {
+}func testAccTemplateConfigBase(rId string, rName string) string {
 	return acctest.ConfigCompose(
 testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
@@ -455,10 +412,7 @@ physical_table_map
   }
 }
 `, rId, rName))
-}
-
-
-func testAccTemplateConfig_basic(rId, rName string) string {
+}func testAccTemplateConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
 testAccTemplateConfigBase(rId, rName),
 fmt.Sprintf(`
@@ -535,10 +489,7 @@ function = "COUNT"
   }
 }
 `, rId, rName))
-}
-
-
-func testAccTemplateConfig_BarChart(rId, rName string) string {
+}func testAccTemplateConfig_BarChart(rId, rName string) string {
 	return acctest.ConfigCompose(
 testAccTemplateConfigBase(rId, rName),
 fmt.Sprintf(`
@@ -600,10 +551,7 @@ function {
   }
 }
 `, rId, rName))
-}
-
-
-func testAccTemplateConfig_Table(rId, rName, sortDirection, totalPlacement string) string {
+}func testAccTemplateConfig_Table(rId, rName, sortDirection, totalPlacement string) string {
 	return acctest.ConfigCompose(
 testAccTemplateConfigBase(rId, rName),
 fmt.Sprintf(`
@@ -682,10 +630,7 @@ visuals {
   }
 }
 `, rId, rName, sortDirection, totalPlacement))
-}
-
-
-func testAccTemplateConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName string) string {
+}func testAccTemplateConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName string) string {
 	return acctest.ConfigCompose(
 testAccTemplateConfig_BarChart(sourceId, sourceName),
 fmt.Sprintf(`
@@ -700,10 +645,7 @@ arn = aws_quicksight_template.test.arn
   }
 }
 `, rId, rName))
-}
-
-
-func testAccTemplateConfig_tags1(rId, rName, key1, value1 string) string {
+}func testAccTemplateConfig_tags1(rId, rName, key1, value1 string) string {
 	return acctest.ConfigCompose(
 testAccTemplateConfigBase(rId, rName),
 fmt.Sprintf(`
@@ -769,10 +711,7 @@ function {
   }
 }
 `, rId, rName, key1, value1))
-}
-
-
-func testAccTemplateConfig_tags2(rId, rName, key1, value1, key2, value2 string) string {
+}func testAccTemplateConfig_tags2(rId, rName, key1, value1, key2, value2 string) string {
 	return acctest.ConfigCompose(
 testAccTemplateConfigBase(rId, rName),
 fmt.Sprintf(`

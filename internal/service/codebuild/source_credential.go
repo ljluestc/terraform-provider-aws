@@ -62,10 +62,7 @@ ForceNew: true,
 },
 },
 }
-}
-
-
-func resourceSourceCredentialCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceSourceCredentialCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -89,10 +86,7 @@ return sdkdiag.AppendErrorf(diags, "importing source credentials: %s", err)
 d.SetId(aws.StringValue(resp.Arn))
 
 return append(diags, resourceSourceCredentialRead(ctx, d, meta)...)
-}
-
-
-func resourceSourceCredentialRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceSourceCredentialRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -112,10 +106,7 @@ d.Set("auth_type", resp.AuthType)
 d.Set("server_type", resp.ServerType)
 
 return diags
-}
-
-
-func resourceSourceCredentialDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceSourceCredentialDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package servicecatalog_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package servicecatalog_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/servicecatalog"
+"testing""github.com/aws/aws-sdk-go/service/servicecatalog"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -16,16 +10,12 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfservicecatalog "github.com/hashicorp/terraform-provider-aws/internal/service/servicecatalog"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func testAccPortfolioShare_basic(t *testing.T) {
+)func testAccPortfolioShare_basic(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_portfolio_share.test"
 compareName := "aws_servicecatalog_portfolio.test"
 dataSourceName := "data.aws_caller_identity.alternate"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.Test(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.Test(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckAlternateAccount(t)
@@ -71,14 +61,10 @@ resource.TestCheckResourceAttr(resourceName, "type", servicecatalog.DescribePort
 },
 },
 })
-}
-
-func testAccPortfolioShare_sharePrincipals(t *testing.T) {
+}func testAccPortfolioShare_sharePrincipals(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_portfolio_share.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.Test(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.Test(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckOrganizationsEnabled(ctx, t)
@@ -113,15 +99,11 @@ resource.TestCheckResourceAttr(resourceName, "share_principals", "false"),
 },
 },
 })
-}
-
-func testAccPortfolioShare_organizationalUnit(t *testing.T) {
+}func testAccPortfolioShare_organizationalUnit(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_portfolio_share.test"
 compareName := "aws_servicecatalog_portfolio.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.Test(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.Test(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckOrganizationsEnabled(ctx, t)
@@ -154,14 +136,10 @@ ImportStateVerifyIgnore: []string{
 },
 },
 })
-}
-
-func testAccPortfolioShare_disappears(t *testing.T) {
+}func testAccPortfolioShare_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_portfolio_share.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.Test(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.Test(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckAlternateAccount(t)
@@ -181,74 +159,44 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func testAccCheckPortfolioShareDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckPortfolioShareDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_servicecatalog_portfolio_share" {
 continue
-}
-
-_, err := tfservicecatalog.FindPortfolioShare(ctx, conn,
+}_, err := tfservicecatalog.FindPortfolioShare(ctx, conn,
 rs.Primary.Attributes["portfolio_id"],
 rs.Primary.Attributes["type"],
 rs.Primary.Attributes["principal_id"],
-)
-
-if tfresource.NotFound(err) {
+)if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("Service Catalog Portfolio Share %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("Service Catalog Portfolio Share %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccCheckPortfolioShareExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckPortfolioShareExists(ctx context.Context, n string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No Service Catalog Portfolio Share ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)
-
-_, err := tfservicecatalog.FindPortfolioShare(ctx, conn,
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceCatalogConn(ctx)_, err := tfservicecatalog.FindPortfolioShare(ctx, conn,
 rs.Primary.Attributes["portfolio_id"],
 rs.Primary.Attributes["type"],
 rs.Primary.Attributes["principal_id"],
-)
-
-return err
+)return err
 }
-}
-
-func testAccPortfolioShareConfig_basic(rName string, share bool) string {
+}func testAccPortfolioShareConfig_basic(rName string, share bool) string {
 return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 data "aws_caller_identity" "alternate" {
   provider = "awsalternate"
-}
-
-resource "aws_servicecatalog_portfolio" "test" {
+}resource "aws_servicecatalog_portfolio" "test" {
   name = %[1]q
   description   = %[1]q
   provider_name = %[1]q
-}
-
-resource "aws_servicecatalog_portfolio_share" "test" {
+}resource "aws_servicecatalog_portfolio_share" "test" {
   accept_language     = "en"
   portfolio_id        = aws_servicecatalog_portfolio.test.id
   share_tag_options   = %[2]t
@@ -257,30 +205,18 @@ resource "aws_servicecatalog_portfolio_share" "test" {
   wait_for_acceptance = false
 }
 `, rName, share))
-}
-
-func testAccPortfolioShareConfig_organizationalUnit(rName string) string {
+}func testAccPortfolioShareConfig_organizationalUnit(rName string) string {
 return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_servicecatalog_organizations_access" "test" {
+data "aws_partition" "current" {}resource "aws_servicecatalog_organizations_access" "test" {
   enabled = "true"
-}
-
-resource "aws_servicecatalog_portfolio" "test" {
+}resource "aws_servicecatalog_portfolio" "test" {
   name = %[1]q
   description   = %[1]q
   provider_name = %[1]q
-}
-
-data "aws_organizations_organization" "test" {}
-
-resource "aws_organizations_organizational_unit" "test" {
+}data "aws_organizations_organization" "test" {}resource "aws_organizations_organizational_unit" "test" {
   name      = %[1]q
   parent_id = data.aws_organizations_organization.test.roots[0].id
-}
-
-resource "aws_servicecatalog_portfolio_share" "test" {
+}resource "aws_servicecatalog_portfolio_share" "test" {
   accept_language   = "en"
   portfolio_id      = aws_servicecatalog_portfolio.test.id
   share_tag_options = true
@@ -288,31 +224,21 @@ resource "aws_servicecatalog_portfolio_share" "test" {
   principal_id      = aws_organizations_organizational_unit.test.arn
 }
 `, rName)
-}
-
-func testAccPortfolioShareConfig_sharePrincipals(rName string, share bool) string {
+}func testAccPortfolioShareConfig_sharePrincipals(rName string, share bool) string {
 return fmt.Sprintf(`
-data "aws_organizations_organization" "current" {}
-
-resource "aws_servicecatalog_organizations_access" "test" {
+data "aws_organizations_organization" "current" {}resource "aws_servicecatalog_organizations_access" "test" {
   enabled = "true"
-}
-
-resource "aws_servicecatalog_portfolio" "test" {
+}resource "aws_servicecatalog_portfolio" "test" {
   name = %[1]q
   description   = %[1]q
   provider_name = %[1]q
-}
-
-resource "aws_servicecatalog_portfolio_share" "test" {
+}resource "aws_servicecatalog_portfolio_share" "test" {
   accept_language     = "en"
   portfolio_id        = aws_servicecatalog_portfolio.test.id
   share_principals    = %[2]t
   type = "ORGANIZATION"
   principal_id        = data.aws_organizations_organization.current.arn
-  wait_for_acceptance = false
-
-  depends_on = [aws_servicecatalog_organizations_access.test]
+  wait_for_acceptance = false  depends_on = [aws_servicecatalog_organizations_access.test]
 }
 `, rName, share)
 }

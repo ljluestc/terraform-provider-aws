@@ -1,17 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lightsail_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package lightsail_testimport (
 	"context"
 	"errors"
 	"fmt"
 	"strings"
 	"testing"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/lightsail"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -23,14 +17,10 @@ import (
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// LightSail only allows 5 load balancers per account. Serializing these tests simplifies running all
+)// LightSail only allows 5 load balancers per account. Serializing these tests simplifies running all
 // LoadBalancer tests without risk of hitting the account limit.
 func TestAccLightsailLoadBalancer_serial(t *testing.T) {
-	t.Parallel()
-
-	testCases := map[string]map[string]func(t *testing.T){
+	t.Parallel()	testCases := map[string]map[string]func(t *testing.T){
 		"lb": {
 			"basic":lancer_basic,
 			"disappears":        testAccLoadBalancer_disappears,
@@ -60,16 +50,12 @@ func TestAccLightsailLoadBalancer_serial(t *testing.T) {
 			"enabled":testAccLoadBalancerStickinessPolicy_enabled,
 			"disappears":      testAccLoadBalancerStickinessPolicy_disappears,
 		},
-	}
-
-	acctest.RunSerialTests2Levels(t, testCases, 0)
+	}	acctest.RunSerialTests2Levels(t, testCases, 0)
 }
 func testAccLoadBalancer_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_lb.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_lightsail_lb.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -102,9 +88,7 @@ func testAccLoadBalancer_name(t *testing.T) {
 	lightsailNameWithSpaces := fmt.Sprint(rName, "string with spaces")
 	lightsailNameWithStartingDigit := fmt.Sprintf("01-%s", rName)
 	lightsailNameWithUnderscore := fmt.Sprintf("%s_123456", rName)
-	resourceName := "aws_lightsail_lb.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_lightsail_lb.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -144,9 +128,7 @@ func testAccLoadBalancer_name(t *testing.T) {
 func testAccLoadBalancer_healthCheckPath(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_lb.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_lightsail_lb.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -181,9 +163,7 @@ func testAccLoadBalancer_healthCheckPath(t *testing.T) {
 func testAccLoadBalancer_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_lb.test"
-
-	resource.Test(t, resource.TestCase{
+	resourceName := "aws_lightsail_lb.test"	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -231,50 +211,28 @@ func testAccCheckLoadBalancerExists(ctx context.Context, n string) resource.Test
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return errors.New("No LightsailLoadBalancer ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-		resp, err := tflightsail.FindLoadBalancerById(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		resp, err := tflightsail.FindLoadBalancerById(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		if resp == nil {
+		}		if resp == nil {
 			return fmt.Errorf("Load Balancer %q does not exist", rs.Primary.ID)
-		}
-
-		return nil
+		}		return nil
 	}
 }
 func testAccLoadBalancer_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_lightsail_lb.test"
-
-	testDestroy := func(*terraform.State) error {
+	resourceName := "aws_lightsail_lb.test"	testDestroy := func(*terraform.State) error {
 		// reach out and DELETE the LoadBalancer
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
 		_, err := conn.DeleteLoadBalancer(ctx, &lightsail.DeleteLoadBalancerInput{
 			LoadBalancerName: aws.String(rName),
-		})
-
-		if err != nil {
+		})		if err != nil {
 			return fmt.Errorf("error deleting Lightsail LoadBalancer in disappear test")
-		}
-
-		// sleep 7 seconds to give it time, so we don't have to poll
-		time.Sleep(7 * time.Second)
-
-		return nil
-	}
-
-	resource.Test(t, resource.TestCase{
+		}		// sleep 7 seconds to give it time, so we don't have to poll
+		time.Sleep(7 * time.Second)		return nil
+	}	resource.Test(t, resource.TestCase{
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
@@ -300,24 +258,12 @@ func testAccCheckLoadBalancerDestroy(ctx context.Context) resource.TestCheckFunc
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_lightsail_lb" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
-
-			_, err := tflightsail.FindLoadBalancerById(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)			_, err := tflightsail.FindLoadBalancerById(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResLoadBalancer, rs.Primary.ID, errors.New("still exists"))
-		}
-
-		return nil
+			}			return create.Error(names.Lightsail, create.ErrActionCheckingDestroyed, tflightsail.ResLoadBalancer, rs.Primary.ID, errors.New("still exists"))
+		}		return nil
 	}
 }
 func testAccLoadBalancerConfig_basic(rName string) string {

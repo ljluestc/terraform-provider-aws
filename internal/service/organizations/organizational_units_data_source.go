@@ -47,10 +47,7 @@ Required: true,
 },
 },
 }
-}
-
-
-func dataSourceOrganizationalUnitsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceOrganizationalUnitsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -67,17 +64,13 @@ return sdkdiag.AppendErrorf(diags, "setting children: %s", err)
 }
 
 return diags
-}
-
-
-func findOrganizationalUnitsForParent(ctx context.Context, conn *organizations.Organizations, id string) ([]*organizations.OrganizationalUnit, error) {
+}func findOrganizationalUnitsForParent(ctx context.Context, conn *organizations.Organizations, id string) ([]*organizations.OrganizationalUnit, error) {
 input := &organizations.ListOrganizationalUnitsForParentInput{
 ParentId: aws.String(id),
 }
 var output []*organizations.OrganizationalUnit
 
-err := conn.ListOrganizationalUnitsForParentPagesWithContext(ctx, input, 
-func(page *organizations.ListOrganizationalUnitsForParentOutput, lastPage bool) bool {
+err := conn.ListOrganizationalUnitsForParentPagesWithContext(ctx, input,func(page *organizations.ListOrganizationalUnitsForParentOutput, lastPage bool) bool {
 output = append(output, page.OrganizationalUnits...)
 
 return !lastPage
@@ -88,10 +81,7 @@ return nil, err
 }
 
 return output, nil
-}
-
-
-func flattenOrganizationalUnits(ous []*organizations.OrganizationalUnit) []map[string]interface{} {
+}func flattenOrganizationalUnits(ous []*organizations.OrganizationalUnit) []map[string]interface{} {
 if len(ous) == 0 {
 return nil
 }

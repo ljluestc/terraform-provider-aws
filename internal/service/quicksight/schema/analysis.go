@@ -9,10 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-
-func AnalysisDefinitionSchema() *schema.Schema {
+)func AnalysisDefinitionSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AnalysisDefinition.html
 Type:     schema.TypeList,
 MaxItems: 1,
@@ -110,10 +107,7 @@ Elem: &schema.Resource{
 	},
 },
 	}
-}
-
-
-func AnalysisSourceEntitySchema() *schema.Schema {
+}func AnalysisSourceEntitySchema() *schema.Schema {
 	return &schema.Schema{
 Type:     schema.TypeList,
 MaxItems: 1,
@@ -143,10 +137,7 @@ func: verify.ValidARN,
 	},
 },
 	}
-}
-
-
-func ExpandAnalysisSourceEntity(tfList []interface{}) *quicksight.AnalysisSourceEntity {
+}func ExpandAnalysisSourceEntity(tfList []interface{}) *quicksight.AnalysisSourceEntity {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -163,10 +154,7 @@ sourceEntity.SourceTemplate = expandAnalysisSourceTemplate(v[0].(map[string]inte
 	}
 
 	return sourceEntity
-}
-
-
-func expandAnalysisSourceTemplate(tfMap map[string]interface{}) *quicksight.AnalysisSourceTemplate {
+}func expandAnalysisSourceTemplate(tfMap map[string]interface{}) *quicksight.AnalysisSourceTemplate {
 	if tfMap == nil {
 return nil
 	}
@@ -180,10 +168,7 @@ sourceTemplate.DataSetReferences = expandDataSetReferences(v)
 	}
 
 	return sourceTemplate
-}
-
-
-func ExpandAnalysisDefinition(tfList []interface{}) *quicksight.AnalysisDefinition {
+}func ExpandAnalysisDefinition(tfList []interface{}) *quicksight.AnalysisDefinition {
 	if len(tfList) == 0 || tfList[0] == nil {
 return nil
 	}
@@ -218,10 +203,7 @@ definition.Sheets = expandSheetDefinitions(v)
 	}
 
 	return definition
-}
-
-
-func FlattenAnalysisDefinition(apiObject *quicksight.AnalysisDefinition) []interface{} {
+}func FlattenAnalysisDefinition(apiObject *quicksight.AnalysisDefinition) []interface{} {
 	if apiObject == nil {
 return nil
 	}

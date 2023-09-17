@@ -119,10 +119,7 @@ names.AttrTagsAll: tftags.TagsSchemaComputed(),
 
 CustomizeDiff: verify.SetTagsDiff,
 }
-}
-
-
-func resourceReportGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceReportGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -141,10 +138,7 @@ return sdkdiag.AppendErrorf(diags, "creating CodeBuild Report Group: %s", err)
 d.SetId(aws.StringValue(resp.ReportGroup.Arn))
 
 return append(diags, resourceReportGroupRead(ctx, d, meta)...)
-}
-
-
-func resourceReportGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceReportGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -184,10 +178,7 @@ return sdkdiag.AppendErrorf(diags, "setting export config: %s", err)
 setTagsOut(ctx, reportGroup.Tags)
 
 return diags
-}
-
-
-func resourceReportGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceReportGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -209,10 +200,7 @@ return sdkdiag.AppendErrorf(diags, "updating CodeBuild Report Group: %s", err)
 }
 
 return append(diags, resourceReportGroupRead(ctx, d, meta)...)
-}
-
-
-func resourceReportGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceReportGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
@@ -230,10 +218,7 @@ return sdkdiag.AppendErrorf(diags, "while waiting for CodeBuild Report Group (%s
 }
 
 return diags
-}
-
-
-func expandReportGroupExportConfig(config []interface{}) *codebuild.ReportExportConfig {
+}func expandReportGroupExportConfig(config []interface{}) *codebuild.ReportExportConfig {
 if len(config) == 0 {
 return nil
 }
@@ -250,10 +235,7 @@ exportConfig.S3Destination = expandReportGroupS3ReportExportConfig(v.([]interfac
 }
 
 return exportConfig
-}
-
-
-func flattenReportGroupExportConfig(config *codebuild.ReportExportConfig) []map[string]interface{} {
+}func flattenReportGroupExportConfig(config *codebuild.ReportExportConfig) []map[string]interface{} {
 settings := make(map[string]interface{})
 
 if config == nil {
@@ -264,10 +246,7 @@ settings["s3_destination"] = flattenReportGroupS3ReportExportConfig(config.S3Des
 settings["type"] = aws.StringValue(config.ExportConfigType)
 
 return []map[string]interface{}{settings}
-}
-
-
-func expandReportGroupS3ReportExportConfig(config []interface{}) *codebuild.S3ReportExportConfig {
+}func expandReportGroupS3ReportExportConfig(config []interface{}) *codebuild.S3ReportExportConfig {
 if len(config) == 0 {
 return nil
 }
@@ -295,10 +274,7 @@ s3ReportExportConfig.Path = aws.String(v.(string))
 }
 
 return s3ReportExportConfig
-}
-
-
-func flattenReportGroupS3ReportExportConfig(config *codebuild.S3ReportExportConfig) []map[string]interface{} {
+}func flattenReportGroupS3ReportExportConfig(config *codebuild.S3ReportExportConfig) []map[string]interface{} {
 settings := make(map[string]interface{})
 
 if config == nil {

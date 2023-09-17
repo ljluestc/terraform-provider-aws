@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package imagebuilder_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package imagebuilder_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/imagebuilder"
+	"testing"	"github.com/aws/aws-sdk-go/service/imagebuilder"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccImageBuilderContainerRecipeDataSource_arn(t *testing.T) {
+)func TestAccImageBuilderContainerRecipeDataSource_arn(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_imagebuilder_container_recipe.test"
-	resourceName := "aws_imagebuilder_container_recipe.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_imagebuilder_container_recipe.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -53,41 +43,25 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccContainerRecipeDataSourceConfig_arn(rName string) string {
+}func testAccContainerRecipeDataSourceConfig_arn(rName string) string {
 	return fmt.Sprintf(`
-data "aws_region" "current" {}
-
-data "aws_partition" "current" {}
-
-resource "aws_ecr_repository" "test" {
+data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_ecr_repository" "test" {
   name = %[1]q
-}
-
-resource "aws_imagebuilder_container_recipe" "test" {
+}resource "aws_imagebuilder_container_recipe" "test" {
   name  = %[1]q
   container_type = "DOCKER"
   parent_image   = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-x86-2/x.x.x"
-  version        = "1.0.0"
-
-  component {
+  version        = "1.0.0"  component {
     component_arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/update-linux/x.x.x"
-  }
-
-  dockerfile_template_data = <<EOF
+  }  dockerfile_template_data = <<EOF
 FROM {{{ imagebuilder:parentImage }}}
 {{{ imagebuilder:environments }}}
 {{{ imagebuilder:components }}}
-EOF
-
-  target_repository {
+EOF  target_repository {
     repository_name = aws_ecr_repository.test.name
     service= "ECR"
   }
-}
-
-data "aws_imagebuilder_container_recipe" "test" {
+}data "aws_imagebuilder_container_recipe" "test" {
   arn = aws_imagebuilder_container_recipe.test.arn
 }
 `, rName)

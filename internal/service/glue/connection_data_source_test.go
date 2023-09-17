@@ -1,28 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package glue_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package glue_testimport (
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/glue"
+"testing""github.com/aws/aws-sdk-go/service/glue"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-plugin-testing/terraform"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccGlueConnectionDataSource_basic(t *testing.T) {
+)func TestAccGlueConnectionDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_glue_connection.test"
 datasourceName := "data.aws_glue_connection.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-jdbcConnectionUrl := fmt.Sprintf("jdbc:mysql://%s/testdatabase", acctest.RandomDomainName())
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)jdbcConnectionUrl := fmt.Sprintf("jdbc:mysql://%s/testdatabase", acctest.RandomDomainName())resource.ParallelTest(t, resource.TestCase{
 PreCheck:        func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -44,33 +32,21 @@ resource.TestCheckResourceAttrPair(datasourceName, "tags", resourceName, "tags")
 },
 },
 })
-}
-
-func testAccConnectionCheckDataSource(name string) resource.TestCheckFunc {
+}func testAccConnectionCheckDataSource(name string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 _, ok := s.RootModule().Resources[name]
 if !ok {
 return fmt.Errorf("root module has no resource called %s", name)
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccConnectionDataSourceConfig_basic(rName, jdbcConnectionUrl string) string {
+}func testAccConnectionDataSourceConfig_basic(rName, jdbcConnectionUrl string) string {
 return fmt.Sprintf(`
 resource "aws_glue_connection" "test" {
-  name = %[1]q
-
-  connection_properties = {
+  name = %[1]q  connection_properties = {
     JDBC_CONNECTION_URL = %[2]q
     PASSWORD   = "testpassword"
     USERNAME   = "testusername"
-  }
-
-}
-
-data "aws_glue_connection" "test" {
+  }}data "aws_glue_connection" "test" {
   id = aws_glue_connection.test.id
 }
 `, rName, jdbcConnectionUrl)

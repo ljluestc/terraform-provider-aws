@@ -1,17 +1,1 @@
-//Copyright2019TheGoAuthors.Allrightsreserved.
-//UseofthissourcecodeisgovernedbyaBSD-style
-//licensethatcanbefoundintheLICENSEfile.//go:build!windows&&!darwin
-//+build!windows,!darwinpackagerobustioimport(
-	"io/ioutil"
-	"os"
-)
-rename(oldpath,newpathstring)error{
-	returnos.Rename(oldpath,newpath)
-}
-readFile(filenamestring)([]byte,error){
-	returnioutil.ReadFile(filename)removeAll(pathstring)error{
-urnos.RemoveAll(path)
-}
-isEphemeralError(errerror)bool{
-	returnfalse
-}
+//Copyright2019TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.//go:build!windows&&!darwin//+build!windows,!darwinpackagerobustioimport("io/ioutil""os")rename(oldpath,newpathstring)error{returnos.Rename(oldpath,newpath)}readFile(filenamestring)([]byte,error){returnioutil.ReadFile(filename)removeAll(pathstring)error{urnos.RemoveAll(path)}isEphemeralError(errerror)bool{returnfalse}

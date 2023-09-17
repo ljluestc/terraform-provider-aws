@@ -67,10 +67,7 @@ ForceNew: true,
 },
 },
 }
-}
-
-
-func resourceStudioSessionMappingCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceStudioSessionMappingCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -101,10 +98,7 @@ return sdkdiag.AppendErrorf(diags, "creating EMR Studio Session Mapping: %s", er
 d.SetId(fmt.Sprintf("%s:%s:%s", studioId, identityType, idOrName))
 
 return append(diags, resourceStudioSessionMappingRead(ctx, d, meta)...)
-}
-
-
-func resourceStudioSessionMappingUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceStudioSessionMappingUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -131,10 +125,7 @@ return sdkdiag.AppendErrorf(diags, "updating EMR Studio Session Mapping (%s): %s
 }
 
 return append(diags, resourceStudioSessionMappingRead(ctx, d, meta)...)
-}
-
-
-func resourceStudioSessionMappingRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceStudioSessionMappingRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -156,10 +147,7 @@ d.Set("studio_id", mapping.StudioId)
 d.Set("session_policy_arn", mapping.SessionPolicyArn)
 
 return diags
-}
-
-
-func resourceStudioSessionMappingDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceStudioSessionMappingDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).EMRConn(ctx)
 

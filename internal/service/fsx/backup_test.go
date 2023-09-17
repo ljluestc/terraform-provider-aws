@@ -1,15 +1,9 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packagefsx_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packagefsx_testimport(
 	"context"
 	"fmt"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/fsx"
 	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,15 +12,11 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tffsx"github.com/hashicorp/terraform-provider-aws/internal/service/fsx"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-funcTestAccFSxBackup_basic(t*testing.T){
+)funcTestAccFSxBackup_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	varbackupfsx.Backup
 	resourceName:="aws_fsx_backup.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -48,17 +38,13 @@ funcTestAccFSxBackup_basic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxBackup_ontapBasic(t*testing.T){
+}funcTestAccFSxBackup_ontapBasic(t*testing.T){
 	ctx:=acctest.Context(t)
 	varbackupfsx.Backup
 	resourceName:="aws_fsx_backup.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	//FSXONTAPVolumeNamescan'tusedashonlyunderscore
-	vName:=strings.Replace(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),"-","_",-1)
-
-	resource.ParallelTest(t,resource.TestCase{
+	vName:=strings.Replace(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),"-","_",-1)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -80,15 +66,11 @@ funcTestAccFSxBackup_ontapBasic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxBackup_openzfsBasic(t*testing.T){
+}funcTestAccFSxBackup_openzfsBasic(t*testing.T){
 	ctx:=acctest.Context(t)
 	varbackupfsx.Backup
 	resourceName:="aws_fsx_backup.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -110,15 +92,11 @@ funcTestAccFSxBackup_openzfsBasic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxBackup_windowsBasic(t*testing.T){
+}funcTestAccFSxBackup_windowsBasic(t*testing.T){
 	ctx:=acctest.Context(t)
 	varbackupfsx.Backup
 	resourceName:="aws_fsx_backup.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -140,15 +118,11 @@ funcTestAccFSxBackup_windowsBasic(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxBackup_disappears(t*testing.T){
+}funcTestAccFSxBackup_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	varbackupfsx.Backup
 	resourceName:="aws_fsx_backup.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -164,15 +138,11 @@ funcTestAccFSxBackup_disappears(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxBackup_Disappears_filesystem(t*testing.T){
+}funcTestAccFSxBackup_Disappears_filesystem(t*testing.T){
 	ctx:=acctest.Context(t)
 	varbackupfsx.Backup
 	resourceName:="aws_fsx_backup.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -188,15 +158,11 @@ funcTestAccFSxBackup_Disappears_filesystem(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxBackup_tags(t*testing.T){
+}funcTestAccFSxBackup_tags(t*testing.T){
 	ctx:=acctest.Context(t)
 	varbackupfsx.Backup
 	resourceName:="aws_fsx_backup.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t,resource.TestCase{
+	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -234,14 +200,10 @@ funcTestAccFSxBackup_tags(t*testing.T){
 			},
 		},
 	})
-}
-
-funcTestAccFSxBackup_implicitTags(t*testing.T){
+}funcTestAccFSxBackup_implicitTags(t*testing.T){
 	ctx:=acctest.Context(t)
 	varbackupfsx.Backup
-	resourceName:="aws_fsx_backup.test"
-
-	resource.ParallelTest(t,resource.TestCase{
+	resourceName:="aws_fsx_backup.test"	resource.ParallelTest(t,resource.TestCase{
 		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
 		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
 		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
@@ -262,111 +224,71 @@ funcTestAccFSxBackup_implicitTags(t*testing.T){
 			},
 		},
 	})
-}
-
-functestAccCheckBackupExists(ctxcontext.Context,resourceNamestring,fs*fsx.Backup)resource.TestCheckFunc{
+}functestAccCheckBackupExists(ctxcontext.Context,resourceNamestring,fs*fsx.Backup)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
 		rs,ok:=s.RootModule().Resources[resourceName]
 		if!ok{
 			returnfmt.Errorf("Notfound:%s",resourceName)
-		}
-
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-		output,err:=tffsx.FindBackupByID(ctx,conn,rs.Primary.ID)
+		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		output,err:=tffsx.FindBackupByID(ctx,conn,rs.Primary.ID)
 		iferr!=nil{
 			returnerr
-		}
-
-		ifoutput==nil{
+		}		ifoutput==nil{
 			returnfmt.Errorf("FSxBackup(%s)notfound",rs.Primary.ID)
-		}
-
-		*fs=*output
-
-		returnnil
+		}		*fs=*output		returnnil
 	}
-}
-
-functestAccCheckBackupDestroy(ctxcontext.Context)resource.TestCheckFunc{
+}functestAccCheckBackupDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)
-
-		for_,rs:=ranges.RootModule().Resources{
+		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		for_,rs:=ranges.RootModule().Resources{
 			ifrs.Type!="aws_fsx_backup"{
 				continue
-			}
-
-			_,err:=tffsx.FindBackupByID(ctx,conn,rs.Primary.ID)
+			}			_,err:=tffsx.FindBackupByID(ctx,conn,rs.Primary.ID)
 			iftfresource.NotFound(err){
 				continue
-			}
-
-			iferr!=nil{
+			}			iferr!=nil{
 				returnerr
-			}
-
-			returnfmt.Errorf("FSxBackup%sstillexists",rs.Primary.ID)
+			}			returnfmt.Errorf("FSxBackup%sstillexists",rs.Primary.ID)
 		}
 		returnnil
 	}
-}
-
-functestAccBackupBaseConfig()string{
+}functestAccBackupBaseConfig()string{
 	returnacctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(),`
 resource"aws_vpc""test"{
 cidr_block="10.0.0.0/16"
-}
-
-resource"aws_subnet""test1"{
+}resource"aws_subnet""test1"{
 vpc_id=aws_vpc.test.id
 cidr_block="10.0.1.0/24"
 availability_zone=data.aws_availability_zones.available.names[0]
-}
-
-resource"aws_subnet""test2"{
+}resource"aws_subnet""test2"{
 vpc_id=aws_vpc.test.id
 cidr_block="10.0.2.0/24"
 availability_zone=data.aws_availability_zones.available.names[1]
 }
 `)
-}
-
-functestAccBackupLustreBaseConfig(rNamestring)string{
+}functestAccBackupLustreBaseConfig(rNamestring)string{
 	returnacctest.ConfigCompose(testAccBackupBaseConfig(),fmt.Sprintf(`
 resource"aws_fsx_lustre_file_system""test"{
 storage_capacity=1200
 subnet_ids=[aws_subnet.test1.id]
 deployment_type="PERSISTENT_1"
-per_unit_storage_throughput=50
-
-tags={
+per_unit_storage_throughput=50tags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccBackupONTAPBaseConfig(rNamestring,vNamestring)string{
+}functestAccBackupONTAPBaseConfig(rNamestring,vNamestring)string{
 	returnacctest.ConfigCompose(testAccBackupBaseConfig(),fmt.Sprintf(`
 resource"aws_fsx_ontap_file_system""test"{
 storage_capacity=1024
 subnet_ids=[aws_subnet.test1.id,aws_subnet.test2.id]
 deployment_type="MULTI_AZ_1"
 throughput_capacity=512
-preferred_subnet_id=aws_subnet.test1.id
-
-tags={
+preferred_subnet_id=aws_subnet.test1.idtags={
 Name=%[1]q
 }
-}
-
-resource"aws_fsx_ontap_storage_virtual_machine""test"{
+}resource"aws_fsx_ontap_storage_virtual_machine""test"{
 file_system_id=aws_fsx_ontap_file_system.test.id
 name=%[1]q
-}
-
-resource"aws_fsx_ontap_volume""test"{
+}resource"aws_fsx_ontap_volume""test"{
 name=%[2]q
 junction_path="/%[1]s"
 size_in_megabytes=1024
@@ -374,151 +296,104 @@ storage_efficiency_enabled=true
 storage_virtual_machine_id=aws_fsx_ontap_storage_virtual_machine.test.id
 }
 `,rName,vName))
-}
-
-functestAccBackupOpenzfsBaseConfig(rNamestring)string{
+}functestAccBackupOpenzfsBaseConfig(rNamestring)string{
 	returnacctest.ConfigCompose(testAccBackupBaseConfig(),fmt.Sprintf(`
 resource"aws_fsx_openzfs_file_system""test"{
 storage_capacity=64
 subnet_ids=[aws_subnet.test1.id]
 deployment_type="SINGLE_AZ_1"
-throughput_capacity=64
-
-
-tags={
+throughput_capacity=64tags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccBackupWindowsBaseConfig(rNamestring)string{
+}functestAccBackupWindowsBaseConfig(rNamestring)string{
 	returnacctest.ConfigCompose(testAccBackupBaseConfig(),fmt.Sprintf(`
 resource"aws_directory_service_directory""test"{
 edition="Standard"
 name="corp.notexample.com"
 password="SuperSecretPassw0rd"
-type="MicrosoftAD"
-
-vpc_settings{
+type="MicrosoftAD"vpc_settings{
 subnet_ids=[aws_subnet.test1.id,aws_subnet.test2.id]
 vpc_id=aws_vpc.test.id
 }
-}
-
-resource"aws_fsx_windows_file_system""test"{
+}resource"aws_fsx_windows_file_system""test"{
 active_directory_id=aws_directory_service_directory.test.id
 automatic_backup_retention_days=0
 skip_final_backup=true
 storage_capacity=32
 subnet_ids=[aws_subnet.test1.id]
-throughput_capacity=8
-
-tags={
+throughput_capacity=8tags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccBackupConfig_basic(rNamestring)string{
+}functestAccBackupConfig_basic(rNamestring)string{
 	returnacctest.ConfigCompose(testAccBackupLustreBaseConfig(rName),fmt.Sprintf(`
 resource"aws_fsx_backup""test"{
-file_system_id=aws_fsx_lustre_file_system.test.id
-
-tags={
+file_system_id=aws_fsx_lustre_file_system.test.idtags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccBackupConfig_ontapBasic(rNamestring,vNamestring)string{
+}functestAccBackupConfig_ontapBasic(rNamestring,vNamestring)string{
 	returnacctest.ConfigCompose(testAccBackupONTAPBaseConfig(rName,vName),fmt.Sprintf(`
 resource"aws_fsx_backup""test"{
-volume_id=aws_fsx_ontap_volume.test.id
-
-tags={
+volume_id=aws_fsx_ontap_volume.test.idtags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccBackupConfig_openZFSBasic(rNamestring)string{
+}functestAccBackupConfig_openZFSBasic(rNamestring)string{
 	returnacctest.ConfigCompose(testAccBackupOpenzfsBaseConfig(rName),fmt.Sprintf(`
 resource"aws_fsx_backup""test"{
-file_system_id=aws_fsx_openzfs_file_system.test.id
-
-tags={
+file_system_id=aws_fsx_openzfs_file_system.test.idtags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccBackupConfig_windowsBasic(rNamestring)string{
+}functestAccBackupConfig_windowsBasic(rNamestring)string{
 	returnacctest.ConfigCompose(testAccBackupWindowsBaseConfig(rName),fmt.Sprintf(`
 resource"aws_fsx_backup""test"{
-file_system_id=aws_fsx_windows_file_system.test.id
-
-tags={
+file_system_id=aws_fsx_windows_file_system.test.idtags={
 Name=%[1]q
 }
 }
 `,rName))
-}
-
-functestAccBackupConfig_tags1(rNamestring,tagKey1,tagValue1string)string{
+}functestAccBackupConfig_tags1(rNamestring,tagKey1,tagValue1string)string{
 	returnacctest.ConfigCompose(testAccBackupLustreBaseConfig(rName),fmt.Sprintf(`
 resource"aws_fsx_backup""test"{
-file_system_id=aws_fsx_lustre_file_system.test.id
-
-tags={
+file_system_id=aws_fsx_lustre_file_system.test.idtags={
 %[1]q=%[2]q
 }
 }
 `,tagKey1,tagValue1))
-}
-
-functestAccBackupConfig_tags2(rNamestring,tagKey1,tagValue1,tagKey2,tagValue2string)string{
+}functestAccBackupConfig_tags2(rNamestring,tagKey1,tagValue1,tagKey2,tagValue2string)string{
 	returnacctest.ConfigCompose(testAccBackupLustreBaseConfig(rName),fmt.Sprintf(`
 resource"aws_fsx_backup""test"{
-file_system_id=aws_fsx_lustre_file_system.test.id
-
-tags={
+file_system_id=aws_fsx_lustre_file_system.test.idtags={
 %[1]q=%[2]q
 %[3]q=%[4]q
 }
 }
 `,tagKey1,tagValue1,tagKey2,tagValue2))
-}
-
-functestAccBackupConfig_implictTags(tagKey1,tagValue1string)string{
+}functestAccBackupConfig_implictTags(tagKey1,tagValue1string)string{
 	returnacctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(),fmt.Sprintf(`
 resource"aws_vpc""test"{
 cidr_block="10.0.0.0/16"
-}
-
-resource"aws_subnet""test1"{
+}resource"aws_subnet""test1"{
 vpc_id=aws_vpc.test.id
 cidr_block="10.0.1.0/24"
 availability_zone=data.aws_availability_zones.available.names[0]
-}
-
-resource"aws_fsx_lustre_file_system""test"{
+}resource"aws_fsx_lustre_file_system""test"{
 storage_capacity=1200
 subnet_ids=[aws_subnet.test1.id]
 deployment_type="PERSISTENT_1"
 per_unit_storage_throughput=50
-copy_tags_to_backups=true
-
-tags={
+copy_tags_to_backups=truetags={
 %[1]q=%[2]q
 }
-}
-
-resource"aws_fsx_backup""test"{
+}resource"aws_fsx_backup""test"{
 file_system_id=aws_fsx_lustre_file_system.test.id
 }
 `,tagKey1,tagValue1))

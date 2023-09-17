@@ -1,13 +1,7 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageredshiftserverless
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageredshiftserverlessimport(
 	"context"
-	"log"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"log"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/redshiftserverless"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -16,21 +10,15 @@ import(
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-//@SDKResource("aws_redshiftserverless_snapshot")
+)//@SDKResource("aws_redshiftserverless_snapshot")
 funcResourceSnapshot()*schema.Resource{
 	return&schema.Resource{
 		CreateWithoutTimeout:resourceSnapshotCreate,
 		ReadWithoutTimeout:resourceSnapshotRead,
 		UpdateWithoutTimeout:resourceSnapshotUpdate,
-		DeleteWithoutTimeout:resourceSnapshotDelete,
-
-		Importer:&schema.ResourceImporter{
+		DeleteWithoutTimeout:resourceSnapshotDelete,		Importer:&schema.ResourceImporter{
 			StateContext:schema.ImportStatePassthroughContext,
-		},
-
-		Schema:map[string]*schema.Schema{
+		},		Schema:map[string]*schema.Schema{
 			"accounts_with_provisioned_restore_access":{
 				Type:schema.TypeSet,
 				Computed:true,
@@ -82,52 +70,28 @@ funcResourceSnapshot()*schema.Resource{
 			},
 		},
 	}
-}
-
-funcresourceSnapshotCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+}funcresourceSnapshotCreate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-	input:=redshiftserverless.CreateSnapshotInput{
+	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)	input:=redshiftserverless.CreateSnapshotInput{
 		NamespaceName:aws.String(d.Get("namespace_name").(string)),
 		SnapshotName:aws.String(d.Get("snapshot_name").(string)),
-	}
-
-	ifv,ok:=d.GetOk("retention_period");ok{
+	}	ifv,ok:=d.GetOk("retention_period");ok{
 		input.RetentionPeriod=aws.Int64(int64(v.(int)))
-	}
-
-	out,err:=conn.CreateSnapshotWithContext(ctx,&input)
-
-	iferr!=nil{
+	}	out,err:=conn.CreateSnapshotWithContext(ctx,&input)	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"creatingRedshiftServerlessSnapshot:%s",err)
-	}
-
-	d.SetId(aws.StringValue(out.Snapshot.SnapshotName))
-
-	if_,err:=waitSnapshotAvailable(ctx,conn,d.Id());err!=nil{
+	}	d.SetId(aws.StringValue(out.Snapshot.SnapshotName))	if_,err:=waitSnapshotAvailable(ctx,conn,d.Id());err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"waitingforRedshiftServerlessSnapshot(%s)tobeAvailable:%s",d.Id(),err)
-	}
-
-	returnappend(diags,resourceSnapshotRead(ctx,d,meta)...)
-}
-
-funcresourceSnapshotRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	}	returnappend(diags,resourceSnapshotRead(ctx,d,meta)...)
+}funcresourceSnapshotRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-	out,err:=FindSnapshotByName(ctx,conn,d.Id())
+	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)	out,err:=FindSnapshotByName(ctx,conn,d.Id())
 	if!d.IsNewResource()&&tfresource.NotFound(err){
 		log.Printf("[WARN]RedshiftServerlessSnapshot(%s)notfound,removingfromstate",d.Id())
 		d.SetId("")
 		returndiags
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"readingRedshiftServerlessSnapshot(%s):%s",d.Id(),err)
-	}
-
-	d.Set("arn",out.SnapshotArn)
+	}	d.Set("arn",out.SnapshotArn)
 	d.Set("snapshot_name",out.SnapshotName)
 	d.Set("namespace_name",out.NamespaceName)
 	d.Set("namespace_arn",out.NamespaceArn)
@@ -136,48 +100,26 @@ funcresourceSnapshotRead(ctxcontext.Context,d*schema.ResourceData,metainterface{
 	d.Set("kms_key_id",out.KmsKeyId)
 	d.Set("owner_account",out.OwnerAccount)
 	d.Set("accounts_with_provisioned_restore_access",flex.FlattenStringSet(out.AccountsWithRestoreAccess))
-	d.Set("accounts_with_restore_access",flex.FlattenStringSet(out.AccountsWithRestoreAccess))
-
-	returndiags
-}
-
-funcresourceSnapshotUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	d.Set("accounts_with_restore_access",flex.FlattenStringSet(out.AccountsWithRestoreAccess))	returndiags
+}funcresourceSnapshotUpdate(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-	input:=&redshiftserverless.UpdateSnapshotInput{
+	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)	input:=&redshiftserverless.UpdateSnapshotInput{
 		SnapshotName:aws.String(d.Id()),
 		RetentionPeriod:aws.Int64(int64(d.Get("retention_period").(int))),
-	}
-
-	_,err:=conn.UpdateSnapshotWithContext(ctx,input)
+	}	_,err:=conn.UpdateSnapshotWithContext(ctx,input)
 	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"updatingRedshiftServerlessSnapshot(%s):%s",d.Id(),err)
-	}
-
-	returnappend(diags,resourceSnapshotRead(ctx,d,meta)...)
-}
-
-funcresourceSnapshotDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
+	}	returnappend(diags,resourceSnapshotRead(ctx,d,meta)...)
+}funcresourceSnapshotDelete(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
-	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
-
-	log.Printf("[DEBUG]DeletingRedshiftServerlessSnapshot:%s",d.Id())
+	conn:=meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)	log.Printf("[DEBUG]DeletingRedshiftServerlessSnapshot:%s",d.Id())
 	_,err:=conn.DeleteSnapshotWithContext(ctx,&redshiftserverless.DeleteSnapshotInput{
 		SnapshotName:aws.String(d.Id()),
-	})
-
-	iftfawserr.ErrCodeEquals(err,redshiftserverless.ErrCodeResourceNotFoundException){
+	})	iftfawserr.ErrCodeEquals(err,redshiftserverless.ErrCodeResourceNotFoundException){
 		returndiags
-	}
-
-	iferr!=nil{
+	}	iferr!=nil{
 		returnsdkdiag.AppendErrorf(diags,"deletingRedshiftServerlessSnapshot(%s):%s",d.Id(),err)
-	}
-
-	if_,err:=waitSnapshotDeleted(ctx,conn,d.Id());err!=nil{
+	}	if_,err:=waitSnapshotDeleted(ctx,conn,d.Id());err!=nil{
 		returnsdkdiag.AppendErrorf(diags,"waitingforRedshiftServerlessSnapshot(%s)tobeDeleted:%s",d.Id(),err)
-	}
-
-	returndiags
+	}	returndiags
 }

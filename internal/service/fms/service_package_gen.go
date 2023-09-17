@@ -1,33 +1,17 @@
-//Codegeneratedbyinternal/generate/servicepackages/main.go;DONOTEDIT.
-
-packagefms
-
-import(
-	"context"
-
-	aws_sdkv1"github.com/aws/aws-sdk-go/aws"
+//Codegeneratedbyinternal/generate/servicepackages/main.go;DONOTEDIT.packagefmsimport(
+	"context"	aws_sdkv1"github.com/aws/aws-sdk-go/aws"
 	session_sdkv1"github.com/aws/aws-sdk-go/aws/session"
 	fms_sdkv1"github.com/aws/aws-sdk-go/service/fms"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/types"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-typeservicePackagestruct{}
-
-func(p*servicePackage)FrameworkDataSources(ctxcontext.Context)[]*types.ServicePackageFrameworkDataSource{
+)typeservicePackagestruct{}func(p*servicePackage)FrameworkDataSources(ctxcontext.Context)[]*types.ServicePackageFrameworkDataSource{
 	return[]*types.ServicePackageFrameworkDataSource{}
-}
-
-func(p*servicePackage)FrameworkResources(ctxcontext.Context)[]*types.ServicePackageFrameworkResource{
+}func(p*servicePackage)FrameworkResources(ctxcontext.Context)[]*types.ServicePackageFrameworkResource{
 	return[]*types.ServicePackageFrameworkResource{}
-}
-
-func(p*servicePackage)SDKDataSources(ctxcontext.Context)[]*types.ServicePackageSDKDataSource{
+}func(p*servicePackage)SDKDataSources(ctxcontext.Context)[]*types.ServicePackageSDKDataSource{
 	return[]*types.ServicePackageSDKDataSource{}
-}
-
-func(p*servicePackage)SDKResources(ctxcontext.Context)[]*types.ServicePackageSDKResource{
+}func(p*servicePackage)SDKResources(ctxcontext.Context)[]*types.ServicePackageSDKResource{
 	return[]*types.ServicePackageSDKResource{
 		{
 			Factory:resourceAdminAccount,
@@ -42,19 +26,11 @@ func(p*servicePackage)SDKResources(ctxcontext.Context)[]*types.ServicePackageSDK
 			},
 		},
 	}
-}
-
-func(p*servicePackage)ServicePackageName()string{
+}func(p*servicePackage)ServicePackageName()string{
 	returnnames.FMS
-}
-
-//NewConnreturnsanewAWSSDKforGov1clientforthisservicepackage'sAWSAPI.
+}//NewConnreturnsanewAWSSDKforGov1clientforthisservicepackage'sAWSAPI.
 func(p*servicePackage)NewConn(ctxcontext.Context,configmap[string]any)(*fms_sdkv1.FMS,error){
-	sess:=config["session"].(*session_sdkv1.Session)
-
-	returnfms_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint:aws_sdkv1.String(config["endpoint"].(string))})),nil
-}
-
-funcServicePackage(ctxcontext.Context)conns.ServicePackage{
+	sess:=config["session"].(*session_sdkv1.Session)	returnfms_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint:aws_sdkv1.String(config["endpoint"].(string))})),nil
+}funcServicePackage(ctxcontext.Context)conns.ServicePackage{
 	return&servicePackage{}
 }
