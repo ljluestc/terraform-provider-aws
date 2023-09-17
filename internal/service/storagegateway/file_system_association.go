@@ -20,32 +20,32 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceFileSystemAssociation() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceFileSystemAssociationCreate,
-ReadWithoutTimeout:   resourceFileSystemAssociationRead,
+ReadWithoutTimeout:resourceFileSystemAssociationRead,
 UpdateWithoutTimeout: resourceFileSystemAssociationUpdate,
 DeleteWithoutTimeout: resourceFileSystemAssociationDelete,
-CustomizeDiff:        customdiff.Sequence(verify.SetTagsDiff),
+CustomizeDiff:fy.SetTagsDiff),
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },
 Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "audit_destination_arn": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: verify.ValidARN,
-Default:      "",
+Default:"",
 },
 "cache_attributes": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "cache_stale_timeout_in_seconds": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Optional: true,
 Default:  0,
 ValidateFunc: validation.Any(
@@ -59,18 +59,18 @@ DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 },
 "gateway_arn": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 },
 "location_arn": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 },
 "password": {
-Type:      schema.TypeString,
+Type:schema.TypeString,
 Required:  true,
 Sensitive: true,
 ValidateFunc: validation.All(
@@ -78,10 +78,10 @@ validation.StringMatch(regexache.MustCompile(`^[ -~]+$`), ""),
 validation.StringLenBetween(1, 1024),
 ),
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "username": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ValidateFunc: validation.All(
 validation.StringMatch(regexache.MustCompile(`^\w[\w\.\- ]*$`), ""),
@@ -97,9 +97,9 @@ input := &storagegateway.AssociateFileSystemInput{
 ClientToken: aws.String(id.UniqueId()),
 GatewayARN:  aws.String(gatewayARN),
 LocationARN: aws.String(d.Get("location_arn").(string)),
-Password:    aws.String(d.Get("password").(string)),
-Tags:        getTagsIn(ctx),
-UserName:    aws.String(d.Get("username").(string)),
+Password:aws.String(d.Get("password").(string)),
+Tags:
+UserName:aws.String(d.Get("username").(string)),
 }if v, ok := d.GetOk("audit_destination_arn"); ok {
 input.AuditDestinationARN = aws.String(v.(string))
 }if v, ok := d.GetOk("cache_attributes"); ok {
@@ -127,9 +127,9 @@ return sdkdiag.AppendErrorf(diags, "setting cache_attributes: %s", err)
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).StorageGatewayConn(ctx)if d.HasChangesExcept("tags_all") {
 input := &storagegateway.UpdateFileSystemAssociationInput{
-AuditDestinationARN:      aws.String(d.Get("audit_destination_arn").(string)),
-Password:    aws.String(d.Get("password").(string)),
-UserName:    aws.String(d.Get("username").(string)),
+AuditDestinationARN:aws.String(d.Get("audit_destination_arn").(string)),
+Password:aws.String(d.Get("password").(string)),
+UserName:aws.String(d.Get("username").(string)),
 FileSystemAssociationARN: aws.String(d.Id()),
 }if v, ok := d.GetOk("cache_attributes"); ok {
 input.CacheAttributes = expandFileSystemAssociationCacheAttributes(v.([]interface{}))

@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MPL-2.0package glueimport (
 	"time"
 )const (
-	devEndpointStatusFailed       = "FAILED"
+	devEndpointStatusFailed= "FAILED"
 	devEndpointStatusProvisioning = "PROVISIONING"
-	devEndpointStatusReady        = "READY"
+	devEndpointStatusReady
 	devEndpointStatusTerminating  = "TERMINATING"
 )const (
 	propagationTimeout = 2 * time.Minute

@@ -105,11 +105,11 @@ return fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_rule_group" "test" {
   name = %[1]q
 }resource "aws_route53_resolver_firewall_domain_list" "test" {
-  name    = %[1]q
+  name= %[1]q
   domains = [%[2]q]
 }resource "aws_route53_resolver_firewall_rule" "test" {
   name= %[1]q
-  action   = %[3]q
+  action= %[3]q
   firewall_domain_list_id = aws_route53_resolver_firewall_domain_list.test.id
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id
   priority = %[4]q

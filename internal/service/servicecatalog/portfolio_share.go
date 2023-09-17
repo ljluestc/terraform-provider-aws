@@ -17,29 +17,29 @@
 func ResourcePortfolioShare() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourcePortfolioShareCreate,
-ReadWithoutTimeout:   resourcePortfolioShareRead,
+ReadWithoutTimeout:resourcePortfolioShareRead,
 UpdateWithoutTimeout: resourcePortfolioShareUpdate,
 DeleteWithoutTimeout: resourcePortfolioShareDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(PortfolioShareCreateTimeout),
-Read:   schema.DefaultTimeout(PortfolioShareReadTimeout),
+Read:schema.DefaultTimeout(PortfolioShareReadTimeout),
 Update: schema.DefaultTimeout(PortfolioShareUpdateTimeout),
 Delete: schema.DefaultTimeout(PortfolioShareDeleteTimeout),
 },Schema: map[string]*schema.Schema{
 "accept_language": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      AcceptLanguageEnglish,
+Optional:
+Default:ptLanguageEnglish,
 ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
 },
 "accepted": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Computed: true,
 },
 "portfolio_id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Required: true,
 ForceNew: true,
 },
@@ -47,8 +47,8 @@ ForceNew: true,
 // also, principal_id is true to API since describe gives "PrincipalId"
 "principal_id": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:
+ForceNew:
 ValidateFunc: validSharePrincipal,
 DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 newARN, err := arn.Parse(new)if err != nil {
@@ -57,23 +57,23 @@ return old == new
 },
 },
 "share_principals": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Optional: true,
 Default:  false,
 },
 "share_tag_options": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Optional: true,
 Default:  false,
 },
 "type": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:
+ForceNew:
 ValidateFunc: validation.StringInSlice(servicecatalog.DescribePortfolioShareType_Values(), false),
 },
 "wait_for_acceptance": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Optional: true,
 Default:  false,
 },
@@ -82,7 +82,7 @@ Default:  false,
 }func resourcePortfolioShareCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)input := &servicecatalog.CreatePortfolioShareInput{
-PortfolioId:     aws.String(d.Get("portfolio_id").(string)),
+PortfolioId:tring(d.Get("portfolio_id").(string)),
 SharePrincipals: aws.Bool(d.Get("share_principals").(bool)),
 AcceptLanguage:  aws.String(d.Get("accept_language").(string)),
 }if v, ok := d.GetOk("type"); ok && v.(string) == servicecatalog.DescribePortfolioShareTypeAccount {
@@ -146,7 +146,7 @@ d.Set("wait_for_acceptance", waitForAcceptance)return diags
 }func resourcePortfolioShareUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)input := &servicecatalog.UpdatePortfolioShareInput{
-PortfolioId:    aws.String(d.Get("portfolio_id").(string)),
+PortfolioId:aws.String(d.Get("portfolio_id").(string)),
 AcceptLanguage: aws.String(d.Get("accept_language").(string)),
 }if d.HasChange("share_principals") {
 input.SharePrincipals = aws.Bool(d.Get("share_principals").(bool))

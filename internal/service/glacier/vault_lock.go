@@ -18,27 +18,27 @@
 )// @SDKResource("aws_glacier_vault_lock")func resourceVaultLock() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceVaultLockCreate,
-ReadWithoutTimeout:   resourceVaultLockRead,
+ReadWithoutTimeout:resourceVaultLockRead,
 UpdateWithoutTimeout: schema.NoopContext, // Allow ignore_deletion_error update.
 DeleteWithoutTimeout: resourceVaultLockDelete,Importer: &schema.ResourceImporter{
 	StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 	"complete_lock": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Required: true,
 ForceNew: true,
 	},
 	"ignore_deletion_error": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"policy": {
-Type:   schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required:true,
+ForceNew:true,
 DiffSuppress
-func:      verify.SuppressEquivalentPolicyDiffs,
+func: verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 Validate
 func: verify.ValidIAMPolicyJSON,
@@ -50,8 +50,8 @@ func:func(v interface{}) string {
 	},
 	"vault_name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 Validate
 func: validation.NoZeroValues,
 	},
@@ -59,7 +59,7 @@ func: validation.NoZeroValues,
 	}
 }const (
 	lockStateInProgress = "InProgress"
-	lockStateLocked     = "Locked"
+	lockStateLocked= "Locked"
 )func resourceVaultLockCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GlacierClient(ctx)	policy, err := structure.NormalizeJsonString(d.Get("policy").(string))	if err != nil {
@@ -75,7 +75,7 @@ VaultName: aws.String(vaultName),
 return sdkdiag.AppendErrorf(diags, "creating Glacier Vault Lock (%s): %s", vaultName, err)
 	}	d.SetId(vaultName)	if d.Get("complete_lock").(bool) {
 input := &glacier.CompleteVaultLockInput{
-	LockId:    output.LockId,
+	LockId:output.LockId,
 	VaultName: aws.String(vaultName),
 }_, err := conn.CompleteVaultLock(ctx, input)if err != nil {
 	return sdkdiag.AppendErrorf(diags, "completing Glacier Vault Lock (%s): %s", d.Id(), err)
@@ -111,7 +111,7 @@ AccountId: aws.String("-"),
 VaultName: aws.String(name),
 	}	output, err := conn.GetVaultLock(ctx, input)	if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:err,
 	LastRequest: input,
 }
 	}	if err != nil {

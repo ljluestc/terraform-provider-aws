@@ -13,23 +13,17 @@
 	return []*types.ServicePackageSDKDataSource{}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourcePool,
-			TypeName: "aws_cognito_identity_pool",
-			Name:     "Pool",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourcePoolProviderPrincipalTag,
-			TypeName: "aws_cognito_identity_pool_provider_principal_tag",
-		},
-		{
-			Factory:  ResourcePoolRolesAttachment,
-			TypeName: "aws_cognito_identity_pool_roles_attachment",
-		},
-	}
+{
+Factory:  ResourcePool,
+TypeName: "aws_cognito_identity_pool",
+Name:"Pool",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+Factory:  ResourcePoolProviderPrincipalTag,
+TypeName: "aws_cognito_identity_pool_provider_principal_tag",
+Factory:  ResourcePoolRolesAttachment,
+TypeName: "aws_cognito_identity_pool_roles_attachment",	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.CognitoIdentity
 }// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*cognitoidentity_sdkv1.CognitoIdentity, error) {

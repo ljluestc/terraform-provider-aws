@@ -18,46 +18,46 @@ func DataSourceListener() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceListenerRead,Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "created_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "default_action": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "fixed_response": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "status_code": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 },
 },
 },
 "forward": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "target_groups": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "target_group_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "weight": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 },
@@ -70,39 +70,39 @@ Computed: true,
 },
 },
 "last_updated_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "listener_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "listener_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "port": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 "protocol": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "service_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "service_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "service_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "tags": tftags.TagsSchemaComputed(),
@@ -145,7 +145,7 @@ if err != nil {
 var nfe *types.ResourceNotFoundException
 if errors.As(err, &nfe) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }return nil, err
@@ -180,7 +180,7 @@ return []interface{}{}
 }var targetGroups []interface{}for _, targetGroup := range groups {
 m := map[string]interface{}{
 "target_group_identifier": aws.ToString(targetGroup.TargetGroupIdentifier),
-"weight":   aws.ToInt32(targetGroup.Weight),
+"weight":aws.ToInt32(targetGroup.Weight),
 }
 targetGroups = append(targetGroups, m)
 }return targetGroups

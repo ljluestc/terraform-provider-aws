@@ -147,7 +147,7 @@ Message: fmt.Sprintf("finding tag option resource association (%s): empty respon
 return func() (interface{}, string, error) {
 input := &servicecatalog.DescribeProvisioningArtifactInput{
 ProvisioningArtifactId: aws.String(id),
-ProductId:     aws.String(productID),
+ProductId:tring(productID),
 }output, err := conn.DescribeProvisioningArtifactWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, servicecatalog.ErrCodeResourceNotFoundException) {
 return nil, StatusNotFound, err
 }if err != nil {
@@ -160,7 +160,7 @@ return nil, StatusUnavailable, err
 return func() (interface{}, string, error) {
 input := &servicecatalog.ListLaunchPathsInput{
 AcceptLanguage: aws.String(acceptLanguage),
-ProductId:      aws.String(productID),
+ProductId:String(productID),
 }var summaries []*servicecatalog.LaunchPathSummaryerr := conn.ListLaunchPathsPagesWithContext(ctx, input, func(page *servicecatalog.ListLaunchPathsOutput, lastPage bool) bool {
 if page == nil {
 return !lastPage

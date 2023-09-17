@@ -61,11 +61,11 @@ data "aws_route53_resolver_endpoint" "test" {
 return acctest.ConfigCompose(testAccEndpointConfig_outbound(rName, rName), `
 data "aws_route53_resolver_endpoint" "test" {
   filter {
-    name   = "Name"
-    values = [aws_route53_resolver_endpoint.test.name]
+name= "Name"
+values = [aws_route53_resolver_endpoint.test.name]
   }  filter {
-    name   = "SecurityGroupIds"
-    values = aws_security_group.test[*].id
+name= "SecurityGroupIds"
+values = aws_security_group.test[*].id
   }
 }
 `)

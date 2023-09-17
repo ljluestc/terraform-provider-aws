@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package organizations_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package organizations_testimport (
 "context"
 "fmt"
 "strconv"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/organizations"
+"testing""github.com/aws/aws-sdk-go/service/organizations"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -23,16 +17,12 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_organizations_policy_attachment.test"
 policyIdResourceName := "aws_organizations_policy.test"
-targetIdResourceName := "aws_organizations_organization.test"
-
-serviceControlPolicyContent := `{"Version": "2012-10-17", "Statement": { "Effect": "Allow", "Action": "*", "Resource": "*"}}`
-tagPolicyContent := `{ "tags": { "Product": { "tag_key": { "@@assign": "Product" }, "enforced_for": { "@@assign": [ "ec2:instance" ] } } } }`
-
-resource.Test(t, resource.TestCase{
-PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
+targetIdResourceName := "aws_organizations_organization.test"serviceControlPolicyContent := `{"Version": "2012-10-17", "Statement": { "Effect": "Allow", "Action": "*", "Resource": "*"}}`
+tagPolicyContent := `{ "tags": { "Product": { "tag_key": { "@@assign": "Product" }, "enforced_for": { "@@assign": [ "ec2:instance" ] } } } }`resource.Test(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPolicyAttachmentDestroy(ctx),
+CheckDestroy:testAccCheckPolicyAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPolicyAttachmentConfig_account(rName, organizations.PolicyTypeServiceControlPolicy, serviceControlPolicyContent),
@@ -51,9 +41,9 @@ resource.TestCheckResourceAttrPair(resourceName, "target_id", targetIdResourceNa
 ),
 },
 {
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 },
 },
@@ -63,13 +53,11 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_organizations_policy_attachment.test"
 policyIdResourceName := "aws_organizations_policy.test"
-targetIdResourceName := "aws_organizations_organizational_unit.test"
-
-resource.Test(t, resource.TestCase{
-PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
+targetIdResourceName := "aws_organizations_organizational_unit.test"resource.Test(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPolicyAttachmentDestroy(ctx),
+CheckDestroy:testAccCheckPolicyAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPolicyAttachmentConfig_organizationalUnit(rName),
@@ -80,9 +68,9 @@ resource.TestCheckResourceAttrPair(resourceName, "target_id", targetIdResourceNa
 ),
 },
 {
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 },
 },
@@ -92,13 +80,11 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_organizations_policy_attachment.test"
 policyIdResourceName := "aws_organizations_policy.test"
-targetIdResourceName := "aws_organizations_organization.test"
-
-resource.Test(t, resource.TestCase{
-PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
+targetIdResourceName := "aws_organizations_organization.test"resource.Test(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPolicyAttachmentDestroy(ctx),
+CheckDestroy:testAccCheckPolicyAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPolicyAttachmentConfig_root(rName),
@@ -109,9 +95,9 @@ resource.TestCheckResourceAttrPair(resourceName, "target_id", targetIdResourceNa
 ),
 },
 {
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 },
 },
@@ -121,15 +107,11 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_organizations_policy_attachment.test"
 policyIdResourceName := "aws_organizations_policy.test"
-targetIdResourceName := "aws_organizations_organization.test"
-
-serviceControlPolicyContent := `{"Version": "2012-10-17", "Statement": { "Effect": "Allow", "Action": "*", "Resource": "*"}}`
-
-resource.Test(t, resource.TestCase{
-PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
+targetIdResourceName := "aws_organizations_organization.test"serviceControlPolicyContent := `{"Version": "2012-10-17", "Statement": { "Effect": "Allow", "Action": "*", "Resource": "*"}}`resource.Test(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPolicyAttachmentNoDestroy(ctx),
+CheckDestroy:testAccCheckPolicyAttachmentNoDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPolicyAttachmentConfig_skipDestroy(rName, organizations.PolicyTypeServiceControlPolicy, serviceControlPolicyContent),
@@ -145,13 +127,11 @@ resource.TestCheckResourceAttr(resourceName, "skip_destroy", "true"),
 }func testAccPolicyAttachment_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_organizations_policy_attachment.test"
-
-resource.Test(t, resource.TestCase{
-PreCheck:       func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
+resourceName := "aws_organizations_policy_attachment.test"resource.Test(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, organizations.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPolicyAttachmentDestroy(ctx),
+CheckDestroy:testAccCheckPolicyAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPolicyAttachmentConfig_organizationalUnit(rName),
@@ -165,58 +145,30 @@ ExpectNonEmptyPlan: true,
 })
 }func testAccCheckPolicyAttachmentDestroy(ctx context.Context) resource.TestCheckFunc {
 returnfunc(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_organizations_policy_attachment" {
 continue
-}
-
-targetID, policyID, err := tforganizations.DecodePolicyAttachmentID(rs.Primary.ID)
-
-if err != nil {
+}targetID, policyID, err := tforganizations.DecodePolicyAttachmentID(rs.Primary.ID)if err != nil {
 return err
-}
-
-_, err = tforganizations.FindPolicyAttachmentByTwoPartKey(ctx, conn, targetID, policyID)
-
-if tfresource.NotFound(err) {
+}_, err = tforganizations.FindPolicyAttachmentByTwoPartKey(ctx, conn, targetID, policyID)if tfresource.NotFound(err) {
 continue
-}
-
-if tfawserr.ErrCodeEquals(err, organizations.ErrCodeAWSOrganizationsNotInUseException) {
+}if tfawserr.ErrCodeEquals(err, organizations.ErrCodeAWSOrganizationsNotInUseException) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("Organizations Policy Attachment %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("Organizations Policy Attachment %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-// testAccCheckPolicyAttachmentNoDestroy is a variant of the CheckDestroyfunction to be used when
-// skip_destroy is true and the attachment should still exist after destroy completes
-
-func testAccCheckPolicyAttachmentNoDestroy(ctx context.Context) resource.TestCheckFunc {
+}// testAccCheckPolicyAttachmentNoDestroy is a variant of the CheckDestroyfunction to be used when
+// skip_destroy is true and the attachment should still exist after destroy completesfunc testAccCheckPolicyAttachmentNoDestroy(ctx context.Context) resource.TestCheckFunc {
 returnfunc(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_organizations_policy_attachment" {
 continue
-}
-
-targetID, policyID, err := tforganizations.DecodePolicyAttachmentID(rs.Primary.ID)
+}targetID, policyID, err := tforganizations.DecodePolicyAttachmentID(rs.Primary.ID)
 if err != nil {
 return err
-}
-
-_, err = tforganizations.FindPolicyAttachmentByTwoPartKey(ctx, conn, targetID, policyID)
+}_, err = tforganizations.FindPolicyAttachmentByTwoPartKey(ctx, conn, targetID, policyID)
 if tfawserr.ErrCodeEquals(err, organizations.ErrCodeAWSOrganizationsNotInUseException) {
 // The organization was destroyed, so we can safely assume the policy attachment
 // skipped during destruction was as well
@@ -225,48 +177,28 @@ continue
 if err != nil {
 return err
 }
-}
-
-return nil
+}return nil
 }
 }func testAccCheckPolicyAttachmentExists(ctx context.Context, n string) resource.TestCheckFunc {
 returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return fmt.Errorf("No Organizations Policy Attachment ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
-
-targetID, policyID, err := tforganizations.DecodePolicyAttachmentID(rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)targetID, policyID, err := tforganizations.DecodePolicyAttachmentID(rs.Primary.ID)if err != nil {
 return err
-}
-
-_, err = tforganizations.FindPolicyAttachmentByTwoPartKey(ctx, conn, targetID, policyID)
-
-return err
+}_, err = tforganizations.FindPolicyAttachmentByTwoPartKey(ctx, conn, targetID, policyID)return err
 }
 }func testAccPolicyAttachmentConfig_account(rName, policyType, policyContent string) string {
 return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {
   enabled_policy_types = ["SERVICE_CONTROL_POLICY", "TAG_POLICY"]
-}
-
-resource "aws_organizations_policy" "test" {
-  depends_on = [aws_organizations_organization.test]
-
-  name    = "%s"
-  type    = "%s"
+}resource "aws_organizations_policy" "test" {
+  depends_on = [aws_organizations_organization.test]  name= "%s"
+  type= "%s"
   content = %s
-}
-
-resource "aws_organizations_policy_attachment" "test" {
+}resource "aws_organizations_policy_attachment" "test" {
   policy_id = aws_organizations_policy.test.id
   target_id = aws_organizations_organization.test.master_account_id
 }
@@ -275,31 +207,21 @@ resource "aws_organizations_policy_attachment" "test" {
 return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {
   enabled_policy_types = ["SERVICE_CONTROL_POLICY"]
-}
-
-resource "aws_organizations_organizational_unit" "test" {
-  name      = %[1]q
+}resource "aws_organizations_organizational_unit" "test" {
+  name = %[1]q
   parent_id = aws_organizations_organization.test.roots[0].id
-}
-
-resource "aws_organizations_policy" "test" {
-  depends_on = [aws_organizations_organization.test]
-
-  content = <<EOF
+}resource "aws_organizations_policy" "test" {
+  depends_on = [aws_organizations_organization.test]  content = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
-EOF
-
-  name = %[1]q
-}
-
-resource "aws_organizations_policy_attachment" "test" {
+EOF  name = %[1]q
+}resource "aws_organizations_policy_attachment" "test" {
   policy_id = aws_organizations_policy.test.id
   target_id = aws_organizations_organizational_unit.test.id
 }
@@ -308,26 +230,18 @@ resource "aws_organizations_policy_attachment" "test" {
 return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {
   enabled_policy_types = ["SERVICE_CONTROL_POLICY"]
-}
-
-resource "aws_organizations_policy" "test" {
-  depends_on = [aws_organizations_organization.test]
-
-  content = <<EOF
+}resource "aws_organizations_policy" "test" {
+  depends_on = [aws_organizations_organization.test]  content = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
-EOF
-
-  name = %[1]q
-}
-
-resource "aws_organizations_policy_attachment" "test" {
+EOF  name = %[1]q
+}resource "aws_organizations_policy_attachment" "test" {
   policy_id = aws_organizations_policy.test.id
   target_id = aws_organizations_organization.test.roots[0].id
 }
@@ -336,23 +250,13 @@ resource "aws_organizations_policy_attachment" "test" {
 return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {
   enabled_policy_types = ["SERVICE_CONTROL_POLICY", "TAG_POLICY"]
-}
-
-resource "aws_organizations_policy" "test" {
-  depends_on = [aws_organizations_organization.test]
-
-  name    = "%s"
-  type    = "%s"
-  content = %s
-
-  skip_destroy = true
-}
-
-resource "aws_organizations_policy_attachment" "test" {
+}resource "aws_organizations_policy" "test" {
+  depends_on = [aws_organizations_organization.test]  name= "%s"
+  type= "%s"
+  content = %s  skip_destroy = true
+}resource "aws_organizations_policy_attachment" "test" {
   policy_id = aws_organizations_policy.test.id
-  target_id = aws_organizations_organization.test.master_account_id
-
-  skip_destroy = true
+  target_id = aws_organizations_organization.test.master_account_id  skip_destroy = true
 }
 `, rName, policyType, strconv.Quote(policyContent))
 }

@@ -19,7 +19,7 @@ s3BucketResourceName := "aws_s3_bucket.test"resource.ParallelTest(t, resource.Te
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckQueryLogConfigDestroy(ctx),
+CheckDestroy:testAccCheckQueryLogConfigDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccQueryLogConfigConfig_basic(rName),
@@ -48,7 +48,7 @@ resourceName := "aws_route53_resolver_query_log_config.test"resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckQueryLogConfigDestroy(ctx),
+CheckDestroy:testAccCheckQueryLogConfigDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccQueryLogConfigConfig_basic(rName),
@@ -70,7 +70,7 @@ cwLogGroupResourceName := "aws_cloudwatch_log_group.test"resource.ParallelTest(t
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckQueryLogConfigDestroy(ctx),
+CheckDestroy:testAccCheckQueryLogConfigDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccQueryLogConfigConfig_tags1(rName, "key1", "value1"),
@@ -147,10 +147,10 @@ return err
 }func testAccQueryLogConfigConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket   = %[1]q
+  bucket= %[1]q
   force_destroy = true
 }resource "aws_route53_resolver_query_log_config" "test" {
-  name   = %[1]q
+  name= %[1]q
   destination_arn = aws_s3_bucket.test.arn
 }
 `, rName)
@@ -159,9 +159,9 @@ return fmt.Sprintf(`
 resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
 }resource "aws_route53_resolver_query_log_config" "test" {
-  name   = %[1]q
+  name= %[1]q
   destination_arn = aws_cloudwatch_log_group.test.arn  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -170,10 +170,10 @@ return fmt.Sprintf(`
 resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
 }resource "aws_route53_resolver_query_log_config" "test" {
-  name   = %[1]q
+  name= %[1]q
   destination_arn = aws_cloudwatch_log_group.test.arn  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

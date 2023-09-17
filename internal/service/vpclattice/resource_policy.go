@@ -19,15 +19,15 @@
 // @SDKResource("aws_vpclattice_resource_policy", name="Resource Policy")func ResourceResourcePolicy() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceResourcePolicyPut,
-ReadWithoutTimeout:   resourceResourcePolicyRead,
+ReadWithoutTimeout:resourceResourcePolicyRead,
 UpdateWithoutTimeout: resourceResourcePolicyPut,
 DeleteWithoutTimeout: resourceResourcePolicyDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "policy": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
-ValidateFunc:     validation.StringIsJSON,
+ValidateFunc:validation.StringIsJSON,
 DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 StateFunc:func(v interface{}) string {
 json, _ := structure.NormalizeJsonString(v)
@@ -36,8 +36,8 @@ return json
 },
 "resource_arn": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 },
 },
@@ -50,7 +50,7 @@ resourceArn := d.Get("resource_arn").(string)policy, err := structure.NormalizeJ
 return diag.Errorf("policy (%s) is invalid JSON: %s", policy, err)
 }in := &vpclattice.PutResourcePolicyInput{
 ResourceArn: aws.String(resourceArn),
-Policy:      aws.String(policy),
+Policy: aws.String(policy),
 }_, err = conn.PutResourcePolicy(ctx, in)if err != nil {
 return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameResourcePolicy, d.Get("policy").(string), err)
 }d.SetId(resourceArn)return resourceResourcePolicyRead(ctx, d, meta)
@@ -86,7 +86,7 @@ if err != nil {
 var nfe *types.ResourceNotFoundException
 if errors.As(err, &nfe) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }return nil, err

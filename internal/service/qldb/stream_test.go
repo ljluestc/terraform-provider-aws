@@ -174,7 +174,7 @@ Action = [
  "kinesis:DescribeStream",
  "kinesis:ListShards",
 ]
-Effect   = "Allow"
+Effect= "Allow"
 Resource = aws_kinesis_stream.test.arn
   }]
 })
@@ -197,7 +197,7 @@ return acctest.ConfigCompose(testAccStreamBaseConfig(rName), fmt.Sprintf(`
 resource "aws_qldb_stream" "test" {
   stream_name = %[1]q
   ledger_name = aws_qldb_ledger.test.id
-  exclusive_end_time   = "2021-12-31T23:59:59Z"
+  exclusive_end_time= "2021-12-31T23:59:59Z"
   inclusive_start_time = "2021-01-01T00:00:00Z"
   role_arn= aws_iam_role.test.arn  kinesis_configuration {
 aggregation_enabled = false

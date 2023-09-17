@@ -21,7 +21,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceOpenzfsSnapshot() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceOpenzfsSnapshotCreate,
-ReadWithoutTimeout:   resourceOpenzfsSnapshotRead,
+ReadWithoutTimeout:resourceOpenzfsSnapshotRead,
 UpdateWithoutTimeout: resourceOpenzfsSnapshotUpdate,
 DeleteWithoutTimeout: resourceOpenzfsSnapshotDelete,
 Importer: &schema.ResourceImporter{
@@ -30,7 +30,7 @@ StateContext: schema.ImportStatePassthroughContext,
 Create: schema.DefaultTimeout(30 * time.Minute),
 Delete: schema.DefaultTimeout(30 * time.Minute),
 Update: schema.DefaultTimeout(30 * time.Minute),
-Read:   schema.DefaultTimeout(30 * time.Minute),
+Read:schema.DefaultTimeout(30 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
 Type: schema.TypeString,

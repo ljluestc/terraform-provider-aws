@@ -19,7 +19,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTemplateDestroy(ctx),
+CheckDestroy:testAccCheckTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssessmentTemplateConfig_basic(rName),
@@ -34,8 +34,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -48,7 +48,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTemplateDestroy(ctx),
+CheckDestroy:testAccCheckTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssessmentTemplateConfig_basic(rName),
@@ -68,7 +68,7 @@ ExpectNonEmptyPlan: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTemplateDestroy(ctx),
+CheckDestroy:testAccCheckTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssessmentTemplateConfig_tags1(rName, "key1", "value1"),
@@ -79,8 +79,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -119,7 +119,7 @@ Check: resource.ComposeTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTemplateDestroy(ctx),
+CheckDestroy:testAccCheckTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssessmentTemplateConfig_eventSubscription(rName, event1),
@@ -130,8 +130,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -143,8 +143,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -155,8 +155,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -205,7 +205,7 @@ if err != nil {
 	return fmt.Sprintf(`
 data "aws_inspector_rules_packages" "available" {}resource "aws_inspector_resource_group" "test" {
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_inspector_assessment_target" "test" {
   name= %[1]q
@@ -215,29 +215,29 @@ data "aws_inspector_rules_packages" "available" {}resource "aws_inspector_resour
 }func testAccAssessmentTemplateConfig_basic(rName string) string {
 	return testAccTemplateAssessmentBase(rName) + fmt.Sprintf(`
 resource "aws_inspector_assessment_template" "test" {
-  name       = %[1]q
+  name= %[1]q
   target_arn = aws_inspector_assessment_target.test.arn
-  duration   = 3600  rules_package_arns = data.aws_inspector_rules_packages.available.arns
+  duration= 3600  rules_package_arns = data.aws_inspector_rules_packages.available.arns
 }
 `, rName)
 }func testAccAssessmentTemplateConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return testAccTemplateAssessmentBase(rName) + fmt.Sprintf(`
 resource "aws_inspector_assessment_template" "test" {
-  name       = %[1]q
+  name= %[1]q
   target_arn = aws_inspector_assessment_target.test.arn
-  duration   = 3600  rules_package_arns = data.aws_inspector_rules_packages.available.arns  tags = {
-    %[2]q = %[3]q
+  duration= 3600  rules_package_arns = data.aws_inspector_rules_packages.available.arns  tags = {
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }func testAccAssessmentTemplateConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return testAccTemplateAssessmentBase(rName) + fmt.Sprintf(`
 resource "aws_inspector_assessment_template" "test" {
-  name       = %[1]q
+  name= %[1]q
   target_arn = aws_inspector_assessment_target.test.arn
-  duration   = 3600  rules_package_arns = data.aws_inspector_rules_packages.available.arns  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  duration= 3600  rules_package_arns = data.aws_inspector_rules_packages.available.arns  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -249,15 +249,15 @@ resource "aws_sns_topic" "test" {
   name = %[1]q
 }data "aws_iam_policy_document" "test" {
   statement {
-    effect = "Allow"    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }    actions = [
-      "SNS:Publish"
-    ]    resources = [aws_sns_topic.test.arn]
+effect = "Allow"principals {
+type
+identifiers = ["*"]
+}actions = [
+"SNS:Publish"
+]resources = [aws_sns_topic.test.arn]
   }
 }resource "aws_sns_topic_policy" "test" {
-  arn    = aws_sns_topic.test.arn
+  arn= aws_sns_topic.test.arn
   policy = data.aws_iam_policy_document.test.json
 }
 `, rName),
@@ -267,11 +267,11 @@ resource "aws_sns_topic" "test" {
 testAccAssessmentTemplateBase_eventSubscription(rName),
 fmt.Sprintf(`
 resource "aws_inspector_assessment_template" "test" {
-  name       = %[1]q
+  name= %[1]q
   target_arn = aws_inspector_assessment_target.test.arn
-  duration   = 3600  rules_package_arns = data.aws_inspector_rules_packages.available.arns  event_subscription {
-    event     = %[2]q
-    topic_arn = aws_sns_topic.test.arn
+  duration= 3600  rules_package_arns = data.aws_inspector_rules_packages.available.arns  event_subscription {
+event= %[2]q
+topic_arn = aws_sns_topic.test.arn
   }
 }
 `, rName, event),
@@ -281,14 +281,14 @@ resource "aws_inspector_assessment_template" "test" {
 testAccAssessmentTemplateBase_eventSubscription(rName),
 fmt.Sprintf(`
 resource "aws_inspector_assessment_template" "test" {
-  name       = %[1]q
+  name= %[1]q
   target_arn = aws_inspector_assessment_target.test.arn
-  duration   = 3600  rules_package_arns = data.aws_inspector_rules_packages.available.arns  event_subscription {
-    event     = %[2]q
-    topic_arn = aws_sns_topic.test.arn
+  duration= 3600  rules_package_arns = data.aws_inspector_rules_packages.available.arns  event_subscription {
+event= %[2]q
+topic_arn = aws_sns_topic.test.arn
   }  event_subscription {
-    event     = %[3]q
-    topic_arn = aws_sns_topic.test.arn
+event= %[3]q
+topic_arn = aws_sns_topic.test.arn
   }
 }
 `, rName, event1, event2),

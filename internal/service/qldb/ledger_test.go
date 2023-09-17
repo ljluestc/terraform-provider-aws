@@ -36,7 +36,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -79,7 +79,7 @@ resource.TestMatchResourceAttr(resourceName, "name", regexache.MustCompile(`tf\d
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -104,7 +104,7 @@ resource.TestCheckResourceAttr(resourceName, "permissions_mode", "ALLOW_ALL"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -145,7 +145,7 @@ resource.TestCheckResourceAttrPair(resourceName, "kms_key", kmsKeyResourceName, 
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -177,7 +177,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {

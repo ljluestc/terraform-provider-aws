@@ -16,7 +16,7 @@
 func ResourceAuthenticationProfile() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceAuthenticationProfileCreate,
-ReadWithoutTimeout:   resourceAuthenticationProfileRead,
+ReadWithoutTimeout:resourceAuthenticationProfileRead,
 UpdateWithoutTimeout: resourceAuthenticationProfileUpdate,
 DeleteWithoutTimeout: resourceAuthenticationProfileDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,

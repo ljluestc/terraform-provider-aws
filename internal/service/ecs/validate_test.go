@@ -5,27 +5,27 @@
 t.Parallel()cases := []struct {
 constType string
 constExpr string
-Err       bool
+Errbool
 }{
 {
 constType: "distinctInstance",
 constExpr: "",
-Err:       false,
+Err:false,
 },
 {
 constType: "memberOf",
 constExpr: "",
-Err:       true,
+Err:true,
 },
 {
 constType: "distinctInstance",
 constExpr: "expression",
-Err:       false,
+Err:false,
 },
 {
 constType: "memberOf",
 constExpr: "expression",
-Err:       false,
+Err:false,
 },
 }for _, tc := range cases {
 if err := validPlacementConstraint(tc.constType, tc.constExpr); err != nil && !tc.Err {
@@ -37,37 +37,37 @@ tc.constType, tc.constExpr, err)
 t.Parallel()cases := []struct {
 stratType  string
 stratField string
-Err        bool
+Err
 }{
 {
 stratType:  "random",
 stratField: "",
-Err:        false,
+Err:
 },
 {
 stratType:  "spread",
 stratField: "instanceID",
-Err:        false,
+Err:
 },
 {
 stratType:  "binpack",
 stratField: "cpu",
-Err:        false,
+Err:
 },
 {
 stratType:  "binpack",
 stratField: "memory",
-Err:        false,
+Err:
 },
 {
 stratType:  "binpack",
 stratField: "disk",
-Err:        true,
+Err:
 },
 {
 stratType:  "fakeType",
 stratField: "",
-Err:        true,
+Err:
 },
 }for _, tc := range cases {
 if err := validPlacementStrategy(tc.stratType, tc.stratField); err != nil && !tc.Err {

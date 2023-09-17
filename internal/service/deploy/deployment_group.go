@@ -27,7 +27,7 @@
 func ResourceDeploymentGroup() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceDeploymentGroupCreate,
-ReadWithoutTimeout:   resourceDeploymentGroupRead,
+ReadWithoutTimeout:resourceDeploymentGroupRead,
 UpdateWithoutTimeout: resourceDeploymentGroupUpdate,
 DeleteWithoutTimeout: resourceDeploymentGroupDelete,
 Importer: &schema.ResourceImporter{
@@ -37,7 +37,7 @@ idParts := strings.Split(d.Id(), ":")if len(idParts) != 2 {
 }applicationName := idParts[0]
 deploymentGroupName := idParts[1]
 conn := meta.(*conns.AWSClient).DeployConn(ctx)input := &codedeploy.GetDeploymentGroupInput{
-	ApplicationName:     aws.String(applicationName),
+	ApplicationName:aws.String(applicationName),
 	DeploymentGroupName: aws.String(deploymentGroupName),
 }log.Printf("[DEBUG] Reading CodeDeploy Application: %s", input)
 output, err := conn.GetDeploymentGroupWithContext(ctx, input)if err != nil {
@@ -50,28 +50,28 @@ d.Set("deployment_group_name", deploymentGroupName)return []*schema.ResourceData
 	},
 },Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"app_name": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringLenBetween(0, 100),
 	},
 	"compute_platform": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"deployment_group_name": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringLenBetween(0, 100),
 	},
 	"deployment_group_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},	"deployment_style": {
-Type:    schema.TypeList,
+Type:schema.TypeList,
 Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 MaxItems:1,
@@ -79,44 +79,44 @@ Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "deployment_option": {
 	Type:schema.TypeString,
-	Optional:     true,
-	Default:      codedeploy.DeploymentOptionWithoutTrafficControl,
+	Optional:true,
+	Default: codedeploy.DeploymentOptionWithoutTrafficControl,
 	ValidateFunc: validation.StringInSlice(codedeploy.DeploymentOption_Values(), false),
 },
 "deployment_type": {
 	Type:schema.TypeString,
-	Optional:     true,
-	Default:      codedeploy.DeploymentTypeInPlace,
+	Optional:true,
+	Default: codedeploy.DeploymentTypeInPlace,
 	ValidateFunc: validation.StringInSlice(codedeploy.DeploymentType_Values(), false),
 },
 	},
 },
 	},	"blue_green_deployment_config": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "deployment_ready_option": {
-	Type:     schema.TypeList,
+	Type:schema.TypeList,
 	Optional: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"action_on_timeout": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringInSlice(codedeploy.DeploymentReadyAction_Values(), false),
 	},
 	"wait_time_in_minutes": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Optional: true,
 	},
 },
 	},
 },"green_fleet_provisioning_option": {
-	Type:     schema.TypeList,
+	Type:schema.TypeList,
 	Optional: true,
 	Computed: true,
 	MaxItems: 1,
@@ -124,25 +124,25 @@ Optional: true,
 Schema: map[string]*schema.Schema{
 	"action": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringInSlice(codedeploy.GreenFleetProvisioningAction_Values(), false),
 	},
 },
 	},
 },"terminate_blue_instances_on_deployment_success": {
-	Type:     schema.TypeList,
+	Type:schema.TypeList,
 	Optional: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"action": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringInSlice(codedeploy.InstanceAction_Values(), false),
 	},
 	"termination_wait_time_in_minutes": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.IntAtMost(2880),
 	},
 },
@@ -152,75 +152,75 @@ ValidateFunc: validation.IntAtMost(2880),
 },
 	},	"service_role_arn": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: verify.ValidARN,
 	},	"alarm_configuration": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "alarms": {
-	Type:     schema.TypeSet,
+	Type:schema.TypeSet,
 	MaxItems: 10,
 	Optional: true,
-	Set:      schema.HashString,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Set: schema.HashString,
+	Elem:&schema.Schema{Type: schema.TypeString},
 },"enabled": {
-	Type:     schema.TypeBool,
+	Type:schema.TypeBool,
 	Optional: true,
 },"ignore_poll_alarm_failure": {
-	Type:     schema.TypeBool,
+	Type:schema.TypeBool,
 	Optional: true,
 	Default:  false,
 },
 	},
 },
 	},	"load_balancer_info": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "elb_info": {
-	Type:     schema.TypeSet,
+	Type:schema.TypeSet,
 	Optional: true,
-	Set:      LoadBalancerInfoHash,
+	Set: LoadBalancerInfoHash,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 	},
 },
 	},
 },"target_group_info": {
-	Type:     schema.TypeSet,
+	Type:schema.TypeSet,
 	Optional: true,
-	Set:      LoadBalancerInfoHash,
+	Set: LoadBalancerInfoHash,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 	},
 },
 	},
 },"target_group_pair_info": {
-	Type:     schema.TypeList,
+	Type:schema.TypeList,
 	Optional: true,
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"prod_traffic_route": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "listener_arns": {
-	Type:     schema.TypeSet,
+	Type:schema.TypeSet,
 	Required: true,
 	Elem: &schema.Schema{
 Type:schema.TypeString,
@@ -231,7 +231,7 @@ ValidateFunc: verify.ValidARN,
 },
 	},
 	"target_group": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 MinItems: 1,
 MaxItems: 2,
@@ -239,20 +239,20 @@ Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "name": {
 	Type:schema.TypeString,
-	Required:     true,
+	Required:true,
 	ValidateFunc: validation.NoZeroValues,
 },
 	},
 },
 	},
 	"test_traffic_route": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "listener_arns": {
-	Type:     schema.TypeSet,
+	Type:schema.TypeSet,
 	Required: true,
 	Elem: &schema.Schema{
 Type:schema.TypeString,
@@ -268,51 +268,51 @@ ValidateFunc: verify.ValidARN,
 	},
 },
 	},	"auto_rollback_configuration": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "enabled": {
-	Type:     schema.TypeBool,
+	Type:schema.TypeBool,
 	Optional: true,
 },"events": {
-	Type:     schema.TypeSet,
+	Type:schema.TypeSet,
 	Optional: true,
-	Set:      schema.HashString,
-	Elem:     &schema.Schema{Type: schema.TypeString},
+	Set: schema.HashString,
+	Elem:&schema.Schema{Type: schema.TypeString},
 },
 	},
 },
 	},	"autoscaling_groups": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
-Set:      schema.HashString,
+Elem:&schema.Schema{Type: schema.TypeString},
+Set: schema.HashString,
 	},	"deployment_config_name": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      "CodeDeployDefault.OneAtATime",
+Optional:true,
+Default: "CodeDeployDefault.OneAtATime",
 ValidateFunc: validation.StringLenBetween(0, 100),
 	},	"ec2_tag_set": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "ec2_tag_filter": {
-	Type:     schema.TypeSet,
+	Type:schema.TypeSet,
 	Optional: true,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"key": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 	},	"type": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validTagFilters,
 	},	"value": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 	},
 },
@@ -323,87 +323,87 @@ Optional: true,
 },
 Set: resourceTagSetHash,
 	},	"ec2_tag_filter": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "key": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Optional: true,
 },"type": {
 	Type:schema.TypeString,
-	Optional:     true,
+	Optional:true,
 	ValidateFunc: validTagFilters,
 },"value": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Optional: true,
 },
 	},
 },
 Set: resourceTagFilterHash,
 	},	"ecs_service": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "cluster_name": {
 	Type:schema.TypeString,
-	Required:     true,
+	Required:true,
 	ValidateFunc: validation.NoZeroValues,
 },
 "service_name": {
 	Type:schema.TypeString,
-	Required:     true,
+	Required:true,
 	ValidateFunc: validation.NoZeroValues,
 },
 	},
 },
 	},	"on_premises_instance_tag_filter": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "key": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Optional: true,
 },"type": {
 	Type:schema.TypeString,
-	Optional:     true,
+	Optional:true,
 	ValidateFunc: validTagFilters,
 },"value": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Optional: true,
 },
 	},
 },
 Set: resourceTagFilterHash,
 	},	"trigger_configuration": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "trigger_events": {
-	Type:     schema.TypeSet,
+	Type:schema.TypeSet,
 	Required: true,
-	Set:      schema.HashString,
+	Set: schema.HashString,
 	Elem: &schema.Schema{
 Type:schema.TypeString,
 ValidateFunc: validation.StringInSlice(codedeploy.TriggerEventType_Values(), false),
 	},
 },"trigger_name": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Required: true,
 },"trigger_target_arn": {
 	Type:schema.TypeString,
-	Required:     true,
+	Required:true,
 	ValidateFunc: verify.ValidARN,
 },
 	},
 },
 Set: resourceTriggerHashConfig,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 	}
@@ -413,9 +413,9 @@ Set: resourceTriggerHashConfig,
 	deploymentGroupName := d.Get("deployment_group_name").(string)
 	serviceRoleArn := d.Get("service_role_arn").(string)
 	input := codedeploy.CreateDeploymentGroupInput{
-ApplicationName:     aws.String(applicationName),
+ApplicationName:aws.String(applicationName),
 DeploymentGroupName: aws.String(deploymentGroupName),
-ServiceRoleArn:      aws.String(serviceRoleArn),
+ServiceRoleArn: aws.String(serviceRoleArn),
 Tags: getTagsIn(ctx),
 	}	if attr, ok := d.GetOk("deployment_style"); ok {
 input.DeploymentStyle = ExpandDeploymentStyle(attr.([]interface{}))
@@ -463,7 +463,7 @@ return sdkdiag.AppendErrorf(diags, "creating CodeDeploy deployment group: %s", e
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeployConn(ctx)	deploymentGroupName := d.Get("deployment_group_name").(string)
 	resp, err := conn.GetDeploymentGroupWithContext(ctx, &codedeploy.GetDeploymentGroupInput{
-ApplicationName:     aws.String(d.Get("app_name").(string)),
+ApplicationName:aws.String(d.Get("app_name").(string)),
 DeploymentGroupName: aws.String(deploymentGroupName),
 	})	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, codedeploy.ErrCodeDeploymentGroupDoesNotExistException) {
 log.Printf("[WARN] CodeDeploy Deployment Group (%s) not found, removing from state", d.Id())
@@ -476,8 +476,8 @@ return sdkdiag.AppendErrorf(diags, "finding CodeDeploy Deployment Group (%s): %s
 	groupName := aws.StringValue(group.DeploymentGroupName)
 	groupArn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Service:   "codedeploy",
-Region:    meta.(*conns.AWSClient).Region,
+Service:"codedeploy",
+Region:meta.(*conns.AWSClient).Region,
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("deploymentgroup:%s/%s", appName, groupName),
 	}.String()	d.Set("arn", groupArn)
@@ -588,7 +588,7 @@ if err != nil {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeployConn(ctx)	log.Printf("[DEBUG] Deleting CodeDeploy DeploymentGroup %s", d.Id())
 	_, err := conn.DeleteDeploymentGroupWithContext(ctx, &codedeploy.DeleteDeploymentGroupInput{
-ApplicationName:     aws.String(d.Get("app_name").(string)),
+ApplicationName:aws.String(d.Get("app_name").(string)),
 DeploymentGroupName: aws.String(d.Get("deployment_group_name").(string)),
 	})	if err != nil {
 if tfawserr.ErrCodeEquals(err, codedeploy.ErrCodeDeploymentGroupDoesNotExistException) {
@@ -704,7 +704,7 @@ if mRaw == nil {
 	continue
 }m := mRaw.(map[string]interface{})targetGroupPairInfo := &codedeploy.TargetGroupPairInfo{
 	ProdTrafficRoute: expandTrafficRoute(m["prod_traffic_route"].([]interface{})),
-	TargetGroups:     expandTargetGroupInfo(m["target_group"].([]interface{})),
+	TargetGroups:expandTargetGroupInfo(m["target_group"].([]interface{})),
 	TestTrafficRoute: expandTrafficRoute(m["test_traffic_route"].([]interface{})),
 }targetGroupPairInfos = append(targetGroupPairInfos, targetGroupPairInfo)
 	}	return targetGroupPairInfos
@@ -897,7 +897,7 @@ if targetGroupPairInfo == nil {
 	continue
 }m := map[string]interface{}{
 	"prod_traffic_route": flattenTrafficRoute(targetGroupPairInfo.ProdTrafficRoute),
-	"target_group":       flattenTargetGroupInfo(targetGroupPairInfo.TargetGroups),
+	"target_group":flattenTargetGroupInfo(targetGroupPairInfo.TargetGroups),
 	"test_traffic_route": flattenTrafficRoute(targetGroupPairInfo.TestTrafficRoute),
 }l = append(l, m)
 	}	return l
@@ -926,7 +926,7 @@ item["deployment_type"] = aws.StringValue(v)
 return []interface{}{}
 	}	m := map[string]interface{}{
 "elb_info":schema.NewSet(LoadBalancerInfoHash, flattenELBInfo(loadBalancerInfo.ElbInfoList)),
-"target_group_info":      schema.NewSet(LoadBalancerInfoHash, flattenTargetGroupInfo(loadBalancerInfo.TargetGroupInfoList)),
+"target_group_info": schema.NewSet(LoadBalancerInfoHash, flattenTargetGroupInfo(loadBalancerInfo.TargetGroupInfoList)),
 "target_group_pair_info": flattenTargetGroupPairInfo(loadBalancerInfo.TargetGroupPairInfoList),
 	}	return []interface{}{m}
 }// FlattenBlueGreenDeploymentConfig converts a codedeploy.BlueGreenDeploymentConfiguration object

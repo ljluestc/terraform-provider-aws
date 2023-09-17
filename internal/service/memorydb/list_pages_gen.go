@@ -4,73 +4,73 @@
 	"github.com/aws/aws-sdk-go/service/memorydb/memorydbiface"
 )func describeACLsPages(ctx context.Context, conn memorydbiface.MemoryDBAPI, input *memorydb.DescribeACLsInput, fn func(*memorydb.DescribeACLsOutput, bool) bool) error {
 	for {
-		output, err := conn.DescribeACLsWithContext(ctx, input)
-		if err != nil {
-			return err
-		}		lastPage := aws.StringValue(output.NextToken) == ""
-		if !fn(output, lastPage) || lastPage {
-			break
-		}		input.NextToken = output.NextToken
+output, err := conn.DescribeACLsWithContext(ctx, input)
+ err != nil {
+return err
+aPage := aws.StringValue(output.NextToken) == ""
+ !fn(output, lastPage) || lastPage {
+break
+nt.NextToken = output.NextToken
 	}
 	return nil
 }
 func describeClustersPages(ctx context.Context, conn memorydbiface.MemoryDBAPI, input *memorydb.DescribeClustersInput, fn func(*memorydb.DescribeClustersOutput, bool) bool) error {
 	for {
-		output, err := conn.DescribeClustersWithContext(ctx, input)
-		if err != nil {
-			return err
-		}		lastPage := aws.StringValue(output.NextToken) == ""
-		if !fn(output, lastPage) || lastPage {
-			break
-		}		input.NextToken = output.NextToken
+tput, err := conn.DescribeClustersWithContext(ctx, input)
+ err != nil {
+return err
+aPage := aws.StringValue(output.NextToken) == ""
+ !fn(output, lastPage) || lastPage {
+break
+nt.NextToken = output.NextToken
 	}
 	return nil
 }
 func describeParameterGroupsPages(ctx context.Context, conn memorydbiface.MemoryDBAPI, input *memorydb.DescribeParameterGroupsInput, fn func(*memorydb.DescribeParameterGroupsOutput, bool) bool) error {
 	for {
-		output, err := conn.DescribeParameterGroupsWithContext(ctx, input)
-		if err != nil {
-			return err
-		}		lastPage := aws.StringValue(output.NextToken) == ""
-		if !fn(output, lastPage) || lastPage {
-			break
-		}		input.NextToken = output.NextToken
+tput, err := conn.DescribeParameterGroupsWithContext(ctx, input)
+ err != nil {
+return err
+aPage := aws.StringValue(output.NextToken) == ""
+ !fn(output, lastPage) || lastPage {
+break
+nt.NextToken = output.NextToken
 	}
 	return nil
 }
 func describeSnapshotsPages(ctx context.Context, conn memorydbiface.MemoryDBAPI, input *memorydb.DescribeSnapshotsInput, fn func(*memorydb.DescribeSnapshotsOutput, bool) bool) error {
 	for {
-		output, err := conn.DescribeSnapshotsWithContext(ctx, input)
-		if err != nil {
-			return err
-		}		lastPage := aws.StringValue(output.NextToken) == ""
-		if !fn(output, lastPage) || lastPage {
-			break
-		}		input.NextToken = output.NextToken
+tput, err := conn.DescribeSnapshotsWithContext(ctx, input)
+ err != nil {
+return err
+aPage := aws.StringValue(output.NextToken) == ""
+ !fn(output, lastPage) || lastPage {
+break
+nt.NextToken = output.NextToken
 	}
 	return nil
 }
 func describeSubnetGroupsPages(ctx context.Context, conn memorydbiface.MemoryDBAPI, input *memorydb.DescribeSubnetGroupsInput, fn func(*memorydb.DescribeSubnetGroupsOutput, bool) bool) error {
 	for {
-		output, err := conn.DescribeSubnetGroupsWithContext(ctx, input)
-		if err != nil {
-			return err
-		}		lastPage := aws.StringValue(output.NextToken) == ""
-		if !fn(output, lastPage) || lastPage {
-			break
-		}		input.NextToken = output.NextToken
+tput, err := conn.DescribeSubnetGroupsWithContext(ctx, input)
+ err != nil {
+return err
+aPage := aws.StringValue(output.NextToken) == ""
+ !fn(output, lastPage) || lastPage {
+break
+nt.NextToken = output.NextToken
 	}
 	return nil
 }
 func describeUsersPages(ctx context.Context, conn memorydbiface.MemoryDBAPI, input *memorydb.DescribeUsersInput, fn func(*memorydb.DescribeUsersOutput, bool) bool) error {
 	for {
-		output, err := conn.DescribeUsersWithContext(ctx, input)
-		if err != nil {
-			return err
-		}		lastPage := aws.StringValue(output.NextToken) == ""
-		if !fn(output, lastPage) || lastPage {
-			break
-		}		input.NextToken = output.NextToken
+tput, err := conn.DescribeUsersWithContext(ctx, input)
+ err != nil {
+return err
+aPage := aws.StringValue(output.NextToken) == ""
+ !fn(output, lastPage) || lastPage {
+break
+nt.NextToken = output.NextToken
 	}
 	return nil
 }

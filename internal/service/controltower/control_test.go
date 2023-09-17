@@ -12,7 +12,7 @@
 )func TestAccControlTowerControl_serial(t *testing.T) {
 	t.Parallel()	testCases := map[string]map[string]func(t *testing.T){
 "Control": {
-	"basic":      testAccControl_basic,
+	"basic": testAccControl_basic,
 	"disappears": testAccControl_disappears,
 },
 	}	acctest.RunSerialTests2Levels(t, testCases, 0)
@@ -28,7 +28,7 @@ PreCheck: func() {
 	testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, controltower.EndpointsID),
-CheckDestroy:    testAccCheckControlDestroy(ctx),
+CheckDestroy:testAccCheckControlDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -53,7 +53,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, controltower.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckControlDestroy(ctx),
+CheckDestroy:testAccCheckControlDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccControlConfig_basic(controlName, ouName),
@@ -100,8 +100,8 @@ data "aws_region" "current" {}data "aws_partition" "current" {}data "aws_organiz
 }resource "aws_controltower_control" "test" {
   control_identifier = "arn:${data.aws_partition.current.partition}:controltower:${data.aws_region.current.name}::control/%[1]s"
   target_identifier = [
-    for x in data.aws_organizations_organizational_units.test.children :
-    x.arn if x.name == "%[2]s"
+for x in data.aws_organizations_organizational_units.test.children :
+x.arn if x.name == "%[2]s"
   ][0]
 }
 `, controlName, ouName)

@@ -8,20 +8,20 @@
 )func TestAccCognitoIDPUserPoolsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolsDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr("data.aws_cognito_user_pools.test", "arns.#", "2"),
-					resource.TestCheckResourceAttr("data.aws_cognito_user_pools.test", "ids.#", "2"),
-					resource.TestCheckResourceAttr("data.aws_cognito_user_pools.empty", "arns.#", "0"),
-					resource.TestCheckResourceAttr("data.aws_cognito_user_pools.empty", "ids.#", "0"),
-				),
-			},
-		},
+PreCheck:k(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+{
+Config: testAccUserPoolsDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttr("data.aws_cognito_user_pools.test", "arns.#", "2"),
+resource.TestCheckResourceAttr("data.aws_cognito_user_pools.test", "ids.#", "2"),
+resource.TestCheckResourceAttr("data.aws_cognito_user_pools.empty", "arns.#", "0"),
+resource.TestCheckResourceAttr("data.aws_cognito_user_pools.empty", "ids.#", "0"),
+),
+},
+},
 	})
 }func testAccUserPoolsDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`

@@ -45,8 +45,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -96,8 +96,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -171,8 +171,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"configuration_property.0.type",
@@ -212,27 +212,27 @@ return err
 	return fmt.Sprintf(`
 resource "aws_codepipeline_custom_action_type" "test" {
   category = "Test"  input_artifact_details {
-    maximum_count = 5
-    minimum_count = 0
+maximum_count = 5
+minimum_count = 0
   }  output_artifact_details {
-    maximum_count = 4
-    minimum_count = 1
+maximum_count = 4
+minimum_count = 1
   }  provider_name = %[1]q
-  version       = "1"
+  version= "1"
 }
 `, rName)
 }func testAccCustomActionTypeConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_codepipeline_custom_action_type" "test" {
   category = "Test"  input_artifact_details {
-    maximum_count = 5
-    minimum_count = 0
+maximum_count = 5
+minimum_count = 0
   }  output_artifact_details {
-    maximum_count = 4
-    minimum_count = 1
+maximum_count = 4
+minimum_count = 1
   }  provider_name = %[1]q
-  version       = "1"  tags = {
-    %[2]q = %[3]q
+  version= "1"  tags = {
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -240,15 +240,15 @@ resource "aws_codepipeline_custom_action_type" "test" {
 	return fmt.Sprintf(`
 resource "aws_codepipeline_custom_action_type" "test" {
   category = "Test"  input_artifact_details {
-    maximum_count = 5
-    minimum_count = 0
+maximum_count = 5
+minimum_count = 0
   }  output_artifact_details {
-    maximum_count = 4
-    minimum_count = 1
+maximum_count = 4
+minimum_count = 1
   }  provider_name = %[1]q
-  version       = "1"  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  version= "1"  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -256,30 +256,30 @@ resource "aws_codepipeline_custom_action_type" "test" {
 	return fmt.Sprintf(`
 resource "aws_codepipeline_custom_action_type" "test" {
   category = "Test"  configuration_property {
-    key       = true
-    name      = "pk"
-    queryable = true
-    required  = true
-    secret    = false
-    type      = "Number"
+key= true
+name= "pk"
+queryable = true
+required  = true
+secret= false
+type= "Number"
   }  configuration_property {
-    description = "Date of birth"
-    key= false
-    name        = "dob"
-    queryable   = false
-    required    = false
-    secret      = true
-    type        = "String"
+description = "Date of birth"
+key= false
+name
+queryable= false
+required= false
+secret= true
+type
   }  input_artifact_details {
-    maximum_count = 3
-    minimum_count = 2
+maximum_count = 3
+minimum_count = 2
   }  output_artifact_details {
-    maximum_count = 5
-    minimum_count = 4
+maximum_count = 5
+minimum_count = 4
   }  provider_name = %[1]q
-  version       = "1"  settings {
-    entity_url_template   = "https://example.com/entity"
-    revision_url_template = "https://example.com/configuration"
+  version= "1"  settings {
+entity_url_template= "https://example.com/entity"
+revision_url_template = "https://example.com/configuration"
   }
 }
 `, rName)

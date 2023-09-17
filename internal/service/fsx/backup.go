@@ -20,7 +20,7 @@
 func ResourceBackup() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceBackupCreate,
-ReadWithoutTimeout:   resourceBackupRead,
+ReadWithoutTimeout:resourceBackupRead,
 UpdateWithoutTimeout: resourceBackupUpdate,
 DeleteWithoutTimeout: resourceBackupDelete,
 Importer: &schema.ResourceImporter{

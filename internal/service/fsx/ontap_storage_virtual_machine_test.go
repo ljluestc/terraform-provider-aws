@@ -18,70 +18,70 @@
 	varstorageVirtualMachinefsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
-		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_basic(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine),
-					acctest.MatchResourceAttrRegionalARN(resourceName,"arn","fsx",regexache.MustCompile(`storage-virtual-machine/fs-.+`)),
-					resource.TestCheckResourceAttr(resourceName,"endpoints.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"endpoints.0.iscsi.#","1"),
-					resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.iscsi.0.dns_name"),
-					resource.TestCheckResourceAttr(resourceName,"endpoints.0.management.#","1"),
-					resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.management.0.dns_name"),
-					resource.TestCheckResourceAttr(resourceName,"endpoints.0.nfs.#","1"),
-					resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.nfs.0.dns_name"),
-					resource.TestCheckResourceAttrSet(resourceName,"file_system_id"),
-					resource.TestCheckResourceAttr(resourceName,"name",rName),
-					resource.TestCheckResourceAttr(resourceName,"subtype",fsx.StorageVirtualMachineSubtypeDefault),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
-					resource.TestCheckResourceAttrSet(resourceName,"uuid"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
+ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccONTAPStorageVirtualMachineConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine),
+acctest.MatchResourceAttrRegionalARN(resourceName,"arn","fsx",regexache.MustCompile(`storage-virtual-machine/fs-.+`)),
+resource.TestCheckResourceAttr(resourceName,"endpoints.#","1"),
+resource.TestCheckResourceAttr(resourceName,"endpoints.0.iscsi.#","1"),
+resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.iscsi.0.dns_name"),
+resource.TestCheckResourceAttr(resourceName,"endpoints.0.management.#","1"),
+resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.management.0.dns_name"),
+resource.TestCheckResourceAttr(resourceName,"endpoints.0.nfs.#","1"),
+resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.nfs.0.dns_name"),
+resource.TestCheckResourceAttrSet(resourceName,"file_system_id"),
+resource.TestCheckResourceAttr(resourceName,"name",rName),
+resource.TestCheckResourceAttr(resourceName,"subtype",fsx.StorageVirtualMachineSubtypeDefault),
+resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
+resource.TestCheckResourceAttrSet(resourceName,"uuid"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+},
 	})
 }funcTestAccFSxOntapStorageVirtualMachine_rootVolumeSecurityStyle(t*testing.T){
 	ctx:=acctest.Context(t)
 	varstorageVirtualMachinefsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
-		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_rootVolumeSecurityStyle(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine),
-					acctest.MatchResourceAttrRegionalARN(resourceName,"arn","fsx",regexache.MustCompile(`storage-virtual-machine/fs-.+`)),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
-					resource.TestCheckResourceAttr(resourceName,"endpoints.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"endpoints.0.iscsi.#","1"),
-					resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.iscsi.0.dns_name"),
-					resource.TestCheckResourceAttr(resourceName,"endpoints.0.management.#","1"),
-					resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.management.0.dns_name"),
-					resource.TestCheckResourceAttr(resourceName,"endpoints.0.nfs.#","1"),
-					resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.nfs.0.dns_name"),
-					resource.TestCheckResourceAttrSet(resourceName,"root_volume_security_style"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-				ImportStateVerifyIgnore:[]string{"root_volume_security_style"},
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
+ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccONTAPStorageVirtualMachineConfig_rootVolumeSecurityStyle(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine),
+acctest.MatchResourceAttrRegionalARN(resourceName,"arn","fsx",regexache.MustCompile(`storage-virtual-machine/fs-.+`)),
+resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
+resource.TestCheckResourceAttr(resourceName,"endpoints.#","1"),
+resource.TestCheckResourceAttr(resourceName,"endpoints.0.iscsi.#","1"),
+resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.iscsi.0.dns_name"),
+resource.TestCheckResourceAttr(resourceName,"endpoints.0.management.#","1"),
+resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.management.0.dns_name"),
+resource.TestCheckResourceAttr(resourceName,"endpoints.0.nfs.#","1"),
+resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.nfs.0.dns_name"),
+resource.TestCheckResourceAttrSet(resourceName,"root_volume_security_style"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+ImportStateVerifyIgnore:[]string{"root_volume_security_style"},
+},
+},
 	})
 }funcTestAccFSxOntapStorageVirtualMachine_svmAdminPassword(t*testing.T){
 	ctx:=acctest.Context(t)
@@ -90,53 +90,53 @@
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	pass1:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	pass2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
-		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_svmAdminPassword(rName,pass1),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine1),
-					resource.TestCheckResourceAttr(resourceName,"svm_admin_password",pass1),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-				ImportStateVerifyIgnore:[]string{"svm_admin_password"},
-			},
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_svmAdminPassword(rName,pass2),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine2),
-					testAccCheckOntapStorageVirtualMachineNotRecreated(&storageVirtualMachine1,&storageVirtualMachine2),
-					resource.TestCheckResourceAttr(resourceName,"svm_admin_password",pass2),
-				),
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
+ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccONTAPStorageVirtualMachineConfig_svmAdminPassword(rName,pass1),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine1),
+resource.TestCheckResourceAttr(resourceName,"svm_admin_password",pass1),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+ImportStateVerifyIgnore:[]string{"svm_admin_password"},
+},
+{
+Config:testAccONTAPStorageVirtualMachineConfig_svmAdminPassword(rName,pass2),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine2),
+testAccCheckOntapStorageVirtualMachineNotRecreated(&storageVirtualMachine1,&storageVirtualMachine2),
+resource.TestCheckResourceAttr(resourceName,"svm_admin_password",pass2),
+),
+},
+},
 	})
 }funcTestAccFSxOntapStorageVirtualMachine_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	varstorageVirtualMachinefsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
-		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_basic(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine),
-					acctest.CheckResourceDisappears(ctx,acctest.Provider,tffsx.ResourceOntapStorageVirtualMachine(),resourceName),
-				),
-				ExpectNonEmptyPlan:true,
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
+ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccONTAPStorageVirtualMachineConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine),
+acctest.CheckResourceDisappears(ctx,acctest.Provider,tffsx.ResourceOntapStorageVirtualMachine(),resourceName),
+),
+ExpectNonEmptyPlan:true,
+},
+},
 	})
 }funcTestAccFSxOntapStorageVirtualMachine_name(t*testing.T){
 	ctx:=acctest.Context(t)
@@ -144,76 +144,76 @@
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
-		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_basic(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine1),
-					resource.TestCheckResourceAttr(resourceName,"name",rName),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_basic(rName2),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine2),
-					testAccCheckOntapStorageVirtualMachineRecreated(&storageVirtualMachine1,&storageVirtualMachine2),
-					resource.TestCheckResourceAttr(resourceName,"name",rName2),
-				),
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
+ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccONTAPStorageVirtualMachineConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine1),
+resource.TestCheckResourceAttr(resourceName,"name",rName),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+{
+Config:testAccONTAPStorageVirtualMachineConfig_basic(rName2),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine2),
+testAccCheckOntapStorageVirtualMachineRecreated(&storageVirtualMachine1,&storageVirtualMachine2),
+resource.TestCheckResourceAttr(resourceName,"name",rName2),
+),
+},
+},
 	})
 }funcTestAccFSxOntapStorageVirtualMachine_tags(t*testing.T){
 	ctx:=acctest.Context(t)
 	varstorageVirtualMachine1,storageVirtualMachine2,storageVirtualMachine3fsx.StorageVirtualMachine
 	resourceName:="aws_fsx_ontap_storage_virtual_machine.test"
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
-		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_tags1(rName,"key1","value1"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine1),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key1","value1"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_tags2(rName,"key1","value1updated","key2","value2"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine2),
-					testAccCheckOntapStorageVirtualMachineNotRecreated(&storageVirtualMachine1,&storageVirtualMachine2),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","2"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key1","value1updated"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
-				),
-			},
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_tags1(rName,"key2","value2"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine3),
-					testAccCheckOntapStorageVirtualMachineNotRecreated(&storageVirtualMachine2,&storageVirtualMachine3),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
-				),
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
+ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccONTAPStorageVirtualMachineConfig_tags1(rName,"key1","value1"),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine1),
+resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.key1","value1"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+{
+Config:testAccONTAPStorageVirtualMachineConfig_tags2(rName,"key1","value1updated","key2","value2"),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine2),
+testAccCheckOntapStorageVirtualMachineNotRecreated(&storageVirtualMachine1,&storageVirtualMachine2),
+resource.TestCheckResourceAttr(resourceName,"tags.%","2"),
+resource.TestCheckResourceAttr(resourceName,"tags.key1","value1updated"),
+resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
+),
+},
+{
+Config:testAccONTAPStorageVirtualMachineConfig_tags1(rName,"key2","value2"),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine3),
+testAccCheckOntapStorageVirtualMachineNotRecreated(&storageVirtualMachine2,&storageVirtualMachine3),
+resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
+resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
+),
+},
+},
 	})
 }funcTestAccFSxOntapStorageVirtualMachine_activeDirectory(t*testing.T){
 	ctx:=acctest.Context(t)
@@ -224,71 +224,71 @@
 	domainNetbiosName:="tftestcorp"
 	domainName:="tftestcorp.local"
 	domainPassword1:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
-		ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccONTAPStorageVirtualMachineConfig_virutalSelfManagedActiveDirectory(rName,netBiosName,domainNetbiosName,domainName,domainPassword1),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine1),
-					resource.TestCheckResourceAttr(resourceName,"active_directory_configuration.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"active_directory_configuration.0.netbios_name",strings.ToUpper(netBiosName)),
-					resource.TestCheckResourceAttr(resourceName,"active_directory_configuration.0.self_managed_active_directory_configuration.0.domain_name",domainName),
-					resource.TestCheckResourceAttr(resourceName,"endpoints.0.smb.#","1"),
-					resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.smb.0.dns_name"),
-					resource.TestCheckResourceAttr(resourceName,"active_directory_configuration.0.self_managed_active_directory_configuration.0.organizational_unit_distinguished_name",fmt.Sprintf("OU=computers,OU=%s",domainNetbiosName)),
-					resource.TestCheckResourceAttr(resourceName,"active_directory_configuration.0.self_managed_active_directory_configuration.0.password",domainPassword1),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-				ImportStateVerifyIgnore:[]string{
-					"active_directory_configuration",
-				},
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,fsx.EndpointsID)},
+ErrorCheck:acctest.ErrorCheck(t,fsx.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccONTAPStorageVirtualMachineConfig_virutalSelfManagedActiveDirectory(rName,netBiosName,domainNetbiosName,domainName,domainPassword1),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckOntapStorageVirtualMachineExists(ctx,resourceName,&storageVirtualMachine1),
+resource.TestCheckResourceAttr(resourceName,"active_directory_configuration.#","1"),
+resource.TestCheckResourceAttr(resourceName,"active_directory_configuration.0.netbios_name",strings.ToUpper(netBiosName)),
+resource.TestCheckResourceAttr(resourceName,"active_directory_configuration.0.self_managed_active_directory_configuration.0.domain_name",domainName),
+resource.TestCheckResourceAttr(resourceName,"endpoints.0.smb.#","1"),
+resource.TestCheckResourceAttrSet(resourceName,"endpoints.0.smb.0.dns_name"),
+resource.TestCheckResourceAttr(resourceName,"active_directory_configuration.0.self_managed_active_directory_configuration.0.organizational_unit_distinguished_name",fmt.Sprintf("OU=computers,OU=%s",domainNetbiosName)),
+resource.TestCheckResourceAttr(resourceName,"active_directory_configuration.0.self_managed_active_directory_configuration.0.password",domainPassword1),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+ImportStateVerifyIgnore:[]string{
+"active_directory_configuration",
+},
+},
+},
 	})
 }functestAccCheckOntapStorageVirtualMachineExists(ctxcontext.Context,resourceNamestring,svm*fsx.StorageVirtualMachine)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		rs,ok:=s.RootModule().Resources[resourceName]
-		if!ok{
-			returnfmt.Errorf("Notfound:%s",resourceName)
-		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		storageVirtualMachine,err:=tffsx.FindStorageVirtualMachineByID(ctx,conn,rs.Primary.ID)
-		iferr!=nil{
-			returnerr
-		}		ifstorageVirtualMachine==nil{
-			returnfmt.Errorf("FSxONTAPStorageVirtualMachine(%s)notfound",rs.Primary.ID)
-		}		*svm=*storageVirtualMachine		returnnil
+rs,ok:=s.RootModule().Resources[resourceName]
+if!ok{
+returnfmt.Errorf("Notfound:%s",resourceName)
+}conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)storageVirtualMachine,err:=tffsx.FindStorageVirtualMachineByID(ctx,conn,rs.Primary.ID)
+iferr!=nil{
+returnerr
+}ifstorageVirtualMachine==nil{
+returnfmt.Errorf("FSxONTAPStorageVirtualMachine(%s)notfound",rs.Primary.ID)
+}*svm=*storageVirtualMachinereturnnil
 	}
 }functestAccCheckOntapStorageVirtualMachineDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)		for_,rs:=ranges.RootModule().Resources{
-			ifrs.Type!="aws_storage_virtual_machine"{
-				continue
-			}			storageVirtualMachine,err:=tffsx.FindStorageVirtualMachineByID(ctx,conn,rs.Primary.ID)
-			iftfresource.NotFound(err){
-				continue
-			}			ifstorageVirtualMachine!=nil{
-				returnfmt.Errorf("FSxONTAPStorageVirtualMachine(%s)stillexists",rs.Primary.ID)
-			}
-		}
-		returnnil
+conn:=acctest.Provider.Meta().(*conns.AWSClient).FSxConn(ctx)for_,rs:=ranges.RootModule().Resources{
+ifrs.Type!="aws_storage_virtual_machine"{
+continue
+}storageVirtualMachine,err:=tffsx.FindStorageVirtualMachineByID(ctx,conn,rs.Primary.ID)
+iftfresource.NotFound(err){
+continue
+}ifstorageVirtualMachine!=nil{
+returnfmt.Errorf("FSxONTAPStorageVirtualMachine(%s)stillexists",rs.Primary.ID)
+}
+}
+returnnil
 	}
 }functestAccCheckOntapStorageVirtualMachineNotRecreated(i,j*fsx.StorageVirtualMachine)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		ifaws.StringValue(i.StorageVirtualMachineId)!=aws.StringValue(j.StorageVirtualMachineId){
-			returnfmt.Errorf("FSxStorageVirtualMachine(%s)recreated",aws.StringValue(i.StorageVirtualMachineId))
-		}		returnnil
+ifaws.StringValue(i.StorageVirtualMachineId)!=aws.StringValue(j.StorageVirtualMachineId){
+returnfmt.Errorf("FSxStorageVirtualMachine(%s)recreated",aws.StringValue(i.StorageVirtualMachineId))
+}returnnil
 	}
 }functestAccCheckOntapStorageVirtualMachineRecreated(i,j*fsx.StorageVirtualMachine)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		ifaws.StringValue(i.StorageVirtualMachineId)==aws.StringValue(j.StorageVirtualMachineId){
-			returnfmt.Errorf("FSxStorageVirtualMachine(%s)notrecreated",aws.StringValue(i.StorageVirtualMachineId))
-		}		returnnil
+ifaws.StringValue(i.StorageVirtualMachineId)==aws.StringValue(j.StorageVirtualMachineId){
+returnfmt.Errorf("FSxStorageVirtualMachine(%s)notrecreated",aws.StringValue(i.StorageVirtualMachineId))
+}returnnil
 	}
 }functestAccOntapStorageVirtualMachineBaseConfig(rNamestring)string{
 	returnacctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(),fmt.Sprintf(`

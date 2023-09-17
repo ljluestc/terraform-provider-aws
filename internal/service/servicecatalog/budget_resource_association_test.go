@@ -14,10 +14,10 @@ tfservicecatalog "github.com/hashicorp/terraform-provider-aws/internal/service/s
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_budget_resource_association.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
-ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
+PreCheck:k(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
+ErrorCheck: acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBudgetResourceAssociationDestroy(ctx),
+CheckDestroy:testAccCheckBudgetResourceAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccBudgetResourceAssociationConfig_basic(rName),
@@ -28,8 +28,8 @@ resource.TestCheckResourceAttrPair(resourceName, "budget_name", "aws_budgets_bud
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -38,10 +38,10 @@ ImportStateVerify: true,
 ctx := acctest.Context(t)
 resourceName := "aws_servicecatalog_budget_resource_association.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
-ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
+PreCheck:k(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
+ErrorCheck: acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBudgetResourceAssociationDestroy(ctx),
+CheckDestroy:testAccCheckBudgetResourceAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccBudgetResourceAssociationConfig_basic(rName),
@@ -81,13 +81,13 @@ return fmt.Errorf("waiting for Service Catalog Budget Resource Association exist
 return fmt.Sprintf(`
 resource "aws_servicecatalog_portfolio" "test" {
   name = %[1]q
-  description   = %[1]q
+  description= %[1]q
   provider_name = %[1]q
 }resource "aws_budgets_budget" "test" {
-  name     = %[1]q
-  budget_type       = %[2]q
-  limit_amount      = %[3]q
-  limit_unit        = %[4]q
+  name= %[1]q
+  budget_type= %[2]q
+  limit_amount = %[3]q
+  limit_unit
   time_period_start = %[5]q
   time_unit= %[6]q
 }

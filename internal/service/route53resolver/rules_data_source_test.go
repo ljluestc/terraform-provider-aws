@@ -85,28 +85,28 @@ resource.TestCheckResourceAttr(dsResourceName, "resolver_rule_ids.#", "0"),
 # The default Internet Resolver rule.
 data "aws_route53_resolver_rules" "test" {
   owner_id= "Route 53 Resolver"
-  rule_type    = "RECURSIVE"
+  rule_type= "RECURSIVE"
   share_status = "NOT_SHARED"
 }
 `func testAccRulesDataSourceConfig_resolverEndpointID(rName1, rName2, domainName1, domainName2 string) string {
 return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointBase(rName1), fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "forward" {
   domain_name = %[3]q
-  rule_type   = "FORWARD"
-  name   = %[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id  target_ip {
-    ip = "192.0.2.7"
+  rule_type= "FORWARD"
+  name= %[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id  target_ip {
+ip = "192.0.2.7"
   }
 }resource "aws_route53_resolver_rule" "recursive" {
   domain_name = %[4]q
-  rule_type   = "RECURSIVE"
-  name   = %[2]q
+  rule_type= "RECURSIVE"
+  name= %[2]q
 }data "aws_route53_resolver_rules" "by_resolver_endpoint_id" {
-  owner_id    = aws_route53_resolver_rule.forward.owner_id
+  owner_id= aws_route53_resolver_rule.forward.owner_id
   resolver_endpoint_id = aws_route53_resolver_rule.forward.resolver_endpoint_id
 }data "aws_route53_resolver_rules" "by_resolver_endpoint_id_rule_type_share_status" {
-  owner_id    = aws_route53_resolver_rule.recursive.owner_id
+  owner_id= aws_route53_resolver_rule.recursive.owner_id
   resolver_endpoint_id = aws_route53_resolver_rule.recursive.resolver_endpoint_id
-  rule_type   = aws_route53_resolver_rule.recursive.rule_type
+  rule_type= aws_route53_resolver_rule.recursive.rule_type
   share_status= aws_route53_resolver_rule.recursive.share_status
 }data "aws_route53_resolver_rules" "by_invalid_owner_id" {
   owner_id= "000000000000"
@@ -118,8 +118,8 @@ return fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   count  = %[1]d
   domain_name = "%[2]s.example.org"
-  name   = "%[2]s-${count.index}-rule"
-  rule_type   = "SYSTEM"
+  name= "%[2]s-${count.index}-rule"
+  rule_type= "SYSTEM"
 }data "aws_route53_resolver_rules" "test" {
   name_regex = "%[2]s-.*-rule"  depends_on = [aws_route53_resolver_rule.test]
 }

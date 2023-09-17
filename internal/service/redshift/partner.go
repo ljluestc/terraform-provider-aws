@@ -16,7 +16,7 @@
 func ResourcePartner() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourcePartnerCreate,
-ReadWithoutTimeout:   resourcePartnerRead,
+ReadWithoutTimeout:resourcePartnerRead,
 DeleteWithoutTimeout: resourcePartnerDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
@@ -59,7 +59,7 @@ input := redshift.AddPartnerInput{
 AccountId:aws.String(account),
 ClusterIdentifier: aws.String(clusterId),
 DatabaseName:  aws.String(d.Get("database_name").(string)),
-PartnerName:   aws.String(d.Get("partner_name").(string)),
+PartnerName:aws.String(d.Get("partner_name").(string)),
 }out, err := conn.AddPartnerWithContext(ctx, &input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating Redshift Partner: %s", err)
 }d.SetId(fmt.Sprintf("%s:%s:%s:%s", account, clusterId, aws.StringValue(out.DatabaseName), aws.StringValue(out.PartnerName)))return append(diags, resourcePartnerRead(ctx, d, meta)...)
@@ -87,7 +87,7 @@ return sdkdiag.AppendErrorf(diags, "deleting Redshift Partner (%s): %s", d.Id(),
 AccountId:aws.String(account),
 ClusterIdentifier: aws.String(clusterId),
 DatabaseName:  aws.String(dbName),
-PartnerName:   aws.String(partnerName),
+PartnerName:aws.String(partnerName),
 }_, err = conn.DeletePartnerWithContext(ctx, &deleteInput)if err != nil {
 if tfawserr.ErrCodeEquals(err, redshift.ErrCodePartnerNotFoundFault) {
 return diags

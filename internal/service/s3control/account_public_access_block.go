@@ -16,35 +16,35 @@
 func resourceAccountPublicAccessBlock() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceAccountPublicAccessBlockCreate,
-ReadWithoutTimeout:   resourceAccountPublicAccessBlockRead,
+ReadWithoutTimeout:resourceAccountPublicAccessBlockRead,
 UpdateWithoutTimeout: resourceAccountPublicAccessBlockUpdate,
 DeleteWithoutTimeout: resourceAccountPublicAccessBlockDelete,Importer: &schema.ResourceImporter{
 	StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 	"account_id": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ValidateFunc: verify.ValidAccountID,
 	},
 	"block_public_acls": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"block_public_policy": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"ignore_public_acls": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"restrict_public_buckets": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
@@ -57,9 +57,9 @@ accountID = v.(string)
 	}	input := &s3control.PutPublicAccessBlockInput{
 AccountId: aws.String(accountID),
 PublicAccessBlockConfiguration: &s3control.PublicAccessBlockConfiguration{
-	BlockPublicAcls:       aws.Bool(d.Get("block_public_acls").(bool)),
-	BlockPublicPolicy:     aws.Bool(d.Get("block_public_policy").(bool)),
-	IgnorePublicAcls:      aws.Bool(d.Get("ignore_public_acls").(bool)),
+	BlockPublicAcls:aws.Bool(d.Get("block_public_acls").(bool)),
+	BlockPublicPolicy:aws.Bool(d.Get("block_public_policy").(bool)),
+	IgnorePublicAcls: aws.Bool(d.Get("ignore_public_acls").(bool)),
 	RestrictPublicBuckets: aws.Bool(d.Get("restrict_public_buckets").(bool)),
 },
 	}	_, err := conn.PutPublicAccessBlockWithContext(ctx, input)	if err != nil {
@@ -83,13 +83,13 @@ return diag.Errorf("reading S3 Account Public Access Block (%s): %s", d.Id(), er
 	d.Set("restrict_public_buckets", output.RestrictPublicBuckets)	return nil
 }func resourceAccountPublicAccessBlockUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).S3ControlConn(ctx)	publicAccessBlockConfiguration := &s3control.PublicAccessBlockConfiguration{
-BlockPublicAcls:       aws.Bool(d.Get("block_public_acls").(bool)),
-BlockPublicPolicy:     aws.Bool(d.Get("block_public_policy").(bool)),
-IgnorePublicAcls:      aws.Bool(d.Get("ignore_public_acls").(bool)),
+BlockPublicAcls:aws.Bool(d.Get("block_public_acls").(bool)),
+BlockPublicPolicy:aws.Bool(d.Get("block_public_policy").(bool)),
+IgnorePublicAcls: aws.Bool(d.Get("ignore_public_acls").(bool)),
 RestrictPublicBuckets: aws.Bool(d.Get("restrict_public_buckets").(bool)),
 	}
 	input := &s3control.PutPublicAccessBlockInput{
-AccountId:       aws.String(d.Id()),
+AccountId:aws.String(d.Id()),
 PublicAccessBlockConfiguration: publicAccessBlockConfiguration,
 	}	_, err := conn.PutPublicAccessBlockWithContext(ctx, input)	if err != nil {
 return diag.Errorf("updating S3 Account Public Access Block (%s): %s", d.Id(), err)
@@ -110,7 +110,7 @@ return diag.Errorf("deleting S3 Account Public Access Block (%s): %s", d.Id(), e
 AccountId: aws.String(accountID),
 	}	output, err := conn.GetPublicAccessBlockWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, s3control.ErrCodeNoSuchPublicAccessBlockConfiguration) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:err,
 	LastRequest: input,
 }
 	}	if err != nil {
@@ -128,10 +128,10 @@ output, err := FindPublicAccessBlockByAccountID(ctx, conn, accountID)if tfresour
 	}
 }func waitPublicAccessBlockEqual(ctx context.Context, conn *s3control.S3Control, accountID string, target *s3control.PublicAccessBlockConfiguration) (*s3control.PublicAccessBlockConfiguration, error) {
 	stateConf := &retry.StateChangeConf{
-Pending:    []string{strconv.FormatBool(false)},
-Target:     []string{strconv.FormatBool(true)},
-Refresh:    statusPublicAccessBlockEqual(ctx, conn, accountID, target),
-Timeout:    propagationTimeout,
+Pending:[]string{strconv.FormatBool(false)},
+Target:[]string{strconv.FormatBool(true)},
+Refresh:statusPublicAccessBlockEqual(ctx, conn, accountID, target),
+Timeout:propagationTimeout,
 MinTimeout: propagationMinTimeout,
 ContinuousTargetOccurence: propagationContinuousTargetOccurence,
 	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*s3control.PublicAccessBlockConfiguration); ok {

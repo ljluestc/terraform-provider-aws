@@ -19,73 +19,73 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceComponent() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceComponentCreate,
-ReadWithoutTimeout:   resourceComponentRead,
+ReadWithoutTimeout:resourceComponentRead,
 UpdateWithoutTimeout: resourceComponentUpdate,
 DeleteWithoutTimeout: resourceComponentDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "change_description": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(1, 128),
 },
 "data": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ExactlyOneOf: []string{"data", "uri"},
 ValidateFunc: validation.StringLenBetween(1, 16000),
 },
 "date_created": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "description": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 },
 "encrypted": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },
 "kms_key_id": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 },
 "name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(1, 126),
 },
 "owner": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "platform": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringInSlice(imagebuilder.Platform_Values(), false),
 },
 "skip_destroy": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Default:  false,
 Optional: true,
 },
 "supported_os_versions": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 ForceNew: true,
 Elem: &schema.Schema{
@@ -95,22 +95,22 @@ ValidateFunc: validation.StringIsNotEmpty,
 MinItems: 1,
 MaxItems: 25,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "uri": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ExactlyOneOf: []string{"data", "uri"},
 },
 "version": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(1, 128),
 },
 },CustomizeDiff: verify.SetTagsDiff,
@@ -119,7 +119,7 @@ ValidateFunc: validation.StringLenBetween(1, 128),
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)input := &imagebuilder.CreateComponentInput{
 ClientToken: aws.String(id.UniqueId()),
-Tags:        getTagsIn(ctx),
+Tags:
 }if v, ok := d.GetOk("change_description"); ok {
 input.ChangeDescription = aws.String(v.(string))
 }if v, ok := d.GetOk("data"); ok {

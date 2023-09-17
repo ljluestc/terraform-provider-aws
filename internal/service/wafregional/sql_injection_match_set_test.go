@@ -1,14 +1,8 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packagewafregional_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packagewafregional_testimport(
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/waf"
 	"github.com/aws/aws-sdk-go/service/wafregional"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -22,9 +16,7 @@ import(
 	ctx:=acctest.Context(t)
 	varvwaf.SqlInjectionMatchSet
 	resourceName:="aws_wafregional_sql_injection_match_set.sql_injection_match_set"
-	sqlInjectionMatchSet:=fmt.Sprintf("sqlInjectionMatchSet-%s",sdkacctest.RandString(5))
-
-	resource.ParallelTest(t,resource.TestCase{
+	sqlInjectionMatchSet:=fmt.Sprintf("sqlInjectionMatchSet-%s",sdkacctest.RandString(5))	resource.ParallelTest(t,resource.TestCase{
 PreCheck:
 func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,wafregional.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,wafregional.EndpointsID),
@@ -58,9 +50,7 @@ ImportStateVerify:true,
 	varbefore,afterwaf.SqlInjectionMatchSet
 	resourceName:="aws_wafregional_sql_injection_match_set.sql_injection_match_set"
 	sqlInjectionMatchSet:=fmt.Sprintf("sqlInjectionMatchSet-%s",sdkacctest.RandString(5))
-	sqlInjectionMatchSetNewName:=fmt.Sprintf("sqlInjectionMatchSetNewName-%s",sdkacctest.RandString(5))
-
-	resource.ParallelTest(t,resource.TestCase{
+	sqlInjectionMatchSetNewName:=fmt.Sprintf("sqlInjectionMatchSetNewName-%s",sdkacctest.RandString(5))	resource.ParallelTest(t,resource.TestCase{
 PreCheck:
 func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,wafregional.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,wafregional.EndpointsID),
@@ -100,9 +90,7 @@ ImportStateVerify:true,
 	ctx:=acctest.Context(t)
 	varvwaf.SqlInjectionMatchSet
 	resourceName:="aws_wafregional_sql_injection_match_set.sql_injection_match_set"
-	sqlInjectionMatchSet:=fmt.Sprintf("sqlInjectionMatchSet-%s",sdkacctest.RandString(5))
-
-	resource.ParallelTest(t,resource.TestCase{
+	sqlInjectionMatchSet:=fmt.Sprintf("sqlInjectionMatchSet-%s",sdkacctest.RandString(5))	resource.ParallelTest(t,resource.TestCase{
 PreCheck:
 func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,wafregional.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,wafregional.EndpointsID),
@@ -124,9 +112,7 @@ ExpectNonEmptyPlan:true,
 	ctx:=acctest.Context(t)
 	varbefore,afterwaf.SqlInjectionMatchSet
 	resourceName:="aws_wafregional_sql_injection_match_set.sql_injection_match_set"
-	setName:=fmt.Sprintf("sqlInjectionMatchSet-%s",sdkacctest.RandString(5))
-
-	resource.ParallelTest(t,resource.TestCase{
+	setName:=fmt.Sprintf("sqlInjectionMatchSet-%s",sdkacctest.RandString(5))	resource.ParallelTest(t,resource.TestCase{
 PreCheck:
 func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,wafregional.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,wafregional.EndpointsID),
@@ -178,9 +164,7 @@ ImportStateVerify:true,
 	ctx:=acctest.Context(t)
 	varipsetwaf.SqlInjectionMatchSet
 	resourceName:="aws_wafregional_sql_injection_match_set.sql_injection_match_set"
-	setName:=fmt.Sprintf("sqlInjectionMatchSet-%s",sdkacctest.RandString(5))
-
-	resource.ParallelTest(t,resource.TestCase{
+	setName:=fmt.Sprintf("sqlInjectionMatchSet-%s",sdkacctest.RandString(5))	resource.ParallelTest(t,resource.TestCase{
 PreCheck:
 func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionHasService(t,wafregional.EndpointsID)},
 ErrorCheck:acctest.ErrorCheck(t,wafregional.EndpointsID),
@@ -210,17 +194,13 @@ func{
 	return
 func(s*terraform.State)error{
 conn:=acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
-region:=acctest.Provider.Meta().(*conns.AWSClient).Region
-
-wr:=tfwafregional.NewRetryer(conn,region)
+region:=acctest.Provider.Meta().(*conns.AWSClient).Regionwr:=tfwafregional.NewRetryer(conn,region)
 _,err:=wr.RetryWithToken(ctx,
 func(token*string)(interface{},error){
 	req:=&waf.UpdateSqlInjectionMatchSetInput{
 ChangeToken:token,
 SqlInjectionMatchSetId:v.SqlInjectionMatchSetId,
-	}
-
-	for_,sqlInjectionMatchTuple:=rangev.SqlInjectionMatchTuples{
+	}	for_,sqlInjectionMatchTuple:=rangev.SqlInjectionMatchTuples{
 sqlInjectionMatchTupleUpdate:=&waf.SqlInjectionMatchSetUpdate{
 	Action:aws.String("DELETE"),
 	SqlInjectionMatchTuple:&waf.SqlInjectionMatchTuple{
@@ -234,9 +214,7 @@ req.Updates=append(req.Updates,sqlInjectionMatchTupleUpdate)
 })
 iferr!=nil{
 	returnfmt.Errorf("FailedupdatingSQLInjectionMatchSet:%s",err)
-}
-
-_,err=wr.RetryWithToken(ctx,
+}_,err=wr.RetryWithToken(ctx,
 func(token*string)(interface{},error){
 	opts:=&waf.DeleteSqlInjectionMatchSetInput{
 ChangeToken:token,
@@ -256,26 +234,18 @@ func(s*terraform.State)error{
 rs,ok:=s.RootModule().Resources[n]
 if!ok{
 	returnfmt.Errorf("Notfound:%s",n)
-}
-
-ifrs.Primary.ID==""{
+}ifrs.Primary.ID==""{
 	returnfmt.Errorf("NoWAFSqlInjectionMatchSetIDisset")
-}
-
-conn:=acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+}conn:=acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 resp,err:=conn.GetSqlInjectionMatchSetWithContext(ctx,&waf.GetSqlInjectionMatchSetInput{
 	SqlInjectionMatchSetId:aws.String(rs.Primary.ID),
 })
 iferr!=nil{
 	returnerr
-}
-
-if*resp.SqlInjectionMatchSet.SqlInjectionMatchSetId==rs.Primary.ID{
+}if*resp.SqlInjectionMatchSet.SqlInjectionMatchSetId==rs.Primary.ID{
 	*v=*resp.SqlInjectionMatchSet
 	returnnil
-}
-
-returnfmt.Errorf("WAFSqlInjectionMatchSet(%s)notfound",rs.Primary.ID)
+}returnfmt.Errorf("WAFSqlInjectionMatchSet(%s)notfound",rs.Primary.ID)
 	}
 }functestAccCheckSQLInjectionMatchSetDestroy(ctxcontext.Context)resource.TestCheck
 func{
@@ -284,38 +254,24 @@ func(s*terraform.State)error{
 for_,rs:=ranges.RootModule().Resources{
 	ifrs.Type!="aws_wafregional_sql_injection_match_set"{
 continue
-	}
-
-	conn:=acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+	}	conn:=acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 	resp,err:=conn.GetSqlInjectionMatchSetWithContext(ctx,&waf.GetSqlInjectionMatchSetInput{
 SqlInjectionMatchSetId:aws.String(rs.Primary.ID),
-	})
-
-	iferr==nil{
+	})	iferr==nil{
 if*resp.SqlInjectionMatchSet.SqlInjectionMatchSetId==rs.Primary.ID{
 	returnfmt.Errorf("WAFSqlInjectionMatchSet%sstillexists",rs.Primary.ID)
 }
-	}
-
-	//ReturnniliftheSqlInjectionMatchSetisalreadydestroyed
+	}	//ReturnniliftheSqlInjectionMatchSetisalreadydestroyed
 	iftfawserr.ErrCodeEquals(err,wafregional.ErrCodeWAFNonexistentItemException){
 returnnil
-	}
-
-	returnerr
-}
-
-returnnil
+	}	returnerr
+}returnnil
 	}
 }functestAccSQLInjectionMatchSetConfig_basic(namestring)string{
 	returnfmt.Sprintf(`
 resource"aws_wafregional_sql_injection_match_set""sql_injection_match_set"{
-name="%s"
-
-sql_injection_match_tuple{
-text_transformation="URL_DECODE"
-
-field_to_match{
+name="%s"sql_injection_match_tuple{
+text_transformation="URL_DECODE"field_to_match{
 type="QUERY_STRING"
 }
 }
@@ -324,12 +280,8 @@ type="QUERY_STRING"
 }functestAccSQLInjectionMatchSetConfig_changeTuples(namestring)string{
 	returnfmt.Sprintf(`
 resource"aws_wafregional_sql_injection_match_set""sql_injection_match_set"{
-name="%s"
-
-sql_injection_match_tuple{
-text_transformation="NONE"
-
-field_to_match{
+name="%s"sql_injection_match_tuple{
+text_transformation="NONE"field_to_match{
 type="HEADER"
 data="User-Agent"
 }

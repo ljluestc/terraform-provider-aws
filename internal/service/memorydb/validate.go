@@ -4,10 +4,10 @@
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )const (
-aclNameMaxLength   = 40
+aclNameMaxLength= 40
 clusterNameMaxLength= 40
 parameterGroupNameMaxLength = 255
-snapshotNameMaxLength   = 255
+snapshotNameMaxLength= 255
 subnetGroupNameMaxLength= 255
 userNameMaxLength  = 40
 )// validateResourceName returns a validation function applicable to all MemoryDB

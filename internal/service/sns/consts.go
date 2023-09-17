@@ -1,131 +1,103 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package sns
-
-import (
+// SPDX-License-Identifier: MPL-2.0package snsimport (
 	"time"
-)
-
-const (
+)const (
 	FIFOTopicNameSuffix = ".fifo"
-)
-
-const (
+)const (
 	PlatformApplicationAttributeNameAppleCertificateExpiryDate = "AppleCertificateExpiryDate"
-	PlatformApplicationAttributeNameApplePlatformBundleID      = "ApplePlatformBundleID"
-	PlatformApplicationAttributeNameApplePlatformTeamID        = "ApplePlatformTeamID"
-	PlatformApplicationAttributeNameEventDeliveryFailure       = "EventDeliveryFailure"
-	PlatformApplicationAttributeNameEventEndpointCreated       = "EventEndpointCreated"
-	PlatformApplicationAttributeNameEventEndpointDeleted       = "EventEndpointDeleted"
-	PlatformApplicationAttributeNameEventEndpointUpdated       = "EventEndpointUpdated"
-	PlatformApplicationAttributeNameFailureFeedbackRoleARN     = "FailureFeedbackRoleArn"
+	PlatformApplicationAttributeNameApplePlatformBundleID = "ApplePlatformBundleID"
+	PlatformApplicationAttributeNameApplePlatformTeamID
+	PlatformApplicationAttributeNameEventDeliveryFailure= "EventDeliveryFailure"
+	PlatformApplicationAttributeNameEventEndpointCreated= "EventEndpointCreated"
+	PlatformApplicationAttributeNameEventEndpointDeleted= "EventEndpointDeleted"
+	PlatformApplicationAttributeNameEventEndpointUpdated= "EventEndpointUpdated"
+	PlatformApplicationAttributeNameFailureFeedbackRoleARN= "FailureFeedbackRoleArn"
 	PlatformApplicationAttributeNamePlatformCredential= "PlatformCredential"
 	PlatformApplicationAttributeNamePlatformPrincipal = "PlatformPrincipal"
-	PlatformApplicationAttributeNameSuccessFeedbackRoleARN     = "SuccessFeedbackRoleArn"
+	PlatformApplicationAttributeNameSuccessFeedbackRoleARN= "SuccessFeedbackRoleArn"
 	PlatformApplicationAttributeNameSuccessFeedbackSampleRate  = "SuccessFeedbackSampleRate"
-)
-
-const (
-	PlatfomAPNS        = "APNS"
+)const (
+	PlatfomAPNS
 	PlatfomAPNSSandbox = "APNS_SANDBOX"
 	PlatfomGCM= "GCM"
-)
-
-const (
+)const (
 	SubscriptionProtocolApplication = "application"
-	SubscriptionProtocolEmail       = "email"
-	SubscriptionProtocolEmailJSON   = "email-json"
-	SubscriptionProtocolFirehose    = "firehose"
-	SubscriptionProtocolHTTP        = "http"
-	SubscriptionProtocolHTTPS       = "https"
-	SubscriptionProtocolLambda      = "lambda"
+	SubscriptionProtocolEmail= "email"
+	SubscriptionProtocolEmailJSON= "email-json"
+	SubscriptionProtocolFirehose= "firehose"
+	SubscriptionProtocolHTTP
+	SubscriptionProtocolHTTPS= "https"
+	SubscriptionProtocolLambda = "lambda"
 	SubscriptionProtocolSMS= "sms"
 	SubscriptionProtocolSQS= "sqs"
-)
-
-func SubscriptionProtocol_Values() []string {
+)func SubscriptionProtocol_Values() []string {
 	return []string{
-		SubscriptionProtocolApplication,
-		SubscriptionProtocolEmail,
-		SubscriptionProtocolEmailJSON,
-		SubscriptionProtocolFirehose,
-		SubscriptionProtocolHTTP,
-		SubscriptionProtocolHTTPS,
-		SubscriptionProtocolLambda,
-		SubscriptionProtocolSMS,
-		SubscriptionProtocolSQS,
+SubscriptionProtocolApplication,
+bscriptionProtocolEmail,
+bscriptionProtocolEmailJSON,
+bscriptionProtocolFirehose,
+bscriptionProtocolHTTP,
+bscriptionProtocolHTTPS,
+bscriptionProtocolLambda,
+bscriptionProtocolSMS,
+bscriptionProtocolSQS,
 	}
-}
-
-const (
+}const (
 	SubscriptionAttributeNameConfirmationWasAuthenticated = "ConfirmationWasAuthenticated"
-	SubscriptionAttributeNameDeliveryPolicy      = "DeliveryPolicy"
-	SubscriptionAttributeNameEndpoint   = "Endpoint"
-	SubscriptionAttributeNameFilterPolicy        = "FilterPolicy"
-	SubscriptionAttributeNameFilterPolicyScope   = "FilterPolicyScope"
-	SubscriptionAttributeNameOwner      = "Owner"
+	SubscriptionAttributeNameDeliveryPolicy = "DeliveryPolicy"
+	SubscriptionAttributeNameEndpoint= "Endpoint"
+	SubscriptionAttributeNameFilterPolicy
+	SubscriptionAttributeNameFilterPolicyScope= "FilterPolicyScope"
+	SubscriptionAttributeNameOwner = "Owner"
 	SubscriptionAttributeNamePendingConfirmation = "PendingConfirmation"
-	SubscriptionAttributeNameProtocol   = "Protocol"
+	SubscriptionAttributeNameProtocol= "Protocol"
 	SubscriptionAttributeNameRawMessageDelivery  = "RawMessageDelivery"
-	SubscriptionAttributeNameRedrivePolicy       = "RedrivePolicy"
-	SubscriptionAttributeNameSubscriptionARN     = "SubscriptionArn"
+	SubscriptionAttributeNameRedrivePolicy= "RedrivePolicy"
+	SubscriptionAttributeNameSubscriptionARN= "SubscriptionArn"
 	SubscriptionAttributeNameSubscriptionRoleARN = "SubscriptionRoleArn"
-	SubscriptionAttributeNameTopicARN   = "TopicArn"
-)
-
-const (
-	TopicAttributeNameApplicationFailureFeedbackRoleARN    = "ApplicationFailureFeedbackRoleArn"
-	TopicAttributeNameApplicationSuccessFeedbackRoleARN    = "ApplicationSuccessFeedbackRoleArn"
+	SubscriptionAttributeNameTopicARN= "TopicArn"
+)const (
+	TopicAttributeNameApplicationFailureFeedbackRoleARN= "ApplicationFailureFeedbackRoleArn"
+	TopicAttributeNameApplicationSuccessFeedbackRoleARN= "ApplicationSuccessFeedbackRoleArn"
 	TopicAttributeNameApplicationSuccessFeedbackSampleRate = "ApplicationSuccessFeedbackSampleRate"
-	TopicAttributeNameContentBasedDeduplication   = "ContentBasedDeduplication"
-	TopicAttributeNameDeliveryPolicy     = "DeliveryPolicy"
-	TopicAttributeNameDisplayName        = "DisplayName"
+	TopicAttributeNameContentBasedDeduplication= "ContentBasedDeduplication"
+	TopicAttributeNameDeliveryPolicy= "DeliveryPolicy"
+	TopicAttributeNameDisplayName
 	TopicAttributeNameFIFOTopic = "FifoTopic"
-	TopicAttributeNameFirehoseFailureFeedbackRoleARN       = "FirehoseFailureFeedbackRoleArn"
-	TopicAttributeNameFirehoseSuccessFeedbackRoleARN       = "FirehoseSuccessFeedbackRoleArn"
-	TopicAttributeNameFirehoseSuccessFeedbackSampleRate    = "FirehoseSuccessFeedbackSampleRate"
+	TopicAttributeNameFirehoseFailureFeedbackRoleARN= "FirehoseFailureFeedbackRoleArn"
+	TopicAttributeNameFirehoseSuccessFeedbackRoleARN= "FirehoseSuccessFeedbackRoleArn"
+	TopicAttributeNameFirehoseSuccessFeedbackSampleRate= "FirehoseSuccessFeedbackSampleRate"
 	TopicAttributeNameHTTPFailureFeedbackRoleARN  = "HTTPFailureFeedbackRoleArn"
 	TopicAttributeNameHTTPSuccessFeedbackRoleARN  = "HTTPSuccessFeedbackRoleArn"
-	TopicAttributeNameHTTPSuccessFeedbackSampleRate        = "HTTPSuccessFeedbackSampleRate"
-	TopicAttributeNameKMSMasterKeyId     = "KmsMasterKeyId"
+	TopicAttributeNameHTTPSuccessFeedbackSampleRatempleRate"
+	TopicAttributeNameKMSMasterKeyId= "KmsMasterKeyId"
 	TopicAttributeNameLambdaFailureFeedbackRoleARN= "LambdaFailureFeedbackRoleArn"
 	TopicAttributeNameLambdaSuccessFeedbackRoleARN= "LambdaSuccessFeedbackRoleArn"
-	TopicAttributeNameLambdaSuccessFeedbackSampleRate      = "LambdaSuccessFeedbackSampleRate"
-	TopicAttributeNameOwner     = "Owner"
-	TopicAttributeNamePolicy    = "Policy"
-	TopicAttributeNameSignatureVersion   = "SignatureVersion"
-	TopicAttributeNameSQSFailureFeedbackRoleARN   = "SQSFailureFeedbackRoleArn"
-	TopicAttributeNameSQSSuccessFeedbackRoleARN   = "SQSSuccessFeedbackRoleArn"
+	TopicAttributeNameLambdaSuccessFeedbackSampleRate = "LambdaSuccessFeedbackSampleRate"
+	TopicAttributeNameOwner= "Owner"
+	TopicAttributeNamePolicy= "Policy"
+	TopicAttributeNameSignatureVersion= "SignatureVersion"
+	TopicAttributeNameSQSFailureFeedbackRoleARN= "SQSFailureFeedbackRoleArn"
+	TopicAttributeNameSQSSuccessFeedbackRoleARN= "SQSSuccessFeedbackRoleArn"
 	TopicAttributeNameSQSSuccessFeedbackSampleRate= "SQSSuccessFeedbackSampleRate"
 	TopicAttributeNameTopicARN  = "TopicArn"
-	TopicAttributeNameTracingConfig      = "TracingConfig"
-)
-
-const (
+	TopicAttributeNameTracingConfig = "TracingConfig"
+)const (
 	propagationTimeout = 2 * time.Minute
-)
-
-const (
+)const (
 	SubscriptionFilterPolicyScopeMessageAttributes = "MessageAttributes"
-	SubscriptionFilterPolicyScopeMessageBody       = "MessageBody"
-)
-
-func SubscriptionFilterPolicyScope_Values() []string {
+	SubscriptionFilterPolicyScopeMessageBody= "MessageBody"
+)func SubscriptionFilterPolicyScope_Values() []string {
 	return []string{
-		SubscriptionFilterPolicyScopeMessageAttributes,
-		SubscriptionFilterPolicyScopeMessageBody,
+bscriptionFilterPolicyScopeMessageAttributes,
+bscriptionFilterPolicyScopeMessageBody,
 	}
-}
-
-const (
-	TopicTracingConfigActive      = "Active"
+}const (
+	TopicTracingConfigActive = "Active"
 	TopicTracingConfigPassThrough = "PassThrough"
-)
-
-func TopicTracingConfig_Values() []string {
+)func TopicTracingConfig_Values() []string {
 	return []string{
-		TopicTracingConfigActive,
-		TopicTracingConfigPassThrough,
+picTracingConfigActive,
+picTracingConfigPassThrough,
 	}
 }

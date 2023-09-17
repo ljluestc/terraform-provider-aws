@@ -1,7 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package qldb// Exports for use in tests only.
 var (
-	FindLedgerByName   = findLedgerByName
+	FindLedgerByName= findLedgerByName
 	FindStreamByTwoPartKey = findStreamByTwoPartKey	ResourceLedger = resourceLedger
 	ResourceStream = resourceStream
 )

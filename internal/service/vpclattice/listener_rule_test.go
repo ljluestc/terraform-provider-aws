@@ -27,7 +27,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccChecklistenerRuleDestroy(ctx),
+CheckDestroy:testAccChecklistenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerRuleConfig_basic(rName),
@@ -38,8 +38,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -56,7 +56,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccChecklistenerRuleDestroy(ctx),
+CheckDestroy:testAccChecklistenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerRuleConfig_fixedResponse(rName),
@@ -68,8 +68,8 @@ resource.TestCheckResourceAttr(resourceName, "action.0.fixed_response.0.status_c
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -82,7 +82,7 @@ resourceName := "aws_vpclattice_listener_rule.test"resource.ParallelTest(t, reso
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccChecklistenerRuleDestroy(ctx),
+CheckDestroy:testAccChecklistenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerRuleConfig_methodMatch(rName),
@@ -93,8 +93,8 @@ resource.TestCheckResourceAttr(resourceName, "priority", "40"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -107,7 +107,7 @@ resourceName := "aws_vpclattice_listener_rule.test"resource.ParallelTest(t, reso
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccChecklistenerRuleDestroy(ctx),
+CheckDestroy:testAccChecklistenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerRuleConfig_tags1(rName, "key1", "value1"),
@@ -118,8 +118,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -143,7 +143,7 @@ return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpcla
 }serviceIdentifier := rs.Primary.Attributes["service_identifier"]
 listenerIdentifier := rs.Primary.Attributes["listener_identifier"]conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
 resp, err := conn.GetRule(ctx, &vpclattice.GetRuleInput{
-RuleIdentifier:     aws.String(rs.Primary.Attributes["arn"]),
+RuleIdentifier:aws.String(rs.Primary.Attributes["arn"]),
 ListenerIdentifier: aws.String(listenerIdentifier),
 ServiceIdentifier:  aws.String(serviceIdentifier),
 })if err != nil {
@@ -157,7 +157,7 @@ if rs.Type != "aws_vpclattice_listener_rule" {
 continue
 }listenerIdentifier := rs.Primary.Attributes["listener_identifier"]
 serviceIdentifier := rs.Primary.Attributes["service_identifier"]_, err := conn.GetRule(ctx, &vpclattice.GetRuleInput{
-RuleIdentifier:     aws.String(rs.Primary.Attributes["arn"]),
+RuleIdentifier:aws.String(rs.Primary.Attributes["arn"]),
 ListenerIdentifier: aws.String(listenerIdentifier),
 ServiceIdentifier:  aws.String(serviceIdentifier),
 })
@@ -177,18 +177,18 @@ resource "aws_vpclattice_service" "test" {
 }resource "aws_vpclattice_target_group" "test" {
   count = 2  name = "%[1]s-${count.index}"
   type = "INSTANCE"  config {
-    port  = 80
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+port  = 80
+protocol= "HTTP"
+vpc_identifier = aws_vpc.test.id
   }
 }resource "aws_vpclattice_listener" "test" {
   name= %[1]q
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    fixed_response {
-      status_code = 404
-    }
+fixed_response {
+ status_code = 404
+}
   }
 }
 `, rName))
@@ -198,32 +198,32 @@ resource "aws_vpclattice_listener_rule" "test" {
   name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
-  priority   = 20
+  priority= 20
   match {
-    http_match {      header_matches {
-        name  = "example-header"
-        case_sensitive = false        match {
+http_match { header_matches {
+
+tch {
  exact = "example-contains"
-        }
-      }      path_match {
-        case_sensitive = true
-        match {
+
+ } path_match {
+
+
  prefix = "/example-path"
-        }
-      }
-    }
+
+ }
+}
   }
   action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test[0].id
-        weight   = 1
-      }
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test[1].id
-        weight   = 2
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test[0].id
+
+ }
+ target_groups {
+= aws_vpclattice_target_group.test[1].id
+
+ }
+}
   }
 }
 `, rName))
@@ -233,21 +233,21 @@ resource "aws_vpclattice_listener_rule" "test" {
   name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
-  priority   = 10
+  priority= 10
   match {
-    http_match {
-      path_match {
-        case_sensitive = false
-        match {
+http_match {
+ path_match {
+
+
  exact = "/example-path"
-        }
-      }
-    }
+
+ }
+}
   }
   action {
-    fixed_response {
-      status_code = 404
-    }
+fixed_response {
+ status_code = 404
+}
   }
 }
 `, rName))
@@ -257,24 +257,24 @@ resource "aws_vpclattice_listener_rule" "test" {
   name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
-  priority   = 30
+  priority= 30
   match {
-    http_match {
-      path_match {
-        case_sensitive = false
-        match {
+http_match {
+ path_match {
+
+
  prefix = "/example-path"
-        }
-      }
-    }
+
+ }
+}
   }
   action {
-    fixed_response {
-      status_code = 404
-    }
+fixed_response {
+ status_code = 404
+}
   }
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -284,25 +284,25 @@ resource "aws_vpclattice_listener_rule" "test" {
   name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
-  priority   = 30
+  priority= 30
   match {
-    http_match {
-      path_match {
-        case_sensitive = false
-        match {
+http_match {
+ path_match {
+
+
  prefix = "/example-path"
-        }
-      }
-    }
+
+ }
+}
   }
   action {
-    fixed_response {
-      status_code = 404
-    }
+fixed_response {
+ status_code = 404
+}
   }
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -312,31 +312,31 @@ resource "aws_vpclattice_listener_rule" "test" {
   name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
-  priority   = 40
+  priority= 40
   match {
-    http_match {      method = "POST"      header_matches {
-        name  = "example-header"
-        case_sensitive = false        match {
+http_match { method = "POST" header_matches {
+
+tch {
  contains = "example-contains"
-        }
-      }      path_match {
-        case_sensitive = true
-        match {
+
+ } path_match {
+
+
  prefix = "/example-path"
-        }
-      }    }
+
+ }}
   }
   action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test[0].id
-        weight   = 1
-      }
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test[1].id
-        weight   = 2
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test[0].id
+
+ }
+ target_groups {
+= aws_vpclattice_target_group.test[1].id
+
+ }
+}
   }
 }
 `, rName))

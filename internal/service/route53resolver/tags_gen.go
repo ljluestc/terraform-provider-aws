@@ -39,7 +39,7 @@ inContext.TagsOut = types.Some(tags)
 }// []*SERVICE.Tag handling// Tags returns route53resolver service tags.func Tags(tags tftags.KeyValueTags) []*route53resolver.Tag {
 result := make([]*route53resolver.Tag, 0, len(tags))for k, v := range tags.Map() {
 tag := &route53resolver.Tag{
-Key:   aws.String(k),
+Key:aws.String(k),
 Value: aws.String(v),
 }result = append(result, tag)
 }return result
@@ -76,7 +76,7 @@ updatedTags = updatedTags.IgnoreSystem(names.Route53Resolver)
 if len(updatedTags) > 0 {
 input := &route53resolver.TagResourceInput{
 ResourceArn: aws.String(identifier),
-Tags:   Tags(updatedTags),
+Tags:Tags(updatedTags),
 }_, err := conn.TagResourceWithContext(ctx, input)if err != nil {
 return fmt.Errorf("tagging resource (%s): %w", identifier, err)
 }

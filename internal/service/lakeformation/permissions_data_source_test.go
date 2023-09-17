@@ -10,7 +10,7 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lakeformation_permissions.test"
 dataSourceName := "data.aws_lakeformation_permissions.test"resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckPermissionsDestroy(ctx),
@@ -31,7 +31,7 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lakeformation_permissions.test"
 dataSourceName := "data.aws_lakeformation_permissions.test"resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckPermissionsDestroy(ctx),
@@ -53,7 +53,7 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lakeformation_permissions.test"
 dataSourceName := "data.aws_lakeformation_permissions.test"resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckPermissionsDestroy(ctx),
@@ -79,7 +79,7 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lakeformation_permissions.test"
 dataSourceName := "data.aws_lakeformation_permissions.test"resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckPermissionsDestroy(ctx),
@@ -106,7 +106,7 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lakeformation_permissions.test"
 dataSourceName := "data.aws_lakeformation_permissions.test"resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckPermissionsDestroy(ctx),
@@ -135,7 +135,7 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lakeformation_permissions.test"
 dataSourceName := "data.aws_lakeformation_permissions.test"resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckPermissionsDestroy(ctx),
@@ -158,7 +158,7 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_lakeformation_permissions.test"
 dataSourceName := "data.aws_lakeformation_permissions.test"resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckPermissionsDestroy(ctx),
@@ -184,26 +184,26 @@ return fmt.Sprintf(`
 data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name = %[1]q
   path = "/"  assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "glue.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+on = "sts:AssumeRole"
+ct = "Allow"
+cipal = {
+ws_partition.current.dns_suffix}"
+
+}]
+Version = "2012-10-17"
   })
 }data "aws_caller_identity" "current" {}data "aws_iam_session_context" "current" {
   arn = data.aws_caller_identity.current.arn
 }resource "aws_lakeformation_data_lake_settings" "test" {
   admins = [data.aws_iam_session_context.current.issuer_arn]
 }resource "aws_lakeformation_permissions" "test" {
-  principal        = aws_iam_role.test.arn
-  permissions      = ["CREATE_DATABASE"]
+  principal
+  permissionsCREATE_DATABASE"]
   catalog_resource = true  # for consistency, ensure that admins are setup before testing
   depends_on = [aws_lakeformation_data_lake_settings.test]
 }data "aws_lakeformation_permissions" "test" {
-  principal        = aws_lakeformation_permissions.test.principal
+  principalissions.test.principal
   catalog_resource = true
 }
 `, rName)
@@ -212,17 +212,17 @@ return fmt.Sprintf(`
 data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name = %[1]q
   path = "/"  assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "glue.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+on = "sts:AssumeRole"
+ct = "Allow"
+cipal = {
+ws_partition.current.dns_suffix}"
+
+}]
+Version = "2012-10-17"
   })
 }resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }resource "aws_lakeformation_resource" "test" {
   arn = aws_s3_bucket.test.arn
@@ -231,14 +231,14 @@ data "aws_partition" "current" {}resource "aws_iam_role" "test" {
 }resource "aws_lakeformation_data_lake_settings" "test" {
   admins = [data.aws_iam_session_context.current.issuer_arn]
 }resource "aws_lakeformation_permissions" "test" {
-  principal   = aws_iam_role.test.arn
+  principal= aws_iam_role.test.arn
   permissions = ["DATA_LOCATION_ACCESS"]  data_location {
-    arn = aws_s3_bucket.test.arn
+arn = aws_s3_bucket.test.arn
   }  # for consistency, ensure that admins are setup before testing
   depends_on = [aws_lakeformation_data_lake_settings.test]
 }data "aws_lakeformation_permissions" "test" {
   principal = aws_lakeformation_permissions.test.principal  data_location {
-    arn = aws_s3_bucket.test.arn
+arn = aws_s3_bucket.test.arn
   }
 }
 `, rName)
@@ -247,14 +247,14 @@ return fmt.Sprintf(`
 data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name = %[1]q
   path = "/"  assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "glue.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+on = "sts:AssumeRole"
+ct = "Allow"
+cipal = {
+ws_partition.current.dns_suffix}"
+
+}]
+Version = "2012-10-17"
   })
 }resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -265,15 +265,15 @@ data "aws_partition" "current" {}resource "aws_iam_role" "test" {
 }resource "aws_lakeformation_data_lake_settings" "test" {
   admins = [data.aws_iam_session_context.current.issuer_arn]
 }resource "aws_lakeformation_permissions" "test" {
-  permissions      = ["ALTER", "CREATE_TABLE", "DROP"]
+  permissionsALTER", "CREATE_TABLE", "DROP"]
   permissions_with_grant_option = ["CREATE_TABLE"]
-  principal        = aws_iam_role.test.arn  database {
-    name = aws_glue_catalog_database.test.name
+  principal database {
+name = aws_glue_catalog_database.test.name
   }  # for consistency, ensure that admins are setup before testing
   depends_on = [aws_lakeformation_data_lake_settings.test]
 }data "aws_lakeformation_permissions" "test" {
   principal = aws_lakeformation_permissions.test.principal  database {
-    name = aws_glue_catalog_database.test.name
+name = aws_glue_catalog_database.test.name
   }
 }
 `, rName)
@@ -287,14 +287,14 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "glue.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ion": "sts:AssumeRole",
+ncipal": {
+aws_partition.current.dns_suffix}"
+
+ect": "Allow",
+": ""
+}
   ]
 }
 EOF
@@ -303,22 +303,22 @@ EOF
 }resource "aws_lakeformation_data_lake_settings" "test" {
   admins = [data.aws_iam_session_context.current.issuer_arn]
 }resource "aws_lakeformation_lf_tag" "test" {
-  key    = %[1]q
+  key= %[1]q
   values = ["value1", "value2"]
   # for consistency, ensure that admins are setup before testing
   depends_on = [aws_lakeformation_data_lake_settings.test]
 }resource "aws_lakeformation_permissions" "test" {
-  permissions      = ["ASSOCIATE", "DESCRIBE"]
+  permissionsASSOCIATE", "DESCRIBE"]
   permissions_with_grant_option = ["ASSOCIATE", "DESCRIBE"]
-  principal        = aws_iam_role.test.arn  lf_tag {
-    key    = aws_lakeformation_lf_tag.test.key
-    values = aws_lakeformation_lf_tag.test.values
+  principal lf_tag {
+key= aws_lakeformation_lf_tag.test.key
+values = aws_lakeformation_lf_tag.test.values
   }  # for consistency, ensure that admins are setup before testing
   depends_on = [aws_lakeformation_data_lake_settings.test]
 }data "aws_lakeformation_permissions" "test" {
   principal = aws_lakeformation_permissions.test.principal  lf_tag {
-    key    = aws_lakeformation_lf_tag.test.key
-    values = aws_lakeformation_lf_tag.test.values
+key= aws_lakeformation_lf_tag.test.key
+values = aws_lakeformation_lf_tag.test.values
   }
 }
 `, rName)
@@ -331,14 +331,14 @@ data "aws_partition" "current" {}resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "glue.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ion": "sts:AssumeRole",
+ncipal": {
+aws_partition.current.dns_suffix}"
+
+ect": "Allow",
+": ""
+}
   ]
 }
 EOF
@@ -347,28 +347,28 @@ EOF
 }resource "aws_lakeformation_data_lake_settings" "test" {
   admins = [data.aws_iam_session_context.current.issuer_arn]
 }resource "aws_lakeformation_lf_tag" "test" {
-  key    = %[1]q
+  key= %[1]q
   values = ["value1", "value2"]  # for consistency, ensure that admins are setup before testing
   depends_on = [aws_lakeformation_data_lake_settings.test]
 }resource "aws_lakeformation_permissions" "test" {
-  permissions      = ["ALTER", "CREATE_TABLE", "DROP"]
+  permissionsALTER", "CREATE_TABLE", "DROP"]
   permissions_with_grant_option = ["CREATE_TABLE"]
-  principal        = aws_iam_role.test.arn  lf_tag_policy {
-    resource_type = "DATABASE"    expression {
-      key    = aws_lakeformation_lf_tag.test.key
-      values = aws_lakeformation_lf_tag.test.values
-    }
+  principal lf_tag_policy {
+resource_type = "DATABASE"expression {
+= aws_lakeformation_lf_tag.test.key
+es = aws_lakeformation_lf_tag.test.values
+}
   }  # for consistency, ensure that admins are setup before testing
   depends_on = [
-    aws_lakeformation_data_lake_settings.test,
-    aws_lakeformation_lf_tag.test,
+aws_lakeformation_data_lake_settings.test,
+aws_lakeformation_lf_tag.test,
   ]
 }data "aws_lakeformation_permissions" "test" {
   principal = aws_lakeformation_permissions.test.principal  lf_tag_policy {
-    resource_type = "DATABASE"    expression {
-      key    = aws_lakeformation_lf_tag.test.key
-      values = aws_lakeformation_lf_tag.test.values
-    }
+resource_type = "DATABASE"expression {
+= aws_lakeformation_lf_tag.test.key
+es = aws_lakeformation_lf_tag.test.values
+}
   }
 }
 `, rName)
@@ -377,14 +377,14 @@ return fmt.Sprintf(`
 data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name = %[1]q
   path = "/"  assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "glue.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+on = "sts:AssumeRole"
+ct = "Allow"
+cipal = {
+ws_partition.current.dns_suffix}"
+
+}]
+Version = "2012-10-17"
   })
 }resource "aws_s3_bucket" "test" {
   bucket = %[1]q
@@ -399,15 +399,15 @@ data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   admins = [data.aws_iam_session_context.current.issuer_arn]
 }resource "aws_lakeformation_permissions" "test" {
   permissions = ["ALL"]
-  principal   = aws_iam_role.test.arn  table {
-    database_name = aws_glue_catalog_table.test.database_name
-    name = aws_glue_catalog_table.test.name
+  principal= aws_iam_role.test.arn  table {
+database_name = aws_glue_catalog_table.test.database_name
+name = aws_glue_catalog_table.test.name
   }  # for consistency, ensure that admins are setup before testing
   depends_on = [aws_lakeformation_data_lake_settings.test]
 }data "aws_lakeformation_permissions" "test" {
   principal = aws_lakeformation_permissions.test.principal  table {
-    database_name = aws_glue_catalog_table.test.database_name
-    name = aws_glue_catalog_table.test.name
+database_name = aws_glue_catalog_table.test.database_name
+name = aws_glue_catalog_table.test.name
   }
 }
 `, rName)
@@ -416,32 +416,32 @@ return fmt.Sprintf(`
 data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name = %[1]q
   path = "/"  assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "glue.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+on = "sts:AssumeRole"
+ct = "Allow"
+cipal = {
+ws_partition.current.dns_suffix}"
+
+}]
+Version = "2012-10-17"
   })
 }resource "aws_glue_catalog_database" "test" {
   name = %[1]q
 }resource "aws_glue_catalog_table" "test" {
   name = %[1]q
   database_name = aws_glue_catalog_database.test.name  storage_descriptor {
-    columns {
-      name = "event"
-      type = "string"
-    }
-    columns {
-      name = "timestamp"
-      type = "date"
-    }
-    columns {
-      name = "value"
-      type = "double"
-    }
+columns {
+ = "event"
+ = "string"
+}
+columns {
+ = "timestamp"
+ = "date"
+}
+columns {
+ = "value"
+ = "double"
+}
   }
 }data "aws_caller_identity" "current" {}data "aws_iam_session_context" "current" {
   arn = data.aws_caller_identity.current.arn
@@ -449,17 +449,17 @@ data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   admins = [data.aws_iam_session_context.current.issuer_arn]
 }resource "aws_lakeformation_permissions" "test" {
   permissions = ["SELECT"]
-  principal   = aws_iam_role.test.arn  table_with_columns {
-    database_name = aws_glue_catalog_table.test.database_name
-    name = aws_glue_catalog_table.test.name
-    column_names  = ["event", "timestamp"]
+  principal= aws_iam_role.test.arn  table_with_columns {
+database_name = aws_glue_catalog_table.test.database_name
+name = aws_glue_catalog_table.test.name
+column_names  = ["event", "timestamp"]
   }  # for consistency, ensure that admins are setup before testing
   depends_on = [aws_lakeformation_data_lake_settings.test]
 }data "aws_lakeformation_permissions" "test" {
   principal = aws_lakeformation_permissions.test.principal  table_with_columns {
-    database_name = aws_glue_catalog_table.test.database_name
-    name = aws_glue_catalog_table.test.name
-    column_names  = ["event", "timestamp"]
+database_name = aws_glue_catalog_table.test.database_name
+name = aws_glue_catalog_table.test.name
+column_names  = ["event", "timestamp"]
   }
 }
 `, rName)

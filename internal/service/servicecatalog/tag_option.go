@@ -14,33 +14,33 @@
 func ResourceTagOption() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceTagOptionCreate,
-ReadWithoutTimeout:   resourceTagOptionRead,
+ReadWithoutTimeout:resourceTagOptionRead,
 UpdateWithoutTimeout: resourceTagOptionUpdate,
 DeleteWithoutTimeout: resourceTagOptionDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(TagOptionReadyTimeout),
-Read:   schema.DefaultTimeout(TagOptionReadTimeout),
+Read:schema.DefaultTimeout(TagOptionReadTimeout),
 Update: schema.DefaultTimeout(TagOptionUpdateTimeout),
 Delete: schema.DefaultTimeout(TagOptionDeleteTimeout),
 },Schema: map[string]*schema.Schema{
 "active": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 },
 "key": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "owner": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "value": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 },
@@ -48,7 +48,7 @@ Required: true,
 }func resourceTagOptionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)input := &servicecatalog.CreateTagOptionInput{
-Key:   aws.String(d.Get("key").(string)),
+Key:aws.String(d.Get("key").(string)),
 Value: aws.String(d.Get("value").(string)),
 }var output *servicecatalog.CreateTagOptionOutput
 err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), func() *retry.RetryError {
@@ -68,7 +68,7 @@ return sdkdiag.AppendErrorf(diags, "creating Service Catalog Tag Option: empty r
 // Update will error with ErrCodeDuplicateResourceException because Value is unchanged).
 if v, ok := d.GetOk("active"); !ok {
 _, err = conn.UpdateTagOptionWithContext(ctx, &servicecatalog.UpdateTagOptionInput{
-Id:     aws.String(d.Id()),
+Id:aws.String(d.Id()),
 Active: aws.Bool(v.(bool)),
 })if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating Service Catalog Tag Option, updating active (%s): %s", d.Id(), err)

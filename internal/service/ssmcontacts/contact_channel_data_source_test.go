@@ -1,29 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ssmcontacts_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ssmcontacts_testimport (
 "fmt"
-"testing"
-
-sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"testing"sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func testContactChannelDataSource_basic(t *testing.T) {
+)func testContactChannelDataSource_basic(t *testing.T) {
 if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-}
-
-ctx := acctest.Context(t)
+}ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 contactChannelResourceName := "aws_ssmcontacts_contact_channel.test"
-dataSourceName := "data.aws_ssmcontacts_contact_channel.test"
-
-resource.Test(t, resource.TestCase{
+dataSourceName := "data.aws_ssmcontacts_contact_channel.test"resource.Test(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 testAccContactPreCheck(ctx, t)
@@ -45,35 +33,21 @@ resource.TestCheckResourceAttrPair(dataSourceName, "arn", contactChannelResource
 },
 },
 })
-}
-
-func testAccContactChannelDataSourceConfig_basic(rName string) string {
+}func testAccContactChannelDataSourceConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_ssmincidents_replication_set" "test" {
   region {
-    name = %[1]q
+name = %[1]q
   }
-}
-
-resource "aws_ssmcontacts_contact" "test" {
+}resource "aws_ssmcontacts_contact" "test" {
   alias = "test-contact-for-%[2]s"
-  type  = "PERSONAL"
-
-  depends_on = [aws_ssmincidents_replication_set.test]
-}
-
-resource "aws_ssmcontacts_contact_channel" "test" {
-  contact_id = aws_ssmcontacts_contact.test.arn
-
-  delivery_address {
-    simple_address = %[3]q
-  }
-
-  name = %[2]q
+  type  = "PERSONAL"  depends_on = [aws_ssmincidents_replication_set.test]
+}resource "aws_ssmcontacts_contact_channel" "test" {
+  contact_id = aws_ssmcontacts_contact.test.arn  delivery_address {
+simple_address = %[3]q
+  }  name = %[2]q
   type = "EMAIL"
-}
-
-data "aws_ssmcontacts_contact_channel" "test" {
+}data "aws_ssmcontacts_contact_channel" "test" {
   arn = aws_ssmcontacts_contact_channel.test.arn
 }
 `, acctest.Region(), rName, acctest.DefaultEmailAddress)

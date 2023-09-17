@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafregional_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package wafregional_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/waf"
 	"github.com/aws/aws-sdk-go/service/wafregional"
@@ -24,13 +18,11 @@ import (
 	ctx := acctest.Context(t)
 	var v waf.WebACL
 	wafAclName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_basic(wafAclName),
@@ -57,13 +49,11 @@ ImportStateVerify: true,
 	ctx := acctest.Context(t)
 	var v waf.WebACL
 	wafAclName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_tags1(wafAclName, "key1", "value1"),
@@ -104,13 +94,11 @@ func(
 	ctx := acctest.Context(t)
 	var v waf.WebACL
 	wafAclName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_rateBased(wafAclName),
@@ -135,13 +123,11 @@ ImportStateVerify: true,
 	ctx := acctest.Context(t)
 	var v waf.WebACL
 	wafAclName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_group(wafAclName),
@@ -167,13 +153,11 @@ ImportStateVerify: true,
 	var before, after waf.WebACL
 	wafAclName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
 	wafAclNewName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_basic(wafAclName),
@@ -211,13 +195,11 @@ ImportStateVerify: true,
 	var before, after waf.WebACL
 	wafAclName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
 	wafAclNewName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_basic(wafAclName),
@@ -254,13 +236,11 @@ ImportStateVerify: true,
 	ctx := acctest.Context(t)
 	var v waf.WebACL
 	wafAclName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_basic(wafAclName),
@@ -277,13 +257,11 @@ ExpectNonEmptyPlan: true,
 	ctx := acctest.Context(t)
 	var v waf.WebACL
 	wafAclName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRuleConfig_webACLNos(wafAclName),
@@ -309,13 +287,11 @@ ImportStateVerify: true,
 	var r waf.Rule
 	var idx int
 	wafAclName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_basic(wafAclName),
@@ -355,13 +331,11 @@ ImportStateVerify: true,
 	ctx := acctest.Context(t)
 	var webACL1, webACL2, webACL3 waf.WebACL
 	rName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckWebACLDestroy(ctx),
+CheckDestroy:testAccCheckWebACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebACLConfig_loggingConfiguration(rName),
@@ -399,11 +373,7 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-// Calculates the index which isn't static because ruleId is generated as part of the test
-
-func computeWebACLRuleIndex(ruleId **string, priority int, ruleType string, actionType string, idx *int) resource.TestCheck
+}// Calculates the index which isn't static because ruleId is generated as part of the testfunc computeWebACLRuleIndex(ruleId **string, priority int, ruleType string, actionType string, idx *int) resource.TestCheck
 func {
 	returnfunc(s *terraform.State) error {
 ruleResource := tfwafregional.ResourceWebACL().SchemaMap()["rule"].Elem.(*schema.Resource)
@@ -412,52 +382,40 @@ actionMap := map[string]interface{}{
 }
 m := map[string]interface{}{
 	"rule_id":**ruleId,
-	"type":   ruleType,
+	"type":ruleType,
 	"priority":  priority,
 	"action": []interface{}{actionMap},
 	"override_action": []interface{}{},
-}
-
-f := schema.HashResource(ruleResource)
-*idx = f(m)
-
-return nil
+}f := schema.HashResource(ruleResource)
+*idx = f(m)return nil
 	}
 }func testAccCheckWebACLDisappears(ctx context.Context, v *waf.WebACL) resource.TestCheck
 func {
 	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
-region := acctest.Provider.Meta().(*conns.AWSClient).Region
-
-wr := tfwafregional.NewRetryer(conn, region)
+region := acctest.Provider.Meta().(*conns.AWSClient).Regionwr := tfwafregional.NewRetryer(conn, region)
 _, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 	req := &waf.UpdateWebACLInput{
 ChangeToken: token,
-WebACLId:    v.WebACLId,
-	}
-
-	for _, activatedRule := range v.Rules {
+WebACLId:v.WebACLId,
+	}	for _, activatedRule := range v.Rules {
 webACLUpdate := &waf.WebACLUpdate{
 	Action: aws.String(waf.ChangeActionDelete),
 	ActivatedRule: &waf.ActivatedRule{
 Priority: activatedRule.Priority,
-RuleId:   activatedRule.RuleId,
-Action:   activatedRule.Action,
+RuleId:activatedRule.RuleId,
+Action:activatedRule.Action,
 	},
 }
 req.Updates = append(req.Updates, webACLUpdate)
-	}
-
-	return conn.UpdateWebACLWithContext(ctx, req)
+	}	return conn.UpdateWebACLWithContext(ctx, req)
 })
 if err != nil {
 	return fmt.Errorf("Error getting change token for waf ACL: %s", err)
-}
-
-_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
+}_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 	opts := &waf.DeleteWebACLInput{
 ChangeToken: token,
-WebACLId:    v.WebACLId,
+WebACLId:v.WebACLId,
 	}
 	return conn.DeleteWebACLWithContext(ctx, opts)
 })
@@ -472,28 +430,18 @@ func {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_wafregional_web_acl" {
 continue
-	}
-
-	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+	}	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 	resp, err := conn.GetWebACLWithContext(ctx, &waf.GetWebACLInput{
 WebACLId: aws.String(rs.Primary.ID),
-	})
-
-	if err == nil {
+	})	if err == nil {
 if *resp.WebACL.WebACLId == rs.Primary.ID {
 	return fmt.Errorf("WebACL %s still exists", rs.Primary.ID)
 }
-	}
-
-	// Return nil if the WebACL is already destroyed
+	}	// Return nil if the WebACL is already destroyed
 	if tfawserr.ErrCodeEquals(err, wafregional.ErrCodeWAFNonexistentItemException) {
 return nil
-	}
-
-	return err
-}
-
-return nil
+	}	return err
+}return nil
 	}
 }func testAccCheckWebACLExists(ctx context.Context, n string, v *waf.WebACL) resource.TestCheck
 func {
@@ -501,50 +449,32 @@ func {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No WebACL ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 resp, err := conn.GetWebACLWithContext(ctx, &waf.GetWebACLInput{
 	WebACLId: aws.String(rs.Primary.ID),
-})
-
-if err != nil {
+})if err != nil {
 	return err
-}
-
-if *resp.WebACL.WebACLId == rs.Primary.ID {
+}if *resp.WebACL.WebACLId == rs.Primary.ID {
 	*v = *resp.WebACL
 	return nil
-}
-
-return fmt.Errorf("WebACL (%s) not found", rs.Primary.ID)
+}return fmt.Errorf("WebACL (%s) not found", rs.Primary.ID)
 	}
 }func testAccWebACLConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
   name  = %[1]q
   metric_name = %[1]q
-}
-
-resource "aws_wafregional_web_acl" "test" {
+}resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rule {
-    action {
+  metric_name = %[1]q  default_action {
+type = "ALLOW"
+  }  rule {
+action {
 type = "BLOCK"
-    }
-
-    priority = 1
-    rule_id  = aws_wafregional_rule.test.id
+}priority = 1
+rule_id  = aws_wafregional_rule.test.id
   }
 }
 `, name)
@@ -553,27 +483,17 @@ type = "BLOCK"
 resource "aws_wafregional_rule" "test" {
   name  = %[1]q
   metric_name = %[1]q
-}
-
-resource "aws_wafregional_web_acl" "test" {
+}resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rule {
-    action {
+  metric_name = %[1]q  default_action {
+type = "ALLOW"
+  }  rule {
+action {
 type = "BLOCK"
-    }
-
-    priority = 1
-    rule_id  = aws_wafregional_rule.test.id
-  }
-
-  tags = {
-    %[2]q = %[3]q
+}priority = 1
+rule_id  = aws_wafregional_rule.test.id
+  }  tags = {
+%[2]q = %[3]q
   }
 }
 `, name, tagKey1, tagValue1)
@@ -582,28 +502,18 @@ type = "BLOCK"
 resource "aws_wafregional_rule" "test" {
   name  = %[1]q
   metric_name = %[1]q
-}
-
-resource "aws_wafregional_web_acl" "test" {
+}resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rule {
-    action {
+  metric_name = %[1]q  default_action {
+type = "ALLOW"
+  }  rule {
+action {
 type = "BLOCK"
-    }
-
-    priority = 1
-    rule_id  = aws_wafregional_rule.test.id
-  }
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+}priority = 1
+rule_id  = aws_wafregional_rule.test.id
+  }  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, name, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -611,28 +521,18 @@ type = "BLOCK"
 	return fmt.Sprintf(`
 resource "aws_wafregional_rate_based_rule" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  rate_key   = "IP"
+  metric_name = %[1]q  rate_key= "IP"
   rate_limit = 2000
-}
-
-resource "aws_wafregional_web_acl" "test" {
+}resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rule {
-    action {
+  metric_name = %[1]q  default_action {
+type = "ALLOW"
+  }  rule {
+action {
 type = "BLOCK"
-    }
-
-    priority = 1
-    type     = "RATE_BASED"
-    rule_id  = aws_wafregional_rate_based_rule.test.id
+}priority = 1
+type= "RATE_BASED"
+rule_id  = aws_wafregional_rate_based_rule.test.id
   }
 }
 `, name)
@@ -641,24 +541,16 @@ type = "BLOCK"
 resource "aws_wafregional_rule_group" "test" {
   name  = %[1]q
   metric_name = %[1]q
-}
-
-resource "aws_wafregional_web_acl" "test" {
+}resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rule {
-    override_action {
+  metric_name = %[1]q  default_action {
+type = "ALLOW"
+  }  rule {
+override_action {
 type = "NONE"
-    }
-
-    priority = 1
-    type     = "GROUP"
-    rule_id  = aws_wafregional_rule_group.test.id
+}priority = 1
+type= "GROUP"
+rule_id  = aws_wafregional_rule_group.test.id
   }
 }
 `, name)
@@ -667,23 +559,15 @@ type = "NONE"
 resource "aws_wafregional_rule" "test" {
   name  = %[1]q
   metric_name = %[1]q
-}
-
-resource "aws_wafregional_web_acl" "test" {
+}resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rule {
-    action {
+  metric_name = %[1]q  default_action {
+type = "ALLOW"
+  }  rule {
+action {
 type = "BLOCK"
-    }
-
-    priority = 1
-    rule_id  = aws_wafregional_rule.test.id
+}priority = 1
+rule_id  = aws_wafregional_rule.test.id
   }
 }
 `, name)
@@ -692,23 +576,15 @@ type = "BLOCK"
 resource "aws_wafregional_rule" "test" {
   name  = %[1]q
   metric_name = %[1]q
-}
-
-resource "aws_wafregional_web_acl" "test" {
+}resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "BLOCK"
-  }
-
-  rule {
-    action {
+  metric_name = %[1]q  default_action {
 type = "BLOCK"
-    }
-
-    priority = 1
-    rule_id  = aws_wafregional_rule.test.id
+  }  rule {
+action {
+type = "BLOCK"
+}priority = 1
+rule_id  = aws_wafregional_rule.test.id
   }
 }
 `, name)
@@ -716,10 +592,8 @@ type = "BLOCK"
 	return fmt.Sprintf(`
 resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
+  metric_name = %[1]q  default_action {
+type = "ALLOW"
   }
 }
 `, name)
@@ -728,32 +602,20 @@ resource "aws_wafregional_web_acl" "test" {
 resource "aws_wafregional_rule" "test" {
   name  = %[1]q
   metric_name = %[1]q
-}
-
-resource "aws_wafregional_web_acl" "test" {
+}resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rule {
-    action {
+  metric_name = %[1]q  default_action {
 type = "ALLOW"
-    }
-
-    priority = 3
-    rule_id  = aws_wafregional_rule.test.id
-  }
-
-  rule {
-    action {
+  }  rule {
+action {
+type = "ALLOW"
+}priority = 3
+rule_id  = aws_wafregional_rule.test.id
+  }  rule {
+action {
 type = "BLOCK"
-    }
-
-    priority = 99
-    rule_id  = aws_wafregional_rule.test.id
+}priority = 99
+rule_id  = aws_wafregional_rule.test.id
   }
 }
 `, name)
@@ -761,61 +623,41 @@ type = "BLOCK"
 	return fmt.Sprintf(`
 resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  logging_configuration {
-    log_destination = aws_kinesis_firehose_delivery_stream.test.arn
-
-    redacted_fields {
+  metric_name = %[1]q  default_action {
+type = "ALLOW"
+  }  logging_configuration {
+log_destination = aws_kinesis_firehose_delivery_stream.test.arnredacted_fields {
 field_to_match {
   type = "URI"
-}
-
-field_to_match {
+}field_to_match {
   data = "referer"
   type = "HEADER"
 }
-    }
+}
   }
-}
-
-resource "aws_s3_bucket" "test" {
+}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
+{
 "Action": "sts:AssumeRole",
 "Principal": {
   "Service": "firehose.amazonaws.com"
 },
 "Effect": "Allow",
 "Sid": ""
-    }
+}
   ]
 }
-EOF
-
-}
-
-resource "aws_kinesis_firehose_delivery_stream" "test" {
+EOF}resource "aws_kinesis_firehose_delivery_stream" "test" {
   # the name must begin with aws-waf-logs-
   name  = "aws-waf-logs-%[1]s"
-  destination = "extended_s3"
-
-  extended_s3_configuration {
-    role_arn   = aws_iam_role.test.arn
-    bucket_arn = aws_s3_bucket.test.arn
+  destination = "extended_s3"  extended_s3_configuration {
+role_arn= aws_iam_role.test.arn
+bucket_arn = aws_s3_bucket.test.arn
   }
 }
 `, rName)
@@ -823,50 +665,34 @@ resource "aws_kinesis_firehose_delivery_stream" "test" {
 	return fmt.Sprintf(`
 resource "aws_wafregional_web_acl" "test" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
+  metric_name = %[1]q  default_action {
+type = "ALLOW"
+  }  logging_configuration {
+log_destination = aws_kinesis_firehose_delivery_stream.test.arn
   }
-
-  logging_configuration {
-    log_destination = aws_kinesis_firehose_delivery_stream.test.arn
-  }
-}
-
-resource "aws_s3_bucket" "test" {
+}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
+{
 "Action": "sts:AssumeRole",
 "Principal": {
   "Service": "firehose.amazonaws.com"
 },
 "Effect": "Allow",
 "Sid": ""
-    }
+}
   ]
 }
-EOF
-
-}
-
-resource "aws_kinesis_firehose_delivery_stream" "test" {
+EOF}resource "aws_kinesis_firehose_delivery_stream" "test" {
   # the name must begin with aws-waf-logs-
   name  = "aws-waf-logs-%[1]s"
-  destination = "extended_s3"
-
-  extended_s3_configuration {
-    role_arn   = aws_iam_role.test.arn
-    bucket_arn = aws_s3_bucket.test.arn
+  destination = "extended_s3"  extended_s3_configuration {
+role_arn= aws_iam_role.test.arn
+bucket_arn = aws_s3_bucket.test.arn
   }
 }
 `, rName)

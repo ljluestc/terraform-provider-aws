@@ -71,10 +71,10 @@ resource "aws_security_group" "test" {
   auto_minor_version_upgrade = false
   kms_key_arn = aws_kms_key.test.arn
   name= %[1]q
-  node_type   = "db.t4g.small"
+  node_type= "db.t4g.small"
   num_shards  = 2
   security_group_ids= [aws_security_group.test.id]
-  snapshot_retention_limit   = 7
+  snapshot_retention_limit= 7
   subnet_group_name = aws_memorydb_subnet_group.test.id
   tls_enabled = true  tags = {
 Test = "test"

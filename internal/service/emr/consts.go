@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package emr
-
-import (
+// SPDX-License-Identifier: MPL-2.0package emrimport (
 	"time"
-)
-
-const (
+)const (
 	propagationTimeout = 2 * time.Minute
 )

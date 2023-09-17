@@ -1,17 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package vpclattice// Exports for use in tests only.
 var (
-FindAccessLogSubscriptionByID   = findAccessLogSubscriptionByID
-FindServiceByID        = findServiceByID
+FindAccessLogSubscriptionByID= findAccessLogSubscriptionByID
+FindServiceByID
 FindServiceNetworkByID = findServiceNetworkByID
 FindServiceNetworkServiceAssociationByID = findServiceNetworkServiceAssociationByID
-FindServiceNetworkVPCAssociationByID     = findServiceNetworkVPCAssociationByID
-FindTargetByThreePartKey        = findTargetByThreePartKeyIDFromIDOrARN    = idFromIDOrARN
+FindServiceNetworkVPCAssociationByID= findServiceNetworkVPCAssociationByID
+FindTargetByThreePartKeyeyIDFromIDOrARN= idFromIDOrARN
 SuppressEquivalentCloudWatchLogsLogGroupARN = suppressEquivalentCloudWatchLogsLogGroupARN
-SuppressEquivalentIDOrARN = suppressEquivalentIDOrARNResourceAccessLogSubscription   = resourceAccessLogSubscription
-ResourceService        = resourceService
+SuppressEquivalentIDOrARN = suppressEquivalentIDOrARNResourceAccessLogSubscription= resourceAccessLogSubscription
+ResourceService
 ResourceServiceNetwork = resourceServiceNetwork
 ResourceServiceNetworkServiceAssociation = resourceServiceNetworkServiceAssociation
-ResourceServiceNetworkVPCAssociation     = resourceServiceNetworkVPCAssociation
-ResourceTargetGroupAttachment   = resourceTargetGroupAttachment
+ResourceServiceNetworkVPCAssociation= resourceServiceNetworkVPCAssociation
+ResourceTargetGroupAttachment= resourceTargetGroupAttachment
 )

@@ -24,7 +24,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func resourceServiceNetworkVPCAssociation() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceServiceNetworkVPCAssociationCreate,
-ReadWithoutTimeout:   resourceServiceNetworkVPCAssociationRead,
+ReadWithoutTimeout:resourceServiceNetworkVPCAssociationRead,
 UpdateWithoutTimeout: resourceServiceNetworkVPCAssociationUpdate,
 DeleteWithoutTimeout: resourceServiceNetworkVPCAssociationDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -34,35 +34,35 @@ Update: schema.DefaultTimeout(5 * time.Minute),
 Delete: schema.DefaultTimeout(5 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "created_by": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "security_group_ids": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 MaxItems: 5,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "service_network_identifier": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
 ForceNew:true,
 DiffSuppressFunc: suppressEquivalentIDOrARN,
 },
 "status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "vpc_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -70,10 +70,10 @@ names.AttrTagsAll: tftags.TagsSchemaComputed(),
 ResNameServiceNetworkVPCAssociation = "ServiceNetworkVPCAssociation"
 )func resourceServiceNetworkVPCAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)in := &vpclattice.CreateServiceNetworkVpcAssociationInput{
-ClientToken:     aws.String(id.UniqueId()),
+ClientToken:aws.String(id.UniqueId()),
 ServiceNetworkIdentifier: aws.String(d.Get("service_network_identifier").(string)),
-VpcIdentifier:   aws.String(d.Get("vpc_identifier").(string)),
-Tags:   getTagsIn(ctx),
+VpcIdentifier:aws.String(d.Get("vpc_identifier").(string)),
+Tags:getTagsIn(ctx),
 }if v, ok := d.GetOk("security_group_ids"); ok {
 in.SecurityGroupIds = flex.ExpandStringValueList(v.([]interface{}))
 }out, err := conn.CreateServiceNetworkVpcAssociation(ctx, in)
@@ -126,7 +126,7 @@ ServiceNetworkVpcAssociationIdentifier: aws.String(id),
 }
 out, err := conn.GetServiceNetworkVpcAssociation(ctx, in)if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }if err != nil {
@@ -140,7 +140,7 @@ Pending: enum.Slice(types.ServiceNetworkVpcAssociationStatusCreateInProgress),
 Target:  enum.Slice(types.ServiceNetworkVpcAssociationStatusActive),
 Refresh: statusServiceNetworkVPCAssociation(ctx, conn, id),
 Timeout: timeout,
-NotFoundChecks:   20,
+NotFoundChecks:20,
 ContinuousTargetOccurence: 2,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)
 if out, ok := outputRaw.(*vpclattice.GetServiceNetworkVpcAssociationOutput); ok {

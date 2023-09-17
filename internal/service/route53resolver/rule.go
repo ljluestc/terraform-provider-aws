@@ -22,7 +22,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tags(identifierAttribute="arn")func ResourceRule() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceRuleCreate,
-ReadWithoutTimeout:   resourceRuleRead,
+ReadWithoutTimeout:resourceRuleRead,
 UpdateWithoutTimeout: resourceRuleUpdate,
 DeleteWithoutTimeout: resourceRuleDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -42,7 +42,7 @@ ForceNew:true,
 Validate
 func: validation.StringLenBetween(1, 256),
 State
-func:    trimTrailingPeriod,
+func:trimTrailingPeriod,
 },
 "name": {
 Type:schema.TypeString,
@@ -69,7 +69,7 @@ func: validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
 Type:schema.TypeString,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "target_ip": {
 Type:schema.TypeSet,
@@ -102,7 +102,7 @@ conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)input := &route53resolve
 CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-rule-")),
 DomainName:  aws.String(d.Get("domain_name").(string)),
 RuleType:aws.String(d.Get("rule_type").(string)),
-Tags:    getTagsIn(ctx),
+Tags:getTagsIn(ctx),
 }if v, ok := d.GetOk("name"); ok {
 input.Name = aws.String(v.(string))
 }if v, ok := d.GetOk("resolver_endpoint_id"); ok {
@@ -177,7 +177,7 @@ input := &route53resolver.GetResolverRuleInput{
 ResolverRuleId: aws.String(id),
 }output, err := conn.GetResolverRuleWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -240,7 +240,7 @@ if targetAddresses == nil {
 return []interface{}{}
 }vTargetIps := []interface{}{}for _, targetAddress := range targetAddresses {
 mTargetIp := map[string]interface{}{
-"ip":   aws.StringValue(targetAddress.Ip),
+"ip":aws.StringValue(targetAddress.Ip),
 "port": int(aws.Int64Value(targetAddress.Port)),
 }vTargetIps = append(vTargetIps, mTargetIp)
 }return vTargetIps

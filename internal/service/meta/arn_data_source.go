@@ -18,37 +18,37 @@ func (d *dataSourceARN) Metadata(_ context.Context, request datasource.MetadataR
 }// Schema returns the schema for this data source.
 func (d *dataSourceARN) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"account": schema.StringAttribute{
-				Computed: true,
-			},
-			"arn": schema.StringAttribute{
-				CustomType: fwtypes.ARNType,
-				Required:   true,
-			},
-			"id": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-			},
-			"partition": schema.StringAttribute{
-				Computed: true,
-			},
-			"region": schema.StringAttribute{
-				Computed: true,
-			},
-			"resource": schema.StringAttribute{
-				Computed: true,
-			},
-			"service": schema.StringAttribute{
-				Computed: true,
-			},
-		},
+Attributes: map[string]schema.Attribute{
+"account": schema.StringAttribute{
+Computed: true,
+},
+"arn": schema.StringAttribute{
+CustomType: fwtypes.ARNType,
+Required:true,
+},
+"id": schema.StringAttribute{
+Optional: true,
+Computed: true,
+},
+"partition": schema.StringAttribute{
+Computed: true,
+},
+"region": schema.StringAttribute{
+Computed: true,
+},
+"resource": schema.StringAttribute{
+Computed: true,
+},
+"service": schema.StringAttribute{
+Computed: true,
+},
+},
 	}
 }// Read is called when the provider must read data source values in order to update state.
 // Config values should be read from the ReadRequest and new state values set on the ReadResponse.
 func (d *dataSourceARN) Read(ctx context.Context, request datasource.ReadRequest, response *datasource.ReadResponse) {
 	var data dataSourceARNData	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)	if response.Diagnostics.HasError() {
-		return
+return
 	}	arn := data.ARN.ValueARN()	data.Account = types.StringValue(arn.AccountID)
 	data.ID = types.StringValue(arn.String())
 	data.Partition = types.StringValue(arn.Partition)
@@ -56,11 +56,11 @@ func (d *dataSourceARN) Read(ctx context.Context, request datasource.ReadRequest
 	data.Resource = types.StringValue(arn.Resource)
 	data.Service = types.StringValue(arn.Service)	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }type dataSourceARNData struct {
-	Account   types.String `tfsdk:"account"`
-	ARN   fwtypes.ARN  `tfsdk:"arn"`
+	Accounttypes.String `tfsdk:"account"`
+	ARNfwtypes.ARN  `tfsdk:"arn"`
 	IDtypes.String `tfsdk:"id"`
 	Partition types.String `tfsdk:"partition"`
 	Regiontypes.String `tfsdk:"region"`
 	Resource  types.String `tfsdk:"resource"`
-	Service   types.String `tfsdk:"service"`
+	Servicetypes.String `tfsdk:"service"`
 }

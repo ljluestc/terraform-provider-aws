@@ -20,7 +20,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tags(identifierAttribute="arn")func ResourceFirewallDomainList() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceFirewallDomainListCreate,
-ReadWithoutTimeout:   resourceFirewallDomainListRead,
+ReadWithoutTimeout:resourceFirewallDomainListRead,
 UpdateWithoutTimeout: resourceFirewallDomainListUpdate,
 DeleteWithoutTimeout: resourceFirewallDomainListDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -41,7 +41,7 @@ ForceNew:
 Validate
 func: validResolverName,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -49,15 +49,15 @@ names.AttrTagsAll: tftags.TagsSchemaComputed(),
 conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)name := d.Get("name").(string)
 input := &route53resolver.CreateFirewallDomainListInput{
 CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-firewall-domain-list-")),
-Name:    aws.String(name),
-Tags:    getTagsIn(ctx),
+Name:aws.String(name),
+Tags:getTagsIn(ctx),
 }output, err := conn.CreateFirewallDomainListWithContext(ctx, input)if err != nil {
 return diag.Errorf("creating Route53 Resolver Firewall Domain List (%s): %s", name, err)
 }d.SetId(aws.StringValue(output.FirewallDomainList.Id))if v, ok := d.GetOk("domains"); ok && v.(*schema.Set).Len() > 0 {
 _, err := conn.UpdateFirewallDomainsWithContext(ctx, &route53resolver.UpdateFirewallDomainsInput{
 FirewallDomainListId: aws.String(d.Id()),
 Domains:dStringSet(v.(*schema.Set)),
-Operation:   aws.String(route53resolver.FirewallDomainUpdateOperationAdd),
+Operation:aws.String(route53resolver.FirewallDomainUpdateOperationAdd),
 })if err != nil {
 return diag.Errorf("updating Route53 Resolver Firewall Domain List (%s) domains: %s", d.Id(), err)
 }if _, err = waitFirewallDomainListUpdated(ctx, conn, d.Id()); err != nil {
@@ -100,7 +100,7 @@ operation = route53resolver.FirewallDomainUpdateOperationRemove
 }_, err := conn.UpdateFirewallDomainsWithContext(ctx, &route53resolver.UpdateFirewallDomainsInput{
 FirewallDomainListId: aws.String(d.Id()),
 Domains:dStringSet(domains),
-Operation:   aws.String(operation),
+Operation:aws.String(operation),
 })if err != nil {
 return diag.Errorf("updating Route53 Resolver Firewall Domain List (%s) domains: %s", d.Id(), err)
 }if _, err = waitFirewallDomainListUpdated(ctx, conn, d.Id()); err != nil {
@@ -123,7 +123,7 @@ input := &route53resolver.GetFirewallDomainListInput{
 FirewallDomainListId: aws.String(id),
 }output, err := conn.GetFirewallDomainListWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

@@ -16,7 +16,7 @@ return []*types.ServicePackageSDKResource{
 {
 Factory:  ResourceVoiceConnector,
 TypeName: "aws_chime_voice_connector",
-Name:     "Voice Connector",
+Name:"Voice Connector",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },

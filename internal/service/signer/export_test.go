@@ -1,6 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package signer// Exports for use in tests only.
 var (
-	FindSigningJobByID       = findSigningJobByID
+	FindSigningJobByID= findSigningJobByID
 	FindSigningProfileByName = findSigningProfileByName
 )

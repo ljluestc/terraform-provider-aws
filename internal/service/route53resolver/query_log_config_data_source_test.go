@@ -73,8 +73,8 @@ data "aws_route53_resolver_query_log_config" "test" {
 return acctest.ConfigCompose(testAccQueryLogConfigConfig_tags1(rName, tagKey, tagValue), `
 data "aws_route53_resolver_query_log_config" "test" {
   filter {
-    name   = "Name"
-    values = [aws_route53_resolver_query_log_config.test.name]
+name= "Name"
+values = [aws_route53_resolver_query_log_config.test.name]
   }
 }
 `)

@@ -14,37 +14,37 @@ tfstoragegateway "github.com/hashicorp/terraform-provider-aws/internal/service/s
 t.Parallel()var testCases = []struct {
 Input string
 ExpectedGatewayARN string
-ExpectedDiskID     string
+ExpectedDiskIDstring
 ErrCount  int
 }{
 {
 Input: "arn:aws:storagegateway:us-east-1:123456789012:gateway/sgw-12345678:pci-0000:03:00.0-scsi-0:0:0:0", //lintignore:AWSAT003,AWSAT005
-ExpectedGatewayARN: "arn:aws:storagegateway:us-east-1:123456789012:gateway/sgw-12345678",     //lintignore:AWSAT003,AWSAT005
-ExpectedDiskID:     "pci-0000:03:00.0-scsi-0:0:0:0",
+ExpectedGatewayARN: "arn:aws:storagegateway:us-east-1:123456789012:gateway/sgw-12345678",//lintignore:AWSAT003,AWSAT005
+ExpectedDiskID:"pci-0000:03:00.0-scsi-0:0:0:0",
 ErrCount:  0,
 },
 {
-Input:    "sgw-12345678:pci-0000:03:00.0-scsi-0:0:0:0",
+Input:"sgw-12345678:pci-0000:03:00.0-scsi-0:0:0:0",
 ErrCount: 1,
 },
 {
-Input:    "example:pci-0000:03:00.0-scsi-0:0:0:0",
+Input:"example:pci-0000:03:00.0-scsi-0:0:0:0",
 ErrCount: 1,
 },
 {
-Input:    "arn:aws:storagegateway:us-east-1:123456789012:gateway/sgw-12345678", //lintignore:AWSAT003,AWSAT005
+Input:"arn:aws:storagegateway:us-east-1:123456789012:gateway/sgw-12345678", //lintignore:AWSAT003,AWSAT005
 ErrCount: 1,
 },
 {
-Input:    "pci-0000:03:00.0-scsi-0:0:0:0",
+Input:"pci-0000:03:00.0-scsi-0:0:0:0",
 ErrCount: 1,
 },
 {
-Input:    "gateway/sgw-12345678",
+Input:"gateway/sgw-12345678",
 ErrCount: 1,
 },
 {
-Input:    "sgw-12345678",
+Input:"sgw-12345678",
 ErrCount: 1,
 },
 }for _, tc := range testCases {
@@ -67,7 +67,7 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_cache.test"
 gatewayResourceName := "aws_storagegateway_gateway.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 // Storage Gateway API does not support removing caches,
@@ -83,8 +83,8 @@ resource.TestCheckResourceAttrPair(resourceName, "gateway_arn", gatewayResourceN
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -94,7 +94,7 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_cache.test"
 gatewayResourceName := "aws_storagegateway_gateway.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 // Storage Gateway API does not support removing caches,
@@ -110,8 +110,8 @@ resource.TestCheckResourceAttrPair(resourceName, "gateway_arn", gatewayResourceN
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -142,24 +142,24 @@ resource "aws_ebs_volume" "test" {
   availability_zone = aws_instance.test.availability_zone
   size = "10"
   type = "gp2"  tags = {
-    Name = %q
+Name = %q
   }
 }resource "aws_volume_attachment" "test" {
   device_name  = "/dev/xvdb"
   force_detach = true
   instance_id  = aws_instance.test.id
-  volume_id    = aws_ebs_volume.test.id
+  volume_id= aws_ebs_volume.test.id
 }data "aws_storagegateway_local_disk" "test" {
-  disk_node   = aws_volume_attachment.test.device_name
+  disk_node= aws_volume_attachment.test.device_name
   gateway_arn = aws_storagegateway_gateway.test.arn
 }resource "aws_storagegateway_cache" "test" {
   # ACCEPTANCE TESTING WORKAROUND:
   # Data sources are not refreshed before plan after apply in TestStep
   # Step 0 error: After applying this step, the plan was not empty:
-  #   disk_id:     "877ee674-99d3-4cd4-99f0-aadae7e3942b" => "/dev/nvme1n1" (forces new resource)
+  #disk_id:"877ee674-99d3-4cd4-99f0-aadae7e3942b" => "/dev/nvme1n1" (forces new resource)
   # We expect this data source value to change due to how Storage Gateway works.  lifecycle {
-    ignore_changes = [disk_id]
-  }  disk_id     = data.aws_storagegateway_local_disk.test.id
+ignore_changes = [disk_id]
+  }  disk_id= data.aws_storagegateway_local_disk.test.id
   gateway_arn = aws_storagegateway_gateway.test.arn
 }
 `, rName)
@@ -169,24 +169,24 @@ resource "aws_ebs_volume" "test" {
   availability_zone = aws_instance.test.availability_zone
   size = "10"
   type = "gp2"  tags = {
-    Name = %q
+Name = %q
   }
 }resource "aws_volume_attachment" "test" {
   device_name  = "/dev/xvdc"
   force_detach = true
   instance_id  = aws_instance.test.id
-  volume_id    = aws_ebs_volume.test.id
+  volume_id= aws_ebs_volume.test.id
 }data "aws_storagegateway_local_disk" "test" {
-  disk_node   = aws_volume_attachment.test.device_name
+  disk_node= aws_volume_attachment.test.device_name
   gateway_arn = aws_storagegateway_gateway.test.arn
 }resource "aws_storagegateway_cache" "test" {
   # ACCEPTANCE TESTING WORKAROUND:
   # Data sources are not refreshed before plan after apply in TestStep
   # Step 0 error: After applying this step, the plan was not empty:
-  #   disk_id:     "0b68f77a-709b-4c79-ad9d-d7728014b291" => "/dev/xvdc" (forces new resource)
+  #disk_id:"0b68f77a-709b-4c79-ad9d-d7728014b291" => "/dev/xvdc" (forces new resource)
   # We expect this data source value to change due to how Storage Gateway works.  lifecycle {
-    ignore_changes = ["disk_id"]
-  }  disk_id     = data.aws_storagegateway_local_disk.test.id
+ignore_changes = ["disk_id"]
+  }  disk_id= data.aws_storagegateway_local_disk.test.id
   gateway_arn = aws_storagegateway_gateway.test.arn
 }
 `, rName)

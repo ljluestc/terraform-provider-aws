@@ -14,7 +14,7 @@
 )// @SDKResource("aws_route53_resolver_query_log_config_association")func ResourceQueryLogConfigAssociation() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceQueryLogConfigAssociationCreate,
-ReadWithoutTimeout:   resourceQueryLogConfigAssociationRead,
+ReadWithoutTimeout:resourceQueryLogConfigAssociationRead,
 DeleteWithoutTimeout: resourceQueryLogConfigAssociationDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
@@ -65,7 +65,7 @@ input := &route53resolver.GetResolverQueryLogConfigAssociationInput{
 ResolverQueryLogConfigAssociationId: aws.String(id),
 }output, err := conn.GetResolverQueryLogConfigAssociationWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

@@ -13,30 +13,30 @@
 	return []*types.ServicePackageSDKDataSource{}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourcePipeline,
-			TypeName: "aws_codepipeline",
-			Name:     "Pipeline",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceCustomActionType,
-			TypeName: "aws_codepipeline_custom_action_type",
-			Name:     "Custom Action Type",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceWebhook,
-			TypeName: "aws_codepipeline_webhook",
-			Name:     "Webhook",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "id",
-			},
-		},
+{
+Factory:  ResourcePipeline,
+TypeName: "aws_codepipeline",
+Name:"Pipeline",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
+{
+Factory:  ResourceCustomActionType,
+TypeName: "aws_codepipeline_custom_action_type",
+Name:"Custom Action Type",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
+{
+Factory:  ResourceWebhook,
+TypeName: "aws_codepipeline_webhook",
+Name:"Webhook",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "id",
+},
+},
 	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.CodePipeline

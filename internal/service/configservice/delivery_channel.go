@@ -19,45 +19,45 @@
 func ResourceDeliveryChannel() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceDeliveryChannelPut,
-ReadWithoutTimeout:   resourceDeliveryChannelRead,
+ReadWithoutTimeout:resourceDeliveryChannelRead,
 UpdateWithoutTimeout: resourceDeliveryChannelPut,
 DeleteWithoutTimeout: resourceDeliveryChannelDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "name": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      "default",
+Optional:true,
+ForceNew:true,
+Default: "default",
 ValidateFunc: validation.StringLenBetween(0, 256),
 },
 "s3_bucket_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "s3_key_prefix": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "s3_kms_key_arn": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: verify.ValidARN,
 },
 "sns_topic_arn": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: verify.ValidARN,
 },
 "snapshot_delivery_properties": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "delivery_frequency": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validExecutionFrequency(),
 },
 },

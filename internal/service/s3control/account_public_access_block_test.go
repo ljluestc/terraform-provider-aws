@@ -16,13 +16,13 @@ func TestAccS3ControlAccountPublicAccessBlock_serial(t *testing.T) {
 	t.Parallel()	testCases := map[string]map[string]func(t *testing.T){
 "PublicAccessBlock": {
 	"basic":  testAccAccountPublicAccessBlock_basic,
-	"disappears":   testAccAccountPublicAccessBlock_disappears,
-	"AccountId":    testAccAccountPublicAccessBlock_AccountID,
-	"BlockPublicAcls":       testAccAccountPublicAccessBlock_BlockPublicACLs,
-	"BlockPublicPolicy":     testAccAccountPublicAccessBlock_BlockPublicPolicy,
-	"IgnorePublicAcls":      testAccAccountPublicAccessBlock_IgnorePublicACLs,
+	"disappears":testAccAccountPublicAccessBlock_disappears,
+	"AccountId":testAccAccountPublicAccessBlock_AccountID,
+	"BlockPublicAcls":testAccAccountPublicAccessBlock_BlockPublicACLs,
+	"BlockPublicPolicy":testAccAccountPublicAccessBlock_BlockPublicPolicy,
+	"IgnorePublicAcls": testAccAccountPublicAccessBlock_IgnorePublicACLs,
 	"RestrictPublicBuckets": testAccAccountPublicAccessBlock_RestrictPublicBuckets,
-	"DataSourceBasic":       testAccAccountPublicAccessBlockDataSource_basic,
+	"DataSourceBasic":testAccAccountPublicAccessBlockDataSource_basic,
 },
 	}	acctest.RunSerialTests2Levels(t, testCases, 5*time.Second)
 }func testAccAccountPublicAccessBlock_basic(t *testing.T) {
@@ -32,7 +32,7 @@ func TestAccS3ControlAccountPublicAccessBlock_serial(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_basic(),
@@ -46,8 +46,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -59,7 +59,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_basic(),
@@ -78,7 +78,7 @@ ExpectNonEmptyPlan: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_id(),
@@ -88,8 +88,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -101,7 +101,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_acls(true),
@@ -111,8 +111,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -138,7 +138,7 @@ Check: resource.ComposeTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_policy(true),
@@ -148,8 +148,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -175,7 +175,7 @@ Check: resource.ComposeTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_ignoreACLs(true),
@@ -185,8 +185,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -212,7 +212,7 @@ Check: resource.ComposeTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_restrictBuckets(true),
@@ -222,8 +222,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{

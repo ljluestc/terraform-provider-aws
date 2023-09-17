@@ -11,19 +11,19 @@
 	return []*types.ServicePackageFrameworkResource{}
 }func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceApplication,
-			TypeName: "aws_serverlessapplicationrepository_application",
-		},
+{
+Factory:  DataSourceApplication,
+TypeName: "aws_serverlessapplicationrepository_application",
+},
 	}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceCloudFormationStack,
-			TypeName: "aws_serverlessapplicationrepository_cloudformation_stack",
-			Name:     "CloudFormation Stack",
-			Tags:     &types.ServicePackageResourceTags{},
-		},
+{
+Factory:  ResourceCloudFormationStack,
+TypeName: "aws_serverlessapplicationrepository_cloudformation_stack",
+Name:"CloudFormation Stack",
+Tags:&types.ServicePackageResourceTags{},
+},
 	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.ServerlessRepo

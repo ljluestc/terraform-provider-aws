@@ -31,7 +31,7 @@ inContext.TagsOut = types.Some(tags)
 func Tags(tags tftags.KeyValueTags) []*elasticbeanstalk.Tag {
 result := make([]*elasticbeanstalk.Tag, 0, len(tags))for k, v := range tags.Map() {
 tag := &elasticbeanstalk.Tag{
-Key:   aws.String(k),
+Key:aws.String(k),
 Value: aws.String(v),
 }result = append(result, tag)
 }return result

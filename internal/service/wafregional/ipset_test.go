@@ -1,17 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafregional_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package wafregional_testimport (
 	"context"
 	"fmt"
 	"net"
 	"reflect"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/waf"
 	"github.com/aws/aws-sdk-go/service/wafregional"
@@ -26,13 +20,11 @@ import (
 	ctx := acctest.Context(t)
 	resourceName := "aws_wafregional_ipset.ipset"
 	var v waf.IPSet
-	ipsetName := fmt.Sprintf("ip-set-%s", sdkacctest.RandString(5))
-
-	resource.ParallelTest(t, resource.TestCase{
+	ipsetName := fmt.Sprintf("ip-set-%s", sdkacctest.RandString(5))	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPSetDestroy(ctx),
+CheckDestroy:testAccCheckIPSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPSetConfig_basic(ipsetName),
@@ -63,7 +55,7 @@ ImportStateVerify: true,
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPSetDestroy(ctx),
+CheckDestroy:testAccCheckIPSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPSetConfig_basic(ipsetName),
@@ -81,13 +73,11 @@ ExpectNonEmptyPlan: true,
 	resourceName := "aws_wafregional_ipset.ipset"
 	var before, after waf.IPSet
 	ipsetName := fmt.Sprintf("ip-set-%s", sdkacctest.RandString(5))
-	ipsetNewName := fmt.Sprintf("ip-set-new-%s", sdkacctest.RandString(5))
-
-	resource.ParallelTest(t, resource.TestCase{
+	ipsetNewName := fmt.Sprintf("ip-set-new-%s", sdkacctest.RandString(5))	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPSetDestroy(ctx),
+CheckDestroy:testAccCheckIPSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPSetConfig_basic(ipsetName),
@@ -124,13 +114,11 @@ ImportStateVerify: true,
 	ctx := acctest.Context(t)
 	resourceName := "aws_wafregional_ipset.ipset"
 	var before, after waf.IPSet
-	ipsetName := fmt.Sprintf("ip-set-%s", sdkacctest.RandString(5))
-
-	resource.ParallelTest(t, resource.TestCase{
+	ipsetName := fmt.Sprintf("ip-set-%s", sdkacctest.RandString(5))	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPSetDestroy(ctx),
+CheckDestroy:testAccCheckIPSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPSetConfig_basic(ipsetName),
@@ -169,18 +157,14 @@ ImportStateVerify: true,
 	ctx := acctest.Context(t)
 	var ipset waf.IPSet
 	ipsetName := fmt.Sprintf("ip-set-%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_ipset.ipset"
-
-	incrementIP :=func(ip net.IP) {
+	resourceName := "aws_wafregional_ipset.ipset"	incrementIP :=func(ip net.IP) {
 for j := len(ip) - 1; j >= 0; j-- {
 	ip[j]++
 	if ip[j] > 0 {
 break
 	}
 }
-	}
-
-	// Generate 2048 IPs
+	}	// Generate 2048 IPs
 	ip, ipnet, err := net.ParseCIDR("10.0.0.0/21")
 	if err != nil {
 t.Fatal(err)
@@ -188,13 +172,11 @@ t.Fatal(err)
 	ipSetDescriptors := make([]string, 0, 2048)
 	for ip := ip.Mask(ipnet.Mask); ipnet.Contains(ip); incrementIP(ip) {
 ipSetDescriptors = append(ipSetDescriptors, fmt.Sprintf("ip_set_descriptor {\ntype=\"IPV4\"\nvalue=\"%s/32\"\n}", ip))
-	}
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPSetDestroy(ctx),
+CheckDestroy:testAccCheckIPSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPSetConfig_ipSetDescriptors(ipsetName, strings.Join(ipSetDescriptors, "\n")),
@@ -215,13 +197,11 @@ ImportStateVerify: true,
 	ctx := acctest.Context(t)
 	resourceName := "aws_wafregional_ipset.ipset"
 	var ipset waf.IPSet
-	ipsetName := fmt.Sprintf("ip-set-%s", sdkacctest.RandString(5))
-
-	resource.ParallelTest(t, resource.TestCase{
+	ipsetName := fmt.Sprintf("ip-set-%s", sdkacctest.RandString(5))	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIPSetDestroy(ctx),
+CheckDestroy:testAccCheckIPSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccIPSetConfig_noDescriptors(ipsetName),
@@ -240,11 +220,9 @@ ImportStateVerify: true,
 },
 	})
 }func TestDiffIPSetDescriptors(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
-Old    []interface{}
-New    []interface{}
+	t.Parallel()	testCases := []struct {
+Old[]interface{}
+New[]interface{}
 ExpectedUpdates [][]*waf.IPSetUpdate
 	}{
 {
@@ -334,14 +312,10 @@ IPSetDescriptor: &waf.IPSetDescriptor{
 },
 	},
 },
-	}
-
-	for i, tc := range testCases {
+	}	for i, tc := range testCases {
 tc := tc
 t.Run(fmt.Sprintf("%d", i),func(t *testing.T) {
-	t.Parallel()
-
-	updates := tfwafregional.DiffIPSetDescriptors(tc.Old, tc.New)
+	t.Parallel()	updates := tfwafregional.DiffIPSetDescriptors(tc.Old, tc.New)
 	if !reflect.DeepEqual(updates, tc.ExpectedUpdates) {
 t.Fatalf("IPSet updates don't match.\nGiven: %s\nExpected: %s",
 	updates, tc.ExpectedUpdates)
@@ -352,16 +326,12 @@ t.Fatalf("IPSet updates don't match.\nGiven: %s\nExpected: %s",
 func {
 	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
-region := acctest.Provider.Meta().(*conns.AWSClient).Region
-
-wr := tfwafregional.NewRetryer(conn, region)
+region := acctest.Provider.Meta().(*conns.AWSClient).Regionwr := tfwafregional.NewRetryer(conn, region)
 _, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 	req := &waf.UpdateIPSetInput{
 ChangeToken: token,
-IPSetId:     v.IPSetId,
-	}
-
-	for _, IPSetDescriptor := range v.IPSetDescriptors {
+IPSetId:v.IPSetId,
+	}	for _, IPSetDescriptor := range v.IPSetDescriptors {
 IPSetUpdate := &waf.IPSetUpdate{
 	Action: aws.String("DELETE"),
 	IPSetDescriptor: &waf.IPSetDescriptor{
@@ -370,18 +340,14 @@ Value: IPSetDescriptor.Value,
 	},
 }
 req.Updates = append(req.Updates, IPSetUpdate)
-	}
-
-	return conn.UpdateIPSetWithContext(ctx, req)
+	}	return conn.UpdateIPSetWithContext(ctx, req)
 })
 if err != nil {
 	return fmt.Errorf("Error Updating WAF IPSet: %s", err)
-}
-
-_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
+}_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 	opts := &waf.DeleteIPSetInput{
 ChangeToken: token,
-IPSetId:     v.IPSetId,
+IPSetId:v.IPSetId,
 	}
 	return conn.DeleteIPSetWithContext(ctx, opts)
 })
@@ -396,27 +362,17 @@ func {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_wafregional_ipset" {
 continue
-	}
-
-	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+	}	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 	resp, err := conn.GetIPSetWithContext(ctx, &waf.GetIPSetInput{
 IPSetId: aws.String(rs.Primary.ID),
-	})
-
-	if err == nil {
+	})	if err == nil {
 if *resp.IPSet.IPSetId == rs.Primary.ID {
 	return fmt.Errorf("WAF IPSet %s still exists", rs.Primary.ID)
 }
-	}
-
-	if tfawserr.ErrCodeEquals(err, waf.ErrCodeNonexistentItemException) {
+	}	if tfawserr.ErrCodeEquals(err, waf.ErrCodeNonexistentItemException) {
 continue
-	}
-
-	return err
-}
-
-return nil
+	}	return err
+}return nil
 	}
 }func testAccCheckIPSetExists(ctx context.Context, n string, v *waf.IPSet) resource.TestCheck
 func {
@@ -424,58 +380,42 @@ func {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No WAF IPSet ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 resp, err := conn.GetIPSetWithContext(ctx, &waf.GetIPSetInput{
 	IPSetId: aws.String(rs.Primary.ID),
-})
-
-if err != nil {
+})if err != nil {
 	return err
-}
-
-if *resp.IPSet.IPSetId == rs.Primary.ID {
+}if *resp.IPSet.IPSetId == rs.Primary.ID {
 	*v = *resp.IPSet
 	return nil
-}
-
-return fmt.Errorf("WAF IPSet (%s) not found", rs.Primary.ID)
+}return fmt.Errorf("WAF IPSet (%s) not found", rs.Primary.ID)
 	}
 }func testAccIPSetConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_ipset" "ipset" {
-  name = "%s"
-
-  ip_set_descriptor {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = "%s"  ip_set_descriptor {
+type  = "IPV4"
+value = "192.0.7.0/24"
   }
 }
 `, name)
 }func testAccIPSetConfig_changeName(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_ipset" "ipset" {
-  name = "%s"
-
-  ip_set_descriptor {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = "%s"  ip_set_descriptor {
+type  = "IPV4"
+value = "192.0.7.0/24"
   }
 }
 `, name)
 }func testAccIPSetConfig_changeDescriptors(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_ipset" "ipset" {
-  name = "%s"
-
-  ip_set_descriptor {
-    type  = "IPV4"
-    value = "192.0.8.0/24"
+  name = "%s"  ip_set_descriptor {
+type  = "IPV4"
+value = "192.0.8.0/24"
   }
 }
 `, name)

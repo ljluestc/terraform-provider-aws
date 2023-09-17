@@ -18,7 +18,7 @@ acctest.PreCheckAlternateAccount(t)
 acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 Steps: []resource.TestStep{
 {
@@ -45,28 +45,28 @@ data "aws_partition" "monitoring" {
 }resource "aws_oam_sink_policy" "test" {
   provider = "awsalternate"  sink_identifier = aws_oam_sink.test.id
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action   = ["oam:CreateLink", "oam:UpdateLink"]
-        Effect   = "Allow"
-        Resource = "*"
-        Principal = {
+Version = "2012-10-17"
+Statement = [
+ {
+:CreateLink", "oam:UpdateLink"]
+w"
+
+
  "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
-        }
-        Condition = {
+
+
  "ForAnyValue:StringEquals" = {
-   "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
+"oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
  }
-        }
-      }
-    ]
+
+ }
+]
   })
 }resource "aws_oam_link" "test" {
   depends_on = [aws_oam_sink_policy.test]  label_template  = "$AccountName"
   resource_types  = ["AWS::CloudWatch::Metric"]
   sink_identifier = aws_oam_sink.test.id  tags = {
-    key1 = "value1"
+key1 = "value1"
   }
 }data aws_oam_links "test" {
   depends_on = [aws_oam_link.test]

@@ -18,27 +18,27 @@ func (d *dataSourceBillingServiceAccount) Metadata(_ context.Context, request da
 }// Schema returns the schema for this data source.
 func (d *dataSourceBillingServiceAccount) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"arn": schema.StringAttribute{
-				Computed: true,
-			},
-			"id": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-			},
-		},
+Attributes: map[string]schema.Attribute{
+"arn": schema.StringAttribute{
+Computed: true,
+},
+"id": schema.StringAttribute{
+Optional: true,
+Computed: true,
+},
+},
 	}
 }// Read is called when the provider must read data source values in order to update state.
 // Config values should be read from the ReadRequest and new state values set on the ReadResponse.
 func (d *dataSourceBillingServiceAccount) Read(ctx context.Context, request datasource.ReadRequest, response *datasource.ReadResponse) {
 	var data dataSourceBillingServiceAccountData	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)	if response.Diagnostics.HasError() {
-		return
+return
 	}	// See http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-getting-started.html#step-2
 	const billingAccountID = "386209384616"	arn := arn.ARN{
-		Partition: d.Meta().Partition,
-		Service:   "iam",
-		AccountID: billingAccountID,
-		Resource:  "root",
+Partition: d.Meta().Partition,
+Service:"iam",
+AccountID: billingAccountID,
+Resource:  "root",
 	}	data.ARN = types.StringValue(arn.String())
 	data.ID = types.StringValue(billingAccountID)	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }type dataSourceBillingServiceAccountData struct {

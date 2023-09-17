@@ -16,7 +16,7 @@ ctx := acctest.Context(t)
 var v neptune.DBParameterGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_parameter_group.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
@@ -35,8 +35,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -46,7 +46,7 @@ ctx := acctest.Context(t)
 var v neptune.DBParameterGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_parameter_group.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
@@ -60,8 +60,8 @@ resource.TestCheckResourceAttr(resourceName, "description", "description1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -71,7 +71,7 @@ ctx := acctest.Context(t)
 var v neptune.DBParameterGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_parameter_group.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
@@ -85,18 +85,18 @@ resource.TestCheckResourceAttr(resourceName, "parameter.#", "1"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
 "apply_method": "pending-reboot",
 "name":"neptune_query_timeout",
-"value":        "25",
+"value":
 }),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 // This test should be updated with a dynamic parameter when available
 {
-Config:      testAccParameterGroupConfig_basic(rName, "neptune_query_timeout", "25", "immediate"),
+Config: testAccParameterGroupConfig_basic(rName, "neptune_query_timeout", "25", "immediate"),
 ExpectError: regexache.MustCompile(`cannot use immediate apply method for static parameter`),
 },
 // Test removing the configuration
@@ -114,7 +114,7 @@ resource.TestCheckResourceAttr(resourceName, "parameter.#", "0"),
 ctx := acctest.Context(t)
 var v neptune.DBParameterGrouprName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_parameter_group.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
@@ -128,8 +128,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -197,10 +197,10 @@ return fmt.Errorf("Neptune Parameter Group not found")
 return fmt.Sprintf(`
 resource "aws_neptune_parameter_group" "test" {
   family = "neptune1"
-  name   = %q  parameter {
-    apply_method = %q
-    name= %q
-    value        = %q
+  name= %q  parameter {
+apply_method = %q
+name= %q
+value
   }
 }
 `, rName, pApplyMethod, pName, pValue)
@@ -208,23 +208,23 @@ resource "aws_neptune_parameter_group" "test" {
 return fmt.Sprintf(`
 resource "aws_neptune_parameter_group" "test" {
   description = %q
-  family      = "neptune1"
-  name        = %q
+  family = "neptune1"
+  name
 }
 `, description, rName)
 }func testAccParameterGroupConfig_required(rName string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_parameter_group" "test" {
   family = "neptune1"
-  name   = %q
+  name= %q
 }
 `, rName)
 }func testAccParameterGroupConfig_tagsSingle(name, tKey, tValue string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_parameter_group" "test" {
   family = "neptune1"
-  name   = %q  tags = {
-    %s = %q
+  name= %q  tags = {
+%s = %q
   }
 }
 `, name, tKey, tValue)
@@ -232,9 +232,9 @@ resource "aws_neptune_parameter_group" "test" {
 return fmt.Sprintf(`
 resource "aws_neptune_parameter_group" "test" {
   family = "neptune1"
-  name   = %q  tags = {
-    %s = %q
-    %s = %q
+  name= %q  tags = {
+%s = %q
+%s = %q
   }
 }
 `, name, tKey1, tValue1, tKey2, tValue2)

@@ -20,7 +20,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckObjectLambdaAccessPointDestroy(ctx),
+CheckDestroy:testAccCheckObjectLambdaAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccObjectLambdaAccessPointConfig_basic(rName),
@@ -34,8 +34,8 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
 	resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
-"actions.#":     "1",
-"content_transformation.#":     "1",
+"actions.#":"1",
+"content_transformation.#":"1",
 "content_transformation.0.aws_lambda.#": "1",
 "content_transformation.0.aws_lambda.0.function_payload": "",
 	}),
@@ -44,8 +44,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -58,7 +58,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckObjectLambdaAccessPointDestroy(ctx),
+CheckDestroy:testAccCheckObjectLambdaAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccObjectLambdaAccessPointConfig_basic(rName),
@@ -80,7 +80,7 @@ ExpectNonEmptyPlan: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckObjectLambdaAccessPointDestroy(ctx),
+CheckDestroy:testAccCheckObjectLambdaAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccObjectLambdaAccessPointConfig_optionals(rName),
@@ -96,8 +96,8 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
 	resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
-"actions.#":     "1",
-"content_transformation.#":     "1",
+"actions.#":"1",
+"content_transformation.#":"1",
 "content_transformation.0.aws_lambda.#": "1",
 "content_transformation.0.aws_lambda.0.function_payload": "{\"res-x\": \"100\",\"res-y\": \"100\"}",
 	}),
@@ -106,8 +106,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -122,8 +122,8 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
 	resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
-"actions.#":     "1",
-"content_transformation.#":     "1",
+"actions.#":"1",
+"content_transformation.#":"1",
 "content_transformation.0.aws_lambda.#": "1",
 "content_transformation.0.aws_lambda.0.function_payload": "",
 	}),
@@ -163,11 +163,11 @@ if !ok {
 }func testAccObjectLambdaAccessPointBaseConfig(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLambdaBase(rName, rName, rName), fmt.Sprintf(`
 resource "aws_lambda_function" "test" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.iam_for_lambda.arn
-  handler       = "index.handler"
-  runtime       = "nodejs14.x"
+  handler= "index.handler"
+  runtime= "nodejs14.x"
 }
 `, rName))
 }func testAccObjectLambdaAccessPointConfig_basic(rName string) string {
@@ -176,16 +176,16 @@ resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }resource "aws_s3_access_point" "test" {
   bucket = aws_s3_bucket.test.id
-  name   = %[1]q
+  name= %[1]q
 }resource "aws_s3control_object_lambda_access_point" "test" {
   name = %[1]q  configuration {
-    supporting_access_point = aws_s3_access_point.test.arn    transformation_configuration {
-      actions = ["GetObject"]      content_transformation {
-        aws_lambda {
+supporting_access_point = aws_s3_access_point.test.arntransformation_configuration {
+ actions = ["GetObject"] content_transformation {
+
  function_arn = aws_lambda_function.test.arn
-        }
-      }
-    }
+
+ }
+}
   }
 }
 `, rName))
@@ -195,19 +195,19 @@ resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }resource "aws_s3_access_point" "test" {
   bucket = aws_s3_bucket.test.id
-  name   = %[1]q
+  name= %[1]q
 }resource "aws_s3control_object_lambda_access_point" "test" {
   name = %[1]q  configuration {
-    allowed_features   = ["GetObject-Range", "GetObject-PartNumber"]
-    cloud_watch_metrics_enabled = true
-    supporting_access_point     = aws_s3_access_point.test.arn    transformation_configuration {
-      actions = ["GetObject"]      content_transformation {
-        aws_lambda {
- function_arn     = aws_lambda_function.test.arn
+allowed_features= ["GetObject-Range", "GetObject-PartNumber"]
+cloud_watch_metrics_enabled = true
+supporting_access_point= aws_s3_access_point.test.arntransformation_configuration {
+ actions = ["GetObject"] content_transformation {
+
+ function_arn= aws_lambda_function.test.arn
  function_payload = "{\"res-x\": \"100\",\"res-y\": \"100\"}"
-        }
-      }
-    }
+
+ }
+}
   }
 }
 `, rName))

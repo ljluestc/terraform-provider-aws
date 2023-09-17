@@ -1,124 +1,122 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package glue_testimport (
-	"context"
-	"fmt"
-	"testing"	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/glue"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"context"
+"fmt"
+"testing""github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/glue"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )func testAccDataCatalogEncryptionSettings_basic(t *testing.T) {
-	t.Skipf("Skipping aws_glue_data_catalog_encryption_settings tests due to potential KMS key corruption")	ctx := acctest.Context(t)	var settings glue.DataCatalogEncryptionSettings	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_glue_data_catalog_encryption_settings.test"
-	keyResourceName := "aws_kms_key.test"	resource.Test(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    nil,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDataCatalogEncryptionSettingsConfig_nonEncrypted(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDataCatalogEncryptionSettingsExists(ctx, resourceName, &settings),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.return_connection_password_encrypted", "false"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.aws_kms_key_id", ""),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.catalog_encryption_mode", "DISABLED"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.sse_aws_kms_key_id", ""),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccDataCatalogEncryptionSettingsConfig_encrypted(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDataCatalogEncryptionSettingsExists(ctx, resourceName, &settings),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.return_connection_password_encrypted", "true"),
-					resource.TestCheckResourceAttrPair(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.aws_kms_key_id", keyResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.catalog_encryption_mode", "SSE-KMS"),
-					resource.TestCheckResourceAttrPair(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.sse_aws_kms_key_id", keyResourceName, "arn"),
-				),
-			},
-			{
-				Config: testAccDataCatalogEncryptionSettingsConfig_nonEncrypted(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDataCatalogEncryptionSettingsExists(ctx, resourceName, &settings),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.return_connection_password_encrypted", "false"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.aws_kms_key_id", ""),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.catalog_encryption_mode", "DISABLED"),
-					resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.sse_aws_kms_key_id", ""),
-				),
-			},
-		},
-	})
+t.Skipf("Skipping aws_glue_data_catalog_encryption_settings tests due to potential KMS key corruption")ctx := acctest.Context(t)var settings glue.DataCatalogEncryptionSettingsrName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_glue_data_catalog_encryption_settings.test"
+keyResourceName := "aws_kms_key.test"resource.Test(t, resource.TestCase{
+PreCheck:k(ctx, t) },
+rorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
+otoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+eckDestroy:nil,
+eps: []resource.TestStep{
+{
+Config: testAccDataCatalogEncryptionSettingsConfig_nonEncrypted(),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckDataCatalogEncryptionSettingsExists(ctx, resourceName, &settings),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.return_connection_password_encrypted", "false"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.aws_kms_key_id", ""),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.catalog_encryption_mode", "DISABLED"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.sse_aws_kms_key_id", ""),
+),
+},
+{
+ResourceName: resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+{
+Config: testAccDataCatalogEncryptionSettingsConfig_encrypted(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckDataCatalogEncryptionSettingsExists(ctx, resourceName, &settings),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.return_connection_password_encrypted", "true"),
+resource.TestCheckResourceAttrPair(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.aws_kms_key_id", keyResourceName, "arn"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.catalog_encryption_mode", "SSE-KMS"),
+resource.TestCheckResourceAttrPair(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.sse_aws_kms_key_id", keyResourceName, "arn"),
+),
+},
+{
+Config: testAccDataCatalogEncryptionSettingsConfig_nonEncrypted(),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckDataCatalogEncryptionSettingsExists(ctx, resourceName, &settings),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.return_connection_password_encrypted", "false"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.connection_password_encryption.0.aws_kms_key_id", ""),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.#", "1"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.catalog_encryption_mode", "DISABLED"),
+resource.TestCheckResourceAttr(resourceName, "data_catalog_encryption_settings.0.encryption_at_rest.0.sse_aws_kms_key_id", ""),
+),
+},})
 }func testAccCheckDataCatalogEncryptionSettingsExists(ctx context.Context, resourceName string, v *glue.DataCatalogEncryptionSettings) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Glue Data Catalog Encryption Settings ID is set")
-		}		conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)		output, err := conn.GetDataCatalogEncryptionSettingsWithContext(ctx, &glue.GetDataCatalogEncryptionSettingsInput{
-			CatalogId: aws.String(rs.Primary.ID),
-		})		if err != nil {
-			return err
-		}		*v = *output.DataCatalogEncryptionSettings		return nil
-	}
+return func(s *terraform.State) error {
+, ok := s.RootModule().Resources[resourceName]
+ !ok {
+return fmt.Errorf("Not found: %s", resourceName)
+fs.Primary.ID == "" {
+return fmt.Errorf("No Glue Data Catalog Encryption Settings ID is set")
+o := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)outp, err := conn.GetDataCatalogEncryptionSettingsWithContext(ctx, &glue.GetDataCatalogEncryptionSettingsInput{
+CatalogId: aws.String(rs.Primary.ID),
+ifrr != nil {
+return err
+v *output.DataCatalogEncryptionSettingsretu nil
+}
 }func testAccDataCatalogEncryptionSettingsConfig_encrypted(rName string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description = %[1]q
-  policy      = <<POLICY
+  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
   "Statement": [
-    {
-      "Sid": "Enable IAM User Permissions",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "kms:*",
-      "Resource": "*"
-    }
+{
+ "Sid": "Enable IAM User Permissions",
+ "Effect": "Allow",
+ "Principal": {
+
+ },
+ "Action": "kms:*",
+ "Resource": "*"
+}
   ]
 }
 POLICY
 }resource "aws_glue_data_catalog_encryption_settings" "test" {
   data_catalog_encryption_settings {
-    connection_password_encryption {
-      aws_kms_key_id        = aws_kms_key.test.arn
-      return_connection_password_encrypted = true
-    }    encryption_at_rest {
-      catalog_encryption_mode = "SSE-KMS"
-      sse_aws_kms_key_id      = aws_kms_key.test.arn
-    }
+connection_password_encryption {
+ aws_kms_key_id
+ return_connection_password_encrypted = true
+}encryption_at_rest {
+ catalog_encryption_mode = "SSE-KMS"
+ sse_aws_kms_key_id = aws_kms_key.test.arn
+}
   }
 }
 `, rName)
 }func testAccDataCatalogEncryptionSettingsConfig_nonEncrypted() string {
-	return `
+return `
 resource "aws_glue_data_catalog_encryption_settings" "test" {
   data_catalog_encryption_settings {
-    connection_password_encryption {
-      return_connection_password_encrypted = false
-    }    encryption_at_rest {
-      catalog_encryption_mode = "DISABLED"
-    }
+connection_password_encryption {
+ return_connection_password_encrypted = false
+}encryption_at_rest {
+ catalog_encryption_mode = "DISABLED"
+}
   }
 }
 `

@@ -25,7 +25,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tagsfunc ResourceServiceLinkedRole() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceServiceLinkedRoleCreate,
-ReadWithoutTimeout:   resourceServiceLinkedRoleRead,
+ReadWithoutTimeout:resourceServiceLinkedRoleRead,
 UpdateWithoutTimeout: resourceServiceLinkedRoleUpdate,
 DeleteWithoutTimeout: resourceServiceLinkedRoleDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -161,7 +161,7 @@ stateConf := &retry.StateChangeConf{
 Pending: []string{iam.DeletionTaskStatusTypeInProgress, iam.DeletionTaskStatusTypeNotStarted},
 Target:  []string{iam.DeletionTaskStatusTypeSucceeded},
 funcmeout: 5 * time.Minute,
-Delay:   10 * time.Second,
+Delay:10 * time.Second,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)if output, ok := outputRaw.(*iam.GetServiceLinkedRoleDeletionStatusOutput); ok {
 if reason := output.Reason; reason != nil {
 var errs []errorfor _, v := range reason.RoleUsageList {
@@ -182,7 +182,7 @@ DeletionTaskId: aws.String(id),
 }output, err := conn.GetServiceLinkedRoleDeletionStatusWithContext(ctx, input)
 functfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

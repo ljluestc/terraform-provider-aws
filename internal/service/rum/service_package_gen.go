@@ -13,18 +13,18 @@
 	return []*types.ServicePackageSDKDataSource{}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceAppMonitor,
-			TypeName: "aws_rum_app_monitor",
-			Name:     "App Monitor",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceMetricsDestination,
-			TypeName: "aws_rum_metrics_destination",
-		},
+{
+Factory:  ResourceAppMonitor,
+TypeName: "aws_rum_app_monitor",
+Name:"App Monitor",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
+{
+Factory:  ResourceMetricsDestination,
+TypeName: "aws_rum_metrics_destination",
+},
 	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.RUM

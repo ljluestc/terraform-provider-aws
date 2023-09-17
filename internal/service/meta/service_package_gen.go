@@ -3,30 +3,30 @@
 	"github.com/hashicorp/terraform-provider-aws/internal/types"
 )type servicePackage struct{}func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{
-		{
-			Factory: newDataSourceARN,
-		},
-		{
-			Factory: newDataSourceBillingServiceAccount,
-		},
-		{
-			Factory: newDataSourceDefaultTags,
-		},
-		{
-			Factory: newDataSourceIPRanges,
-		},
-		{
-			Factory: newDataSourcePartition,
-		},
-		{
-			Factory: newDataSourceRegion,
-		},
-		{
-			Factory: newDataSourceRegions,
-		},
-		{
-			Factory: newDataSourceService,
-		},
+{
+Factory: newDataSourceARN,
+},
+{
+Factory: newDataSourceBillingServiceAccount,
+},
+{
+Factory: newDataSourceDefaultTags,
+},
+{
+Factory: newDataSourceIPRanges,
+},
+{
+Factory: newDataSourcePartition,
+},
+{
+Factory: newDataSourceRegion,
+},
+{
+Factory: newDataSourceRegions,
+},
+{
+Factory: newDataSourceService,
+},
 	}
 }func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}

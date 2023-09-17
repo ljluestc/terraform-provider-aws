@@ -1,15 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package s3control// Exports for use in tests only.
 var (
-	ResourceAccessPoint    = resourceAccessPoint
-	ResourceAccessPointPolicy    = resourceAccessPointPolicy
-	ResourceAccountPublicAccessBlock      = resourceAccountPublicAccessBlock
+	ResourceAccessPoint= resourceAccessPoint
+	ResourceAccessPointPolicy= resourceAccessPointPolicy
+	ResourceAccountPublicAccessBlock = resourceAccountPublicAccessBlock
 	ResourceBucket= resourceBucket
 	ResourceBucketLifecycleConfiguration  = resourceBucketLifecycleConfiguration
-	ResourceBucketPolicy   = resourceBucketPolicy
-	ResourceMultiRegionAccessPoint        = resourceMultiRegionAccessPoint
+	ResourceBucketPolicy= resourceBucketPolicy
+	ResourceMultiRegionAccessPointessPoint
 	ResourceMultiRegionAccessPointPolicy  = resourceMultiRegionAccessPointPolicy
-	ResourceObjectLambdaAccessPoint       = resourceObjectLambdaAccessPoint
+	ResourceObjectLambdaAccessPoint= resourceObjectLambdaAccessPoint
 	ResourceObjectLambdaAccessPointPolicy = resourceObjectLambdaAccessPointPolicy
-	ResourceStorageLensConfiguration      = resourceStorageLensConfiguration
+	ResourceStorageLensConfiguration = resourceStorageLensConfiguration
 )

@@ -12,48 +12,48 @@
 )// @SDKDataSource("aws_location_tracker")
 func DataSourceTracker() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceTrackerRead,
-		Schema: map[string]*schema.Schema{
-			"create_time": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"description": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"kms_key_id": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"position_filtering": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"tags": tftags.TagsSchemaComputed(),
-			"tracker_arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"tracker_name": {
-				Type:schema.TypeString,
-				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
-			},
-			"update_time": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-		},
+ReadWithoutTimeout: dataSourceTrackerRead,
+Schema: map[string]*schema.Schema{
+"create_time": {
+Type:schema.TypeString,
+Computed: true,
+},
+"description": {
+Type:schema.TypeString,
+Computed: true,
+},
+"kms_key_id": {
+Type:schema.TypeString,
+Computed: true,
+},
+"position_filtering": {
+Type:schema.TypeString,
+Computed: true,
+},
+"tags": tftags.TagsSchemaComputed(),
+"tracker_arn": {
+Type:schema.TypeString,
+Computed: true,
+},
+"tracker_name": {
+Type:schema.TypeString,
+Required:true,
+ValidateFunc: validation.StringLenBetween(1, 100),
+},
+"update_time": {
+Type:schema.TypeString,
+Computed: true,
+},
+},
 	}
 }func dataSourceTrackerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LocationConn(ctx)	input := &locationservice.DescribeTrackerInput{
-		TrackerName: aws.String(d.Get("tracker_name").(string)),
+TrackerName: aws.String(d.Get("tracker_name").(string)),
 	}	output, err := conn.DescribeTrackerWithContext(ctx, input)	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "getting Location Service Tracker: %s", err)
+return sdkdiag.AppendErrorf(diags, "getting Location Service Tracker: %s", err)
 	}	if output == nil {
-		return sdkdiag.AppendErrorf(diags, "getting Location Service Tracker: empty response")
+return sdkdiag.AppendErrorf(diags, "getting Location Service Tracker: empty response")
 	}	d.SetId(aws.StringValue(output.TrackerName))
 	d.Set("create_time", aws.TimeValue(output.CreateTime).Format(time.RFC3339))
 	d.Set("description", output.Description)

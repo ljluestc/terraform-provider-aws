@@ -7,7 +7,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 )// []*SERVICE.Tag handling// Tags returns iam service tags.func Tags(tags tftags.KeyValueTags) []*iam.Tag {
 result := make([]*iam.Tag, 0, len(tags))for k, v := range tags.Map() {
 tag := &iam.Tag{
-Key:   aws.String(k),
+Key:aws.String(k),
 Value: aws.String(v),
 }result = append(result, tag)
 }return result

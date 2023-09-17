@@ -159,8 +159,8 @@ resource.TestCheckResourceAttr(ds1ResourceName, "tags.%", "0"),
 return fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  rule_type   = "SYSTEM"
-  name   = %[1]q
+  rule_type= "SYSTEM"
+  name= %[1]q
 }data "aws_route53_resolver_rule" "by_resolver_rule_id" {
   resolver_rule_id = aws_route53_resolver_rule.test.id
 }data "aws_route53_resolver_rule" "by_domain_name" {
@@ -174,12 +174,12 @@ resource "aws_route53_resolver_rule" "test" {
 return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointBase(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  rule_type   = "FORWARD"
-  name   = %[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id  target_ip {
-    ip = "192.0.2.7"
+  rule_type= "FORWARD"
+  name= %[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id  target_ip {
+ip = "192.0.2.7"
   }  tags = {
-    "Key1" = "Value1"
-    "Key2" = "Value2"
+"Key1" = "Value1"
+"Key2" = "Value2"
   }
 }data "aws_route53_resolver_rule" "by_resolver_endpoint_id" {
   resolver_endpoint_id = aws_route53_resolver_rule.test.resolver_endpoint_id
@@ -189,12 +189,12 @@ resource "aws_route53_resolver_rule" "test" {
 return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointBase(rName), acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  rule_type   = "FORWARD"
-  name   = %[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id  target_ip {
-    ip = "192.0.2.7"
+  rule_type= "FORWARD"
+  name= %[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id  target_ip {
+ip = "192.0.2.7"
   }  tags = {
-    "Key1" = "Value1"
-    "Key2" = "Value2"
+"Key1" = "Value1"
+"Key2" = "Value2"
   }
 }resource "aws_ram_resource_share" "test" {
   name  = %[1]q
@@ -213,12 +213,12 @@ resource "aws_route53_resolver_rule" "test" {
 return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointBase(rName), acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  rule_type   = "FORWARD"
-  name   = %[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id  target_ip {
-    ip = "192.0.2.7"
+  rule_type= "FORWARD"
+  name= %[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id  target_ip {
+ip = "192.0.2.7"
   }  tags = {
-    "Key1" = "Value1"
-    "Key2" = "Value2"
+"Key1" = "Value1"
+"Key2" = "Value2"
   }
 }resource "aws_ram_resource_share" "test" {
   name  = %[1]q

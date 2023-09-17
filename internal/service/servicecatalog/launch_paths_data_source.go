@@ -16,41 +16,41 @@ Read: schema.DefaultTimeout(LaunchPathsReadyTimeout),
 },Schema: map[string]*schema.Schema{
 "accept_language": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      "en",
+Optional:true,
+Default: "en",
 ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
 },
 "product_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "summaries": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "constraint_summaries": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "path_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "tags": tftags.TagsSchemaComputed(),

@@ -24,7 +24,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tags(identifierAttribute="arn")func ResourceEndpoint() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceEndpointCreate,
-ReadWithoutTimeout:   resourceEndpointRead,
+ReadWithoutTimeout:resourceEndpointRead,
 UpdateWithoutTimeout: resourceEndpointUpdate,
 DeleteWithoutTimeout: resourceEndpointDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -84,7 +84,7 @@ MinItems: 1,
 MaxItems: 64,
 Elem:&schema.Schema{Type: schema.TypeString},
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(10 * time.Minute),
@@ -95,10 +95,10 @@ Delete: schema.DefaultTimeout(10 * time.Minute),
 }func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)input := &route53resolver.CreateResolverEndpointInput{
 CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-endpoint-")),
-Direction:   aws.String(d.Get("direction").(string)),
+Direction:aws.String(d.Get("direction").(string)),
 IpAddresses: expandEndpointIPAddresses(d.Get("ip_address").(*schema.Set)),
 SecurityGroupIds: flex.ExpandStringSet(d.Get("security_group_ids").(*schema.Set)),
-Tags:    getTagsIn(ctx),
+Tags:getTagsIn(ctx),
 }if v, ok := d.GetOk("name"); ok {
 input.Name = aws.String(v.(string))
 }output, err := conn.CreateResolverEndpointWithContext(ctx, input)if err != nil {
@@ -175,7 +175,7 @@ input := &route53resolver.GetResolverEndpointInput{
 ResolverEndpointId: aws.String(id),
 }output, err := conn.GetResolverEndpointWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -205,10 +205,10 @@ return nil, "", err
 }
 }func waitEndpointCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverEndpoint, error) {
 stateConf := &retry.StateChangeConf{
-Pending:    []string{route53resolver.ResolverEndpointStatusCreating},
+Pending:[]string{route53resolver.ResolverEndpointStatusCreating},
 Target:[]string{route53resolver.ResolverEndpointStatusOperational},
-Refresh:    statusEndpoint(ctx, conn, id),
-Timeout:    timeout,
+Refresh:statusEndpoint(ctx, conn, id),
+Timeout:timeout,
 Delay: 10 * time.Second,
 MinTimeout: 5 * time.Second,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)if output, ok := outputRaw.(*route53resolver.ResolverEndpoint); ok {
@@ -216,10 +216,10 @@ tfresource.SetLastError(err, errors.New(aws.StringValue(output.StatusMessage)))r
 }return nil, err
 }func waitEndpointUpdated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverEndpoint, error) { //nolint:unparam
 stateConf := &retry.StateChangeConf{
-Pending:    []string{route53resolver.ResolverEndpointStatusUpdating},
+Pending:[]string{route53resolver.ResolverEndpointStatusUpdating},
 Target:[]string{route53resolver.ResolverEndpointStatusOperational},
-Refresh:    statusEndpoint(ctx, conn, id),
-Timeout:    timeout,
+Refresh:statusEndpoint(ctx, conn, id),
+Timeout:timeout,
 Delay: 10 * time.Second,
 MinTimeout: 5 * time.Second,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)if output, ok := outputRaw.(*route53resolver.ResolverEndpoint); ok {
@@ -227,10 +227,10 @@ tfresource.SetLastError(err, errors.New(aws.StringValue(output.StatusMessage)))r
 }return nil, err
 }func waitEndpointDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverEndpoint, error) {
 stateConf := &retry.StateChangeConf{
-Pending:    []string{route53resolver.ResolverEndpointStatusDeleting},
+Pending:[]string{route53resolver.ResolverEndpointStatusDeleting},
 Target:[]string{},
-Refresh:    statusEndpoint(ctx, conn, id),
-Timeout:    timeout,
+Refresh:statusEndpoint(ctx, conn, id),
+Timeout:timeout,
 Delay: 10 * time.Second,
 MinTimeout: 5 * time.Second,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)if output, ok := outputRaw.(*route53resolver.ResolverEndpoint); ok {
@@ -266,7 +266,7 @@ return []interface{}{}
 }vIpAddresses := []interface{}{}for _, ipAddress := range ipAddresses {
 mIpAddress := map[string]interface{}{
 "subnet_id": aws.StringValue(ipAddress.SubnetId),
-"ip":   aws.StringValue(ipAddress.Ip),
+"ip":aws.StringValue(ipAddress.Ip),
 "ip_id":aws.StringValue(ipAddress.IpId),
 }vIpAddresses = append(vIpAddresses, mIpAddress)
 }return vIpAddresses

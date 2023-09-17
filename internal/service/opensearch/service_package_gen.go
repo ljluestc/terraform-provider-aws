@@ -25,7 +25,7 @@ return []*types.ServicePackageSDKResource{
 {
 Factory:  ResourceDomain,
 TypeName: "aws_opensearch_domain",
-Name:     "Domain",
+Name:"Domain",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "id",
 },

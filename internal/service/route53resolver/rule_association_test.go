@@ -22,7 +22,7 @@ domainName := acctest.RandomDomainName()resource.ParallelTest(t, resource.TestCa
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleAssociationDestroy(ctx),
+CheckDestroy:testAccCheckRuleAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleAssociationConfig_basic(rName, domainName),
@@ -50,7 +50,7 @@ domainName := acctest.RandomDomainName()resource.ParallelTest(t, resource.TestCa
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleAssociationDestroy(ctx),
+CheckDestroy:testAccCheckRuleAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleAssociationConfig_basic(rName, domainName),
@@ -73,7 +73,7 @@ domainName := acctest.RandomDomainName()resource.ParallelTest(t, resource.TestCa
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleAssociationDestroy(ctx),
+CheckDestroy:testAccCheckRuleAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleAssociationConfig_basic(rName, domainName),
@@ -116,15 +116,15 @@ return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block  = "10.6.0.0/16"
   enable_dns_hostnames = true
-  enable_dns_support   = true  tags = {
-    Name = %[1]q
+  enable_dns_support= true  tags = {
+Name = %[1]q
   }
 }resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  name   = %[1]q
-  rule_type   = "SYSTEM"
+  name= %[1]q
+  rule_type= "SYSTEM"
 }resource "aws_route53_resolver_rule_association" "test" {
-  name    = %[1]q
+  name= %[1]q
   resolver_rule_id = aws_route53_resolver_rule.test.id
   vpc_id  = aws_vpc.test.id
 }

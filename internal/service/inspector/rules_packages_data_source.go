@@ -10,32 +10,30 @@
 )// @SDKDataSource("aws_inspector_rules_packages")
 func DataSourceRulesPackages() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceRulesPackagesRead,		Schema: map[string]*schema.Schema{
-			"arns": {
-				Type:     schema.TypeList,
-				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-			},
-		},
-	}
+ReadWithoutTimeout: dataSourceRulesPackagesRead,Schema: map[string]*schema.Schema{
+"arns": {
+Type:schema.TypeList,
+Computed: true,
+Elem:&schema.Schema{Type: schema.TypeString},
+},	}
 }func dataSourceRulesPackagesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).InspectorConn(ctx)	output, err := findRulesPackageARNs(ctx, conn)	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading Inspector Classic Rules Packages: %s", err)
+turn sdkdiag.AppendErrorf(diags, "reading Inspector Classic Rules Packages: %s", err)
 	}	arns := aws.StringValueSlice(output)
 	sort.Strings(arns)	d.SetId(meta.(*conns.AWSClient).Region)
 	d.Set("arns", arns)	return diags
 }func findRulesPackageARNs(ctx context.Context, conn *inspector.Inspector) ([]*string, error) {
 	input := &inspector.ListRulesPackagesInput{}
 	var output []*string	err := conn.ListRulesPackagesPagesWithContext(ctx, input, func(page *inspector.ListRulesPackagesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}		for _, v := range page.RulesPackageArns {
-			if v != nil {
-				output = append(output, v)
-			}
-		}		return !lastPage
+ page == nil {
+return !lastPage
+o_, v := range page.RulesPackageArns {
+if v != nil {
+output = append(output, v)
+}
+ern !lastPage
 	})	if err != nil {
-		return nil, err
+turn nil, err
 	}	return output, nil
 }

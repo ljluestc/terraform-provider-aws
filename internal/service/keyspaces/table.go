@@ -25,7 +25,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func resourceTable() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceTableCreate,
-ReadWithoutTimeout:   resourceTableRead,
+ReadWithoutTimeout:resourceTableRead,
 UpdateWithoutTimeout: resourceTableUpdate,
 DeleteWithoutTimeout: resourceTableDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -428,7 +428,7 @@ return diag.Errorf("waiting for Keyspaces Table (%s) EncryptionSpecification upd
 }if d.HasChange("point_in_time_recovery") {
 if v, ok := d.GetOk("point_in_time_recovery"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 input := &keyspaces.UpdateTableInput{
-KeyspaceName:   aws.String(keyspaceName),
+KeyspaceName:aws.String(keyspaceName),
 PointInTimeRecovery: expandPointInTimeRecovery(v.([]interface{})[0].(map[string]interface{})),
 TableName: aws.String(tableName),
 }_, err := conn.UpdateTable(ctx, input)if err != nil {
@@ -463,7 +463,7 @@ ns = v
 }if os != nil && ns != nil {
 if add := ns.Difference(os); add.Len() > 0 {
 input := &keyspaces.UpdateTableInput{
-AddColumns:   expandColumnDefinitions(add.List()),
+AddColumns:expandColumnDefinitions(add.List()),
 KeyspaceName: aws.String(keyspaceName),
 TableName:aws.String(tableName),
 }_, err := conn.UpdateTable(ctx, input)if err != nil {
@@ -502,7 +502,7 @@ KeyspaceName: aws.String(keyspaceName),
 TableName:aws.String(tableName),
 }output, err := conn.GetTable(ctx, &input)if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -547,7 +547,7 @@ Pending: enum.Slice(types.TableStatusUpdating),
 Target:  enum.Slice(types.TableStatusActive),
 Refresh: statusTable(ctx, conn, keyspaceName, tableName),
 Timeout: timeout,
-Delay:   10 * time.Second,
+Delay:10 * time.Second,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)if output, ok := outputRaw.(*keyspaces.GetTableOutput); ok {
 return output, err
 }return nil, err

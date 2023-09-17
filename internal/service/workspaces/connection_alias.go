@@ -48,20 +48,20 @@ stringplanmodifier.RequiresReplace(),
 Description: "The connection string specified for the connection alias. The connection string must be in the form of a fully qualified domain name (FQDN), such as www.example.com.",
 },
 "owner_account_id": schema.StringAttribute{
-Computed:    true,
+Computed:true,
 Description: "The identifier of the Amazon Web Services account that owns the connection alias.",
 PlanModifiers: []planmodifier.String{
 stringplanmodifier.UseStateForUnknown(),
 },
 },
 "state": schema.StringAttribute{
-Computed:    true,
+Computed:true,
 Description: "The current state of the connection alias.",
 PlanModifiers: []planmodifier.String{
 stringplanmodifier.UseStateForUnknown(),
 },
 },
-names.AttrTags:    tftags.TagsAttribute(),
+names.AttrTags:tftags.TagsAttribute(),
 names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
 },
 Blocks: map[string]schema.Block{
@@ -172,11 +172,11 @@ data.State = flex.StringValueToFramework(ctx, in.State)
 }
 func waitConnectionAliasCreated(ctx context.Context, conn *workspaces.Client, id string, timeout time.Duration) (*awstypes.ConnectionAlias, error) {
 stateConf := &retry.StateChangeConf{
-Pending:      enum.Slice(awstypes.ConnectionAliasStateCreating),
-Target:       enum.Slice(awstypes.ConnectionAliasStateCreated),
-Refresh:      statusConnectionAlias(ctx, conn, id),
-Timeout:      timeout,
-NotFoundChecks:   20,
+Pending:enum.Slice(awstypes.ConnectionAliasStateCreating),
+Target:enum.Slice(awstypes.ConnectionAliasStateCreated),
+Refresh:statusConnectionAlias(ctx, conn, id),
+Timeout:timeout,
+NotFoundChecks:20,
 ContinuousTargetOccurence: 2,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)
 if out, ok := outputRaw.(*awstypes.ConnectionAlias); ok {
@@ -209,7 +209,7 @@ in := &workspaces.DescribeConnectionAliasesInput{
 AliasIds: []string{id},
 }out, err := conn.DescribeConnectionAliases(ctx, in)if errs.IsA[*awstypes.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }if err != nil {
@@ -218,11 +218,11 @@ return nil, err
 return nil, tfresource.NewEmptyResultError(in)
 }return &out.ConnectionAliases[0], nil
 }type resourceConnectionAliasData struct {
-ID  types.String   `tfsdk:"id"`
-ConnectionString types.String   `tfsdk:"connection_string"`
-OwnerAccountId   types.String   `tfsdk:"owner_account_id"`
-State   types.String   `tfsdk:"state"`
-Tagstypes.Map      `tfsdk:"tags"`
-TagsAll types.Map      `tfsdk:"tags_all"`
+ID  types.String`tfsdk:"id"`
+ConnectionString types.String`tfsdk:"connection_string"`
+OwnerAccountIdtypes.String`tfsdk:"owner_account_id"`
+Statetypes.String`tfsdk:"state"`
+Tagstypes.Map`tfsdk:"tags"`
+TagsAll types.Map`tfsdk:"tags_all"`
 Timeoutstimeouts.Value `tfsdk:"timeouts"`
 }

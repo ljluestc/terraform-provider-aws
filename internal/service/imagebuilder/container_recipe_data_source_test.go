@@ -50,16 +50,16 @@ data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_ecr
 }resource "aws_imagebuilder_container_recipe" "test" {
   name  = %[1]q
   container_type = "DOCKER"
-  parent_image   = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-x86-2/x.x.x"
-  version        = "1.0.0"  component {
-    component_arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/update-linux/x.x.x"
+  parent_image= "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-x86-2/x.x.x"
+  version
+component_arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/update-linux/x.x.x"
   }  dockerfile_template_data = <<EOF
 FROM {{{ imagebuilder:parentImage }}}
 {{{ imagebuilder:environments }}}
 {{{ imagebuilder:components }}}
 EOF  target_repository {
-    repository_name = aws_ecr_repository.test.name
-    service= "ECR"
+repository_name = aws_ecr_repository.test.name
+service= "ECR"
   }
 }data "aws_imagebuilder_container_recipe" "test" {
   arn = aws_imagebuilder_container_recipe.test.arn

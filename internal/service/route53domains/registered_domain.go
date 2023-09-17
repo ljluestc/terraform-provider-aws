@@ -25,7 +25,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tags(identifierAttribute="id")
 func ResourceRegisteredDomain() *schema.Resource {
 contactSchema := &schema.Schema{
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
@@ -33,20 +33,20 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "address_line_1": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 255),
 },
 "address_line_2": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 255),
 },
 "city": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 255),
 },
 "contact_type": {
@@ -63,108 +63,108 @@ ValidateDiagFunc: enum.Validate[types.CountryCode](),
 },
 "email": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 254),
 },
 "extra_params": {
-Type:     schema.TypeMap,
+Type:schema.TypeMap,
 Optional: true,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "fax": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 30),
 },
 "first_name": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 255),
 },
 "last_name": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 255),
 },
 "organization_name": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 255),
 },
 "phone_number": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 30),
 },
 "state": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 255),
 },
 "zip_code": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringLenBetween(0, 255),
 },
 },
 },
 }return &schema.Resource{
 CreateWithoutTimeout: resourceRegisteredDomainCreate,
-ReadWithoutTimeout:   resourceRegisteredDomainRead,
+ReadWithoutTimeout:resourceRegisteredDomainRead,
 UpdateWithoutTimeout: resourceRegisteredDomainUpdate,
 DeleteWithoutTimeout: resourceRegisteredDomainDelete,Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(30 * time.Minute),
 Update: schema.DefaultTimeout(30 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "abuse_contact_email": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "abuse_contact_phone": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "admin_contact": contactSchema,
 "admin_privacy": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 },
 "auto_renew": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 },
 "creation_date": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "domain_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "expiration_date": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "name_server": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 6,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "glue_ips": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 MaxItems: 2,
 Elem: &schema.Schema{
@@ -173,7 +173,7 @@ ValidateFunc: validation.IsIPAddress,
 },
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ValidateFunc: validation.All(
 validation.StringLenBetween(1, 255),
@@ -185,46 +185,46 @@ validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z_.-]*`), "can contain on
 },
 "registrant_contact": contactSchema,
 "registrant_privacy": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 },
 "registrar_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "registrar_url": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "reseller": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "status_list": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
-"tech_contact":    contactSchema,
+"tech_contact":contactSchema,
 "tech_privacy": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 },
 "transfer_lock": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 },
 "updated_date": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "whois_server": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },CustomizeDiff: verify.SetTagsDiff,
@@ -406,10 +406,10 @@ return fmt.Errorf("disabling Route 53 Domains Domain (%s) auto-renew: %w", domai
 }return nil
 }func modifyDomainContact(ctx context.Context, conn *route53domains.Client, domainName string, adminContact, registrantContact, techContact *types.ContactDetail, timeout time.Duration) error {
 input := &route53domains.UpdateDomainContactInput{
-AdminContact:      adminContact,
-DomainName:        aws.String(domainName),
+AdminContact:adminContact,
+DomainName:
 RegistrantContact: registrantContact,
-TechContact:       techContact,
+TechContact:techContact,
 }log.Printf("[DEBUG] Updating Route 53 Domains Domain contacts: %#v", input)
 output, err := conn.UpdateDomainContact(ctx, input)if err != nil {
 return fmt.Errorf("updating Route 53 Domains Domain (%s) contacts: %w", domainName, err)
@@ -418,10 +418,10 @@ return fmt.Errorf("waiting for Route 53 Domains Domain (%s) contacts update: %w"
 }return nil
 }func modifyDomainContactPrivacy(ctx context.Context, conn *route53domains.Client, domainName string, adminPrivacy, registrantPrivacy, techPrivacy bool, timeout time.Duration) error {
 input := &route53domains.UpdateDomainContactPrivacyInput{
-AdminPrivacy:      aws.Bool(adminPrivacy),
-DomainName:        aws.String(domainName),
+AdminPrivacy:aws.Bool(adminPrivacy),
+DomainName:
 RegistrantPrivacy: aws.Bool(registrantPrivacy),
-TechPrivacy:       aws.Bool(techPrivacy),
+TechPrivacy:aws.Bool(techPrivacy),
 }log.Printf("[DEBUG] Updating Route 53 Domains Domain contact privacy: %#v", input)
 output, err := conn.UpdateDomainContactPrivacy(ctx, input)if err != nil {
 return fmt.Errorf("enabling Route 53 Domains Domain (%s) contact privacy: %w", domainName, err)
@@ -464,7 +464,7 @@ DomainName: aws.String(name),
 }output, err := conn.GetDomainDetail(ctx, input)if err != nil {
 var invalidInput *types.InvalidInputif errors.As(err, &invalidInput) && strings.Contains(invalidInput.ErrorMessage(), "not found") {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }return nil, err
@@ -477,7 +477,7 @@ OperationId: aws.String(id),
 }output, err := conn.GetOperationDetail(ctx, input)if err != nil {
 var invalidInput *types.InvalidInputif errors.As(err, &invalidInput) && strings.Contains(invalidInput.ErrorMessage(), "not found") {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }return nil, err

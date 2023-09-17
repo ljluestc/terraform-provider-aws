@@ -18,7 +18,7 @@
 func ResourceVPCEndpoint() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceVPCEndpointCreate,
-ReadWithoutTimeout:   resourceVPCEndpointRead,
+ReadWithoutTimeout:resourceVPCEndpointRead,
 UpdateWithoutTimeout: resourceVPCEndpointUpdate,
 DeleteWithoutTimeout: resourceVPCEndpointDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -29,38 +29,38 @@ Delete: schema.DefaultTimeout(90 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "domain_arn": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 },
 "endpoint": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "vpc_options": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "availability_zones": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "security_group_ids": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "subnet_ids": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Required: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "vpc_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
@@ -101,7 +101,7 @@ d.Set("vpc_options", nil)
 func resourceVPCEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)input := &opensearchservice.UpdateVpcEndpointInput{
-VpcOptions:    expandVPCOptions(d.Get("vpc_options").([]interface{})[0].(map[string]interface{})),
+VpcOptions:expandVPCOptions(d.Get("vpc_options").([]interface{})[0].(map[string]interface{})),
 VpcEndpointId: aws.String(d.Id()),
 }_, err := conn.UpdateVpcEndpointWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating OpenSearch VPC Endpoint (%s): %s", d.Id(), err)

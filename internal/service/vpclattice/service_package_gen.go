@@ -13,27 +13,27 @@ return []*types.ServicePackageSDKDataSource{
 {
 Factory:  DataSourceAuthPolicy,
 TypeName: "aws_vpclattice_auth_policy",
-Name:     "Auth Policy",
+Name:"Auth Policy",
 },
 {
 Factory:  DataSourceListener,
 TypeName: "aws_vpclattice_listener",
-Name:     "Listener",
+Name:"Listener",
 },
 {
 Factory:  DataSourceResourcePolicy,
 TypeName: "aws_vpclattice_resource_policy",
-Name:     "Resource Policy",
+Name:"Resource Policy",
 },
 {
 Factory:  dataSourceService,
 TypeName: "aws_vpclattice_service",
-Tags:     &types.ServicePackageResourceTags{},
+Tags:&types.ServicePackageResourceTags{},
 },
 {
 Factory:  dataSourceServiceNetwork,
 TypeName: "aws_vpclattice_service_network",
-Tags:     &types.ServicePackageResourceTags{},
+Tags:&types.ServicePackageResourceTags{},
 },
 }
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
@@ -41,7 +41,7 @@ return []*types.ServicePackageSDKResource{
 {
 Factory:  resourceAccessLogSubscription,
 TypeName: "aws_vpclattice_access_log_subscription",
-Name:     "Access Log Subscription",
+Name:"Access Log Subscription",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },
@@ -53,7 +53,7 @@ TypeName: "aws_vpclattice_auth_policy",
 {
 Factory:  ResourceListener,
 TypeName: "aws_vpclattice_listener",
-Name:     "Listener",
+Name:"Listener",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },
@@ -61,7 +61,7 @@ IdentifierAttribute: "arn",
 {
 Factory:  ResourceListenerRule,
 TypeName: "aws_vpclattice_listener_rule",
-Name:     "Listener Rule",
+Name:"Listener Rule",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },
@@ -69,12 +69,12 @@ IdentifierAttribute: "arn",
 {
 Factory:  ResourceResourcePolicy,
 TypeName: "aws_vpclattice_resource_policy",
-Name:     "Resource Policy",
+Name:"Resource Policy",
 },
 {
 Factory:  resourceService,
 TypeName: "aws_vpclattice_service",
-Name:     "Service",
+Name:"Service",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },
@@ -82,7 +82,7 @@ IdentifierAttribute: "arn",
 {
 Factory:  resourceServiceNetwork,
 TypeName: "aws_vpclattice_service_network",
-Name:     "Service Network",
+Name:"Service Network",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },
@@ -90,7 +90,7 @@ IdentifierAttribute: "arn",
 {
 Factory:  resourceServiceNetworkServiceAssociation,
 TypeName: "aws_vpclattice_service_network_service_association",
-Name:     "Service Network Service Association",
+Name:"Service Network Service Association",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },
@@ -98,7 +98,7 @@ IdentifierAttribute: "arn",
 {
 Factory:  resourceServiceNetworkVPCAssociation,
 TypeName: "aws_vpclattice_service_network_vpc_association",
-Name:     "Service Network VPC Association",
+Name:"Service Network VPC Association",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },
@@ -106,7 +106,7 @@ IdentifierAttribute: "arn",
 {
 Factory:  ResourceTargetGroup,
 TypeName: "aws_vpclattice_target_group",
-Name:     "Target Group",
+Name:"Target Group",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },
@@ -114,7 +114,7 @@ IdentifierAttribute: "arn",
 {
 Factory:  resourceTargetGroupAttachment,
 TypeName: "aws_vpclattice_target_group_attachment",
-Name:     "Target Group Attachment",
+Name:"Target Group Attachment",
 },
 }
 }func (p *servicePackage) ServicePackageName() string {

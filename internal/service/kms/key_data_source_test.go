@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kms_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kms_testimport (
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/kms"
+"testing""github.com/aws/aws-sdk-go/service/kms"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
@@ -16,10 +10,8 @@ func TestAccKMSKeyDataSource_byKeyARN(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_kms_key.test"
 dataSourceName := "data.aws_kms_key.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -50,10 +42,8 @@ func TestAccKMSKeyDataSource_byKeyID(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_kms_key.test"
 dataSourceName := "data.aws_kms_key.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -84,10 +74,8 @@ func TestAccKMSKeyDataSource_byAliasARN(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_kms_key.test"
 dataSourceName := "data.aws_kms_key.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -118,10 +106,8 @@ func TestAccKMSKeyDataSource_byAliasID(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_kms_key.test"
 dataSourceName := "data.aws_kms_key.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -157,10 +143,8 @@ func TestAccKMSKeyDataSource_grantToken(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_kms_key.test"
 dataSourceName := "data.aws_kms_key.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -191,10 +175,8 @@ func TestAccKMSKeyDataSource_multiRegionConfigurationByARN(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_kms_key.test"
 dataSourceName := "data.aws_kms_key.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -230,10 +212,8 @@ func TestAccKMSKeyDataSource_multiRegionConfigurationByID(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_kms_key.test"
 dataSourceName := "data.aws_kms_key.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -268,11 +248,9 @@ resource.TestCheckNoResourceAttr(dataSourceName, "valid_to"),
 func testAccKeyDataSourceConfig_byKeyARN(rName string) string {
 return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
-}
-
-data "aws_kms_key" "test" {
+}data "aws_kms_key" "test" {
   key_id = aws_kms_key.test.arn
 }
 `, rName)
@@ -280,11 +258,9 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_byKeyID(rName string) string {
 return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
-}
-
-data "aws_kms_key" "test" {
+}data "aws_kms_key" "test" {
   key_id = aws_kms_key.test.key_id
 }
 `, rName)
@@ -292,16 +268,12 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_byAliasARN(rName string) string {
 return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
-}
-
-resource "aws_kms_alias" "test" {
+}resource "aws_kms_alias" "test" {
   name = "alias/%[1]s"
   target_key_id = aws_kms_key.test.id
-}
-
-data "aws_kms_key" "test" {
+}data "aws_kms_key" "test" {
   key_id = aws_kms_alias.test.arn
 }
 `, rName)
@@ -309,16 +281,12 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_byAliasID(rName string) string {
 return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
-}
-
-resource "aws_kms_alias" "test" {
+}resource "aws_kms_alias" "test" {
   name = "alias/%[1]s"
   target_key_id = aws_kms_key.test.id
-}
-
-data "aws_kms_key" "test" {
+}data "aws_kms_key" "test" {
   key_id = aws_kms_alias.test.id
 }
 `, rName)
@@ -326,14 +294,12 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_grantToken(rName string) string {
 return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
-  name     = %[1]q
-  key_id   = aws_kms_key.test.key_id
+  name= %[1]q
+  key_id= aws_kms_key.test.key_id
   grantee_principal = aws_iam_role.test.arn
-  operations        = ["DescribeKey"]
-}
-
-data "aws_kms_key" "test" {
-  key_id       = aws_kms_key.test.key_id
+  operations]
+}data "aws_kms_key" "test" {
+  key_id= aws_kms_key.test.key_id
   grant_tokens = [aws_kms_grant.test.grant_token]
 }
 `, rName))
@@ -341,12 +307,10 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_multiRegionByARN(rName string) string {
 return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
-  multi_region   = true
-}
-
-data "aws_kms_key" "test" {
+  multi_region= true
+}data "aws_kms_key" "test" {
   key_id = aws_kms_key.test.arn
 }
 `, rName)
@@ -354,12 +318,10 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_multiRegionByID(rName string) string {
 return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
-  multi_region   = true
-}
-
-data "aws_kms_key" "test" {
+  multi_region= true
+}data "aws_kms_key" "test" {
   key_id = aws_kms_key.test.key_id
 }
 `, rName)

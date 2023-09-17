@@ -1,1046 +1,4 @@
-//Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0packageeks_testimport(
-"context"
-"fmt"
-"testing""github.com/YakDriver/regexache"
-"github.com/aws/aws-sdk-go/aws"
-"github.com/aws/aws-sdk-go/service/eks"
-sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-"github.com/hashicorp/terraform-plugin-testing/terraform"
-"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-"github.com/hashicorp/terraform-provider-aws/internal/conns"
-tfeks"github.com/hashicorp/terraform-provider-aws/internal/service/eks"
-"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)funcinit(){
-acctest.RegisterServiceErrorCheckFunc(eks.EndpointsID,testAccErrorCheckSkip)
-}funcTestAccEKSNodeGroup_basic(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroupeks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-eksClusterResourceName:="aws_eks_cluster.test"
-iamRoleResourceName:="aws_iam_role.node"
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_dataSourceName(rName),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup),
-resource.TestCheckResourceAttr(resourceName,"ami_type",eks.AMITypesAl2X8664),
-acctest.MatchResourceAttrRegionalARN(resourceName,"arn","eks",regexache.MustCompile(fmt.Sprintf("nodegroup/%[1]s/%[1]s/.+",rName))),
-resource.TestCheckResourceAttrPair(resourceName,"cluster_name",eksClusterResourceName,"name"),
-resource.TestCheckResourceAttr(resourceName,"capacity_type",eks.CapacityTypesOnDemand),
-resource.TestCheckResourceAttr(resourceName,"disk_size","20"),
-resource.TestCheckResourceAttr(resourceName,"instance_types.#","1"),
-resource.TestCheckResourceAttr(resourceName,"labels.%","0"),
-resource.TestCheckResourceAttr(resourceName,"node_group_name",rName),
-resource.TestCheckResourceAttr(resourceName,"node_group_name_prefix",""),
-resource.TestCheckResourceAttrPair(resourceName,"node_role_arn",iamRoleResourceName,"arn"),
-resource.TestMatchResourceAttr(resourceName,"release_version",regexache.MustCompile(`^\d+\.\d+\.\d+-\d{8}$`)),
-resource.TestCheckResourceAttr(resourceName,"remote_access.#","0"),
-resource.TestCheckResourceAttr(resourceName,"resources.#","1"),
-resource.TestCheckResourceAttr(resourceName,"resources.0.autoscaling_groups.#","1"),
-resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),
-resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","1"),
-resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","1"),
-resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),
-resource.TestCheckResourceAttr(resourceName,"status",eks.NodegroupStatusActive),
-resource.TestCheckResourceAttr(resourceName,"subnet_ids.#","2"),
-resource.TestCheckResourceAttr(resourceName,"tags.%","0"),
-resource.TestCheckResourceAttr(resourceName,"taint.#","0"),
-resource.TestCheckResourceAttr(resourceName,"update_config.#","1"),
-resource.TestCheckResourceAttrPair(resourceName,"version",eksClusterResourceName,"version"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-},
-})
-}funcTestAccEKSNodeGroup_Name_generated(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroupeks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_nameGenerated(rName),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup),
-acctest.CheckResourceAttrNameGenerated(resourceName,"node_group_name"),
-resource.TestCheckResourceAttr(resourceName,"node_group_name_prefix","terraform-"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-},
-})
-}funcTestAccEKSNodeGroup_namePrefix(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroupeks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_namePrefix(rName,"tf-acc-test-prefix-"),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup),
-acctest.CheckResourceAttrNameFromPrefix(resourceName,"node_group_name","tf-acc-test-prefix-"),
-resource.TestCheckResourceAttr(resourceName,"node_group_name_prefix","tf-acc-test-prefix-"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-},
-})
-}funcTestAccEKSNodeGroup_disappears(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroupeks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_dataSourceName(rName),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup),
-acctest.CheckResourceDisappears(ctx,acctest.Provider,tfeks.ResourceNodeGroup(),resourceName),
-),
-ExpectNonEmptyPlan:true,
-},
-},
-})
-}funcTestAccEKSNodeGroup_amiType(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1,nodeGroup2eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_amiType(rName,eks.AMITypesAl2X8664Gpu),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"ami_type",eks.AMITypesAl2X8664Gpu),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-{
-Config:testAccNodeGroupConfig_amiType(rName,eks.AMITypesAl2Arm64),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-resource.TestCheckResourceAttr(resourceName,"ami_type",eks.AMITypesAl2Arm64),
-),
-},
-},
-})
-}funcTestAccEKSNodeGroup_CapacityType_spot(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_capacityType(rName,eks.CapacityTypesSpot),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"capacity_type",eks.CapacityTypesSpot),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-},
-})
-}funcTestAccEKSNodeGroup_diskSize(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_diskSize(rName,21),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"disk_size","21"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-},
-})
-}funcTestAccEKSNodeGroup_forceUpdateVersion(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_forceUpdateVersion(rName,clusterVersionUpgradeInitial),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"version",clusterVersionUpgradeInitial),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-ImportStateVerifyIgnore:[]string{"force_update_version"},
-},
-{
-Config:testAccNodeGroupConfig_forceUpdateVersion(rName,clusterVersionUpgradeUpdated),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"version",clusterVersionUpgradeUpdated),
-),
-},
-},
-})
-}funcTestAccEKSNodeGroup_InstanceTypes_multiple(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"
-instanceTypes:=fmt.Sprintf("%q,%q,%q,%q","t2.medium","t3.medium","t2.large","t3.large")resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_instanceTypesMultiple(rName,instanceTypes),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"instance_types.#","4"),
-resource.TestCheckResourceAttr(resourceName,"instance_types.0","t2.medium"),
-resource.TestCheckResourceAttr(resourceName,"instance_types.1","t3.medium"),
-resource.TestCheckResourceAttr(resourceName,"instance_types.2","t2.large"),
-resource.TestCheckResourceAttr(resourceName,"instance_types.3","t3.large"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-},
-})
-}funcTestAccEKSNodeGroup_InstanceTypes_single(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_instanceTypesSingle(rName),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"instance_types.#","1"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-},
-})
-}funcTestAccEKSNodeGroup_labels(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1,nodeGroup2,nodeGroup3eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_labels1(rName,"key1","value1"),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"labels.%","1"),
-resource.TestCheckResourceAttr(resourceName,"labels.key1","value1"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-{
-Config:testAccNodeGroupConfig_labels2(rName,"key1","value1updated","key2","value2"),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-resource.TestCheckResourceAttr(resourceName,"labels.%","2"),
-resource.TestCheckResourceAttr(resourceName,"labels.key1","value1updated"),
-resource.TestCheckResourceAttr(resourceName,"labels.key2","value2"),
-),
-},
-{
-Config:testAccNodeGroupConfig_labels1(rName,"key2","value2"),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup3),
-resource.TestCheckResourceAttr(resourceName,"labels.%","1"),
-resource.TestCheckResourceAttr(resourceName,"labels.key2","value2"),
-),
-},
-},
-})
-}funcTestAccEKSNodeGroup_LaunchTemplate_id(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1,nodeGroup2eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-launchTemplateResourceName1:="aws_launch_template.test1"
-launchTemplateResourceName2:="aws_launch_template.test2"
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_launchTemplateId1(rName),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),
-resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.id",launchTemplateResourceName1,"id"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-{
-Config:testAccNodeGroupConfig_launchTemplateId2(rName),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-testAccCheckNodeGroupRecreated(&nodeGroup1,&nodeGroup2),
-resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),
-resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.id",launchTemplateResourceName2,"id"),
-),
-},
-},
-})
-}funcTestAccEKSNodeGroup_LaunchTemplate_name(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1,nodeGroup2eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-launchTemplateResourceName1:="aws_launch_template.test1"
-launchTemplateResourceName2:="aws_launch_template.test2"
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_launchTemplateName1(rName),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),
-resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.name",launchTemplateResourceName1,"name"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-{
-Config:testAccNodeGroupConfig_launchTemplateName2(rName),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-testAccCheckNodeGroupRecreated(&nodeGroup1,&nodeGroup2),
-resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),
-resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.name",launchTemplateResourceName2,"name"),
-),
-},
-},
-})
-}funcTestAccEKSNodeGroup_LaunchTemplate_version(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1,nodeGroup2eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-launchTemplateResourceName:="aws_launch_template.test"
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_launchTemplateVersion1(rName),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),
-resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.version",launchTemplateResourceName,"default_version"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-{
-Config:testAccNodeGroupConfig_launchTemplateVersion2(rName),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),
-resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),
-resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.version",launchTemplateResourceName,"default_version"),
-),
-},
-},
-})
-}funcTestAccEKSNodeGroup_releaseVersion(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1,nodeGroup2eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-ssmParameterDataSourceName:="data.aws_ssm_parameter.test"
-resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_releaseVersion(rName,"1.17"),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttrPair(resourceName,"release_version",ssmParameterDataSourceName,"value"),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-{
-Config:testAccNodeGroupConfig_releaseVersion(rName,"1.18"),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),
-resource.TestCheckResourceAttrPair(resourceName,"release_version",ssmParameterDataSourceName,"value"),
-),
-},
-},
-})
-}funcTestAccEKSNodeGroup_RemoteAccess_ec2SSHKey(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"publicKey,_,err:=sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
-iferr!=nil{
-t.Fatalf("errorgeneratingrandomSSHkey:%s",err)
-}resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-Steps:[]resource.TestStep{
-{
-Config:testAccNodeGroupConfig_remoteAccessEC2SSHKey(rName,publicKey),
-Check:resource.ComposeTestCheckFunc(
-testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-resource.TestCheckResourceAttr(resourceName,"remote_access.#","1"),
-resource.TestCheckResourceAttr(resourceName,"remote_access.0.ec2_ssh_key",rName),
-),
-},
-{
-ResourceName:resourceName,
-ImportState:true,
-ImportStateVerify:true,
-},
-},
-})
-}funcTestAccEKSNodeGroup_RemoteAccess_sourceSecurityGroupIDs(t*testing.T){
-ctx:=acctest.Context(t)
-varnodeGroup1eks.Nodegroup
-rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName:="aws_eks_node_group.test"publicKey,_,err:=sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
-iferr!=nil{
-t.Fatalf("errorgeneratingrandomSSHkey:%s",err)
-}resource.ParallelTest(t,resource.TestCase{
-PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNodeGroupConfig_remoteAccessSourceSecurityIds1(rName,publicKey),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"remote_access.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"remote_access.0.source_security_group_ids.#","1"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-		},
-	})
-}funcTestAccEKSNodeGroup_Scaling_desiredSize(t*testing.T){
-	ctx:=acctest.Context(t)
-	varnodeGroup1,nodeGroup2eks.Nodegroup
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_eks_node_group.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNodeGroupConfig_scalingSizes(rName,2,2,1),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","2"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccNodeGroupConfig_scalingSizes(rName,1,2,1),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-					testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),
-				),
-			},
-		},
-	})
-}funcTestAccEKSNodeGroup_Scaling_maxSize(t*testing.T){
-	ctx:=acctest.Context(t)
-	varnodeGroup1,nodeGroup2eks.Nodegroup
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_eks_node_group.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNodeGroupConfig_scalingSizes(rName,1,2,1),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccNodeGroupConfig_scalingSizes(rName,1,1,1),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-					testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),
-				),
-			},
-		},
-	})
-}funcTestAccEKSNodeGroup_Scaling_minSize(t*testing.T){
-	ctx:=acctest.Context(t)
-	varnodeGroup1,nodeGroup2eks.Nodegroup
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_eks_node_group.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNodeGroupConfig_scalingSizes(rName,2,2,2),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","2"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","2"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccNodeGroupConfig_scalingSizes(rName,2,2,1),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-					testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","2"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),
-				),
-			},
-		},
-	})
-}funcTestAccEKSNodeGroup_ScalingZeroDesiredSize_minSize(t*testing.T){
-	ctx:=acctest.Context(t)
-	varnodeGroup1,nodeGroup2eks.Nodegroup
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_eks_node_group.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNodeGroupConfig_scalingSizes(rName,0,1,0),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","0"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","0"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccNodeGroupConfig_scalingSizes(rName,1,2,1),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-					testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),
-				),
-			},
-			{
-				Config:testAccNodeGroupConfig_scalingSizes(rName,0,1,0),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","0"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","1"),
-					resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","0"),
-				),
-			},
-		},
-	})
-}funcTestAccEKSNodeGroup_tags(t*testing.T){
-	ctx:=acctest.Context(t)
-	varnodeGroup1,nodeGroup2,nodeGroup3eks.Nodegroup
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_eks_node_group.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNodeGroupConfig_tags1(rName,"key1","value1"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key1","value1"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccNodeGroupConfig_tags2(rName,"key1","value1updated","key2","value2"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-					testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","2"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key1","value1updated"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
-				),
-			},
-			{
-				Config:testAccNodeGroupConfig_tags1(rName,"key2","value2"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup3),
-					testAccCheckNodeGroupNotRecreated(&nodeGroup2,&nodeGroup3),
-					resource.TestCheckResourceAttr(resourceName,"tags.%","1"),
-					resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),
-				),
-			},
-		},
-	})
-}funcTestAccEKSNodeGroup_taints(t*testing.T){
-	ctx:=acctest.Context(t)
-	varnodeGroup1eks.Nodegroup
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_eks_node_group.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNodeGroupConfig_taints1(rName,"key1","value1","NO_SCHEDULE"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"taint.#","1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName,"taint.*",map[string]string{
-						"key":"key1",
-						"value":"value1",
-						"effect":"NO_SCHEDULE",
-					}),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccNodeGroupConfig_taints2(rName,
-					"key1","value1updated","NO_EXECUTE",
-					"key2","value2","NO_SCHEDULE"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"taint.#","2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName,"taint.*",map[string]string{
-						"key":"key1",
-						"value":"value1updated",
-						"effect":"NO_EXECUTE",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName,"taint.*",map[string]string{
-						"key":"key2",
-						"value":"value2",
-						"effect":"NO_SCHEDULE",
-					}),
-				),
-			},
-			{
-				Config:testAccNodeGroupConfig_taints1(rName,"key2","value2","NO_SCHEDULE"),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"taint.#","1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName,"taint.*",map[string]string{
-						"key":"key2",
-						"value":"value2",
-						"effect":"NO_SCHEDULE",
-					}),
-				),
-			},
-		},
-	})
-}funcTestAccEKSNodeGroup_update(t*testing.T){
-	ctx:=acctest.Context(t)
-	varnodeGroup1eks.Nodegroup
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_eks_node_group.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNodeGroupConfig_update1(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"update_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"update_config.0.max_unavailable","1"),
-					resource.TestCheckResourceAttr(resourceName,"update_config.0.max_unavailable_percentage","0"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccNodeGroupConfig_update2(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"update_config.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"update_config.0.max_unavailable","0"),
-					resource.TestCheckResourceAttr(resourceName,"update_config.0.max_unavailable_percentage","40"),
-				),
-			},
-		},
-	})
-}funcTestAccEKSNodeGroup_version(t*testing.T){
-	ctx:=acctest.Context(t)
-	varnodeGroup1,nodeGroup2eks.Nodegroup
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName:="aws_eks_node_group.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckNodeGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNodeGroupConfig_version(rName,clusterVersionUpgradeInitial),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),
-					resource.TestCheckResourceAttr(resourceName,"version",clusterVersionUpgradeInitial),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccNodeGroupConfig_version(rName,clusterVersionUpgradeUpdated),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),
-					testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),
-					resource.TestCheckResourceAttr(resourceName,"version",clusterVersionUpgradeUpdated),
-				),
-			},
-		},
-	})
-}functestAccErrorCheckSkip(t*testing.T)resource.ErrorCheckFunc{
-	returnacctest.ErrorCheckSkipMessagesContaining(t,
-		"InvalidParameterException:Thefollowingsuppliedinstancetypesdonotexist",
-	)
-}functestAccCheckNodeGroupExists(ctxcontext.Context,resourceNamestring,nodeGroup*eks.Nodegroup)resource.TestCheckFunc{
-	returnfunc(s*terraform.State)error{
-		rs,ok:=s.RootModule().Resources[resourceName]
-		if!ok{
-			returnfmt.Errorf("Notfound:%s",resourceName)
-		}		ifrs.Primary.ID==""{
-			returnfmt.Errorf("NoEKSNodeGroupIDisset")
-		}		clusterName,nodeGroupName,err:=tfeks.NodeGroupParseResourceID(rs.Primary.ID)		iferr!=nil{
-			returnerr
-		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).EKSConn(ctx)		output,err:=tfeks.FindNodegroupByClusterNameAndNodegroupName(ctx,conn,clusterName,nodeGroupName)		iferr!=nil{
-			returnerr
-		}		*nodeGroup=*output		returnnil
-	}
-}functestAccCheckNodeGroupDestroy(ctxcontext.Context)resource.TestCheckFunc{
-	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).EKSConn(ctx)		for_,rs:=ranges.RootModule().Resources{
-			ifrs.Type!="aws_eks_node_group"{
-				continue
-			}			clusterName,nodeGroupName,err:=tfeks.NodeGroupParseResourceID(rs.Primary.ID)			iferr!=nil{
-				returnerr
-			}			_,err=tfeks.FindNodegroupByClusterNameAndNodegroupName(ctx,conn,clusterName,nodeGroupName)			iftfresource.NotFound(err){
-				continue
-			}			iferr!=nil{
-				returnerr
-			}			returnfmt.Errorf("EKSNodeGroup%sstillexists",rs.Primary.ID)
-		}		returnnil
-	}
-}functestAccCheckNodeGroupNotRecreated(i,j*eks.Nodegroup)resource.TestCheckFunc{
-	returnfunc(s*terraform.State)error{
-		if!aws.TimeValue(i.CreatedAt).Equal(aws.TimeValue(j.CreatedAt)){
-			returnfmt.Errorf("EKSNodeGroup(%s)wasrecreated",aws.StringValue(j.NodegroupName))
-		}		returnnil
-	}
-}functestAccCheckNodeGroupRecreated(i,j*eks.Nodegroup)resource.TestCheckFunc{
-	returnfunc(s*terraform.State)error{
-		ifaws.TimeValue(i.CreatedAt).Equal(aws.TimeValue(j.CreatedAt)){
-			returnfmt.Errorf("EKSNodeGroup(%s)wasnotrecreated",aws.StringValue(j.NodegroupName))
-		}		returnnil
-	}
-}functestAccNodeGroupBaseIAMAndVPCConfig(rNamestring)string{
-	returnfmt.Sprintf(`
-data"aws_availability_zones""available"{
-state="available"filter{
-name="opt-in-status"
-values=["opt-in-not-required"]
-}
-}data"aws_partition""current"{}resource"aws_iam_role""cluster"{
-name="%[1]s-cluster"assume_role_policy=jsonencode({
-Statement=[{
-Action="sts:AssumeRole"
-Effect="Allow"
-Principal={
-Service=[
-"eks.${data.aws_partition.current.dns_suffix}",
-"eks-nodegroup.${data.aws_partition.current.dns_suffix}",
-]
-}
-}]
-Version="2012-10-17"
-})
-}resource"aws_iam_role_policy_attachment""cluster-AmazonEKSClusterPolicy"{
-policy_arn="arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKSClusterPolicy"
-role=aws_iam_role.cluster.name
-}resource"aws_iam_role""node"{
-name="%[1]s-node"assume_role_policy=jsonencode({
-Statement=[{
-Action="sts:AssumeRole"
-Effect="Allow"
-Principal={
-Service="ec2.${data.aws_partition.current.dns_suffix}"
-}
-}]
-Version="2012-10-17"
-})
-}resource"aws_iam_role_policy_attachment""node-AmazonEKSWorkerNodePolicy"{
-policy_arn="arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-role=aws_iam_role.node.name
-}resource"aws_iam_role_policy_attachment""node-AmazonEKS_CNI_Policy"{
-policy_arn="arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKS_CNI_Policy"
-role=aws_iam_role.node.name
-}resource"aws_iam_role_policy_attachment""node-AmazonEC2ContainerRegistryReadOnly"{
-policy_arn="arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-role=aws_iam_role.node.name
-}resource"aws_vpc""test"{
-cidr_block="10.0.0.0/16"
-enable_dns_hostnames=true
-enable_dns_support=truetags={
-Name=%[1]q
-"kubernetes.io/cluster/%[1]s"="shared"
-}
-}resource"aws_internet_gateway""test"{
-vpc_id=aws_vpc.test.idtags={
-Name=%[1]q
-}
-}resource"aws_route_table""test"{
-vpc_id=aws_vpc.test.idroute{
-cidr_block="0.0.0.0/0"
-gateway_id=aws_internet_gateway.test.id
-}tags={
-Name=%[1]q
-}
-}resource"aws_main_route_table_association""test"{
-route_table_id=aws_route_table.test.id
-vpc_id=aws_vpc.test.id
-}resource"aws_security_group""test"{
-name=%[1]q
-vpc_id=aws_vpc.test.idegress{
-cidr_blocks=["0.0.0.0/0"]
-from_port=0
-protocol=-1
-to_port=0
-}ingress{
-cidr_blocks=[aws_vpc.test.cidr_block]
-from_port=0
-protocol=-1
-to_port=0
-}tags={
-Name=%[1]q
-}
-}resource"aws_subnet""test"{
-count=2availability_zone=data.aws_availability_zones.available.names[count.index]
-cidr_block=cidrsubnet(aws_vpc.test.cidr_block,8,count.index)
-map_public_ip_on_launch=true
-vpc_id=aws_vpc.test.idtags={
-Name=%[1]q
-"kubernetes.io/cluster/%[1]s"="shared"
-}
-}
-`,rName)
-}functestAccNodeGroupBaseConfig(rNamestring)string{
-	returnacctest.ConfigCompose(
-		testAccNodeGroupBaseIAMAndVPCConfig(rName),
-		fmt.Sprintf(`
-resource"aws_eks_cluster""test"{
-name=%[1]q
-role_arn=aws_iam_role.cluster.arnvpc_config{
-subnet_ids=aws_subnet.test[*].id
-}depends_on=[
-aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,
-aws_main_route_table_association.test,
-]
-}
-`,rName))
-}functestAccNodeGroupBaseVersionConfig(rNamestring,versionstring)string{
-	returnacctest.ConfigCompose(
-		testAccNodeGroupBaseIAMAndVPCConfig(rName),
-		fmt.Sprintf(`
-resource"aws_eks_cluster""test"{
-name=%[1]q
-role_arn=aws_iam_role.cluster.arn
-version=%[2]qvpc_config{
-subnet_ids=aws_subnet.test[*].id
-}depends_on=[
-aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,
-aws_main_route_table_association.test,
-]
-}
-`,rName,version))
-}functestAccNodeGroupConfig_dataSourceName(rNamestring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
-resource"aws_eks_node_group""test"{
-cluster_name=aws_eks_cluster.test.name
-node_group_name=%[1]q
-node_role_arn=aws_iam_role.node.arn
-subnet_ids=aws_subnet.test[*].idscaling_config{
-desired_size=1
-max_size=1
-min_size=1
-}depends_on=[
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageeks_testimport("context""fmt""testing""github.com/YakDriver/regexache""github.com/aws/aws-sdk-go/aws""github.com/aws/aws-sdk-go/service/eks"sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest""github.com/hashicorp/terraform-plugin-testing/helper/resource""github.com/hashicorp/terraform-plugin-testing/terraform""github.com/hashicorp/terraform-provider-aws/internal/acctest""github.com/hashicorp/terraform-provider-aws/internal/conns"tfeks"github.com/hashicorp/terraform-provider-aws/internal/service/eks""github.com/hashicorp/terraform-provider-aws/internal/tfresource")funcinit(){acctest.RegisterServiceErrorCheckFunc(eks.EndpointsID,testAccErrorCheckSkip)}funcTestAccEKSNodeGroup_basic(t*testing.T){ctx:=acctest.Context(t)varnodeGroupeks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)eksClusterResourceName:="aws_eks_cluster.test"iamRoleResourceName:="aws_iam_role.node"resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_dataSourceName(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup),resource.TestCheckResourceAttr(resourceName,"ami_type",eks.AMITypesAl2X8664),acctest.MatchResourceAttrRegionalARN(resourceName,"arn","eks",regexache.MustCompile(fmt.Sprintf("nodegroup/%[1]s/%[1]s/.+",rName))),resource.TestCheckResourceAttrPair(resourceName,"cluster_name",eksClusterResourceName,"name"),resource.TestCheckResourceAttr(resourceName,"capacity_type",eks.CapacityTypesOnDemand),resource.TestCheckResourceAttr(resourceName,"disk_size","20"),resource.TestCheckResourceAttr(resourceName,"instance_types.#","1"),resource.TestCheckResourceAttr(resourceName,"labels.%","0"),resource.TestCheckResourceAttr(resourceName,"node_group_name",rName),resource.TestCheckResourceAttr(resourceName,"node_group_name_prefix",""),resource.TestCheckResourceAttrPair(resourceName,"node_role_arn",iamRoleResourceName,"arn"),resource.TestMatchResourceAttr(resourceName,"release_version",regexache.MustCompile(`^\d+\.\d+\.\d+-\d{8}$`)),resource.TestCheckResourceAttr(resourceName,"remote_access.#","0"),resource.TestCheckResourceAttr(resourceName,"resources.#","1"),resource.TestCheckResourceAttr(resourceName,"resources.0.autoscaling_groups.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),resource.TestCheckResourceAttr(resourceName,"status",eks.NodegroupStatusActive),resource.TestCheckResourceAttr(resourceName,"subnet_ids.#","2"),resource.TestCheckResourceAttr(resourceName,"tags.%","0"),resource.TestCheckResourceAttr(resourceName,"taint.#","0"),resource.TestCheckResourceAttr(resourceName,"update_config.#","1"),resource.TestCheckResourceAttrPair(resourceName,"version",eksClusterResourceName,"version"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},},})}funcTestAccEKSNodeGroup_Name_generated(t*testing.T){ctx:=acctest.Context(t)varnodeGroupeks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_nameGenerated(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup),acctest.CheckResourceAttrNameGenerated(resourceName,"node_group_name"),resource.TestCheckResourceAttr(resourceName,"node_group_name_prefix","terraform-"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},},})}funcTestAccEKSNodeGroup_namePrefix(t*testing.T){ctx:=acctest.Context(t)varnodeGroupeks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_namePrefix(rName,"tf-acc-test-prefix-"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup),acctest.CheckResourceAttrNameFromPrefix(resourceName,"node_group_name","tf-acc-test-prefix-"),resource.TestCheckResourceAttr(resourceName,"node_group_name_prefix","tf-acc-test-prefix-"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},},})}funcTestAccEKSNodeGroup_disappears(t*testing.T){ctx:=acctest.Context(t)varnodeGroupeks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_dataSourceName(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup),acctest.CheckResourceDisappears(ctx,acctest.Provider,tfeks.ResourceNodeGroup(),resourceName),),ExpectNonEmptyPlan:true,},},})}funcTestAccEKSNodeGroup_amiType(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_amiType(rName,eks.AMITypesAl2X8664Gpu),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"ami_type",eks.AMITypesAl2X8664Gpu),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_amiType(rName,eks.AMITypesAl2Arm64),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"ami_type",eks.AMITypesAl2Arm64),),},},})}funcTestAccEKSNodeGroup_CapacityType_spot(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_capacityType(rName,eks.CapacityTypesSpot),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"capacity_type",eks.CapacityTypesSpot),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},},})}funcTestAccEKSNodeGroup_diskSize(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_diskSize(rName,21),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"disk_size","21"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},},})}funcTestAccEKSNodeGroup_forceUpdateVersion(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_forceUpdateVersion(rName,clusterVersionUpgradeInitial),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"version",clusterVersionUpgradeInitial),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,ImportStateVerifyIgnore:[]string{"force_update_version"},},{Config:testAccNodeGroupConfig_forceUpdateVersion(rName,clusterVersionUpgradeUpdated),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"version",clusterVersionUpgradeUpdated),),},},})}funcTestAccEKSNodeGroup_InstanceTypes_multiple(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"instanceTypes:=fmt.Sprintf("%q,%q,%q,%q","t2.medium","t3.medium","t2.large","t3.large")resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_instanceTypesMultiple(rName,instanceTypes),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"instance_types.#","4"),resource.TestCheckResourceAttr(resourceName,"instance_types.0","t2.medium"),resource.TestCheckResourceAttr(resourceName,"instance_types.1","t3.medium"),resource.TestCheckResourceAttr(resourceName,"instance_types.2","t2.large"),resource.TestCheckResourceAttr(resourceName,"instance_types.3","t3.large"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},},})}funcTestAccEKSNodeGroup_InstanceTypes_single(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_instanceTypesSingle(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"instance_types.#","1"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},},})}funcTestAccEKSNodeGroup_labels(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2,nodeGroup3eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_labels1(rName,"key1","value1"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"labels.%","1"),resource.TestCheckResourceAttr(resourceName,"labels.key1","value1"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_labels2(rName,"key1","value1updated","key2","value2"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"labels.%","2"),resource.TestCheckResourceAttr(resourceName,"labels.key1","value1updated"),resource.TestCheckResourceAttr(resourceName,"labels.key2","value2"),),},{Config:testAccNodeGroupConfig_labels1(rName,"key2","value2"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup3),resource.TestCheckResourceAttr(resourceName,"labels.%","1"),resource.TestCheckResourceAttr(resourceName,"labels.key2","value2"),),},},})}funcTestAccEKSNodeGroup_LaunchTemplate_id(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)launchTemplateResourceName1:="aws_launch_template.test1"launchTemplateResourceName2:="aws_launch_template.test2"resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_launchTemplateId1(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.id",launchTemplateResourceName1,"id"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_launchTemplateId2(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),testAccCheckNodeGroupRecreated(&nodeGroup1,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.id",launchTemplateResourceName2,"id"),),},},})}funcTestAccEKSNodeGroup_LaunchTemplate_name(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)launchTemplateResourceName1:="aws_launch_template.test1"launchTemplateResourceName2:="aws_launch_template.test2"resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_launchTemplateName1(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.name",launchTemplateResourceName1,"name"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_launchTemplateName2(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),testAccCheckNodeGroupRecreated(&nodeGroup1,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.name",launchTemplateResourceName2,"name"),),},},})}funcTestAccEKSNodeGroup_LaunchTemplate_version(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)launchTemplateResourceName:="aws_launch_template.test"resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_launchTemplateVersion1(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.version",launchTemplateResourceName,"default_version"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_launchTemplateVersion2(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"launch_template.#","1"),resource.TestCheckResourceAttrPair(resourceName,"launch_template.0.version",launchTemplateResourceName,"default_version"),),},},})}funcTestAccEKSNodeGroup_releaseVersion(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)ssmParameterDataSourceName:="data.aws_ssm_parameter.test"resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_releaseVersion(rName,"1.17"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttrPair(resourceName,"release_version",ssmParameterDataSourceName,"value"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_releaseVersion(rName,"1.18"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),resource.TestCheckResourceAttrPair(resourceName,"release_version",ssmParameterDataSourceName,"value"),),},},})}funcTestAccEKSNodeGroup_RemoteAccess_ec2SSHKey(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"publicKey,_,err:=sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)iferr!=nil{t.Fatalf("errorgeneratingrandomSSHkey:%s",err)}resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_remoteAccessEC2SSHKey(rName,publicKey),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"remote_access.#","1"),resource.TestCheckResourceAttr(resourceName,"remote_access.0.ec2_ssh_key",rName),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},},})}funcTestAccEKSNodeGroup_RemoteAccess_sourceSecurityGroupIDs(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"publicKey,_,err:=sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)iferr!=nil{t.Fatalf("errorgeneratingrandomSSHkey:%s",err)}resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_remoteAccessSourceSecurityIds1(rName,publicKey),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"remote_access.#","1"),resource.TestCheckResourceAttr(resourceName,"remote_access.0.source_security_group_ids.#","1"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},},})}funcTestAccEKSNodeGroup_Scaling_desiredSize(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_scalingSizes(rName,2,2,1),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","2"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_scalingSizes(rName,1,2,1),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),),},},})}funcTestAccEKSNodeGroup_Scaling_maxSize(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_scalingSizes(rName,1,2,1),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_scalingSizes(rName,1,1,1),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),),},},})}funcTestAccEKSNodeGroup_Scaling_minSize(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_scalingSizes(rName,2,2,2),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","2"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","2"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_scalingSizes(rName,2,2,1),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","2"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),),},},})}funcTestAccEKSNodeGroup_ScalingZeroDesiredSize_minSize(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_scalingSizes(rName,0,1,0),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","0"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","0"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_scalingSizes(rName,1,2,1),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","2"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","1"),),},{Config:testAccNodeGroupConfig_scalingSizes(rName,0,1,0),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"scaling_config.#","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.desired_size","0"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.max_size","1"),resource.TestCheckResourceAttr(resourceName,"scaling_config.0.min_size","0"),),},},})}funcTestAccEKSNodeGroup_tags(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2,nodeGroup3eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_tags1(rName,"key1","value1"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"tags.%","1"),resource.TestCheckResourceAttr(resourceName,"tags.key1","value1"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_tags2(rName,"key1","value1updated","key2","value2"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"tags.%","2"),resource.TestCheckResourceAttr(resourceName,"tags.key1","value1updated"),resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),),},{Config:testAccNodeGroupConfig_tags1(rName,"key2","value2"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup3),testAccCheckNodeGroupNotRecreated(&nodeGroup2,&nodeGroup3),resource.TestCheckResourceAttr(resourceName,"tags.%","1"),resource.TestCheckResourceAttr(resourceName,"tags.key2","value2"),),},},})}funcTestAccEKSNodeGroup_taints(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_taints1(rName,"key1","value1","NO_SCHEDULE"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"taint.#","1"),resource.TestCheckTypeSetElemNestedAttrs(resourceName,"taint.*",map[string]string{"key":"key1","value":"value1","effect":"NO_SCHEDULE",}),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_taints2(rName,"key1","value1updated","NO_EXECUTE","key2","value2","NO_SCHEDULE"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"taint.#","2"),resource.TestCheckTypeSetElemNestedAttrs(resourceName,"taint.*",map[string]string{"key":"key1","value":"value1updated","effect":"NO_EXECUTE",}),resource.TestCheckTypeSetElemNestedAttrs(resourceName,"taint.*",map[string]string{"key":"key2","value":"value2","effect":"NO_SCHEDULE",}),),},{Config:testAccNodeGroupConfig_taints1(rName,"key2","value2","NO_SCHEDULE"),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"taint.#","1"),resource.TestCheckTypeSetElemNestedAttrs(resourceName,"taint.*",map[string]string{"key":"key2","value":"value2","effect":"NO_SCHEDULE",}),),},},})}funcTestAccEKSNodeGroup_update(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_update1(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"update_config.#","1"),resource.TestCheckResourceAttr(resourceName,"update_config.0.max_unavailable","1"),resource.TestCheckResourceAttr(resourceName,"update_config.0.max_unavailable_percentage","0"),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_update2(rName),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"update_config.#","1"),resource.TestCheckResourceAttr(resourceName,"update_config.0.max_unavailable","0"),resource.TestCheckResourceAttr(resourceName,"update_config.0.max_unavailable_percentage","40"),),},},})}funcTestAccEKSNodeGroup_version(t*testing.T){ctx:=acctest.Context(t)varnodeGroup1,nodeGroup2eks.NodegrouprName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resourceName:="aws_eks_node_group.test"resource.ParallelTest(t,resource.TestCase{PreCheck:func(){acctest.PreCheck(ctx,t);testAccPreCheck(ctx,t)},ErrorCheck:acctest.ErrorCheck(t,eks.EndpointsID),ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,CheckDestroy:testAccCheckNodeGroupDestroy(ctx),Steps:[]resource.TestStep{{Config:testAccNodeGroupConfig_version(rName,clusterVersionUpgradeInitial),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup1),resource.TestCheckResourceAttr(resourceName,"version",clusterVersionUpgradeInitial),),},{ResourceName:resourceName,ImportState:true,ImportStateVerify:true,},{Config:testAccNodeGroupConfig_version(rName,clusterVersionUpgradeUpdated),Check:resource.ComposeTestCheckFunc(testAccCheckNodeGroupExists(ctx,resourceName,&nodeGroup2),testAccCheckNodeGroupNotRecreated(&nodeGroup1,&nodeGroup2),resource.TestCheckResourceAttr(resourceName,"version",clusterVersionUpgradeUpdated),),},},})}functestAccErrorCheckSkip(t*testing.T)resource.ErrorCheckFunc{returnacctest.ErrorCheckSkipMessagesContaining(t,"InvalidParameterException:Thefollowingsuppliedinstancetypesdonotexist",)}functestAccCheckNodeGroupExists(ctxcontext.Context,resourceNamestring,nodeGroup*eks.Nodegroup)resource.TestCheckFunc{returnfunc(s*terraform.State)error{rs,ok:=s.RootModule().Resources[resourceName]if!ok{returnfmt.Errorf("Notfound:%s",resourceName)}ifrs.Primary.ID==""{returnfmt.Errorf("NoEKSNodeGroupIDisset")}clusterName,nodeGroupName,err:=tfeks.NodeGroupParseResourceID(rs.Primary.ID)iferr!=nil{returnerr}conn:=acctest.Provider.Meta().(*conns.AWSClient).EKSConn(ctx)output,err:=tfeks.FindNodegroupByClusterNameAndNodegroupName(ctx,conn,clusterName,nodeGroupName)iferr!=nil{returnerr}*nodeGroup=*outputreturnnil}}functestAccCheckNodeGroupDestroy(ctxcontext.Context)resource.TestCheckFunc{returnfunc(s*terraform.State)error{conn:=acctest.Provider.Meta().(*conns.AWSClient).EKSConn(ctx)for_,rs:=ranges.RootModule().Resources{ifrs.Type!="aws_eks_node_group"{continue}clusterName,nodeGroupName,err:=tfeks.NodeGroupParseResourceID(rs.Primary.ID)iferr!=nil{returnerr}_,err=tfeks.FindNodegroupByClusterNameAndNodegroupName(ctx,conn,clusterName,nodeGroupName)iftfresource.NotFound(err){continue}iferr!=nil{returnerr}returnfmt.Errorf("EKSNodeGroup%sstillexists",rs.Primary.ID)}returnnil}}functestAccCheckNodeGroupNotRecreated(i,j*eks.Nodegroup)resource.TestCheckFunc{returnfunc(s*terraform.State)error{if!aws.TimeValue(i.CreatedAt).Equal(aws.TimeValue(j.CreatedAt)){returnfmt.Errorf("EKSNodeGroup(%s)wasrecreated",aws.StringValue(j.NodegroupName))}returnnil}}functestAccCheckNodeGroupRecreated(i,j*eks.Nodegroup)resource.TestCheckFunc{returnfunc(s*terraform.State)error{ifaws.TimeValue(i.CreatedAt).Equal(aws.TimeValue(j.CreatedAt)){returnfmt.Errorf("EKSNodeGroup(%s)wasnotrecreated",aws.StringValue(j.NodegroupName))}returnnil}}functestAccNodeGroupBaseIAMAndVPCConfig(rNamestring)string{returnfmt.Sprintf(`data"aws_availability_zones""available"{state="available"filter{name="opt-in-status"values=["opt-in-not-required"]}}data"aws_partition""current"{}resource"aws_iam_role""cluster"{name="%[1]s-cluster"assume_role_policy=jsonencode({Statement=[{Action="sts:AssumeRole"Effect="Allow"Principal={Service=["eks.${data.aws_partition.current.dns_suffix}","eks-nodegroup.${data.aws_partition.current.dns_suffix}",]}}]Version="2012-10-17"})}resource"aws_iam_role_policy_attachment""cluster-AmazonEKSClusterPolicy"{policy_arn="arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKSClusterPolicy"role=aws_iam_role.cluster.name}resource"aws_iam_role""node"{name="%[1]s-node"assume_role_policy=jsonencode({Statement=[{Action="sts:AssumeRole"Effect="Allow"Principal={Service="ec2.${data.aws_partition.current.dns_suffix}"}}]Version="2012-10-17"})}resource"aws_iam_role_policy_attachment""node-AmazonEKSWorkerNodePolicy"{policy_arn="arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKSWorkerNodePolicy"role=aws_iam_role.node.name}resource"aws_iam_role_policy_attachment""node-AmazonEKS_CNI_Policy"{policy_arn="arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKS_CNI_Policy"role=aws_iam_role.node.name}resource"aws_iam_role_policy_attachment""node-AmazonEC2ContainerRegistryReadOnly"{policy_arn="arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"role=aws_iam_role.node.name}resource"aws_vpc""test"{cidr_block="10.0.0.0/16"enable_dns_hostnames=trueenable_dns_support=truetags={Name=%[1]q"kubernetes.io/cluster/%[1]s"="shared"}}resource"aws_internet_gateway""test"{vpc_id=aws_vpc.test.idtags={Name=%[1]q}}resource"aws_route_table""test"{vpc_id=aws_vpc.test.idroute{cidr_block="0.0.0.0/0"gateway_id=aws_internet_gateway.test.id}tags={Name=%[1]q}}resource"aws_main_route_table_association""test"{route_table_id=aws_route_table.test.idvpc_id=aws_vpc.test.id}resource"aws_security_group""test"{name=%[1]qvpc_id=aws_vpc.test.idegress{cidr_blocks=["0.0.0.0/0"]from_port=0protocol=-1to_port=0}ingress{cidr_blocks=[aws_vpc.test.cidr_block]from_port=0protocol=-1to_port=0}tags={Name=%[1]q}}resource"aws_subnet""test"{count=2availability_zone=data.aws_availability_zones.available.names[count.index]cidr_block=cidrsubnet(aws_vpc.test.cidr_block,8,count.index)map_public_ip_on_launch=truevpc_id=aws_vpc.test.idtags={Name=%[1]q"kubernetes.io/cluster/%[1]s"="shared"}}`,rName)}functestAccNodeGroupBaseConfig(rNamestring)string{returnacctest.ConfigCompose(testAccNodeGroupBaseIAMAndVPCConfig(rName),fmt.Sprintf(`resource"aws_eks_cluster""test"{name=%[1]qrole_arn=aws_iam_role.cluster.arnvpc_config{subnet_ids=aws_subnet.test[*].id}depends_on=[aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,aws_main_route_table_association.test,]}`,rName))}functestAccNodeGroupBaseVersionConfig(rNamestring,versionstring)string{returnacctest.ConfigCompose(testAccNodeGroupBaseIAMAndVPCConfig(rName),fmt.Sprintf(`resource"aws_eks_cluster""test"{name=%[1]qrole_arn=aws_iam_role.cluster.arnversion=%[2]qvpc_config{subnet_ids=aws_subnet.test[*].id}depends_on=[aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,aws_main_route_table_association.test,]}`,rName,version))}functestAccNodeGroupConfig_dataSourceName(rNamestring)string{returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`resource"aws_eks_node_group""test"{cluster_name=aws_eks_cluster.test.namenode_group_name=%[1]qnode_role_arn=aws_iam_role.node.arnsubnet_ids=aws_subnet.test[*].idscaling_config{desired_size=1max_size=1min_size=1}depends_on=[
 aws_iam_role_policy_attachment.node-AmazonEKSWorkerNodePolicy,
 aws_iam_role_policy_attachment.node-AmazonEKS_CNI_Policy,
 aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
@@ -1048,7 +6,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_nameGenerated(rNamestring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_role_arn=aws_iam_role.node.arn
@@ -1064,7 +22,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `)
 }functestAccNodeGroupConfig_namePrefix(rName,namePrefixstring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name_prefix=%[1]q
@@ -1081,7 +39,7 @@ min_size=1
 }
 `,namePrefix))
 }functestAccNodeGroupConfig_amiType(rName,amiTypestring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 ami_type=%[2]q
 cluster_name=aws_eks_cluster.test.name
@@ -1099,7 +57,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,amiType))
 }functestAccNodeGroupConfig_capacityType(rName,capacityTypestring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 capacity_type=%[2]q
 cluster_name=aws_eks_cluster.test.name
@@ -1117,7 +75,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,capacityType))
 }functestAccNodeGroupConfig_diskSize(rNamestring,diskSizeint)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 disk_size=%[2]d
@@ -1135,7 +93,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,diskSize))
 }functestAccNodeGroupConfig_forceUpdateVersion(rName,versionstring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseVersionConfig(rName,version),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseVersionConfig(rName,version),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 force_update_version=true
@@ -1154,9 +112,9 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_instanceTypesMultiple(rName,instanceTypesstring)string{
-	returnacctest.ConfigCompose(
-		testAccNodeGroupBaseConfig(rName),
-		fmt.Sprintf(`
+returnacctest.ConfigCompose(
+testAccNodeGroupBaseConfig(rName),
+fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 #useapredeterminedstringinsteadofaws_ec2_instance_type_offeringsdatasourcefortheinstance_types(TypeList)
@@ -1176,9 +134,9 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,instanceTypes,rName))
 }functestAccNodeGroupConfig_instanceTypesSingle(rNamestring)string{
-	returnacctest.ConfigCompose(
-		testAccNodeGroupBaseConfig(rName),
-		fmt.Sprintf(`
+returnacctest.ConfigCompose(
+testAccNodeGroupBaseConfig(rName),
+fmt.Sprintf(`
 data"aws_ec2_instance_type_offering""available"{
 filter{
 name="instance-type"
@@ -1201,7 +159,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_labels1(rName,labelKey1,labelValue1string)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name=%[1]q
@@ -1220,7 +178,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,labelKey1,labelValue1))
 }functestAccNodeGroupConfig_labels2(rName,labelKey1,labelValue1,labelKey2,labelValue2string)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name=%[1]q
@@ -1240,9 +198,9 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,labelKey1,labelValue1,labelKey2,labelValue2))
 }functestAccNodeGroupConfig_launchTemplateId1(rNamestring)string{
-	returnacctest.ConfigCompose(
-		testAccNodeGroupBaseConfig(rName),
-		fmt.Sprintf(`
+returnacctest.ConfigCompose(
+testAccNodeGroupBaseConfig(rName),
+fmt.Sprintf(`
 data"aws_ssm_parameter""test"{
 name="/aws/service/eks/optimized-ami/${aws_eks_cluster.test.version}/amazon-linux-2/recommended/image_id"
 }resource"aws_launch_template""test1"{
@@ -1274,9 +232,9 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_launchTemplateId2(rNamestring)string{
-	returnacctest.ConfigCompose(
-		testAccNodeGroupBaseConfig(rName),
-		fmt.Sprintf(`
+returnacctest.ConfigCompose(
+testAccNodeGroupBaseConfig(rName),
+fmt.Sprintf(`
 data"aws_ssm_parameter""test"{
 name="/aws/service/eks/optimized-ami/${aws_eks_cluster.test.version}/amazon-linux-2/recommended/image_id"
 }resource"aws_launch_template""test1"{
@@ -1308,9 +266,9 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_launchTemplateName1(rNamestring)string{
-	returnacctest.ConfigCompose(
-		testAccNodeGroupBaseConfig(rName),
-		fmt.Sprintf(`
+returnacctest.ConfigCompose(
+testAccNodeGroupBaseConfig(rName),
+fmt.Sprintf(`
 data"aws_ssm_parameter""test"{
 name="/aws/service/eks/optimized-ami/${aws_eks_cluster.test.version}/amazon-linux-2/recommended/image_id"
 }resource"aws_launch_template""test1"{
@@ -1342,9 +300,9 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_launchTemplateName2(rNamestring)string{
-	returnacctest.ConfigCompose(
-		testAccNodeGroupBaseConfig(rName),
-		fmt.Sprintf(`
+returnacctest.ConfigCompose(
+testAccNodeGroupBaseConfig(rName),
+fmt.Sprintf(`
 data"aws_ssm_parameter""test"{
 name="/aws/service/eks/optimized-ami/${aws_eks_cluster.test.version}/amazon-linux-2/recommended/image_id"
 }resource"aws_launch_template""test1"{
@@ -1376,9 +334,9 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_launchTemplateVersion1(rNamestring)string{
-	returnacctest.ConfigCompose(
-		testAccNodeGroupBaseConfig(rName),
-		fmt.Sprintf(`
+returnacctest.ConfigCompose(
+testAccNodeGroupBaseConfig(rName),
+fmt.Sprintf(`
 data"aws_ssm_parameter""test"{
 name="/aws/service/eks/optimized-ami/${aws_eks_cluster.test.version}/amazon-linux-2/recommended/image_id"
 }resource"aws_launch_template""test"{
@@ -1406,9 +364,9 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_launchTemplateVersion2(rNamestring)string{
-	returnacctest.ConfigCompose(
-		testAccNodeGroupBaseConfig(rName),
-		fmt.Sprintf(`
+returnacctest.ConfigCompose(
+testAccNodeGroupBaseConfig(rName),
+fmt.Sprintf(`
 data"aws_ssm_parameter""test"{
 name="/aws/service/eks/optimized-ami/${aws_eks_cluster.test.version}/amazon-linux-2/recommended/image_id"
 }resource"aws_launch_template""test"{
@@ -1436,7 +394,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_releaseVersion(rNamestring,versionstring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseVersionConfig(rName,version),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseVersionConfig(rName,version),fmt.Sprintf(`
 data"aws_ssm_parameter""test"{
 name="/aws/service/eks/optimized-ami/${aws_eks_cluster.test.version}/amazon-linux-2/recommended/release_version"
 }resource"aws_eks_node_group""test"{
@@ -1457,7 +415,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_remoteAccessEC2SSHKey(rName,publicKeystring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_key_pair""test"{
 key_name=%[1]q
 public_key=%[2]q
@@ -1479,7 +437,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,publicKey))
 }functestAccNodeGroupConfig_remoteAccessSourceSecurityIds1(rName,publicKeystring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_key_pair""test"{
 key_name=%[1]q
 public_key=%[2]q
@@ -1502,7 +460,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,publicKey))
 }functestAccNodeGroupConfig_scalingSizes(rNamestring,desiredSize,maxSize,minSizeint)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name=%[1]q
@@ -1519,7 +477,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,desiredSize,maxSize,minSize))
 }functestAccNodeGroupConfig_tags1(rName,tagKey1,tagValue1string)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name=%[1]q
@@ -1538,7 +496,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,tagKey1,tagValue1))
 }functestAccNodeGroupConfig_tags2(rName,tagKey1,tagValue1,tagKey2,tagValue2string)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name=%[1]q
@@ -1558,7 +516,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,tagKey1,tagValue1,tagKey2,tagValue2))
 }functestAccNodeGroupConfig_taints1(rName,taintKey1,taintValue1,taintEffect1string)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name=%[1]q
@@ -1579,7 +537,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,taintKey1,taintValue1,taintEffect1))
 }functestAccNodeGroupConfig_taints2(rName,taintKey1,taintValue1,taintEffect1,taintKey2,taintValue2,taintEffect2string)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name=%[1]q
@@ -1604,7 +562,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName,taintKey1,taintValue1,taintEffect1,taintKey2,taintValue2,taintEffect2))
 }functestAccNodeGroupConfig_update1(rNamestring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name=%[1]q
@@ -1623,7 +581,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_update2(rNamestring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseConfig(rName),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name=%[1]q
@@ -1642,7 +600,7 @@ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
 }
 `,rName))
 }functestAccNodeGroupConfig_version(rName,versionstring)string{
-	returnacctest.ConfigCompose(testAccNodeGroupBaseVersionConfig(rName,version),fmt.Sprintf(`
+returnacctest.ConfigCompose(testAccNodeGroupBaseVersionConfig(rName,version),fmt.Sprintf(`
 resource"aws_eks_node_group""test"{
 cluster_name=aws_eks_cluster.test.name
 node_group_name=%[1]q

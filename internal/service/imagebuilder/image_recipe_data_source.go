@@ -14,89 +14,89 @@ return &schema.Resource{
 ReadWithoutTimeout: dataSourceImageRecipeRead,Schema: map[string]*schema.Schema{
 "arn": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: verify.ValidARN,
 },
 "block_device_mapping": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "device_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "ebs": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "delete_on_termination": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },
 "encrypted": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },
 "iops": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 "kms_key_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "snapshot_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "throughput": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 "volume_size": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 "volume_type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "no_device": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "virtual_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "component": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "component_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "parameter": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "value": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
@@ -106,40 +106,40 @@ Computed: true,
 },
 },
 "date_created": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "owner": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "parent_image": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "platform": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "tags": tftags.TagsSchema(),
 "user_data_base64": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "working_directory": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },

@@ -20,7 +20,7 @@
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.GlacierEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultLockDestroy(ctx),
+CheckDestroy:testAccCheckVaultLockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVaultLockConfig_complete(rName, false),
@@ -34,9 +34,9 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"ignore_deletion_error"},
 	},
 },
@@ -50,7 +50,7 @@ ImportStateVerifyIgnore: []string{"ignore_deletion_error"},
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.GlacierEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultLockDestroy(ctx),
+CheckDestroy:testAccCheckVaultLockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVaultLockConfig_complete(rName, true),
@@ -64,9 +64,9 @@ func(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"ignore_deletion_error"},
 	},
 },
@@ -80,7 +80,7 @@ ImportStateVerifyIgnore: []string{"ignore_deletion_error"},
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.GlacierEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultLockDestroy(ctx),
+CheckDestroy:testAccCheckVaultLockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVaultLockConfig_policyOrder(rName, false),
@@ -94,7 +94,7 @@ func(
 ),
 	},
 	{
-Config:   testAccVaultLockConfig_policyNewOrder(rName, false),
+Config:testAccVaultLockConfig_policyNewOrder(rName, false),
 PlanOnly: true,
 	},
 },
@@ -131,23 +131,23 @@ resource "aws_glacier_vault" "test" {
 }data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}data "aws_iam_policy_document" "test" {
   statement {
-    # Allow for testing purposes
-    actions   = ["glacier:DeleteArchive"]
-    effect    = "Allow"
-    resources = [aws_glacier_vault.test.arn]    condition {
-      test     = "NumericLessThanEquals"
-      variable = "glacier:ArchiveAgeinDays"
-      values   = ["0"]
-    }    principals {
-      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-      type        = "AWS"
-    }
+# Allow for testing purposes
+actions= ["glacier:DeleteArchive"]
+effect= "Allow"
+resources = [aws_glacier_vault.test.arn]condition {
+ test= "NumericLessThanEquals"
+ variable = "glacier:ArchiveAgeinDays"
+ values= ["0"]
+}principals {
+ identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+ type
+}
   }
 }resource "aws_glacier_vault_lock" "test" {
   complete_lock= %t
   ignore_deletion_error = %t
   policy = data.aws_iam_policy_document.test.json
-  vault_name   = aws_glacier_vault.test.name
+  vault_name= aws_glacier_vault.test.name
 }
 `, rName, completeLock, completeLock)
 }func testAccVaultLockConfig_policyOrder(rName string, completeLock bool) string {
@@ -158,21 +158,21 @@ resource "aws_glacier_vault" "test" {
 data "aws_partition" "current" {}resource "aws_glacier_vault_lock" "test" {
   complete_lock= %[2]t
   ignore_deletion_error = %[2]t
-  vault_name   = aws_glacier_vault.test.name  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Principal = {
-        AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
-      }
-      Effect = "Allow"
-      Action = [
-        "glacier:InitiateMultipartUpload",
-        "glacier:AbortMultipartUpload",
-        "glacier:CompleteMultipartUpload",
-        "glacier:DeleteArchive",
-      ]
-      Resource = aws_glacier_vault.test.arn
-    }]
+  vault_name= aws_glacier_vault.test.name  policy = jsonencode({
+Version = "2012-10-17"
+Statement = [{
+ Principal = {
+rtition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ }
+ Effect = "Allow"
+ Action = [
+rtUpload",
+pload",
+rtUpload",
+
+ ]
+ Resource = aws_glacier_vault.test.arn
+}]
   })
 }
 `, rName, completeLock)
@@ -184,21 +184,21 @@ resource "aws_glacier_vault" "test" {
 data "aws_partition" "current" {}resource "aws_glacier_vault_lock" "test" {
   complete_lock= %[2]t
   ignore_deletion_error = %[2]t
-  vault_name   = aws_glacier_vault.test.name  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Principal = {
-        AWS = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-      }
-      Effect = "Allow"
-      Action = [
-        "glacier:InitiateMultipartUpload",
-        "glacier:DeleteArchive",
-        "glacier:CompleteMultipartUpload",
-        "glacier:AbortMultipartUpload",
-      ]
-      Resource = [aws_glacier_vault.test.arn]
-    }]
+  vault_name= aws_glacier_vault.test.name  policy = jsonencode({
+Version = "2012-10-17"
+Statement = [{
+ Principal = {
+artition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+ }
+ Effect = "Allow"
+ Action = [
+rtUpload",
+
+rtUpload",
+pload",
+ ]
+ Resource = [aws_glacier_vault.test.arn]
+}]
   })
 }
 `, rName, completeLock)

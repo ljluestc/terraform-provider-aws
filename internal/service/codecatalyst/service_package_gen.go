@@ -10,38 +10,38 @@
 	return[]*types.ServicePackageFrameworkResource{}
 }func(p*servicePackage)SDKDataSources(ctxcontext.Context)[]*types.ServicePackageSDKDataSource{
 	return[]*types.ServicePackageSDKDataSource{
-		{
-			Factory:DataSourceDevEnvironment,
-			TypeName:"aws_codecatalyst_dev_environment",
-			Name:"DevEnvironment",
-		},
+{
+Factory:DataSourceDevEnvironment,
+TypeName:"aws_codecatalyst_dev_environment",
+Name:"DevEnvironment",
+},
 	}
 }func(p*servicePackage)SDKResources(ctxcontext.Context)[]*types.ServicePackageSDKResource{
 	return[]*types.ServicePackageSDKResource{
-		{
-			Factory:ResourceDevEnvironment,
-			TypeName:"aws_codecatalyst_dev_environment",
-			Name:"DevEnvironment",
-		},
-		{
-			Factory:ResourceProject,
-			TypeName:"aws_codecatalyst_project",
-			Name:"Project",
-		},
-		{
-			Factory:ResourceSourceRepository,
-			TypeName:"aws_codecatalyst_source_repository",
-			Name:"SourceRepository",
-		},
+{
+Factory:ResourceDevEnvironment,
+TypeName:"aws_codecatalyst_dev_environment",
+Name:"DevEnvironment",
+},
+{
+Factory:ResourceProject,
+TypeName:"aws_codecatalyst_project",
+Name:"Project",
+},
+{
+Factory:ResourceSourceRepository,
+TypeName:"aws_codecatalyst_source_repository",
+Name:"SourceRepository",
+},
 	}
 }func(p*servicePackage)ServicePackageName()string{
 	returnnames.CodeCatalyst
 }//NewClientreturnsanewAWSSDKforGov2clientforthisservicepackage'sAWSAPI.
 func(p*servicePackage)NewClient(ctxcontext.Context,configmap[string]any)(*codecatalyst_sdkv2.Client,error){
 	cfg:=*(config["aws_sdkv2_config"].(*aws_sdkv2.Config))	returncodecatalyst_sdkv2.NewFromConfig(cfg,func(o*codecatalyst_sdkv2.Options){
-		ifendpoint:=config["endpoint"].(string);endpoint!=""{
-			o.BaseEndpoint=aws_sdkv2.String(endpoint)
-		}
+ifendpoint:=config["endpoint"].(string);endpoint!=""{
+o.BaseEndpoint=aws_sdkv2.String(endpoint)
+}
 	}),nil
 }funcServicePackage(ctxcontext.Context)conns.ServicePackage{
 	return&servicePackage{}

@@ -18,7 +18,7 @@ resourceName := "aws_route53_resolver_firewall_rule.test"resource.ParallelTest(t
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFirewallRuleDestroy(ctx),
+CheckDestroy:testAccCheckFirewallRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFirewallRuleConfig_basic(rName),
@@ -47,7 +47,7 @@ resourceName := "aws_route53_resolver_firewall_rule.test"resource.ParallelTest(t
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFirewallRuleDestroy(ctx),
+CheckDestroy:testAccCheckFirewallRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFirewallRuleConfig_block(rName, "NODATA"),
@@ -74,7 +74,7 @@ resourceName := "aws_route53_resolver_firewall_rule.test"resource.ParallelTest(t
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFirewallRuleDestroy(ctx),
+CheckDestroy:testAccCheckFirewallRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFirewallRuleConfig_blockOverride(rName),
@@ -104,7 +104,7 @@ resourceName := "aws_route53_resolver_firewall_rule.test"resource.ParallelTest(t
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFirewallRuleDestroy(ctx),
+CheckDestroy:testAccCheckFirewallRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFirewallRuleConfig_basic(rName),
@@ -154,7 +154,7 @@ resource "aws_route53_resolver_firewall_rule_group" "test" {
   name = %[1]q
 }resource "aws_route53_resolver_firewall_rule" "test" {
   name
-  action   = "ALLOW"
+  action= "ALLOW"
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id
   firewall_domain_list_id = aws_route53_resolver_firewall_domain_list.test.id
   priority = 100
@@ -168,7 +168,7 @@ resource "aws_route53_resolver_firewall_rule_group" "test" {
   name = %[1]q
 }resource "aws_route53_resolver_firewall_rule" "test" {
   name
-  action   = "BLOCK"
+  action= "BLOCK"
   block_response = %[2]q
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id
   firewall_domain_list_id = aws_route53_resolver_firewall_domain_list.test.id
@@ -183,9 +183,9 @@ resource "aws_route53_resolver_firewall_rule_group" "test" {
   name = %[1]q
 }resource "aws_route53_resolver_firewall_rule" "test" {
   name
-  action   = "BLOCK"
+  action= "BLOCK"
   block_override_dns_type = "CNAME"
-  block_override_domain   = "example.com."
+  block_override_domain= "example.com."
   block_override_ttl
   block_response = "OVERRIDE"
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id

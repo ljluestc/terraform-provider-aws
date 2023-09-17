@@ -13,67 +13,43 @@
 	return []*types.ServicePackageSDKDataSource{}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceAggregateAuthorization,
-			TypeName: "aws_config_aggregate_authorization",
-			Name:     "Aggregate Authorization",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceConfigRule,
-			TypeName: "aws_config_config_rule",
-			Name:     "Config Rule",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceConfigurationAggregator,
-			TypeName: "aws_config_configuration_aggregator",
-			Name:     "Configuration Aggregator",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceConfigurationRecorder,
-			TypeName: "aws_config_configuration_recorder",
-		},
-		{
-			Factory:  ResourceConfigurationRecorderStatus,
-			TypeName: "aws_config_configuration_recorder_status",
-		},
-		{
-			Factory:  ResourceConformancePack,
-			TypeName: "aws_config_conformance_pack",
-		},
-		{
-			Factory:  ResourceDeliveryChannel,
-			TypeName: "aws_config_delivery_channel",
-		},
-		{
-			Factory:  ResourceOrganizationConformancePack,
-			TypeName: "aws_config_organization_conformance_pack",
-		},
-		{
-			Factory:  ResourceOrganizationCustomPolicyRule,
-			TypeName: "aws_config_organization_custom_policy_rule",
-		},
-		{
-			Factory:  ResourceOrganizationCustomRule,
-			TypeName: "aws_config_organization_custom_rule",
-		},
-		{
-			Factory:  ResourceOrganizationManagedRule,
-			TypeName: "aws_config_organization_managed_rule",
-		},
-		{
-			Factory:  ResourceRemediationConfiguration,
-			TypeName: "aws_config_remediation_configuration",
-		},
-	}
+{
+Factory:  ResourceAggregateAuthorization,
+TypeName: "aws_config_aggregate_authorization",
+Name:"Aggregate Authorization",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+Factory:  ResourceConfigRule,
+TypeName: "aws_config_config_rule",
+Name:"Config Rule",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+Factory:  ResourceConfigurationAggregator,
+TypeName: "aws_config_configuration_aggregator",
+Name:"Configuration Aggregator",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+Factory:  ResourceConfigurationRecorder,
+TypeName: "aws_config_configuration_recorder",
+Factory:  ResourceConfigurationRecorderStatus,
+TypeName: "aws_config_configuration_recorder_status",
+Factory:  ResourceConformancePack,
+TypeName: "aws_config_conformance_pack",
+Factory:  ResourceDeliveryChannel,
+TypeName: "aws_config_delivery_channel",
+Factory:  ResourceOrganizationConformancePack,
+TypeName: "aws_config_organization_conformance_pack",
+Factory:  ResourceOrganizationCustomPolicyRule,
+TypeName: "aws_config_organization_custom_policy_rule",
+Factory:  ResourceOrganizationCustomRule,
+TypeName: "aws_config_organization_custom_rule",
+Factory:  ResourceOrganizationManagedRule,
+TypeName: "aws_config_organization_managed_rule",
+Factory:  ResourceRemediationConfiguration,
+TypeName: "aws_config_remediation_configuration",	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.ConfigService
 }// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.

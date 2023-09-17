@@ -1,10 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package shield
-
-// Exports for use in tests only.
+// SPDX-License-Identifier: MPL-2.0package shield// Exports for use in tests only.
 var (
-	ResourceDRTAccessRoleARNAssociation   = newResourceDRTAccessRoleARNAssociation
+	ResourceDRTAccessRoleARNAssociation= newResourceDRTAccessRoleARNAssociation
 	ResourceDRTAccessLogBucketAssociation = newResourceDRTAccessLogBucketAssociation
 )

@@ -61,8 +61,8 @@ resource.TestCheckNoResourceAttr(rName, "voice_id"),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -70,7 +70,7 @@ ImportStateVerify: true,
 }func TestAccLexModelsBot_Version_serial(t *testing.T) {
 t.Parallel()testCases := map[string]func(t *testing.T){
 "LexBot_createVersion":testAccBot_createVersion,
-"LexBotAlias_botVersion":       testAccBotAlias_botVersion,
+"LexBotAlias_botVersion":testAccBotAlias_botVersion,
 "DataSourceLexBot_withVersion": testAccBotDataSource_withVersion,
 "DataSourceLexBotAlias_basic":  testAccBotAliasDataSource_basic,
 }acctest.RunSerialTests1Level(t, testCases, 0)
@@ -101,8 +101,8 @@ resource.TestCheckResourceAttr(rName, "description", "Bot to order flowers on th
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -147,8 +147,8 @@ resource.TestCheckResourceAttr(rName, "abort_statement.0.response_card", ""),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -169,8 +169,8 @@ resource.TestCheckResourceAttr(rName, "abort_statement.0.response_card", "Sorry,
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -205,8 +205,8 @@ resource.TestCheckResourceAttr(rName, "clarification_prompt.0.response_card", ""
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -222,8 +222,8 @@ resource.TestCheckResourceAttr(rName, "clarification_prompt.0.response_card", "I
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -251,8 +251,8 @@ testAccCheckBotExists(ctx, rName, &v),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -266,8 +266,8 @@ resource.TestCheckResourceAttr(rName, "child_directed", "true"),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -295,8 +295,8 @@ testAccCheckBotExists(ctx, rName, &v),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -310,8 +310,8 @@ resource.TestCheckResourceAttr(rName, "description", "Bot to order flowers"),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -339,8 +339,8 @@ testAccCheckBotExists(ctx, rName, &v),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -354,8 +354,8 @@ resource.TestCheckResourceAttr(rName, "detect_sentiment", "true"),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -383,8 +383,8 @@ testAccCheckBotExists(ctx, rName, &v),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -399,8 +399,8 @@ resource.TestCheckResourceAttr(rName, "nlu_intent_confidence_threshold", "0.5"),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -428,8 +428,8 @@ testAccCheckBotExists(ctx, rName, &v),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -443,8 +443,8 @@ resource.TestCheckResourceAttr(rName, "idle_session_ttl_in_seconds", "600"),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -472,8 +472,8 @@ testAccCheckBotExists(ctx, rName, &v),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -487,8 +487,8 @@ resource.TestCheckResourceAttr(rName, "intent.#", "2"),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -567,8 +567,8 @@ testAccCheckBotExists(ctx, rName, &v),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -582,8 +582,8 @@ resource.TestCheckResourceAttr(rName, "locale", "en-GB"),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -611,8 +611,8 @@ testAccCheckBotExists(ctx, rName, &v),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -626,8 +626,8 @@ resource.TestCheckResourceAttr(rName, "voice_id", "Justin"),
 ),
 },
 {
-ResourceName:      rName,
-ImportState:       true,
+ResourceName: rName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -699,10 +699,10 @@ resource "aws_lex_intent" "test" {
   create_version = true
   name  = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   sample_utterances = [
-    "I would like to pick up flowers",
+"I would like to pick up flowers",
   ]
 }
 `, rName)
@@ -712,19 +712,19 @@ resource "aws_lex_intent" "test" {
   create_version = true
   name  = "%[1]s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   sample_utterances = [
-    "I would like to pick up flowers",
+"I would like to pick up flowers",
   ]
 }resource "aws_lex_intent" "test_2" {
   create_version = true
   name  = "%[1]stwo"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   sample_utterances = [
-    "I would like to pick up flowers",
+"I would like to pick up flowers",
   ]
 }
 `, rName)
@@ -734,19 +734,19 @@ resource "aws_lex_intent" "test" {
   create_version = true
   name  = "%[1]s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   sample_utterances = [
-    "I would like to pick up flowers",
+"I would like to pick up flowers",
   ]
 }resource "aws_lex_intent" "test_2" {
   create_version = true
   name  = "%[1]stwo"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   sample_utterances = [
-    "I would like to return these flowers",
+"I would like to return these flowers",
   ]
 }
 `, rName)
@@ -754,37 +754,37 @@ resource "aws_lex_intent" "test" {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
-  description    = "Bot to order flowers on the behalf of a user"
+  description= "Bot to order flowers on the behalf of a user"
   name  = "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
 }func testAccBotConfig_createVersion(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
-  child_directed   = false
-  create_version   = true
-  description      = "Bot to order flowers on the behalf of a user"
+  child_directed= false
+  create_version= true
+  description = "Bot to order flowers on the behalf of a user"
   name= "%s"
   process_behavior = "BUILD"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
@@ -792,17 +792,17 @@ resource "aws_lex_bot" "test" {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
-  description    = "Bot to order flowers on the behalf of a user"
+  description= "Bot to order flowers on the behalf of a user"
   name  = "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
@@ -810,24 +810,24 @@ resource "aws_lex_bot" "test" {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
-  description    = "Bot to order flowers on the behalf of a user"
+  description= "Bot to order flowers on the behalf of a user"
   name  = "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-      group_number = 1
-    }
-    message {
-      content      = "Sorry, I'm not able to assist at this time. Good bye."
-      content_type = "PlainText"
-      group_number = 1
-    }
-    response_card = "Sorry, I'm not able to assist at this time"
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+ group_number = 1
+}
+message {
+ content = "Sorry, I'm not able to assist at this time. Good bye."
+ content_type = "PlainText"
+ group_number = 1
+}
+response_card = "Sorry, I'm not able to assist at this time"
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
@@ -835,24 +835,24 @@ resource "aws_lex_bot" "test" {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
-  description    = "Bot to order flowers on the behalf of a user"
+  description= "Bot to order flowers on the behalf of a user"
   name  = "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   clarification_prompt {
-    max_attempts = 2
-    message {
-      content      = "I didn't understand you, what would you like to do?"
-      content_type = "PlainText"
-    }
+max_attempts = 2
+message {
+ content = "I didn't understand you, what would you like to do?"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
@@ -860,31 +860,31 @@ resource "aws_lex_bot" "test" {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
-  description    = "Bot to order flowers on the behalf of a user"
+  description= "Bot to order flowers on the behalf of a user"
   name  = "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   clarification_prompt {
-    max_attempts = 3
-    message {
-      content      = "I didn't understand you, what would you like to do?"
-      content_type = "PlainText"
-      group_number = 1
-    }
-    message {
-      content      = "I didn't understand you, can you re-phrase your request, please?"
-      content_type = "PlainText"
-      group_number = 1
-    }
-    response_card = "I didn't understand you, what would you like to do?"
+max_attempts = 3
+message {
+ content = "I didn't understand you, what would you like to do?"
+ content_type = "PlainText"
+ group_number = 1
+}
+message {
+ content = "I didn't understand you, can you re-phrase your request, please?"
+ content_type = "PlainText"
+ group_number = 1
+}
+response_card = "I didn't understand you, what would you like to do?"
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
@@ -892,17 +892,17 @@ resource "aws_lex_bot" "test" {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = true
-  description    = "Bot to order flowers on the behalf of a user"
+  description= "Bot to order flowers on the behalf of a user"
   name  = "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
@@ -910,56 +910,56 @@ resource "aws_lex_bot" "test" {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
-  description    = "Bot to order flowers"
+  description= "Bot to order flowers"
   name  = "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
 }func testAccBotConfig_detectSentimentUpdate(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
-  child_directed   = false
-  description      = "Bot to order flowers on the behalf of a user"
+  child_directed= false
+  description = "Bot to order flowers on the behalf of a user"
   detect_sentiment = true
   name= "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
 }func testAccBotConfig_enableModelImprovementsUpdate(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
-  child_directed   = false
-  description      = "Bot to order flowers on the behalf of a user"
-  enable_model_improvements       = true
+  child_directed= false
+  description = "Bot to order flowers on the behalf of a user"
+  enable_model_improvements= true
   name= "%s"
   nlu_intent_confidence_threshold = 0.5
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
@@ -971,14 +971,14 @@ resource "aws_lex_bot" "test" {
   idle_session_ttl_in_seconds = 600
   name= "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
@@ -986,41 +986,41 @@ resource "aws_lex_bot" "test" {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
-  description    = "Bot to order flowers on the behalf of a user"
+  description= "Bot to order flowers on the behalf of a user"
   name  = "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
   intent {
-    intent_name    = aws_lex_intent.test_2.name
-    intent_version = aws_lex_intent.test_2.version
+intent_name= aws_lex_intent.test_2.name
+intent_version = aws_lex_intent.test_2.version
   }
 }
 `, rName)
 }func testAccBotConfig_localeUpdate(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
-  child_directed   = false
+  child_directed= false
   description= "Bot to order flowers on the behalf of a user"
   enable_model_improvements = true
-  locale     = "en-GB"
-  name       = "%s"
+  locale= "en-GB"
+  name= "%s"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
@@ -1028,42 +1028,42 @@ resource "aws_lex_bot" "test" {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
-  description    = "Bot to order flowers on the behalf of a user"
+  description= "Bot to order flowers on the behalf of a user"
   name  = "%s"
-  voice_id       = "Justin"
+  voice_id= "Justin"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
 }
 `, rName)
 }func testAccBotConfig_multipleIntentsWithVersion(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
-  child_directed   = false
-  create_version   = true
-  description      = "Bot to order flowers on the behalf of a user"
+  child_directed= false
+  create_version= true
+  description = "Bot to order flowers on the behalf of a user"
   name= "%s"
   process_behavior = "BUILD"
   abort_statement {
-    message {
-      content      = "Sorry, I'm not able to assist at this time"
-      content_type = "PlainText"
-    }
+message {
+ content = "Sorry, I'm not able to assist at this time"
+ content_type = "PlainText"
+}
   }
   intent {
-    intent_name    = aws_lex_intent.test.name
-    intent_version = aws_lex_intent.test.version
+intent_name= aws_lex_intent.test.name
+intent_version = aws_lex_intent.test.version
   }
   intent {
-    intent_name    = aws_lex_intent.test_2.name
-    intent_version = aws_lex_intent.test_2.version
+intent_name= aws_lex_intent.test_2.name
+intent_version = aws_lex_intent.test_2.version
   }
 }
 `, rName)

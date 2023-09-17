@@ -17,10 +17,10 @@ resourceName := "aws_directory_service_conditional_forwarder.fwd"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 domainName := acctest.RandomDomainName()
 ip1, ip2, ip3 := "8.8.8.8", "1.1.1.1", "8.8.4.4"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
+PreCheck:k(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, directoryservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConditionalForwarderDestroy(ctx),
+CheckDestroy:testAccCheckConditionalForwarderDestroy(ctx),
 Steps: []resource.TestStep{
 // test create
 {
@@ -42,8 +42,8 @@ testAccCheckConditionalForwarderExists(ctx, resourceName,
 },
 // test import
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -57,7 +57,7 @@ continue
 if err != nil {
 return err
 }res, err := conn.DescribeConditionalForwardersWithContext(ctx, &directoryservice.DescribeConditionalForwardersInput{
-DirectoryId:       aws.String(directoryId),
+DirectoryId:aws.String(directoryId),
 RemoteDomainNames: []*string{aws.String(domainName)},
 })if tfawserr.ErrCodeEquals(err, directoryservice.ErrCodeEntityDoesNotExistException) {
 continue
@@ -79,7 +79,7 @@ return fmt.Errorf("No ID is set")
 if err != nil {
 return err
 }conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)res, err := conn.DescribeConditionalForwardersWithContext(ctx, &directoryservice.DescribeConditionalForwardersInput{
-DirectoryId:       aws.String(directoryId),
+DirectoryId:aws.String(directoryId),
 RemoteDomainNames: []*string{aws.String(domainName)},
 })if err != nil {
 return err
@@ -101,18 +101,18 @@ acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_directory_service_conditional_forwarder" "fwd" {
   directory_id = aws_directory_service_directory.test.id  remote_domain_name = "test.example.com"  dns_ips = [
-    %[2]q,
-    %[3]q,
+%[2]q,
+%[3]q,
   ]
 }resource "aws_directory_service_directory" "test" {
-  name     = %[1]q
+  name= %[1]q
   password = "SuperSecretPassw0rd"
-  type     = "MicrosoftAD"
+  type= "MicrosoftAD"
   edition  = "Standard"  vpc_settings {
-    vpc_id     = aws_vpc.test.id
-    subnet_ids = aws_subnet.test[*].id
+vpc_id= aws_vpc.test.id
+subnet_ids = aws_subnet.test[*].id
   }  tags = {
-    Name = "terraform-testacc-directory-service-conditional-forwarder"
+Name = "terraform-testacc-directory-service-conditional-forwarder"
   }
 }
 `, domain, ip1, ip2),

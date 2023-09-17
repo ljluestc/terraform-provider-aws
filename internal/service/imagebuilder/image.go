@@ -20,7 +20,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceImage() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceImageCreate,
-ReadWithoutTimeout:   resourceImageRead,
+ReadWithoutTimeout:resourceImageRead,
 UpdateWithoutTimeout: resourceImageUpdate,
 DeleteWithoutTimeout: resourceImageDelete,
 Importer: &schema.ResourceImporter{
@@ -30,41 +30,41 @@ Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(60 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "date_created": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "container_recipe_arn": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):container-recipe/[0-9a-z_-]+/\d+\.\d+\.\d+$`), "valid container recipe ARN must be provided"),
 ExactlyOneOf: []string{"container_recipe_arn", "image_recipe_arn"},
 },
 "distribution_configuration_arn": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):distribution-configuration/[0-9a-z_-]+$`), "valid distribution configuration ARN must be provided"),
 },
 "enhanced_image_metadata_enabled": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 ForceNew: true,
 Default:  true,
 },
 "image_recipe_arn": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):image-recipe/[0-9a-z_-]+/\d+\.\d+\.\d+$`), "valid image recipe ARN must be provided"),
 ExactlyOneOf: []string{"container_recipe_arn", "image_recipe_arn"},
 },
 "image_tests_configuration": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 ForceNew: true,
@@ -72,16 +72,16 @@ MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "image_tests_enabled": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 ForceNew: true,
 Default:  true,
 },
 "timeout_minutes": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
-Default:      720,
+Optional:true,
+ForceNew:true,
+Default: 720,
 ValidateFunc: validation.IntBetween(60, 1440),
 },
 },
@@ -89,63 +89,63 @@ ValidateFunc: validation.IntBetween(60, 1440),
 },
 "infrastructure_configuration_arn": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):infrastructure-configuration/[0-9a-z_-]+$`), "valid infrastructure configuration ARN must be provided"),
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "os_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "output_resources": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "amis": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "account_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "image": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "region": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "containers": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "image_uris": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "region": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
@@ -155,13 +155,13 @@ Computed: true,
 },
 },
 "platform": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },CustomizeDiff: verify.SetTagsDiff,
@@ -169,7 +169,7 @@ Computed: true,
 }func resourceImageCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)input := &imagebuilder.CreateImageInput{
-ClientToken:   aws.String(id.UniqueId()),
+ClientToken:aws.String(id.UniqueId()),
 EnhancedImageMetadataEnabled: aws.Bool(d.Get("enhanced_image_metadata_enabled").(bool)),
 Tags: getTagsIn(ctx),
 }if v, ok := d.GetOk("container_recipe_arn"); ok {

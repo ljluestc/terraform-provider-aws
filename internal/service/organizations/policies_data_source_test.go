@@ -1,14 +1,8 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageorganizations_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageorganizations_testimport(
 	"fmt"
 	"strconv"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/organizations"
+	"testing"	"github.com/aws/aws-sdk-go/service/organizations"
 	sdkacctest"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
@@ -16,9 +10,7 @@ import(
 	ctx:=acctest.Context(t)
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	serviceControlPolicyContent:=`{"Version":"2012-10-17","Statement":{"Effect":"Deny","Action":"*","Resource":"*"}}`
-	datasourceName:="data.aws_organizations_policies.test"
-
-	resource.Test(t,resource.TestCase{
+	datasourceName:="data.aws_organizations_policies.test"	resource.Test(t,resource.TestCase{
 PreCheck:
 func(){
 	acctest.PreCheck(ctx,t)
@@ -41,9 +33,7 @@ resource"aws_organizations_policy""test"{
 name=%[1]q
 type=%[2]q
 content=%[3]s
-}
-
-data"aws_organizations_policies""test"{
+}data"aws_organizations_policies""test"{
 filter=aws_organizations_policy.test.type
 }
 `,rName,policyType,strconv.Quote(policyContent))

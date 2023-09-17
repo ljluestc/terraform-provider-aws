@@ -90,14 +90,14 @@ resource "aws_vpclattice_listener" "test_tags" {
   name= %[1]q
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id  default_action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test.id
-        weight   = 100
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test.id
+
+ }
+}
   }  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }data "aws_vpclattice_listener" "test_tags" {
   service_identifier  = aws_vpclattice_service.test.id
@@ -111,9 +111,9 @@ resource "aws_vpclattice_service" "test" {
 }resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "INSTANCE"  config {
-    port  = 80
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+port  = 80
+protocol= "HTTP"
+vpc_identifier = aws_vpc.test.id
   }
 }
 `, rName))
@@ -124,9 +124,9 @@ resource "aws_vpclattice_listener" "test" {
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    fixed_response {
-      status_code = 404
-    }
+fixed_response {
+ status_code = 404
+}
   }
 }data "aws_vpclattice_listener" "test" {
   service_identifier  = aws_vpclattice_service.test.arn
@@ -138,25 +138,25 @@ return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test1" {
   name = %[2]q
   type = "INSTANCE"  config {
-    port  = 8080
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+port  = 8080
+protocol= "HTTP"
+vpc_identifier = aws_vpc.test.id
   }
 }resource "aws_vpclattice_listener" "test" {
   name= %[1]q
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test.id
-        weight   = 80
-      }
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test1.id
-        weight   = 20
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test.id
+
+ }
+ target_groups {
+= aws_vpclattice_target_group.test1.id
+
+ }
+}
   }
 }data "aws_vpclattice_listener" "test_multi_target" {
   service_identifier  = aws_vpclattice_service.test.id

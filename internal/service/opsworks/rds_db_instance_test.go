@@ -112,13 +112,13 @@ data "aws_rds_engine_version" "default" {
   engine= data.aws_rds_engine_version.default.engine
   engine_version = data.aws_rds_engine_version.default.version
   license_model  = "general-public-license"
-  storage_type   = "standard"  preferred_instance_classes = ["db.t3.micro", "db.t2.micro", "db.t2.medium"]
+  storage_type= "standard"  preferred_instance_classes = ["db.t3.micro", "db.t2.micro", "db.t2.medium"]
 }resource "aws_db_instance" "test" {
   identifier= %[1]q
   allocated_storage  = 10
   backup_retention_period = 0
   db_name  = "test"
-  engine   = data.aws_rds_orderable_db_instance.test.engine
+  engine= data.aws_rds_orderable_db_instance.test.engine
   engine_version = data.aws_rds_orderable_db_instance.test.engine_version
   instance_class = data.aws_rds_orderable_db_instance.test.instance_class
   maintenance_window = "Fri:09:00-Fri:09:30"

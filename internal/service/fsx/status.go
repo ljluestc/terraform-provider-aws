@@ -6,43 +6,43 @@
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )func statusBackup(ctx context.Context, conn *fsx.FSx, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindBackupByID(ctx, conn, id)		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}		if err != nil {
-			return nil, "", err
-		}		return output, aws.StringValue(output.Lifecycle), nil
+output, err := FindBackupByID(ctx, conn, id)if tfresource.NotFound(err) {
+return nil, "", nil
+}if err != nil {
+return nil, "", err
+}return output, aws.StringValue(output.Lifecycle), nil
 	}
 }func statusFileCache(ctx context.Context, conn *fsx.FSx, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		out, err := findFileCacheByID(ctx, conn, id)
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}		if err != nil {
-			return nil, "", err
-		}		return out, aws.StringValue(out.Lifecycle), nil
+out, err := findFileCacheByID(ctx, conn, id)
+if tfresource.NotFound(err) {
+return nil, "", nil
+}if err != nil {
+return nil, "", err
+}return out, aws.StringValue(out.Lifecycle), nil
 	}
 }func statusStorageVirtualMachine(ctx context.Context, conn *fsx.FSx, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindStorageVirtualMachineByID(ctx, conn, id)		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}		if err != nil {
-			return nil, "", err
-		}		return output, aws.StringValue(output.Lifecycle), nil
+output, err := FindStorageVirtualMachineByID(ctx, conn, id)if tfresource.NotFound(err) {
+return nil, "", nil
+}if err != nil {
+return nil, "", err
+}return output, aws.StringValue(output.Lifecycle), nil
 	}
 }func statusVolume(ctx context.Context, conn *fsx.FSx, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindVolumeByID(ctx, conn, id)		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}		if err != nil {
-			return nil, "", err
-		}		return output, aws.StringValue(output.Lifecycle), nil
+output, err := FindVolumeByID(ctx, conn, id)if tfresource.NotFound(err) {
+return nil, "", nil
+}if err != nil {
+return nil, "", err
+}return output, aws.StringValue(output.Lifecycle), nil
 	}
 }func statusSnapshot(ctx context.Context, conn *fsx.FSx, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindSnapshotByID(ctx, conn, id)		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}		if err != nil {
-			return nil, "", err
-		}		return output, aws.StringValue(output.Lifecycle), nil
+output, err := FindSnapshotByID(ctx, conn, id)if tfresource.NotFound(err) {
+return nil, "", nil
+}if err != nil {
+return nil, "", err
+}return output, aws.StringValue(output.Lifecycle), nil
 	}
 }

@@ -15,7 +15,7 @@
 "github.com/hashicorp/terraform-provider-aws/internal/verify"
 )// @SDKResource("aws_opsworks_application")func ResourceApplication() *schema.Resource {
 return &schema.Resource{CreateWithoutTimeout: resourceApplicationCreate,
-ReadWithoutTimeout:   resourceApplicationRead,
+ReadWithoutTimeout:resourceApplicationRead,
 UpdateWithoutTimeout: resourceApplicationUpdate,
 DeleteWithoutTimeout: resourceApplicationDelete,
 Importer: &schema.ResourceImporter{
@@ -274,14 +274,14 @@ if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating OpsWorks Application: %s", err)
 }req := &opsworks.CreateAppInput{
 Name:aws.String(d.Get("name").(string)),
-Shortname:   aws.String(d.Get("short_name").(string)),
+Shortname:aws.String(d.Get("short_name").(string)),
 StackId: aws.String(d.Get("stack_id").(string)),
 Type:aws.String(d.Get("type").(string)),
 Description: aws.String(d.Get("description").(string)),
 Domains: flex.ExpandStringList(d.Get("domains").([]interface{})),
-EnableSsl:   aws.Bool(d.Get("enable_ssl").(bool)),
+EnableSsl:aws.Bool(d.Get("enable_ssl").(bool)),
 SslConfiguration: resourceApplicationSSL(d),
-AppSource:   resourceApplicationSource(d),
+AppSource:resourceApplicationSource(d),
 DataSources: resourceApplicationsDataSource(d),
 Environment: resourceApplicationEnvironmentVariable(d),
 Attributes:  resourceApplicationAttributes(d),
@@ -296,14 +296,14 @@ conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)err := resourceApplicationValid
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating OpsWorks Application (%s): %s", d.Id(), err)
 }req := &opsworks.UpdateAppInput{
-AppId:   aws.String(d.Id()),
+AppId:aws.String(d.Id()),
 Name:aws.String(d.Get("name").(string)),
 Type:aws.String(d.Get("type").(string)),
 Description: aws.String(d.Get("description").(string)),
 Domains: flex.ExpandStringList(d.Get("domains").([]interface{})),
-EnableSsl:   aws.Bool(d.Get("enable_ssl").(bool)),
+EnableSsl:aws.Bool(d.Get("enable_ssl").(bool)),
 SslConfiguration: resourceApplicationSSL(d),
-AppSource:   resourceApplicationSource(d),
+AppSource:resourceApplicationSource(d),
 DataSources: resourceApplicationsDataSource(d),
 Environment: resourceApplicationEnvironmentVariable(d),
 Attributes:  resourceApplicationAttributes(d),
@@ -374,7 +374,7 @@ Url: aws.String(d.Get("app_source.0.url").(string)),
 Username: aws.String(d.Get("app_source.0.username").(string)),
 Password: aws.String(d.Get("app_source.0.password").(string)),
 Revision: aws.String(d.Get("app_source.0.revision").(string)),
-SshKey:   aws.String(d.Get("app_source.0.ssh_key").(string)),
+SshKey:aws.String(d.Get("app_source.0.ssh_key").(string)),
 }
 }
 func resourceSetApplicationSource(d *schema.ResourceData, v *opsworks.Source) error {

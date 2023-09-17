@@ -35,7 +35,7 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttrPair(resourceName, "target_pipeline", "aws_codepipeline.test", "name"),
 	resource.TestCheckResourceAttr(resourceName, "filter.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
-"json_path":    "$.ref",
+"json_path":"$.ref",
 "match_equals": "refs/head/{Branch}",
 	}),
 	resource.TestCheckResourceAttrSet(resourceName, "url"),
@@ -45,8 +45,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -55,11 +55,11 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckWebhookExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "filter.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
-"json_path":    "$.ref",
+"json_path":"$.ref",
 "match_equals": "refs/head/{Branch}",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
-"json_path":    "$.head_commit.modified",
+"json_path":"$.head_commit.modified",
 "match_equals": "^.*mypath.*$",
 	}),
 ),
@@ -70,7 +70,7 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckWebhookExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "filter.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
-"json_path":    "$.ref",
+"json_path":"$.ref",
 "match_equals": "refs/head/{Branch}",
 	}),
 ),
@@ -101,8 +101,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -129,8 +129,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -175,8 +175,8 @@ return nil
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -273,89 +273,89 @@ if !ok {
 }func testAccWebhookConfig_basic(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name   = %[1]q
+  name= %[1]q
   authentication  = "GITHUB_HMAC"
-  target_action   = "Source"
+  target_action= "Source"
   target_pipeline = aws_codepipeline.test.name  authentication_configuration {
-    secret_token = "super-secret"
+secret_token = "super-secret"
   }  filter {
-    json_path    = "$.ref"
-    match_equals = "refs/head/{Branch}"
+json_path= "$.ref"
+match_equals = "refs/head/{Branch}"
   }
 }
 `, rName)
 }func testAccWebhookConfig_filters(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name   = %[1]q
+  name= %[1]q
   authentication  = "GITHUB_HMAC"
-  target_action   = "Source"
+  target_action= "Source"
   target_pipeline = aws_codepipeline.test.name  authentication_configuration {
-    secret_token = "super-secret"
+secret_token = "super-secret"
   }  filter {
-    json_path    = "$.ref"
-    match_equals = "refs/head/{Branch}"
+json_path= "$.ref"
+match_equals = "refs/head/{Branch}"
   }  filter {
-    json_path    = "$.head_commit.modified"
-    match_equals = "^.*mypath.*$"
+json_path= "$.head_commit.modified"
+match_equals = "^.*mypath.*$"
   }
 }
 `, rName)
 }func testAccWebhookConfig_ipAuth(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name   = %[1]q
+  name= %[1]q
   authentication  = "IP"
-  target_action   = "Source"
+  target_action= "Source"
   target_pipeline = aws_codepipeline.test.name  authentication_configuration {
-    allowed_ip_range = "0.0.0.0/0"
+allowed_ip_range = "0.0.0.0/0"
   }  filter {
-    json_path    = "$.ref"
-    match_equals = "refs/head/{Branch}"
+json_path= "$.ref"
+match_equals = "refs/head/{Branch}"
   }
 }
 `, rName)
 }func testAccWebhookConfig_unauthenticated(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name   = %[1]q
+  name= %[1]q
   authentication  = "UNAUTHENTICATED"
-  target_action   = "Source"
+  target_action= "Source"
   target_pipeline = aws_codepipeline.test.name  filter {
-    json_path    = "$.ref"
-    match_equals = "refs/head/{Branch}"
+json_path= "$.ref"
+match_equals = "refs/head/{Branch}"
   }
 }
 `, rName)
 }func testAccWebhookConfig_tags(rName, tag1, tag2, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name   = %[1]q
+  name= %[1]q
   authentication  = "GITHUB_HMAC"
-  target_action   = "Source"
+  target_action= "Source"
   target_pipeline = aws_codepipeline.test.name  authentication_configuration {
-    secret_token = "super-secret"
+secret_token = "super-secret"
   }  filter {
-    json_path    = "$.ref"
-    match_equals = "refs/head/{Branch}"
+json_path= "$.ref"
+match_equals = "refs/head/{Branch}"
   }  tags = {
-    Name = %[1]q
-    tag1 = %[2]q
-    tag2 = %[3]q
+Name = %[1]q
+tag1 = %[2]q
+tag2 = %[3]q
   }
 }
 `, rName, tag1, tag2)
 }func testAccWebhookConfig_secretTokenUpdated(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name   = %[1]q
+  name= %[1]q
   authentication  = "GITHUB_HMAC"
-  target_action   = "Source"
+  target_action= "Source"
   target_pipeline = aws_codepipeline.test.name  authentication_configuration {
-    secret_token = "even-more-secret"
+secret_token = "even-more-secret"
   }  filter {
-    json_path    = "$.ref"
-    match_equals = "refs/head/{Branch}"
+json_path= "$.ref"
+match_equals = "refs/head/{Branch}"
   }
 }
 `, rName)
@@ -368,13 +368,13 @@ resource "aws_s3_bucket" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "codepipeline.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
+{
+"Effect": "Allow",
+"Principal": {
+.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
+}
   ]
 }
 EOF
@@ -384,62 +384,62 @@ EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetObject",
-        "s3:GetObjectVersion",
-        "s3:GetBucketVersioning"
-      ],
-      "Resource": [
-        "${aws_s3_bucket.test.arn}",
-        "${aws_s3_bucket.test.arn}/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "codebuild:BatchGetBuilds",
-        "codebuild:StartBuild"
-      ],
-      "Resource": "*"
-    }
+{
+"Effect": "Allow",
+"Action": [
+
+
+
+],
+"Resource": [
+n}",
+n}/*"
+]
+},
+{
+"Effect": "Allow",
+"Action": [
+s",
+
+],
+"Resource": "*"
+}
   ]
 }
 EOF
 }resource "aws_codepipeline" "test" {
-  name     = %[1]q
+  name= %[1]q
   role_arn = aws_iam_role.test.arn  artifact_store {
-    location = aws_s3_bucket.test.bucket
-    type     = "S3"    encryption_key {
-      id   = "1234"
-      type = "KMS"
-    }
+location = aws_s3_bucket.test.bucket
+type= "S3"encryption_key {
+id= "1234"
+type = "KMS"
+}
   }  stage {
-    name = "Source"    action {
-      name= "Source"
-      category= "Source"
-      owner   = "ThirdParty"
-      provider= "GitHub"
-      version = "1"
-      output_artifacts = ["test"]      configuration = {
-        Owner      = "lifesum-terraform"
-        Repo       = "test"
-        Branch     = "master"
-        OAuthToken = %[2]q
-      }
-    }
+name = "Source"action {
+name= "Source"
+category= "Source"
+owner= "ThirdParty"
+provider= "GitHub"
+version = "1"
+output_artifacts = ["test"]configuration = {
+rraform"
+
+
+
+}
+}
   }  stage {
-    name = "Build"    action {
-      name   = "Build"
-      category        = "Build"
-      owner  = "AWS"
-      provider        = "CodeBuild"
-      input_artifacts = ["test"]
-      version= "1"      configuration = {
-        ProjectName = "test"
-      }
-    }
+name = "Build"action {
+name= "Build"
+category
+owner  = "AWS"
+provider
+input_artifacts = ["test"]
+version= "1"configuration = {
+
+}
+}
   }
 }
 `, rName, githubToken)

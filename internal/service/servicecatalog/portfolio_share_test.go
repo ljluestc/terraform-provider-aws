@@ -21,9 +21,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckAlternateAccount(t)
 acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 },
-ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ErrorCheck:est.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:    testAccCheckPortfolioShareDestroy(ctx),
+CheckDestroy:testAccCheckPortfolioShareDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPortfolioShareConfig_basic(rName, true),
@@ -39,8 +39,8 @@ resource.TestCheckResourceAttr(resourceName, "type", servicecatalog.DescribePort
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "accept_language",
@@ -71,9 +71,9 @@ acctest.PreCheckOrganizationsEnabled(ctx, t)
 acctest.PreCheckOrganizationManagementAccount(ctx, t)
 acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 },
-ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ErrorCheck:est.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:    testAccCheckPortfolioShareDestroy(ctx),
+CheckDestroy:testAccCheckPortfolioShareDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPortfolioShareConfig_sharePrincipals(rName, true),
@@ -83,8 +83,8 @@ resource.TestCheckResourceAttr(resourceName, "share_principals", "true"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "accept_language",
@@ -110,9 +110,9 @@ acctest.PreCheckOrganizationsEnabled(ctx, t)
 acctest.PreCheckOrganizationManagementAccount(ctx, t)
 acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 },
-ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ErrorCheck:est.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPortfolioShareDestroy(ctx),
+CheckDestroy:testAccCheckPortfolioShareDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPortfolioShareConfig_organizationalUnit(rName),
@@ -127,8 +127,8 @@ resource.TestCheckResourceAttr(resourceName, "type", servicecatalog.DescribePort
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:urceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "accept_language",
@@ -145,9 +145,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckAlternateAccount(t)
 acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 },
-ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ErrorCheck:est.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:    testAccCheckPortfolioShareDestroy(ctx),
+CheckDestroy:testAccCheckPortfolioShareDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPortfolioShareConfig_basic(rName, true),
@@ -194,14 +194,14 @@ data "aws_caller_identity" "alternate" {
   provider = "awsalternate"
 }resource "aws_servicecatalog_portfolio" "test" {
   name = %[1]q
-  description   = %[1]q
+  description= %[1]q
   provider_name = %[1]q
 }resource "aws_servicecatalog_portfolio_share" "test" {
-  accept_language     = "en"
-  portfolio_id        = aws_servicecatalog_portfolio.test.id
-  share_tag_options   = %[2]t
+  accept_language"
+  portfolio_idtfolio.test.id
+  share_tag_options= %[2]t
   type = "ACCOUNT"
-  principal_id        = data.aws_caller_identity.alternate.account_id
+  principal_idty.alternate.account_id
   wait_for_acceptance = false
 }
 `, rName, share))
@@ -211,17 +211,17 @@ data "aws_partition" "current" {}resource "aws_servicecatalog_organizations_acce
   enabled = "true"
 }resource "aws_servicecatalog_portfolio" "test" {
   name = %[1]q
-  description   = %[1]q
+  description= %[1]q
   provider_name = %[1]q
 }data "aws_organizations_organization" "test" {}resource "aws_organizations_organizational_unit" "test" {
-  name      = %[1]q
+  name1]q
   parent_id = data.aws_organizations_organization.test.roots[0].id
 }resource "aws_servicecatalog_portfolio_share" "test" {
-  accept_language   = "en"
-  portfolio_id      = aws_servicecatalog_portfolio.test.id
+  accept_language= "en"
+  portfolio_ids_servicecatalog_portfolio.test.id
   share_tag_options = true
-  type     = "ORGANIZATIONAL_UNIT"
-  principal_id      = aws_organizations_organizational_unit.test.arn
+  typeGANIZATIONAL_UNIT"
+  principal_ids_organizations_organizational_unit.test.arn
 }
 `, rName)
 }func testAccPortfolioShareConfig_sharePrincipals(rName string, share bool) string {
@@ -230,14 +230,14 @@ data "aws_organizations_organization" "current" {}resource "aws_servicecatalog_o
   enabled = "true"
 }resource "aws_servicecatalog_portfolio" "test" {
   name = %[1]q
-  description   = %[1]q
+  description= %[1]q
   provider_name = %[1]q
 }resource "aws_servicecatalog_portfolio_share" "test" {
-  accept_language     = "en"
-  portfolio_id        = aws_servicecatalog_portfolio.test.id
-  share_principals    = %[2]t
+  accept_language"
+  portfolio_idtfolio.test.id
+  share_principals= %[2]t
   type = "ORGANIZATION"
-  principal_id        = data.aws_organizations_organization.current.arn
+  principal_id_organization.current.arn
   wait_for_acceptance = false  depends_on = [aws_servicecatalog_organizations_access.test]
 }
 `, rName, share)

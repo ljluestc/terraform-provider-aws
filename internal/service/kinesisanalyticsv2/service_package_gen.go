@@ -13,18 +13,18 @@
 	return []*types.ServicePackageSDKDataSource{}
 } (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceApplication,
-			TypeName: "aws_kinesisanalyticsv2_application",
-			Name:     "Application",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceApplicationSnapshot,
-			TypeName: "aws_kinesisanalyticsv2_application_snapshot",
-		},
+{
+Factory:  ResourceApplication,
+TypeName: "aws_kinesisanalyticsv2_application",
+Name:"Application",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
+{
+Factory:  ResourceApplicationSnapshot,
+TypeName: "aws_kinesisanalyticsv2_application_snapshot",
+},
 	}
 } (p *servicePackage) ServicePackageName() string {
 	return names.KinesisAnalyticsV2

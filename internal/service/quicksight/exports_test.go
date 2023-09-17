@@ -1,15 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package quicksight
-
-// Exports for use in tests only.
+// SPDX-License-Identifier: MPL-2.0package quicksight// Exports for use in tests only.
 var (
-	ResourceFolderMembership    = newResourceFolderMembership
+	ResourceFolderMembership= newResourceFolderMembership
 	ResourceIAMPolicyAssignment = newResourceIAMPolicyAssignment
-	ResourceIngestion     = newResourceIngestion
-	ResourceNamespace     = newResourceNamespace
-	ResourceRefreshSchedule     = newResourceRefreshSchedule
+	ResourceIngestion= newResourceIngestion
+	ResourceNamespace= newResourceNamespace
+	ResourceRefreshSchedule= newResourceRefreshSchedule
 	ResourceTemplateAlias = newResourceTemplateAlias
 	ResourceVPCConnection = newResourceVPCConnection
 )

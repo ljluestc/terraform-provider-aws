@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafregional_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package wafregional_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/waf"
 	"github.com/aws/aws-sdk-go/service/wafregional"
@@ -24,9 +18,7 @@ import (
 	ctx := acctest.Context(t)
 	var v waf.Rule
 	wafRuleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_rule.wafrule"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_rule.wafrule"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -54,9 +46,7 @@ ImportStateVerify: true,
 	ctx := acctest.Context(t)
 	var v waf.Rule
 	wafRuleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_rule.wafrule"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_rule.wafrule"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -102,9 +92,7 @@ func(
 	var before, after waf.Rule
 	wafRuleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
 	wafRuleNewName := fmt.Sprintf("wafrulenew%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_rule.wafrule"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_rule.wafrule"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -141,9 +129,7 @@ ImportStateVerify: true,
 	ctx := acctest.Context(t)
 	var v waf.Rule
 	wafRuleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_rule.wafrule"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_rule.wafrule"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -164,9 +150,7 @@ ExpectNonEmptyPlan: true,
 	ctx := acctest.Context(t)
 	var v waf.Rule
 	wafRuleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_rule.wafrule"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_rule.wafrule"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -191,14 +175,10 @@ ImportStateVerify: true,
 }func TestAccWAFRegionalRule_changePredicates(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ipset waf.IPSet
-	var xssMatchSet waf.XssMatchSet
-
-	var before, after waf.Rule
+	var xssMatchSet waf.XssMatchSet	var before, after waf.Rule
 	var idx int
 	ruleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_wafregional_rule.wafrule"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_wafregional_rule.wafrule"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -215,7 +195,7 @@ func(
 	computeRulePredicate(&ipset.IPSetId, false, "IPMatch", &idx),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicate.*", map[string]string{
 "negated": "false",
-"type":    "IPMatch",
+"type":"IPMatch",
 	}),
 ),
 	},
@@ -230,12 +210,12 @@ func(
 	computeRulePredicate(&xssMatchSet.XssMatchSetId, true, "XssMatch", &idx),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicate.*", map[string]string{
 "negated": "true",
-"type":    "XssMatch",
+"type":"XssMatch",
 	}),
 	computeRulePredicate(&ipset.IPSetId, true, "IPMatch", &idx),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicate.*", map[string]string{
 "negated": "true",
-"type":    "IPMatch",
+"type":"IPMatch",
 	}),
 ),
 	},
@@ -246,57 +226,41 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-// Calculates the index which isn't static because dataId is generated as part of the test
-
-func computeRulePredicate(dataId **string, negated bool, pType string, idx *int) resource.TestCheck
+}// Calculates the index which isn't static because dataId is generated as part of the testfunc computeRulePredicate(dataId **string, negated bool, pType string, idx *int) resource.TestCheck
 func {
 	returnfunc(s *terraform.State) error {
 predicateResource := tfwafregional.ResourceRule().SchemaMap()["predicate"].Elem.(*schema.Resource)
 m := map[string]interface{}{
 	"data_id": **dataId,
 	"negated": negated,
-	"type":    pType,
-}
-
-f := schema.HashResource(predicateResource)
-*idx = f(m)
-
-return nil
+	"type":pType,
+}f := schema.HashResource(predicateResource)
+*idx = f(m)return nil
 	}
 }func testAccCheckRuleDisappears(ctx context.Context, v *waf.Rule) resource.TestCheck
 func {
 	returnfunc(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
-region := acctest.Provider.Meta().(*conns.AWSClient).Region
-
-wr := tfwafregional.NewRetryer(conn, region)
+region := acctest.Provider.Meta().(*conns.AWSClient).Regionwr := tfwafregional.NewRetryer(conn, region)
 _, err := wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 	req := &waf.UpdateRuleInput{
 ChangeToken: token,
 RuleId:v.RuleId,
-	}
-
-	for _, predicate := range v.Predicates {
+	}	for _, predicate := range v.Predicates {
 predicate := &waf.RuleUpdate{
 	Action: aws.String("DELETE"),
 	Predicate: &waf.Predicate{
 Negated: predicate.Negated,
-Type:    predicate.Type,
+Type:predicate.Type,
 DataId:  predicate.DataId,
 	},
 }
 req.Updates = append(req.Updates, predicate)
-	}
-
-	return conn.UpdateRuleWithContext(ctx, req)
+	}	return conn.UpdateRuleWithContext(ctx, req)
 })
 if err != nil {
 	return fmt.Errorf("Error Updating WAF Rule: %s", err)
-}
-
-_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
+}_, err = wr.RetryWithToken(ctx,func(token *string) (interface{}, error) {
 	opts := &waf.DeleteRuleInput{
 ChangeToken: token,
 RuleId:v.RuleId,
@@ -314,28 +278,18 @@ func {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_wafregional_rule" {
 continue
-	}
-
-	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+	}	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 	resp, err := conn.GetRuleWithContext(ctx, &waf.GetRuleInput{
 RuleId: aws.String(rs.Primary.ID),
-	})
-
-	if err == nil {
+	})	if err == nil {
 if *resp.Rule.RuleId == rs.Primary.ID {
 	return fmt.Errorf("WAF Rule %s still exists", rs.Primary.ID)
 }
-	}
-
-	// Return nil if the Rule is already destroyed
+	}	// Return nil if the Rule is already destroyed
 	if tfawserr.ErrCodeEquals(err, wafregional.ErrCodeWAFNonexistentItemException) {
 return nil
-	}
-
-	return err
-}
-
-return nil
+	}	return err
+}return nil
 	}
 }func testAccCheckRuleExists(ctx context.Context, n string, v *waf.Rule) resource.TestCheck
 func {
@@ -343,122 +297,84 @@ func {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No WAF Rule ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 resp, err := conn.GetRuleWithContext(ctx, &waf.GetRuleInput{
 	RuleId: aws.String(rs.Primary.ID),
-})
-
-if err != nil {
+})if err != nil {
 	return err
-}
-
-if *resp.Rule.RuleId == rs.Primary.ID {
+}if *resp.Rule.RuleId == rs.Primary.ID {
 	*v = *resp.Rule
 	return nil
-}
-
-return fmt.Errorf("WAF Rule (%s) not found", rs.Primary.ID)
+}return fmt.Errorf("WAF Rule (%s) not found", rs.Primary.ID)
 	}
 }func testAccRuleConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_ipset" "ipset" {
-  name = %[1]q
-
-  ip_set_descriptor {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = %[1]q  ip_set_descriptor {
+type  = "IPV4"
+value = "192.0.7.0/24"
   }
-}
-
-resource "aws_wafregional_rule" "wafrule" {
+}resource "aws_wafregional_rule" "wafrule" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  predicate {
-    data_id = aws_wafregional_ipset.ipset.id
-    negated = false
-    type    = "IPMatch"
+  metric_name = %[1]q  predicate {
+data_id = aws_wafregional_ipset.ipset.id
+negated = false
+type= "IPMatch"
   }
 }
 `, name)
 }func testAccRuleConfig_tags1(name, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_ipset" "ipset" {
-  name = %[1]q
-
-  ip_set_descriptor {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = %[1]q  ip_set_descriptor {
+type  = "IPV4"
+value = "192.0.7.0/24"
   }
-}
-
-resource "aws_wafregional_rule" "wafrule" {
+}resource "aws_wafregional_rule" "wafrule" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  predicate {
-    data_id = aws_wafregional_ipset.ipset.id
-    negated = false
-    type    = "IPMatch"
-  }
-
-  tags = {
-    %[2]q = %[3]q
+  metric_name = %[1]q  predicate {
+data_id = aws_wafregional_ipset.ipset.id
+negated = false
+type= "IPMatch"
+  }  tags = {
+%[2]q = %[3]q
   }
 }
 `, name, tagKey1, tagValue1)
 }func testAccRuleConfig_tags2(name, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_ipset" "ipset" {
-  name = %[1]q
-
-  ip_set_descriptor {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = %[1]q  ip_set_descriptor {
+type  = "IPV4"
+value = "192.0.7.0/24"
   }
-}
-
-resource "aws_wafregional_rule" "wafrule" {
+}resource "aws_wafregional_rule" "wafrule" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  predicate {
-    data_id = aws_wafregional_ipset.ipset.id
-    negated = false
-    type    = "IPMatch"
-  }
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  metric_name = %[1]q  predicate {
+data_id = aws_wafregional_ipset.ipset.id
+negated = false
+type= "IPMatch"
+  }  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, name, tagKey1, tagValue1, tagKey2, tagValue2)
 }func testAccRuleConfig_changeName(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_ipset" "ipset" {
-  name = %[1]q
-
-  ip_set_descriptor {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = %[1]q  ip_set_descriptor {
+type  = "IPV4"
+value = "192.0.7.0/24"
   }
-}
-
-resource "aws_wafregional_rule" "wafrule" {
+}resource "aws_wafregional_rule" "wafrule" {
   name  = %[1]q
-  metric_name = %[1]q
-
-  predicate {
-    data_id = aws_wafregional_ipset.ipset.id
-    negated = false
-    type    = "IPMatch"
+  metric_name = %[1]q  predicate {
+data_id = aws_wafregional_ipset.ipset.id
+negated = false
+type= "IPMatch"
   }
 }
 `, name)
@@ -472,40 +388,26 @@ resource "aws_wafregional_rule" "wafrule" {
 }func testAccRuleConfig_changePredicates(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_ipset" "ipset" {
-  name = %[1]q
-
-  ip_set_descriptor {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = %[1]q  ip_set_descriptor {
+type  = "IPV4"
+value = "192.0.7.0/24"
   }
-}
-
-resource "aws_wafregional_xss_match_set" "xss_match_set" {
-  name = %[1]q
-
-  xss_match_tuple {
-    text_transformation = "NONE"
-
-    field_to_match {
+}resource "aws_wafregional_xss_match_set" "xss_match_set" {
+  name = %[1]q  xss_match_tuple {
+text_transformation = "NONE"field_to_match {
 type = "URI"
-    }
-  }
 }
-
-resource "aws_wafregional_rule" "wafrule" {
-  name  = %[1]q
-  metric_name = %[1]q
-
-  predicate {
-    data_id = aws_wafregional_xss_match_set.xss_match_set.id
-    negated = true
-    type    = "XssMatch"
   }
-
-  predicate {
-    data_id = aws_wafregional_ipset.ipset.id
-    negated = true
-    type    = "IPMatch"
+}resource "aws_wafregional_rule" "wafrule" {
+  name  = %[1]q
+  metric_name = %[1]q  predicate {
+data_id = aws_wafregional_xss_match_set.xss_match_set.id
+negated = true
+type= "XssMatch"
+  }  predicate {
+data_id = aws_wafregional_ipset.ipset.id
+negated = true
+type= "IPMatch"
   }
 }
 `, name)

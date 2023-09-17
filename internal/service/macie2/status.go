@@ -6,10 +6,10 @@
 )// statusMemberRelationship fetches the Member and its relationship status
 func statusMemberRelationship(ctx context.Context, conn *macie2.Macie2, adminAccountID string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		adminAccount, err := findMemberNotAssociated(ctx, conn, adminAccountID)		if err != nil {
-			return nil, "Unknown", err
-		}		if adminAccount == nil {
-			return adminAccount, "NotFound", nil
-		}		return adminAccount, aws.StringValue(adminAccount.RelationshipStatus), nil
+adminAccount, err := findMemberNotAssociated(ctx, conn, adminAccountID)if err != nil {
+return nil, "Unknown", err
+}if adminAccount == nil {
+return adminAccount, "NotFound", nil
+}return adminAccount, aws.StringValue(adminAccount.RelationshipStatus), nil
 	}
 }

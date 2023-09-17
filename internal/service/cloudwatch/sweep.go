@@ -9,7 +9,7 @@
 )func init() {
 resource.AddTestSweepers("aws_cloudwatch_composite_alarm", &resource.Sweeper{
 Name: "aws_cloudwatch_composite_alarm",
-F:    sweepCompositeAlarms,
+F:sweepCompositeAlarms,
 })
 }func sweepCompositeAlarms(region string) error {
 ctx := sweep.Context(region)

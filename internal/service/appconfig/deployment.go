@@ -22,7 +22,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceDeployment() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceDeploymentCreate,
-ReadWithoutTimeout:   resourceDeploymentRead,
+ReadWithoutTimeout:resourceDeploymentRead,
 UpdateWithoutTimeout: resourceDeploymentUpdate,
 DeleteWithoutTimeout: resourceDeploymentDelete,
 Importer: &schema.ResourceImporter{
@@ -87,9 +87,9 @@ conn := meta.(*conns.AWSClient).AppConfigConn(ctx)input := &appconfig.StartDeplo
 ApplicationId: aws.String(d.Get("application_id").(string)),
 EnvironmentId: aws.String(d.Get("environment_id").(string)),
 ConfigurationProfileId: aws.String(d.Get("configuration_profile_id").(string)),
-ConfigurationVersion:   aws.String(d.Get("configuration_version").(string)),
-DeploymentStrategyId:   aws.String(d.Get("deployment_strategy_id").(string)),
-Description:   aws.String(d.Get("description").(string)),
+ConfigurationVersion:aws.String(d.Get("configuration_version").(string)),
+DeploymentStrategyId:aws.String(d.Get("deployment_strategy_id").(string)),
+Description:aws.String(d.Get("description").(string)),
 Tags:getTagsIn(ctx),
 }output, err := conn.StartDeploymentWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "starting AppConfig Deployment: %s", err)
@@ -119,7 +119,7 @@ AccountID: meta.(*conns.AWSClient).AccountID,
 Partition: meta.(*conns.AWSClient).Partition,
 Region:meta.(*conns.AWSClient).Region,
 Resource:  fmt.Sprintf("application/%s/environment/%s/deployment/%d", aws.StringValue(output.ApplicationId), aws.StringValue(output.EnvironmentId), aws.Int64Value(output.DeploymentNumber)),
-Service:   "appconfig",
+Service:"appconfig",
 }.String()d.Set("application_id", output.ApplicationId)
 d.Set("arn", arn)
 d.Set("configuration_profile_id", output.ConfigurationProfileId)

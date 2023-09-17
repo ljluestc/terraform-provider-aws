@@ -11,32 +11,32 @@ func DataSourceOutposts() *schema.Resource { // nosemgrep:ci.outposts-in-func-na
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceOutpostsRead,Schema: map[string]*schema.Schema{
 "arns": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "availability_zone": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "availability_zone_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "ids": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "site_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "owner_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },

@@ -22,7 +22,7 @@ resourceName := "aws_load_balancer_backend_server_policy.test"resource.ParallelT
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBackendServerPolicyDestroy(ctx),
+CheckDestroy:testAccCheckBackendServerPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccBackendServerPolicyConfig_basic(rName, privateKey1, certificate, publicKey1, publicKey2),
@@ -48,7 +48,7 @@ resourceName := "aws_load_balancer_backend_server_policy.test"resource.ParallelT
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBackendServerPolicyDestroy(ctx),
+CheckDestroy:testAccCheckBackendServerPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccBackendServerPolicyConfig_basic(rName, privateKey1, certificate, publicKey1, publicKey2),
@@ -73,7 +73,7 @@ resourceName := "aws_load_balancer_backend_server_policy.test"resource.ParallelT
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBackendServerPolicyDestroy(ctx),
+CheckDestroy:testAccCheckBackendServerPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccBackendServerPolicyConfig_basic(rName, privateKey1, certificate, publicKey1, publicKey2),
@@ -129,43 +129,43 @@ return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test" {
   name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]  listener {
-    instance_port      = 443
-    instance_protocol  = "https"
-    lb_port   = 443
-    lb_protocol        = "https"
-    ssl_certificate_id = aws_iam_server_certificate.test.arn
+instance_port= 443
+instance_protocol  = "https"
+lb_port= 443
+lb_protocol
+ssl_certificate_id = aws_iam_server_certificate.test.arn
   }
 }resource "aws_iam_server_certificate" "test" {
-  name    = %[1]q
+  name= %[1]q
   certificate_body = "%[2]s"
-  private_key      = "%[3]s"
+  private_key= "%[3]s"
 }resource "aws_load_balancer_policy" "test0" {
   load_balancer_name = aws_elb.test.name
-  policy_name        = "%[1]s-0"
-  policy_type_name   = "PublicKeyPolicyType"  policy_attribute {
-    name  = "PublicKey"
-    value = "%[4]s"
+  policy_name
+  policy_type_name= "PublicKeyPolicyType"  policy_attribute {
+name  = "PublicKey"
+value = "%[4]s"
   }
 }resource "aws_load_balancer_policy" "test1" {
   load_balancer_name = aws_elb.test.name
-  policy_name        = "%[1]s-1"
-  policy_type_name   = "BackendServerAuthenticationPolicyType"  policy_attribute {
-    name  = "PublicKeyPolicyName"
-    value = aws_load_balancer_policy.test0.policy_name
+  policy_name
+  policy_type_name= "BackendServerAuthenticationPolicyType"  policy_attribute {
+name  = "PublicKeyPolicyName"
+value = aws_load_balancer_policy.test0.policy_name
   }
 }resource "aws_load_balancer_policy" "test2" {
   load_balancer_name = aws_elb.test.name
-  policy_name        = "%[1]s-2"
-  policy_type_name   = "PublicKeyPolicyType"  policy_attribute {
-    name  = "PublicKey"
-    value = "%[5]s"
+  policy_name
+  policy_type_name= "PublicKeyPolicyType"  policy_attribute {
+name  = "PublicKey"
+value = "%[5]s"
   }
 }resource "aws_load_balancer_policy" "test3" {
   load_balancer_name = aws_elb.test.name
-  policy_name        = "%[1]s-3"
-  policy_type_name   = "BackendServerAuthenticationPolicyType"  policy_attribute {
-    name  = "PublicKeyPolicyName"
-    value = aws_load_balancer_policy.test2.policy_name
+  policy_name
+  policy_type_name= "BackendServerAuthenticationPolicyType"  policy_attribute {
+name  = "PublicKeyPolicyName"
+value = aws_load_balancer_policy.test2.policy_name
   }
 }
 `,
@@ -179,8 +179,8 @@ acctest.TLSPEMRemovePublicKeyEncapsulationBoundaries(acctest.TLSPEMRemoveNewline
 return acctest.ConfigCompose(testAccBackendServerPolicyConfig_base(rName, privateKey, certificate, publicKey1, publicKey2), `
 resource "aws_load_balancer_backend_server_policy" "test" {
   load_balancer_name = aws_elb.test.name
-  instance_port      = 443  policy_names = [
-    aws_load_balancer_policy.test1.policy_name,
+  instance_port= 443  policy_names = [
+aws_load_balancer_policy.test1.policy_name,
   ]
 }
 `)
@@ -188,8 +188,8 @@ resource "aws_load_balancer_backend_server_policy" "test" {
 return acctest.ConfigCompose(testAccBackendServerPolicyConfig_base(rName, privateKey, certificate, publicKey1, publicKey2), `
 resource "aws_load_balancer_backend_server_policy" "test" {
   load_balancer_name = aws_elb.test.name
-  instance_port      = 443  policy_names = [
-    aws_load_balancer_policy.test3.policy_name,
+  instance_port= 443  policy_names = [
+aws_load_balancer_policy.test3.policy_name,
   ]
 }
 `)

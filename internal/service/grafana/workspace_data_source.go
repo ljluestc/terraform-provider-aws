@@ -12,105 +12,105 @@
 )//@SDKDataSource("aws_grafana_workspace")
 funcDataSourceWorkspace()*schema.Resource{
 	return&schema.Resource{
-		ReadWithoutTimeout:dataSourceWorkspaceRead,		Schema:map[string]*schema.Schema{
-			"account_access_type":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"arn":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"authentication_providers":{
-				Type:schema.TypeList,
-				Computed:true,
-				Elem:&schema.Schema{Type:schema.TypeString},
-			},
-			"created_date":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"data_sources":{
-				Type:schema.TypeList,
-				Computed:true,
-				Elem:&schema.Schema{Type:schema.TypeString},
-			},
-			"description":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"endpoint":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"grafana_version":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"last_updated_date":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"name":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"notification_destinations":{
-				Type:schema.TypeList,
-				Computed:true,
-				Elem:&schema.Schema{Type:schema.TypeString},
-			},
-			"organization_role_name":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"organizational_units":{
-				Type:schema.TypeList,
-				Computed:true,
-				Elem:&schema.Schema{Type:schema.TypeString},
-			},
-			"permission_type":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"role_arn":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"saml_configuration_status":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"stack_set_name":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"status":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"tags":tftags.TagsSchemaComputed(),
-			"workspace_id":{
-				Type:schema.TypeString,
-				Required:true,
-			},
-		},
+ReadWithoutTimeout:dataSourceWorkspaceRead,Schema:map[string]*schema.Schema{
+"account_access_type":{
+Type:schema.TypeString,
+Computed:true,
+},
+"arn":{
+Type:schema.TypeString,
+Computed:true,
+},
+"authentication_providers":{
+Type:schema.TypeList,
+Computed:true,
+Elem:&schema.Schema{Type:schema.TypeString},
+},
+"created_date":{
+Type:schema.TypeString,
+Computed:true,
+},
+"data_sources":{
+Type:schema.TypeList,
+Computed:true,
+Elem:&schema.Schema{Type:schema.TypeString},
+},
+"description":{
+Type:schema.TypeString,
+Computed:true,
+},
+"endpoint":{
+Type:schema.TypeString,
+Computed:true,
+},
+"grafana_version":{
+Type:schema.TypeString,
+Computed:true,
+},
+"last_updated_date":{
+Type:schema.TypeString,
+Computed:true,
+},
+"name":{
+Type:schema.TypeString,
+Computed:true,
+},
+"notification_destinations":{
+Type:schema.TypeList,
+Computed:true,
+Elem:&schema.Schema{Type:schema.TypeString},
+},
+"organization_role_name":{
+Type:schema.TypeString,
+Computed:true,
+},
+"organizational_units":{
+Type:schema.TypeList,
+Computed:true,
+Elem:&schema.Schema{Type:schema.TypeString},
+},
+"permission_type":{
+Type:schema.TypeString,
+Computed:true,
+},
+"role_arn":{
+Type:schema.TypeString,
+Computed:true,
+},
+"saml_configuration_status":{
+Type:schema.TypeString,
+Computed:true,
+},
+"stack_set_name":{
+Type:schema.TypeString,
+Computed:true,
+},
+"status":{
+Type:schema.TypeString,
+Computed:true,
+},
+"tags":tftags.TagsSchemaComputed(),
+"workspace_id":{
+Type:schema.TypeString,
+Required:true,
+},
+},
 	}
 }funcdataSourceWorkspaceRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
 	conn:=meta.(*conns.AWSClient).GrafanaConn(ctx)
 	ignoreTagsConfig:=meta.(*conns.AWSClient).IgnoreTagsConfig	workspaceID:=d.Get("workspace_id").(string)
 	workspace,err:=FindWorkspaceByID(ctx,conn,workspaceID)	iferr!=nil{
-		returnsdkdiag.AppendErrorf(diags,"readingGrafanaWorkspace(%s):%s",workspaceID,err)
+returnsdkdiag.AppendErrorf(diags,"readingGrafanaWorkspace(%s):%s",workspaceID,err)
 	}	d.SetId(workspaceID)
 	d.Set("account_access_type",workspace.AccountAccessType)
 	//https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonmanagedgrafana.html#amazonmanagedgrafana-resources-for-iam-policies.
 	workspaceARN:=arn.ARN{
-		Partition:meta.(*conns.AWSClient).Partition,
-		Service:managedgrafana.ServiceName,
-		Region:meta.(*conns.AWSClient).Region,
-		AccountID:meta.(*conns.AWSClient).AccountID,
-		Resource:fmt.Sprintf("/workspaces/%s",d.Id()),
+Partition:meta.(*conns.AWSClient).Partition,
+Service:managedgrafana.ServiceName,
+Region:meta.(*conns.AWSClient).Region,
+AccountID:meta.(*conns.AWSClient).AccountID,
+Resource:fmt.Sprintf("/workspaces/%s",d.Id()),
 	}.String()
 	d.Set("arn",workspaceARN)
 	d.Set("authentication_providers",workspace.Authentication.Providers)
@@ -129,6 +129,6 @@ funcDataSourceWorkspace()*schema.Resource{
 	d.Set("saml_configuration_status",workspace.Authentication.SamlConfigurationStatus)
 	d.Set("stack_set_name",workspace.StackSetName)
 	d.Set("status",workspace.Status)	iferr:=d.Set("tags",KeyValueTags(ctx,workspace.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map());err!=nil{
-		returnsdkdiag.AppendErrorf(diags,"settingtags:%s",err)
+returnsdkdiag.AppendErrorf(diags,"settingtags:%s",err)
 	}	returndiags
 }

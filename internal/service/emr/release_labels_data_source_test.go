@@ -1,23 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package emr_test
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/emr"
+// SPDX-License-Identifier: MPL-2.0package emr_testimport (
+	"testing"	"github.com/aws/aws-sdk-go/service/emr"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )func TestAccEMRReleaseLabels_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceResourceName := "data.aws_emr_release_labels.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceResourceName := "data.aws_emr_release_labels.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 	{
 Config: testAccReleaseLabelsDataSourceConfig_basic(),
@@ -30,13 +22,11 @@ func(
 	})
 }func TestAccEMRReleaseLabels_prefix(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceResourceName := "data.aws_emr_release_labels.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceResourceName := "data.aws_emr_release_labels.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 	{
 Config: testAccReleaseLabelsDataSourceConfig_prefix(),
@@ -49,13 +39,11 @@ func(
 	})
 }func TestAccEMRReleaseLabels_application(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceResourceName := "data.aws_emr_release_labels.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceResourceName := "data.aws_emr_release_labels.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 	{
 Config: testAccReleaseLabelsDataSourceConfig_application(),
@@ -68,13 +56,11 @@ func(
 	})
 }func TestAccEMRReleaseLabels_full(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceResourceName := "data.aws_emr_release_labels.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceResourceName := "data.aws_emr_release_labels.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 	{
 Config: testAccReleaseLabelsDataSourceConfig_full(),
@@ -87,13 +73,11 @@ func(
 	})
 }func TestAccEMRReleaseLabels_empty(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceResourceName := "data.aws_emr_release_labels.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceResourceName := "data.aws_emr_release_labels.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 	{
 Config: testAccReleaseLabelsDataSourceConfig_empty(),
@@ -112,7 +96,7 @@ data "aws_emr_release_labels" "test" {}
 	return `
 data "aws_emr_release_labels" "test" {
   filters {
-    prefix = "emr-6"
+prefix = "emr-6"
   }
 }
 `
@@ -120,7 +104,7 @@ data "aws_emr_release_labels" "test" {
 	return `
 data "aws_emr_release_labels" "test" {
   filters {
-    application = "Spark@3.1.2"
+application = "Spark@3.1.2"
   }
 }
 `
@@ -128,8 +112,8 @@ data "aws_emr_release_labels" "test" {
 	return `
 data "aws_emr_release_labels" "test" {
   filters {
-    application = "Spark@3.1.2"
-    prefix      = "emr-6"
+application = "Spark@3.1.2"
+prefix = "emr-6"
   }
 }
 `
@@ -137,7 +121,7 @@ data "aws_emr_release_labels" "test" {
 	return `
 data "aws_emr_release_labels" "test" {
   filters {
-    prefix = "emr-0"
+prefix = "emr-0"
   }
 }
 `

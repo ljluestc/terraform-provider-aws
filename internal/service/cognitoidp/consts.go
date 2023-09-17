@@ -3,13 +3,13 @@
 	"time"
 )const (
 	ResNameIdentityProvider  = "Identity Provider"
-	ResNameResourceServer    = "Resource Server"
+	ResNameResourceServer= "Resource Server"
 	ResNameRiskConfiguration = "Risk Configuration"
 	ResNameUserGroup= "User Group"
-	ResNameUserPoolClient    = "User Pool Client"
-	ResNameUserPoolDomain    = "User Pool Domain"
+	ResNameUserPoolClient= "User Pool Client"
+	ResNameUserPoolDomain= "User Pool Domain"
 	ResNameUserPool = "User Pool"
-	ResNameUser     = "User"
+	ResNameUser= "User"
 )const (
 	propagationTimeout = 2 * time.Minute
 )

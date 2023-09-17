@@ -219,7 +219,7 @@ testAccCheckUserPolicyExpectedPolicies(ctx, userResourceName, 1),
 ),
 },
 {
-Config:   testAccUserPolicyConfig_newOrder(rName),
+Config:testAccUserPolicyConfig_newOrder(rName),
 PlanOnly: true,
 },
 },
@@ -237,7 +237,7 @@ if err != nil {
 return err
 }conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)resp, err := conn.GetUserPolicyWithContext(ctx, &iam.GetUserPolicyInput{
 PolicyName: aws.String(name),
-UserName:   aws.String(user),
+UserName:aws.String(user),
 })
 if err != nil {
 return err
@@ -254,7 +254,7 @@ if err != nil {
 return err
 }request := &iam.GetUserPolicyInput{
 PolicyName: aws.String(name),
-UserName:   aws.String(user),
+UserName:aws.String(user),
 }getResp, err := conn.GetUserPolicyWithContext(ctx, request)if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 continue
 }if err != nil {
@@ -268,7 +268,7 @@ return fmt.Errorf("Found IAM user policy, expected none: %s", getResp)
 return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)params := &iam.DeleteUserPolicyInput{
 PolicyName: out.PolicyName,
-UserName:   out.UserName,
+UserName:out.UserName,
 }
 func err := conn.DeleteUserPolicyWithContext(ctx, params)
 return err
@@ -289,7 +289,7 @@ username, name, err := tfiam.UserPolicyParseID(policy.Primary.ID)
 if err != nil {
 return err
 }_, err = conn.GetUserPolicyWithContext(ctx, &iam.GetUserPolicyInput{
-UserName:   aws.String(username),
+UserName:aws.String(username),
 PolicyName: aws.String(name),
 })return err
 }
@@ -338,8 +338,8 @@ return acctest.ConfigCompose(
 testAccUserPolicyUserBaseConfig(rName, "/"),
 fmt.Sprintf(`
 resource "aws_iam_user_policy" "test" {
-  name   = %[1]q
-  user   = aws_iam_user.test.name
+  name= %[1]q
+  user= aws_iam_user.test.name
   policy = %[2]s
 }
 `, rName, policy))
@@ -348,7 +348,7 @@ return acctest.ConfigCompose(
 testAccUserPolicyUserBaseConfig(rName, "/"),
 funcurce "aws_iam_user_policy" "test" {
   name_prefix = %[1]q
-  user   = aws_iam_user.test.name
+  user= aws_iam_user.test.name
   policy = %[2]s
 }
 `, prefix, policy))
@@ -356,7 +356,7 @@ funcurce "aws_iam_user_policy" "test" {
 return acctest.ConfigCompose(
 testAccUserPolicyUserBaseConfig(rName, "/"),
 fmt.Sprintf(`
-rfuncer   = aws_iam_user.test.name
+rfuncer= aws_iam_user.test.name
   policy = %[1]s
 }
 `, policy))
@@ -365,11 +365,11 @@ return acctest.ConfigCompose(
 testAccUserPolicyUserBaseConfig(rName, "/"),
 fmt.Sprintf(`
 resource "aws_iam_user_policy" "test" {
-  name   = %[1]q
+  name= %[1]q
  funclicy = %[2]s
 }resource "aws_iam_user_policy" "test2" {
-  name   = "%[1]s-2"
-  user   = aws_iam_user.test.name
+  name= "%[1]s-2"
+  user= aws_iam_user.test.name
   policy = %[3]s
 }
 `, rName, policy1, policy2))

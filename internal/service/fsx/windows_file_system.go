@@ -25,7 +25,7 @@
 func ResourceWindowsFileSystem() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceWindowsFileSystemCreate,
-ReadWithoutTimeout:   resourceWindowsFileSystemRead,
+ReadWithoutTimeout:resourceWindowsFileSystemRead,
 UpdateWithoutTimeout: resourceWindowsFileSystemUpdate,
 DeleteWithoutTimeout: resourceWindowsFileSystemDelete,Importer: &schema.ResourceImporter{
 	StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
@@ -289,7 +289,7 @@ SubnetIds: flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
 Tags:getTagsIn(ctx),
 WindowsConfiguration: &fsx.CreateFileSystemWindowsConfiguration{
 	AutomaticBackupRetentionDays: aws.Int64(int64(d.Get("automatic_backup_retention_days").(int))),
-	CopyTagsToBackups:   aws.Bool(d.Get("copy_tags_to_backups").(bool)),
+	CopyTagsToBackups:aws.Bool(d.Get("copy_tags_to_backups").(bool)),
 	ThroughputCapacity:  aws.Int64(int64(d.Get("throughput_capacity").(int))),
 },
 	}
@@ -299,7 +299,7 @@ SubnetIds: flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
 Tags:getTagsIn(ctx),
 WindowsConfiguration: &fsx.CreateFileSystemWindowsConfiguration{
 	AutomaticBackupRetentionDays: aws.Int64(int64(d.Get("automatic_backup_retention_days").(int))),
-	CopyTagsToBackups:   aws.Bool(d.Get("copy_tags_to_backups").(bool)),
+	CopyTagsToBackups:aws.Bool(d.Get("copy_tags_to_backups").(bool)),
 	ThroughputCapacity:  aws.Int64(int64(d.Get("throughput_capacity").(int))),
 },
 	}	if v, ok := d.GetOk("active_directory_id"); ok {
@@ -418,7 +418,7 @@ o, n := d.GetChange("throughput_capacity")
 if o, n := o.(int), n.(int); n > o {
 	input := &fsx.UpdateFileSystemInput{
 ClientRequestToken: aws.String(id.UniqueId()),
-FileSystemId:   aws.String(d.Id()),
+FileSystemId:aws.String(d.Id()),
 WindowsConfiguration: &fsx.UpdateFileSystemWindowsConfiguration{
 	ThroughputCapacity: aws.Int64(int64(n)),
 },
@@ -431,7 +431,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for FSx Windows File Server File Sys
 }
 	}	if d.HasChangesExcept("aliases", "tags", "tags_all") {
 input := &fsx.UpdateFileSystemInput{
-	ClientRequestToken:   aws.String(id.UniqueId()),
+	ClientRequestToken:aws.String(id.UniqueId()),
 	FileSystemId:aws.String(d.Id()),
 	WindowsConfiguration: &fsx.UpdateFileSystemWindowsConfiguration{},
 }if d.HasChange("audit_log_configuration") {
@@ -461,7 +461,7 @@ _, err := conn.UpdateFileSystemWithContext(ctx, input)if err != nil {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FSxConn(ctx)	input := &fsx.DeleteFileSystemInput{
 ClientRequestToken: aws.String(id.UniqueId()),
-FileSystemId:   aws.String(d.Id()),
+FileSystemId:aws.String(d.Id()),
 WindowsConfiguration: &fsx.DeleteFileSystemWindowsConfiguration{
 	SkipFinalBackup: aws.Bool(d.Get("skip_final_backup").(bool)),
 },
@@ -485,8 +485,8 @@ return nil
 	req := &fsx.SelfManagedActiveDirectoryConfiguration{
 DomainName: aws.String(data["domain_name"].(string)),
 DnsIps: flex.ExpandStringSet(data["dns_ips"].(*schema.Set)),
-Password:   aws.String(data["password"].(string)),
-UserName:   aws.String(data["username"].(string)),
+Password:aws.String(data["password"].(string)),
+UserName:aws.String(data["username"].(string)),
 	}	if v, ok := data["file_system_administrators_group"]; ok && v.(string) != "" {
 req.FileSystemAdministratorsGroup = aws.String(v.(string))
 	}	if v, ok := data["organizational_unit_distinguished_name"]; ok && v.(string) != "" {
@@ -513,7 +513,7 @@ return []map[string]interface{}{}
 	// See also: flattenEmrKerberosAttributes	m := map[string]interface{}{
 "dns_ips":  aws.StringValueSlice(adopts.DnsIps),
 "domain_name":aws.StringValue(adopts.DomainName),
-"file_system_administrators_group":   aws.StringValue(adopts.FileSystemAdministratorsGroup),
+"file_system_administrators_group":aws.StringValue(adopts.FileSystemAdministratorsGroup),
 "organizational_unit_distinguished_name": aws.StringValue(adopts.OrganizationalUnitDistinguishedName),
 "password": d.Get("self_managed_active_directory.0.password").(string),
 "username": aws.StringValue(adopts.UserName),
@@ -532,7 +532,7 @@ req.AuditLogDestination = aws.String(windowsAuditLogStateFunc(v))
 	if adopts == nil {
 return []map[string]interface{}{}
 	}	m := map[string]interface{}{
-"file_access_audit_log_level":   aws.StringValue(adopts.FileAccessAuditLogLevel),
+"file_access_audit_log_level":aws.StringValue(adopts.FileAccessAuditLogLevel),
 "file_share_access_audit_log_level": aws.StringValue(adopts.FileShareAccessAuditLogLevel),
 	}	if adopts.AuditLogDestination != nil {
 m["audit_log_destination"] = aws.StringValue(adopts.AuditLogDestination)

@@ -4,7 +4,7 @@
 )const (
 ResNameTrail = "Trail"resourceTypeDynamoDBTable  = "AWS::DynamoDB::Table"
 resourceTypeLambdaFunction = "AWS::Lambda::Function"
-resourceTypeS3Object   = "AWS::S3::Object"
+resourceTypeS3Object= "AWS::S3::Object"
 )func resourceType_Values() []string {
 return []string{
 resourceTypeDynamoDBTable,
@@ -14,7 +14,7 @@ resourceTypeS3Object,
 }const (
 fieldEventCategory = "eventCategory"
 fieldEventName = "eventName"
-fieldEventSource   = "eventSource"
+fieldEventSource= "eventSource"
 fieldReadOnly  = "readOnly"
 fieldResourcesARN  = "resources.ARN"
 fieldResourcesType = "resources.type"

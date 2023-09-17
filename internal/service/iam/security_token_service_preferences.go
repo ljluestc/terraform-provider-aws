@@ -11,7 +11,7 @@
 )// @SDKResource("aws_iam_security_token_service_preferences", name="Security Token Service Preferences")func ResourceSecurityTokenServicePreferences() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceSecurityTokenServicePreferencesUpsert,
-ReadWithoutTimeout:   resourceSecurityTokenServicePreferencesRead,
+ReadWithoutTimeout:resourceSecurityTokenServicePreferencesRead,
 UpdateWithoutTimeout: resourceSecurityTokenServicePreferencesUpsert,
 DeleteWithoutTimeout: schema.NoopContext,Schema: map[string]*schema.Schema{
 "global_endpoint_token_version": {

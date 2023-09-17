@@ -23,84 +23,84 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceCachediSCSIVolume() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceCachediSCSIVolumeCreate,
-ReadWithoutTimeout:   resourceCachediSCSIVolumeRead,
+ReadWithoutTimeout:resourceCachediSCSIVolumeRead,
 UpdateWithoutTimeout: resourceCachediSCSIVolumeUpdate,
 DeleteWithoutTimeout: resourceCachediSCSIVolumeDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "chap_enabled": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },
 "gateway_arn": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 },
 "lun_number": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 // Poor API naming: this accepts the IP address of the network interface
 "network_interface_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "network_interface_port": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 "snapshot_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 },
 "source_volume_arn": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 },
 "target_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "target_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "volume_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "volume_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "volume_size_in_bytes": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Required: true,
 ForceNew: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "kms_encrypted": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 ForceNew: true,
 },
 "kms_key": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 RequiredWith: []string{"kms_encrypted"},
 },
@@ -109,7 +109,7 @@ RequiredWith: []string{"kms_encrypted"},
 }func resourceCachediSCSIVolumeCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).StorageGatewayConn(ctx)input := &storagegateway.CreateCachediSCSIVolumeInput{
-ClientToken:        aws.String(id.UniqueId()),
+ClientToken:),
 GatewayARN:aws.String(d.Get("gateway_arn").(string)),
 NetworkInterfaceId: aws.String(d.Get("network_interface_id").(string)),
 TargetName:aws.String(d.Get("target_name").(string)),
@@ -217,9 +217,9 @@ return "", "", expectedFormatErr
 gatewayARN := arn.ARN{
 AccountID: targetARN.AccountID,
 Partition: targetARN.Partition,
-Region:    targetARN.Region,
+Region:targetARN.Region,
 Resource:  fmt.Sprintf("%s/%s", resourceParts[0], resourceParts[1]),
-Service:   targetARN.Service,
+Service:targetARN.Service,
 }.String()
 // Second, let's split off the target name from the initiator name
 // resourceParts[3] = iqn.1997-05.com.amazon:TargetName

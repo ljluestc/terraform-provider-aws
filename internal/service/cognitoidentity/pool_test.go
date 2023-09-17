@@ -22,7 +22,7 @@
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolDestroy(ctx),
+CheckDestroy:testAccCheckPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolConfig_basic(name),
@@ -36,8 +36,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -61,7 +61,7 @@ func(
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolDestroy(ctx),
+CheckDestroy:testAccCheckPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolConfig_developerProviderName(name, developerProviderName),
@@ -73,8 +73,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -97,7 +97,7 @@ func(
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolDestroy(ctx),
+CheckDestroy:testAccCheckPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolConfig_supportedLoginProviders(name),
@@ -110,8 +110,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -146,7 +146,7 @@ func(
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolDestroy(ctx),
+CheckDestroy:testAccCheckPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolConfig_openidConnectProviderARNs(name),
@@ -158,8 +158,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -194,7 +194,7 @@ func(
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolDestroy(ctx),
+CheckDestroy:testAccCheckPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolConfig_samlProviderARNs(name, idpEntityId),
@@ -207,8 +207,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -242,7 +242,7 @@ func(
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolDestroy(ctx),
+CheckDestroy:testAccCheckPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolConfig_identityProviders(name),
@@ -264,8 +264,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -303,7 +303,7 @@ func(
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolDestroy(ctx),
+CheckDestroy:testAccCheckPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolConfig_identityProviders(name),
@@ -315,8 +315,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -351,7 +351,7 @@ func(
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolDestroy(ctx),
+CheckDestroy:testAccCheckPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolConfig_tags1(name, "key1", "value1"),
@@ -363,8 +363,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -398,7 +398,7 @@ func(
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolDestroy(ctx),
+CheckDestroy:testAccCheckPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolConfig_basic(name),
@@ -491,7 +491,7 @@ resource "aws_cognito_identity_pool" "test" {
 resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= "identity pool %s"
   allow_unauthenticated_identities = false  supported_login_providers = {
-    "graph.facebook.com" = "7346241598935555"
+"graph.facebook.com" = "7346241598935555"
   }
 }
 `, name)
@@ -500,8 +500,8 @@ resource "aws_cognito_identity_pool" "test" {
 resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= "identity pool %s"
   allow_unauthenticated_identities = false  supported_login_providers = {
-    "graph.facebook.com"  = "7346241598935552"
-    "accounts.google.com" = "123456789012.apps.googleusercontent.com"
+"graph.facebook.com"  = "7346241598935552"
+"accounts.google.com" = "123456789012.apps.googleusercontent.com"
   }
 }
 `, name)
@@ -522,7 +522,7 @@ data "aws_partition" "current" {}resource "aws_cognito_identity_pool" "test" {
 }func testAccPoolConfig_samlProviderARNs(name, idpEntityId string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_saml_provider" "default" {
-  name    = "myprovider-%[1]s"
+  name= "myprovider-%[1]s"
   saml_metadata_document = templatefile("./test-fixtures/saml-metadata.xml.tpl", { entity_id = %[2]q })
 }resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= "identity pool %[1]s"
@@ -532,10 +532,10 @@ resource "aws_iam_saml_provider" "default" {
 }func testAccPoolConfig_samlProviderARNsModified(name, idpEntityId, secondaryIdpEntityId string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_saml_provider" "default" {
-  name    = "default-%[1]s"
+  name= "default-%[1]s"
   saml_metadata_document = templatefile("./test-fixtures/saml-metadata.xml.tpl", { entity_id = %[2]q })
 }resource "aws_iam_saml_provider" "secondary" {
-  name    = "secondary-%[1]s"
+  name= "secondary-%[1]s"
   saml_metadata_document = templatefile("./test-fixtures/saml-metadata.xml.tpl", { entity_id = %[3]q })
 }resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= "identity pool %[1]s"
@@ -547,13 +547,13 @@ resource "aws_iam_saml_provider" "default" {
 data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= "identity pool %s"
   allow_unauthenticated_identities = false  cognito_identity_providers {
-    client_id= "7lhlkkfbfb4q5kpp90urffao"
-    provider_name  = "cognito-idp.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}/${data.aws_region.current.name}_Ab129faBb"
-    server_side_token_check = false
+client_id= "7lhlkkfbfb4q5kpp90urffao"
+provider_name  = "cognito-idp.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}/${data.aws_region.current.name}_Ab129faBb"
+server_side_token_check = false
   }  cognito_identity_providers {
-    client_id= "7lhlkkfbfb4q5kpp90urffao"
-    provider_name  = "cognito-idp.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}/${data.aws_region.current.name}_Zr231apJu"
-    server_side_token_check = false
+client_id= "7lhlkkfbfb4q5kpp90urffao"
+provider_name  = "cognito-idp.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}/${data.aws_region.current.name}_Zr231apJu"
+server_side_token_check = false
   }
 }
 `, name)
@@ -562,9 +562,9 @@ data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_cog
 data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= "identity pool %s"
   allow_unauthenticated_identities = false  cognito_identity_providers {
-    client_id= "6lhlkkfbfb4q5kpp90urffae"
-    provider_name  = "cognito-idp.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}/${data.aws_region.current.name}_Zr231apJu"
-    server_side_token_check = false
+client_id= "6lhlkkfbfb4q5kpp90urffae"
+provider_name  = "cognito-idp.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}/${data.aws_region.current.name}_Zr231apJu"
+server_side_token_check = false
   }
 }
 `, name)
@@ -573,13 +573,13 @@ data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_cog
 data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= "identity pool %s"
   allow_unauthenticated_identities = false  cognito_identity_providers {
-    client_id= "7lhlkkfbfb4q5kpp90urffao"
-    provider_name  = "cognito-idp.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}/${data.aws_region.current.name}_Ab129faBb"
-    server_side_token_check = false
+client_id= "7lhlkkfbfb4q5kpp90urffao"
+provider_name  = "cognito-idp.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}/${data.aws_region.current.name}_Ab129faBb"
+server_side_token_check = false
   }  cognito_identity_providers {
-    client_id= "7lhlkkfbfb4q5kpp90urffao"
-    provider_name  = "cognito-idp.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}/${data.aws_region.current.name}_Zr231apJu"
-    server_side_token_check = false
+client_id= "7lhlkkfbfb4q5kpp90urffao"
+provider_name  = "cognito-idp.${data.aws_region.current.name}.${data.aws_partition.current.dns_suffix}/${data.aws_region.current.name}_Zr231apJu"
+server_side_token_check = false
   }  openid_connect_provider_arns = ["arn:${data.aws_partition.current.partition}:iam::123456789012:oidc-provider/server.example.com"]
 }
 `, name)
@@ -588,7 +588,7 @@ data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_cog
 resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= %q
   allow_unauthenticated_identities = false  tags = {
-    %q = %q
+%q = %q
   }
 }
 `, name, tagKey1, tagValue1)
@@ -597,8 +597,8 @@ resource "aws_cognito_identity_pool" "test" {
 resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= %q
   allow_unauthenticated_identities = false  tags = {
-    %q = %q
-    %q = %q
+%q = %q
+%q = %q
   }
 }
 `, name, tagKey1, tagValue1, tagKey2, tagValue2)

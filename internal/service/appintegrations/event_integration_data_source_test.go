@@ -19,7 +19,7 @@ PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, appintegrationsservice.EndpointsID)
 },
-ErrorCheck:      acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
+ErrorCheck: acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -40,12 +40,12 @@ Check: resource.ComposeAggregateTestCheckFunc(
 }func testAccEventIntegrationDataSourceConfig_base(rName, sourceName string) string {
 	return fmt.Sprintf(`
 resource "aws_appintegrations_event_integration" "test" {
-  name   = %[1]q
-  description     = "example description"
+  name= %[1]q
+  description= "example description"
   eventbridge_bus = "default"  event_filter {
-    source = %[2]q
+source = %[2]q
   }  tags = {
-    "Key1" = "Value1"
+"Key1" = "Value1"
   }
 }
 `, rName, sourceName)

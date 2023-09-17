@@ -1,23 +1,13 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageds
-
-import(
+//SPDX-License-Identifier:MPL-2.0packagedsimport(
 	"context"
-	"testing"
-
-	"github.com/google/go-cmp/cmp"
+	"testing"	"github.com/google/go-cmp/cmp"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-)
-
-funcTestDirectoryIDValidator(t*testing.T){
-	t.Parallel()
-
-	typetestCasestruct{
+)funcTestDirectoryIDValidator(t*testing.T){
+	t.Parallel()	typetestCasestruct{
 valtypes.String
 expectedDiagnosticsdiag.Diagnostics
 	}
@@ -51,34 +41,22 @@ diag.NewAttributeErrorDiagnostic(
 ),
 	},
 },
-	}
-
-	forname,test:=rangetests{
+	}	forname,test:=rangetests{
 name,test:=name,test
 t.Run(name,func(t*testing.T){
-	t.Parallel()
-
-	ctx:=context.Background()
-
-	request:=validator.StringRequest{
+	t.Parallel()	ctx:=context.Background()	request:=validator.StringRequest{
 Path:path.Root("test"),
 PathExpression:path.MatchRoot("test"),
 ConfigValue:test.val,
 	}
 	response:=validator.StringResponse{}
-	directoryIDValidator.ValidateString(ctx,request,&response)
-
-	ifdiff:=cmp.Diff(response.Diagnostics,test.expectedDiagnostics);diff!=""{
+	directoryIDValidator.ValidateString(ctx,request,&response)	ifdiff:=cmp.Diff(response.Diagnostics,test.expectedDiagnostics);diff!=""{
 t.Errorf("unexpecteddiagnosticsdifference:%s",diff)
 	}
 })
 	}
-}
-
-funcTestDomainWithTrailingDotValidatorValidator(t*testing.T){
-	t.Parallel()
-
-	typetestCasestruct{
+}funcTestDomainWithTrailingDotValidatorValidator(t*testing.T){
+	t.Parallel()	typetestCasestruct{
 valtypes.String
 expectedDiagnosticsdiag.Diagnostics
 	}
@@ -105,34 +83,22 @@ diag.NewAttributeErrorDiagnostic(
 ),
 	},
 },
-	}
-
-	forname,test:=rangetests{
+	}	forname,test:=rangetests{
 name,test:=name,test
 t.Run(name,func(t*testing.T){
-	t.Parallel()
-
-	ctx:=context.Background()
-
-	request:=validator.StringRequest{
+	t.Parallel()	ctx:=context.Background()	request:=validator.StringRequest{
 Path:path.Root("test"),
 PathExpression:path.MatchRoot("test"),
 ConfigValue:test.val,
 	}
 	response:=validator.StringResponse{}
-	domainWithTrailingDotValidator.ValidateString(ctx,request,&response)
-
-	ifdiff:=cmp.Diff(response.Diagnostics,test.expectedDiagnostics);diff!=""{
+	domainWithTrailingDotValidator.ValidateString(ctx,request,&response)	ifdiff:=cmp.Diff(response.Diagnostics,test.expectedDiagnostics);diff!=""{
 t.Errorf("unexpecteddiagnosticsdifference:%s",diff)
 	}
 })
 	}
-}
-
-funcTestTrustPasswordValidator(t*testing.T){
-	t.Parallel()
-
-	typetestCasestruct{
+}funcTestTrustPasswordValidator(t*testing.T){
+	t.Parallel()	typetestCasestruct{
 valtypes.String
 expectedDiagnosticsdiag.Diagnostics
 	}
@@ -156,24 +122,16 @@ diag.NewAttributeErrorDiagnostic(
 ),
 	},
 },
-	}
-
-	forname,test:=rangetests{
+	}	forname,test:=rangetests{
 name,test:=name,test
 t.Run(name,func(t*testing.T){
-	t.Parallel()
-
-	ctx:=context.Background()
-
-	request:=validator.StringRequest{
+	t.Parallel()	ctx:=context.Background()	request:=validator.StringRequest{
 Path:path.Root("test"),
 PathExpression:path.MatchRoot("test"),
 ConfigValue:test.val,
 	}
 	response:=validator.StringResponse{}
-	trustPasswordValidator.ValidateString(ctx,request,&response)
-
-	ifdiff:=cmp.Diff(response.Diagnostics,test.expectedDiagnostics);diff!=""{
+	trustPasswordValidator.ValidateString(ctx,request,&response)	ifdiff:=cmp.Diff(response.Diagnostics,test.expectedDiagnostics);diff!=""{
 t.Errorf("unexpecteddiagnosticsdifference:%s",diff)
 	}
 })

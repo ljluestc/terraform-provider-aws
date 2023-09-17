@@ -21,16 +21,16 @@
 func ResourcePermissions() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourcePermissionsCreate,
-ReadWithoutTimeout:   resourcePermissionsRead,
+ReadWithoutTimeout:resourcePermissionsRead,
 DeleteWithoutTimeout: resourcePermissionsDelete,Schema: map[string]*schema.Schema{
 "catalog_id": {
 Type:schema.TypeString,
-ForceNew:     true,
-Optional:     true,
+ForceNew:
+Optional:
 ValidateFunc: verify.ValidAccountID,
 },
 "catalog_resource": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Default:  false,
 ForceNew: true,
 Optional: true,
@@ -45,7 +45,7 @@ ExactlyOneOf: []string{
 },
 },
 "data_location": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 ForceNew: true,
 MaxItems: 1,
@@ -63,22 +63,22 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "arn": {
 Type:schema.TypeString,
-ForceNew:     true,
-Required:     true,
+ForceNew:
+Required:
 ValidateFunc: verify.ValidARN,
 },
 "catalog_id": {
 Type:schema.TypeString,
-Computed:     true,
-ForceNew:     true,
-Optional:     true,
+Computed:
+ForceNew:
+Optional:
 ValidateFunc: verify.ValidAccountID,
 },
 },
 },
 },
 "database": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 ForceNew: true,
 MaxItems: 1,
@@ -96,13 +96,13 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "catalog_id": {
 Type:schema.TypeString,
-Computed:     true,
-ForceNew:     true,
-Optional:     true,
+Computed:
+ForceNew:
+Optional:
 ValidateFunc: verify.ValidAccountID,
 },
 "name": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 ForceNew: true,
 Required: true,
 },
@@ -110,7 +110,7 @@ Required: true,
 },
 },
 "lf_tag": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Optional: true,
 Computed: true,
 ForceNew: true,
@@ -127,19 +127,19 @@ ExactlyOneOf: []string{
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "catalog_id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 ForceNew: true,
 Optional: true,
 Computed: true,
 },
 "key": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:
+ForceNew:
 ValidateFunc: validation.StringLenBetween(1, 128),
 },
 "values": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Required: true,
 ForceNew: true,
 MinItems: 1,
@@ -152,7 +152,7 @@ ValidateFunc: validateLFTagValues(),
 },
 },
 "lf_tag_policy": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Optional: true,
 Computed: true,
 ForceNew: true,
@@ -170,24 +170,24 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "catalog_id": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:
+Computed:
 ValidateFunc: verify.ValidAccountID,
 },
 "expression": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Required: true,
 MinItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "key": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:
+ForceNew:
 ValidateFunc: validation.StringLenBetween(1, 128),
 },
 "values": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Required: true,
 ForceNew: true,
 MinItems: 1,
@@ -201,15 +201,15 @@ ValidateFunc: validateLFTagValues(),
 },
 "resource_type": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:
+ForceNew:
 ValidateFunc: validation.StringInSlice(lakeformation.ResourceType_Values(), false),
 },
 },
 },
 },
 "permissions": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 ForceNew: true,
 MinItems: 1,
 Required: true,
@@ -219,7 +219,7 @@ ValidateFunc: validation.StringInSlice(lakeformation.Permission_Values(), false)
 },
 },
 "permissions_with_grant_option": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 ForceNew: true,
 Optional: true,
@@ -230,12 +230,12 @@ ValidateFunc: validation.StringInSlice(lakeformation.Permission_Values(), false)
 },
 "principal": {
 Type:schema.TypeString,
-ForceNew:     true,
-Required:     true,
+ForceNew:
+Required:
 ValidateFunc: validPrincipal,
 },
 "table": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 ForceNew: true,
 MaxItems: 1,
@@ -253,18 +253,18 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "catalog_id": {
 Type:schema.TypeString,
-Computed:     true,
-ForceNew:     true,
-Optional:     true,
+Computed:
+ForceNew:
+Optional:
 ValidateFunc: verify.ValidAccountID,
 },
 "database_name": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 ForceNew: true,
 Required: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 ForceNew: true,
 Optional: true,
@@ -274,7 +274,7 @@ AtLeastOneOf: []string{
 },
 },
 "wildcard": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Default:  false,
 ForceNew: true,
 Optional: true,
@@ -287,7 +287,7 @@ AtLeastOneOf: []string{
 },
 },
 "table_with_columns": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 ForceNew: true,
 MaxItems: 1,
@@ -305,13 +305,13 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "catalog_id": {
 Type:schema.TypeString,
-Computed:     true,
-ForceNew:     true,
-Optional:     true,
+Computed:
+ForceNew:
+Optional:
 ValidateFunc: verify.ValidAccountID,
 },
 "column_names": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 ForceNew: true,
 Optional: true,
 Elem: &schema.Schema{
@@ -324,12 +324,12 @@ AtLeastOneOf: []string{
 },
 },
 "database_name": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 ForceNew: true,
 Required: true,
 },
 "excluded_column_names": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 ForceNew: true,
 Optional: true,
 Elem: &schema.Schema{
@@ -338,12 +338,12 @@ ValidateFunc: validation.NoZeroValues,
 },
 },
 "name": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 ForceNew: true,
 Required: true,
 },
 "wildcard": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Default:  false,
 ForceNew: true,
 Optional: true,
@@ -360,9 +360,9 @@ AtLeastOneOf: []string{
 }// The challenges with Lake Formation permissions are many. These are largely undocumented and
 // discovered through trial and error. These are specific problems discovered thus far:
 // 1. Implicit permissions granted by Lake Formation to data lake administrators are indistinguishable
-//    from explicit permissions. However, implicit permissions cannot be changed, revoked, or narrowed.
+//from explicit permissions. However, implicit permissions cannot be changed, revoked, or narrowed.
 // 2. One set of permissions for one LF Resource going in, can come back from AWS as multiple sets of
-//    permissions for multiple LF Resources (e.g., SELECT, Table, TableWithColumns).
+//permissions for multiple LF Resources (e.g., SELECT, Table, TableWithColumns).
 // 3. Valid permissions for a Table LF resource can come back in TableWithColumns and vice versa.// For 2 & 3, some peeking at the config (i.e., d.Get()) is necessary to filter the permissions AWS
 // returns.func resourcePermissionsCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
@@ -556,7 +556,7 @@ d.Set("table_with_columns", nil)
 }func resourcePermissionsDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).LakeFormationConn(ctx)input := &lakeformation.RevokePermissionsInput{
-Permissions:   flex.ExpandStringList(d.Get("permissions").([]interface{})),
+Permissions:flex.ExpandStringList(d.Get("permissions").([]interface{})),
 PermissionsWithGrantOption: flex.ExpandStringList(d.Get("permissions_with_grant_option").([]interface{})),
 Principal: &lakeformation.DataLakePrincipal{
 DataLakePrincipalIdentifier: aws.String(d.Get("principal").(string)),
@@ -669,7 +669,7 @@ apiObject.ResourceType = aws.String(v)
 tagSlice := []*lakeformation.LFTag{}
 for _, element := range expression {
 elementMap := element.(map[string]interface{})tag := &lakeformation.LFTag{
-TagKey:    aws.String(elementMap["key"].(string)),
+TagKey:aws.String(elementMap["key"].(string)),
 TagValues: flex.ExpandStringSet(elementMap["values"].(*schema.Set)),
 }tagSlice = append(tagSlice, tag)
 }return tagSlice

@@ -13,13 +13,13 @@ return &schema.Resource{
 ReadWithoutTimeout: dataSourceOutpostInstanceTypesRead,Schema: map[string]*schema.Schema{
 "arn": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: verify.ValidARN,
 },
 "instance_types": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 },
 }

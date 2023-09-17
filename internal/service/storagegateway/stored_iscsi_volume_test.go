@@ -17,7 +17,7 @@ ctx := acctest.Context(t)
 var storedIscsiVolume storagegateway.StorediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_stored_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStorediSCSIVolumeDestroy(ctx),
@@ -44,8 +44,8 @@ resource.TestCheckResourceAttr(resourceName, "kms_encrypted", "false"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -56,7 +56,7 @@ var storedIscsiVolume storagegateway.StorediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_stored_iscsi_volume.test"
 keyResourceName := "aws_kms_key.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStorediSCSIVolumeDestroy(ctx),
@@ -70,8 +70,8 @@ resource.TestCheckResourceAttrPair(resourceName, "kms_key", keyResourceName, "ar
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -81,7 +81,7 @@ ctx := acctest.Context(t)
 var storedIscsiVolume storagegateway.StorediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_stored_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStorediSCSIVolumeDestroy(ctx),
@@ -96,8 +96,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -126,7 +126,7 @@ ctx := acctest.Context(t)
 var storedIscsiVolume storagegateway.StorediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_stored_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStorediSCSIVolumeDestroy(ctx),
@@ -149,8 +149,8 @@ resource.TestCheckResourceAttr(resourceName, "volume_size_in_bytes", "1073741824
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -160,7 +160,7 @@ ctx := acctest.Context(t)
 var storedIscsiVolume storagegateway.StorediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_stored_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStorediSCSIVolumeDestroy(ctx),
@@ -217,41 +217,41 @@ resource "aws_ebs_volume" "buffer" {
   availability_zone = aws_instance.test.availability_zone
   size = 10
   type = "gp2"  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_volume_attachment" "buffer" {
   device_name  = "/dev/xvdc"
   force_detach = true
   instance_id  = aws_instance.test.id
-  volume_id    = aws_ebs_volume.buffer.id
+  volume_id= aws_ebs_volume.buffer.id
 }data "aws_storagegateway_local_disk" "buffer" {
-  disk_node   = aws_volume_attachment.buffer.device_name
+  disk_node= aws_volume_attachment.buffer.device_name
   gateway_arn = aws_storagegateway_gateway.test.arn
 }resource "aws_storagegateway_working_storage" "buffer" {
-  disk_id     = data.aws_storagegateway_local_disk.buffer.id
+  disk_id= data.aws_storagegateway_local_disk.buffer.id
   gateway_arn = aws_storagegateway_gateway.test.arn
 }resource "aws_ebs_volume" "test" {
   availability_zone = aws_instance.test.availability_zone
   size = 10
   type = "gp2"  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_volume_attachment" "test" {
   device_name  = "/dev/xvdb"
   force_detach = true
   instance_id  = aws_instance.test.id
-  volume_id    = aws_ebs_volume.test.id
+  volume_id= aws_ebs_volume.test.id
 }data "aws_storagegateway_local_disk" "test" {
-  disk_node   = aws_volume_attachment.test.device_name
+  disk_node= aws_volume_attachment.test.device_name
   gateway_arn = aws_storagegateway_gateway.test.arn
 }
 `, rName)
 }func testAccStorediSCSIVolumeConfig_basic(rName string) string {
 return testAccStorediSCSIVolumeBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_stored_iscsi_volume" "test" {
-  gateway_arn   = data.aws_storagegateway_local_disk.test.gateway_arn
-  network_interface_id   = aws_instance.test.private_ip
-  target_name   = %[1]q
+  gateway_arn= data.aws_storagegateway_local_disk.test.gateway_arn
+  network_interface_id= aws_instance.test.private_ip
+  target_name= %[1]q
   preserve_existing_data = false
   disk_id = data.aws_storagegateway_local_disk.test.disk_id  depends_on = [aws_storagegateway_working_storage.buffer]
 }
@@ -260,27 +260,27 @@ resource "aws_storagegateway_stored_iscsi_volume" "test" {
 return testAccStorediSCSIVolumeBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description = "Terraform acc test %[1]s"
-  policy      = <<POLICY
+  policy= <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
   "Statement": [
-    {
-      "Sid": "Enable IAM User Permissions",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "kms:*",
-      "Resource": "*"
-    }
+{
+"Sid": "Enable IAM User Permissions",
+"Effect": "Allow",
+"Principal": {
+
+},
+"Action": "kms:*",
+"Resource": "*"
+}
   ]
 }
 POLICY
 }resource "aws_storagegateway_stored_iscsi_volume" "test" {
-  gateway_arn   = data.aws_storagegateway_local_disk.test.gateway_arn
-  network_interface_id   = aws_instance.test.private_ip
-  target_name   = %[1]q
+  gateway_arn= data.aws_storagegateway_local_disk.test.gateway_arn
+  network_interface_id= aws_instance.test.private_ip
+  target_name= %[1]q
   preserve_existing_data = false
   disk_id = data.aws_storagegateway_local_disk.test.id
   kms_encrypted = true
@@ -290,25 +290,25 @@ POLICY
 }func testAccStorediSCSIVolumeConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return testAccStorediSCSIVolumeBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_stored_iscsi_volume" "test" {
-  gateway_arn   = data.aws_storagegateway_local_disk.test.gateway_arn
-  network_interface_id   = aws_instance.test.private_ip
-  target_name   = %[1]q
+  gateway_arn= data.aws_storagegateway_local_disk.test.gateway_arn
+  network_interface_id= aws_instance.test.private_ip
+  target_name= %[1]q
   preserve_existing_data = false
   disk_id = data.aws_storagegateway_local_disk.test.id  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }  depends_on = [aws_storagegateway_working_storage.buffer]
 }
 `, rName, tagKey1, tagValue1)
 }func testAccStorediSCSIVolumeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return testAccStorediSCSIVolumeBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_stored_iscsi_volume" "test" {
-  gateway_arn   = data.aws_storagegateway_local_disk.test.gateway_arn
-  network_interface_id   = aws_instance.test.private_ip
-  target_name   = %[1]q
+  gateway_arn= data.aws_storagegateway_local_disk.test.gateway_arn
+  network_interface_id= aws_instance.test.private_ip
+  target_name= %[1]q
   preserve_existing_data = false
   disk_id = data.aws_storagegateway_local_disk.test.id  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }  depends_on = [aws_storagegateway_working_storage.buffer]
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -318,17 +318,17 @@ resource "aws_ebs_volume" "snapvolume" {
   availability_zone = aws_instance.test.availability_zone
   size = 5
   type = "gp2"  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_ebs_snapshot" "test" {
   volume_id = aws_ebs_volume.snapvolume.id  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_storagegateway_stored_iscsi_volume" "test" {
-  gateway_arn   = data.aws_storagegateway_local_disk.test.gateway_arn
-  network_interface_id   = aws_instance.test.private_ip
-  snapshot_id   = aws_ebs_snapshot.test.id
-  target_name   = %[1]q
+  gateway_arn= data.aws_storagegateway_local_disk.test.gateway_arn
+  network_interface_id= aws_instance.test.private_ip
+  snapshot_id= aws_ebs_snapshot.test.id
+  target_name= %[1]q
   preserve_existing_data = false
   disk_id = data.aws_storagegateway_local_disk.test.id  depends_on = [aws_storagegateway_working_storage.buffer]
 }

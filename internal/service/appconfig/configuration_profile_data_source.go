@@ -83,7 +83,7 @@ AccountID: meta.(*conns.AWSClient).AccountID,
 Partition: meta.(*conns.AWSClient).Partition,
 Region:meta.(*conns.AWSClient).Region,
 Resource:  fmt.Sprintf("application/%s/configurationprofile/%s", appId, profileId),
-Service:   "appconfig",
+Service:"appconfig",
 }.String()d.Set("arn", arn)
 d.Set("configuration_profile_id", profileId)
 d.Set("description", out.Description)

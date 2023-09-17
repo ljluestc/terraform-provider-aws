@@ -21,77 +21,77 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceProduct() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceProductCreate,
-ReadWithoutTimeout:   resourceProductRead,
+ReadWithoutTimeout:resourceProductRead,
 UpdateWithoutTimeout: resourceProductUpdate,
 DeleteWithoutTimeout: resourceProductDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(ProductReadyTimeout),
-Read:   schema.DefaultTimeout(ProductReadTimeout),
+Read:schema.DefaultTimeout(ProductReadTimeout),
 Update: schema.DefaultTimeout(ProductUpdateTimeout),
 Delete: schema.DefaultTimeout(ProductDeleteTimeout),
 },Schema: map[string]*schema.Schema{
 "accept_language": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      AcceptLanguageEnglish,
+Optional:true,
+Default: AcceptLanguageEnglish,
 ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
 },
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "created_time": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "distributor": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "has_default_path": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "owner": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "provisioning_artifact_parameters": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 ForceNew: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 },
 "disable_template_validation": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 ForceNew: true,
 Default:  false,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 },
 "template_physical_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 ExactlyOneOf: []string{
@@ -100,7 +100,7 @@ ExactlyOneOf: []string{
 },
 },
 "template_url": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 ExactlyOneOf: []string{
@@ -110,37 +110,37 @@ ExactlyOneOf: []string{
 },
 "type": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringInSlice(servicecatalog.ProvisioningArtifactType_Values(), false),
 },
 },
 },
 },
 "status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "support_description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "support_email": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "support_url": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "type": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringInSlice(servicecatalog.ProductType_Values(), false),
 },
 },CustomizeDiff: verify.SetTagsDiff,
@@ -149,9 +149,9 @@ ValidateFunc: validation.StringInSlice(servicecatalog.ProductType_Values(), fals
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)input := &servicecatalog.CreateProductInput{
 IdempotencyToken: aws.String(id.UniqueId()),
-Name:    aws.String(d.Get("name").(string)),
-Owner:   aws.String(d.Get("owner").(string)),
-ProductType:      aws.String(d.Get("type").(string)),
+Name:aws.String(d.Get("name").(string)),
+Owner:aws.String(d.Get("owner").(string)),
+ProductType: aws.String(d.Get("type").(string)),
 ProvisioningArtifactParameters: expandProvisioningArtifactParameters(
 d.Get("provisioning_artifact_parameters").([]interface{})[0].(map[string]interface{}),
 ),

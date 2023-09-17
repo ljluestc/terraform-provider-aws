@@ -1,326 +1,326 @@
 // Copyright (c) HashiCorp, Inc.
 // SPDX-License-Identifier: MPL-2.0package iam_testimport (
-	"context"
-	"fmt"
-	"testing"	"github.com/YakDriver/regexache"
-	"github.com/aws/aws-sdk-go/service/iam"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"context"
+"fmt"
+"testing""github.com/YakDriver/regexache"
+"github.com/aws/aws-sdk-go/service/iam"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+tfiam "github.com/hashicorp/terraform-provider-aws/internal/service/iam"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )func := acctest.Context(t)
-	var out iam.Policy
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iam_policy.test"
-	expectedPolicyText := `{"Statement":[{"Action":["ec2:Describe*"],"Effect":"Allow","Resource":"*"}],"Version":"2012-10-17"}`	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_name(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					acctest.CheckResourceAttrGlobalARN(resourceName, "arn", "iam", fmt.Sprintf("policy/%s", rName)),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "path", "/"),
-					resource.TestCheckResourceAttr(resourceName, "policy", expectedPolicyText),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttrSet(resourceName, "policy_id"),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-		},
-	})
+var out iam.Policy
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_iam_policy.test"
+expectedPolicyText := `{"Statement":[{"Action":["ec2:Describe*"],"Effect":"Allow","Resource":"*"}],"Version":"2012-10-17"}`resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccPolicyConfig_name(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+acctest.CheckResourceAttrGlobalARN(resourceName, "arn", "iam", fmt.Sprintf("policy/%s", rName)),
+resource.TestCheckResourceAttr(resourceName, "description", ""),
+resource.TestCheckResourceAttr(resourceName, "name", rName),
+resource.TestCheckResourceAttr(resourceName, "path", "/"),
+resource.TestCheckResourceAttr(resourceName, "policy", expectedPolicyText),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+resource.TestCheckResourceAttrSet(resourceName, "policy_id"),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+},
+})
 }func TestAccIAMPolicy_description(t *testing.T) {
-	func out iam.Policy
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iam_policy.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_description(rName, "description1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "description", "description1"),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-		},
-	})
+func out iam.Policy
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_iam_policy.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccPolicyConfig_description(rName, "description1"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "description", "description1"),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+},
+})
 }func TestAccIAMPolicy_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iam_policy.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccPolicyConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccPolicyConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
-	})
+ctx := acctest.Context(t)
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_iam_policy.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccPolicyConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+{
+Config: testAccPolicyConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+},
+{
+Config: testAccPolicyConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+},
+},
+})
 }func TestAccIAMPolicy_disappears(t *testing.T) {
-	ctx := acctest.Context(t)
-	var out iam.Policy
-	funcourceName := "aws_iam_policy.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_name(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfiam.ResourcePolicy(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
-	})
+ctx := acctest.Context(t)
+var out iam.Policy
+funcourceName := "aws_iam_policy.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccPolicyConfig_name(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfiam.ResourcePolicy(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+},
+},
+})
 }func TestAccIAMPolicy_namePrefix(t *testing.T) {
-	ctx := acctest.Context(t)
-	var out iam.Policy
-	resourceName := "aws_iam_policy.test"
+ctx := acctest.Context(t)
+var out iam.Policy
+resourceName := "aws_iam_policy.test"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_namePrefix(acctest.ResourcePrefix),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestMatchResourceAttr(resourceName, "name", regexache.MustCompile(fmt.Sprintf("^%s", acctest.ResourcePrefix))),
-				),
-			},
-			{
-				ResourceName:   resourceName,
-				ImportState:true,
-				ImportStateVerify:   true,
-				ImportStateVerifyIgnore: []string{"name_prefix"},
-			},
-		},
-	})
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccPolicyConfig_namePrefix(acctest.ResourcePrefix),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestMatchResourceAttr(resourceName, "name", regexache.MustCompile(fmt.Sprintf("^%s", acctest.ResourcePrefix))),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+ImportStateVerifyIgnore: []string{"name_prefix"},
+},
+},
+})
 }func TestAccIAMPolicy_path(t *testing.T) {
-	ctx := acctest.Context(t)
-	var out iam.Policy
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iam_policy.test"
+ctx := acctest.Context(t)
+var out iam.Policy
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_iam_policy.test"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_path(rName, "/path1/"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "path", "/path1/"),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-		},
-	})
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccPolicyConfig_path(rName, "/path1/"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "path", "/path1/"),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+},
+})
 }func TestAccIAMPolicy_policy(t *testing.T) {
-	ctx := acctest.Context(t)
-	var out iam.Policy
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iam_policy.test"
-	policy1 := `{"Statement":[{"Action":["ec2:Describe*"],"Effect":"Allow","Resource":"*"}],"Version":"2012-10-17"}`
-	func
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:  testAccPolicyConfig_basic(rName, "not-json"),
-				ExpectError: regexache.MustCompile("invalid JSON"),
-			},
-			{
-				Config: testAccPolicyConfig_basic(rName, policy1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "policy", policy1),
-				),
-			},
-			{
-				Config: testAccPolicyConfig_basic(rName, policy2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "policy", policy2),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-		},
-	})
+ctx := acctest.Context(t)
+var out iam.Policy
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_iam_policy.test"
+policy1 := `{"Statement":[{"Action":["ec2:Describe*"],"Effect":"Allow","Resource":"*"}],"Version":"2012-10-17"}`
+func
+resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config:  testAccPolicyConfig_basic(rName, "not-json"),
+ExpectError: regexache.MustCompile("invalid JSON"),
+},
+{
+Config: testAccPolicyConfig_basic(rName, policy1),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "policy", policy1),
+),
+},
+{
+Config: testAccPolicyConfig_basic(rName, policy2),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "policy", policy2),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+},
+})
 }// https://github.com/hashicorp/terraform-provider-aws/issues/28833func TestAccIAMPolicy_diffs(t *testing.T) {
-	ctx := acctest.Context(t)
-	var out iam.Policy
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_iam_policy.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_diffs(rName, ""),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:  resourceName,
-				ImportState:   true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccPolicyConfig_diffs(rName, ""),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				Config:   testAccPolicyConfig_diffs(rName, ""),
-				PlanOnly: true,
-			},
-			{
-				Config:   testAccPolicyConfig_diffs(rName, ""),
-				PlanOnly: true,
-			},
-			{
-				Config:   testAccPolicyConfig_diffs(rName, ""),
-				PlanOnly: true,
-			},
-			{
-				Config:   testAccPolicyConfig_diffs(rName, ""),
-				PlanOnly: true,
-			},
-			{
-				Config: testAccPolicyConfig_diffs(rName, "tags = {}"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				Config: testAccPolicyConfig_diffs(rName, "tags = {}"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				Config:   testAccPolicyConfig_diffs(rName, "tags = {}"),
-				PlanOnly: true,
-			},
-			{
-				Config:   testAccPolicyConfig_diffs(rName, "tags = {}"),
-				PlanOnly: true,
-			},
-			{
-				Config:   testAccPolicyConfig_diffs(rName, "tags = {}"),
-				PlanOnly: true,
-			},
-			{
-				Config:   testAccPolicyConfig_diffs(rName, "tags = {}"),
-				PlanOnly: true,
-			},
-			{
-				Config: testAccPolicyConfig_diffs(rName, "tags = {}"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPolicyExists(ctx, resourceName, &out),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-		},
-	})
+ctx := acctest.Context(t)
+var out iam.Policy
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+resourceName := "aws_iam_policy.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccPolicyConfig_diffs(rName, ""),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+},
+{
+ResourceName:  resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+{
+Config: testAccPolicyConfig_diffs(rName, ""),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+},
+{
+Config:testAccPolicyConfig_diffs(rName, ""),
+PlanOnly: true,
+},
+{
+Config:testAccPolicyConfig_diffs(rName, ""),
+PlanOnly: true,
+},
+{
+Config:testAccPolicyConfig_diffs(rName, ""),
+PlanOnly: true,
+},
+{
+Config:testAccPolicyConfig_diffs(rName, ""),
+PlanOnly: true,
+},
+{
+Config: testAccPolicyConfig_diffs(rName, "tags = {}"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+},
+{
+Config: testAccPolicyConfig_diffs(rName, "tags = {}"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+},
+{
+Config:testAccPolicyConfig_diffs(rName, "tags = {}"),
+PlanOnly: true,
+},
+{
+Config:testAccPolicyConfig_diffs(rName, "tags = {}"),
+PlanOnly: true,
+},
+{
+Config:testAccPolicyConfig_diffs(rName, "tags = {}"),
+PlanOnly: true,
+},
+{
+Config:testAccPolicyConfig_diffs(rName, "tags = {}"),
+PlanOnly: true,
+},
+{
+Config: testAccPolicyConfig_diffs(rName, "tags = {}"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckPolicyExists(ctx, resourceName, &out),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+},
+},
+})
 }func testAccCheckPolicyExists(ctx context.Context, n string, v *iam.Policy) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}	funceturn fmt.Errorf("No IAM Policy ID is set")
-		}		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)		output, err := tfiam.FindPolicyByARN(ctx, conn, rs.Primary.ID)		if err != nil {
-			return err
-		}		*v = *output		return nil
-	}
+return func(s *terraform.State) error {
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+return fmt.Errorf("Not found: %s", n)
+}funceturn fmt.Errorf("No IAM Policy ID is set")
+}conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)output, err := tfiam.FindPolicyByARN(ctx, conn, rs.Primary.ID)if err != nil {
+return err
+}*v = *outputreturn nil
+}
 }func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_iam_policy" {
-				continue
-			}
-func, err := tfiam.FindPolicyByARN(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
-				continue
-			}			if err != nil {
-				return err
-			}			return fmt.Errorf("IAM Policy %s still exists", rs.Primary.ID)
-		}		return nil
-	}
+return func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)for _, rs := range s.RootModule().Resources {
+if rs.Type != "aws_iam_policy" {
+continue
+}
+func, err := tfiam.FindPolicyByARN(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
+continue
+}if err != nil {
+return err
+}return fmt.Errorf("IAM Policy %s still exists", rs.Primary.ID)
+}return nil
+}
 }func testAccPolicyConfig_description(rName, description string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   description = %q
   name= %q  policy = <<EOF
@@ -339,7 +339,7 @@ EOF
 }
 `, description, rName)
 }func testAccPolicyConfig_name(rName string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   name = %q  policy = <<EOF
 {
@@ -357,7 +357,7 @@ EOF
 }
 `, rName)
 }func testAccPolicyConfig_namePrefix(namePrefix string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   name_prefix = %q  policy = <<EOF
 {
@@ -375,7 +375,7 @@ EOF
 }
 `, namePrefix)
 }func testAccPolicyConfig_path(rName, path string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   name = %q
   path = %q  policy = <<EOF
@@ -394,14 +394,14 @@ EOF
 }
 `, rName, path)
 }func testAccPolicyConfig_basic(rName, policy string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
-  name   = %q
+  name= %q
   policy = %q
 }
 `, rName, policy)
 }func testAccPolicyConfig_tags1(rName, tagKey1, tagValue1 string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   name = %q  policy = <<EOF
 {funcersion": "2012-10-17",
@@ -420,7 +420,7 @@ EOF  tags = {
 }
 `, rName, tagKey1, tagValue1)
 }func testAccPolicyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   name = %q  policy = <<EOF
 {
@@ -441,7 +441,7 @@ EOF  tags = {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }func testAccPolicyConfig_diffs(rName string, tags string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   name = %[1]q  policy = jsonencode({
 Id  = %[1]q

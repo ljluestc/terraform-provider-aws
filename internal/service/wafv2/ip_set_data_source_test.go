@@ -12,28 +12,28 @@ func TestAccWAFV2IPSetDataSource_basic(t *testing.T) {
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_wafv2_ip_set.test"
 	datasourceName := "data.aws_wafv2_ip_set.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccIPSetDataSourceConfig_nonExistent(name),
-				ExpectError: regexache.MustCompile(`WAFv2 IPSet not found`),
-			},
-			{
-				Config: testAccIPSetDataSourceConfig_name(name),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(datasourceName, "addresses", resourceName, "addresses"),
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					acctest.MatchResourceAttrRegionalARN(datasourceName, "arn", "wafv2", regexache.MustCompile(fmt.Sprintf("regional/ipset/%v/.+$", name))),
-					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ip_address_version", resourceName, "ip_address_version"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "scope", resourceName, "scope"),
-				),
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheckScopeRegional(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, wafv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+{
+Config: testAccIPSetDataSourceConfig_nonExistent(name),
+ExpectError: regexache.MustCompile(`WAFv2 IPSet not found`),
+},
+{
+Config: testAccIPSetDataSourceConfig_name(name),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrPair(datasourceName, "addresses", resourceName, "addresses"),
+resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+acctest.MatchResourceAttrRegionalARN(datasourceName, "arn", "wafv2", regexache.MustCompile(fmt.Sprintf("regional/ipset/%v/.+$", name))),
+resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+resource.TestCheckResourceAttrPair(datasourceName, "ip_address_version", resourceName, "ip_address_version"),
+resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+resource.TestCheckResourceAttrPair(datasourceName, "scope", resourceName, "scope"),
+),
+},
+},
 	})
 }
 func testAccIPSetDataSourceConfig_name(name string) string {

@@ -43,7 +43,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -74,7 +74,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -99,7 +99,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -144,7 +144,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -178,7 +178,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -210,7 +210,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -242,7 +242,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -274,7 +274,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -307,7 +307,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -345,7 +345,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -356,12 +356,12 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "nfs_exports.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "nfs_exports.0.client_configurations.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "nfs_exports.0.client_configurations.*", map[string]string{
-"clients":   "10.0.1.0/24",
+"clients":"10.0.1.0/24",
 "options.0": "async",
 "options.1": "rw",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "nfs_exports.0.client_configurations.*", map[string]string{
-"clients":   "*",
+"clients":"*",
 "options.0": "sync",
 "options.1": "rw",
 	}),
@@ -393,7 +393,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -478,7 +478,7 @@ data "aws_partition" "current" {}resource "aws_vpc" "test" {
 Name = %[1]q
   }
 }resource "aws_subnet" "test1" {
-  vpc_id   = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
   cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]  tags = {
 Name = %[1]q
@@ -530,7 +530,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
   name= %[1]q
-  parent_volume_id   = aws_fsx_openzfs_file_system.test.root_volume_id
+  parent_volume_id= aws_fsx_openzfs_file_system.test.root_volume_id
   copy_tags_to_snapshots = %[4]s  tags = {
 %[2]q = %[3]q
   }
@@ -539,7 +539,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 }func testAccOpenZFSVolumeConfig_dataCompression(rName, dType string) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name   = %[1]q
+  name= %[1]q
   parent_volume_id  = aws_fsx_openzfs_file_system.test.root_volume_id
   data_compression_type = %[2]q
 }
@@ -565,7 +565,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 resource "aws_fsx_openzfs_volume" "test" {
   name = %[1]q
   parent_volume_id  = aws_fsx_openzfs_file_system.test.root_volume_id
-  storage_capacity_quota_gib   = %[2]d
+  storage_capacity_quota_gib= %[2]d
   storage_capacity_reservation_gib = %[3]d
 }
 `, rName, storageQuota, storageReservation))

@@ -29,7 +29,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSinkDestroy(ctx),
+CheckDestroy:testAccCheckSinkDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccSinkConfigBasic(rName),
@@ -42,8 +42,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -62,7 +62,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSinkDestroy(ctx),
+CheckDestroy:testAccCheckSinkDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccSinkConfigBasic(rName),
@@ -88,7 +88,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSinkDestroy(ctx),
+CheckDestroy:testAccCheckSinkDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccSinkConfigTags1(rName, "key1", "value1"),
@@ -99,8 +99,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -170,7 +170,7 @@ resource "aws_oam_sink" "test" {
 return fmt.Sprintf(`
 resource "aws_oam_sink" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tag1Key, tag1Value)
@@ -178,8 +178,8 @@ resource "aws_oam_sink" "test" {
 return fmt.Sprintf(`
 resource "aws_oam_sink" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tag1Key, tag1Value, tag2Key, tag2Value)

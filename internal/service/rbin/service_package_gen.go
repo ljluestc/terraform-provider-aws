@@ -12,22 +12,22 @@
 	return []*types.ServicePackageSDKDataSource{}
 } (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceRule,
-			TypeName: "aws_rbin_rule",
-			Name:     "Rule",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
+{
+Factory:  ResourceRule,
+TypeName: "aws_rbin_rule",
+Name:"Rule",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
 	}
 } (p *servicePackage) ServicePackageName() string {
 	return names.RBin
 }// NewClient returns a new AWS SDK for Go v2 client for this service package's AWS API. (p *servicePackage) NewClient(ctx context.Context, config map[string]any) (*rbin_sdkv2.Client, error) {
 	cfg := *(config["aws_sdkv2_config"].(*aws_sdkv2.Config))	return rbin_sdkv2.NewFromConfig(cfg,(o *rbin_sdkv2.Options) {
-		if endpoint := config["endpoint"].(string); endpoint != "" {
-			o.BaseEndpoint = aws_sdkv2.String(endpoint)
-		}
+if endpoint := config["endpoint"].(string); endpoint != "" {
+o.BaseEndpoint = aws_sdkv2.String(endpoint)
+}
 	}), nil
 } ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}

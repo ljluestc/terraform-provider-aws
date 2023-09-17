@@ -3,31 +3,31 @@
 "testing"sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 )func TestValidResolverName(t *testing.T) {
 t.Parallel()cases := []struct {
-Value    string
+Valuestring
 ErrCount int
 }{
 {
-Value:    "testing123!",
+Value:"testing123!",
 ErrCount: 1,
 },
 {
-Value:    "testing - 123__",
+Value:"testing - 123__",
 ErrCount: 0,
 },
 {
-Value:    sdkacctest.RandStringFromCharSet(65, sdkacctest.CharSetAlpha),
+Value:sdkacctest.RandStringFromCharSet(65, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
 {
-Value:    "1",
+Value:"1",
 ErrCount: 1,
 },
 {
-Value:    "10",
+Value:"10",
 ErrCount: 0,
 },
 {
-Value:    "A",
+Value:"A",
 ErrCount: 0,
 },
 }

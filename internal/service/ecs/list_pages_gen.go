@@ -4,13 +4,13 @@
 	"github.com/aws/aws-sdk-go/service/ecs/ecsiface"
 )func describeCapacityProvidersPages(ctx context.Context, conn ecsiface.ECSAPI, input *ecs.DescribeCapacityProvidersInput, fn func(*ecs.DescribeCapacityProvidersOutput, bool) bool) error {
 	for {
-		output, err := conn.DescribeCapacityProvidersWithContext(ctx, input)
-		if err != nil {
-			return err
-		}		lastPage := aws.StringValue(output.NextToken) == ""
-		if !fn(output, lastPage) || lastPage {
-			break
-		}		input.NextToken = output.NextToken
+output, err := conn.DescribeCapacityProvidersWithContext(ctx, input)
+if err != nil {
+return err
+}lastPage := aws.StringValue(output.NextToken) == ""
+if !fn(output, lastPage) || lastPage {
+break
+}input.NextToken = output.NextToken
 	}
 	return nil
 }

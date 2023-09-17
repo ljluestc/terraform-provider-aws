@@ -18,7 +18,7 @@
 )// @SDKResource("aws_opsworks_instance")func ResourceInstance() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceInstanceCreate,
-ReadWithoutTimeout:   resourceInstanceRead,
+ReadWithoutTimeout:resourceInstanceRead,
 UpdateWithoutTimeout: resourceInstanceUpdate,
 DeleteWithoutTimeout: resourceInstanceDelete,
 Importer: &schema.ResourceImporter{
@@ -476,7 +476,7 @@ ebs.VolumeType = aws.String(v)
 ebs.Iops = aws.Int64(int64(v))
 }blockDevices = append(blockDevices, &opsworks.BlockDeviceMapping{
 DeviceName: aws.String(bd["device_name"].(string)),
-Ebs:   ebs,
+Ebs:ebs,
 })
 }
 }if v, ok := d.GetOk("ephemeral_block_device"); ok {
@@ -505,7 +505,7 @@ ebs.VolumeType = aws.String(v)
 ebs.Iops = aws.Int64(int64(v))
 }blockDevices = append(blockDevices, &opsworks.BlockDeviceMapping{
 DeviceName: aws.String("ROOT_DEVICE"),
-Ebs:   ebs,
+Ebs:ebs,
 })
 }
 }if len(blockDevices) > 0 {
@@ -584,7 +584,7 @@ return sdkdiag.AppendErrorf(diags, "deleting OpsWorks instance (%s): %s", d.Id()
 }req := &opsworks.DeleteInstanceInput{
 InstanceId: aws.String(d.Id()),
 DeleteElasticIp: aws.Bool(d.Get("delete_eip").(bool)),
-DeleteVolumes:   aws.Bool(d.Get("delete_ebs").(bool)),
+DeleteVolumes:aws.Bool(d.Get("delete_ebs").(bool)),
 }log.Printf("[DEBUG] Deleting OpsWorks instance: %s", d.Id())_, err := conn.DeleteInstanceWithContext(ctx, req)if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
 return diags
 }if err != nil {

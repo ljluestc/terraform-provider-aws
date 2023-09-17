@@ -22,7 +22,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAuthPolicyDestroy(ctx),
+CheckDestroy:testAccCheckAuthPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccAuthPolicyDataSourceConfig_basic(rName),
@@ -43,18 +43,18 @@ data "aws_partition" "current" {}data "aws_caller_identity" "current" {}data "aw
   custom_domain_name = "example.com"
 }resource "aws_vpclattice_auth_policy" "test" {
   resource_identifier = aws_vpclattice_service.test.arn  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action    = "*"
-      Effect    = "Allow"
-      Principal = "*"
-      Resource  = "*"
-      Condition = {
-        StringNotEqualsIgnoreCase = {
+Version = "2012-10-17"
+Statement = [{
+ Action= "*"
+ Effect= "Allow"
+ Principal = "*"
+ Resource  = "*"
+ Condition = {
+e = {
  "aws:PrincipalType" = "anonymous"
-        }
-      }
-    }]
+
+ }
+}]
   })
 }
 `, rName)

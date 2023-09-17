@@ -12,78 +12,78 @@
 )func testAccOrganizationAdminAccount_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_macie2_organization_admin_account.test"	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckOrganizationsAccount(ctx, t)
-		},
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckOrganizationAdminAccountDestroy(ctx),
-		ErrorCheck:  testAccErrorCheckSkipOrganizationAdminAccount(t),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOrganizationAdminAccountConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckOrganizationAdminAccountExists(ctx, resourceName),
-					acctest.CheckResourceAttrAccountID(resourceName, "admin_account_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckOrganizationsAccount(ctx, t)
+},
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckOrganizationAdminAccountDestroy(ctx),
+ErrorCheck:  testAccErrorCheckSkipOrganizationAdminAccount(t),
+Steps: []resource.TestStep{
+{
+Config: testAccOrganizationAdminAccountConfig_basic(),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckOrganizationAdminAccountExists(ctx, resourceName),
+acctest.CheckResourceAttrAccountID(resourceName, "admin_account_id"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+},
 	})
 }func testAccOrganizationAdminAccount_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_macie2_organization_admin_account.test"	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckOrganizationsAccount(ctx, t)
-		},
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckOrganizationAdminAccountDestroy(ctx),
-		ErrorCheck:  testAccErrorCheckSkipOrganizationAdminAccount(t),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOrganizationAdminAccountConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckOrganizationAdminAccountExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfmacie2.ResourceAccount(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckOrganizationsAccount(ctx, t)
+},
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckOrganizationAdminAccountDestroy(ctx),
+ErrorCheck:  testAccErrorCheckSkipOrganizationAdminAccount(t),
+Steps: []resource.TestStep{
+{
+Config: testAccOrganizationAdminAccountConfig_basic(),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckOrganizationAdminAccountExists(ctx, resourceName),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfmacie2.ResourceAccount(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+},
+},
 	})
 }func testAccErrorCheckSkipOrganizationAdminAccount(t *testing.T) resource.ErrorCheckFunc {
 	return acctest.ErrorCheckSkipMessagesContaining(t,
-		"AccessDeniedException: The request failed because you must be a user of the management account for your AWS organization to perform this operation",
+"AccessDeniedException: The request failed because you must be a user of the management account for your AWS organization to perform this operation",
 	)
 }func testAccCheckOrganizationAdminAccountExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("not found: %s", resourceName)
-		}		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)		adminAccount, err := tfmacie2.GetOrganizationAdminAccount(ctx, conn, rs.Primary.ID)		if err != nil {
-			return err
-		}		if adminAccount == nil {
-			return fmt.Errorf("macie OrganizationAdminAccount (%s) not found", rs.Primary.ID)
-		}		return nil
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+return fmt.Errorf("not found: %s", resourceName)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)adminAccount, err := tfmacie2.GetOrganizationAdminAccount(ctx, conn, rs.Primary.ID)if err != nil {
+return err
+}if adminAccount == nil {
+return fmt.Errorf("macie OrganizationAdminAccount (%s) not found", rs.Primary.ID)
+}return nil
 	}
 }func testAccCheckOrganizationAdminAccountDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_macie2_organization_admin_account" {
-				continue
-			}			adminAccount, err := tfmacie2.GetOrganizationAdminAccount(ctx, conn, rs.Primary.ID)			if tfawserr.ErrCodeEquals(err, macie2.ErrCodeResourceNotFoundException) ||
-				tfawserr.ErrMessageContains(err, macie2.ErrCodeAccessDeniedException, "Macie is not enabled") {
-				continue
-			}			if adminAccount == nil {
-				continue
-			}			if err != nil {
-				return err
-			}			return fmt.Errorf("macie OrganizationAdminAccount %q still exists", rs.Primary.ID)
-		}		return nil
+conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)for _, rs := range s.RootModule().Resources {
+if rs.Type != "aws_macie2_organization_admin_account" {
+continue
+}adminAccount, err := tfmacie2.GetOrganizationAdminAccount(ctx, conn, rs.Primary.ID)if tfawserr.ErrCodeEquals(err, macie2.ErrCodeResourceNotFoundException) ||
+tfawserr.ErrMessageContains(err, macie2.ErrCodeAccessDeniedException, "Macie is not enabled") {
+continue
+}if adminAccount == nil {
+continue
+}if err != nil {
+return err
+}return fmt.Errorf("macie OrganizationAdminAccount %q still exists", rs.Primary.ID)
+}return nil
 	}
 }func testAccOrganizationAdminAccountConfig_basic() string {
 	return `
@@ -92,7 +92,7 @@ data "aws_caller_identity" "current" {}resource "aws_macie2_account" "test" {}da
   feature_set = "ALL"
 }resource "aws_macie2_organization_admin_account" "test" {
   admin_account_id = data.aws_caller_identity.current.account_id
-  depends_on       = [aws_macie2_account.test, aws_organizations_organization.test]
+  depends_on= [aws_macie2_account.test, aws_organizations_organization.test]
 }
 `
 }

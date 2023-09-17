@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package emrserverless// Exports for use in tests only.var (	FindApplicationByID = findApplicationByID	ResourceApplication = resourceApplication)
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package emrserverless// Exports for use in tests only.var (FindApplicationByID = findApplicationByIDResourceApplication = resourceApplication)

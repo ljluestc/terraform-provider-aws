@@ -24,7 +24,7 @@
 	"copy_tags_to_data_repository_associations": testAccFileCache_copyTagsToDataRepositoryAssociations,
 	"data_repository_association_multiple":  testAccFileCache_dataRepositoryAssociation_multiple,
 	"data_repository_association_nfs":  testAccFileCache_dataRepositoryAssociation_nfs,
-	"data_repository_association_s3":   testAccFileCache_dataRepositoryAssociation_s3,
+	"data_repository_association_s3":testAccFileCache_dataRepositoryAssociation_s3,
 	"security_group_id": testAccFileCache_securityGroupId,
 	"tags":testAccFileCache_tags,
 },
@@ -61,9 +61,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:   true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -112,9 +112,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:   true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -138,9 +138,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:   true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -168,9 +168,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:   true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -197,9 +197,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:   true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -225,9 +225,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:   true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 	{
@@ -239,9 +239,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:   true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -265,9 +265,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:   true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations", "security_group_ids"},
 	},
 },
@@ -292,9 +292,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:   true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 	{
@@ -308,9 +308,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:   true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -366,9 +366,9 @@ deployment_type = "CACHE_1"
 metadata_configuration {
   storage_capacity = 2400
 }
-per_unit_storage_throughput   = 1000
+per_unit_storage_throughput= 1000
 weekly_maintenance_start_time = "2:05:00"
-  }  subnet_ids   = [aws_subnet.test1.id]
+  }  subnet_ids= [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 `
@@ -376,13 +376,13 @@ weekly_maintenance_start_time = "2:05:00"
 	return `
 data "aws_availability_zones" "available" {
   state = "available"  filter {
-name   = "opt-in-status"
+name= "opt-in-status"
 values = ["opt-in-not-required"]
   }
 }resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 }resource "aws_subnet" "test1" {
-  vpc_id   = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
   cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 }
@@ -403,9 +403,9 @@ deployment_type = "CACHE_1"
 metadata_configuration {
   storage_capacity = 2400
 }
-per_unit_storage_throughput   = 1000
+per_unit_storage_throughput= 1000
 weekly_maintenance_start_time = "2:05:00"
-  }  subnet_ids   = [aws_subnet.test1.id]
+  }  subnet_ids= [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 `
@@ -422,9 +422,9 @@ deployment_type = "CACHE_1"
 metadata_configuration {
   storage_capacity = 2400
 }
-per_unit_storage_throughput   = 1000
+per_unit_storage_throughput= 1000
 weekly_maintenance_start_time = "2:05:00"
-  }  subnet_ids   = [aws_subnet.test1.id]
+  }  subnet_ids= [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 resource "aws_s3_bucket" "test" {
@@ -454,9 +454,9 @@ deployment_type = "CACHE_1"
 metadata_configuration {
   storage_capacity = 2400
 }
-per_unit_storage_throughput   = 1000
+per_unit_storage_throughput= 1000
 weekly_maintenance_start_time = "2:05:00"
-  }  subnet_ids   = [aws_subnet.test1.id]
+  }  subnet_ids= [aws_subnet.test1.id]
   storage_capacity = 1200
 }`
 }func testAccFileCacheConfig_copyTagsToDataRepositoryAssociations(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
@@ -476,9 +476,9 @@ deployment_type = "CACHE_1"
 metadata_configuration {
   storage_capacity = 2400
 }
-per_unit_storage_throughput   = 1000
+per_unit_storage_throughput= 1000
 weekly_maintenance_start_time = "2:05:00"
-  }  subnet_ids   = [aws_subnet.test1.id]
+  }  subnet_ids= [aws_subnet.test1.id]
   storage_capacity = 1200  tags = {
 %[1]q = %[2]q
 %[3]q = %[4]q
@@ -497,10 +497,10 @@ deployment_type = "CACHE_1"
 metadata_configuration {
   storage_capacity = 2400
 }
-per_unit_storage_throughput   = 1000
+per_unit_storage_throughput= 1000
 weekly_maintenance_start_time = "2:05:00"
-  }  kms_key_id   = aws_kms_key.test1.arn
-  subnet_ids   = [aws_subnet.test1.id]
+  }  kms_key_id= aws_kms_key.test1.arn
+  subnet_ids= [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 `
@@ -516,10 +516,10 @@ deployment_type = "CACHE_1"
 metadata_configuration {
   storage_capacity = 2400
 }
-per_unit_storage_throughput   = 1000
+per_unit_storage_throughput= 1000
 weekly_maintenance_start_time = "2:05:00"
-  }  kms_key_id   = aws_kms_key.test2.arn
-  subnet_ids   = [aws_subnet.test1.id]
+  }  kms_key_id= aws_kms_key.test2.arn
+  subnet_ids= [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 `
@@ -529,12 +529,12 @@ resource "aws_security_group" "test1" {
   description = "security group for FSx testing"
   vpc_id  = aws_vpc.test.id  ingress {
 cidr_blocks = [aws_vpc.test.cidr_block]
-from_port   = 0
+from_port= 0
 protocol= -1
 to_port = 0
   }  egress {
 cidr_blocks = ["0.0.0.0/0"]
-from_port   = 0
+from_port= 0
 protocol= "-1"
 to_port = 0
   }
@@ -545,11 +545,11 @@ deployment_type = "CACHE_1"
 metadata_configuration {
   storage_capacity = 2400
 }
-per_unit_storage_throughput   = 1000
+per_unit_storage_throughput= 1000
 weekly_maintenance_start_time = "2:05:00"
   }  security_group_ids = [aws_security_group.test1.id]
   subnet_ids= [aws_subnet.test1.id]
-  storage_capacity   = 1200
+  storage_capacity= 1200
 }
 `
 }func testAccFileCacheConfig_tags1(tagKey1, tagValue1 string) string {
@@ -562,9 +562,9 @@ deployment_type = "CACHE_1"
 metadata_configuration {
   storage_capacity = 2400
 }
-per_unit_storage_throughput   = 1000
+per_unit_storage_throughput= 1000
 weekly_maintenance_start_time = "2:05:00"
-  }  subnet_ids   = [aws_subnet.test1.id]
+  }  subnet_ids= [aws_subnet.test1.id]
   storage_capacity = 1200  tags = {
 %[1]q = %[2]q
   }
@@ -580,9 +580,9 @@ deployment_type = "CACHE_1"
 metadata_configuration {
   storage_capacity = 2400
 }
-per_unit_storage_throughput   = 1000
+per_unit_storage_throughput= 1000
 weekly_maintenance_start_time = "2:05:00"
-  }  subnet_ids   = [aws_subnet.test1.id]
+  }  subnet_ids= [aws_subnet.test1.id]
   storage_capacity = 1200  tags = {
 %[1]q = %[2]q
 %[3]q = %[4]q

@@ -1,21 +1,13 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package organizations_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package organizations_testimport (
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/organizations"
+"testing""github.com/aws/aws-sdk-go/service/organizations"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )func testAccDelegatedAdministratorsDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 dataSourceName := "data.aws_organizations_delegated_administrators.test"
-servicePrincipal := "config-multiaccountsetup.amazonaws.com"
-
-resource.Test(t, resource.TestCase{
+servicePrincipal := "config-multiaccountsetup.amazonaws.com"resource.Test(t, resource.TestCase{
 PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckAlternateAccount(t)
@@ -36,14 +28,10 @@ acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "delegated_admi
 return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 data "aws_caller_identity" "delegated" {
   provider = "awsalternate"
-}
-
-resource "aws_organizations_delegated_administrator" "test" {
-  account_id        = data.aws_caller_identity.delegated.account_id
+}resource "aws_organizations_delegated_administrator" "test" {
+  account_idr_identity.delegated.account_id
   service_principal = %[1]q
-}
-
-data "aws_organizations_delegated_administrators" "test" {
+}data "aws_organizations_delegated_administrators" "test" {
   depends_on = [aws_organizations_delegated_administrator.test]
 }
 `, servicePrincipal))

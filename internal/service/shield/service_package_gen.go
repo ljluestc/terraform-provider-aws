@@ -6,40 +6,28 @@
 	return []*types.ServicePackageFrameworkDataSource{}
 }func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{
-		{
-			Factory: newResourceDRTAccessLogBucketAssociation,
-			Name:    "DRT Access Log Bucket Association",
-		},
-		{
-			Factory: newResourceDRTAccessRoleARNAssociation,
-			Name:    "DRT Access Role ARN Association",
-		},
-	}
+{
+Factory: newResourceDRTAccessLogBucketAssociation,
+Name:"DRT Access Log Bucket Association",
+Factory: newResourceDRTAccessRoleARNAssociation,
+Name:"DRT Access Role ARN Association",	}
 }func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
-	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceProtection,
-			TypeName: "aws_shield_protection",
-			Name:     "Protection",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceProtectionGroup,
-			TypeName: "aws_shield_protection_group",
-			Name:     "Protection Group",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "protection_group_arn",
-			},
-		},
-		{
-			Factory:  ResourceProtectionHealthCheckAssociation,
-			TypeName: "aws_shield_protection_health_check_association",
-		},
-	}
+	return []*types.ServicePackageSDKResource{Factory:  ResourceProtection,
+TypeName: "aws_shield_protection",
+Name:"Protection",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+Factory:  ResourceProtectionGroup,
+TypeName: "aws_shield_protection_group",
+Name:"Protection Group",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "protection_group_arn",
+},
+Factory:  ResourceProtectionHealthCheckAssociation,
+TypeName: "aws_shield_protection_health_check_association",	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.Shield
 }func ServicePackage(ctx context.Context) conns.ServicePackage {

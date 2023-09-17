@@ -17,8 +17,8 @@ tflakeformation "github.com/hashicorp/terraform-provider-aws/internal/service/la
 )func TestReadLFTagID(t *testing.T) {
 t.Parallel()type testCase struct {
 valstring
-catalogID   string
-tagKey      string
+catalogIDstring
+tagKey string
 expectError bool
 }tests := map[string]testCase{
 "empty_string": {
@@ -29,14 +29,14 @@ val:"test",
 expectError: true,
 },
 "valid_key_simple": {
-val:       "123344556:tagKey",
+val:"123344556:tagKey",
 catalogID: "123344556",
-tagKey:    "tagKey",
+tagKey:"tagKey",
 },
 "valid_key_complex": {
-val:       "123344556:keyPrefix:tagKey",
+val:"123344556:keyPrefix:tagKey",
 catalogID: "123344556",
-tagKey:    "keyPrefix:tagKey",
+tagKey:"keyPrefix:tagKey",
 },
 }for name, test := range tests {
 name, test := name, test
@@ -54,7 +54,7 @@ t.Fatalf("expected catalogID (%s), tagKey (%s), got catalogID (%s), tagKey (%s)"
 ctx := acctest.Context(t)
 resourceName := "aws_lakeformation_lf_tag.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLFTagsDestroy(ctx),
@@ -69,8 +69,8 @@ acctest.CheckResourceAttrAccountID(resourceName, "catalog_id"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -79,7 +79,7 @@ ImportStateVerify: true,
 ctx := acctest.Context(t)
 resourceName := "aws_lakeformation_lf_tag.test"
 rName := fmt.Sprintf("%s:%s", sdkacctest.RandomWithPrefix(acctest.ResourcePrefix), "subKey")resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLFTagsDestroy(ctx),
@@ -99,7 +99,7 @@ acctest.CheckResourceAttrAccountID(resourceName, "catalog_id"),
 ctx := acctest.Context(t)
 resourceName := "aws_lakeformation_lf_tag.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLFTagsDestroy(ctx),
@@ -118,7 +118,7 @@ ExpectNonEmptyPlan: true,
 ctx := acctest.Context(t)
 resourceName := "aws_lakeformation_lf_tag.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLFTagsDestroy(ctx),
@@ -134,8 +134,8 @@ acctest.CheckResourceAttrAccountID(resourceName, "catalog_id"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -157,7 +157,7 @@ ctx := acctest.Context(t)
 resourceName := "aws_lakeformation_lf_tag.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)generatedValues := generateLFTagValueList(1, 52)
 generatedValues = append(generatedValues, generateLFTagValueList(53, 60)...)resource.Test(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 ErrorCheck:  acctest.ErrorCheck(t, lakeformation.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLFTagsDestroy(ctx),
@@ -205,7 +205,7 @@ if err != nil {
 return err
 }input := &lakeformation.GetLFTagInput{
 CatalogId: aws.String(catalogID),
-TagKey:    aws.String(tagKey),
+TagKey:aws.String(tagKey),
 }if _, err := conn.GetLFTagWithContext(ctx, input); err != nil {
 if tfawserr.ErrCodeEquals(err, lakeformation.ErrCodeEntityNotFoundException) {
 continue
@@ -231,7 +231,7 @@ if err != nil {
 return err
 }input := &lakeformation.GetLFTagInput{
 CatalogId: aws.String(catalogID),
-TagKey:    aws.String(tagKey),
+TagKey:aws.String(tagKey),
 }conn := acctest.Provider.Meta().(*conns.AWSClient).LakeFormationConn(ctx)
 _, err = conn.GetLFTagWithContext(ctx, input)return err
 }
@@ -247,7 +247,7 @@ if err != nil {
 return err
 }input := &lakeformation.GetLFTagInput{
 CatalogId: aws.String(catalogID),
-TagKey:    aws.String(tagKey),
+TagKey:aws.String(tagKey),
 }conn := acctest.Provider.Meta().(*conns.AWSClient).LakeFormationConn(ctx)
 output, err := conn.GetLFTagWithContext(ctx, input)if len(output.TagValues) != expectedLength {
 return fmt.Errorf("expected %d values, got %d", expectedLength, len(output.TagValues))
@@ -260,7 +260,7 @@ data "aws_caller_identity" "current" {}data "aws_iam_session_context" "current" 
 }resource "aws_lakeformation_data_lake_settings" "test" {
   admins = [data.aws_iam_session_context.current.issuer_arn]
 }resource "aws_lakeformation_lf_tag" "test" {
-  key    = %[1]q
+  key= %[1]q
   values = ["value"]
   # for consistency, ensure that admins are setup before testing
   depends_on = [aws_lakeformation_data_lake_settings.test]
@@ -276,7 +276,7 @@ data "aws_caller_identity" "current" {}data "aws_iam_session_context" "current" 
 }resource "aws_lakeformation_data_lake_settings" "test" {
   admins = [data.aws_iam_session_context.current.issuer_arn]
 }resource "aws_lakeformation_lf_tag" "test" {
-  key    = %[1]q
+  key= %[1]q
   values = [%[2]s]
   # for consistency, ensure that admins are setup before testing
   depends_on = [aws_lakeformation_data_lake_settings.test]

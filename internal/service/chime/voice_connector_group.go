@@ -12,25 +12,25 @@
 func ResourceVoiceConnectorGroup() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceVoiceConnectorGroupCreate,
-ReadWithoutTimeout:   resourceVoiceConnectorGroupRead,
+ReadWithoutTimeout:resourceVoiceConnectorGroupRead,
 UpdateWithoutTimeout: resourceVoiceConnectorGroupUpdate,
 DeleteWithoutTimeout: resourceVoiceConnectorGroupDelete,Importer: &schema.ResourceImporter{
 	StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 	"connector": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 MaxItems: 3,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "voice_connector_id": {
 	Type:schema.TypeString,
-	Required:     true,
+	Required:true,
 	ValidateFunc: validation.StringLenBetween(1, 256),
 },
 "priority": {
 	Type:schema.TypeInt,
-	Required:     true,
+	Required:true,
 	ValidateFunc: validation.IntBetween(1, 99),
 },
 	},
@@ -38,7 +38,7 @@ Elem: &schema.Resource{
 	},
 	"name": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringLenBetween(1, 256),
 	},
 },
@@ -69,7 +69,7 @@ return diag.Errorf("setting Chime Voice Connector group items (%s): %s", d.Id(),
 	return nil
 }func resourceVoiceConnectorGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ChimeConn(ctx)	input := &chime.UpdateVoiceConnectorGroupInput{
-Name:   aws.String(d.Get("name").(string)),
+Name:aws.String(d.Get("name").(string)),
 VoiceConnectorGroupId: aws.String(d.Id()),
 	}	if d.HasChange("connector") {
 if v, ok := d.GetOk("connector"); ok {

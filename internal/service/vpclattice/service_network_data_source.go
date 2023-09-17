@@ -14,35 +14,35 @@ func dataSourceServiceNetwork() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceServiceNetworkRead,Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "auth_type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "created_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "last_updated_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "number_of_associated_services": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 "number_of_associated_vpcs": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 "service_network_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 names.AttrTags: tftags.TagsSchemaComputed(),

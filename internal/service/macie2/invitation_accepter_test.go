@@ -14,57 +14,57 @@
 	ctx := acctest.Context(t)
 	resourceName := "aws_macie2_invitation_accepter.member"
 	email := envvar.SkipIfEmpty(t, envVarPrincipalEmail, envVarPrincipalEmailMessageError)	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:testAccCheckInvitationAccepterDestroy(ctx),
-		ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInvitationAccepterConfig_basic(email),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckInvitationAccepterExists(ctx, resourceName),
-				),
-			},
-			{
-				Config:   testAccInvitationAccepterConfig_basic(email),
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckAlternateAccount(t)
+},
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:testAccCheckInvitationAccepterDestroy(ctx),
+ErrorCheck:  acctest.ErrorCheck(t, macie2.EndpointsID),
+Steps: []resource.TestStep{
+{
+Config: testAccInvitationAccepterConfig_basic(email),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckInvitationAccepterExists(ctx, resourceName),
+),
+},
+{
+Config:testAccInvitationAccepterConfig_basic(email),
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+},
 	})
 }func testAccCheckInvitationAccepterExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("not found: %s", resourceName)
-		}		if rs.Primary.ID == "" {
-			return fmt.Errorf("resource (%s) has empty ID", resourceName)
-		}		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
-		input := &macie2.GetAdministratorAccountInput{}
-		output, err := conn.GetAdministratorAccountWithContext(ctx, input)		if err != nil {
-			return err
-		}		if output == nil || output.Administrator == nil || aws.StringValue(output.Administrator.AccountId) == "" {
-			return fmt.Errorf("no administrator account found for: %s", resourceName)
-		}		return nil
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+return fmt.Errorf("not found: %s", resourceName)
+}if rs.Primary.ID == "" {
+return fmt.Errorf("resource (%s) has empty ID", resourceName)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)
+input := &macie2.GetAdministratorAccountInput{}
+output, err := conn.GetAdministratorAccountWithContext(ctx, input)if err != nil {
+return err
+}if output == nil || output.Administrator == nil || aws.StringValue(output.Administrator.AccountId) == "" {
+return fmt.Errorf("no administrator account found for: %s", resourceName)
+}return nil
 	}
 }func testAccCheckInvitationAccepterDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_macie2_invitation_accepter" {
-				continue
-			}			input := &macie2.GetAdministratorAccountInput{}
-			output, err := conn.GetAdministratorAccountWithContext(ctx, input)
-			if tfawserr.ErrCodeEquals(err, macie2.ErrCodeResourceNotFoundException) ||
-				tfawserr.ErrMessageContains(err, macie2.ErrCodeAccessDeniedException, "Macie is not enabled") {
-				continue
-			}			if output == nil || output.Administrator == nil || aws.StringValue(output.Administrator.AccountId) != rs.Primary.Attributes["administrator_account_id"] {
-				continue
-			}			return fmt.Errorf("macie InvitationAccepter %q still exists", rs.Primary.ID)
-		}		return nil
+conn := acctest.Provider.Meta().(*conns.AWSClient).Macie2Conn(ctx)for _, rs := range s.RootModule().Resources {
+if rs.Type != "aws_macie2_invitation_accepter" {
+continue
+}input := &macie2.GetAdministratorAccountInput{}
+output, err := conn.GetAdministratorAccountWithContext(ctx, input)
+if tfawserr.ErrCodeEquals(err, macie2.ErrCodeResourceNotFoundException) ||
+tfawserr.ErrMessageContains(err, macie2.ErrCodeAccessDeniedException, "Macie is not enabled") {
+continue
+}if output == nil || output.Administrator == nil || aws.StringValue(output.Administrator.AccountId) != rs.Primary.Attributes["administrator_account_id"] {
+continue
+}return fmt.Errorf("macie InvitationAccepter %q still exists", rs.Primary.ID)
+}return nil
 	}
 }func testAccInvitationAccepterConfig_basic(email string) string {
 	return acctest.ConfigAlternateAccountProvider() + fmt.Sprintf(`

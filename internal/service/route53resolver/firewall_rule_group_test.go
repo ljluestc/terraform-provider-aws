@@ -152,7 +152,7 @@ resource "aws_route53_resolver_firewall_rule_group" "test" {
 return fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_rule_group" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -160,8 +160,8 @@ resource "aws_route53_resolver_firewall_rule_group" "test" {
 return fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_rule_group" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

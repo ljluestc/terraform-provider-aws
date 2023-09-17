@@ -25,7 +25,7 @@
 func ResourceDataRepositoryAssociation() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceDataRepositoryAssociationCreate,
-ReadWithoutTimeout:   resourceDataRepositoryAssociationRead,
+ReadWithoutTimeout:resourceDataRepositoryAssociationRead,
 UpdateWithoutTimeout: resourceDataRepositoryAssociationUpdate,
 DeleteWithoutTimeout: resourceDataRepositoryAssociationDelete,Importer: &schema.ResourceImporter{
 	StateContext: schema.ImportStatePassthroughContext,
@@ -147,7 +147,7 @@ DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 	conn := meta.(*conns.AWSClient).FSxConn(ctx)	input := &fsx.CreateDataRepositoryAssociationInput{
 ClientRequestToken: aws.String(id.UniqueId()),
 DataRepositoryPath: aws.String(d.Get("data_repository_path").(string)),
-FileSystemId:   aws.String(d.Get("file_system_id").(string)),
+FileSystemId:aws.String(d.Get("file_system_id").(string)),
 FileSystemPath: aws.String(d.Get("file_system_path").(string)),
 Tags:getTagsIn(ctx),
 	}	if v, ok := d.GetOk("batch_import_meta_data_on_create"); ok {
@@ -278,7 +278,7 @@ output = append(output, v)
 }return !lastPage
 	})	if tfawserr.ErrCodeEquals(err, fsx.ErrCodeDataRepositoryAssociationNotFound) {
 return nil, &retry.NotFoundError{
-	LastError:   err,
+	LastError:err,
 	LastRequest: input,
 }
 	}	if err != nil {
@@ -298,7 +298,7 @@ Pending: []string{fsx.DataRepositoryLifecycleCreating},
 Target:  []string{fsx.DataRepositoryLifecycleAvailable},
 Refresh: statusDataRepositoryAssociation(ctx, conn, id),
 Timeout: timeout,
-Delay:   30 * time.Second,
+Delay:30 * time.Second,
 	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*fsx.DataRepositoryAssociation); ok {
 if status, details := aws.StringValue(output.Lifecycle), output.FailureDetails; status == fsx.DataRepositoryLifecycleFailed && details != nil {
 	tfresource.SetLastError(err, errors.New(aws.StringValue(output.FailureDetails.Message)))
@@ -310,7 +310,7 @@ Pending: []string{fsx.DataRepositoryLifecycleUpdating},
 Target:  []string{fsx.DataRepositoryLifecycleAvailable},
 Refresh: statusDataRepositoryAssociation(ctx, conn, id),
 Timeout: timeout,
-Delay:   30 * time.Second,
+Delay:30 * time.Second,
 	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*fsx.DataRepositoryAssociation); ok {
 if status, details := aws.StringValue(output.Lifecycle), output.FailureDetails; status == fsx.DataRepositoryLifecycleFailed && details != nil {
 	tfresource.SetLastError(err, errors.New(aws.StringValue(output.FailureDetails.Message)))
@@ -322,7 +322,7 @@ Pending: []string{fsx.DataRepositoryLifecycleAvailable, fsx.DataRepositoryLifecy
 Target:  []string{},
 Refresh: statusDataRepositoryAssociation(ctx, conn, id),
 Timeout: timeout,
-Delay:   30 * time.Second,
+Delay:30 * time.Second,
 	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if output, ok := outputRaw.(*fsx.DataRepositoryAssociation); ok {
 if status, details := aws.StringValue(output.Lifecycle), output.FailureDetails; status == fsx.DataRepositoryLifecycleFailed && details != nil {
 	tfresource.SetLastError(err, errors.New(aws.StringValue(output.FailureDetails.Message)))

@@ -13,27 +13,27 @@
 func ResourceSecurityConfiguration() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceSecurityConfigurationCreate,
-ReadWithoutTimeout:   resourceSecurityConfigurationRead,
+ReadWithoutTimeout:resourceSecurityConfigurationRead,
 DeleteWithoutTimeout: resourceSecurityConfigurationDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "encryption_configuration": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 ForceNew: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "cloudwatch_encryption": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 ForceNew: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "cloudwatch_encryption_mode": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 Default:  glue.CloudWatchEncryptionModeDisabled,
@@ -43,7 +43,7 @@ glue.CloudWatchEncryptionModeSseKms,
 }, false),
 },
 "kms_key_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 },
@@ -51,14 +51,14 @@ ForceNew: true,
 },
 },
 "job_bookmarks_encryption": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 ForceNew: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "job_bookmarks_encryption_mode": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 Default:  glue.JobBookmarksEncryptionModeDisabled,
@@ -68,7 +68,7 @@ glue.JobBookmarksEncryptionModeDisabled,
 }, false),
 },
 "kms_key_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 },
@@ -76,19 +76,19 @@ ForceNew: true,
 },
 },
 "s3_encryption": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 ForceNew: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "kms_key_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 },
 "s3_encryption_mode": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 Default:  glue.S3EncryptionModeDisabled,
@@ -106,8 +106,8 @@ glue.S3EncryptionModeSseS3,
 },
 "name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.NoZeroValues,
 },
 },
@@ -117,7 +117,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).GlueConn(ctx)
 name := d.Get("name").(string)input := &glue.CreateSecurityConfigurationInput{
 EncryptionConfiguration: expandEncryptionConfiguration(d.Get("encryption_configuration").([]interface{})),
-Name:     aws.String(name),
+Name:aws.String(name),
 }log.Printf("[DEBUG] Creating Glue Security Configuration: %s", input)
 _, err := conn.CreateSecurityConfigurationWithContext(ctx, input)
 if err != nil {
@@ -167,7 +167,7 @@ cloudwatchEncryption.KmsKeyArn = aws.String(v.(string))
 if len(l) == 0 || l[0] == nil {
 return nil
 }m := l[0].(map[string]interface{})encryptionConfiguration := &glue.EncryptionConfiguration{
-CloudWatchEncryption:   expandCloudWatchEncryption(m["cloudwatch_encryption"].([]interface{})),
+CloudWatchEncryption:expandCloudWatchEncryption(m["cloudwatch_encryption"].([]interface{})),
 JobBookmarksEncryption: expandJobBookmarksEncryption(m["job_bookmarks_encryption"].([]interface{})),
 S3Encryption:  expandS3Encryptions(m["s3_encryption"].([]interface{})),
 }return encryptionConfiguration
@@ -203,16 +203,16 @@ return []interface{}{}
 if encryptionConfiguration == nil {
 return []interface{}{}
 }m := map[string]interface{}{
-"cloudwatch_encryption":    flattenCloudWatchEncryption(encryptionConfiguration.CloudWatchEncryption),
+"cloudwatch_encryption":flattenCloudWatchEncryption(encryptionConfiguration.CloudWatchEncryption),
 "job_bookmarks_encryption": flattenJobBookmarksEncryption(encryptionConfiguration.JobBookmarksEncryption),
-"s3_encryption":   flattenS3Encryptions(encryptionConfiguration.S3Encryption),
+"s3_encryption":flattenS3Encryptions(encryptionConfiguration.S3Encryption),
 }return []interface{}{m}
 }func flattenJobBookmarksEncryption(jobBookmarksEncryption *glue.JobBookmarksEncryption) []interface{} {
 if jobBookmarksEncryption == nil {
 return []interface{}{}
 }m := map[string]interface{}{
 "job_bookmarks_encryption_mode": aws.StringValue(jobBookmarksEncryption.JobBookmarksEncryptionMode),
-"kms_key_arn":    aws.StringValue(jobBookmarksEncryption.KmsKeyArn),
+"kms_key_arn":aws.StringValue(jobBookmarksEncryption.KmsKeyArn),
 }return []interface{}{m}
 }func flattenS3Encryptions(s3Encryptions []*glue.S3Encryption) []interface{} {
 l := make([]interface{}, 0)for _, s3Encryption := range s3Encryptions {
@@ -223,7 +223,7 @@ l = append(l, flattenS3Encryption(s3Encryption))
 }return l
 }func flattenS3Encryption(s3Encryption *glue.S3Encryption) map[string]interface{} {
 m := map[string]interface{}{
-"kms_key_arn":        aws.StringValue(s3Encryption.KmsKeyArn),
+"kms_key_arn":tion.KmsKeyArn),
 "s3_encryption_mode": aws.StringValue(s3Encryption.S3EncryptionMode),
 }return m
 }

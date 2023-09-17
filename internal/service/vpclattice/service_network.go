@@ -22,28 +22,28 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tags(identifierAttribute="arn")func resourceServiceNetwork() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceServiceNetworkCreate,
-ReadWithoutTimeout:   resourceServiceNetworkRead,
+ReadWithoutTimeout:resourceServiceNetworkRead,
 UpdateWithoutTimeout: resourceServiceNetworkUpdate,
 DeleteWithoutTimeout: resourceServiceNetworkDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 names.AttrARN: {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "auth_type": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Optional:true,
 Computed:true,
 ValidateDiagFunc: enum.Validate[types.AuthType](),
 },
 "name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(3, 63),
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -52,8 +52,8 @@ ResNameServiceNetwork = "Service Network"
 )func resourceServiceNetworkCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)in := &vpclattice.CreateServiceNetworkInput{
 ClientToken: aws.String(id.UniqueId()),
-Name:        aws.String(d.Get("name").(string)),
-Tags:        getTagsIn(ctx),
+Name:.(string)),
+Tags:
 }if v, ok := d.GetOk("auth_type"); ok {
 in.AuthType = types.AuthType(v.(string))
 }out, err := conn.CreateServiceNetwork(ctx, in)if err != nil {
@@ -94,7 +94,7 @@ ServiceNetworkIdentifier: aws.String(id),
 }
 out, err := conn.GetServiceNetwork(ctx, in)if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }if err != nil {

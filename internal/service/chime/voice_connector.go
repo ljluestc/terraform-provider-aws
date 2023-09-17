@@ -17,43 +17,43 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceVoiceConnector() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceVoiceConnectorCreate,
-ReadWithoutTimeout:   resourceVoiceConnectorRead,
+ReadWithoutTimeout:resourceVoiceConnectorRead,
 UpdateWithoutTimeout: resourceVoiceConnectorUpdate,
 DeleteWithoutTimeout: resourceVoiceConnectorDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "aws_region": {
 Type:schema.TypeString,
-ForceNew:     true,
-Optional:     true,
-Default:      chime.VoiceConnectorAwsRegionUsEast1,
+ForceNew:true,
+Optional:true,
+Default: chime.VoiceConnectorAwsRegionUsEast1,
 ValidateFunc: validation.StringInSlice([]string{chime.VoiceConnectorAwsRegionUsEast1, chime.VoiceConnectorAwsRegionUsWest2}, false),
 },
 "name": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.NoZeroValues,
 },
 "outbound_host_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "require_encryption": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Required: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
 }func resourceVoiceConnectorCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ChimeConn(ctx)createInput := &chime.CreateVoiceConnectorInput{
-Name:     aws.String(d.Get("name").(string)),
+Name:aws.String(d.Get("name").(string)),
 RequireEncryption: aws.Bool(d.Get("require_encryption").(bool)),
 }if v, ok := d.GetOk("aws_region"); ok {
 createInput.AwsRegion = aws.String(v.(string))
@@ -85,7 +85,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ChimeConn(ctx)if d.HasChanges("name", "require_encryption") {
 updateInput := &chime.UpdateVoiceConnectorInput{
 VoiceConnectorId:  aws.String(d.Id()),
-Name:     aws.String(d.Get("name").(string)),
+Name:aws.String(d.Get("name").(string)),
 RequireEncryption: aws.Bool(d.Get("require_encryption").(bool)),
 }if _, err := conn.UpdateVoiceConnectorWithContext(ctx, updateInput); err != nil {
 return sdkdiag.AppendErrorf(diags, "updating Voice connector (%s): %s", d.Id(), err)

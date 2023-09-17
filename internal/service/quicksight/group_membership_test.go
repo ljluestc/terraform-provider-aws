@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package quicksight_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package quicksight_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/quicksight"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -21,12 +15,10 @@ import (
 	ctx := acctest.Context(t)
 	groupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	memberName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_quicksight_group_membership.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_quicksight_group_membership.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-CheckDestroy:    testAccCheckGroupMembershipDestroy(ctx),
+CheckDestroy:testAccCheckGroupMembershipDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -49,12 +41,10 @@ ImportStateVerify: true,
 	resourceName := "aws_quicksight_group_membership.test"
 	groupResourceName := "aws_quicksight_group.test"
 	userResourceName := "aws_quicksight_user.test"
-	namespaceResourceName := "aws_quicksight_namespace.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	namespaceResourceName := "aws_quicksight_namespace.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-CheckDestroy:    testAccCheckGroupMembershipDestroy(ctx),
+CheckDestroy:testAccCheckGroupMembershipDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -74,19 +64,15 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccQuickSightGroupMembership_disappears(t *testing.T) {
+}func TestAccQuickSightGroupMembership_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	groupName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	memberName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_quicksight_group_membership.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_quicksight_group_membership.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupMembershipDestroy(ctx),
+CheckDestroy:testAccCheckGroupMembershipDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupMembershipConfig_basic(groupName, memberName),
@@ -102,9 +88,7 @@ ExpectNonEmptyPlan: true,
 }func testAccCheckGroupMembershipDestroy(ctx context.Context) resource.TestCheck
 func {
 	returnfunc(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_quicksight_group_membership" {
 continue
 	}
@@ -114,13 +98,9 @@ return err
 	}
 	listInput := &quicksight.ListGroupMembershipsInput{
 AwsAccountId: aws.String(awsAccountID),
-Namespace:    aws.String(namespace),
-GroupName:    aws.String(groupName),
-	}
-
-	found, err := tfquicksight.FindGroupMembership(ctx, conn, listInput, userName)
-
-	if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
+Namespace:aws.String(namespace),
+GroupName:aws.String(groupName),
+	}	found, err := tfquicksight.FindGroupMembership(ctx, conn, listInput, userName)	if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
 continue
 	}
 	if err != nil {
@@ -129,9 +109,7 @@ return err
 	if found {
 return fmt.Errorf("QuickSight Group (%s) still exists", rs.Primary.ID)
 	}
-}
-
-return nil
+}return nil
 	}
 }func testAccCheckGroupMembershipExists(ctx context.Context, resourceName string) resource.TestCheck
 func {
@@ -139,31 +117,19 @@ func {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("Not found: %s", resourceName)
-}
-
-awsAccountID, namespace, groupName, userName, err := tfquicksight.GroupMembershipParseID(rs.Primary.ID)
+}awsAccountID, namespace, groupName, userName, err := tfquicksight.GroupMembershipParseID(rs.Primary.ID)
 if err != nil {
 	return err
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-
-listInput := &quicksight.ListGroupMembershipsInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)listInput := &quicksight.ListGroupMembershipsInput{
 	AwsAccountId: aws.String(awsAccountID),
-	Namespace:    aws.String(namespace),
-	GroupName:    aws.String(groupName),
-}
-
-found, err := tfquicksight.FindGroupMembership(ctx, conn, listInput, userName)
+	Namespace:aws.String(namespace),
+	GroupName:aws.String(groupName),
+}found, err := tfquicksight.FindGroupMembership(ctx, conn, listInput, userName)
 if err != nil {
 	return fmt.Errorf("Error listing QuickSight Group Memberships: %s", err)
-}
-
-if !found {
+}if !found {
 	return fmt.Errorf("QuickSight Group Membership (%s) not found", rs.Primary.ID)
-}
-
-return nil
+}return nil
 	}
 }func testAccGroupMembershipConfig_basic(groupName string, memberName string) string {
 	return acctest.ConfigCompose(
@@ -179,26 +145,20 @@ resource "aws_quicksight_group_membership" "test" {
 	return acctest.ConfigCompose(
 testAccNamespaceConfig_basic(rName),
 fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_quicksight_group" "test" {
+data "aws_caller_identity" "current" {}resource "aws_quicksight_group" "test" {
   group_name = %[1]q
   namespace  = aws_quicksight_namespace.test.namespace
-}
-
-resource "aws_quicksight_user" "test" {
+}resource "aws_quicksight_user" "test" {
   aws_account_id = data.aws_caller_identity.current.account_id
   user_name= %[1]q
   email = %[2]q
   namespace= aws_quicksight_namespace.test.namespace
   identity_type  = "QUICKSIGHT"
   user_role= "READER"
-}
-
-resource "aws_quicksight_group_membership" "test" {
+}resource "aws_quicksight_group_membership" "test" {
   group_name  = aws_quicksight_group.test.group_name
   member_name = aws_quicksight_user.test.user_name
-  namespace   = aws_quicksight_namespace.test.namespace
+  namespace= aws_quicksight_namespace.test.namespace
 }
 `, rName, acctest.DefaultEmailAddress))
 }

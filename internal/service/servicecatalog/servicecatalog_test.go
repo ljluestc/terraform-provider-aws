@@ -7,8 +7,8 @@ t.Parallel()testCases := map[string]map[string]func(t *testing.T){
 "basic": testAccOrganizationsAccess_basic,
 },
 "PortfolioShare": {
-"basic":     testAccPortfolioShare_basic,
-"sharePrincipals":    testAccPortfolioShare_sharePrincipals,
+"basic":testAccPortfolioShare_basic,
+"sharePrincipals":testAccPortfolioShare_sharePrincipals,
 "organizationalUnit": testAccPortfolioShare_organizationalUnit,
 "disappears":testAccPortfolioShare_disappears,
 },

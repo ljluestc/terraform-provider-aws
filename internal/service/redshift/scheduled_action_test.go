@@ -42,7 +42,7 @@ resource.TestCheckResourceAttr(resourceName, "target_action.0.pause_cluster.0.cl
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -95,7 +95,7 @@ resource.TestCheckResourceAttr(resourceName, "target_action.0.pause_cluster.0.cl
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -129,7 +129,7 @@ resource.TestCheckResourceAttr(resourceName, "target_action.0.resume_cluster.0.c
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -180,7 +180,7 @@ resource.TestCheckResourceAttr(resourceName, "target_action.0.resize_cluster.0.c
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -235,7 +235,7 @@ resource.TestCheckResourceAttr(resourceName, "target_action.0.resize_cluster.0.n
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -324,7 +324,7 @@ EOF
 EOF
 }resource "aws_iam_role_policy_attachment" "test" {
   policy_arn = aws_iam_policy.test.arn
-  role   = aws_iam_role.test.name
+  role= aws_iam_role.test.name
 }
 `, rName, rName)
 }func testAccScheduledActionConfig_pauseCluster(rName, schedule string) string {
@@ -387,8 +387,8 @@ resource "aws_redshift_scheduled_action" "test" {
   iam_role = aws_iam_role.test.arn  target_action {
 resize_cluster {
   cluster_identifier = "tf-test-identifier"
-  classic   = %[3]t
-  cluster_type   = %[4]q
+  classic= %[3]t
+  cluster_type= %[4]q
   node_type = %[5]q
   number_of_nodes= %[6]d
 }

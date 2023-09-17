@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package quicksight_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package quicksight_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/quicksight"
+	"testing"	"github.com/aws/aws-sdk-go/service/quicksight"
 	sdkacctest "github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
@@ -17,9 +11,7 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_quicksight_theme.test"
 	dataSourceName := "data.aws_quicksight_theme.test"
-	themeId := "MIDNIGHT"
-
-	resource.ParallelTest(t, resource.TestCase{
+	themeId := "MIDNIGHT"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
@@ -47,9 +39,7 @@ func(
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_quicksight_theme.test"
 	dataSourceName := "data.aws_quicksight_theme.test"
-	themeId := "MIDNIGHT"
-
-	resource.ParallelTest(t, resource.TestCase{
+	themeId := "MIDNIGHT"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() {
 	acctest.PreCheck(ctx, t)
 },
@@ -80,12 +70,8 @@ func(
 fmt.Sprintf(`
 resource "aws_quicksight_theme" "test" {
   theme_id = %[1]q
-  name     = %[2]q
-
-  base_theme_id = %[3]q
-
-  configuration {
-    data_color_palette {
+  name= %[2]q  base_theme_id = %[3]q  configuration {
+data_color_palette {
 colors = [
   "#FFFFFF",
   "#111111",
@@ -103,11 +89,9 @@ min_max_gradient = [
   "#FFFFFF",
   "#111111",
 ]
-    }
-  }
 }
-
-data "aws_quicksight_theme" "test" {
+  }
+}data "aws_quicksight_theme" "test" {
   theme_id = aws_quicksight_theme.test.theme_id
 }
 `, rId, rName, baseThemId))
@@ -116,12 +100,8 @@ data "aws_quicksight_theme" "test" {
 fmt.Sprintf(`
 resource "aws_quicksight_theme" "test" {
   theme_id = %[1]q
-  name     = %[2]q
-
-  base_theme_id = %[3]q
-
-  configuration {
-    data_color_palette {
+  name= %[2]q  base_theme_id = %[3]q  configuration {
+data_color_palette {
 colors = [
   "#FFFFFF",
   "#111111",
@@ -139,8 +119,8 @@ min_max_gradient = [
   "#FFFFFF",
   "#111111",
 ]
-    }
-    sheet {
+}
+sheet {
 tile {
   border {
  show = false
@@ -154,37 +134,35 @@ tile_layout {
  show = false
   }
 }
-    }
-    typography {
+}
+typography {
 font_families {
   font_family = "monospace"
 }
 font_families {
   font_family = "Roboto"
 }
-    }
-    ui_color_palette {
+}
+ui_color_palette {
 accent= "#202020"
-accent_foreground    = "#FFFFFF"
+accent_foreground= "#FFFFFF"
 danger= "#202020"
-danger_foreground    = "#FFFFFF"
-dimension   = "#202020"
+danger_foreground= "#FFFFFF"
+dimension= "#202020"
 dimension_foreground = "#FFFFFF"
-measure     = "#202020"
-measure_foreground   = "#FFFFFF"
-primary_background   = "#202020"
-primary_foreground   = "#FFFFFF"
+measure= "#202020"
+measure_foreground= "#FFFFFF"
+primary_background= "#202020"
+primary_foreground= "#FFFFFF"
 secondary_background = "#202020"
 secondary_foreground = "#FFFFFF"
-success     = "#202020"
-success_foreground   = "#FFFFFF"
-warning     = "#202020"
-warning_foreground   = "#FFFFFF"
-    }
-  }
+success= "#202020"
+success_foreground= "#FFFFFF"
+warning= "#202020"
+warning_foreground= "#FFFFFF"
 }
-
-data "aws_quicksight_theme" "test" {
+  }
+}data "aws_quicksight_theme" "test" {
   theme_id = aws_quicksight_theme.test.theme_id
 }
 `, rId, rName, baseThemId))

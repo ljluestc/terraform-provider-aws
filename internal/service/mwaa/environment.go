@@ -24,7 +24,7 @@ propagationTimeout = 2 * time.Minute
 // @Tags(identifierAttribute="arn")func ResourceEnvironment() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceEnvironmentCreate,
-ReadWithoutTimeout:   resourceEnvironmentRead,
+ReadWithoutTimeout:resourceEnvironmentRead,
 UpdateWithoutTimeout: resourceEnvironmentUpdate,
 DeleteWithoutTimeout: resourceEnvironmentDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -34,225 +34,225 @@ Update: schema.DefaultTimeout(90 * time.Minute),
 Delete: schema.DefaultTimeout(90 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "airflow_configuration_options": {
-Type:      schema.TypeMap,
+Type: schema.TypeMap,
 Optional:  true,
 Sensitive: true,
-Elem:      &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 },
 "airflow_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 Optional: true,
 },
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "created_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "dag_s3_path": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "environment_class": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "execution_role_arn": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 Validate
 func: verify.ValidARN,
 },
 "kms_key": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 Validate
 func: verify.ValidARN,
-ForceNew:     true,
+ForceNew:true,
 },
 "last_updated": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "created_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "error": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "error_code": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "error_message": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "logging_configuration": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "dag_processing_logs": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
-Elem:     environmentModuleLoggingConfigurationSchema(),
+Elem:environmentModuleLoggingConfigurationSchema(),
 },
 "scheduler_logs": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
-Elem:     environmentModuleLoggingConfigurationSchema(),
+Elem:environmentModuleLoggingConfigurationSchema(),
 },
 "task_logs": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
-Elem:     environmentModuleLoggingConfigurationSchema(),
+Elem:environmentModuleLoggingConfigurationSchema(),
 },
 "webserver_logs": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
-Elem:     environmentModuleLoggingConfigurationSchema(),
+Elem:environmentModuleLoggingConfigurationSchema(),
 },
 "worker_logs": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
-Elem:     environmentModuleLoggingConfigurationSchema(),
+Elem:environmentModuleLoggingConfigurationSchema(),
 },
 },
 },
 },
 "max_workers": {
 Type:schema.TypeInt,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 Validate
 func: validation.IntAtLeast(1),
 },
 "min_workers": {
 Type:schema.TypeInt,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 Validate
 func: validation.IntAtLeast(1),
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "network_configuration": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "security_group_ids": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Required: true,
 MinItems: 1,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "subnet_ids": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Required: true,
 ForceNew: true,
 MinItems: 2,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 },
 },
 },
 "plugins_s3_object_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "plugins_s3_path": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "requirements_s3_object_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "requirements_s3_path": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "schedulers": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Optional: true,
 Computed: true,
 },
 "service_role_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "source_bucket_arn": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 Validate
 func: verify.ValidARN,
 },
 "startup_script_s3_object_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
 "startup_script_s3_path": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "webserver_access_mode": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 Validate
 func: validation.StringInSlice(mwaa.WebserverAccessMode_Values(), false),
 },
 "webserver_url": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "weekly_maintenance_window_start": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
@@ -275,11 +275,11 @@ verify.SetTagsDiff,
 }func resourceEnvironmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).MWAAConn(ctx)name := d.Get("name").(string)
 input := &mwaa.CreateEnvironmentInput{
-DagS3Path:   aws.String(d.Get("dag_s3_path").(string)),
-ExecutionRoleArn:     aws.String(d.Get("execution_role_arn").(string)),
+DagS3Path:aws.String(d.Get("dag_s3_path").(string)),
+ExecutionRoleArn:aws.String(d.Get("execution_role_arn").(string)),
 Name:  aws.String(name),
 NetworkConfiguration: expandEnvironmentNetworkConfigurationCreate(d.Get("network_configuration").([]interface{})),
-SourceBucketArn:      aws.String(d.Get("source_bucket_arn").(string)),
+SourceBucketArn: aws.String(d.Get("source_bucket_arn").(string)),
 Tags:  getTagsIn(ctx),
 }if v, ok := d.GetOk("airflow_configuration_options"); ok {
 input.AirflowConfigurationOptions = flex.ExpandStringMap(v.(map[string]interface{}))
@@ -431,18 +431,18 @@ return diag.Errorf("waiting for MWAA Environment (%s) delete: %s", d.Id(), err)
 return &schema.Resource{
 Schema: map[string]*schema.Schema{
 "cloud_watch_log_group_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "enabled": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Computed: true,
 },
 "log_level": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 Validate
 func: validation.StringInSlice(mwaa.LoggingLevel_Values(), false),
 },
@@ -453,7 +453,7 @@ input := &mwaa.GetEnvironmentInput{
 Name: aws.String(name),
 }output, err := conn.GetEnvironmentWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, mwaa.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -526,7 +526,7 @@ input.LogLevel = aws.String(m["log_level"].(string))return input
 }func expandEnvironmentNetworkConfigurationCreate(l []interface{}) *mwaa.NetworkConfiguration {
 m := l[0].(map[string]interface{})return &mwaa.NetworkConfiguration{
 SecurityGroupIds: flex.ExpandStringSet(m["security_group_ids"].(*schema.Set)),
-SubnetIds:        flex.ExpandStringSet(m["subnet_ids"].(*schema.Set)),
+SubnetIds:subnet_ids"].(*schema.Set)),
 }
 }func expandEnvironmentNetworkConfigurationUpdate(l []interface{}) *mwaa.UpdateNetworkConfigurationInput {
 m := l[0].(map[string]interface{})return &mwaa.UpdateNetworkConfigurationInput{
@@ -569,7 +569,7 @@ if moduleLoggingConfiguration == nil {
 return []interface{}{}
 }m := map[string]interface{}{
 "cloud_watch_log_group_arn": aws.StringValue(moduleLoggingConfiguration.CloudWatchLogGroupArn),
-"enabled":    aws.BoolValue(moduleLoggingConfiguration.Enabled),
+"enabled":aws.BoolValue(moduleLoggingConfiguration.Enabled),
 "log_level":  aws.StringValue(moduleLoggingConfiguration.LogLevel),
 }return []interface{}{m}
 }func flattenNetworkConfiguration(networkConfiguration *mwaa.NetworkConfiguration) []interface{} {

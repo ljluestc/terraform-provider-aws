@@ -23,7 +23,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func resourceServiceNetworkServiceAssociation() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceServiceNetworkServiceAssociationCreate,
-ReadWithoutTimeout:   resourceServiceNetworkServiceAssociationRead,
+ReadWithoutTimeout:resourceServiceNetworkServiceAssociationRead,
 UpdateWithoutTimeout: resourceServiceNetworkServiceAssociationUpdate,
 DeleteWithoutTimeout: resourceServiceNetworkServiceAssociationDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -33,50 +33,50 @@ Update: schema.DefaultTimeout(5 * time.Minute),
 Delete: schema.DefaultTimeout(5 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "created_by": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "custom_domain_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "dns_entry": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "domain_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "hosted_zone_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "service_identifier": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
 ForceNew:true,
 DiffSuppressFunc: suppressEquivalentIDOrARN,
 },
 "service_network_identifier": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
 ForceNew:true,
 DiffSuppressFunc: suppressEquivalentIDOrARN,
 },
 "status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -84,10 +84,10 @@ names.AttrTagsAll: tftags.TagsSchemaComputed(),
 ResNameServiceNetworkAssociation = "ServiceNetworkAssociation"
 )func resourceServiceNetworkServiceAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)in := &vpclattice.CreateServiceNetworkServiceAssociationInput{
-ClientToken:     aws.String(id.UniqueId()),
-ServiceIdentifier:        aws.String(d.Get("service_identifier").(string)),
+ClientToken:aws.String(id.UniqueId()),
+ServiceIdentifier:e_identifier").(string)),
 ServiceNetworkIdentifier: aws.String(d.Get("service_network_identifier").(string)),
-Tags:      getTagsIn(ctx),
+Tags: getTagsIn(ctx),
 }out, err := conn.CreateServiceNetworkServiceAssociation(ctx, in)
 if err != nil {
 return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameServiceNetworkAssociation, "", err)
@@ -135,7 +135,7 @@ ServiceNetworkServiceAssociationIdentifier: aws.String(id),
 }
 out, err := conn.GetServiceNetworkServiceAssociation(ctx, in)if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }if err != nil {
@@ -145,11 +145,11 @@ return nil, tfresource.NewEmptyResultError(in)
 }return out, nil
 }func waitServiceNetworkServiceAssociationCreated(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.GetServiceNetworkServiceAssociationOutput, error) {
 stateConf := &retry.StateChangeConf{
-Pending:    enum.Slice(types.ServiceNetworkVpcAssociationStatusCreateInProgress),
-Target:     enum.Slice(types.ServiceNetworkVpcAssociationStatusActive),
-Refresh:    statusServiceNetworkServiceAssociation(ctx, conn, id),
-Timeout:    timeout,
-NotFoundChecks:   20,
+Pending:enum.Slice(types.ServiceNetworkVpcAssociationStatusCreateInProgress),
+Target:enum.Slice(types.ServiceNetworkVpcAssociationStatusActive),
+Refresh:statusServiceNetworkServiceAssociation(ctx, conn, id),
+Timeout:timeout,
+NotFoundChecks:20,
 ContinuousTargetOccurence: 2,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)
 if out, ok := outputRaw.(*vpclattice.GetServiceNetworkServiceAssociationOutput); ok {

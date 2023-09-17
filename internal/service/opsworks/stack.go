@@ -25,7 +25,7 @@ securityGroupsDeletedSleepTime = 30 * time.Second
 // @Tagsfunc ResourceStack() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceStackCreate,
-ReadWithoutTimeout:   resourceStackRead,
+ReadWithoutTimeout:resourceStackRead,
 UpdateWithoutTimeout: resourceStackUpdate,
 DeleteWithoutTimeout: resourceStackDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -201,8 +201,8 @@ DefaultOs:  aws.String(d.Get("default_os").(string)),
 HostnameTheme:aws.String(d.Get("hostname_theme").(string)),
 Name:  aws.String(name),
 Region:aws.String(region),
-ServiceRoleArn:   aws.String(d.Get("service_role_arn").(string)),
-UseCustomCookbooks:   aws.Bool(d.Get("use_custom_cookbooks").(bool)),
+ServiceRoleArn:aws.String(d.Get("service_role_arn").(string)),
+UseCustomCookbooks:aws.Bool(d.Get("use_custom_cookbooks").(bool)),
 UseOpsworksSecurityGroups: aws.Bool(d.Get("use_opsworks_security_groups").(bool)),
 }if v, ok := d.GetOk("agent_version"); ok {
 input.AgentVersion = aws.String(v.(string))
@@ -244,7 +244,7 @@ return true, err
 return sdkdiag.AppendErrorf(diags, "creating OpsWorks Stack (%s): %s", name, err)
 }d.SetId(aws.StringValue(outputRaw.(*opsworks.CreateStackOutput).StackId))arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Service:   opsworks.ServiceName,
+Service:opsworks.ServiceName,
 Region:region,
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("stack/%s/", d.Id()),
@@ -436,7 +436,7 @@ input := &opsworks.DescribeStacksInput{
 StackIds: aws.StringSlice([]string{id}),
 }output, err := conn.DescribeStacksWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -485,8 +485,8 @@ tfMap["username"] = aws.StringValue(v)
 // in which they are created, so we allow users to specify an original endpoint
 // for Stacks created before multiple endpoints were offered (Terraform v0.9.0).
 // See:
-//   - https://github.com/hashicorp/terraform/pull/12688
-//   - https://github.com/hashicorp/terraform/issues/12842func regionalConn(ctx context.Context, client *conns.AWSClient, regionName string) (*opsworks.OpsWorks, error) {
+//- https://github.com/hashicorp/terraform/pull/12688
+//- https://github.com/hashicorp/terraform/issues/12842func regionalConn(ctx context.Context, client *conns.AWSClient, regionName string) (*opsworks.OpsWorks, error) {
 conn := client.OpsWorksConn(ctx)// Regions are the same, no need to reconfigure.
 if aws.StringValue(conn.Config.Region) == regionName {
 return conn, nil

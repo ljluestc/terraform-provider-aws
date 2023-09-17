@@ -53,8 +53,8 @@ TypeName: "aws_servicecatalog_organizations_access",
 {
 Factory:  ResourcePortfolio,
 TypeName: "aws_servicecatalog_portfolio",
-Name:     "Portfolio",
-Tags:     &types.ServicePackageResourceTags{},
+Name:"Portfolio",
+Tags:&types.ServicePackageResourceTags{},
 },
 {
 Factory:  ResourcePortfolioShare,
@@ -67,8 +67,8 @@ TypeName: "aws_servicecatalog_principal_portfolio_association",
 {
 Factory:  ResourceProduct,
 TypeName: "aws_servicecatalog_product",
-Name:     "Product",
-Tags:     &types.ServicePackageResourceTags{},
+Name:"Product",
+Tags:&types.ServicePackageResourceTags{},
 },
 {
 Factory:  ResourceProductPortfolioAssociation,
@@ -77,8 +77,8 @@ TypeName: "aws_servicecatalog_product_portfolio_association",
 {
 Factory:  ResourceProvisionedProduct,
 TypeName: "aws_servicecatalog_provisioned_product",
-Name:     "Provisioned Product",
-Tags:     &types.ServicePackageResourceTags{},
+Name:"Provisioned Product",
+Tags:&types.ServicePackageResourceTags{},
 },
 {
 Factory:  ResourceProvisioningArtifact,

@@ -8,17 +8,17 @@
 funcTestAccElasticBeanstalkSolutionStackDataSource_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	dataSourceName:="data.aws_elastic_beanstalk_solution_stack.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:acctest.PreCheck(ctx,t)},
-		ErrorCheck:orCheck(t,elasticbeanstalk.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccSolutionStackDataSourceConfig_basic,
-				Check:resource.ComposeTestCheckFunc(
-					resource.TestMatchResourceAttr(dataSourceName,"name",regexache.MustCompile("^64bitAmazonLinux(.*)runningPython(.*)$")),
-				),
-			},
-		},
+PreCheck:acctest.PreCheck(ctx,t)},
+ErrorCheck:orCheck(t,elasticbeanstalk.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+Steps:[]resource.TestStep{
+{
+Config:testAccSolutionStackDataSourceConfig_basic,
+Check:resource.ComposeTestCheckFunc(
+resource.TestMatchResourceAttr(dataSourceName,"name",regexache.MustCompile("^64bitAmazonLinux(.*)runningPython(.*)$")),
+),
+},
+},
 	})
 }consttestAccSolutionStackDataSourceConfig_basic=`
 data"aws_elastic_beanstalk_solution_stack""test"{

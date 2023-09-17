@@ -16,79 +16,79 @@
 	var dbClusterSnapshot neptune.DBClusterSnapshot
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_neptune_cluster_snapshot.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:acctest.PreCheck(ctx, t) },
-		ErrorCheck:orCheck(t, neptune.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:lusterSnapshotDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterSnapshotConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterSnapshotExists(ctx, resourceName, &dbClusterSnapshot),
-					resource.TestCheckResourceAttrSet(resourceName, "allocated_storage"),
-					resource.TestCheckResourceAttrSet(resourceName, "availability_zones.#"),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "db_cluster_snapshot_arn", "rds", fmt.Sprintf("cluster-snapshot:%s", rName)),
-					resource.TestCheckResourceAttrSet(resourceName, "engine"),
-					resource.TestCheckResourceAttrSet(resourceName, "engine_version"),
-					resource.TestCheckResourceAttr(resourceName, "kms_key_id", ""),
-					resource.TestCheckResourceAttrSet(resourceName, "license_model"),
-					resource.TestCheckResourceAttrSet(resourceName, "port"),
-					resource.TestCheckResourceAttr(resourceName, "snapshot_type", "manual"),
-					resource.TestCheckResourceAttr(resourceName, "source_db_cluster_snapshot_arn", ""),
-					resource.TestCheckResourceAttr(resourceName, "status", "available"),
-					resource.TestCheckResourceAttr(resourceName, "storage_encrypted", "false"),
-					resource.TestMatchResourceAttr(resourceName, "vpc_id", regexache.MustCompile(`^vpc-.+`)),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:acctest.PreCheck(ctx, t) },
+ErrorCheck:orCheck(t, neptune.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:lusterSnapshotDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccClusterSnapshotConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckClusterSnapshotExists(ctx, resourceName, &dbClusterSnapshot),
+resource.TestCheckResourceAttrSet(resourceName, "allocated_storage"),
+resource.TestCheckResourceAttrSet(resourceName, "availability_zones.#"),
+acctest.CheckResourceAttrRegionalARN(resourceName, "db_cluster_snapshot_arn", "rds", fmt.Sprintf("cluster-snapshot:%s", rName)),
+resource.TestCheckResourceAttrSet(resourceName, "engine"),
+resource.TestCheckResourceAttrSet(resourceName, "engine_version"),
+resource.TestCheckResourceAttr(resourceName, "kms_key_id", ""),
+resource.TestCheckResourceAttrSet(resourceName, "license_model"),
+resource.TestCheckResourceAttrSet(resourceName, "port"),
+resource.TestCheckResourceAttr(resourceName, "snapshot_type", "manual"),
+resource.TestCheckResourceAttr(resourceName, "source_db_cluster_snapshot_arn", ""),
+resource.TestCheckResourceAttr(resourceName, "status", "available"),
+resource.TestCheckResourceAttr(resourceName, "storage_encrypted", "false"),
+resource.TestMatchResourceAttr(resourceName, "vpc_id", regexache.MustCompile(`^vpc-.+`)),
+),
+},
+{
+ResourceName: resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+},
 	})
 }func TestAccNeptuneClusterSnapshot_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dbClusterSnapshot neptune.DBClusterSnapshot
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_neptune_cluster_snapshot.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:acctest.PreCheck(ctx, t) },
-		ErrorCheck:orCheck(t, neptune.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:lusterSnapshotDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterSnapshotConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterSnapshotExists(ctx, resourceName, &dbClusterSnapshot),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfneptune.ResourceClusterSnapshot(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:acctest.PreCheck(ctx, t) },
+ErrorCheck:orCheck(t, neptune.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:lusterSnapshotDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccClusterSnapshotConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckClusterSnapshotExists(ctx, resourceName, &dbClusterSnapshot),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfneptune.ResourceClusterSnapshot(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+},
+},
 	})
 }func testAccCheckClusterSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_neptune_cluster_snapshot" {
-				continue
-			}			_, err := tfneptune.FindClusterSnapshotByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
-				continue
-			}			if err != nil {
-				return err
-			}			return fmt.Errorf("Neptune Cluster Snapshot %s still exists", rs.Primary.ID)
-		}		return nil
+conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)for _, rs := range s.RootModule().Resources {
+if rs.Type != "aws_neptune_cluster_snapshot" {
+continue
+}_, err := tfneptune.FindClusterSnapshotByID(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
+continue
+}if err != nil {
+return err
+}return fmt.Errorf("Neptune Cluster Snapshot %s still exists", rs.Primary.ID)
+}return nil
 	}
 }func testAccCheckClusterSnapshotExists(ctx context.Context, n string, v *neptune.DBClusterSnapshot) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Neptune Cluster Snapshot ID is set")
-		}		conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)		output, err := tfneptune.FindClusterSnapshotByID(ctx, conn, rs.Primary.ID)		if err != nil {
-			return err
-		}		*v = *output		return nil
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+return fmt.Errorf("Not found: %s", n)
+}if rs.Primary.ID == "" {
+return fmt.Errorf("No Neptune Cluster Snapshot ID is set")
+}conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)output, err := tfneptune.FindClusterSnapshotByID(ctx, conn, rs.Primary.ID)if err != nil {
+return err
+}*v = *outputreturn nil
 	}
 }func testAccClusterSnapshotConfig_basic(rName string) string {
 	return fmt.Sprintf(`

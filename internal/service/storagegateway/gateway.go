@@ -29,7 +29,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceGateway() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceGatewayCreate,
-ReadWithoutTimeout:   resourceGatewayRead,
+ReadWithoutTimeout:resourceGatewayRead,
 UpdateWithoutTimeout: resourceGatewayUpdate,
 DeleteWithoutTimeout: resourceGatewayDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -38,52 +38,52 @@ Create: schema.DefaultTimeout(15 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "activation_key": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ExactlyOneOf: []string{"activation_key", "gateway_ip_address"},
 },
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "average_download_rate_limit_in_bits_per_sec": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.IntAtLeast(102400),
 },
 "average_upload_rate_limit_in_bits_per_sec": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.IntAtLeast(51200),
 },
 "cloudwatch_log_group_arn": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: verify.ValidARN,
 },
 "ec2_instance_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "endpoint_type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "gateway_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "gateway_ip_address": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ValidateFunc: validation.IsIPv4Address,
 ExactlyOneOf: []string{"activation_key", "gateway_ip_address"},
 },
 "gateway_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ValidateFunc: validation.All(
 validation.StringMatch(regexache.MustCompile(`^[ -\.0-\[\]-~]*[!-\.0-\[\]-~][ -\.0-\[\]-~]*$`), ""),
@@ -91,19 +91,19 @@ validation.StringLenBetween(2, 255),
 ),
 },
 "gateway_network_interface": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "ipv4_address": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "gateway_timezone": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ValidateFunc: validation.Any(
 validation.StringMatch(regexache.MustCompile(`^GMT[+-][0-9]{1,2}:[0-9]{2}$`), ""),
@@ -112,22 +112,22 @@ validation.StringMatch(regexache.MustCompile(`^GMT$`), ""),
 },
 "gateway_type": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      gatewayTypeStored,
+Optional:true,
+ForceNew:true,
+Default:gatewayTypeStored,
 ValidateFunc: validation.StringInSlice(gatewayType_Values(), false),
 },
 "gateway_vpc_endpoint": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 },
 "host_environment": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "maintenance_start_time": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
@@ -135,22 +135,22 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "day_of_week": {
 Type:nullable.TypeNullableInt,
-Optional:     true,
+Optional:true,
 ValidateFunc: nullable.ValidateTypeStringNullableIntBetween(0, 6),
 },
 "day_of_month": {
 Type:nullable.TypeNullableInt,
-Optional:     true,
+Optional:true,
 ValidateFunc: nullable.ValidateTypeStringNullableIntBetween(1, 28),
 },
 "hour_of_day": {
 Type:schema.TypeInt,
-Required:     true,
+Required:true,
 ValidateFunc: validation.IntBetween(0, 23),
 },
 "minute_of_hour": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.IntBetween(0, 59),
 },
 },
@@ -158,22 +158,22 @@ ValidateFunc: validation.IntBetween(0, 59),
 },
 "medium_changer_type": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringInSlice(mediumChangerType_Values(), false),
 },
 "smb_active_directory_settings": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "active_directory_status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "domain_controllers": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
 Type: schema.TypeString,
@@ -184,7 +184,7 @@ validation.StringLenBetween(6, 1024),
 },
 },
 "domain_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ValidateFunc: validation.All(
 validation.StringMatch(regexache.MustCompile(`^([0-9a-z]+(-[0-9a-z]+)*\.)+[a-z]{2,}$`), ""),
@@ -193,11 +193,11 @@ validation.StringLenBetween(1, 1024),
 },
 "organizational_unit": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 },
 "password": {
-Type:      schema.TypeString,
+Type:schema.TypeString,
 Required:  true,
 Sensitive: true,
 ValidateFunc: validation.All(
@@ -207,12 +207,12 @@ validation.StringLenBetween(1, 1024),
 },
 "timeout_in_seconds": {
 Type:schema.TypeInt,
-Optional:     true,
-Default:      20,
+Optional:true,
+Default:20,
 ValidateFunc: validation.IntBetween(0, 3600),
 },
 "username": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ValidateFunc: validation.All(
 validation.StringMatch(regexache.MustCompile(`^\w[\w\.\- ]*$`), ""),
@@ -223,11 +223,11 @@ validation.StringLenBetween(1, 1024),
 },
 },
 "smb_file_share_visibility": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 },
 "smb_guest_password": {
-Type:      schema.TypeString,
+Type:schema.TypeString,
 Optional:  true,
 Sensitive: true,
 ValidateFunc: validation.All(
@@ -237,16 +237,16 @@ validation.StringLenBetween(6, 512),
 },
 "smb_security_strategy": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringInSlice(storagegateway.SMBSecurityStrategy_Values(), false),
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "tape_drive_type": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringInSlice(tapeDriveType_Values(), false),
 },
 },CustomizeDiff: customdiff.Sequence(
@@ -305,12 +305,12 @@ if activationKey == "" {
 return sdkdiag.AppendErrorf(diags, "empty activationKey received from IP Address: %s", gatewayIPAddress)
 }
 }input := &storagegateway.ActivateGatewayInput{
-ActivationKey:   aws.String(activationKey),
-GatewayRegion:   aws.String(region),
-GatewayName:     aws.String(d.Get("gateway_name").(string)),
+ActivationKey:aws.String(activationKey),
+GatewayRegion:aws.String(region),
+GatewayName:aws.String(d.Get("gateway_name").(string)),
 GatewayTimezone: aws.String(d.Get("gateway_timezone").(string)),
-GatewayType:     aws.String(d.Get("gateway_type").(string)),
-Tags:   getTagsIn(ctx),
+GatewayType:aws.String(d.Get("gateway_type").(string)),
+Tags:getTagsIn(ctx),
 }if v, ok := d.GetOk("medium_changer_type"); ok {
 input.MediumChangerType = aws.String(v.(string))
 }if v, ok := d.GetOk("tape_drive_type"); ok {
@@ -324,7 +324,7 @@ log.Printf("[INFO] Storage Gateway Gateway ID: %s", d.Id())log.Printf("[DEBUG] W
 return sdkdiag.AppendErrorf(diags, "waiting for Storage Gateway Gateway (%q) to be Connected: %s", d.Id(), err)
 }if v, ok := d.GetOk("cloudwatch_log_group_arn"); ok && v.(string) != "" {
 input := &storagegateway.UpdateGatewayInformationInput{
-GatewayARN:   aws.String(d.Id()),
+GatewayARN:aws.String(d.Id()),
 CloudWatchLogGroupARN: aws.String(v.(string)),
 }log.Printf("[DEBUG] Storage Gateway Gateway %q setting CloudWatch Log Group", input)
 _, err := conn.UpdateGatewayInformationWithContext(ctx, input)
@@ -351,7 +351,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for Storage Gateway Gateway (%q) to 
 }if v, ok := d.GetOk("smb_guest_password"); ok && v.(string) != "" {
 input := &storagegateway.SetSMBGuestPasswordInput{
 GatewayARN: aws.String(d.Id()),
-Password:   aws.String(v.(string)),
+Password:aws.String(v.(string)),
 }log.Printf("[DEBUG] Storage Gateway Gateway %q setting SMB guest password", d.Id())
 _, err := conn.SetSMBGuestPasswordWithContext(ctx, input)
 if err != nil {
@@ -368,7 +368,7 @@ return sdkdiag.AppendErrorf(diags, "setting SMB Security Strategy: %s", err)
 }
 }if v, ok := d.GetOk("smb_file_share_visibility"); ok {
 input := &storagegateway.UpdateSMBFileShareVisibilityInput{
-GatewayARN:        aws.String(d.Id()),
+GatewayARN:
 FileSharesVisible: aws.Bool(v.(bool)),
 }log.Printf("[DEBUG] Storage Gateway Gateway %q setting SMB File Share Visibility", input)
 _, err := conn.UpdateSMBFileShareVisibilityWithContext(ctx, input)
@@ -437,8 +437,8 @@ m := map[string]interface{}{
 // We must assemble these into the map from configuration or Terraform will enter ""
 // into state and constantly show a difference (also breaking downstream references)
 //  UPDATE: aws_storagegateway_gateway.test
-//    smb_active_directory_settings.0.password: "<sensitive>" => "<sensitive>" (attribute changed)
-//    smb_active_directory_settings.0.username: "" => "Administrator"
+//smb_active_directory_settings.0.password: "<sensitive>" => "<sensitive>" (attribute changed)
+//smb_active_directory_settings.0.username: "" => "Administrator"
 if v, ok := d.GetOk("smb_active_directory_settings"); ok && len(v.([]interface{})) > 0 {
 configM := v.([]interface{})[0].(map[string]interface{})
 m["password"] = configM["password"]
@@ -501,9 +501,9 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).StorageGatewayConn(ctx)if d.HasChanges("gateway_name", "gateway_timezone", "cloudwatch_log_group_arn") {
 input := &storagegateway.UpdateGatewayInformationInput{
 CloudWatchLogGroupARN: aws.String(d.Get("cloudwatch_log_group_arn").(string)),
-GatewayARN:   aws.String(d.Id()),
+GatewayARN:aws.String(d.Id()),
 GatewayName:  aws.String(d.Get("gateway_name").(string)),
-GatewayTimezone:       aws.String(d.Get("gateway_timezone").(string)),
+GatewayTimezone:aws.String(d.Get("gateway_timezone").(string)),
 }log.Printf("[DEBUG] Updating Storage Gateway Gateway: %s", input)
 _, err := conn.UpdateGatewayInformationWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating Storage Gateway Gateway (%s): %s", d.Id(), err)
@@ -526,7 +526,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for Storage Gateway Gateway (%s) to 
 }if d.HasChange("smb_guest_password") {
 input := &storagegateway.SetSMBGuestPasswordInput{
 GatewayARN: aws.String(d.Id()),
-Password:   aws.String(d.Get("smb_guest_password").(string)),
+Password:aws.String(d.Get("smb_guest_password").(string)),
 }_, err := conn.SetSMBGuestPasswordWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating Storage Gateway Gateway (%s) SMB guest password: %s", d.Id(), err)
 }
@@ -541,7 +541,7 @@ return sdkdiag.AppendErrorf(diags, "updating Storage Gateway Gateway (%s) SMB se
 }if d.HasChange("smb_file_share_visibility") {
 input := &storagegateway.UpdateSMBFileShareVisibilityInput{
 FileSharesVisible: aws.Bool(d.Get("smb_file_share_visibility").(bool)),
-GatewayARN:        aws.String(d.Id()),
+GatewayARN:
 }log.Printf("[DEBUG] Updating Storage Gateway SMB file share visibility: %s", input)
 _, err := conn.UpdateSMBFileShareVisibilityWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating Storage Gateway Gateway (%s) SMB file share visibility: %s", d.Id(), err)
@@ -599,8 +599,8 @@ return nil
 if !ok {
 return nil
 }domain := &storagegateway.JoinDomainInput{
-DomainName:       aws.String(tfMap["domain_name"].(string)),
-GatewayARN:       aws.String(gatewayArn),
+DomainName:aws.String(tfMap["domain_name"].(string)),
+GatewayARN:aws.String(gatewayArn),
 Password:aws.String(tfMap["password"].(string)),
 UserName:aws.String(tfMap["username"].(string)),
 TimeoutInSeconds: aws.Int64(int64(tfMap["timeout_in_seconds"].(int))),

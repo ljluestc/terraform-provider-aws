@@ -30,7 +30,7 @@ organizationCreationTimeout = 10 * time.Minute
 func resourceAnalyzer() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceAnalyzerCreate,
-ReadWithoutTimeout:   resourceAnalyzerRead,
+ReadWithoutTimeout:resourceAnalyzerRead,
 UpdateWithoutTimeout: resourceAnalyzerUpdate,
 DeleteWithoutTimeout: resourceAnalyzerDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -109,7 +109,7 @@ input := &accessanalyzer.GetAnalyzerInput{
 AnalyzerName: aws.String(name),
 }output, err := conn.GetAnalyzer(ctx, input)if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

@@ -16,14 +16,14 @@
 )// @SDKResource("aws_elb_attachment")func ResourceAttachment() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceAttachmentCreate,
-ReadWithoutTimeout:   resourceAttachmentRead,
+ReadWithoutTimeout:resourceAttachmentRead,
 DeleteWithoutTimeout: resourceAttachmentDelete,Schema: map[string]*schema.Schema{
 "elb": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 ForceNew: true,
 Required: true,
 },"instance": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 ForceNew: true,
 Required: true,
 },
@@ -34,7 +34,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ELBConn(ctx)
 elbName := d.Get("elb").(string)instance := d.Get("instance").(string)registerInstancesOpts := elb.RegisterInstancesWithLoadBalancerInput{
 LoadBalancerName: aws.String(elbName),
-Instances:        []*elb.Instance{{InstanceId: aws.String(instance)}},
+Instances:eId: aws.String(instance)}},
 }log.Printf("[INFO] registering instance %s with ELB %s", instance, elbName)err := retry.RetryContext(ctx, 10*time.Minute,
 func() *retry.RetryError {
 _, err := conn.RegisterInstancesWithLoadBalancerWithContext(ctx, &registerInstancesOpts)if tfawserr.ErrCodeEquals(err, "InvalidTarget") {
@@ -86,7 +86,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ELBConn(ctx)
 elbName := d.Get("elb").(string)instance := d.Get("instance").(string)log.Printf("[INFO] Deleting Attachment %s from: %s", instance, elbName)deRegisterInstancesOpts := elb.DeregisterInstancesFromLoadBalancerInput{
 LoadBalancerName: aws.String(elbName),
-Instances:        []*elb.Instance{{InstanceId: aws.String(instance)}},
+Instances:eId: aws.String(instance)}},
 }_, err := conn.DeregisterInstancesFromLoadBalancerWithContext(ctx, &deRegisterInstancesOpts)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "Failure deregistering instances from ELB: %s", err)

@@ -35,7 +35,7 @@ resource.TestCheckTypeSetElemAttrPair(resourceName, "user_names.*", "aws_memoryd
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -114,7 +114,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.%", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -131,7 +131,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.Key2", "value2"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -146,7 +146,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.Key1", "value1"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -159,7 +159,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.%", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -186,7 +186,7 @@ resource.TestCheckResourceAttr(resourceName, "user_names.#", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -201,7 +201,7 @@ resource.TestCheckTypeSetElemAttr(resourceName, "user_names.*", user2),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -216,7 +216,7 @@ resource.TestCheckTypeSetElemAttr(resourceName, "user_names.*", user3),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -230,7 +230,7 @@ resource.TestCheckTypeSetElemAttr(resourceName, "user_names.*", user1),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -244,7 +244,7 @@ resource.TestCheckTypeSetElemAttr(resourceName, "user_names.*", user2),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -258,7 +258,7 @@ resource.TestCheckTypeSetElemAttr(resourceName, "user_names.*", user1),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -314,7 +314,7 @@ userNamesInACL += fmt.Sprintf("%q", userName)
 testAccACLConfigUsers(userNames...),
 fmt.Sprintf(`
 resource "aws_memorydb_acl" "test" {
-  depends_on = [aws_memorydb_user.test]  name   = %[1]q
+  depends_on = [aws_memorydb_user.test]  name= %[1]q
   user_names = [%[2]s]  tags = {
 Test = "test"
   }

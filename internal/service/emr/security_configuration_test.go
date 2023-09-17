@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package emr_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package emr_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/emr"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,13 +11,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )func TestAccEMRSecurityConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	resourceName := "aws_emr_security_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_emr_security_configuration.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSecurityConfigurationDestroy(ctx),
+CheckDestroy:testAccCheckSecurityConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSecurityConfigurationConfig_basic,
@@ -34,8 +26,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -47,29 +39,17 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_emr_security_configuration" {
 continue
-	}
-
-	// Try to find the Security Configuration
+	}	// Try to find the Security Configuration
 	resp, err := conn.DescribeSecurityConfigurationWithContext(ctx, &emr.DescribeSecurityConfigurationInput{
 Name: aws.String(rs.Primary.ID),
-	})
-
-	if tfawserr.ErrMessageContains(err, "InvalidRequestException", "does not exist") {
+	})	if tfawserr.ErrMessageContains(err, "InvalidRequestException", "does not exist") {
 return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
-	}
-
-	if resp != nil && aws.StringValue(resp.Name) == rs.Primary.ID {
+	}	if resp != nil && aws.StringValue(resp.Name) == rs.Primary.ID {
 return fmt.Errorf("Error: EMR Security Configuration still exists: %s", aws.StringValue(resp.Name))
-	}
-
-	return nil
-}
-
-return nil
+	}	return nil
+}return nil
 	}
 }func testAccCheckSecurityConfigurationExists(ctx context.Context, n string) resource.TestCheck
 func {
@@ -77,54 +57,36 @@ func {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No EMR Security Configuration ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 resp, err := conn.DescribeSecurityConfigurationWithContext(ctx, &emr.DescribeSecurityConfigurationInput{
 	Name: aws.String(rs.Primary.ID),
 })
 if err != nil {
 	return err
-}
-
-if resp.Name == nil {
+}if resp.Name == nil {
 	return fmt.Errorf("EMR Security Configuration had nil name which shouldn't happen")
-}
-
-if *resp.Name != rs.Primary.ID {
+}if *resp.Name != rs.Primary.ID {
 	return fmt.Errorf("EMR Security Configuration name mismatch, got (%s), expected (%s)", *resp.Name, rs.Primary.ID)
-}
-
-return nil
+}return nil
 	}
-}
-
-const testAccSecurityConfigurationConfig_basic = `
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-data "aws_caller_identity" "current" {}
-
-resource "aws_emr_security_configuration" "test" {
+}const testAccSecurityConfigurationConfig_basic = `
+data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_identity" "current" {}resource "aws_emr_security_configuration" "test" {
   configuration = <<EOF
 {
   "EncryptionConfiguration": {
-    "AtRestEncryptionConfiguration": {
-      "S3EncryptionConfiguration": {
-        "EncryptionMode": "SSE-S3"
-      },
-      "LocalDiskEncryptionConfiguration": {
-        "EncryptionKeyProviderType": "AwsKms",
-        "AwsKmsKey": "arn:${data.aws_partition.current.partition}:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:alias/tf_emr_test_key"
-      }
-    },
-    "EnableInTransitEncryption": false,
-    "EnableAtRestEncryption": true
+"AtRestEncryptionConfiguration": {
+ "S3EncryptionConfiguration": {
+3"
+ },
+ "LocalDiskEncryptionConfiguration": {
+pe": "AwsKms",
+.aws_partition.current.partition}:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:alias/tf_emr_test_key"
+ }
+},
+"EnableInTransitEncryption": false,
+"EnableAtRestEncryption": true
   }
 }
 EOF

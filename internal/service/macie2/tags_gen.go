@@ -13,13 +13,13 @@ func KeyValueTags(ctx context.Context, tags map[string]*string) tftags.KeyValueT
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) map[string]*string {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
-		}
+if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
+return tags
+}
 	}	return nil
 }// setTagsOut sets macie2 service tags in Context.
 func setTagsOut(ctx context.Context, tags map[string]*string) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
+inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }

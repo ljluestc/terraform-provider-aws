@@ -41,7 +41,7 @@ return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
   name = %[1]q
 }resource "aws_opsworks_ecs_cluster_layer" "test" {
-  stack_id   = aws_opsworks_stack.test.id
+  stack_id= aws_opsworks_stack.test.id
   ecs_cluster_arn = aws_ecs_cluster.test.arn  custom_security_group_ids = aws_security_group.test[*].id
 }
 `, rName))

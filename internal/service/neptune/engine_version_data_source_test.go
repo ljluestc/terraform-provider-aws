@@ -70,7 +70,7 @@ resource.TestCheckResourceAttrSet(dataSourceName, "version"),
 })
 }func testAccEngineVersionPreCheck(ctx context.Context, t *testing.T) {
 conn := acctest.Provider.Meta().(*conns.AWSClient).NeptuneConn(ctx)input := &neptune.DescribeDBEngineVersionsInput{
-Engine:      aws.String("neptune"),
+Engine: aws.String("neptune"),
 DefaultOnly: aws.Bool(true),
 }_, err := conn.DescribeDBEngineVersionsWithContext(ctx, input)if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)

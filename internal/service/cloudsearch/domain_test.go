@@ -86,8 +86,8 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[stri
 "default_value": "2",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":   "literal_test",
-"type":   "literal",
+"name":"literal_test",
+"type":"literal",
 "facet":  "true",
 "search": "true",
 }),
@@ -107,14 +107,14 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[stri
 "name":"literal_test",
 "type":"literal",
 "default_value": "literally testing",
-"return":   "true",
+"return":"true",
 "sort":"true",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
 "name":"double_array_test",
 "type":"double-array",
 "default_value": "-12.34",
-"search":   "true",
+"search":"true",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
 "name":  "text_test",
@@ -295,16 +295,16 @@ resource "aws_cloudsearch_domain" "test" {
 return fmt.Sprintf(`
 resource "aws_cloudsearch_domain" "test" {
   name = %[1]q  index_field {
-    name= "int_test"
-    type= "int"
-    default_value = "2"
+name= "int_test"
+type= "int"
+default_value = "2"
   }  index_field {
-    name   = "literal_test"
-    type   = "literal"
-    facet  = true
-    return = false
-    search = true
-    sort   = false
+name= "literal_test"
+type= "literal"
+facet  = true
+return = false
+search = true
+sort= false
   }
 }
 `, rName)
@@ -312,22 +312,22 @@ resource "aws_cloudsearch_domain" "test" {
 return fmt.Sprintf(`
 resource "aws_cloudsearch_domain" "test" {
   name = %[1]q  index_field {
-    name   = "literal_test"
-    type   = "literal"
-    facet  = false
-    return = true
-    search = false
-    sort   = true    default_value = "literally testing"
+name= "literal_test"
+type= "literal"
+facet  = false
+return = true
+search = false
+sort= truedefault_value = "literally testing"
   }  index_field {
-    name   = "double_array_test"
-    type   = "double-array"
-    search = true    default_value = "-12.34"
+name= "double_array_test"
+type= "double-array"
+search = truedefault_value = "-12.34"
   }  index_field {
-    name  = "text_test"
-    type  = "text"
-    analysis_scheme = "_en_default_"
-    highlight  = true
-    search= true
+name  = "text_test"
+type  = "text"
+analysis_scheme = "_en_default_"
+highlight  = true
+search= true
   }
 }
 `, rName)
@@ -335,15 +335,15 @@ resource "aws_cloudsearch_domain" "test" {
 return fmt.Sprintf(`
 resource "aws_cloudsearch_domain" "test" {
   name = %[1]q  endpoint_options {
-    enforce_https  = true
-    tls_security_policy = "Policy-Min-TLS-1-0-2019-07"
+enforce_https  = true
+tls_security_policy = "Policy-Min-TLS-1-0-2019-07"
   }  multi_az = true  scaling_parameters {
-    desired_instance_type= "search.small"
-    desired_partition_count   = 1
-    desired_replication_count = 1
+desired_instance_type= "search.small"
+desired_partition_count= 1
+desired_replication_count = 1
   }  index_field {
-    name = "latlon_test"
-    type = "latlon"
+name = "latlon_test"
+type = "latlon"
   }
 }
 `, rName)
@@ -351,16 +351,16 @@ resource "aws_cloudsearch_domain" "test" {
 return fmt.Sprintf(`
 resource "aws_cloudsearch_domain" "test" {
   name = %[1]q  index_field {
-    name= "int_test"
-    type= "int"
-    default_value = "2"
+name= "int_test"
+type= "int"
+default_value = "2"
   }  index_field {
-    name= "int_test_2"
-    type= "int"
-    default_value = "4"
+name= "int_test_2"
+type= "int"
+default_value = "4"
   }  index_field {
-    name = "int_test_source"
-    type = "int-array"    source_fields = "int_test,int_test_2"
+name = "int_test_source"
+type = "int-array"source_fields = "int_test,int_test_2"
   }
 }
 `, rName)
@@ -368,20 +368,20 @@ resource "aws_cloudsearch_domain" "test" {
 return fmt.Sprintf(`
 resource "aws_cloudsearch_domain" "test" {
   name = %[1]q  index_field {
-    name= "int_test"
-    type= "int"
-    default_value = "2"
+name= "int_test"
+type= "int"
+default_value = "2"
   }  index_field {
-    name= "int_test_2"
-    type= "int"
-    default_value = "4"
+name= "int_test_2"
+type= "int"
+default_value = "4"
   }  index_field {
-    name= "int_test_3"
-    type= "int"
-    default_value = "8"
+name= "int_test_3"
+type= "int"
+default_value = "8"
   }  index_field {
-    name = "int_test_source"
-    type = "int-array"    source_fields = "int_test_3"
+name = "int_test_source"
+type = "int-array"source_fields = "int_test_3"
   }
 }
 `, rName)
@@ -389,18 +389,18 @@ resource "aws_cloudsearch_domain" "test" {
 return fmt.Sprintf(`
 resource "aws_cloudsearch_domain" "test" {
   name = %[1]q  endpoint_options {
-    enforce_https  = true
-    tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
+enforce_https  = true
+tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
   }  multi_az = false  scaling_parameters {
-    desired_instance_type= "search.medium"
-    desired_partition_count   = 1
-    desired_replication_count = 2
+desired_instance_type= "search.medium"
+desired_partition_count= 1
+desired_replication_count = 2
   }  index_field {
-    name  = "text_array_test"
-    type  = "text-array"
-    return= true
-    search= true
-    analysis_scheme = "_fr_default_"
+name  = "text_array_test"
+type  = "text-array"
+return= true
+search= true
+analysis_scheme = "_fr_default_"
   }
 }
 `, rName)

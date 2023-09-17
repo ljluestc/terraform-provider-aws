@@ -23,7 +23,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceCluster() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceClusterCreate,
-ReadWithoutTimeout:   resourceClusterRead,
+ReadWithoutTimeout:resourceClusterRead,
 UpdateWithoutTimeout: resourceClusterUpdate,
 DeleteWithoutTimeout: resourceClusterDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -432,7 +432,7 @@ if node == nil {
 continue
 }nodeSet.Add(map[string]interface{}{
 "availability_zone": aws.StringValue(node.AvailabilityZone),
-"create_time":   aws.TimeValue(node.CreateTime).Format(time.RFC3339),
+"create_time":aws.TimeValue(node.CreateTime).Format(time.RFC3339),
 "endpoint": flattenEndpoint(node.Endpoint),
 "name": aws.StringValue(node.Name),
 })

@@ -11,37 +11,37 @@
 	return []*types.ServicePackageFrameworkResource{}
 }func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceWorkspace,
-			TypeName: "aws_grafana_workspace",
-		},
+{
+Factory:  DataSourceWorkspace,
+TypeName: "aws_grafana_workspace",
+},
 	}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceLicenseAssociation,
-			TypeName: "aws_grafana_license_association",
-		},
-		{
-			Factory:  ResourceRoleAssociation,
-			TypeName: "aws_grafana_role_association",
-		},
-		{
-			Factory:  ResourceWorkspace,
-			TypeName: "aws_grafana_workspace",
-			Name:     "Workspace",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceWorkspaceAPIKey,
-			TypeName: "aws_grafana_workspace_api_key",
-		},
-		{
-			Factory:  ResourceWorkspaceSAMLConfiguration,
-			TypeName: "aws_grafana_workspace_saml_configuration",
-		},
+{
+Factory:  ResourceLicenseAssociation,
+TypeName: "aws_grafana_license_association",
+},
+{
+Factory:  ResourceRoleAssociation,
+TypeName: "aws_grafana_role_association",
+},
+{
+Factory:  ResourceWorkspace,
+TypeName: "aws_grafana_workspace",
+Name:"Workspace",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
+{
+Factory:  ResourceWorkspaceAPIKey,
+TypeName: "aws_grafana_workspace_api_key",
+},
+{
+Factory:  ResourceWorkspaceSAMLConfiguration,
+TypeName: "aws_grafana_workspace_saml_configuration",
+},
 	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.Grafana

@@ -8,7 +8,7 @@
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )const (
 botAliasDeletedTimeout = 5 * time.Minute
-intentDeletedTimeout   = 5 * time.Minute
+intentDeletedTimeout= 5 * time.Minute
 )func waitBotVersionCreated(ctx context.Context, conn *lexmodelbuildingservice.LexModelBuildingService, name, version string, timeout time.Duration) (*lexmodelbuildingservice.GetBotOutput, error) { //nolint:unparam
 stateChangeConf := &retry.StateChangeConf{
 Pending: []string{lexmodelbuildingservice.StatusBuilding},

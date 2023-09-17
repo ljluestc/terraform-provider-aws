@@ -22,7 +22,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceClusterInstance() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceClusterInstanceCreate,
-ReadWithoutTimeout:   resourceClusterInstanceRead,
+ReadWithoutTimeout:resourceClusterInstanceRead,
 UpdateWithoutTimeout: resourceClusterInstanceUpdate,
 DeleteWithoutTimeout: resourceClusterInstanceDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -32,104 +32,104 @@ Update: schema.DefaultTimeout(90 * time.Minute),
 Delete: schema.DefaultTimeout(90 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "address": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "apply_immediately": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Computed: true,
 },
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "auto_minor_version_upgrade": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 },
 "availability_zone": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 Computed: true,
 },
 "cluster_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "dbi_resource_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "endpoint": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "engine": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      "neptune",
+Optional:true,
+ForceNew:true,
+Default: "neptune",
 ValidateFunc: validEngine(),
 },
 "engine_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 },
 "identifier": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional: true,
+Computed: true,
+ForceNew: true,
 ConflictsWith: []string{"identifier_prefix"},
 ValidateFunc:  validIdentifier,
 },
 "identifier_prefix": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional: true,
+Computed: true,
+ForceNew: true,
 ConflictsWith: []string{"identifier"},
 ValidateFunc:  validIdentifierPrefix,
 },
 "instance_class": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "kms_key_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "neptune_parameter_group_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  "default.neptune1",
 },
 "neptune_subnet_group_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 },
 "port": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Optional: true,
 ForceNew: true,
 Default:  DefaultPort,
 },
 "preferred_backup_window": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: verify.ValidOnceADayWindowFormat,
 },
 "preferred_maintenance_window": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 StateFunc: func(val interface{}) string {
@@ -141,24 +141,24 @@ return strings.ToLower(val.(string))
 ValidateFunc: verify.ValidOnceAWeekWindowFormat,
 },
 "promotion_tier": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Optional: true,
 Default:  0,
 },
 "publicly_accessible": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 ForceNew: true,
 },
 "storage_encrypted": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "writer": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },
 },CustomizeDiff: verify.SetTagsDiff,
@@ -174,12 +174,12 @@ instanceID = id.PrefixedUniqueId(v.(string))
 instanceID = id.PrefixedUniqueId("tf-")
 }input := &neptune.CreateDBInstanceInput{
 AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
-DBClusterIdentifier:     aws.String(d.Get("cluster_identifier").(string)),
+DBClusterIdentifier:aws.String(d.Get("cluster_identifier").(string)),
 DBInstanceClass:aws.String(d.Get("instance_class").(string)),
-DBInstanceIdentifier:    aws.String(instanceID),
+DBInstanceIdentifier:aws.String(instanceID),
 Engine:ng(d.Get("engine").(string)),
 PromotionTier:  aws.Int64(int64(d.Get("promotion_tier").(int))),
-PubliclyAccessible:      aws.Bool(d.Get("publicly_accessible").(bool)),
+PubliclyAccessible: aws.Bool(d.Get("publicly_accessible").(bool)),
 Tags:sIn(ctx),
 }if v, ok := d.GetOk("availability_zone"); ok {
 input.AvailabilityZone = aws.String(v.(string))
@@ -241,7 +241,7 @@ return sdkdiag.AppendErrorf(diags, "reading Neptune Cluster (%s) member (%s): %s
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).NeptuneConn(ctx)if d.HasChangesExcept("tags", "tags_all") {
 input := &neptune.ModifyDBInstanceInput{
-ApplyImmediately:     aws.Bool(d.Get("apply_immediately").(bool)),
+ApplyImmediately:aws.Bool(d.Get("apply_immediately").(bool)),
 DBInstanceIdentifier: aws.String(d.Id()),
 }if d.HasChange("auto_minor_version_upgrade") {
 input.AutoMinorVersionUpgrade = aws.Bool(d.Get("auto_minor_version_upgrade").(bool))
@@ -280,7 +280,7 @@ input := &neptune.DescribeDBInstancesInput{
 DBInstanceIdentifier: aws.String(id),
 }output, err := conn.DescribeDBInstancesWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, neptune.ErrCodeDBInstanceNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -328,11 +328,11 @@ Pending: []string{
 "storage-optimization",
 "upgrading",
 },
-Target:     []string{"available"},
-Refresh:    statusClusterInstance(ctx, conn, id),
-Timeout:    timeout,
+Target:[]string{"available"},
+Refresh:statusClusterInstance(ctx, conn, id),
+Timeout:timeout,
 MinTimeout: 10 * time.Second,
-Delay:      30 * time.Second,
+Delay: 30 * time.Second,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)if output, ok := outputRaw.(*neptune.DBInstance); ok {
 return output, err
 }return nil, err
@@ -342,11 +342,11 @@ Pending: []string{
 "modifying",
 "deleting",
 },
-Target:     []string{},
-Refresh:    statusClusterInstance(ctx, conn, id),
-Timeout:    timeout,
+Target:[]string{},
+Refresh:statusClusterInstance(ctx, conn, id),
+Timeout:timeout,
 MinTimeout: 10 * time.Second,
-Delay:      30 * time.Second,
+Delay: 30 * time.Second,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)if output, ok := outputRaw.(*neptune.DBInstance); ok {
 return output, err
 }return nil, err

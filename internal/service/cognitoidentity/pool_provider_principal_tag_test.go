@@ -19,7 +19,7 @@
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
+CheckDestroy:testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolProviderPrincipalTagsConfig_basic(name),
@@ -39,7 +39,7 @@ func(
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
+CheckDestroy:testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolProviderPrincipalTagsConfig_basic(name),
@@ -51,8 +51,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -74,7 +74,7 @@ func(
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
+CheckDestroy:testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolProviderPrincipalTagsConfig_basic(name),
@@ -94,7 +94,7 @@ ExpectNonEmptyPlan: true,
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
+CheckDestroy:testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPoolProviderPrincipalTagsConfig_oidc(name),
@@ -116,7 +116,7 @@ if !ok {
 }if rs.Primary.ID == "" {
 	return errors.New("No Cognito Identity Princpal Tags is set")
 }conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIdentityConn(ctx)_, err := conn.GetPrincipalTagAttributeMapWithContext(ctx, &cognitoidentity.GetPrincipalTagAttributeMapInput{
-	IdentityPoolId:       aws.String(rs.Primary.Attributes["identity_pool_id"]),
+	IdentityPoolId:aws.String(rs.Primary.Attributes["identity_pool_id"]),
 	IdentityProviderName: aws.String(rs.Primary.Attributes["identity_provider_name"]),
 })return err
 	}
@@ -127,7 +127,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIdentityConn(ctx)for _
 	if rs.Type != "aws_cognito_identity_pool_provider_principal_tag" {
 continue
 	}	_, err := conn.GetPrincipalTagAttributeMapWithContext(ctx, &cognitoidentity.GetPrincipalTagAttributeMapInput{
-IdentityPoolId:       aws.String(rs.Primary.Attributes["identity_pool_id"]),
+IdentityPoolId:aws.String(rs.Primary.Attributes["identity_pool_id"]),
 IdentityProviderName: aws.String(rs.Primary.Attributes["identity_provider_name"]),
 	})	if err != nil {
 if tfawserr.ErrCodeEquals(err, cognitoidentity.ErrCodeResourceNotFoundException) {
@@ -140,47 +140,47 @@ return err
 }func testAccPoolProviderPrincipalTagsConfig(name string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
-  name      = %[1]q
+  name = %[1]q
   auto_verified_attributes = ["email"]
 }resource "aws_cognito_user_pool_client" "test" {
   name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
   supported_identity_providers = compact([
-    "COGNITO",
+"COGNITO",
   ])
 }resource "aws_cognito_identity_pool" "test" {
   identity_pool_name= %[1]q
   allow_unauthenticated_identities = false
   cognito_identity_providers {
-    client_id= aws_cognito_user_pool_client.test.id
-    provider_name  = aws_cognito_user_pool.test.endpoint
-    server_side_token_check = false
+client_id= aws_cognito_user_pool_client.test.id
+provider_name  = aws_cognito_user_pool.test.endpoint
+server_side_token_check = false
   }
   supported_login_providers = {
-    "accounts.google.com" = "new-client-id-url.apps.googleusercontent.com"
+"accounts.google.com" = "new-client-id-url.apps.googleusercontent.com"
   }
 }
 `, name)
 }func testAccPoolProviderPrincipalTagsConfig_basic(name string) string {
 	return acctest.ConfigCompose(testAccPoolProviderPrincipalTagsConfig(name), `
 resource "aws_cognito_identity_pool_provider_principal_tag" "test" {
-  identity_pool_id       = aws_cognito_identity_pool.test.id
+  identity_pool_id= aws_cognito_identity_pool.test.id
   identity_provider_name = aws_cognito_user_pool.test.endpoint
   use_defaults  = false
   principal_tags = {
-    test = "value"
+test = "value"
   }
 }
 `)
 }func testAccPoolProviderPrincipalTagsConfig_tagsUpdated(name string) string {
 	return acctest.ConfigCompose(testAccPoolProviderPrincipalTagsConfig(name), `
 resource "aws_cognito_identity_pool_provider_principal_tag" "test" {
-  identity_pool_id       = aws_cognito_identity_pool.test.id
+  identity_pool_id= aws_cognito_identity_pool.test.id
   identity_provider_name = aws_cognito_user_pool.test.endpoint
   use_defaults  = false
   principal_tags = {
-    test = "value"
-    new  = "map"
+test = "value"
+new  = "map"
   }
 }
 `)
@@ -189,21 +189,21 @@ resource "aws_cognito_identity_pool_provider_principal_tag" "test" {
 resource "aws_iam_openid_connect_provider" "idp" {
   url = "https://accounts.example.com"
   client_id_list = [
-    "sts.amazonaws.com"
+"sts.amazonaws.com"
   ]
   thumbprint_list = ["990f4193972f2becf12ddeda5237f9c952f20d9e"]
 }resource "aws_cognito_identity_pool" "pool" {
   identity_pool_name= "%s"
   allow_unauthenticated_identities = false
   allow_classic_flow= false  openid_connect_provider_arns = [
-    aws_iam_openid_connect_provider.idp.arn
+aws_iam_openid_connect_provider.idp.arn
   ]
 }resource "aws_cognito_identity_pool_provider_principal_tag" "test" {
-  identity_pool_id       = aws_cognito_identity_pool.pool.id
+  identity_pool_id= aws_cognito_identity_pool.pool.id
   identity_provider_name = aws_iam_openid_connect_provider.idp.arn
   use_defaults  = false
   principal_tags = {
-    test = "value"
+test = "value"
   }
 }`, name)
 }

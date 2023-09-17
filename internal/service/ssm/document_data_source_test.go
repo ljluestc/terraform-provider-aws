@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ssm_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ssm_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/ssm"
+	"testing"	"github.com/aws/aws-sdk-go/service/ssm"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccSSMDocumentDataSource_basic(t *testing.T) {
+)func TestAccSSMDocumentDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ssm_document.test"
 	resourceName := "aws_ssm_document.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -48,13 +38,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSSMDocumentDataSource_managed(t *testing.T) {
+}func TestAccSSMDocumentDataSource_managed(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_ssm_document.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_ssm_document.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -68,43 +54,35 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccDocumentDataSourceConfig_basic(rName, documentFormat string) string {
+}func testAccDocumentDataSourceConfig_basic(rName, documentFormat string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
   name = %[1]q
-  document_type = "Command"
-
-  content = <<DOC
+  document_type = "Command"  content = <<DOC
 {
   "schemaVersion": "1.2",
   "description": "Check ip configuration of a Linux instance.",
   "parameters": {},
   "runtimeConfig": {
-    "aws:runShellScript": {
-      "properties": [
-        {
+"aws:runShellScript": {
+ "properties": [
+
  "id": "0.aws:runShellScript",
  "runCommand": [
-   "ifconfig"
+"ifconfig"
  ]
-        }
-      ]
-    }
+
+ ]
+}
   }
 }
 DOC
-}
-
-data "aws_ssm_document" "test" {
-  name   = aws_ssm_document.test.name
+}data "aws_ssm_document" "test" {
+  name= aws_ssm_document.test.name
   document_format = %[2]q
 }
 `, rName, documentFormat)
-}
-
-func testAccDocumentDataSourceConfig_managed() string {
+}func testAccDocumentDataSourceConfig_managed() string {
 	return `
 data "aws_ssm_document" "test" {
   name = "AWS-StartEC2Instance"

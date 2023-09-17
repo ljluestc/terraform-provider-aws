@@ -15,7 +15,7 @@
 )// @SDKResource("aws_kinesisanalyticsv2_application_snapshot") ResourceApplicationSnapshot() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceApplicationSnapshotCreate,
-ReadWithoutTimeout:   resourceApplicationSnapshotRead,
+ReadWithoutTimeout:resourceApplicationSnapshotRead,
 DeleteWithoutTimeout: resourceApplicationSnapshotDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Timeouts: &schema.ResourceTimeout{
@@ -23,7 +23,7 @@ Create: schema.DefaultTimeout(10 * time.Minute),
 Delete: schema.DefaultTimeout(10 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "application_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 ValidateFunc: validation.All(
@@ -31,13 +31,13 @@ validation.StringLenBetween(1, 128),
 validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+$`), "must only include alphanumeric, underscore, period, or hyphen characters"),
 ),
 },"application_version_id": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },"snapshot_creation_timestamp": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },"snapshot_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 ValidateFunc: validation.All(
@@ -53,7 +53,7 @@ conn := meta.(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
 applicationName := d.Get("application_name").(string)
 snapshotName := d.Get("snapshot_name").(string)input := &kinesisanalyticsv2.CreateApplicationSnapshotInput{
 ApplicationName: aws.String(applicationName),
-SnapshotName:    aws.String(snapshotName),
+SnapshotName:aws.String(snapshotName),
 }log.Printf("[DEBUG] Creating Kinesis Analytics v2 Application Snapshot: %s", input)_, err := conn.CreateApplicationSnapshotWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating Kinesis Analytics v2 Application Snapshot (%s/%s): %s", applicationName, snapshotName, err)
 }d.SetId(applicationSnapshotCreateID(applicationName, snapshotName))_, err = waitSnapshotCreated(ctx, conn, applicationName, snapshotName, d.Timeout(schema.TimeoutCreate))if err != nil {
@@ -84,7 +84,7 @@ return sdkdiag.AppendErrorf(diags, "parsing snapshot_creation_timestamp: %s", er
 _, err = conn.DeleteApplicationSnapshotWithContext(ctx, &kinesisanalyticsv2.DeleteApplicationSnapshotInput{
 ApplicationName:  aws.String(applicationName),
 SnapshotCreationTimestamp: aws.Time(snapshotCreationTimestamp),
-SnapshotName:     aws.String(snapshotName),
+SnapshotName:aws.String(snapshotName),
 })if tfawserr.ErrCodeEquals(err, kinesisanalyticsv2.ErrCodeResourceNotFoundException) {
 return diags
 }if tfawserr.ErrMessageContains(err, kinesisanalyticsv2.ErrCodeInvalidArgumentException, "does not exist") {

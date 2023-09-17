@@ -21,32 +21,32 @@ ErrCount  int
 }{
 {
 Input: "arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:TargetName", //lintignore:AWSAT003,AWSAT005
-ExpectedGatewayARN: "arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B",   //lintignore:AWSAT003,AWSAT005
+ExpectedGatewayARN: "arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B",//lintignore:AWSAT003,AWSAT005
 ExpectedTargetName: "TargetName",
 ErrCount:  0,
 },
 {
-Input:    "gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:TargetName",
+Input:"gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:TargetName",
 ErrCount: 1,
 },
 {
-Input:    "arn:aws:storagegateway:us-east-2:111122223333:target/iqn.1997-05.com.amazon:TargetName", //lintignore:AWSAT003,AWSAT005
+Input:"arn:aws:storagegateway:us-east-2:111122223333:target/iqn.1997-05.com.amazon:TargetName", //lintignore:AWSAT003,AWSAT005
 ErrCount: 1,
 },
 {
-Input:    "arn:aws:storagegateway:us-east-1:123456789012:gateway/sgw-12345678", //lintignore:AWSAT003,AWSAT005
+Input:"arn:aws:storagegateway:us-east-1:123456789012:gateway/sgw-12345678", //lintignore:AWSAT003,AWSAT005
 ErrCount: 1,
 },
 {
-Input:    "TargetName",
+Input:"TargetName",
 ErrCount: 1,
 },
 {
-Input:    "gateway/sgw-12345678",
+Input:"gateway/sgw-12345678",
 ErrCount: 1,
 },
 {
-Input:    "sgw-12345678",
+Input:"sgw-12345678",
 ErrCount: 1,
 },
 }for _, tc := range testCases {
@@ -69,7 +69,7 @@ ctx := acctest.Context(t)
 var cachedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_cached_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCachediSCSIVolumeDestroy(ctx),
@@ -94,8 +94,8 @@ resource.TestCheckResourceAttr(resourceName, "kms_encrypted", "false"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -106,7 +106,7 @@ var cachedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_cached_iscsi_volume.test"
 keyResourceName := "aws_kms_key.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCachediSCSIVolumeDestroy(ctx),
@@ -120,8 +120,8 @@ resource.TestCheckResourceAttrPair(resourceName, "kms_key", keyResourceName, "ar
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -131,7 +131,7 @@ ctx := acctest.Context(t)
 var cachedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_cached_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCachediSCSIVolumeDestroy(ctx),
@@ -146,8 +146,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -176,7 +176,7 @@ ctx := acctest.Context(t)
 var cachedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_cached_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCachediSCSIVolumeDestroy(ctx),
@@ -200,8 +200,8 @@ resource.TestCheckResourceAttr(resourceName, "volume_size_in_bytes", "5368709120
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -212,7 +212,7 @@ ctx := acctest.Context(t)
 var cachedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_cached_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCachediSCSIVolumeDestroy(ctx),
@@ -235,9 +235,9 @@ resource.TestCheckResourceAttr(resourceName, "volume_size_in_bytes", "1073741824
 ),
 },
 {
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"source_volume_arn"},
 },
 },
@@ -247,7 +247,7 @@ ctx := acctest.Context(t)
 var storedIscsiVolume storagegateway.CachediSCSIVolume
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_storagegateway_cached_iscsi_volume.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, storagegateway.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCachediSCSIVolumeDestroy(ctx),
@@ -306,24 +306,24 @@ resource "aws_ebs_volume" "test" {
   availability_zone = aws_instance.test.availability_zone
   size = 10
   type = "gp2"  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_volume_attachment" "test" {
   device_name  = "/dev/xvdc"
   force_detach = true
   instance_id  = aws_instance.test.id
-  volume_id    = aws_ebs_volume.test.id
+  volume_id= aws_ebs_volume.test.id
 }data "aws_storagegateway_local_disk" "test" {
-  disk_node   = aws_volume_attachment.test.device_name
+  disk_node= aws_volume_attachment.test.device_name
   gateway_arn = aws_storagegateway_gateway.test.arn
 }resource "aws_storagegateway_cache" "test" {
   # ACCEPTANCE TESTING WORKAROUND:
   # Data sources are not refreshed before plan after apply in TestStep
   # Step 0 error: After applying this step, the plan was not empty:
-  #   disk_id:     "0b68f77a-709b-4c79-ad9d-d7728014b291" => "/dev/xvdc" (forces new resource)
+  #disk_id:"0b68f77a-709b-4c79-ad9d-d7728014b291" => "/dev/xvdc" (forces new resource)
   # We expect this data source value to change due to how Storage Gateway works.  lifecycle {
-    ignore_changes = ["disk_id"]
-  }  disk_id     = data.aws_storagegateway_local_disk.test.id
+ignore_changes = ["disk_id"]
+  }  disk_id= data.aws_storagegateway_local_disk.test.id
   gateway_arn = aws_storagegateway_gateway.test.arn
 }
 `, rName))
@@ -342,21 +342,21 @@ resource "aws_storagegateway_cached_iscsi_volume" "test" {
 return testAccCachediSCSIVolumeBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   description = "Terraform acc test %[1]s"
-  policy      = <<POLICY
+  policy= <<POLICY
  {
-   "Version": "2012-10-17",
-   "Id": "kms-tf-1",
-   "Statement": [
-     {
-       "Sid": "Enable IAM User Permissions",
-       "Effect": "Allow",
-       "Principal": {
+"Version": "2012-10-17",
+"Id": "kms-tf-1",
+"Statement": [
+{
+"Sid": "Enable IAM User Permissions",
+"Effect": "Allow",
+"Principal": {
 "AWS": "*"
-       },
-       "Action": "kms:*",
-       "Resource": "*"
-     }
-   ]
+},
+"Action": "kms:*",
+"Resource": "*"
+}
+]
  }
  POLICY
 }resource "aws_storagegateway_cached_iscsi_volume" "test" {
@@ -364,7 +364,7 @@ resource "aws_kms_key" "test" {
   network_interface_id = aws_instance.test.private_ip
   target_name = %[1]q
   volume_size_in_bytes = 5368709120
-  kms_encrypted        = true
+  kms_encrypted
   kms_key = aws_kms_key.test.arn
 }
 `, rName)
@@ -377,7 +377,7 @@ resource "aws_storagegateway_cached_iscsi_volume" "test" {
   network_interface_id = aws_instance.test.private_ip
   target_name = %[1]q
   volume_size_in_bytes = 5368709120  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -390,8 +390,8 @@ resource "aws_storagegateway_cached_iscsi_volume" "test" {
   network_interface_id = aws_instance.test.private_ip
   target_name = %[1]q
   volume_size_in_bytes = 5368709120  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -403,11 +403,11 @@ resource "aws_ebs_volume" "snapvolume" {
   availability_zone = aws_instance.test.availability_zone
   size = 5
   type = "gp2"  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_ebs_snapshot" "test" {
   volume_id = aws_ebs_volume.snapvolume.id  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_storagegateway_cached_iscsi_volume" "test" {
   gateway_arn = aws_storagegateway_cache.test.gateway_arn
@@ -429,7 +429,7 @@ resource "aws_storagegateway_cached_iscsi_volume" "source" {
 }resource "aws_storagegateway_cached_iscsi_volume" "test" {
   gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
-  source_volume_arn    = aws_storagegateway_cached_iscsi_volume.source.arn
+  source_volume_arn= aws_storagegateway_cached_iscsi_volume.source.arn
   target_name = %[1]q
   volume_size_in_bytes = aws_storagegateway_cached_iscsi_volume.source.volume_size_in_bytes
 }

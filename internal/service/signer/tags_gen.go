@@ -55,7 +55,7 @@ func updateTags(ctx context.Context, conn *signer.Client, identifier string, old
 	if len(removedTags) > 0 {
 input := &signer.UntagResourceInput{
 	ResourceArn: aws.String(identifier),
-	TagKeys:     removedTags.Keys(),
+	TagKeys:removedTags.Keys(),
 }_, err := conn.UntagResource(ctx, input)if err != nil {
 	return fmt.Errorf("untagging resource (%s): %w", identifier, err)
 }
@@ -64,7 +64,7 @@ input := &signer.UntagResourceInput{
 	if len(updatedTags) > 0 {
 input := &signer.TagResourceInput{
 	ResourceArn: aws.String(identifier),
-	Tags:        Tags(updatedTags),
+	Tags:
 }_, err := conn.TagResource(ctx, input)if err != nil {
 	return fmt.Errorf("tagging resource (%s): %w", identifier, err)
 }

@@ -14,66 +14,66 @@ func(p*servicePackage)FrameworkResources(ctxcontext.Context)[]*types.ServicePack
 }
 func(p*servicePackage)SDKDataSources(ctxcontext.Context)[]*types.ServicePackageSDKDataSource{
 	return[]*types.ServicePackageSDKDataSource{
-		{
-			Factory:DataSourceIPSet,
-			TypeName:"aws_wafv2_ip_set",
-		},
-		{
-			Factory:DataSourceRegexPatternSet,
-			TypeName:"aws_wafv2_regex_pattern_set",
-		},
-		{
-			Factory:DataSourceRuleGroup,
-			TypeName:"aws_wafv2_rule_group",
-		},
-		{
-			Factory:DataSourceWebACL,
-			TypeName:"aws_wafv2_web_acl",
-		},
+{
+Factory:DataSourceIPSet,
+TypeName:"aws_wafv2_ip_set",
+},
+{
+Factory:DataSourceRegexPatternSet,
+TypeName:"aws_wafv2_regex_pattern_set",
+},
+{
+Factory:DataSourceRuleGroup,
+TypeName:"aws_wafv2_rule_group",
+},
+{
+Factory:DataSourceWebACL,
+TypeName:"aws_wafv2_web_acl",
+},
 	}
 }
 func(p*servicePackage)SDKResources(ctxcontext.Context)[]*types.ServicePackageSDKResource{
 	return[]*types.ServicePackageSDKResource{
-		{
-			Factory:ResourceIPSet,
-			TypeName:"aws_wafv2_ip_set",
-			Name:"IPSet",
-			Tags:&types.ServicePackageResourceTags{
-				IdentifierAttribute:"arn",
-			},
-		},
-		{
-			Factory:ResourceRegexPatternSet,
-			TypeName:"aws_wafv2_regex_pattern_set",
-			Name:"RegexPatternSet",
-			Tags:&types.ServicePackageResourceTags{
-				IdentifierAttribute:"arn",
-			},
-		},
-		{
-			Factory:ResourceRuleGroup,
-			TypeName:"aws_wafv2_rule_group",
-			Name:"RuleGroup",
-			Tags:&types.ServicePackageResourceTags{
-				IdentifierAttribute:"arn",
-			},
-		},
-		{
-			Factory:ResourceWebACL,
-			TypeName:"aws_wafv2_web_acl",
-			Name:"WebACL",
-			Tags:&types.ServicePackageResourceTags{
-				IdentifierAttribute:"arn",
-			},
-		},
-		{
-			Factory:ResourceWebACLAssociation,
-			TypeName:"aws_wafv2_web_acl_association",
-		},
-		{
-			Factory:ResourceWebACLLoggingConfiguration,
-			TypeName:"aws_wafv2_web_acl_logging_configuration",
-		},
+{
+Factory:ResourceIPSet,
+TypeName:"aws_wafv2_ip_set",
+Name:"IPSet",
+Tags:&types.ServicePackageResourceTags{
+IdentifierAttribute:"arn",
+},
+},
+{
+Factory:ResourceRegexPatternSet,
+TypeName:"aws_wafv2_regex_pattern_set",
+Name:"RegexPatternSet",
+Tags:&types.ServicePackageResourceTags{
+IdentifierAttribute:"arn",
+},
+},
+{
+Factory:ResourceRuleGroup,
+TypeName:"aws_wafv2_rule_group",
+Name:"RuleGroup",
+Tags:&types.ServicePackageResourceTags{
+IdentifierAttribute:"arn",
+},
+},
+{
+Factory:ResourceWebACL,
+TypeName:"aws_wafv2_web_acl",
+Name:"WebACL",
+Tags:&types.ServicePackageResourceTags{
+IdentifierAttribute:"arn",
+},
+},
+{
+Factory:ResourceWebACLAssociation,
+TypeName:"aws_wafv2_web_acl_association",
+},
+{
+Factory:ResourceWebACLLoggingConfiguration,
+TypeName:"aws_wafv2_web_acl_logging_configuration",
+},
 	}
 }
 func(p*servicePackage)ServicePackageName()string{

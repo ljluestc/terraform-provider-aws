@@ -11,30 +11,20 @@
 	return []*types.ServicePackageFrameworkResource{}
 }func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceRulesPackages,
-			TypeName: "aws_inspector_rules_packages",
-		},
-	}
+{
+Factory:  DataSourceRulesPackages,
+TypeName: "aws_inspector_rules_packages",	}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
-	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceAssessmentTarget,
-			TypeName: "aws_inspector_assessment_target",
-		},
-		{
-			Factory:  ResourceAssessmentTemplate,
-			TypeName: "aws_inspector_assessment_template",
-			Name:     "Assessment Template",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "id",
-			},
-		},
-		{
-			Factory:  ResourceResourceGroup,
-			TypeName: "aws_inspector_resource_group",
-		},
-	}
+	return []*types.ServicePackageSDKResource{Factory:  ResourceAssessmentTarget,
+TypeName: "aws_inspector_assessment_target",
+Factory:  ResourceAssessmentTemplate,
+TypeName: "aws_inspector_assessment_template",
+Name:"Assessment Template",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "id",
+},
+Factory:  ResourceResourceGroup,
+TypeName: "aws_inspector_resource_group",	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.Inspector
 }// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.

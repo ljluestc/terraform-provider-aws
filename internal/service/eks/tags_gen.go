@@ -65,7 +65,7 @@ updatedTags = updatedTags.IgnoreSystem(names.EKS)
 if len(updatedTags) > 0 {
 input := &eks.TagResourceInput{
 ResourceArn: aws.String(identifier),
-Tags:   Tags(updatedTags),
+Tags:Tags(updatedTags),
 }_, err := conn.TagResourceWithContext(ctx, input)if err != nil {
 return fmt.Errorf("tagging resource (%s): %w", identifier, err)
 }

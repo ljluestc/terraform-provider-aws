@@ -12,23 +12,23 @@
 )// @SDKDataSource("aws_elastic_beanstalk_solution_stack")
 func DataSourceSolutionStack() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceSolutionStackRead,		Schema: map[string]*schema.Schema{
-			"name_regex": {
-				Type:schema.TypeString,
-				Required:     true,
-				ValidateFunc: validation.StringIsValidRegExp,
-			},
-			"most_recent": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  false,
-			},
-			// Computed values.
-			"name": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-		},
+ReadWithoutTimeout: dataSourceSolutionStackRead,Schema: map[string]*schema.Schema{
+"name_regex": {
+Type:schema.TypeString,
+Required:true,
+ValidateFunc: validation.StringIsValidRegExp,
+},
+"most_recent": {
+Type:schema.TypeBool,
+Optional: true,
+Default:  false,
+},
+// Computed values.
+"name": {
+Type:schema.TypeString,
+Computed: true,
+},
+},
 	}
 }// dataSourceSolutionStackRead performs the API lookup.
 func dataSourceSolutionStackRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -36,27 +36,27 @@ func dataSourceSolutionStackRead(ctx context.Context, d *schema.ResourceData, me
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)	nameRegex := d.Get("name_regex")	var params *elasticbeanstalk.ListAvailableSolutionStacksInput	log.Printf("[DEBUG] Reading Elastic Beanstalk Solution Stack: %s", params)
 	resp, err := conn.ListAvailableSolutionStacksWithContext(ctx, params)
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading Elastic Beanstalk Solution Stack: %s", err)
+return sdkdiag.AppendErrorf(diags, "reading Elastic Beanstalk Solution Stack: %s", err)
 	}	var filteredSolutionStacks []*string	r := regexache.MustCompile(nameRegex.(string))
 	for _, solutionStack := range resp.SolutionStacks {
-		if r.MatchString(*solutionStack) {
-			filteredSolutionStacks = append(filteredSolutionStacks, solutionStack)
-		}
+if r.MatchString(*solutionStack) {
+filteredSolutionStacks = append(filteredSolutionStacks, solutionStack)
+}
 	}	var solutionStack *string
 	if len(filteredSolutionStacks) < 1 {
-		return sdkdiag.AppendErrorf(diags, "Your query returned no results. Please change your search criteria and try again.")
+return sdkdiag.AppendErrorf(diags, "Your query returned no results. Please change your search criteria and try again.")
 	}	if len(filteredSolutionStacks) == 1 {
-		// Query returned single result.
-		solutionStack = filteredSolutionStacks[0]
+// Query returned single result.
+solutionStack = filteredSolutionStacks[0]
 	} else {
-		recent := d.Get("most_recent").(bool)
-		log.Printf("[DEBUG] aws_elastic_beanstalk_solution_stack - multiple results found and `most_recent` is set to: %t", recent)
-		if recent {
-			solutionStack = mostRecentSolutionStack(filteredSolutionStacks)
-		} else {
-			return sdkdiag.AppendErrorf(diags, "Your query returned more than one result. Please try a more "+
-				"specific search criteria, or set `most_recent` attribute to true.")
-		}
+recent := d.Get("most_recent").(bool)
+log.Printf("[DEBUG] aws_elastic_beanstalk_solution_stack - multiple results found and `most_recent` is set to: %t", recent)
+if recent {
+solutionStack = mostRecentSolutionStack(filteredSolutionStacks)
+} else {
+return sdkdiag.AppendErrorf(diags, "Your query returned more than one result. Please try a more "+
+"specific search criteria, or set `most_recent` attribute to true.")
+}
 	}	d.SetId(aws.StringValue(solutionStack))
 	d.Set("name", solutionStack)	return diags
 }// Returns the most recent solution stack out of a slice of stacks.

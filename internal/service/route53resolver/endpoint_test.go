@@ -19,7 +19,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEndpointDestroy(ctx),
+CheckDestroy:testAccCheckEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccEndpointConfig_basic(rName),
@@ -50,7 +50,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEndpointDestroy(ctx),
+CheckDestroy:testAccCheckEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccEndpointConfig_basic(rName),
@@ -71,7 +71,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEndpointDestroy(ctx),
+CheckDestroy:testAccCheckEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccEndpointConfig_tags1(rName, "key1", "value1"),
@@ -118,7 +118,7 @@ updatedName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.Paral
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckEndpointDestroy(ctx),
+CheckDestroy:testAccCheckEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccEndpointConfig_outbound(rName, initialName),
@@ -177,20 +177,20 @@ t.Fatalf("unexpected PreCheck error: %s", err)
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block  = "10.0.0.0/16"
-  enable_dns_support   = true
+  enable_dns_support= true
   enable_dns_hostnames = true  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_subnet" "test" {
-  count = 3  vpc_id   = aws_vpc.test.id
+  count = 3  vpc_id= aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_blockubnet(aws_vpc.test.cidr_block, 8, count.index)  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_security_group" "test" {
   count = 2  vpc_id = aws_vpc.test.id
-  name   = "%[1]s-${count.index}"  tags = {
-    Name = %[1]q
+  name= "%[1]s-${count.index}"  tags = {
+Name = %[1]q
   }
 }
 `, rName))
@@ -198,11 +198,11 @@ resource "aws_vpc" "test" {
 return acctest.ConfigCompose(testAccEndpointConfig_base(rName), `
 resource "aws_route53_resolver_endpoint" "test" {
   direction = "INBOUND"  security_group_ids = aws_security_group.test[*].id  ip_address {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }  ip_address {
-    subnet_id = aws_subnet.test[1].id
+subnet_id = aws_subnet.test[1].id
   }  ip_address {
-    subnet_id = aws_subnet.test[2].id
+subnet_id = aws_subnet.test[2].id
   }
 }
 `)
@@ -210,13 +210,13 @@ resource "aws_route53_resolver_endpoint" "test" {
 return acctest.ConfigCompose(testAccEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_endpoint" "test" {
   direction = "INBOUND"  security_group_ids = aws_security_group.test[*].id  ip_address {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }  ip_address {
-    subnet_id = aws_subnet.test[1].id
+subnet_id = aws_subnet.test[1].id
   }  ip_address {
-    subnet_id = aws_subnet.test[2].id
+subnet_id = aws_subnet.test[2].id
   }  tags = {
-    %[1]q = %[2]q
+%[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
@@ -224,14 +224,14 @@ resource "aws_route53_resolver_endpoint" "test" {
 return acctest.ConfigCompose(testAccEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_endpoint" "test" {
   direction = "INBOUND"  security_group_ids = aws_security_group.test[*].id  ip_address {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }  ip_address {
-    subnet_id = aws_subnet.test[1].id
+subnet_id = aws_subnet.test[1].id
   }  ip_address {
-    subnet_id = aws_subnet.test[2].id
+subnet_id = aws_subnet.test[2].id
   }  tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+%[1]q = %[2]q
+%[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -240,10 +240,10 @@ return acctest.ConfigCompose(testAccEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_endpoint" "test" {
   direction = "OUTBOUND"
   name  security_group_ids = aws_security_group.test[*].id  ip_address {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }  ip_address {
-    subnet_id = aws_subnet.test[1].id
-    ipost(aws_subnet.test[1].cidr_block, 8)
+subnet_id = aws_subnet.test[1].id
+ipost(aws_subnet.test[1].cidr_block, 8)
   }
 }
 `, name))
@@ -252,11 +252,11 @@ return acctest.ConfigCompose(testAccEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_endpoint" "test" {
   direction = "OUTBOUND"
   name  security_group_ids = aws_security_group.test[*].id  ip_address {
-    subnet_id = aws_subnet.test[2].id
+subnet_id = aws_subnet.test[2].id
   }  ip_address {
-    subnet_id = aws_subnet.test[1].id
+subnet_id = aws_subnet.test[1].id
   }  ip_address {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }
 }
 `, name))

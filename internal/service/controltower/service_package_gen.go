@@ -11,18 +11,12 @@
 	return []*types.ServicePackageFrameworkResource{}
 }func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceControls,
-			TypeName: "aws_controltower_controls",
-		},
-	}
+{
+Factory:  DataSourceControls,
+TypeName: "aws_controltower_controls",	}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
-	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceControl,
-			TypeName: "aws_controltower_control",
-		},
-	}
+	return []*types.ServicePackageSDKResource{Factory:  ResourceControl,
+TypeName: "aws_controltower_control",	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.ControlTower
 }// NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.

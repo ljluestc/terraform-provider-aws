@@ -31,12 +31,12 @@ return fmt.Sprintf(`
 resource "aws_iam_instance_profile" "test" {
   name = %[1]q
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
-  name   = %[1]q
+  name= %[1]q
   instance_profile_name = aws_iam_instance_profile.test.name
 }data "aws_imagebuilder_infrastructure_configurations" "test" {
   filter {
-    name   = "name"
-    values = [aws_imagebuilder_infrastructure_configuration.test.name]
+name= "name"
+values = [aws_imagebuilder_infrastructure_configuration.test.name]
   }
 }
 `, rName)

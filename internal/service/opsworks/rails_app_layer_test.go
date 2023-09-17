@@ -316,8 +316,8 @@ func testAccRailsAppLayerConfig_allAttributes(rName, appServer, bundlerVersion s
 return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
   name= %[1]q
-  stack_id = aws_opsworks_stack.test.id  custom_security_group_ids = aws_security_group.test[*].id  app_server   = %[2]q
-  bundler_version   = %[3]q
+  stack_id = aws_opsworks_stack.test.id  custom_security_group_ids = aws_security_group.test[*].id  app_server= %[2]q
+  bundler_version= %[3]q
   manage_bundler= %[4]t
   passenger_version = %[5]q
   ruby_version = %[6]q

@@ -332,16 +332,16 @@ Statement = [{
  Sid= ""
  Effect = "Allow"
  Action = [
-   "s3:AbortMultipartUpload",
-   "s3:GetBucketLocation",
-   "s3:GetObject",
-   "s3:ListBucket",
-   "s3:ListBucketMultipartUploads",
-   "s3:PutObject",
+"s3:AbortMultipartUpload",
+"s3:GetBucketLocation",
+"s3:GetObject",
+"s3:ListBucket",
+"s3:ListBucketMultipartUploads",
+"s3:PutObject",
  ]
  Resource = [
-   aws_s3_bucket.test.arn,
-   "${aws_s3_bucket.test.arn}/*",
+aws_s3_bucket.test.arn,
+"${aws_s3_bucket.test.arn}/*",
  ]
 }]
   })

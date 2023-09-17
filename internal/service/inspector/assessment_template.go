@@ -21,53 +21,53 @@ ResNameAssessmentTemplate = "Assessment Template"
 func ResourceAssessmentTemplate() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceAssessmentTemplateCreate,
-ReadWithoutTimeout:   resourceAssessmentTemplateRead,
+ReadWithoutTimeout:resourceAssessmentTemplateRead,
 UpdateWithoutTimeout: resourceAssessmentTemplateUpdate,
 DeleteWithoutTimeout: resourceAssessmentTemplateDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "duration": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Required: true,
 ForceNew: true,
 },
 "event_subscription": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "event": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringInSlice(inspector.Event_Values(), false),
 },
 "topic_arn": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: verify.ValidARN,
 },
 },
 },
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "rules_package_arns": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Required: true,
 ForceNew: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "target_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
@@ -77,10 +77,10 @@ ForceNew: true,
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).InspectorConn(ctx)name := d.Get("name").(string)
 input := &inspector.CreateAssessmentTemplateInput{
-AssessmentTargetArn:    aws.String(d.Get("target_arn").(string)),
+AssessmentTargetArn:aws.String(d.Get("target_arn").(string)),
 AssessmentTemplateName: aws.String(name),
-DurationInSeconds:      aws.Int64(int64(d.Get("duration").(int))),
-RulesPackageArns:       flex.ExpandStringSet(d.Get("rules_package_arns").(*schema.Set)),
+DurationInSeconds:aws.Int64(int64(d.Get("duration").(int))),
+RulesPackageArns:flex.ExpandStringSet(d.Get("rules_package_arns").(*schema.Set)),
 }output, err := conn.CreateAssessmentTemplateWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating Inspector Classic Assessment Template (%s): %s", name, err)
 }d.SetId(aws.StringValue(output.AssessmentTemplateArn))if err := createTags(ctx, conn, d.Id(), getTagsIn(ctx)); err != nil {
@@ -144,9 +144,9 @@ continue
 if tfMap == nil {
 return nil
 }eventSubscription := &inspector.SubscribeToEventInput{
-Event:       aws.String(tfMap["event"].(string)),
+Event:aws.String(tfMap["event"].(string)),
 ResourceArn: templateArn,
-TopicArn:    aws.String(tfMap["topic_arn"].(string)),
+TopicArn:aws.String(tfMap["topic_arn"].(string)),
 }return eventSubscription
 }func flattenSubscriptions(subscriptions []*inspector.Subscription) []interface{} {
 if len(subscriptions) == 0 {
@@ -174,9 +174,9 @@ return create.Error(names.Inspector, create.ErrActionCreating, ResNameAssessment
 }func unsubscribeFromEvents(ctx context.Context, conn *inspector.Inspector, eventSubscriptions []*inspector.SubscribeToEventInput) error {
 for _, eventSubscription := range eventSubscriptions {
 input := &inspector.UnsubscribeFromEventInput{
-Event:       eventSubscription.Event,
+Event:eventSubscription.Event,
 ResourceArn: eventSubscription.ResourceArn,
-TopicArn:    eventSubscription.TopicArn,
+TopicArn:eventSubscription.TopicArn,
 }_, err := conn.UnsubscribeFromEventWithContext(ctx, input)if err != nil {
 return create.Error(names.Inspector, create.ErrActionDeleting, ResNameAssessmentTemplate, *eventSubscription.TopicArn, err)
 }

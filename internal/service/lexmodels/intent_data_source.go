@@ -16,27 +16,27 @@ func DataSourceIntent() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceIntentRead,Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "checksum": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "created_date": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "last_updated_date": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ValidateFunc: validation.All(
 validation.StringLenBetween(1, 100),
@@ -44,11 +44,11 @@ validation.StringMatch(regexache.MustCompile(`^([A-Za-z]_?)+$`), ""),
 ),
 },
 "parent_intent_signature": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  IntentVersionLatest,
 ValidateFunc: validation.All(
@@ -62,15 +62,15 @@ validation.StringMatch(regexache.MustCompile(`\$LATEST|[0-9]+`), ""),
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).LexModelsConn(ctx)intentName := d.Get("name").(string)
 resp, err := conn.GetIntentWithContext(ctx, &lexmodelbuildingservice.GetIntentInput{
-Name:    aws.String(intentName),
+Name:aws.String(intentName),
 Version: aws.String(d.Get("version").(string)),
 })
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "getting intent %s: %s", intentName, err)
 }arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Region:    meta.(*conns.AWSClient).Region,
-Service:   "lex",
+Region:meta.(*conns.AWSClient).Region,
+Service:"lex",
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("intent:%s", d.Get("name").(string)),
 }

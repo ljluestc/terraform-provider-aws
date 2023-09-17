@@ -14,82 +14,78 @@
 )// @SDKResource("aws_config_configuration_recorder_status")
 func ResourceConfigurationRecorderStatus() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceConfigurationRecorderStatusPut,
-		ReadWithoutTimeout:   resourceConfigurationRecorderStatusRead,
-		UpdateWithoutTimeout: resourceConfigurationRecorderStatusPut,
-		DeleteWithoutTimeout: resourceConfigurationRecorderStatusDelete,		Importer: &schema.ResourceImporter{
-			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				d.Set("name", d.Id())
-				return []*schema.ResourceData{d}, nil
-			},
-		},		Schema: map[string]*schema.Schema{
-			"name": {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			"is_enabled": {
-				Type:     schema.TypeBool,
-				Required: true,
-			},
-		},
-	}
+CreateWithoutTimeout: resourceConfigurationRecorderStatusPut,
+adWithoutTimeout:resourceConfigurationRecorderStatusRead,
+dateWithoutTimeout: resourceConfigurationRecorderStatusPut,
+leteWithoutTimeout: resourceConfigurationRecorderStatusDelete,Imrter: &schema.ResourceImporter{
+StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+d.Set("name", d.Id())
+return []*schema.ResourceData{d}, nil
+},
+Scma: map[string]*schema.Schema{
+"name": {
+Type:schema.TypeString,
+Required: true,
+},
+"is_enabled": {
+Type:schema.TypeBool,
+Required: true,
+},	}
 }func resourceConfigurationRecorderStatusPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)	name := d.Get("name").(string)
 	d.SetId(name)	if d.HasChange("is_enabled") {
-		isEnabled := d.Get("is_enabled").(bool)
-		if isEnabled {
-			log.Printf("[DEBUG] Starting AWSConfig Configuration recorder %q", name)
-			startInput := configservice.StartConfigurationRecorderInput{
-				ConfigurationRecorderName: aws.String(name),
-			}
-			_, err := conn.StartConfigurationRecorderWithContext(ctx, &startInput)
-			if err != nil {
-				return sdkdiag.AppendErrorf(diags, "Failed to start Configuration Recorder: %s", err)
-			}
-		} else {
-			log.Printf("[DEBUG] Stopping AWSConfig Configuration recorder %q", name)
-			stopInput := configservice.StopConfigurationRecorderInput{
-				ConfigurationRecorderName: aws.String(name),
-			}
-			_, err := conn.StopConfigurationRecorderWithContext(ctx, &stopInput)
-			if err != nil {
-				return sdkdiag.AppendErrorf(diags, "Failed to stop Configuration Recorder: %s", err)
-			}
-		}
-	}	return append(diags, resourceConfigurationRecorderStatusRead(ctx, d, meta)...)
+Enabled := d.Get("is_enabled").(bool)
+ isEnabled {
+log.Printf("[DEBUG] Starting AWSConfig Configuration recorder %q", name)
+startInput := configservice.StartConfigurationRecorderInput{
+ConfigurationRecorderName: aws.String(name),
+}
+_, err := conn.StartConfigurationRecorderWithContext(ctx, &startInput)
+if err != nil {
+return sdkdiag.AppendErrorf(diags, "Failed to start Configuration Recorder: %s", err)
+}
+else {
+log.Printf("[DEBUG] Stopping AWSConfig Configuration recorder %q", name)
+stopInput := configservice.StopConfigurationRecorderInput{
+ConfigurationRecorderName: aws.String(name),
+}
+_, err := conn.StopConfigurationRecorderWithContext(ctx, &stopInput)
+if err != nil {
+return sdkdiag.AppendErrorf(diags, "Failed to stop Configuration Recorder: %s", err)
+}	}	return append(diags, resourceConfigurationRecorderStatusRead(ctx, d, meta)...)
 }func resourceConfigurationRecorderStatusRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)	name := d.Id()
 	statusInput := configservice.DescribeConfigurationRecorderStatusInput{
-		ConfigurationRecorderNames: []*string{aws.String(name)},
+nfigurationRecorderNames: []*string{aws.String(name)},
 	}
 	statusOut, err := conn.DescribeConfigurationRecorderStatusWithContext(ctx, &statusInput)
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, configservice.ErrCodeNoSuchConfigurationRecorderException) {
-		create.LogNotFoundRemoveState(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id())
-		d.SetId("")
-		return diags
+eate.LogNotFoundRemoveState(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id())
+SetId("")
+turn diags
 	}	if err != nil {
-		return create.DiagError(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id(), err)
+turn create.DiagError(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id(), err)
 	}	numberOfStatuses := len(statusOut.ConfigurationRecordersStatus)
 	if !d.IsNewResource() && numberOfStatuses < 1 {
-		create.LogNotFoundRemoveState(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id())
-		d.SetId("")
-		return diags
+eate.LogNotFoundRemoveState(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id())
+SetId("")
+turn diags
 	}	if d.IsNewResource() && numberOfStatuses < 1 {
-		return create.DiagError(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id(), errors.New("not found after creation"))
+turn create.DiagError(names.ConfigService, create.ErrActionReading, ResNameConfigurationRecorderStatus, d.Id(), errors.New("not found after creation"))
 	}	if numberOfStatuses > 1 {
-		return sdkdiag.AppendErrorf(diags, "Expected exactly 1 Configuration Recorder (status), received %d: %#v",
-			numberOfStatuses, statusOut.ConfigurationRecordersStatus)
+turn sdkdiag.AppendErrorf(diags, "Expected exactly 1 Configuration Recorder (status), received %d: %#v",
+numberOfStatuses, statusOut.ConfigurationRecordersStatus)
 	}	d.Set("is_enabled", statusOut.ConfigurationRecordersStatus[0].Recording)	return diags
 }func resourceConfigurationRecorderStatusDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)
 	input := configservice.StopConfigurationRecorderInput{
-		ConfigurationRecorderName: aws.String(d.Get("name").(string)),
+nfigurationRecorderName: aws.String(d.Get("name").(string)),
 	}
 	_, err := conn.StopConfigurationRecorderWithContext(ctx, &input)
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "Stopping Configuration Recorder failed: %s", err)
+turn sdkdiag.AppendErrorf(diags, "Stopping Configuration Recorder failed: %s", err)
 	}	return diags
 }

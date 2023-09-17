@@ -6,7 +6,7 @@ propagationTimeout = 2 * time.Minute
 )const (
 GlobalClusterStatusAvailable = "available"
 GlobalClusterStatusCreating  = "creating"
-GlobalClusterStatusDeleted   = "deleted"
+GlobalClusterStatusDeleted= "deleted"
 GlobalClusterStatusDeleting  = "deleting"
 GlobalClusterStatusModifying = "modifying"
 GlobalClusterStatusUpgrading = "upgrading"

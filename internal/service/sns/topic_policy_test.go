@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package sns_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package sns_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/service/sns"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,19 +11,15 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfsns "github.com/hashicorp/terraform-provider-aws/internal/service/sns"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccSNSTopicPolicy_basic(t *testing.T) {
+)func TestAccSNSTopicPolicy_basic(t *testing.T) {
 ctx := acctest.Context(t)
 var attributes map[string]string
 resourceName := "aws_sns_topic_policy.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicPolicyDestroy(ctx),
+CheckDestroy:testAccCheckTopicPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTopicPolicyConfig_basic(rName),
@@ -41,25 +31,21 @@ resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile(fmt
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccSNSTopicPolicy_updated(t *testing.T) {
+}func TestAccSNSTopicPolicy_updated(t *testing.T) {
 ctx := acctest.Context(t)
 var attributes map[string]string
 resourceName := "aws_sns_topic_policy.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicPolicyDestroy(ctx),
+CheckDestroy:testAccCheckTopicPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTopicPolicyConfig_basic(rName),
@@ -69,8 +55,8 @@ resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile(fmt
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -83,19 +69,15 @@ resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile("SN
 },
 },
 })
-}
-
-func TestAccSNSTopicPolicy_Disappears_topic(t *testing.T) {
+}func TestAccSNSTopicPolicy_Disappears_topic(t *testing.T) {
 ctx := acctest.Context(t)
 var attributes map[string]string
 topicResourceName := "aws_sns_topic.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicPolicyDestroy(ctx),
+CheckDestroy:testAccCheckTopicPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTopicPolicyConfig_basic(rName),
@@ -107,19 +89,15 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccSNSTopicPolicy_disappears(t *testing.T) {
+}func TestAccSNSTopicPolicy_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 var attributes map[string]string
 resourceName := "aws_sns_topic_policy.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicPolicyDestroy(ctx),
+CheckDestroy:testAccCheckTopicPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTopicPolicyConfig_basic(rName),
@@ -131,19 +109,15 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccSNSTopicPolicy_ignoreEquivalent(t *testing.T) {
+}func TestAccSNSTopicPolicy_ignoreEquivalent(t *testing.T) {
 ctx := acctest.Context(t)
 var attributes map[string]string
 resourceName := "aws_sns_topic_policy.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicPolicyDestroy(ctx),
+CheckDestroy:testAccCheckTopicPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTopicPolicyConfig_equivalent(rName),
@@ -155,165 +129,135 @@ acctest.CheckResourceAttrAccountID(resourceName, "owner"),
 ),
 },
 {
-Config:   testAccTopicPolicyConfig_equivalent2(rName),
+Config:testAccTopicPolicyConfig_equivalent2(rName),
 PlanOnly: true,
 },
 },
 })
-}
-
-func testAccCheckTopicPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckTopicPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).SNSConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).SNSConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_sns_topic_policy" {
 continue
-}
-
-_, err := tfsns.GetTopicAttributesByARN(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+}_, err := tfsns.GetTopicAttributesByARN(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("SNS Topic Policy %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("SNS Topic Policy %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccTopicPolicyConfig_basic(rName string) string {
+}func testAccTopicPolicyConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sns_topic_policy" "test" {
-  arn    = aws_sns_topic.test.arn
+}resource "aws_sns_topic_policy" "test" {
+  arn= aws_sns_topic.test.arn
   policy = <<POLICY
 {
   "Version":"2012-10-17",
   "Id":"default",
   "Statement":[
-    {
-      "Sid":"%[1]s",
-      "Effect":"Allow",
-      "Principal":{
-        "AWS":"*"
-      },
-      "Action":[
-        "SNS:GetTopicAttributes",
-        "SNS:SetTopicAttributes",
-        "SNS:AddPermission",
-        "SNS:RemovePermission"
-      ],
-      "Resource":"${aws_sns_topic.test.arn}"
-    }
+{
+ "Sid":"%[1]s",
+ "Effect":"Allow",
+ "Principal":{
+
+ },
+ "Action":[
+,
+,
+
+
+ ],
+ "Resource":"${aws_sns_topic.test.arn}"
+}
   ]
 }
 POLICY
 }
 `, rName)
-}
-
-func testAccTopicPolicyConfig_updated(rName string) string {
+}func testAccTopicPolicyConfig_updated(rName string) string {
 return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sns_topic_policy" "test" {
-  arn    = aws_sns_topic.test.arn
+}resource "aws_sns_topic_policy" "test" {
+  arn= aws_sns_topic.test.arn
   policy = <<POLICY
 {
   "Version":"2012-10-17",
   "Id":"default",
   "Statement":[
-    {
-      "Sid":"%[1]s",
-      "Effect":"Allow",
-      "Principal":{
-        "AWS":"*"
-      },
-      "Action":[
-        "SNS:GetTopicAttributes",
-        "SNS:SetTopicAttributes",
-        "SNS:AddPermission",
-        "SNS:RemovePermission",
-        "SNS:DeleteTopic"
-      ],
-      "Resource":"${aws_sns_topic.test.arn}"
-    }
+{
+ "Sid":"%[1]s",
+ "Effect":"Allow",
+ "Principal":{
+
+ },
+ "Action":[
+,
+,
+
+
+
+ ],
+ "Resource":"${aws_sns_topic.test.arn}"
+}
   ]
 }
 POLICY
 }
 `, rName)
-}
-
-func testAccTopicPolicyConfig_equivalent(rName string) string {
+}func testAccTopicPolicyConfig_equivalent(rName string) string {
 return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sns_topic_policy" "test" {
+}resource "aws_sns_topic_policy" "test" {
   arn = aws_sns_topic.test.arn
   policy = jsonencode({
-    Version = "2012-10-17"
-    Id      = "default"
-    Statement = [{
-      Sid    = %[1]q
-      Effect = "Allow"
-      Principal = {
-        AWS = "*"
-      }
-      Action = [
-        "SNS:GetTopicAttributes",
-        "SNS:SetTopicAttributes",
-        "SNS:AddPermission",
-        "SNS:RemovePermission",
-        "SNS:DeleteTopic",
-      ]
-      Resource = aws_sns_topic.test.arn
-    }]
+Version = "2012-10-17"
+Id = "default"
+Statement = [{
+ Sid= %[1]q
+ Effect = "Allow"
+ Principal = {
+
+ }
+ Action = [
+,
+,
+
+
+
+ ]
+ Resource = aws_sns_topic.test.arn
+}]
   })
 }
 `, rName)
-}
-
-func testAccTopicPolicyConfig_equivalent2(rName string) string {
+}func testAccTopicPolicyConfig_equivalent2(rName string) string {
 return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sns_topic_policy" "test" {
+}resource "aws_sns_topic_policy" "test" {
   arn = aws_sns_topic.test.arn
   policy = jsonencode({
-    Version = "2012-10-17"
-    Id      = "default"
-    Statement = [{
-      Sid    = %[1]q
-      Effect = "Allow"
-      Principal = {
-        AWS = ["*"]
-      }
-      Action = [
-        "SNS:SetTopicAttributes",
-        "SNS:RemovePermission",
-        "SNS:DeleteTopic",
-        "SNS:AddPermission",
-        "SNS:GetTopicAttributes",
-      ]
-      Resource = [aws_sns_topic.test.arn]
-    }]
+Version = "2012-10-17"
+Id = "default"
+Statement = [{
+ Sid= %[1]q
+ Effect = "Allow"
+ Principal = {
+
+ }
+ Action = [
+,
+
+
+
+,
+ ]
+ Resource = [aws_sns_topic.test.arn]
+}]
   })
 }
 `, rName)

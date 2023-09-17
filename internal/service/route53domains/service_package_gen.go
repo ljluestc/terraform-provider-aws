@@ -10,14 +10,14 @@
 	return []*types.ServicePackageSDKDataSource{}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceRegisteredDomain,
-			TypeName: "aws_route53domains_registered_domain",
-			Name:     "Registered Domain",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "id",
-			},
-		},
+{
+Factory:  ResourceRegisteredDomain,
+TypeName: "aws_route53domains_registered_domain",
+Name:"Registered Domain",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "id",
+},
+},
 	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.Route53Domains

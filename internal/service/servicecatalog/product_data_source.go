@@ -15,62 +15,62 @@ ReadWithoutTimeout: dataSourceProductRead,Timeouts: &schema.ResourceTimeout{
 Read: schema.DefaultTimeout(ProductReadTimeout),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "accept_language": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      "en",
+Optional:
+Default:,
 ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
 },
 "created_time": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "distributor": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "has_default_path": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Computed: true,
 },
 "id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Required: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "owner": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "status": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "support_description": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "support_email": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "support_url": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "tags": tftags.TagsSchemaComputed(),
 "type": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 },

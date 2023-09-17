@@ -18,25 +18,25 @@ func testAccLoadBalancerStickinessPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
 	cookieDuration := "150"
 	enabled := "true"	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:oadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "cookie_duration", cookieDuration),
-					resource.TestCheckResourceAttr(resourceName, "enabled", enabled),
-					resource.TestCheckResourceAttr(resourceName, "lb_name", rName),
-				),
-			},
-		},
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
+testAccPreCheck(ctx, t)
+},
+ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:oadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "cookie_duration", cookieDuration),
+resource.TestCheckResourceAttr(resourceName, "enabled", enabled),
+resource.TestCheckResourceAttr(resourceName, "lb_name", rName),
+),
+},
+},
 	})
 }
 func testAccLoadBalancerStickinessPolicy_cookieDuration(t *testing.T) {
@@ -46,35 +46,35 @@ func testAccLoadBalancerStickinessPolicy_cookieDuration(t *testing.T) {
 	cookieDuration1 := "200"
 	cookieDuration2 := "500"
 	enabled := "true"	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:oadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "cookie_duration", cookieDuration1),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "cookie_duration", cookieDuration2),
-				),
-			},
-		},
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
+testAccPreCheck(ctx, t)
+},
+ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:oadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration1),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "cookie_duration", cookieDuration1),
+),
+},
+{
+ResourceName: resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+{
+Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration2),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "cookie_duration", cookieDuration2),
+),
+},
+},
 	})
 }
 func testAccLoadBalancerStickinessPolicy_enabled(t *testing.T) {
@@ -84,35 +84,35 @@ func testAccLoadBalancerStickinessPolicy_enabled(t *testing.T) {
 	cookieDuration := "200"
 	enabledTrue := "true"
 	enabledFalse := "false"	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:oadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabledTrue, cookieDuration),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "enabled", enabledTrue),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabledFalse, cookieDuration),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "enabled", enabledFalse),
-				),
-			},
-		},
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
+testAccPreCheck(ctx, t)
+},
+ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:oadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabledTrue, cookieDuration),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "enabled", enabledTrue),
+),
+},
+{
+ResourceName: resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+{
+Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabledFalse, cookieDuration),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "enabled", enabledFalse),
+),
+},
+},
 	})
 }
 func testAccLoadBalancerStickinessPolicy_disappears(t *testing.T) {
@@ -121,38 +121,38 @@ func testAccLoadBalancerStickinessPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
 	cookieDuration := "200"
 	enabled := "true"	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:oadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tflightsail.ResourceLoadBalancerStickinessPolicy(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
+testAccPreCheck(ctx, t)
+},
+ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:oadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccLoadBalancerStickinessPolicyConfig_basic(rName, enabled, cookieDuration),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckLoadBalancerStickinessPolicyExists(ctx, resourceName),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tflightsail.ResourceLoadBalancerStickinessPolicy(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+},
+},
 	})
 }
 func testAccCheckLoadBalancerStickinessPolicyExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}		if rs.Primary.ID == "" {
-			return errors.New("No LightsailLoadBalancerStickinessPolicy ID is set")
-		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)		out, err := tflightsail.FindLoadBalancerStickinessPolicyById(ctx, conn, rs.Primary.ID)		if err != nil {
-			return err
-		}		if out == nil {
-			return fmt.Errorf("Load Balancer Stickiness Policy %q does not exist", rs.Primary.ID)
-		}		return nil
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+return fmt.Errorf("Not found: %s", n)
+}if rs.Primary.ID == "" {
+return errors.New("No LightsailLoadBalancerStickinessPolicy ID is set")
+}conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)out, err := tflightsail.FindLoadBalancerStickinessPolicyById(ctx, conn, rs.Primary.ID)if err != nil {
+return err
+}if out == nil {
+return fmt.Errorf("Load Balancer Stickiness Policy %q does not exist", rs.Primary.ID)
+}return nil
 	}
 }
 func testAccLoadBalancerStickinessPolicyConfig_basic(rName string, enabled string, cookieDuration string) string {
@@ -160,7 +160,7 @@ func testAccLoadBalancerStickinessPolicyConfig_basic(rName string, enabled strin
 resource "aws_lightsail_lb" "test" {
   name
   health_check_path = "/"
-  instance_port     = "80"
+  instance_port= "80"
 }
 resource "aws_lightsail_lb_stickiness_policy" "test" {
   enabled= %[2]s

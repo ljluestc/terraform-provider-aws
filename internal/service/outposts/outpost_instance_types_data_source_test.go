@@ -8,10 +8,10 @@
 )func TestAccOutpostsOutpostInstanceTypesDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 dataSourceName := "data.aws_outposts_outpost_instance_types.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:k(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 {
 Config: testAccOutpostInstanceTypesDataSourceConfig_basic(),

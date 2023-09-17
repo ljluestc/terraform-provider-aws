@@ -16,16 +16,16 @@ return &schema.Resource{
 ReadWithoutTimeout: DataSourceOutpostAssetsRead,Schema: map[string]*schema.Schema{
 "arn": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: verify.ValidARN,
 },
 "asset_ids": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "host_id_filter": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
 Type: schema.TypeString,
@@ -36,7 +36,7 @@ validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z-]*$`), "must match [0-
 },
 },
 "status_id_filter": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 MaxItems: 2,
 Elem: &schema.Schema{

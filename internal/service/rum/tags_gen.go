@@ -39,7 +39,7 @@ removedTags = removedTags.IgnoreSystem(names.RUM)
 if len(removedTags) > 0 {
 input := &cloudwatchrum.UntagResourceInput{
 ResourceArn: aws.String(identifier),
-TagKeys:     aws.StringSlice(removedTags.Keys()),
+TagKeys:aws.StringSlice(removedTags.Keys()),
 }_, err := conn.UntagResourceWithContext(ctx, input)if err != nil {
 return fmt.Errorf("untagging resource (%s): %w", identifier, err)
 }
@@ -48,7 +48,7 @@ updatedTags = updatedTags.IgnoreSystem(names.RUM)
 if len(updatedTags) > 0 {
 input := &cloudwatchrum.TagResourceInput{
 ResourceArn: aws.String(identifier),
-Tags:        Tags(updatedTags),
+Tags:
 }_, err := conn.TagResourceWithContext(ctx, input)if err != nil {
 return fmt.Errorf("tagging resource (%s): %w", identifier, err)
 }

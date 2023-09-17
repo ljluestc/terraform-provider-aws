@@ -16,71 +16,71 @@ func DataSourceDataLakeSettings() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceDataLakeSettingsRead,Schema: map[string]*schema.Schema{
 "admins": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:ma.Schema{Type: schema.TypeString},
 },
 "read_only_admins": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:ma.Schema{Type: schema.TypeString},
 },
 "allow_external_data_filtering": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Computed: true,
 },
 "authorized_session_tag_value_list": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:ma.Schema{Type: schema.TypeString},
 },
 "catalog_id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Optional: true,
 },
 "create_database_default_permissions": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "permissions": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:ma.Schema{Type: schema.TypeString},
 },
 "principal": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 },
 },
 },
 "create_table_default_permissions": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "permissions": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:ma.Schema{Type: schema.TypeString},
 },
 "principal": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 },
 },
 },
 "external_data_filtering_allow_list": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:ma.Schema{Type: schema.TypeString},
 },
 "trusted_resource_owners": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:ma.Schema{Type: schema.TypeString},
 },
 },
 }

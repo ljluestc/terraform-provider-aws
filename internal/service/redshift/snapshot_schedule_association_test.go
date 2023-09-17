@@ -31,7 +31,7 @@ resource.TestCheckResourceAttrPair(resourceName, "schedule_identifier", snapshot
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },

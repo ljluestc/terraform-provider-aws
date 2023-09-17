@@ -21,7 +21,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceCustomDataIdentifier() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceCustomDataIdentifierCreate,
-ReadWithoutTimeout:   resourceCustomDataIdentifierRead,
+ReadWithoutTimeout:resourceCustomDataIdentifierRead,
 DeleteWithoutTimeout: resourceCustomDataIdentifierDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -29,12 +29,12 @@ StateContext: schema.ImportStatePassthroughContext,
 Schema: map[string]*schema.Schema{
 "regex": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(0, 512),
 },
 "keywords": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 ForceNew: true,
 MinItems: 1,
@@ -45,7 +45,7 @@ ValidateFunc: validation.StringLenBetween(3, 90),
 },
 },
 "ignore_words": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 ForceNew: true,
 MinItems: 1,
@@ -57,41 +57,41 @@ ValidateFunc: validation.StringLenBetween(4, 90),
 },
 "name": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ConflictsWith: []string{"name_prefix"},
 ValidateFunc:  validation.StringLenBetween(0, 128),
 },
 "name_prefix": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ConflictsWith: []string{"name"},
 ValidateFunc:  validation.StringLenBetween(0, 128-id.UniqueIDSuffixLength),
 },
 "description": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(0, 512),
 },
 "maximum_match_distance": {
 Type:schema.TypeInt,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ValidateFunc: validation.IntBetween(1, 300),
 },
-names.AttrTags:    tftags.TagsSchemaForceNew(),
+names.AttrTags:tftags.TagsSchemaForceNew(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "created_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
@@ -99,7 +99,7 @@ Computed: true,
 }func resourceCustomDataIdentifierCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).Macie2Conn(ctx)input := &macie2.CreateCustomDataIdentifierInput{
 ClientToken: aws.String(id.UniqueId()),
-Tags:        getTagsIn(ctx),
+Tags:
 }if v, ok := d.GetOk("regex"); ok {
 input.Regex = aws.String(v.(string))
 }

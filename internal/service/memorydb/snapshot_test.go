@@ -46,7 +46,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.Test", "test"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -126,7 +126,7 @@ resource.TestCheckTypeSetElemAttrPair(resourceName, "kms_key_arn", "aws_kms_key.
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -150,7 +150,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.%", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -167,7 +167,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.Key2", "value2"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -182,7 +182,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.Key1", "value1"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -195,7 +195,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.%", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -235,9 +235,9 @@ resource "aws_memorydb_subnet_group" "test" {
   acl_name  = "open-access"
   name  = %[1]q
   node_type = "db.t4g.small"
-  num_replicas_per_shard   = 0
+  num_replicas_per_shard= 0
   num_shards= 1
-  security_group_ids   = [aws_security_group.test.id]
+  security_group_ids= [aws_security_group.test.id]
   snapshot_retention_limit = 0
   subnet_group_name= aws_memorydb_subnet_group.test.id
 }

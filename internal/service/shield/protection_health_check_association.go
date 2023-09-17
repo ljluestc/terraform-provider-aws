@@ -13,18 +13,18 @@
 func ResourceProtectionHealthCheckAssociation() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: ResourceProtectionHealthCheckAssociationCreate,
-ReadWithoutTimeout:   ResourceProtectionHealthCheckAssociationRead,
+ReadWithoutTimeout:ResourceProtectionHealthCheckAssociationRead,
 DeleteWithoutTimeout: ResourceProtectionHealthCheckAssociationDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "shield_protection_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "health_check_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
@@ -35,7 +35,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ShieldConn(ctx)protectionId := d.Get("shield_protection_id").(string)
 healthCheckArn := d.Get("health_check_arn").(string)
 id := ProtectionHealthCheckAssociationCreateResourceID(protectionId, healthCheckArn)input := &shield.AssociateHealthCheckInput{
-ProtectionId:   aws.String(protectionId),
+ProtectionId:aws.String(protectionId),
 HealthCheckArn: aws.String(healthCheckArn),
 }_, err := conn.AssociateHealthCheckWithContext(ctx, input)
 if err != nil {
@@ -66,7 +66,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ShieldConn(ctx)protectionId, healthCheckId, err := ProtectionHealthCheckAssociationParseResourceID(d.Id())if err != nil {
 return sdkdiag.AppendErrorf(diags, "parsing Shield Protection and Route53 Health Check Association ID: %s", err)
 }input := &shield.DisassociateHealthCheckInput{
-ProtectionId:   aws.String(protectionId),
+ProtectionId:aws.String(protectionId),
 HealthCheckArn: aws.String(healthCheckId),
 }_, err = conn.DisassociateHealthCheckWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "disassociating Route53 Health Check (%s) from Shield Protected resource (%s): %s", d.Get("health_check_arn"), d.Get("shield_protection_id"), err)

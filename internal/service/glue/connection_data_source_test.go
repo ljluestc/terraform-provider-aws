@@ -11,8 +11,8 @@ ctx := acctest.Context(t)
 resourceName := "aws_glue_connection.test"
 datasourceName := "data.aws_glue_connection.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)jdbcConnectionUrl := fmt.Sprintf("jdbc:mysql://%s/testdatabase", acctest.RandomDomainName())resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -43,9 +43,9 @@ return fmt.Errorf("root module has no resource called %s", name)
 return fmt.Sprintf(`
 resource "aws_glue_connection" "test" {
   name = %[1]q  connection_properties = {
-    JDBC_CONNECTION_URL = %[2]q
-    PASSWORD   = "testpassword"
-    USERNAME   = "testusername"
+JDBC_CONNECTION_URL = %[2]q
+PASSWORD= "testpassword"
+USERNAME= "testusername"
   }}data "aws_glue_connection" "test" {
   id = aws_glue_connection.test.id
 }

@@ -19,7 +19,7 @@ ctx := acctest.Context(t)
 var v neptune.GlobalCluster
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_global_cluster.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckGlobalClusterDestroy(ctx),
@@ -38,8 +38,8 @@ resource.TestCheckResourceAttr(resourceName, "storage_encrypted", "false"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -49,7 +49,7 @@ ctx := acctest.Context(t)
 var v neptune.GlobalCluster
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_global_cluster.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckGlobalClusterDestroy(ctx),
@@ -68,8 +68,8 @@ resource.TestCheckResourceAttr(resourceName, "storage_encrypted", "false"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -79,7 +79,7 @@ ctx := acctest.Context(t)
 var v neptune.GlobalCluster
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_global_cluster.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckGlobalClusterDestroy(ctx),
@@ -99,7 +99,7 @@ ctx := acctest.Context(t)
 var globalCluster1, globalCluster2 neptune.GlobalCluster
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_global_cluster.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckGlobalClusterDestroy(ctx),
@@ -112,8 +112,8 @@ resource.TestCheckResourceAttr(resourceName, "deletion_protection", "true"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -131,7 +131,7 @@ ctx := acctest.Context(t)
 var v neptune.GlobalCluster
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_global_cluster.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckGlobalClusterDestroy(ctx),
@@ -144,8 +144,8 @@ resource.TestCheckResourceAttr(resourceName, "engine", "neptune"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -157,7 +157,7 @@ rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rName3 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_global_cluster.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckGlobalClusterDestroy(ctx),
@@ -170,8 +170,8 @@ resource.TestCheckResourceAttr(resourceName, "engine_version", "1.2.0.0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -189,7 +189,7 @@ var v neptune.GlobalCluster
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 clusterResourceName := "aws_neptune_cluster.test"
 resourceName := "aws_neptune_global_cluster.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckGlobalClusterDestroy(ctx),
@@ -202,9 +202,9 @@ resource.TestCheckResourceAttrPair(resourceName, "source_db_cluster_identifier",
 ),
 },
 {
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"source_db_cluster_identifier"},
 },
 },
@@ -215,7 +215,7 @@ var v neptune.GlobalCluster
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 clusterResourceName := "aws_neptune_cluster.test"
 resourceName := "aws_neptune_global_cluster.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckGlobalClusterDestroy(ctx),
@@ -228,9 +228,9 @@ resource.TestCheckResourceAttrPair(resourceName, "source_db_cluster_identifier",
 ),
 },
 {
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"source_db_cluster_identifier"},
 },
 },
@@ -240,7 +240,7 @@ ctx := acctest.Context(t)
 var globalCluster1, globalCluster2 neptune.GlobalCluster
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_global_cluster.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheckGlobalCluster(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckGlobalClusterDestroy(ctx),
@@ -253,8 +253,8 @@ resource.TestCheckResourceAttr(resourceName, "storage_encrypted", "true"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -312,50 +312,50 @@ t.Fatalf("unexpected PreCheck error: %s", err)
 }func testAccGlobalClusterConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_global_cluster" "test" {
-  engine       = "neptune"
-  engine_version   = "1.2.0.0"
+  engine= "neptune"
+  engine_version= "1.2.0.0"
   global_cluster_identifier = %[1]q
 }
 `, rName)
 }func testAccGlobalClusterConfig_deletionProtection(rName string, deletionProtection bool) string {
 return fmt.Sprintf(`
 resource "aws_neptune_global_cluster" "test" {
-  engine       = "neptune"
-  deletion_protection       = %[1]t
-  engine_version   = "1.2.0.0"
+  engine= "neptune"
+  deletion_protection= %[1]t
+  engine_version= "1.2.0.0"
   global_cluster_identifier = %[2]q
 }
 `, deletionProtection, rName)
 }func testAccGlobalClusterConfig_engine(rName, engine string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_global_cluster" "test" {
-  engine       = %[1]q
-  engine_version   = "1.2.0.0"
+  engine= %[1]q
+  engine_version= "1.2.0.0"
   global_cluster_identifier = %[2]q
 }
 `, engine, rName)
 }func testAccGlobalClusterConfig_engineVersion(rName1, rName2, rName3, engineVersion string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_global_cluster" "test" {
-  engine       = "neptune"
-  engine_version   = %[4]q
+  engine= "neptune"
+  engine_version= %[4]q
   global_cluster_identifier = %[1]q
 }resource "aws_neptune_cluster" "test" {
-  cluster_identifier      = %[2]q
-  skip_final_snapshot     = true
-  global_cluster_identifier   = aws_neptune_global_cluster.test.id
-  engine     = aws_neptune_global_cluster.test.engine
+  cluster_identifier = %[2]q
+  skip_final_snapshot= true
+  global_cluster_identifier= aws_neptune_global_cluster.test.id
+  engine= aws_neptune_global_cluster.test.engine
   engine_version = aws_neptune_global_cluster.test.engine_version
   neptune_cluster_parameter_group_name = "default.neptune1.2"
-  apply_immediately       = true
+  apply_immediately= true
 }data "aws_neptune_orderable_db_instance" "test" {
   engine= "neptune"
   engine_version = aws_neptune_cluster.test.engine_version
   license_model  = "amazon-license"  preferred_instance_classes = ["db.r5.large", "db.r5.xlarge"]
 }resource "aws_neptune_cluster_instance" "test" {
-  identifier      = %[3]q
+  identifier = %[3]q
   cluster_identifier  = aws_neptune_cluster.test.id
-  apply_immediately   = true
+  apply_immediately= true
   instance_class  = data.aws_neptune_orderable_db_instance.test.instance_class
   neptune_parameter_group_name = aws_neptune_cluster.test.neptune_cluster_parameter_group_name
   promotion_tier  = "3"
@@ -364,47 +364,47 @@ resource "aws_neptune_global_cluster" "test" {
 }func testAccGlobalClusterConfig_completeBasic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_global_cluster" "test" {
-  engine       = "neptune"
-  engine_version   = "1.2.0.0"
+  engine= "neptune"
+  engine_version= "1.2.0.0"
   global_cluster_identifier = %[1]q
 }resource "aws_neptune_cluster" "test" {
-  cluster_identifier      = %[1]q
-  engine     = "neptune"
+  cluster_identifier = %[1]q
+  engine= "neptune"
   engine_version = "1.2.0.0"
-  skip_final_snapshot     = true
+  skip_final_snapshot= true
   neptune_cluster_parameter_group_name = "default.neptune1.2"
-  global_cluster_identifier   = aws_neptune_global_cluster.test.id
+  global_cluster_identifier= aws_neptune_global_cluster.test.id
 }
 `, rName)
 }func testAccGlobalClusterConfig_sourceDBIdentifier(rName string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
-  cluster_identifier      = %[1]q
-  engine     = "neptune"
+  cluster_identifier = %[1]q
+  engine= "neptune"
   engine_version = "1.2.0.0"
-  skip_final_snapshot     = true
+  skip_final_snapshot= true
   neptune_cluster_parameter_group_name = "default.neptune1.2"  # global_cluster_identifier cannot be Computed  lifecycle {
-    ignore_changes = [global_cluster_identifier]
+ignore_changes = [global_cluster_identifier]
   }
 }resource "aws_neptune_global_cluster" "test" {
-  global_cluster_identifier    = %[1]q
+  global_cluster_identifier= %[1]q
   source_db_cluster_identifier = aws_neptune_cluster.test.arn
 }
 `, rName)
 }func testAccGlobalClusterConfig_sourceDBIdentifierStorageEncrypted(rName string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
-  cluster_identifier      = %[1]q
-  engine     = "neptune"
+  cluster_identifier = %[1]q
+  engine= "neptune"
   engine_version = "1.2.0.0"
-  skip_final_snapshot     = true
-  storage_encrypted       = true
+  skip_final_snapshot= true
+  storage_encrypted= true
   neptune_cluster_parameter_group_name = "default.neptune1.2"
   # global_cluster_identifier cannot be Computed  lifecycle {
-    ignore_changes = [global_cluster_identifier]
+ignore_changes = [global_cluster_identifier]
   }
 }resource "aws_neptune_global_cluster" "test" {
-  global_cluster_identifier    = %[1]q
+  global_cluster_identifier= %[1]q
   source_db_cluster_identifier = aws_neptune_cluster.test.arn
 }
 `, rName)
@@ -412,8 +412,8 @@ resource "aws_neptune_cluster" "test" {
 return fmt.Sprintf(`
 resource "aws_neptune_global_cluster" "test" {
   global_cluster_identifier = %[1]q
-  engine       = "neptune"
-  engine_version   = "1.2.0.0"
+  engine= "neptune"
+  engine_version= "1.2.0.0"
   storage_encrypted= %[2]t
 }
 `, rName, storageEncrypted)

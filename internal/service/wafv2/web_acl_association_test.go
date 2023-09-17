@@ -17,88 +17,88 @@ funcTestAccWAFV2WebACLAssociation_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName:="aws_wafv2_web_acl_association.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){
-			acctest.PreCheck(ctx,t)
-			acctest.PreCheckAPIGatewayTypeEDGE(t)
-			testAccPreCheckScopeRegional(ctx,t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t,wafv2.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckWebACLAssociationDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccWebACLAssociationConfig_basic(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckWebACLAssociationExists(ctx,resourceName),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName,"resource_arn","apigateway",regexache.MustCompile(fmt.Sprintf("/restapis/.*/stages/%s",rName))),
-					acctest.MatchResourceAttrRegionalARN(resourceName,"web_acl_arn","wafv2",regexache.MustCompile(fmt.Sprintf("regional/webacl/%s/.*",rName))),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-		},
+PreCheck:func(){
+acctest.PreCheck(ctx,t)
+acctest.PreCheckAPIGatewayTypeEDGE(t)
+testAccPreCheckScopeRegional(ctx,t)
+},
+ErrorCheck:acctest.ErrorCheck(t,wafv2.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckWebACLAssociationDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccWebACLAssociationConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckWebACLAssociationExists(ctx,resourceName),
+acctest.MatchResourceAttrRegionalARNNoAccount(resourceName,"resource_arn","apigateway",regexache.MustCompile(fmt.Sprintf("/restapis/.*/stages/%s",rName))),
+acctest.MatchResourceAttrRegionalARN(resourceName,"web_acl_arn","wafv2",regexache.MustCompile(fmt.Sprintf("regional/webacl/%s/.*",rName))),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+},
 	})
 }
 funcTestAccWAFV2WebACLAssociation_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName:="aws_wafv2_web_acl_association.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){
-			acctest.PreCheck(ctx,t)
-			acctest.PreCheckAPIGatewayTypeEDGE(t)
-			testAccPreCheckScopeRegional(ctx,t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t,wafv2.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckWebACLAssociationDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccWebACLAssociationConfig_basic(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckWebACLAssociationExists(ctx,resourceName),
-					acctest.CheckResourceDisappears(ctx,acctest.Provider,tfwafv2.ResourceWebACLAssociation(),resourceName),
-				),
-				ExpectNonEmptyPlan:true,
-			},
-			{
-				Config:testAccWebACLAssociationConfig_basic(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckWebACLAssociationExists(ctx,resourceName),
-					acctest.CheckResourceDisappears(ctx,acctest.Provider,apigateway.ResourceStage(),"aws_api_gateway_stage.test"),
-				),
-				ExpectNonEmptyPlan:true,
-			},
-		},
+PreCheck:func(){
+acctest.PreCheck(ctx,t)
+acctest.PreCheckAPIGatewayTypeEDGE(t)
+testAccPreCheckScopeRegional(ctx,t)
+},
+ErrorCheck:acctest.ErrorCheck(t,wafv2.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckWebACLAssociationDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccWebACLAssociationConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckWebACLAssociationExists(ctx,resourceName),
+acctest.CheckResourceDisappears(ctx,acctest.Provider,tfwafv2.ResourceWebACLAssociation(),resourceName),
+),
+ExpectNonEmptyPlan:true,
+},
+{
+Config:testAccWebACLAssociationConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckWebACLAssociationExists(ctx,resourceName),
+acctest.CheckResourceDisappears(ctx,acctest.Provider,apigateway.ResourceStage(),"aws_api_gateway_stage.test"),
+),
+ExpectNonEmptyPlan:true,
+},
+},
 	})
 }
 functestAccCheckWebACLAssociationDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		for_,rs:=ranges.RootModule().Resources{
-			ifrs.Type!="aws_wafv2_web_acl_association"{
-				continue
-			}			_,resourceARN,err:=tfwafv2.WebACLAssociationParseResourceID(rs.Primary.ID)			iferr!=nil{
-				returnerr
-			}			conn:=acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)			_,err=tfwafv2.FindWebACLByResourceARN(ctx,conn,resourceARN)			iftfresource.NotFound(err){
-				continue
-			}			iferr!=nil{
-				returnerr
-			}			returnfmt.Errorf("WAFv2WebACLAssociation%sstillexists",rs.Primary.ID)
-		}		returnnil
+for_,rs:=ranges.RootModule().Resources{
+ifrs.Type!="aws_wafv2_web_acl_association"{
+continue
+}_,resourceARN,err:=tfwafv2.WebACLAssociationParseResourceID(rs.Primary.ID)iferr!=nil{
+returnerr
+}conn:=acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)_,err=tfwafv2.FindWebACLByResourceARN(ctx,conn,resourceARN)iftfresource.NotFound(err){
+continue
+}iferr!=nil{
+returnerr
+}returnfmt.Errorf("WAFv2WebACLAssociation%sstillexists",rs.Primary.ID)
+}returnnil
 	}
 }
 functestAccCheckWebACLAssociationExists(ctxcontext.Context,nstring)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		rs,ok:=s.RootModule().Resources[n]
-		if!ok{
-			returnfmt.Errorf("Notfound:%s",n)
-		}		ifrs.Primary.ID==""{
-			returnfmt.Errorf("NoWAFv2WebACLAssociationIDisset")
-		}		_,resourceARN,err:=tfwafv2.WebACLAssociationParseResourceID(rs.Primary.ID)		iferr!=nil{
-			returnerr
-		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)		_,err=tfwafv2.FindWebACLByResourceARN(ctx,conn,resourceARN)		returnerr
+rs,ok:=s.RootModule().Resources[n]
+if!ok{
+returnfmt.Errorf("Notfound:%s",n)
+}ifrs.Primary.ID==""{
+returnfmt.Errorf("NoWAFv2WebACLAssociationIDisset")
+}_,resourceARN,err:=tfwafv2.WebACLAssociationParseResourceID(rs.Primary.ID)iferr!=nil{
+returnerr
+}conn:=acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)_,err=tfwafv2.FindWebACLByResourceARN(ctx,conn,resourceARN)returnerr
 	}
 }
 functestAccWebACLAssociationConfig_basic(namestring)string{

@@ -17,64 +17,64 @@
 func ResourceProvisioningArtifact() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceProvisioningArtifactCreate,
-ReadWithoutTimeout:   resourceProvisioningArtifactRead,
+ReadWithoutTimeout:resourceProvisioningArtifactRead,
 UpdateWithoutTimeout: resourceProvisioningArtifactUpdate,
 DeleteWithoutTimeout: resourceProvisioningArtifactDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(ProvisioningArtifactReadyTimeout),
-Read:   schema.DefaultTimeout(ProvisioningArtifactReadTimeout),
+Read:schema.DefaultTimeout(ProvisioningArtifactReadTimeout),
 Update: schema.DefaultTimeout(ProvisioningArtifactUpdateTimeout),
 Delete: schema.DefaultTimeout(ProvisioningArtifactDeleteTimeout),
 },Schema: map[string]*schema.Schema{
 "accept_language": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      AcceptLanguageEnglish,
+Optional:
+Default:ptLanguageEnglish,
 ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
 },
 "active": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Optional: true,
 Default:  true,
 },
 "created_time": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Optional: true,
 Computed: true,
 },
 "disable_template_validation": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Optional: true,
 Default:  false,
 ForceNew: true,
 },
 "guidance": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      servicecatalog.ProvisioningArtifactGuidanceDefault,
+Optional:
+Default:icecatalog.ProvisioningArtifactGuidanceDefault,
 ValidateFunc: validation.StringInSlice(servicecatalog.ProvisioningArtifactGuidance_Values(), false),
 },
 "name": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Optional: true,
 Computed: true,
 },
 "product_id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Required: true,
 },
 "provisioning_artifact_id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "template_physical_id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Optional: true,
 ForceNew: true,
 ExactlyOneOf: []string{
@@ -83,7 +83,7 @@ ExactlyOneOf: []string{
 },
 },
 "template_url": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Optional: true,
 ForceNew: true,
 ExactlyOneOf: []string{
@@ -93,8 +93,8 @@ ExactlyOneOf: []string{
 },
 "type": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:
+ForceNew:
 ValidateFunc: validation.StringInSlice(servicecatalog.ProvisioningArtifactType_Values(), false),
 },
 },
@@ -109,8 +109,8 @@ parameters["template_physical_id"] = d.Get("template_physical_id")
 parameters["template_url"] = d.Get("template_url")
 parameters["type"] = d.Get("type")input := &servicecatalog.CreateProvisioningArtifactInput{
 IdempotencyToken: aws.String(id.UniqueId()),
-Parameters:       expandProvisioningArtifactParameters(parameters),
-ProductId:        aws.String(d.Get("product_id").(string)),
+Parameters:expandProvisioningArtifactParameters(parameters),
+ProductId:t_id").(string)),
 }if v, ok := d.GetOk("accept_language"); ok {
 input.AcceptLanguage = aws.String(v.(string))
 }var output *servicecatalog.CreateProvisioningArtifactOutput
@@ -160,7 +160,7 @@ conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)if d.HasChanges("accept_l
 artifactID, productID, err := ProvisioningArtifactParseID(d.Id())if err != nil {
 return sdkdiag.AppendErrorf(diags, "parsing Service Catalog Provisioning Artifact ID (%s): %s", d.Id(), err)
 }input := &servicecatalog.UpdateProvisioningArtifactInput{
-ProductId:     aws.String(productID),
+ProductId:tring(productID),
 ProvisioningArtifactId: aws.String(artifactID),
 Active:  aws.Bool(d.Get("active").(bool)),
 }if v, ok := d.GetOk("accept_language"); ok {
@@ -188,7 +188,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)artifactID, productID, err := ProvisioningArtifactParseID(d.Id())if err != nil {
 return sdkdiag.AppendErrorf(diags, "parsing Service Catalog Provisioning Artifact ID (%s): %s", d.Id(), err)
 }input := &servicecatalog.DeleteProvisioningArtifactInput{
-ProductId:     aws.String(productID),
+ProductId:tring(productID),
 ProvisioningArtifactId: aws.String(artifactID),
 }if v, ok := d.GetOk("accept_language"); ok {
 input.AcceptLanguage = aws.String(v.(string))

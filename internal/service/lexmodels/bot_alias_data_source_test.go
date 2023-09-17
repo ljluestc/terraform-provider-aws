@@ -40,7 +40,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 }func testAccBotAliasDataSourceConfig_basic() string {
 	return `
 data "aws_lex_bot_alias" "test" {
-  name     = aws_lex_bot_alias.test.name
+  name= aws_lex_bot_alias.test.name
   bot_name = aws_lex_bot.test.name
 }
 `

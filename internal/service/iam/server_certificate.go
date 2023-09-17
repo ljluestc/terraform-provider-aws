@@ -25,7 +25,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tagsfunc ResourceServerCertificate() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceServerCertificateCreate,
-ReadWithoutTimeout:   resourceServerCertificateRead,
+ReadWithoutTimeout:resourceServerCertificateRead,
 UpdateWithoutTimeout: resourceServerCertificateUpdate,
 DeleteWithoutTimeout: resourceServerCertificateDelete,Importer: &schema.ResourceImporter{
 StateContext: resourceServerCertificateImport,
@@ -39,14 +39,14 @@ Type:schema.TypeString,
 Required:true,
 ForceNew:true,
 DiffSuppressFunc: suppressNormalizeCertRemoval,
-StateFunc:   StateTrimSpace,
+StateFunc:StateTrimSpace,
 },
 "certificate_chain": {
 Type:schema.TypeString,
 Optional:true,
 ForceNew:true,
 DiffSuppressFunc: suppressNormalizeCertRemoval,
-StateFunc:   StateTrimSpace,
+StateFunc:StateTrimSpace,
 },
 "expiration": {
 Type:schema.TypeString,
@@ -78,9 +78,9 @@ ForceNew: true,
 Type:schema.TypeString,
 Required:true,
 ForceNew:true,
-Sensitive:   true,
+Sensitive:true,
 DiffSuppressFunc: suppressNormalizeCertRemoval,
-StateFunc:   StateTrimSpace,
+StateFunc:StateTrimSpace,
 },
 names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -174,7 +174,7 @@ ServerCertificateName: aws.String(name),
 }func
 if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

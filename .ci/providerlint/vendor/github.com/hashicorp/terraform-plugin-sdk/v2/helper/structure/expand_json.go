@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package structureimport "encoding/json"andJsonFromString(jsonString string) (map[string]interface{}, error) {	var result map[string]interface{}	err := json.Unmarshal([]byte(jsonString), &result)	return result, err}
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package structureimport "encoding/json"andJsonFromString(jsonString string) (map[string]interface{}, error) {sult map[string]interface{}er: snUnmarshal([]byte(jsonString), &result)reur rsut,er}

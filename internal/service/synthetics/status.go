@@ -6,10 +6,10 @@
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )func statusCanaryState(ctx context.Context, conn *synthetics.Synthetics, name string) retry.StateRefreshFunc {
 	returnfunc() (interface{}, string, error) {
-		output, err := FindCanaryByName(ctx, conn, name)		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}		if err != nil {
-			return nil, "", err
-		}		return output, aws.StringValue(output.Status.State), nil
+output, err := FindCanaryByName(ctx, conn, name)if tfresource.NotFound(err) {
+return nil, "", nil
+}if err != nil {
+return nil, "", err
+}return output, aws.StringValue(output.Status.State), nil
 	}
 }

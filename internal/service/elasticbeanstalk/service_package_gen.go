@@ -14,50 +14,50 @@ func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.Servic
 }
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceApplication,
-			TypeName: "aws_elastic_beanstalk_application",
-		},
-		{
-			Factory:  DataSourceHostedZone,
-			TypeName: "aws_elastic_beanstalk_hosted_zone",
-		},
-		{
-			Factory:  DataSourceSolutionStack,
-			TypeName: "aws_elastic_beanstalk_solution_stack",
-		},
+{
+Factory:  DataSourceApplication,
+TypeName: "aws_elastic_beanstalk_application",
+},
+{
+Factory:  DataSourceHostedZone,
+TypeName: "aws_elastic_beanstalk_hosted_zone",
+},
+{
+Factory:  DataSourceSolutionStack,
+TypeName: "aws_elastic_beanstalk_solution_stack",
+},
 	}
 }
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceApplication,
-			TypeName: "aws_elastic_beanstalk_application",
-			Name:     "Application",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceApplicationVersion,
-			TypeName: "aws_elastic_beanstalk_application_version",
-			Name:     "Application Version",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceConfigurationTemplate,
-			TypeName: "aws_elastic_beanstalk_configuration_template",
-		},
-		{
-			Factory:  ResourceEnvironment,
-			TypeName: "aws_elastic_beanstalk_environment",
-			Name:     "Environment",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
+{
+Factory:  ResourceApplication,
+TypeName: "aws_elastic_beanstalk_application",
+Name:"Application",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
+{
+Factory:  ResourceApplicationVersion,
+TypeName: "aws_elastic_beanstalk_application_version",
+Name:"Application Version",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
+{
+Factory:  ResourceConfigurationTemplate,
+TypeName: "aws_elastic_beanstalk_configuration_template",
+},
+{
+Factory:  ResourceEnvironment,
+TypeName: "aws_elastic_beanstalk_environment",
+Name:"Environment",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
 	}
 }
 func (p *servicePackage) ServicePackageName() string {

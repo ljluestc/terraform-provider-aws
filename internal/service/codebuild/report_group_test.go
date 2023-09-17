@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package codebuild_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package codebuild_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/service/codebuild"
+"testing""github.com/aws/aws-sdk-go/service/codebuild"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
 "github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -19,13 +13,11 @@ tfcodebuild "github.com/hashicorp/terraform-provider-aws/internal/service/codebu
 ctx := acctest.Context(t)
 var reportGroup codebuild.ReportGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_codebuild_report_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_codebuild_report_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckReportGroupDestroy(ctx),
+CheckDestroy:testAccCheckReportGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccReportGroupConfig_basic(rName),
@@ -40,9 +32,9 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 },
 {
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"delete_reports"},
 },
 },
@@ -51,13 +43,11 @@ ImportStateVerifyIgnore: []string{"delete_reports"},
 ctx := acctest.Context(t)
 var reportGroup codebuild.ReportGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_codebuild_report_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_codebuild_report_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckReportGroupDestroy(ctx),
+CheckDestroy:testAccCheckReportGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccReportGroupConfig_s3Export(rName),
@@ -76,9 +66,9 @@ acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "codebuild", fmt.Sprin
 ),
 },
 {
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"delete_reports"},
 },
 {
@@ -102,13 +92,11 @@ acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "codebuild", fmt.Sprin
 ctx := acctest.Context(t)
 var reportGroup codebuild.ReportGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_codebuild_report_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_codebuild_report_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckReportGroupDestroy(ctx),
+CheckDestroy:testAccCheckReportGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccReportGroupConfig_tags1(rName, "key1", "value1"),
@@ -120,9 +108,9 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"delete_reports"},
 },
 {
@@ -150,13 +138,11 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 ctx := acctest.Context(t)
 var reportGroup codebuild.ReportGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_codebuild_report_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_codebuild_report_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckReportGroupDestroy(ctx),
+CheckDestroy:testAccCheckReportGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccReportGroupConfig_delete(rName),
@@ -167,9 +153,9 @@ resource.TestCheckResourceAttr(resourceName, "name", rName),
 ),
 },
 {
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"delete_reports"},
 },
 },
@@ -178,13 +164,11 @@ ImportStateVerifyIgnore: []string{"delete_reports"},
 ctx := acctest.Context(t)
 var reportGroup codebuild.ReportGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_codebuild_report_group.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_codebuild_report_group.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckReportGroupDestroy(ctx),
+CheckDestroy:testAccCheckReportGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccReportGroupConfig_basic(rName),
@@ -198,35 +182,21 @@ ExpectNonEmptyPlan: true,
 },
 })
 }func testAccPreCheckReportGroup(ctx context.Context, t *testing.T) {
-conn := acctest.Provider.Meta().(*conns.AWSClient).CodeBuildConn(ctx)
-
-input := &codebuild.ListReportGroupsInput{}
-
-_, err := conn.ListReportGroupsWithContext(ctx, input)
-
-if acctest.PreCheckSkipError(err) {
+conn := acctest.Provider.Meta().(*conns.AWSClient).CodeBuildConn(ctx)input := &codebuild.ListReportGroupsInput{}_, err := conn.ListReportGroupsWithContext(ctx, input)if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
-}
-
-if err != nil {
+}if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
 }
 }func testAccCheckReportGroupDestroy(ctx context.Context) resource.TestCheck
 func {
 returnfunc(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).CodeBuildConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).CodeBuildConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_codebuild_report_group" {
 continue
-}
-
-resp, err := tfcodebuild.FindReportGroupByARN(ctx, conn, rs.Primary.ID)
+}resp, err := tfcodebuild.FindReportGroupByARN(ctx, conn, rs.Primary.ID)
 if err != nil {
 return err
-}
-
-if resp != nil {
+}if resp != nil {
 return fmt.Errorf("Found Report Group %s", rs.Primary.ID)
 }
 }
@@ -238,60 +208,44 @@ returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return fmt.Errorf("Not found: %s", name)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).CodeBuildConn(ctx)
-
-resp, err := tfcodebuild.FindReportGroupByARN(ctx, conn, rs.Primary.ID)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).CodeBuildConn(ctx)resp, err := tfcodebuild.FindReportGroupByARN(ctx, conn, rs.Primary.ID)
 if err != nil {
 return err
-}
-
-if resp == nil {
+}if resp == nil {
 return fmt.Errorf("Report Group %s not found", rs.Primary.ID)
-}
-
-*reportGroup = *resp
-
-return nil
+}*reportGroup = *respreturn nil
 }
 }func testAccReportGroupConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_codebuild_report_group" "test" {
   name = %[1]q
-  type = "TEST"
-
-  export_config {
-    type = "NO_EXPORT"
+  type = "TEST"  export_config {
+type = "NO_EXPORT"
   }
 }
 `, rName)
 }func testAccReportGroupBasicS3ExportBaseConfig(rName string) string {
 return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description    = %[1]q
-  deletion_window_in_days = 7
-
-  policy = <<POLICY
+  description= %[1]q
+  deletion_window_in_days = 7  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
   "Statement": [
-    {
-      "Sid": "Enable IAM User Permissions",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "kms:*",
-      "Resource": "*"
-    }
+{
+"Sid": "Enable IAM User Permissions",
+"Effect": "Allow",
+"Principal": {
+
+},
+"Action": "kms:*",
+"Resource": "*"
+}
   ]
 }
 POLICY
-}
-
-resource "aws_s3_bucket" "test" {
+}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }
 `, rName)
@@ -300,18 +254,14 @@ return testAccReportGroupBasicS3ExportBaseConfig(rName) +
 fmt.Sprintf(`
 resource "aws_codebuild_report_group" "test" {
   name = %[1]q
-  type = "TEST"
-
-  export_config {
-    type = "S3"
-
-    s3_destination {
-      bucket     = aws_s3_bucket.test.id
-      encryption_disabled = false
-      encryption_key      = aws_kms_key.test.arn
-      packaging  = "NONE"
-      path = "/some"
-    }
+  type = "TEST"  export_config {
+type = "S3"s3_destination {
+bucket= aws_s3_bucket.test.id
+encryption_disabled = false
+encryption_key= aws_kms_key.test.arn
+packaging  = "NONE"
+path = "/some"
+}
   }
 }
 `, rName)
@@ -320,18 +270,14 @@ return testAccReportGroupBasicS3ExportBaseConfig(rName) +
 fmt.Sprintf(`
 resource "aws_codebuild_report_group" "test" {
   name = %[1]q
-  type = "TEST"
-
-  export_config {
-    type = "S3"
-
-    s3_destination {
-      bucket     = aws_s3_bucket.test.id
-      encryption_key      = aws_kms_key.test.arn
-      encryption_disabled = false
-      packaging  = "ZIP"
-      path = "/some2"
-    }
+  type = "TEST"  export_config {
+type = "S3"s3_destination {
+bucket= aws_s3_bucket.test.id
+encryption_key= aws_kms_key.test.arn
+encryption_disabled = false
+packaging  = "ZIP"
+path = "/some2"
+}
   }
 }
 `, rName)
@@ -339,14 +285,10 @@ resource "aws_codebuild_report_group" "test" {
 return fmt.Sprintf(`
 resource "aws_codebuild_report_group" "test" {
   name = %[1]q
-  type = "TEST"
-
-  export_config {
-    type = "NO_EXPORT"
-  }
-
-  tags = {
-    %[2]q = %[3]q
+  type = "TEST"  export_config {
+type = "NO_EXPORT"
+  }  tags = {
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -354,15 +296,11 @@ resource "aws_codebuild_report_group" "test" {
 return fmt.Sprintf(`
 resource "aws_codebuild_report_group" "test" {
   name = %[1]q
-  type = "TEST"
-
-  export_config {
-    type = "NO_EXPORT"
-  }
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  type = "TEST"  export_config {
+type = "NO_EXPORT"
+  }  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -371,10 +309,8 @@ return fmt.Sprintf(`
 resource "aws_codebuild_report_group" "test" {
   name  = %[1]q
   type  = "TEST"
-  delete_reports = true
-
-  export_config {
-    type = "NO_EXPORT"
+  delete_reports = true  export_config {
+type = "NO_EXPORT"
   }
 }
 `, rName)

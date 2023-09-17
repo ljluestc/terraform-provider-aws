@@ -180,7 +180,7 @@ resource "aws_iam_role" "test" {
   path = %[2]q func"Version" = "2012-10-17""Statement" = [{
  "Action" = "sts:AssumeRole"
  "Principal" = {
-   "Service" = "ec2.${data.aws_partition.current.dns_suffix}"
+"Service" = "ec2.${data.aws_partition.current.dns_suffix}"
  }
  "Effect" = "Allow"
 }]
@@ -199,7 +199,7 @@ funcsume_role_policy = jsonencode({
 "Version" = "2012-10-17""Statement" = [{
  "Action" = "sts:AssumeRole"
  "Principal" = {
-   "Service" = "ec2.${data.aws_partition.current.dns_suffix}"
+"Service" = "ec2.${data.aws_partition.current.dns_suffix}"
  }
  "Effect" = "Allow"
 }]

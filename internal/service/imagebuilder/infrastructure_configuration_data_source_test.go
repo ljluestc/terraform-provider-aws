@@ -45,20 +45,20 @@ data "aws_partition" "current" {}resource "aws_iam_instance_profile" "test" {
   role = aws_iam_role.role.name
 }resource "aws_iam_role" "role" {
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.${data.aws_partition.current.dns_suffix}"
-      }
-      Sid = ""
-    }]
+Version = "2012-10-17"
+Statement = [{
+ Action = "sts:AssumeRole"
+ Effect = "Allow"
+ Principal = {
+s_partition.current.dns_suffix}"
+ }
+ Sid = ""
+}]
   })
   name = %[1]q
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
+  name= %[1]q
 }data "aws_imagebuilder_infrastructure_configuration" "test" {
   arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }

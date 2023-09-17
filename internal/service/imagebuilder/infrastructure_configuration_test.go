@@ -44,8 +44,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -86,8 +86,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -119,8 +119,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -144,8 +144,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -175,8 +175,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -215,8 +215,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -250,8 +250,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -285,8 +285,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -319,8 +319,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -354,8 +354,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -388,8 +388,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -421,8 +421,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -453,8 +453,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -493,8 +493,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -541,15 +541,15 @@ data "aws_partition" "current" {}resource "aws_iam_instance_profile" "test" {
   role = aws_iam_role.role.name
 }resource "aws_iam_role" "role" {
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.${data.aws_partition.current.dns_suffix}"
-      }
-      Sid = ""
-    }]
+Version = "2012-10-17"
+Statement = [{
+ Action = "sts:AssumeRole"
+ Effect = "Allow"
+ Principal = {
+s_partition.current.dns_suffix}"
+ }
+ Sid = ""
+}]
   })
   name = %[1]q
 }
@@ -561,7 +561,7 @@ fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   description  = %[2]q
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
+  name= %[1]q
 }
 `, rName, description))
 }func testAccInfrastructureConfigurationConfig_instanceMetadataOptions(rName string) string {
@@ -570,9 +570,9 @@ testAccInfrastructureConfigurationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q  instance_metadata_options {
-    http_put_response_hop_limit = 64
-    http_tokens  = "required"
+  name= %[1]q  instance_metadata_options {
+http_put_response_hop_limit = 64
+http_tokens  = "required"
   }
 }
 `, rName))
@@ -582,7 +582,7 @@ testAccInfrastructureConfigurationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
+  name= %[1]q
 }
 `, rName))
 }func testAccInfrastructureConfigurationConfig_instanceProfileName2(rName string) string {
@@ -594,20 +594,20 @@ resource "aws_iam_instance_profile" "test2" {
   role = aws_iam_role.role2.name
 }resource "aws_iam_role" "role2" {
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.${data.aws_partition.current.dns_suffix}"
-      }
-      Sid = ""
-    }]
+Version = "2012-10-17"
+Statement = [{
+ Action = "sts:AssumeRole"
+ Effect = "Allow"
+ Principal = {
+s_partition.current.dns_suffix}"
+ }
+ Sid = ""
+}]
   })
   name = "%[1]s-2"
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test2.name
-  name   = %[1]q
+  name= %[1]q
 }
 `, rName))
 }func testAccInfrastructureConfigurationConfig_instanceTypes1(rName string) string {
@@ -616,9 +616,9 @@ testAccInfrastructureConfigurationBaseConfig(rName),
 acctest.AvailableEC2InstanceTypeForRegion("t3.medium", "t2.medium"),
 fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
-  instance_types        = [data.aws_ec2_instance_type_offering.available.instance_type]
+  instance_types_type_offering.available.instance_type]
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
+  name= %[1]q
 }
 `, rName))
 }func testAccInfrastructureConfigurationConfig_instanceTypes2(rName string) string {
@@ -627,9 +627,9 @@ testAccInfrastructureConfigurationBaseConfig(rName),
 acctest.AvailableEC2InstanceTypeForRegion("t3.large", "t2.large"),
 fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
-  instance_types        = [data.aws_ec2_instance_type_offering.available.instance_type]
+  instance_types_type_offering.available.instance_type]
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
+  name= %[1]q
 }
 `, rName))
 }func testAccInfrastructureConfigurationConfig_keyPair1(rName, publicKey string) string {
@@ -637,12 +637,12 @@ resource "aws_imagebuilder_infrastructure_configuration" "test" {
 testAccInfrastructureConfigurationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_key_pair" "test" {
-  key_name   = %[1]q
+  key_name= %[1]q
   public_key = %[2]q
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   key_pairir.test.key_name
-  name   = %[1]q
+  name= %[1]q
 }
 `, rName, publicKey))
 }func testAccInfrastructureConfigurationConfig_keyPair2(rName, publicKey string) string {
@@ -650,12 +650,12 @@ resource "aws_key_pair" "test" {
 testAccInfrastructureConfigurationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_key_pair" "test2" {
-  key_name   = "%[1]s-2"
+  key_name= "%[1]s-2"
   public_key = %[2]q
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   key_pairir.test2.key_name
-  name   = %[1]q
+  name= %[1]q
 }
 `, rName, publicKey))
 }func testAccInfrastructureConfigurationConfig_loggingS3LogsS3BucketName1(rName string) string {
@@ -666,10 +666,10 @@ resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q  logging {
-    s3_logs {
-      s3_bucket_name = aws_s3_bucket.test.bucket
-    }
+  name= %[1]q  logging {
+s3_logs {
+ s3_bucket_name = aws_s3_bucket.test.bucket
+}
   }
 }
 `, rName))
@@ -681,10 +681,10 @@ resource "aws_s3_bucket" "test2" {
   bucket = "%[1]s-2"
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q  logging {
-    s3_logs {
-      s3_bucket_name = aws_s3_bucket.test2.bucket
-    }
+  name= %[1]q  logging {
+s3_logs {
+ s3_bucket_name = aws_s3_bucket.test2.bucket
+}
   }
 }
 `, rName))
@@ -696,11 +696,11 @@ resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q  logging {
-    s3_logs {
-      s3_bucket_name = aws_s3_bucket.test.bucket
-      s3_key_prefix  = %[2]q
-    }
+  name= %[1]q  logging {
+s3_logs {
+ s3_bucket_name = aws_s3_bucket.test.bucket
+ s3_key_prefix  = %[2]q
+}
   }
 }
 `, rName, s3KeyPrefix))
@@ -710,7 +710,7 @@ testAccInfrastructureConfigurationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
+  name= %[1]q
 }
 `, rName))
 }func testAccInfrastructureConfigurationConfig_resourceTags(rName string, resourceTagKey string, resourceTagValue string) string {
@@ -719,8 +719,8 @@ testAccInfrastructureConfigurationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q  resource_tags = {
-    %[2]q = %[3]q
+  name= %[1]q  resource_tags = {
+%[2]q = %[3]q
   }
 }
 `, rName, resourceTagKey, resourceTagValue))
@@ -734,8 +734,8 @@ resource "aws_vpc" "test" {
   vpc_id = aws_vpc.test.id
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
-  security_group_ids    = [aws_security_group.test.id]
+  name= %[1]q
+  security_group_ids= [aws_security_group.test.id]
 }
 `, rName))
 }func testAccInfrastructureConfigurationConfig_securityGroupIDs2(rName string) string {
@@ -748,8 +748,8 @@ resource "aws_vpc" "test" {
   vpc_id = aws_vpc.test.id
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
-  security_group_ids    = [aws_security_group.test2.id]
+  name= %[1]q
+  security_group_ids= [aws_security_group.test2.id]
 }
 `, rName))
 }func testAccInfrastructureConfigurationConfig_subnetID1(rName string) string {
@@ -762,11 +762,11 @@ resource "aws_vpc" "test" {
   vpc_id = aws_vpc.test.id
 }resource "aws_subnet" "test" {
   cidr_block = cidrsubnet(aws_vpc.test.cidr_block, 2, 0)
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
-  security_group_ids    = [aws_security_group.test.id] # Required with subnet_id
+  name= %[1]q
+  security_group_ids= [aws_security_group.test.id] # Required with subnet_id
   subnet_idtest.id
 }
 `, rName))
@@ -780,11 +780,11 @@ resource "aws_vpc" "test" {
   vpc_id = aws_vpc.test.id
 }resource "aws_subnet" "test2" {
   cidr_block = cidrsubnet(aws_vpc.test.cidr_block, 2, 2)
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
-  security_group_ids    = [aws_security_group.test.id] # Required with subnet_id
+  name= %[1]q
+  security_group_ids= [aws_security_group.test.id] # Required with subnet_id
   subnet_idtest2.id
 }
 `, rName))
@@ -796,7 +796,7 @@ resource "aws_sns_topic" "test" {
   name = %[1]q
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
+  name= %[1]q
   sns_topic_arn= aws_sns_topic.test.arn
 }
 `, rName))
@@ -808,7 +808,7 @@ resource "aws_sns_topic" "test2" {
   name = "%[1]s-2"
 }resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q
+  name= %[1]q
   sns_topic_arn= aws_sns_topic.test2.arn
 }
 `, rName))
@@ -818,8 +818,8 @@ testAccInfrastructureConfigurationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q  tags = {
-    %[2]q = %[3]q
+  name= %[1]q  tags = {
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -829,9 +829,9 @@ testAccInfrastructureConfigurationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name   = %[1]q  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  name= %[1]q  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

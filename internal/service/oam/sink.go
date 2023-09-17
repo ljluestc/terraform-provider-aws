@@ -20,7 +20,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceSink() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceSinkCreate,
-ReadWithoutTimeout:   resourceSinkRead,
+ReadWithoutTimeout:resourceSinkRead,
 UpdateWithoutTimeout: resourceSinkUpdate,
 DeleteWithoutTimeout: resourceSinkDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -30,19 +30,19 @@ Update: schema.DefaultTimeout(1 * time.Minute),
 Delete: schema.DefaultTimeout(1 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "sink_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -89,7 +89,7 @@ if err != nil {
 var nfe *types.ResourceNotFoundException
 if errors.As(err, &nfe) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }return nil, err

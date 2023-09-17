@@ -16,31 +16,31 @@
 func resourceObjectLambdaAccessPointPolicy() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceObjectLambdaAccessPointPolicyCreate,
-ReadWithoutTimeout:   resourceObjectLambdaAccessPointPolicyRead,
+ReadWithoutTimeout:resourceObjectLambdaAccessPointPolicyRead,
 UpdateWithoutTimeout: resourceObjectLambdaAccessPointPolicyUpdate,
 DeleteWithoutTimeout: resourceObjectLambdaAccessPointPolicyDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "account_id": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ValidateFunc: verify.ValidAccountID,
 },
 "has_public_access_policy": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "policy": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
-ValidateFunc:     validation.StringIsJSON,
+ValidateFunc:validation.StringIsJSON,
 DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 StateFunc: func(v interface{}) string {
 json, _ := structure.NormalizeJsonString(v)
@@ -60,8 +60,8 @@ if err != nil {
 return diag.Errorf("policy (%s) is invalid JSON: %s", d.Get("policy").(string), err)
 }input := &s3control.PutAccessPointPolicyForObjectLambdaInput{
 AccountId: aws.String(accountID),
-Name:      aws.String(name),
-Policy:    aws.String(policy),
+Name: aws.String(name),
+Policy:aws.String(policy),
 }_, err = conn.PutAccessPointPolicyForObjectLambdaWithContext(ctx, input)if err != nil {
 return diag.Errorf("creating S3 Object Lambda Access Point (%s) Policy: %s", resourceID, err)
 }d.SetId(resourceID)return resourceObjectLambdaAccessPointPolicyRead(ctx, d, meta)
@@ -92,8 +92,8 @@ if err != nil {
 return diag.Errorf("policy (%s) is invalid JSON: %s", d.Get("policy").(string), err)
 }input := &s3control.PutAccessPointPolicyForObjectLambdaInput{
 AccountId: aws.String(accountID),
-Name:      aws.String(name),
-Policy:    aws.String(policy),
+Name: aws.String(name),
+Policy:aws.String(policy),
 }_, err = conn.PutAccessPointPolicyForObjectLambdaWithContext(ctx, input)if err != nil {
 return diag.Errorf("updating S3 Object Lambda Access Point Policy (%s): %s", d.Id(), err)
 }return resourceObjectLambdaAccessPointPolicyRead(ctx, d, meta)
@@ -103,7 +103,7 @@ return diag.FromErr(err)
 }log.Printf("[DEBUG] Deleting S3 Object Lambda Access Point Policy: %s", d.Id())
 _, err = conn.DeleteAccessPointPolicyForObjectLambdaWithContext(ctx, &s3control.DeleteAccessPointPolicyForObjectLambdaInput{
 AccountId: aws.String(accountID),
-Name:      aws.String(name),
+Name: aws.String(name),
 })if tfawserr.ErrCodeEquals(err, errCodeNoSuchAccessPoint, errCodeNoSuchAccessPointPolicy) {
 return nil
 }if err != nil {
@@ -112,10 +112,10 @@ return diag.Errorf("deleting S3 Object Lambda Access Point Policy (%s): %s", d.I
 }func FindObjectLambdaAccessPointPolicyAndStatusByTwoPartKey(ctx context.Context, conn *s3control.S3Control, accountID string, name string) (string, *s3control.PolicyStatus, error) {
 input1 := &s3control.GetAccessPointPolicyForObjectLambdaInput{
 AccountId: aws.String(accountID),
-Name:      aws.String(name),
+Name: aws.String(name),
 }output1, err := conn.GetAccessPointPolicyForObjectLambdaWithContext(ctx, input1)if tfawserr.ErrCodeEquals(err, errCodeNoSuchAccessPoint, errCodeNoSuchAccessPointPolicy) {
 return "", nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input1,
 }
 }if err != nil {
@@ -126,10 +126,10 @@ return "", nil, tfresource.NewEmptyResultError(input1)
 return "", nil, tfresource.NewEmptyResultError(input1)
 }input2 := &s3control.GetAccessPointPolicyStatusForObjectLambdaInput{
 AccountId: aws.String(accountID),
-Name:      aws.String(name),
+Name: aws.String(name),
 }output2, err := conn.GetAccessPointPolicyStatusForObjectLambdaWithContext(ctx, input2)if tfawserr.ErrCodeEquals(err, errCodeNoSuchAccessPoint, errCodeNoSuchAccessPointPolicy) {
 return "", nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input2,
 }
 }if err != nil {

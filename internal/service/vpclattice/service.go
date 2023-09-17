@@ -24,7 +24,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func resourceService() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceServiceCreate,
-ReadWithoutTimeout:   resourceServiceRead,
+ReadWithoutTimeout:resourceServiceRead,
 UpdateWithoutTimeout: resourceServiceUpdate,
 DeleteWithoutTimeout: resourceServiceDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -34,37 +34,37 @@ Update: schema.DefaultTimeout(5 * time.Minute),
 Delete: schema.DefaultTimeout(5 * time.Minute),
 },Schema: map[string]*schema.Schema{
 names.AttrARN: {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "auth_type": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Optional:true,
 Computed:true,
 ValidateDiagFunc: enum.Validate[types.AuthType](),
 },
 "certificate_arn": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: verify.ValidARN,
 },
 "custom_domain_name": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(3, 255),
 },
 "dns_entry": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "domain_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "hosted_zone_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
@@ -72,15 +72,15 @@ Computed: true,
 },
 "name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(3, 40),
 },
 "status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -89,8 +89,8 @@ ResNameService = "Service"
 )func resourceServiceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)in := &vpclattice.CreateServiceInput{
 ClientToken: aws.String(id.UniqueId()),
-Name:        aws.String(d.Get("name").(string)),
-Tags:        getTagsIn(ctx),
+Name:.(string)),
+Tags:
 }if v, ok := d.GetOk("auth_type"); ok {
 in.AuthType = types.AuthType(v.(string))
 }if v, ok := d.GetOk("certificate_arn"); ok {
@@ -151,7 +151,7 @@ Pending: enum.Slice(types.ServiceStatusCreateInProgress),
 Target:  enum.Slice(types.ServiceStatusActive),
 Refresh: statusService(ctx, conn, id),
 Timeout: timeout,
-NotFoundChecks:   20,
+NotFoundChecks:20,
 ContinuousTargetOccurence: 2,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)
 if out, ok := outputRaw.(*vpclattice.GetServiceOutput); ok {
@@ -181,7 +181,7 @@ ServiceIdentifier: aws.String(id),
 }
 out, err := conn.GetService(ctx, in)if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }if err != nil {

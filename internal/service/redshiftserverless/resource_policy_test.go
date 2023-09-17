@@ -1,88 +1,88 @@
 //Copyright(c)HashiCorp,Inc.
 //SPDX-License-Identifier:MPL-2.0packageredshiftserverless_testimport(
-	"context"
-	"fmt"
-	"testing"	"github.com/aws/aws-sdk-go/service/redshiftserverless"
-	sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	tfredshiftserverless"github.com/hashicorp/terraform-provider-aws/internal/service/redshiftserverless"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"context"
+"fmt"
+"testing""github.com/aws/aws-sdk-go/service/redshiftserverless"
+sdkacctest"github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-plugin-testing/terraform"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+tfredshiftserverless"github.com/hashicorp/terraform-provider-aws/internal/service/redshiftserverless"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )funcTestAccRedshiftServerlessResourcePolicy_basic(t*testing.T){
-	ctx:=acctest.Context(t)
-	resourceName:="aws_redshiftserverless_resource_policy.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){
-			acctest.PreCheck(ctx,t)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5FactoriesAlternate(ctx,t),
-		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccResourcePolicyConfig_basic(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckResourcePolicyExists(ctx,resourceName),
-					resource.TestCheckResourceAttrPair(resourceName,"resource_arn","aws_redshiftserverless_snapshot.test","arn"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-		},
-	})
+ctx:=acctest.Context(t)
+resourceName:="aws_redshiftserverless_resource_policy.test"
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){
+acctest.PreCheck(ctx,t)
+acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5FactoriesAlternate(ctx,t),
+CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccResourcePolicyConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckResourcePolicyExists(ctx,resourceName),
+resource.TestCheckResourceAttrPair(resourceName,"resource_arn","aws_redshiftserverless_snapshot.test","arn"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+},
+})
 }funcTestAccRedshiftServerlessResourcePolicy_disappears(t*testing.T){
-	ctx:=acctest.Context(t)
-	resourceName:="aws_redshiftserverless_resource_policy.test"
-	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){
-			acctest.PreCheck(ctx,t)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5FactoriesAlternate(ctx,t),
-		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccResourcePolicyConfig_basic(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckResourcePolicyExists(ctx,resourceName),
-					acctest.CheckResourceDisappears(ctx,acctest.Provider,tfredshiftserverless.ResourceResourcePolicy(),resourceName),
-				),
-				ExpectNonEmptyPlan:true,
-			},
-		},
-	})
+ctx:=acctest.Context(t)
+resourceName:="aws_redshiftserverless_resource_policy.test"
+rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){
+acctest.PreCheck(ctx,t)
+acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5FactoriesAlternate(ctx,t),
+CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccResourcePolicyConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckResourcePolicyExists(ctx,resourceName),
+acctest.CheckResourceDisappears(ctx,acctest.Provider,tfredshiftserverless.ResourceResourcePolicy(),resourceName),
+),
+ExpectNonEmptyPlan:true,
+},
+},
+})
 }functestAccCheckResourcePolicyDestroy(ctxcontext.Context)resource.TestCheckFunc{
-	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)		for_,rs:=ranges.RootModule().Resources{
-			ifrs.Type!="aws_redshiftserverless_resource_policy"{
-				continue
-			}
-			_,err:=tfredshiftserverless.FindResourcePolicyByARN(ctx,conn,rs.Primary.ID)			iftfresource.NotFound(err){
-				continue
-			}			iferr!=nil{
-				returnerr
-			}			returnfmt.Errorf("RedshiftServerlessResourcePolicy%sstillexists",rs.Primary.ID)
-		}		returnnil
-	}
+returnfunc(s*terraform.State)error{
+conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)for_,rs:=ranges.RootModule().Resources{
+ifrs.Type!="aws_redshiftserverless_resource_policy"{
+continue
+}
+_,err:=tfredshiftserverless.FindResourcePolicyByARN(ctx,conn,rs.Primary.ID)iftfresource.NotFound(err){
+continue
+}iferr!=nil{
+returnerr
+}returnfmt.Errorf("RedshiftServerlessResourcePolicy%sstillexists",rs.Primary.ID)
+}returnnil
+}
 }functestAccCheckResourcePolicyExists(ctxcontext.Context,namestring)resource.TestCheckFunc{
-	returnfunc(s*terraform.State)error{
-		rs,ok:=s.RootModule().Resources[name]
-		if!ok{
-			returnfmt.Errorf("notfound:%s",name)
-		}		ifrs.Primary.ID==""{
-			returnfmt.Errorf("RedshiftServerlessResourcePolicyisnotset")
-		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)		_,err:=tfredshiftserverless.FindResourcePolicyByARN(ctx,conn,rs.Primary.ID)		returnerr
-	}
+returnfunc(s*terraform.State)error{
+rs,ok:=s.RootModule().Resources[name]
+if!ok{
+returnfmt.Errorf("notfound:%s",name)
+}ifrs.Primary.ID==""{
+returnfmt.Errorf("RedshiftServerlessResourcePolicyisnotset")
+}conn:=acctest.Provider.Meta().(*conns.AWSClient).RedshiftServerlessConn(ctx)_,err:=tfredshiftserverless.FindResourcePolicyByARN(ctx,conn,rs.Primary.ID)returnerr
+}
 }functestAccResourcePolicyConfig_basic(rNamestring)string{
-	returnacctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(),
-		fmt.Sprintf(`
+returnacctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(),
+fmt.Sprintf(`
 data"aws_caller_identity""test"{
 provider="awsalternate"
 }resource"aws_redshiftserverless_namespace""test"{

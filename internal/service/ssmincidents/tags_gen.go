@@ -14,17 +14,17 @@ package ssmincidentsimport (
 // it may also be a different identifier depending on the service.
 func listTags(ctx context.Context, conn *ssmincidents.Client, identifier string) (tftags.KeyValueTags, error) {
 	input := &ssmincidents.ListTagsForResourceInput{
-		ResourceArn: aws.String(identifier),
+ResourceArn: aws.String(identifier),
 	}	output, err := conn.ListTagsForResource(ctx, input)	if err != nil {
-		return tftags.New(ctx, nil), err
+turn tftags.New(ctx, nil), err
 	}	return KeyValueTags(ctx, output.Tags), nil
 }// ListTags lists ssmincidents service tags and set them in Context.
 // It is called from outside this package.
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).SSMIncidentsClient(ctx), identifier)	if err != nil {
-		return err
+turn err
 	}	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(tags)
+Context.TagsOut = types.Some(tags)
 	}	return nil
 }// map[string]string handling// Tags returns ssmincidents service tags.
 func Tags(tags tftags.KeyValueTags) map[string]string {
@@ -36,14 +36,12 @@ func KeyValueTags(ctx context.Context, tags map[string]string) tftags.KeyValueTa
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) map[string]string {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
-		}
-	}	return nil
+ tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
+return tags	}	return nil
 }// setTagsOut sets ssmincidents service tags in Context.
 func setTagsOut(ctx context.Context, tags map[string]string) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
+Context.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }// updateTags updates ssmincidents service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
@@ -53,22 +51,18 @@ func updateTags(ctx context.Context, conn *ssmincidents.Client, identifier strin
 	newTags := tftags.New(ctx, newTagsMap)	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)	removedTags := oldTags.Removed(newTags)
 	removedTags = removedTags.IgnoreSystem(names.SSMIncidents)
 	if len(removedTags) > 0 {
-		input := &ssmincidents.UntagResourceInput{
-			ResourceArn: aws.String(identifier),
-			TagKeys:     removedTags.Keys(),
-		}		_, err := conn.UntagResource(ctx, input)		if err != nil {
-			return fmt.Errorf("untagging resource (%s): %w", identifier, err)
-		}
-	}	updatedTags := oldTags.Updated(newTags)
+put := &ssmincidents.UntagResourceInput{
+ResourceArn: aws.String(identifier),
+TagKeys:removedTags.Keys(),
+,rr := conn.UntagResource(ctx, input)if e != nil {
+return fmt.Errorf("untagging resource (%s): %w", identifier, err)	}	updatedTags := oldTags.Updated(newTags)
 	updatedTags = updatedTags.IgnoreSystem(names.SSMIncidents)
 	if len(updatedTags) > 0 {
-		input := &ssmincidents.TagResourceInput{
-			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
-		}		_, err := conn.TagResource(ctx, input)		if err != nil {
-			return fmt.Errorf("tagging resource (%s): %w", identifier, err)
-		}
-	}	return nil
+put := &ssmincidents.TagResourceInput{
+ResourceArn: aws.String(identifier),
+Tags:
+,rr := conn.TagResource(ctx, input)if e != nil {
+return fmt.Errorf("tagging resource (%s): %w", identifier, err)	}	return nil
 }// UpdateTags updates ssmincidents service tags.
 // It is called from outside this package.
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {

@@ -17,7 +17,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tags(identifierAttribute="arn")func ResourceFirewallRuleGroup() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceFirewallRuleGroupCreate,
-ReadWithoutTimeout:   resourceFirewallRuleGroupRead,
+ReadWithoutTimeout:resourceFirewallRuleGroupRead,
 UpdateWithoutTimeout: resourceFirewallRuleGroupUpdate,
 DeleteWithoutTimeout: resourceFirewallRuleGroupDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -41,7 +41,7 @@ Computed: true,
 Type:schema.TypeString,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -49,8 +49,8 @@ names.AttrTagsAll: tftags.TagsSchemaComputed(),
 conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)name := d.Get("name").(string)
 input := &route53resolver.CreateFirewallRuleGroupInput{
 CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-firewall-rule-group-")),
-Name:    aws.String(name),
-Tags:    getTagsIn(ctx),
+Name:aws.String(name),
+Tags:getTagsIn(ctx),
 }output, err := conn.CreateFirewallRuleGroupWithContext(ctx, input)if err != nil {
 return diag.Errorf("creating Route53 Resolver Firewall Rule Group (%s): %s", name, err)
 }d.SetId(aws.StringValue(output.FirewallRuleGroup.Id))return resourceFirewallRuleGroupRead(ctx, d, meta)
@@ -83,7 +83,7 @@ input := &route53resolver.GetFirewallRuleGroupInput{
 FirewallRuleGroupId: aws.String(id),
 }output, err := conn.GetFirewallRuleGroupWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

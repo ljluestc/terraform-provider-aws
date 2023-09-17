@@ -25,34 +25,34 @@
 func ResourceSigningProfile() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceSigningProfileCreate,
-ReadWithoutTimeout:   resourceSigningProfileRead,
+ReadWithoutTimeout:resourceSigningProfileRead,
 UpdateWithoutTimeout: resourceSigningProfileUpdate,
 DeleteWithoutTimeout: resourceSigningProfileDelete,Importer: &schema.ResourceImporter{
 	StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 	"platform_id": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringInSlice(PlatformID_Values(), false),
 	},
 	"name": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional: true,
+Computed: true,
+ForceNew: true,
 ConflictsWith: []string{"name_prefix"},
 ValidateFunc:  validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_]{0,64}$`), "must be alphanumeric with max length of 64 characters"),
 	},
 	"name_prefix": {
 Type: schema.TypeString,
-Optional:      true,
-ForceNew:      true,
+Optional: true,
+ForceNew: true,
 ConflictsWith: []string{"name"},
 ValidateFunc:  validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_]{0,38}$`), "must be alphanumeric with max length of 38 characters"),
 	},
 	"signature_validity_period": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 MaxItems: 1,
 Optional: true,
 Computed: true,
@@ -60,12 +60,12 @@ ForceNew: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "value": {
-	Type:     schema.TypeInt,
+	Type:schema.TypeInt,
 	Required: true,
 	ForceNew: true,
 },
 "type": {
-	Type:    schema.TypeString,
+	Type:schema.TypeString,
 	Required:true,
 	ForceNew:true,
 	ValidateDiagFunc: enum.Validate[types.ValidityType](),
@@ -73,14 +73,14 @@ Elem: &schema.Resource{
 	},
 },
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"signing_material": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 MaxItems: 1,
 Computed: true,
 Optional: true,
@@ -88,7 +88,7 @@ ForceNew: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "certificate_arn": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Required: true,
 	ForceNew: true,
 },
@@ -96,39 +96,39 @@ Elem: &schema.Resource{
 },
 	},
 	"platform_display_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"revocation_record": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "revocation_effective_from": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Computed: true,
 },
 "revoked_at": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Computed: true,
 },
 "revoked_by": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Computed: true,
 },
 	},
 },
 	},
 	"status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"version_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 },CustomizeDiff: verify.SetTagsDiff,
@@ -139,7 +139,7 @@ Computed: true,
 	profileName = strings.Replace(profileName, "-", "_", -1)	signingProfileInput := &signer.PutSigningProfileInput{
 ProfileName: aws.String(profileName),
 PlatformId:  aws.String(d.Get("platform_id").(string)),
-Tags:        getTagsIn(ctx),
+Tags:
 	}	if v, exists := d.GetOk("signature_validity_period"); exists {
 signatureValidityPeriod := v.([]interface{})[0].(map[string]interface{})
 signingProfileInput.SignatureValidityPeriod = &types.SignatureValidityPeriod{
@@ -245,7 +245,7 @@ return nil, err
 	if errors.As(err, &nfe) {
 return nil, &retry.NotFoundError{
 	LastRequest: in,
-	LastError:   err,
+	LastError:err,
 }
 	}	if out == nil {
 return nil, tfresource.NewEmptyResultError(in)

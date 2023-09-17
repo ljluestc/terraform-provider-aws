@@ -13,7 +13,7 @@
 )// @SDKResource("aws_opsworks_user_profile")func ResourceUserProfile() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceUserProfileCreate,
-ReadWithoutTimeout:   resourceUserProfileRead,
+ReadWithoutTimeout:resourceUserProfileRead,
 UpdateWithoutTimeout: resourceUserProfileUpdate,
 DeleteWithoutTimeout: resourceUserProfileDelete,Schema: map[string]*schema.Schema{
 "allow_self_management": {
@@ -65,7 +65,7 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)input := &opsworks.UpdateUserProfileInput{
 AllowSelfManagement: aws.Bool(d.Get("allow_self_management").(bool)),
 IamUserArn: aws.String(d.Get("user_arn").(string)),
-SshPublicKey:   aws.String(d.Get("ssh_public_key").(string)),
+SshPublicKey:aws.String(d.Get("ssh_public_key").(string)),
 SshUsername:aws.String(d.Get("ssh_username").(string)),
 }_, err := conn.UpdateUserProfileWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating OpsWorks User Profile (%s): %s", d.Id(), err)
@@ -85,7 +85,7 @@ input := &opsworks.DescribeUserProfilesInput{
 IamUserArns: aws.StringSlice([]string{arn}),
 }output, err := conn.DescribeUserProfilesWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

@@ -15,38 +15,38 @@
 func ResourceTagOptionResourceAssociation() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceTagOptionResourceAssociationCreate,
-ReadWithoutTimeout:   resourceTagOptionResourceAssociationRead,
+ReadWithoutTimeout:resourceTagOptionResourceAssociationRead,
 DeleteWithoutTimeout: resourceTagOptionResourceAssociationDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(TagOptionResourceAssociationReadyTimeout),
-Read:   schema.DefaultTimeout(TagOptionResourceAssociationReadTimeout),
+Read:schema.DefaultTimeout(TagOptionResourceAssociationReadTimeout),
 Delete: schema.DefaultTimeout(TagOptionResourceAssociationDeleteTimeout),
 },Schema: map[string]*schema.Schema{
 "resource_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "resource_created_time": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "resource_description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "resource_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "resource_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "tag_option_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },

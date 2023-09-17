@@ -15,7 +15,7 @@
 )// @SDKResource("aws_route53_resolver_rule_association")func ResourceRuleAssociation() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceRuleAssociationCreate,
-ReadWithoutTimeout:   resourceRuleAssociationRead,
+ReadWithoutTimeout:resourceRuleAssociationRead,
 DeleteWithoutTimeout: resourceRuleAssociationDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Timeouts: &schema.ResourceTimeout{
@@ -83,7 +83,7 @@ input := &route53resolver.GetResolverRuleAssociationInput{
 ResolverRuleAssociationId: aws.String(id),
 }output, err := conn.GetResolverRuleAssociationWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -102,10 +102,10 @@ return nil, "", err
 }
 }func waitRuleAssociationCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverRuleAssociation, error) {
 stateConf := &retry.StateChangeConf{
-Pending:    []string{route53resolver.ResolverRuleAssociationStatusCreating},
+Pending:[]string{route53resolver.ResolverRuleAssociationStatusCreating},
 Target:oute53resolver.ResolverRuleAssociationStatusComplete},
-Refresh:    statusRuleAssociation(ctx, conn, id),
-Timeout:    timeout,
+Refresh:statusRuleAssociation(ctx, conn, id),
+Timeout:timeout,
 Delay:.Second,
 MinTimeout: 5 * time.Second,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)if output, ok := outputRaw.(*route53resolver.ResolverRuleAssociation); ok {
@@ -113,10 +113,10 @@ tfresource.SetLastError(err, errors.New(aws.StringValue(output.StatusMessage)))r
 }return nil, err
 }func waitRuleAssociationDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverRuleAssociation, error) {
 stateConf := &retry.StateChangeConf{
-Pending:    []string{route53resolver.ResolverRuleAssociationStatusDeleting},
+Pending:[]string{route53resolver.ResolverRuleAssociationStatusDeleting},
 Target:,
-Refresh:    statusRuleAssociation(ctx, conn, id),
-Timeout:    timeout,
+Refresh:statusRuleAssociation(ctx, conn, id),
+Timeout:timeout,
 Delay:.Second,
 MinTimeout: 5 * time.Second,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)if output, ok := outputRaw.(*route53resolver.ResolverRuleAssociation); ok {

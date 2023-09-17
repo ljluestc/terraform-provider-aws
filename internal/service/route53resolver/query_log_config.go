@@ -18,7 +18,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tags(identifierAttribute="arn")func ResourceQueryLogConfig() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceQueryLogConfigCreate,
-ReadWithoutTimeout:   resourceQueryLogConfigRead,
+ReadWithoutTimeout:resourceQueryLogConfigRead,
 UpdateWithoutTimeout: resourceQueryLogConfigUpdate,
 DeleteWithoutTimeout: resourceQueryLogConfigDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -49,7 +49,7 @@ Computed: true,
 Type:eString,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -57,9 +57,9 @@ names.AttrTagsAll: tftags.TagsSchemaComputed(),
 conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)name := d.Get("name").(string)
 input := &route53resolver.CreateResolverQueryLogConfigInput{
 CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-query-log-config-")),
-DestinationArn:   aws.String(d.Get("destination_arn").(string)),
-Name:    aws.String(name),
-Tags:    getTagsIn(ctx),
+DestinationArn:aws.String(d.Get("destination_arn").(string)),
+Name:aws.String(name),
+Tags:getTagsIn(ctx),
 }output, err := conn.CreateResolverQueryLogConfigWithContext(ctx, input)if err != nil {
 return diag.Errorf("creating Route53 Resolver Query Log Config (%s): %s", name, err)
 }d.SetId(aws.StringValue(output.ResolverQueryLogConfig.Id))if _, err := waitQueryLogConfigCreated(ctx, conn, d.Id()); err != nil {
@@ -97,7 +97,7 @@ input := &route53resolver.GetResolverQueryLogConfigInput{
 ResolverQueryLogConfigId: aws.String(id),
 }output, err := conn.GetResolverQueryLogConfigWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

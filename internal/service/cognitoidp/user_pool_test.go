@@ -28,7 +28,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_name(rName),
@@ -63,8 +63,8 @@ resource.TestCheckResourceAttr(resourceName, "deletion_protection", "INACTIVE"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -76,7 +76,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_deletionProtection(rName, "ACTIVE"),
@@ -86,8 +86,8 @@ resource.TestCheckResourceAttr(resourceName, "deletion_protection", "ACTIVE"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -106,7 +106,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_accountRecoverySingle(rName),
@@ -116,14 +116,14 @@ resource.TestCheckResourceAttr(resourceName, "name", rName),
 resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
 resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.0.recovery_mechanism.#", "1"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
-"name":     "verified_email",
+"name":"verified_email",
 "priority": "1",
 }),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -134,11 +134,11 @@ resource.TestCheckResourceAttr(resourceName, "name", rName),
 resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
 resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.0.recovery_mechanism.#", "2"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
-"name":     "verified_email",
+"name":"verified_email",
 "priority": "1",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
-"name":     "verified_phone_number",
+"name":"verified_phone_number",
 "priority": "2",
 }),
 ),
@@ -151,7 +151,7 @@ resource.TestCheckResourceAttr(resourceName, "name", rName),
 resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
 resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.0.recovery_mechanism.#", "1"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
-"name":     "verified_phone_number",
+"name":"verified_phone_number",
 "priority": "1",
 }),
 ),
@@ -165,7 +165,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_adminCreateConfiguration(rName),
@@ -178,8 +178,8 @@ resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -201,7 +201,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_adminCreateAndPasswordPolicy(rName),
@@ -212,8 +212,8 @@ resource.TestCheckResourceAttr(resourceName, "password_policy.0.temporary_passwo
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -225,7 +225,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_advancedSecurityMode(rName, "OFF"),
@@ -235,8 +235,8 @@ resource.TestCheckResourceAttr(resourceName, "user_pool_add_ons.0.advanced_secur
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -260,7 +260,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_deviceConfiguration(rName),
@@ -271,8 +271,8 @@ resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -295,7 +295,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_emailVerificationMessage(rName, subject, message),
@@ -306,8 +306,8 @@ resource.TestCheckResourceAttr(resourceName, "email_verification_message", messa
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -327,7 +327,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
@@ -340,8 +340,8 @@ resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -372,7 +372,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_mfaConfigurationSMSConfigurationAndSoftwareTokenMFAConfigurationEnabled(rName, false),
@@ -386,8 +386,8 @@ resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -419,7 +419,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
@@ -432,8 +432,8 @@ resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -454,7 +454,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
@@ -466,8 +466,8 @@ resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -497,7 +497,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
@@ -509,8 +509,8 @@ resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -534,7 +534,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_smsAuthenticationMessage(rName, smsAuthenticationMessage1),
@@ -544,8 +544,8 @@ resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", smsAu
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -565,7 +565,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
@@ -577,8 +577,8 @@ resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -607,7 +607,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_smsConfigurationSNSRegion(rName, acctest.Region()),
@@ -619,8 +619,8 @@ resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -633,7 +633,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
@@ -645,8 +645,8 @@ resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -668,7 +668,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
@@ -680,8 +680,8 @@ resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -704,7 +704,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_smsVerificationMessage(rName, smsVerificationMessage1),
@@ -714,8 +714,8 @@ resource.TestCheckResourceAttr(resourceName, "sms_verification_message", smsVeri
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -734,7 +734,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_emailConfiguration(rName),
@@ -746,8 +746,8 @@ resource.TestCheckResourceAttr(resourceName, "email_configuration.0.from_email_a
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -765,7 +765,7 @@ emailTo := sourceARN[strings.LastIndex(sourceARN, "/")+1:]resource.ParallelTest(
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_emailConfigurationSource(rName, replyTo, sourceARN, emailTo, "DEVELOPER"),
@@ -787,7 +787,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_tags1(rName, "key1", "value1"),
@@ -798,8 +798,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -827,7 +827,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_aliasAttributes(rName),
@@ -839,8 +839,8 @@ resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -862,7 +862,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_nameAttributes(rName),
@@ -874,8 +874,8 @@ resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -897,7 +897,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_passwordPolicy(rName),
@@ -913,8 +913,8 @@ resource.TestCheckResourceAttr(resourceName, "password_policy.0.temporary_passwo
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -938,7 +938,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_nameConfiguration(rName),
@@ -949,8 +949,8 @@ resource.TestCheckResourceAttr(resourceName, "username_configuration.0.case_sens
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -972,7 +972,7 @@ lambdaUpdatedResourceName := "aws_lambda_function.second"resource.ParallelTest(t
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_lambda(rName),
@@ -992,8 +992,8 @@ resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.verify_auth_ch
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -1037,7 +1037,7 @@ lambdaUpdatedResourceName := "aws_lambda_function.second"resource.ParallelTest(t
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_lambdaEmailSender(rName),
@@ -1051,8 +1051,8 @@ resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -1084,7 +1084,7 @@ lambdaUpdatedResourceName := "aws_lambda_function.second"resource.ParallelTest(t
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_lambdaSMSSender(rName),
@@ -1098,8 +1098,8 @@ resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -1130,7 +1130,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_schemaAttributes(rName),
@@ -1138,23 +1138,23 @@ Check: resource.ComposeAggregateTestCheckFunc(
 testAccCheckUserPoolExists(ctx, resourceName, &pool1),
 resource.TestCheckResourceAttr(resourceName, "schema.#", "2"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-"attribute_data_type":   "String",
-"developer_only_attribute":       "false",
+"attribute_data_type":"String",
+"developer_only_attribute":"false",
 "mutable":"false",
-"name":   "email",
+"name":"email",
 "number_attribute_constraints.#": "0",
-"required":        "true",
+"required":
 "string_attribute_constraints.#": "1",
 "string_attribute_constraints.0.min_length": "5",
 "string_attribute_constraints.0.max_length": "10",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-"attribute_data_type":   "Boolean",
-"developer_only_attribute":       "true",
+"attribute_data_type":"Boolean",
+"developer_only_attribute":"true",
 "mutable":"false",
-"name":   "mybool",
+"name":"mybool",
 "number_attribute_constraints.#": "0",
-"required":        "false",
+"required":
 "string_attribute_constraints.#": "0",
 }),
 ),
@@ -1166,41 +1166,41 @@ testAccCheckUserPoolExists(ctx, resourceName, &pool2),
 testAccCheckUserPoolNotRecreated(&pool1, &pool2),
 resource.TestCheckResourceAttr(resourceName, "schema.#", "3"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-"attribute_data_type":   "String",
-"developer_only_attribute":       "false",
+"attribute_data_type":"String",
+"developer_only_attribute":"false",
 "mutable":"false",
-"name":   "email",
+"name":"email",
 "number_attribute_constraints.#": "0",
-"required":        "true",
+"required":
 "string_attribute_constraints.#": "1",
 "string_attribute_constraints.0.min_length": "5",
 "string_attribute_constraints.0.max_length": "10",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-"attribute_data_type":   "Boolean",
-"developer_only_attribute":       "true",
+"attribute_data_type":"Boolean",
+"developer_only_attribute":"true",
 "mutable":"false",
-"name":   "mybool",
+"name":"mybool",
 "number_attribute_constraints.#": "0",
-"required":        "false",
+"required":
 "string_attribute_constraints.#": "0",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-"attribute_data_type":   "Number",
-"developer_only_attribute":       "false",
+"attribute_data_type":"Number",
+"developer_only_attribute":"false",
 "mutable":"true",
-"name":   "mynondevnumber",
+"name":"mynondevnumber",
 "number_attribute_constraints.#": "1",
 "number_attribute_constraints.0.min_value": "2",
 "number_attribute_constraints.0.max_value": "6",
-"required":        "false",
+"required":
 "string_attribute_constraints.#": "0",
 }),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -1211,13 +1211,13 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool"),
 },
 {
-Config:      testAccUserPoolConfig_schemaAttributes(rName),
+Config: testAccUserPoolConfig_schemaAttributes(rName),
 ExpectError: regexache.MustCompile("cannot modify or remove schema items"),
 },
 },
@@ -1228,13 +1228,13 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool"),
 },
 {
-Config:      testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool2"),
+Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool2"),
 ExpectError: regexache.MustCompile("cannot modify or remove schema items"),
 },
 },
@@ -1248,7 +1248,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 // Omit optional "string_attribute_constraints" schema argument to verify a persistent
@@ -1261,7 +1261,7 @@ testAccCheckUserPoolExists(ctx, resourceName, &pool),
 {
 // Attempting to explicitly set constraints to non-default values after creation
 // should trigger an error
-Config:      testAccUserPoolConfig_schemaAttributes(rName),
+Config: testAccUserPoolConfig_schemaAttributes(rName),
 ExpectError: regexache.MustCompile("cannot modify or remove schema items"),
 },
 },
@@ -1273,7 +1273,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_verificationMessageTemplate(rName),
@@ -1293,8 +1293,8 @@ resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####}
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -1324,7 +1324,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_update(rName, optionalMfa, authenticationMessage),
@@ -1349,8 +1349,8 @@ resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.sns_caller_
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -1406,7 +1406,7 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserPoolConfig_name(rName),
@@ -1425,10 +1425,10 @@ resourceName := "aws_cognito_user_pool.test"resource.ParallelTest(t, resource.Te
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 {
-Config:      testAccUserPoolConfig_userAttributeUpdateSettings(rName, "invalid_value"),
+Config: testAccUserPoolConfig_userAttributeUpdateSettings(rName, "invalid_value"),
 ExpectError: regexache.MustCompile("expected user_attribute_update_settings.0.attributes_require_verification_before_update.0 to be one of"),
 },
 {
@@ -1495,27 +1495,27 @@ t.Fatalf("unexpected PreCheck error: %s", err)
 return fmt.Sprintf(`
 data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name = %[1]q  assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Condition = {
-        "StringEquals" = {
+Statement = [{
+ Action = "sts:AssumeRole"
+ Condition = {
+
  "sts:ExternalId" = %[2]q
-        }
-      }      Effect = "Allow"
-      Principal = {
-        Service = "cognito-idp.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+
+ } Effect = "Allow"
+ Principal = {
+{data.aws_partition.current.dns_suffix}"
+ }
+}]
+Version = "2012-10-17"
   })
 }resource "aws_iam_role_policy" "test" {
   role = aws_iam_role.test.id  policy = jsonencode({
-    Statement = [{
-      Action   = "sns:publish"
-      Effect   = "Allow"
-      Resource = "*"
-    }]
-    Version = "2012-10-17"
+Statement = [{
+ Action= "sns:publish"
+ Effect= "Allow"
+ Resource = "*"
+}]
+Version = "2012-10-17"
   })
 }
 `, rName, externalID)
@@ -1536,10 +1536,10 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  account_recovery_setting {
-    recovery_mechanism {
-      name     = "verified_email"
-      priority = 1
-    }
+recovery_mechanism {
+ name= "verified_email"
+ priority = 1
+}
   }
 }
 `, rName)
@@ -1547,13 +1547,13 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  account_recovery_setting {
-    recovery_mechanism {
-      name     = "verified_email"
-      priority = 1
-    }    recovery_mechanism {
-      name     = "verified_phone_number"
-      priority = 2
-    }
+recovery_mechanism {
+ name= "verified_email"
+ priority = 1
+}recovery_mechanism {
+ name= "verified_phone_number"
+ priority = 2
+}
   }
 }
 `, rName)
@@ -1561,10 +1561,10 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  account_recovery_setting {
-    recovery_mechanism {
-      name     = "verified_phone_number"
-      priority = 1
-    }
+recovery_mechanism {
+ name= "verified_phone_number"
+ priority = 1
+}
   }
 }
 `, rName)
@@ -1572,11 +1572,11 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  admin_create_user_config {
-    allow_admin_create_user_only = true    invite_message_template {
-      email_message = "Your username is {username} and temporary password is {####}. "
-      email_subject = "FooBar {####}"
-      sms_message   = "Your username is {username} and temporary password is {####}."
-    }
+allow_admin_create_user_only = trueinvite_message_template {
+ email_message = "Your username is {username} and temporary password is {####}. "
+ email_subject = "FooBar {####}"
+ sms_message= "Your username is {username} and temporary password is {####}."
+}
   }
 }
 `, rName)
@@ -1584,11 +1584,11 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  admin_create_user_config {
-    allow_admin_create_user_only = false    invite_message_template {
-      email_message = "Your username is {username} and constant password is {####}. "
-      email_subject = "Foo{####}BaBaz"
-      sms_message   = "Your username is {username} and constant password is {####}."
-    }
+allow_admin_create_user_only = falseinvite_message_template {
+ email_message = "Your username is {username} and constant password is {####}. "
+ email_subject = "Foo{####}BaBaz"
+ sms_message= "Your username is {username} and constant password is {####}."
+}
   }
 }
 `, rName)
@@ -1596,7 +1596,7 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  user_pool_add_ons {
-    advanced_security_mode = %[2]q
+advanced_security_mode = %[2]q
   }
 }
 `, rName, advancedSecurityMode)
@@ -1604,8 +1604,8 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  device_configuration {
-    challenge_required_on_new_device      = true
-    device_only_remembered_on_user_prompt = false
+challenge_required_on_new_device = true
+device_only_remembered_on_user_prompt = false
   }
 }
 `, rName)
@@ -1613,18 +1613,18 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  device_configuration {
-    challenge_required_on_new_device      = false
-    device_only_remembered_on_user_prompt = true
+challenge_required_on_new_device = false
+device_only_remembered_on_user_prompt = true
   }
 }
 `, rName)
 }func testAccUserPoolConfig_emailVerificationMessage(rName, subject, message string) string {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
-  name        = %[1]q
+  name
   email_verification_subject = "%[2]s"
   email_verification_message = "%[3]s"  verification_message_template {
-    default_email_option = "CONFIRM_WITH_CODE"
+default_email_option = "CONFIRM_WITH_CODE"
   }
 }
 `, rName, subject, message)
@@ -1632,21 +1632,21 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   mfa_configuration = %[2]q
-  name     = %[1]q
+  name= %[1]q
 }
 `, rName, mfaConfiguration)
 }func testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName string) string {
 return acctest.ConfigCompose(testAccUserPoolSMSConfigurationConfig_base(rName, "test"), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   mfa_configuration = "ON"
-  name     = %[1]q  account_recovery_setting {
-    recovery_mechanism {
-      name     = "verified_email"
-      priority = 1
-    }
+  name= %[1]q  account_recovery_setting {
+recovery_mechanism {
+ name= "verified_email"
+ priority = 1
+}
   }  sms_configuration {
-    external_id    = "test"
-    sns_caller_arn = aws_iam_role.test.arn
+external_id= "test"
+sns_caller_arn = aws_iam_role.test.arn
   }
 }
 `, rName))
@@ -1654,16 +1654,16 @@ resource "aws_cognito_user_pool" "test" {
 return acctest.ConfigCompose(testAccUserPoolSMSConfigurationConfig_base(rName, "test"), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   mfa_configuration = "ON"
-  name     = %[1]q  account_recovery_setting {
-    recovery_mechanism {
-      name     = "verified_email"
-      priority = 1
-    }
+  name= %[1]q  account_recovery_setting {
+recovery_mechanism {
+ name= "verified_email"
+ priority = 1
+}
   }  sms_configuration {
-    external_id    = "test"
-    sns_caller_arn = aws_iam_role.test.arn
+external_id= "test"
+sns_caller_arn = aws_iam_role.test.arn
   }  software_token_mfa_configuration {
-    enabled = %[2]t
+enabled = %[2]t
   }
 }
 `, rName, enabled))
@@ -1671,20 +1671,20 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   mfa_configuration = "ON"
-  name     = %[1]q  account_recovery_setting {
-    recovery_mechanism {
-      name     = "verified_email"
-      priority = 1
-    }
+  name= %[1]q  account_recovery_setting {
+recovery_mechanism {
+ name= "verified_email"
+ priority = 1
+}
   }  software_token_mfa_configuration {
-    enabled = %[2]t
+enabled = %[2]t
   }
 }
 `, rName, enabled)
 }func testAccUserPoolConfig_smsAuthenticationMessage(rName, smsAuthenticationMessage string) string {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
-  name        = %[1]q
+  name
   sms_authentication_message = %[2]q
 }
 `, rName, smsAuthenticationMessage)
@@ -1692,8 +1692,8 @@ resource "aws_cognito_user_pool" "test" {
 return acctest.ConfigCompose(testAccUserPoolSMSConfigurationConfig_base(rName, externalID), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  sms_configuration {
-    external_id    = %[2]q
-    sns_caller_arn = aws_iam_role.test.arn
+external_id= %[2]q
+sns_caller_arn = aws_iam_role.test.arn
   }
 }
 `, rName, externalID))
@@ -1701,9 +1701,9 @@ resource "aws_cognito_user_pool" "test" {
 return acctest.ConfigCompose(testAccUserPoolSMSConfigurationConfig_base(rName, "test"), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  sms_configuration {
-    external_id    = "test"
-    sns_caller_arn = aws_iam_role.test.arn
-    sns_region     = %[2]q
+external_id= "test"
+sns_caller_arn = aws_iam_role.test.arn
+sns_region= %[2]q
   }
 }
 `, rName, snsRegion))
@@ -1711,15 +1711,15 @@ resource "aws_cognito_user_pool" "test" {
 return acctest.ConfigCompose(testAccUserPoolSMSConfigurationConfig_base(rName+"-2", "test"), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  sms_configuration {
-    external_id    = "test"
-    sns_caller_arn = aws_iam_role.test.arn
+external_id= "test"
+sns_caller_arn = aws_iam_role.test.arn
   }
 }
 `, rName))
 }func testAccUserPoolConfig_smsVerificationMessage(rName, smsVerificationMessage string) string {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
-  name      = %[1]q
+  name = %[1]q
   sms_verification_message = %[2]q
 }
 `, rName, smsVerificationMessage)
@@ -1727,7 +1727,7 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -1735,8 +1735,8 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -1744,7 +1744,7 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  email_configuration {
-    email_sending_account = "COGNITO_DEFAULT"
+email_sending_account = "COGNITO_DEFAULT"
   }
 }
 `, rName)
@@ -1752,15 +1752,15 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_ses_configuration_set" "test" {
   name = %[1]q  delivery_options {
-    tls_policy = "Optional"
+tls_policy = "Optional"
   }
 }resource "aws_cognito_user_pool" "test" {
   name = %[1]q  email_configuration {
-    reply_to_email_address = %[2]q
-    source_arn    = %[3]q
-    from_email_address     = %[4]q
-    email_sending_account  = %[5]q
-    configuration_set      = aws_ses_configuration_set.test.name
+reply_to_email_address = %[2]q
+source_arn= %[3]q
+from_email_address= %[4]q
+email_sending_account  = %[5]q
+configuration_set = aws_ses_configuration_set.test.name
   }
 }
 `, rName, email, arn, from, account)
@@ -1786,7 +1786,7 @@ resource "aws_cognito_user_pool" "test" {
 }func testAccUserPoolConfig_nameAttributesUpdated(rName string) string {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
-  name = %[1]q  username_attributes      = ["email", "phone_number"]
+  name = %[1]q  username_attributes = ["email", "phone_number"]
   auto_verified_attributes = ["email"]
 }
 `, rName)
@@ -1794,14 +1794,14 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  admin_create_user_config {
-    allow_admin_create_user_only = true
+allow_admin_create_user_only = true
   }  password_policy {
-    minimum_length    = 7
-    require_lowercase = true
-    require_numbers   = false
-    require_symbols   = true
-    require_uppercase = false
-    temporary_password_validity_days = 7
+minimum_length= 7
+require_lowercase = true
+require_numbers= false
+require_symbols= true
+require_uppercase = false
+temporary_password_validity_days = 7
   }
 }
 `, rName)
@@ -1809,12 +1809,12 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  password_policy {
-    minimum_length    = 7
-    require_lowercase = true
-    require_numbers   = false
-    require_symbols   = true
-    require_uppercase = false
-    temporary_password_validity_days = 7
+minimum_length= 7
+require_lowercase = true
+require_numbers= false
+require_symbols= true
+require_uppercase = false
+temporary_password_validity_days = 7
   }
 }
 `, name)
@@ -1822,12 +1822,12 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  password_policy {
-    minimum_length    = 9
-    require_lowercase = false
-    require_numbers   = true
-    require_symbols   = false
-    require_uppercase = true
-    temporary_password_validity_days = 14
+minimum_length= 9
+require_lowercase = false
+require_numbers= true
+require_symbols= false
+require_uppercase = true
+temporary_password_validity_days = 14
   }
 }
 `, name)
@@ -1835,7 +1835,7 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  username_configuration {
-    case_sensitive = true
+case_sensitive = true
   }
 }
 `, name)
@@ -1843,7 +1843,7 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  username_configuration {
-    case_sensitive = false
+case_sensitive = false
   }
 }
 `, name)
@@ -1854,39 +1854,39 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+naws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
 }resource "aws_lambda_function" "test" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filename = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.test.arn
-  handler       = "exports.example"
-  runtime       = "nodejs16.x"
+  handler= "exports.example"
+  runtime= "nodejs16.x"
 }resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
   "Statement": [
-    {
-      "Sid": "Enable IAM User Permissions",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "kms:*",
-      "Resource": "*"
-    }
+{
+ "Sid": "Enable IAM User Permissions",
+ "Effect": "Allow",
+ "Principal": {
+
+ },
+ "Action": "kms:*",
+ "Resource": "*"
+}
   ]
 }
 POLICY
@@ -1896,39 +1896,39 @@ POLICY
 return acctest.ConfigCompose(testAccUserPoolLambdaConfig_base(name), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  lambda_config {
-    create_auth_challenge = aws_lambda_function.test.arn
-    custom_message  = aws_lambda_function.test.arn
-    define_auth_challenge = aws_lambda_function.test.arn
-    post_authentication   = aws_lambda_function.test.arn
-    post_confirmation     = aws_lambda_function.test.arn
-    pre_authentication    = aws_lambda_function.test.arn
-    pre_sign_up     = aws_lambda_function.test.arn
-    pre_token_generation  = aws_lambda_function.test.arn
-    user_migration  = aws_lambda_function.test.arn
-    verify_auth_challenge_response = aws_lambda_function.test.arn
+create_auth_challenge = aws_lambda_function.test.arn
+custom_message  = aws_lambda_function.test.arn
+define_auth_challenge = aws_lambda_function.test.arn
+post_authentication= aws_lambda_function.test.arn
+post_confirmation= aws_lambda_function.test.arn
+pre_authentication= aws_lambda_function.test.arn
+pre_sign_up= aws_lambda_function.test.arn
+pre_token_generation  = aws_lambda_function.test.arn
+user_migration  = aws_lambda_function.test.arn
+verify_auth_challenge_response = aws_lambda_function.test.arn
   }
 }
 `, name))
 }func testAccUserPoolConfig_lambdaUpdated(name string) string {
 return acctest.ConfigCompose(testAccUserPoolLambdaConfig_base(name), fmt.Sprintf(`
 resource "aws_lambda_function" "second" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filename = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s_second"
   role = aws_iam_role.test.arn
-  handler       = "exports.example"
-  runtime       = "nodejs16.x"
+  handler= "exports.example"
+  runtime= "nodejs16.x"
 }resource "aws_cognito_user_pool" "test" {
   name = %[1]q  lambda_config {
-    create_auth_challenge = aws_lambda_function.second.arn
-    custom_message  = aws_lambda_function.second.arn
-    define_auth_challenge = aws_lambda_function.second.arn
-    post_authentication   = aws_lambda_function.second.arn
-    post_confirmation     = aws_lambda_function.second.arn
-    pre_authentication    = aws_lambda_function.second.arn
-    pre_sign_up     = aws_lambda_function.second.arn
-    pre_token_generation  = aws_lambda_function.second.arn
-    user_migration  = aws_lambda_function.second.arn
-    verify_auth_challenge_response = aws_lambda_function.second.arn
+create_auth_challenge = aws_lambda_function.second.arn
+custom_message  = aws_lambda_function.second.arn
+define_auth_challenge = aws_lambda_function.second.arn
+post_authentication= aws_lambda_function.second.arn
+post_confirmation= aws_lambda_function.second.arn
+pre_authentication= aws_lambda_function.second.arn
+pre_sign_up= aws_lambda_function.second.arn
+pre_token_generation  = aws_lambda_function.second.arn
+user_migration  = aws_lambda_function.second.arn
+verify_auth_challenge_response = aws_lambda_function.second.arn
   }
 }
 `, name))
@@ -1936,27 +1936,27 @@ resource "aws_lambda_function" "second" {
 return acctest.ConfigCompose(testAccUserPoolLambdaConfig_base(name), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  lambda_config {
-    kms_key_id = aws_kms_key.test.arn    custom_email_sender {
-      lambda_arn     = aws_lambda_function.test.arn
-      lambda_version = "V1_0"
-    }
+kms_key_id = aws_kms_key.test.arncustom_email_sender {
+ lambda_arn= aws_lambda_function.test.arn
+ lambda_version = "V1_0"
+}
   }
 }
 `, name))
 }func testAccUserPoolConfig_lambdaEmailSenderUpdated(name string) string {
 return acctest.ConfigCompose(testAccUserPoolLambdaConfig_base(name), fmt.Sprintf(`
 resource "aws_lambda_function" "second" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filename = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s_second"
   role = aws_iam_role.test.arn
-  handler       = "exports.example"
-  runtime       = "nodejs16.x"
+  handler= "exports.example"
+  runtime= "nodejs16.x"
 }resource "aws_cognito_user_pool" "test" {
   name = %[1]q  lambda_config {
-    kms_key_id = aws_kms_key.test.arn    custom_email_sender {
-      lambda_arn     = aws_lambda_function.second.arn
-      lambda_version = "V1_0"
-    }
+kms_key_id = aws_kms_key.test.arncustom_email_sender {
+ lambda_arn= aws_lambda_function.second.arn
+ lambda_version = "V1_0"
+}
   }
 }
 `, name))
@@ -1964,7 +1964,7 @@ resource "aws_lambda_function" "second" {
 return acctest.ConfigCompose(testAccUserPoolLambdaConfig_base(name), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  lambda_config {
-    kms_key_id = aws_kms_key.test.arn
+kms_key_id = aws_kms_key.test.arn
   }
 }
 `, name))
@@ -1972,27 +1972,27 @@ resource "aws_cognito_user_pool" "test" {
 return acctest.ConfigCompose(testAccUserPoolLambdaConfig_base(name), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  lambda_config {
-    kms_key_id = aws_kms_key.test.arn    custom_sms_sender {
-      lambda_arn     = aws_lambda_function.test.arn
-      lambda_version = "V1_0"
-    }
+kms_key_id = aws_kms_key.test.arncustom_sms_sender {
+ lambda_arn= aws_lambda_function.test.arn
+ lambda_version = "V1_0"
+}
   }
 }
 `, name))
 }func testAccUserPoolConfig_lambdaSMSSenderUpdated(name string) string {
 return acctest.ConfigCompose(testAccUserPoolLambdaConfig_base(name), fmt.Sprintf(`
 resource "aws_lambda_function" "second" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filename = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s_second"
   role = aws_iam_role.test.arn
-  handler       = "exports.example"
-  runtime       = "nodejs16.x"
+  handler= "exports.example"
+  runtime= "nodejs16.x"
 }resource "aws_cognito_user_pool" "test" {
   name = %[1]q  lambda_config {
-    kms_key_id = aws_kms_key.test.arn    custom_sms_sender {
-      lambda_arn     = aws_lambda_function.second.arn
-      lambda_version = "V1_0"
-    }
+kms_key_id = aws_kms_key.test.arncustom_sms_sender {
+ lambda_arn= aws_lambda_function.second.arn
+ lambda_version = "V1_0"
+}
   }
 }
 `, name))
@@ -2000,7 +2000,7 @@ resource "aws_lambda_function" "second" {
 return acctest.ConfigCompose(testAccUserPoolLambdaConfig_base(name), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  lambda_config {
-    kms_key_id = aws_kms_key.test.arn
+kms_key_id = aws_kms_key.test.arn
   }
 }
 `, name))
@@ -2008,20 +2008,20 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = "%[1]s"  schema {
-    attribute_data_type      = "String"
-    developer_only_attribute = false
-    mutable   = false
-    name      = "email"
-    required  = true    string_attribute_constraints {
-      min_length = 5
-      max_length = 10
-    }
+attribute_data_type = "String"
+developer_only_attribute = false
+mutable= false
+name = "email"
+required  = truestring_attribute_constraints {
+ min_length = 5
+ max_length = 10
+}
   }  schema {
-    attribute_data_type      = "Boolean"
-    developer_only_attribute = true
-    mutable   = false
-    name      = "mybool"
-    required  = false
+attribute_data_type = "Boolean"
+developer_only_attribute = true
+mutable= false
+name = "mybool"
+required  = false
   }
 }
 `, name)
@@ -2029,29 +2029,29 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = "%[1]s"  schema {
-    attribute_data_type      = "String"
-    developer_only_attribute = false
-    mutable   = false
-    name      = "email"
-    required  = true    string_attribute_constraints {
-      min_length = 5
-      max_length = 10
-    }
+attribute_data_type = "String"
+developer_only_attribute = false
+mutable= false
+name = "email"
+required  = truestring_attribute_constraints {
+ min_length = 5
+ max_length = 10
+}
   }  schema {
-    attribute_data_type      = "Boolean"
-    developer_only_attribute = true
-    mutable   = false
-    name      = %[2]q
-    required  = false
+attribute_data_type = "Boolean"
+developer_only_attribute = true
+mutable= false
+name = %[2]q
+required  = false
   }  schema {
-    attribute_data_type      = "Number"
-    developer_only_attribute = false
-    mutable   = true
-    name      = "mynondevnumber"
-    required  = false    number_attribute_constraints {
-      min_value = 2
-      max_value = 6
-    }
+attribute_data_type = "Number"
+developer_only_attribute = false
+mutable= true
+name = "mynondevnumber"
+required  = falsenumber_attribute_constraints {
+ min_value = 2
+ max_value = 6
+}
   }
 }
 `, name, boolname)
@@ -2059,17 +2059,17 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = "%[1]s"  schema {
-    attribute_data_type      = "String"
-    developer_only_attribute = false
-    mutable   = false
-    name      = "email"
-    required  = true
+attribute_data_type = "String"
+developer_only_attribute = false
+mutable= false
+name = "email"
+required  = true
   }  schema {
-    attribute_data_type      = "Boolean"
-    developer_only_attribute = true
-    mutable   = false
-    name      = "mybool"
-    required  = false
+attribute_data_type = "Boolean"
+developer_only_attribute = true
+mutable= false
+name = "mybool"
+required  = false
   }
 }
 `, name)
@@ -2079,12 +2079,12 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q  # Setting Verification template attributes like EmailMessage, EmailSubject or SmsMessage
   # will implicitly set EmailVerificationMessage, EmailVerificationSubject and SmsVerificationMessage
   # attributes.  verification_message_template {
-    default_email_option  = "CONFIRM_WITH_LINK"
-    email_message= "foo {####} bar"
-    email_message_by_link = "{##foobar##}"
-    email_subject= "foobar {####}"
-    email_subject_by_link = "foobar"
-    sms_message  = "{####} baz"
+default_email_option  = "CONFIRM_WITH_LINK"
+email_message= "foo {####} bar"
+email_message_by_link = "{##foobar##}"
+email_subject= "foobar {####}"
+email_subject_by_link = "foobar"
+sms_message  = "{####} baz"
   }
 }
 `, name)
@@ -2093,8 +2093,8 @@ return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  email_verification_message = "{####} Baz"
   email_verification_subject = "BazBaz {####}"
-  sms_verification_message   = "{####} BazBazBar?"  verification_message_template {
-    default_email_option = "CONFIRM_WITH_CODE"
+  sms_verification_message= "{####} BazBazBar?"  verification_message_template {
+default_email_option = "CONFIRM_WITH_CODE"
   }
 }
 `, name)
@@ -2107,19 +2107,19 @@ data "aws_caller_identity" "current" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "cognito-idp.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole",
-      "Condition": {
-        "StringEquals": {
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Principal": {
+amazonaws.com"
+ },
+ "Action": "sts:AssumeRole",
+ "Condition": {
+
  "sts:ExternalId": "${data.aws_caller_identity.current.account_id}"
-        }
-      }
-    }
+
+ }
+}
   ]
 }
 POLICY
@@ -2129,38 +2129,38 @@ POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "sns:publish"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+{
+ "Effect": "Allow",
+ "Action": [
+
+ ],
+ "Resource": [
+
+ ]
+}
   ]
 }
 EOF
 }resource "aws_cognito_user_pool" "test" {
-  name      = %[1]q
+  name = %[1]q
   auto_verified_attributes = ["email"]
-  mfa_configuration        = "%[2]s"  email_verification_message = "Foo {####} Bar"
+  mfa_configurationation_message = "Foo {####} Bar"
   email_verification_subject = "FooBar {####}"
-  sms_verification_message   = "{####} Baz"
+  sms_verification_message= "{####} Baz"
   sms_authentication_message = "%[3]s"  admin_create_user_config {
-    allow_admin_create_user_only = true    invite_message_template {
-      email_message = "Your username is {username} and temporary password is {####}. "
-      email_subject = "FooBar {####}"
-      sms_message   = "Your username is {username} and temporary password is {####}."
-    }
+allow_admin_create_user_only = trueinvite_message_template {
+ email_message = "Your username is {username} and temporary password is {####}. "
+ email_subject = "FooBar {####}"
+ sms_message= "Your username is {username} and temporary password is {####}."
+}
   }  device_configuration {
-    challenge_required_on_new_device      = true
-    device_only_remembered_on_user_prompt = false
+challenge_required_on_new_device = true
+device_only_remembered_on_user_prompt = false
   }  verification_message_template {
-    default_email_option = "CONFIRM_WITH_CODE"
+default_email_option = "CONFIRM_WITH_CODE"
   }  sms_configuration {
-    external_id    = data.aws_caller_identity.current.account_id
-    sns_caller_arn = aws_iam_role.test.arn
+external_id= data.aws_caller_identity.current.account_id
+sns_caller_arn = aws_iam_role.test.arn
   }
 }
 `, name, mfaconfig, smsAuthMsg)
@@ -2168,7 +2168,7 @@ EOF
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  auto_verified_attributes = ["%[2]s"]  user_attribute_update_settings {
-    attributes_require_verification_before_update = ["%[2]s"]
+attributes_require_verification_before_update = ["%[2]s"]
   }
 }
 `, name, attr)

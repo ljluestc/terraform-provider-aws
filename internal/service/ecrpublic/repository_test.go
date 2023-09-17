@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ecrpublic_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ecrpublic_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/ecrpublic"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -18,19 +12,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfecrpublic "github.com/hashicorp/terraform-provider-aws/internal/service/ecrpublic"
-)
-
-func TestAccECRPublicRepository_basic(t *testing.T) {
+)func TestAccECRPublicRepository_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ecrpublic.Repository
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_basic(rName),
@@ -42,25 +32,21 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepository_tags(t *testing.T) {
+}func TestAccECRPublicRepository_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ecrpublic.Repository
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_tags1(rName, "key1", "value1"),
@@ -71,8 +57,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -94,19 +80,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepository_CatalogData_aboutText(t *testing.T) {
+}func TestAccECRPublicRepository_CatalogData_aboutText(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ecrpublic.Repository
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_catalogDataAboutText(rName, "about_text_1"),
@@ -117,8 +99,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -131,19 +113,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepository_CatalogData_architectures(t *testing.T) {
+}func TestAccECRPublicRepository_CatalogData_architectures(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ecrpublic.Repository
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_catalogDataArchitectures(rName, "Linux"),
@@ -154,8 +132,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -168,19 +146,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepository_CatalogData_description(t *testing.T) {
+}func TestAccECRPublicRepository_CatalogData_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ecrpublic.Repository
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_catalogDataDescription(rName, "description 1"),
@@ -191,8 +165,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -205,19 +179,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepository_CatalogData_operatingSystems(t *testing.T) {
+}func TestAccECRPublicRepository_CatalogData_operatingSystems(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ecrpublic.Repository
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_catalogDataOperatingSystems(rName, "ARM"),
@@ -228,8 +198,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -242,19 +212,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepository_CatalogData_usageText(t *testing.T) {
+}func TestAccECRPublicRepository_CatalogData_usageText(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ecrpublic.Repository
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_catalogDataUsageText(rName, "usage text 1"),
@@ -265,8 +231,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -279,19 +245,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepository_CatalogData_logoImageBlob(t *testing.T) {
+}func TestAccECRPublicRepository_CatalogData_logoImageBlob(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ecrpublic.Repository
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_catalogDataLogoImageBlob(rName),
@@ -302,26 +264,22 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"catalog_data.0.logo_image_blob"},
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepository_Basic_forceDestroy(t *testing.T) {
+}func TestAccECRPublicRepository_Basic_forceDestroy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ecrpublic.Repository
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_forceDestroy(rName),
@@ -333,26 +291,22 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepository_disappears(t *testing.T) {
+}func TestAccECRPublicRepository_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ecrpublic.Repository
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_basic(rName),
@@ -364,22 +318,14 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func testAccCheckRepositoryExists(ctx context.Context, name string, res *ecrpublic.Repository) resource.TestCheckFunc {
+}func testAccCheckRepositoryExists(ctx context.Context, name string, res *ecrpublic.Repository) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return fmt.Errorf("Not found: %s", name)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No ECR Public repository ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ECRPublicConn(ctx)
-
-output, err := conn.DescribeRepositoriesWithContext(ctx, &ecrpublic.DescribeRepositoriesInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ECRPublicConn(ctx)output, err := conn.DescribeRepositoriesWithContext(ctx, &ecrpublic.DescribeRepositoriesInput{
 	RepositoryNames: aws.StringSlice([]string{rs.Primary.ID}),
 })
 if err != nil {
@@ -387,151 +333,107 @@ if err != nil {
 }
 if len(output.Repositories) == 0 {
 	return fmt.Errorf("ECR Public repository %s not found", rs.Primary.ID)
-}
-
-*res = *output.Repositories[0]
-
-return nil
+}*res = *output.Repositories[0]return nil
 	}
-}
-
-func testAccCheckRepositoryDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckRepositoryDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ECRPublicConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ECRPublicConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_ecrpublic_repository" {
 continue
-	}
-
-	input := ecrpublic.DescribeRepositoriesInput{
+	}	input := ecrpublic.DescribeRepositoriesInput{
 RepositoryNames: []*string{aws.String(rs.Primary.Attributes["repository_name"])},
-	}
-
-	out, err := conn.DescribeRepositoriesWithContext(ctx, &input)
-
-	if tfawserr.ErrCodeEquals(err, ecrpublic.ErrCodeRepositoryNotFoundException) {
+	}	out, err := conn.DescribeRepositoriesWithContext(ctx, &input)	if tfawserr.ErrCodeEquals(err, ecrpublic.ErrCodeRepositoryNotFoundException) {
 return nil
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
-	}
-
-	for _, repository := range out.Repositories {
+	}	for _, repository := range out.Repositories {
 if aws.StringValue(repository.RepositoryName) == rs.Primary.Attributes["repository_name"] {
 	return fmt.Errorf("ECR Public repository still exists: %s", rs.Primary.Attributes["repository_name"])
 }
 	}
-}
-
-return nil
+}return nil
 	}
-}
-
-func testAccRepositoryConfig_basic(rName string) string {
+}func testAccRepositoryConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
 }
 `, rName)
-}
-
-func testAccRepositoryConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccRepositoryConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
-  repository_name = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
+  repository_name = %[1]q  tags = {
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccRepositoryConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccRepositoryConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
-  repository_name = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  repository_name = %[1]q  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccRepositoryConfig_forceDestroy(rName string) string {
+}func testAccRepositoryConfig_forceDestroy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
-  force_destroy   = true
+  force_destroy= true
 }
 `, rName)
-}
-
-func testAccRepositoryConfig_catalogDataAboutText(rName string, aboutText string) string {
+}func testAccRepositoryConfig_catalogDataAboutText(rName string, aboutText string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
   catalog_data {
-    about_text = %[2]q
+about_text = %[2]q
   }
 }
 `, rName, aboutText)
-}
-
-func testAccRepositoryConfig_catalogDataArchitectures(rName string, architecture string) string {
+}func testAccRepositoryConfig_catalogDataArchitectures(rName string, architecture string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
   catalog_data {
-    architectures = [%[2]q]
+architectures = [%[2]q]
   }
 }
 `, rName, architecture)
-}
-
-func testAccRepositoryConfig_catalogDataDescription(rName string, description string) string {
+}func testAccRepositoryConfig_catalogDataDescription(rName string, description string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
   catalog_data {
-    description = %[2]q
+description = %[2]q
   }
 }
 `, rName, description)
-}
-
-func testAccRepositoryConfig_catalogDataOperatingSystems(rName string, operatingSystem string) string {
+}func testAccRepositoryConfig_catalogDataOperatingSystems(rName string, operatingSystem string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
   catalog_data {
-    operating_systems = [%[2]q]
+operating_systems = [%[2]q]
   }
 }
 `, rName, operatingSystem)
-}
-
-func testAccRepositoryConfig_catalogDataUsageText(rName string, usageText string) string {
+}func testAccRepositoryConfig_catalogDataUsageText(rName string, usageText string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
   catalog_data {
-    usage_text = %[2]q
+usage_text = %[2]q
   }
 }
 `, rName, usageText)
-}
-
-func testAccRepositoryConfig_catalogDataLogoImageBlob(rName string) string {
+}func testAccRepositoryConfig_catalogDataLogoImageBlob(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %q
   catalog_data {
-    logo_image_blob = filebase64("test-fixtures/terraform_logo.png")
+logo_image_blob = filebase64("test-fixtures/terraform_logo.png")
   }
 }
 `, rName)

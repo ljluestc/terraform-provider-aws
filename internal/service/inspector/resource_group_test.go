@@ -16,7 +16,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 	{
 Config: testAccResourceGroupConfig_basic,
@@ -64,13 +64,13 @@ if v2.CreatedAt.Equal(*v1.CreatedAt) {
 }var testAccResourceGroupConfig_basic = `
 resource "aws_inspector_resource_group" "test" {
   tags = {
-    Name = "foo"
+Name = "foo"
   }
 }
 `var testAccResourceGroupConfig_modified = `
 resource "aws_inspector_resource_group" "test" {
   tags = {
-    Name = "bar"
+Name = "bar"
   }
 }
 `

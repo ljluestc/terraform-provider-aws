@@ -27,7 +27,7 @@ policyNamePrefixMaxLen = policyNameMaxLen - id.UniqueIDSuffixLength
 // @Tagsfunc ResourcePolicy() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourcePolicyCreate,
-ReadWithoutTimeout:   resourcePolicyRead,
+ReadWithoutTimeout:resourcePolicyRead,
 UpdateWithoutTimeout: resourcePolicyUpdate,
 DeleteWithoutTimeout: resourcePolicyDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -109,7 +109,7 @@ return sdkdiag.AppendErrorf(diags, "setting IAM Policy (%s) tags: %s", d.Id(), e
 }return append(diags, resourcePolicyRead(ctx, d, meta)...)
 }func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 funcn := meta.(*conns.AWSClient).IAMConn(ctx)type policyWithVersion struct {
-policy   *iam.Policy
+policy*iam.Policy
 policyVersion *iam.PolicyVersion
 }
 outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, propagationTimeout, func() (interface{}, error) {
@@ -152,7 +152,7 @@ return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", policy, er
 }input := &iam.CreatePolicyVersionInput{
 PolicyArn: aws.String(d.Id()),
 PolicyDocument: aws.String(policy),
-SetAsDefault:   aws.Bool(true),
+SetAsDefault:aws.Bool(true),
 }_, err = conn.CreatePolicyVersionWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating IAM Policy (%s): %s", d.Id(), err)
 }
@@ -217,7 +217,7 @@ PolicyArn: aws.String(arn),
 }func
 if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -255,7 +255,7 @@ input := &iam.GetPolicyVersionInput{
 PolicyArn: aws.String(arn),
 VersionId: aws.String(versionID),
 }output, err := conn.GetPolicyVersionWithContext(ctx, input)functurn nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -278,7 +278,7 @@ output = append(output, v)
 }return !lastPage
 })if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

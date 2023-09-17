@@ -17,10 +17,10 @@
 	var pack configservice.ConformancePackDetail
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_basic(rName),
@@ -34,8 +34,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"template_body",
@@ -49,10 +49,10 @@ ImportStateVerifyIgnore: []string{
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix("tf-acc-test-update")
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_basic(rName),
@@ -74,8 +74,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"template_body",
@@ -88,10 +88,10 @@ ImportStateVerifyIgnore: []string{
 	var pack configservice.ConformancePackDetail
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_basic(rName),
@@ -108,10 +108,10 @@ ExpectNonEmptyPlan: true,
 	var pack configservice.ConformancePackDetail
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_inputParameter(rName, "TestKey", "TestValue"),
@@ -129,9 +129,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"template_body"},
 	},
 },
@@ -141,10 +141,10 @@ ImportStateVerifyIgnore: []string{"template_body"},
 	var pack configservice.ConformancePackDetail
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_s3Delivery(rName, rName),
@@ -158,9 +158,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"template_body"},
 	},
 },
@@ -170,10 +170,10 @@ ImportStateVerifyIgnore: []string{"template_body"},
 	var pack configservice.ConformancePackDetail
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_s3Template(rName, rName),
@@ -187,9 +187,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"template_s3_uri"},
 	},
 },
@@ -199,10 +199,10 @@ ImportStateVerifyIgnore: []string{"template_s3_uri"},
 	var pack configservice.ConformancePackDetail
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_inputParameter(rName, "TestKey", "TestValue"),
@@ -226,9 +226,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"template_body"},
 	},
 	{
@@ -246,10 +246,10 @@ Check: resource.ComposeTestCheckFunc(
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_s3Delivery(rName, rName),
@@ -269,9 +269,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"template_body"},
 	},
 },
@@ -282,10 +282,10 @@ ImportStateVerifyIgnore: []string{"template_body"},
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_s3Template(rName, rName),
@@ -305,9 +305,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"template_s3_uri"},
 	},
 },
@@ -317,10 +317,10 @@ ImportStateVerifyIgnore: []string{"template_s3_uri"},
 	var pack configservice.ConformancePackDetail
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_basic(rName),
@@ -340,8 +340,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"template_body",
@@ -354,10 +354,10 @@ ImportStateVerifyIgnore: []string{
 	var pack configservice.ConformancePackDetail
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_conformance_pack.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConformancePackDestroy(ctx),
+CheckDestroy:testAccCheckConformancePackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConformancePackConfig_s3TemplateAndTemplateBody(rName),
@@ -371,8 +371,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"template_body",
@@ -417,44 +417,44 @@ return nil
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}resource "aws_config_configuration_recorder" "test" {
   depends_on = [aws_iam_role_policy_attachment.test]
-  name       = %[1]q
-  role_arn   = aws_iam_role.test.arn
+  name= %[1]q
+  role_arn= aws_iam_role.test.arn
 }resource "aws_iam_role" "test" {
   name = %[1]q  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "config.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+naws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 POLICY
 }resource "aws_iam_role_policy_attachment" "test" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWS_ConfigRole"
-  role       = aws_iam_role.test.name
+  role= aws_iam_role.test.name
 }
 `, rName)
 }func testAccConformancePackConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccConformancePackConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_config_conformance_pack" "test" {
-  depends_on    = [aws_config_configuration_recorder.test]
+  depends_on= [aws_config_configuration_recorder.test]
   name = %q
   template_body = <<EOT
 Resources:
   IAMPasswordPolicy:
-    Properties:
-      ConfigRuleName: IAMPasswordPolicy
-      Source:
-        Owner: AWS
-        SourceIdentifier: IAM_PASSWORD_POLICY
-    Type: AWS::Config::ConfigRule
+Properties:
+ ConfigRuleName: IAMPasswordPolicy
+ Source:
+
+SSWORD_POLICY
+Type: AWS::Config::ConfigRule
 EOT
 }
 `, rName))
@@ -462,17 +462,17 @@ EOT
 	return acctest.ConfigCompose(testAccConformancePackConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_config_conformance_pack" "test" {
-  depends_on    = [aws_config_configuration_recorder.test]
+  depends_on= [aws_config_configuration_recorder.test]
   name = %q
   template_body = <<EOT
 Resources:
   IAMGroupHasUsersCheck:
-    Properties:
-      ConfigRuleName: IAMGroupHasUsersCheck
-      Source:
-        Owner: AWS
-        SourceIdentifier: IAM_GROUP_HAS_USERS_CHECK
-    Type: AWS::Config::ConfigRule
+Properties:
+ ConfigRuleName: IAMGroupHasUsersCheck
+ Source:
+
+OUP_HAS_USERS_CHECK
+Type: AWS::Config::ConfigRule
 EOT
 }
 `, rName))
@@ -481,21 +481,21 @@ EOT
 fmt.Sprintf(`
 resource "aws_config_conformance_pack" "test" {
   depends_on = [aws_config_configuration_recorder.test]
-  name       = %q  input_parameter {
-    parameter_name  = %[2]q
-    parameter_value = %q
+  name= %q  input_parameter {
+parameter_name  = %[2]q
+parameter_value = %q
   }  template_body = <<EOT
 Parameters:
   %[2]s:
-    Type: String
+Type: String
 Resources:
   IAMPasswordPolicy:
-    Properties:
-      ConfigRuleName: IAMPasswordPolicy
-      Source:
-        Owner: AWS
-        SourceIdentifier: IAM_PASSWORD_POLICY
-    Type: AWS::Config::ConfigRule
+Properties:
+ ConfigRuleName: IAMPasswordPolicy
+ Source:
+
+SSWORD_POLICY
+Type: AWS::Config::ConfigRule
 EOT
 }
 `, rName, pName, pValue))
@@ -506,25 +506,25 @@ resource "aws_config_conformance_pack" "test" {
   depends_on = [
   aws_config_configuration_recorder.test]
   name = %[1]q  input_parameter {
-    parameter_name  = %[2]q
-    parameter_value = "TestValue1"
+parameter_name  = %[2]q
+parameter_value = "TestValue1"
   }  input_parameter {
-    parameter_name  = %[3]q
-    parameter_value = "TestValue2"
+parameter_name  = %[3]q
+parameter_value = "TestValue2"
   }  template_body = <<EOT
 Parameters:
   %[2]s:
-    Type: String
+Type: String
   %[3]s:
-    Type: String
+Type: String
 Resources:
   IAMPasswordPolicy:
-    Properties:
-      ConfigRuleName: IAMPasswordPolicy
-      Source:
-        Owner: AWS
-        SourceIdentifier: IAM_PASSWORD_POLICY
-    Type: AWS::Config::ConfigRule
+Properties:
+ ConfigRuleName: IAMPasswordPolicy
+ Source:
+
+SSWORD_POLICY
+Type: AWS::Config::ConfigRule
 EOT
 }
 `, rName, pName1, pName2))
@@ -532,22 +532,22 @@ EOT
 	return acctest.ConfigCompose(testAccConformancePackConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }resource "aws_config_conformance_pack" "test" {
-  depends_on    = [aws_config_configuration_recorder.test]
+  depends_on= [aws_config_configuration_recorder.test]
   name = %[2]q
-  delivery_s3_bucket     = aws_s3_bucket.test.bucket
+  delivery_s3_bucket= aws_s3_bucket.test.bucket
   delivery_s3_key_prefix = %[1]q
   template_body = <<EOT
 Resources:
   IAMPasswordPolicy:
-    Properties:
-      ConfigRuleName: IAMPasswordPolicy
-      Source:
-        Owner: AWS
-        SourceIdentifier: IAM_PASSWORD_POLICY
-    Type: AWS::Config::ConfigRule
+Properties:
+ ConfigRuleName: IAMPasswordPolicy
+ Source:
+
+SSWORD_POLICY
+Type: AWS::Config::ConfigRule
 EOT
 }
 `, bucketName, rName))
@@ -555,24 +555,24 @@ EOT
 	return acctest.ConfigCompose(testAccConformancePackConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }resource "aws_s3_object" "test" {
   bucket  = aws_s3_bucket.test.id
-  key     = %[1]q
+  key= %[1]q
   content = <<EOT
 Resources:
   IAMPasswordPolicy:
-    Properties:
-      ConfigRuleName: IAMPasswordPolicy
-      Source:
-        Owner: AWS
-        SourceIdentifier: IAM_PASSWORD_POLICY
-    Type: AWS::Config::ConfigRule
+Properties:
+ ConfigRuleName: IAMPasswordPolicy
+ Source:
+
+SSWORD_POLICY
+Type: AWS::Config::ConfigRule
 EOT
 }resource "aws_config_conformance_pack" "test" {
-  depends_on      = [aws_config_configuration_recorder.test]
-  name   = %q
+  depends_on = [aws_config_configuration_recorder.test]
+  name= %q
   template_s3_uri = "s3://${aws_s3_bucket.test.bucket}/${aws_s3_object.test.id}"
 }
 `, bucketName, rName))
@@ -580,33 +580,33 @@ EOT
 	return acctest.ConfigCompose(testAccConformancePackConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }resource "aws_s3_object" "test" {
   bucket  = aws_s3_bucket.test.id
-  key     = %[1]q
+  key= %[1]q
   content = <<EOT
 Resources:
   IAMPasswordPolicy:
-    Properties:
-      ConfigRuleName: IAMPasswordPolicy
-      Source:
-        Owner: AWS
-        SourceIdentifier: IAM_PASSWORD_POLICY
-    Type: AWS::Config::ConfigRule
+Properties:
+ ConfigRuleName: IAMPasswordPolicy
+ Source:
+
+SSWORD_POLICY
+Type: AWS::Config::ConfigRule
 EOT
 }resource "aws_config_conformance_pack" "test" {
-  depends_on      = [aws_config_configuration_recorder.test]
-  name   = %[1]q
-  template_body   = <<EOT
+  depends_on = [aws_config_configuration_recorder.test]
+  name= %[1]q
+  template_body= <<EOT
 Resources:
   IAMPasswordPolicy:
-    Properties:
-      ConfigRuleName: IAMPasswordPolicy
-      Source:
-        Owner: AWS
-        SourceIdentifier: IAM_PASSWORD_POLICY
-    Type: AWS::Config::ConfigRule
+Properties:
+ ConfigRuleName: IAMPasswordPolicy
+ Source:
+
+SSWORD_POLICY
+Type: AWS::Config::ConfigRule
 EOT
   template_s3_uri = "s3://${aws_s3_bucket.test.bucket}/${aws_s3_object.test.id}"
 }

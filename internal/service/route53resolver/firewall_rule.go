@@ -16,7 +16,7 @@
 )// @SDKResource("aws_route53_resolver_firewall_rule")func ResourceFirewallRule() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceFirewallRuleCreate,
-ReadWithoutTimeout:   resourceFirewallRuleRead,
+ReadWithoutTimeout:resourceFirewallRuleRead,
 UpdateWithoutTimeout: resourceFirewallRuleUpdate,
 DeleteWithoutTimeout: resourceFirewallRuleDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -88,7 +88,7 @@ CreatorRequestId:(id.PrefixedUniqueId("tf-r53-resolver-firewall-rule-")),
 FirewallRuleGroupId:  aws.String(firewallRuleGroupID),
 FirewallDomainListId: aws.String(firewallDomainListID),
 Name:  aws.String(name),
-Priority:    aws.Int64(int64(d.Get("priority").(int))),
+Priority:aws.Int64(int64(d.Get("priority").(int))),
 }if v, ok := d.GetOk("block_override_dns_type"); ok {
 input.BlockOverrideDnsType = aws.String(v.(string))
 }if v, ok := d.GetOk("block_override_domain"); ok {
@@ -126,7 +126,7 @@ Action:aws.String(d.Get("action").(string)),
 FirewallDomainListId: aws.String(firewallDomainListID),
 FirewallRuleGroupId:  aws.String(firewallRuleGroupID),
 Name:  aws.String(d.Get("name").(string)),
-Priority:    aws.Int64(int64(d.Get("priority").(int))),
+Priority:aws.Int64(int64(d.Get("priority").(int))),
 }if v, ok := d.GetOk("block_override_dns_type"); ok {
 input.BlockOverrideDnsType = aws.String(v.(string))
 }if v, ok := d.GetOk("block_override_domain"); ok {
@@ -181,7 +181,7 @@ output = append(output, v)
 }return !lastPage
 })if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

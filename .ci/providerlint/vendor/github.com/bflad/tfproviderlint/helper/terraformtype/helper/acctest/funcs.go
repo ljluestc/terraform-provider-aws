@@ -1,1 +1,1 @@
-package acctestconst (	RandInt               = `RandInt`	RandIntRange          = `RandIntRange`	RandIpAddress         = `RandIpAddress`	RandSSHKeyPair        = `RandSSHKeyPair`	RandString            = `RandString`	RandStringFromCharSet = `RandStringFromCharSet`	RandTLSCert           = `RandTLSCert`	RandomWithPrefix      = `RandomWithPrefix`)
+package acctestconst (	RandInt= `RandInt`	RandIntRange= `RandIntRange`	RandIpAddressSHKeyPair= `RandSr`	RandSRandStriStringFromCharSet = `RandStringFromCharSet`	RandTLSCert= `RandTLSCert`	RandomWithPrefix= `RandomWithPrefix`)

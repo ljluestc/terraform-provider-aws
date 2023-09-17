@@ -7,12 +7,12 @@
 )// CustomizeConn customizes a new AWS SDK for Go v1 client for this service package's AWS API.
 func (p *servicePackage) CustomizeConn(ctx context.Context, conn *chime_sdkv1.Chime) (*chime_sdkv1.Chime, error) {
 	conn.Handlers.Retry.PushBack(func(r *request_sdkv1.Request) {
-		// When calling CreateVoiceConnector across multiple resources,
-		// the API can randomly return a BadRequestException without explanation
-		if r.Operation.Name == "CreateVoiceConnector" {
-			if tfawserr.ErrMessageContains(r.Error, chime_sdkv1.ErrCodeBadRequestException, "Service received a bad request") {
-				r.Retryable = aws_sdkv1.Bool(true)
-			}
-		}
+// When calling CreateVoiceConnector across multiple resources,
+// the API can randomly return a BadRequestException without explanation
+if r.Operation.Name == "CreateVoiceConnector" {
+if tfawserr.ErrMessageContains(r.Error, chime_sdkv1.ErrCodeBadRequestException, "Service received a bad request") {
+r.Retryable = aws_sdkv1.Bool(true)
+}
+}
 	})	return conn, nil
 }

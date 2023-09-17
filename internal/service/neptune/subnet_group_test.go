@@ -17,7 +17,7 @@ ctx := acctest.Context(t)
 var v neptune.DBSubnetGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -35,8 +35,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -46,7 +46,7 @@ ctx := acctest.Context(t)
 var v neptune.DBSubnetGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -66,7 +66,7 @@ ctx := acctest.Context(t)
 var v neptune.DBSubnetGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -80,8 +80,8 @@ resource.TestCheckResourceAttr(resourceName, "name_prefix", id.UniqueIdPrefix),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -91,7 +91,7 @@ ctx := acctest.Context(t)
 var v neptune.DBSubnetGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -105,8 +105,8 @@ resource.TestCheckResourceAttr(resourceName, "name_prefix", "tf-acc-test-prefix-
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -116,7 +116,7 @@ ctx := acctest.Context(t)
 var v neptune.DBSubnetGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -130,8 +130,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -158,7 +158,7 @@ ctx := acctest.Context(t)
 var v neptune.DBSubnetGroup
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_neptune_subnet_group.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -207,7 +207,7 @@ return err
 }func testAccSubnetGroupConfig_basic(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_neptune_subnet_group" "test" {
-  name       = %[1]q
+  name= %[1]q
   subnet_ids = aws_subnet.test[*].id
 }
 `, rName))
@@ -225,26 +225,26 @@ resource "aws_neptune_subnet_group" "test" {
 }func testAccSubnetGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_neptune_subnet_group" "test" {
-  name       = %[1]q
+  name= %[1]q
   subnet_ids = aws_subnet.test[*].id  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
 }func testAccSubnetGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_neptune_subnet_group" "test" {
-  name       = %[1]q
+  name= %[1]q
   subnet_ids = aws_subnet.test[*].id  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }func testAccSubnetGroupConfig_update(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 3), fmt.Sprintf(`
 resource "aws_neptune_subnet_group" "test" {
-  name        = %[1]q
+  name
   subnet_ids  = aws_subnet.test[*].id
   description = "test description updated"
 }

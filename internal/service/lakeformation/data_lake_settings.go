@@ -20,12 +20,12 @@ func ResourceDataLakeSettings() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceDataLakeSettingsCreate,
 UpdateWithoutTimeout: resourceDataLakeSettingsCreate,
-ReadWithoutTimeout:   resourceDataLakeSettingsRead,
+ReadWithoutTimeout:resourceDataLakeSettingsRead,
 DeleteWithoutTimeout: resourceDataLakeSettingsDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "admins": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Computed: true,
 Optional: true,
 Elem: &schema.Schema{
@@ -34,7 +34,7 @@ ValidateFunc: verify.ValidARN,
 },
 },
 "read_only_admins": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Computed: true,
 Optional: true,
 Elem: &schema.Schema{
@@ -43,29 +43,29 @@ ValidateFunc: verify.ValidARN,
 },
 },
 "allow_external_data_filtering": {
-Type:     schema.TypeBool,
+Type:a.TypeBool,
 Optional: true,
 },
 "authorized_session_tag_value_list": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:ma.Schema{Type: schema.TypeString},
 },
 "catalog_id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 ForceNew: true,
 Optional: true,
 },
 "create_database_default_permissions": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 Optional: true,
 MaxItems: 3,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "permissions": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Optional: true,
 Computed: true,
 Elem: &schema.Schema{
@@ -75,22 +75,22 @@ ValidateFunc: validation.StringInSlice(lakeformation.Permission_Values(), false)
 },
 "principal": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:
+Computed:
 ValidateFunc: validPrincipal,
 },
 },
 },
 },
 "create_table_default_permissions": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 Optional: true,
 MaxItems: 3,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "permissions": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Optional: true,
 Computed: true,
 Elem: &schema.Schema{
@@ -100,15 +100,15 @@ ValidateFunc: validation.StringInSlice(lakeformation.Permission_Values(), false)
 },
 "principal": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:
+Computed:
 ValidateFunc: validPrincipal,
 },
 },
 },
 },
 "external_data_filtering_allow_list": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Computed: true,
 Optional: true,
 Elem: &schema.Schema{
@@ -117,7 +117,7 @@ ValidateFunc: validPrincipal,
 },
 },
 "trusted_resource_owners": {
-Type:     schema.TypeList,
+Type:a.TypeList,
 Computed: true,
 Optional: true,
 Elem: &schema.Schema{
@@ -192,10 +192,10 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).LakeFormationConn(ctx)input := &lakeformation.PutDataLakeSettingsInput{
 DataLakeSettings: &lakeformation.DataLakeSettings{
 CreateDatabaseDefaultPermissions: make([]*lakeformation.PrincipalPermissions, 0),
-CreateTableDefaultPermissions:    make([]*lakeformation.PrincipalPermissions, 0),
-DataLakeAdmins:      make([]*lakeformation.DataLakePrincipal, 0),
-ReadOnlyAdmins:      make([]*lakeformation.DataLakePrincipal, 0),
-TrustedResourceOwners:   make([]*string, 0),
+CreateTableDefaultPermissions:make([]*lakeformation.PrincipalPermissions, 0),
+DataLakeAdmins:([]*lakeformation.DataLakePrincipal, 0),
+ReadOnlyAdmins:([]*lakeformation.DataLakePrincipal, 0),
+TrustedResourceOwners:make([]*string, 0),
 },
 }if v, ok := d.GetOk("catalog_id"); ok {
 input.CatalogId = aws.String(v.(string))

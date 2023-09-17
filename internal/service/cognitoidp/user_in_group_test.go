@@ -18,40 +18,40 @@
 	userPoolResourceName:="aws_cognito_user_pool.test"
 	userGroupResourceName:="aws_cognito_user_group.test"
 	userResourceName:="aws_cognito_user.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckUserInGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccUserInGroupConfig_basic(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckUserInGroupExists(ctx,resourceName),
-					resource.TestCheckResourceAttrPair(resourceName,"user_pool_id",userPoolResourceName,"id"),
-					resource.TestCheckResourceAttrPair(resourceName,"group_name",userGroupResourceName,"name"),
-					resource.TestCheckResourceAttrPair(resourceName,"username",userResourceName,"username"),
-				),
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckUserInGroupDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccUserInGroupConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckUserInGroupExists(ctx,resourceName),
+resource.TestCheckResourceAttrPair(resourceName,"user_pool_id",userPoolResourceName,"id"),
+resource.TestCheckResourceAttrPair(resourceName,"group_name",userGroupResourceName,"name"),
+resource.TestCheckResourceAttrPair(resourceName,"username",userResourceName,"username"),
+),
+},
+},
 	})
 }funcTestAccCognitoIDPUserInGroup_disappears(t*testing.T){
 	ctx:=acctest.Context(t)
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName:="aws_cognito_user_in_group.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckUserInGroupDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccUserInGroupConfig_basic(rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckUserInGroupExists(ctx,resourceName),
-					acctest.CheckResourceDisappears(ctx,acctest.Provider,tfcognitoidp.ResourceUserInGroup(),resourceName),
-				),
-				ExpectNonEmptyPlan:true,
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckUserInGroupDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccUserInGroupConfig_basic(rName),
+Check:resource.ComposeTestCheckFunc(
+testAccCheckUserInGroupExists(ctx,resourceName),
+acctest.CheckResourceDisappears(ctx,acctest.Provider,tfcognitoidp.ResourceUserInGroup(),resourceName),
+),
+ExpectNonEmptyPlan:true,
+},
+},
 	})
 }functestAccUserInGroupConfig_basic(rNamestring)string{
 	returnfmt.Sprintf(`
@@ -78,31 +78,31 @@ username=aws_cognito_user.test.username
 `,rName)
 }functestAccCheckUserInGroupExists(ctxcontext.Context,resourceNamestring)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		rs,ok:=s.RootModule().Resources[resourceName]
-		if!ok{
-			returnfmt.Errorf("resourcenotfound:%s",resourceName)
-		}		conn:=acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)		groupName:=rs.Primary.Attributes["group_name"]
-		userPoolId:=rs.Primary.Attributes["user_pool_id"]
-		username:=rs.Primary.Attributes["username"]		found,err:=tfcognitoidp.FindCognitoUserInGroup(ctx,conn,groupName,userPoolId,username)		iferr!=nil{
-			returnerr
-		}		if!found{
-			returnerrors.New("useringroupnotfound")
-		}		returnnil
+rs,ok:=s.RootModule().Resources[resourceName]
+if!ok{
+returnfmt.Errorf("resourcenotfound:%s",resourceName)
+}conn:=acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)groupName:=rs.Primary.Attributes["group_name"]
+userPoolId:=rs.Primary.Attributes["user_pool_id"]
+username:=rs.Primary.Attributes["username"]found,err:=tfcognitoidp.FindCognitoUserInGroup(ctx,conn,groupName,userPoolId,username)iferr!=nil{
+returnerr
+}if!found{
+returnerrors.New("useringroupnotfound")
+}returnnil
 	}
 }functestAccCheckUserInGroupDestroy(ctxcontext.Context)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		conn:=acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)		for_,rs:=ranges.RootModule().Resources{
-			ifrs.Type!="aws_cognito_user_in_group"{
-				continue
-			}			groupName:=rs.Primary.Attributes["group_name"]
-			userPoolId:=rs.Primary.Attributes["user_pool_id"]
-			username:=rs.Primary.Attributes["username"]			found,err:=tfcognitoidp.FindCognitoUserInGroup(ctx,conn,groupName,userPoolId,username)			iftfawserr.ErrCodeEquals(err,cognitoidentityprovider.ErrCodeResourceNotFoundException){
-				continue
-			}			iferr!=nil{
-				returnerr
-			}			iffound{
-				returnfmt.Errorf("useringroupstillexists(%s)",rs.Primary.ID)
-			}
-		}		returnnil
+conn:=acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)for_,rs:=ranges.RootModule().Resources{
+ifrs.Type!="aws_cognito_user_in_group"{
+continue
+}groupName:=rs.Primary.Attributes["group_name"]
+userPoolId:=rs.Primary.Attributes["user_pool_id"]
+username:=rs.Primary.Attributes["username"]found,err:=tfcognitoidp.FindCognitoUserInGroup(ctx,conn,groupName,userPoolId,username)iftfawserr.ErrCodeEquals(err,cognitoidentityprovider.ErrCodeResourceNotFoundException){
+continue
+}iferr!=nil{
+returnerr
+}iffound{
+returnfmt.Errorf("useringroupstillexists(%s)",rs.Primary.ID)
+}
+}returnnil
 	}
 }

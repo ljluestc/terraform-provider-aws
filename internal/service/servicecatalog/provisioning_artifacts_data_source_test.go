@@ -11,8 +11,8 @@ ctx := acctest.Context(t)
 dataSourceName := "data.aws_servicecatalog_provisioning_artifacts.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck:est.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -33,26 +33,26 @@ resource.TestCheckResourceAttr(dataSourceName, "provisioning_artifact_details.0.
 }func testAccProvisioningArtifactsDataSourceConfig_base(rName, domain string) string {
 return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket.test.id
-  key    = "%[1]s.json"  content = jsonencode({
-    AWSTemplateFormatVersion = "2010-09-09"    Resources = {
-      MyVPC = {
-        Type = "AWS::EC2::VPC"
-        Properties = {
+  key= "%[1]s.json"  content = jsonencode({
+AWSTemplateFormatVersion = "2010-09-09"Resources = {
+C = {
+
+
  CidrBlock = "10.1.0.0/16"
-        }
-      }
-    }    Outputs = {
-      VpcID = {
-        Description = "VPC ID"
-        Value = {
+
+
+}Outputs = {
+D = {
+
+
  Ref = "MyVPC"
-        }
-      }
-    }
+
+
+}
   })
 }resource "aws_servicecatalog_product" "test" {
   description= %[1]q
@@ -61,24 +61,24 @@ resource "aws_s3_bucket" "test" {
   owner= "ägare"
   type = "CLOUD_FORMATION_TEMPLATE"
   support_description = %[1]q
-  support_email       = %[3]q
+  support_email= %[3]q
   support_url= %[2]q  provisioning_artifact_parameters {
-    description  = "artefaktbeskrivning"
-    disable_template_validation = true
-    name= %[1]q
-    template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-    type= "CLOUD_FORMATION_TEMPLATE"
+description  = "artefaktbeskrivning"
+disable_template_validation = true
+name= %[1]q
+template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
+type= "CLOUD_FORMATION_TEMPLATE"
   }  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_servicecatalog_provisioning_artifact" "test" {
-  accept_language    = "en"
-  active       = true
+  accept_language= "en"
+  active= true
   description  = %[1]q
   disable_template_validation = true
-  guidance     = "DEFAULT"
+  guidanceFAULT"
   name= "%[1]s-2"
-  product_id   = aws_servicecatalog_product.test.id
+  product_id= aws_servicecatalog_product.test.id
   template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
   type= "CLOUD_FORMATION_TEMPLATE"
 }

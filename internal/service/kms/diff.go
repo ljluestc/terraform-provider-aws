@@ -1,55 +1,33 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kms
-
-import (
-"strings"
-
-"github.com/aws/aws-sdk-go-v2/aws/arn"
+// SPDX-License-Identifier: MPL-2.0package kmsimport (
+"strings""github.com/aws/aws-sdk-go-v2/aws/arn"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 func DiffSuppressKey(_, oldValue, newValue string, _ *schema.ResourceData) bool {
 if oldValue == newValue {
 return true
-}
-
-oldId := oldValue
+}oldId := oldValue
 if arn.IsARN(oldValue) {
 oldId = keyIdFromARN(oldValue)
-}
-
-newId := newValue
+}newId := newValue
 if arn.IsARN(newValue) {
 newId = keyIdFromARN(newValue)
-}
-
-if oldId == newId {
+}if oldId == newId {
 return true
-}
-
-return false
+}return false
 }
 func DiffSuppressAlias(_, oldValue, newValue string, _ *schema.ResourceData) bool {
 if oldValue == newValue {
 return true
-}
-
-oldAlias := oldValue
+}oldAlias := oldValue
 if arn.IsARN(oldValue) {
 oldAlias = keyAliasFromARN(oldValue)
-}
-
-newAlias := newValue
+}newAlias := newValue
 if arn.IsARN(newValue) {
 newAlias = keyAliasFromARN(newValue)
-}
-
-if oldAlias == newAlias {
+}if oldAlias == newAlias {
 return true
-}
-
-return false
+}return false
 }
 func DiffSuppressKeyOrAlias(k, oldValue, newValue string, d *schema.ResourceData) bool {
 if arn.IsARN(newValue) {
@@ -67,40 +45,30 @@ func keyIdFromARN(s string) string {
 arn, err := arn.Parse(s)
 if err != nil {
 return ""
-}
-
-return keyIdFromARNResource(arn.Resource)
+}return keyIdFromARNResource(arn.Resource)
 }
 func keyIdFromARNResource(s string) string {
 matches := keyIdResourceRegex.FindStringSubmatch(s)
 if matches == nil || len(matches) != 2 {
 return ""
-}
-
-return matches[1]
+}return matches[1]
 }
 func keyAliasFromARN(s string) string {
 arn, err := arn.Parse(s)
 if err != nil {
 return ""
-}
-
-return keyAliasNameFromARNResource(arn.Resource)
+}return keyAliasNameFromARNResource(arn.Resource)
 }
 func keyAliasNameFromARNResource(s string) string {
 if aliasNameRegex.MatchString(s) {
 return s
-}
-
-return ""
+}return ""
 }
 func isKeyARN(s string) bool {
 parsedARN, err := arn.Parse(s)
 if err != nil {
 return false
-}
-
-return keyIdFromARNResource(parsedARN.Resource) != ""
+}return keyIdFromARNResource(parsedARN.Resource) != ""
 }
 func isAliasName(s string) bool {
 return strings.HasPrefix(s, "alias/")
@@ -109,7 +77,5 @@ func isAliasARN(s string) bool {
 parsedARN, err := arn.Parse(s)
 if err != nil {
 return false
-}
-
-return isAliasName(parsedARN.Resource)
+}return isAliasName(parsedARN.Resource)
 }

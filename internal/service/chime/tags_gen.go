@@ -31,7 +31,7 @@ inContext.TagsOut = types.Some(tags)
 func Tags(tags tftags.KeyValueTags) []*chimesdkvoice.Tag {
 result := make([]*chimesdkvoice.Tag, 0, len(tags))for k, v := range tags.Map() {
 tag := &chimesdkvoice.Tag{
-Key:   aws.String(k),
+Key:aws.String(k),
 Value: aws.String(v),
 }result = append(result, tag)
 }return result
@@ -68,7 +68,7 @@ removedTags = removedTags.IgnoreSystem(names.ChimeSDKVoice)
 if len(removedTags) > 0 {
 input := &chimesdkvoice.UntagResourceInput{
 ResourceARN: aws.String(identifier),
-TagKeys:     aws.StringSlice(removedTags.Keys()),
+TagKeys:aws.StringSlice(removedTags.Keys()),
 }_, err := conn.UntagResourceWithContext(ctx, input)if err != nil {
 return fmt.Errorf("untagging resource (%s): %w", identifier, err)
 }
@@ -77,7 +77,7 @@ updatedTags = updatedTags.IgnoreSystem(names.ChimeSDKVoice)
 if len(updatedTags) > 0 {
 input := &chimesdkvoice.TagResourceInput{
 ResourceARN: aws.String(identifier),
-Tags:        Tags(updatedTags),
+Tags:),
 }_, err := conn.TagResourceWithContext(ctx, input)if err != nil {
 return fmt.Errorf("tagging resource (%s): %w", identifier, err)
 }

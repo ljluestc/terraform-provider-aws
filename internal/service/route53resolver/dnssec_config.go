@@ -15,7 +15,7 @@
 )// @SDKResource("aws_route53_resolver_dnssec_config")func ResourceDNSSECConfig() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceDNSSECConfigCreate,
-ReadWithoutTimeout:   resourceDNSSECConfigRead,
+ReadWithoutTimeout:resourceDNSSECConfigRead,
 DeleteWithoutTimeout: resourceDNSSECConfigDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
@@ -58,8 +58,8 @@ return diag.Errorf("reading Route53 Resolver DNSSEC Config (%s): %s", d.Id(), er
 resourceID := aws.StringValue(dnssecConfig.ResourceId)
 arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Service:   "route53resolver",
-Region:    meta.(*conns.AWSClient).Region,
+Service:"route53resolver",
+Region:meta.(*conns.AWSClient).Region,
 AccountID: ownerID,
 Resource:  fmt.Sprintf("resolver-dnssec-config/%s", resourceID),
 }.String()

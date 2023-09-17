@@ -10,43 +10,31 @@
 	return []*types.ServicePackageFrameworkResource{}
 }func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceReplicationSet,
-			TypeName: "aws_ssmincidents_replication_set",
-		},
-		{
-			Factory:  DataSourceResponsePlan,
-			TypeName: "aws_ssmincidents_response_plan",
-		},
-	}
+{
+Factory:  DataSourceReplicationSet,
+TypeName: "aws_ssmincidents_replication_set",
+Factory:  DataSourceResponsePlan,
+TypeName: "aws_ssmincidents_response_plan",	}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
-	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceReplicationSet,
-			TypeName: "aws_ssmincidents_replication_set",
-			Name:     "Replication Set",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "id",
-			},
-		},
-		{
-			Factory:  ResourceResponsePlan,
-			TypeName: "aws_ssmincidents_response_plan",
-			Name:     "Response Plan",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "id",
-			},
-		},
-	}
+	return []*types.ServicePackageSDKResource{Factory:  ResourceReplicationSet,
+TypeName: "aws_ssmincidents_replication_set",
+Name:"Replication Set",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "id",
+},
+Factory:  ResourceResponsePlan,
+TypeName: "aws_ssmincidents_response_plan",
+Name:"Response Plan",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "id",
+},	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.SSMIncidents
 }// NewClient returns a new AWS SDK for Go v2 client for this service package's AWS API.
 func (p *servicePackage) NewClient(ctx context.Context, config map[string]any) (*ssmincidents_sdkv2.Client, error) {
 	cfg := *(config["aws_sdkv2_config"].(*aws_sdkv2.Config))	return ssmincidents_sdkv2.NewFromConfig(cfg, func(o *ssmincidents_sdkv2.Options) {
-		if endpoint := config["endpoint"].(string); endpoint != "" {
-			o.BaseEndpoint = aws_sdkv2.String(endpoint)
-		}
-	}), nil
+ endpoint := config["endpoint"].(string); endpoint != "" {
+o.BaseEndpoint = aws_sdkv2.String(endpoint)	}), nil
 }func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }

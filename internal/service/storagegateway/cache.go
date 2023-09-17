@@ -15,20 +15,20 @@
 func ResourceCache() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceCacheCreate,
-ReadWithoutTimeout:   resourceCacheRead,
+ReadWithoutTimeout:resourceCacheRead,
 DeleteWithoutTimeout: schema.NoopContext,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "disk_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "gateway_arn": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 },
 },
@@ -37,15 +37,15 @@ ValidateFunc: verify.ValidARN,
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).StorageGatewayConn(ctx)diskID := d.Get("disk_id").(string)
 gatewayARN := d.Get("gateway_arn").(string)input := &storagegateway.AddCacheInput{
-DiskIds:    []*string{aws.String(diskID)},
+DiskIds:[]*string{aws.String(diskID)},
 GatewayARN: aws.String(gatewayARN),
 }_, err := conn.AddCacheWithContext(ctx, input)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating Storage Gateway Cache: %s", err)
 }d.SetId(fmt.Sprintf("%s:%s", gatewayARN, diskID))// Depending on the Storage Gateway software, it will sometimes relabel a local DiskId
 // with a UUID if previously unlabeled, e.g.
-//   Before conn.AddCache(): "DiskId": "/dev/xvdb",
-//   After conn.AddCache(): "DiskId": "112764d7-7e83-42ce-9af3-d482985a31cc",
+//Before conn.AddCache(): "DiskId": "/dev/xvdb",
+//After conn.AddCache(): "DiskId": "112764d7-7e83-42ce-9af3-d482985a31cc",
 // This prevents us from successfully reading the disk after creation.
 // Here we try to refresh the local disks to see if we can find a new DiskId.listLocalDisksInput := &storagegateway.ListLocalDisksInput{
 GatewayARN: aws.String(gatewayARN),
@@ -108,8 +108,8 @@ return "", "", idFormatErr
 gatewayARN := &arn.ARN{
 AccountID: gatewayARNAndDisk.AccountID,
 Partition: gatewayARNAndDisk.Partition,
-Region:    gatewayARNAndDisk.Region,
-Service:   gatewayARNAndDisk.Service,
+Region:gatewayARNAndDisk.Region,
+Service:gatewayARNAndDisk.Service,
 Resource:  resourceParts[0],
 }
 return gatewayARN.String(), resourceParts[1], nil

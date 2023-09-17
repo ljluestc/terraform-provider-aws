@@ -20,7 +20,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserGroupDestroy(ctx),
+CheckDestroy:testAccCheckUserGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserGroupConfig_basic(poolName, groupName),
@@ -30,8 +30,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -52,7 +52,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserGroupDestroy(ctx),
+CheckDestroy:testAccCheckUserGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserGroupConfig_complex(poolName, groupName, "This is the user group description", 1),
@@ -65,8 +65,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -88,7 +88,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserGroupDestroy(ctx),
+CheckDestroy:testAccCheckUserGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserGroupConfig_roleARN(rName),
@@ -98,8 +98,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -163,22 +163,22 @@ resource "aws_cognito_user_pool" "main" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "cognito-identity.amazonaws.com"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Principal": {
+entity.amazonaws.com"
+ },
+ "Action": "sts:AssumeRoleWithWebIdentity",
+ "Condition": {
+
  "cognito-identity.amazonaws.com:aud": "${data.aws_region.current.name}:12345678-dead-beef-cafe-123456790ab"
-        },
-        "ForAnyValue:StringLike": {
+
+: {
  "cognito-identity.amazonaws.com:amr": "authenticated"
-        }
-      }
-    }
+
+ }
+}
   ]
 }
 EOF
@@ -186,8 +186,8 @@ EOF
   name= "%[2]s"
   user_pool_id = aws_cognito_user_pool.main.id
   description  = "%[3]s"
-  precedence   = %[4]d
-  role_arn     = aws_iam_role.group_role.arn
+  precedence= %[4]d
+  role_arn= aws_iam_role.group_role.arn
 }
 `, poolName, groupName, groupDescription, precedence)
 }func testAccUserGroupConfig_roleARN(rName string) string {
@@ -199,21 +199,21 @@ resource "aws_cognito_user_pool" "main" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "cognito-identity.amazonaws.com"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity"
-    }
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Principal": {
+entity.amazonaws.com"
+ },
+ "Action": "sts:AssumeRoleWithWebIdentity"
+}
   ]
 }
 EOF
 }resource "aws_cognito_user_group" "main" {
   name= "%[1]s"
   user_pool_id = aws_cognito_user_pool.main.id
-  role_arn     = aws_iam_role.group_role.arn
+  role_arn= aws_iam_role.group_role.arn
 }
 `, rName)
 }func testAccUserGroupConfig_roleARNUpdated(rName string) string {
@@ -225,21 +225,21 @@ resource "aws_cognito_user_pool" "main" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "cognito-identity.amazonaws.com"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity"
-    }
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Principal": {
+entity.amazonaws.com"
+ },
+ "Action": "sts:AssumeRoleWithWebIdentity"
+}
   ]
 }
 EOF
 }resource "aws_cognito_user_group" "main" {
   name= "%[1]s"
   user_pool_id = aws_cognito_user_pool.main.id
-  role_arn     = aws_iam_role.group_role_updated.arn
+  role_arn= aws_iam_role.group_role_updated.arn
 }
 `, rName)
 }

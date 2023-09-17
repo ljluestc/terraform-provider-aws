@@ -1,16 +1,1 @@
-//Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0packageeksimport(
-"fmt""github.com/YakDriver/regexache"
-)funcvalidClusterName(vinterface{},kstring)(ws[]string,errors[]error){
-value:=v.(string)
-iflen(value)<1||len(value)>100{
-errors=append(errors,fmt.Errorf(
-"%qlengthmustbebetween1-100characters:%q",k,value))
-}//https://docs.aws.amazon.com/eks/latest/APIReference/API_CreateCluster.html#API_CreateCluster_RequestSyntax
-pattern:=`^[0-9A-Za-z][0-9A-Za-z_-]+$`
-if!regexache.MustCompile(pattern).MatchString(value){
-errors=append(errors,fmt.Errorf(
-"%qdoesn'tcomplywithrestrictions(%q):%q",
-k,pattern,value))
-}return
-}
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageeksimport("fmt""github.com/YakDriver/regexache")funcvalidClusterName(vinterface{},kstring)(ws[]string,errors[]error){value:=v.(string)iflen(value)<1||len(value)>100{errors=append(errors,fmt.Errorf("%qlengthmustbebetween1-100characters:%q",k,value))}//https://docs.aws.amazon.com/eks/latest/APIReference/API_CreateCluster.html#API_CreateCluster_RequestSyntaxpattern:=`^[0-9A-Za-z][0-9A-Za-z_-]+$`if!regexache.MustCompile(pattern).MatchString(value){errors=append(errors,fmt.Errorf("%qdoesn'tcomplywithrestrictions(%q):%q",k,pattern,value))}return}

@@ -11,9 +11,9 @@ func DataSourceSites() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceSitesRead,Schema: map[string]*schema.Schema{
 "ids": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 },
 }

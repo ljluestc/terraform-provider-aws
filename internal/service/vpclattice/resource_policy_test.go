@@ -26,7 +26,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccResourcePolicyConfig_basic(rName),
@@ -37,8 +37,8 @@ resource.TestCheckResourceAttrPair(resourceName, "resource_arn", "aws_vpclattice
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -54,7 +54,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccResourcePolicyConfig_basic(rName),
@@ -106,20 +106,20 @@ data "aws_partition" "current" {}resource "aws_vpclattice_service_network" "test
   name = %[1]q
 }resource "aws_vpclattice_resource_policy" "test" {
   resource_arn = aws_vpclattice_service_network.test.arn  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [{
-      Sid    = "test-pol-principals-6"
-      Effect = "Allow"
-      Principal = {
-        "AWS" = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
-      }
-      Action = [
-        "vpc-lattice:CreateServiceNetworkVpcAssociation",
-        "vpc-lattice:CreateServiceNetworkServiceAssociation",
-        "vpc-lattice:GetServiceNetwork"
-      ]
-      Resource = aws_vpclattice_service_network.test.arn
-    }]
+Version = "2012-10-17",
+Statement = [{
+ Sid= "test-pol-principals-6"
+ Effect = "Allow"
+ Principal = {
+partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ }
+ Action = [
+ceNetworkVpcAssociation",
+ceNetworkServiceAssociation",
+etwork"
+ ]
+ Resource = aws_vpclattice_service_network.test.arn
+}]
   })
 }
 `, rName)

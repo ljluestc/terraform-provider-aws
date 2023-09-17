@@ -10,13 +10,13 @@
 )func init() {
 resource.AddTestSweepers("aws_scheduler_schedule_group", &resource.Sweeper{
 Name: "aws_scheduler_schedule_group",
-F:    sweepScheduleGroups,
+F:sweepScheduleGroups,
 Dependencies: []string{
 "aws_scheduler_schedule",
 },
 })resource.AddTestSweepers("aws_scheduler_schedule", &resource.Sweeper{
 Name: "aws_scheduler_schedule",
-F:    sweepSchedules,
+F:sweepSchedules,
 })
 }func sweepScheduleGroups(region string) error {
 ctx := sweep.Context(region)

@@ -10,7 +10,7 @@
 )func init() {
 	resource.AddTestSweepers("aws_signer_signing_profile", &resource.Sweeper{
 Name: "aws_signer_signing_profile",
-F:    sweepSigningProfiles,
+F:sweepSigningProfiles,
 	})
 }func sweepSigningProfiles(region string) error {
 	ctx := sweep.Context(region)

@@ -13,14 +13,14 @@
 	return []*types.ServicePackageSDKDataSource{}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceDomain,
-			TypeName: "aws_cloudsearch_domain",
-		},
-		{
-			Factory:  ResourceDomainServiceAccessPolicy,
-			TypeName: "aws_cloudsearch_domain_service_access_policy",
-		},
+{
+Factory:  ResourceDomain,
+TypeName: "aws_cloudsearch_domain",
+},
+{
+Factory:  ResourceDomainServiceAccessPolicy,
+TypeName: "aws_cloudsearch_domain_service_access_policy",
+},
 	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.CloudSearch

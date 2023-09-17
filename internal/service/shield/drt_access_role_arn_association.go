@@ -34,84 +34,72 @@ func newResourceDRTAccessRoleARNAssociation(_ context.Context) (resource.Resourc
 	resp.TypeName = "aws_shield_drt_access_role_arn_association"
 }func (r *resourceDRTAccessRoleARNAssociation) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"id": schema.StringAttribute{ // required by hashicorps terraform plugin testing framework
-				DeprecationMessage:  "id is only for framework compatibility and not used by the provider",
-				MarkdownDescription: "The ID of the directory.",
-				Computed:   true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
-			},
-			"role_arn": schema.StringAttribute{
-				Required: true,
-				Validators: []validator.String{
-					stringvalidator.LengthBetween(1, 2048),
-					stringvalidator.RegexMatches(
-						regexache.MustCompile(`^arn:?[A-Za-z-]+:iam::\d{12}:role/?[0-9A-Za-z_+,./=@-]+`),
-						"must match arn pattern",
-					),
-				},
-			},
-		},
-		Blocks: map[string]schema.Block{
-			"timeouts": timeouts.Block(ctx, timeouts.Opts{
-				Create: true,
-				Delete: true,
-				Read:   true,
-			}),
-		},
-	}
+Attributes: map[string]schema.Attribute{
+"id": schema.StringAttribute{ // required by hashicorps terraform plugin testing framework
+DeprecationMessage:  "id is only for framework compatibility and not used by the provider",
+MarkdownDescription: "The ID of the directory.",
+Computed:true,
+PlanModifiers: []planmodifier.String{
+stringplanmodifier.UseStateForUnknown(),
+},
+},
+"role_arn": schema.StringAttribute{
+Required: true,
+Validators: []validator.String{
+stringvalidator.LengthBetween(1, 2048),
+stringvalidator.RegexMatches(
+regexache.MustCompile(`^arn:?[A-Za-z-]+:iam::\d{12}:role/?[0-9A-Za-z_+,./=@-]+`),
+"must match arn pattern",
+),
+},
+},ocks: map[string]schema.Block{
+"timeouts": timeouts.Block(ctx, timeouts.Opts{
+Create: true,
+Delete: true,
+Read:true,
+}),	}
 }func (r *resourceDRTAccessRoleARNAssociation) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	conn := r.Meta().ShieldConn(ctx)	var plan resourceDRTAccessRoleARNAssociationData
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 	if resp.Diagnostics.HasError() {
-		return
+turn
 	}	in := &shield.AssociateDRTRoleInput{
-		RoleArn: aws.String(plan.RoleARN.ValueString()),
+leArn: aws.String(plan.RoleARN.ValueString()),
 	}	out, err := conn.AssociateDRTRoleWithContext(ctx, in)
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.Shield, create.ErrActionCreating, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), err),
-			err.Error(),
-		)
-		return
+sp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.Shield, create.ErrActionCreating, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), err),
+err.Error(),turn
 	}
 	if out == nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.Shield, create.ErrActionCreating, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), nil),
-			errors.New("empty output").Error(),
-		)
-		return
+sp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.Shield, create.ErrActionCreating, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), nil),
+errors.New("empty output").Error(),turn
 	}	createTimeout := r.CreateTimeout(ctx, plan.Timeouts)
 	_, err = waitDRTAccessRoleARNAssociationCreated(ctx, conn, plan.RoleARN.ValueString(), createTimeout)
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.Shield, create.ErrActionWaitingForCreation, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), err),
-			err.Error(),
-		)
-		return
+sp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.Shield, create.ErrActionWaitingForCreation, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), err),
+err.Error(),turn
 	}	plan.ID = types.StringValue(plan.RoleARN.ValueString())	resp.Diagnostics.Append(resp.State.Set(ctx, plan)...)
 }func (r *resourceDRTAccessRoleARNAssociation) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	conn := r.Meta().ShieldConn(ctx)	var state resourceDRTAccessRoleARNAssociationData
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	if resp.Diagnostics.HasError() {
-		return
+turn
 	}	in := &shield.DescribeDRTAccessInput{}
 	out, err := conn.DescribeDRTAccessWithContext(ctx, in)	if tfresource.NotFound(err) {
-		resp.State.RemoveResource(ctx)
-		return
+sp.State.RemoveResource(ctx)
+turn
 	}
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.Shield, create.ErrActionSetting, ResNameDRTAccessRoleARNAssociation, state.RoleARN.String(), err),
-			err.Error(),
-		)
-		return
+sp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.Shield, create.ErrActionSetting, ResNameDRTAccessRoleARNAssociation, state.RoleARN.String(), err),
+err.Error(),turn
 	}
 	if state.ID.IsNull() || state.ID.IsUnknown() {
-		// Setting ID of state - required by hashicorps terraform plugin testing framework for Import. See issue https://github.com/hashicorp/terraform-plugin-testing/issues/84
-		state.ID = types.StringValue(state.RoleARN.ValueString())
+ Setting ID of state - required by hashicorps terraform plugin testing framework for Import. See issue https://github.com/hashicorp/terraform-plugin-testing/issues/84
+ate.ID = types.StringValue(state.RoleARN.ValueString())
 	}	state.RoleARN = flex.StringToFramework(ctx, out.RoleArn)
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }func (r *resourceDRTAccessRoleARNAssociation) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
@@ -120,124 +108,112 @@ func newResourceDRTAccessRoleARNAssociation(_ context.Context) (resource.Resourc
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	if resp.Diagnostics.HasError() {
-		return
+turn
 	}	if !plan.RoleARN.Equal(state.RoleARN) {
-		in := &shield.AssociateDRTRoleInput{
-			RoleArn: aws.String(plan.RoleARN.ValueString()),
-		}		out, err := conn.AssociateDRTRoleWithContext(ctx, in)
-		if err != nil {
-			resp.Diagnostics.AddError(
-				create.ProblemStandardMessage(names.Shield, create.ErrActionUpdating, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), err),
-				err.Error(),
-			)
-			return
-		}
-		if out == nil {
-			resp.Diagnostics.AddError(
-				create.ProblemStandardMessage(names.Shield, create.ErrActionUpdating, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), nil),
-				errors.New("empty output").Error(),
-			)
-			return
-		}
-	}	updateTimeout := r.UpdateTimeout(ctx, plan.Timeouts)
+ := &shield.AssociateDRTRoleInput{
+RoleArn: aws.String(plan.RoleARN.ValueString()),
+u err := conn.AssociateDRTRoleWithContext(ctx, in)
+ err != nil {
+resp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.Shield, create.ErrActionUpdating, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), err),
+err.Error(),
+)
+return out == nil {
+resp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.Shield, create.ErrActionUpdating, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), nil),
+errors.New("empty output").Error(),
+)
+return	}	updateTimeout := r.UpdateTimeout(ctx, plan.Timeouts)
 	_, err := waitDRTAccessRoleARNAssociationUpdated(ctx, conn, plan.RoleARN.ValueString(), updateTimeout)
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.Shield, create.ErrActionWaitingForUpdate, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), err),
-			err.Error(),
-		)
-		return
+sp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.Shield, create.ErrActionWaitingForUpdate, ResNameDRTAccessRoleARNAssociation, plan.RoleARN.String(), err),
+err.Error(),turn
 	}	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
 }func (r *resourceDRTAccessRoleARNAssociation) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	conn := r.Meta().ShieldConn(ctx)	var state resourceDRTAccessRoleARNAssociationData	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	if resp.Diagnostics.HasError() {
-		return
+turn
 	}
 	in := &shield.DisassociateDRTRoleInput{}	_, err := conn.DisassociateDRTRoleWithContext(ctx, in)
 	if err != nil {
-		var nfe *shield.ResourceNotFoundException
-		if errors.As(err, &nfe) {
-			return
-		}		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.Shield, create.ErrActionDeleting, ResNameDRTAccessRoleARNAssociation, state.RoleARN.String(), err),
-			err.Error(),
-		)
-		return
+r nfe *shield.ResourceNotFoundException
+ errors.As(err, &nfe) {
+return
+e.Diagnostics.AddError(
+create.ProblemStandardMessage(names.Shield, create.ErrActionDeleting, ResNameDRTAccessRoleARNAssociation, state.RoleARN.String(), err),
+err.Error(),turn
 	}	deleteTimeout := r.DeleteTimeout(ctx, state.Timeouts)
 	_, err = waitDRTAccessRoleARNAssociationDeleted(ctx, conn, state.RoleARN.ValueString(), deleteTimeout)	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.Shield, create.ErrActionWaitingForDeletion, ResNameDRTAccessRoleARNAssociation, state.RoleARN.String(), err),
-			err.Error(),
-		)
-		return
+sp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.Shield, create.ErrActionWaitingForDeletion, ResNameDRTAccessRoleARNAssociation, state.RoleARN.String(), err),
+err.Error(),turn
 	}
 }func waitDRTAccessRoleARNAssociationCreated(ctx context.Context, conn *shield.Shield, roleARN string, timeout time.Duration) (*shield.DescribeDRTAccessOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{},
-		Target:  []string{statusNormal},
-		Refresh: statusDRTAccessRoleARNAssociation(ctx, conn, roleARN),
-		Timeout: timeout,
-		NotFoundChecks:   20,
-		ContinuousTargetOccurence: 2,
+nding: []string{},
+rget:  []string{statusNormal},
+fresh: statusDRTAccessRoleARNAssociation(ctx, conn, roleARN),
+meout: timeout,
+tFoundChecks:20,
+ntinuousTargetOccurence: 2,
 	}	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*shield.DescribeDRTAccessOutput); ok {
-		return out, err
+turn out, err
 	}	return nil, err
 }func waitDRTAccessRoleARNAssociationUpdated(ctx context.Context, conn *shield.Shield, roleARN string, timeout time.Duration) (*shield.DescribeDRTAccessOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{statusChangePending},
-		Target:  []string{statusUpdated},
-		Refresh: statusDRTAccessRoleARNAssociation(ctx, conn, roleARN),
-		Timeout: timeout,
-		NotFoundChecks:   20,
-		ContinuousTargetOccurence: 2,
+nding: []string{statusChangePending},
+rget:  []string{statusUpdated},
+fresh: statusDRTAccessRoleARNAssociation(ctx, conn, roleARN),
+meout: timeout,
+tFoundChecks:20,
+ntinuousTargetOccurence: 2,
 	}	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*shield.DescribeDRTAccessOutput); ok {
-		return out, err
+turn out, err
 	}	return nil, err
 }func waitDRTAccessRoleARNAssociationDeleted(ctx context.Context, conn *shield.Shield, roleARN string, timeout time.Duration) (*shield.DescribeDRTAccessOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{statusDeleting, statusNormal},
-		Target:  []string{},
-		Refresh: statusDRTAccessRoleARNAssociationDeleted(ctx, conn, roleARN),
-		Timeout: timeout,
+nding: []string{statusDeleting, statusNormal},
+rget:  []string{},
+fresh: statusDRTAccessRoleARNAssociationDeleted(ctx, conn, roleARN),
+meout: timeout,
 	}	outputRaw, err := stateConf.WaitForStateContext(ctx)	if out, ok := outputRaw.(*shield.DescribeDRTAccessOutput); ok {
-		return out, err
+turn out, err
 	}	return nil, err
 }func statusDRTAccessRoleARNAssociation(ctx context.Context, conn *shield.Shield, roleARN string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		out, err := describeDRTAccessRoleARNAssociation(ctx, conn, roleARN)
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}		if err != nil {
-			return nil, "", err
-		}		return out, statusNormal, nil
+t, err := describeDRTAccessRoleARNAssociation(ctx, conn, roleARN)
+ tfresource.NotFound(err) {
+return nil, "", nil
+frr != nil {
+return nil, "", err
+ern out, statusNormal, nil
 	}
 }func statusDRTAccessRoleARNAssociationDeleted(ctx context.Context, conn *shield.Shield, roleARN string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		out, err := describeDRTAccessRoleARNAssociation(ctx, conn, roleARN)		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}		if err != nil {
-			return nil, "", err
-		}		if out.RoleArn != nil && aws.StringValue(out.RoleArn) == roleARN {
-			return out, statusDeleting, nil
-		}		return out, statusDeleting, nil
+t, err := describeDRTAccessRoleARNAssociation(ctx, conn, roleARN)iffresource.NotFound(err) {
+return nil, "", nil
+frr != nil {
+return nil, "", err
+fut.RoleArn != nil && aws.StringValue(out.RoleArn) == roleARN {
+return out, statusDeleting, nil
+ern out, statusDeleting, nil
 	}
 }func describeDRTAccessRoleARNAssociation(ctx context.Context, conn *shield.Shield, roleARN string) (*shield.DescribeDRTAccessOutput, error) {
 	in := &shield.DescribeDRTAccessInput{}	out, err := conn.DescribeDRTAccessWithContext(ctx, in)
 	if err != nil {
-		var nfe *shield.ResourceNotFoundException
-		if errors.As(err, &nfe) {
-			return nil, &retry.NotFoundError{
-				LastError:   err,
-				LastRequest: in,
-			}
-		}
-	}	if out == nil || out.RoleArn == nil || aws.StringValue(out.RoleArn) != roleARN {
-		return nil, tfresource.NewEmptyResultError(in)
+r nfe *shield.ResourceNotFoundException
+ errors.As(err, &nfe) {
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: in,
+}	}	if out == nil || out.RoleArn == nil || aws.StringValue(out.RoleArn) != roleARN {
+turn nil, tfresource.NewEmptyResultError(in)
 	}	return out, nil
 }type resourceDRTAccessRoleARNAssociationData struct {
-	ID       types.String   `tfsdk:"id"`
-	RoleARN  types.String   `tfsdk:"role_arn"`
+	IDtypes.String`tfsdk:"id"`
+	RoleARN  types.String`tfsdk:"role_arn"`
 	Timeouts timeouts.Value `tfsdk:"timeouts"`
 }

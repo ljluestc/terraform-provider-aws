@@ -39,7 +39,7 @@ resource.TestCheckResourceAttrPair(resourceName, "vpc_id", "aws_vpc.test", "id")
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -119,7 +119,7 @@ resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terrafor
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -131,7 +131,7 @@ resource.TestCheckResourceAttr(resourceName, "description", "Updated Description
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -155,7 +155,7 @@ resource.TestCheckTypeSetElemAttrPair(resourceName, "subnet_ids.*", "aws_subnet.
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -170,7 +170,7 @@ resource.TestCheckTypeSetElemAttrPair(resourceName, "subnet_ids.*", "aws_subnet.
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -184,7 +184,7 @@ resource.TestCheckTypeSetElemAttrPair(resourceName, "subnet_ids.*", "aws_subnet.
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -208,7 +208,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.%", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -225,7 +225,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.Key2", "value2"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -240,7 +240,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.Key1", "value1"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -253,7 +253,7 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.%", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -284,7 +284,7 @@ return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_memorydb_subnet_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   subnet_ids = aws_subnet.test[*].id  tags = {
 Test = "test"
   }
@@ -326,7 +326,7 @@ return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, subnetCount),
 fmt.Sprintf(`
 resource "aws_memorydb_subnet_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   subnet_ids = aws_subnet.test[*].id
 }
 `, rName),
@@ -336,7 +336,7 @@ return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_memorydb_subnet_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   subnet_ids = aws_subnet.test[*].id
 }
 `, rName),
@@ -346,7 +346,7 @@ return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_memorydb_subnet_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   subnet_ids = aws_subnet.test[*].id  tags = {
 %[2]q = %[3]q
   }
@@ -358,7 +358,7 @@ return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_memorydb_subnet_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   subnet_ids = aws_subnet.test[*].id  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q

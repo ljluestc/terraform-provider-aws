@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package quicksight_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package quicksight_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/quicksight"
+	"testing"	"github.com/aws/aws-sdk-go/service/quicksight"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -25,13 +19,11 @@ import (
 	folderResourceName := "aws_quicksight_folder.test"
 	dataSetResourceName := "aws_quicksight_data_set.test"
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFolderMembershipDestroy(ctx),
+CheckDestroy:testAccCheckFolderMembershipDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFolderMembershipConfig_basic(rId, rName),
@@ -55,13 +47,11 @@ ImportStateVerify: true,
 	var folderMember quicksight.MemberIdArnPair
 	resourceName := "aws_quicksight_folder_membership.test"
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFolderMembershipDestroy(ctx),
+CheckDestroy:testAccCheckFolderMembershipDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFolderMembershipConfig_basic(rId, rName),
@@ -80,17 +70,11 @@ func {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("Not found: %s", resourceName)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 output, err := tfquicksight.FindFolderMembershipByID(ctx, conn, rs.Primary.ID)
 if err != nil {
 	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameFolderMembership, rs.Primary.ID, err)
-}
-
-*folderMember = *output
-
-return nil
+}*folderMember = *outputreturn nil
 	}
 }func testAccCheckFolderMembershipDestroy(ctx context.Context) resource.TestCheck
 func {
@@ -99,22 +83,16 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_quicksight_folder_membership" {
 continue
-	}
-
-	output, err := tfquicksight.FindFolderMembershipByID(ctx, conn, rs.Primary.ID)
+	}	output, err := tfquicksight.FindFolderMembershipByID(ctx, conn, rs.Primary.ID)
 	if err != nil {
 if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
 	return nil
 }
 return err
-	}
-
-	if output != nil {
+	}	if output != nil {
 return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameFolderMembership, rs.Primary.ID, err)
 	}
-}
-
-return nil
+}return nil
 	}
 }func testAccFolderMembershipConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -122,9 +100,9 @@ testAccDataSetConfigBasic(rId, rName),
 testAccFolderConfig_basic(rId, rName),
 `
 resource "aws_quicksight_folder_membership" "test" {
-  folder_id   = aws_quicksight_folder.test.folder_id
+  folder_id= aws_quicksight_folder.test.folder_id
   member_type = "DATASET"
-  member_id   = aws_quicksight_data_set.test.data_set_id
+  member_id= aws_quicksight_data_set.test.data_set_id
 }
 `)
 }

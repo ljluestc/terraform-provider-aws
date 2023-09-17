@@ -12,7 +12,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
+CheckDestroy:testAccCheckUserPoolClientDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolClientDataSourceConfig_basic(rName),
@@ -31,7 +31,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	return testAccUserPoolClientConfig_basic(rName) + `
 data "aws_cognito_user_pool_client" "test" {
   user_pool_id = aws_cognito_user_pool.test.id
-  client_id    = aws_cognito_user_pool_client.test.id
+  client_id= aws_cognito_user_pool_client.test.id
 }
 `
 }

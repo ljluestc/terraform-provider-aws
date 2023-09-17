@@ -1,122 +1,98 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package secretsmanager
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package secretsmanagerimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/secretsmanager"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// @SDKDataSource("aws_secretsmanager_random_password")
+)// @SDKDataSource("aws_secretsmanager_random_password")
 func DataSourceRandomPassword() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceRandomPasswordRead,
-
-		Schema: map[string]*schema.Schema{
-			"exclude_characters": {
-				Type:     schema.TypeString,
-				Optional: true,
-			},
-			"exclude_lowercase": {
-				Type:     schema.TypeBool,
-				Optional: true,
-			},
-			"exclude_numbers": {
-				Type:     schema.TypeBool,
-				Optional: true,
-			},
-			"exclude_punctuation": {
-				Type:     schema.TypeBool,
-				Optional: true,
-			},
-			"exclude_uppercase": {
-				Type:     schema.TypeBool,
-				Optional: true,
-			},
-			"include_space": {
-				Type:     schema.TypeBool,
-				Optional: true,
-			},
-			"password_length": {
-				Type:     schema.TypeInt,
-				Optional: true,
-				Default:  32,
-			},
-			"require_each_included_type": {
-				Type:     schema.TypeBool,
-				Optional: true,
-			},
-			"random_password": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Computed: true,
-			},
-		},
-	}
-}
-
-func dataSourceRandomPasswordRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+ReadWithoutTimeout: dataSourceRandomPasswordRead,Schema: map[string]*schema.Schema{
+"exclude_characters": {
+Type:a.TypeString,
+Optional: true,
+},
+"exclude_lowercase": {
+Type:a.TypeBool,
+Optional: true,
+},
+"exclude_numbers": {
+Type:a.TypeBool,
+Optional: true,
+},
+"exclude_punctuation": {
+Type:a.TypeBool,
+Optional: true,
+},
+"exclude_uppercase": {
+Type:a.TypeBool,
+Optional: true,
+},
+"include_space": {
+Type:a.TypeBool,
+Optional: true,
+},
+"password_length": {
+Type:a.TypeInt,
+Optional: true,
+Default:  32,
+},
+"require_each_included_type": {
+Type:a.TypeBool,
+Optional: true,
+},
+"random_password": {
+Type:a.TypeString,
+Optional: true,
+Computed: true,
+},	}
+}func dataSourceRandomPasswordRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).SecretsManagerConn(ctx)
-
-	var excludeCharacters string
+	conn := meta.(*conns.AWSClient).SecretsManagerConn(ctx)	var excludeCharacters string
 	if v, ok := d.GetOk("exclude_characters"); ok {
-		excludeCharacters = v.(string)
+cludeCharacters = v.(string)
 	}
 	var excludeLowercase bool
 	if v, ok := d.GetOk("exclude_lowercase"); ok {
-		excludeLowercase = v.(bool)
+cludeLowercase = v.(bool)
 	}
 	var excludeNumbers bool
 	if v, ok := d.GetOk("exclude_numbers"); ok {
-		excludeNumbers = v.(bool)
+cludeNumbers = v.(bool)
 	}
 	var excludePunctuation bool
 	if v, ok := d.GetOk("exclude_punctuation"); ok {
-		excludePunctuation = v.(bool)
+cludePunctuation = v.(bool)
 	}
 	var excludeUppercase bool
 	if v, ok := d.GetOk("exclude_uppercase"); ok {
-		excludeUppercase = v.(bool)
+cludeUppercase = v.(bool)
 	}
 	var includeSpace bool
 	if v, ok := d.GetOk("exclude_space"); ok {
-		includeSpace = v.(bool)
+cludeSpace = v.(bool)
 	}
 	var passwordLength int64
 	if v, ok := d.GetOk("password_length"); ok {
-		passwordLength = int64(v.(int))
+sswordLength = int64(v.(int))
 	}
 	var requireEachIncludedType bool
 	if v, ok := d.GetOk("require_each_included_type"); ok {
-		requireEachIncludedType = v.(bool)
-	}
-
-	input := &secretsmanager.GetRandomPasswordInput{
-		ExcludeCharacters:       aws.String(excludeCharacters),
-		ExcludeLowercase:        aws.Bool(excludeLowercase),
-		ExcludeNumbers: aws.Bool(excludeNumbers),
-		ExcludePunctuation:      aws.Bool(excludePunctuation),
-		ExcludeUppercase:        aws.Bool(excludeUppercase),
-		IncludeSpace:   aws.Bool(includeSpace),
-		PasswordLength: aws.Int64(passwordLength),
-		RequireEachIncludedType: aws.Bool(requireEachIncludedType),
-	}
-
-	output, err := conn.GetRandomPasswordWithContext(ctx, input)
+quireEachIncludedType = v.(bool)
+	}	input := &secretsmanager.GetRandomPasswordInput{
+cludeCharacters:aws.String(excludeCharacters),
+cludeLowercase:e),
+cludeNumbers: aws.Bool(excludeNumbers),
+cludePunctuation:aws.Bool(excludePunctuation),
+cludeUppercase:e),
+cludeSpace:aws.Bool(includeSpace),
+sswordLength: aws.Int64(passwordLength),
+quireEachIncludedType: aws.Bool(requireEachIncludedType),
+	}	output, err := conn.GetRandomPasswordWithContext(ctx, input)
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading Secrets Manager Get Random Password: %s", err)
-	}
-
-	d.SetId(aws.StringValue(output.RandomPassword))
-	d.Set("random_password", output.RandomPassword)
-
-	return diags
+turn sdkdiag.AppendErrorf(diags, "reading Secrets Manager Get Random Password: %s", err)
+	}	d.SetId(aws.StringValue(output.RandomPassword))
+	d.Set("random_password", output.RandomPassword)	return diags
 }

@@ -16,7 +16,7 @@
 func ResourceClassifier() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceClassifierCreate,
-ReadWithoutTimeout:   resourceClassifierRead,
+ReadWithoutTimeout:resourceClassifierRead,
 UpdateWithoutTimeout: resourceClassifierUpdate,
 DeleteWithoutTimeout: resourceClassifierDelete,
 Importer: &schema.ResourceImporter{
@@ -55,26 +55,26 @@ return nil
 ),Schema: map[string]*schema.Schema{
 "csv_classifier": {
 Type: schema.TypeList,
-Optional:      true,
-MaxItems:      1,
+Optional: true,
+MaxItems: 1,
 ConflictsWith: []string{"grok_classifier", "json_classifier", "xml_classifier"},
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "allow_single_column": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 },
 "contains_header": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringInSlice(glue.CsvHeaderOption_Values(), false),
 },
 "custom_datatype_configured": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 },
 "custom_datatypes": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Elem: &schema.Schema{
 Type: schema.TypeString,
@@ -94,21 +94,21 @@ ValidateFunc: validation.StringInSlice([]string{
 },
 },
 "delimiter": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "disable_value_trimming": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 },
 "header": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "quote_symbol": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 },
@@ -116,23 +116,23 @@ Optional: true,
 },
 "grok_classifier": {
 Type: schema.TypeList,
-Optional:      true,
-MaxItems:      1,
+Optional: true,
+MaxItems: 1,
 ConflictsWith: []string{"csv_classifier", "json_classifier", "xml_classifier"},
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "classification": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "custom_patterns": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(0, 16000),
 },
 "grok_pattern": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringLenBetween(1, 2048),
 },
 },
@@ -140,13 +140,13 @@ ValidateFunc: validation.StringLenBetween(1, 2048),
 },
 "json_classifier": {
 Type: schema.TypeList,
-Optional:      true,
-MaxItems:      1,
+Optional: true,
+MaxItems: 1,
 ConflictsWith: []string{"csv_classifier", "grok_classifier", "xml_classifier"},
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "json_path": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 },
@@ -154,23 +154,23 @@ Required: true,
 },
 "name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(1, 255),
 },
 "xml_classifier": {
 Type: schema.TypeList,
-Optional:      true,
-MaxItems:      1,
+Optional: true,
+MaxItems: 1,
 ConflictsWith: []string{"csv_classifier", "grok_classifier", "json_classifier"},
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "classification": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "row_tag": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 },
@@ -254,11 +254,11 @@ return err
 }return nil
 }func expandCSVClassifierCreate(name string, m map[string]interface{}) *glue.CreateCsvClassifierRequest {
 csvClassifier := &glue.CreateCsvClassifierRequest{
-AllowSingleColumn:    aws.Bool(m["allow_single_column"].(bool)),
-ContainsHeader:       aws.String(m["contains_header"].(string)),
-Delimiter:   aws.String(m["delimiter"].(string)),
+AllowSingleColumn:aws.Bool(m["allow_single_column"].(bool)),
+ContainsHeader:aws.String(m["contains_header"].(string)),
+Delimiter:aws.String(m["delimiter"].(string)),
 DisableValueTrimming: aws.Bool(m["disable_value_trimming"].(bool)),
-Name:        aws.String(name),
+Name:
 }if v, ok := m["quote_symbol"].(string); ok && v != "" {
 csvClassifier.QuoteSymbol = aws.String(v)
 }if v, ok := m["header"].([]interface{}); ok {
@@ -271,11 +271,11 @@ csvClassifier.CustomDatatypes = flex.ExpandStringList(v)
 }return csvClassifier
 }func expandCSVClassifierUpdate(name string, m map[string]interface{}) *glue.UpdateCsvClassifierRequest {
 csvClassifier := &glue.UpdateCsvClassifierRequest{
-AllowSingleColumn:    aws.Bool(m["allow_single_column"].(bool)),
-ContainsHeader:       aws.String(m["contains_header"].(string)),
-Delimiter:   aws.String(m["delimiter"].(string)),
+AllowSingleColumn:aws.Bool(m["allow_single_column"].(bool)),
+ContainsHeader:aws.String(m["contains_header"].(string)),
+Delimiter:aws.String(m["delimiter"].(string)),
 DisableValueTrimming: aws.Bool(m["disable_value_trimming"].(bool)),
-Name:        aws.String(name),
+Name:
 }if v, ok := m["quote_symbol"].(string); ok && v != "" {
 csvClassifier.QuoteSymbol = aws.String(v)
 }if v, ok := m["header"].([]interface{}); ok {
@@ -289,7 +289,7 @@ csvClassifier.CustomDatatypes = flex.ExpandStringList(v)
 }func expandGrokClassifierCreate(name string, m map[string]interface{}) *glue.CreateGrokClassifierRequest {
 grokClassifier := &glue.CreateGrokClassifierRequest{
 Classification: aws.String(m["classification"].(string)),
-GrokPattern:    aws.String(m["grok_pattern"].(string)),
+GrokPattern:aws.String(m["grok_pattern"].(string)),
 Name:  aws.String(name),
 }if v, ok := m["custom_patterns"]; ok && v.(string) != "" {
 grokClassifier.CustomPatterns = aws.String(v.(string))
@@ -297,7 +297,7 @@ grokClassifier.CustomPatterns = aws.String(v.(string))
 }func expandGrokClassifierUpdate(name string, m map[string]interface{}) *glue.UpdateGrokClassifierRequest {
 grokClassifier := &glue.UpdateGrokClassifierRequest{
 Classification: aws.String(m["classification"].(string)),
-GrokPattern:    aws.String(m["grok_pattern"].(string)),
+GrokPattern:aws.String(m["grok_pattern"].(string)),
 Name:  aws.String(name),
 }if v, ok := m["custom_patterns"]; ok && v.(string) != "" {
 grokClassifier.CustomPatterns = aws.String(v.(string))
@@ -305,12 +305,12 @@ grokClassifier.CustomPatterns = aws.String(v.(string))
 }func expandJSONClassifierCreate(name string, m map[string]interface{}) *glue.CreateJsonClassifierRequest {
 jsonClassifier := &glue.CreateJsonClassifierRequest{
 JsonPath: aws.String(m["json_path"].(string)),
-Name:     aws.String(name),
+Name:aws.String(name),
 }return jsonClassifier
 }func expandJSONClassifierUpdate(name string, m map[string]interface{}) *glue.UpdateJsonClassifierRequest {
 jsonClassifier := &glue.UpdateJsonClassifierRequest{
 JsonPath: aws.String(m["json_path"].(string)),
-Name:     aws.String(name),
+Name:aws.String(name),
 }return jsonClassifier
 }func expandXmlClassifierCreate(name string, m map[string]interface{}) *glue.CreateXMLClassifierRequest {
 xmlClassifier := &glue.CreateXMLClassifierRequest{
@@ -330,12 +330,12 @@ xmlClassifier.RowTag = aws.String(v.(string))
 if csvClassifier == nil {
 return []map[string]interface{}{}
 }m := map[string]interface{}{
-"allow_single_column":        aws.BoolValue(csvClassifier.AllowSingleColumn),
-"contains_header":   aws.StringValue(csvClassifier.ContainsHeader),
+"allow_single_column":ier.AllowSingleColumn),
+"contains_header":aws.StringValue(csvClassifier.ContainsHeader),
 "delimiter":aws.StringValue(csvClassifier.Delimiter),
-"disable_value_trimming":     aws.BoolValue(csvClassifier.DisableValueTrimming),
-"header":   aws.StringValueSlice(csvClassifier.Header),
-"quote_symbol":      aws.StringValue(csvClassifier.QuoteSymbol),
+"disable_value_trimming":aws.BoolValue(csvClassifier.DisableValueTrimming),
+"header":aws.StringValueSlice(csvClassifier.Header),
+"quote_symbol": aws.StringValue(csvClassifier.QuoteSymbol),
 "custom_datatype_configured": aws.BoolValue(csvClassifier.CustomDatatypeConfigured),
 "custom_datatypes":  aws.StringValueSlice(csvClassifier.CustomDatatypes),
 }return []map[string]interface{}{m}
@@ -345,7 +345,7 @@ return []map[string]interface{}{}
 }m := map[string]interface{}{
 "classification":  aws.StringValue(grokClassifier.Classification),
 "custom_patterns": aws.StringValue(grokClassifier.CustomPatterns),
-"grok_pattern":    aws.StringValue(grokClassifier.GrokPattern),
+"grok_pattern":aws.StringValue(grokClassifier.GrokPattern),
 }return []map[string]interface{}{m}
 }func flattenJSONClassifier(jsonClassifier *glue.JsonClassifier) []map[string]interface{} {
 if jsonClassifier == nil {
@@ -358,6 +358,6 @@ if xmlClassifier == nil {
 return []map[string]interface{}{}
 }m := map[string]interface{}{
 "classification": aws.StringValue(xmlClassifier.Classification),
-"row_tag":        aws.StringValue(xmlClassifier.RowTag),
+"row_tag":ifier.RowTag),
 }return []map[string]interface{}{m}
 }

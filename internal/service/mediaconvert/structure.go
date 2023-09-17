@@ -1,41 +1,21 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package mediaconvert
-
-import (
+// SPDX-License-Identifier: MPL-2.0package mediaconvertimport (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/mediaconvert"
-)
-
-func expandReservationPlanSettings(config map[string]interface{}) *mediaconvert.ReservationPlanSettings {
-	reservationPlanSettings := &mediaconvert.ReservationPlanSettings{}
-
-	if v, ok := config["commitment"]; ok {
-		reservationPlanSettings.Commitment = aws.String(v.(string))
-	}
-
-	if v, ok := config["renewal_type"]; ok {
-		reservationPlanSettings.RenewalType = aws.String(v.(string))
-	}
-
-	if v, ok := config["reserved_slots"]; ok {
-		reservationPlanSettings.ReservedSlots = aws.Int64(int64(v.(int)))
-	}
-
-	return reservationPlanSettings
-}
-
-func flattenReservationPlan(reservationPlan *mediaconvert.ReservationPlan) []interface{} {
+)func expandReservationPlanSettings(config map[string]interface{}) *mediaconvert.ReservationPlanSettings {
+	reservationPlanSettings := &mediaconvert.ReservationPlanSettings{}	if v, ok := config["commitment"]; ok {
+reservationPlanSettings.Commitment = aws.String(v.(string))
+	}	if v, ok := config["renewal_type"]; ok {
+servationPlanSettings.RenewalType = aws.String(v.(string))
+	}	if v, ok := config["reserved_slots"]; ok {
+servationPlanSettings.ReservedSlots = aws.Int64(int64(v.(int)))
+	}	return reservationPlanSettings
+}func flattenReservationPlan(reservationPlan *mediaconvert.ReservationPlan) []interface{} {
 	if reservationPlan == nil {
-		return []interface{}{}
-	}
-
-	m := map[string]interface{}{
-		"commitment":     aws.StringValue(reservationPlan.Commitment),
-		"renewal_type":   aws.StringValue(reservationPlan.RenewalType),
-		"reserved_slots": aws.Int64Value(reservationPlan.ReservedSlots),
-	}
-
-	return []interface{}{m}
+turn []interface{}{}
+	}	m := map[string]interface{}{
+ommitment":aws.StringValue(reservationPlan.Commitment),
+enewal_type":aws.StringValue(reservationPlan.RenewalType),
+eserved_slots": aws.Int64Value(reservationPlan.ReservedSlots),
+	}	return []interface{}{m}
 }

@@ -13,22 +13,18 @@
 func updateTags(ctx context.Context, conn inspectoriface.InspectorAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap).IgnoreSystem(names.Inspector)	if len(newTags) > 0 {
-		input := &inspector.SetTagsForResourceInput{
-			ResourceArn: aws.String(identifier),
-			Tags:        Tags(newTags),
-		}		_, err := conn.SetTagsForResourceWithContext(ctx, input)		if err != nil {
-			return fmt.Errorf("tagging resource (%s): %w", identifier, err)
-		}
-	} else if len(oldTags) > 0 {
-		input := &inspector.SetTagsForResourceInput{
-			ResourceArn: aws.String(identifier),
-		}		_, err := conn.SetTagsForResourceWithContext(ctx, input)		if err != nil {
-			return fmt.Errorf("untagging resource (%s): %w", identifier, err)
-		}
-	}	return nil
+input := &inspector.SetTagsForResourceInput{
+ResourceArn: aws.String(identifier),
+Tags:
+,rr := conn.SetTagsForResourceWithContext(ctx, input)if e != nil {
+return fmt.Errorf("tagging resource (%s): %w", identifier, err)	} else if len(oldTags) > 0 {
+put := &inspector.SetTagsForResourceInput{
+ResourceArn: aws.String(identifier),
+,rr := conn.SetTagsForResourceWithContext(ctx, input)if e != nil {
+return fmt.Errorf("untagging resource (%s): %w", identifier, err)	}	return nil
 }func createTags(ctx context.Context, conn inspectoriface.InspectorAPI, identifier string, tags []*inspector.Tag) error {
 	if len(tags) == 0 {
-		return nil
+turn nil
 	}	return updateTags(ctx, conn, identifier, nil, KeyValueTags(ctx, tags))
 }// UpdateTags updates Inspector Classic service tags.
 // It is called from outside this package.

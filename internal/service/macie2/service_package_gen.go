@@ -13,46 +13,46 @@
 	return []*types.ServicePackageSDKDataSource{}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceAccount,
-			TypeName: "aws_macie2_account",
-		},
-		{
-			Factory:  ResourceClassificationExportConfiguration,
-			TypeName: "aws_macie2_classification_export_configuration",
-		},
-		{
-			Factory:  ResourceClassificationJob,
-			TypeName: "aws_macie2_classification_job",
-			Name:     "Classification Job",
-			Tags:     &types.ServicePackageResourceTags{},
-		},
-		{
-			Factory:  ResourceCustomDataIdentifier,
-			TypeName: "aws_macie2_custom_data_identifier",
-			Name:     "Custom Data Identifier",
-			Tags:     &types.ServicePackageResourceTags{},
-		},
-		{
-			Factory:  ResourceFindingsFilter,
-			TypeName: "aws_macie2_findings_filter",
-			Name:     "Findings Filter",
-			Tags:     &types.ServicePackageResourceTags{},
-		},
-		{
-			Factory:  ResourceInvitationAccepter,
-			TypeName: "aws_macie2_invitation_accepter",
-		},
-		{
-			Factory:  ResourceMember,
-			TypeName: "aws_macie2_member",
-			Name:     "Member",
-			Tags:     &types.ServicePackageResourceTags{},
-		},
-		{
-			Factory:  ResourceOrganizationAdminAccount,
-			TypeName: "aws_macie2_organization_admin_account",
-		},
+{
+Factory:  ResourceAccount,
+TypeName: "aws_macie2_account",
+},
+{
+Factory:  ResourceClassificationExportConfiguration,
+TypeName: "aws_macie2_classification_export_configuration",
+},
+{
+Factory:  ResourceClassificationJob,
+TypeName: "aws_macie2_classification_job",
+Name:"Classification Job",
+Tags:&types.ServicePackageResourceTags{},
+},
+{
+Factory:  ResourceCustomDataIdentifier,
+TypeName: "aws_macie2_custom_data_identifier",
+Name:"Custom Data Identifier",
+Tags:&types.ServicePackageResourceTags{},
+},
+{
+Factory:  ResourceFindingsFilter,
+TypeName: "aws_macie2_findings_filter",
+Name:"Findings Filter",
+Tags:&types.ServicePackageResourceTags{},
+},
+{
+Factory:  ResourceInvitationAccepter,
+TypeName: "aws_macie2_invitation_accepter",
+},
+{
+Factory:  ResourceMember,
+TypeName: "aws_macie2_member",
+Name:"Member",
+Tags:&types.ServicePackageResourceTags{},
+},
+{
+Factory:  ResourceOrganizationAdminAccount,
+TypeName: "aws_macie2_organization_admin_account",
+},
 	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.Macie2

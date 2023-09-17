@@ -15,8 +15,8 @@ tfneptune "github.com/hashicorp/terraform-provider-aws/internal/service/neptune"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )func testAccClusterImportStep(n string) resource.TestStep {
 return resource.TestStep{
-ResourceName:      n,
-ImportState:       true,
+ResourceName: n,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "allow_major_version_upgrade",
@@ -601,7 +601,7 @@ resource "aws_neptune_cluster" "test" {
 }func testAccClusterConfig_namePrefix(rName string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
-  cluster_identifier_prefix   = %[1]q
+  cluster_identifier_prefix= %[1]q
   engine
   neptune_cluster_parameter_group_name = "default.neptune1.2"
   skip_final_snapshot
@@ -610,13 +610,13 @@ resource "aws_neptune_cluster" "test" {
 }func testAccClusterConfig_serverlessConfiguration(rName string) string {
 return fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
-  cluster_identifier_prefix   = %[1]q
+  cluster_identifier_prefix= %[1]q
   engine
   engine_version1.2.0.1"
   neptune_cluster_parameter_group_name = "default.neptune1.2"
   skip_final_snapshot  serverless_v2_scaling_configuration {
-    min_capacity = 4.5
-    max_capacity = 12.5
+min_capacity = 4.5
+max_capacity = 12.5
   }
 }
 `, rName)
@@ -626,7 +626,7 @@ resource "aws_neptune_cluster" "test" {
   cluster_identifier
   availability_zones.availability_zone_names
   neptune_cluster_parameter_group_name = "default.neptune1.2"
-  final_snapshot_identifier   = %[1]q
+  final_snapshot_identifier= %[1]q
 }
 `, rName))
 }func testAccClusterConfig_tags1(rName, tagKey1, tagValue1 string) string {
@@ -637,7 +637,7 @@ resource "aws_neptune_cluster" "test" {
   engine
   neptune_cluster_parameter_group_name = "default.neptune1.2"
   skip_final_snapshot  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -649,8 +649,8 @@ resource "aws_neptune_cluster" "test" {
   engine
   neptune_cluster_parameter_group_name = "default.neptune1.2"
   skip_final_snapshot  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -662,14 +662,14 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "rds.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+s.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
@@ -679,9 +679,9 @@ EOF
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -691,14 +691,14 @@ EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "rds.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+s.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
@@ -708,9 +708,9 @@ EOF
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -729,14 +729,14 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "rds.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+s.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
@@ -746,9 +746,9 @@ EOF
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -758,14 +758,14 @@ EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "rds.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+s.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
@@ -775,9 +775,9 @@ EOF
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -796,14 +796,14 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "rds.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+s.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
@@ -813,9 +813,9 @@ EOF
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -834,15 +834,15 @@ resource "aws_kms_key" "test" {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
   "Statement": [
-    {
-      "Sid": "Enable IAM User Permissions",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "kms:*",
-      "Resource": "*"
-    }
+{
+ "Sid": "Enable IAM User Permissions",
+ "Effect": "Allow",
+ "Principal": {
+
+ },
+ "Action": "kms:*",
+ "Resource": "*"
+}
   ]
 }
  POLICY}resource "aws_neptune_cluster" "test" {
@@ -859,7 +859,7 @@ return acctest.ConfigCompose(testAccClusterConfig_base(), fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
   cluster_identifier  = %[1]q
   availability_zones  = local.availability_zone_names
-  storage_encrypted   = true
+  storage_encrypted= true
   skip_final_snapshot = true  neptune_cluster_parameter_group_name = "default.neptune1.2"
 }
 `, rName))
@@ -868,8 +868,8 @@ return acctest.ConfigCompose(testAccClusterConfig_base(), fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
   cluster_identifier  = %[1]q
   availability_zones  = local.availability_zone_names
-  backup_retention_period      = 5
-  preferred_backup_window      = "07:00-09:00"
+  backup_retention_period = 5
+  preferred_backup_window = "07:00-09:00"
   preferred_maintenance_window = "tue:04:00-tue:04:30"
   skip_final_snapshot = true  neptune_cluster_parameter_group_name = "default.neptune1.2"
 }
@@ -879,10 +879,10 @@ return acctest.ConfigCompose(testAccClusterConfig_base(), fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
   cluster_identifier  = %[1]q
   availability_zones  = local.availability_zone_names
-  backup_retention_period      = 10
-  preferred_backup_window      = "03:00-09:00"
+  backup_retention_period = 10
+  preferred_backup_window = "03:00-09:00"
   preferred_maintenance_window = "wed:01:00-wed:01:30"
-  apply_immediately   = true
+  apply_immediately= true
   skip_final_snapshot = true  neptune_cluster_parameter_group_name = "default.neptune1.2"
 }
 `, rName))
@@ -900,7 +900,7 @@ return acctest.ConfigCompose(testAccClusterConfig_base(), fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
   cluster_identifier
   availability_zonesability_zone_names
-  skip_final_snapshot   = true
+  skip_final_snapshot= true
   enable_cloudwatch_logs_exports = ["audit"]  neptune_cluster_parameter_group_name = "default.neptune1.2"
 }
 `, rName))
@@ -913,7 +913,7 @@ data "aws_neptune_orderable_db_instance" "test" {
 }resource "aws_neptune_cluster_instance" "test" {
   identifier
   cluster_identifier  = aws_neptune_cluster.test.id
-  apply_immediately   = true
+  apply_immediately= true
   instance_classneptune_orderable_db_instance.test.instance_class
   neptune_parameter_group_name = aws_neptune_cluster.test.neptune_cluster_parameter_group_name
   promotion_tier
@@ -948,18 +948,18 @@ acctest.ConfigMultipleRegionProvider(2),
 fmt.Sprintf(`
 data "aws_availability_zones" "alternate" {
   provider = "awsalternate"
-  state    = "available"  filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+  state= "available"  filter {
+name= "opt-in-status"
+values = ["opt-in-not-required"]
   }
 }resource "aws_neptune_global_cluster" "test" {
   global_cluster_identifier = %[1]q
   enginetune"
-  engine_version   = "1.2.0.0"
+  engine_version= "1.2.0.0"
 }resource "aws_neptune_cluster" "primary" {
   cluster_identifier
   skip_final_snapshot
-  global_cluster_identifier   = aws_neptune_global_cluster.test.id
+  global_cluster_identifier= aws_neptune_global_cluster.test.id
   enginecluster.test.engine
   engine_versionws_neptune_global_cluster.test.engine_version
   neptune_cluster_parameter_group_name = "default.neptune1.2"
@@ -970,32 +970,32 @@ data "aws_availability_zones" "alternate" {
   neptune_parameter_group_name = "default.neptune1.2"
   engine_versionne_global_cluster.test.engine_version
 }resource "aws_vpc" "alternate" {
-  provider   = "awsalternate"
+  provider= "awsalternate"
   cidr_block = "10.0.0.0/16"  tags = {
-    Name = %[3]q
+Name = %[3]q
   }
 }resource "aws_subnet" "alternate" {
   provider = "awsalternate"
   count
-  vpc_id   = aws_vpc.alternate.id
+  vpc_id= aws_vpc.alternate.id
   availability_zone = data.aws_availability_zones.alternate.names[count.index]
-  cidr_block        = "10.0.${count.index}.0/24"  tags = {
-    Name = %[3]q
+  cidr_block/24"  tags = {
+Name = %[3]q
   }
 }resource "aws_neptune_subnet_group" "alternate" {
-  provider   = "awsalternate"
-  name       = %[3]q
+  provider= "awsalternate"
+  name= %[3]q
   subnet_ids = aws_subnet.alternate[*].id
 }resource "aws_neptune_cluster" "secondary" {
   provider
   cluster_identifier
   skip_final_snapshot
-  neptune_subnet_group_name   = aws_neptune_subnet_group.alternate.name
-  global_cluster_identifier   = aws_neptune_global_cluster.test.id
+  neptune_subnet_group_name= aws_neptune_subnet_group.alternate.name
+  global_cluster_identifier= aws_neptune_global_cluster.test.id
   enginecluster.test.engine
   engine_versionws_neptune_global_cluster.test.engine_version
   neptune_cluster_parameter_group_name = "default.neptune1.2"  depends_on = [aws_neptune_cluster_instance.primary]  lifecycle {
-    ignore_changes = [replication_source_identifier]
+ignore_changes = [replication_source_identifier]
   }
 }resource "aws_neptune_cluster_instance" "secondary" {
   providersalternate"
@@ -1009,9 +1009,9 @@ data "aws_availability_zones" "alternate" {
 }func testAccClusterConfig_restoreFromSnapshot(rName string) string {
 return fmt.Sprintf(`
 resource "aws_default_vpc" "test" {}resource "aws_security_group" "test" {
-  count = 2  name   = "%[1]s-${count.index}"
+  count = 2  name= "%[1]s-${count.index}"
   vpc_id = aws_default_vpc.test.id  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_neptune_cluster" "source" {
   cluster_identifiers-src"
@@ -1022,9 +1022,9 @@ resource "aws_default_vpc" "test" {}resource "aws_security_group" "test" {
   db_cluster_snapshot_identifier = %[1]q
 }resource "aws_neptune_cluster_parameter_group" "test" {
   family = "neptune1.2"
-  name   = %[1]q  parameter {
-    name  = "neptune_enable_audit_log"
-    value = "1"
+  name= %[1]q  parameter {
+name  = "neptune_enable_audit_log"
+value = "1"
   }
 }resource "aws_neptune_cluster" "test" {
   cluster_identifier  = %[1]q
@@ -1032,7 +1032,7 @@ resource "aws_default_vpc" "test" {}resource "aws_security_group" "test" {
   snapshot_identifier = aws_neptune_cluster_snapshot.test.id  backup_retention_period
   neptune_cluster_parameter_group_name = aws_neptune_cluster_parameter_group.test.id
   vpc_security_group_idsity_group.test[*].id  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName)

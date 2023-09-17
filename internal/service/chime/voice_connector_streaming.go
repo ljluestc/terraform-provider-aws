@@ -13,34 +13,34 @@
 func ResourceVoiceConnectorStreaming() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceVoiceConnectorStreamingCreate,
-ReadWithoutTimeout:   resourceVoiceConnectorStreamingRead,
+ReadWithoutTimeout:resourceVoiceConnectorStreamingRead,
 UpdateWithoutTimeout: resourceVoiceConnectorStreamingUpdate,
 DeleteWithoutTimeout: resourceVoiceConnectorStreamingDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "data_retention": {
 Type:schema.TypeInt,
-Required:     true,
+Required:true,
 ValidateFunc: validation.IntAtLeast(0),
 },
 "disabled": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 },
 "media_insights_configuration": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "configuration_arn": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: verify.ValidARN,
 },
 "disabled": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 },
@@ -48,7 +48,7 @@ Default:  false,
 },
 },
 "streaming_notification_targets": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 MinItems: 1,
 MaxItems: 3,
 Optional: true,
@@ -58,7 +58,7 @@ ValidateFunc: validation.StringInSlice(chimesdkvoice.NotificationTarget_Values()
 },
 },
 "voice_connector_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
@@ -70,7 +70,7 @@ input := &chimesdkvoice.PutVoiceConnectorStreamingConfigurationInput{
 VoiceConnectorId: aws.String(vcId),
 }config := &chimesdkvoice.StreamingConfiguration{
 DataRetentionInHours: aws.Int64(int64(d.Get("data_retention").(int))),
-Disabled:    aws.Bool(d.Get("disabled").(bool)),
+Disabled:aws.Bool(d.Get("disabled").(bool)),
 }if v, ok := d.GetOk("streaming_notification_targets"); ok && v.(*schema.Set).Len() > 0 {
 config.StreamingNotificationTargets = expandStreamingNotificationTargets(v.(*schema.Set).List())
 }if v, ok := d.GetOk("media_insights_configuration"); ok && len(v.([]interface{})) > 0 {
@@ -103,7 +103,7 @@ input := &chimesdkvoice.PutVoiceConnectorStreamingConfigurationInput{
 VoiceConnectorId: aws.String(vcId),
 }config := &chimesdkvoice.StreamingConfiguration{
 DataRetentionInHours: aws.Int64(int64(d.Get("data_retention").(int))),
-Disabled:    aws.Bool(d.Get("disabled").(bool)),
+Disabled:aws.Bool(d.Get("disabled").(bool)),
 }if v, ok := d.GetOk("streaming_notification_targets"); ok && v.(*schema.Set).Len() > 0 {
 config.StreamingNotificationTargets = expandStreamingNotificationTargets(v.(*schema.Set).List())
 }if v, ok := d.GetOk("media_insights_configuration"); ok && len(v.([]interface{})) > 0 {

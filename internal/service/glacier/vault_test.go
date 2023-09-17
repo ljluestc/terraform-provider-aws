@@ -20,7 +20,7 @@ resourceName := "aws_glacier_vault.test"resource.ParallelTest(t, resource.TestCa
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.GlacierEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultDestroy(ctx),
+CheckDestroy:testAccCheckVaultDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVaultConfig_basic(rName),
@@ -35,8 +35,8 @@ resource.TestCheckResourceAttr(resourceName, "access_policy", ""),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -50,7 +50,7 @@ snsResourceName := "aws_sns_topic.test"resource.ParallelTest(t, resource.TestCas
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.GlacierEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultDestroy(ctx),
+CheckDestroy:testAccCheckVaultDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVaultConfig_notification(rName),
@@ -63,8 +63,8 @@ resource.TestCheckResourceAttrPair(resourceName, "notification.0.sns_topic", sns
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -95,7 +95,7 @@ resourceName := "aws_glacier_vault.test"resource.ParallelTest(t, resource.TestCa
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.GlacierEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultDestroy(ctx),
+CheckDestroy:testAccCheckVaultDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVaultConfig_policy(rName),
@@ -107,8 +107,8 @@ resource.TestMatchResourceAttr(resourceName, "access_policy", regexache.MustComp
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -138,7 +138,7 @@ resourceName := "aws_glacier_vault.test"resource.ParallelTest(t, resource.TestCa
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.GlacierEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultDestroy(ctx),
+CheckDestroy:testAccCheckVaultDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVaultConfig_tags1(rName, "key1", "value1"),
@@ -150,8 +150,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -183,7 +183,7 @@ resourceName := "aws_glacier_vault.test"resource.ParallelTest(t, resource.TestCa
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.GlacierEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultDestroy(ctx),
+CheckDestroy:testAccCheckVaultDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVaultConfig_basic(rName),
@@ -204,7 +204,7 @@ resourceName := "aws_glacier_vault.test"resource.ParallelTest(t, resource.TestCa
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.GlacierEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultDestroy(ctx),
+CheckDestroy:testAccCheckVaultDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVaultConfig_policyOrder(rName),
@@ -219,7 +219,7 @@ resource.TestMatchResourceAttr(resourceName, "access_policy", regexache.MustComp
 ),
 },
 {
-Config:   testAccVaultConfig_policyNewOrder(rName),
+Config:testAccVaultConfig_policyNewOrder(rName),
 PlanOnly: true,
 },
 },
@@ -262,8 +262,8 @@ resource "aws_sns_topic" "test" {
   name = %[1]q
 }resource "aws_glacier_vault" "test" {
   name = %[1]q  notification {
-    sns_topic = aws_sns_topic.test.arn
-    events    = ["ArchiveRetrievalCompleted", "InventoryRetrievalCompleted"]
+sns_topic = aws_sns_topic.test.arn
+events= ["ArchiveRetrievalCompleted", "InventoryRetrievalCompleted"]
   }
 }
 `, rName)
@@ -272,22 +272,22 @@ return fmt.Sprintf(`
 data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_identity" "current" {}resource "aws_glacier_vault" "test" {
   name = %[1]q  access_policy = <<EOF
 {
-    "Version":"2012-10-17",
-    "Statement":[
-       {
+"Version":"2012-10-17",
+"Statement":[
+{
  "Sid":"cross-account-upload",
  "Principal": {
-    "AWS": "*"
+"AWS": "*"
  },
  "Effect":"Allow",
  "Action": [
-    "glacier:InitiateMultipartUpload",
-    "glacier:AbortMultipartUpload",
-    "glacier:CompleteMultipartUpload"
+"glacier:InitiateMultipartUpload",
+"glacier:AbortMultipartUpload",
+"glacier:CompleteMultipartUpload"
  ],
  "Resource": "arn:${data.aws_partition.current.partition}:glacier:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:vaults/%[1]s"
-       }
-    ]
+}
+]
 }
 EOF
 }
@@ -297,23 +297,23 @@ return fmt.Sprintf(`
 data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_identity" "current" {}resource "aws_glacier_vault" "test" {
   name = %[1]q  access_policy = <<EOF
 {
-    "Version":"2012-10-17",
-    "Statement":[
-       {
+"Version":"2012-10-17",
+"Statement":[
+{
  "Sid":"cross-account-upload1",
  "Principal": {
-    "AWS": ["*"]
+"AWS": ["*"]
  },
  "Effect":"Allow",
  "Action": [
-    "glacier:UploadArchive",
-    "glacier:InitiateMultipartUpload",
-    "glacier:AbortMultipartUpload",
-    "glacier:CompleteMultipartUpload"
+"glacier:UploadArchive",
+"glacier:InitiateMultipartUpload",
+"glacier:AbortMultipartUpload",
+"glacier:CompleteMultipartUpload"
  ],
  "Resource": ["arn:${data.aws_partition.current.partition}:glacier:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:vaults/%[1]s"]
-       }
-    ]
+}
+]
 }
 EOF
 }
@@ -322,7 +322,7 @@ EOF
 return fmt.Sprintf(`
 resource "aws_glacier_vault" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -330,8 +330,8 @@ resource "aws_glacier_vault" "test" {
 return fmt.Sprintf(`
 resource "aws_glacier_vault" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -339,22 +339,22 @@ resource "aws_glacier_vault" "test" {
 return fmt.Sprintf(`
 data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_identity" "current" {}resource "aws_glacier_vault" "test" {
   name = %[1]q  access_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid = %[1]q
-      Principal = {
-        AWS = ["*"]
-      }
-      Effect = "Allow"
-      Action = [
-        "glacier:InitiateMultipartUpload",
-        "glacier:AbortMultipartUpload",
-        "glacier:CompleteMultipartUpload",
-      ]
-      Resource = [
-        "arn:${data.aws_partition.current.partition}:glacier:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:vaults/%[1]s",
-      ]
-    }]
+Version = "2012-10-17"
+Statement = [{
+ Sid = %[1]q
+ Principal = {
+
+ }
+ Effect = "Allow"
+ Action = [
+rtUpload",
+pload",
+rtUpload",
+ ]
+ Resource = [
+n.current.partition}:glacier:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:vaults/%[1]s",
+ ]
+}]
   })
 }
 `, rName)
@@ -362,20 +362,20 @@ data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_
 return fmt.Sprintf(`
 data "aws_partition" "current" {}data "aws_region" "current" {}data "aws_caller_identity" "current" {}resource "aws_glacier_vault" "test" {
   name = %[1]q  access_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid = %[1]q
-      Principal = {
-        AWS = ["*"]
-      }
-      Effect = "Allow"
-      Action = [
-        "glacier:CompleteMultipartUpload",
-        "glacier:InitiateMultipartUpload",
-        "glacier:AbortMultipartUpload",
-      ]
-      Resource = "arn:${data.aws_partition.current.partition}:glacier:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:vaults/%[1]s"
-    }]
+Version = "2012-10-17"
+Statement = [{
+ Sid = %[1]q
+ Principal = {
+
+ }
+ Effect = "Allow"
+ Action = [
+rtUpload",
+rtUpload",
+pload",
+ ]
+ Resource = "arn:${data.aws_partition.current.partition}:glacier:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:vaults/%[1]s"
+}]
   })
 }
 `, rName)

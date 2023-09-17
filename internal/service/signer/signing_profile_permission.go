@@ -20,18 +20,18 @@
 func ResourceSigningProfilePermission() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceSigningProfilePermissionCreate,
-ReadWithoutTimeout:   resourceSigningProfilePermissionRead,
+ReadWithoutTimeout:resourceSigningProfilePermissionRead,
 DeleteWithoutTimeout: resourceSigningProfilePermissionDelete,Importer: &schema.ResourceImporter{
 StateContext: resourceSigningProfilePermissionImport,
 },Schema: map[string]*schema.Schema{
 "profile_name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(2, 64),
 },
 "action": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 ValidateFunc: validation.StringInSlice([]string{
@@ -41,29 +41,29 @@ ValidateFunc: validation.StringInSlice([]string{
 false),
 },
 "principal": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "profile_version": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(10, 10),
 },
 "statement_id": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional: true,
+Computed: true,
+ForceNew: true,
 ConflictsWith: []string{"statement_id_prefix"},
 ValidateFunc:  validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_-]{0,64}$`), "must be alphanumeric with max length of 64 characters"),
 },
 "statement_id_prefix": {
 Type: schema.TypeString,
-Optional:      true,
-ForceNew:      true,
+Optional: true,
+ForceNew: true,
 ConflictsWith: []string{"statement_id"},
 ValidateFunc:  validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_-]{0,38}$`), "must be alphanumeric with max length of 38 characters"),
 },
@@ -86,8 +86,8 @@ return sdkdiag.AppendErrorf(diags, "creating Signer Signing Profile Permission: 
 } else {
 revisionId = aws.ToString(getProfilePermissionsOutput.RevisionId)
 }statementId := create.Name(d.Get("statement_id").(string), d.Get("statement_id_prefix").(string))addProfilePermissionInput := &signer.AddProfilePermissionInput{
-Action:      aws.String(d.Get("action").(string)),
-Principal:   aws.String(d.Get("principal").(string)),
+Action: aws.String(d.Get("action").(string)),
+Principal:aws.String(d.Get("principal").(string)),
 ProfileName: aws.String(profileName),
 RevisionId:  aws.String(revisionId),
 StatementId: aws.String(statementId),

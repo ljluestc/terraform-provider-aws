@@ -10,20 +10,20 @@
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_location_tracker_association.test"
 	resourceName := "aws_location_tracker_association.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckTrackerAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrackerAssociationDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerAssociationExists(ctx, dataSourceName),
-					resource.TestCheckResourceAttrPair(resourceName, "consumer_arn", "aws_location_geofence_collection.test", "collection_arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "tracker_name", "aws_location_tracker.test", "tracker_name"),
-				),
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckTrackerAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccTrackerAssociationDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerAssociationExists(ctx, dataSourceName),
+resource.TestCheckResourceAttrPair(resourceName, "consumer_arn", "aws_location_geofence_collection.test", "collection_arn"),
+resource.TestCheckResourceAttrPair(resourceName, "tracker_name", "aws_location_tracker.test", "tracker_name"),
+),
+},
+},
 	})
 }func testAccTrackerAssociationDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`

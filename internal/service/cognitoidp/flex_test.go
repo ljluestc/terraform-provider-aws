@@ -4,17 +4,17 @@
 	"github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
 )func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
 	t.Parallel()	cases := []struct {
-Name     string
-Input    *cognitoidentityprovider.SchemaAttributeType
+Namestring
+Input*cognitoidentityprovider.SchemaAttributeType
 Expected bool
 	}{
 {
 	Name: "birthday standard",
 	Input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(true),
-Name:    aws.String("birthdate"),
+Name:aws.String("birthdate"),
 Required:aws.Bool(false),
 StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 	MaxLength: aws.String("10"),
@@ -26,10 +26,10 @@ StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsT
 {
 	Name: "birthday non-standard DeveloperOnlyAttribute",
 	Input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 DeveloperOnlyAttribute: aws.Bool(true),
 Mutable: aws.Bool(true),
-Name:    aws.String("birthdate"),
+Name:aws.String("birthdate"),
 Required:aws.Bool(false),
 StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 	MaxLength: aws.String("10"),
@@ -41,10 +41,10 @@ StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsT
 {
 	Name: "birthday non-standard Mutable",
 	Input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(false),
-Name:    aws.String("birthdate"),
+Name:aws.String("birthdate"),
 Required:aws.Bool(false),
 StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 	MaxLength: aws.String("10"),
@@ -56,10 +56,10 @@ StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsT
 {
 	Name: "non-standard Name",
 	Input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(true),
-Name:    aws.String("non-existent"),
+Name:aws.String("non-existent"),
 Required:aws.Bool(false),
 StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 	MaxLength: aws.String("10"),
@@ -71,10 +71,10 @@ StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsT
 {
 	Name: "birthday non-standard Required",
 	Input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(true),
-Name:    aws.String("birthdate"),
+Name:aws.String("birthdate"),
 Required:aws.Bool(true),
 StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 	MaxLength: aws.String("10"),
@@ -86,10 +86,10 @@ StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsT
 {
 	Name: "birthday non-standard StringAttributeConstraints.Max",
 	Input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(true),
-Name:    aws.String("birthdate"),
+Name:aws.String("birthdate"),
 Required:aws.Bool(false),
 StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 	MaxLength: aws.String("999"),
@@ -101,10 +101,10 @@ StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsT
 {
 	Name: "birthday non-standard StringAttributeConstraints.Min",
 	Input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(true),
-Name:    aws.String("birthdate"),
+Name:aws.String("birthdate"),
 Required:aws.Bool(false),
 StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 	MaxLength: aws.String("10"),
@@ -116,10 +116,10 @@ StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsT
 {
 	Name: "email_verified standard",
 	Input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeBoolean),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeBoolean),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(true),
-Name:    aws.String("email_verified"),
+Name:aws.String("email_verified"),
 Required:aws.Bool(false),
 	},
 	Expected: true,
@@ -127,10 +127,10 @@ Required:aws.Bool(false),
 {
 	Name: "updated_at standard",
 	Input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeNumber),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeNumber),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(true),
-Name:    aws.String("updated_at"),
+Name:aws.String("updated_at"),
 NumberAttributeConstraints: &cognitoidentityprovider.NumberAttributeConstraintsType{
 	MinValue: aws.String("0"),
 },
@@ -150,27 +150,27 @@ t.Fatalf("Expected %t match with standard attribute on input: \n\n%#v\n\n", tc.E
 	}
 }func TestSkipFlatteningStringAttributeContraints(t *testing.T) {
 	t.Parallel()	cases := []struct {
-name       string
+namestring
 configured []*cognitoidentityprovider.SchemaAttributeType
-input      *cognitoidentityprovider.SchemaAttributeType
-want       bool
+input *cognitoidentityprovider.SchemaAttributeType
+wantbool
 	}{
 {
 	name: "config omitted",
 	configured: []*cognitoidentityprovider.SchemaAttributeType{
 {
-	AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+	AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 	DeveloperOnlyAttribute: aws.Bool(false),
 	Mutable: aws.Bool(false),
-	Name:    aws.String("email"),
+	Name:aws.String("email"),
 	Required:aws.Bool(true),
 },
 	},
 	input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(false),
-Name:    aws.String("email"),
+Name:aws.String("email"),
 Required:aws.Bool(true),
 StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 	MaxLength: aws.String("2048"),
@@ -183,10 +183,10 @@ StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsT
 	name: "config set",
 	configured: []*cognitoidentityprovider.SchemaAttributeType{
 {
-	AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+	AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 	DeveloperOnlyAttribute: aws.Bool(false),
 	Mutable: aws.Bool(false),
-	Name:    aws.String("email"),
+	Name:aws.String("email"),
 	Required:aws.Bool(true),
 	StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 MaxLength: aws.String("2048"),
@@ -195,10 +195,10 @@ MinLength: aws.String("0"),
 },
 	},
 	input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(false),
-Name:    aws.String("email"),
+Name:aws.String("email"),
 Required:aws.Bool(true),
 StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 	MaxLength: aws.String("2048"),
@@ -211,10 +211,10 @@ StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsT
 	name: "config set with diff",
 	configured: []*cognitoidentityprovider.SchemaAttributeType{
 {
-	AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+	AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 	DeveloperOnlyAttribute: aws.Bool(false),
 	Mutable: aws.Bool(false),
-	Name:    aws.String("email"),
+	Name:aws.String("email"),
 	Required:aws.Bool(true),
 	StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 MaxLength: aws.String("1024"),
@@ -223,10 +223,10 @@ MinLength: aws.String("5"),
 },
 	},
 	input: &cognitoidentityprovider.SchemaAttributeType{
-AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
+AttributeDataType: aws.String(cognitoidentityprovider.AttributeDataTypeString),
 DeveloperOnlyAttribute: aws.Bool(false),
 Mutable: aws.Bool(false),
-Name:    aws.String("email"),
+Name:aws.String("email"),
 Required:aws.Bool(true),
 StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 	MaxLength: aws.String("2048"),

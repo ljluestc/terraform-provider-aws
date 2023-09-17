@@ -23,7 +23,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceConnectorStreamingDestroy(ctx),
+CheckDestroy:testAccCheckVoiceConnectorStreamingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceConnectorStreamingConfig_basic(name),
@@ -35,8 +35,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -51,7 +51,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceConnectorStreamingDestroy(ctx),
+CheckDestroy:testAccCheckVoiceConnectorStreamingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceConnectorStreamingConfig_basic(name),
@@ -73,7 +73,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceConnectorStreamingDestroy(ctx),
+CheckDestroy:testAccCheckVoiceConnectorStreamingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceConnectorStreamingConfig_basic(name),
@@ -97,8 +97,8 @@ regexache.MustCompile(fmt.Sprintf(`media-insights-pipeline-configuration/test-co
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -109,7 +109,7 @@ resource "aws_chime_voice_connector" "chime" {
   name= "vc-%[1]s"
   require_encryption = true
 }resource "aws_chime_voice_connector_streaming" "test" {
-  voice_connector_id = aws_chime_voice_connector.chime.id  disabled        = false
+  voice_connector_id = aws_chime_voice_connector.chime.id  disabled
   data_retention  = 5
   streaming_notification_targets = ["SQS"]
 }
@@ -120,39 +120,39 @@ resource "aws_chime_voice_connector" "chime" {
   name= "vc-%[1]s"
   require_encryption = true
 }resource "aws_chime_voice_connector_streaming" "test" {
-  voice_connector_id = aws_chime_voice_connector.chime.id  disabled        = false
+  voice_connector_id = aws_chime_voice_connector.chime.id  disabled
   data_retention  = 2
   streaming_notification_targets = ["SQS", "SNS"]
   media_insights_configuration {
-    disabled = false
-    configuration_arn = aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test.arn
+disabled = false
+configuration_arn = aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test.arn
   }
 }resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
-  name      = "test-config-%[1]s"
+  name = "test-config-%[1]s"
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
-    type = "AmazonTranscribeCallAnalyticsProcessor"
-    amazon_transcribe_call_analytics_processor_configuration {
-      language_code = "en-US"
-    }
+type = "AmazonTranscribeCallAnalyticsProcessor"
+amazon_transcribe_call_analytics_processor_configuration {
+ language_code = "en-US"
+}
   }  elements {
-    type = "KinesisDataStreamSink"
-    kinesis_data_stream_sink_configuration {
-      insights_target = aws_kinesis_stream.test.arn
-    }
+type = "KinesisDataStreamSink"
+kinesis_data_stream_sink_configuration {
+ insights_target = aws_kinesis_stream.test.arn
+}
   }
 }data "aws_iam_policy_document" "assume_role" {
   statement {
-    effect = "Allow"    principals {
-      type        = "Service"
-      identifiers = ["mediapipelines.chime.amazonaws.com"]
-    }    actions = ["sts:AssumeRole"]
+effect = "Allow"principals {
+ type
+ identifiers = ["mediapipelines.chime.amazonaws.com"]
+}actions = ["sts:AssumeRole"]
   }
 }resource "aws_iam_role" "test" {
   name= "resource_access_role-%[1]s"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }resource "aws_kinesis_stream" "test" {
-  name        = "kvs-%[1]s"
+  name
   shard_count = 2
 }
 `, name)

@@ -21,33 +21,33 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func resourceAccessLogSubscription() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceAccessLogSubscriptionCreate,
-ReadWithoutTimeout:   resourceAccessLogSubscriptionRead,
+ReadWithoutTimeout:resourceAccessLogSubscriptionRead,
 UpdateWithoutTimeout: resourceAccessLogSubscriptionUpdate,
 DeleteWithoutTimeout: resourceAccessLogSubscriptionDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "destination_arn": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
 ForceNew:true,
-ValidateFunc:     verify.ValidARN,
+ValidateFunc:verify.ValidARN,
 DiffSuppressFunc: suppressEquivalentCloudWatchLogsLogGroupARN,
 },
 "resource_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "resource_identifier": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
 ForceNew:true,
 DiffSuppressFunc: suppressEquivalentIDOrARN,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -55,10 +55,10 @@ names.AttrTagsAll: tftags.TagsSchemaComputed(),
 ResNameAccessLogSubscription = "Access Log Subscription"
 )func resourceAccessLogSubscriptionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)in := &vpclattice.CreateAccessLogSubscriptionInput{
-ClientToken:        aws.String(id.UniqueId()),
-DestinationArn:     aws.String(d.Get("destination_arn").(string)),
+ClientToken:),
+DestinationArn:aws.String(d.Get("destination_arn").(string)),
 ResourceIdentifier: aws.String(d.Get("resource_identifier").(string)),
-Tags:      getTagsIn(ctx),
+Tags: getTagsIn(ctx),
 }out, err := conn.CreateAccessLogSubscription(ctx, in)if err != nil {
 return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameAccessLogSubscription, d.Get("destination_arn").(string), err)
 }d.SetId(aws.ToString(out.Id))return resourceAccessLogSubscriptionRead(ctx, d, meta)
@@ -91,7 +91,7 @@ AccessLogSubscriptionIdentifier: aws.String(id),
 }
 out, err := conn.GetAccessLogSubscription(ctx, in)if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }if err != nil {

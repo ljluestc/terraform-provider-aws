@@ -20,7 +20,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceEventSubscription() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceEventSubscriptionCreate,
-ReadWithoutTimeout:   resourceEventSubscriptionRead,
+ReadWithoutTimeout:resourceEventSubscriptionRead,
 UpdateWithoutTimeout: resourceEventSubscriptionUpdate,
 DeleteWithoutTimeout: resourceEventSubscriptionDelete,
 Importer: &schema.ResourceImporter{
@@ -32,56 +32,56 @@ Update: schema.DefaultTimeout(40 * time.Minute),
 },
 Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "name": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional: true,
+Computed: true,
+ForceNew: true,
 ConflictsWith: []string{"name_prefix"},
 ValidateFunc:  validEventSubscriptionName,
 },
 "name_prefix": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional: true,
+Computed: true,
+ForceNew: true,
 ConflictsWith: []string{"name"},
 ValidateFunc:  validEventSubscriptionNamePrefix,
 },
 "sns_topic_arn": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: verify.ValidARN,
 },
 "event_categories": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
-Set:      schema.HashString,
+Elem:&schema.Schema{Type: schema.TypeString},
+Set: schema.HashString,
 },
 "source_ids": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
-Set:      schema.HashString,
+Elem:&schema.Schema{Type: schema.TypeString},
+Set: schema.HashString,
 },
 "source_type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "enabled": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 },
 "customer_aws_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -95,7 +95,7 @@ d.Set("name", id.PrefixedUniqueId(v.(string)))
 d.Set("name", id.PrefixedUniqueId("tf-"))
 }input := &neptune.CreateEventSubscriptionInput{
 SubscriptionName: aws.String(d.Get("name").(string)),
-SnsTopicArn:      aws.String(d.Get("sns_topic_arn").(string)),
+SnsTopicArn: aws.String(d.Get("sns_topic_arn").(string)),
 Enabled: aws.Bool(d.Get("enabled").(bool)),
 Tags:getTagsIn(ctx),
 }if v, ok := d.GetOk("source_ids"); ok {
@@ -118,12 +118,12 @@ input.SourceType = aws.String(v.(string))
 if err != nil || output.EventSubscription == nil {
 return sdkdiag.AppendErrorf(diags, "creating Neptune Event Subscription %s: %s", d.Get("name").(string), err)
 }d.SetId(aws.StringValue(output.EventSubscription.CustSubscriptionId))log.Println("[INFO] Waiting for Neptune Event Subscription to be ready")stateConf := &retry.StateChangeConf{
-Pending:    []string{"creating"},
-Target:     []string{"active"},
-Refresh:    resourceEventSubscriptionRefreshFunc(ctx, d.Id(), conn),
-Timeout:    d.Timeout(schema.TimeoutCreate),
+Pending:[]string{"creating"},
+Target:[]string{"active"},
+Refresh:resourceEventSubscriptionRefreshFunc(ctx, d.Id(), conn),
+Timeout:d.Timeout(schema.TimeoutCreate),
 MinTimeout: 10 * time.Second,
-Delay:      30 * time.Second,
+Delay: 30 * time.Second,
 }// Wait, catching any errors
 _, err = stateConf.WaitForStateContext(ctx)
 if err != nil {
@@ -180,12 +180,12 @@ _, err := conn.ModifyEventSubscriptionWithContext(ctx, req)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "updating Neptune Event Subscription (%s): %s", d.Id(), err)
 }log.Println("[INFO] Waiting for Neptune Event Subscription modification to finish")stateConf := &retry.StateChangeConf{
-Pending:    []string{"modifying"},
-Target:     []string{"active"},
-Refresh:    resourceEventSubscriptionRefreshFunc(ctx, d.Id(), conn),
-Timeout:    d.Timeout(schema.TimeoutUpdate),
+Pending:[]string{"modifying"},
+Target:[]string{"active"},
+Refresh:resourceEventSubscriptionRefreshFunc(ctx, d.Id(), conn),
+Timeout:d.Timeout(schema.TimeoutUpdate),
 MinTimeout: 10 * time.Second,
-Delay:      30 * time.Second,
+Delay: 30 * time.Second,
 }// Wait, catching any errors
 _, err = stateConf.WaitForStateContext(ctx)
 if err != nil {
@@ -235,12 +235,12 @@ return diags
 }if err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting Neptune Event Subscription (%s): %s", d.Id(), err)
 }stateConf := &retry.StateChangeConf{
-Pending:    []string{"deleting"},
-Target:     []string{},
-Refresh:    resourceEventSubscriptionRefreshFunc(ctx, d.Id(), conn),
-Timeout:    d.Timeout(schema.TimeoutDelete),
+Pending:[]string{"deleting"},
+Target:[]string{},
+Refresh:resourceEventSubscriptionRefreshFunc(ctx, d.Id(), conn),
+Timeout:d.Timeout(schema.TimeoutDelete),
 MinTimeout: 10 * time.Second,
-Delay:      30 * time.Second,
+Delay: 30 * time.Second,
 }_, err = stateConf.WaitForStateContext(ctx)if err != nil {
 return sdkdiag.AppendErrorf(diags, "waiting for Neptune Event Subscription (%s) delete: %s", d.Id(), err)
 }return diags

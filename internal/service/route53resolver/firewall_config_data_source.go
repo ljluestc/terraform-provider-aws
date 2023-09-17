@@ -38,7 +38,7 @@ input := &route53resolver.GetFirewallConfigInput{
 ResourceId: aws.String(id),
 }output, err := conn.GetFirewallConfigWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

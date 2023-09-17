@@ -31,7 +31,7 @@ inContext.TagsOut = types.Some(tags)
 func Tags(tags tftags.KeyValueTags) []awstypes.Tag {
 result := make([]awstypes.Tag, 0, len(tags))for k, v := range tags.Map() {
 tag := awstypes.Tag{
-Key:   aws.String(k),
+Key:aws.String(k),
 Value: aws.String(v),
 }result = append(result, tag)
 }return result
@@ -63,7 +63,7 @@ removedTags = removedTags.IgnoreSystem(names.Scheduler)
 if len(removedTags) > 0 {
 input := &scheduler.UntagResourceInput{
 ResourceArn: aws.String(identifier),
-TagKeys:     removedTags.Keys(),
+TagKeys:removedTags.Keys(),
 }_, err := conn.UntagResource(ctx, input)if err != nil {
 return fmt.Errorf("untagging resource (%s): %w", identifier, err)
 }
@@ -72,7 +72,7 @@ updatedTags = updatedTags.IgnoreSystem(names.Scheduler)
 if len(updatedTags) > 0 {
 input := &scheduler.TagResourceInput{
 ResourceArn: aws.String(identifier),
-Tags:        Tags(updatedTags),
+Tags:
 }_, err := conn.TagResource(ctx, input)if err != nil {
 return fmt.Errorf("tagging resource (%s): %w", identifier, err)
 }

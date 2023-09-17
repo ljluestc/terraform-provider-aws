@@ -13,18 +13,18 @@
 	return[]*types.ServicePackageSDKDataSource{}
 }func(p*servicePackage)SDKResources(ctxcontext.Context)[]*types.ServicePackageSDKResource{
 	return[]*types.ServicePackageSDKResource{
-		{
-			Factory:resourceAdminAccount,
-			TypeName:"aws_fms_admin_account",
-		},
-		{
-			Factory:resourcePolicy,
-			TypeName:"aws_fms_policy",
-			Name:"Policy",
-			Tags:&types.ServicePackageResourceTags{
-				IdentifierAttribute:"arn",
-			},
-		},
+{
+Factory:resourceAdminAccount,
+TypeName:"aws_fms_admin_account",
+},
+{
+Factory:resourcePolicy,
+TypeName:"aws_fms_policy",
+Name:"Policy",
+Tags:&types.ServicePackageResourceTags{
+IdentifierAttribute:"arn",
+},
+},
 	}
 }func(p*servicePackage)ServicePackageName()string{
 	returnnames.FMS

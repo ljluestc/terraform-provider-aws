@@ -15,7 +15,7 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -43,7 +43,7 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -73,7 +73,7 @@ acctest.PreCheckAlternateAccount(t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 Steps: []resource.TestStep{
 {
@@ -95,7 +95,7 @@ resource.TestCheckNoResourceAttr(dataSourceName, "tags.%"),
 return fmt.Sprintf(`
 resource "aws_vpclattice_service" "test" {
   name = %[1]q  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }data "aws_vpclattice_service" "test" {
   service_identifier = aws_vpclattice_service.test.id
@@ -105,7 +105,7 @@ resource "aws_vpclattice_service" "test" {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service" "test" {
   name = %[1]q  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }data "aws_vpclattice_service" "test" {
   name = aws_vpclattice_service.test.name
@@ -117,13 +117,13 @@ data "aws_caller_identity" "source" {}data "aws_caller_identity" "target" {
   provider = "awsalternate"
 }resource "aws_vpclattice_service" "test" {
   name = %[1]q  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_ram_resource_share" "test" {
-  name       = %[1]q
+  name= %[1]q
   allow_external_principals = false
 }resource "aws_ram_resource_association" "test" {
-  resource_arn       = aws_vpclattice_service.test.arn
+  resource_arn= aws_vpclattice_service.test.arn
   resource_share_arn = aws_ram_resource_share.test.arn
 }resource "aws_ram_principal_association" "test" {
   principal = data.aws_caller_identity.target.arn

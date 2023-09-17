@@ -25,7 +25,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceListenerRule() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceListenerRuleCreate,
-ReadWithoutTimeout:   resourceListenerRuleRead,
+ReadWithoutTimeout:resourceListenerRuleRead,
 UpdateWithoutTimeout: resourceListenerRuleUpdate,
 DeleteWithoutTimeout: resourceListenerRuleDelete,Importer: &schema.ResourceImporter{
 StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
@@ -46,46 +46,46 @@ Update: schema.DefaultTimeout(30 * time.Minute),
 Delete: schema.DefaultTimeout(30 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "action": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 MaxItems: 1,
 Required: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "fixed_response": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "status_code": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Required: true,
 },
 },
 },
 },
 "forward": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "target_groups": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 MinItems: 1,
 MaxItems: 2,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "target_group_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "weight": {
 Type:schema.TypeInt,
 ValidateFunc: validation.IntBetween(0, 999),
-Default:      100,
-Optional:     true,
+Default: 100,
+Optional:true,
 },
 },
 },
@@ -97,34 +97,34 @@ Optional:     true,
 },
 },
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "listener_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "match": {
-Type:    schema.TypeList,
+Type:schema.TypeList,
 Required:true,
 MaxItems:1,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "http_match": {
-Type:    schema.TypeList,
+Type:schema.TypeList,
 Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 MaxItems:1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "method": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "header_matches": {
-Type:    schema.TypeList,
+Type:schema.TypeList,
 Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 MinItems:1,
@@ -132,60 +132,60 @@ MaxItems:5,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "case_sensitive": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 },
 "match": {
-Type:    schema.TypeList,
+Type:schema.TypeList,
 Required:true,
 MaxItems:1,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "contains": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "exact": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "prefix": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 },
 },
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 },
 },
 },
 "path_match": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "case_sensitive": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 },
 "match": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "exact": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "prefix": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 },
@@ -202,25 +202,25 @@ Optional: true,
 },
 "name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(3, 63),
 },
 "priority": {
 Type:schema.TypeInt,
-Required:     true,
+Required:true,
 ValidateFunc: validation.IntBetween(1, 100),
 },
 "rule_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "service_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: customdiff.All(
 verify.SetTagsDiff,
@@ -231,13 +231,13 @@ ResNameListenerRule = "Listener Rule"
 )func resourceListenerRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)name := d.Get("name").(string)
 in := &vpclattice.CreateRuleInput{
-Action:    expandRuleAction(d.Get("action").([]interface{})[0].(map[string]interface{})),
-ClientToken:        aws.String(id.UniqueId()),
+Action:expandRuleAction(d.Get("action").([]interface{})[0].(map[string]interface{})),
+ClientToken:),
 ListenerIdentifier: aws.String(d.Get("listener_identifier").(string)),
-Match:     expandRuleMatch(d.Get("match").([]interface{})[0].(map[string]interface{})),
-Name:      aws.String(name),
+Match:expandRuleMatch(d.Get("match").([]interface{})[0].(map[string]interface{})),
+Name: aws.String(name),
 ServiceIdentifier:  aws.String(d.Get("service_identifier").(string)),
-Tags:      getTagsIn(ctx),
+Tags: getTagsIn(ctx),
 }if v, ok := d.GetOk("priority"); ok {
 in.Priority = aws.Int32(int32(v.(int)))
 }out, err := conn.CreateRule(ctx, in)
@@ -276,7 +276,7 @@ conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)serviceId := d.Get("service
 listenerId := d.Get("listener_identifier").(string)
 ruleId := d.Get("rule_id").(string)if d.HasChangesExcept("tags", "tags_all") {
 in := &vpclattice.UpdateRuleInput{
-RuleIdentifier:     aws.String(ruleId),
+RuleIdentifier:aws.String(ruleId),
 ListenerIdentifier: aws.String(listenerId),
 ServiceIdentifier:  aws.String(serviceId),
 }if d.HasChange("action") {
@@ -299,7 +299,7 @@ listenerId := d.Get("listener_identifier").(string)
 ruleId := d.Get("rule_id").(string)log.Printf("[INFO] Deleting VpcLattice Listening Rule: %s", d.Id())
 _, err := conn.DeleteRule(ctx, &vpclattice.DeleteRuleInput{
 ListenerIdentifier: aws.String(listenerId),
-RuleIdentifier:     aws.String(ruleId),
+RuleIdentifier:aws.String(ruleId),
 ServiceIdentifier:  aws.String(serviceId),
 })if err != nil {
 var nfe *types.ResourceNotFoundException
@@ -310,7 +310,7 @@ return nil
 }func FindListenerRuleByID(ctx context.Context, conn *vpclattice.Client, serviceIdentifier string, listenerIdentifier string, ruleId string) (*vpclattice.GetRuleOutput, error) {
 in := &vpclattice.GetRuleInput{
 ListenerIdentifier: aws.String(listenerIdentifier),
-RuleIdentifier:     aws.String(ruleId),
+RuleIdentifier:aws.String(ruleId),
 ServiceIdentifier:  aws.String(serviceIdentifier),
 }
 out, err := conn.GetRule(ctx, in)
@@ -318,7 +318,7 @@ if err != nil {
 var nfe *types.ResourceNotFoundException
 if errors.As(err, &nfe) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }return nil, err

@@ -24,7 +24,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceListener() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceListenerCreate,
-ReadWithoutTimeout:   resourceListenerRead,
+ReadWithoutTimeout:resourceListenerRead,
 UpdateWithoutTimeout: resourceListenerUpdate,
 DeleteWithoutTimeout: resourceListenerDelete,// Id returned by GetListener does not contain required service name, use a custom import function
 Importer: &schema.ResourceImporter{
@@ -42,51 +42,51 @@ Update: schema.DefaultTimeout(30 * time.Minute),
 Delete: schema.DefaultTimeout(30 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "created_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "default_action": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 MaxItems: 1,
 MinItems: 1,
 Required: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "fixed_response": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "status_code": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Required: true,
 },
 },
 },
 },
 "forward": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MinItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "target_groups": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MinItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "target_group_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "weight": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Default:  100,
 Optional: true,
 },
@@ -100,44 +100,44 @@ Optional: true,
 },
 },
 "last_updated_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "listener_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 ForceNew: true,
 Required: true,
 },
 "port": {
 Type:schema.TypeInt,
-Computed:     true,
-Optional:     true,
-ForceNew:     true,
+Computed:true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.IsPortNumber,
 },
 "protocol": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringInSlice([]string{"HTTP", "HTTPS"}, true),
 },
 "service_arn": {
 Type:schema.TypeString,
-Computed:     true,
-Optional:     true,
+Computed:true,
+Optional:true,
 AtLeastOneOf: []string{"service_arn", "service_identifier"},
 },
 "service_identifier": {
 Type:schema.TypeString,
-Computed:     true,
-Optional:     true,
+Computed:true,
+Optional:true,
 AtLeastOneOf: []string{"service_arn", "service_identifier"},
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -147,7 +147,7 @@ ResNameListener = "Listener"
 conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)in := &vpclattice.CreateListenerInput{
 Name: aws.String(d.Get("name").(string)),
 DefaultAction: expandDefaultAction(d.Get("default_action").([]interface{})),
-Protocol:      types.ListenerProtocol(d.Get("protocol").(string)),
+Protocol: types.ListenerProtocol(d.Get("protocol").(string)),
 Tags: getTagsIn(ctx),
 }if v, ok := d.GetOk("port"); ok && v != nil {
 in.Port = aws.Int32(int32(v.(int)))
@@ -225,7 +225,7 @@ if err != nil {
 var nfe *types.ResourceNotFoundException
 if errors.As(err, &nfe) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }return nil, err
@@ -261,7 +261,7 @@ return []interface{}{}
 }var targetGroups []interface{}for _, targetGroup := range groups {
 m := map[string]interface{}{
 "target_group_identifier": aws.ToString(targetGroup.TargetGroupIdentifier),
-"weight":   aws.ToInt32(targetGroup.Weight),
+"weight":aws.ToInt32(targetGroup.Weight),
 }
 targetGroups = append(targetGroups, m)
 }return targetGroups

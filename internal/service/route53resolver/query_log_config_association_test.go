@@ -20,7 +20,7 @@ vpcResourceName := "aws_vpc.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckQueryLogConfigAssociationDestroy(ctx),
+CheckDestroy:testAccCheckQueryLogConfigAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccQueryLogConfigAssociationConfig_basic(rName),
@@ -46,7 +46,7 @@ resourceName := "aws_route53_resolver_query_log_config_association.test"resource
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckQueryLogConfigAssociationDestroy(ctx),
+CheckDestroy:testAccCheckQueryLogConfigAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccQueryLogConfigAssociationConfig_basic(rName),
@@ -90,14 +90,14 @@ resource "aws_cloudwatch_log_group" "test" {
   name = %[1]q
 }resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_route53_resolver_query_log_config" "test" {
-  name   = %[1]q
+  name= %[1]q
   destination_arn = aws_cloudwatch_log_group.test.arn
 }resource "aws_route53_resolver_query_log_config_association" "test" {
   resolver_query_log_config_id = aws_route53_resolver_query_log_config.test.id
-  resource_id   = aws_vpc.test.id
+  resource_id= aws_vpc.test.id
 }
 `, rName)
 }

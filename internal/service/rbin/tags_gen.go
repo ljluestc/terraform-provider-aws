@@ -14,38 +14,38 @@ package rbinimport (
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service. listTags(ctx context.Context, conn *rbin.Client, identifier string) (tftags.KeyValueTags, error) {
 	input := &rbin.ListTagsForResourceInput{
-		ResourceArn: aws.String(identifier),
+ResourceArn: aws.String(identifier),
 	}	output, err := conn.ListTagsForResource(ctx, input)	if err != nil {
-		return tftags.New(ctx, nil), err
+return tftags.New(ctx, nil), err
 	}	return KeyValueTags(ctx, output.Tags), nil
 }// ListTags lists rbin service tags and set them in Context.
 // It is called from outside this package. (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).RBinClient(ctx), identifier)	if err != nil {
-		return err
+return err
 	}	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(tags)
+inContext.TagsOut = types.Some(tags)
 	}	return nil
 }// []*SERVICE.Tag handling// Tags returns rbin service tags. Tags(tags tftags.KeyValueTags) []awstypes.Tag {
 	result := make([]awstypes.Tag, 0, len(tags))	for k, v := range tags.Map() {
-		tag := awstypes.Tag{
-			Key:   aws.String(k),
-			Value: aws.String(v),
-		}		result = append(result, tag)
+tag := awstypes.Tag{
+Key:aws.String(k),
+Value: aws.String(v),
+}result = append(result, tag)
 	}	return result
 }// KeyValueTags creates tftags.KeyValueTags from rbin service tags. KeyValueTags(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))	for _, tag := range tags {
-		m[aws.ToString(tag.Key)] = tag.Value
+m[aws.ToString(tag.Key)] = tag.Value
 	}	return tftags.New(ctx, m)
 }// getTagsIn returns rbin service tags from Context.
 // nil is returned if there are no input tags. getTagsIn(ctx context.Context) []awstypes.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
-		}
+if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
+return tags
+}
 	}	return nil
 }// setTagsOut sets rbin service tags in Context. setTagsOut(ctx context.Context, tags []awstypes.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
+inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }// updateTags updates rbin service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
@@ -54,21 +54,21 @@ package rbinimport (
 	newTags := tftags.New(ctx, newTagsMap)	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)	removedTags := oldTags.Removed(newTags)
 	removedTags = removedTags.IgnoreSystem(names.RBin)
 	if len(removedTags) > 0 {
-		input := &rbin.UntagResourceInput{
-			ResourceArn: aws.String(identifier),
-			TagKeys:     removedTags.Keys(),
-		}		_, err := conn.UntagResource(ctx, input)		if err != nil {
-			return fmt.Errorf("untagging resource (%s): %w", identifier, err)
-		}
+input := &rbin.UntagResourceInput{
+ResourceArn: aws.String(identifier),
+TagKeys:removedTags.Keys(),
+}_, err := conn.UntagResource(ctx, input)if err != nil {
+return fmt.Errorf("untagging resource (%s): %w", identifier, err)
+}
 	}	updatedTags := oldTags.Updated(newTags)
 	updatedTags = updatedTags.IgnoreSystem(names.RBin)
 	if len(updatedTags) > 0 {
-		input := &rbin.TagResourceInput{
-			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
-		}		_, err := conn.TagResource(ctx, input)		if err != nil {
-			return fmt.Errorf("tagging resource (%s): %w", identifier, err)
-		}
+input := &rbin.TagResourceInput{
+ResourceArn: aws.String(identifier),
+Tags:
+}_, err := conn.TagResource(ctx, input)if err != nil {
+return fmt.Errorf("tagging resource (%s): %w", identifier, err)
+}
 	}	return nil
 }// UpdateTags updates rbin service tags.
 // It is called from outside this package. (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {

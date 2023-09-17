@@ -18,7 +18,7 @@ ctx := acctest.Context(t)
 var dbCluster neptune.DBClusterEndpoint
 rName := sdkacctest.RandomWithPrefix("tf-acc")
 resourceName := "aws_neptune_cluster_endpoint.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckClusterEndpointDestroy(ctx),
@@ -37,8 +37,8 @@ resource.TestCheckResourceAttr(resourceName, "excluded_members.#", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -50,7 +50,7 @@ t.Skip("Neptune Cluster Endpoint tags are not supported in GovCloud partition")
 }var v neptune.DBClusterEndpoint
 rName := sdkacctest.RandomWithPrefix("tf-acc")
 resourceName := "aws_neptune_cluster_endpoint.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckClusterEndpointDestroy(ctx),
@@ -64,8 +64,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -92,7 +92,7 @@ ctx := acctest.Context(t)
 var dbCluster neptune.DBClusterEndpoint
 rName := sdkacctest.RandomWithPrefix("tf-acc")
 resourceName := "aws_neptune_cluster_endpoint.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckClusterEndpointDestroy(ctx),
@@ -112,7 +112,7 @@ ctx := acctest.Context(t)
 var dbCluster neptune.DBClusterEndpoint
 rName := sdkacctest.RandomWithPrefix("tf-acc")
 resourceName := "aws_neptune_cluster_endpoint.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:  acctest.ErrorCheck(t, neptune.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckClusterEndpointDestroy(ctx),
@@ -166,11 +166,11 @@ return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 locals {
   availability_zone_names = slice(data.aws_availability_zones.available.names, 0, min(3, length(data.aws_availability_zones.available.names)))
 }resource "aws_neptune_cluster" "test" {
-  cluster_identifier      = %[1]q
-  availability_zones      = local.availability_zone_names
-  engine     = "neptune"
+  cluster_identifier = %[1]q
+  availability_zones = local.availability_zone_names
+  engine= "neptune"
   neptune_cluster_parameter_group_name = "default.neptune1"
-  skip_final_snapshot     = true
+  skip_final_snapshot= true
 }
 `, rName))
 }func testAccClusterEndpointConfig_basic(rName string) string {
@@ -187,7 +187,7 @@ resource "aws_neptune_cluster_endpoint" "test" {
   cluster_identifier = aws_neptune_cluster.test.cluster_identifier
   cluster_endpoint_identifier = %[1]q
   endpoint_type  = "READER"  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -197,8 +197,8 @@ resource "aws_neptune_cluster_endpoint" "test" {
   cluster_identifier = aws_neptune_cluster.test.cluster_identifier
   cluster_endpoint_identifier = %[1]q
   endpoint_type  = "READER"  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

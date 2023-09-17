@@ -21,14 +21,14 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 "github.com/hashicorp/terraform-provider-aws/internal/verify"
 "github.com/hashicorp/terraform-provider-aws/names"
 )const (
-CloudFormationStackNamePrefix = "serverlessrepo-"cloudFormationStackTagApplicationID   = "serverlessrepo:applicationId"
+CloudFormationStackNamePrefix = "serverlessrepo-"cloudFormationStackTagApplicationID= "serverlessrepo:applicationId"
 cloudFormationStackTagSemanticVersion = "serverlessrepo:semanticVersion"
 )// @SDKResource("aws_serverlessapplicationrepository_cloudformation_stack", name="CloudFormation Stack")
 // @Tags
 func ResourceCloudFormationStack() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceCloudFormationStackCreate,
-ReadWithoutTimeout:   resourceCloudFormationStackRead,
+ReadWithoutTimeout:resourceCloudFormationStackRead,
 UpdateWithoutTimeout: resourceCloudFormationStackUpdate,
 DeleteWithoutTimeout: resourceCloudFormationStackDelete,Importer: &schema.ResourceImporter{
 StateContext: resourceCloudFormationStackImport,
@@ -39,12 +39,12 @@ Delete: schema.DefaultTimeout(cloudFormationStackDeletedDefaultTimeout),
 },Schema: map[string]*schema.Schema{
 "application_id": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 },
 "capabilities": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Required: true,
 Elem: &schema.Schema{
 Type:schema.TypeString,
@@ -52,27 +52,27 @@ ValidateFunc: validation.StringInSlice(serverlessrepo.Capability_Values(), false
 },
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "outputs": {
-Type:     schema.TypeMap,
+Type:schema.TypeMap,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "parameters": {
-Type:     schema.TypeMap,
+Type:schema.TypeMap,
 Optional: true,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 },
 "semantic_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -83,7 +83,7 @@ if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating Serverless Application Repository CloudFormation change set: %s", err)
 }log.Printf("[INFO] Serverless Application Repository CloudFormation Stack (%s) change set created", d.Id())d.SetId(aws.StringValue(changeSet.StackId))requestToken := id.UniqueId()
 executeRequest := cloudformation.ExecuteChangeSetInput{
-ChangeSetName:      changeSet.ChangeSetId,
+ChangeSetName: changeSet.ChangeSetId,
 ClientRequestToken: aws.String(requestToken),
 }
 log.Printf("[DEBUG] Executing Serverless Application Repository CloudFormation change set: %s", executeRequest)
@@ -154,7 +154,7 @@ if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating Serverless Application Repository CloudFormation Stack (%s) change set: %s", d.Id(), err)
 }log.Printf("[INFO] Serverless Application Repository CloudFormation Stack (%s) change set created", d.Id())requestToken := id.UniqueId()
 executeRequest := cloudformation.ExecuteChangeSetInput{
-ChangeSetName:      changeSet.ChangeSetId,
+ChangeSetName: changeSet.ChangeSetId,
 ClientRequestToken: aws.String(requestToken),
 }
 log.Printf("[DEBUG] Executing Serverless Application Repository CloudFormation change set: %s", executeRequest)
@@ -197,7 +197,7 @@ return nil, fmt.Errorf("describing Serverless Application Repository CloudFormat
 serverlessConn := client.ServerlessRepoConn(ctx)
 cfConn := client.CloudFormationConn(ctx)stackName := d.Get("name").(string)
 changeSetRequest := serverlessrepo.CreateCloudFormationChangeSetRequest{
-StackName:     aws.String(stackName),
+StackName:aws.String(stackName),
 ApplicationId: aws.String(d.Get("application_id").(string)),
 Capabilities:  flex.ExpandStringSet(d.Get("capabilities").(*schema.Set)),
 Tags: getTagsIn(ctx),

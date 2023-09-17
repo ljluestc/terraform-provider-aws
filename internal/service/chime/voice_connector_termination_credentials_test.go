@@ -21,7 +21,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
+CheckDestroy:testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVoiceConnectorTerminationCredentialsConfig_basic(rName),
@@ -31,9 +31,9 @@ resource.TestCheckResourceAttr(resourceName, "credentials.#", "1"),
 ),
 },
 {
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"credentials"},
 },
 },
@@ -48,7 +48,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
+CheckDestroy:testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVoiceConnectorTerminationCredentialsConfig_basic(rName),
@@ -70,7 +70,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
+CheckDestroy:testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVoiceConnectorTerminationCredentialsConfig_basic(rName),
@@ -138,8 +138,8 @@ resource "aws_chime_voice_connector" "chime" {
 return acctest.ConfigCompose(testAccVoiceConnectorTerminationCredentialsBaseConfig(rName), `
 resource "aws_chime_voice_connector_termination_credentials" "test" {
   voice_connector_id = aws_chime_voice_connector.chime.id  credentials {
-    username = "test1"
-    password = "test1!"
+username = "test1"
+password = "test1!"
   }  depends_on = [aws_chime_voice_connector_termination.test]
 }
 `)
@@ -147,11 +147,11 @@ resource "aws_chime_voice_connector_termination_credentials" "test" {
 return acctest.ConfigCompose(testAccVoiceConnectorTerminationCredentialsBaseConfig(rName), `
 resource "aws_chime_voice_connector_termination_credentials" "test" {
   voice_connector_id = aws_chime_voice_connector.chime.id  credentials {
-    username = "test1"
-    password = "test1!"
+username = "test1"
+password = "test1!"
   }  credentials {
-    username = "test2"
-    password = "test2!"
+username = "test2"
+password = "test2!"
   }  depends_on = [aws_chime_voice_connector_termination.test]
 }
 `)

@@ -16,54 +16,54 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceTapePool() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceTapePoolCreate,
-ReadWithoutTimeout:   resourceTapePoolRead,
+ReadWithoutTimeout:resourceTapePoolRead,
 UpdateWithoutTimeout: resourceTapePoolUpdate,
 DeleteWithoutTimeout: resourceTapePoolDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "pool_name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(1, 100),
 },
 "storage_class": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringInSlice(storagegateway.TapeStorageClass_Values(), false),
 },
 "retention_lock_type": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      storagegateway.RetentionLockTypeNone,
-ForceNew:     true,
+Optional:true,
+Default:storagegateway.RetentionLockTypeNone,
+ForceNew:true,
 ValidateFunc: validation.StringInSlice(storagegateway.RetentionLockType_Values(), false),
 },
 "retention_lock_time_in_days": {
 Type:schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
-Default:      0,
+Optional:true,
+ForceNew:true,
+Default:0,
 ValidateFunc: validation.IntBetween(0, 36500),
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
 }func resourceTapePoolCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).StorageGatewayConn(ctx)input := &storagegateway.CreateTapePoolInput{
-PoolName:   aws.String(d.Get("pool_name").(string)),
-StorageClass:   aws.String(d.Get("storage_class").(string)),
-RetentionLockType:       aws.String(d.Get("retention_lock_type").(string)),
+PoolName:aws.String(d.Get("pool_name").(string)),
+StorageClass:aws.String(d.Get("storage_class").(string)),
+RetentionLockType:aws.String(d.Get("retention_lock_type").(string)),
 RetentionLockTimeInDays: aws.Int64(int64(d.Get("retention_lock_time_in_days").(int))),
-Tags:       getTagsIn(ctx),
+Tags:getTagsIn(ctx),
 }log.Printf("[DEBUG] Creating Storage Gateway Tape Pool: %s", input)
 output, err := conn.CreateTapePoolWithContext(ctx, input)
 if err != nil {

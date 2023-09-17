@@ -18,7 +18,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceMember() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceMemberCreate,
-ReadWithoutTimeout:   resourceMemberRead,
+ReadWithoutTimeout:resourceMemberRead,
 UpdateWithoutTimeout: resourceMemberUpdate,
 DeleteWithoutTimeout: resourceMemberDelete,
 Importer: &schema.ResourceImporter{
@@ -26,58 +26,58 @@ StateContext: schema.ImportStatePassthroughContext,
 },
 Schema: map[string]*schema.Schema{
 "account_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "email": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
-names.AttrTags:    tftags.TagsSchemaForceNew(),
+names.AttrTags:tftags.TagsSchemaForceNew(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "relationship_status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "administrator_account_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "master_account_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "invited_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "updated_at": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "status": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.StringInSlice(macie2.MacieStatus_Values(), false),
 },
 "invite": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Computed: true,
 },
 "invitation_disable_email_notification": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 },
 "invitation_message": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 },
@@ -91,7 +91,7 @@ conn := meta.(*conns.AWSClient).Macie2Conn(ctx)accountId := d.Get("account_id").
 input := &macie2.CreateMemberInput{
 Account: &macie2.AccountDetail{
 AccountId: aws.String(accountId),
-Email:     aws.String(d.Get("email").(string)),
+Email:aws.String(d.Get("email").(string)),
 },
 Tags: getTagsIn(ctx),
 }var err error
@@ -206,7 +206,7 @@ return diag.Errorf("disassociating Macie Member invite (%s): %s", d.Id(), err)
 }
 }// End Invitation workflowif d.HasChange("status") {
 input := &macie2.UpdateMemberSessionInput{
-Id:     aws.String(d.Id()),
+Id:aws.String(d.Id()),
 Status: aws.String(d.Get("status").(string)),
 }_, err := conn.UpdateMemberSessionWithContext(ctx, input)
 if err != nil {

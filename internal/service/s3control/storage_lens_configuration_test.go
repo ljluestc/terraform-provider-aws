@@ -17,7 +17,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStorageLensConfigurationDestroy(ctx),
+CheckDestroy:testAccCheckStorageLensConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStorageLensConfigurationConfig_basic(rName),
@@ -46,8 +46,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -59,7 +59,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStorageLensConfigurationDestroy(ctx),
+CheckDestroy:testAccCheckStorageLensConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStorageLensConfigurationConfig_basic(rName),
@@ -78,7 +78,7 @@ ExpectNonEmptyPlan: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStorageLensConfigurationDestroy(ctx),
+CheckDestroy:testAccCheckStorageLensConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStorageLensConfigurationConfig_tags1(rName, "key1", "value1"),
@@ -89,8 +89,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -119,7 +119,7 @@ Check: resource.ComposeTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStorageLensConfigurationDestroy(ctx),
+CheckDestroy:testAccCheckStorageLensConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStorageLensConfigurationConfig_allAttributes(rName),
@@ -167,8 +167,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -221,7 +221,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStorageLensConfigurationDestroy(ctx),
+CheckDestroy:testAccCheckStorageLensConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStorageLensConfigurationConfig_advancedMetrics(rName),
@@ -261,8 +261,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -325,9 +325,9 @@ if !ok {
 	return fmt.Sprintf(`
 resource "aws_s3control_storage_lens_configuration" "test" {
   config_id = %[1]q  storage_lens_configuration {
-    enabled = true    account_level {
-      bucket_level {}
-    }
+enabled = trueaccount_level {
+ bucket_level {}
+}
   }
 }
 `, rName)
@@ -335,11 +335,11 @@ resource "aws_s3control_storage_lens_configuration" "test" {
 	return fmt.Sprintf(`
 resource "aws_s3control_storage_lens_configuration" "test" {
   config_id = %[1]q  storage_lens_configuration {
-    enabled = true    account_level {
-      bucket_level {}
-    }
+enabled = trueaccount_level {
+ bucket_level {}
+}
   }  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -347,12 +347,12 @@ resource "aws_s3control_storage_lens_configuration" "test" {
 	return fmt.Sprintf(`
 resource "aws_s3control_storage_lens_configuration" "test" {
   config_id = %[1]q  storage_lens_configuration {
-    enabled = true    account_level {
-      bucket_level {}
-    }
+enabled = trueaccount_level {
+ bucket_level {}
+}
   }  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -363,36 +363,36 @@ data "aws_caller_identity" "current" {}resource "aws_s3_bucket" "test" {
   count = 3
 }resource "aws_s3control_storage_lens_configuration" "test" {
   config_id = %[1]q  storage_lens_configuration {
-    enabled = true    account_level {
-      activity_metrics {
-        enabled = true
-      }      bucket_level {
-        activity_metrics {
+enabled = trueaccount_level {
+ activity_metrics {
+
+ } bucket_level {
+
  enabled = true
-        }        prefix_level {
+
  storage_metrics {
-   enabled = true   selection_criteria {
-     delimiter     = ","
-     max_depth     = 3
-     min_storage_bytes_percentage = 49.5
-   }
+enabled = trueselection_criteria {
+delimiter= ","
+max_depth= 3
+min_storage_bytes_percentage = 49.5
+}
  }
-        }
-      }
-    }    data_export {
-      cloud_watch_metrics {
-        enabled = false
-      }      s3_bucket_destination {
-        account_id   = data.aws_caller_identity.current.account_id
-        arn    = aws_s3_bucket.test[0].arn
-        format = "CSV"
-        output_schema_version = "V_1"
-        prefix = "p1"
-      }
-    }    exclude {
-      buckets = [aws_s3_bucket.test[1].arn, aws_s3_bucket.test[2].arn]
-      regions = ["eu-south-1"]
-    }
+
+ }
+}data_export {
+ cloud_watch_metrics {
+
+ } s3_bucket_destination {
+caller_identity.current.account_id
+est[0].arn
+
+"V_1"
+
+ }
+}exclude {
+ buckets = [aws_s3_bucket.test[1].arn, aws_s3_bucket.test[2].arn]
+ regions = ["eu-south-1"]
+}
   }
 }
 `, rName)
@@ -402,28 +402,28 @@ data "aws_caller_identity" "current" {}resource "aws_s3_bucket" "test" {
   count = 3
 }resource "aws_s3control_storage_lens_configuration" "test" {
   config_id = %[1]q  storage_lens_configuration {
-    enabled = true    account_level {
-      activity_metrics {
-        enabled = true
-      }      bucket_level {
-        activity_metrics {
+enabled = trueaccount_level {
+ activity_metrics {
+
+ } bucket_level {
+
  enabled = true
-        }
-      }
-    }    data_export {
-      cloud_watch_metrics {
-        enabled = true
-      }      s3_bucket_destination {
-        account_id   = data.aws_caller_identity.current.account_id
-        arn    = aws_s3_bucket.test[0].arn
-        format = "Parquet"
-        output_schema_version = "V_1"        encryption {
+
+ }
+}data_export {
+ cloud_watch_metrics {
+
+ } s3_bucket_destination {
+caller_identity.current.account_id
+est[0].arn
+
+"V_1"encrypti
  sse_s3 {}
-        }
-      }
-    }    include {
-      buckets = [aws_s3_bucket.test[1].arn]
-    }
+
+ }
+}include {
+ buckets = [aws_s3_bucket.test[1].arn]
+}
   }
 }
 `, rName)
@@ -431,31 +431,31 @@ data "aws_caller_identity" "current" {}resource "aws_s3_bucket" "test" {
 	return fmt.Sprintf(`
 resource "aws_s3control_storage_lens_configuration" "test" {
   config_id = %[1]q  storage_lens_configuration {
-    enabled = true    account_level {
-      activity_metrics {
-        enabled = true
-      }      advanced_cost_optimization_metrics {
-        enabled = true
-      }      advanced_data_protection_metrics {
-        enabled = true
-      }      detailed_status_code_metrics {
-        enabled = true
-      }      bucket_level {
-        activity_metrics {
+enabled = trueaccount_level {
+ activity_metrics {
+
+ } advanced_cost_optimization_metrics {
+
+ } advanced_data_protection_metrics {
+
+ } detailed_status_code_metrics {
+
+ } bucket_level {
+
  enabled = true
-        }        advanced_cost_optimization_metrics {
+
  enabled = true
-        }        advanced_data_protection_metrics {
+
  enabled = true
-        }        detailed_status_code_metrics {
+
  enabled = true
-        }
-      }
-    }    data_export {
-      cloud_watch_metrics {
-        enabled = false
-      }
-    }
+
+ }
+}data_export {
+ cloud_watch_metrics {
+
+ }
+}
   }
 }
 `, rName)
@@ -463,13 +463,13 @@ resource "aws_s3control_storage_lens_configuration" "test" {
 	return fmt.Sprintf(`
 resource "aws_s3control_storage_lens_configuration" "test" {
   config_id = %[1]q  storage_lens_configuration {
-    enabled = true    account_level {
-      bucket_level {}
-    }    data_export {
-      cloud_watch_metrics {
-        enabled = false
-      }
-    }
+enabled = trueaccount_level {
+ bucket_level {}
+}data_export {
+ cloud_watch_metrics {
+
+ }
+}
   }
 }
 `, rName)

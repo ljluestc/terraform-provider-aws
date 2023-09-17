@@ -26,7 +26,7 @@ return results
 }func expandOrganizationAggregationSource(configured map[string]interface{}) *configservice.OrganizationAggregationSource {
 source := configservice.OrganizationAggregationSource{
 AllAwsRegions: aws.Bool(configured["all_regions"].(bool)),
-RoleArn:       aws.String(configured["role_arn"].(string)),
+RoleArn:aws.String(configured["role_arn"].(string)),
 }if v, ok := configured["regions"]; ok {
 regions := v.([]interface{})
 if len(regions) > 0 {
@@ -112,7 +112,7 @@ src.MaximumExecutionFrequency = aws.String(maxExecFreq)
 cfg := configured[0].(map[string]interface{})
 source := configservice.CustomPolicyDetails{
 PolicyRuntime: aws.String(cfg["policy_runtime"].(string)),
-PolicyText:    aws.String(cfg["policy_text"].(string)),
+PolicyText:aws.String(cfg["policy_text"].(string)),
 EnableDebugLogDelivery: aws.Bool(cfg["enable_debug_log_delivery"].(bool)),
 }return &source
 }func flattenAccountAggregationSources(sources []*configservice.AccountAggregationSource) []interface{} {

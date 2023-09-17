@@ -34,7 +34,7 @@ resource.TestCheckResourceAttrSet(resourceName, "version"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -63,7 +63,7 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "action_point.*.action.*"
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -129,7 +129,7 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -182,7 +182,7 @@ resource.TestCheckResourceAttr(resourceName, "name", rName),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -213,7 +213,7 @@ resource.TestCheckResourceAttr(resourceName, "description", rDescription),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -244,7 +244,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {

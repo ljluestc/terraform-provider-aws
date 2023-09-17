@@ -5,24 +5,24 @@
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 )func waitScheduleGroupActive(ctx context.Context, conn *scheduler.Client, name string, timeout time.Duration) (*scheduler.GetScheduleGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:g{},
-		Target:ng{scheduleGroupStatusActive},
-		Refresh:cheduleGroup(ctx, conn, name),
-		Timeout:,
-		NotFoundChecks:   20,
-		ContinuousTargetOccurence: 2,
+Pending:g{},
+Target:ng{scheduleGroupStatusActive},
+Refresh:cheduleGroup(ctx, conn, name),
+Timeout:,
+NotFoundChecks:20,
+ContinuousTargetOccurence: 2,
 	}	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*scheduler.GetScheduleGroupOutput); ok {
-		return out, err
+return out, err
 	}	return nil, err
 }func waitScheduleGroupDeleted(ctx context.Context, conn *scheduler.Client, name string, timeout time.Duration) (*scheduler.GetScheduleGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{scheduleGroupStatusDeleting, scheduleGroupStatusActive},
-		Target:  []string{},
-		Refresh: statusScheduleGroup(ctx, conn, name),
-		Timeout: timeout,
+Pending: []string{scheduleGroupStatusDeleting, scheduleGroupStatusActive},
+Target:  []string{},
+Refresh: statusScheduleGroup(ctx, conn, name),
+Timeout: timeout,
 	}	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*scheduler.GetScheduleGroupOutput); ok {
-		return out, err
+return out, err
 	}	return nil, err
 }

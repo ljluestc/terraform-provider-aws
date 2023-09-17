@@ -20,7 +20,7 @@
 func ResourceSinkPolicy() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceSinkPolicyPut,
-ReadWithoutTimeout:   resourceSinkPolicyRead,
+ReadWithoutTimeout:resourceSinkPolicyRead,
 UpdateWithoutTimeout: resourceSinkPolicyPut,
 DeleteWithoutTimeout: schema.NoopContext,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -30,14 +30,14 @@ Update: schema.DefaultTimeout(1 * time.Minute),
 Delete: schema.DefaultTimeout(1 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "policy": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringIsJSON,
-DiffSuppressFunc:      verify.SuppressEquivalentJSONDiffs,
+DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 DiffSuppressOnRefresh: true,
 StateFunc: func(v interface{}) string {
 json, _ := structure.NormalizeJsonString(v)
@@ -45,11 +45,11 @@ return json
 },
 },
 "sink_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "sink_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
@@ -92,7 +92,7 @@ if err != nil {
 var nfe *types.ResourceNotFoundException
 if errors.As(err, &nfe) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }return nil, err

@@ -16,32 +16,32 @@ func dataSourceService() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceServiceRead,Schema: map[string]*schema.Schema{
 names.AttrARN: {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "auth_type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "certificate_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "custom_domain_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "dns_entry": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "domain_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "hosted_zone_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
@@ -49,18 +49,18 @@ Computed: true,
 },
 "name": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ExactlyOneOf: []string{"name", "service_identifier"},
 },
 "service_identifier": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ExactlyOneOf: []string{"name", "service_identifier"},
 },
 "status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "tags": tftags.TagsSchemaComputed(),

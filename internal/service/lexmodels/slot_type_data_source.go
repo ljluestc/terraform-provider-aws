@@ -12,42 +12,42 @@ func DataSourceSlotType() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceSlotTypeRead,Schema: map[string]*schema.Schema{
 "checksum": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "created_date": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "enumeration_value": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "synonyms": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Schema{
 Type: schema.TypeString,
 },
 },
 "value": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "last_updated_date": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ValidateFunc: validation.All(
 validation.StringLenBetween(1, 100),
@@ -55,11 +55,11 @@ validation.StringMatch(regexache.MustCompile(`^([A-Za-z]_?)+$`), ""),
 ),
 },
 "value_selection_strategy": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  SlotTypeVersionLatest,
 ValidateFunc: validation.All(

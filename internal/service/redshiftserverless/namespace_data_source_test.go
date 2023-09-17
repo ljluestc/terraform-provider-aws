@@ -1,92 +1,92 @@
 //Copyright(c)HashiCorp,Inc.
 //SPDX-License-Identifier:MPL-2.0packageredshiftserverless_testimport(
-	"fmt"
-	"testing"	"github.com/aws/aws-sdk-go/service/redshiftserverless"
-	sdkacctest"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"fmt"
+"testing""github.com/aws/aws-sdk-go/service/redshiftserverless"
+sdkacctest"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )funcTestAccRedshiftServerlessNamespaceDataSource_basic(t*testing.T){
-	ctx:=acctest.Context(t)
-	dataSourceName:="data.aws_redshiftserverless_namespace.test"
-	resourceName:="aws_redshiftserverless_namespace.test"	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNamespaceDataSourceConfig_basic(rName),
-				Check:resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName,"admin_username",resourceName,"admin_username"),
-					resource.TestCheckResourceAttrPair(dataSourceName,"arn",resourceName,"arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName,"db_name",resourceName,"db_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName,"default_iam_role_arn",resourceName,"default_iam_role_arn"),
-					resource.TestCheckResourceAttr(dataSourceName,"iam_roles.#","0"),
-					resource.TestCheckResourceAttrPair(dataSourceName,"kms_key_id",resourceName,"kms_key_id"),
-					resource.TestCheckResourceAttr(dataSourceName,"log_exports.#","0"),
-					resource.TestCheckResourceAttrPair(dataSourceName,"namespace_id",resourceName,"namespace_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName,"namespace_name",resourceName,"namespace_name"),
-				),
-			},
-		},
-	})
+ctx:=acctest.Context(t)
+dataSourceName:="data.aws_redshiftserverless_namespace.test"
+resourceName:="aws_redshiftserverless_namespace.test"rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+Steps:[]resource.TestStep{
+{
+Config:testAccNamespaceDataSourceConfig_basic(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName,"admin_username",resourceName,"admin_username"),
+resource.TestCheckResourceAttrPair(dataSourceName,"arn",resourceName,"arn"),
+resource.TestCheckResourceAttrPair(dataSourceName,"db_name",resourceName,"db_name"),
+resource.TestCheckResourceAttrPair(dataSourceName,"default_iam_role_arn",resourceName,"default_iam_role_arn"),
+resource.TestCheckResourceAttr(dataSourceName,"iam_roles.#","0"),
+resource.TestCheckResourceAttrPair(dataSourceName,"kms_key_id",resourceName,"kms_key_id"),
+resource.TestCheckResourceAttr(dataSourceName,"log_exports.#","0"),
+resource.TestCheckResourceAttrPair(dataSourceName,"namespace_id",resourceName,"namespace_id"),
+resource.TestCheckResourceAttrPair(dataSourceName,"namespace_name",resourceName,"namespace_name"),
+),
+},
+},
+})
 }funcTestAccRedshiftServerlessNamespaceDataSource_iamRole(t*testing.T){
-	ctx:=acctest.Context(t)
-	dataSourceName:="data.aws_redshiftserverless_namespace.test"
-	resourceName:="aws_redshiftserverless_namespace.test"	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNamespaceDataSourceConfig_defaultIAMRole(rName),
-				Check:resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName,"namespace_name",resourceName,"namespace_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName,"default_iam_role_arn",resourceName,"default_iam_role_arn"),
-					resource.TestCheckResourceAttr(dataSourceName,"iam_roles.#","1"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName,"iam_roles.*","aws_iam_role.test","arn"),
-				),
-			},
-		},
-	})
+ctx:=acctest.Context(t)
+dataSourceName:="data.aws_redshiftserverless_namespace.test"
+resourceName:="aws_redshiftserverless_namespace.test"rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+Steps:[]resource.TestStep{
+{
+Config:testAccNamespaceDataSourceConfig_defaultIAMRole(rName),
+Check:resource.ComposeAggregateTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName,"namespace_name",resourceName,"namespace_name"),
+resource.TestCheckResourceAttrPair(dataSourceName,"default_iam_role_arn",resourceName,"default_iam_role_arn"),
+resource.TestCheckResourceAttr(dataSourceName,"iam_roles.#","1"),
+resource.TestCheckTypeSetElemAttrPair(dataSourceName,"iam_roles.*","aws_iam_role.test","arn"),
+),
+},
+},
+})
 }funcTestAccRedshiftServerlessNamespaceDataSource_user(t*testing.T){
-	ctx:=acctest.Context(t)
-	dataSourceName:="data.aws_redshiftserverless_namespace.test"
-	resourceName:="aws_redshiftserverless_namespace.test"	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	username:="admin_user"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNamespaceDataSourceConfig_user(rName,username),
-				Check:resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName,"namespace_name",resourceName,"namespace_name"),
-					resource.TestCheckResourceAttr(dataSourceName,"admin_username",username),
-				),
-			},
-		},
-	})
+ctx:=acctest.Context(t)
+dataSourceName:="data.aws_redshiftserverless_namespace.test"
+resourceName:="aws_redshiftserverless_namespace.test"rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+username:="admin_user"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+Steps:[]resource.TestStep{
+{
+Config:testAccNamespaceDataSourceConfig_user(rName,username),
+Check:resource.ComposeAggregateTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName,"namespace_name",resourceName,"namespace_name"),
+resource.TestCheckResourceAttr(dataSourceName,"admin_username",username),
+),
+},
+},
+})
 }funcTestAccRedshiftServerlessNamespaceDataSource_logExports(t*testing.T){
-	ctx:=acctest.Context(t)
-	dataSourceName:="data.aws_redshiftserverless_namespace.test"
-	resourceName:="aws_redshiftserverless_namespace.test"	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	logExport:="userlog"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccNamespaceDataSourceConfig_logExports(rName,logExport),
-				Check:resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName,"namespace_name",resourceName,"namespace_name"),
-					resource.TestCheckResourceAttr(dataSourceName,"log_exports.#","1"),
-					resource.TestCheckResourceAttr(dataSourceName,"log_exports.0",logExport),
-				),
-			},
-		},
-	})
+ctx:=acctest.Context(t)
+dataSourceName:="data.aws_redshiftserverless_namespace.test"
+resourceName:="aws_redshiftserverless_namespace.test"rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+logExport:="userlog"resource.ParallelTest(t,resource.TestCase{
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,redshiftserverless.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+Steps:[]resource.TestStep{
+{
+Config:testAccNamespaceDataSourceConfig_logExports(rName,logExport),
+Check:resource.ComposeAggregateTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName,"namespace_name",resourceName,"namespace_name"),
+resource.TestCheckResourceAttr(dataSourceName,"log_exports.#","1"),
+resource.TestCheckResourceAttr(dataSourceName,"log_exports.0",logExport),
+),
+},
+},
+})
 }functestAccNamespaceDataSourceConfig_basic(rNamestring)string{
-	returnfmt.Sprintf(`
+returnfmt.Sprintf(`
 resource"aws_redshiftserverless_namespace""test"{
 namespace_name=%[1]q
 }data"aws_redshiftserverless_namespace""test"{
@@ -94,7 +94,7 @@ namespace_name=aws_redshiftserverless_namespace.test.namespace_name
 }
 `,rName)
 }functestAccNamespaceDataSourceConfig_defaultIAMRole(rNamestring)string{
-	returnfmt.Sprintf(`
+returnfmt.Sprintf(`
 resource"aws_iam_role""test"{
 name=%[1]qassume_role_policy=<<EOF
 {
@@ -123,7 +123,7 @@ EOF
 }
 `, rName)
 }func testAccNamespaceDataSourceConfig_user(rName string, username string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
   admin_username = %[2]q
@@ -133,7 +133,7 @@ resource "aws_redshiftserverless_namespace" "test" {
 }
 `, rName, username)
 }func testAccNamespaceDataSourceConfig_logExports(rName string, logExport string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
   log_exports= [%[2]q]

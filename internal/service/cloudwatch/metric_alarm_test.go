@@ -19,7 +19,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMetricAlarmConfig_basic(rName),
@@ -43,8 +43,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -57,7 +57,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMetricAlarmConfig_actionsEC2Automate(rName, "reboot"),
@@ -67,8 +67,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -102,7 +102,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMetricAlarmConfig_actionsSNSTopic(rName),
@@ -112,8 +112,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -126,7 +126,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMetricAlarmConfig_actionsSWFAction(rName),
@@ -136,8 +136,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -150,7 +150,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMetricAlarmConfig_datapointsTo(rName),
@@ -169,7 +169,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMetricAlarmConfig_treatMissingData(rName),
@@ -193,8 +193,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -207,7 +207,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMetricAlarmConfig_treatEvaluateLowSampleCountPercentiles(rName),
@@ -233,14 +233,14 @@ Check: resource.ComposeAggregateTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config:      testAccMetricAlarmConfig_extendedStatistic(rName, "IQM(1:2)"), // IQM accepts no args
+Config: testAccMetricAlarmConfig_extendedStatistic(rName, "IQM(1:2)"), // IQM accepts no args
 ExpectError: regexache.MustCompile(`invalid statistic, see: https:\/\/docs\.aws\.amazon\.com\/.*`),
 	},
 	{
-Config:      testAccMetricAlarmConfig_extendedStatistic(rName, "iqm10"), // IQM accepts no args
+Config: testAccMetricAlarmConfig_extendedStatistic(rName, "iqm10"), // IQM accepts no args
 ExpectError: regexache.MustCompile(`invalid statistic, see: https:\/\/docs\.aws\.amazon\.com\/.*`),
 	},
 	// {  TODO: more complex regex to reject this
@@ -252,19 +252,19 @@ ExpectError: regexache.MustCompile(`invalid statistic, see: https:\/\/docs\.aws\
 	// 	ExpectError: regexache.MustCompile(`invalid statistic, see: https:\/\/docs\.aws\.amazon\.com\/.*`),
 	// },
 	{
-Config:      testAccMetricAlarmConfig_extendedStatistic(rName, "WM"), // missing syntax
+Config: testAccMetricAlarmConfig_extendedStatistic(rName, "WM"), // missing syntax
 ExpectError: regexache.MustCompile(`invalid statistic, see: https:\/\/docs\.aws\.amazon\.com\/.*`),
 	},
 	{
-Config:      testAccMetricAlarmConfig_extendedStatistic(rName, "p"), // missing arg
+Config: testAccMetricAlarmConfig_extendedStatistic(rName, "p"), // missing arg
 ExpectError: regexache.MustCompile(`invalid statistic, see: https:\/\/docs\.aws\.amazon\.com\/.*`),
 	},
 	{
-Config:      testAccMetricAlarmConfig_extendedStatistic(rName, "AB(1:2)"), // unknown stat 'AB'
+Config: testAccMetricAlarmConfig_extendedStatistic(rName, "AB(1:2)"), // unknown stat 'AB'
 ExpectError: regexache.MustCompile(`invalid statistic, see: https:\/\/docs\.aws\.amazon\.com\/.*`),
 	},
 	{
-Config:      testAccMetricAlarmConfig_extendedStatistic(rName, "cd42"), // unknown stat 'cd'
+Config: testAccMetricAlarmConfig_extendedStatistic(rName, "cd42"), // unknown stat 'cd'
 ExpectError: regexache.MustCompile(`invalid statistic, see: https:\/\/docs\.aws\.amazon\.com\/.*`),
 	},
 	{
@@ -382,10 +382,10 @@ Check: resource.ComposeAggregateTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config:      testAccMetricAlarmConfig_badMetricQuery(rName),
+Config: testAccMetricAlarmConfig_badMetricQuery(rName),
 ExpectError: regexache.MustCompile("No metric_query may have both `expression` and a `metric` specified"),
 	},
 	{
@@ -396,15 +396,15 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "metric_query.*", map[string]string{
 "id": "m1",
 "expression":  "SELECT MAX(MillisBehindLatest) FROM SCHEMA(\"foo\", Operation, ShardId) WHERE Operation = 'ProcessTask'",
-"period":      "60",
-"label":       "cat",
+"period": "60",
+"label":"cat",
 "return_data": "true",
 	}),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -415,18 +415,18 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "metric_query.*", map[string]string{
 "id": "e1",
 "expression":  "m1",
-"label":       "cat",
+"label":"cat",
 "return_data": "true",
-"period":      "",
+"period": "",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "metric_query.*", map[string]string{
-"id":     "m1",
-"metric.#":        "1",
+"id":"m1",
+"metric.#":
 "metric.0.metric_name":  "CPUUtilization",
-"metric.0.namespace":    "AWS/EC2",
+"metric.0.namespace":"AWS/EC2",
 "metric.0.period": "120",
-"metric.0.stat":   "Average",
-"metric.0.unit":   "Count",
+"metric.0.stat":"Average",
+"metric.0.unit":"Count",
 "metric.0.dimensions.%": "1",
 "metric.0.dimensions.InstanceId": "i-abcd1234",
 "period": "",
@@ -434,8 +434,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -449,8 +449,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -461,22 +461,22 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "metric_query.*", map[string]string{
 "id": "e1",
 "expression":  "m1",
-"label":       "cat",
+"label":"cat",
 "return_data": "",
-"period":      "",
+"period": "",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "metric_query.*", map[string]string{
 "id": "e2",
 "expression":  "e1",
-"label":       "bug",
+"label":"bug",
 "return_data": "true",
-"period":      "",
+"period": "",
 	}),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -487,8 +487,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -499,15 +499,15 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "metric_query.*", map[string]string{
 "id": "e1",
 "expression":  "ANOMALY_DETECTION_BAND(m1)",
-"label":       "CPUUtilization (Expected)",
+"label":"CPUUtilization (Expected)",
 "return_data": "true",
-"period":      "",
+"period": "",
 	}),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -519,10 +519,10 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config:      testAccMetricAlarmConfig_missingStatistic(rName),
+Config: testAccMetricAlarmConfig_missingStatistic(rName),
 ExpectError: regexache.MustCompile("One of `statistic` or `extended_statistic` must be set for a cloudwatch metric alarm"),
 	},
 },
@@ -535,7 +535,7 @@ ExpectError: regexache.MustCompile("One of `statistic` or `extended_statistic` m
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMetricAlarmConfig_tags1(rName, "key1", "value1"),
@@ -546,8 +546,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -577,7 +577,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckMetricAlarmDestroy(ctx),
+CheckDestroy:testAccCheckMetricAlarmDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMetricAlarmConfig_basic(rName),
@@ -616,16 +616,16 @@ return err
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = 120
+  period= 120
   statistic  = "Average"
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }
 }
 `, rName)
@@ -633,17 +633,17 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  datapoints_to_alarm       = 2
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  datapoints_to_alarm= 2
+  evaluation_periods
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = 120
+  period= 120
   statistic  = "Average"
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }
 }
 `, rName)
@@ -651,17 +651,17 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = 120
+  period= 120
   statistic  = "Average"
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
-  treat_missing_data        = "missing"
+  treat_missing_data
   insufficient_data_actions = []  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }
 }
 `, rName)
@@ -669,17 +669,17 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = 120
+  period= 120
   statistic  = "Average"
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
-  treat_missing_data        = "breaching"
+  treat_missing_data
   insufficient_data_actions = []  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }
 }
 `, rName)
@@ -687,52 +687,52 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = 120
+  period= 120
   statistic  = "Average"
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }
 }
 `, rName)
 }func testAccMetricAlarmConfig_treatEvaluateLowSampleCountPercentiles(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_name    = %[1]q
-  comparison_operator    = "GreaterThanOrEqualToThreshold"
-  evaluation_periods     = 2
-  metric_name   = "CPUUtilization"
-  namespace     = "AWS/EC2"
+  alarm_name= %[1]q
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods= 2
+  metric_name= "CPUUtilization"
+  namespace= "AWS/EC2"
   period  = 120
-  extended_statistic     = "p88.0"
-  threshold     = 80
-  alarm_description      = "This metric monitors ec2 cpu utilization"
+  extended_statistic= "p88.0"
+  threshold= 80
+  alarm_description = "This metric monitors ec2 cpu utilization"
   evaluate_low_sample_count_percentiles = "evaluate"
-  insufficient_data_actions    = []  dimensions = {
-    InstanceId = "i-abcd1234"
+  insufficient_data_actions= []  dimensions = {
+InstanceId = "i-abcd1234"
   }
 }
 `, rName)
 }func testAccMetricAlarmConfig_treatEvaluateLowSampleCountPercentilesUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_name    = %[1]q
-  comparison_operator    = "GreaterThanOrEqualToThreshold"
-  evaluation_periods     = 2
-  metric_name   = "CPUUtilization"
-  namespace     = "AWS/EC2"
+  alarm_name= %[1]q
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods= 2
+  metric_name= "CPUUtilization"
+  namespace= "AWS/EC2"
   period  = 120
-  extended_statistic     = "p88.0"
-  threshold     = 80
-  alarm_description      = "This metric monitors ec2 cpu utilization"
+  extended_statistic= "p88.0"
+  threshold= 80
+  alarm_description = "This metric monitors ec2 cpu utilization"
   evaluate_low_sample_count_percentiles = "ignore"
-  insufficient_data_actions    = []  dimensions = {
-    InstanceId = "i-abcd1234"
+  insufficient_data_actions= []  dimensions = {
+InstanceId = "i-abcd1234"
   }
 }
 `, rName)
@@ -740,16 +740,16 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = 120
-  extended_statistic        = %[2]q
+  period= 120
+  extended_statistic
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }
 }
 `, rName, stat)
@@ -757,15 +757,15 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = 120
+  period= 120
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }
 }
 `, rName)
@@ -773,25 +773,25 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  metric_query {
-    id = "e1"
-    expression  = "m1"
-    label       = "cat"
-    return_data = true
+id = "e1"
+expression  = "m1"
+label= "cat"
+return_data = true
   }  metric_query {
-    id = "m1"    metric {
-      metric_name = "CPUUtilization"
-      namespace   = "AWS/EC2"
-      period      = 120
-      stat        = "Average"
-      unit        = "Count"      dimensions = {
-        InstanceId = "i-abcd1234"
-      }
-    }
+id = "m1"metric {
+ metric_name = "CPUUtilization"
+ namespace= "AWS/EC2"
+ period = 120
+ stat
+ units = {
+"
+ }
+}
   }
 }
 `, rName)
@@ -804,11 +804,11 @@ resource "aws_cloudwatch_metric_alarm" "test" {
   datapoints_to_alarm = 3
   threshold  = 30000
   treat_missing_data  = "breaching"  metric_query {
-    id = "m1"
-    expression  = "SELECT MAX(MillisBehindLatest) FROM SCHEMA(\"foo\", Operation, ShardId) WHERE Operation = 'ProcessTask'"
-    period      = 60
-    label       = "cat"
-    return_data = true
+id = "m1"
+expression  = "SELECT MAX(MillisBehindLatest) FROM SCHEMA(\"foo\", Operation, ShardId) WHERE Operation = 'ProcessTask'"
+period = 60
+label= "cat"
+return_data = true
   }
 }
 `, rName)
@@ -816,22 +816,22 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  metric_query {
-    id = "m1"
-    account_id  = data.aws_caller_identity.current.account_id
-    return_data = true    metric {
-      metric_name = "CPUUtilization"
-      namespace   = "AWS/EC2"
-      period      = 120
-      stat        = "Average"
-      unit        = "Count"      dimensions = {
-        InstanceId = "i-abcd1234"
-      }
-    }
+id = "m1"
+account_id  = data.aws_caller_identity.current.account_id
+return_data = truemetric {
+ metric_name = "CPUUtilization"
+ namespace= "AWS/EC2"
+ period = 120
+ stat
+ units = {
+"
+ }
+}
   }
 }
 `, rName)
@@ -839,26 +839,26 @@ data "aws_caller_identity" "current" {}resource "aws_cloudwatch_metric_alarm" "t
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanUpperThreshold"
-  evaluation_periods        = 2
-  threshold_metric_id       = "e1"
+  comparison_operator= "GreaterThanUpperThreshold"
+  evaluation_periods
+  threshold_metric_id= "e1"
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  metric_query {
-    id = "e1"
-    expression  = "ANOMALY_DETECTION_BAND(m1)"
-    label       = "CPUUtilization (Expected)"
-    return_data = true
+id = "e1"
+expression  = "ANOMALY_DETECTION_BAND(m1)"
+label= "CPUUtilization (Expected)"
+return_data = true
   }  metric_query {
-    id = "m1"
-    return_data = true    metric {
-      metric_name = "CPUUtilization"
-      namespace   = "AWS/EC2"
-      period      = 120
-      stat        = "Average"
-      unit        = "Count"      dimensions = {
-        InstanceId = "i-abcd1234"
-      }
-    }
+id = "m1"
+return_data = truemetric {
+ metric_name = "CPUUtilization"
+ namespace= "AWS/EC2"
+ period = 120
+ stat
+ units = {
+"
+ }
+}
   }
 }
 `, rName)
@@ -866,29 +866,29 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  metric_query {
-    id= "e1"
-    expression = "m1"
-    label      = "cat"
+id= "e1"
+expression = "m1"
+label = "cat"
   }  metric_query {
-    id = "e2"
-    expression  = "e1"
-    label       = "bug"
-    return_data = true
+id = "e2"
+expression  = "e1"
+label= "bug"
+return_data = true
   }  metric_query {
-    id = "m1"    metric {
-      metric_name = "CPUUtilization"
-      namespace   = "AWS/EC2"
-      period      = 120
-      stat        = "p95.45"
-      unit        = "Count"      dimensions = {
-        InstanceId = "i-abcd1234"
-      }
-    }
+id = "m1"metric {
+ metric_name = "CPUUtilization"
+ namespace= "AWS/EC2"
+ period = 120
+ stat
+ units = {
+"
+ }
+}
   }
 }
 `, rName)
@@ -896,22 +896,22 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  metric_query {
-    id= "e1"
-    expression = "m1"
-    label      = "cat"    metric {
-      metric_name = "CPUUtilization"
-      namespace   = "AWS/EC2"
-      period      = 120
-      stat        = "Average"
-      unit        = "Count"      dimensions = {
-        InstanceId = "i-abcd1234"
-      }
-    }
+id= "e1"
+expression = "m1"
+label = "cat"metric {
+ metric_name = "CPUUtilization"
+ namespace= "AWS/EC2"
+ period = 120
+ stat
+ units = {
+"
+ }
+}
   }
 }
 `, rName)
@@ -927,22 +927,22 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}resource "aws_instance" "test" {
   ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_id     = aws_subnet.test[0].id  tags = {
-    Name = %[1]q
+  subnet_id= aws_subnet.test[0].id  tags = {
+Name = %[1]q
   }
 }resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_actions       = ["arn:${data.aws_partition.current.partition}:automate:${data.aws_region.current.name}:ec2:%[2]s"]
-  alarm_description   = "Status checks have failed for system"
+  alarm_actions= ["arn:${data.aws_partition.current.partition}:automate:${data.aws_region.current.name}:ec2:%[2]s"]
+  alarm_description= "Status checks have failed for system"
   alarm_name = %[1]q
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 2
   metric_name= "StatusCheckFailed_System"
   namespace  = "AWS/EC2"
-  period     = 60
+  period= 60
   statistic  = "Minimum"
   threshold  = 0
   unit = "Count"  dimensions = {
-    InstanceId = aws_instance.test.id
+InstanceId = aws_instance.test.id
   }
 }
 `, rName, action))
@@ -951,18 +951,18 @@ data "aws_region" "current" {}resource "aws_instance" "test" {
 resource "aws_sns_topic" "test" {
   name = %[1]q
 }resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_actions       = [aws_sns_topic.test.arn]
-  alarm_description   = "Status checks have failed for system"
+  alarm_actions= [aws_sns_topic.test.arn]
+  alarm_description= "Status checks have failed for system"
   alarm_name = %[1]q
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 2
   metric_name= "StatusCheckFailed_System"
   namespace  = "AWS/EC2"
-  period     = 60
+  period= 60
   statistic  = "Minimum"
   threshold  = 0
   unit = "Count"  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }
 }
 `, rName)
@@ -971,18 +971,18 @@ resource "aws_sns_topic" "test" {
 data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 data "aws_region" "current" {}resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_actions       = ["arn:${data.aws_partition.current.partition}:swf:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:action/actions/AWS_EC2.InstanceId.Reboot/1.0"]
-  alarm_description   = "Status checks have failed, rebooting system."
+  alarm_actions= ["arn:${data.aws_partition.current.partition}:swf:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:action/actions/AWS_EC2.InstanceId.Reboot/1.0"]
+  alarm_description= "Status checks have failed, rebooting system."
   alarm_name = %[1]q
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 5
   metric_name= "StatusCheckFailed_Instance"
   namespace  = "AWS/EC2"
-  period     = 60
+  period= 60
   statistic  = "Minimum"
   threshold  = 0
   unit = "Count"  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }
 }
 `, rName)
@@ -990,18 +990,18 @@ data "aws_region" "current" {}resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = 120
+  period= 120
   statistic  = "Average"
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -1009,19 +1009,19 @@ resource "aws_cloudwatch_metric_alarm" "test" {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = %[1]q
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  comparison_operator= "GreaterThanOrEqualToThreshold"
+  evaluation_periods
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = 120
+  period= 120
   statistic  = "Average"
   threshold  = 80
   alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []  dimensions = {
-    InstanceId = "i-abcd1234"
+InstanceId = "i-abcd1234"
   }  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

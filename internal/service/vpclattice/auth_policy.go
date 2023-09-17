@@ -20,7 +20,7 @@
 func ResourceAuthPolicy() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceAuthPolicyPut,
-ReadWithoutTimeout:   resourceAuthPolicyRead,
+ReadWithoutTimeout:resourceAuthPolicyRead,
 UpdateWithoutTimeout: resourceAuthPolicyPut,
 DeleteWithoutTimeout: resourceAuthPolicyDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -30,9 +30,9 @@ Update: schema.DefaultTimeout(30 * time.Minute),
 Delete: schema.DefaultTimeout(30 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "policy": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
-ValidateFunc:     validation.StringIsJSON,
+ValidateFunc:validation.StringIsJSON,
 DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 StateFunc: func(v interface{}) string {
 json, _ := structure.NormalizeJsonString(v)
@@ -40,12 +40,12 @@ return json
 },
 },
 "state": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "resource_identifier": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: verify.ValidARN,
 },
 },
@@ -58,7 +58,7 @@ resourceId := d.Get("resource_identifier").(string)policy, err := structure.Norm
 if err != nil {
 return diag.Errorf("policy (%s) is invalid JSON: %s", policy, err)
 }in := &vpclattice.PutAuthPolicyInput{
-Policy:    aws.String(policy),
+Policy:aws.String(policy),
 ResourceIdentifier: aws.String(resourceId),
 }log.Printf("[DEBUG] Putting VPCLattice Auth Policy for resource: %s", resourceId)_, err = conn.PutAuthPolicy(ctx, in)
 if err != nil {

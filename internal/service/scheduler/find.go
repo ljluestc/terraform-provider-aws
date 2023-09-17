@@ -8,18 +8,18 @@
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )func findScheduleGroupByName(ctx context.Context, conn *scheduler.Client, name string) (*scheduler.GetScheduleGroupOutput, error) {
 	in := &scheduler.GetScheduleGroupInput{
-		Name: aws.String(name),
+Name: aws.String(name),
 	}
 	out, err := conn.GetScheduleGroup(ctx, in)
 	if err != nil {
-		var nfe *types.ResourceNotFoundException
-		if errors.As(err, &nfe) {
-			return nil, &retry.NotFoundError{
-				LastError:   err,
-				LastRequest: in,
-			}
-		}		return nil, err
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: in,
+}
+}return nil, err
 	}	if out == nil || out.Arn == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+return nil, tfresource.NewEmptyResultError(in)
 	}	return out, nil
 }

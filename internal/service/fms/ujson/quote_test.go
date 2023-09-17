@@ -3,9 +3,9 @@
 	"errors"
 	"testing"	. "github.com/hashicorp/terraform-provider-aws/internal/service/fms/ujson"
 )type quoteTest struct {
-	in      string
-	out     string
-	ascii   string
+	in string
+	outstring
+	asciistring
 	graphic string
 }var quotetests = []quoteTest{
 	{"\a\b\f\r\n\t\v", `"\a\b\f\r\n\t\v"`, `"\a\b\f\r\n\t\v"`, `"\a\b\f\r\n\t\v"`},
@@ -18,21 +18,21 @@
 	{"!\u00a0!\u2000!\u3000!", `"!\u00a0!\u2000!\u3000!"`, `"!\u00a0!\u2000!\u3000!"`, "\"!\u00a0!\u2000!\u3000!\""},
 }func TestQuote(t *testing.T) {
 	t.Parallel()	for _, tt := range quotetests {
-		if out := AppendQuote([]byte("abc"), []byte(tt.in)); string(out) != "abc"+tt.out {
-			t.Errorf("AppendQuote(%q, %s) = %s, want %s", "abc", tt.in, out, "abc"+tt.out)
-		}
+if out := AppendQuote([]byte("abc"), []byte(tt.in)); string(out) != "abc"+tt.out {
+t.Errorf("AppendQuote(%q, %s) = %s, want %s", "abc", tt.in, out, "abc"+tt.out)
+}
 	}
 }func TestQuoteToASCII(t *testing.T) {
 	t.Parallel()	for _, tt := range quotetests {
-		if out := AppendQuoteToASCII([]byte("abc"), []byte(tt.in)); string(out) != "abc"+tt.ascii {
-			t.Errorf("AppendQuoteToASCII(%q, %s) = %s, want %s", "abc", tt.in, out, "abc"+tt.ascii)
-		}
+if out := AppendQuoteToASCII([]byte("abc"), []byte(tt.in)); string(out) != "abc"+tt.ascii {
+t.Errorf("AppendQuoteToASCII(%q, %s) = %s, want %s", "abc", tt.in, out, "abc"+tt.ascii)
+}
 	}
 }func TestQuoteToGraphic(t *testing.T) {
 	t.Parallel()	for _, tt := range quotetests {
-		if out := AppendQuoteToGraphic([]byte("abc"), []byte(tt.in)); string(out) != "abc"+tt.graphic {
-			t.Errorf("AppendQuoteToGraphic(%q, %s) = %s, want %s", "abc", tt.in, out, "abc"+tt.graphic)
-		}
+if out := AppendQuoteToGraphic([]byte("abc"), []byte(tt.in)); string(out) != "abc"+tt.graphic {
+t.Errorf("AppendQuoteToGraphic(%q, %s) = %s, want %s", "abc", tt.in, out, "abc"+tt.graphic)
+}
 	}
 }type unQuoteTest struct {
 	in  string
@@ -78,43 +78,43 @@
 	"'\n'",
 }func TestUnquote(t *testing.T) {
 	t.Parallel()	for _, tt := range unquotetests {
-		if out, err := Unquote([]byte(tt.in)); err != nil || string(out) != tt.out {
-			t.Errorf("Unquote(%#q) = %q, %v want %q, nil", tt.in, out, err, tt.out)
-		}
+if out, err := Unquote([]byte(tt.in)); err != nil || string(out) != tt.out {
+t.Errorf("Unquote(%#q) = %q, %v want %q, nil", tt.in, out, err, tt.out)
+}
 	}	// run the quote tests too, backward
 	for _, tt := range quotetests {
-		if in, err := Unquote([]byte(tt.out)); string(in) != tt.in {
-			t.Errorf("Unquote(%#q) = %q, %v, want %q, nil", tt.out, in, err, tt.in)
-		}
+if in, err := Unquote([]byte(tt.out)); string(in) != tt.in {
+t.Errorf("Unquote(%#q) = %q, %v, want %q, nil", tt.out, in, err, tt.in)
+}
 	}	for _, s := range misquoted {
-		if out, err := Unquote([]byte(s)); out != nil || !errors.Is(err, ErrSyntax) {
-			t.Errorf("Unquote(%#q) = %q, %v want %q, %v", s, out, err, "", ErrSyntax)
-		}
+if out, err := Unquote([]byte(s)); out != nil || !errors.Is(err, ErrSyntax) {
+t.Errorf("Unquote(%#q) = %q, %v want %q, %v", s, out, err, "", ErrSyntax)
+}
 	}
 }// Issue 23685: invalid UTF-8 should not go through the fast path.
 func TestUnquoteInvalidUTF8(t *testing.T) {
 	t.Parallel()	tests := []struct {
-		in string		// one of:
-		want    string
-		wantErr string
+in string// one of:
+wantstring
+wantErr string
 	}{
-		{in: `"foo"`, want: "foo"},
-		{in: `"foo`, wantErr: "invalid syntax"},
-		{in: `"` + "\xc0" + `"`, want: "\xef\xbf\xbd"},
-		{in: `"a` + "\xc0" + `"`, want: "a\xef\xbf\xbd"},
-		{in: `"\t` + "\xc0" + `"`, want: "\t\xef\xbf\xbd"},
+{in: `"foo"`, want: "foo"},
+{in: `"foo`, wantErr: "invalid syntax"},
+{in: `"` + "\xc0" + `"`, want: "\xef\xbf\xbd"},
+{in: `"a` + "\xc0" + `"`, want: "a\xef\xbf\xbd"},
+{in: `"\t` + "\xc0" + `"`, want: "\t\xef\xbf\xbd"},
 	}
 	for i, tt := range tests {
-		got, err := Unquote([]byte(tt.in))
-		var gotErr string
-		if err != nil {
-			gotErr = err.Error()
-		}
-		if gotErr != tt.wantErr {
-			t.Errorf("%d. Unquote(%q) = err %v; want %q", i, tt.in, err, tt.wantErr)
-		}
-		if tt.wantErr == "" && err == nil && string(got) != tt.want {
-			t.Errorf("%d. Unquote(%q) = %02x; want %02x", i, tt.in, got, []byte(tt.want))
-		}
+got, err := Unquote([]byte(tt.in))
+var gotErr string
+if err != nil {
+gotErr = err.Error()
+}
+if gotErr != tt.wantErr {
+t.Errorf("%d. Unquote(%q) = err %v; want %q", i, tt.in, err, tt.wantErr)
+}
+if tt.wantErr == "" && err == nil && string(got) != tt.want {
+t.Errorf("%d. Unquote(%q) = %02x; want %02x", i, tt.in, got, []byte(tt.want))
+}
 	}
 }

@@ -17,27 +17,27 @@ func (d *dataSourcePartition) Metadata(_ context.Context, request datasource.Met
 }// Schema returns the schema for this data source.
 func (d *dataSourcePartition) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"dns_suffix": schema.StringAttribute{
-				Computed: true,
-			},
-			"id": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-			},
-			"partition": schema.StringAttribute{
-				Computed: true,
-			},
-			"reverse_dns_prefix": schema.StringAttribute{
-				Computed: true,
-			},
-		},
+Attributes: map[string]schema.Attribute{
+"dns_suffix": schema.StringAttribute{
+Computed: true,
+},
+"id": schema.StringAttribute{
+Optional: true,
+Computed: true,
+},
+"partition": schema.StringAttribute{
+Computed: true,
+},
+"reverse_dns_prefix": schema.StringAttribute{
+Computed: true,
+},
+},
 	}
 }// Read is called when the provider must read data source values in order to update state.
 // Config values should be read from the ReadRequest and new state values set on the ReadResponse.
 func (d *dataSourcePartition) Read(ctx context.Context, request datasource.ReadRequest, response *datasource.ReadResponse) {
 	var data dataSourcePartitionData	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)	if response.Diagnostics.HasError() {
-		return
+return
 	}	data.DNSSuffix = types.StringValue(d.Meta().DNSSuffix)
 	data.ID = types.StringValue(d.Meta().Partition)
 	data.Partition = types.StringValue(d.Meta().Partition)

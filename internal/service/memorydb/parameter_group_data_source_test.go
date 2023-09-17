@@ -41,7 +41,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 }func testAccParameterGroupDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_parameter_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   family = "memorydb_redis6"  parameter {
 name  = "active-defrag-cycle-max"
 value = "70"

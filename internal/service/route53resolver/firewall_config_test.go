@@ -19,7 +19,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFirewallConfigDestroy(ctx),
+CheckDestroy:testAccCheckFirewallConfigDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFirewallConfigConfig_basic(rName),
@@ -45,7 +45,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFirewallConfigDestroy(ctx),
+CheckDestroy:testAccCheckFirewallConfigDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFirewallConfigConfig_basic(rName),
@@ -88,7 +88,7 @@ return err
 }func testAccFirewallConfigConfig_basic(rName string) string {
 return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), `
 resource "aws_route53_resolver_firewall_config" "test" {
-  resource_id   = aws_vpc.test.id
+  resource_id= aws_vpc.test.id
   firewall_fail_open = "ENABLED"
 }
 `)

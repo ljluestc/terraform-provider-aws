@@ -25,7 +25,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceParameterGroup() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceParameterGroupCreate,
-ReadWithoutTimeout:   resourceParameterGroupRead,
+ReadWithoutTimeout:resourceParameterGroupRead,
 UpdateWithoutTimeout: resourceParameterGroupUpdate,
 DeleteWithoutTimeout: resourceParameterGroupDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -84,7 +84,7 @@ conn := meta.(*conns.AWSClient).RedshiftConn(ctx)name := d.Get("name").(string)
 input := &redshift.CreateClusterParameterGroupInput{
 Description: aws.String(d.Get("description").(string)),
 ParameterGroupFamily: aws.String(d.Get("family").(string)),
-ParameterGroupName:   aws.String(name),
+ParameterGroupName:aws.String(name),
 Tags:getTagsIn(ctx),
 }_, err := conn.CreateClusterParameterGroupWithContext(ctx, input)if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating Redshift Parameter Group (%s): %s", name, err)
@@ -106,7 +106,7 @@ return diags
 return sdkdiag.AppendErrorf(diags, "reading Redshift Parameter Group (%s): %s", d.Id(), err)
 }arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Service:   "redshift",
+Service:"redshift",
 Region:meta.(*conns.AWSClient).Region,
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("parametergroup:%s", d.Id()),
@@ -156,7 +156,7 @@ input := &redshift.DescribeClusterParameterGroupsInput{
 ParameterGroupName: aws.String(name),
 }output, err := conn.DescribeClusterParameterGroupsWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, redshift.ErrCodeClusterParameterGroupNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

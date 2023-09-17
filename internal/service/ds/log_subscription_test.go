@@ -19,7 +19,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, directoryservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckLogSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckLogSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	// test create
 	{
@@ -32,8 +32,8 @@ logGroupName,
 	},
 	// test import
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -76,34 +76,34 @@ if !ok {
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_directory_service_log_subscription" "subscription" {
-  directory_id   = aws_directory_service_directory.test.id
+  directory_id= aws_directory_service_directory.test.id
   log_group_name = aws_cloudwatch_log_group.test.name
 }resource "aws_directory_service_directory" "test" {
-  name     = %[1]q
+  name= %[1]q
   password = "SuperSecretPassw0rd"
-  type     = "MicrosoftAD"
+  type= "MicrosoftAD"
   edition  = "Standard"  vpc_settings {
-    vpc_id     = aws_vpc.test.id
-    subnet_ids = aws_subnet.test[*].id
+vpc_id= aws_vpc.test.id
+subnet_ids = aws_subnet.test[*].id
   }  tags = {
-    Name = "terraform-testacc-directory-service-log-subscription"
+Name = "terraform-testacc-directory-service-log-subscription"
   }
 }resource "aws_cloudwatch_log_group" "test" {
-  name     = %[2]q
+  name= %[2]q
   retention_in_days = 1
 }data "aws_iam_policy_document" "ad-log-policy" {
   statement {
-    actions = [
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-    ]    principals {
-      identifiers = ["ds.amazonaws.com"]
-      type        = "Service"
-    }    resources = ["${aws_cloudwatch_log_group.test.arn}:*"]    effect = "Allow"
+actions = [
+ "logs:CreateLogStream",
+ "logs:PutLogEvents",
+]principals {
+ identifiers = ["ds.amazonaws.com"]
+ type
+}resources = ["${aws_cloudwatch_log_group.test.arn}:*"]effect = "Allow"
   }
 }resource "aws_cloudwatch_log_resource_policy" "ad-log-policy" {
   policy_document = data.aws_iam_policy_document.ad-log-policy.json
-  policy_name     = "ad-log-policy"
+  policy_name= "ad-log-policy"
 }
 `, domain, logGroupName),
 	)

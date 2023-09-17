@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ecrpublic_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ecrpublic_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws/endpoints"
+	"testing"	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/ecrpublic"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,18 +11,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfecrpublic "github.com/hashicorp/terraform-provider-aws/internal/service/ecrpublic"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestAccECRPublicRepositoryPolicy_basic(t *testing.T) {
+)func TestAccECRPublicRepositoryPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
-	resourceName := "aws_ecrpublic_repository_policy.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository_policy.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_basic(rName),
@@ -38,8 +28,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -51,18 +41,14 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepositoryPolicy_disappears(t *testing.T) {
+}func TestAccECRPublicRepositoryPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
-	resourceName := "aws_ecrpublic_repository_policy.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository_policy.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_basic(rName),
@@ -75,19 +61,15 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepositoryPolicy_Disappears_repository(t *testing.T) {
+}func TestAccECRPublicRepositoryPolicy_Disappears_repository(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
 	resourceName := "aws_ecrpublic_repository_policy.test"
-	repositoryResourceName := "aws_ecrpublic_repository.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	repositoryResourceName := "aws_ecrpublic_repository.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_basic(rName),
@@ -100,18 +82,14 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccECRPublicRepositoryPolicy_iam(t *testing.T) {
+}func TestAccECRPublicRepositoryPolicy_iam(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
-	resourceName := "aws_ecrpublic_repository_policy.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+	resourceName := "aws_ecrpublic_repository_policy.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_iamRole(rName),
@@ -121,8 +99,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -134,109 +112,71 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccCheckRepositoryPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckRepositoryPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ECRPublicConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ECRPublicConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_ecrpublic_repository_policy" {
 continue
-	}
-
-	_, err := tfecrpublic.FindRepositoryPolicyByName(ctx, conn, rs.Primary.ID)
-
-	if tfresource.NotFound(err) {
+	}	_, err := tfecrpublic.FindRepositoryPolicyByName(ctx, conn, rs.Primary.ID)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
+	}	return fmt.Errorf("ECR Public Repository Policy %s still exists", rs.Primary.ID)
+}return nil
 	}
-
-	return fmt.Errorf("ECR Public Repository Policy %s still exists", rs.Primary.ID)
-}
-
-return nil
-	}
-}
-
-func testAccCheckRepositoryPolicyExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckRepositoryPolicyExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return fmt.Errorf("Not found: %s", name)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No ECR Public Repository Policy ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ECRPublicConn(ctx)
-
-_, err := tfecrpublic.FindRepositoryPolicyByName(ctx, conn, rs.Primary.ID)
-
-return err
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ECRPublicConn(ctx)_, err := tfecrpublic.FindRepositoryPolicyByName(ctx, conn, rs.Primary.ID)return err
 	}
-}
-
-func testAccRepositoryPolicyConfig_basic(rName string) string {
+}func testAccRepositoryPolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
-}
-
-resource "aws_ecrpublic_repository_policy" "test" {
-  repository_name = aws_ecrpublic_repository.test.repository_name
-
-  policy = <<EOF
+}resource "aws_ecrpublic_repository_policy" "test" {
+  repository_name = aws_ecrpublic_repository.test.repository_name  policy = <<EOF
 {
-    "Version": "2008-10-17",
-    "Statement": [
-        {
-   "Sid": "testpolicy",
-   "Effect": "Allow",
-   "Principal": "*",
-   "Action": "ecr-public:ListImages"
-        }
-    ]
+"Version": "2008-10-17",
+"Statement": [
+
+"Sid": "testpolicy",
+"Effect": "Allow",
+"Principal": "*",
+"Action": "ecr-public:ListImages"
+
+]
 }
 EOF
 }
 `, rName)
-}
-
-func testAccRepositoryPolicyConfig_updated(rName string) string {
+}func testAccRepositoryPolicyConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
-}
-
-resource "aws_ecrpublic_repository_policy" "test" {
-  repository_name = aws_ecrpublic_repository.test.repository_name
-
-  policy = <<EOF
+}resource "aws_ecrpublic_repository_policy" "test" {
+  repository_name = aws_ecrpublic_repository.test.repository_name  policy = <<EOF
 {
-    "Version": "2008-10-17",
-    "Statement": [
-        {
-   "Sid": "testpolicy",
-   "Effect": "Allow",
-   "Principal": "*",
-   "Action": [
-       "ecr-public:ListImages",
-       "ecr-public:PutImage"
-   ]
-        }
-    ]
+"Version": "2008-10-17",
+"Statement": [
+
+"Sid": "testpolicy",
+"Effect": "Allow",
+"Principal": "*",
+"Action": [
+"ecr-public:ListImages",
+"ecr-public:PutImage"
+]
+
+]
 }
 EOF
 }
 `, rName)
-}
-
-// testAccRepositoryPolicyConfig_iamRole creates a new IAM Role and tries
+}// testAccRepositoryPolicyConfig_iamRole creates a new IAM Role and tries
 // to use it's ARN in an ECR Repository Policy. IAM changes need some time to
 // be propagated to other services - like ECR. So the following code should
 // exercise our retry logic, since we try to use the new resource instantly.
@@ -244,93 +184,75 @@ func testAccRepositoryPolicyConfig_iamRole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      }
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Effect": "Allow",
+ "Principal": {
+s.com"
+ }
+}
   ]
 }
 EOF
-}
-
-resource "aws_ecrpublic_repository_policy" "test" {
-  repository_name = aws_ecrpublic_repository.test.repository_name
-
-  policy = <<EOF
+}resource "aws_ecrpublic_repository_policy" "test" {
+  repository_name = aws_ecrpublic_repository.test.repository_name  policy = <<EOF
 {
-    "Version": "2008-10-17",
-    "Statement": [
-        {
-   "Sid": "testpolicy",
-   "Effect": "Allow",
-   "Principal": {
-     "AWS": "${aws_iam_role.test.arn}"
-   },
-   "Action": "ecr-public:ListImages"
-        }
-    ]
+"Version": "2008-10-17",
+"Statement": [
+
+"Sid": "testpolicy",
+"Effect": "Allow",
+"Principal": {
+"AWS": "${aws_iam_role.test.arn}"
+},
+"Action": "ecr-public:ListImages"
+
+]
 }
 EOF
 }
 `, rName)
-}
-
-func testAccRepositoryPolicyConfig_iamRoleUpdated(rName string) string {
+}func testAccRepositoryPolicyConfig_iamRoleUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecrpublic_repository" "test" {
   repository_name = %[1]q
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      }
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Effect": "Allow",
+ "Principal": {
+s.com"
+ }
+}
   ]
 }
 EOF
-}
-
-resource "aws_ecrpublic_repository_policy" "test" {
-  repository_name = aws_ecrpublic_repository.test.repository_name
-
-  policy = <<EOF
+}resource "aws_ecrpublic_repository_policy" "test" {
+  repository_name = aws_ecrpublic_repository.test.repository_name  policy = <<EOF
 {
-    "Version": "2008-10-17",
-    "Statement": [
-        {
-   "Sid": "testpolicy",
-   "Effect": "Allow",
-   "Principal": {
-     "AWS": "${aws_iam_role.test.arn}"
-   },
-   "Action": [
-       "ecr-public:ListImages",
-       "ecr-public:PutImage"
-   ]
-        }
-    ]
+"Version": "2008-10-17",
+"Statement": [
+
+"Sid": "testpolicy",
+"Effect": "Allow",
+"Principal": {
+"AWS": "${aws_iam_role.test.arn}"
+},
+"Action": [
+"ecr-public:ListImages",
+"ecr-public:PutImage"
+]
+
+]
 }
 EOF
 }

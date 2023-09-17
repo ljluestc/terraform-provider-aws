@@ -40,10 +40,10 @@ resource.TestCheckResourceAttr(resourceName, "custom_undeploy_recipes.#", "0"),
 resource.TestCheckResourceAttr(resourceName, "drain_elb_on_shutdown", "true"),
 resource.TestCheckResourceAttr(resourceName, "ebs_volume.#", "1"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_volume.*", map[string]string{
-"type":   "gp2",
+"type":"gp2",
 "number_of_disks": "2",
 "mount_point":"/home",
-"size":   "100",
+"size":"100",
 "encrypted":  "false",
 }),
 resource.TestCheckResourceAttr(resourceName, "elastic_load_balancer", ""),
@@ -110,18 +110,18 @@ resource.TestCheckResourceAttr(resourceName, "custom_undeploy_recipes.#", "0"),
 resource.TestCheckResourceAttr(resourceName, "drain_elb_on_shutdown", "false"),
 resource.TestCheckResourceAttr(resourceName, "ebs_volume.#", "2"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_volume.*", map[string]string{
-"type":   "gp2",
+"type":"gp2",
 "number_of_disks": "2",
 "mount_point":"/home",
-"size":   "100",
+"size":"100",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_volume.*", map[string]string{
-"type":   "io1",
+"type":"io1",
 "number_of_disks": "4",
 "mount_point":"/var",
-"size":   "100",
+"size":"100",
 "raid_level": "1",
-"iops":   "3000",
+"iops":"3000",
 "encrypted":  "true",
 }),
 resource.TestCheckResourceAttr(resourceName, "elastic_load_balancer", ""),
@@ -308,10 +308,10 @@ resource "aws_opsworks_custom_layer" "test" {
 "git",
 "golang",
   ]  ebs_volume {
-type   = "gp2"
+type= "gp2"
 number_of_disks = 2
 mount_point= "/home"
-size   = 100
+size= 100
 raid_level = 0
   }
 }
@@ -320,9 +320,9 @@ raid_level = 0
 func testAccCustomLayerConfig_update(rName string) string {
 return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_security_group" "extra" {
-  name   = "%[1]s-extra"
+  name= "%[1]s-extra"
   vpc_id = aws_vpc.test.id  ingress {
-from_port   = 8
+from_port= 8
 to_port= -1
 protocol= "icmp"
 cidr_blocks = ["0.0.0.0/0"]
@@ -339,19 +339,19 @@ Name = %[1]q
 "golang",
 "subversion",
   ]  ebs_volume {
-type   = "gp2"
+type= "gp2"
 number_of_disks = 2
 mount_point= "/home"
-size   = 100
+size= 100
 raid_level = 0
 encrypted  = true
   }  ebs_volume {
-type   = "io1"
+type= "io1"
 number_of_disks = 4
 mount_point= "/var"
-size   = 100
+size= 100
 raid_level = 1
-iops   = 3000
+iops= 3000
 encrypted  = true
   }  custom_json = %[2]q
 }
@@ -393,7 +393,7 @@ enabled = truelog_streams {
  buffer_duration= 6000
  encoding = "mac_turkish"
  file_fingerprint_lines  = "2"
- initial_position   = "end_of_file"
+ initial_position= "end_of_file"
  multiline_start_pattern = "test*"
  time_zone= "LOCAL"
 }
@@ -410,14 +410,14 @@ resource "aws_opsworks_custom_layer" "test" {
   auto_assign_public_ips = true  custom_security_group_ids = aws_security_group.test[*].id  drain_elb_on_shutdown= true
   instance_shutdown_timeout = 300  load_based_auto_scaling {
 enable = %[2]tdownscaling {
- cpu_threshold   = 20
+ cpu_threshold= 20
  ignore_metrics_time  = 15
  instance_count  = 2
  load_threshold  = 5
  memory_threshold= 20
  thresholds_wait_time = 30
 }upscaling {
- cpu_threshold   = 80
+ cpu_threshold= 80
  ignore_metrics_time  = 15
  instance_count  = 3
  load_threshold  = 10

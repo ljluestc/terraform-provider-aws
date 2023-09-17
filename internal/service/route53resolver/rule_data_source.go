@@ -115,7 +115,7 @@ filters := []*route53resolver.Filter{}for k, v := range attrs {
 if v == "" {
 continue
 }filters = append(filters, &route53resolver.Filter{
-Name:   aws.String(k),
+Name:aws.String(k),
 Values: aws.StringSlice([]string{v}),
 })
 }return filters

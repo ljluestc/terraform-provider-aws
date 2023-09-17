@@ -17,10 +17,10 @@
 	//Name is upper case on purpose to test https://github.com/hashicorp/terraform-provider-aws/issues/8432
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_configuration_aggregator.test"	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConfigurationAggregatorDestroy(ctx),
+CheckDestroy:testAccCheckConfigurationAggregatorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConfigurationAggregatorConfig_account(rName),
@@ -38,8 +38,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -49,10 +49,10 @@ ImportStateVerify: true,
 	var ca configservice.ConfigurationAggregator
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_configuration_aggregator.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConfigurationAggregatorDestroy(ctx),
+CheckDestroy:testAccCheckConfigurationAggregatorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConfigurationAggregatorConfig_organization(rName),
@@ -66,8 +66,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -76,10 +76,10 @@ ImportStateVerify: true,
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_configuration_aggregator.test"	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConfigurationAggregatorDestroy(ctx),
+CheckDestroy:testAccCheckConfigurationAggregatorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConfigurationAggregatorConfig_account(rName),
@@ -102,10 +102,10 @@ Check: resource.ComposeTestCheckFunc(
 	var ca configservice.ConfigurationAggregator
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_configuration_aggregator.test"	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConfigurationAggregatorDestroy(ctx),
+CheckDestroy:testAccCheckConfigurationAggregatorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConfigurationAggregatorConfig_tags1(rName, "key1", "value1"),
@@ -127,8 +127,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -147,10 +147,10 @@ Check: resource.ComposeTestCheckFunc(
 	var ca configservice.ConfigurationAggregator
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_config_configuration_aggregator.test"	resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConfigurationAggregatorDestroy(ctx),
+CheckDestroy:testAccCheckConfigurationAggregatorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConfigurationAggregatorConfig_account(rName),
@@ -211,8 +211,8 @@ if len(resp.ConfigurationAggregators) != 0 &&
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}data "aws_region" "current" {}resource "aws_config_configuration_aggregator" "test" {
   name = %[1]q  account_aggregation_source {
-    account_ids = [data.aws_caller_identity.current.account_id]
-    regions     = [data.aws_region.current.name]
+account_ids = [data.aws_caller_identity.current.account_id]
+regions= [data.aws_region.current.name]
   }
 }
 `, rName)
@@ -222,27 +222,27 @@ resource "aws_organizations_organization" "test" {
   aws_service_access_principals = ["config.${data.aws_partition.current.dns_suffix}"]
 }resource "aws_config_configuration_aggregator" "test" {
   depends_on = [aws_iam_role_policy_attachment.test, aws_organizations_organization.test]  name = %[1]q  organization_aggregation_source {
-    all_regions = true
-    role_arn    = aws_iam_role.test.arn
+all_regions = true
+role_arn= aws_iam_role.test.arn
   }
 }data "aws_partition" "current" {}resource "aws_iam_role" "test" {
   name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "config.${data.aws_partition.current.dns_suffix}"
-      },
-      "Action": "sts:AssumeRole"
-    }
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Principal": {
+a.aws_partition.current.dns_suffix}"
+ },
+ "Action": "sts:AssumeRole"
+}
   ]
 }
 EOF
 }resource "aws_iam_role_policy_attachment" "test" {
-  role       = aws_iam_role.test.name
+  role= aws_iam_role.test.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSConfigRoleForOrganizations"
 }
 `, rName)
@@ -250,10 +250,10 @@ EOF
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}data "aws_region" "current" {}resource "aws_config_configuration_aggregator" "test" {
   name = %[1]q  account_aggregation_source {
-    account_ids = [data.aws_caller_identity.current.account_id]
-    regions     = [data.aws_region.current.name]
+account_ids = [data.aws_caller_identity.current.account_id]
+regions= [data.aws_region.current.name]
   }  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -261,11 +261,11 @@ data "aws_caller_identity" "current" {}data "aws_region" "current" {}resource "a
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}data "aws_region" "current" {}resource "aws_config_configuration_aggregator" "test" {
   name = %[1]q  account_aggregation_source {
-    account_ids = [data.aws_caller_identity.current.account_id]
-    regions     = [data.aws_region.current.name]
+account_ids = [data.aws_caller_identity.current.account_id]
+regions= [data.aws_region.current.name]
   }  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

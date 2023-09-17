@@ -20,7 +20,7 @@ func ResourceOrganizationManagedRule() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceOrganizationManagedRuleCreate,
 DeleteWithoutTimeout: resourceOrganizationManagedRuleDelete,
-ReadWithoutTimeout:   resourceOrganizationManagedRuleRead,
+ReadWithoutTimeout:resourceOrganizationManagedRuleRead,
 UpdateWithoutTimeout: resourceOrganizationManagedRuleUpdate,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Timeouts: &schema.ResourceTimeout{
@@ -29,16 +29,16 @@ Delete: schema.DefaultTimeout(5 * time.Minute),
 Update: schema.DefaultTimeout(5 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "description": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(0, 256),
 },
 "excluded_accounts": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 MaxItems: 1000,
 Elem: &schema.Schema{
@@ -47,7 +47,7 @@ ValidateFunc: verify.ValidAccountID,
 },
 },
 "input_parameters": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Optional:true,
 DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 ValidateFunc: validation.All(
@@ -57,22 +57,22 @@ validation.StringIsJSON,
 },
 "maximum_execution_frequency": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringInSlice(configservice.MaximumExecutionFrequency_Values(), false),
 },
 "name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(1, 64),
 },
 "resource_id_scope": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(0, 768),
 },
 "resource_types_scope": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 MaxItems: 100,
 Elem: &schema.Schema{
@@ -82,17 +82,17 @@ ValidateFunc: validation.StringLenBetween(0, 256),
 },
 "rule_identifier": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringLenBetween(1, 256),
 },
 "tag_key_scope": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(0, 128),
 },
 "tag_value_scope": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(0, 256),
 },
 },

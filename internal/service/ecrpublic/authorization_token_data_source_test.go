@@ -1,25 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ecrpublic_test
-
-import (
-	"testing"
-
-	"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package ecrpublic_testimport (
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/ecr"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccECRPublicAuthorizationTokenDataSource_basic(t *testing.T) {
+)func TestAccECRPublicAuthorizationTokenDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
-	dataSourceName := "data.aws_ecrpublic_authorization_token.repo"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:      acctest.ErrorCheck(t, ecr.EndpointsID),
+	dataSourceName := "data.aws_ecrpublic_authorization_token.repo"	resource.Test(t, resource.TestCase{
+PreCheck:k(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck: acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -34,9 +24,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccAuthorizationTokenDataSourceConfig_basic() string {
+}func testAccAuthorizationTokenDataSourceConfig_basic() string {
 	return `data "aws_ecrpublic_authorization_token" "repo" {}
 `
 }

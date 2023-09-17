@@ -1,1 +1,1 @@
-package acctestconst (	ConstNameCharSetAlpha    = "CharSetAlpha"	ConstNameCharSetAlphaNum = "CharSetAlphaNum")
+package acctestconst (	ConstNameCharSetAlpha= "CharSetAlpha"	ConstNameCharSetAlphaNum = "CharSetAlphaNum")

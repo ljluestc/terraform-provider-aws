@@ -1,21 +1,13 @@
 //Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0
-
-packageorganizations_test
-
-import(
+//SPDX-License-Identifier:MPL-2.0packageorganizations_testimport(
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/organizations"
+	"testing"	"github.com/aws/aws-sdk-go/service/organizations"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )functestAccDelegatedServicesDataSource_basic(t*testing.T){
 	ctx:=acctest.Context(t)
 	dataSourceName:="data.aws_organizations_delegated_services.test"
-	servicePrincipal:="config-multiaccountsetup.amazonaws.com"
-
-	resource.Test(t,resource.TestCase{
+	servicePrincipal:="config-multiaccountsetup.amazonaws.com"	resource.Test(t,resource.TestCase{
 PreCheck:
 func(){
 	acctest.PreCheck(ctx,t)
@@ -37,9 +29,7 @@ Check:resource.ComposeTestCheckFunc(
 	ctx:=acctest.Context(t)
 	dataSourceName:="data.aws_organizations_delegated_services.test"
 	servicePrincipal1:="config-multiaccountsetup.amazonaws.com"
-	servicePrincipal2:="config.amazonaws.com"
-
-	resource.Test(t,resource.TestCase{
+	servicePrincipal2:="config.amazonaws.com"	resource.Test(t,resource.TestCase{
 PreCheck:
 func(){
 	acctest.PreCheck(ctx,t)
@@ -61,39 +51,25 @@ Check:resource.ComposeTestCheckFunc(
 	returnacctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(),fmt.Sprintf(`
 data"aws_caller_identity""delegated"{
 provider="awsalternate"
-}
-
-resource"aws_organizations_delegated_administrator""delegated"{
+}resource"aws_organizations_delegated_administrator""delegated"{
 account_id=data.aws_caller_identity.delegated.account_id
 service_principal=%[1]q
-}
-
-data"aws_organizations_delegated_services""test"{
-account_id=data.aws_caller_identity.delegated.account_id
-
-depends_on=[aws_organizations_delegated_administrator.delegated]
+}data"aws_organizations_delegated_services""test"{
+account_id=data.aws_caller_identity.delegated.account_iddepends_on=[aws_organizations_delegated_administrator.delegated]
 }
 `,servicePrincipal))
 }functestAccDelegatedServicesDataSourceConfig_multiple(servicePrincipal1,servicePrincipal2string)string{
 	returnacctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(),fmt.Sprintf(`
 data"aws_caller_identity""delegated"{
 provider="awsalternate"
-}
-
-resource"aws_organizations_delegated_administrator""delegated"{
+}resource"aws_organizations_delegated_administrator""delegated"{
 account_id=data.aws_caller_identity.delegated.account_id
 service_principal=%[1]q
-}
-
-resource"aws_organizations_delegated_administrator""other_delegated"{
+}resource"aws_organizations_delegated_administrator""other_delegated"{
 account_id=data.aws_caller_identity.delegated.account_id
 service_principal=%[2]q
-}
-
-data"aws_organizations_delegated_services""test"{
-account_id=data.aws_caller_identity.delegated.account_id
-
-depends_on=[aws_organizations_delegated_administrator.delegated,aws_organizations_delegated_administrator.other_delegated]
+}data"aws_organizations_delegated_services""test"{
+account_id=data.aws_caller_identity.delegated.account_iddepends_on=[aws_organizations_delegated_administrator.delegated,aws_organizations_delegated_administrator.other_delegated]
 }
 `,servicePrincipal1,servicePrincipal2))
 }

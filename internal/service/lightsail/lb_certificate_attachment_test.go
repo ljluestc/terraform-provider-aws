@@ -13,20 +13,20 @@ func testAccLoadBalancerCertificateAttachment_basic(t *testing.T) {
 	lbName := sdkacctest.RandomWithPrefix("tf-acc-test")
 	cName := sdkacctest.RandomWithPrefix("tf-acc-test")
 	domainName := acctest.ACMCertificateRandomSubDomain(acctest.RandomDomainName())	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:oadBalancerCertificateDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccLoadBalancerCertificateAttachmentConfig_basic(lbName, cName, domainName),
-				ExpectError: regexache.MustCompile(`Sorry, you can only attach a validated certificate to a load balancer.`),
-			},
-		},
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, strings.ToLower(lightsail.ServiceID))
+testAccPreCheck(ctx, t)
+},
+ErrorCheck:orCheck(t, strings.ToLower(lightsail.ServiceID)),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:oadBalancerCertificateDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccLoadBalancerCertificateAttachmentConfig_basic(lbName, cName, domainName),
+ExpectError: regexache.MustCompile(`Sorry, you can only attach a validated certificate to a load balancer.`),
+},
+},
 	})
 }
 func testAccLoadBalancerCertificateAttachmentConfig_basic(lbName string, cName string, domainName string) string {
@@ -34,11 +34,11 @@ func testAccLoadBalancerCertificateAttachmentConfig_basic(lbName string, cName s
 resource "aws_lightsail_lb" "test" {
   name
   health_check_path = "/"
-  instance_port     = "80"
+  instance_port= "80"
 }
 resource "aws_lightsail_lb_certificate" "test" {
-  name        = %[2]q
-  lb_name     = aws_lightsail_lb.test.id
+  name
+  lb_name= aws_lightsail_lb.test.id
   domain_name = %[3]q
 }
 resource "aws_lightsail_lb_certificate_attachment" "test" {

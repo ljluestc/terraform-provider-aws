@@ -18,7 +18,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckDNSSECConfigDestroy(ctx),
+CheckDestroy:testAccCheckDNSSECConfigDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDNSSECConfigConfig_basic(rName),
@@ -46,7 +46,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckDNSSECConfigDestroy(ctx),
+CheckDestroy:testAccCheckDNSSECConfigDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDNSSECConfigConfig_basic(rName),

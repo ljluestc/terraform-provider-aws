@@ -22,14 +22,14 @@ func TestAccRoute53RecoveryReadinessReadinessCheck_basic(t *testing.T) {
 	cwArn := arn.ARN{
 AccountID: "123456789012",
 Partition: endpoints.AwsPartitionID,
-Region:    endpoints.EuWest1RegionID,
+Region:endpoints.EuWest1RegionID,
 Resource:  "alarm:zzzzzzzzz",
-Service:   "cloudwatch",
+Service:"cloudwatch",
 	}.String()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckReadinessCheckDestroy(ctx),
+CheckDestroy:testAccCheckReadinessCheckDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReadinessCheckConfig_basic(rName, rSetName, cwArn),
@@ -40,8 +40,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -55,14 +55,14 @@ func TestAccRoute53RecoveryReadinessReadinessCheck_disappears(t *testing.T) {
 	cwArn := arn.ARN{
 AccountID: "123456789012",
 Partition: endpoints.AwsPartitionID,
-Region:    endpoints.EuWest1RegionID,
+Region:endpoints.EuWest1RegionID,
 Resource:  "alarm:zzzzzzzzz",
-Service:   "cloudwatch",
+Service:"cloudwatch",
 	}.String()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckReadinessCheckDestroy(ctx),
+CheckDestroy:testAccCheckReadinessCheckDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReadinessCheckConfig_basic(rName, rSetName, cwArn),
@@ -82,14 +82,14 @@ func TestAccRoute53RecoveryReadinessReadinessCheck_tags(t *testing.T) {
 	cwArn := arn.ARN{
 AccountID: "123456789012",
 Partition: endpoints.AwsPartitionID,
-Region:    endpoints.EuWest1RegionID,
+Region:endpoints.EuWest1RegionID,
 Resource:  "alarm:zzzzzzzzz",
-Service:   "cloudwatch",
+Service:"cloudwatch",
 	}.String()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckReadinessCheckDestroy(ctx),
+CheckDestroy:testAccCheckReadinessCheckDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReadinessCheckConfig_tags1(rName, cwArn, "key1", "value1"),
@@ -100,8 +100,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -132,14 +132,14 @@ func TestAccRoute53RecoveryReadinessReadinessCheck_timeout(t *testing.T) {
 	cwArn := arn.ARN{
 AccountID: "123456789012",
 Partition: endpoints.AwsPartitionID,
-Region:    endpoints.EuWest1RegionID,
+Region:endpoints.EuWest1RegionID,
 Resource:  "alarm:zzzzzzzzz",
-Service:   "cloudwatch",
+Service:"cloudwatch",
 	}.String()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckReadinessCheckDestroy(ctx),
+CheckDestroy:testAccCheckReadinessCheckDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReadinessCheckConfig_timeout(rName, rSetName, cwArn),
@@ -150,8 +150,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -186,7 +186,7 @@ func testAccReadinessCheckConfig_ResourceSet(rSetName, cwArn string) string {
 resource "aws_route53recoveryreadiness_resource_set" "test" {
   resource_set_name = %[1]q
   resource_set_type = "AWS::CloudWatch::Alarm"  resources {
-    resource_arn = %[2]q
+resource_arn = %[2]q
   }
 }
 `, rSetName, cwArn)
@@ -195,7 +195,7 @@ func testAccReadinessCheckConfig_basic(rName, rSetName, cwArn string) string {
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet(rSetName, cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
   readiness_check_name = %q
-  resource_set_name    = aws_route53recoveryreadiness_resource_set.test.resource_set_name
+  resource_set_name= aws_route53recoveryreadiness_resource_set.test.resource_set_name
 }
 `, rName))
 }
@@ -203,8 +203,8 @@ func testAccReadinessCheckConfig_tags1(rName, cwArn, tagKey1, tagValue1 string) 
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet("resource-set-for-testing", cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
   readiness_check_name = %[1]q
-  resource_set_name    = aws_route53recoveryreadiness_resource_set.test.resource_set_name  tags = {
-    %[2]q = %[3]q
+  resource_set_name= aws_route53recoveryreadiness_resource_set.test.resource_set_name  tags = {
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -213,9 +213,9 @@ func testAccReadinessCheckConfig_tags2(rName, cwArn, tagKey1, tagValue1, tagKey2
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet("resource-set-for-testing", cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
   readiness_check_name = %[1]q
-  resource_set_name    = aws_route53recoveryreadiness_resource_set.test.resource_set_name  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  resource_set_name= aws_route53recoveryreadiness_resource_set.test.resource_set_name  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -224,8 +224,8 @@ func testAccReadinessCheckConfig_timeout(rName, rSetName, cwArn string) string {
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet(rSetName, cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
   readiness_check_name = %q
-  resource_set_name    = aws_route53recoveryreadiness_resource_set.test.resource_set_name  timeouts {
-    delete = "10m"
+  resource_set_name= aws_route53recoveryreadiness_resource_set.test.resource_set_name  timeouts {
+delete = "10m"
   }
 }
 `, rName))

@@ -31,7 +31,7 @@ inContext.TagsOut = types.Some(tags)
 func Tags(tags tftags.KeyValueTags) []*storagegateway.Tag {
 result := make([]*storagegateway.Tag, 0, len(tags))for k, v := range tags.Map() {
 tag := &storagegateway.Tag{
-Key:   aws.String(k),
+Key:aws.String(k),
 Value: aws.String(v),
 }result = append(result, tag)
 }return result
@@ -63,7 +63,7 @@ removedTags = removedTags.IgnoreSystem(names.StorageGateway)
 if len(removedTags) > 0 {
 input := &storagegateway.RemoveTagsFromResourceInput{
 ResourceARN: aws.String(identifier),
-TagKeys:     aws.StringSlice(removedTags.Keys()),
+TagKeys:aws.StringSlice(removedTags.Keys()),
 }_, err := conn.RemoveTagsFromResourceWithContext(ctx, input)if err != nil {
 return fmt.Errorf("untagging resource (%s): %w", identifier, err)
 }
@@ -72,7 +72,7 @@ updatedTags = updatedTags.IgnoreSystem(names.StorageGateway)
 if len(updatedTags) > 0 {
 input := &storagegateway.AddTagsToResourceInput{
 ResourceARN: aws.String(identifier),
-Tags:        Tags(updatedTags),
+Tags:
 }_, err := conn.AddTagsToResourceWithContext(ctx, input)if err != nil {
 return fmt.Errorf("tagging resource (%s): %w", identifier, err)
 }

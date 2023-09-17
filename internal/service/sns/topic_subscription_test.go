@@ -1,17 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package sns_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package sns_testimport (
 	"context"
 	"encoding/json"
 	"fmt"
 	"reflect"
 	"strconv"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws/arn"
 	"github.com/aws/aws-sdk-go/service/sns"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -21,67 +15,57 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfsns "github.com/hashicorp/terraform-provider-aws/internal/service/sns"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func TestSuppressEquivalentTopicSubscriptionDeliveryPolicy(t *testing.T) {
-	t.Parallel()
-
-	var testCases = []struct {
-old        string
-new        string
+)func TestSuppressEquivalentTopicSubscriptionDeliveryPolicy(t *testing.T) {
+	t.Parallel()	var testCases = []struct {
+old
+new
 equivalent bool
 	}{
 {
-	old:        `{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"sicklyRetryPolicy":null,"throttlePolicy":null,"guaranteed":false}`,
-	new:        `{"healthyRetryPolicy":{"maxDelayTarget":20,"minDelayTarget":5,"numRetries":5}}`,
+	old:"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"sicklyRetryPolicy":null,"throttlePolicy":null,"guaranteed":false}`,
+	new:"maxDelayTarget":20,"minDelayTarget":5,"numRetries":5}}`,
 	equivalent: true,
 },
 {
-	old:        `{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"sicklyRetryPolicy":null,"throttlePolicy":null,"guaranteed":false}`,
-	new:        `{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5}}`,
+	old:"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"sicklyRetryPolicy":null,"throttlePolicy":null,"guaranteed":false}`,
+	new:"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5}}`,
 	equivalent: true,
 },
 {
-	old:        `{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"throttlePolicy":{}}`,
-	new:        `{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"throttlePolicy":{}}`,
+	old:"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"throttlePolicy":{}}`,
+	new:"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"throttlePolicy":{}}`,
 	equivalent: true,
 },
 {
-	old:        `{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"sicklyRetryPolicy":null,"throttlePolicy":null,"guaranteed":false}`,
-	new:        `{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20,"numRetries":6}}`,
+	old:"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"sicklyRetryPolicy":null,"throttlePolicy":null,"guaranteed":false}`,
+	new:"minDelayTarget":5,"maxDelayTarget":20,"numRetries":6}}`,
 	equivalent: false,
 },
 {
-	old:        `{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"sicklyRetryPolicy":null,"throttlePolicy":null,"guaranteed":false}`,
-	new:        `{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20}}`,
+	old:"minDelayTarget":5,"maxDelayTarget":20,"numRetries":5,"numMaxDelayRetries":null,"numNoDelayRetries":null,"numMinDelayRetries":null,"backoffFunction":null},"sicklyRetryPolicy":null,"throttlePolicy":null,"guaranteed":false}`,
+	new:"minDelayTarget":5,"maxDelayTarget":20}}`,
 	equivalent: false,
 },
 {
-	old:        `{"healthyRetryPolicy":null,"sicklyRetryPolicy":null,"throttlePolicy":null,"guaranteed":true}`,
-	new:        `{"guaranteed":true}`,
+	old:ull,"sicklyRetryPolicy":null,"throttlePolicy":null,"guaranteed":true}`,
+	new:
 	equivalent: true,
 },
-	}
-
-	for i, tc := range testCases {
+	}	for i, tc := range testCases {
 actual := tfsns.SuppressEquivalentTopicSubscriptionDeliveryPolicy("", tc.old, tc.new, nil)
 if actual != tc.equivalent {
 	t.Fatalf("Test Case %d: Got: %t Expected: %t", i, actual, tc.equivalent)
 }
 	}
-}
-
-func TestAccSNSTopicSubscription_basic(t *testing.T) {
+}func TestAccSNSTopicSubscription_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_basic(rName),
@@ -100,8 +84,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -110,21 +94,17 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_filterPolicy(t *testing.T) {
+}func TestAccSNSTopicSubscription_filterPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
 	filterPolicy1 := `{"key1":["val1"],"key2":["val2"]}`
 	filterPolicy2 := `{"key3":["val3"],"key4":["val4"]}`
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_filterPolicy(rName, strconv.Quote(filterPolicy1)),
@@ -135,8 +115,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -163,19 +143,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_filterPolicyScope(t *testing.T) {
+}func TestAccSNSTopicSubscription_filterPolicyScope(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_filterPolicyScope(rName, strconv.Quote("MessageBody")),
@@ -185,8 +161,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -194,8 +170,8 @@ ImportStateVerifyIgnore: []string{
 },
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -210,8 +186,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -226,8 +202,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -242,8 +218,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -258,8 +234,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -274,8 +250,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -291,8 +267,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -307,8 +283,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -324,8 +300,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -334,37 +310,29 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_filterPolicyScope_policyNotSet(t *testing.T) {
+}func TestAccSNSTopicSubscription_filterPolicyScope_policyNotSet(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config:      testAccTopicSubscriptionConfig_filterPolicyScope_policyNotSet(rName),
+Config: testAccTopicSubscriptionConfig_filterPolicyScope_policyNotSet(rName),
 ExpectError: regexache.MustCompile(`filter_policy is required when filter_policy_scope is set`),
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_deliveryPolicy(t *testing.T) {
+}func TestAccSNSTopicSubscription_deliveryPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_deliveryPolicy(rName, strconv.Quote(`{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20,"numRetries": 5}}`)),
@@ -374,14 +342,14 @@ Check: resource.ComposeTestCheckFunc(
 HealthyRetryPolicy: &tfsns.TopicSubscriptionDeliveryPolicyHealthyRetryPolicy{
 	MaxDelayTarget: 20,
 	MinDelayTarget: 5,
-	NumRetries:     5,
+	NumRetries:5,
 },
 	}),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -397,7 +365,7 @@ Check: resource.ComposeTestCheckFunc(
 HealthyRetryPolicy: &tfsns.TopicSubscriptionDeliveryPolicyHealthyRetryPolicy{
 	MaxDelayTarget: 78,
 	MinDelayTarget: 3,
-	NumRetries:     11,
+	NumRetries:11,
 },
 	}),
 ),
@@ -412,21 +380,17 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_redrivePolicy(t *testing.T) {
+}func TestAccSNSTopicSubscription_redrivePolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
 	dlqName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	updatedDlqName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_redrivePolicy(rName, dlqName),
@@ -436,8 +400,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -453,8 +417,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -471,19 +435,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_rawMessageDelivery(t *testing.T) {
+}func TestAccSNSTopicSubscription_rawMessageDelivery(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_rawMessageDelivery(rName, true),
@@ -493,8 +453,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -519,19 +479,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_autoConfirmingEndpoint(t *testing.T) {
+}func TestAccSNSTopicSubscription_autoConfirmingEndpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_autoConfirmingEndpoint(rName),
@@ -540,8 +496,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -550,19 +506,15 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_autoConfirmingSecuredEndpoint(t *testing.T) {
+}func TestAccSNSTopicSubscription_autoConfirmingSecuredEndpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_autoConfirmingSecuredEndpoint(rName),
@@ -571,8 +523,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"confirmation_timeout_in_minutes",
@@ -581,19 +533,15 @@ ImportStateVerifyIgnore: []string{
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_email(t *testing.T) {
+}func TestAccSNSTopicSubscription_email(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_email(rName, acctest.DefaultEmailAddress),
@@ -612,19 +560,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_firehose(t *testing.T) {
+}func TestAccSNSTopicSubscription_firehose(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_firehose(rName),
@@ -642,19 +586,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_disappears(t *testing.T) {
+}func TestAccSNSTopicSubscription_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_basic(rName),
@@ -666,19 +606,15 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccSNSTopicSubscription_Disappears_topic(t *testing.T) {
+}func TestAccSNSTopicSubscription_Disappears_topic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var attributes map[string]string
 	resourceName := "aws_sns_topic_subscription.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_basic(rName),
@@ -690,157 +626,87 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func testAccCheckTopicSubscriptionDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckTopicSubscriptionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).SNSConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).SNSConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_sns_topic_subscription" {
 continue
-	}
-
-	output, err := tfsns.FindSubscriptionAttributesByARN(ctx, conn, rs.Primary.ID)
-
-	if tfresource.NotFound(err) {
+	}	output, err := tfsns.FindSubscriptionAttributesByARN(ctx, conn, rs.Primary.ID)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
-	}
-
-	if output["Protocol"] == "email" {
+	}	if output["Protocol"] == "email" {
 continue
+	}	return fmt.Errorf("SNS Topic Subscription %s still exists", rs.Primary.ID)
+}return nil
 	}
-
-	return fmt.Errorf("SNS Topic Subscription %s still exists", rs.Primary.ID)
-}
-
-return nil
-	}
-}
-
-func testAccCheckTopicSubscriptionExists(ctx context.Context, n string, v *map[string]string) resource.TestCheckFunc {
+}func testAccCheckTopicSubscriptionExists(ctx context.Context, n string, v *map[string]string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No SNS Topic Subscription ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).SNSConn(ctx)
-
-output, err := tfsns.FindSubscriptionAttributesByARN(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).SNSConn(ctx)output, err := tfsns.FindSubscriptionAttributesByARN(ctx, conn, rs.Primary.ID)if err != nil {
 	return err
-}
-
-*v = output
-
-return nil
+}*v = outputreturn nil
 	}
-}
-
-func testAccCheckTopicSubscriptionDeliveryPolicyAttribute(attributes *map[string]string, expectedDeliveryPolicy *tfsns.TopicSubscriptionDeliveryPolicy) resource.TestCheckFunc {
+}func testAccCheckTopicSubscriptionDeliveryPolicyAttribute(attributes *map[string]string, expectedDeliveryPolicy *tfsns.TopicSubscriptionDeliveryPolicy) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-apiDeliveryPolicyJSONString, ok := (*attributes)["DeliveryPolicy"]
-
-if !ok {
+apiDeliveryPolicyJSONString, ok := (*attributes)["DeliveryPolicy"]if !ok {
 	return fmt.Errorf("DeliveryPolicy attribute not found in attributes: %s", attributes)
-}
-
-var apiDeliveryPolicy tfsns.TopicSubscriptionDeliveryPolicy
+}var apiDeliveryPolicy tfsns.TopicSubscriptionDeliveryPolicy
 if err := json.Unmarshal([]byte(apiDeliveryPolicyJSONString), &apiDeliveryPolicy); err != nil {
 	return fmt.Errorf("unable to unmarshal SNS Topic Subscription delivery policy JSON (%s): %s", apiDeliveryPolicyJSONString, err)
-}
-
-if reflect.DeepEqual(apiDeliveryPolicy, *expectedDeliveryPolicy) {
+}if reflect.DeepEqual(apiDeliveryPolicy, *expectedDeliveryPolicy) {
 	return nil
-}
-
-return fmt.Errorf("SNS Topic Subscription delivery policy did not match:\n\nReceived\n\n%s\n\nExpected\n\n%s\n\n", apiDeliveryPolicy, *expectedDeliveryPolicy)
+}return fmt.Errorf("SNS Topic Subscription delivery policy did not match:\n\nReceived\n\n%s\n\nExpected\n\n%s\n\n", apiDeliveryPolicy, *expectedDeliveryPolicy)
 	}
-}
-
-func testAccCheckTopicSubscriptionRedrivePolicyAttribute(attributes *map[string]string, expectedRedrivePolicyResource string) resource.TestCheckFunc {
+}func testAccCheckTopicSubscriptionRedrivePolicyAttribute(attributes *map[string]string, expectedRedrivePolicyResource string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-apiRedrivePolicyJSONString, ok := (*attributes)["RedrivePolicy"]
-
-if !ok {
+apiRedrivePolicyJSONString, ok := (*attributes)["RedrivePolicy"]if !ok {
 	return fmt.Errorf("RedrivePolicy attribute not found in attributes: %s", attributes)
-}
-
-var apiRedrivePolicy tfsns.TopicSubscriptionRedrivePolicy
+}var apiRedrivePolicy tfsns.TopicSubscriptionRedrivePolicy
 if err := json.Unmarshal([]byte(apiRedrivePolicyJSONString), &apiRedrivePolicy); err != nil {
 	return fmt.Errorf("unable to unmarshal SNS Topic Subscription redrive policy JSON (%s): %s", apiRedrivePolicyJSONString, err)
-}
-
-expectedRedrivePolicy := tfsns.TopicSubscriptionRedrivePolicy{
+}expectedRedrivePolicy := tfsns.TopicSubscriptionRedrivePolicy{
 	DeadLetterTargetArn: arn.ARN{
 AccountID: acctest.AccountID(),
 Partition: acctest.Partition(),
-Region:    acctest.Region(),
+Region:acctest.Region(),
 Resource:  expectedRedrivePolicyResource,
-Service:   "sqs",
+Service:"sqs",
 	}.String(),
-}
-
-if reflect.DeepEqual(apiRedrivePolicy, expectedRedrivePolicy) {
+}if reflect.DeepEqual(apiRedrivePolicy, expectedRedrivePolicy) {
 	return nil
-}
-
-return fmt.Errorf("SNS Topic Subscription redrive policy did not match:\n\nReceived\n\n%s\n\nExpected\n\n%s\n\n", apiRedrivePolicy, expectedRedrivePolicy)
+}return fmt.Errorf("SNS Topic Subscription redrive policy did not match:\n\nReceived\n\n%s\n\nExpected\n\n%s\n\n", apiRedrivePolicy, expectedRedrivePolicy)
 	}
-}
-
-func testAccTopicSubscriptionConfig_basic(rName string) string {
+}func testAccTopicSubscriptionConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  sqs_managed_sse_enabled = true
-}
-
-resource "aws_sns_topic_subscription" "test" {
+}resource "aws_sqs_queue" "test" {
+  name = %[1]q  sqs_managed_sse_enabled = true
+}resource "aws_sns_topic_subscription" "test" {
   topic_arn = aws_sns_topic.test.arn
   protocol  = "sqs"
   endpoint  = aws_sqs_queue.test.arn
 }
 `, rName)
-}
-
-func testAccTopicSubscriptionConfig_filterPolicy(rName, policy string) string {
+}func testAccTopicSubscriptionConfig_filterPolicy(rName, policy string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  sqs_managed_sse_enabled = true
-}
-
-resource "aws_sns_topic_subscription" "test" {
-  topic_arn     = aws_sns_topic.test.arn
-  protocol      = "sqs"
-  endpoint      = aws_sqs_queue.test.arn
+}resource "aws_sqs_queue" "test" {
+  name = %[1]q  sqs_managed_sse_enabled = true
+}resource "aws_sns_topic_subscription" "test" {
+  topic_arn= aws_sns_topic.test.arn
+  protocol = "sqs"
+  endpoint = aws_sqs_queue.test.arn
   filter_policy = %[2]s
 }
 `, rName, policy)
-}
-
-func testAccTopicSubscriptionConfig_nestedFilterPolicyScope(rName, scope string, nested bool) string {
+}func testAccTopicSubscriptionConfig_nestedFilterPolicyScope(rName, scope string, nested bool) string {
 	filterPolicy := `jsonencode({"key1"=["value1"]})`
 	if nested {
 filterPolicy = `jsonencode({"key2"={"key1"=["value1"]}})`
@@ -848,482 +714,336 @@ filterPolicy = `jsonencode({"key2"={"key1"=["value1"]}})`
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  sqs_managed_sse_enabled = true
-}
-
-resource "aws_sns_topic_subscription" "test" {
+}resource "aws_sqs_queue" "test" {
+  name = %[1]q  sqs_managed_sse_enabled = true
+}resource "aws_sns_topic_subscription" "test" {
   topic_arn  = aws_sns_topic.test.arn
-  protocol   = "sqs"
-  endpoint   = aws_sqs_queue.test.arn
-  filter_policy       = %[2]s
+  protocol= "sqs"
+  endpoint= aws_sqs_queue.test.arn
+  filter_policy= %[2]s
   filter_policy_scope = %[3]s
 }
 `, rName, filterPolicy, scope)
 }
 func testAccTopicSubscriptionConfig_filterPolicyScope(rName, scope string) string {
 	return testAccTopicSubscriptionConfig_nestedFilterPolicyScope(rName, scope, false)
-}
-
-func testAccTopicSubscriptionConfig_filterPolicyScope_policyNotSet(rName string) string {
+}func testAccTopicSubscriptionConfig_filterPolicyScope_policyNotSet(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  sqs_managed_sse_enabled = true
-}
-
-resource "aws_sns_topic_subscription" "test" {
+}resource "aws_sqs_queue" "test" {
+  name = %[1]q  sqs_managed_sse_enabled = true
+}resource "aws_sns_topic_subscription" "test" {
   topic_arn  = aws_sns_topic.test.arn
-  protocol   = "sqs"
-  endpoint   = aws_sqs_queue.test.arn
+  protocol= "sqs"
+  endpoint= aws_sqs_queue.test.arn
   filter_policy_scope = "MessageBody"
 }
 `, rName)
-}
-
-func testAccTopicSubscriptionConfig_deliveryPolicy(rName, policy string) string {
+}func testAccTopicSubscriptionConfig_deliveryPolicy(rName, policy string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  sqs_managed_sse_enabled = true
-}
-
-resource "aws_sns_topic_subscription" "test" {
+}resource "aws_sqs_queue" "test" {
+  name = %[1]q  sqs_managed_sse_enabled = true
+}resource "aws_sns_topic_subscription" "test" {
   delivery_policy = %[2]s
-  endpoint        = aws_sqs_queue.test.arn
-  protocol        = "sqs"
-  topic_arn       = aws_sns_topic.test.arn
+  endpoint
+  protocol
+  topic_arn= aws_sns_topic.test.arn
 }
 `, rName, policy)
-}
-
-func testAccTopicSubscriptionConfig_redrivePolicy(rName, dlqName string) string {
+}func testAccTopicSubscriptionConfig_redrivePolicy(rName, dlqName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  sqs_managed_sse_enabled = true
-}
-
-resource "aws_sqs_queue" "test_dlq" {
-  name = %[2]q
-
-  sqs_managed_sse_enabled = true
-}
-
-resource "aws_sns_topic_subscription" "test" {
+}resource "aws_sqs_queue" "test" {
+  name = %[1]q  sqs_managed_sse_enabled = true
+}resource "aws_sqs_queue" "test_dlq" {
+  name = %[2]q  sqs_managed_sse_enabled = true
+}resource "aws_sns_topic_subscription" "test" {
   redrive_policy = jsonencode({ deadLetterTargetArn : aws_sqs_queue.test_dlq.arn })
-  endpoint       = aws_sqs_queue.test.arn
-  protocol       = "sqs"
-  topic_arn      = aws_sns_topic.test.arn
+  endpoint= aws_sqs_queue.test.arn
+  protocol= "sqs"
+  topic_arn = aws_sns_topic.test.arn
 }
 `, rName, dlqName)
-}
-
-func testAccTopicSubscriptionConfig_rawMessageDelivery(rName string, rawMessageDelivery bool) string {
+}func testAccTopicSubscriptionConfig_rawMessageDelivery(rName string, rawMessageDelivery bool) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  sqs_managed_sse_enabled = true
-}
-
-resource "aws_sns_topic_subscription" "test" {
-  endpoint    = aws_sqs_queue.test.arn
-  protocol    = "sqs"
+}resource "aws_sqs_queue" "test" {
+  name = %[1]q  sqs_managed_sse_enabled = true
+}resource "aws_sns_topic_subscription" "test" {
+  endpoint= aws_sqs_queue.test.arn
+  protocol= "sqs"
   raw_message_delivery = %[2]t
-  topic_arn   = aws_sns_topic.test.arn
+  topic_arn= aws_sns_topic.test.arn
 }
 `, rName, rawMessageDelivery)
-}
-
-func testAccTopicSubscriptionConfig_autoConfirmingEndpoint(rName string) string {
+}func testAccTopicSubscriptionConfig_autoConfirmingEndpoint(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_api_gateway_rest_api" "test" {
-  name        = %[1]q
+}resource "aws_api_gateway_rest_api" "test" {
+  name
   description = "Terraform Acceptance test for SNS subscription"
-}
-
-resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_rest_api.test.root_resource_id
-  http_method   = "POST"
+}resource "aws_api_gateway_method" "test" {
+  rest_api_id= aws_api_gateway_rest_api.test.id
+  resource_id= aws_api_gateway_rest_api.test.root_resource_id
+  http_method= "POST"
   authorization = "NONE"
-}
-
-resource "aws_api_gateway_method_response" "test" {
+}resource "aws_api_gateway_method_response" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
   resource_id = aws_api_gateway_rest_api.test.root_resource_id
   http_method = aws_api_gateway_method.test.http_method
-  status_code = "200"
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = true
+  status_code = "200"  response_parameters = {
+"method.response.header.Access-Control-Allow-Origin" = true
   }
-}
-
-resource "aws_api_gateway_integration" "test" {
-  rest_api_id    = aws_api_gateway_rest_api.test.id
-  resource_id    = aws_api_gateway_rest_api.test.root_resource_id
-  http_method    = aws_api_gateway_method.test.http_method
+}resource "aws_api_gateway_integration" "test" {
+  rest_api_id= aws_api_gateway_rest_api.test.id
+  resource_id= aws_api_gateway_rest_api.test.root_resource_id
+  http_method= aws_api_gateway_method.test.http_method
   integration_http_method = "POST"
-  type     = "AWS"
-  uri      = aws_lambda_function.lambda.invoke_arn
-}
-
-resource "aws_api_gateway_integration_response" "test" {
+  type= "AWS"
+  uri = aws_lambda_function.lambda.invoke_arn
+}resource "aws_api_gateway_integration_response" "test" {
   depends_on  = [aws_api_gateway_integration.test]
   rest_api_id = aws_api_gateway_rest_api.test.id
   resource_id = aws_api_gateway_rest_api.test.root_resource_id
   http_method = aws_api_gateway_method.test.http_method
-  status_code = aws_api_gateway_method_response.test.status_code
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  status_code = aws_api_gateway_method_response.test.status_code  response_parameters = {
+"method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
-}
-
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "iam_for_lambda" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}data "aws_partition" "current" {}resource "aws_iam_role" "iam_for_lambda" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+a.aws_partition.current.dns_suffix}"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "policy" {
+}resource "aws_iam_role_policy" "policy" {
   name = %[1]q
-  role = aws_iam_role.iam_for_lambda.id
-
-  policy = <<EOF
+  role = aws_iam_role.iam_for_lambda.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "logs:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
+{
+ "Action": [
+
+ ],
+ "Effect": "Allow",
+ "Resource": "*"
+}
   ]
 }
 EOF
-}
-
-resource "aws_lambda_permission" "apigw_lambda" {
+}resource "aws_lambda_permission" "apigw_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
-  action        = "lambda:InvokeFunction"
+  action"
   function_name = aws_lambda_function.lambda.arn
-  principal     = "apigateway.${data.aws_partition.current.dns_suffix}"
-  source_arn    = "${aws_api_gateway_deployment.test.execution_arn}/*"
-}
-
-resource "aws_lambda_function" "lambda" {
+  principal= "apigateway.${data.aws_partition.current.dns_suffix}"
+  source_arn= "${aws_api_gateway_deployment.test.execution_arn}/*"
+}resource "aws_lambda_function" "lambda" {
   filename= "test-fixtures/lambda_confirm_sns.zip"
-  function_name    = %[1]q
-  role    = aws_iam_role.iam_for_lambda.arn
+  function_name= %[1]q
+  role= aws_iam_role.iam_for_lambda.arn
   handler = "main.confirm_subscription"
   source_code_hash = filebase64sha256("test-fixtures/lambda_confirm_sns.zip")
   runtime = "python3.7"
-}
-
-resource "aws_api_gateway_deployment" "test" {
+}resource "aws_api_gateway_deployment" "test" {
   depends_on  = [aws_api_gateway_integration_response.test]
   rest_api_id = aws_api_gateway_rest_api.test.id
   stage_name  = "acctest"
-}
-
-resource "aws_sns_topic_subscription" "test" {
-  depends_on    = [aws_lambda_permission.apigw_lambda]
-  topic_arn     = aws_sns_topic.test.arn
+}resource "aws_sns_topic_subscription" "test" {
+  depends_on= [aws_lambda_permission.apigw_lambda]
+  topic_arn= aws_sns_topic.test.arn
   protocol= "https"
   endpoint= aws_api_gateway_deployment.test.invoke_url
   endpoint_auto_confirms = true
 }
 `, rName)
-}
-
-func testAccTopicSubscriptionConfig_autoConfirmingSecuredEndpoint(rName string) string {
+}func testAccTopicSubscriptionConfig_autoConfirmingSecuredEndpoint(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_api_gateway_rest_api" "test" {
-  name        = %[1]q
+}resource "aws_api_gateway_rest_api" "test" {
+  name
   description = "Terraform Acceptance test for SNS subscription"
-}
-
-resource "aws_api_gateway_method" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  resource_id   = aws_api_gateway_rest_api.test.root_resource_id
-  http_method   = "POST"
+}resource "aws_api_gateway_method" "test" {
+  rest_api_id= aws_api_gateway_rest_api.test.id
+  resource_id= aws_api_gateway_rest_api.test.root_resource_id
+  http_method= "POST"
   authorization = "CUSTOM"
   authorizer_id = aws_api_gateway_authorizer.test.id
-}
-
-resource "aws_api_gateway_method_response" "test" {
+}resource "aws_api_gateway_method_response" "test" {
   rest_api_id = aws_api_gateway_rest_api.test.id
   resource_id = aws_api_gateway_rest_api.test.root_resource_id
   http_method = aws_api_gateway_method.test.http_method
-  status_code = "200"
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = true
+  status_code = "200"  response_parameters = {
+"method.response.header.Access-Control-Allow-Origin" = true
   }
-}
-
-resource "aws_api_gateway_integration" "test" {
-  rest_api_id    = aws_api_gateway_rest_api.test.id
-  resource_id    = aws_api_gateway_rest_api.test.root_resource_id
-  http_method    = aws_api_gateway_method.test.http_method
+}resource "aws_api_gateway_integration" "test" {
+  rest_api_id= aws_api_gateway_rest_api.test.id
+  resource_id= aws_api_gateway_rest_api.test.root_resource_id
+  http_method= aws_api_gateway_method.test.http_method
   integration_http_method = "POST"
-  type     = "AWS"
-  uri      = aws_lambda_function.lambda.invoke_arn
-}
-
-resource "aws_api_gateway_integration_response" "test" {
+  type= "AWS"
+  uri = aws_lambda_function.lambda.invoke_arn
+}resource "aws_api_gateway_integration_response" "test" {
   depends_on  = [aws_api_gateway_integration.test]
   rest_api_id = aws_api_gateway_rest_api.test.id
   resource_id = aws_api_gateway_rest_api.test.root_resource_id
   http_method = aws_api_gateway_method.test.http_method
-  status_code = aws_api_gateway_method_response.test.status_code
-
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  status_code = aws_api_gateway_method_response.test.status_code  response_parameters = {
+"method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
-}
-
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "iam_for_lambda" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}data "aws_partition" "current" {}resource "aws_iam_role" "iam_for_lambda" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+a.aws_partition.current.dns_suffix}"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "policy" {
+}resource "aws_iam_role_policy" "policy" {
   name = %[1]q
-  role = aws_iam_role.iam_for_lambda.id
-
-  policy = <<EOF
+  role = aws_iam_role.iam_for_lambda.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "logs:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
+{
+ "Action": [
+
+ ],
+ "Effect": "Allow",
+ "Resource": "*"
+}
   ]
 }
 EOF
-}
-
-resource "aws_lambda_permission" "apigw_lambda" {
+}resource "aws_lambda_permission" "apigw_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
-  action        = "lambda:InvokeFunction"
+  action"
   function_name = aws_lambda_function.lambda.arn
-  principal     = "apigateway.${data.aws_partition.current.dns_suffix}"
-  source_arn    = "${aws_api_gateway_deployment.test.execution_arn}/*"
-}
-
-resource "aws_lambda_function" "lambda" {
+  principal= "apigateway.${data.aws_partition.current.dns_suffix}"
+  source_arn= "${aws_api_gateway_deployment.test.execution_arn}/*"
+}resource "aws_lambda_function" "lambda" {
   filename= "test-fixtures/lambda_confirm_sns.zip"
-  function_name    = %[1]q
-  role    = aws_iam_role.iam_for_lambda.arn
+  function_name= %[1]q
+  role= aws_iam_role.iam_for_lambda.arn
   handler = "main.confirm_subscription"
   source_code_hash = filebase64sha256("test-fixtures/lambda_confirm_sns.zip")
   runtime = "python3.7"
-}
-
-resource "aws_api_gateway_deployment" "test" {
+}resource "aws_api_gateway_deployment" "test" {
   depends_on  = [aws_api_gateway_integration_response.test]
   rest_api_id = aws_api_gateway_rest_api.test.id
   stage_name  = "acctest"
-}
-
-resource "aws_iam_role" "invocation_role" {
+}resource "aws_iam_role" "invocation_role" {
   name = "%[1]s-2"
-  path = "/"
-
-  assume_role_policy = <<EOF
+  path = "/"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "apigateway.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+{data.aws_partition.current.dns_suffix}"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "invocation_policy" {
+}resource "aws_iam_role_policy" "invocation_policy" {
   name = "%[1]s-2"
-  role = aws_iam_role.invocation_role.id
-
-  policy = <<EOF
+  role = aws_iam_role.invocation_role.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "lambda:InvokeFunction",
-      "Effect": "Allow",
-      "Resource": "${aws_lambda_function.authorizer.arn}"
-    }
+{
+ "Action": "lambda:InvokeFunction",
+ "Effect": "Allow",
+ "Resource": "${aws_lambda_function.authorizer.arn}"
+}
   ]
 }
 EOF
-}
-
-resource "aws_api_gateway_authorizer" "test" {
-  name    = %[1]q
-  rest_api_id   = aws_api_gateway_rest_api.test.id
+}resource "aws_api_gateway_authorizer" "test" {
+  name= %[1]q
+  rest_api_id= aws_api_gateway_rest_api.test.id
   authorizer_uri= aws_lambda_function.authorizer.invoke_arn
   authorizer_credentials = aws_iam_role.invocation_role.arn
-}
-
-resource "aws_lambda_function" "authorizer" {
+}resource "aws_lambda_function" "authorizer" {
   filename= "test-fixtures/lambda_basic_authorizer.zip"
   source_code_hash = filebase64sha256("test-fixtures/lambda_basic_authorizer.zip")
-  function_name    = "%[1]s-2"
-  role    = aws_iam_role.iam_for_lambda.arn
+  function_name= "%[1]s-2"
+  role= aws_iam_role.iam_for_lambda.arn
   handler = "main.authenticate"
-  runtime = "nodejs16.x"
-
-  environment {
-    variables = {
-      AUTH_USER = "davematthews"
-      AUTH_PASS = "granny"
-    }
-  }
+  runtime = "nodejs16.x"  environment {
+variables = {
+ AUTH_USER = "davematthews"
+ AUTH_PASS = "granny"
 }
-
-resource "aws_api_gateway_gateway_response" "test" {
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  status_code   = "401"
-  response_type = "UNAUTHORIZED"
-
-  response_templates = {
-    "application/json" = "{'message':$context.error.messageString}"
   }
-
-  response_parameters = {
-    "gatewayresponse.header.WWW-Authenticate" = "'Basic'"
+}resource "aws_api_gateway_gateway_response" "test" {
+  rest_api_id= aws_api_gateway_rest_api.test.id
+  status_code= "401"
+  response_type = "UNAUTHORIZED"  response_templates = {
+"application/json" = "{'message':$context.error.messageString}"
+  }  response_parameters = {
+"gatewayresponse.header.WWW-Authenticate" = "'Basic'"
   }
-}
-
-resource "aws_sns_topic_subscription" "test" {
-  depends_on    = [aws_lambda_permission.apigw_lambda]
-  topic_arn     = aws_sns_topic.test.arn
+}resource "aws_sns_topic_subscription" "test" {
+  depends_on= [aws_lambda_permission.apigw_lambda]
+  topic_arn= aws_sns_topic.test.arn
   protocol= "https"
   endpoint= replace(aws_api_gateway_deployment.test.invoke_url, "https://", "https://davematthews:granny@")
-  endpoint_auto_confirms = true
-
-  confirmation_timeout_in_minutes = 3
+  endpoint_auto_confirms = true  confirmation_timeout_in_minutes = 3
 }
 `, rName)
-}
-
-func testAccTopicSubscriptionConfig_email(rName, email string) string {
+}func testAccTopicSubscriptionConfig_email(rName, email string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sns_topic_subscription" "test" {
+}resource "aws_sns_topic_subscription" "test" {
   topic_arn = aws_sns_topic.test.arn
   protocol  = "email"
   endpoint  = %[2]q
 }
 `, rName, email)
-}
-
-func testAccTopicSubscriptionConfig_firehose(rName string) string {
+}func testAccTopicSubscriptionConfig_firehose(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_sns_topic_subscription" "test" {
-  endpoint     = aws_kinesis_firehose_delivery_stream.test_stream.arn
-  protocol     = "firehose"
-  topic_arn    = aws_sns_topic.test.arn
+}resource "aws_sns_topic_subscription" "test" {
+  endpoint= aws_kinesis_firehose_delivery_stream.test_stream.arn
+  protocol= "firehose"
+  topic_arn= aws_sns_topic.test.arn
   subscription_role_arn = aws_iam_role.firehose_role.arn
 }
 resource "aws_s3_bucket" "bucket" {
   bucket = %[1]q
-}
-
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "firehose_role" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}data "aws_partition" "current" {}resource "aws_iam_role" "firehose_role" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
 "Version": "2012-10-17",
 "Statement": [
@@ -1338,15 +1058,11 @@ resource "aws_iam_role" "firehose_role" {
 ]
 }
 EOF
-}
-
-resource "aws_kinesis_firehose_delivery_stream" "test_stream" {
-  name        = %[1]q
-  destination = "extended_s3"
-
-  extended_s3_configuration {
-    role_arn   = aws_iam_role.firehose_role.arn
-    bucket_arn = aws_s3_bucket.bucket.arn
+}resource "aws_kinesis_firehose_delivery_stream" "test_stream" {
+  name
+  destination = "extended_s3"  extended_s3_configuration {
+role_arn= aws_iam_role.firehose_role.arn
+bucket_arn = aws_s3_bucket.bucket.arn
   }
 }
 `, rName)

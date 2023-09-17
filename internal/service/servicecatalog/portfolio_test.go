@@ -19,7 +19,7 @@ var dpo servicecatalog.DescribePortfolioOutputresource.ParallelTest(t, resource.
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceCatlaogPortfolioDestroy(ctx),
+CheckDestroy:testAccCheckServiceCatlaogPortfolioDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPortfolioConfig_basic(name),
@@ -34,8 +34,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -48,7 +48,7 @@ var dpo servicecatalog.DescribePortfolioOutputresource.ParallelTest(t, resource.
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceCatlaogPortfolioDestroy(ctx),
+CheckDestroy:testAccCheckServiceCatlaogPortfolioDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPortfolioConfig_basic(name),
@@ -68,7 +68,7 @@ var dpo servicecatalog.DescribePortfolioOutputresource.ParallelTest(t, resource.
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceCatlaogPortfolioDestroy(ctx),
+CheckDestroy:testAccCheckServiceCatlaogPortfolioDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccPortfolioConfig_tags1(name, "key1", "value1"),
@@ -80,8 +80,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -132,7 +132,7 @@ return err
 return fmt.Sprintf(`
 resource "aws_servicecatalog_portfolio" "test" {
   name = "%s"
-  description   = "test-2"
+  description= "test-2"
   provider_name = "test-3"
 }
 `, name)
@@ -140,9 +140,9 @@ resource "aws_servicecatalog_portfolio" "test" {
 return fmt.Sprintf(`
 resource "aws_servicecatalog_portfolio" "test" {
   name = %[1]q
-  description   = "test-b"
+  description= "test-b"
   provider_name = "test-c"  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, name, tagKey1, tagValue1)
@@ -150,10 +150,10 @@ resource "aws_servicecatalog_portfolio" "test" {
 return fmt.Sprintf(`
 resource "aws_servicecatalog_portfolio" "test" {
   name = %[1]q
-  description   = "test-only-change-me"
+  description= "test-only-change-me"
   provider_name = "test-c"  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, name, tagKey1, tagValue1, tagKey2, tagValue2)

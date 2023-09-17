@@ -18,7 +18,7 @@ resourceName := "aws_route53_resolver_firewall_domain_list.test"resource.Paralle
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFirewallDomainListDestroy(ctx),
+CheckDestroy:testAccCheckFirewallDomainListDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFirewallDomainListConfig_basic(rName),
@@ -48,7 +48,7 @@ domainName2 := acctest.RandomFQDomainName()resource.ParallelTest(t, resource.Tes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFirewallDomainListDestroy(ctx),
+CheckDestroy:testAccCheckFirewallDomainListDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFirewallDomainListConfig_domains(rName, domainName1),
@@ -94,7 +94,7 @@ resourceName := "aws_route53_resolver_firewall_domain_list.test"resource.Paralle
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFirewallDomainListDestroy(ctx),
+CheckDestroy:testAccCheckFirewallDomainListDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFirewallDomainListConfig_basic(rName),
@@ -115,7 +115,7 @@ resourceName := "aws_route53_resolver_firewall_domain_list.test"resource.Paralle
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFirewallDomainListDestroy(ctx),
+CheckDestroy:testAccCheckFirewallDomainListDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFirewallDomainListConfig_tags1(rName, "key1", "value1"),
@@ -189,7 +189,7 @@ resource "aws_route53_resolver_firewall_domain_list" "test" {
 }func testAccFirewallDomainListConfig_domains(rName, domain string) string {
 return fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_domain_list" "test" {
-  name    = %[1]q
+  name= %[1]q
   domains = [%[2]q]
 }
 `, rName, domain)
@@ -197,7 +197,7 @@ resource "aws_route53_resolver_firewall_domain_list" "test" {
 return fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_domain_list" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -205,8 +205,8 @@ resource "aws_route53_resolver_firewall_domain_list" "test" {
 return fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_domain_list" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

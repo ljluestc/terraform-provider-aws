@@ -15,200 +15,200 @@
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_location_tracker.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckTrackerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrackerConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerExists(ctx, resourceName),
-					acctest.CheckResourceAttrRFC3339(resourceName, "create_time"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "kms_key_id", ""),
-					resource.TestCheckResourceAttr(resourceName, "position_filtering", locationservice.PositionFilteringTimeBased),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "tracker_arn", "geo", fmt.Sprintf("tracker/%s", rName)),
-					resource.TestCheckResourceAttr(resourceName, "tracker_name", rName),
-					acctest.CheckResourceAttrRFC3339(resourceName, "update_time"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckTrackerDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccTrackerConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerExists(ctx, resourceName),
+acctest.CheckResourceAttrRFC3339(resourceName, "create_time"),
+resource.TestCheckResourceAttr(resourceName, "description", ""),
+resource.TestCheckResourceAttr(resourceName, "kms_key_id", ""),
+resource.TestCheckResourceAttr(resourceName, "position_filtering", locationservice.PositionFilteringTimeBased),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+acctest.CheckResourceAttrRegionalARN(resourceName, "tracker_arn", "geo", fmt.Sprintf("tracker/%s", rName)),
+resource.TestCheckResourceAttr(resourceName, "tracker_name", rName),
+acctest.CheckResourceAttrRFC3339(resourceName, "update_time"),
+),
+},
+{
+ResourceName: resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+},
 	})
 }func TestAccLocationTracker_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_location_tracker.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckTrackerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrackerConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tflocation.ResourceTracker(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckTrackerDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccTrackerConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerExists(ctx, resourceName),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tflocation.ResourceTracker(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+},
+},
 	})
 }func TestAccLocationTracker_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_location_tracker.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckTrackerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrackerConfig_description(rName, "description1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "description", "description1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccTrackerConfig_description(rName, "description2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "description", "description2"),
-				),
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckTrackerDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccTrackerConfig_description(rName, "description1"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "description", "description1"),
+),
+},
+{
+ResourceName: resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+{
+Config: testAccTrackerConfig_description(rName, "description2"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "description", "description2"),
+),
+},
+},
 	})
 }func TestAccLocationTracker_kmsKeyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_location_tracker.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckTrackerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrackerConfig_kmsKeyID(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerExists(ctx, resourceName),
-					resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", "aws_kms_key.test", "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckTrackerDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccTrackerConfig_kmsKeyID(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerExists(ctx, resourceName),
+resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", "aws_kms_key.test", "arn"),
+),
+},
+{
+ResourceName: resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+},
 	})
 }func TestAccLocationTracker_positionFiltering(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_location_tracker.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckTrackerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrackerConfig_positionFiltering(rName, locationservice.PositionFilteringAccuracyBased),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "position_filtering", locationservice.PositionFilteringAccuracyBased),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccTrackerConfig_positionFiltering(rName, locationservice.PositionFilteringDistanceBased),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "position_filtering", locationservice.PositionFilteringDistanceBased),
-				),
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckTrackerDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccTrackerConfig_positionFiltering(rName, locationservice.PositionFilteringAccuracyBased),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "position_filtering", locationservice.PositionFilteringAccuracyBased),
+),
+},
+{
+ResourceName: resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+{
+Config: testAccTrackerConfig_positionFiltering(rName, locationservice.PositionFilteringDistanceBased),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "position_filtering", locationservice.PositionFilteringDistanceBased),
+),
+},
+},
 	})
 }func TestAccLocationTracker_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_location_tracker.test"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckTrackerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrackerConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccTrackerConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccTrackerConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrackerExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, locationservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckTrackerDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccTrackerConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+},
+{
+ResourceName: resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+{
+Config: testAccTrackerConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+},
+{
+Config: testAccTrackerConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckTrackerExists(ctx, resourceName),
+resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+},
+},
 	})
 }func testAccCheckTrackerDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_location_tracker" {
-				continue
-			}			input := &locationservice.DescribeTrackerInput{
-				TrackerName: aws.String(rs.Primary.ID),
-			}			output, err := conn.DescribeTrackerWithContext(ctx, input)			if tfawserr.ErrCodeEquals(err, locationservice.ErrCodeResourceNotFoundException) {
-				continue
-			}			if err != nil {
-				return fmt.Errorf("error getting Location Service Tracker (%s): %w", rs.Primary.ID, err)
-			}			if output != nil {
-				return fmt.Errorf("Location Service Tracker (%s) still exists", rs.Primary.ID)
-			}
-		}		return nil
+conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)for _, rs := range s.RootModule().Resources {
+if rs.Type != "aws_location_tracker" {
+continue
+}input := &locationservice.DescribeTrackerInput{
+TrackerName: aws.String(rs.Primary.ID),
+}output, err := conn.DescribeTrackerWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, locationservice.ErrCodeResourceNotFoundException) {
+continue
+}if err != nil {
+return fmt.Errorf("error getting Location Service Tracker (%s): %w", rs.Primary.ID, err)
+}if output != nil {
+return fmt.Errorf("Location Service Tracker (%s) still exists", rs.Primary.ID)
+}
+}return nil
 	}
 }func testAccCheckTrackerExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]		if !ok {
-			return fmt.Errorf("resource not found: %s", resourceName)
-		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)		input := &locationservice.DescribeTrackerInput{
-			TrackerName: aws.String(rs.Primary.ID),
-		}		_, err := conn.DescribeTrackerWithContext(ctx, input)		if err != nil {
-			return fmt.Errorf("error getting Location Service Tracker (%s): %w", rs.Primary.ID, err)
-		}		return nil
+rs, ok := s.RootModule().Resources[resourceName]if !ok {
+return fmt.Errorf("resource not found: %s", resourceName)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).LocationConn(ctx)input := &locationservice.DescribeTrackerInput{
+TrackerName: aws.String(rs.Primary.ID),
+}_, err := conn.DescribeTrackerWithContext(ctx, input)if err != nil {
+return fmt.Errorf("error getting Location Service Tracker (%s): %w", rs.Primary.ID, err)
+}return nil
 	}
 }func testAccTrackerConfig_basic(rName string) string {
 	return fmt.Sprintf(`
@@ -229,13 +229,13 @@ resource "aws_kms_key" "test" {
   deletion_window_in_days = 7
 }resource "aws_location_tracker" "test" {
   tracker_name = %[1]q
-  kms_key_id   = aws_kms_key.test.arn
+  kms_key_id= aws_kms_key.test.arn
 }
 `, rName)
 }func testAccTrackerConfig_positionFiltering(rName, positionFiltering string) string {
 	return fmt.Sprintf(`
 resource "aws_location_tracker" "test" {
-  tracker_name       = %[1]q
+  tracker_name= %[1]q
   position_filtering = %[2]q
 }
 `, rName, positionFiltering)
@@ -243,7 +243,7 @@ resource "aws_location_tracker" "test" {
 	return fmt.Sprintf(`
 resource "aws_location_tracker" "test" {
   tracker_name = %[1]q  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -251,8 +251,8 @@ resource "aws_location_tracker" "test" {
 	return fmt.Sprintf(`
 resource "aws_location_tracker" "test" {
   tracker_name = %[1]q  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

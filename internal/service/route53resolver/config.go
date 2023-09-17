@@ -13,7 +13,7 @@
 )// @SDKResource("aws_route53_resolver_config")func ResourceConfig() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceConfigCreate,
-ReadWithoutTimeout:   resourceConfigRead,
+ReadWithoutTimeout:resourceConfigRead,
 UpdateWithoutTimeout: resourceConfigUpdate,
 DeleteWithoutTimeout: schema.NoopContext,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -39,7 +39,7 @@ ForceNew: true,
 conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)autodefinedReverseFlag := d.Get("autodefined_reverse_flag").(string)
 input := &route53resolver.UpdateResolverConfigInput{
 AutodefinedReverseFlag: aws.String(autodefinedReverseFlag),
-ResourceId:    aws.String(d.Get("resource_id").(string)),
+ResourceId:aws.String(d.Get("resource_id").(string)),
 }output, err := conn.UpdateResolverConfigWithContext(ctx, input)if err != nil {
 return diag.Errorf("creating Route53 Resolver Config: %s", err)
 }d.SetId(aws.StringValue(output.ResolverConfig.Id))if _, err = waitAutodefinedReverseUpdated(ctx, conn, d.Id(), autodefinedReverseFlag); err != nil {
@@ -65,7 +65,7 @@ d.Set("resource_id", resolverConfig.ResourceId)return nil
 conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)autodefinedReverseFlag := d.Get("autodefined_reverse_flag").(string)
 input := &route53resolver.UpdateResolverConfigInput{
 AutodefinedReverseFlag: aws.String(autodefinedReverseFlag),
-ResourceId:    aws.String(d.Get("resource_id").(string)),
+ResourceId:aws.String(d.Get("resource_id").(string)),
 }_, err := conn.UpdateResolverConfigWithContext(ctx, input)if err != nil {
 return diag.Errorf("updating Route53 Resolver Config: %s", err)
 }if _, err = waitAutodefinedReverseUpdated(ctx, conn, d.Id(), autodefinedReverseFlag); err != nil {

@@ -19,7 +19,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBucketDestroy(ctx),
+CheckDestroy:testAccCheckBucketDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketConfig_basic(rName),
@@ -34,8 +34,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -47,7 +47,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBucketDestroy(ctx),
+CheckDestroy:testAccCheckBucketDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketConfig_basic(rName),
@@ -66,7 +66,7 @@ ExpectNonEmptyPlan: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBucketDestroy(ctx),
+CheckDestroy:testAccCheckBucketDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketConfig_tags1(rName, "key1", "value1"),
@@ -77,8 +77,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -130,7 +130,7 @@ if !ok {
 data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }resource "aws_s3control_bucket" "test" {
-  bucket     = %[1]q
+  bucket= %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
 }
 `, rName)
@@ -139,9 +139,9 @@ data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
 data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }resource "aws_s3control_bucket" "test" {
-  bucket     = %[1]q
+  bucket= %[1]q
   outpost_id = data.aws_outposts_outpost.test.id  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -150,10 +150,10 @@ data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
 data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }resource "aws_s3control_bucket" "test" {
-  bucket     = %[1]q
+  bucket= %[1]q
   outpost_id = data.aws_outposts_outpost.test.id  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

@@ -9,35 +9,33 @@
 )// @SDKDataSource("aws_controltower_controls")
 func DataSourceControls() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: DataSourceControlsRead,		Schema: map[string]*schema.Schema{
-			"enabled_controls": {
-				Type:     schema.TypeList,
-				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-			},
-			"target_identifier": {
-				Type:schema.TypeString,
-				Required:     true,
-				ValidateFunc: verify.ValidARN,
-			},
-		},
-	}
+ReadWithoutTimeout: DataSourceControlsRead,Schema: map[string]*schema.Schema{
+"enabled_controls": {
+Type:schema.TypeList,
+Computed: true,
+Elem:&schema.Schema{Type: schema.TypeString},
+},
+"target_identifier": {
+Type:schema.TypeString,
+Required:true,
+ValidateFunc: verify.ValidARN,
+},	}
 }func DataSourceControlsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ControlTowerConn(ctx)	targetIdentifier := d.Get("target_identifier").(string)
 	input := &controltower.ListEnabledControlsInput{
-		TargetIdentifier: aws.String(targetIdentifier),
+rgetIdentifier: aws.String(targetIdentifier),
 	}	var controls []string
 	err := conn.ListEnabledControlsPagesWithContext(ctx, input, func(page *controltower.ListEnabledControlsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}		for _, control := range page.EnabledControls {
-			if control == nil {
-				continue
-			}
-			controls = append(controls, aws.StringValue(control.ControlIdentifier))
-		}		return !lastPage
+ page == nil {
+return !lastPage
+o_, control := range page.EnabledControls {
+if control == nil {
+continue
+}
+controls = append(controls, aws.StringValue(control.ControlIdentifier))
+ern !lastPage
 	})	if err != nil {
-		return diag.Errorf("listing ControlTower Controls (%s): %s", targetIdentifier, err)
+turn diag.Errorf("listing ControlTower Controls (%s): %s", targetIdentifier, err)
 	}	d.SetId(targetIdentifier)
 	d.Set("enabled_controls", controls)	return nil
 }

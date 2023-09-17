@@ -19,7 +19,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBucketPolicyDestroy(ctx),
+CheckDestroy:testAccCheckBucketPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketPolicyConfig_basic(rName, "s3-outposts:*"),
@@ -30,8 +30,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -43,7 +43,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBucketPolicyDestroy(ctx),
+CheckDestroy:testAccCheckBucketPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketPolicyConfig_basic(rName, "s3-outposts:*"),
@@ -62,7 +62,7 @@ ExpectNonEmptyPlan: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckBucketPolicyDestroy(ctx),
+CheckDestroy:testAccCheckBucketPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketPolicyConfig_basic(rName, "s3-outposts:GetObject"),
@@ -72,8 +72,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -115,24 +115,24 @@ if !ok {
 data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }resource "aws_s3control_bucket" "test" {
-  bucket     = %[1]q
+  bucket= %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
 }resource "aws_s3control_bucket_policy" "test" {
   bucket = aws_s3control_bucket.test.arn
   policy = jsonencode({
-    Id = "testBucketPolicy"
-    Statement = [
-      {
-        Action = %[2]q
-        Effect = "Deny"
-        Principal = {
+Id = "testBucketPolicy"
+Statement = [
+ {
+
+
+
  AWS = "*"
-        }
-        Resource = "${aws_s3control_bucket.test.arn}/object/test"
-        Sid      = "st1"
-      }
-    ]
-    Version = "2012-10-17"
+
+rol_bucket.test.arn}/object/test"
+
+ }
+]
+Version = "2012-10-17"
   })
 }
 `, rName, action)

@@ -17,7 +17,7 @@
 func resourceMultiRegionAccessPointPolicy() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceMultiRegionAccessPointPolicyCreate,
-ReadWithoutTimeout:   resourceMultiRegionAccessPointPolicyRead,
+ReadWithoutTimeout:resourceMultiRegionAccessPointPolicyRead,
 UpdateWithoutTimeout: resourceMultiRegionAccessPointPolicyUpdate,
 DeleteWithoutTimeout: schema.NoopContext,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -27,13 +27,13 @@ Update: schema.DefaultTimeout(15 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "account_id": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ValidateFunc: verify.ValidAccountID,
 },
 "details": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 MinItems: 1,
 MaxItems: 1,
@@ -41,15 +41,15 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validateS3MultiRegionAccessPointName,
 },
 "policy": {
-Type:   schema.TypeString,
-Required:     true,
+Type:schema.TypeString,
+Required:true,
 ValidateFunc: validation.StringIsJSON,
-DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 StateFunc: func(v interface{}) string {
 json, _ := structure.NormalizeJsonString(v)
@@ -60,11 +60,11 @@ return json
 },
 },
 "established": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "proposed": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
@@ -133,10 +133,10 @@ return diag.Errorf("waiting for S3 Multi-Region Access Point Policy (%s) update:
 }func FindMultiRegionAccessPointPolicyDocumentByTwoPartKey(ctx context.Context, conn *s3control.S3Control, accountID string, name string) (*s3control.MultiRegionAccessPointPolicyDocument, error) {
 input := &s3control.GetMultiRegionAccessPointPolicyInput{
 AccountId: aws.String(accountID),
-Name:      aws.String(name),
+Name: aws.String(name),
 }output, err := conn.GetMultiRegionAccessPointPolicyWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, errCodeNoSuchMultiRegionAccessPoint) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

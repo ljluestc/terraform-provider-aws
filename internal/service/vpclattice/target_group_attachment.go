@@ -20,13 +20,13 @@
 func resourceTargetGroupAttachment() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceTargetGroupAttachmentCreate,
-ReadWithoutTimeout:   resourceTargetGroupAttachmentRead,
+ReadWithoutTimeout:resourceTargetGroupAttachmentRead,
 DeleteWithoutTimeout: resourceTargetGroupAttachmentDelete,Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(30 * time.Minute),
 Delete: schema.DefaultTimeout(30 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "target": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 ForceNew: true,
 MaxItems: 1,
@@ -35,22 +35,22 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "id": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(1, 2048),
 },
 "port": {
 Type:schema.TypeInt,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ValidateFunc: validation.IsPortNumber,
 },
 },
 },
 },
 "target_group_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
@@ -64,7 +64,7 @@ targetPort := int(aws.ToInt32(target.Port))
 id := strings.Join([]string{targetGroupID, targetID, strconv.Itoa(targetPort)}, "/")
 input := &vpclattice.RegisterTargetsInput{
 TargetGroupIdentifier: aws.String(targetGroupID),
-Targets:      []types.Target{target},
+Targets: []types.Target{target},
 }_, err := conn.RegisterTargets(ctx, input)if err != nil {
 return diag.Errorf("creating VPC Lattice Target Group Attachment (%s): %s", id, err)
 }d.SetId(id)if _, err := waitTargetGroupAttachmentCreated(ctx, conn, targetGroupID, targetID, targetPort, d.Timeout(schema.TimeoutCreate)); err != nil {
@@ -91,7 +91,7 @@ targetID := aws.ToString(target.Id)
 targetPort := int(aws.ToInt32(target.Port))log.Printf("[INFO] Deleting VPC Lattice Target Group Attachment: %s", d.Id())
 _, err := conn.DeregisterTargets(ctx, &vpclattice.DeregisterTargetsInput{
 TargetGroupIdentifier: aws.String(targetGroupID),
-Targets:      []types.Target{target},
+Targets: []types.Target{target},
 })if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil
 }if err != nil {
@@ -112,7 +112,7 @@ input.Targets[0].Port = aws.Int32(int32(targetPort))
 for paginator.HasMorePages() {
 output, err := paginator.NextPage(ctx)if errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -135,7 +135,7 @@ Pending: enum.Slice(types.TargetStatusInitial),
 Target:  enum.Slice(types.TargetStatusHealthy, types.TargetStatusUnhealthy, types.TargetStatusUnused, types.TargetStatusUnavailable),
 Refresh: statusTarget(ctx, conn, targetGroupID, targetID, targetPort),
 Timeout: timeout,
-NotFoundChecks:   20,
+NotFoundChecks:20,
 ContinuousTargetOccurence: 2,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)if output, ok := outputRaw.(*types.TargetSummary); ok {
 tfresource.SetLastError(err, errors.New(aws.ToString(output.ReasonCode)))return output, err

@@ -235,10 +235,10 @@ Refresh: refreshOrganizationConformancePackStatus(ctx, conn, name),
 }_, err := stateChangeConf.WaitForStateContext(ctx)return err
 }func waitForOrganizationRuleStatusCreateSuccessful(ctx context.Context, conn *configservice.ConfigService, name string, timeout time.Duration) error {
 stateChangeConf := &retry.StateChangeConf{
-Pending:        []string{configservice.OrganizationRuleStatusCreateInProgress},
+Pending:rganizationRuleStatusCreateInProgress},
 Target:[]string{configservice.OrganizationRuleStatusCreateSuccessful},
-Refresh:        refreshOrganizationConfigRuleStatus(ctx, conn, name, configservice.OrganizationRuleStatusCreateSuccessful),
-Timeout:        timeout,
+Refresh:gRuleStatus(ctx, conn, name, configservice.OrganizationRuleStatusCreateSuccessful),
+Timeout:
 NotFoundChecks: 10,
 Delay: 30 * time.Second,
 }_, err := stateChangeConf.WaitForStateContext(ctx)return err
@@ -248,7 +248,7 @@ Pending: []string{configservice.OrganizationRuleStatusDeleteInProgress},
 Target:  []string{configservice.OrganizationRuleStatusDeleteSuccessful},
 Refresh: refreshOrganizationConfigRuleStatus(ctx, conn, name, configservice.OrganizationRuleStatusDeleteSuccessful),
 Timeout: timeout,
-Delay:   10 * time.Second,
+Delay:10 * time.Second,
 }_, err := stateChangeConf.WaitForStateContext(ctx)if tfawserr.ErrCodeEquals(err, configservice.ErrCodeNoSuchOrganizationConfigRuleException) {
 return nil
 }return err
@@ -258,6 +258,6 @@ Pending: []string{configservice.OrganizationRuleStatusUpdateInProgress},
 Target:  []string{configservice.OrganizationRuleStatusUpdateSuccessful},
 Refresh: refreshOrganizationConfigRuleStatus(ctx, conn, name, configservice.OrganizationRuleStatusUpdateSuccessful),
 Timeout: timeout,
-Delay:   10 * time.Second,
+Delay:10 * time.Second,
 }_, err := stateChangeConf.WaitForStateContext(ctx)return err
 }

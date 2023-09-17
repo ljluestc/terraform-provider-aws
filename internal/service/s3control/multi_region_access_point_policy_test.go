@@ -17,32 +17,32 @@
 	resourceName:="aws_s3control_multi_region_access_point_policy.test"
 	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	multiRegionAccessPointName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
-		ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		//Multi-RegionAccessPointPolicycannotbedeletedonceapplied.
-		//Ensureparentresourceisdestroyedinstead.
-		CheckDestroy:testAccCheckMultiRegionAccessPointDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckMultiRegionAccessPointPolicyExists(ctx,resourceName,&v),
-					acctest.CheckResourceAttrAccountID(resourceName,"account_id"),
-					resource.TestCheckResourceAttr(resourceName,"details.#","1"),
-					resource.TestCheckResourceAttr(resourceName,"details.0.name",multiRegionAccessPointName),
-					resource.TestCheckResourceAttrSet(resourceName,"details.0.policy"),
-					resource.TestCheckResourceAttrSet(resourceName,"established"),
-					resource.TestCheckResourceAttrSet(resourceName,"proposed"),
-					resource.TestCheckResourceAttrPair(resourceName,"details.0.policy",resourceName,"proposed"),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
+ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+//Multi-RegionAccessPointPolicycannotbedeletedonceapplied.
+//Ensureparentresourceisdestroyedinstead.
+CheckDestroy:testAccCheckMultiRegionAccessPointDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointName),
+Check:resource.ComposeTestCheckFunc(
+	testAccCheckMultiRegionAccessPointPolicyExists(ctx,resourceName,&v),
+	acctest.CheckResourceAttrAccountID(resourceName,"account_id"),
+	resource.TestCheckResourceAttr(resourceName,"details.#","1"),
+	resource.TestCheckResourceAttr(resourceName,"details.0.name",multiRegionAccessPointName),
+	resource.TestCheckResourceAttrSet(resourceName,"details.0.policy"),
+	resource.TestCheckResourceAttrSet(resourceName,"established"),
+	resource.TestCheckResourceAttrSet(resourceName,"proposed"),
+	resource.TestCheckResourceAttrPair(resourceName,"details.0.policy",resourceName,"proposed"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+},
 	})
 }funcTestAccS3ControlMultiRegionAccessPointPolicy_disappears_MultiRegionAccessPoint(t*testing.T){
 	ctx:=acctest.Context(t)
@@ -51,22 +51,22 @@
 	resourceName:="aws_s3control_multi_region_access_point_policy.test"
 	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
-		ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		//Multi-RegionAccessPointPolicycannotbedeletedonceapplied.
-		//Ensureparentresourceisdestroyedinstead.
-		CheckDestroy:testAccCheckMultiRegionAccessPointDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccMultiRegionAccessPointPolicyConfig_basic(bucketName,rName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckMultiRegionAccessPointExists(ctx,resourceName,&v),
-					acctest.CheckResourceDisappears(ctx,acctest.Provider,tfs3control.ResourceMultiRegionAccessPoint(),parentResourceName),
-				),
-				ExpectNonEmptyPlan:true,
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
+ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+//Multi-RegionAccessPointPolicycannotbedeletedonceapplied.
+//Ensureparentresourceisdestroyedinstead.
+CheckDestroy:testAccCheckMultiRegionAccessPointDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccMultiRegionAccessPointPolicyConfig_basic(bucketName,rName),
+Check:resource.ComposeTestCheckFunc(
+	testAccCheckMultiRegionAccessPointExists(ctx,resourceName,&v),
+	acctest.CheckResourceDisappears(ctx,acctest.Provider,tfs3control.ResourceMultiRegionAccessPoint(),parentResourceName),
+),
+ExpectNonEmptyPlan:true,
+},
+},
 	})
 }funcTestAccS3ControlMultiRegionAccessPointPolicy_details_policy(t*testing.T){
 	ctx:=acctest.Context(t)
@@ -74,32 +74,32 @@
 	resourceName:="aws_s3control_multi_region_access_point_policy.test"
 	multiRegionAccessPointName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
-		ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		//Multi-RegionAccessPointPolicycannotbedeletedonceapplied.
-		//Ensureparentresourceisdestroyedinstead.
-		CheckDestroy:testAccCheckMultiRegionAccessPointDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckMultiRegionAccessPointPolicyExists(ctx,resourceName,&v1),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccMultiRegionAccessPointPolicyConfig_updatedStatement(bucketName,multiRegionAccessPointName),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckMultiRegionAccessPointPolicyExists(ctx,resourceName,&v2),
-					testAccCheckMultiRegionAccessPointPolicyChanged(&v1,&v2),
-				),
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
+ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+//Multi-RegionAccessPointPolicycannotbedeletedonceapplied.
+//Ensureparentresourceisdestroyedinstead.
+CheckDestroy:testAccCheckMultiRegionAccessPointDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointName),
+Check:resource.ComposeTestCheckFunc(
+	testAccCheckMultiRegionAccessPointPolicyExists(ctx,resourceName,&v1),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+{
+Config:testAccMultiRegionAccessPointPolicyConfig_updatedStatement(bucketName,multiRegionAccessPointName),
+Check:resource.ComposeTestCheckFunc(
+	testAccCheckMultiRegionAccessPointPolicyExists(ctx,resourceName,&v2),
+	testAccCheckMultiRegionAccessPointPolicyChanged(&v1,&v2),
+),
+},
+},
 	})
 }funcTestAccS3ControlMultiRegionAccessPointPolicy_details_name(t*testing.T){
 	ctx:=acctest.Context(t)
@@ -108,59 +108,59 @@
 	multiRegionAccessPointName1:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	multiRegionAccessPointName2:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	bucketName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
-		ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		//Multi-RegionAccessPointPolicycannotbedeletedonceapplied.
-		//Ensureparentresourceisdestroyedinstead.
-		CheckDestroy:testAccCheckMultiRegionAccessPointDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointName1),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckMultiRegionAccessPointPolicyExists(ctx,resourceName,&v1),
-					resource.TestCheckResourceAttr(resourceName,"details.0.name",multiRegionAccessPointName1),
-				),
-			},
-			{
-				ResourceName:resourceName,
-				ImportState:true,
-				ImportStateVerify:true,
-			},
-			{
-				Config:testAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointName2),
-				Check:resource.ComposeTestCheckFunc(
-					testAccCheckMultiRegionAccessPointPolicyExists(ctx,resourceName,&v2),
-					resource.TestCheckResourceAttr(resourceName,"details.0.name",multiRegionAccessPointName2),
-				),
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t);acctest.PreCheckPartitionNot(t,endpoints.AwsUsGovPartitionID)},
+ErrorCheck:acctest.ErrorCheck(t,s3control.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+//Multi-RegionAccessPointPolicycannotbedeletedonceapplied.
+//Ensureparentresourceisdestroyedinstead.
+CheckDestroy:testAccCheckMultiRegionAccessPointDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointName1),
+Check:resource.ComposeTestCheckFunc(
+	testAccCheckMultiRegionAccessPointPolicyExists(ctx,resourceName,&v1),
+	resource.TestCheckResourceAttr(resourceName,"details.0.name",multiRegionAccessPointName1),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify:true,
+},
+{
+Config:testAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointName2),
+Check:resource.ComposeTestCheckFunc(
+	testAccCheckMultiRegionAccessPointPolicyExists(ctx,resourceName,&v2),
+	resource.TestCheckResourceAttr(resourceName,"details.0.name",multiRegionAccessPointName2),
+),
+},
+},
 	})
 }functestAccCheckMultiRegionAccessPointPolicyExists(ctxcontext.Context,nstring,v*s3control.MultiRegionAccessPointPolicyDocument)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		rs,ok:=s.RootModule().Resources[n]
-		if!ok{
-			returnfmt.Errorf("Notfound:%s",n)
-		}		ifrs.Primary.ID==""{
-			returnfmt.Errorf("NoS3Multi-RegionAccessPointPolicyIDisset")
-		}		accountID,name,err:=tfs3control.MultiRegionAccessPointParseResourceID(rs.Primary.ID)		iferr!=nil{
-			returnerr
-		}		conn,err:=tfs3control.ConnForMRAP(ctx,acctest.Provider.Meta().(*conns.AWSClient))		iferr!=nil{
-			returnerr
-		}		output,err:=tfs3control.FindMultiRegionAccessPointPolicyDocumentByTwoPartKey(ctx,conn,accountID,name)		iferr!=nil{
-			returnerr
-		}		*v=*output		returnnil
+rs,ok:=s.RootModule().Resources[n]
+if!ok{
+returnfmt.Errorf("Notfound:%s",n)
+}ifrs.Primary.ID==""{
+returnfmt.Errorf("NoS3Multi-RegionAccessPointPolicyIDisset")
+}accountID,name,err:=tfs3control.MultiRegionAccessPointParseResourceID(rs.Primary.ID)iferr!=nil{
+returnerr
+}conn,err:=tfs3control.ConnForMRAP(ctx,acctest.Provider.Meta().(*conns.AWSClient))iferr!=nil{
+returnerr
+}output,err:=tfs3control.FindMultiRegionAccessPointPolicyDocumentByTwoPartKey(ctx,conn,accountID,name)iferr!=nil{
+returnerr
+}*v=*outputreturnnil
 	}
 }functestAccCheckMultiRegionAccessPointPolicyChanged(i,j*s3control.MultiRegionAccessPointPolicyDocument)resource.TestCheckFunc{
 	returnfunc(s*terraform.State)error{
-		ifaws.StringValue(i.Proposed.Policy)==aws.StringValue(j.Proposed.Policy){
-			returnfmt.Errorf("S3Multi-RegionAccessPointPolicydidnotchange")
-		}		returnnil
+ifaws.StringValue(i.Proposed.Policy)==aws.StringValue(j.Proposed.Policy){
+returnfmt.Errorf("S3Multi-RegionAccessPointPolicydidnotchange")
+}returnnil
 	}
 }functestAccMultiRegionAccessPointPolicyConfig_basic(bucketName,multiRegionAccessPointNamestring)string{
 	returnacctest.ConfigCompose(
-		testAccMultiRegionAccessPointConfig_basic(bucketName,multiRegionAccessPointName),
-		fmt.Sprintf(`
+testAccMultiRegionAccessPointConfig_basic(bucketName,multiRegionAccessPointName),
+fmt.Sprintf(`
 data"aws_caller_identity""current"{}
 data"aws_partition""current"{}resource"aws_s3control_multi_region_access_point_policy""test"{
 details{
@@ -184,8 +184,8 @@ policy=jsonencode({
 `,multiRegionAccessPointName))
 }functestAccMultiRegionAccessPointPolicyConfig_updatedStatement(bucketName,multiRegionAccessPointNamestring)string{
 	returnacctest.ConfigCompose(
-		testAccMultiRegionAccessPointConfig_basic(bucketName,multiRegionAccessPointName),
-		fmt.Sprintf(`
+testAccMultiRegionAccessPointConfig_basic(bucketName,multiRegionAccessPointName),
+fmt.Sprintf(`
 data"aws_caller_identity""current"{}
 data"aws_partition""current"{}resource"aws_s3control_multi_region_access_point_policy""test"{
 details{

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package secretsmanager
-
-import (
+// SPDX-License-Identifier: MPL-2.0package secretsmanagerimport (
 "context"
 "fmt"
-"log"
-
-"github.com/aws/aws-sdk-go/aws"
+"log""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/secretsmanager"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -16,62 +10,52 @@ import (
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 "github.com/hashicorp/terraform-provider-aws/internal/flex"
-)
-
-// @SDKDataSource("aws_secretsmanager_secret_version")
+)// @SDKDataSource("aws_secretsmanager_secret_version")
 func DataSourceSecretVersion() *schema.Resource {
 return &schema.Resource{
-ReadWithoutTimeout: dataSourceSecretVersionRead,
-
-Schema: map[string]*schema.Schema{
+ReadWithoutTimeout: dataSourceSecretVersionRead,Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "secret_id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Required: true,
 },
 "secret_string": {
-Type:      schema.TypeString,
+Type:schema.TypeString,
 Computed:  true,
 Sensitive: true,
 },
 "secret_binary": {
-Type:      schema.TypeString,
+Type:schema.TypeString,
 Computed:  true,
 Sensitive: true,
 },
 "version_id": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Optional: true,
 Computed: true,
 },
 "version_stage": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Optional: true,
 Default:  "AWSCURRENT",
 },
 "version_stages": {
-Type:     schema.TypeSet,
+Type:a.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:ma.Schema{Type: schema.TypeString},
 },
 },
 }
-}
-
-func dataSourceSecretVersionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceSecretVersionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).SecretsManagerConn(ctx)
 secretID := d.Get("secret_id").(string)
-var version string
-
-input := &secretsmanager.GetSecretValueInput{
+var version stringinput := &secretsmanager.GetSecretValueInput{
 SecretId: aws.String(secretID),
-}
-
-if v, ok := d.GetOk("version_id"); ok {
+}if v, ok := d.GetOk("version_id"); ok {
 versionID := v.(string)
 input.VersionId = aws.String(versionID)
 version = versionID
@@ -79,9 +63,7 @@ version = versionID
 versionStage := d.Get("version_stage").(string)
 input.VersionStage = aws.String(versionStage)
 version = versionStage
-}
-
-log.Printf("[DEBUG] Reading Secrets Manager Secret Version: %s", input)
+}log.Printf("[DEBUG] Reading Secrets Manager Secret Version: %s", input)
 output, err := conn.GetSecretValueWithContext(ctx, input)
 if err != nil {
 if tfawserr.ErrCodeEquals(err, secretsmanager.ErrCodeResourceNotFoundException) {
@@ -91,18 +73,12 @@ if tfawserr.ErrMessageContains(err, secretsmanager.ErrCodeInvalidRequestExceptio
 return sdkdiag.AppendErrorf(diags, "Secrets Manager Secret %q Version %q not found", secretID, version)
 }
 return sdkdiag.AppendErrorf(diags, "reading Secrets Manager Secret Version: %s", err)
-}
-
-d.SetId(fmt.Sprintf("%s|%s", secretID, version))
+}d.SetId(fmt.Sprintf("%s|%s", secretID, version))
 d.Set("secret_id", secretID)
 d.Set("secret_string", output.SecretString)
 d.Set("version_id", output.VersionId)
 d.Set("secret_binary", string(output.SecretBinary))
-d.Set("arn", output.ARN)
-
-if err := d.Set("version_stages", flex.FlattenStringList(output.VersionStages)); err != nil {
+d.Set("arn", output.ARN)if err := d.Set("version_stages", flex.FlattenStringList(output.VersionStages)); err != nil {
 return sdkdiag.AppendErrorf(diags, "setting version_stages: %s", err)
-}
-
-return diags
+}return diags
 }

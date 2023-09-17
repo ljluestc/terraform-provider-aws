@@ -19,24 +19,24 @@ func (d *dataSourceDefaultTags) Metadata(_ context.Context, request datasource.M
 }// Schema returns the schema for this data source.
 func (d *dataSourceDefaultTags) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"id": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-			},
-			"tags": tftags.TagsAttributeComputedOnly(),
-		},
+Attributes: map[string]schema.Attribute{
+"id": schema.StringAttribute{
+Optional: true,
+Computed: true,
+},
+"tags": tftags.TagsAttributeComputedOnly(),
+},
 	}
 }// Read is called when the provider must read data source values in order to update state.
 // Config values should be read from the ReadRequest and new state values set on the ReadResponse.
 func (d *dataSourceDefaultTags) Read(ctx context.Context, request datasource.ReadRequest, response *datasource.ReadResponse) {
 	var data dataSourceDefaultTagsData	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)	if response.Diagnostics.HasError() {
-		return
+return
 	}	defaultTagsConfig := d.Meta().DefaultTagsConfig
 	ignoreTagsConfig := d.Meta().IgnoreTagsConfig
 	tags := defaultTagsConfig.GetTags()	data.ID = types.StringValue(d.Meta().Partition)
 	data.Tags = flex.FlattenFrameworkStringValueMapLegacy(ctx, tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map())	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }type dataSourceDefaultTagsData struct {
-	ID   types.String `tfsdk:"id"`
+	IDtypes.String `tfsdk:"id"`
 	Tags types.Map`tfsdk:"tags"`
 }

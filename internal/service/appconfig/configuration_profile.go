@@ -21,7 +21,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceConfigurationProfile() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceConfigurationProfileCreate,
-ReadWithoutTimeout:   resourceConfigurationProfileRead,
+ReadWithoutTimeout:resourceConfigurationProfileRead,
 UpdateWithoutTimeout: resourceConfigurationProfileUpdate,
 DeleteWithoutTimeout: resourceConfigurationProfileDelete,
 Importer: &schema.ResourceImporter{
@@ -104,7 +104,7 @@ conn := meta.(*conns.AWSClient).AppConfigConn(ctx)appId := d.Get("application_id
 name := d.Get("name").(string)
 input := &appconfig.CreateConfigurationProfileInput{
 ApplicationId: aws.String(appId),
-LocationUri:   aws.String(d.Get("location_uri").(string)),
+LocationUri:aws.String(d.Get("location_uri").(string)),
 Name: aws.String(name),
 Tags: getTagsIn(ctx),
 }if v, ok := d.GetOk("description"); ok {
@@ -148,7 +148,7 @@ AccountID: meta.(*conns.AWSClient).AccountID,
 Partition: meta.(*conns.AWSClient).Partition,
 Region:meta.(*conns.AWSClient).Region,
 Resource:  fmt.Sprintf("application/%s/configurationprofile/%s", appID, confProfID),
-Service:   "appconfig",
+Service:"appconfig",
 }.String()
 d.Set("arn", arn)return diags
 }func resourceConfigurationProfileUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {

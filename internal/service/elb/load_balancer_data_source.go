@@ -16,126 +16,126 @@ return &schema.Resource{
 ReadWithoutTimeout: dataSourceLoadBalancerRead,
 Schema: map[string]*schema.Schema{
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },"access_logs": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "interval": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 "bucket": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "bucket_prefix": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "enabled": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },
 },
 },
 },"availability_zones": {
-Type:     schema.TypeSet,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Type:schema.TypeSet,
+Elem:&schema.Schema{Type: schema.TypeString},
 Computed: true,
 },"connection_draining": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },"connection_draining_timeout": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },"cross_zone_load_balancing": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },"dns_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },"health_check": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "healthy_threshold": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },"unhealthy_threshold": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },"target": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },"interval": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },"timeout": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },
 },
 },
 },"idle_timeout": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },"instances": {
-Type:     schema.TypeSet,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Type:schema.TypeSet,
+Elem:&schema.Schema{Type: schema.TypeString},
 Computed: true,
 },"internal": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Computed: true,
 },"listener": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "instance_port": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },"instance_protocol": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },"lb_port": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 },"lb_protocol": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },"ssl_certificate_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 Set: ListenerHash,
 },"security_groups": {
-Type:     schema.TypeSet,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Type:schema.TypeSet,
+Elem:&schema.Schema{Type: schema.TypeString},
 Computed: true,
 },"source_security_group": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },"source_security_group_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },"subnets": {
-Type:     schema.TypeSet,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Type:schema.TypeSet,
+Elem:&schema.Schema{Type: schema.TypeString},
 Computed: true,
 },"desync_mitigation_mode": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },"tags": tftags.TagsSchemaComputed(),"zone_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
@@ -153,8 +153,8 @@ LoadBalancerName: aws.String(d.Id()),
 return sdkdiag.AppendErrorf(diags, "reading ELB Classic Load Balancer (%s) attributes: %s", d.Id(), err)
 }lbAttrs := output.LoadBalancerAttributesarn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Region:    meta.(*conns.AWSClient).Region,
-Service:   "elasticloadbalancing",
+Region:meta.(*conns.AWSClient).Region,
+Service:"elasticloadbalancing",
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("loadbalancer/%s", d.Id()),
 }

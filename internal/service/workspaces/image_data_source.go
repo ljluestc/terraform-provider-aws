@@ -8,45 +8,45 @@
 )// @SDKDataSource("aws_workspaces_image")
 func DataSourceImage() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceImageRead,		Schema: map[string]*schema.Schema{
-			"image_id": {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			"name": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"description": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"operating_system_type": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"required_tenancy": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"state": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-		},
+ReadWithoutTimeout: dataSourceImageRead,Schema: map[string]*schema.Schema{
+"image_id": {
+Type:schema.TypeString,
+Required: true,
+},
+"name": {
+Type:schema.TypeString,
+Computed: true,
+},
+"description": {
+Type:schema.TypeString,
+Computed: true,
+},
+"operating_system_type": {
+Type:schema.TypeString,
+Computed: true,
+},
+"required_tenancy": {
+Type:schema.TypeString,
+Computed: true,
+},
+"state": {
+Type:schema.TypeString,
+Computed: true,
+},
+},
 	}
 }
 func dataSourceImageRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)	imageID := d.Get("image_id").(string)
 	input := &workspaces.DescribeWorkspaceImagesInput{
-		ImageIds: []string{imageID},
+ImageIds: []string{imageID},
 	}	resp, err := conn.DescribeWorkspaceImages(ctx, input)
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "describe workspaces images: %s", err)
+return sdkdiag.AppendErrorf(diags, "describe workspaces images: %s", err)
 	}
 	if len(resp.Images) == 0 {
-		return sdkdiag.AppendErrorf(diags, "Workspace image %s was not found", imageID)
+return sdkdiag.AppendErrorf(diags, "Workspace image %s was not found", imageID)
 	}	image := resp.Images[0]
 	d.SetId(imageID)
 	d.Set("name", image.Name)

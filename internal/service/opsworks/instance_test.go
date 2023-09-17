@@ -35,13 +35,13 @@ resource.TestCheckResourceAttr(resourceName, "layer_ids.#", "1"),
 resource.TestCheckResourceAttr(resourceName, "install_updates_on_boot", "true"),
 resource.TestCheckResourceAttr(resourceName, "architecture", "x86_64"),
 resource.TestCheckResourceAttr(resourceName, "tenancy", "default"),
-resource.TestCheckResourceAttr(resourceName, "os", "Amazon Linux 2016.09"),   // inherited from opsworks_stack_test
+resource.TestCheckResourceAttr(resourceName, "os", "Amazon Linux 2016.09"),// inherited from opsworks_stack_test
 resource.TestCheckResourceAttr(resourceName, "root_device_type", "ebs"),  // inherited from opsworks_stack_test
 resource.TestCheckResourceAttrPair(resourceName, "availability_zone", dataSourceName, "names.0"), // inherited from opsworks_stack_test
 ),
 },
 {
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
 ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"state"}, //state is something we pass to the API and get back as status :(
@@ -81,7 +81,7 @@ resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc1"),
 ),
 },
 {
-ResourceName:   resourceName,
+ResourceName:resourceName,
 ImportState:true,
 ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"state"},
@@ -184,14 +184,14 @@ testAccStackConfig_vpcCreate(rName),
 fmt.Sprintf(`
 resource "aws_security_group" "tf-ops-acc-web" {
   name = "%[1]s-web"  ingress {
-from_port   = 80
+from_port= 80
 to_port= 80
 protocol= "tcp"
 cidr_blocks = ["0.0.0.0/0"]
   }
 }resource "aws_security_group" "tf-ops-acc-php" {
   name = "%[1]s-php"  ingress {
-from_port   = 8080
+from_port= 8080
 to_port= 8080
 protocol= "tcp"
 cidr_blocks = ["0.0.0.0/0"]
@@ -219,14 +219,14 @@ testAccStackConfig_vpcCreate(rName),
 fmt.Sprintf(`
 resource "aws_security_group" "tf-ops-acc-web" {
   name = "%[1]s-web"  ingress {
-from_port   = 80
+from_port= 80
 to_port= 80
 protocol= "tcp"
 cidr_blocks = ["0.0.0.0/0"]
   }
 }resource "aws_security_group" "tf-ops-acc-php" {
   name = "%[1]s-php"  ingress {
-from_port   = 8080
+from_port= 8080
 to_port= 8080
 protocol= "tcp"
 cidr_blocks = ["0.0.0.0/0"]
@@ -254,14 +254,14 @@ testAccStackConfig_vpcCreate(rName),
 fmt.Sprintf(`
 resource "aws_security_group" "tf-ops-acc-web" {
   name = "%[1]s-web"  ingress {
-from_port   = 80
+from_port= 80
 to_port= 80
 protocol= "tcp"
 cidr_blocks = ["0.0.0.0/0"]
   }
 }resource "aws_security_group" "tf-ops-acc-php" {
   name = "%[1]s-php"  ingress {
-from_port   = 8080
+from_port= 8080
 to_port= 8080
 protocol= "tcp"
 cidr_blocks = ["0.0.0.0/0"]
@@ -281,7 +281,7 @@ aws_opsworks_php_app_layer.test.id,
   ]  instance_type = "t2.small"
   state= "stopped"
   hostname = "tf-acc1"
-  os   = "Amazon Linux 2015.09"  timeouts {
+  os= "Amazon Linux 2015.09"  timeouts {
 update = "15s"
   }
 }

@@ -1,10 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package inspector2
-
-// Exports for use in tests only.
+// SPDX-License-Identifier: MPL-2.0package inspector2// Exports for use in tests only.
 var (
-	EnablerID      = enablerID
+	EnablerID = enablerID
 	ParseEnablerID = parseEnablerID
 )

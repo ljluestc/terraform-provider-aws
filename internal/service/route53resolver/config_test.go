@@ -19,7 +19,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    acctest.CheckDestroyNoop,
+CheckDestroy:acctest.CheckDestroyNoop,
 Steps: []resource.TestStep{
 {
 Config: testAccConfigConfig_basic(rName, "DISABLE"),
@@ -57,7 +57,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    acctest.CheckDestroyNoop,
+CheckDestroy:acctest.CheckDestroyNoop,
 Steps: []resource.TestStep{
 {
 Config: testAccConfigConfig_basic(rName, "ENABLE"),

@@ -16,75 +16,75 @@
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
 	resourceName := "aws_synthetics_group_association.test"
 	var groupSummary synthetics.GroupSummary	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:       func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckGroupAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccGroupAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckGroupAssociationExists(ctx, resourceName, &groupSummary),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "canary_arn", synthetics.ServiceName, regexache.MustCompile(`canary:.+`)),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "group_arn", synthetics.ServiceName, regexache.MustCompile(`group:.+`)),
-					resource.TestCheckResourceAttr(resourceName, "group_name", rName),
-					resource.TestCheckResourceAttrSet(resourceName, "group_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, synthetics.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckGroupAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccGroupAssociationConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckGroupAssociationExists(ctx, resourceName, &groupSummary),
+acctest.MatchResourceAttrRegionalARN(resourceName, "canary_arn", synthetics.ServiceName, regexache.MustCompile(`canary:.+`)),
+acctest.MatchResourceAttrRegionalARN(resourceName, "group_arn", synthetics.ServiceName, regexache.MustCompile(`group:.+`)),
+resource.TestCheckResourceAttr(resourceName, "group_name", rName),
+resource.TestCheckResourceAttrSet(resourceName, "group_id"),
+),
+},
+{
+ResourceName:resourceName,
+ImportState:true,
+ImportStateVerify: true,
+},
+},
 	})
 }func TestAccSyntheticsGroupAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
 	resourceName := "aws_synthetics_group_association.test"
 	var groupSummary synthetics.GroupSummary	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:       func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckGroupAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccGroupAssociationConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckGroupAssociationExists(ctx, resourceName, &groupSummary),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsynthetics.ResourceGroupAssociation(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, synthetics.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckGroupAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccGroupAssociationConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+testAccCheckGroupAssociationExists(ctx, resourceName, &groupSummary),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsynthetics.ResourceGroupAssociation(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+},
+},
 	})
 }func testAccCheckGroupAssociationExists(ctx context.Context, name string, v *synthetics.GroupSummary) resource.TestCheckFunc {
 	returnfunc(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return fmt.Errorf("not found: %s", name)
-		}		if rs.Primary.ID == "" {
-			return fmt.Errorf("no Synthetics Group Association ID is set")
-		}		canaryArn, groupName, err := tfsynthetics.GroupAssociationParseResourceID(rs.Primary.ID)		if err != nil {
-			return err
-		}		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)
-		output, err := tfsynthetics.FindAssociatedGroup(ctx, conn, canaryArn, groupName)		if err != nil {
-			return err
-		}		*v = *output		return nil
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+return fmt.Errorf("not found: %s", name)
+}if rs.Primary.ID == "" {
+return fmt.Errorf("no Synthetics Group Association ID is set")
+}canaryArn, groupName, err := tfsynthetics.GroupAssociationParseResourceID(rs.Primary.ID)if err != nil {
+return err
+}conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)
+output, err := tfsynthetics.FindAssociatedGroup(ctx, conn, canaryArn, groupName)if err != nil {
+return err
+}*v = *outputreturn nil
 	}
 }func testAccCheckGroupAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
 	returnfunc(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_synthetics_group_association" {
-				continue
-			}			canaryArn, groupName, err := tfsynthetics.GroupAssociationParseResourceID(rs.Primary.ID)			if err != nil {
-				return err
-			}			_, err = tfsynthetics.FindAssociatedGroup(ctx, conn, canaryArn, groupName)			if tfresource.NotFound(err) {
-				continue
-			}			if err != nil {
-				return err
-			}			return fmt.Errorf("association to group (%s) for canary (%s) still exists", groupName, canaryArn)
-		}		return nil
+conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)for _, rs := range s.RootModule().Resources {
+if rs.Type != "aws_synthetics_group_association" {
+continue
+}canaryArn, groupName, err := tfsynthetics.GroupAssociationParseResourceID(rs.Primary.ID)if err != nil {
+return err
+}_, err = tfsynthetics.FindAssociatedGroup(ctx, conn, canaryArn, groupName)if tfresource.NotFound(err) {
+continue
+}if err != nil {
+return err
+}return fmt.Errorf("association to group (%s) for canary (%s) still exists", groupName, canaryArn)
+}return nil
 	}
 }func testAccGroupAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_basic(rName), testAccGroupConfig_basic(rName), `

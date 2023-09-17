@@ -28,7 +28,7 @@
 {
 	Factory:  ResourceSigningProfile,
 	TypeName: "aws_signer_signing_profile",
-	Name:     "Signing Profile",
+	Name:"Signing Profile",
 	Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 	},

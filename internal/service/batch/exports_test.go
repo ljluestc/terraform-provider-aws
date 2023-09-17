@@ -1,8 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0package batch// Exports for use in tests only.
-var (
-ResourceJobQueue = newResourceJobQueueExpandEC2ConfigurationsUpdate = expandEC2ConfigurationsUpdate
-ExpandLaunchTemplateSpecificationUpdate = expandLaunchTemplateSpecificationUpdate
-FindComputeEnvironmentDetailByName = findComputeEnvironmentDetailByName
-FindJobQueueByName = findJobQueueByName
-)
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package batch// Exports for use in tests only.var (ResourceJobQueue = newResourceJobQueueExpandEC2ConfigurationsUpdate = expandEC2ConfigurationsUpdateExpandLaunchTemplateSpecificationUpdate = expandLaunchTemplateSpecificationUpdateFindComputeEnvironmentDetailByName = findComputeEnvironmentDetailByNameFindJobQueueByName = findJobQueueByName)

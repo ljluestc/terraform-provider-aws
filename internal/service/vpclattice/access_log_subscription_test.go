@@ -27,7 +27,7 @@ new:  "arn:aws:s3:::tf-acc-test-3740243764086645346", //lintignore:AWSAT003,AWSA
 want: true,
 },
 {
-old:  "arn:aws:s3:::tf-acc-test-3740243764086645346",       //lintignore:AWSAT003,AWSAT005
+old:  "arn:aws:s3:::tf-acc-test-3740243764086645346",//lintignore:AWSAT003,AWSAT005
 new:  "arn:aws:logs:us-west-2:123456789012:log-group:/aws/vpclattice/tf-acc-test-3740243764086645346:*", //lintignore:AWSAT003,AWSAT005
 want: false,
 },
@@ -37,7 +37,7 @@ new:  "arn:aws:logs:us-west-2:123456789012:log-group:/aws/vpclattice/tf-acc-test
 want: true,
 },
 {
-old:  "arn:aws:logs:us-west-2:123456789012:log-group:/aws/vpclattice/tf-acc-test-3740243764086645346",   //lintignore:AWSAT003,AWSAT005
+old:  "arn:aws:logs:us-west-2:123456789012:log-group:/aws/vpclattice/tf-acc-test-3740243764086645346",//lintignore:AWSAT003,AWSAT005
 new:  "arn:aws:logs:us-west-2:123456789012:log-group:/aws/vpclattice/tf-acc-test-3740243764086645346:*", //lintignore:AWSAT003,AWSAT005
 want: true,
 },
@@ -48,7 +48,7 @@ want: false,
 },
 {
 old:  "arn:aws:logs:us-west-2:123456789012:log-group:/aws/vpclattice/tf-acc-test-3740243764086645346:*", //lintignore:AWSAT003,AWSAT005
-new:  "arn:aws:logs:us-west-2:123456789012:log-group:/aws/vpclattice/tf-acc-test-3740243764086645347",   //lintignore:AWSAT003,AWSAT005
+new:  "arn:aws:logs:us-west-2:123456789012:log-group:/aws/vpclattice/tf-acc-test-3740243764086645347",//lintignore:AWSAT003,AWSAT005
 want: false,
 },
 }
@@ -69,9 +69,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessLogSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckAccessLogSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccAccessLogSubscriptionConfig_basicS3(rName),
@@ -85,8 +85,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -101,9 +101,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessLogSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckAccessLogSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccAccessLogSubscriptionConfig_basicS3(rName),
@@ -126,9 +126,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessLogSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckAccessLogSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccAccessLogSubscriptionConfig_arn(rName),
@@ -139,8 +139,8 @@ resource.TestCheckResourceAttrPair(resourceName, "resource_identifier", serviceN
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -155,9 +155,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessLogSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckAccessLogSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccAccessLogSubscriptionConfig_tags1(rName, "key1", "value1"),
@@ -168,8 +168,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -202,9 +202,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessLogSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckAccessLogSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccAccessLogSubscriptionConfig_cloudwatchNoWildcard(rName),
@@ -231,9 +231,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessLogSubscriptionDestroy(ctx),
+CheckDestroy:testAccCheckAccessLogSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccAccessLogSubscriptionConfig_cloudwatchWildcard(rName),
@@ -277,7 +277,7 @@ return fmt.Sprintf(`
 resource "aws_vpclattice_service_network" "test" {
   name = %[1]q
 }resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }
 `, rName)
@@ -293,22 +293,22 @@ resource "aws_vpclattice_service" "test" {
 return acctest.ConfigCompose(testAccAccessLogSubscriptionConfig_baseS3(rName), `
 resource "aws_vpclattice_access_log_subscription" "test" {
   resource_identifier = aws_vpclattice_service_network.test.id
-  destination_arn     = aws_s3_bucket.test.arn
+  destination_arn= aws_s3_bucket.test.arn
 }
 `)
 }func testAccAccessLogSubscriptionConfig_arn(rName string) string {
 return acctest.ConfigCompose(testAccAccessLogSubscriptionConfig_baseS3(rName), `
 resource "aws_vpclattice_access_log_subscription" "test" {
   resource_identifier = aws_vpclattice_service_network.test.arn
-  destination_arn     = aws_s3_bucket.test.arn
+  destination_arn= aws_s3_bucket.test.arn
 }
 `)
 }func testAccAccessLogSubscriptionConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(testAccAccessLogSubscriptionConfig_baseS3(rName), fmt.Sprintf(`
 resource "aws_vpclattice_access_log_subscription" "test" {
   resource_identifier = aws_vpclattice_service_network.test.id
-  destination_arn     = aws_s3_bucket.test.arn  tags = {
-    %[1]q = %[2]q
+  destination_arn= aws_s3_bucket.test.arn  tags = {
+%[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
@@ -316,9 +316,9 @@ resource "aws_vpclattice_access_log_subscription" "test" {
 return acctest.ConfigCompose(testAccAccessLogSubscriptionConfig_baseS3(rName), fmt.Sprintf(`
 resource "aws_vpclattice_access_log_subscription" "test" {
   resource_identifier = aws_vpclattice_service_network.test.id
-  destination_arn     = aws_s3_bucket.test.arn  tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+  destination_arn= aws_s3_bucket.test.arn  tags = {
+%[1]q = %[2]q
+%[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -326,14 +326,14 @@ resource "aws_vpclattice_access_log_subscription" "test" {
 return acctest.ConfigCompose(testAccAccessLogSubscriptionConfig_baseCloudWatch(rName), `
 resource "aws_vpclattice_access_log_subscription" "test" {
   resource_identifier = aws_vpclattice_service.test.id
-  destination_arn     = aws_cloudwatch_log_group.test.arn
+  destination_arn= aws_cloudwatch_log_group.test.arn
 }
 `)
 }func testAccAccessLogSubscriptionConfig_cloudwatchWildcard(rName string) string {
 return acctest.ConfigCompose(testAccAccessLogSubscriptionConfig_baseCloudWatch(rName), `
 resource "aws_vpclattice_access_log_subscription" "test" {
   resource_identifier = aws_vpclattice_service.test.id
-  destination_arn     = "${aws_cloudwatch_log_group.test.arn}:*"
+  destination_arn= "${aws_cloudwatch_log_group.test.arn}:*"
 }
 `)
 }

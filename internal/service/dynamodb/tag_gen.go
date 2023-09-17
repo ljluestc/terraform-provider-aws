@@ -9,59 +9,59 @@
 )// @SDKResource("aws_dynamodb_tag")
 func ResourceTag() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceTagCreate,
-		ReadWithoutTimeout:   resourceTagRead,
-		UpdateWithoutTimeout: resourceTagUpdate,
-		DeleteWithoutTimeout: resourceTagDelete,		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},		Schema: map[string]*schema.Schema{
-			"resource_arn": {
-				Type: schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"key": {
-				Type: schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"value": {
-				Type: schema.TypeString,
-				Required: true,
-			},
-		},
+CreateWithoutTimeout: resourceTagCreate,
+ReadWithoutTimeout:resourceTagRead,
+UpdateWithoutTimeout: resourceTagUpdate,
+DeleteWithoutTimeout: resourceTagDelete,Importer: &schema.ResourceImporter{
+StateContext: schema.ImportStatePassthroughContext,
+},Schema: map[string]*schema.Schema{
+"resource_arn": {
+Type: schema.TypeString,
+Required: true,
+ForceNew: true,
+},
+"key": {
+Type: schema.TypeString,
+Required: true,
+ForceNew: true,
+},
+"value": {
+Type: schema.TypeString,
+Required: true,
+},
+},
 	}
 }func resourceTagCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics { // nosemgrep:ci.semgrep.tags.calling-UpdateTags-in-resource-create
 	conn := meta.(*conns.AWSClient).DynamoDBConn(ctx)	identifier := d.Get("resource_arn").(string)
 	key := d.Get("key").(string)
 	value := d.Get("value").(string)	if err := updateTags(ctx, conn, identifier, nil, map[string]string{key: value}); err != nil {
-		return diag.Errorf("creating %s resource (%s) tag (%s): %s", dynamodb.ServiceID, identifier, key, err)
+return diag.Errorf("creating %s resource (%s) tag (%s): %s", dynamodb.ServiceID, identifier, key, err)
 	}	d.SetId(tftags.SetResourceID(identifier, key))	return resourceTagRead(ctx, d, meta)
 }func resourceTagRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DynamoDBConn(ctx)
 	identifier, key, err := tftags.GetResourceID(d.Id())	if err != nil {
-		return diag.FromErr(err)
+return diag.FromErr(err)
 	}	value, err := GetTag(ctx, conn, identifier, key)	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] %s resource (%s) tag (%s) not found, removing from state", dynamodb.ServiceID, identifier, key)
-		d.SetId("")
-		return nil
+log.Printf("[WARN] %s resource (%s) tag (%s) not found, removing from state", dynamodb.ServiceID, identifier, key)
+d.SetId("")
+return nil
 	}	if err != nil {
-		return diag.Errorf("reading %s resource (%s) tag (%s): %s", dynamodb.ServiceID, identifier, key, err)
+return diag.Errorf("reading %s resource (%s) tag (%s): %s", dynamodb.ServiceID, identifier, key, err)
 	}	d.Set("resource_arn", identifier)
 	d.Set("key", key)
 	d.Set("value", value)	return nil
 }func resourceTagUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DynamoDBConn(ctx)
 	identifier, key, err := tftags.GetResourceID(d.Id())	if err != nil {
-		return diag.FromErr(err)
+return diag.FromErr(err)
 	}	if err := updateTags(ctx, conn, identifier, nil, map[string]string{key: d.Get("value").(string)}); err != nil {
-		return diag.Errorf("updating %s resource (%s) tag (%s): %s", dynamodb.ServiceID, identifier, key, err)
+return diag.Errorf("updating %s resource (%s) tag (%s): %s", dynamodb.ServiceID, identifier, key, err)
 	}	return resourceTagRead(ctx, d, meta)
 }func resourceTagDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DynamoDBConn(ctx)
 	identifier, key, err := tftags.GetResourceID(d.Id())	if err != nil {
-		return diag.FromErr(err)
+return diag.FromErr(err)
 	}	if err := updateTags(ctx, conn, identifier, map[string]string{key: d.Get("value").(string)}, nil); err != nil {
-		return diag.Errorf("deleting %s resource (%s) tag (%s): %s", dynamodb.ServiceID, identifier, key, err)
+return diag.Errorf("deleting %s resource (%s) tag (%s): %s", dynamodb.ServiceID, identifier, key, err)
 	}	return nil
 }

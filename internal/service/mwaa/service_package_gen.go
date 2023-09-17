@@ -13,14 +13,14 @@
 	return []*types.ServicePackageSDKDataSource{}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceEnvironment,
-			TypeName: "aws_mwaa_environment",
-			Name:     "Environment",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
+{
+Factory:  ResourceEnvironment,
+TypeName: "aws_mwaa_environment",
+Name:"Environment",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
 	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.MWAA

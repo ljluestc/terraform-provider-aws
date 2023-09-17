@@ -123,11 +123,11 @@ ImportState:  true,
 ImportStateVerify: true,
 },
 {
-Config:   testAccStackConfig_defaultVPC(rName),
+Config:testAccStackConfig_defaultVPC(rName),
 PlanOnly: true,
 },
 {
-Config:   testAccStackConfig_noVPC(rName),
+Config:testAccStackConfig_noVPC(rName),
 PlanOnly: true,
 },
 },
@@ -242,7 +242,7 @@ testAccCheckStackExists(ctx, resourceName, &v),
 resource.TestCheckResourceAttrWith(resourceName, "arn",func(value string) error {
 if !regexache.MustCompile(arn.ARN{
 Partition: acctest.Partition(),
-Service:   opsworks.ServiceName,
+Service:opsworks.ServiceName,
 Region:acctest.AlternateRegion(),
 AccountID: acctest.AccountID(),
 Resource:  `stack/.+/`,
@@ -564,7 +564,7 @@ fmt.Sprintf(`
 # The VPC (and subnets) must be in the target (alternate) AWS Region.
 data "aws_availability_zones" "available" {
   provider = "awsalternate"  state = "available"  filter {
-name   = "opt-in-status"
+name= "opt-in-status"
 values = ["opt-in-not-required"]
   }
 }resource "aws_vpc" "test" {
@@ -572,9 +572,9 @@ values = ["opt-in-not-required"]
 Name = %[1]q
   }
 }resource "aws_subnet" "test" {
-  provider = "awsalternate"  count = 2  vpc_id   = aws_vpc.test.id
+  provider = "awsalternate"  count = 2  vpc_id= aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)  tags = {
+  cidr_block= cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)  tags = {
 Name = %[1]q
   }
 }
@@ -584,11 +584,11 @@ func testAccStackConfig_basic(rName string) string {
 return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = %[2]q
+  region= %[2]q
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
-  default_subnet_id   = aws_subnet.test[0].id
-  vpc_id   = aws_vpc.test.id
+  default_subnet_id= aws_subnet.test[0].id
+  vpc_id= aws_vpc.test.id
   use_opsworks_security_groups = false
 }
 `, rName, acctest.Region()))
@@ -599,7 +599,7 @@ testAccStackConfig_baseIAM(rName),
 fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = %[2]q
+  region= %[2]q
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
@@ -614,11 +614,11 @@ testAccStackConfig_baseIAM(rName),
 fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = %[2]q
+  region= %[2]q
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
-  vpc_id   = data.aws_vpc.default.id
+  vpc_id= data.aws_vpc.default.id
 }data "aws_vpc" "default" {
   default = true
 }
@@ -631,7 +631,7 @@ acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = %[2]q
+  region= %[2]q
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
@@ -645,11 +645,11 @@ func testAccStackConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = %[2]q
+  region= %[2]q
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
-  default_subnet_id   = aws_subnet.test[0].id
-  vpc_id   = aws_vpc.test.id
+  default_subnet_id= aws_subnet.test[0].id
+  vpc_id= aws_vpc.test.id
   use_opsworks_security_groups = false  tags = {
 %[3]q = %[4]q
   }
@@ -660,11 +660,11 @@ func testAccStackConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 stri
 return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = %[2]q
+  region= %[2]q
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
-  default_subnet_id   = aws_subnet.test[0].id
-  vpc_id   = aws_vpc.test.id
+  default_subnet_id= aws_subnet.test[0].id
+  vpc_id= aws_vpc.test.id
   use_opsworks_security_groups = false  tags = {
 %[3]q = %[4]q
 %[5]q = %[6]q
@@ -676,11 +676,11 @@ func testAccStackConfig_tags1AlternateRegion(rName, tagKey1, tagValue1 string) s
 return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = %[2]q
+  region= %[2]q
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
-  default_subnet_id   = aws_subnet.test[0].id
-  vpc_id   = aws_vpc.test.id
+  default_subnet_id= aws_subnet.test[0].id
+  vpc_id= aws_vpc.test.id
   use_opsworks_security_groups = false  tags = {
 %[3]q = %[4]q
   }
@@ -691,11 +691,11 @@ func testAccStackConfig_tags2AlternateRegion(rName, tagKey1, tagValue1, tagKey2,
 return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = %[2]q
+  region= %[2]q
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
-  default_subnet_id   = aws_subnet.test[0].id
-  vpc_id   = aws_vpc.test.id
+  default_subnet_id= aws_subnet.test[0].id
+  vpc_id= aws_vpc.test.id
   use_opsworks_security_groups = false  tags = {
 %[3]q = %[4]q
 %[5]q = %[6]q
@@ -707,11 +707,11 @@ func testAccStackConfig_allAttributes(rName, agentVersion, color, customCookbook
 return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = %[2]q
+  region= %[2]q
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
-  default_subnet_id   = aws_subnet.test[0].id
-  vpc_id   = aws_vpc.test.id
+  default_subnet_id= aws_subnet.test[0].id
+  vpc_id= aws_vpc.test.id
   use_opsworks_security_groups = false  agent_version  = %[3]q
   color = %[4]q
   configuration_manager_name= "Chef"
@@ -736,11 +736,11 @@ func testAccStackConfig_windows(rName, defaultOS string) string {
 return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = %[2]q
+  region= %[2]q
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
-  default_subnet_id   = aws_subnet.test[0].id
-  vpc_id   = aws_vpc.test.id
+  default_subnet_id= aws_subnet.test[0].id
+  vpc_id= aws_vpc.test.id
   use_opsworks_security_groups = false  default_os= %[3]q
   configuration_manager_version = "12.2"
 }
@@ -754,16 +754,16 @@ data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_vpc
 Name = %[1]q
   }
 }resource "aws_subnet" "test" {
-  vpc_id   = aws_vpc.test.id
-  cidr_block   = aws_vpc.test.cidr_block
+  vpc_id= aws_vpc.test.id
+  cidr_block= aws_vpc.test.cidr_block
   availability_zone = data.aws_availability_zones.available.names[0]  tags = {
 Name = %[1]q
   }
 }resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region   = data.aws_region.current.name
-  vpc_id   = aws_vpc.test.id
-  default_subnet_id   = aws_subnet.test.id
+  region= data.aws_region.current.name
+  vpc_id= aws_vpc.test.id
+  default_subnet_id= aws_subnet.test.id
   service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_os= "Amazon Linux 2016.09"
@@ -782,7 +782,7 @@ EOF  configuration_manager_version = "11.10"
  "Sid": "",
  "Effect": "Allow",
  "Principal": {
-   "Service": "opsworks.${data.aws_partition.current.dns_suffix}"
+"Service": "opsworks.${data.aws_partition.current.dns_suffix}"
  },
  "Action": "sts:AssumeRole"
 }
@@ -796,16 +796,16 @@ EOT
   "Statement": [
 {
  "Action": [
-   "ec2:*",
-   "iam:PassRole",
-   "cloudwatch:GetMetricStatistics",
-   "elasticloadbalancing:*",
-   "rds:*",
-   "ecs:*"
+"ec2:*",
+"iam:PassRole",
+"cloudwatch:GetMetricStatistics",
+"elasticloadbalancing:*",
+"rds:*",
+"ecs:*"
  ],
  "Effect": "Allow",
  "Resource": [
-   "*"
+"*"
  ]
 }
   ]
@@ -820,7 +820,7 @@ EOT
  "Sid": "",
  "Effect": "Allow",
  "Principal": {
-   "Service": "ec2.${data.aws_partition.current.dns_suffix}"
+"Service": "ec2.${data.aws_partition.current.dns_suffix}"
  },
  "Action": "sts:AssumeRole"
 }

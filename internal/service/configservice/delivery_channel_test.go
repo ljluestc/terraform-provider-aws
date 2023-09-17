@@ -15,10 +15,10 @@ var dc configservice.DeliveryChannel
 rInt := sdkacctest.RandInt()
 expectedName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)
 expectedBucketName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckDeliveryChannelDestroy(ctx),
+CheckDestroy:testAccCheckDeliveryChannelDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDeliveryChannelConfig_basic(rInt),
@@ -38,10 +38,10 @@ var dc configservice.DeliveryChannel
 rInt := sdkacctest.RandInt()
 expectedName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)
 expectedBucketName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckDeliveryChannelDestroy(ctx),
+CheckDestroy:testAccCheckDeliveryChannelDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDeliveryChannelConfig_allParams(rInt),
@@ -62,16 +62,16 @@ resource.TestCheckResourceAttr(resourceName, "snapshot_delivery_properties.0.del
 ctx := acctest.Context(t)
 resourceName := "aws_config_delivery_channel.foo"
 rInt := sdkacctest.RandInt()resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckDeliveryChannelDestroy(ctx),
+CheckDestroy:testAccCheckDeliveryChannelDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDeliveryChannelConfig_basic(rInt),
 },{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -124,21 +124,21 @@ return fmt.Errorf("Delivery Channel still exists: %s", rs.Primary.Attributes["na
 }func testAccDeliveryChannelConfig_basic(randInt int) string {
 return fmt.Sprintf(`
 resource "aws_config_configuration_recorder" "foo" {
-  name     = "tf-acc-test-%d"
+  name= "tf-acc-test-%d"
   role_arn = aws_iam_role.r.arn
 }resource "aws_iam_role" "r" {
   name = "tf-acc-test-awsconfig-%d"  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "config.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+naws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 POLICY
@@ -148,46 +148,46 @@ POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "s3:*"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "${aws_s3_bucket.b.arn}",
-        "${aws_s3_bucket.b.arn}/*"
-      ]
-    }
+{
+ "Action": [
+
+ ],
+ "Effect": "Allow",
+ "Resource": [
+,
+*"
+ ]
+}
   ]
 }
 EOF
 }resource "aws_s3_bucket" "b" {
-  bucket        = "tf-acc-test-awsconfig-%d"
+  bucket-%d"
   force_destroy = true
 }resource "aws_config_delivery_channel" "foo" {
   name  = "tf-acc-test-awsconfig-%d"
   s3_bucket_name = aws_s3_bucket.b.bucket
-  depends_on     = [aws_config_configuration_recorder.foo]
+  depends_on= [aws_config_configuration_recorder.foo]
 }
 `, randInt, randInt, randInt, randInt, randInt)
 }func testAccDeliveryChannelConfig_allParams(randInt int) string {
 return fmt.Sprintf(`
 resource "aws_config_configuration_recorder" "foo" {
-  name     = "tf-acc-test-%d"
+  name= "tf-acc-test-%d"
   role_arn = aws_iam_role.r.arn
 }resource "aws_iam_role" "r" {
   name = "tf-acc-test-awsconfig-%d"  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "config.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+naws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 POLICY
@@ -197,48 +197,48 @@ POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "s3:*"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "${aws_s3_bucket.b.arn}",
-        "${aws_s3_bucket.b.arn}/*"
-      ]
-    },
-    {
-        "Effect": "Allow",
-        "Action": [
-   "kms:Decrypt",
-   "kms:GenerateDataKey"
-   ],
-   "Resource": "${aws_kms_key.k.arn}"
-    }
+{
+ "Action": [
+
+ ],
+ "Effect": "Allow",
+ "Resource": [
+,
+*"
+ ]
+},
+{
+
+
+"kms:Decrypt",
+"kms:GenerateDataKey"
+],
+"Resource": "${aws_kms_key.k.arn}"
+}
   ]
 }
 EOF
 }resource "aws_s3_bucket" "b" {
-  bucket        = "tf-acc-test-awsconfig-%d"
+  bucket-%d"
   force_destroy = true
 }resource "aws_sns_topic" "t" {
   name = "tf-acc-test-%d"
 }resource "aws_kms_key" "k" {
-  description    = "tf-acc-test-awsconfig-%d"
+  description= "tf-acc-test-awsconfig-%d"
   deletion_window_in_days = 7  policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Id": "tf-acc-test-awsconfig-%d",
   "Statement": [
-    {
-      "Sid": "Enable IAM User Permissions",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "kms:*",
-      "Resource": "*"
-    }
+{
+ "Sid": "Enable IAM User Permissions",
+ "Effect": "Allow",
+ "Principal": {
+
+ },
+ "Action": "kms:*",
+ "Resource": "*"
+}
   ]
 }
 POLICY
@@ -248,7 +248,7 @@ POLICY
   s3_key_prefix  = "one/two/three"
   s3_kms_key_arn = aws_kms_key.k.arn
   sns_topic_arn  = aws_sns_topic.t.arn  snapshot_delivery_properties {
-    delivery_frequency = "Six_Hours"
+delivery_frequency = "Six_Hours"
   }  depends_on = [aws_config_configuration_recorder.foo]
 }
 `, randInt, randInt, randInt, randInt, randInt, randInt, randInt, randInt)

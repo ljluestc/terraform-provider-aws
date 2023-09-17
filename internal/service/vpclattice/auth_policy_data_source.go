@@ -13,15 +13,15 @@
 func DataSourceAuthPolicy() *schema.Resource {
 return &schema.Resource{ReadWithoutTimeout: dataSourceAuthPolicyRead,Schema: map[string]*schema.Schema{
 "policy": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 "resource_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "state": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 },

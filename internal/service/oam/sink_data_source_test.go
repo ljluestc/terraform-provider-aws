@@ -22,7 +22,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSinkDestroy(ctx),
+CheckDestroy:testAccCheckSinkDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccSinkDataSourceConfig_basic(rName),
@@ -43,7 +43,7 @@ acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "oam", regexache.Mus
 return fmt.Sprintf(`
 resource aws_oam_sink "test" {
   name = %[1]q  tags = {
-    key1 = "value1"
+key1 = "value1"
   }
 }data aws_oam_sink "test" {
   sink_identifier = aws_oam_sink.test.arn

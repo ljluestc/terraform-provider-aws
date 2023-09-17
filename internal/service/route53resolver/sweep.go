@@ -10,53 +10,53 @@ multierror "github.com/hashicorp/go-multierror"
 )func init() {
 resource.AddTestSweepers("aws_route53_resolver_dnssec_config", &resource.Sweeper{
 Name: "aws_route53_resolver_dnssec_config",
-F:    sweepDNSSECConfig,
+F:sweepDNSSECConfig,
 })resource.AddTestSweepers("aws_route53_resolver_endpoint", &resource.Sweeper{
 Name: "aws_route53_resolver_endpoint",
-F:    sweepEndpoints,
+F:sweepEndpoints,
 Dependencies: []string{
 "aws_route53_resolver_rule",
 },
 })resource.AddTestSweepers("aws_route53_resolver_firewall_config", &resource.Sweeper{
 Name: "aws_route53_resolver_firewall_config",
-F:    sweepFirewallConfigs,
+F:sweepFirewallConfigs,
 })resource.AddTestSweepers("aws_route53_resolver_firewall_domain_list", &resource.Sweeper{
 Name: "aws_route53_resolver_firewall_domain_list",
-F:    sweepFirewallDomainLists,
+F:sweepFirewallDomainLists,
 Dependencies: []string{
 "aws_route53_resolver_firewall_rule",
 },
 })resource.AddTestSweepers("aws_route53_resolver_firewall_rule_group_association", &resource.Sweeper{
 Name: "aws_route53_resolver_firewall_rule_group_association",
-F:    sweepFirewallRuleGroupAssociations,
+F:sweepFirewallRuleGroupAssociations,
 })resource.AddTestSweepers("aws_route53_resolver_firewall_rule_group", &resource.Sweeper{
 Name: "aws_route53_resolver_firewall_rule_group",
-F:    sweepFirewallRuleGroups,
+F:sweepFirewallRuleGroups,
 Dependencies: []string{
 "aws_route53_resolver_firewall_rule",
 "aws_route53_resolver_firewall_rule_group_association",
 },
 })resource.AddTestSweepers("aws_route53_resolver_firewall_rule", &resource.Sweeper{
 Name: "aws_route53_resolver_firewall_rule",
-F:    sweepFirewallRules,
+F:sweepFirewallRules,
 Dependencies: []string{
 "aws_route53_resolver_firewall_rule_group_association",
 },
 })resource.AddTestSweepers("aws_route53_resolver_query_log_config_association", &resource.Sweeper{
 Name: "aws_route53_resolver_query_log_config_association",
-F:    sweepQueryLogConfigAssociations,
+F:sweepQueryLogConfigAssociations,
 })resource.AddTestSweepers("aws_route53_resolver_query_log_config", &resource.Sweeper{
 Name: "aws_route53_resolver_query_log_config",
-F:    sweepQueryLogsConfig,
+F:sweepQueryLogsConfig,
 Dependencies: []string{
 "aws_route53_resolver_query_log_config_association",
 },
 })resource.AddTestSweepers("aws_route53_resolver_rule_association", &resource.Sweeper{
 Name: "aws_route53_resolver_rule_association",
-F:    sweepRuleAssociations,
+F:sweepRuleAssociations,
 })resource.AddTestSweepers("aws_route53_resolver_rule", &resource.Sweeper{
 Name: "aws_route53_resolver_rule",
-F:    sweepRules,
+F:sweepRules,
 Dependencies: []string{
 "aws_route53_resolver_rule_association",
 },

@@ -57,8 +57,8 @@ conn := meta.(*conns.AWSClient).RedshiftConn(ctx)clusterID := d.Get("cluster_ide
 input := &redshift.GetClusterCredentialsInput{
 AutoCreate:aws.Bool(d.Get("auto_create").(bool)),
 ClusterIdentifier: aws.String(clusterID),
-DbUser:   aws.String(d.Get("db_user").(string)),
-DurationSeconds:   aws.Int64(int64(d.Get("duration_seconds").(int))),
+DbUser:aws.String(d.Get("db_user").(string)),
+DurationSeconds:aws.Int64(int64(d.Get("duration_seconds").(int))),
 }if v, ok := d.GetOk("db_groups"); ok && v.(*schema.Set).Len() > 0 {
 input.DbGroups = flex.ExpandStringSet(v.(*schema.Set))
 }if v, ok := d.GetOk("db_name"); ok {

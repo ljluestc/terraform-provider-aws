@@ -37,7 +37,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -86,7 +86,7 @@ resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -110,7 +110,7 @@ resource.TestCheckResourceAttr(resourceName, "description", rName),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -122,7 +122,7 @@ resource.TestCheckResourceAttr(resourceName, "description", description),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -157,7 +157,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -175,7 +175,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -207,12 +207,12 @@ testAccCheckEnvironmentExists(ctx, resourceName2),
 },
 {
 ResourceName:  resourceName1,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
 ResourceName:  resourceName2,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -223,7 +223,7 @@ testAccCheckEnvironmentExists(ctx, resourceName1),
 },
 {
 ResourceName:  resourceName1,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -247,7 +247,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -275,13 +275,13 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_appconfig_environment.test"
 description := "Description"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:   acctest.ErrorCheck(t, appconfig.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 CheckDestroy: testAccCheckEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 {
 ExternalProviders: map[string]resource.ExternalProvider{
 "aws": {
-Source:   "hashicorp/aws",
+Source:"hashicorp/aws",
 VersionConstraint: "5.3.0",
 },
 },
@@ -302,13 +302,13 @@ ctx := acctest.Context(t)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_appconfig_environment.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:   acctest.ErrorCheck(t, appconfig.EndpointsID),
+ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 CheckDestroy: testAccCheckEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 {
 ExternalProviders: map[string]resource.ExternalProvider{
 "aws": {
-Source:   "hashicorp/aws",
+Source:"hashicorp/aws",
 VersionConstraint: "5.3.0",
 },
 },
@@ -403,18 +403,18 @@ EOF
 "Version": "2012-10-17",
 "Statement": [
 {
-   "Effect": "Allow",
-   "Action": [
+"Effect": "Allow",
+"Action": [
  "cloudwatch:DescribeAlarms"
-   ],
-   "Resource": "*"
+],
+"Resource": "*"
 }
 ]
 }
 POLICY
 }resource "aws_cloudwatch_metric_alarm" "test" {
   count = %[2]d  alarm_name = "%[1]s-${count.index}"
-  comparison_operator   = "GreaterThanOrEqualToThreshold"
+  comparison_operator= "GreaterThanOrEqualToThreshold"
   evaluation_periods= "2"
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"

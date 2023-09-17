@@ -19,7 +19,7 @@ resourceName := "aws_route53_resolver_rule.test"resource.ParallelTest(t, resourc
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleDestroy(ctx),
+CheckDestroy:testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleConfig_basic(domainName),
@@ -52,7 +52,7 @@ resourceName := "aws_route53_resolver_rule.test"resource.ParallelTest(t, resourc
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleDestroy(ctx),
+CheckDestroy:testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleConfig_basic(domainName),
@@ -73,7 +73,7 @@ resourceName := "aws_route53_resolver_rule.test"resource.ParallelTest(t, resourc
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleDestroy(ctx),
+CheckDestroy:testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleConfig_tags1(domainName, "key1", "value1"),
@@ -117,7 +117,7 @@ resourceName := "aws_route53_resolver_rule.test"resource.ParallelTest(t, resourc
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleDestroy(ctx),
+CheckDestroy:testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleConfig_basic("."),
@@ -145,7 +145,7 @@ resourceName := "aws_route53_resolver_rule.test"resource.ParallelTest(t, resourc
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleDestroy(ctx),
+CheckDestroy:testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleConfig_basic("example.com."),
@@ -176,7 +176,7 @@ rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTe
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleDestroy(ctx),
+CheckDestroy:testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleConfig_name(rName1, domainName),
@@ -213,7 +213,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleDestroy(ctx),
+CheckDestroy:testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleConfig_forward(rName, domainName),
@@ -226,7 +226,7 @@ resource.TestCheckResourceAttr(resourceName, "rule_type", "FORWARD"),
 resource.TestCheckResourceAttrPair(resourceName, "resolver_endpoint_id", ep1ResourceName, "id"),
 resource.TestCheckResourceAttr(resourceName, "target_ip.#", "1"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target_ip.*", map[string]string{
-"ip":   "192.0.2.6",
+"ip":"192.0.2.6",
 "port": "53",
 }),
 ),
@@ -248,11 +248,11 @@ resource.TestCheckResourceAttrPair(resourceName, "resolver_endpoint_id", ep1Reso
 resource.TestCheckResourceAttr(resourceName, "rule_type", "FORWARD"),
 resource.TestCheckResourceAttr(resourceName, "target_ip.#", "2"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target_ip.*", map[string]string{
-"ip":   "192.0.2.7",
+"ip":"192.0.2.7",
 "port": "53",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target_ip.*", map[string]string{
-"ip":   "192.0.2.17",
+"ip":"192.0.2.17",
 "port": "54",
 }),
 ),
@@ -269,11 +269,11 @@ resource.TestCheckResourceAttrPair(resourceName, "resolver_endpoint_id", ep2Reso
 resource.TestCheckResourceAttr(resourceName, "rule_type", "FORWARD"),
 resource.TestCheckResourceAttr(resourceName, "target_ip.#", "2"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target_ip.*", map[string]string{
-"ip":   "192.0.2.7",
+"ip":"192.0.2.7",
 "port": "53",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target_ip.*", map[string]string{
-"ip":   "192.0.2.17",
+"ip":"192.0.2.17",
 "port": "54",
 }),
 ),
@@ -290,7 +290,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTes
 PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRuleDestroy(ctx),
+CheckDestroy:testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccRuleConfig_forward(rName, domainName),
@@ -303,7 +303,7 @@ resource.TestCheckResourceAttr(resourceName, "rule_type", "FORWARD"),
 resource.TestCheckResourceAttrPair(resourceName, "resolver_endpoint_id", epResourceName, "id"),
 resource.TestCheckResourceAttr(resourceName, "target_ip.#", "1"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target_ip.*", map[string]string{
-"ip":   "192.0.2.6",
+"ip":"192.0.2.6",
 "port": "53",
 }),
 ),
@@ -320,7 +320,7 @@ resource.TestCheckResourceAttr(resourceName, "rule_type", "FORWARD"),
 resource.TestCheckResourceAttrPair(resourceName, "resolver_endpoint_id", epResourceName, "id"),
 resource.TestCheckResourceAttr(resourceName, "target_ip.#", "1"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target_ip.*", map[string]string{
-"ip":   "192.0.2.6",
+"ip":"192.0.2.6",
 "port": "53",
 }),
 ),
@@ -371,15 +371,15 @@ return err
 return fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[1]q
-  rule_type   = "SYSTEM"
+  rule_type= "SYSTEM"
 }
 `, domainName)
 }func testAccRuleConfig_tags1(domainName, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[1]q
-  rule_type   = "SYSTEM"  tags = {
-    %[2]q = %[3]q
+  rule_type= "SYSTEM"  tags = {
+%[2]q = %[3]q
   }
 }
 `, domainName, tagKey1, tagValue1)
@@ -387,9 +387,9 @@ resource "aws_route53_resolver_rule" "test" {
 return fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[1]q
-  rule_type   = "SYSTEM"  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  rule_type= "SYSTEM"  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, domainName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -397,7 +397,7 @@ resource "aws_route53_resolver_rule" "test" {
 return fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  rule_type   = "SYSTEM"
+  rule_type= "SYSTEM"
   name%[1]q
 }
 `, rName, domainName)
@@ -405,9 +405,9 @@ resource "aws_route53_resolver_rule" "test" {
 return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointBase(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  rule_type   = "FORWARD"
+  rule_type= "FORWARD"
   name%[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[0].id  target_ip {
-    ip = "192.0.2.6"
+ip = "192.0.2.6"
   }
 }
 `, rName, domainName))
@@ -415,12 +415,12 @@ resource "aws_route53_resolver_rule" "test" {
 return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointBase(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  rule_type   = "FORWARD"
+  rule_type= "FORWARD"
   name%[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[0].id  target_ip {
-    ip = "192.0.2.7"
+ip = "192.0.2.7"
   }  target_ip {
-    ip   = "192.0.2.17"
-    port = 54
+ip= "192.0.2.17"
+port = 54
   }
 }
 `, rName, domainName))
@@ -428,12 +428,12 @@ resource "aws_route53_resolver_rule" "test" {
 return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointBase(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  rule_type   = "FORWARD"
+  rule_type= "FORWARD"
   name%[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id  target_ip {
-    ip = "192.0.2.7"
+ip = "192.0.2.7"
   }  target_ip {
-    ip   = "192.0.2.17"
-    port = 54
+ip= "192.0.2.17"
+port = 54
   }
 }
 `, rName, domainName))
@@ -441,9 +441,9 @@ resource "aws_route53_resolver_rule" "test" {
 return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointRecreateBase(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  rule_type   = "FORWARD"
+  rule_type= "FORWARD"
   name%[1]q  resolver_endpoint_id = aws_route53_resolver_endpoint.test[0].id  target_ip {
-    ip = "192.0.2.6"
+ip = "192.0.2.6"
   }
 }
 `, rName, domainName))
@@ -451,20 +451,20 @@ resource "aws_route53_resolver_rule" "test" {
 return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block  = "10.0.0.0/16"
-  enable_dns_support   = true
+  enable_dns_support= true
   enable_dns_hostnames = true  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_subnet" "test" {
-  count = 3  vpc_id   = aws_vpc.test.id
+  count = 3  vpc_id= aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_blockcidrsubnet(aws_vpc.test.cidr_block, 8, count.index)  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_security_group" "test" {
   count = 2  vpc_id = aws_vpc.test.id
-  name   = "%[1]s-${count.index}"  tags = {
-    Name = %[1]q
+  name= "%[1]s-${count.index}"  tags = {
+Name = %[1]q
   }
 }
 `, rName))
@@ -473,9 +473,9 @@ return acctest.ConfigCompose(testAccRuleConfig_vpcBase(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_endpoint" "test" {
   count = 2  direction = "OUTBOUND"
   name[1]s-${count.index}"  security_group_ids = [aws_security_group.test[0].id]  ip_address {
-    subnet_id = aws_subnet.test[2].id
+subnet_id = aws_subnet.test[2].id
   }  ip_address {
-    subnet_id = aws_subnet.test[count.index].id
+subnet_id = aws_subnet.test[count.index].id
   }
 }
 `, rName))
@@ -484,9 +484,9 @@ return acctest.ConfigCompose(testAccRuleConfig_vpcBase(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_endpoint" "test" {
   count = 2  direction = "OUTBOUND"
   name[1]s-${count.index}"  security_group_ids = [aws_security_group.test[1].id]  ip_address {
-    subnet_id = aws_subnet.test[2].id
+subnet_id = aws_subnet.test[2].id
   }  ip_address {
-    subnet_id = aws_subnet.test[count.index].id
+subnet_id = aws_subnet.test[count.index].id
   }
 }
 `, rName))

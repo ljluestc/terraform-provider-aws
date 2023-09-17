@@ -178,24 +178,24 @@ resource "aws_sns_topic" "topic1" {}
 resource "aws_sns_topic" "topic2" {}
 resource "aws_sns_topic" "channel_topic" {}resource "aws_ssmincidents_replication_set" "test_replication_set" {
   region {
-    name = %[1]q
+name = %[1]q
   }
 }resource "aws_iam_role" "role" {
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
+{
+ "Effect": "Allow",
+ "Principal": {
+
  "cloudformation.amazonaws.com"
-        ]
-      },
-      "Action": [
-        "sts:AssumeRole"
-      ]
-    }
+
+ },
+ "Action": [
+
+ ]
+}
   ]
 }
 EOF  name = %[1]q
@@ -203,61 +203,61 @@ EOF  name = %[1]q
   name = %[1]q
   document_type = "Command"  content = <<DOC
   {
-    "schemaVersion": "1.2",
-    "description": "Check ip configuration of a Linux instance.",
-    "parameters": {    },
-    "runtimeConfig": {
-      "aws:runShellScript": {
-        "properties": [
+"schemaVersion": "1.2",
+"description": "Check ip configuration of a Linux instance.",
+"parameters": {},
+"runtimeConfig": {
+ "aws:runShellScript": {
+
  {
-   "id": "0.aws:runShellScript",
-   "runCommand": ["ifconfig"]
+"id": "0.aws:runShellScript",
+"runCommand": ["ifconfig"]
  }
-        ]
-      }
-    }
+
+ }
+}
   }
 DOC
 }resource "aws_ssmincidents_response_plan" "test" {
   name = %[2]q  incident_template {
-    title= %[3]q
-    impact        = "3"
-    dedupe_string = "dedupe"
-    summary       = "summary"    incident_tags = {
-      a = "tag1"
-      b = ""
-    }    notification_target {
-      sns_topic_arn = %[4]s
-    }    notification_target {
-      sns_topic_arn = %[5]s
-    }
+title= %[3]q
+impact
+dedupe_string = "dedupe"
+summary= "summary"incident_tags = {
+ a = "tag1"
+ b = ""
+}notification_target {
+ sns_topic_arn = %[4]s
+}notification_target {
+ sns_topic_arn = %[5]s
+}
   }  display_name = %[6]q
   chat_channel = [%[7]s]  engagements = ["arn:aws:ssm-contacts:us-east-2:111122223333:contact/test1"]  action {
-    ssm_automation {
-      document_name    = aws_ssm_document.document.name
-      role_arn= aws_iam_role.role.arn
-      document_version = "version1"
-      target_account   = "RESPONSE_PLAN_OWNER_ACCOUNT"
-      parameter {
-        name   = "key"
-        values = ["value1", "value2"]
-      }
-      dynamic_parameters = {
-        anotherKey = "INVOLVED_RESOURCES"
-      }
-    }
+ssm_automation {
+ document_name= aws_ssm_document.document.name
+ role_arn= aws_iam_role.role.arn
+ document_version = "version1"
+ target_account= "RESPONSE_PLAN_OWNER_ACCOUNT"
+ parameter {
+
+ue2"]
+ }
+ dynamic_parameters = {
+ESOURCES"
+ }
+}
   }  #  Comment out integration section as the configured PagerDuty secretId is invalid and the test will fail,
   #  as we do not want to expose credentials to public repository.
   #  Tested locally and PagerDuty integration work with response plan.
   #  integration {
-  #    pagerduty {
-  #      name = "pagerduty-test-terraform"
-  #      service_id = "PNDIQ3N"
-  #      secret_id = "PagerdutyPoshchuSecret"
-  #    }
+  #pagerduty {
+  # name = "pagerduty-test-terraform"
+  # service_id = "PNDIQ3N"
+  # secret_id = "PagerdutyPoshchuSecret"
+  #}
   #  }  tags = {
-    a = "tag1"
-    b = ""
+a = "tag1"
+b = ""
   }  depends_on = [aws_ssmincidents_replication_set.test_replication_set]
 }data "aws_ssmincidents_response_plan" "test" {
   arn = aws_ssmincidents_response_plan.test.arn

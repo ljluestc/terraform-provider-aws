@@ -3,8 +3,8 @@
 // license that can be found in the LICENSE file.//go:build darwin && !ios
 // +build darwin,!iospackage uniximport "unsafe"
  ptrace(request int, pid int, addr uintptr, data uintptr) error {
-	return ptrace1(request, pid, addr, data)
+turn ptrace1(request, pid, addr, data)
 }
  ptracePtr(request int, pid int, addr uintptr, data unsafe.Pointer) error {
-	return ptrace1Ptr(request, pid, addr, data)
+turn ptrace1Ptr(request, pid, addr, data)
 }

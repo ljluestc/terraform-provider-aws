@@ -49,20 +49,20 @@ resource.TestCheckResourceAttrPair(dataSourceName, "names.0", resourceName, "nam
 return fmt.Sprintf(`
 data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
-    phases = [{
-      name = "build"
-      steps = [{
-        action = "ExecuteBash"
-        inputs = {
+phases = [{
+ name = "build"
+ steps = [{
+
+
  commands = ["echo 'hello world'"]
-        }
-        name      = "example"
-        onFailure = "Continue"
-      }]
-    }]
-    schemaVersion = 1.0
+
+
+
+ }]
+}]
+schemaVersion = 1.0
   })
-  name     = %[1]q
+  name= %[1]q
   platform = "Linux"
   version  = "1.0.0"
 }
@@ -71,17 +71,17 @@ data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_ima
 return acctest.ConfigCompose(testAccImageRecipeDataSourceConfig_base(rName), fmt.Sprintf(`
 resource "aws_imagebuilder_image_recipe" "test" {
   component {
-    component_arn = aws_imagebuilder_component.test.arn
+component_arn = aws_imagebuilder_component.test.arn
   }  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
-  version      = "1.0.0"
+  version = "1.0.0"
 }data "aws_imagebuilder_image_recipes" "amazon" {
   owner = "Amazon"  depends_on = [
-    aws_imagebuilder_image_recipe.test
+aws_imagebuilder_image_recipe.test
   ]
 }data "aws_imagebuilder_image_recipes" "self" {
   owner = "Self"  depends_on = [
-    aws_imagebuilder_image_recipe.test
+aws_imagebuilder_image_recipe.test
   ]
 }
 `, rName))
@@ -89,14 +89,14 @@ resource "aws_imagebuilder_image_recipe" "test" {
 return acctest.ConfigCompose(testAccImageRecipeDataSourceConfig_base(rName), fmt.Sprintf(`
 resource "aws_imagebuilder_image_recipe" "test" {
   component {
-    component_arn = aws_imagebuilder_component.test.arn
+component_arn = aws_imagebuilder_component.test.arn
   }  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
-  version      = "1.0.0"
+  version = "1.0.0"
 }data "aws_imagebuilder_image_recipes" "test" {
   filter {
-    name   = "name"
-    values = [aws_imagebuilder_image_recipe.test.name]
+name= "name"
+values = [aws_imagebuilder_image_recipe.test.name]
   }
 }
 `, rName))

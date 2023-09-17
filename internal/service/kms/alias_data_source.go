@@ -1,19 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kms
-
-import (
-"context"
-
-"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package kmsimport (
+"context""github.com/aws/aws-sdk-go/aws"
 "github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 "github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 "github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// @SDKDataSource("aws_kms_alias")
+)// @SDKDataSource("aws_kms_alias")
 func DataSourceAlias() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceAliasRead,
@@ -40,20 +32,10 @@ Computed: true,
 }
 func dataSourceAliasRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
-conn := meta.(*conns.AWSClient).KMSConn(ctx)
-
-target := d.Get("name").(string)
-
-alias, err := FindAliasByName(ctx, conn, target)
-
-if err != nil {
+conn := meta.(*conns.AWSClient).KMSConn(ctx)target := d.Get("name").(string)alias, err := FindAliasByName(ctx, conn, target)if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading KMS Alias (%s): %s", target, err)
-}
-
-d.SetId(aws.StringValue(alias.AliasArn))
-d.Set("arn", alias.AliasArn)
-
-// ListAliases can return an alias for an AWS service key (e.g.
+}d.SetId(aws.StringValue(alias.AliasArn))
+d.Set("arn", alias.AliasArn)// ListAliases can return an alias for an AWS service key (e.g.
 // alias/aws/rds) without a TargetKeyId if the alias has not yet been
 // used for the first time. In that situation, calling DescribeKey will
 // associate an actual key with the alias, and the next call to
@@ -62,16 +44,8 @@ d.Set("arn", alias.AliasArn)
 // For a simpler codepath, we always call DescribeKey with the alias
 // name to get the target key's ARN and Id direct from AWS.
 //
-// https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.html
-
-keyMetadata, err := FindKeyByID(ctx, conn, target)
-
-if err != nil {
+// https://docs.aws.amazon.com/kms/latest/APIReference/API_ListAliases.htmlkeyMetadata, err := FindKeyByID(ctx, conn, target)if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading KMS Key (%s): %s", target, err)
-}
-
-d.Set("target_key_arn", keyMetadata.Arn)
-d.Set("target_key_id", keyMetadata.KeyId)
-
-return diags
+}d.Set("target_key_arn", keyMetadata.Arn)
+d.Set("target_key_id", keyMetadata.KeyId)return diags
 }

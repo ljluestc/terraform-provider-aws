@@ -100,14 +100,14 @@ NestedObject: schema.NestedBlockObject{
 Attributes: map[string]schema.Attribute{
 "alarm_arn": schema.StringAttribute{
 CustomType: fwtypes.ARNType,
-Required:   true,
+Required:true,
 Validators: []validator.String{
 stringvalidator.LengthBetween(1, 2048),
 },
 },
 "alarm_role_arn": schema.StringAttribute{
 CustomType: fwtypes.ARNType,
-Optional:   true,
+Optional:true,
 Validators: []validator.String{
 stringvalidator.LengthBetween(20, 2048),
 },
@@ -233,14 +233,14 @@ r.SetTagsAll(ctx, request, response)
 }type resourceEnvironmentData struct {
 ApplicationID types.String `tfsdk:"application_id"`
 ARN  types.String `tfsdk:"arn"`
-Description   types.String `tfsdk:"description"`
+Descriptiontypes.String `tfsdk:"description"`
 EnvironmentID types.String `tfsdk:"environment_id"`
-ID   types.String `tfsdk:"id"`
+IDtypes.String `tfsdk:"id"`
 Monitors  types.Set`tfsdk:"monitor"`
 Name types.String `tfsdk:"name"`
 Statetypes.String `tfsdk:"state"`
 Tags types.Map`tfsdk:"tags"`
-TagsAll   types.Map`tfsdk:"tags_all"`
+TagsAlltypes.Map`tfsdk:"tags_all"`
 }func (d *resourceEnvironmentData) refreshFromCreateOutput(ctx context.Context, meta *conns.AWSClient, out *appconfig.CreateEnvironmentOutput) diag.Diagnostics {
 var diags diag.Diagnosticsif out == nil {
 return diags
@@ -298,7 +298,7 @@ AccountID: meta.AccountID,
 Partition: meta.Partition,
 Region:meta.Region,
 Resource:  fmt.Sprintf("application/%s/environment/%s", appID, envID),
-Service:   "appconfig",
+Service:"appconfig",
 }
 }func expandMonitors(l []monitorData) []awstypes.Monitor {
 monitors := make([]awstypes.Monitor, len(l))

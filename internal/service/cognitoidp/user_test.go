@@ -17,10 +17,10 @@ ctx := acctest.Context(t)
 rUserPoolName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rUserName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_cognito_user.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserConfig_basic(rUserPoolName, rUserName),
@@ -36,8 +36,8 @@ resource.TestCheckResourceAttr(resourceName, "status", cognitoidentityprovider.U
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "temporary_password",
@@ -55,10 +55,10 @@ ctx := acctest.Context(t)
 rUserPoolName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rUserName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_cognito_user.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserConfig_basic(rUserPoolName, rUserName),
@@ -79,10 +79,10 @@ rUserPassword := sdkacctest.RandString(16)
 rUserPasswordUpdated := sdkacctest.RandString(16)
 userResourceName := "aws_cognito_user.test"
 clientResourceName := "aws_cognito_user_pool_client.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserConfig_temporaryPassword(rUserPoolName, rClientName, rUserName, rUserPassword),
@@ -93,8 +93,8 @@ resource.TestCheckResourceAttr(userResourceName, "status", cognitoidentityprovid
 ),
 },
 {
-ResourceName:      userResourceName,
-ImportState:       true,
+ResourceName: userResourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "temporary_password",
@@ -132,10 +132,10 @@ rUserPassword := sdkacctest.RandString(16)
 rUserPasswordUpdated := sdkacctest.RandString(16)
 userResourceName := "aws_cognito_user.test"
 clientResourceName := "aws_cognito_user_pool_client.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserConfig_password(rUserPoolName, rClientName, rUserName, rUserPassword),
@@ -146,8 +146,8 @@ resource.TestCheckResourceAttr(userResourceName, "status", cognitoidentityprovid
 ),
 },
 {
-ResourceName:      userResourceName,
-ImportState:       true,
+ResourceName: userResourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "temporary_password",
@@ -181,10 +181,10 @@ ctx := acctest.Context(t)
 rUserPoolName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rUserName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_cognito_user.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserConfig_attributes(rUserPoolName, rUserName),
@@ -197,8 +197,8 @@ resource.TestCheckResourceAttr(resourceName, "attributes.three", "3"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "temporary_password",
@@ -226,10 +226,10 @@ ctx := acctest.Context(t)
 rUserPoolName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rUserName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_cognito_user.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccUserConfig_enable(rUserPoolName, rUserName, false),
@@ -239,8 +239,8 @@ resource.TestCheckResourceAttr(resourceName, "enabled", "false"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "temporary_password",
@@ -335,7 +335,7 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 }resource "aws_cognito_user" "test" {
   user_pool_id = aws_cognito_user_pool.test.id
-  username     = %[2]q
+  username= %[2]q
 }
 `, userPoolName, userName)
 }func testAccUserConfig_temporaryPassword(userPoolName string, clientName string, userName string, password string) string {
@@ -343,18 +343,18 @@ return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q
   password_policy {
-    temporary_password_validity_days = 7
-    minimum_length    = 6
-    require_uppercase = false
-    require_symbols   = false
-    require_numbers   = false
+temporary_password_validity_days = 7
+minimum_length= 6
+require_uppercase = false
+require_symbols= false
+require_numbers= false
   }
 }resource "aws_cognito_user_pool_client" "test" {
   name = %[2]q
-  user_pool_id        = aws_cognito_user_pool.test.id
+  user_pool_idtest.id
   explicit_auth_flows = ["ALLOW_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
 }resource "aws_cognito_user" "test" {
-  user_pool_id       = aws_cognito_user_pool.test.id
+  user_pool_id= aws_cognito_user_pool.test.id
   username  = %[3]q
   temporary_password = %[4]q
 }
@@ -364,20 +364,20 @@ return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q
   password_policy {
-    temporary_password_validity_days = 7
-    minimum_length    = 6
-    require_uppercase = false
-    require_symbols   = false
-    require_numbers   = false
+temporary_password_validity_days = 7
+minimum_length= 6
+require_uppercase = false
+require_symbols= false
+require_numbers= false
   }
 }resource "aws_cognito_user_pool_client" "test" {
   name = %[2]q
-  user_pool_id        = aws_cognito_user_pool.test.id
+  user_pool_idtest.id
   explicit_auth_flows = ["ALLOW_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
 }resource "aws_cognito_user" "test" {
   user_pool_id = aws_cognito_user_pool.test.id
-  username     = %[3]q
-  password     = %[4]q
+  username= %[3]q
+  password= %[4]q
 }
 `, userPoolName, clientName, userName, password)
 }func testAccUserConfig_noPassword(userPoolName string, clientName string, userName string) string {
@@ -385,62 +385,62 @@ return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q
   password_policy {
-    temporary_password_validity_days = 7
-    minimum_length    = 6
-    require_uppercase = false
-    require_symbols   = false
-    require_numbers   = false
+temporary_password_validity_days = 7
+minimum_length= 6
+require_uppercase = false
+require_symbols= false
+require_numbers= false
   }
 }resource "aws_cognito_user_pool_client" "test" {
   name = %[2]q
-  user_pool_id        = aws_cognito_user_pool.test.id
+  user_pool_idtest.id
   explicit_auth_flows = ["ALLOW_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
 }resource "aws_cognito_user" "test" {
   user_pool_id = aws_cognito_user_pool.test.id
-  username     = %[3]q
+  username= %[3]q
 }
 `, userPoolName, clientName, userName)
 }func testAccUserConfig_attributes(userPoolName string, userName string) string {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  schema {
-    name      = "one"
-    attribute_data_type      = "String"
-    mutable   = true
-    required  = false
-    developer_only_attribute = false
-    string_attribute_constraints {}
+name = "one"
+attribute_data_type = "String"
+mutable= true
+required  = false
+developer_only_attribute = false
+string_attribute_constraints {}
   }
   schema {
-    name      = "two"
-    attribute_data_type      = "String"
-    mutable   = true
-    required  = false
-    developer_only_attribute = false
-    string_attribute_constraints {}
+name = "two"
+attribute_data_type = "String"
+mutable= true
+required  = false
+developer_only_attribute = false
+string_attribute_constraints {}
   }
   schema {
-    name      = "three"
-    attribute_data_type      = "String"
-    mutable   = true
-    required  = false
-    developer_only_attribute = false
-    string_attribute_constraints {}
+name = "three"
+attribute_data_type = "String"
+mutable= true
+required  = false
+developer_only_attribute = false
+string_attribute_constraints {}
   }
   schema {
-    name      = "four"
-    attribute_data_type      = "String"
-    mutable   = true
-    required  = false
-    developer_only_attribute = false
-    string_attribute_constraints {}
+name = "four"
+attribute_data_type = "String"
+mutable= true
+required  = false
+developer_only_attribute = false
+string_attribute_constraints {}
   }
 }resource "aws_cognito_user" "test" {
   user_pool_id = aws_cognito_user_pool.test.id
-  username     = %[2]q  attributes = {
-    one   = "1"
-    two   = "2"
-    three = "3"
+  username= %[2]q  attributes = {
+one= "1"
+two= "2"
+three = "3"
   }
 }
 `, userPoolName, userName)
@@ -448,43 +448,43 @@ resource "aws_cognito_user_pool" "test" {
 return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q  schema {
-    name      = "one"
-    attribute_data_type      = "String"
-    mutable   = true
-    required  = false
-    developer_only_attribute = false
-    string_attribute_constraints {}
+name = "one"
+attribute_data_type = "String"
+mutable= true
+required  = false
+developer_only_attribute = false
+string_attribute_constraints {}
   }
   schema {
-    name      = "two"
-    attribute_data_type      = "String"
-    mutable   = true
-    required  = false
-    developer_only_attribute = false
-    string_attribute_constraints {}
+name = "two"
+attribute_data_type = "String"
+mutable= true
+required  = false
+developer_only_attribute = false
+string_attribute_constraints {}
   }
   schema {
-    name      = "three"
-    attribute_data_type      = "String"
-    mutable   = true
-    required  = false
-    developer_only_attribute = false
-    string_attribute_constraints {}
+name = "three"
+attribute_data_type = "String"
+mutable= true
+required  = false
+developer_only_attribute = false
+string_attribute_constraints {}
   }
   schema {
-    name      = "four"
-    attribute_data_type      = "String"
-    mutable   = true
-    required  = false
-    developer_only_attribute = false
-    string_attribute_constraints {}
+name = "four"
+attribute_data_type = "String"
+mutable= true
+required  = false
+developer_only_attribute = false
+string_attribute_constraints {}
   }
 }resource "aws_cognito_user" "test" {
   user_pool_id = aws_cognito_user_pool.test.id
-  username     = %[2]q  attributes = {
-    two   = "2"
-    three = "three"
-    four  = "4"
+  username= %[2]q  attributes = {
+two= "2"
+three = "three"
+four  = "4"
   }
 }
 `, userPoolName, userName)
@@ -494,8 +494,8 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 }resource "aws_cognito_user" "test" {
   user_pool_id = aws_cognito_user_pool.test.id
-  username     = %[2]q
-  enabled      = %[3]t
+  username= %[2]q
+  enabled = %[3]t
 }
 `, userPoolName, userName, enabled)
 }

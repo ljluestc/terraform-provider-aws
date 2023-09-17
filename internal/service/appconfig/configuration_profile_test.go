@@ -38,7 +38,7 @@ resource.TestCheckResourceAttr(resourceName, "validator.#", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -83,7 +83,7 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "validator.*", map[string
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -99,7 +99,7 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "validator.*", map[string
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -134,7 +134,7 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "validator.*", map[string
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -173,7 +173,7 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "validator.*", map[string
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -204,7 +204,7 @@ resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -228,7 +228,7 @@ resource.TestCheckResourceAttr(resourceName, "description", rName),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -240,7 +240,7 @@ resource.TestCheckResourceAttr(resourceName, "description", description),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -264,7 +264,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -330,7 +330,7 @@ fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
   name  = %q
-  location_uri   = "hosted"
+  location_uri= "hosted"
 }
 `, rName))
 }func testAccConfigurationProfileConfig_description(rName, description string) string {
@@ -341,7 +341,7 @@ resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
   name  = %[1]q
   description= %[2]q
-  location_uri   = "hosted"
+  location_uri= "hosted"
 }
 `, rName, description))
 }func testAccConfigurationProfileConfig_validatorJSON(rName string) string {
@@ -351,9 +351,9 @@ fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
   name  = %q
-  location_uri   = "hosted"  validator {
+  location_uri= "hosted"  validator {
 content = jsonencode({
-  "$schema"   = "http://json-schema.org/draft-04/schema#"
+  "$schema"= "http://json-schema.org/draft-04/schema#"
   title = "$id$"
   description = "BasicFeatureToggle-1"
   type  = "object"
@@ -375,7 +375,7 @@ fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
   name  = %q
-  location_uri   = "hosted"  validator {
+  location_uri= "hosted"  validator {
 type = "JSON_SCHEMA"
   }
 }
@@ -402,8 +402,8 @@ EOF
   filename  = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   role = aws_iam_role.lambda.arn
-  handler   = "exports.example"
-  runtime   = "nodejs16.x"
+  handler= "exports.example"
+  runtime= "nodejs16.x"
 }
 `, rName)
 }func testAccConfigurationProfileConfig_validatorLambda(rName string) string {
@@ -414,7 +414,7 @@ fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
   name  = %[1]q
-  location_uri   = "hosted"  validator {
+  location_uri= "hosted"  validator {
 content = aws_lambda_function.test.arn
 type= "LAMBDA"
   }
@@ -428,10 +428,10 @@ fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
   name  = %[1]q
-  location_uri   = "hosted"  validator {
+  location_uri= "hosted"  validator {
 content = jsonencode({
-  "$schema"   = "http://json-schema.org/draft-05/schema#"
-  title   = "$id$"
+  "$schema"= "http://json-schema.org/draft-05/schema#"
+  title= "$id$"
   description = "BasicFeatureToggle-1"
 })type = "JSON_SCHEMA"
   }  validator {
@@ -446,7 +446,7 @@ testAccApplicationConfig_name(rName),
 fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
-  location_uri   = "hosted"
+  location_uri= "hosted"
   name  = %[1]q  tags = {
 %[2]q = %[3]q
   }
@@ -458,7 +458,7 @@ testAccApplicationConfig_name(rName),
 fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
-  location_uri   = "hosted"
+  location_uri= "hosted"
   name  = %[1]q  tags = {
 %[2]q = %[3]q
 %[4]q = %[5]q

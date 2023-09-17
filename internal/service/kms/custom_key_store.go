@@ -17,7 +17,7 @@
 func ResourceCustomKeyStore() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceCustomKeyStoreCreate,
-ReadWithoutTimeout:   resourceCustomKeyStoreRead,
+ReadWithoutTimeout:resourceCustomKeyStoreRead,
 UpdateWithoutTimeout: resourceCustomKeyStoreUpdate,
 DeleteWithoutTimeout: resourceCustomKeyStoreDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -27,21 +27,21 @@ Update: schema.DefaultTimeout(15 * time.Minute),
 Delete: schema.DefaultTimeout(15 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "cloud_hsm_cluster_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "custom_key_store_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "key_store_password": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
 ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(7, 32)),
 },
 "trust_anchor_certificate": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 },
@@ -51,9 +51,9 @@ ResNameCustomKeyStore = "Custom Key Store"
 )
 func resourceCustomKeyStoreCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).KMSConn(ctx)in := &kms.CreateCustomKeyStoreInput{
-CloudHsmClusterId:      aws.String(d.Get("cloud_hsm_cluster_id").(string)),
-CustomKeyStoreName:     aws.String(d.Get("custom_key_store_name").(string)),
-KeyStorePassword:       aws.String(d.Get("key_store_password").(string)),
+CloudHsmClusterId: aws.String(d.Get("cloud_hsm_cluster_id").(string)),
+CustomKeyStoreName:aws.String(d.Get("custom_key_store_name").(string)),
+KeyStorePassword:aws.String(d.Get("key_store_password").(string)),
 TrustAnchorCertificate: aws.String(d.Get("trust_anchor_certificate").(string)),
 }out, err := conn.CreateCustomKeyStoreWithContext(ctx, in)
 if err != nil {

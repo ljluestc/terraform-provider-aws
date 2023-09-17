@@ -104,27 +104,27 @@ if len(errors) == 0 {
 }func TestValidRoleMappingsAmbiguousRoleResolutionAgainstType(t *testing.T) {
 	t.Parallel()	cases := []struct {
 AmbiguousRoleResolution interface{}
-Type     string
+Typestring
 ErrCount int
 	}{
 {
 	AmbiguousRoleResolution: nil,
-	Type:     cognitoidentity.RoleMappingTypeToken,
+	Type:cognitoidentity.RoleMappingTypeToken,
 	ErrCount: 1,
 },
 {
 	AmbiguousRoleResolution: "foo",
-	Type:     cognitoidentity.RoleMappingTypeToken,
+	Type:cognitoidentity.RoleMappingTypeToken,
 	ErrCount: 0, // 0 as it should be defined, the value isn't validated here
 },
 {
 	AmbiguousRoleResolution: cognitoidentity.AmbiguousRoleResolutionTypeAuthenticatedRole,
-	Type:     cognitoidentity.RoleMappingTypeToken,
+	Type:cognitoidentity.RoleMappingTypeToken,
 	ErrCount: 0,
 },
 {
 	AmbiguousRoleResolution: cognitoidentity.AmbiguousRoleResolutionTypeDeny,
-	Type:     cognitoidentity.RoleMappingTypeToken,
+	Type:cognitoidentity.RoleMappingTypeToken,
 	ErrCount: 0,
 },
 	}	for _, tc := range cases {
@@ -141,42 +141,42 @@ if len(errors) != tc.ErrCount {
 }func TestValidRoleMappingsRulesConfiguration(t *testing.T) {
 	t.Parallel()	cases := []struct {
 MappingRule []interface{}
-Type        string
-ErrCount    int
+Type
+ErrCountint
 	}{
 {
 	MappingRule: nil,
-	Type:        cognitoidentity.RoleMappingTypeRules,
-	ErrCount:    1,
+	Type:ingTypeRules,
+	ErrCount:1,
 },
 {
 	MappingRule: []interface{}{
 map[string]interface{}{
-	"Claim":     "isAdmin",
+	"Claim":"isAdmin",
 	"MatchType": "Equals",
-	"RoleARN":   "arn:foo",
-	"Value":     "paid",
+	"RoleARN":"arn:foo",
+	"Value":"paid",
 },
 	},
-	Type:     cognitoidentity.RoleMappingTypeRules,
+	Type:cognitoidentity.RoleMappingTypeRules,
 	ErrCount: 0,
 },
 {
 	MappingRule: []interface{}{
 map[string]interface{}{
-	"Claim":     "isAdmin",
+	"Claim":"isAdmin",
 	"MatchType": "Equals",
-	"RoleARN":   "arn:foo",
-	"Value":     "paid",
+	"RoleARN":"arn:foo",
+	"Value":"paid",
 },
 	},
-	Type:     cognitoidentity.RoleMappingTypeToken,
+	Type:cognitoidentity.RoleMappingTypeToken,
 	ErrCount: 1,
 },
 {
 	MappingRule: nil,
-	Type:        cognitoidentity.RoleMappingTypeToken,
-	ErrCount:    0,
+	Type:ingTypeToken,
+	ErrCount:0,
 },
 	}	for _, tc := range cases {
 m := make(map[string]interface{})

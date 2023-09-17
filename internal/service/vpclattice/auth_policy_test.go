@@ -24,9 +24,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAuthPolicyDestroy(ctx),
+CheckDestroy:testAccCheckAuthPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccAuthPolicyConfig_basic(rName),
@@ -37,8 +37,8 @@ resource.TestCheckResourceAttrPair(resourceName, "resource_identifier", "aws_vpc
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -52,9 +52,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAuthPolicyDestroy(ctx),
+CheckDestroy:testAccCheckAuthPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccAuthPolicyConfig_basic(rName),
@@ -108,18 +108,18 @@ data "aws_partition" "current" {}data "aws_caller_identity" "current" {}resource
   custom_domain_name = "example.com"
 }resource "aws_vpclattice_auth_policy" "test" {
   resource_identifier = aws_vpclattice_service.test.arn  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action    = "*"
-      Effect    = "Allow"
-      Principal = "*"
-      Resource  = "*"
-      Condition = {
-        StringNotEqualsIgnoreCase = {
+Version = "2012-10-17"
+Statement = [{
+ Action= "*"
+ Effect= "Allow"
+ Principal = "*"
+ Resource  = "*"
+ Condition = {
+e = {
  "aws:PrincipalType" = "anonymous"
-        }
-      }
-    }]
+
+ }
+}]
   })
 }
 `, rName)

@@ -7,89 +7,89 @@
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )func FindBackupByID(ctx context.Context, conn *fsx.FSx, id string) (*fsx.Backup, error) {
 	input := &fsx.DescribeBackupsInput{
-		BackupIds: aws.StringSlice([]string{id}),
+BackupIds: aws.StringSlice([]string{id}),
 	}	output, err := conn.DescribeBackupsWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, fsx.ErrCodeFileSystemNotFound) || tfawserr.ErrCodeEquals(err, fsx.ErrCodeBackupNotFound) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: input,
+}
 	}	if err != nil {
-		return nil, err
+return nil, err
 	}	if output == nil || len(output.Backups) == 0 || output.Backups[0] == nil {
-		return nil, tfresource.NewEmptyResultError(input)
+return nil, tfresource.NewEmptyResultError(input)
 	}	return output.Backups[0], nil
 }func findFileCacheByID(ctx context.Context, conn *fsx.FSx, id string) (*fsx.FileCache, error) {
 	input := &fsx.DescribeFileCachesInput{
-		FileCacheIds: []*string{aws.String(id)},
+FileCacheIds: []*string{aws.String(id)},
 	}
 	var fileCaches []*fsx.FileCache	err := conn.DescribeFileCachesPagesWithContext(ctx, input, func(page *fsx.DescribeFileCachesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-		fileCaches = append(fileCaches, page.FileCaches...)		return !lastPage
+if page == nil {
+return !lastPage
+}
+fileCaches = append(fileCaches, page.FileCaches...)return !lastPage
 	})	if tfawserr.ErrCodeEquals(err, fsx.ErrCodeFileCacheNotFound) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: input,
+}
 	}
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 	if len(fileCaches) == 0 || fileCaches[0] == nil {
-		return nil, tfresource.NewEmptyResultError(input)
+return nil, tfresource.NewEmptyResultError(input)
 	}
 	if count := len(fileCaches); count > 1 {
-		return nil, tfresource.NewTooManyResultsError(count, input)
+return nil, tfresource.NewTooManyResultsError(count, input)
 	}
 	return fileCaches[0], nil
 }func FindStorageVirtualMachineByID(ctx context.Context, conn *fsx.FSx, id string) (*fsx.StorageVirtualMachine, error) {
 	input := &fsx.DescribeStorageVirtualMachinesInput{
-		StorageVirtualMachineIds: []*string{aws.String(id)},
+StorageVirtualMachineIds: []*string{aws.String(id)},
 	}	var storageVirtualMachines []*fsx.StorageVirtualMachine	err := conn.DescribeStorageVirtualMachinesPagesWithContext(ctx, input, func(page *fsx.DescribeStorageVirtualMachinesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}		storageVirtualMachines = append(storageVirtualMachines, page.StorageVirtualMachines...)		return !lastPage
+if page == nil {
+return !lastPage
+}storageVirtualMachines = append(storageVirtualMachines, page.StorageVirtualMachines...)return !lastPage
 	})	if tfawserr.ErrCodeEquals(err, fsx.ErrCodeStorageVirtualMachineNotFound) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: input,
+}
 	}	if err != nil {
-		return nil, err
+return nil, err
 	}	if len(storageVirtualMachines) == 0 || storageVirtualMachines[0] == nil {
-		return nil, tfresource.NewEmptyResultError(input)
+return nil, tfresource.NewEmptyResultError(input)
 	}	if count := len(storageVirtualMachines); count > 1 {
-		return nil, tfresource.NewTooManyResultsError(count, input)
+return nil, tfresource.NewTooManyResultsError(count, input)
 	}	return storageVirtualMachines[0], nil
 }func FindSnapshotByID(ctx context.Context, conn *fsx.FSx, id string) (*fsx.Snapshot, error) {
 	input := &fsx.DescribeSnapshotsInput{
-		SnapshotIds: aws.StringSlice([]string{id}),
+SnapshotIds: aws.StringSlice([]string{id}),
 	}	output, err := conn.DescribeSnapshotsWithContext(ctx, input)	if tfawserr.ErrCodeEquals(err, fsx.ErrCodeVolumeNotFound) || tfawserr.ErrCodeEquals(err, fsx.ErrCodeSnapshotNotFound) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: input,
+}
 	}	if err != nil {
-		return nil, err
+return nil, err
 	}	if output == nil || len(output.Snapshots) == 0 || output.Snapshots[0] == nil {
-		return nil, tfresource.NewEmptyResultError(input)
+return nil, tfresource.NewEmptyResultError(input)
 	}	return output.Snapshots[0], nil
 }func FindSnapshots(ctx context.Context, conn *fsx.FSx, input *fsx.DescribeSnapshotsInput) ([]*fsx.Snapshot, error) {
 	var output []*fsx.Snapshot	err := conn.DescribeSnapshotsPagesWithContext(ctx, input, func(page *fsx.DescribeSnapshotsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}		for _, v := range page.Snapshots {
-			if v != nil {
-				output = append(output, v)
-			}
-		}		return !lastPage
+if page == nil {
+return !lastPage
+}for _, v := range page.Snapshots {
+if v != nil {
+output = append(output, v)
+}
+}return !lastPage
 	})	if tfawserr.ErrCodeEquals(err, fsx.ErrCodeSnapshotNotFound) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
+return nil, &retry.NotFoundError{
+LastError:err,
+LastRequest: input,
+}
 	}	if err != nil {
-		return nil, err
+return nil, err
 	}	return output, nil
 }

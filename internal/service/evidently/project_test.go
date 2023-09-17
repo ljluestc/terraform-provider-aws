@@ -45,7 +45,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -91,7 +91,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Test Project"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -105,7 +105,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -146,7 +146,7 @@ resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.cloudwatch_log
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -188,7 +188,7 @@ resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.p
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -233,7 +233,7 @@ resource.TestCheckResourceAttr(resourceName, "data_delivery.0.s3_destination.0.p
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -275,7 +275,7 @@ resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.cloudwatch_log
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {

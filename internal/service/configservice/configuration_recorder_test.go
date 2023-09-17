@@ -15,10 +15,10 @@ ctx := acctest.Context(t)
 var cr configservice.ConfigurationRecorder
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_config_configuration_recorder.test"resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConfigurationRecorderDestroy(ctx),
+CheckDestroy:testAccCheckConfigurationRecorderDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccConfigurationRecorderConfig_basic(rName),
@@ -29,8 +29,8 @@ acctest.CheckResourceAttrGlobalARN(resourceName, "role_arn", "iam", fmt.Sprintf(
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -40,10 +40,10 @@ ctx := acctest.Context(t)
 var cr configservice.ConfigurationRecorder
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_config_configuration_recorder.test"resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConfigurationRecorderDestroy(ctx),
+CheckDestroy:testAccCheckConfigurationRecorderDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccConfigurationRecorderConfig_basic(rName),
@@ -60,10 +60,10 @@ ctx := acctest.Context(t)
 var cr configservice.ConfigurationRecorder
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_config_configuration_recorder.test"resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConfigurationRecorderDestroy(ctx),
+CheckDestroy:testAccCheckConfigurationRecorderDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccConfigurationRecorderConfig_allParams(rName),
@@ -84,10 +84,10 @@ ctx := acctest.Context(t)
 var cr configservice.ConfigurationRecorder
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_config_configuration_recorder.test"resource.Test(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
+PreCheck:k(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, configservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckConfigurationRecorderDestroy(ctx),
+CheckDestroy:testAccCheckConfigurationRecorderDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccConfigurationRecorderConfig_recordStrategy(rName),
@@ -129,21 +129,21 @@ return err
 }func testAccConfigurationRecorderConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_config_configuration_recorder" "test" {
-  name     = %[1]q
+  name= %[1]q
   role_arn = aws_iam_role.test.arn
 }resource "aws_iam_role" "test" {
   name = %[1]q  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "config.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+naws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 POLICY
@@ -153,50 +153,50 @@ POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "s3:*"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "${aws_s3_bucket.test.arn}",
-        "${aws_s3_bucket.test.arn}/*"
-      ]
-    }
+{
+ "Action": [
+
+ ],
+ "Effect": "Allow",
+ "Resource": [
+n}",
+n}/*"
+ ]
+}
   ]
 }
 EOF
 }resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }resource "aws_config_delivery_channel" "test" {
   name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.bucket
-  depends_on     = [aws_config_configuration_recorder.test]
+  depends_on= [aws_config_configuration_recorder.test]
 }
 `, rName)
 }func testAccConfigurationRecorderConfig_allParams(rName string) string {
 return fmt.Sprintf(`
 resource "aws_config_configuration_recorder" "test" {
-  name     = %[1]q
+  name= %[1]q
   role_arn = aws_iam_role.test.arn  recording_group {
-    all_supported        = false
-    include_global_resource_types = false
-    resource_types       = ["AWS::EC2::Instance", "AWS::CloudTrail::Trail"]
+all_supported
+include_global_resource_types = false
+resource_types= ["AWS::EC2::Instance", "AWS::CloudTrail::Trail"]
   }
 }resource "aws_iam_role" "test" {
   name = %[1]q  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "config.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+naws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 POLICY
@@ -206,53 +206,53 @@ POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "s3:*"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "${aws_s3_bucket.test.arn}",
-        "${aws_s3_bucket.test.arn}/*"
-      ]
-    }
+{
+ "Action": [
+
+ ],
+ "Effect": "Allow",
+ "Resource": [
+n}",
+n}/*"
+ ]
+}
   ]
 }
 EOF
 }resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }resource "aws_config_delivery_channel" "test" {
   name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.bucket
-  depends_on     = [aws_config_configuration_recorder.test]
+  depends_on= [aws_config_configuration_recorder.test]
 }
 `, rName)
 }func testAccConfigurationRecorderConfig_recordStrategy(rName string) string {
 return fmt.Sprintf(`
 resource "aws_config_configuration_recorder" "test" {
-  name     = %[1]q
+  name= %[1]q
   role_arn = aws_iam_role.test.arn  recording_group {
-    all_supported        = false
-    include_global_resource_types = false    exclusion_by_resource_types {
-      resource_types = ["AWS::EC2::Instance", "AWS::CloudTrail::Trail"]
-    }    recording_strategy {
-      use_only = "EXCLUSION_BY_RESOURCE_TYPES"
-    }
+all_supported
+include_global_resource_types = falseexclusion_by_resource_types {
+ resource_types = ["AWS::EC2::Instance", "AWS::CloudTrail::Trail"]
+}recording_strategy {
+ use_only = "EXCLUSION_BY_RESOURCE_TYPES"
+}
   }
 }resource "aws_iam_role" "test" {
   name = %[1]q  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "config.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+naws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 POLICY
@@ -262,30 +262,30 @@ POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "s3:*"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "${aws_s3_bucket.test.arn}",
-        "${aws_s3_bucket.test.arn}/*"
-      ]
-    }
+{
+ "Action": [
+
+ ],
+ "Effect": "Allow",
+ "Resource": [
+n}",
+n}/*"
+ ]
+}
   ]
 }
 EOF
 }resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket
   force_destroy = true
 }resource "aws_s3_bucket_ownership_controls" "test" {
   bucket = aws_s3_bucket.test.id  rule {
-    object_ownership = "BucketOwnerEnforced"
+object_ownership = "BucketOwnerEnforced"
   }
 }resource "aws_config_delivery_channel" "test" {
   name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.bucket
-  depends_on     = [aws_config_configuration_recorder.test]
+  depends_on= [aws_config_configuration_recorder.test]
 }
 `, rName)
 }

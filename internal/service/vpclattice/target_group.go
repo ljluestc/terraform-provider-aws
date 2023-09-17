@@ -26,7 +26,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceTargetGroup() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceTargetGroupCreate,
-ReadWithoutTimeout:   resourceTargetGroupRead,
+ReadWithoutTimeout:resourceTargetGroupRead,
 UpdateWithoutTimeout: resourceTargetGroupUpdate,
 DeleteWithoutTimeout: resourceTargetGroupDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -36,52 +36,52 @@ Update: schema.DefaultTimeout(30 * time.Minute),
 Delete: schema.DefaultTimeout(30 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "config": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "health_check": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "enabled": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 },
 "health_check_interval_seconds": {
 Type:schema.TypeInt,
-Optional:     true,
-Default:      30,
+Optional:true,
+Default: 30,
 ValidateFunc: validation.IntBetween(5, 300),
 },
 "health_check_timeout_seconds": {
 Type:schema.TypeInt,
-Optional:     true,
-Default:      5,
+Optional:true,
+Default: 5,
 ValidateFunc: validation.IntBetween(1, 120),
 },
 "healthy_threshold_count": {
 Type:schema.TypeInt,
-Optional:     true,
-Default:      5,
+Optional:true,
+Default: 5,
 ValidateFunc: validation.IntBetween(2, 10),
 },
 "matcher": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "value": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  "200",
 },
@@ -90,24 +90,24 @@ Default:  "200",
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 },
 "path": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  "/",
 },
 "port": {
 Type:schema.TypeInt,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 ValidateFunc: validation.IsPortNumber,
 },
 "protocol": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Optional:true,
 Computed:true,
 ValidateDiagFunc: enum.Validate[types.TargetGroupProtocol](),
 },
 "protocol_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  types.HealthCheckProtocolVersionHttp1,
 StateFunc: func(v interface{}) string {
@@ -117,8 +117,8 @@ ValidateDiagFunc: enum.Validate[types.HealthCheckProtocolVersion](),
 },
 "unhealthy_threshold_count": {
 Type:schema.TypeInt,
-Optional:     true,
-Default:      2,
+Optional:true,
+Default: 2,
 ValidateFunc: validation.IntBetween(2, 10),
 },
 },
@@ -126,7 +126,7 @@ ValidateFunc: validation.IntBetween(2, 10),
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 },
 "ip_address_type": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Optional:true,
 Computed:true,
 ForceNew:true,
@@ -134,18 +134,18 @@ ValidateDiagFunc: enum.Validate[types.IpAddressType](),
 },
 "port": {
 Type:schema.TypeInt,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.IsPortNumber,
 },
 "protocol": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
 ForceNew:true,
 ValidateDiagFunc: enum.Validate[types.TargetGroupProtocol](),
 },
 "protocol_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 Default:  types.TargetGroupProtocolVersionHttp1,
@@ -155,7 +155,7 @@ return strings.ToUpper(v.(string))
 ValidateDiagFunc: enum.Validate[types.TargetGroupProtocolVersion](),
 },
 "vpc_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
@@ -164,21 +164,21 @@ ForceNew: true,
 },
 "name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(3, 128),
 },
 "status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "type": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Required:true,
 ForceNew:true,
 ValidateDiagFunc: enum.Validate[types.TargetGroupType](),
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: customdiff.All(
 verify.SetTagsDiff,
@@ -201,9 +201,9 @@ ResNameTargetGroup = "Target Group"
 conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)name := d.Get("name").(string)
 in := &vpclattice.CreateTargetGroupInput{
 ClientToken: aws.String(id.UniqueId()),
-Name:        aws.String(name),
-Tags:        getTagsIn(ctx),
-Type:        types.TargetGroupType(d.Get("type").(string)),
+Name:
+Tags:
+Type:Get("type").(string)),
 }if v, ok := d.GetOk("config"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 in.Config = expandTargetGroupConfig(v.([]interface{})[0].(map[string]interface{}))
 }out, err := conn.CreateTargetGroup(ctx, in)if err != nil {
@@ -265,7 +265,7 @@ Pending: enum.Slice(types.TargetGroupStatusCreateInProgress),
 Target:  enum.Slice(types.TargetGroupStatusActive),
 Refresh: statusTargetGroup(ctx, conn, id),
 Timeout: timeout,
-NotFoundChecks:   20,
+NotFoundChecks:20,
 ContinuousTargetOccurence: 2,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)
 if out, ok := outputRaw.(*vpclattice.CreateTargetGroupOutput); ok {
@@ -277,7 +277,7 @@ Pending: enum.Slice(types.TargetGroupStatusCreateInProgress),
 Target:  enum.Slice(types.TargetGroupStatusActive),
 Refresh: statusTargetGroup(ctx, conn, id),
 Timeout: timeout,
-NotFoundChecks:   20,
+NotFoundChecks:20,
 ContinuousTargetOccurence: 2,
 }outputRaw, err := stateConf.WaitForStateContext(ctx)
 if out, ok := outputRaw.(*vpclattice.UpdateTargetGroupOutput); ok {
@@ -311,7 +311,7 @@ if err != nil {
 var nfe *types.ResourceNotFoundException
 if errors.As(err, &nfe) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }return nil, err

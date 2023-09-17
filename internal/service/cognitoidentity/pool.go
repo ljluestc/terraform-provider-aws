@@ -19,7 +19,7 @@
 // @Tags(identifierAttribute="arn")func ResourcePool() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourcePoolCreate,
-ReadWithoutTimeout:   resourcePoolRead,
+ReadWithoutTimeout:resourcePoolRead,
 UpdateWithoutTimeout: resourcePoolUpdate,
 DeleteWithoutTimeout: resourcePoolDelete,
 Importer: &schema.ResourceImporter{
@@ -27,32 +27,32 @@ Importer: &schema.ResourceImporter{
 },Schema: map[string]*schema.Schema{
 	"identity_pool_name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 Validate
 func: validIdentityPoolName,
 	},	"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},	"cognito_identity_providers": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "client_id": {
 	Type:schema.TypeString,
-	Optional:     true,
+	Optional:true,
 	Validate
 func: validIdentityProvidersClientID,
 },
 "provider_name": {
 	Type:schema.TypeString,
-	Optional:     true,
+	Optional:true,
 	Validate
 func: validIdentityProvidersProviderName,
 },
 "server_side_token_check": {
-	Type:     schema.TypeBool,
+	Type:schema.TypeBool,
 	Optional: true,
 	Default:  false,
 },
@@ -60,20 +60,20 @@ func: validIdentityProvidersProviderName,
 },
 	},	"developer_provider_name": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true, // Forcing a new resource since it cannot be edited afterwards
+Optional:true,
+ForceNew:true, // Forcing a new resource since it cannot be edited afterwards
 Validate
 func: validProviderDeveloperName,
 	},	"allow_unauthenticated_identities": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 	},	"allow_classic_flow": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 	},	"openid_connect_provider_arns": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
 	Type:schema.TypeString,
@@ -81,7 +81,7 @@ Elem: &schema.Schema{
 func: verify.ValidARN,
 },
 	},	"saml_provider_arns": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Elem: &schema.Schema{
 	Type:schema.TypeString,
@@ -89,14 +89,14 @@ Elem: &schema.Schema{
 func: verify.ValidARN,
 },
 	},	"supported_login_providers": {
-Type:     schema.TypeMap,
+Type:schema.TypeMap,
 Optional: true,
 Elem: &schema.Schema{
 	Type:schema.TypeString,
 	Validate
 func: validSupportedLoginProviders,
 },
-	},	names.AttrTags:    tftags.TagsSchema(),
+	},	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 	}
@@ -134,8 +134,8 @@ return diags
 return create.DiagError(names.CognitoIdentity, create.ErrActionReading, ResNamePool, d.Id(), err)
 	}	arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Region:    meta.(*conns.AWSClient).Region,
-Service:   "cognito-identity",
+Region:meta.(*conns.AWSClient).Region,
+Service:"cognito-identity",
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("identitypool/%s", d.Id()),
 	}
@@ -161,9 +161,9 @@ params := &cognitoidentity.IdentityPool{
 	AllowUnauthenticatedIdentities: aws.Bool(d.Get("allow_unauthenticated_identities").(bool)),
 	AllowClassicFlow:aws.Bool(d.Get("allow_classic_flow").(bool)),
 	IdentityPoolName:aws.String(d.Get("identity_pool_name").(string)),
-	CognitoIdentityProviders:       expandIdentityProviders(d.Get("cognito_identity_providers").(*schema.Set)),
-	SupportedLoginProviders:        expandSupportedLoginProviders(d.Get("supported_login_providers").(map[string]interface{})),
-	OpenIdConnectProviderARNs:      flex.ExpandStringSet(d.Get("openid_connect_provider_arns").(*schema.Set)),
+	CognitoIdentityProviders:expandIdentityProviders(d.Get("cognito_identity_providers").(*schema.Set)),
+	SupportedLoginProviders:iders(d.Get("supported_login_providers").(map[string]interface{})),
+	OpenIdConnectProviderARNs: flex.ExpandStringSet(d.Get("openid_connect_provider_arns").(*schema.Set)),
 	SamlProviderARNs:flex.ExpandStringList(d.Get("saml_provider_arns").([]interface{})),
 }_, err := conn.UpdateIdentityPoolWithContext(ctx, params)
 if err != nil {

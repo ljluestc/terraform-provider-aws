@@ -15,43 +15,43 @@ package codepipelineimport (
 // it may also be a different identifier depending on the service.
 func listTags(ctx context.Context, conn codepipelineiface.CodePipelineAPI, identifier string) (tftags.KeyValueTags, error) {
 	input := &codepipeline.ListTagsForResourceInput{
-		ResourceArn: aws.String(identifier),
+ResourceArn: aws.String(identifier),
 	}	output, err := conn.ListTagsForResourceWithContext(ctx, input)	if err != nil {
-		return tftags.New(ctx, nil), err
+return tftags.New(ctx, nil), err
 	}	return KeyValueTags(ctx, output.Tags), nil
 }// ListTags lists codepipeline service tags and set them in Context.
 // It is called from outside this package.
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).CodePipelineConn(ctx), identifier)	if err != nil {
-		return err
+return err
 	}	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(tags)
+inContext.TagsOut = types.Some(tags)
 	}	return nil
 }// []*SERVICE.Tag handling// Tags returns codepipeline service tags.
 func Tags(tags tftags.KeyValueTags) []*codepipeline.Tag {
 	result := make([]*codepipeline.Tag, 0, len(tags))	for k, v := range tags.Map() {
-		tag := &codepipeline.Tag{
-			Key:   aws.String(k),
-			Value: aws.String(v),
-		}		result = append(result, tag)
+tag := &codepipeline.Tag{
+Key:aws.String(k),
+Value: aws.String(v),
+}result = append(result, tag)
 	}	return result
 }// KeyValueTags creates tftags.KeyValueTags from codepipeline service tags.
 func KeyValueTags(ctx context.Context, tags []*codepipeline.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))	for _, tag := range tags {
-		m[aws.StringValue(tag.Key)] = tag.Value
+m[aws.StringValue(tag.Key)] = tag.Value
 	}	return tftags.New(ctx, m)
 }// getTagsIn returns codepipeline service tags from Context.
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) []*codepipeline.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
-		}
+if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
+return tags
+}
 	}	return nil
 }// setTagsOut sets codepipeline service tags in Context.
 func setTagsOut(ctx context.Context, tags []*codepipeline.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
+inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }// updateTags updates codepipeline service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
@@ -61,21 +61,21 @@ func updateTags(ctx context.Context, conn codepipelineiface.CodePipelineAPI, ide
 	newTags := tftags.New(ctx, newTagsMap)	ctx = tflog.SetField(ctx, logging.KeyResourceId, identifier)	removedTags := oldTags.Removed(newTags)
 	removedTags = removedTags.IgnoreSystem(names.CodePipeline)
 	if len(removedTags) > 0 {
-		input := &codepipeline.UntagResourceInput{
-			ResourceArn: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
-		}		_, err := conn.UntagResourceWithContext(ctx, input)		if err != nil {
-			return fmt.Errorf("untagging resource (%s): %w", identifier, err)
-		}
+input := &codepipeline.UntagResourceInput{
+ResourceArn: aws.String(identifier),
+TagKeys:aws.StringSlice(removedTags.Keys()),
+}_, err := conn.UntagResourceWithContext(ctx, input)if err != nil {
+return fmt.Errorf("untagging resource (%s): %w", identifier, err)
+}
 	}	updatedTags := oldTags.Updated(newTags)
 	updatedTags = updatedTags.IgnoreSystem(names.CodePipeline)
 	if len(updatedTags) > 0 {
-		input := &codepipeline.TagResourceInput{
-			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
-		}		_, err := conn.TagResourceWithContext(ctx, input)		if err != nil {
-			return fmt.Errorf("tagging resource (%s): %w", identifier, err)
-		}
+input := &codepipeline.TagResourceInput{
+ResourceArn: aws.String(identifier),
+Tags:
+}_, err := conn.TagResourceWithContext(ctx, input)if err != nil {
+return fmt.Errorf("tagging resource (%s): %w", identifier, err)
+}
 	}	return nil
 }// UpdateTags updates codepipeline service tags.
 // It is called from outside this package.

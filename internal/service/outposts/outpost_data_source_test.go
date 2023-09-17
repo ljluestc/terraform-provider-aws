@@ -7,10 +7,10 @@
 )func TestAccOutpostsOutpostDataSource_id(t *testing.T) {
 ctx := acctest.Context(t)
 dataSourceName := "data.aws_outposts_outpost.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:k(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 {
 Config: testAccOutpostDataSourceConfig_id(),
@@ -35,10 +35,10 @@ resource.TestCheckResourceAttrSet(dataSourceName, "tags.%"),
 ctx := acctest.Context(t)
 sourceDataSourceName := "data.aws_outposts_outpost.source"
 dataSourceName := "data.aws_outposts_outpost.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:k(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 {
 Config: testAccOutpostDataSourceConfig_name(),
@@ -58,10 +58,10 @@ resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", sourceDataSourceN
 ctx := acctest.Context(t)
 sourceDataSourceName := "data.aws_outposts_outpost.source"
 dataSourceName := "data.aws_outposts_outpost.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:k(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 {
 Config: testAccOutpostDataSourceConfig_arn(),
@@ -81,10 +81,10 @@ resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", sourceDataSourceN
 ctx := acctest.Context(t)
 sourceDataSourceName := "data.aws_outposts_outpost.source"
 dataSourceName := "data.aws_outposts_outpost.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:k(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 {
 Config: testAccOutpostDataSourceConfig_ownerID(),

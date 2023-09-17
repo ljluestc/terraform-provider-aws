@@ -1,4 +1,1 @@
-//Copyright(c)HashiCorp,Inc.
-//SPDX-License-Identifier:MPL-2.0//go:generategorun../../generate/tags/main.go-ListTags-ServiceTagsMap-UpdateTags
-//go:generategorun../../generate/servicepackage/main.go
-//ONLYgeneratedirectivesandpackagedeclaration!Donotaddanythingelsetothisfile.packageivs
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0//go:generategorun../../generate/tags/main.go-ListTags-ServiceTagsMap-UpdateTags//go:generategorun../../generate/servicepackage/main.go//ONLYgeneratedirectivesandpackagedeclaration!Donotaddanythingelsetothisfile.packageivs

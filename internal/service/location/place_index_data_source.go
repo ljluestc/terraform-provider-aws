@@ -15,41 +15,41 @@ return &schema.Resource{
 ReadWithoutTimeout: dataSourcePlaceIndexRead,
 Schema: map[string]*schema.Schema{
 "create_time": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "data_source": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "data_source_configuration": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "intended_use": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "index_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "index_name": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringLenBetween(1, 100),
 },
 "tags": tftags.TagsSchemaComputed(),
 "update_time": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 },

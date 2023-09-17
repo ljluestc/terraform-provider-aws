@@ -18,7 +18,7 @@
 func ResourceHostedConfigurationVersion() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceHostedConfigurationVersionCreate,
-ReadWithoutTimeout:   resourceHostedConfigurationVersionRead,
+ReadWithoutTimeout:resourceHostedConfigurationVersionRead,
 DeleteWithoutTimeout: resourceHostedConfigurationVersionDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -69,8 +69,8 @@ conn := meta.(*conns.AWSClient).AppConfigConn(ctx)appID := d.Get("application_id
 profileID := d.Get("configuration_profile_id").(string)input := &appconfig.CreateHostedConfigurationVersionInput{
 ApplicationId: aws.String(appID),
 ConfigurationProfileId: aws.String(profileID),
-Content:   []byte(d.Get("content").(string)),
-ContentType:   aws.String(d.Get("content_type").(string)),
+Content:[]byte(d.Get("content").(string)),
+ContentType:aws.String(d.Get("content_type").(string)),
 }if v, ok := d.GetOk("description"); ok {
 input.Description = aws.String(v.(string))
 }output, err := conn.CreateHostedConfigurationVersionWithContext(ctx, input)if err != nil {
@@ -102,7 +102,7 @@ AccountID: meta.(*conns.AWSClient).AccountID,
 Partition: meta.(*conns.AWSClient).Partition,
 Region:meta.(*conns.AWSClient).Region,
 Resource:  fmt.Sprintf("application/%s/configurationprofile/%s/hostedconfigurationversion/%d", appID, confProfID, versionNumber),
-Service:   "appconfig",
+Service:"appconfig",
 }.String()d.Set("arn", arn)return diags
 }func resourceHostedConfigurationVersionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics

@@ -19,7 +19,7 @@
 return &schema.Resource{
 // PutGroupPolicy API is idempotent, so these can be the same.
 CreateWithoutTimeout: resourceGroupPolicyPut,
-UpdateWithoutTimeout: resourceGroupPolicyPut,ReadWithoutTimeout:   resourceGroupPolicyRead,
+UpdateWithoutTimeout: resourceGroupPolicyPut,ReadWithoutTimeout:resourceGroupPolicyRead,
 DeleteWithoutTimeout: resourceGroupPolicyDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{

@@ -5,49 +5,49 @@
 )
 funclistIPSetsPages(ctxcontext.Context,connwafv2iface.WAFV2API,input*wafv2.ListIPSetsInput,fnfunc(*wafv2.ListIPSetsOutput,bool)bool)error{
 	for{
-		output,err:=conn.ListIPSetsWithContext(ctx,input)
-		iferr!=nil{
-			returnerr
-		}		lastPage:=aws.StringValue(output.NextMarker)==""
-		if!fn(output,lastPage)||lastPage{
-			break
-		}		input.NextMarker=output.NextMarker
+output,err:=conn.ListIPSetsWithContext(ctx,input)
+iferr!=nil{
+returnerr
+}lastPage:=aws.StringValue(output.NextMarker)==""
+if!fn(output,lastPage)||lastPage{
+break
+}input.NextMarker=output.NextMarker
 	}
 	returnnil
 }
 funclistRegexPatternSetsPages(ctxcontext.Context,connwafv2iface.WAFV2API,input*wafv2.ListRegexPatternSetsInput,fnfunc(*wafv2.ListRegexPatternSetsOutput,bool)bool)error{
 	for{
-		output,err:=conn.ListRegexPatternSetsWithContext(ctx,input)
-		iferr!=nil{
-			returnerr
-		}		lastPage:=aws.StringValue(output.NextMarker)==""
-		if!fn(output,lastPage)||lastPage{
-			break
-		}		input.NextMarker=output.NextMarker
+output,err:=conn.ListRegexPatternSetsWithContext(ctx,input)
+iferr!=nil{
+returnerr
+}lastPage:=aws.StringValue(output.NextMarker)==""
+if!fn(output,lastPage)||lastPage{
+break
+}input.NextMarker=output.NextMarker
 	}
 	returnnil
 }
 funclistRuleGroupsPages(ctxcontext.Context,connwafv2iface.WAFV2API,input*wafv2.ListRuleGroupsInput,fnfunc(*wafv2.ListRuleGroupsOutput,bool)bool)error{
 	for{
-		output,err:=conn.ListRuleGroupsWithContext(ctx,input)
-		iferr!=nil{
-			returnerr
-		}		lastPage:=aws.StringValue(output.NextMarker)==""
-		if!fn(output,lastPage)||lastPage{
-			break
-		}		input.NextMarker=output.NextMarker
+output,err:=conn.ListRuleGroupsWithContext(ctx,input)
+iferr!=nil{
+returnerr
+}lastPage:=aws.StringValue(output.NextMarker)==""
+if!fn(output,lastPage)||lastPage{
+break
+}input.NextMarker=output.NextMarker
 	}
 	returnnil
 }
 funclistWebACLsPages(ctxcontext.Context,connwafv2iface.WAFV2API,input*wafv2.ListWebACLsInput,fnfunc(*wafv2.ListWebACLsOutput,bool)bool)error{
 	for{
-		output,err:=conn.ListWebACLsWithContext(ctx,input)
-		iferr!=nil{
-			returnerr
-		}		lastPage:=aws.StringValue(output.NextMarker)==""
-		if!fn(output,lastPage)||lastPage{
-			break
-		}		input.NextMarker=output.NextMarker
+output,err:=conn.ListWebACLsWithContext(ctx,input)
+iferr!=nil{
+returnerr
+}lastPage:=aws.StringValue(output.NextMarker)==""
+if!fn(output,lastPage)||lastPage{
+break
+}input.NextMarker=output.NextMarker
 	}
 	returnnil
 }

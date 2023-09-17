@@ -11,7 +11,7 @@
 )func init() {
 resource.AddTestSweepers("aws_mwaa_environment", &resource.Sweeper{
 Name: "aws_mwaa_environment",
-F:    sweepEnvironment,
+F:sweepEnvironment,
 })
 }func sweepEnvironment(region string) error {
 ctx := sweep.Context(region)

@@ -18,7 +18,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceUser() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceUserCreate,
-ReadWithoutTimeout:   resourceUserRead,
+ReadWithoutTimeout:resourceUserRead,
 UpdateWithoutTimeout: resourceUserUpdate,
 DeleteWithoutTimeout: resourceUserDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -46,7 +46,7 @@ Elem: &schema.Schema{
 Type:schema.TypeString,
 ValidateFunc: validation.StringLenBetween(16, 128),
 },
-Set:   schema.HashString,
+Set:schema.HashString,
 Sensitive: true,
 },
 "password_count": {

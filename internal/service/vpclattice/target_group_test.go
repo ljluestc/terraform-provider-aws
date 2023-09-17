@@ -27,7 +27,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupConfig_basic(rName),
@@ -58,8 +58,8 @@ resource.TestCheckResourceAttr(resourceName, "type", "INSTANCE"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -76,7 +76,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy:testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupConfig_basic(rName),
@@ -96,7 +96,7 @@ resourceName := "aws_vpclattice_target_group.test"resource.ParallelTest(t, resou
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupConfig_tags1(rName, "key1", "value1"),
@@ -107,8 +107,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -142,7 +142,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupConfig_lambda(rName),
@@ -157,8 +157,8 @@ resource.TestCheckResourceAttr(resourceName, "type", "LAMBDA"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -176,7 +176,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupConfig_ip(rName),
@@ -207,8 +207,8 @@ resource.TestCheckResourceAttr(resourceName, "type", "IP"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -253,7 +253,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupConfig_alb(rName),
@@ -273,8 +273,8 @@ resource.TestCheckResourceAttr(resourceName, "type", "ALB"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -315,9 +315,9 @@ return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "INSTANCE"  config {
-    port  = 80
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+port  = 80
+protocol= "HTTP"
+vpc_identifier = aws_vpc.test.id
   }
 }
 `, rName))
@@ -326,7 +326,7 @@ return fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "LAMBDA"  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -335,8 +335,8 @@ return fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "LAMBDA"  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -352,21 +352,21 @@ return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "IP"  config {
-    port    = 443
-    protocol= "HTTPS"
-    vpc_identifier   = aws_vpc.test.id
-    ip_address_type  = "IPV6"
-    protocol_version = "HTTP2"    health_check {
-      health_check_interval_seconds = 60
-      health_check_timeout_seconds  = 10
-      healthy_threshold_count       = 6
-      unhealthy_threshold_count     = 4      matcher {
-        value = "200-299"
-      }      path    = "/health"
-      port    = 8443
-      protocol= "HTTPS"
-      protocol_version = "HTTP1"
-    }
+port= 443
+protocol= "HTTPS"
+vpc_identifier= aws_vpc.test.id
+ip_address_type  = "IPV6"
+protocol_version = "HTTP2"health_check {
+ health_check_interval_seconds = 60
+ health_check_timeout_seconds  = 10
+ healthy_threshold_count= 6
+ unhealthy_threshold_count= 4 matcher {
+
+ } path= "/health"
+ port= 8443
+ protocol= "HTTPS"
+ protocol_version = "HTTP1"
+}
   }
 }
 `, rName))
@@ -375,21 +375,21 @@ return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "IP"  config {
-    port    = 443
-    protocol= "HTTPS"
-    vpc_identifier   = aws_vpc.test.id
-    ip_address_type  = "IPV6"
-    protocol_version = "HTTP2"    health_check {
-      health_check_interval_seconds = 180
-      health_check_timeout_seconds  = 90
-      healthy_threshold_count       = 8
-      unhealthy_threshold_count     = 3      matcher {
-        value = "202"
-      }      path    = "/health"
-      port    = 8443
-      protocol= "HTTPS"
-      protocol_version = "HTTP2"
-    }
+port= 443
+protocol= "HTTPS"
+vpc_identifier= aws_vpc.test.id
+ip_address_type  = "IPV6"
+protocol_version = "HTTP2"health_check {
+ health_check_interval_seconds = 180
+ health_check_timeout_seconds  = 90
+ healthy_threshold_count= 8
+ unhealthy_threshold_count= 3 matcher {
+
+ } path= "/health"
+ port= 8443
+ protocol= "HTTPS"
+ protocol_version = "HTTP2"
+}
   }
 }
 `, rName))
@@ -398,9 +398,9 @@ return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "ALB"  config {
-    port  = 80
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+port  = 80
+protocol= "HTTP"
+vpc_identifier = aws_vpc.test.id
   }
 }
 `, rName))

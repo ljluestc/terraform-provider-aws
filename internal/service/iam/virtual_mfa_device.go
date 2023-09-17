@@ -23,7 +23,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tagsfunc ResourceVirtualMFADevice() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceVirtualMFADeviceCreate,
-ReadWithoutTimeout:   resourceVirtualMFADeviceRead,
+ReadWithoutTimeout:resourceVirtualMFADeviceRead,
 UpdateWithoutTimeout: resourceVirtualMFADeviceUpdate,
 DeleteWithoutTimeout: resourceVirtualMFADeviceDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,

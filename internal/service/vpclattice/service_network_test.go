@@ -17,19 +17,19 @@ tfvpclattice "github.com/hashicorp/terraform-provider-aws/internal/service/vpcla
 )func TestIDFromIDOrARN(t *testing.T) {
 t.Parallel()testCases := []struct {
 idOrARN string
-want    string
+wantstring
 }{
 {
 idOrARN: "",
-want:    "",
+want:"",
 },
 {
 idOrARN: "sn-1234567890abcdefg",
-want:    "sn-1234567890abcdefg",
+want:"sn-1234567890abcdefg",
 },
 {
 idOrARN: "arn:aws:vpc-lattice:us-east-1:123456789012:servicenetwork/sn-1234567890abcdefg", //lintignore:AWSAT003,AWSAT005
-want:    "sn-1234567890abcdefg",
+want:"sn-1234567890abcdefg",
 },
 }
 for _, testCase := range testCases {
@@ -86,7 +86,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceNetworkDestroy(ctx),
+CheckDestroy:testAccCheckServiceNetworkDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccServiceNetworkConfig_basic(rName),
@@ -97,8 +97,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -115,7 +115,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceNetworkDestroy(ctx),
+CheckDestroy:testAccCheckServiceNetworkDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccServiceNetworkConfig_basic(rName),
@@ -139,7 +139,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceNetworkDestroy(ctx),
+CheckDestroy:testAccCheckServiceNetworkDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccServiceNetworkConfig_full(rName),
@@ -151,8 +151,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -165,7 +165,7 @@ resourceName := "aws_vpclattice_service_network.test"resource.ParallelTest(t, re
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy:testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccServiceNetworkConfig_tags1(rName, "key1", "value1"),
@@ -176,8 +176,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -238,7 +238,7 @@ resource "aws_vpclattice_service_network" "test" {
 }func testAccServiceNetworkConfig_full(rName string) string {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service_network" "test" {
-  name      = %[1]q
+  name = %[1]q
   auth_type = "AWS_IAM"
 }
 `, rName)
@@ -246,7 +246,7 @@ resource "aws_vpclattice_service_network" "test" {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service_network" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -254,8 +254,8 @@ resource "aws_vpclattice_service_network" "test" {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service_network" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

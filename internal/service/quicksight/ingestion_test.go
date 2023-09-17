@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package quicksight_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package quicksight_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/aws/aws-sdk-go/aws"
+"testing""github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/quicksight"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -25,13 +19,11 @@ var ingestion quicksight.Ingestion
 dataSetName := "aws_quicksight_data_set.test"
 resourceName := "aws_quicksight_ingestion.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIngestionDestroy(ctx),
+CheckDestroy:testAccCheckIngestionDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccIngestionConfig_basic(rId, rName, quicksight.IngestionTypeFullRefresh),
@@ -54,25 +46,19 @@ ImportStateVerifyIgnore: []string{
 },
 },
 })
-}
-
-// NOTE: There is no base _disappears test for this resource. Ingestions
+}// NOTE: There is no base _disappears test for this resource. Ingestions
 // persist for the life of the parent data set, even if cancelled, so
-// disappearance of this upstream resource is tested instead.
-
-func TestAccQuickSightIngestion_disappears_dataSet(t *testing.T) {
+// disappearance of this upstream resource is tested instead.func TestAccQuickSightIngestion_disappears_dataSet(t *testing.T) {
 ctx := acctest.Context(t)
 var ingestion quicksight.Ingestion
 dataSetName := "aws_quicksight_data_set.test"
 resourceName := "aws_quicksight_ingestion.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckIngestionDestroy(ctx),
+CheckDestroy:testAccCheckIngestionDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccIngestionConfig_basic(rId, rName, quicksight.IngestionTypeFullRefresh),
@@ -91,17 +77,11 @@ returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 return fmt.Errorf("Not found: %s", resourceName)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 output, err := tfquicksight.FindIngestionByID(ctx, conn, rs.Primary.ID)
 if err != nil {
 return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameIngestion, rs.Primary.ID, err)
-}
-
-*ingestion = *output
-
-return nil
+}*ingestion = *outputreturn nil
 }
 }func testAccCheckIngestionDestroy(ctx context.Context) resource.TestCheck
 func {
@@ -110,22 +90,16 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_quicksight_ingestion" {
 continue
-}
-
-output, err := tfquicksight.FindIngestionByID(ctx, conn, rs.Primary.ID)
+}output, err := tfquicksight.FindIngestionByID(ctx, conn, rs.Primary.ID)
 if err != nil {
 if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
 return nil
 }
 return err
-}
-
-if output != nil && !isDestroyedStatus(aws.StringValue(output.IngestionStatus)) {
+}if output != nil && !isDestroyedStatus(aws.StringValue(output.IngestionStatus)) {
 return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameIngestion, rs.Primary.ID, err)
 }
-}
-
-return nil
+}return nil
 }
 }func isDestroyedStatus(status string) bool {
 targetStatuses := []string{
@@ -146,11 +120,9 @@ fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
   name  = %[2]q
-  import_mode = "SPICE"
-
-  physical_table_map {
-    physical_table_map_id = %[1]q
-    s3_source {
+  import_mode = "SPICE"  physical_table_map {
+physical_table_map_id = %[1]q
+s3_source {
 data_source_arn = aws_quicksight_data_source.test.arn
 input_columns {
   name = "Column1"
@@ -159,7 +131,7 @@ input_columns {
 upload_settings {
   format = "JSON"
 }
-    }
+}
   }
 }
 `, rId, rName))
@@ -168,8 +140,8 @@ return acctest.ConfigCompose(
 testAccIngestionConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_ingestion" "test" {
-  data_set_id    = aws_quicksight_data_set.test.data_set_id
-  ingestion_id   = %[1]q
+  data_set_id= aws_quicksight_data_set.test.data_set_id
+  ingestion_id= %[1]q
   ingestion_type = %[3]q
 }
 `, rId, rName, ingestionType))

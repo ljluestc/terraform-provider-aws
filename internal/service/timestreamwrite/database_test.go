@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package timestreamwrite_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package timestreamwrite_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go-v2/service/timestreamwrite"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,18 +12,14 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 tftimestreamwrite "github.com/hashicorp/terraform-provider-aws/internal/service/timestreamwrite"
 "github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 "github.com/hashicorp/terraform-provider-aws/names"
-)
-
-func TestAccTimestreamWriteDatabase_basic(t *testing.T) {
+)func TestAccTimestreamWriteDatabase_basic(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_timestreamwrite_database.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckDatabaseDestroy(ctx),
+CheckDestroy:testAccCheckDatabaseDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDatabaseConfig_basic(rName),
@@ -42,24 +32,20 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccTimestreamWriteDatabase_disappears(t *testing.T) {
+}func TestAccTimestreamWriteDatabase_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_timestreamwrite_database.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckDatabaseDestroy(ctx),
+CheckDestroy:testAccCheckDatabaseDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDatabaseConfig_basic(rName),
@@ -71,19 +57,15 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccTimestreamWriteDatabase_kmsKey(t *testing.T) {
+}func TestAccTimestreamWriteDatabase_kmsKey(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_timestreamwrite_database.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-kmsResourceName := "aws_kms_key.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
+kmsResourceName := "aws_kms_key.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck:.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckDatabaseDestroy(ctx),
+CheckDestroy:testAccCheckDatabaseDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDatabaseConfig_kmsKey(rName),
@@ -94,25 +76,21 @@ resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", kmsResourceName, 
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccTimestreamWriteDatabase_updateKMSKey(t *testing.T) {
+}func TestAccTimestreamWriteDatabase_updateKMSKey(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_timestreamwrite_database.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-kmsResourceName := "aws_kms_key.test"
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
+kmsResourceName := "aws_kms_key.test"resource.ParallelTest(t, resource.TestCase{
+PreCheck:.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckDatabaseDestroy(ctx),
+CheckDestroy:testAccCheckDatabaseDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDatabaseConfig_basic(rName),
@@ -129,8 +107,8 @@ resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", kmsResourceName, 
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -142,18 +120,14 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "kms_key_id", "kms", regexach
 },
 },
 })
-}
-
-func TestAccTimestreamWriteDatabase_tags(t *testing.T) {
+}func TestAccTimestreamWriteDatabase_tags(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_timestreamwrite_database.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
+PreCheck:.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckDatabaseDestroy(ctx),
+CheckDestroy:testAccCheckDatabaseDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccDatabaseConfig_tags1(rName, "key1", "value1"),
@@ -188,129 +162,81 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.key2", "value2"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
 })
-}
-
-func testAccCheckDatabaseDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckDatabaseDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).TimestreamWriteClient(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).TimestreamWriteClient(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_timestreamwrite_database" {
 continue
-}
-
-_, err := tftimestreamwrite.FindDatabaseByName(ctx, conn, rs.Primary.ID)
-
-if tfresource.NotFound(err) {
+}_, err := tftimestreamwrite.FindDatabaseByName(ctx, conn, rs.Primary.ID)if tfresource.NotFound(err) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
+}return fmt.Errorf("Timestream Database %s still exists", rs.Primary.ID)
+}return nil
 }
-
-return fmt.Errorf("Timestream Database %s still exists", rs.Primary.ID)
-}
-
-return nil
-}
-}
-
-func testAccCheckDatabaseExists(ctx context.Context, n string) resource.TestCheckFunc {
+}func testAccCheckDatabaseExists(ctx context.Context, n string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 return fmt.Errorf("Not found: %s", n)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).TimestreamWriteClient(ctx)_, err := tftimestreamwrite.FindDatabaseByName(ctx, conn, rs.Primary.ID)return err
 }
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).TimestreamWriteClient(ctx)
-
-_, err := tftimestreamwrite.FindDatabaseByName(ctx, conn, rs.Primary.ID)
-
-return err
-}
-}
-
-func testAccPreCheck(ctx context.Context, t *testing.T) {
-conn := acctest.Provider.Meta().(*conns.AWSClient).TimestreamWriteClient(ctx)
-
-input := &timestreamwrite.ListDatabasesInput{}
-
-_, err := conn.ListDatabases(ctx, input)
-
-if acctest.PreCheckSkipError(err) {
+}func testAccPreCheck(ctx context.Context, t *testing.T) {
+conn := acctest.Provider.Meta().(*conns.AWSClient).TimestreamWriteClient(ctx)input := &timestreamwrite.ListDatabasesInput{}_, err := conn.ListDatabases(ctx, input)if acctest.PreCheckSkipError(err) {
 t.Skipf("skipping acceptance testing: %s", err)
-}
-
-if err != nil {
+}if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
 }
-}
-
-func testAccDatabaseConfig_basic(rName string) string {
+}func testAccDatabaseConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_timestreamwrite_database" "test" {
   database_name = %[1]q
 }
 `, rName)
-}
-
-func testAccDatabaseConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccDatabaseConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 resource "aws_timestreamwrite_database" "test" {
-  database_name = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
+  database_name = %[1]q  tags = {
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccDatabaseConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccDatabaseConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return fmt.Sprintf(`
 resource "aws_timestreamwrite_database" "test" {
-  database_name = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  database_name = %[1]q  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
-}
-
-func testAccDatabaseConfig_kmsKey(rName string) string {
+}func testAccDatabaseConfig_kmsKey(rName string) string {
 return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description = %[1]q
-
-  policy = <<POLICY
+  description = %[1]q  policy = <<POLICY
 {
  "Version": "2012-10-17",
  "Statement": [
-   {
-     "Effect": "Allow",
-     "Principal": {
-       "AWS": "*"
-     },
-     "Action": "kms:*",
-     "Resource": "*"
-   }
+{
+"Effect": "Allow",
+"Principal": {
+"AWS": "*"
+},
+"Action": "kms:*",
+"Resource": "*"
+}
  ]
 }
 POLICY
-}
-
-resource "aws_timestreamwrite_database" "test" {
+}resource "aws_timestreamwrite_database" "test" {
   database_name = %[1]q
-  kms_key_id    = aws_kms_key.test.arn
+  kms_key_id= aws_kms_key.test.arn
 }
 `, rName)
 }

@@ -19,27 +19,27 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceAggregateAuthorization() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceAggregateAuthorizationPut,
-ReadWithoutTimeout:   resourceAggregateAuthorizationRead,
+ReadWithoutTimeout:resourceAggregateAuthorizationRead,
 UpdateWithoutTimeout: resourceAggregateAuthorizationUpdate,
 DeleteWithoutTimeout: resourceAggregateAuthorizationDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "account_id": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: verify.ValidAccountID,
 },
 "region": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -50,7 +50,7 @@ region := d.Get("region").(string)
 input := &configservice.PutAggregationAuthorizationInput{
 AuthorizedAccountId: aws.String(accountId),
 AuthorizedAwsRegion: aws.String(region),
-Tags:       getTagsIn(ctx),
+Tags:getTagsIn(ctx),
 }_, err := conn.PutAggregationAuthorizationWithContext(ctx, input)
 if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating aggregate authorization: %s", err)

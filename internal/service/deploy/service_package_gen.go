@@ -13,26 +13,26 @@
 	return []*types.ServicePackageSDKDataSource{}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceApp,
-			TypeName: "aws_codedeploy_app",
-			Name:     "App",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceDeploymentConfig,
-			TypeName: "aws_codedeploy_deployment_config",
-		},
-		{
-			Factory:  ResourceDeploymentGroup,
-			TypeName: "aws_codedeploy_deployment_group",
-			Name:     "Deployment Group",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
+{
+Factory:  ResourceApp,
+TypeName: "aws_codedeploy_app",
+Name:"App",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
+{
+Factory:  ResourceDeploymentConfig,
+TypeName: "aws_codedeploy_deployment_config",
+},
+{
+Factory:  ResourceDeploymentGroup,
+TypeName: "aws_codedeploy_deployment_group",
+Name:"Deployment Group",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
 	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.Deploy

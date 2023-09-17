@@ -9,7 +9,7 @@
 in := &appconfig.GetExtensionInput{ExtensionIdentifier: aws.String(id)}
 out, err := conn.GetExtensionWithContext(ctx, in)if tfawserr.ErrCodeEquals(err, appconfig.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }if err != nil {
@@ -21,7 +21,7 @@ return nil, tfresource.NewEmptyResultError(in)
 in := &appconfig.GetExtensionAssociationInput{ExtensionAssociationId: aws.String(id)}
 out, err := conn.GetExtensionAssociationWithContext(ctx, in)if tfawserr.ErrCodeEquals(err, appconfig.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }if err != nil {

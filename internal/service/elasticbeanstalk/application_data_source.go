@@ -7,54 +7,54 @@
 )//@SDKDataSource("aws_elastic_beanstalk_application")
 funcDataSourceApplication()*schema.Resource{
 	return&schema.Resource{
-		ReadWithoutTimeout:dataSourceApplicationRead,		Schema:map[string]*schema.Schema{
-			"appversion_lifecycle":{
-				Type:schema.TypeList,
-				Computed:true,
-				Elem:&schema.Resource{
-					Schema:map[string]*schema.Schema{
-						"delete_source_from_s3":{
-							Type:schema.TypeBool,
-							Computed:true,
-						},
-						"max_age_in_days":{
-							Type:schema.TypeInt,
-							Computed:true,
-						},
-						"max_count":{
-							Type:schema.TypeInt,
-							Computed:true,
-						},
-						"service_role":{
-							Type:schema.TypeString,
-							Computed:true,
-						},
-					},
-				},
-			},
-			"arn":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"description":{
-				Type:schema.TypeString,
-				Computed:true,
-			},
-			"name":{
-				Type:schema.TypeString,
-				Required:true,
-			},
-		},
+ReadWithoutTimeout:dataSourceApplicationRead,Schema:map[string]*schema.Schema{
+"appversion_lifecycle":{
+Type:schema.TypeList,
+Computed:true,
+Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"delete_source_from_s3":{
+	Type:schema.TypeBool,
+	Computed:true,
+},
+"max_age_in_days":{
+	Type:schema.TypeInt,
+	Computed:true,
+},
+"max_count":{
+	Type:schema.TypeInt,
+	Computed:true,
+},
+"service_role":{
+	Type:schema.TypeString,
+	Computed:true,
+},
+},
+},
+},
+"arn":{
+Type:schema.TypeString,
+Computed:true,
+},
+"description":{
+Type:schema.TypeString,
+Computed:true,
+},
+"name":{
+Type:schema.TypeString,
+Required:true,
+},
+},
 	}
 }
 funcdataSourceApplicationRead(ctxcontext.Context,d*schema.ResourceData,metainterface{})diag.Diagnostics{
 	vardiagsdiag.Diagnostics
 	conn:=meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)	name:=d.Get("name").(string)
 	app,err:=FindApplicationByName(ctx,conn,name)	iferr!=nil{
-		returnsdkdiag.AppendErrorf(diags,"readingElasticBeanstalkApplication(%s):%s",name,err)
+returnsdkdiag.AppendErrorf(diags,"readingElasticBeanstalkApplication(%s):%s",name,err)
 	}	d.SetId(name)
 	iferr:=d.Set("appversion_lifecycle",flattenApplicationResourceLifecycleConfig(app.ResourceLifecycleConfig));err!=nil{
-		returnsdkdiag.AppendErrorf(diags,"settingappversion_lifecycle:%s",err)
+returnsdkdiag.AppendErrorf(diags,"settingappversion_lifecycle:%s",err)
 	}
 	d.Set("arn",app.ApplicationArn)
 	d.Set("description",app.Description)

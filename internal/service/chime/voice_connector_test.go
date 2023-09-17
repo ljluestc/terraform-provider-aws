@@ -22,7 +22,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceConnectorDestroy(ctx),
+CheckDestroy:testAccCheckVoiceConnectorDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVoiceConnectorConfig_basic(vcName),
@@ -34,8 +34,8 @@ resource.TestCheckResourceAttr(resourceName, "require_encryption", "true"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -51,7 +51,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceConnectorDestroy(ctx),
+CheckDestroy:testAccCheckVoiceConnectorDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVoiceConnectorConfig_basic(vcName),
@@ -74,7 +74,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceConnectorDestroy(ctx),
+CheckDestroy:testAccCheckVoiceConnectorDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVoiceConnectorConfig_basic(vcName),
@@ -92,8 +92,8 @@ resource.TestCheckResourceAttr(resourceName, "require_encryption", "false"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -111,7 +111,7 @@ testAccPreCheck(ctx, t)
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVoiceConnectorDestroy(ctx),
+CheckDestroy:testAccCheckVoiceConnectorDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccVoiceConnectorConfig_tags1(vcName, "key1", "value1"),
@@ -123,8 +123,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -167,7 +167,7 @@ return fmt.Sprintf(`
 resource "aws_chime_voice_connector" "test" {
   name= "vc-%s"
   require_encryption = true  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, name, tagKey1, tagValue1)
@@ -176,8 +176,8 @@ return fmt.Sprintf(`
 resource "aws_chime_voice_connector" "test" {
   name= "vc-%s"
   require_encryption = true  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, name, tagKey1, tagValue1, tagKey2, tagValue2)

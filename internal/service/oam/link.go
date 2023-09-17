@@ -22,7 +22,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceLink() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceLinkCreate,
-ReadWithoutTimeout:   resourceLinkRead,
+ReadWithoutTimeout:resourceLinkRead,
 UpdateWithoutTimeout: resourceLinkUpdate,
 DeleteWithoutTimeout: resourceLinkDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -32,42 +32,42 @@ Update: schema.DefaultTimeout(1 * time.Minute),
 Delete: schema.DefaultTimeout(1 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "label": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "label_template": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "link_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "resource_types": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Required: true,
 MinItems: 1,
 MaxItems: 50,
 Elem: &schema.Schema{
-Type:    schema.TypeString,
+Type:schema.TypeString,
 ValidateDiagFunc: enum.Validate[types.ResourceType](),
 },
 },
 "sink_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "sink_identifier": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },CustomizeDiff: verify.SetTagsDiff,
 }
@@ -130,7 +130,7 @@ if err != nil {
 var nfe *types.ResourceNotFoundException
 if errors.As(err, &nfe) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }return nil, err

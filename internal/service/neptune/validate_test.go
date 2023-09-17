@@ -3,23 +3,23 @@
 "testing"sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 )func TestValidEventSubscriptionName(t *testing.T) {
 t.Parallel()cases := []struct {
-Value    string
+Valuestring
 ErrCount int
 }{
 {
-Value:    "testing123!",
+Value:"testing123!",
 ErrCount: 1,
 },
 {
-Value:    "testing 123",
+Value:"testing 123",
 ErrCount: 1,
 },
 {
-Value:    "testing_123",
+Value:"testing_123",
 ErrCount: 1,
 },
 {
-Value:    sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
+Value:sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
 }
@@ -31,23 +31,23 @@ t.Fatalf("Expected the Neptune Event Subscription Name to trigger a validation e
 }
 }func TestValidEventSubscriptionNamePrefix(t *testing.T) {
 t.Parallel()cases := []struct {
-Value    string
+Valuestring
 ErrCount int
 }{
 {
-Value:    "testing123!",
+Value:"testing123!",
 ErrCount: 1,
 },
 {
-Value:    "testing 123",
+Value:"testing 123",
 ErrCount: 1,
 },
 {
-Value:    "testing_123",
+Value:"testing_123",
 ErrCount: 1,
 },
 {
-Value:    sdkacctest.RandStringFromCharSet(254, sdkacctest.CharSetAlpha),
+Value:sdkacctest.RandStringFromCharSet(254, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
 }
@@ -59,35 +59,35 @@ t.Fatalf("Expected the Neptune Event Subscription Name Prefix to trigger a valid
 }
 }func TestValidParamGroupName(t *testing.T) {
 t.Parallel()cases := []struct {
-Value    string
+Valuestring
 ErrCount int
 }{
 {
-Value:    "tEsting123",
+Value:"tEsting123",
 ErrCount: 1,
 },
 {
-Value:    "testing123!",
+Value:"testing123!",
 ErrCount: 1,
 },
 {
-Value:    "1testing123",
+Value:"1testing123",
 ErrCount: 1,
 },
 {
-Value:    "testing--123",
+Value:"testing--123",
 ErrCount: 1,
 },
 {
-Value:    "testing_123",
+Value:"testing_123",
 ErrCount: 1,
 },
 {
-Value:    "testing123-",
+Value:"testing123-",
 ErrCount: 1,
 },
 {
-Value:    sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
+Value:sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
 }for _, tc := range cases {
@@ -97,31 +97,31 @@ t.Fatalf("Expected the Neptune Parameter Group Name to trigger a validation erro
 }
 }func TestValidParamGroupNamePrefix(t *testing.T) {
 t.Parallel()cases := []struct {
-Value    string
+Valuestring
 ErrCount int
 }{
 {
-Value:    "tEsting123",
+Value:"tEsting123",
 ErrCount: 1,
 },
 {
-Value:    "testing123!",
+Value:"testing123!",
 ErrCount: 1,
 },
 {
-Value:    "1testing123",
+Value:"1testing123",
 ErrCount: 1,
 },
 {
-Value:    "testing--123",
+Value:"testing--123",
 ErrCount: 1,
 },
 {
-Value:    "testing_123",
+Value:"testing_123",
 ErrCount: 1,
 },
 {
-Value:    sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
+Value:sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
 }for _, tc := range cases {
@@ -131,23 +131,23 @@ t.Fatalf("Expected the Neptune Parameter Group Name to trigger a validation erro
 }
 }func TestValidSubnetGroupName(t *testing.T) {
 t.Parallel()cases := []struct {
-Value    string
+Valuestring
 ErrCount int
 }{
 {
-Value:    "tEsting",
+Value:"tEsting",
 ErrCount: 1,
 },
 {
-Value:    "testing?",
+Value:"testing?",
 ErrCount: 1,
 },
 {
-Value:    "default",
+Value:"default",
 ErrCount: 1,
 },
 {
-Value:    sdkacctest.RandStringFromCharSet(300, sdkacctest.CharSetAlpha),
+Value:sdkacctest.RandStringFromCharSet(300, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
 }for _, tc := range cases {
@@ -157,19 +157,19 @@ t.Fatalf("Expected the Neptune Subnet Group name to trigger a validation error")
 }
 }func TestValidSubnetGroupNamePrefix(t *testing.T) {
 t.Parallel()cases := []struct {
-Value    string
+Valuestring
 ErrCount int
 }{
 {
-Value:    "tEsting",
+Value:"tEsting",
 ErrCount: 1,
 },
 {
-Value:    "testing?",
+Value:"testing?",
 ErrCount: 1,
 },
 {
-Value:    sdkacctest.RandStringFromCharSet(230, sdkacctest.CharSetAlpha),
+Value:sdkacctest.RandStringFromCharSet(230, sdkacctest.CharSetAlpha),
 ErrCount: 1,
 },
 }for _, tc := range cases {

@@ -18,32 +18,32 @@ Read: schema.DefaultTimeout(ConstraintReadTimeout),
 },Schema: map[string]*schema.Schema{
 "accept_language": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      "en",
+Optional:true,
+Default: "en",
 ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
 },
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "created_time": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "provider_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "tags": tftags.TagsSchemaComputed(),

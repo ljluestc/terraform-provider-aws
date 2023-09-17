@@ -21,9 +21,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRegisterTargetsDestroy(ctx),
+CheckDestroy:testAccCheckRegisterTargetsDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupAttachmentConfig_instance(rName),
@@ -46,9 +46,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRegisterTargetsDestroy(ctx),
+CheckDestroy:testAccCheckRegisterTargetsDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupAttachmentConfig_ip(rName),
@@ -71,9 +71,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRegisterTargetsDestroy(ctx),
+CheckDestroy:testAccCheckRegisterTargetsDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupAttachmentConfig_lambda(rName),
@@ -96,9 +96,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRegisterTargetsDestroy(ctx),
+CheckDestroy:testAccCheckRegisterTargetsDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupAttachmentConfig_alb(rName),
@@ -121,9 +121,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRegisterTargetsDestroy(ctx),
+CheckDestroy:testAccCheckRegisterTargetsDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccTargetGroupAttachmentConfig_instance(rName),
@@ -140,8 +140,8 @@ return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), acctest
 resource "aws_instance" "test" {
   ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.small"
-  subnet_id     = aws_subnet.test[0].id  tags = {
-    Name = %[1]q
+  subnet_id= aws_subnet.test[0].id  tags = {
+Name = %[1]q
   }
 }
 `, rName))
@@ -150,13 +150,13 @@ return acctest.ConfigCompose(testAccTargetGroupAttachmentConfig_baseInstance(rNa
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "INSTANCE"  config {
-    port  = 80
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+port  = 80
+protocol= "HTTP"
+vpc_identifier = aws_vpc.test.id
   }
 }resource "aws_vpclattice_target_group_attachment" "test" {
   target_group_identifier = aws_vpclattice_target_group.test.id  target {
-    id = aws_instance.test.id
+id = aws_instance.test.id
   }
 }
 `, rName))
@@ -165,14 +165,14 @@ return acctest.ConfigCompose(testAccTargetGroupAttachmentConfig_baseInstance(rNa
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "IP"  config {
-    port  = 80
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+port  = 80
+protocol= "HTTP"
+vpc_identifier = aws_vpc.test.id
   }
 }resource "aws_vpclattice_target_group_attachment" "test" {
   target_group_identifier = aws_vpclattice_target_group.test.id  target {
-    id   = aws_instance.test.private_ip
-    port = 8080
+id= aws_instance.test.private_ip
+port = 8080
   }
 }
 `, rName))
@@ -182,28 +182,28 @@ data "aws_partition" "current" {}resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "LAMBDA"
 }resource "aws_lambda_function" "test" {
-  filename      = "test-fixtures/lambda.zip"
+  filename = "test-fixtures/lambda.zip"
   function_name = %[1]q
   role = aws_iam_role.test.arn
-  handler       = "test.handler"
-  runtime       = "python3.7"
+  handler= "test.handler"
+  runtime= "python3.7"
 }resource "aws_iam_role" "test" {
   name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Principal": {
-      "Service": "lambda.${data.aws_partition.current.dns_suffix}"
-    },
-    "Effect": "Allow",
-    "Sid": ""
+"Action": "sts:AssumeRole",
+"Principal": {
+ "Service": "lambda.${data.aws_partition.current.dns_suffix}"
+},
+"Effect": "Allow",
+"Sid": ""
   }]
 }
 EOF
 }resource "aws_vpclattice_target_group_attachment" "test" {
   target_group_identifier = aws_vpclattice_target_group.test.id  target {
-    id = aws_lambda_function.test.arn
+id = aws_lambda_function.test.arn
   }
 }
 `, rName)
@@ -212,29 +212,29 @@ return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf
 resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "ALB"  config {
-    port  = 80
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+port  = 80
+protocol= "HTTP"
+vpc_identifier = aws_vpc.test.id
   }
 }resource "aws_lb" "test" {
   name= %[1]q
   internal  = true
   load_balancer_type = "application"
-  subnets   = aws_subnet.test[*].id  enable_deletion_protection = false
+  subnets= aws_subnet.test[*].id  enable_deletion_protection = false
 }resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.arn
-  port     = "80"
+  port= "80"
   protocol = "HTTP"  default_action {
-    type = "fixed-response"    fixed_response {
-      content_type = "text/plain"
-      message_body = "Fixed response content"
-      status_code  = "200"
-    }
+type = "fixed-response"fixed_response {
+ content_type = "text/plain"
+ message_body = "Fixed response content"
+ status_code  = "200"
+}
   }
 }resource "aws_vpclattice_target_group_attachment" "test" {
   target_group_identifier = aws_vpclattice_target_group.test.id  target {
-    id   = aws_lb.test.arn
-    port = 80
+id= aws_lb.test.arn
+port = 80
   }
 }
 `, rName))

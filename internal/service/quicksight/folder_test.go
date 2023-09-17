@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package quicksight_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package quicksight_testimport (
 "context"
 "errors"
 "fmt"
 "regexp"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/service/quicksight"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -26,16 +20,14 @@ ctx := acctest.Context(t)
 var folder quicksight.Folder
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_quicksight_folder.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_quicksight_folder.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFolderDestroy(ctx),
+CheckDestroy:testAccCheckFolderDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFolderConfig_basic(rId, rName),
@@ -60,16 +52,14 @@ ctx := acctest.Context(t)
 var folder quicksight.Folder
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_quicksight_folder.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_quicksight_folder.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFolderDestroy(ctx),
+CheckDestroy:testAccCheckFolderDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFolderConfig_basic(rId, rName),
@@ -87,13 +77,11 @@ ctx := acctest.Context(t)
 var folder quicksight.Folder
 resourceName := "aws_quicksight_folder.test"
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFolderDestroy(ctx),
+CheckDestroy:testAccCheckFolderDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFolderConfig_permissions(rId, rName),
@@ -151,16 +139,14 @@ ctx := acctest.Context(t)
 var folder quicksight.Folder
 rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-resourceName := "aws_quicksight_folder.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_quicksight_folder.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFolderDestroy(ctx),
+CheckDestroy:testAccCheckFolderDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFolderConfig_tags1(rId, rName, "key1", "value1"),
@@ -206,16 +192,14 @@ parentId1 := rId + "-parent1"
 parentName1 := rName + "-parent1"
 parentId2 := rId + "-parent2"
 parentName2 := rName + "-parent2"
-resourceName := "aws_quicksight_folder.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_quicksight_folder.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFolderDestroy(ctx),
+CheckDestroy:testAccCheckFolderDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFolderConfig_parentFolder(rId, rName, parentId1, parentName1),
@@ -249,16 +233,14 @@ parentId1 := rId + "-parent1"
 parentName1 := rName + "-parent1"
 parentId2 := rId + "-parent2"
 parentName2 := rName + "-parent2"
-resourceName := "aws_quicksight_folder.test"
-
-resource.ParallelTest(t, resource.TestCase{
+resourceName := "aws_quicksight_folder.test"resource.ParallelTest(t, resource.TestCase{
 PreCheck:func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckFolderDestroy(ctx),
+CheckDestroy:testAccCheckFolderDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccFolderConfig_parentFolder(rId, rName, parentId1, parentName1),
@@ -286,27 +268,19 @@ acctest.CheckResourceAttrRegionalARN(resourceName, "parent_folder_arn", "quicksi
 }func testAccCheckFolderDestroy(ctx context.Context) resource.TestCheck
 func {
 returnfunc(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_quicksight_folder" {
 continue
-}
-
-output, err := tfquicksight.FindFolderByID(ctx, conn, rs.Primary.ID)
+}output, err := tfquicksight.FindFolderByID(ctx, conn, rs.Primary.ID)
 if err != nil {
 if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
 return nil
 }
 return err
-}
-
-if output != nil {
+}if output != nil {
 return fmt.Errorf("QuickSight Folder (%s) still exists", rs.Primary.ID)
 }
-}
-
-return nil
+}return nil
 }
 }func testAccCheckFolderExists(ctx context.Context, name string, folder *quicksight.Folder) resource.TestCheck
 func {
@@ -314,21 +288,13 @@ returnfunc(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameFolder, name, errors.New("not found"))
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameFolder, name, errors.New("not set"))
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 output, err := tfquicksight.FindFolderByID(ctx, conn, rs.Primary.ID)
 if err != nil {
 return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameFolder, rs.Primary.ID, err)
-}
-
-*folder = *output
-
-return nil
+}*folder = *outputreturn nil
 }
 }func testAccFolderConfig_basic(rId, rName string) string {
 return fmt.Sprintf(`
@@ -339,17 +305,13 @@ resource "aws_quicksight_folder" "test" {
 `, rId, rName)
 }func testAccFolderConfigUserBase(rName string) string {
 return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-resource "aws_quicksight_user" "test" {
+data "aws_caller_identity" "current" {}resource "aws_quicksight_user" "test" {
   aws_account_id = data.aws_caller_identity.current.account_id
   user_name= %[1]q
   email = %[2]q
   identity_type  = "QUICKSIGHT"
-  user_role= "AUTHOR"
-
-  lifecycle {
-    create_before_destroy = true
+  user_role= "AUTHOR"  lifecycle {
+create_before_destroy = true
   }
 }
 `, rName, acctest.DefaultEmailAddress)
@@ -361,10 +323,10 @@ resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
   name= %[2]q
   permissions {
-    actions = [
+actions = [
 "quicksight:DescribeFolder",
-    ]
-    principal = aws_quicksight_user.test.arn
+]
+principal = aws_quicksight_user.test.arn
   }
 }
 `, rId, rName))
@@ -376,7 +338,7 @@ resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
   name= %[2]q
   permissions {
-    actions = [
+actions = [
 "quicksight:CreateFolder",
 "quicksight:DescribeFolder",
 "quicksight:UpdateFolder",
@@ -385,8 +347,8 @@ resource "aws_quicksight_folder" "test" {
 "quicksight:DeleteFolderMembership",
 "quicksight:DescribeFolderPermissions",
 "quicksight:UpdateFolderPermissions",
-    ]
-    principal = aws_quicksight_user.test.arn
+]
+principal = aws_quicksight_user.test.arn
   }
 }
 `, rId, rName))
@@ -394,10 +356,8 @@ resource "aws_quicksight_folder" "test" {
 return fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
-  name= %[2]q
-
-  tags = {
-    %[3]q = %[4]q
+  name= %[2]q  tags = {
+%[3]q = %[4]q
   }
 }
 `, rId, rName, key1, value1)
@@ -405,11 +365,9 @@ resource "aws_quicksight_folder" "test" {
 return fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
-  name= %[2]q
-
-  tags = {
-    %[3]q = %[4]q
-    %[5]q = %[6]q
+  name= %[2]q  tags = {
+%[3]q = %[4]q
+%[5]q = %[6]q
   }
 }
 `, rId, rName, key1, value1, key2, value2)
@@ -418,11 +376,9 @@ return fmt.Sprintf(`
 resource "aws_quicksight_folder" "parent" {
   folder_id = %[3]q
   name= %[4]q
-}
-
-resource "aws_quicksight_folder" "test" {
+}resource "aws_quicksight_folder" "test" {
   folder_id= %[1]q
-  name     = %[2]q
+  name= %[2]q
   parent_folder_arn = aws_quicksight_folder.parent.arn
 }
 `, rId, rName, parentId, parentName)
@@ -431,17 +387,13 @@ return fmt.Sprintf(`
 resource "aws_quicksight_folder" "parent" {
   folder_id = %[3]q
   name= %[4]q
-}
-
-resource "aws_quicksight_folder" "parent2" {
+}resource "aws_quicksight_folder" "parent2" {
   folder_id= %[5]q
-  name     = %[6]q
+  name= %[6]q
   parent_folder_arn = aws_quicksight_folder.parent.arn
-}
-
-resource "aws_quicksight_folder" "test" {
+}resource "aws_quicksight_folder" "test" {
   folder_id= %[1]q
-  name     = %[2]q
+  name= %[2]q
   parent_folder_arn = aws_quicksight_folder.parent2.arn
 }
 `, rId, rName, parentId1, parentName1, parentId2, parentName2)

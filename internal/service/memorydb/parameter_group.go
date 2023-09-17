@@ -23,7 +23,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceParameterGroup() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceParameterGroupCreate,
-ReadWithoutTimeout:   resourceParameterGroupRead,
+ReadWithoutTimeout:resourceParameterGroupRead,
 UpdateWithoutTimeout: resourceParameterGroupUpdate,
 DeleteWithoutTimeout: resourceParameterGroupDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,

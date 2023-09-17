@@ -9,34 +9,34 @@
 	ctx:=acctest.Context(t)
 	rName:=sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName:="data.aws_kinesis_stream.test"	resource.ParallelTest(t,resource.TestCase{
-		PreCheck:func(){acctest.PreCheck(ctx,t)},
-		ErrorCheck:acctest.ErrorCheck(t,kinesis.EndpointsID),
-		ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckStreamDestroy(ctx),
-		Steps:[]resource.TestStep{
-			{
-				Config:testAccStreamDataSourceConfig_basic(rName,2),
-				Check:resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet(dataSourceName,"arn"),
-					resource.TestCheckResourceAttrSet(dataSourceName,"creation_timestamp"),
-					resource.TestCheckResourceAttr(dataSourceName,"closed_shards.#","0"),
-					resource.TestCheckResourceAttr(dataSourceName,"name",rName),
-					resource.TestCheckResourceAttr(dataSourceName,"open_shards.#","2"),
-					resource.TestCheckResourceAttr(dataSourceName,"retention_period","72"),
-					resource.TestCheckResourceAttr(dataSourceName,"shard_level_metrics.#","2"),
-					resource.TestCheckResourceAttr(dataSourceName,"status","ACTIVE"),
-					resource.TestCheckResourceAttr(dataSourceName,"stream_mode_details.0.stream_mode","PROVISIONED"),
-					resource.TestCheckResourceAttr(dataSourceName,"tags.Name",rName),
-				),
-			},
-			{
-				Config:testAccStreamDataSourceConfig_basic(rName,3),
-				Check:resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName,"closed_shards.#","4"),
-					resource.TestCheckResourceAttr(dataSourceName,"open_shards.#","3"),
-				),
-			},
-		},
+PreCheck:func(){acctest.PreCheck(ctx,t)},
+ErrorCheck:acctest.ErrorCheck(t,kinesis.EndpointsID),
+ProtoV5ProviderFactories:acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckStreamDestroy(ctx),
+Steps:[]resource.TestStep{
+{
+Config:testAccStreamDataSourceConfig_basic(rName,2),
+Check:resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrSet(dataSourceName,"arn"),
+resource.TestCheckResourceAttrSet(dataSourceName,"creation_timestamp"),
+resource.TestCheckResourceAttr(dataSourceName,"closed_shards.#","0"),
+resource.TestCheckResourceAttr(dataSourceName,"name",rName),
+resource.TestCheckResourceAttr(dataSourceName,"open_shards.#","2"),
+resource.TestCheckResourceAttr(dataSourceName,"retention_period","72"),
+resource.TestCheckResourceAttr(dataSourceName,"shard_level_metrics.#","2"),
+resource.TestCheckResourceAttr(dataSourceName,"status","ACTIVE"),
+resource.TestCheckResourceAttr(dataSourceName,"stream_mode_details.0.stream_mode","PROVISIONED"),
+resource.TestCheckResourceAttr(dataSourceName,"tags.Name",rName),
+),
+},
+{
+Config:testAccStreamDataSourceConfig_basic(rName,3),
+Check:resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttr(dataSourceName,"closed_shards.#","4"),
+resource.TestCheckResourceAttr(dataSourceName,"open_shards.#","3"),
+),
+},
+},
 	})
 }functestAccStreamDataSourceConfig_basic(rNamestring,shardCountint)string{
 	returnfmt.Sprintf(`

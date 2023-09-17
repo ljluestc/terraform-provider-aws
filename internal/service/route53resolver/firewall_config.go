@@ -12,7 +12,7 @@
 )// @SDKResource("aws_route53_resolver_firewall_config")func ResourceFirewallConfig() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceFirewallConfigCreate,
-ReadWithoutTimeout:   resourceFirewallConfigRead,
+ReadWithoutTimeout:resourceFirewallConfigRead,
 UpdateWithoutTimeout: resourceFirewallConfigUpdate,
 DeleteWithoutTimeout: resourceFirewallConfigDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,

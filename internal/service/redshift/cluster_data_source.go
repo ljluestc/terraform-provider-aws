@@ -198,7 +198,7 @@ return sdkdiag.AppendErrorf(diags, "reading Redshift Cluster (%s): %s", clusterI
 d.Set("allow_version_upgrade", rsc.AllowVersionUpgrade)
 arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Service:   redshift.ServiceName,
+Service:redshift.ServiceName,
 Region:meta.(*conns.AWSClient).Region,
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("cluster:%s", d.Id()),

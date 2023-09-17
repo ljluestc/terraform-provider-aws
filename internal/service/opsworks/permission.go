@@ -14,7 +14,7 @@
 )// @SDKResource("aws_opsworks_permission")func ResourcePermission() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceSetPermission,
-ReadWithoutTimeout:   resourcePermissionRead,
+ReadWithoutTimeout:resourcePermissionRead,
 UpdateWithoutTimeout: resourceSetPermission,
 DeleteWithoutTimeout: schema.NoopContext,Schema: map[string]*schema.Schema{
 "allow_ssh": {
@@ -60,7 +60,7 @@ stackID := d.Get("stack_id").(string)
 id := iamUserARN + stackID
 input := &opsworks.SetPermissionInput{
 AllowSudo:  aws.Bool(d.Get("allow_sudo").(bool)),
-AllowSsh:   aws.Bool(d.Get("allow_ssh").(bool)),
+AllowSsh:aws.Bool(d.Get("allow_ssh").(bool)),
 IamUserArn: aws.String(iamUserARN),
 StackId:aws.String(stackID),
 }if d.IsNewResource() {
@@ -97,7 +97,7 @@ IamUserArn: aws.String(iamUserARN),
 StackId:aws.String(stackID),
 }output, err := conn.DescribePermissionsWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

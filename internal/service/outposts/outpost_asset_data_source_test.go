@@ -7,8 +7,8 @@
 )func TestAccOutpostsAssetDataSource_basic(t *testing.T) {
 ctx := acctest.Context(t)
 dataSourceName := "data.aws_outposts_asset.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:k(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -28,7 +28,7 @@ return `
 data "aws_outposts_outposts" "test" {}data "aws_outposts_assets" "test" {
   arn = tolist(data.aws_outposts_outposts.test.arns)[0]
 }data "aws_outposts_asset" "test" {
-  arn      = tolist(data.aws_outposts_outposts.test.arns)[0]
+  arn = tolist(data.aws_outposts_outposts.test.arns)[0]
   asset_id = data.aws_outposts_assets.test.asset_ids[0]
 }`
 }

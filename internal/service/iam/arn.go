@@ -4,7 +4,7 @@
 "strings""github.com/aws/aws-sdk-go/aws/arn"
 )const (
 ARNSeparator = "/"
-ARNService   = "iam"InstanceProfileResourcePrefix = "instance-profile"
+ARNService= "iam"InstanceProfileResourcePrefix = "instance-profile"
 )// InstanceProfileARNToName converts Amazon Resource Name (ARN) to Name.func InstanceProfileARNToName(inputARN string) (string, error) {
 parsedARN, err := arn.Parse(inputARN)if err != nil {
 return "", fmt.Errorf("parsing ARN (%s): %w", inputARN, err)

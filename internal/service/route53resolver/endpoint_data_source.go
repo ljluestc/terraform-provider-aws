@@ -100,7 +100,7 @@ for _, e := range m["values"].([]interface{}) {
 filterValues = append(filterValues, aws.String(e.(string)))
 }
 filters = append(filters, &route53resolver.Filter{
-Name:   aws.String(m["name"].(string)),
+Name:aws.String(m["name"].(string)),
 Values: filterValues,
 })
 }return filters

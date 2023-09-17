@@ -1,11 +1,7 @@
 //Codegeneratedbyinternal/generate/tags/main.go;DONOTEDIT.
-packageorganizations
-
-import(
+packageorganizationsimport(
 	"context"
-	"fmt"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"fmt"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/organizations"
 	"github.com/aws/aws-sdk-go/service/organizations/organizationsiface"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
@@ -14,141 +10,67 @@ import(
 	tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/types"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-//listTagslistsorganizationsservicetags.
+)//listTagslistsorganizationsservicetags.
 //TheidentifieristypicallytheAmazonResourceName(ARN),although
-//itmayalsobeadifferentidentifierdependingontheservice.
-
-funclistTags(ctxcontext.Context,connorganizationsiface.OrganizationsAPI,identifierstring)(tftags.KeyValueTags,error){
+//itmayalsobeadifferentidentifierdependingontheservice.funclistTags(ctxcontext.Context,connorganizationsiface.OrganizationsAPI,identifierstring)(tftags.KeyValueTags,error){
 	input:=&organizations.ListTagsForResourceInput{
-		ResourceId:aws.String(identifier),
-	}
-
-	output,err:=conn.ListTagsForResourceWithContext(ctx,input)
-
-	iferr!=nil{
-		returntftags.New(ctx,nil),err
-	}
-
-	returnKeyValueTags(ctx,output.Tags),nil
-}
-
-//ListTagslistsorganizationsservicetagsandsettheminContext.
-//Itiscalledfromoutsidethispackage.
-
-func(p*servicePackage)ListTags(ctxcontext.Context,metaany,identifierstring)error{
-	tags,err:=listTags(ctx,meta.(*conns.AWSClient).OrganizationsConn(ctx),identifier)
-
-	iferr!=nil{
-		returnerr
-	}
-
+ResourceId:aws.String(identifier),
+	}	output,err:=conn.ListTagsForResourceWithContext(ctx,input)	iferr!=nil{
+returntftags.New(ctx,nil),err
+	}	returnKeyValueTags(ctx,output.Tags),nil
+}//ListTagslistsorganizationsservicetagsandsettheminContext.
+//Itiscalledfromoutsidethispackage.func(p*servicePackage)ListTags(ctxcontext.Context,metaany,identifierstring)error{
+	tags,err:=listTags(ctx,meta.(*conns.AWSClient).OrganizationsConn(ctx),identifier)	iferr!=nil{
+returnerr
+	}	ifinContext,ok:=tftags.FromContext(ctx);ok{
+inContext.TagsOut=types.Some(tags)
+	}	returnnil
+}//[]*SERVICE.Taghandling//Tagsreturnsorganizationsservicetags.funcTags(tagstftags.KeyValueTags)[]*organizations.Tag{
+	result:=make([]*organizations.Tag,0,len(tags))	fork,v:=rangetags.Map(){
+tag:=&organizations.Tag{
+Key:aws.String(k),
+Value:aws.String(v),
+}result=append(result,tag)
+	}	returnresult
+}//KeyValueTagscreatestftags.KeyValueTagsfromorganizationsservicetags.funcKeyValueTags(ctxcontext.Context,tags[]*organizations.Tag)tftags.KeyValueTags{
+	m:=make(map[string]*string,len(tags))	for_,tag:=rangetags{
+m[aws.StringValue(tag.Key)]=tag.Value
+	}	returntftags.New(ctx,m)
+}//getTagsInreturnsorganizationsservicetagsfromContext.
+//nilisreturnediftherearenoinputtags.funcgetTagsIn(ctxcontext.Context)[]*organizations.Tag{
 	ifinContext,ok:=tftags.FromContext(ctx);ok{
-		inContext.TagsOut=types.Some(tags)
-	}
-
-	returnnil
+iftags:=Tags(inContext.TagsIn.UnwrapOrDefault());len(tags)>0{
+returntags
 }
-
-//[]*SERVICE.Taghandling
-
-//Tagsreturnsorganizationsservicetags.
-
-funcTags(tagstftags.KeyValueTags)[]*organizations.Tag{
-	result:=make([]*organizations.Tag,0,len(tags))
-
-	fork,v:=rangetags.Map(){
-		tag:=&organizations.Tag{
-			Key:aws.String(k),
-			Value:aws.String(v),
-		}
-
-		result=append(result,tag)
-	}
-
-	returnresult
-}
-
-//KeyValueTagscreatestftags.KeyValueTagsfromorganizationsservicetags.
-
-funcKeyValueTags(ctxcontext.Context,tags[]*organizations.Tag)tftags.KeyValueTags{
-	m:=make(map[string]*string,len(tags))
-
-	for_,tag:=rangetags{
-		m[aws.StringValue(tag.Key)]=tag.Value
-	}
-
-	returntftags.New(ctx,m)
-}
-
-//getTagsInreturnsorganizationsservicetagsfromContext.
-//nilisreturnediftherearenoinputtags.
-
-funcgetTagsIn(ctxcontext.Context)[]*organizations.Tag{
+	}	returnnil
+}//setTagsOutsetsorganizationsservicetagsinContext.funcsetTagsOut(ctxcontext.Context,tags[]*organizations.Tag){
 	ifinContext,ok:=tftags.FromContext(ctx);ok{
-		iftags:=Tags(inContext.TagsIn.UnwrapOrDefault());len(tags)>0{
-			returntags
-		}
+inContext.TagsOut=types.Some(KeyValueTags(ctx,tags))
 	}
-
-	returnnil
-}
-
-//setTagsOutsetsorganizationsservicetagsinContext.
-
-funcsetTagsOut(ctxcontext.Context,tags[]*organizations.Tag){
-	ifinContext,ok:=tftags.FromContext(ctx);ok{
-		inContext.TagsOut=types.Some(KeyValueTags(ctx,tags))
-	}
-}
-
-//updateTagsupdatesorganizationsservicetags.
+}//updateTagsupdatesorganizationsservicetags.
 //TheidentifieristypicallytheAmazonResourceName(ARN),although
-//itmayalsobeadifferentidentifierdependingontheservice.
-
-funcupdateTags(ctxcontext.Context,connorganizationsiface.OrganizationsAPI,identifierstring,oldTagsMap,newTagsMapany)error{
+//itmayalsobeadifferentidentifierdependingontheservice.funcupdateTags(ctxcontext.Context,connorganizationsiface.OrganizationsAPI,identifierstring,oldTagsMap,newTagsMapany)error{
 	oldTags:=tftags.New(ctx,oldTagsMap)
-	newTags:=tftags.New(ctx,newTagsMap)
-
-	ctx=tflog.SetField(ctx,logging.KeyResourceId,identifier)
-
-	removedTags:=oldTags.Removed(newTags)
+	newTags:=tftags.New(ctx,newTagsMap)	ctx=tflog.SetField(ctx,logging.KeyResourceId,identifier)	removedTags:=oldTags.Removed(newTags)
 	removedTags=removedTags.IgnoreSystem(names.Organizations)
 	iflen(removedTags)>0{
-		input:=&organizations.UntagResourceInput{
-			ResourceId:aws.String(identifier),
-			TagKeys:aws.StringSlice(removedTags.Keys()),
-		}
-
-		_,err:=conn.UntagResourceWithContext(ctx,input)
-
-		iferr!=nil{
-			returnfmt.Errorf("untaggingresource(%s):%w",identifier,err)
-		}
-	}
-
-	updatedTags:=oldTags.Updated(newTags)
+input:=&organizations.UntagResourceInput{
+ResourceId:aws.String(identifier),
+TagKeys:aws.StringSlice(removedTags.Keys()),
+}_,err:=conn.UntagResourceWithContext(ctx,input)iferr!=nil{
+returnfmt.Errorf("untaggingresource(%s):%w",identifier,err)
+}
+	}	updatedTags:=oldTags.Updated(newTags)
 	updatedTags=updatedTags.IgnoreSystem(names.Organizations)
 	iflen(updatedTags)>0{
-		input:=&organizations.TagResourceInput{
-			ResourceId:aws.String(identifier),
-			Tags:Tags(updatedTags),
-		}
-
-		_,err:=conn.TagResourceWithContext(ctx,input)
-
-		iferr!=nil{
-			returnfmt.Errorf("taggingresource(%s):%w",identifier,err)
-		}
-	}
-
-	returnnil
+input:=&organizations.TagResourceInput{
+ResourceId:aws.String(identifier),
+Tags:Tags(updatedTags),
+}_,err:=conn.TagResourceWithContext(ctx,input)iferr!=nil{
+returnfmt.Errorf("taggingresource(%s):%w",identifier,err)
 }
-
-//UpdateTagsupdatesorganizationsservicetags.
-//Itiscalledfromoutsidethispackage.
-
-func(p*servicePackage)UpdateTags(ctxcontext.Context,metaany,identifierstring,oldTags,newTagsany)error{
+	}	returnnil
+}//UpdateTagsupdatesorganizationsservicetags.
+//Itiscalledfromoutsidethispackage.func(p*servicePackage)UpdateTags(ctxcontext.Context,metaany,identifierstring,oldTags,newTagsany)error{
 	returnupdateTags(ctx,meta.(*conns.AWSClient).OrganizationsConn(ctx),identifier,oldTags,newTags)
 }

@@ -34,7 +34,7 @@ Check: resource.ComposeTestCheckFunc(
 	return fmt.Sprintf(`
 resource "aws_location_route_calculator" "test" {
   calculator_name = %[1]q
-  data_source     = "Here"
+  data_source= "Here"
 }data "aws_location_route_calculator" "test" {
   calculator_name = aws_location_route_calculator.test.calculator_name
 }

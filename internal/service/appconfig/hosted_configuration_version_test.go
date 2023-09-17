@@ -36,7 +36,7 @@ resource.TestCheckResourceAttr(resourceName, "version_number", "1"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },

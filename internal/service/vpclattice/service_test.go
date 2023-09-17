@@ -23,9 +23,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy:testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccServiceConfig_basic(rName),
@@ -36,8 +36,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -51,9 +51,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy:testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccServiceConfig_basic(rName),
@@ -74,9 +74,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy:testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccServiceConfig_full(rName),
@@ -99,10 +99,10 @@ ctx := acctest.Context(t)
 var service1, service2, service3 vpclattice.GetServiceOutput
 rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_vpclattice_service.test"resource.ParallelTest(t, resource.TestCase{
-PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+PreCheck:k(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy:testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccServiceConfig_tags1(rName, "key1", "value1"),
@@ -113,8 +113,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -191,7 +191,7 @@ resource "aws_vpclattice_service" "test" {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -199,8 +199,8 @@ resource "aws_vpclattice_service" "test" {
 return fmt.Sprintf(`
 resource "aws_vpclattice_service" "test" {
   name = %[1]q  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

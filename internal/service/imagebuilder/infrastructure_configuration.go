@@ -21,43 +21,43 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 func ResourceInfrastructureConfiguration() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceInfrastructureConfigurationCreate,
-ReadWithoutTimeout:   resourceInfrastructureConfigurationRead,
+ReadWithoutTimeout:resourceInfrastructureConfigurationRead,
 UpdateWithoutTimeout: resourceInfrastructureConfigurationUpdate,
 DeleteWithoutTimeout: resourceInfrastructureConfigurationDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "date_created": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "date_updated": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "description": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 },
 "instance_metadata_options": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "http_put_response_hop_limit": {
 Type:schema.TypeInt,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.IntBetween(1, 64),
 },
 "http_tokens": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringInSlice([]string{"required", "optional"}, false),
 },
 },
@@ -65,42 +65,42 @@ ValidateFunc: validation.StringInSlice([]string{"required", "optional"}, false),
 },
 "instance_profile_name": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 },
 "instance_types": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
-Set:      schema.HashString,
+Elem:&schema.Schema{Type: schema.TypeString},
+Set: schema.HashString,
 },
 "key_pair": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 },
 "logging": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "s3_logs": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Required: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "s3_bucket_name": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 },
 "s3_key_prefix": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
-Default:      "/",
+Default: "/",
 },
 },
 },
@@ -109,31 +109,31 @@ Default:      "/",
 },
 },
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "resource_tags": tftags.TagsSchema(),
 "security_group_ids": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
-Set:      schema.HashString,
+Elem:&schema.Schema{Type: schema.TypeString},
+Set: schema.HashString,
 },
 "sns_topic_arn": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: verify.ValidARN,
 },
 "subnet_id": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "terminate_instance_on_failure": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 },
@@ -143,7 +143,7 @@ Default:  false,
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)input := &imagebuilder.CreateInfrastructureConfigurationInput{
 ClientToken: aws.String(id.UniqueId()),
-Tags:        getTagsIn(ctx),
+Tags:
 TerminateInstanceOnFailure: aws.Bool(d.Get("terminate_instance_on_failure").(bool)),
 }if v, ok := d.GetOk("description"); ok {
 input.Description = aws.String(v.(string))
@@ -232,7 +232,7 @@ conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)if d.HasChanges(
 ) {
 input := &imagebuilder.UpdateInfrastructureConfigurationInput{
 InfrastructureConfigurationArn: aws.String(d.Id()),
-TerminateInstanceOnFailure:     aws.Bool(d.Get("terminate_instance_on_failure").(bool)),
+TerminateInstanceOnFailure:aws.Bool(d.Get("terminate_instance_on_failure").(bool)),
 }if v, ok := d.GetOk("description"); ok {
 input.Description = aws.String(v.(string))
 }if v, ok := d.GetOk("instance_metadata_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {

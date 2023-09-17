@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package shield_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package shield_testimport (
 "context"
 "fmt"
-"testing"
-
-"github.com/YakDriver/regexache"
+"testing""github.com/YakDriver/regexache"
 "github.com/aws/aws-sdk-go/aws"
 "github.com/aws/aws-sdk-go/service/shield"
 "github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -18,22 +12,18 @@ sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/acctest"
 "github.com/hashicorp/terraform-provider-aws/internal/conns"
 tfshield "github.com/hashicorp/terraform-provider-aws/internal/service/shield"
-)
-
-func TestAccShieldProtectionGroup_basic(t *testing.T) {
+)func TestAccShieldProtectionGroup_basic(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_shield_protection_group.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
+ErrorCheck: acctest.ErrorCheck(t, shield.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProtectionGroupDestroy(ctx),
+CheckDestroy:testAccCheckProtectionGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccProtectionGroupConfig_basic(rName),
@@ -48,28 +38,24 @@ resource.TestCheckResourceAttr(resourceName, "tags_all.%", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccShieldProtectionGroup_disappears(t *testing.T) {
+}func TestAccShieldProtectionGroup_disappears(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_shield_protection_group.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
+ErrorCheck: acctest.ErrorCheck(t, shield.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProtectionGroupDestroy(ctx),
+CheckDestroy:testAccCheckProtectionGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccProtectionGroupConfig_basic(rName),
@@ -81,22 +67,18 @@ ExpectNonEmptyPlan: true,
 },
 },
 })
-}
-
-func TestAccShieldProtectionGroup_aggregation(t *testing.T) {
+}func TestAccShieldProtectionGroup_aggregation(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_shield_protection_group.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
+ErrorCheck: acctest.ErrorCheck(t, shield.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProtectionGroupDestroy(ctx),
+CheckDestroy:testAccCheckProtectionGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccProtectionGroupConfig_aggregation(rName, shield.ProtectionGroupAggregationMean),
@@ -106,8 +88,8 @@ resource.TestCheckResourceAttr(resourceName, "aggregation", shield.ProtectionGro
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -118,28 +100,24 @@ resource.TestCheckResourceAttr(resourceName, "aggregation", shield.ProtectionGro
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccShieldProtectionGroup_members(t *testing.T) {
+}func TestAccShieldProtectionGroup_members(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_shield_protection_group.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
+ErrorCheck: acctest.ErrorCheck(t, shield.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProtectionGroupDestroy(ctx),
+CheckDestroy:testAccCheckProtectionGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccProtectionGroupConfig_members(rName),
@@ -151,29 +129,25 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "members.0", "ec2", regexache
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccShieldProtectionGroup_protectionGroupID(t *testing.T) {
+}func TestAccShieldProtectionGroup_protectionGroupID(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_shield_protection_group.test"
 testID1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-testID2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+testID2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
+ErrorCheck: acctest.ErrorCheck(t, shield.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProtectionGroupDestroy(ctx),
+CheckDestroy:testAccCheckProtectionGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccProtectionGroupConfig_basic(testID1),
@@ -183,8 +157,8 @@ resource.TestCheckResourceAttr(resourceName, "protection_group_id", testID1),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -195,28 +169,24 @@ resource.TestCheckResourceAttr(resourceName, "protection_group_id", testID2),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccShieldProtectionGroup_resourceType(t *testing.T) {
+}func TestAccShieldProtectionGroup_resourceType(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_shield_protection_group.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
+ErrorCheck: acctest.ErrorCheck(t, shield.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProtectionGroupDestroy(ctx),
+CheckDestroy:testAccCheckProtectionGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccProtectionGroupConfig_resourceType(rName, shield.ProtectedResourceTypeElasticIpAllocation),
@@ -227,8 +197,8 @@ resource.TestCheckResourceAttr(resourceName, "resource_type", shield.ProtectedRe
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -240,28 +210,24 @@ resource.TestCheckResourceAttr(resourceName, "resource_type", shield.ProtectedRe
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
 })
-}
-
-func TestAccShieldProtectionGroup_tags(t *testing.T) {
+}func TestAccShieldProtectionGroup_tags(t *testing.T) {
 ctx := acctest.Context(t)
 resourceName := "aws_shield_protection_group.test"
-rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-resource.ParallelTest(t, resource.TestCase{
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
+ErrorCheck: acctest.ErrorCheck(t, shield.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProtectionGroupDestroy(ctx),
+CheckDestroy:testAccCheckProtectionGroupDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccProtectionGroupConfig_tags1(rName, "key1", "value1"),
@@ -272,8 +238,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -295,127 +261,83 @@ resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 },
 },
 })
-}
-
-func testAccCheckProtectionGroupDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckProtectionGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ShieldConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ShieldConn(ctx)for _, rs := range s.RootModule().Resources {
 if rs.Type != "aws_shield_protection_group" {
 continue
-}
-
-input := &shield.DescribeProtectionGroupInput{
+}input := &shield.DescribeProtectionGroupInput{
 ProtectionGroupId: aws.String(rs.Primary.ID),
-}
-
-resp, err := conn.DescribeProtectionGroupWithContext(ctx, input)
-
-if tfawserr.ErrCodeEquals(err, shield.ErrCodeResourceNotFoundException) {
+}resp, err := conn.DescribeProtectionGroupWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, shield.ErrCodeResourceNotFoundException) {
 continue
-}
-
-if err != nil {
+}if err != nil {
 return err
-}
-
-if resp != nil && resp.ProtectionGroup != nil && aws.StringValue(resp.ProtectionGroup.ProtectionGroupId) == rs.Primary.ID {
+}if resp != nil && resp.ProtectionGroup != nil && aws.StringValue(resp.ProtectionGroup.ProtectionGroupId) == rs.Primary.ID {
 return fmt.Errorf("The Shield protection group with ID %v still exists", rs.Primary.ID)
 }
+}return nil
 }
-
-return nil
-}
-}
-
-func testAccCheckProtectionGroupExists(ctx context.Context, name string) resource.TestCheckFunc {
+}func testAccCheckProtectionGroupExists(ctx context.Context, name string) resource.TestCheckFunc {
 return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 return fmt.Errorf("Not found: %s", name)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ShieldConn(ctx)
-
-input := &shield.DescribeProtectionGroupInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ShieldConn(ctx)input := &shield.DescribeProtectionGroupInput{
 ProtectionGroupId: aws.String(rs.Primary.ID),
+}_, err := conn.DescribeProtectionGroupWithContext(ctx, input)return err
 }
-
-_, err := conn.DescribeProtectionGroupWithContext(ctx, input)
-
-return err
-}
-}
-
-func testAccProtectionGroupConfig_basic(rName string) string {
+}func testAccProtectionGroupConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_shield_protection_group" "test" {
   protection_group_id = "%s"
   aggregation= "MAX"
-  pattern    = "ALL"
+  pattern= "ALL"
 }
 `, rName)
-}
-
-func testAccProtectionGroupConfig_aggregation(rName string, aggregation string) string {
+}func testAccProtectionGroupConfig_aggregation(rName string, aggregation string) string {
 return fmt.Sprintf(`
 resource "aws_shield_protection_group" "test" {
   protection_group_id = "%[1]s"
   aggregation= "%[2]s"
-  pattern    = "ALL"
+  pattern= "ALL"
 }
 `, rName, aggregation)
-}
-
-func testAccProtectionGroupConfig_resourceType(rName string, resType string) string {
+}func testAccProtectionGroupConfig_resourceType(rName string, resType string) string {
 return fmt.Sprintf(`
 resource "aws_shield_protection_group" "test" {
   protection_group_id = "%[1]s"
   aggregation= "MAX"
-  pattern    = "BY_RESOURCE_TYPE"
-  resource_type       = "%[2]s"
+  pattern= "BY_RESOURCE_TYPE"
+  resource_type= "%[2]s"
 }
 `, rName, resType)
-}
-
-func testAccProtectionGroupConfig_members(rName string) string {
+}func testAccProtectionGroupConfig_members(rName string) string {
 return acctest.ConfigCompose(testAccProtectionConfig_elasticIPAddress(rName), fmt.Sprintf(`
 resource "aws_shield_protection_group" "test" {
-  depends_on = [aws_shield_protection.test]
-
-  protection_group_id = "%[1]s"
+  depends_on = [aws_shield_protection.test]  protection_group_id = "%[1]s"
   aggregation= "MAX"
-  pattern    = "ARBITRARY"
-  members    = ["arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:eip-allocation/${aws_eip.test.id}"]
+  pattern= "ARBITRARY"
+  members= ["arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:eip-allocation/${aws_eip.test.id}"]
 }
 `, rName))
-}
-
-func testAccProtectionGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
+}func testAccProtectionGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 resource "aws_shield_protection_group" "test" {
   protection_group_id = %[1]q
   aggregation= "MAX"
-  pattern    = "ALL"
-
-  tags = {
-    %[2]q = %[3]q
+  pattern= "ALL"  tags = {
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
-}
-
-func testAccProtectionGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+}func testAccProtectionGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return fmt.Sprintf(`
 resource "aws_shield_protection_group" "test" {
   protection_group_id = %[1]q
   aggregation= "MAX"
-  pattern    = "ALL"
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  pattern= "ALL"  tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

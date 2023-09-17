@@ -31,7 +31,7 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "resource_arn", "appconfig", 
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -63,7 +63,7 @@ resource.TestCheckResourceAttr(resourceName, fmt.Sprintf("parameters.%s", pName1
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 },
 {

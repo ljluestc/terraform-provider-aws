@@ -11,81 +11,81 @@
 	return []*types.ServicePackageFrameworkResource{}
 }func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceCluster,
-			TypeName: "aws_ecs_cluster",
-		},
-		{
-			Factory:  DataSourceContainerDefinition,
-			TypeName: "aws_ecs_container_definition",
-		},
-		{
-			Factory:  DataSourceService,
-			TypeName: "aws_ecs_service",
-		},
-		{
-			Factory:  DataSourceTaskDefinition,
-			TypeName: "aws_ecs_task_definition",
-		},
-		{
-			Factory:  DataSourceTaskExecution,
-			TypeName: "aws_ecs_task_execution",
-		},
+{
+Factory:  DataSourceCluster,
+TypeName: "aws_ecs_cluster",
+},
+{
+Factory:  DataSourceContainerDefinition,
+TypeName: "aws_ecs_container_definition",
+},
+{
+Factory:  DataSourceService,
+TypeName: "aws_ecs_service",
+},
+{
+Factory:  DataSourceTaskDefinition,
+TypeName: "aws_ecs_task_definition",
+},
+{
+Factory:  DataSourceTaskExecution,
+TypeName: "aws_ecs_task_execution",
+},
 	}
 }func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceAccountSettingDefault,
-			TypeName: "aws_ecs_account_setting_default",
-		},
-		{
-			Factory:  ResourceCapacityProvider,
-			TypeName: "aws_ecs_capacity_provider",
-			Name:     "Capacity Provider",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "id",
-			},
-		},
-		{
-			Factory:  ResourceCluster,
-			TypeName: "aws_ecs_cluster",
-			Name:     "Cluster",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "id",
-			},
-		},
-		{
-			Factory:  ResourceClusterCapacityProviders,
-			TypeName: "aws_ecs_cluster_capacity_providers",
-		},
-		{
-			Factory:  ResourceService,
-			TypeName: "aws_ecs_service",
-			Name:     "Service",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "id",
-			},
-		},
-		{
-			Factory:  ResourceTag,
-			TypeName: "aws_ecs_tag",
-		},
-		{
-			Factory:  ResourceTaskDefinition,
-			TypeName: "aws_ecs_task_definition",
-			Name:     "Task Definition",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceTaskSet,
-			TypeName: "aws_ecs_task_set",
-			Name:     "Task Set",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
+{
+Factory:  ResourceAccountSettingDefault,
+TypeName: "aws_ecs_account_setting_default",
+},
+{
+Factory:  ResourceCapacityProvider,
+TypeName: "aws_ecs_capacity_provider",
+Name:"Capacity Provider",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "id",
+},
+},
+{
+Factory:  ResourceCluster,
+TypeName: "aws_ecs_cluster",
+Name:"Cluster",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "id",
+},
+},
+{
+Factory:  ResourceClusterCapacityProviders,
+TypeName: "aws_ecs_cluster_capacity_providers",
+},
+{
+Factory:  ResourceService,
+TypeName: "aws_ecs_service",
+Name:"Service",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "id",
+},
+},
+{
+Factory:  ResourceTag,
+TypeName: "aws_ecs_tag",
+},
+{
+Factory:  ResourceTaskDefinition,
+TypeName: "aws_ecs_task_definition",
+Name:"Task Definition",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
+{
+Factory:  ResourceTaskSet,
+TypeName: "aws_ecs_task_set",
+Name:"Task Set",
+Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+},
+},
 	}
 }func (p *servicePackage) ServicePackageName() string {
 	return names.ECS

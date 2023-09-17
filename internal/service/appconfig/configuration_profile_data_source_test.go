@@ -47,10 +47,10 @@ fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
   name  = %[1]q
-  location_uri   = "hosted"  validator {
+  location_uri= "hosted"  validator {
 content = jsonencode({
-  "$schema"   = "http://json-schema.org/draft-05/schema#"
-  title   = "$id$"
+  "$schema"= "http://json-schema.org/draft-05/schema#"
+  title= "$id$"
   description = "BasicFeatureToggle-1"
 })type = "JSON_SCHEMA"
   }  tags = {

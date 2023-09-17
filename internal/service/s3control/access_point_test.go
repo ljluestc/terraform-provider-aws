@@ -21,7 +21,7 @@
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_basic(bucketName, accessPointName),
@@ -48,8 +48,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -63,7 +63,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_basic(bucketName, accessPointName),
@@ -83,7 +83,7 @@ ExpectNonEmptyPlan: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_bucketARN(rName),
@@ -107,8 +107,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -121,17 +121,17 @@ ImportStateVerify: true,
 return fmt.Sprintf(`{
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:%[1]s:iam::%[3]s:root"
-      },
-      "Action": "s3:GetObjectTagging",
-      "Resource": [
-        "arn:%[1]s:s3:%[2]s:%[3]s:accesspoint/%[4]s/object/*"
-      ]
-    }
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Principal": {
+[3]s:root"
+ },
+ "Action": "s3:GetObjectTagging",
+ "Resource": [
+s:accesspoint/%[4]s/object/*"
+ ]
+}
   ]
 }`, acctest.Partition(), acctest.Region(), acctest.AccountID(), rName)
 	}
@@ -139,27 +139,27 @@ return fmt.Sprintf(`{
 return fmt.Sprintf(`{
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "arn:%[1]s:iam::%[3]s:root"
-      },
-      "Action": [
-        "s3:GetObjectLegalHold",
-        "s3:GetObjectRetention"
-      ],
-      "Resource": [
-        "arn:%[1]s:s3:%[2]s:%[3]s:accesspoint/%[4]s/object/*"
-      ]
-    }
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Principal": {
+[3]s:root"
+ },
+ "Action": [
+
+
+ ],
+ "Resource": [
+s:accesspoint/%[4]s/object/*"
+ ]
+}
   ]
 }`, acctest.Partition(), acctest.Region(), acctest.AccountID(), rName)
 	}	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_policy(rName),
@@ -181,8 +181,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 	{
@@ -209,7 +209,7 @@ Check: resource.ComposeTestCheckFunc(
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_publicBlock(rName),
@@ -231,8 +231,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -246,7 +246,7 @@ ImportStateVerify: true,
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_vpc(rName),
@@ -269,8 +269,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 	},
 },
@@ -318,7 +318,7 @@ if err != nil {
 	return fmt.Errorf("Error testing policy equivalence: %s", err)
 }
 if !equivalent {
-	return fmt.Errorf("Non-equivalent policy error:\n\nexpected: %s\n\n     got: %s\n",
+	return fmt.Errorf("Non-equivalent policy error:\n\nexpected: %s\n\ngot: %s\n",
 expectedPolicyText, actualPolicyText)
 }return nil
 	}
@@ -328,7 +328,7 @@ resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }resource "aws_s3_access_point" "test" {
   bucket = aws_s3_bucket.test.bucket
-  name   = %[2]q
+  name= %[2]q
 }
 `, bucketName, accessPointName)
 }func testAccAccessPointConfig_bucketARN(rName string) string {
@@ -336,16 +336,16 @@ resource "aws_s3_bucket" "test" {
 data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
 }resource "aws_s3control_bucket" "test" {
-  bucket     = %[1]q
+  bucket= %[1]q
   outpost_id = data.aws_outposts_outpost.test.id
 }resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_s3_access_point" "test" {
   bucket = aws_s3control_bucket.test.arn
-  name   = %[1]q  vpc_configuration {
-    vpc_id = aws_vpc.test.id
+  name= %[1]q  vpc_configuration {
+vpc_id = aws_vpc.test.id
   }
 }
 `, rName)
@@ -355,25 +355,25 @@ resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }resource "aws_s3_access_point" "test" {
   bucket = aws_s3_bucket.test.bucket
-  name   = %[1]q
+  name= %[1]q
   policy = data.aws_iam_policy_document.test.json  public_access_block_configuration {
-    block_public_acls       = true
-    block_public_policy     = false
-    ignore_public_acls      = true
-    restrict_public_buckets = false
+block_public_acls= true
+block_public_policy= false
+ignore_public_acls = true
+restrict_public_buckets = false
   }
 }data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 data "aws_region" "current" {}data "aws_iam_policy_document" "test" {
   statement {
-    effect = "Allow"    actions = [
-      "s3:GetObjectTagging",
-    ]    resources = [
-      "arn:${data.aws_partition.current.partition}:s3:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:accesspoint/%[1]s/object/*",
-    ]    principals {
-      type        = "AWS"
-      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-    }
+effect = "Allow"actions = [
+ "s3:GetObjectTagging",
+]resources = [
+ "arn:${data.aws_partition.current.partition}:s3:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:accesspoint/%[1]s/object/*",
+]principals {
+ type
+ identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+}
   }
 }
 `, rName)
@@ -383,26 +383,26 @@ resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }resource "aws_s3_access_point" "test" {
   bucket = aws_s3_bucket.test.bucket
-  name   = %[1]q
+  name= %[1]q
   policy = data.aws_iam_policy_document.test.json  public_access_block_configuration {
-    block_public_acls       = true
-    block_public_policy     = false
-    ignore_public_acls      = true
-    restrict_public_buckets = false
+block_public_acls= true
+block_public_policy= false
+ignore_public_acls = true
+restrict_public_buckets = false
   }
 }data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 data "aws_region" "current" {}data "aws_iam_policy_document" "test" {
   statement {
-    effect = "Allow"    actions = [
-      "s3:GetObjectLegalHold",
-      "s3:GetObjectRetention"
-    ]    resources = [
-      "arn:${data.aws_partition.current.partition}:s3:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:accesspoint/%[1]s/object/*",
-    ]    principals {
-      type        = "AWS"
-      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-    }
+effect = "Allow"actions = [
+ "s3:GetObjectLegalHold",
+ "s3:GetObjectRetention"
+]resources = [
+ "arn:${data.aws_partition.current.partition}:s3:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:accesspoint/%[1]s/object/*",
+]principals {
+ type
+ identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+}
   }
 }
 `, rName)
@@ -412,11 +412,11 @@ resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }resource "aws_s3_access_point" "test" {
   bucket = aws_s3_bucket.test.bucket
-  name   = %[1]q  public_access_block_configuration {
-    block_public_acls       = true
-    block_public_policy     = false
-    ignore_public_acls      = true
-    restrict_public_buckets = false
+  name= %[1]q  public_access_block_configuration {
+block_public_acls= true
+block_public_policy= false
+ignore_public_acls = true
+restrict_public_buckets = false
   }  policy = "{}"
 }
 `, rName)
@@ -426,11 +426,11 @@ resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }resource "aws_s3_access_point" "test" {
   bucket = aws_s3_bucket.test.bucket
-  name   = %[1]q  public_access_block_configuration {
-    block_public_acls       = false
-    block_public_policy     = false
-    ignore_public_acls      = false
-    restrict_public_buckets = false
+  name= %[1]q  public_access_block_configuration {
+block_public_acls= false
+block_public_policy= false
+ignore_public_acls = false
+restrict_public_buckets = false
   }
 }
 `, rName)
@@ -438,14 +438,14 @@ resource "aws_s3_bucket" "test" {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"  tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }resource "aws_s3_bucket" "test" {
   bucket = %[1]q
 }resource "aws_s3_access_point" "test" {
   bucket = aws_s3_bucket.test.bucket
-  name   = %[1]q  vpc_configuration {
-    vpc_id = aws_vpc.test.id
+  name= %[1]q  vpc_configuration {
+vpc_id = aws_vpc.test.id
   }
 }
 `, rName)

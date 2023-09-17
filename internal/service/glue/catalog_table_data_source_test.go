@@ -43,26 +43,26 @@ resource "aws_glue_catalog_database" "test" {
 }resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
   name = %[2]q  description = "aws_glue_catalog_table datasource acc test"  table_type = "EXTERNAL_TABLE"  parameters = {
-    EXTERNAL     = "TRUE"
-    "parquet.compression" = "SNAPPY"
+EXTERNAL= "TRUE"
+"parquet.compression" = "SNAPPY"
   }  storage_descriptor {
-    location      = "s3://my-bucket/event-streams/my-stream"
-    input_format  = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat"
-    output_format = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat"    ser_de_info {
-      name   = "my-stream"
-      serialization_library = "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe"      parameters = {
-        "serialization.format" = 1
-      }
-    }    columns {
-      name = "my_string"
-      type = "string"
-    }    columns {
-      name = "my_double"
-      type = "double"
-    }
+location = "s3://my-bucket/event-streams/my-stream"
+input_format  = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat"
+output_format = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat"ser_de_info {
+ name= "my-stream"
+ serialization_library = "org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe" parameters = {
+ 1
+ }
+}columns {
+ name = "my_string"
+ type = "string"
+}columns {
+ name = "my_double"
+ type = "double"
+}
   }  partition_keys {
-    name = "my_partition_key"
-    type = "string"    comment = "my_partition_key"
+name = "my_partition_key"
+type = "string"comment = "my_partition_key"
   }
 }data "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_table.test.database_name

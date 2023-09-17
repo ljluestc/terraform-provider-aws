@@ -46,9 +46,9 @@ acctest.CheckResourceAttrRFC3339(rName, "last_updated_date"),
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -75,9 +75,9 @@ resource.TestCheckResourceAttr(rName, "version", tflexmodels.SlotTypeVersionLate
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -89,9 +89,9 @@ resource.TestCheckResourceAttr(rName, "version", "1"),
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -117,9 +117,9 @@ resource.TestCheckResourceAttr(rName, "description", ""),
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -130,9 +130,9 @@ resource.TestCheckResourceAttr(rName, "description", "Types of flowers to pick u
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -158,9 +158,9 @@ resource.TestCheckResourceAttr(rName, "enumeration_value.#", "1"),
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -176,9 +176,9 @@ resource.TestCheckTypeSetElemAttr(rName, "enumeration_value.*.synonyms.*", "Podo
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -205,9 +205,9 @@ resource.TestCheckResourceAttr(rName, "name", testSlotTypeID1),
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -218,9 +218,9 @@ resource.TestCheckResourceAttr(rName, "name", testSlotTypeID2),
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -246,9 +246,9 @@ resource.TestCheckResourceAttr(rName, "value_selection_strategy", lexmodelbuildi
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -259,35 +259,35 @@ resource.TestCheckResourceAttr(rName, "value_selection_strategy", lexmodelbuildi
 ),
 },
 {
-ResourceName:   rName,
+ResourceName:rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:true,
 	ImportStateVerifyIgnore: []string{"create_version"},
-			},
-		},
+},
+},
 	})
 }func TestAccLexModelsSlotType_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v lexmodelbuildingservice.GetSlotTypeOutput
 	rName := "aws_lex_slot_type.test"
 	testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
-		},
-		ErrorCheck:  acctest.ErrorCheck(t, lexmodelbuildingservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckSlotTypeDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSlotTypeConfig_basic(testSlotTypeID),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSlotTypeExists(ctx, rName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tflexmodels.ResourceSlotType(), rName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
+},
+ErrorCheck:  acctest.ErrorCheck(t, lexmodelbuildingservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckSlotTypeDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccSlotTypeConfig_basic(testSlotTypeID),
+Check: resource.ComposeTestCheckFunc(
+testAccCheckSlotTypeExists(ctx, rName, &v),
+acctest.CheckResourceDisappears(ctx, acctest.Provider, tflexmodels.ResourceSlotType(), rName),
+),
+ExpectNonEmptyPlan: true,
+},
+},
 	})
 }func TestAccLexModelsSlotType_computeVersion(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -296,93 +296,93 @@ ImportStateVerify:       true,
 	intentResourceName := "aws_lex_intent.test"
 	testSlotTypeID := "test_slot_type_" + sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)	version := "1"
 	updatedVersion := "2"	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
-		},
-		ErrorCheck:  acctest.ErrorCheck(t, lexmodelbuildingservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckSlotTypeDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: acctest.ConfigCompose(
-					testAccSlotTypeConfig_withVersion(testSlotTypeID),
-					testAccIntentConfig_slotsWithVersion(testSlotTypeID),
-				),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckSlotTypeExistsWithVersion(ctx, slotTypeResourceName, version, &v1),
-					resource.TestCheckResourceAttr(slotTypeResourceName, "version", version),
-					testAccCheckIntentExistsWithVersion(ctx, intentResourceName, version, &v2),
-					resource.TestCheckResourceAttr(intentResourceName, "version", version),
-					resource.TestCheckResourceAttr(intentResourceName, "slot.0.slot_type_version", version),
-				),
-			},
-			{
-				Config: acctest.ConfigCompose(
-					testAccSlotTypeUpdateConfig_enumerationValuesWithVersion(testSlotTypeID),
-					testAccIntentConfig_slotsWithVersion(testSlotTypeID),
-				),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckSlotTypeExistsWithVersion(ctx, slotTypeResourceName, updatedVersion, &v1),
-					resource.TestCheckResourceAttr(slotTypeResourceName, "version", updatedVersion),
-					resource.TestCheckResourceAttr(slotTypeResourceName, "enumeration_value.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(slotTypeResourceName, "enumeration_value.*", map[string]string{
-						"value": "tulips",
-					}),
-					resource.TestCheckTypeSetElemAttr(slotTypeResourceName, "enumeration_value.*.synonyms.*", "Eduardoregelia"),
-					resource.TestCheckTypeSetElemAttr(slotTypeResourceName, "enumeration_value.*.synonyms.*", "Podonix"),
-					testAccCheckIntentExistsWithVersion(ctx, intentResourceName, updatedVersion, &v2),
-					resource.TestCheckResourceAttr(intentResourceName, "version", updatedVersion),
-					resource.TestCheckResourceAttr(intentResourceName, "slot.0.slot_type_version", updatedVersion),
-				),
-			},
-		},
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
+},
+ErrorCheck:  acctest.ErrorCheck(t, lexmodelbuildingservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckSlotTypeDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: acctest.ConfigCompose(
+testAccSlotTypeConfig_withVersion(testSlotTypeID),
+testAccIntentConfig_slotsWithVersion(testSlotTypeID),
+),
+Check: resource.ComposeAggregateTestCheckFunc(
+testAccCheckSlotTypeExistsWithVersion(ctx, slotTypeResourceName, version, &v1),
+resource.TestCheckResourceAttr(slotTypeResourceName, "version", version),
+testAccCheckIntentExistsWithVersion(ctx, intentResourceName, version, &v2),
+resource.TestCheckResourceAttr(intentResourceName, "version", version),
+resource.TestCheckResourceAttr(intentResourceName, "slot.0.slot_type_version", version),
+),
+},
+{
+Config: acctest.ConfigCompose(
+testAccSlotTypeUpdateConfig_enumerationValuesWithVersion(testSlotTypeID),
+testAccIntentConfig_slotsWithVersion(testSlotTypeID),
+),
+Check: resource.ComposeAggregateTestCheckFunc(
+testAccCheckSlotTypeExistsWithVersion(ctx, slotTypeResourceName, updatedVersion, &v1),
+resource.TestCheckResourceAttr(slotTypeResourceName, "version", updatedVersion),
+resource.TestCheckResourceAttr(slotTypeResourceName, "enumeration_value.#", "2"),
+resource.TestCheckTypeSetElemNestedAttrs(slotTypeResourceName, "enumeration_value.*", map[string]string{
+"value": "tulips",
+}),
+resource.TestCheckTypeSetElemAttr(slotTypeResourceName, "enumeration_value.*.synonyms.*", "Eduardoregelia"),
+resource.TestCheckTypeSetElemAttr(slotTypeResourceName, "enumeration_value.*.synonyms.*", "Podonix"),
+testAccCheckIntentExistsWithVersion(ctx, intentResourceName, updatedVersion, &v2),
+resource.TestCheckResourceAttr(intentResourceName, "version", updatedVersion),
+resource.TestCheckResourceAttr(intentResourceName, "slot.0.slot_type_version", updatedVersion),
+),
+},
+},
 	})
 }func testAccCheckSlotTypeExistsWithVersion(ctx context.Context, rName, slotTypeVersion string, v *lexmodelbuildingservice.GetSlotTypeOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[rName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", rName)
-		}		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Lex Slot Type ID is set")
-		}		conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)		output, err := tflexmodels.FindSlotTypeVersionByName(ctx, conn, rs.Primary.ID, slotTypeVersion)		if err != nil {
-			return err
-		}		*v = *output		return nil
+rs, ok := s.RootModule().Resources[rName]
+if !ok {
+return fmt.Errorf("Not found: %s", rName)
+}if rs.Primary.ID == "" {
+return fmt.Errorf("No Lex Slot Type ID is set")
+}conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)output, err := tflexmodels.FindSlotTypeVersionByName(ctx, conn, rs.Primary.ID, slotTypeVersion)if err != nil {
+return err
+}*v = *outputreturn nil
 	}
 }func testAccCheckSlotTypeExists(ctx context.Context, rName string, output *lexmodelbuildingservice.GetSlotTypeOutput) resource.TestCheckFunc {
 	return testAccCheckSlotTypeExistsWithVersion(ctx, rName, tflexmodels.SlotTypeVersionLatest, output)
 }func testAccCheckSlotTypeNotExists(ctx context.Context, slotTypeName, slotTypeVersion string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)		_, err := tflexmodels.FindSlotTypeVersionByName(ctx, conn, slotTypeName, slotTypeVersion)		if tfresource.NotFound(err) {
-			return nil
-		}		if err != nil {
-			return err
-		}		return fmt.Errorf("Lex Slot Type %s/%s still exists", slotTypeName, slotTypeVersion)
+conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)_, err := tflexmodels.FindSlotTypeVersionByName(ctx, conn, slotTypeName, slotTypeVersion)if tfresource.NotFound(err) {
+return nil
+}if err != nil {
+return err
+}return fmt.Errorf("Lex Slot Type %s/%s still exists", slotTypeName, slotTypeVersion)
 	}
 }func testAccCheckSlotTypeDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_lex_slot_type" {
-				continue
-			}			output, err := conn.GetSlotTypeVersionsWithContext(ctx, &lexmodelbuildingservice.GetSlotTypeVersionsInput{
-				Name: aws.String(rs.Primary.ID),
-			})			if err != nil {
-				return err
-			}			if output == nil || len(output.SlotTypes) == 0 {
-				return nil
-			}			return fmt.Errorf("Lex Slot Type %s still exists", rs.Primary.ID)
-		}		return nil
+conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)for _, rs := range s.RootModule().Resources {
+if rs.Type != "aws_lex_slot_type" {
+continue
+}output, err := conn.GetSlotTypeVersionsWithContext(ctx, &lexmodelbuildingservice.GetSlotTypeVersionsInput{
+Name: aws.String(rs.Primary.ID),
+})if err != nil {
+return err
+}if output == nil || len(output.SlotTypes) == 0 {
+return nil
+}return fmt.Errorf("Lex Slot Type %s still exists", rs.Primary.ID)
+}return nil
 	}
 }func testAccSlotTypeConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
   name = "%s"
   enumeration_value {
-    synonyms = [
-      "Lirium",
-      "Martagon",
-    ]
-    value = "lilies"
+synonyms = [
+ "Lirium",
+ "Martagon",
+]
+value = "lilies"
   }
 }
 `, rName)
@@ -392,11 +392,11 @@ resource "aws_lex_slot_type" "test" {
   create_version = true
   name  = "%s"
   enumeration_value {
-    synonyms = [
-      "Lirium",
-      "Martagon",
-    ]
-    value = "lilies"
+synonyms = [
+ "Lirium",
+ "Martagon",
+]
+value = "lilies"
   }
 }
 `, rName)
@@ -404,13 +404,13 @@ resource "aws_lex_slot_type" "test" {
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
   description = "Types of flowers to pick up"
-  name        = "%s"
+  name
   enumeration_value {
-    synonyms = [
-      "Lirium",
-      "Martagon",
-    ]
-    value = "lilies"
+synonyms = [
+ "Lirium",
+ "Martagon",
+]
+value = "lilies"
   }
 }
 `, rName)
@@ -419,31 +419,31 @@ resource "aws_lex_slot_type" "test" {
 resource "aws_lex_slot_type" "test" {
   name = "%s"
   enumeration_value {
-    synonyms = [
-      "Lirium",
-      "Martagon",
-    ]
-    value = "lilies"
+synonyms = [
+ "Lirium",
+ "Martagon",
+]
+value = "lilies"
   }  enumeration_value {
-    synonyms = [
-      "Eduardoregelia",
-      "Podonix",
-    ]
-    value = "tulips"
+synonyms = [
+ "Eduardoregelia",
+ "Podonix",
+]
+value = "tulips"
   }
 }
 `, rName)
 }func testAccSlotTypeConfig_valueSelectionStrategy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
-  name      = "%s"
+  name = "%s"
   value_selection_strategy = "TOP_RESOLUTION"
   enumeration_value {
-    synonyms = [
-      "Lirium",
-      "Martagon",
-    ]
-    value = "lilies"
+synonyms = [
+ "Lirium",
+ "Martagon",
+]
+value = "lilies"
   }
 }
 `, rName)
@@ -453,17 +453,17 @@ resource "aws_lex_slot_type" "test" {
   create_version = true
   name  = "%s"
   enumeration_value {
-    synonyms = [
-      "Lirium",
-      "Martagon",
-    ]
-    value = "lilies"
+synonyms = [
+ "Lirium",
+ "Martagon",
+]
+value = "lilies"
   }  enumeration_value {
-    synonyms = [
-      "Eduardoregelia",
-      "Podonix",
-    ]
-    value = "tulips"
+synonyms = [
+ "Eduardoregelia",
+ "Podonix",
+]
+value = "tulips"
   }
 }
 `, rName)

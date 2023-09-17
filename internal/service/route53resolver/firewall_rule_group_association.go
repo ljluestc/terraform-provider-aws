@@ -20,7 +20,7 @@ tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 // @Tags(identifierAttribute="arn")func ResourceFirewallRuleGroupAssociation() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceFirewallRuleGroupAssociationCreate,
-ReadWithoutTimeout:   resourceFirewallRuleGroupAssociationRead,
+ReadWithoutTimeout:resourceFirewallRuleGroupAssociationRead,
 UpdateWithoutTimeout: resourceFirewallRuleGroupAssociationUpdate,
 DeleteWithoutTimeout: resourceFirewallRuleGroupAssociationDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -51,7 +51,7 @@ func: validResolverName,
 Type:schema.TypeInt,
 Required: true,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "vpc_id": {
 Type:schema.TypeString,
@@ -63,10 +63,10 @@ ForceNew: true,
 }func resourceFirewallRuleGroupAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)name := d.Get("name").(string)
 input := &route53resolver.AssociateFirewallRuleGroupInput{
-CreatorRequestId:    aws.String(id.PrefixedUniqueId("tf-r53-rslvr-frgassoc-")),
+CreatorRequestId:aws.String(id.PrefixedUniqueId("tf-r53-rslvr-frgassoc-")),
 FirewallRuleGroupId: aws.String(d.Get("firewall_rule_group_id").(string)),
 Name: aws.String(name),
-Priority:   aws.Int64(int64(d.Get("priority").(int))),
+Priority:aws.Int64(int64(d.Get("priority").(int))),
 Tags: getTagsIn(ctx),
 VpcId:aws.String(d.Get("vpc_id").(string)),
 }if v, ok := d.GetOk("mutation_protection"); ok {
@@ -94,8 +94,8 @@ d.Set("vpc_id", ruleGroupAssociation.VpcId)return nil
 conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)if d.HasChanges("name", "mutation_protection", "priority") {
 input := &route53resolver.UpdateFirewallRuleGroupAssociationInput{
 FirewallRuleGroupAssociationId: aws.String(d.Id()),
-Name:   aws.String(d.Get("name").(string)),
-Priority:   aws.Int64(int64(d.Get("priority").(int))),
+Name:aws.String(d.Get("name").(string)),
+Priority:aws.Int64(int64(d.Get("priority").(int))),
 }if v, ok := d.GetOk("mutation_protection"); ok {
 input.MutationProtection = aws.String(v.(string))
 }_, err := conn.UpdateFirewallRuleGroupAssociationWithContext(ctx, input)if err != nil {
@@ -120,7 +120,7 @@ input := &route53resolver.GetFirewallRuleGroupAssociationInput{
 FirewallRuleGroupAssociationId: aws.String(id),
 }output, err := conn.GetFirewallRuleGroupAssociationWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

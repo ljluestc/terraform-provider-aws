@@ -11,7 +11,7 @@
 )func init() {
 resource.AddTestSweepers("aws_directory_service_directory", &resource.Sweeper{
 Name: "aws_directory_service_directory",
-F:    sweepDirectories,
+F:sweepDirectories,
 Dependencies: []string{
 "aws_appstream_directory_config",
 "aws_connect_instance",
@@ -25,7 +25,7 @@ Dependencies: []string{
 },
 })resource.AddTestSweepers("aws_directory_service_region", &resource.Sweeper{
 Name: "aws_directory_service_region",
-F:    sweepRegions,
+F:sweepRegions,
 })
 }func sweepDirectories(region string) error {
 ctx := sweep.Context(region)

@@ -31,7 +31,7 @@ inContext.TagsOut = types.Some(tags)
 func Tags(tags tftags.KeyValueTags) []*configservice.Tag {
 result := make([]*configservice.Tag, 0, len(tags))for k, v := range tags.Map() {
 tag := &configservice.Tag{
-Key:   aws.String(k),
+Key:aws.String(k),
 Value: aws.String(v),
 }result = append(result, tag)
 }return result
@@ -63,7 +63,7 @@ removedTags = removedTags.IgnoreSystem(names.ConfigService)
 if len(removedTags) > 0 {
 input := &configservice.UntagResourceInput{
 ResourceArn: aws.String(identifier),
-TagKeys:     aws.StringSlice(removedTags.Keys()),
+TagKeys:aws.StringSlice(removedTags.Keys()),
 }_, err := conn.UntagResourceWithContext(ctx, input)if err != nil {
 return fmt.Errorf("untagging resource (%s): %w", identifier, err)
 }
@@ -72,7 +72,7 @@ updatedTags = updatedTags.IgnoreSystem(names.ConfigService)
 if len(updatedTags) > 0 {
 input := &configservice.TagResourceInput{
 ResourceArn: aws.String(identifier),
-Tags:        Tags(updatedTags),
+Tags:
 }_, err := conn.TagResourceWithContext(ctx, input)if err != nil {
 return fmt.Errorf("tagging resource (%s): %w", identifier, err)
 }

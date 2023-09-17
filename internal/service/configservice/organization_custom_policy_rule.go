@@ -19,7 +19,7 @@
 func ResourceOrganizationCustomPolicyRule() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceOrganizationCustomPolicyRuleCreate,
-ReadWithoutTimeout:   resourceOrganizationCustomPolicyRuleRead,
+ReadWithoutTimeout:resourceOrganizationCustomPolicyRuleRead,
 UpdateWithoutTimeout: resourceOrganizationCustomPolicyRuleUpdate,
 DeleteWithoutTimeout: resourceOrganizationCustomPolicyRuleDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -29,11 +29,11 @@ Update: schema.DefaultTimeout(20 * time.Minute),
 Delete: schema.DefaultTimeout(20 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 },
 "debug_log_delivery_accounts": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 MaxItems: 1000,
 Elem: &schema.Schema{
@@ -43,11 +43,11 @@ ValidateFunc: verify.ValidAccountID,
 },
 "description": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(0, 256),
 },
 "excluded_accounts": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 MaxItems: 1000,
 Elem: &schema.Schema{
@@ -56,7 +56,7 @@ ValidateFunc: verify.ValidAccountID,
 },
 },
 "input_parameters": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Optional:true,
 DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 ValidateFunc: validation.All(
@@ -66,32 +66,32 @@ validation.StringIsJSON,
 },
 "maximum_execution_frequency": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringInSlice(configservice.MaximumExecutionFrequency_Values(), false),
 },
 "name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: validation.StringLenBetween(1, 64),
 },
 "policy_runtime": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringLenBetween(1, 64),
 },
 "policy_text": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 ValidateFunc: validation.StringLenBetween(0, 10000),
 },
 "resource_id_scope": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(0, 768),
 },
 "resource_types_scope": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 MaxItems: 100,
 Elem: &schema.Schema{
@@ -101,16 +101,16 @@ ValidateFunc: validation.StringLenBetween(0, 256),
 },
 "tag_key_scope": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(0, 128),
 },
 "tag_value_scope": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(0, 256),
 },
 "trigger_types": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Required: true,
 MinItems: 1,
 MaxItems: 3,
@@ -131,8 +131,8 @@ conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)
 name := d.Get("name").(string)in := &configservice.PutOrganizationConfigRuleInput{
 OrganizationConfigRuleName: aws.String(name),
 OrganizationCustomPolicyRuleMetadata: &configservice.OrganizationCustomPolicyRuleMetadata{
-PolicyRuntime:    aws.String(d.Get("policy_runtime").(string)),
-PolicyText:       aws.String(d.Get("policy_text").(string)),
+PolicyRuntime:aws.String(d.Get("policy_runtime").(string)),
+PolicyText:aws.String(d.Get("policy_text").(string)),
 OrganizationConfigRuleTriggerTypes: flex.ExpandStringSet(d.Get("trigger_types").(*schema.Set)),
 },
 }if v, ok := d.GetOk("debug_log_delivery_accounts"); ok {
@@ -196,8 +196,8 @@ return create.DiagError(names.ConfigService, create.ErrActionSetting, ResNameOrg
 conn := meta.(*conns.AWSClient).ConfigServiceConn(ctx)in := &configservice.PutOrganizationConfigRuleInput{
 OrganizationConfigRuleName: aws.String(d.Id()),
 OrganizationCustomPolicyRuleMetadata: &configservice.OrganizationCustomPolicyRuleMetadata{
-PolicyText:       aws.String(d.Get("policy_text").(string)),
-PolicyRuntime:    aws.String(d.Get("policy_runtime").(string)),
+PolicyText:aws.String(d.Get("policy_text").(string)),
+PolicyRuntime:aws.String(d.Get("policy_runtime").(string)),
 OrganizationConfigRuleTriggerTypes: flex.ExpandStringSet(d.Get("trigger_types").(*schema.Set)),
 },
 }if v, ok := d.GetOk("debug_log_delivery_accounts"); ok && v.(*schema.Set).Len() > 0 {

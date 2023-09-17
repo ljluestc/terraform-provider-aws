@@ -16,15 +16,15 @@ return &schema.Resource{
 ReadWithoutTimeout: dataSourceResourceRead,Schema: map[string]*schema.Schema{
 "arn": {
 Type:schema.TypeString,
-Required:     true,
+Required:
 ValidateFunc: verify.ValidARN,
 },
 "last_modified": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 "role_arn": {
-Type:     schema.TypeString,
+Type:a.TypeString,
 Computed: true,
 },
 },

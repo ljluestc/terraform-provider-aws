@@ -11,10 +11,10 @@
 )func init() {
 resource.AddTestSweepers("aws_vpclattice_service", &resource.Sweeper{
 Name: "aws_vpclattice_service",
-F:    sweepServices,
+F:sweepServices,
 })resource.AddTestSweepers("aws_vpclattice_service_network", &resource.Sweeper{
 Name: "aws_vpclattice_service_network",
-F:    sweepServiceNetworks,
+F:sweepServiceNetworks,
 Dependencies: []string{
 "aws_vpclattice_service",
 },

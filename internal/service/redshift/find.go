@@ -16,7 +16,7 @@ output = append(output, v)
 }return !lastPage
 })if tfawserr.ErrCodeEquals(err, redshift.ErrCodeClusterNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -46,7 +46,7 @@ input := &redshift.DescribeScheduledActionsInput{
 ScheduledActionName: aws.String(name),
 }output, err := conn.DescribeScheduledActionsWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, redshift.ErrCodeScheduledActionNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -62,7 +62,7 @@ HsmClientCertificateIdentifier: aws.String(id),
 }out, err := conn.DescribeHsmClientCertificatesWithContext(ctx, &input)
 if tfawserr.ErrCodeEquals(err, redshift.ErrCodeHsmClientCertificateNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -78,7 +78,7 @@ HsmConfigurationIdentifier: aws.String(id),
 }out, err := conn.DescribeHsmConfigurationsWithContext(ctx, &input)
 if tfawserr.ErrCodeEquals(err, redshift.ErrCodeHsmConfigurationNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -93,7 +93,7 @@ input := &redshift.DescribeUsageLimitsInput{
 UsageLimitId: aws.String(id),
 }output, err := conn.DescribeUsageLimitsWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, redshift.ErrCodeUsageLimitNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -109,7 +109,7 @@ AuthenticationProfileName: aws.String(id),
 }out, err := conn.DescribeAuthenticationProfilesWithContext(ctx, &input)
 if tfawserr.ErrCodeEquals(err, redshift.ErrCodeAuthenticationProfileNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -124,7 +124,7 @@ input := &redshift.DescribeEventSubscriptionsInput{
 SubscriptionName: aws.String(name),
 }output, err := conn.DescribeEventSubscriptionsWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, redshift.ErrCodeSubscriptionNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -139,7 +139,7 @@ input := &redshift.DescribeClusterSubnetGroupsInput{
 ClusterSubnetGroupName: aws.String(name),
 }output, err := conn.DescribeClusterSubnetGroupsWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, redshift.ErrCodeClusterSubnetGroupNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -154,7 +154,7 @@ input := &redshift.DescribeEndpointAccessInput{
 EndpointName: aws.String(name),
 }output, err := conn.DescribeEndpointAccessWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, redshift.ErrCodeEndpointNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -173,7 +173,7 @@ Account:  aws.String(account),
 ClusterIdentifier: aws.String(clusterId),
 }output, err := conn.DescribeEndpointAuthorizationWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, redshift.ErrCodeEndpointAuthorizationNotFoundFault) || tfawserr.ErrCodeEquals(err, redshift.ErrCodeClusterNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -191,10 +191,10 @@ return nil, err
 AccountId:aws.String(account),
 ClusterIdentifier: aws.String(clusterId),
 DatabaseName:  aws.String(dbName),
-PartnerName:   aws.String(partnerName),
+PartnerName:aws.String(partnerName),
 }output, err := conn.DescribePartnersWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, redshift.ErrCodeClusterNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {
@@ -209,7 +209,7 @@ input := &redshift.DescribeClusterSnapshotsInput{
 SnapshotIdentifier: aws.String(id),
 }output, err := conn.DescribeClusterSnapshotsWithContext(ctx, input)if tfawserr.ErrCodeEquals(err, redshift.ErrCodeClusterNotFoundFault) || tfawserr.ErrCodeEquals(err, redshift.ErrCodeClusterSnapshotNotFoundFault) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: input,
 }
 }if err != nil {

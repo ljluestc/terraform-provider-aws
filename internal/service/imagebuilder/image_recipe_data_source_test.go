@@ -43,35 +43,35 @@ resource.TestCheckResourceAttrPair(dataSourceName, "working_directory", resource
 return fmt.Sprintf(`
 data "aws_region" "current" {}data "aws_partition" "current" {}resource "aws_imagebuilder_component" "test" {
   data = yamlencode({
-    phases = [{
-      name = "build"
-      steps = [{
-        action = "ExecuteBash"
-        inputs = {
+phases = [{
+ name = "build"
+ steps = [{
+
+
  commands = ["echo 'hello world'"]
-        }
-        name      = "example"
-        onFailure = "Continue"
-      }]
-    }]
-    parameters = [{
-      Parameter1 = {
-        type = "string"
-      }
-    }]
-    schemaVersion = 1.0
+
+
+
+ }]
+}]
+parameters = [{
+ Parameter1 = {
+
+ }
+}]
+schemaVersion = 1.0
   })
-  name     = %[1]q
+  name= %[1]q
   platform = "Linux"
   version  = "1.0.0"
 }resource "aws_imagebuilder_image_recipe" "test" {
   component {
-    component_arn = aws_imagebuilder_component.test.arn    parameter {
-      name  = "Parameter1"
-      value = "Value1"
-    }
+component_arn = aws_imagebuilder_component.test.arnparameter {
+ name  = "Parameter1"
+ value = "Value1"
+}
   }  name
-  parent_image     = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
+  parent_image= "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version = "1.0.0"
   user_data_base64 = base64encode("helloworld")
 }data "aws_imagebuilder_image_recipe" "test" {

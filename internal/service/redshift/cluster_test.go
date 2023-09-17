@@ -43,7 +43,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.#", "0"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "final_snapshot_identifier",
@@ -73,7 +73,7 @@ resource.TestCheckResourceAttr(resourceName, "aqua_configuration_status", "auto"
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "final_snapshot_identifier",
@@ -136,7 +136,7 @@ testAccCheckClusterExists(ctx, resourceName, &v),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "final_snapshot_identifier",
@@ -169,7 +169,7 @@ resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", keyResourceName, 
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "final_snapshot_identifier",
@@ -199,7 +199,7 @@ resource.TestCheckResourceAttr(resourceName, "enhanced_vpc_routing", "true"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "final_snapshot_identifier",
@@ -238,7 +238,7 @@ resource.TestCheckResourceAttrPair(resourceName, "logging.0.bucket_name", bucket
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "final_snapshot_identifier",
@@ -419,7 +419,7 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "final_snapshot_identifier",
@@ -633,7 +633,7 @@ resource.TestCheckResourceAttr(resourceName, "availability_zone_relocation_enabl
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "final_snapshot_identifier",
@@ -705,7 +705,7 @@ resource.TestCheckResourceAttr(resourceName, "number_of_nodes", "8"),
 },
 {
 ResourceName:  resourceName,
-ImportState:   true,
+ImportState:true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 "final_snapshot_identifier",
@@ -973,7 +973,7 @@ resource "aws_redshift_cluster" "test" {
   node_type = "dc2.large"
   automated_snapshot_retention_period = 0
   allow_version_upgrade  = false
-  enhanced_vpc_routing   = true
+  enhanced_vpc_routing= true
   skip_final_snapshot= true
 }
 `, rName))
@@ -988,7 +988,7 @@ resource "aws_redshift_cluster" "test" {
   node_type = "dc2.large"
   automated_snapshot_retention_period = 0
   allow_version_upgrade  = false
-  enhanced_vpc_routing   = false
+  enhanced_vpc_routing= false
   skip_final_snapshot= true
 }
 `, rName))
@@ -1105,7 +1105,7 @@ data "aws_region" "alternate" {
   automated_snapshot_retention_period = 0
   allow_version_upgrade  = false  snapshot_copy {
 destination_region = data.aws_region.alternate.name
-retention_period   = 1
+retention_period= 1
   }  skip_final_snapshot = true
 }
 `, rName))
@@ -1155,23 +1155,23 @@ Name = %[1]q
 }resource "aws_subnet" "test1" {
   cidr_block= "10.1.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
-  vpc_id   = aws_vpc.test.id  tags = {
+  vpc_id= aws_vpc.test.id  tags = {
 Name = %[1]q
   }
 }resource "aws_subnet" "test2" {
   cidr_block= "10.1.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
-  vpc_id   = aws_vpc.test.id  tags = {
+  vpc_id= aws_vpc.test.id  tags = {
 Name = %[1]q
   }
 }resource "aws_subnet" "test3" {
   cidr_block= "10.1.3.0/24"
   availability_zone = data.aws_availability_zones.available.names[2]
-  vpc_id   = aws_vpc.test.id  tags = {
+  vpc_id= aws_vpc.test.id  tags = {
 Name = %[1]q
   }
 }resource "aws_redshift_subnet_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
 }resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
@@ -1325,7 +1325,7 @@ resource "aws_redshift_cluster" "test" {
   allow_version_upgrade  = false
   skip_final_snapshot= true  publicly_accessible = false
   availability_zone_relocation_enabled = true
-  availability_zone   = data.aws_availability_zones.available.names[%[2]d]
+  availability_zone= data.aws_availability_zones.available.names[%[2]d]
 }
 `, rName, regionIndex))
 }func testAccClusterConfig_updateAvailabilityZoneAvailabilityZoneRelocationNotSet(rName string, regionIndex int) string {
@@ -1342,7 +1342,7 @@ resource "aws_redshift_cluster" "test" {
   allow_version_upgrade  = false
   skip_final_snapshot= true  publicly_accessible = false
   availability_zone_relocation_enabled = false
-  availability_zone   = data.aws_availability_zones.available.names[%[2]d]
+  availability_zone= data.aws_availability_zones.available.names[%[2]d]
 }
 `, rName, regionIndex))
 }func testAccClusterConfig_availabilityZoneRelocation(rName string, enabled bool) string {
@@ -1395,8 +1395,8 @@ return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"
 resource "aws_redshift_cluster" "test" {
   cluster_identifier  = %[1]q
   snapshot_identifier = %[1]q
-  availability_zone   = data.aws_availability_zones.available.names[1]
-  database_name   = "mydb"
+  availability_zone= data.aws_availability_zones.available.names[1]
+  database_name= "mydb"
   master_username = "foo_test"
   master_password = "Mustbe8characters"
   node_type  = "dc2.large"

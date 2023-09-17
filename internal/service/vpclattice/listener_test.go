@@ -26,9 +26,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckListenerDestroy(ctx),
+CheckDestroy:testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerConfig_fixedResponseHTTPS(rName),
@@ -56,8 +56,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -72,9 +72,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckListenerDestroy(ctx),
+CheckDestroy:testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerConfig_fixedResponseHTTP(rName),
@@ -89,8 +89,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -105,9 +105,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckListenerDestroy(ctx),
+CheckDestroy:testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerConfig_fixedResponseHTTPS(rName),
@@ -122,8 +122,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -139,9 +139,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckListenerDestroy(ctx),
+CheckDestroy:testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerConfig_forwardTargetGroupHTTPServiceID(rName),
@@ -157,8 +157,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -174,9 +174,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckListenerDestroy(ctx),
+CheckDestroy:testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerConfig_forwardTargetGroupHTTPServiceIDCustomPort(rName),
@@ -192,8 +192,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -209,9 +209,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckListenerDestroy(ctx),
+CheckDestroy:testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerConfig_forwardTargetGroupHTTPServiceARN(rName),
@@ -228,8 +228,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -245,9 +245,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckListenerDestroy(ctx),
+CheckDestroy:testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerConfig_forwardTargetGroupHTTPSServiceIDCustomPort(rName),
@@ -264,8 +264,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -283,9 +283,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckListenerDestroy(ctx),
+CheckDestroy:testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerConfig_forwardMultiTargetGroupHTTP(rName, targetGroupName1),
@@ -303,8 +303,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 },
@@ -321,9 +321,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckListenerDestroy(ctx),
+CheckDestroy:testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerConfig_forwardTargetGroupHTTPServiceID(rName),
@@ -344,9 +344,9 @@ acctest.PreCheck(ctx, t)
 acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 testAccPreCheck(ctx, t)
 },
-ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ErrorCheck: acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckListenerDestroy(ctx),
+CheckDestroy:testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccListenerConfig_tags1(rName, "key0", "value0"),
@@ -358,8 +358,8 @@ acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexac
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:true,
 ImportStateVerify: true,
 },
 {
@@ -421,9 +421,9 @@ resource "aws_vpclattice_service" "test" {
 }resource "aws_vpclattice_target_group" "test" {
   name = %[1]q
   type = "INSTANCE"  config {
-    port  = 80
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+port  = 80
+protocol= "HTTP"
+vpc_identifier = aws_vpc.test.id
   }
 }
 `, rName))
@@ -434,9 +434,9 @@ resource "aws_vpclattice_listener" "test" {
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    fixed_response {
-      status_code = 404
-    }
+fixed_response {
+ status_code = 404
+}
   }
 }
 `, rName))
@@ -447,9 +447,9 @@ resource "aws_vpclattice_listener" "test" {
   protocol  = "HTTPS"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    fixed_response {
-      status_code = 404
-    }
+fixed_response {
+ status_code = 404
+}
   }
 }
 `, rName))
@@ -458,25 +458,25 @@ return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test1" {
   name = %[2]q
   type = "INSTANCE"  config {
-    port  = 8080
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+port  = 8080
+protocol= "HTTP"
+vpc_identifier = aws_vpc.test.id
   }
 }resource "aws_vpclattice_listener" "test" {
   name= %[1]q
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test.id
-        weight   = 80
-      }
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test1.id
-        weight   = 20
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test.id
+
+ }
+ target_groups {
+= aws_vpclattice_target_group.test1.id
+
+ }
+}
   }
 }
 `, rName, targetGroupName1))
@@ -487,12 +487,12 @@ resource "aws_vpclattice_listener" "test" {
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test.id
-        weight   = 100
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test.id
+
+ }
+}
   }
 }
 `, rName))
@@ -504,28 +504,28 @@ resource "aws_vpclattice_listener" "test" {
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test.id
-        weight   = 100
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test.id
+
+ }
+}
   }
 }
 `, rName))
 }func testAccListenerConfig_forwardTargetGroupHTTPServiceARN(rName string) string {
 return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
-  name        = %[1]q
-  protocol    = "HTTPS"
+  name
+  protocol= "HTTPS"
   service_arn = aws_vpclattice_service.test.arn
   default_action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test.id
-        weight   = 100
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test.id
+
+ }
+}
   }
 }`, rName))
 }func testAccListenerConfig_forwardTargetGroupHTTPSServiceID(rName string) string {
@@ -535,12 +535,12 @@ resource "aws_vpclattice_listener" "test" {
   protocol  = "HTTPS"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test.id
-        weight   = 100
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test.id
+
+ }
+}
   }
 }`, rName))
 }func testAccListenerConfig_forwardTargetGroupHTTPSServiceIDCustomPort(rName string) string {
@@ -551,12 +551,12 @@ resource "aws_vpclattice_listener" "test" {
   protocol  = "HTTPS"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test.id
-        weight   = 100
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test.id
+
+ }
+}
   }
 }`, rName))
 }func testAccListenerConfig_tags1(rName, tagKey1, tagValue1 string) string {
@@ -566,15 +566,15 @@ resource "aws_vpclattice_listener" "test" {
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test.id
-        weight   = 100
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test.id
+
+ }
+}
   }
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -585,16 +585,16 @@ resource "aws_vpclattice_listener" "test" {
   protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
-    forward {
-      target_groups {
-        target_group_identifier = aws_vpclattice_target_group.test.id
-        weight   = 100
-      }
-    }
+forward {
+ target_groups {
+= aws_vpclattice_target_group.test.id
+
+ }
+}
   }
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

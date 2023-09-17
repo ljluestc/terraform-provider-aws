@@ -63,18 +63,18 @@ EOF
 "Version": "2012-10-17",
 "Statement": [
 {
-   "Effect": "Allow",
-   "Action": [
+"Effect": "Allow",
+"Action": [
  "cloudwatch:DescribeAlarms"
-   ],
-   "Resource": "*"
+],
+"Resource": "*"
 }
 ]
 }
 POLICY
 }resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = "%[1]s"
-  comparison_operator   = "GreaterThanOrEqualToThreshold"
+  comparison_operator= "GreaterThanOrEqualToThreshold"
   evaluation_periods= "2"
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"

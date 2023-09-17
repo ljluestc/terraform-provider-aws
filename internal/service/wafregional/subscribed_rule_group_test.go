@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package wafregional_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package wafregional_testimport (
 	"fmt"
 	"os"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/wafregional"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
@@ -16,23 +10,13 @@ import (
 	ctx := acctest.Context(t)
 	if os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_NAME") == "" {
 t.Skip("Environment variable WAF_SUBSCRIBED_RULE_GROUP_NAME is not set")
-	}
-
-	ruleGroupName := os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_NAME")
-
-	if os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_METRIC_NAME") == "" {
+	}	ruleGroupName := os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_NAME")	if os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_METRIC_NAME") == "" {
 t.Skip("Environment variable WAF_SUBSCRIBED_RULE_GROUP_METRIC_NAME is not set")
-	}
-
-	metricName := os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_METRIC_NAME")
-
-	datasourceName := "data.aws_wafregional_subscribed_rule_group.rulegroup"
-
-	resource.ParallelTest(t, resource.TestCase{
+	}	metricName := os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_METRIC_NAME")	datasourceName := "data.aws_wafregional_subscribed_rule_group.rulegroup"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-CheckDestroy:    nil,
+CheckDestroy:nil,
 Steps: []resource.TestStep{
 	{
 Config:testAccSubscribedRuleGroupDataSourceConfig_nonexistent,
@@ -94,9 +78,7 @@ data "aws_wafregional_subscribed_rule_group" "rulegroup" {
   metric_name = "tf-acc-test-does-not-exist"
 }
 `, name)
-}
-
-const testAccSubscribedRuleGroupDataSourceConfig_nonexistent = `
+}const testAccSubscribedRuleGroupDataSourceConfig_nonexistent = `
 data "aws_wafregional_subscribed_rule_group" "rulegroup" {
   name = "tf-acc-test-does-not-exist"
 }

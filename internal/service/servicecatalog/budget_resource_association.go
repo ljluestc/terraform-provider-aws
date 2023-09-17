@@ -14,22 +14,22 @@
 func ResourceBudgetResourceAssociation() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceBudgetResourceAssociationCreate,
-ReadWithoutTimeout:   resourceBudgetResourceAssociationRead,
+ReadWithoutTimeout:resourceBudgetResourceAssociationRead,
 DeleteWithoutTimeout: resourceBudgetResourceAssociationDelete,
 Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
 },Timeouts: &schema.ResourceTimeout{
 Create: schema.DefaultTimeout(BudgetResourceAssociationReadyTimeout),
-Read:   schema.DefaultTimeout(BudgetResourceAssociationReadTimeout),
+Read:schema.DefaultTimeout(BudgetResourceAssociationReadTimeout),
 Delete: schema.DefaultTimeout(BudgetResourceAssociationDeleteTimeout),
 },Schema: map[string]*schema.Schema{
 "budget_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "resource_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 },

@@ -12,88 +12,88 @@
 	mostRecentResourceName := "aws_fsx_openzfs_snapshot.latest"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOpenzfsSnapshotDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "creation_time", resourceName, "creation_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "volume_id", resourceName, "volume_id"),
-				),
-			},
-			{
-				Config: testAccOpenzfsSnapshotDataSourceConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				Config: testAccOpenzfsSnapshotDataSourceConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccOpenzfsSnapshotDataSourceConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccOpenzfsSnapshotDataSourceConfig_filterFileSystemId(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "creation_time", resourceName, "creation_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "volume_id", resourceName, "volume_id"),
-				),
-			},
-			{
-				Config: testAccOpenzfsSnapshotDataSourceConfig_filterVolumeId(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "creation_time", resourceName, "creation_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "volume_id", resourceName, "volume_id"),
-				),
-			},
-			{
-				Config: testAccOpenzfsSnapshotDataSourceConfig_mostRecent(rName, rName2),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", mostRecentResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "creation_time", mostRecentResourceName, "creation_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", mostRecentResourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", mostRecentResourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", mostRecentResourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "volume_id", mostRecentResourceName, "volume_id"),
-				),
-			},
-		},
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
+Steps: []resource.TestStep{
+{
+Config: testAccOpenzfsSnapshotDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+resource.TestCheckResourceAttrPair(dataSourceName, "creation_time", resourceName, "creation_time"),
+resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttrPair(dataSourceName, "volume_id", resourceName, "volume_id"),
+),
+},
+{
+Config: testAccOpenzfsSnapshotDataSourceConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttr(dataSourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(dataSourceName, "tags.key1", "value1"),
+),
+},
+{
+Config: testAccOpenzfsSnapshotDataSourceConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttr(dataSourceName, "tags.%", "2"),
+resource.TestCheckResourceAttr(dataSourceName, "tags.key1", "value1updated"),
+resource.TestCheckResourceAttr(dataSourceName, "tags.key2", "value2"),
+),
+},
+{
+Config: testAccOpenzfsSnapshotDataSourceConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttr(dataSourceName, "tags.%", "1"),
+resource.TestCheckResourceAttr(dataSourceName, "tags.key2", "value2"),
+),
+},
+{
+Config: testAccOpenzfsSnapshotDataSourceConfig_filterFileSystemId(rName),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+resource.TestCheckResourceAttrPair(dataSourceName, "creation_time", resourceName, "creation_time"),
+resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttrPair(dataSourceName, "volume_id", resourceName, "volume_id"),
+),
+},
+{
+Config: testAccOpenzfsSnapshotDataSourceConfig_filterVolumeId(rName),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+resource.TestCheckResourceAttrPair(dataSourceName, "creation_time", resourceName, "creation_time"),
+resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttrPair(dataSourceName, "volume_id", resourceName, "volume_id"),
+),
+},
+{
+Config: testAccOpenzfsSnapshotDataSourceConfig_mostRecent(rName, rName2),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttrPair(dataSourceName, "arn", mostRecentResourceName, "arn"),
+resource.TestCheckResourceAttrPair(dataSourceName, "creation_time", mostRecentResourceName, "creation_time"),
+resource.TestCheckResourceAttrPair(dataSourceName, "id", mostRecentResourceName, "id"),
+resource.TestCheckResourceAttrPair(dataSourceName, "name", mostRecentResourceName, "name"),
+resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", mostRecentResourceName, "tags.%"),
+resource.TestCheckResourceAttrPair(dataSourceName, "volume_id", mostRecentResourceName, "volume_id"),
+),
+},
+},
 	})
 }func testAccOpenzfsSnapshotDataSourceBaseConfig(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 }resource "aws_subnet" "test1" {
-  vpc_id   = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
   cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 }resource "aws_fsx_openzfs_file_system" "test" {
@@ -144,7 +144,7 @@ resource "aws_fsx_openzfs_snapshot" "test" {
   volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 }data "aws_fsx_openzfs_snapshot" "test" {
   filter {
-name   = "file-system-id"
+name= "file-system-id"
 values = [aws_fsx_openzfs_file_system.test.id]
   }
 }
@@ -156,7 +156,7 @@ resource "aws_fsx_openzfs_snapshot" "test" {
   volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 }data "aws_fsx_openzfs_snapshot" "test" {
   filter {
-name   = "volume-id"
+name= "volume-id"
 values = [aws_fsx_openzfs_file_system.test.root_volume_id]
   }
 }
@@ -173,7 +173,7 @@ resource "aws_fsx_openzfs_snapshot" "test" {
 }data "aws_fsx_openzfs_snapshot" "test" {
   most_recent = true
   filter {
-name   = "volume-id"
+name= "volume-id"
 values = [aws_fsx_openzfs_file_system.test.root_volume_id]
   }
   depends_on = [aws_fsx_openzfs_snapshot.test, aws_fsx_openzfs_snapshot.latest]

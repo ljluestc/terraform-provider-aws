@@ -19,7 +19,7 @@
 func ResourceSourceRepository() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceSourceRepositoryCreate,
-ReadWithoutTimeout:   resourceSourceRepositoryRead,
+ReadWithoutTimeout:resourceSourceRepositoryRead,
 UpdateWithoutTimeout: resourceSourceRepositoryCreate,
 DeleteWithoutTimeout: resourceSourceRepositoryDelete,Importer: &schema.ResourceImporter{
 StateContext: schema.ImportStatePassthroughContext,
@@ -29,19 +29,19 @@ Update: schema.DefaultTimeout(30 * time.Minute),
 Delete: schema.DefaultTimeout(30 * time.Minute),
 },Schema: map[string]*schema.Schema{
 "name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "project_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "space_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 },
 },
@@ -50,9 +50,9 @@ Optional: true,
 ResNameSourceRepository = "Source Repository"
 )func resourceSourceRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnosticsconn := meta.(*conns.AWSClient).CodeCatalystClient(ctx)in := &codecatalyst.CreateSourceRepositoryInput{
-Name:        aws.String(d.Get("name").(string)),
+Name:.(string)),
 ProjectName: aws.String(d.Get("project_name").(string)),
-SpaceName:   aws.String(d.Get("space_name").(string)),
+SpaceName:aws.String(d.Get("space_name").(string)),
 }out, err := conn.CreateSourceRepository(ctx, in)
 if err != nil {
 return append(diags, create.DiagError(names.CodeCatalyst, create.ErrActionCreating, ResNameSourceRepository, d.Get("name").(string), err)...)
@@ -74,9 +74,9 @@ d.Set("space_name", out.SpaceName)
 d.Set("description", out.Description)return diags
 }func resourceSourceRepositoryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnosticsconn := meta.(*conns.AWSClient).CodeCatalystClient(ctx)log.Printf("[INFO] Deleting CodeCatalyst SourceRepository %s", d.Id())_, err := conn.DeleteSourceRepository(ctx, &codecatalyst.DeleteSourceRepositoryInput{
-Name:        aws.String(d.Id()),
+Name:
 ProjectName: aws.String(d.Get("project_name").(string)),
-SpaceName:   aws.String(d.Get("space_name").(string)),
+SpaceName:aws.String(d.Get("space_name").(string)),
 })if errs.IsA[*types.ResourceNotFoundException](err) {
 return diags
 }
@@ -85,14 +85,14 @@ return append(diags, create.DiagError(names.CodeCatalyst, create.ErrActionDeleti
 }return diags
 }func findSourceRepositoryByName(ctx context.Context, conn *codecatalyst.Client, name string, projectName, spaceName *string) (*codecatalyst.GetSourceRepositoryOutput, error) {
 in := &codecatalyst.GetSourceRepositoryInput{
-Name:        aws.String(name),
+Name:
 ProjectName: projectName,
-SpaceName:   spaceName,
+SpaceName:spaceName,
 }
 out, err := conn.GetSourceRepository(ctx, in)
 if errs.IsA[*types.AccessDeniedException](err) || errs.IsA[*types.ResourceNotFoundException](err) {
 return nil, &retry.NotFoundError{
-LastError:   err,
+LastError:err,
 LastRequest: in,
 }
 }

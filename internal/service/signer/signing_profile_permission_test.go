@@ -22,7 +22,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, signer.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
+CheckDestroy:testAccCheckSigningProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccSigningProfilePermissionConfig_basic(profileName),
@@ -34,9 +34,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   profileResourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:profileResourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
 },
@@ -54,7 +54,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, signer.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
+CheckDestroy:testAccCheckSigningProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccSigningProfilePermissionConfig_getSP(profileName),
@@ -65,9 +65,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   profileResourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:profileResourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
 	{
@@ -94,7 +94,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, signer.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
+CheckDestroy:testAccCheckSigningProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSigningProfilePermissionConfig_startJobGetSP(profileName),
@@ -105,9 +105,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   profileResourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:profileResourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
 },
@@ -126,7 +126,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, signer.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
+CheckDestroy:testAccCheckSigningProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSigningProfilePermissionConfig_statementPrefix(statementNamePrefix, profileName),
@@ -136,9 +136,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   profileResourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:profileResourceName,
+ImportState:true,
+ImportStateVerify:true,
 ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
 },
@@ -147,27 +147,27 @@ ImportStateVerifyIgnore: []string{"name_prefix"},
 	return fmt.Sprintf(testAccSigningProfilePermissionConfig_base(profileName) + `
 data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_permission" "test_sp_permission" {
   profile_name = aws_signer_signing_profile.test_sp.name
-  action       = "signer:StartSigningJob"
-  principal    = data.aws_caller_identity.current.account_id
+  action= "signer:StartSigningJob"
+  principal= data.aws_caller_identity.current.account_id
 }`)
 }func testAccSigningProfilePermissionConfig_startJobGetSP(profileName string) string {
 	return fmt.Sprintf(testAccSigningProfilePermissionConfig_base(profileName) + `
 data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_permission" "sp1_perm" {
   profile_name = aws_signer_signing_profile.test_sp.name
-  action       = "signer:StartSigningJob"
-  principal    = data.aws_caller_identity.current.account_id
+  action= "signer:StartSigningJob"
+  principal= data.aws_caller_identity.current.account_id
   statement_id = "statementid1"
 }resource "aws_signer_signing_profile_permission" "sp2_perm" {
   profile_name = aws_signer_signing_profile.test_sp.name
-  action       = "signer:GetSigningProfile"
-  principal    = data.aws_caller_identity.current.account_id
+  action= "signer:GetSigningProfile"
+  principal= data.aws_caller_identity.current.account_id
   statement_id = "statementid2"
 }`)
 }func testAccSigningProfilePermissionConfig_statementPrefix(statementNamePrefix, profileName string) string {
 	return fmt.Sprintf(testAccSigningProfilePermissionConfig_base(profileName)+`
 data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_permission" "sp1_perm" {
-  profile_name        = aws_signer_signing_profile.test_sp.name
-  action     = "signer:StartSigningJob"
+  profile_namefile.test_sp.name
+  action= "signer:StartSigningJob"
   principal  = data.aws_caller_identity.current.account_id
   statement_id_prefix = %[1]q
 }`, statementNamePrefix)
@@ -175,21 +175,21 @@ data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_perm
 	return fmt.Sprintf(testAccSigningProfilePermissionConfig_base(profileName) + `
 data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_permission" "test_sp_permission" {
   profile_name = aws_signer_signing_profile.test_sp.name
-  action       = "signer:GetSigningProfile"
-  principal    = data.aws_caller_identity.current.account_id
+  action= "signer:GetSigningProfile"
+  principal= data.aws_caller_identity.current.account_id
 }`)
 }func testAccSigningProfilePermissionConfig_revokeSignature(profileName string) string {
 	return fmt.Sprintf(testAccSigningProfilePermissionConfig_base(profileName) + `
 data "aws_caller_identity" "current" {}resource "aws_signer_signing_profile_permission" "test_sp_permission" {
   profile_name = aws_signer_signing_profile.test_sp.name
-  action       = "signer:RevokeSignature"
-  principal    = data.aws_caller_identity.current.account_id
+  action= "signer:RevokeSignature"
+  principal= data.aws_caller_identity.current.account_id
 }`)
 }func testAccSigningProfilePermissionConfig_base(profileName string) string {
 	return fmt.Sprintf(`
 resource "aws_signer_signing_profile" "test_sp" {
   platform_id = "AWSLambda-SHA384-ECDSA"
-  name        = "%s"
+  name
 }`, profileName)
 }func testAccCheckSigningProfilePermissionExists(ctx context.Context, res, profileName string, spp *signer.ListProfilePermissionsOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
