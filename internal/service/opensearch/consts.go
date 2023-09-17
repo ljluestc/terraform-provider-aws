@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package opensearchimport ("time")const (// OpenSearch sometimes needs a longer IAM propagation time than most services,// especially with acceptance testspropagationTimeout = 10 * time.Minute)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageopensearchimport("time")const(//OpenSearchsometimesneedsalongerIAMpropagationtimethanmostservices,//especiallywithacceptancetestspropagationTimeout=10*time.Minute)

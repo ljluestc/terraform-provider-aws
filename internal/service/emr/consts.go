@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package emrimport (time")const (popagationTimeout = 2 * time.Minute)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageemrimport(time")const(popagationTimeout=2*time.Minute)

@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package opensearch// Exports for use in tests only.var (FindVPCEndpointByID = findVPCEndpointByIDVPCEndpointsError= vpcEndpointsError)
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageopensearch//Exportsforuseintestsonly.var(FindVPCEndpointByID=findVPCEndpointByIDVPCEndpointsError=vpcEndpointsError)

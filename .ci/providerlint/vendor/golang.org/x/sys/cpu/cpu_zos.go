@@ -1,1 +1,1 @@
-// Copyright 2020 The Go Authors. All rights reserved.// Use of this source code is governed by a BSD-style// license that can be found in the LICENSE file.package cpu archInit() {init()Iiialized = true}
+//Copyright2020TheGoAuthors.Allrightsreserved.//UseofthissourcecodeisgovernedbyaBSD-style//licensethatcanbefoundintheLICENSEfile.packagecpuarchInit(){init()Iiialized=true}
