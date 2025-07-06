@@ -35,6 +35,7 @@ func resourceCookieStickinessPolicy() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.IntAtLeast(0),
+				// When set to 0, creates a browser-session cookie (expires when browser closes)
 			},
 			"lb_port": {
 				Type:     schema.TypeInt,
@@ -69,7 +70,9 @@ func resourceCookieStickinessPolicyCreate(ctx context.Context, d *schema.Resourc
 			PolicyName:       aws.String(policyName),
 		}
 
-		if v, ok := d.GetOk("cookie_expiration_period"); ok {
+		// Only set CookieExpirationPeriod if explicitly provided and non-zero
+		// When set to 0, omit the parameter to create a browser-session cookie
+		if v, ok := d.GetOk("cookie_expiration_period"); ok && v.(int) > 0 {
 			input.CookieExpirationPeriod = aws.Int64(int64(v.(int)))
 		}
 
@@ -120,11 +123,19 @@ func resourceCookieStickinessPolicyRead(ctx context.Context, d *schema.ResourceD
 		return sdkdiag.AppendErrorf(diags, "reading ELB Classic LB Cookie Stickiness Policy (%s): %s", d.Id(), err)
 	}
 
-	if len(policy.PolicyAttributeDescriptions) != 1 || aws.ToString(policy.PolicyAttributeDescriptions[0].AttributeName) != "CookieExpirationPeriod" {
-		return sdkdiag.AppendErrorf(diags, "cookie expiration period not found")
+	// If CookieExpirationPeriod is not present, treat as browser-session cookie (0)
+	found := false
+	for _, attr := range policy.PolicyAttributeDescriptions {
+		if aws.ToString(attr.AttributeName) == "CookieExpirationPeriod" {
+			d.Set("cookie_expiration_period", flex.StringToIntValue(attr.AttributeValue))
+			found = true
+			break
+		}
+	}
+	if !found {
+		d.Set("cookie_expiration_period", 0)
 	}
 
-	d.Set("cookie_expiration_period", flex.StringToIntValue(policy.PolicyAttributeDescriptions[0].AttributeValue))
 	d.Set("lb_port", lbPort)
 	d.Set("load_balancer", lbName)
 	d.Set(names.AttrName, policyName)
