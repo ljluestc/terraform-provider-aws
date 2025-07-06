@@ -52,6 +52,12 @@ resource "aws_lb_cookie_stickiness_policy" "foo" {
   - If set to `0`, the cookie expires when the browser is closed (browser-session cookie).  
   - If set to a positive integer, the cookie expires after that many seconds.  
   - If omitted, stickiness is disabled.
+  - If set to `0`, the cookie expires when the browser is closed (browser-session cookie).  
+  - If set to a positive integer, the cookie expires after that many seconds.  
+  - If omitted, stickiness is disabled.
+  - If set to `0`, the cookie expires when the browser is closed (browser-session cookie).  
+  - If set to a positive integer, the cookie expires after that many seconds.  
+  - If omitted, stickiness is disabled.
 
 ## Attributes Reference
 
