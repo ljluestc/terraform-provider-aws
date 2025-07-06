@@ -70,14 +70,12 @@ func resourceCookieStickinessPolicyCreate(ctx context.Context, d *schema.Resourc
 			PolicyName:       aws.String(policyName),
 		}
 
-		// Only set CookieExpirationPeriod if explicitly provided and non-zero
-		// When set to 0, omit the parameter to create a browser-session cookie
+		// Only set CookieExpirationPeriod if > 0
 		if v, ok := d.GetOk("cookie_expiration_period"); ok && v.(int) > 0 {
 			input.CookieExpirationPeriod = aws.Int64(int64(v.(int)))
 		}
 
 		_, err := conn.CreateLBCookieStickinessPolicy(ctx, &input)
-
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "creating ELB Classic LB Cookie Stickiness Policy (%s): %s", id, err)
 		}
