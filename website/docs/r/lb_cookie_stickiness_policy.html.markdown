@@ -48,15 +48,15 @@ resource "aws_lb_cookie_stickiness_policy" "foo" {
 * `name` - (Required) The name of the stickiness policy.
 * `load_balancer` - (Required) The name of the load balancer.
 * `lb_port` - (Required) The load balancer port to which the policy should be applied.
-* `cookie_expiration_period` - (Optional) The time period in seconds after which the session cookie is considered stale.  
-  - If set to `0`, the cookie expires when the browser is closed (browser-session cookie).  
-  - If set to a positive integer, the cookie expires after that many seconds.  
+* `cookie_expiration_period` - (Optional) The time period in seconds after which the session cookie is considered stale.
+  - If set to `0`, the cookie expires when the browser is closed (browser-session cookie).
+  - If set to a positive integer, the cookie expires after that many seconds.
   - If omitted, stickiness is disabled.
-  - If set to `0`, the cookie expires when the browser is closed (browser-session cookie).  
-  - If set to a positive integer, the cookie expires after that many seconds.  
+  - If set to `0`, the cookie expires when the browser is closed (browser-session cookie).
+  - If set to a positive integer, the cookie expires after that many seconds.
   - If omitted, stickiness is disabled.
-  - If set to `0`, the cookie expires when the browser is closed (browser-session cookie).  
-  - If set to a positive integer, the cookie expires after that many seconds.  
+  - If set to `0`, the cookie expires when the browser is closed (browser-session cookie).
+  - If set to a positive integer, the cookie expires after that many seconds.
   - If omitted, stickiness is disabled.
 
 ## Attributes Reference
